@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>淹没之城：晴空水巷 · 3D 手绘场景精修版</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js"
+      }
+    }
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #072d78;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+    #canvas-container {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 手绘水彩纸张肌理与边缘柔光叠层 */
+    .painterly-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+      background:
+        radial-gradient(circle at 52% 44%, rgba(255, 248, 220, 0.04) 0%, rgba(9, 52, 130, 0.14) 76%, rgba(5, 28, 86, 0.34) 100%),
+        repeating-linear-gradient(35deg, rgba(255, 255, 255, 0.013) 0px, rgba(255, 255, 255, 0.013) 2px, transparent 2px, transparent 6px);
+      mix-blend-mode: soft-light;
+    }
+
+    /* 顶部紧凑 HUD 栏 */
+    .hud-bar {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      pointer-events: none;
+      z-index: 10;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand-pill {
+      pointer-events: auto;
+      background: rgba(8, 28, 64, 0.68);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(118, 235, 220, 0.38);
+      border-radius: 13px;
+      padding: 8px 14px;
+      color: #f4fbff;
+      box-shadow: 0 8px 26px rgba(4, 22, 58, 0.38);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #48f0c8;
+      box-shadow: 0 0 10px #48f0c8;
+      flex-shrink: 0;
+    }
+    .brand-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+    }
+    .brand-sub {
+      font-size: 10.5px;
+      color: rgba(205, 238, 255, 0.85);
+      margin-top: 1px;
+    }
+
+    .controls-group {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(8, 28, 64, 0.68);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(118, 235, 220, 0.38);
+      border-radius: 13px;
+      padding: 5px 7px;
+      box-shadow: 0 8px 26px rgba(4, 22, 58, 0.38);
+      flex-wrap: wrap;
+    }
+
+    .hud-btn {
+      appearance: none;
+      border: 1px solid rgba(132, 226, 236, 0.28);
+      background: rgba(22, 62, 120, 0.58);
+      color: #e9f8ff;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 6px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .hud-btn:hover {
+      background: rgba(44, 114, 192, 0.82);
+      border-color: rgba(124, 248, 228, 0.7);
+      transform: translateY(-1px);
+    }
+    .hud-btn.active {
+      background: linear-gradient(135deg, #28c8b4, #1b88e5);
+      color: #ffffff;
+      border-color: #9affef;
+      box-shadow: 0 0 14px rgba(40, 200, 180, 0.45);
+    }
+
+    /* 原画参考小窗 */
+    .ref-card {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 10;
+      width: 265px;
+      background: rgba(8, 28, 64, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(118, 235, 220, 0.45);
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 12px 32px rgba(3, 18, 48, 0.52);
+      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      transform-origin: bottom right;
+    }
+    .ref-card.hidden {
+      opacity: 0;
+      transform: scale(0.88) translateY(12px);
+      pointer-events: none;
+    }
+    .ref-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #bcefff;
+      margin-bottom: 6px;
+      padding: 0 4px;
+      font-weight: 600;
+    }
+    .ref-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    /* 底部操作提示条 */
+    .hint-pill {
+      position: fixed;
+      bottom: 14px;
+      left: 14px;
+      z-index: 10;
+      pointer-events: none;
+      background: rgba(8, 28, 64, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(118, 235, 220, 0.3);
+      border-radius: 11px;
+      padding: 7px 13px;
+      color: rgba(230, 247, 255, 0.92);
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 6px 20px rgba(4, 22, 58, 0.3);
+    }
+    .key-badge {
+      display: inline-block;
+      background: rgba(120, 238, 225, 0.2);
+      border: 1px solid rgba(120, 238, 225, 0.48);
+      color: #84fff0;
+      border-radius: 5px;
+      padding: 1px 6px;
+      font-size: 10.5px;
+      font-weight: 700;
+      margin-right: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div id="canvas-container"></div>
+  <div class="painterly-overlay"></div>
+
+  <!-- 顶部控制栏 -->
+  <div class="hud-bar">
+    <div class="brand-pill">
+      <span class="brand-dot"></span>
+      <div>
+        <div class="brand-title">淹没之城：晴空水巷 · 深度细节精修版</div>
+        <div class="brand-sub">Deep Water Color-Extinction · Ripples &amp; Foam · Soaring Birds · Hand-Painted Architecture</div>
+      </div>
+    </div>
+
+    <div class="controls-group">
+      <button class="hud-btn active" id="btn-cam-original" title="严格对齐原画俯视构图">
+        <span>🎨 原画构图视角</span>
+      </button>
+      <button class="hud-btn" id="btn-cam-boat" title="跟随水道中的黄色快艇">
+        <span>🚤 快艇特写视角</span>
+      </button>
+      <button class="hud-btn" id="btn-cam-orbit" title="环绕全景观察立体水下楼群与飞鸟">
+        <span>🕊️ 全景环绕视角</span>
+      </button>
+      <button class="hud-btn active" id="btn-boat-toggle" title="切换小船巡航/原位驻留">
+        <span>⚓ 航行：原位摇曳</span>
+      </button>
+      <button class="hud-btn" id="btn-ref-toggle" title="显示或隐藏右下角原画对比框">
+        <span>🖼️ 原画对比</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 左下角交互提示 -->
+  <div class="hint-pill">
+    <span><b class="key-badge">左键拖拽</b>旋转视角</span>
+    <span><b class="key-badge">右键拖拽</b>平移画布</span>
+    <span><b class="key-badge">滚轮</b>缩放景深</span>
+    <span><b class="key-badge">空格</b>切换小船巡航 / 原位摇曳</span>
+  </div>
+
+  <!-- 右下角原画参考卡片 -->
+  <div class="ref-card hidden" id="ref-card">
+    <div class="ref-card-header">
+      <span>原画参考 (Original Concept)</span>
+      <span style="cursor:pointer;color:#7ef5e2" id="ref-close">✕</span>
+    </div>
+    <img src="./reference.png" alt="参考原画" />
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // ============================================================================
+    // 1. 渲染器、场景与原画精确相机对齐
+    // ============================================================================
+    const WATER_LEVEL = 1.12;
+    const globalUniforms = {
+      uTime: { value: 0 },
+      uWaterLevel: { value: WATER_LEVEL }
+    };
+
+    const container = document.getElementById('canvas-container');
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    // 深邃群青底色（还原原画中央水道深不见底的群青/钴蓝色调）
+    scene.background = new THREE.Color('#072e7d');
+    scene.fog = new THREE.FogExp2('#073082', 0.0085);
+
+    const camera = new THREE.PerspectiveCamera(
+      31,
+      window.innerWidth / window.innerHeight,
+      0.5,
+      300
+    );
+
+    // 原画经典高角度俯视机位
+    const ORIGINAL_CAM_POS = new THREE.Vector3(-6.1, 26.6, 20.4);
+    const ORIGINAL_CAM_TARGET = new THREE.Vector3(0.45, 1.75, -0.65);
+
+    camera.position.copy(ORIGINAL_CAM_POS);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.copy(ORIGINAL_CAM_TARGET);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.maxPolarAngle = Math.PI * 0.48;
+    controls.minDistance = 7;
+    controls.maxDistance = 92;
+    controls.update();
+
+    // ============================================================================
+    // 2. 手绘动画风灯光系统
+    // ============================================================================
+    const hemiLight = new THREE.HemisphereLight('#fff6d6', '#184fb8', 1.42);
+    hemiLight.position.set(0, 50, 0);
+    scene.add(hemiLight);
+
+    const sunLight = new THREE.DirectionalLight('#fff1be', 2.55);
+    sunLight.position.set(21, 43, 16);
+    sunLight.castShadow = true;
+    sunLight.shadow.mapSize.width = 2048;
+    sunLight.shadow.mapSize.height = 2048;
+    sunLight.shadow.camera.near = 5;
+    sunLight.shadow.camera.far = 110;
+    const d = 30;
+    sunLight.shadow.camera.left = -d;
+    sunLight.shadow.camera.right = d;
+    sunLight.shadow.camera.top = d;
+    sunLight.shadow.camera.bottom = -d;
+    sunLight.shadow.bias = -0.0005;
+    scene.add(sunLight);
+
+    const fillLight = new THREE.DirectionalLight('#2ee8cc', 0.95);
+    fillLight.position.set(-25, 14, -18);
+    scene.add(fillLight);
+
+    const violetShadowLight = new THREE.DirectionalLight('#6654ec', 0.76);
+    violetShadowLight.position.set(-18, 20, 22);
+    scene.add(violetShadowLight);
+
+    // ============================================================================
+    // 3. 程序化手绘纹理与水深垂直消光着色器注入（Depth Color Extinction & Caustics）
+    // ============================================================================
+    function createToonGradientMap() {
+      const data = new Uint8Array([
+        65, 112, 196, 255,
+        134, 180, 235, 255,
+        218, 238, 250, 255,
+        255, 253, 242, 255
+      ]);
+      const tex = new THREE.DataTexture(data, 4, 1, THREE.RGBAFormat);
+      tex.minFilter = THREE.NearestFilter;
+      tex.magFilter = THREE.NearestFilter;
+      tex.needsUpdate = true;
+      return tex;
+    }
+    const toonGradientMap = createToonGradientMap();
+
+    // 关键细节升级：为所有水下建筑与物体的材质注入真实的「水深色彩分层与焦散波光」！
+    // 让建筑在吃水线附近呈现亮松石绿 (#5bf5dc)，浅水呈翡翠青 (#20b8c2)，中深水呈钴蓝 (#0e52ad)，深渊呈群青紫蓝 (#062368)
+    function enhanceWithUnderwaterDepthShader(mat) {
+      mat.onBeforeCompile = (shader) => {
+        shader.uniforms.uTime = globalUniforms.uTime;
+        shader.uniforms.uWaterLevel = globalUniforms.uWaterLevel;
+
+        shader.vertexShader = `
+          varying vec3 vCustomWorldPos;
+        ` + shader.vertexShader.replace(
+          '#include <worldpos_vertex>',
+          `
+          #include <worldpos_vertex>
+          vCustomWorldPos = (modelMatrix * vec4(transformed, 1.0)).xyz;
+          `
+        );
+
+        shader.fragmentShader = `
+          uniform float uTime;
+          uniform float uWaterLevel;
+          varying vec3 vCustomWorldPos;
+        ` + shader.fragmentShader.replace(
+          '#include <dithering_fragment>',
+          `
+          #include <dithering_fragment>
+          if (vCustomWorldPos.y < uWaterLevel) {
+            float depth = uWaterLevel - vCustomWorldPos.y;
+
+            // 四层手绘水深色彩梯度：亮青绿 -> 孔雀蓝 -> 深钴蓝 -> 深海靛紫
+            vec3 cRim     = vec3(0.35, 0.96, 0.85);
+            vec3 cShallow = vec3(0.12, 0.75, 0.78);
+            vec3 cMid     = vec3(0.06, 0.34, 0.72);
+            vec3 cAbyss   = vec3(0.03, 0.14, 0.42);
+
+            float t1 = smoothstep(0.0, 2.2, depth);
+            float t2 = smoothstep(2.2, 6.8, depth);
+            float t3 = smoothstep(6.8, 15.5, depth);
+
+            vec3 depthTint = mix(cRim, cShallow, t1);
+            depthTint = mix(depthTint, cMid, t2);
+            depthTint = mix(depthTint, cAbyss, t3);
+
+            // 随水深增强的水体色彩融合
+            float absorb = clamp(depth / 12.5, 0.0, 0.92);
+            gl_FragColor.rgb = mix(gl_FragColor.rgb, depthTint, absorb * 0.78);
+
+            // 浅水区手绘焦散游走光斑 (Underwater Sun Caustics)
+            float cWave1 = sin(vCustomWorldPos.x * 1.45 + uTime * 2.1 + sin(vCustomWorldPos.z * 1.2));
+            float cWave2 = cos(vCustomWorldPos.z * 1.55 - uTime * 1.7 + cos(vCustomWorldPos.x * 1.1));
+            float causticNet = smoothstep(0.62, 0.86, (cWave1 + cWave2) * 0.5);
+            float shallowMask = (1.0 - smoothstep(0.2, 6.5, depth)) * smoothstep(0.0, 0.35, depth);
+            gl_FragColor.rgb += vec3(0.28, 0.92, 0.85) * causticNet * shallowMask * 0.32;
+
+            // 紧贴吃水线的手绘物体边缘白色水花线 (Crisp Object-Edge Waterline Foam)
+            float edgeNoise = sin(vCustomWorldPos.x * 3.8 + vCustomWorldPos.z * 3.2 + uTime * 2.4) * 0.045;
+            float foamThickness = 0.16 + edgeNoise;
+            float primaryEdgeFoam = 1.0 - smoothstep(0.02, max(0.05, foamThickness), depth);
+            // 紧贴吃水线下方的一道极细手绘副水线
+            float subEdgeLine = (1.0 - smoothstep(0.0, 0.045, abs(depth - (0.32 + edgeNoise * 1.3)))) *
+                                step(0.15, sin(vCustomWorldPos.x * 2.2 - vCustomWorldPos.z * 2.6 + uTime * 1.8));
+            float edgeFoamMask = clamp(primaryEdgeFoam * 0.92 + subEdgeLine * 0.58, 0.0, 1.0);
+            gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.96, 1.0, 0.99), edgeFoamMask);
+          }
+          `
+        );
+      };
+      return mat;
+    }
+
+    function makePainterlyMat(colorHex, opts = {}, applyDepthTint = false) {
+      const mat = new THREE.MeshToonMaterial({
+        color: new THREE.Color(colorHex),
+        gradientMap: toonGradientMap,
+        ...opts
+      });
+      if (applyDepthTint) enhanceWithUnderwaterDepthShader(mat);
+      return mat;
+    }
+
+    function addEdgeHighlight(mesh, edgeColor = '#5df5dc', opacity = 0.45) {
+      const edgesGeo = new THREE.EdgesGeometry(mesh.geometry, 26);
+      const edgesMat = new THREE.LineBasicMaterial({
+        color: edgeColor,
+        transparent: true,
+        opacity
+      });
+      const line = new THREE.LineSegments(edgesGeo, edgesMat);
+      mesh.add(line);
+      return line;
+    }
+
+    // 生成手绘涂鸦墙面纹理（还原右上角黄色斑驳墙体、粉红泡泡涂鸦与青绿 "Kem-B..."）
+    function createGraffitiWallTexture() {
+      const c = document.createElement('canvas');
+      c.width = 512;
+      c.height = 256;
+      const ctx = c.getContext('2d');
+
+      const grad = ctx.createLinearGradient(0, 0, 512, 256);
+      grad.addColorStop(0, '#d2a250');
+      grad.addColorStop(0.55, '#e7c365');
+      grad.addColorStop(1, '#988c6c');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 256);
+
+      // 水彩剥落与青苔斑块
+      const blotches = [
+        { x: 30, y: 20, w: 95, h: 75, col: 'rgba(138, 92, 58, 0.48)' },
+        { x: 195, y: 115, w: 160, h: 95, col: 'rgba(76, 168, 142, 0.45)' },
+        { x: 360, y: 25, w: 120, h: 120, col: 'rgba(182, 118, 66, 0.4)' },
+        { x: 95, y: 145, w: 190, h: 85, col: 'rgba(58, 146, 134, 0.48)' },
+        { x: 10, y: 170, w: 490, h: 80, col: 'rgba(85, 112, 148, 0.45)' }
+      ];
+      blotches.forEach(b => {
+        ctx.fillStyle = b.col;
+        ctx.fillRect(b.x, b.y, b.w, b.h);
+      });
+
+      // 粉红色泡泡字涂鸦标签（还原原画窗框右侧的粉红涂鸦）
+      ctx.strokeStyle = '#d4486a';
+      ctx.lineWidth = 6;
+      ctx.font = 'bold 34px sans-serif';
+      ctx.strokeText('PKO', 82, 132);
+
+      // 标志性青绿涂鸦大字 "Kem-B"
+      ctx.save();
+      ctx.translate(158, 110);
+      ctx.rotate(-0.08);
+      ctx.font = 'italic 900 84px "Comic Sans MS", "Chalkboard SE", sans-serif';
+      ctx.lineWidth = 11;
+      ctx.strokeStyle = '#146674';
+      ctx.strokeText('Kem-B', 0, 0);
+      ctx.fillStyle = '#2ef7bf';
+      ctx.fillText('Kem-B', 0, 0);
+      ctx.restore();
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      return tex;
+    }
+
+    // 生成太阳能板手绘纹理（蓝紫电芯 + 暖橙斜刷高光 + 亮白铝框）
+    function createSolarPanelTexture() {
+      const c = document.createElement('canvas');
+      c.width = 512;
+      c.height = 512;
+      const ctx = c.getContext('2d');
+
+      const grad = ctx.createLinearGradient(0, 0, 512, 512);
+      grad.addColorStop(0, '#4166c8');
+      grad.addColorStop(0.45, '#6494ee');
+      grad.addColorStop(0.75, '#99c6ff');
+      grad.addColorStop(1, '#4c6dc2');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 512);
+
+      // 暖白与金橙斜向反光笔触（还原原画太阳能板上的金橙色反光块）
+      ctx.fillStyle = 'rgba(255, 246, 212, 0.46)';
+      ctx.beginPath();
+      ctx.moveTo(35, 512);
+      ctx.lineTo(285, 0);
+      ctx.lineTo(375, 0);
+      ctx.lineTo(135, 512);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = 'rgba(245, 165, 78, 0.54)';
+      ctx.beginPath();
+      ctx.moveTo(240, 512);
+      ctx.lineTo(450, 155);
+      ctx.lineTo(512, 225);
+      ctx.lineTo(340, 512);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = '#dff0ff';
+      ctx.lineWidth = 12;
+      ctx.strokeRect(6, 6, 500, 500);
+      for (let i = 1; i < 4; i++) {
+        const x = (512 / 4) * i;
+        ctx.lineWidth = 9;
+        ctx.strokeStyle = '#314474';
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, 512);
+        ctx.stroke();
+
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = '#d6ecff';
+        ctx.beginPath();
+        ctx.moveTo(x - 3, 0);
+        ctx.lineTo(x - 3, 512);
+        ctx.stroke();
+      }
+
+      ctx.strokeStyle = 'rgba(218, 240, 255, 0.55)';
+      ctx.lineWidth = 3;
+      for (let j = 1; j < 4; j++) {
+        const y = (512 / 4) * j;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(512, y);
+        ctx.stroke();
+      }
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      return tex;
+    }
+
+    // 生成手绘水彩建筑立面纹理
+    function createBuildingFacadeTexture(baseColor, darkColor, windowColor) {
+      const c = document.createElement('canvas');
+      c.width = 256;
+      c.height = 512;
+      const ctx = c.getContext('2d');
+
+      const grad = ctx.createLinearGradient(0, 0, 0, 512);
+      grad.addColorStop(0, baseColor);
+      grad.addColorStop(0.32, '#1ca8a2');
+      grad.addColorStop(0.7, '#0f5fb0');
+      grad.addColorStop(1, darkColor);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 256, 512);
+
+      // 错落有致的深色窗洞与青色窗台亮线
+      for (let row = 0; row < 7; row++) {
+        for (let col = 0; col < 3; col++) {
+          const wx = 24 + col * 74;
+          const wy = 34 + row * 66;
+          ctx.fillStyle = windowColor;
+          ctx.fillRect(wx, wy, 54, 44);
+          ctx.strokeStyle = 'rgba(78, 242, 220, 0.62)';
+          ctx.lineWidth = 3.5;
+          ctx.strokeRect(wx, wy, 54, 44);
+          // 窗内竖向分隔框
+          ctx.fillStyle = 'rgba(58, 210, 198, 0.42)';
+          ctx.fillRect(wx + 25, wy, 3, 44);
+        }
+      }
+
+      // 手绘水彩竖向斑驳笔触
+      for (let i = 0; i < 22; i++) {
+        ctx.fillStyle = i % 2 === 0
+          ? 'rgba(52, 240, 208, 0.15)'
+          : 'rgba(10, 46, 122, 0.2)';
+        ctx.fillRect(Math.random() * 230, Math.random() * 480, 18 + Math.random() * 36, 45 + Math.random() * 95);
+      }
+
+      const tex = new THREE.CanvasTexture(c);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      return tex;
+    }
+
+    // ============================================================================
+    // 4. 构建水下淹没建筑群（含水深消光着色、外挑阳台与水下窗洞）
+    // ============================================================================
+    const worldGroup = new THREE.Group();
+    scene.add(worldGroup);
+
+    const facadeTexTeal = createBuildingFacadeTexture('#42e5c8', '#093482', '#0b3c7c');
+    const facadeTexBlue = createBuildingFacadeTexture('#2cc6cf', '#06286e', '#082f68');
+
+    function createSubmergedTower({
+      x, y, z, w, h, d,
+      rotY = 0,
+      topColor = '#3ce3c4',
+      wallTex = facadeTexTeal,
+      edgeColor = '#74ffdf',
+      hasLedges = true
+    }) {
+      const group = new THREE.Group();
+      group.position.set(x, y, z);
+      group.rotation.y = rotY;
+
+      const matTop = makePainterlyMat(topColor, {}, true);
+      const matSide = enhanceWithUnderwaterDepthShader(new THREE.MeshToonMaterial({
+        map: wallTex,
+        gradientMap: toonGradientMap
+      }));
+
+      const bodyGeo = new THREE.BoxGeometry(w, h, d);
+      const materials = [matSide, matSide, matTop, matTop, matSide, matSide];
+      const body = new THREE.Mesh(bodyGeo, materials);
+      body.position.y = -h / 2;
+      body.receiveShadow = true;
+      body.castShadow = true;
+      addEdgeHighlight(body, edgeColor, 0.45);
+      group.add(body);
+
+      if (hasLedges) {
+        const rimMat = makePainterlyMat('#57f2d6', {}, true);
+        const rimThickness = 0.36;
+        const rimHeight = 0.46;
+        const borders = [
+          { bw: w + 0.3, bh: rimHeight, bd: rimThickness, bx: 0, bz: d / 2 },
+          { bw: w + 0.3, bh: rimHeight, bd: rimThickness, bx: 0, bz: -d / 2 },
+          { bw: rimThickness, bh: rimHeight, bd: d + 0.3, bx: w / 2, bz: 0 },
+          { bw: rimThickness, bh: rimHeight, bd: d + 0.3, bx: -w / 2, bz: 0 }
+        ];
+        borders.forEach(b => {
+          const m = new THREE.Mesh(new THREE.BoxGeometry(b.bw, b.bh, b.bd), rimMat);
+          m.position.set(b.bx, rimHeight / 2, b.bz);
+          m.castShadow = true;
+          m.receiveShadow = true;
+          group.add(m);
+        });
+      }
+
+      worldGroup.add(group);
+      return group;
+    }
+
+    // --- 4.1 右侧主建筑群：多层退台水下大厦 + 水下窗框与弧形小阳台 ---
+    const rightDeepBase = createSubmergedTower({
+      x: 5.8, y: -2.8, z: 3.0,
+      w: 12.6, h: 28, d: 13.5,
+      rotY: -0.22,
+      topColor: '#25b8bc',
+      wallTex: facadeTexBlue
+    });
+
+    // 右侧下层阶梯平台（原画右下角青绿色水下露台，浸在浅水下 Y = 0.22）
+    const rightLowerTerrace = createSubmergedTower({
+      x: 5.0, y: 0.22, z: 3.8,
+      w: 9.6, h: 18, d: 9.2,
+      rotY: -0.22,
+      topColor: '#36dec4',
+      wallTex: facadeTexTeal
+    });
+
+    // 原画右下角水下建筑立面的凹凸细节：半圆弧形小阳台 + 窗框格栅 + 台角缺口石块
+    const underwaterBalcony = new THREE.Mesh(
+      new THREE.CylinderGeometry(1.15, 1.05, 0.45, 16),
+      makePainterlyMat('#2698ba', {}, true)
+    );
+    underwaterBalcony.position.set(1.2, -2.6, 4.7);
+    addEdgeHighlight(underwaterBalcony, '#64f0dc', 0.5);
+    rightLowerTerrace.add(underwaterBalcony);
+
+    // 右下角水下露台边缘的散落石块与海藻斑块（还原原画右下角平台边缘的碎石感）
+    const rubblePositions = [
+      [-2.8, 0.25, 4.1, 0.42],
+      [-2.1, 0.2, 4.2, 0.32],
+      [2.6, 0.24, 4.0, 0.46],
+      [3.5, 0.22, 2.8, 0.38]
+    ];
+    rubblePositions.forEach(([rx, ry, rz, rs]) => {
+      const rock = new THREE.Mesh(
+        new THREE.DodecahedronGeometry(rs, 0),
+        makePainterlyMat('#28889e', {}, true)
+      );
+      rock.position.set(rx, ry, rz);
+      rock.scale.set(1.2, 0.55, 1.0);
+      rightLowerTerrace.add(rock);
+    });
+
+    // 右侧中层天台（支撑木屋的主平台，浮出水面 Y = +1.45）
+    const rightMidTerrace = createSubmergedTower({
+      x: 4.3, y: 1.45, z: -0.5,
+      w: 9.2, h: 16, d: 10.0,
+      rotY: -0.22,
+      topColor: '#3fe4c4',
+      wallTex: facadeTexTeal
+    });
+
+    // 右上角露出水面的大型老旧工业混凝土楼（带黄色涂鸦墙与双层外挑滴水檐）
+    const upperBackTowerGroup = new THREE.Group();
+    upperBackTowerGroup.position.set(2.8, 1.45, -6.6);
+    upperBackTowerGroup.rotation.y = -0.22;
+    worldGroup.add(upperBackTowerGroup);
+
+    createSubmergedTower({
+      x: 2.3, y: 1.3, z: -6.5,
+      w: 11.5, h: 24, d: 9.2,
+      rotY: -0.22,
+      topColor: '#35cfb8',
+      wallTex: facadeTexTeal
+    });
+
+    const graffitiTex = createGraffitiWallTexture();
+    const upperTowerGeo = new THREE.BoxGeometry(10.8, 8.2, 8.2);
+    const matGraffiti = new THREE.MeshToonMaterial({
+      map: graffitiTex,
+      gradientMap: toonGradientMap
+    });
+    const matWeatheredSide = makePainterlyMat('#6e7c9e');
+    const matWeatheredRoof = makePainterlyMat('#5bbfa8');
+    const upperTowerMesh = new THREE.Mesh(upperTowerGeo, [
+      matWeatheredSide,
+      matGraffiti,
+      matWeatheredRoof,
+      matWeatheredSide,
+      matGraffiti,
+      matWeatheredSide
+    ]);
+    upperTowerMesh.position.set(0, 4.1, 0);
+    upperTowerMesh.castShadow = true;
+    upperTowerMesh.receiveShadow = true;
+    addEdgeHighlight(upperTowerMesh, '#9efce4', 0.38);
+    upperBackTowerGroup.add(upperTowerMesh);
+
+    // 原画细节强化：右上角工业大楼侧面的阶梯状白色流水檐口与青色横梁
+    const ledgeBeam1 = new THREE.Mesh(
+      new THREE.BoxGeometry(0.65, 0.38, 8.6),
+      makePainterlyMat('#4be8ca')
+    );
+    ledgeBeam1.position.set(-5.45, 1.85, 0);
+    addEdgeHighlight(ledgeBeam1, '#edfffa', 0.75);
+    upperBackTowerGroup.add(ledgeBeam1);
+
+    const ledgeBeam2 = new THREE.Mesh(
+      new THREE.BoxGeometry(0.48, 0.28, 8.4),
+      makePainterlyMat('#e8fbf8')
+    );
+    ledgeBeam2.position.set(-5.55, 0.65, 0);
+    upperBackTowerGroup.add(ledgeBeam2);
+
+    // 工业旧楼左侧的深紫褐色窗户框与半拉百叶（还原原画顶部中间偏右的暗色窗洞）
+    const oldWinFrame = new THREE.Mesh(
+      new THREE.BoxGeometry(0.4, 3.0, 2.0),
+      makePainterlyMat('#683b5f')
+    );
+    oldWinFrame.position.set(-5.42, 4.6, 1.55);
+    upperBackTowerGroup.add(oldWinFrame);
+    const oldWinGlass = new THREE.Mesh(
+      new THREE.BoxGeometry(0.44, 2.3, 1.5),
+      makePainterlyMat('#231636')
+    );
+    oldWinGlass.position.set(-5.45, 4.6, 1.55);
+    upperBackTowerGroup.add(oldWinGlass);
+    const oldWinCross = new THREE.Mesh(
+      new THREE.BoxGeometry(0.46, 0.16, 1.55),
+      makePainterlyMat('#8c4f78')
+    );
+    oldWinCross.position.set(-5.46, 4.2, 1.55);
+    upperBackTowerGroup.add(oldWinCross);
+
+    // --- 4.2 水下中央峡谷错落的高低方塔（船下方的深水立柱与残垣） ---
+    // 小船正下方偏左的方形水下残塔（顶部有倒塌的斜向断块与水草，还原原画左下水底结构）
+    const frontSubTower = createSubmergedTower({
+      x: -1.75, y: -1.25, z: 5.1,
+      w: 3.7, h: 22, d: 3.7,
+      rotY: -0.18,
+      topColor: '#3ae6c8',
+      wallTex: facadeTexBlue
+    });
+    const tiltedSlab = new THREE.Mesh(
+      new THREE.BoxGeometry(1.4, 0.35, 1.8),
+      makePainterlyMat('#2ec4b8', {}, true)
+    );
+    tiltedSlab.position.set(-0.6, 0.3, 0.4);
+    tiltedSlab.rotation.set(0.18, 0.3, -0.22);
+    frontSubTower.add(tiltedSlab);
+
+    // 小船左侧带凹槽顶部的独立水下立柱
+    createSubmergedTower({
+      x: -3.05, y: -0.65, z: 2.05,
+      w: 2.15, h: 18, d: 2.15,
+      rotY: 0.12,
+      topColor: '#4bf0d4',
+      wallTex: facadeTexTeal
+    });
+
+    // 小船前方通往峡谷深处的多级水下阶梯墩台
+    createSubmergedTower({
+      x: -1.25, y: -0.2, z: -3.5,
+      w: 3.4, h: 20, d: 4.2,
+      rotY: -0.2,
+      topColor: '#3ee6cb',
+      wallTex: facadeTexTeal
+    });
+    createSubmergedTower({
+      x: -2.35, y: -1.8, z: -7.4,
+      w: 4.4, h: 22, d: 4.4,
+      rotY: -0.15,
+      topColor: '#25b8bc',
+      wallTex: facadeTexBlue
+    });
+    // 深水峡谷底部的暗蓝色远景沉没建筑（增加深水空间层次）
+    createSubmergedTower({
+      x: -0.4, y: -5.2, z: -1.2,
+      w: 2.8, h: 18, d: 3.2,
+      rotY: -0.2,
+      topColor: '#1264b8',
+      wallTex: facadeTexBlue,
+      hasLedges: false
+    });
+    createSubmergedTower({
+      x: -4.2, y: -4.4, z: 7.2,
+      w: 3.5, h: 18, d: 3.5,
+      rotY: 0.1,
+      topColor: '#156ec2',
+      wallTex: facadeTexBlue
+    });
+
+    // --- 4.3 左侧圆弧形现代玻璃幕墙大厦 + 淹没台阶 + 空中热带秘密花园 ---
+    const leftBuildingGroup = new THREE.Group();
+    leftBuildingGroup.position.set(-8.6, 0.3, -3.5);
+    leftBuildingGroup.rotation.y = 0.15;
+    worldGroup.add(leftBuildingGroup);
+
+    const cylRadius = 6.2;
+    const cylHeight = 26;
+    const cylGeo = new THREE.CylinderGeometry(cylRadius, cylRadius, cylHeight, 28);
+    const cylMat = enhanceWithUnderwaterDepthShader(new THREE.MeshToonMaterial({
+      map: facadeTexBlue,
+      gradientMap: toonGradientMap
+    }));
+    const cylMesh = new THREE.Mesh(cylGeo, cylMat);
+    cylMesh.position.set(0, 2.2 - cylHeight / 2, 0);
+    cylMesh.castShadow = true;
+    cylMesh.receiveShadow = true;
+    leftBuildingGroup.add(cylMesh);
+
+    // 竖向弧面幕墙肋条与横向层间梁（还原原画左上角弧形建筑的网格玻璃感）
+    const mullionMat = makePainterlyMat('#2ec9c8', {}, true);
+    for (let i = 0; i < 18; i++) {
+      const angle = (i / 18) * Math.PI * 1.2 - 0.3;
+      const mx = Math.cos(angle) * (cylRadius + 0.08);
+      const mz = Math.sin(angle) * (cylRadius + 0.08);
+      const mullion = new THREE.Mesh(new THREE.BoxGeometry(0.24, cylHeight, 0.24), mullionMat);
+      mullion.position.set(mx, 2.2 - cylHeight / 2, mz);
+      mullion.rotation.y = -angle;
+      leftBuildingGroup.add(mullion);
+    }
+    for (let r = 0; r < 4; r++) {
+      const ringBeam = new THREE.Mesh(
+        new THREE.CylinderGeometry(cylRadius + 0.12, cylRadius + 0.12, 0.28, 28),
+        mullionMat
+      );
+      ringBeam.position.set(0, 0.6 - r * 2.4, 0);
+      leftBuildingGroup.add(ringBeam);
+    }
+
+    // 弧形楼顶部环绕浅水池檐口
+    const poolBaseGeo = new THREE.CylinderGeometry(cylRadius + 0.48, cylRadius + 0.48, 0.72, 36);
+    const poolBase = new THREE.Mesh(poolBaseGeo, makePainterlyMat('#3adbc2'));
+    poolBase.position.set(0, 2.35, 0);
+    poolBase.receiveShadow = true;
+    addEdgeHighlight(poolBase, '#94ffea', 0.58);
+    leftBuildingGroup.add(poolBase);
+
+    const roofWaterGeo = new THREE.CylinderGeometry(cylRadius + 0.12, cylRadius + 0.12, 0.16, 36);
+    const roofWater = new THREE.Mesh(roofWaterGeo, makePainterlyMat('#45e6cc'));
+    roofWater.position.set(0, 2.68, 0);
+    leftBuildingGroup.add(roofWater);
+
+    // 原画左上角屋顶水池内的精妙细节：浸在浅水池里的 4 级水下小台阶！
+    const stepMat = makePainterlyMat('#2ab8b4');
+    for (let s = 0; s < 4; s++) {
+      const stepMesh = new THREE.Mesh(
+        new THREE.BoxGeometry(1.35, 0.18, 0.42),
+        stepMat
+      );
+      stepMesh.position.set(2.85 + s * 0.28, 2.72 - s * 0.06, 2.15 + s * 0.25);
+      stepMesh.rotation.y = 0.65;
+      addEdgeHighlight(stepMesh, '#8cf8e8', 0.5);
+      leftBuildingGroup.add(stepMesh);
+    }
+
+    // 原画左上角屋顶浅水池内侧的贴边白色浪花线（沿着池壁边缘，不画突兀的圆圈）
+    const poolEdgeFoamSegments = [];
+    for (let k = 0; k < 10; k++) {
+      const ang = -0.35 + (k / 10) * 2.1;
+      const segLen = 0.75 + (k % 3) * 0.25;
+      const seg = new THREE.Mesh(
+        new THREE.BoxGeometry(segLen, 0.04, 0.14),
+        new THREE.MeshBasicMaterial({ color: '#ecfffa', transparent: true, opacity: 0.78 })
+      );
+      const rEdge = cylRadius - 0.18;
+      seg.position.set(Math.cos(ang) * rEdge, 2.77, Math.sin(ang) * rEdge);
+      seg.rotation.y = -ang + Math.PI / 2;
+      leftBuildingGroup.add(seg);
+      poolEdgeFoamSegments.push({ mesh: seg, baseScaleX: 1, phase: k * 0.8 });
+    }
+
+    // 内圈秘密花园平台
+    const gardenCoreRadius = 4.65;
+    const gardenWallGeo = new THREE.CylinderGeometry(gardenCoreRadius, gardenCoreRadius, 1.4, 28);
+    const gardenWall = new THREE.Mesh(gardenWallGeo, makePainterlyMat('#4be8ca'));
+    gardenWall.position.set(-0.85, 3.2, -1.0);
+    addEdgeHighlight(gardenWall, '#abfff0', 0.5);
+    leftBuildingGroup.add(gardenWall);
+
+    const gardenSoilGeo = new THREE.CylinderGeometry(gardenCoreRadius - 0.25, gardenCoreRadius - 0.25, 0.32, 28);
+    const gardenSoil = new THREE.Mesh(gardenSoilGeo, makePainterlyMat('#dfa964'));
+    gardenSoil.position.set(-0.85, 3.85, -1.0);
+    leftBuildingGroup.add(gardenSoil);
+
+    // 左侧弧形楼旁边的附属高耸立柱
+    const sidePillar = new THREE.Mesh(
+      new THREE.BoxGeometry(1.55, 22, 1.55),
+      makePainterlyMat('#38d8c2', {}, true)
+    );
+    sidePillar.position.set(5.3, 2.8 - 11, 2.2);
+    addEdgeHighlight(sidePillar, '#8cffeb', 0.5);
+    leftBuildingGroup.add(sidePillar);
+
+    // ============================================================================
+    // 5. 右侧核心建筑：斜顶太阳能木屋 + 木质小码头 + 旧轮胎护舷 + 细部升级
+    // ============================================================================
+    const houseGroup = new THREE.Group();
+    houseGroup.position.set(4.3, 1.48, -0.4);
+    houseGroup.rotation.y = -0.22;
+    worldGroup.add(houseGroup);
+
+    const cabinW = 5.4;
+    const cabinH = 3.4;
+    const cabinD = 4.8;
+    const cabinMatFront = makePainterlyMat('#ec8c58');
+    const cabinMatShade = makePainterlyMat('#4f5ec9');
+    const cabinGeo = new THREE.BoxGeometry(cabinW, cabinH, cabinD);
+    const cabinMesh = new THREE.Mesh(cabinGeo, [
+      cabinMatFront,
+      cabinMatShade,
+      makePainterlyMat('#789e5c'),
+      makePainterlyMat('#3f4da8'),
+      cabinMatFront,
+      cabinMatShade
+    ]);
+    cabinMesh.position.set(0, cabinH / 2, 0);
+    cabinMesh.castShadow = true;
+    cabinMesh.receiveShadow = true;
+    addEdgeHighlight(cabinMesh, '#ffb884', 0.4);
+    houseGroup.add(cabinMesh);
+
+    // 原画细节强化：木屋侧面墙体与下层屋檐之间的斜撑木托架（Wooden Brackets）
+    for (let b = -1; b <= 1; b++) {
+      const bracket = new THREE.Mesh(
+        new THREE.BoxGeometry(0.18, 0.75, 0.18),
+        makePainterlyMat('#703e32')
+      );
+      bracket.position.set(-cabinW / 2 - 0.15, 3.15, b * 1.4);
+      bracket.rotation.z = 0.45;
+      houseGroup.add(bracket);
+    }
+
+    // 木屋左侧外凸木百叶小窗（含百叶横格细节）
+    const bayWindowGroup = new THREE.Group();
+    bayWindowGroup.position.set(-cabinW / 2 - 0.38, 2.2, 0.4);
+    const bayBox = new THREE.Mesh(
+      new THREE.BoxGeometry(0.88, 1.58, 1.92),
+      makePainterlyMat('#7c4d3a')
+    );
+    bayBox.castShadow = true;
+    addEdgeHighlight(bayBox, '#f09d6b', 0.5);
+    bayWindowGroup.add(bayBox);
+
+    // 凸窗竖向与横向窗棂
+    for (let s = -1; s <= 1; s++) {
+      const slat = new THREE.Mesh(
+        new THREE.BoxGeometry(0.92, 0.08, 1.75),
+        makePainterlyMat('#522e22')
+      );
+      slat.position.set(0, s * 0.36, 0);
+      bayWindowGroup.add(slat);
+    }
+
+    const bayRoof = new THREE.Mesh(
+      new THREE.BoxGeometry(1.12, 0.24, 2.22),
+      makePainterlyMat('#c46d46')
+    );
+    bayRoof.position.set(0, 0.86, 0);
+    bayRoof.rotation.z = 0.22;
+    bayWindowGroup.add(bayRoof);
+    houseGroup.add(bayWindowGroup);
+
+    // 木屋正面的宽窗与窗台木框
+    const frontWinFrame = new THREE.Mesh(
+      new THREE.BoxGeometry(2.35, 1.48, 0.3),
+      makePainterlyMat('#4b5bc4')
+    );
+    frontWinFrame.position.set(0.3, 2.0, cabinD / 2 + 0.08);
+    addEdgeHighlight(frontWinFrame, '#9ab8ff', 0.45);
+    houseGroup.add(frontWinFrame);
+
+    const frontWinGlass = new THREE.Mesh(
+      new THREE.BoxGeometry(1.92, 1.12, 0.34),
+      makePainterlyMat('#4d4678')
+    );
+    frontWinGlass.position.set(0.3, 2.0, cabinD / 2 + 0.08);
+    houseGroup.add(frontWinGlass);
+
+    // 下层青苔斜屋檐
+    const lowerRoofGeo = new THREE.BoxGeometry(6.35, 0.38, 5.85);
+    const lowerRoof = new THREE.Mesh(lowerRoofGeo, makePainterlyMat('#8ab858'));
+    lowerRoof.position.set(0.1, 3.85, 0.35);
+    lowerRoof.rotation.x = 0.36;
+    lowerRoof.castShadow = true;
+    lowerRoof.receiveShadow = true;
+    addEdgeHighlight(lowerRoof, '#c5f279', 0.5);
+    houseGroup.add(lowerRoof);
+
+    // 上层高耸阁楼三角墙与屋顶基座
+    const atticBox = new THREE.Mesh(
+      new THREE.BoxGeometry(5.2, 2.1, 3.6),
+      makePainterlyMat('#4c5ac4')
+    );
+    atticBox.position.set(0, 4.4, -0.55);
+    atticBox.rotation.x = 0.48;
+    atticBox.castShadow = true;
+    houseGroup.add(atticBox);
+
+    // 标志性的 4 联太阳能发电板阵列
+    const solarTex = createSolarPanelTexture();
+    const solarGeo = new THREE.BoxGeometry(5.18, 0.24, 3.78);
+    const solarMatTop = new THREE.MeshToonMaterial({
+      map: solarTex,
+      gradientMap: toonGradientMap
+    });
+    const solarFrameMat = makePainterlyMat('#89b4f5');
+    const solarMesh = new THREE.Mesh(solarGeo, [
+      solarFrameMat,
+      solarFrameMat,
+      solarMatTop,
+      solarFrameMat,
+      solarFrameMat,
+      solarFrameMat
+    ]);
+    solarMesh.position.set(0.05, 5.48, -0.45);
+    solarMesh.rotation.x = 0.52;
+    solarMesh.castShadow = true;
+    addEdgeHighlight(solarMesh, '#e0f2ff', 0.68);
+    houseGroup.add(solarMesh);
+
+    // 木屋前方暖橙色木板小码头
+    const deckGroup = new THREE.Group();
+    deckGroup.position.set(0.4, 0.35, cabinD / 2 + 1.45);
+    houseGroup.add(deckGroup);
+
+    const plankColors = ['#e87846', '#f49254', '#d9693b', '#ed834b', '#c95b32'];
+    const numPlanks = 9;
+    const plankW = 0.52;
+    for (let i = 0; i < numPlanks; i++) {
+      const pGeo = new THREE.BoxGeometry(plankW, 0.24, 2.8 + (i % 2) * 0.16);
+      const pMesh = new THREE.Mesh(pGeo, makePainterlyMat(plankColors[i % plankColors.length]));
+      pMesh.position.set((i - (numPlanks - 1) / 2) * (plankW + 0.06), 0.2, 0);
+      pMesh.rotation.z = (Math.random() - 0.5) * 0.03;
+      pMesh.castShadow = true;
+      pMesh.receiveShadow = true;
+      addEdgeHighlight(pMesh, '#ffba82', 0.4);
+      deckGroup.add(pMesh);
+    }
+
+    const postPositions = [
+      [-2.1, 0.45, 1.3],
+      [-0.6, 0.45, 1.3],
+      [0.9, 0.45, 1.3],
+      [2.1, 0.45, 1.3],
+      [-2.1, 0.45, -1.1],
+      [2.1, 0.45, -1.1]
+    ];
+    postPositions.forEach(([px, py, pz]) => {
+      const post = new THREE.Mesh(
+        new THREE.BoxGeometry(0.28, 1.08, 0.28),
+        makePainterlyMat('#8c432b')
+      );
+      post.position.set(px, py, pz);
+      post.castShadow = true;
+      deckGroup.add(post);
+    });
+
+    // 码头外侧悬挂的 3 个蓝灰色防撞旧轮胎
+    const tireMat = makePainterlyMat('#4b5d8c');
+    const tireRimMat = makePainterlyMat('#8ba4d0');
+    [[-1.3, 0.05, 1.48], [0.85, 0.05, 1.48], [2.35, 0.15, 0.55]].forEach(([tx, ty, tz], idx) => {
+      const tGroup = new THREE.Group();
+      tGroup.position.set(tx, ty, tz);
+      if (idx === 2) tGroup.rotation.y = Math.PI / 2;
+      const torus = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.18, 12, 20), tireMat);
+      torus.castShadow = true;
+      tGroup.add(torus);
+      const innerRim = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.05, 8, 16), tireRimMat);
+      innerRim.position.z = 0.08;
+      tGroup.add(innerRim);
+      deckGroup.add(tGroup);
+    });
+
+    // 原画细节强化：天台左侧边缘的棕色长木条与后方棱角黄褐色岩石块
+    const loosePlank = new THREE.Mesh(
+      new THREE.BoxGeometry(0.5, 0.2, 1.8),
+      makePainterlyMat('#9c563c')
+    );
+    loosePlank.position.set(-3.7, 0.12, 1.8);
+    loosePlank.rotation.y = 0.18;
+    loosePlank.castShadow = true;
+    addEdgeHighlight(loosePlank, '#f09a68', 0.4);
+    houseGroup.add(loosePlank);
+
+    const cornerRock = new THREE.Mesh(
+      new THREE.DodecahedronGeometry(0.52, 0),
+      makePainterlyMat('#c88a4b')
+    );
+    cornerRock.position.set(-3.8, 0.32, -1.6);
+    cornerRock.scale.set(1.1, 0.85, 1.2);
+    houseGroup.add(cornerRock);
+
+    // ============================================================================
+    // 6. 中央主角：黄色木质机动小船（含舱内肋骨、紫粉马达、舱内小花与多层扩散波纹）
+    // ============================================================================
+    const boatAnchorGroup = new THREE.Group();
+    const BOAT_HOME_POS = new THREE.Vector3(-0.75, 1.16, 1.45);
+    const BOAT_HOME_ROT_Y = -2.62; // 尖船头朝右上方，船尾马达朝左下方
+    boatAnchorGroup.position.copy(BOAT_HOME_POS);
+    boatAnchorGroup.rotation.y = BOAT_HOME_ROT_Y;
+    scene.add(boatAnchorGroup);
+
+    const boatMeshGroup = new THREE.Group();
+    boatAnchorGroup.add(boatMeshGroup);
+
+    const hullOuterShape = new THREE.Shape();
+    hullOuterShape.moveTo(0, 2.85);
+    hullOuterShape.quadraticCurveTo(1.32, 1.4, 1.22, -0.6);
+    hullOuterShape.lineTo(0.95, -2.4);
+    hullOuterShape.lineTo(-0.95, -2.4);
+    hullOuterShape.lineTo(-1.22, -0.6);
+    hullOuterShape.quadraticCurveTo(-1.32, 1.4, 0, 2.85);
+
+    const hullWallShape = hullOuterShape.clone();
+    const hullInnerHole = new THREE.Path();
+    hullInnerHole.moveTo(0, 2.32);
+    hullInnerHole.quadraticCurveTo(1.02, 1.15, 0.92, -0.55);
+    hullInnerHole.lineTo(0.7, -2.1);
+    hullInnerHole.lineTo(-0.7, -2.1);
+    hullInnerHole.lineTo(-0.92, -0.55);
+    hullInnerHole.quadraticCurveTo(-1.02, 1.15, 0, 2.32);
+    hullWallShape.holes.push(hullInnerHole);
+
+    const hullBottomGeo = new THREE.ExtrudeGeometry(hullOuterShape, {
+      depth: 0.28,
+      bevelEnabled: true,
+      bevelThickness: 0.08,
+      bevelSize: 0.06,
+      bevelSegments: 2
+    });
+    hullBottomGeo.rotateX(-Math.PI / 2);
+    const hullBottom = new THREE.Mesh(hullBottomGeo, makePainterlyMat('#d98c2b'));
+    hullBottom.position.y = -0.1;
+    hullBottom.castShadow = true;
+    hullBottom.receiveShadow = true;
+    boatMeshGroup.add(hullBottom);
+
+    const hullWallGeo = new THREE.ExtrudeGeometry(hullWallShape, {
+      depth: 0.64,
+      bevelEnabled: true,
+      bevelThickness: 0.05,
+      bevelSize: 0.04,
+      bevelSegments: 2
+    });
+    hullWallGeo.rotateX(-Math.PI / 2);
+    const hullWall = new THREE.Mesh(hullWallGeo, makePainterlyMat('#f7be38'));
+    hullWall.position.y = 0.15;
+    hullWall.castShadow = true;
+    hullWall.receiveShadow = true;
+    addEdgeHighlight(hullWall, '#fff3b0', 0.62);
+    boatMeshGroup.add(hullWall);
+
+    // 船舷内壁手绘木肋骨条（Ribs）
+    const ribMat = makePainterlyMat('#c97824');
+    [-1.4, -0.5, 0.4, 1.25].forEach(rz => {
+      const ribL = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.48, 0.12), ribMat);
+      ribL.position.set(-0.86, 0.42, rz);
+      boatMeshGroup.add(ribL);
+      const ribR = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.48, 0.12), ribMat);
+      ribR.position.set(0.86, 0.42, rz);
+      boatMeshGroup.add(ribR);
+    });
+
+    const floorGeo = new THREE.BoxGeometry(1.6, 0.08, 3.9);
+    const floorMesh = new THREE.Mesh(floorGeo, makePainterlyMat('#e09332'));
+    floorMesh.position.set(0, 0.2, -0.1);
+    boatMeshGroup.add(floorMesh);
+
+    const bowDeck = new THREE.Mesh(
+      new THREE.ConeGeometry(0.95, 1.4, 4),
+      makePainterlyMat('#e89e38')
+    );
+    bowDeck.rotation.x = -Math.PI / 2;
+    bowDeck.rotation.z = Math.PI / 4;
+    bowDeck.scale.set(1, 1, 0.25);
+    bowDeck.position.set(0, 0.58, 1.8);
+    boatMeshGroup.add(bowDeck);
+
+    const benchData = [
+      { z: 0.88, w: 1.68, d: 0.56, col: '#f5b83d' },
+      { z: 0.06, w: 1.76, d: 0.64, col: '#e89d33' },
+      { z: -0.82, w: 1.64, d: 0.54, col: '#f5b83d' },
+      { z: -1.68, w: 1.48, d: 0.5, col: '#d8882b' }
+    ];
+    benchData.forEach(b => {
+      const shadowBlock = new THREE.Mesh(
+        new THREE.BoxGeometry(b.w * 0.9, 0.26, b.d * 0.95),
+        makePainterlyMat('#6858a8')
+      );
+      shadowBlock.position.set(0, 0.32, b.z - 0.12);
+      boatMeshGroup.add(shadowBlock);
+
+      const bench = new THREE.Mesh(
+        new THREE.BoxGeometry(b.w, 0.12, b.d),
+        makePainterlyMat(b.col)
+      );
+      bench.position.set(0, 0.54, b.z);
+      bench.castShadow = true;
+      addEdgeHighlight(bench, '#ffe999', 0.45);
+      boatMeshGroup.add(bench);
+    });
+
+    // 船舱右侧边缘的点睛细节：紫红色小花与绿叶
+    const boatFlowerGroup = new THREE.Group();
+    boatFlowerGroup.position.set(-0.64, 0.6, 0.15);
+    const leafMesh = new THREE.Mesh(
+      new THREE.DodecahedronGeometry(0.22, 0),
+      makePainterlyMat('#42d674')
+    );
+    leafMesh.scale.set(1.2, 0.6, 1.2);
+    boatFlowerGroup.add(leafMesh);
+    const petalMesh = new THREE.Mesh(
+      new THREE.DodecahedronGeometry(0.16, 0),
+      makePainterlyMat('#f248aa')
+    );
+    petalMesh.position.set(0.05, 0.15, 0.06);
+    boatFlowerGroup.add(petalMesh);
+    boatMeshGroup.add(boatFlowerGroup);
+
+    // 船尾紫粉色舷外发动机
+    const motorGroup = new THREE.Group();
+    motorGroup.position.set(0, 0.64, -2.42);
+    const motorHood = new THREE.Mesh(
+      new THREE.BoxGeometry(0.74, 0.78, 0.84),
+      makePainterlyMat('#d89be8')
+    );
+    motorHood.castShadow = true;
+    addEdgeHighlight(motorHood, '#fbe5ff', 0.68);
+    motorGroup.add(motorHood);
+
+    const motorTopCap = new THREE.Mesh(
+      new THREE.BoxGeometry(0.68, 0.18, 0.78),
+      makePainterlyMat('#f5dcf8')
+    );
+    motorTopCap.position.y = 0.42;
+    motorGroup.add(motorTopCap);
+
+    const motorShaft = new THREE.Mesh(
+      new THREE.BoxGeometry(0.24, 0.95, 0.28),
+      makePainterlyMat('#6e588f')
+    );
+    motorShaft.position.set(0, -0.55, -0.1);
+    motorGroup.add(motorShaft);
+    boatMeshGroup.add(motorGroup);
+
+    // 船体吃水线边缘的手绘贴边白色水花线（严格对照原画：紧贴黄色船壳外侧与船尾，不做同心圆波纹圈）
+    const boatEdgeFoams = [];
+    function createBoatEdgeStroke(pts, width = 0.085, phase = 0) {
+      const curve = new THREE.CatmullRomCurve3(pts);
+      const geo = new THREE.TubeGeometry(curve, 20, width, 6, false);
+      const mat = new THREE.MeshBasicMaterial({
+        color: '#f7feff',
+        transparent: true,
+        opacity: 0.94
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.scale.set(1, 0.25, 1);
+      boatAnchorGroup.add(mesh);
+      boatEdgeFoams.push({ mesh, phase });
+    }
+
+    // 右舷吃水线断续手绘白线（前段 + 后段）
+    createBoatEdgeStroke([
+      new THREE.Vector3(0.18, 0.03, 2.75),
+      new THREE.Vector3(0.88, 0.03, 1.85),
+      new THREE.Vector3(1.26, 0.03, 0.65)
+    ], 0.085, 0.0);
+    createBoatEdgeStroke([
+      new THREE.Vector3(1.28, 0.03, 0.15),
+      new THREE.Vector3(1.22, 0.03, -1.05),
+      new THREE.Vector3(1.02, 0.03, -2.28)
+    ], 0.09, 1.4);
+
+    // 左舷吃水线断续手绘白线（前段 + 后段）
+    createBoatEdgeStroke([
+      new THREE.Vector3(-0.18, 0.03, 2.75),
+      new THREE.Vector3(-0.88, 0.03, 1.85),
+      new THREE.Vector3(-1.26, 0.03, 0.55)
+    ], 0.085, 0.7);
+    createBoatEdgeStroke([
+      new THREE.Vector3(-1.28, 0.03, -0.05),
+      new THREE.Vector3(-1.22, 0.03, -1.15),
+      new THREE.Vector3(-1.02, 0.03, -2.28)
+    ], 0.09, 2.1);
+
+    // 船尾与紫粉马达后方的V字形贴边白沫笔触
+    createBoatEdgeStroke([
+      new THREE.Vector3(-1.05, 0.03, -2.42),
+      new THREE.Vector3(-0.45, 0.03, -2.62),
+      new THREE.Vector3(0.0, 0.03, -2.72),
+      new THREE.Vector3(0.45, 0.03, -2.62),
+      new THREE.Vector3(1.05, 0.03, -2.42)
+    ], 0.11, 2.8);
+    // 外层极细的一道贴边副白线（还原原画船侧双笔触浪花）
+    createBoatEdgeStroke([
+      new THREE.Vector3(1.42, 0.02, 0.95),
+      new THREE.Vector3(1.46, 0.02, -0.35),
+      new THREE.Vector3(1.28, 0.02, -1.65)
+    ], 0.05, 3.5);
+    createBoatEdgeStroke([
+      new THREE.Vector3(-1.42, 0.02, 0.75),
+      new THREE.Vector3(-1.44, 0.02, -0.55),
+      new THREE.Vector3(-1.26, 0.02, -1.75)
+    ], 0.05, 4.2);
+
+    // ============================================================================
+    // 7. 左下前景核心标志：木质电线杆 + 巨型电缆线轴 + 摇柄 + 悬垂弧线电缆
+    // ============================================================================
+    const poleGroup = new THREE.Group();
+    poleGroup.position.set(-4.1, -4.5, 6.8);
+    poleGroup.rotation.z = -0.14;
+    poleGroup.rotation.x = 0.08;
+    poleGroup.rotation.y = 0.34;
+    worldGroup.add(poleGroup);
+
+    const woodPoleMat = makePainterlyMat('#c26c34');
+    const woodDarkMat = makePainterlyMat('#783e22');
+
+    const mainPole = new THREE.Mesh(new THREE.BoxGeometry(0.58, 16.5, 0.58), woodPoleMat);
+    mainPole.position.y = 6.5;
+    mainPole.castShadow = true;
+    addEdgeHighlight(mainPole, '#ffa85c', 0.5);
+    poleGroup.add(mainPole);
+
+    const poleCap = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.8), makePainterlyMat('#de8840'));
+    poleCap.position.y = 14.85;
+    poleGroup.add(poleCap);
+
+    // 主木杆中段的深棕色捆绑绳圈
+    for (let i = 0; i < 5; i++) {
+      const ropeRing = new THREE.Mesh(
+        new THREE.TorusGeometry(0.39, 0.085, 8, 16),
+        woodDarkMat
+      );
+      ropeRing.rotation.x = Math.PI / 2;
+      ropeRing.position.y = 7.2 + i * 0.22;
+      poleGroup.add(ropeRing);
+    }
+
+    // 倾斜横担木梁与斜撑木杆
+    const crossArm = new THREE.Mesh(new THREE.BoxGeometry(4.8, 0.34, 0.34), woodPoleMat);
+    crossArm.position.set(0.3, 13.1, 0);
+    crossArm.rotation.z = -0.25;
+    crossArm.castShadow = true;
+    addEdgeHighlight(crossArm, '#ffa85c', 0.45);
+    poleGroup.add(crossArm);
+
+    const braceLeft = new THREE.Mesh(new THREE.BoxGeometry(0.24, 2.8, 0.24), woodDarkMat);
+    braceLeft.position.set(-0.75, 12.1, 0);
+    braceLeft.rotation.z = 0.52;
+    poleGroup.add(braceLeft);
+
+    const braceRight = new THREE.Mesh(new THREE.BoxGeometry(0.26, 3.6, 0.26), woodPoleMat);
+    braceRight.position.set(0.95, 10.6, 0);
+    braceRight.rotation.z = -0.46;
+    poleGroup.add(braceRight);
+
+    const smallSpool = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.48, 0.48, 0.36, 16),
+      woodPoleMat
+    );
+    smallSpool.rotation.z = Math.PI / 2;
+    smallSpool.position.set(-1.15, 13.55, 0.15);
+    poleGroup.add(smallSpool);
+
+    // 右侧巨型木质绞盘线轴
+    const winchGroup = new THREE.Group();
+    winchGroup.position.set(1.38, 12.45, 0.22);
+    winchGroup.rotation.z = -0.25;
+    winchGroup.rotation.y = 0.25;
+    poleGroup.add(winchGroup);
+
+    const flangeGeo = new THREE.CylinderGeometry(1.18, 1.18, 0.2, 22);
+    const flangeLeft = new THREE.Mesh(flangeGeo, woodPoleMat);
+    flangeLeft.rotation.z = Math.PI / 2;
+    flangeLeft.position.x = -0.56;
+    addEdgeHighlight(flangeLeft, '#ffa85c', 0.55);
+    winchGroup.add(flangeLeft);
+
+    const flangeRight = new THREE.Mesh(flangeGeo, woodPoleMat);
+    flangeRight.rotation.z = Math.PI / 2;
+    flangeRight.position.x = 0.56;
+    addEdgeHighlight(flangeRight, '#ffa85c', 0.55);
+    winchGroup.add(flangeRight);
+
+    const coiledCableMat = makePainterlyMat('#726cc2');
+    for (let i = -3; i <= 3; i++) {
+      const coil = new THREE.Mesh(
+        new THREE.TorusGeometry(0.8, 0.13, 10, 20),
+        coiledCableMat
+      );
+      coil.rotation.y = Math.PI / 2;
+      coil.position.x = i * 0.13;
+      winchGroup.add(coil);
+    }
+
+    const crankArm1 = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.0, 0.2), woodPoleMat);
+    crankArm1.position.set(0.88, 0.48, 0.2);
+    crankArm1.rotation.z = -0.35;
+    winchGroup.add(crankArm1);
+
+    const crankHandle = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.18, 0.18), makePainterlyMat('#e68e46'));
+    crankHandle.position.set(1.18, 0.88, 0.25);
+    winchGroup.add(crankHandle);
+
+    // 悬垂电缆与纤绳系统
+    const dynamicCables = [];
+    function createCatenaryCable(pStart, pMid, pEnd, radius, colorHex) {
+      const curve = new THREE.QuadraticBezierCurve3(pStart, pMid, pEnd);
+      const geo = new THREE.TubeGeometry(curve, 32, radius, 8, false);
+      const mat = makePainterlyMat(colorHex);
+      const mesh = new THREE.Mesh(geo, mat);
+      scene.add(mesh);
+      dynamicCables.push({
+        mesh,
+        pStart: pStart.clone(),
+        pMidBase: pMid.clone(),
+        pEnd: pEnd.clone(),
+        radius
+      });
+    }
+
+    createCatenaryCable(
+      new THREE.Vector3(-3.0, 7.6, 7.1),
+      new THREE.Vector3(-1.3, 3.6, 9.8),
+      new THREE.Vector3(1.1, -0.6, 13.0),
+      0.17,
+      '#8f86eb'
+    );
+    createCatenaryCable(
+      new THREE.Vector3(-3.2, 7.5, 7.0),
+      new THREE.Vector3(-1.9, 3.4, 9.6),
+      new THREE.Vector3(-0.2, -0.9, 12.8),
+      0.085,
+      '#584fb2'
+    );
+    createCatenaryCable(
+      new THREE.Vector3(-5.2, 8.8, 6.8),
+      new THREE.Vector3(-7.6, 6.2, 2.2),
+      new THREE.Vector3(-10.2, 5.2, -2.0),
+      0.045,
+      '#84d8e8'
+    );
+    createCatenaryCable(
+      new THREE.Vector3(6.2, 6.8, -1.0),
+      new THREE.Vector3(8.8, 7.2, -3.2),
+      new THREE.Vector3(12.8, 8.6, -5.2),
+      0.042,
+      '#3c4a8c'
+    );
+
+    // ============================================================================
+    // 8. 丰茂的植被、珊瑚礁、睡莲与屋顶花海
+    // ============================================================================
+    const swayingPlants = [];
+
+    const gardenFlowersGroup = new THREE.Group();
+    gardenFlowersGroup.position.set(-9.4, 4.3, -4.5);
+    worldGroup.add(gardenFlowersGroup);
+
+    const flowerPalette = [
+      '#36d864', '#74ee52', '#ff6496', '#ff9452',
+      '#ffd447', '#b56bff', '#2ce6b8', '#ff4f79'
+    ];
+    const bushGeo = new THREE.DodecahedronGeometry(0.46, 1);
+
+    for (let i = 0; i < 110; i++) {
+      const r = Math.sqrt(Math.random()) * 4.25;
+      const theta = Math.random() * Math.PI * 2;
+      const fx = Math.cos(theta) * r;
+      const fz = Math.sin(theta) * r;
+      const fy = (4.3 - r) * 0.18 + Math.random() * 0.35;
+
+      const col = flowerPalette[i % flowerPalette.length];
+      const bush = new THREE.Mesh(bushGeo, makePainterlyMat(col));
+      const s = 0.58 + Math.random() * 0.95;
+      bush.scale.set(s * 1.2, s * 0.85, s * 1.1);
+      bush.position.set(fx, fy, fz);
+      bush.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3);
+      bush.castShadow = true;
+      gardenFlowersGroup.add(bush);
+
+      if (i % 3 === 0) {
+        swayingPlants.push({
+          mesh: bush,
+          baseRotZ: bush.rotation.z,
+          speed: 1.5 + Math.random() * 1.5,
+          amp: 0.06 + Math.random() * 0.05,
+          phase: Math.random() * 6.28
+        });
+      }
+    }
+
+    function createPalmCluster(x, y, z, scale = 1) {
+      const pGroup = new THREE.Group();
+      pGroup.position.set(x, y, z);
+      pGroup.scale.setScalar(scale);
+      const frondMat = makePainterlyMat('#29c468');
+      for (let i = 0; i < 7; i++) {
+        const angle = (i / 7) * Math.PI * 2;
+        const frond = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.06, 1.5), frondMat);
+        frond.position.set(Math.sin(angle) * 0.55, 0.35, Math.cos(angle) * 0.55);
+        frond.rotation.y = angle;
+        frond.rotation.x = 0.45;
+        pGroup.add(frond);
+      }
+      gardenFlowersGroup.add(pGroup);
+      swayingPlants.push({
+        mesh: pGroup,
+        baseRotZ: 0,
+        speed: 1.8,
+        amp: 0.08,
+        phase: x + z
+      });
+    }
+    createPalmCluster(-0.4, 0.5, 0.8, 1.3);
+    createPalmCluster(1.2, 0.4, -0.6, 1.15);
+    createPalmCluster(-1.8, 0.45, -1.1, 1.05);
+
+    // 水下峡谷与墙面附着的紫粉色珊瑚丛与海葵（原画左侧立柱旁、左下水底与右下水下墙面）
+    function createCoralCluster(x, y, z, mainColor = '#b85ce6', tipColor = '#ff78b8', scale = 1) {
+      const cGroup = new THREE.Group();
+      cGroup.position.set(x, y, z);
+      cGroup.scale.setScalar(scale);
+
+      const branchCount = 11;
+      for (let i = 0; i < branchCount; i++) {
+        const col = i % 2 === 0 ? mainColor : tipColor;
+        const bMesh = new THREE.Mesh(
+          new THREE.DodecahedronGeometry(0.34, 0),
+          makePainterlyMat(col)
+        );
+        bMesh.position.set(
+          (Math.random() - 0.5) * 1.15,
+          Math.random() * 1.5,
+          (Math.random() - 0.5) * 0.95
+        );
+        bMesh.scale.set(0.85, 1.5 + Math.random() * 0.85, 0.85);
+        cGroup.add(bMesh);
+      }
+      worldGroup.add(cGroup);
+      swayingPlants.push({
+        mesh: cGroup,
+        baseRotZ: 0,
+        speed: 1.25,
+        amp: 0.055,
+        phase: x * 0.7
+      });
+    }
+
+    createCoralCluster(-4.1, 0.35, 0.7, '#b85ce8', '#f56eb6', 1.55);
+    createCoralCluster(-4.8, -0.9, 1.9, '#964ed8', '#e364ab', 1.35);
+    createCoralCluster(-5.5, -2.0, 4.0, '#d4689e', '#ff8cb8', 1.3);
+    createCoralCluster(-2.8, -1.1, 5.4, '#e0709c', '#ffa2bd', 1.15);
+    createCoralCluster(7.6, -0.9, 4.8, '#b052e0', '#ff70a6', 1.4);
+    createCoralCluster(2.0, -2.0, 6.2, '#8f4cd4', '#38e0b8', 1.25);
+    createCoralCluster(1.0, 2.0, -4.2, '#e252b2', '#ff85ca', 1.1);
+
+    // 木屋屋顶与右侧建筑外墙的攀援青苔、珊瑚红垂藤与漂浮睡莲叶
+    const roofMossData = [
+      { x: -1.8, y: 4.1, z: 1.2, s: 0.58, col: '#9ee654' },
+      { x: -1.1, y: 3.9, z: 1.8, s: 0.5, col: '#f5d442' },
+      { x: 0.8, y: 4.2, z: 0.9, s: 0.64, col: '#68cf54' },
+      { x: 2.3, y: 3.7, z: 1.5, s: 0.62, col: '#ff6e64' },
+      { x: 2.6, y: 4.1, z: 0.6, s: 0.55, col: '#ff8568' },
+      { x: -0.4, y: 3.6, z: 2.2, s: 0.48, col: '#c768f0' }
+    ];
+    roofMossData.forEach(m => {
+      const moss = new THREE.Mesh(bushGeo, makePainterlyMat(m.col));
+      moss.position.set(m.x, m.y, m.z);
+      moss.scale.set(m.s * 1.3, m.s * 0.65, m.s * 1.2);
+      houseGroup.add(moss);
+      swayingPlants.push({
+        mesh: moss,
+        baseRotZ: 0,
+        speed: 2.0,
+        amp: 0.05,
+        phase: m.x * 2
+      });
+    });
+
+    // 右侧天台与浅水区的圆润睡莲叶与青苔团
+    const lilyPadMat = makePainterlyMat('#6bd87a');
+    [
+      [-1.8, 0.08, 3.1, 0.56],
+      [-1.1, 0.08, 3.6, 0.44],
+      [-2.2, 0.08, 3.8, 0.4],
+      [-1.5, 0.08, 4.2, 0.34],
+      [2.8, 0.08, 3.4, 0.48]
+    ].forEach(([lx, ly, lz, lr]) => {
+      const pad = new THREE.Mesh(new THREE.CylinderGeometry(lr, lr, 0.12, 16), lilyPadMat);
+      pad.position.set(lx, ly, lz);
+      houseGroup.add(pad);
+    });
+
+    // 右上角旧大楼外墙的垂挂绿植藤蔓与半圆形绿色菌群（还原原画右上水道边缘的绿色圆盘植物）
+    for (let i = 0; i < 20; i++) {
+      const vine = new THREE.Mesh(
+        bushGeo,
+        makePainterlyMat(i % 3 === 0 ? '#5ce692' : '#2fb878')
+      );
+      vine.position.set(
+        -5.4,
+        1.2 + Math.random() * 4.8,
+        -3.4 + Math.random() * 7.0
+      );
+      vine.scale.set(0.44, 0.9, 0.58);
+      upperBackTowerGroup.add(vine);
+    }
+
+    // ============================================================================
+    // 9. 手绘水深与物体边缘水花着色器（严格还原原画：无圆形波纹，仅在建筑/木码头/船体边缘生成手绘贴边白线）
+    // ============================================================================
+    const waterUniforms = {
+      uTime: globalUniforms.uTime,
+      uShallowTurquoise: { value: new THREE.Color('#38edd2') },
+      uMidCerulean: { value: new THREE.Color('#1376d2') },
+      uDeepUltramarine: { value: new THREE.Color('#082d80') },
+      uAbyssIndigo: { value: new THREE.Color('#051a54') },
+      uFoamColor: { value: new THREE.Color('#f4fdff') }
+    };
+
+    const waterMat = new THREE.ShaderMaterial({
+      uniforms: waterUniforms,
+      transparent: true,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+      vertexShader: `
+        uniform float uTime;
+        varying vec2 vUv;
+        varying vec3 vWorldPos;
+        varying float vWave;
+
+        void main() {
+          vUv = uv;
+          vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+          float w1 = sin(worldPosition.x * 0.52 + uTime * 1.45) * cos(worldPosition.z * 0.45 + uTime * 1.25);
+          float w2 = sin((worldPosition.x - worldPosition.z) * 0.85 - uTime * 1.85) * 0.45;
+          vWave = (w1 + w2) * 0.055;
+          worldPosition.y += vWave;
+          vWorldPos = worldPosition.xyz;
+          gl_Position = projectionMatrix * viewMatrix * worldPosition;
+        }
+      `,
+      fragmentShader: `
+        uniform float uTime;
+        uniform vec3 uShallowTurquoise;
+        uniform vec3 uMidCerulean;
+        uniform vec3 uDeepUltramarine;
+        uniform vec3 uAbyssIndigo;
+        uniform vec3 uFoamColor;
+        varying vec2 vUv;
+        varying vec3 vWorldPos;
+        varying float vWave;
+
+        float hash(vec2 p) {
+          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+        }
+        float noise(vec2 p) {
+          vec2 i = floor(p);
+          vec2 f = fract(p);
+          f = f * f * (3.0 - 2.0 * f);
+          return mix(
+            mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), f.x),
+            mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x),
+            f.y
+          );
+        }
+
+        // 旋转二维坐标辅助函数（与场景内各建筑朝向严格对齐）
+        vec2 rot2D(vec2 p, float a) {
+          float c = cos(a), s = sin(a);
+          return vec2(c * p.x - s * p.y, s * p.x + c * p.y);
+        }
+
+        // 2D 矩形有向距离场（SDF），用于精确提取建筑四壁的贴边水线，而非圆形圈
+        float sdBox2D(vec2 p, vec2 b) {
+          vec2 d = abs(p) - b;
+          return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
+        }
+
+        // 计算水面任意点到各出水建筑真实轮廓的精确有向距离
+        float getObjectEdgeDist(vec2 xz) {
+          // 1) 右侧木屋所在中层天台 (中心 4.3, -0.5, 尺寸 9.2 x 10.0, 旋转 -0.22)
+          vec2 pMid = rot2D(xz - vec2(4.3, -0.5), -0.22);
+          float dRightMid = sdBox2D(pMid, vec2(4.65, 5.05));
+
+          // 2) 右上角涂鸦工业楼 (中心 2.8, -6.6, 尺寸 10.8 x 8.2, 旋转 -0.22)
+          vec2 pBack = rot2D(xz - vec2(2.8, -6.6), -0.22);
+          float dRightBack = sdBox2D(pBack, vec2(5.45, 4.15));
+
+          // 3) 左上角圆弧玻璃大厦 (中心 -8.6, -3.5, 半径 6.35)
+          float dLeftCyl = length(xz - vec2(-8.6, -3.5)) - 6.35;
+
+          // 4) 左侧附属方柱
+          vec2 pSidePillar = rot2D(xz - vec2(-3.4, -1.1), 0.15);
+          float dPillar = sdBox2D(pSidePillar, vec2(0.8, 0.8));
+
+          return min(min(dRightMid, dRightBack), min(dLeftCyl, dPillar));
+        }
+
+        // 水下浅台水深场（控制水色由浅青向深海群青过渡）
+        float getBathymetry(vec2 xz, float edgeDist) {
+          vec2 pLow = rot2D(xz - vec2(5.0, 3.8), -0.22);
+          float dLow = sdBox2D(pLow, vec2(4.8, 4.6));
+          float subD1 = sdBox2D(rot2D(xz - vec2(-1.75, 5.1), -0.18), vec2(1.85, 1.85));
+          float subD2 = sdBox2D(rot2D(xz - vec2(-3.05, 2.05), 0.12), vec2(1.1, 1.1));
+          float subD3 = sdBox2D(rot2D(xz - vec2(-1.25, -3.5), -0.2), vec2(1.7, 2.1));
+
+          float minD = min(edgeDist, min(dLow * 0.65, min(subD1, min(subD2, subD3))));
+          return clamp(minD / 3.8, 0.0, 1.0);
+        }
+
+        void main() {
+          vec2 xz = vWorldPos.xz;
+          float edgeDist = getObjectEdgeDist(xz);
+          float bathy = getBathymetry(xz, edgeDist);
+
+          // 柔和的手绘水彩底纹（去除了所有环状波纹）
+          vec2 p = xz * 0.36;
+          float n1 = noise(p + vec2(uTime * 0.18, -uTime * 0.14));
+          float n2 = noise(p * 1.9 - vec2(uTime * 0.22, uTime * 0.18));
+          float combined = n1 * 0.6 + n2 * 0.4;
+
+          float toonBrush = smoothstep(0.42, 0.58, combined) * 0.45 +
+                            smoothstep(0.68, 0.78, combined) * 0.35;
+
+          // 依据水深平滑过渡：建筑边缘浅水呈翡翠松石绿 -> 中水孔雀蓝 -> 中央水道深邃群青蓝
+          vec3 shallowMix = mix(uShallowTurquoise, uMidCerulean, smoothstep(0.0, 0.42, bathy));
+          vec3 deepMix = mix(uDeepUltramarine, uAbyssIndigo, smoothstep(0.45, 1.0, bathy));
+          vec3 waterCol = mix(shallowMix, deepMix, smoothstep(0.18, 0.85, bathy));
+
+          // 浅滩处的手绘水彩亮色笔触
+          waterCol = mix(waterCol, uShallowTurquoise, toonBrush * (1.0 - bathy * 0.72) * 0.48);
+
+          // 核心：严格沿着建筑出水边缘生成的断续手绘白线（Object-Edge Foam Contour）
+          float waveJitter = (n1 - 0.5) * 0.18 + sin(xz.x * 2.4 + xz.y * 2.1 + uTime * 2.2) * 0.04;
+          float dJitter = edgeDist + waveJitter;
+
+          // 第一道紧贴墙壁的亮白水花线（宽度仅约 0.18 单位）
+          float mainEdgeLine = (1.0 - smoothstep(0.0, 0.18, abs(dJitter - 0.08))) * step(-0.05, edgeDist);
+          // 第二道紧挨在墙外侧 0.38 单位处的断续手绘细白线（模拟原画墙根处的双层手绘水迹）
+          float gapMask = smoothstep(0.38, 0.52, noise(xz * 1.35 + vec2(uTime * 0.3, -uTime * 0.25)));
+          float secondEdgeLine = (1.0 - smoothstep(0.0, 0.075, abs(dJitter - 0.38))) * gapMask * step(0.0, edgeDist);
+
+          float totalEdgeFoam = clamp(mainEdgeLine * 0.94 + secondEdgeLine * 0.72, 0.0, 1.0);
+          waterCol = mix(waterCol, uFoamColor, totalEdgeFoam);
+
+          // 浅水通透见底，深水浓郁纯净
+          float baseAlpha = mix(0.24, 0.64, smoothstep(0.12, 0.82, bathy));
+          float finalAlpha = clamp(baseAlpha + totalEdgeFoam * 0.55, 0.22, 0.95);
+
+          gl_FragColor = vec4(waterCol, finalAlpha);
+        }
+      `
+    });
+
+    const waterPlane = new THREE.Mesh(new THREE.PlaneGeometry(140, 140, 140, 140), waterMat);
+    waterPlane.rotation.x = -Math.PI / 2;
+    waterPlane.position.y = WATER_LEVEL;
+    scene.add(waterPlane);
+
+    // 紧贴各建筑墙体边缘、木码头木桩边缘与轮胎吃水处的直条手绘白色水际线（完全贴合物体轮廓，绝不画圆圈）
+    const objectEdgeFoamStrips = [];
+    function addStraightEdgeFoam(parent, x, y, z, length, thickness, rotY = 0, phase = 0) {
+      const geo = new THREE.BoxGeometry(length, 0.04, thickness);
+      const mat = new THREE.MeshBasicMaterial({
+        color: '#f5feff',
+        transparent: true,
+        opacity: 0.88
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.position.set(x, y, z);
+      mesh.rotation.y = rotY;
+      parent.add(mesh);
+      objectEdgeFoamStrips.push({ mesh, baseScaleX: 1, baseScaleZ: 1, phase });
+    }
+
+    // 1) 右侧木屋天台四周出水墙壁与木码头前缘的贴边白色水花线
+    addStraightEdgeFoam(rightMidTerrace, -4.65, -0.3, -1.2, 0.16, 3.6, 0, 0.2);
+    addStraightEdgeFoam(rightMidTerrace, -4.65, -0.3, 2.6, 0.16, 2.8, 0, 1.1);
+    addStraightEdgeFoam(rightMidTerrace, 0.4, -0.3, 5.05, 4.5, 0.18, 0, 2.0);
+    addStraightEdgeFoam(rightMidTerrace, 4.65, -0.3, 1.5, 0.16, 4.2, 0, 2.9);
+
+    // 2) 右上角斑驳工业楼左侧水道墙壁下的手绘白色水花条（还原原画右上水道夹缝里的白水线）
+    addStraightEdgeFoam(upperBackTowerGroup, -5.48, -0.3, -1.8, 0.2, 3.4, 0, 0.5);
+    addStraightEdgeFoam(upperBackTowerGroup, -5.48, -0.3, 2.1, 0.18, 2.9, 0, 1.7);
+    addStraightEdgeFoam(upperBackTowerGroup, -1.5, -0.3, 4.15, 5.2, 0.18, 0, 3.1);
+
+    // 3) 左侧高耸立柱与电线杆水下交界处的贴边水花条
+    addStraightEdgeFoam(leftBuildingGroup, 5.3, WATER_LEVEL - 0.28, 3.0, 1.55, 0.16, 0, 1.4);
+    addStraightEdgeFoam(leftBuildingGroup, 6.1, WATER_LEVEL - 0.28, 2.2, 0.16, 1.55, 0, 2.6);
+
+    // ============================================================================
+    // 10. 动态白鸥飞鸟群（Flock of Soaring & Flapping White Seabirds）
+    // ============================================================================
+    const birdsList = [];
+    const birdWingGeo = new THREE.BoxGeometry(0.46, 0.04, 0.18);
+    // 将左右翅膀旋转轴移至内侧根部
+    birdWingGeo.translate(0.23, 0, 0);
+
+    function createSoaringBird({ center, radiusX, radiusZ, baseY, speed, phase, scale = 1 }) {
+      const birdGroup = new THREE.Group();
+      birdGroup.scale.setScalar(scale);
+
+      const birdMat = new THREE.MeshBasicMaterial({ color: '#ffffff' });
+      const wingTipMat = new THREE.MeshBasicMaterial({ color: '#bceeff' });
+
+      // 流线鸟身
+      const body = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.42, 5), birdMat);
+      body.rotation.x = Math.PI / 2;
+      birdGroup.add(body);
+
+      // 左翼与右翼支点
+      const leftWingPivot = new THREE.Group();
+      const leftWing = new THREE.Mesh(birdWingGeo, birdMat);
+      leftWing.rotation.y = -0.15;
+      leftWingPivot.add(leftWing);
+      birdGroup.add(leftWingPivot);
+
+      const rightWingPivot = new THREE.Group();
+      const rightWing = new THREE.Mesh(birdWingGeo, wingTipMat);
+      rightWing.scale.x = -1;
+      rightWing.rotation.y = 0.15;
+      rightWingPivot.add(rightWing);
+      birdGroup.add(rightWingPivot);
+
+      // 水面下方的柔和飞鸟倒影点
+      const shadowDot = new THREE.Mesh(
+        new THREE.CircleGeometry(0.18 * scale, 8),
+        new THREE.MeshBasicMaterial({ color: '#062360', transparent: true, opacity: 0.28 })
+      );
+      shadowDot.rotation.x = -Math.PI / 2;
+      scene.add(shadowDot);
+
+      scene.add(birdGroup);
+      birdsList.push({
+        group: birdGroup,
+        leftWingPivot,
+        rightWingPivot,
+        shadowDot,
+        center,
+        radiusX,
+        radiusZ,
+        baseY,
+        speed,
+        phase,
+        flapSpeed: 6.5 + Math.random() * 3.0
+      });
+    }
+
+    // 在峡谷水道上空、屋顶花园与太阳能木屋之间布置 7 只盘旋与滑翔的白色水鸟
+    createSoaringBird({ center: new THREE.Vector3(-1.2, 0, 0.2), radiusX: 4.8, radiusZ: 3.6, baseY: 6.8, speed: 0.52, phase: 0.0, scale: 1.15 });
+    createSoaringBird({ center: new THREE.Vector3(-0.8, 0, 0.6), radiusX: 4.5, radiusZ: 3.4, baseY: 7.2, speed: 0.52, phase: -0.35, scale: 0.95 });
+    createSoaringBird({ center: new THREE.Vector3(1.5, 0, -1.5), radiusX: 5.5, radiusZ: 4.2, baseY: 8.4, speed: 0.44, phase: 1.8, scale: 1.05 });
+    createSoaringBird({ center: new THREE.Vector3(-3.5, 0, -1.0), radiusX: 4.2, radiusZ: 4.8, baseY: 7.6, speed: 0.48, phase: 3.2, scale: 1.0 });
+    createSoaringBird({ center: new THREE.Vector3(0.5, 0, 2.2), radiusX: 6.0, radiusZ: 3.8, baseY: 9.2, speed: 0.38, phase: 4.5, scale: 0.9 });
+    createSoaringBird({ center: new THREE.Vector3(-2.0, 0, 1.5), radiusX: 3.6, radiusZ: 3.0, baseY: 5.8, speed: 0.58, phase: 2.4, scale: 1.1 });
+    createSoaringBird({ center: new THREE.Vector3(2.2, 0, 0.8), radiusX: 5.0, radiusZ: 4.5, baseY: 8.0, speed: 0.46, phase: 5.1, scale: 0.88 });
+
+    // ============================================================================
+    // 11. 水下鱼群、上升气泡串与空气金色浮游微粒
+    // ============================================================================
+    const fishList = [];
+    const fishGeo = new THREE.ConeGeometry(0.14, 0.52, 5);
+    fishGeo.rotateX(Math.PI / 2);
+    const fishColors = ['#ff9b42', '#ffd24c', '#ff6488', '#74ffea'];
+
+    for (let i = 0; i < 24; i++) {
+      const fish = new THREE.Mesh(
+        fishGeo,
+        new THREE.MeshBasicMaterial({ color: fishColors[i % fishColors.length] })
+      );
+      const center = new THREE.Vector3(
+        -1.5 + (Math.random() - 0.5) * 6.5,
+        -0.3 - Math.random() * 4.5,
+        (Math.random() - 0.5) * 8.5
+      );
+      scene.add(fish);
+      fishList.push({
+        mesh: fish,
+        center,
+        radiusX: 1.2 + Math.random() * 2.5,
+        radiusZ: 1.2 + Math.random() * 2.5,
+        speed: 0.45 + Math.random() * 0.55,
+        phase: Math.random() * Math.PI * 2
+      });
+    }
+
+    const particleCount = 150;
+    const particleGeo = new THREE.BufferGeometry();
+    const pPositions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      pPositions[i * 3] = (Math.random() - 0.5) * 30;
+      pPositions[i * 3 + 1] = -4 + Math.random() * 15;
+      pPositions[i * 3 + 2] = (Math.random() - 0.5) * 26;
+    }
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+    const particleMat = new THREE.PointsMaterial({
+      color: '#fff7c2',
+      size: 0.16,
+      transparent: true,
+      opacity: 0.74
+    });
+    const particleSystem = new THREE.Points(particleGeo, particleMat);
+    scene.add(particleSystem);
+
+    // ============================================================================
+    // 12. 交互控制、水面点击涟漪检测与多视角切换
+    // ============================================================================
+    let cameraMode = 'original';
+    let boatCruising = false;
+
+    const btnCamOriginal = document.getElementById('btn-cam-original');
+    const btnCamBoat = document.getElementById('btn-cam-boat');
+    const btnCamOrbit = document.getElementById('btn-cam-orbit');
+    const btnBoatToggle = document.getElementById('btn-boat-toggle');
+    const btnRefToggle = document.getElementById('btn-ref-toggle');
+    const refCard = document.getElementById('ref-card');
+    const refClose = document.getElementById('ref-close');
+
+    function setCameraMode(mode) {
+      cameraMode = mode;
+      [btnCamOriginal, btnCamBoat, btnCamOrbit].forEach(b => b.classList.remove('active'));
+      if (mode === 'original') {
+        btnCamOriginal.classList.add('active');
+        camera.position.copy(ORIGINAL_CAM_POS);
+        controls.target.copy(ORIGINAL_CAM_TARGET);
+        controls.update();
+      } else if (mode === 'boat') {
+        btnCamBoat.classList.add('active');
+      } else if (mode === 'orbit') {
+        btnCamOrbit.classList.add('active');
+      }
+    }
+
+    function toggleBoatCruise() {
+      boatCruising = !boatCruising;
+      if (boatCruising) {
+        btnBoatToggle.textContent = '🚤 航行：水道巡航';
+        btnBoatToggle.classList.add('active');
+      } else {
+        btnBoatToggle.textContent = '⚓ 航行：原位摇曳';
+        btnBoatToggle.classList.add('active');
+      }
+    }
+
+    btnCamOriginal.addEventListener('click', () => setCameraMode('original'));
+    btnCamBoat.addEventListener('click', () => setCameraMode('boat'));
+    btnCamOrbit.addEventListener('click', () => setCameraMode('orbit'));
+    btnBoatToggle.addEventListener('click', toggleBoatCruise);
+
+    btnRefToggle.addEventListener('click', () => {
+      refCard.classList.toggle('hidden');
+      btnRefToggle.classList.toggle('active', !refCard.classList.contains('hidden'));
+    });
+    refClose.addEventListener('click', () => {
+      refCard.classList.add('hidden');
+      btnRefToggle.classList.remove('active');
+    });
+
+    controls.addEventListener('start', () => {
+      if (cameraMode === 'orbit') {
+        cameraMode = 'free';
+        [btnCamOriginal, btnCamBoat, btnCamOrbit].forEach(b => b.classList.remove('active'));
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        toggleBoatCruise();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // ============================================================================
+    // 13. 主动画循环
+    // ============================================================================
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      globalUniforms.uTime.value = t;
+
+      // 1) 小船动态：原位随波摇曳 / 水道巡航
+      if (boatCruising) {
+        const cycle = Math.sin(t * 0.45);
+        const targetZ = 1.45 - cycle * 3.8;
+        const targetX = -0.75 + cycle * 1.6 + Math.sin(t * 0.9) * 0.28;
+        boatAnchorGroup.position.x = THREE.MathUtils.lerp(boatAnchorGroup.position.x, targetX, 0.05);
+        boatAnchorGroup.position.z = THREE.MathUtils.lerp(boatAnchorGroup.position.z, targetZ, 0.05);
+        boatAnchorGroup.rotation.y = BOAT_HOME_ROT_Y + Math.cos(t * 0.45) * 0.14;
+      } else {
+        const driftX = BOAT_HOME_POS.x + Math.sin(t * 0.85) * 0.11;
+        const driftZ = BOAT_HOME_POS.z + Math.cos(t * 0.7) * 0.13;
+        boatAnchorGroup.position.x = THREE.MathUtils.lerp(boatAnchorGroup.position.x, driftX, 0.08);
+        boatAnchorGroup.position.z = THREE.MathUtils.lerp(boatAnchorGroup.position.z, driftZ, 0.08);
+        boatAnchorGroup.rotation.y = THREE.MathUtils.lerp(
+          boatAnchorGroup.rotation.y,
+          BOAT_HOME_ROT_Y + Math.sin(t * 0.6) * 0.04,
+          0.08
+        );
+      }
+
+      boatAnchorGroup.position.y = BOAT_HOME_POS.y + Math.sin(t * 2.1) * 0.075;
+      boatMeshGroup.rotation.z = Math.sin(t * 1.7) * 0.05;
+      boatMeshGroup.rotation.x = Math.cos(t * 1.35) * 0.038;
+
+      // 2) 船体贴边白色水花线呼吸与脉动（紧贴船壳边缘）
+      boatEdgeFoams.forEach((bf) => {
+        const pulse = 1.0 + Math.sin(t * 2.8 + bf.phase) * 0.06;
+        bf.mesh.scale.set(pulse, 0.25, pulse);
+        bf.mesh.material.opacity = 0.72 + Math.sin(t * 3.0 + bf.phase) * 0.22;
+      });
+
+      // 3) 建筑与平台出水边缘贴边水花条的轻微呼吸
+      objectEdgeFoamStrips.forEach((ef) => {
+        const s = 1.0 + Math.sin(t * 2.2 + ef.phase) * 0.08;
+        ef.mesh.scale.set(ef.baseScaleX * s, 1, ef.baseScaleZ);
+        ef.mesh.material.opacity = 0.68 + Math.sin(t * 2.5 + ef.phase) * 0.2;
+      });
+
+      // 4) 左上角屋顶浅水池内壁贴边浪花线呼吸
+      poolEdgeFoamSegments.forEach((pf) => {
+        pf.mesh.material.opacity = 0.6 + Math.sin(t * 2.4 + pf.phase) * 0.25;
+      });
+
+      // 5) 飞鸟盘旋与振翅滑翔动画
+      birdsList.forEach((b) => {
+        const angle = t * b.speed + b.phase;
+        const bx = b.center.x + Math.cos(angle) * b.radiusX;
+        const bz = b.center.z + Math.sin(angle) * b.radiusZ;
+        const by = b.baseY + Math.sin(t * 1.4 + b.phase) * 0.65;
+
+        // 计算切线朝向，让飞鸟始终顺着飞行轨迹俯冲与转弯倾斜
+        const nextAngle = angle + 0.05;
+        const nbx = b.center.x + Math.cos(nextAngle) * b.radiusX;
+        const nbz = b.center.z + Math.sin(nextAngle) * b.radiusZ;
+        b.group.position.set(bx, by, bz);
+        b.group.lookAt(nbx, by, nbz);
+
+        // 间歇性振翅与滑翔交替 (Flapping & Gliding)
+        const glideMask = 0.45 + 0.55 * Math.sin(t * 1.2 + b.phase);
+        const flap = Math.sin(t * b.flapSpeed + b.phase) * 0.55 * glideMask + 0.15;
+        b.leftWingPivot.rotation.z = flap;
+        b.rightWingPivot.rotation.z = -flap;
+
+        // 水面飞鸟投影跟随
+        b.shadowDot.position.set(bx, WATER_LEVEL + 0.02, bz);
+      });
+
+      // 6) 悬垂电缆与屋顶/水下植被随风摇曳
+      dynamicCables.forEach((cab, idx) => {
+        cab.mesh.position.x = Math.sin(t * 1.4 + idx) * 0.06;
+        cab.mesh.position.y = Math.cos(t * 1.8 + idx) * 0.04;
+      });
+
+      swayingPlants.forEach((p) => {
+        p.mesh.rotation.z = p.baseRotZ + Math.sin(t * p.speed + p.phase) * p.amp;
+      });
+
+      // 7) 水下鱼群环游
+      fishList.forEach((f) => {
+        const angle = t * f.speed + f.phase;
+        const nx = f.center.x + Math.cos(angle) * f.radiusX;
+        const nz = f.center.z + Math.sin(angle) * f.radiusZ;
+        const ny = f.center.y + Math.sin(t * 1.5 + f.phase) * 0.25;
+        f.mesh.lookAt(nx, ny, nz);
+        f.mesh.position.set(nx, ny, nz);
+      });
+
+      // 8) 阳光微粒缓慢上升
+      const posAttr = particleGeo.attributes.position;
+      for (let i = 0; i < particleCount; i++) {
+        let py = posAttr.getY(i) + 0.008;
+        if (py > 12) py = -4;
+        posAttr.setY(i, py);
+      }
+      posAttr.needsUpdate = true;
+
+      // 9) 相机模式更新
+      if (cameraMode === 'boat') {
+        const desiredTarget = boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 0.6, 0));
+        const desiredCamPos = boatAnchorGroup.position.clone().add(new THREE.Vector3(-5.5, 9.5, 9.5));
+        controls.target.lerp(desiredTarget, 0.05);
+        camera.position.lerp(desiredCamPos, 0.05);
+      } else if (cameraMode === 'orbit') {
+        const orbitAngle = t * 0.22;
+        const r = 28;
+        camera.position.x = Math.sin(orbitAngle) * r;
+        camera.position.z = Math.cos(orbitAngle) * r;
+        camera.position.y = 22 + Math.sin(t * 0.4) * 2.5;
+        controls.target.lerp(ORIGINAL_CAM_TARGET, 0.05);
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
