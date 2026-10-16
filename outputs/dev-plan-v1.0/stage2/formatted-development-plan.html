@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="docx-page-size" content="A4">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>《淹没之城：晴空水巷》首个 20 分钟可玩 Demo 开发计划</title>
+<style>
+:root {
+  --color-text: #243447;
+  --color-ink: var(--color-text);
+  --color-muted: #64748b;
+  --color-soft: #eef4f8;
+  --color-line: #d8e2ea;
+  --color-primary: #176b87;
+  --color-primary-deep: #0e4f67;
+  --color-accent: #e6a35c;
+  --color-accent-soft: #fff5e8;
+  --color-success: #3f8f75;
+  --color-code: #f5f8fa;
+  --color-white: #ffffff;
+  --color-page-bg: #edf2f5;
+  --color-cover-start: #f8fbfc;
+  --color-cover-end: #eef7f5;
+  --color-table-alt: #fbfdfe;
+  --color-code-label: #e9f0f3;
+  --color-shadow: rgba(36, 52, 71, 0.12);
+  --color-transparent: transparent;
+  --ff-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  --ff-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  --ff-mono: "SFMono-Regular", Consolas, "Liberation Mono", "Courier New", monospace;
+  --fs-body: 10.5pt;
+  --fs-small: 8.5pt;
+  --fs-h1: 28pt;
+  --fs-h2: 17pt;
+  --fs-h3: 12.5pt;
+  --fs-h4: 10.8pt;
+  --fs-code: 8.2pt;
+  --fs-inline-code: 0.92em;
+  --spacing-0: 0;
+  --spacing-1: 0.18rem;
+  --spacing-2: 0.4rem;
+  --spacing-3: 0.65rem;
+  --spacing-4: 0.9rem;
+  --spacing-5: 1.3rem;
+  --spacing-6: 1.8rem;
+  --spacing-7: 1.25rem;
+  --spacing-8: 2rem;
+  --spacing-9: 1.55rem;
+  --spacing-10: 0.15rem;
+  --spacing-11: 1.2em;
+  --spacing-12: 0.08em;
+  --spacing-13: 0.3em;
+  --spacing-14: 0.28rem;
+  --spacing-15: 0.7rem;
+  --spacing-border-thin: 1px;
+  --spacing-border-heading: 2px;
+  --spacing-border-accent: 3px;
+  --spacing-border-strong: 5px;
+  --spacing-inline-code-y: 0.08em;
+  --spacing-inline-code-x: 0.3em;
+  --spacing-code-label-y: 0.28rem;
+  --spacing-code-label-x: 0.7rem;
+  --spacing-list: 1.55rem;
+  --spacing-list-item: 0.15rem;
+  --spacing-checkbox: 1.2em;
+  --spacing-column-gap: 2rem;
+  --spacing-shadow-y: 8px;
+  --spacing-shadow-blur: 30px;
+  --spacing-screen: 24px;
+  --spacing-section: 2.2rem;
+  --spacing-letter-wide: 0.16em;
+  --spacing-letter-tight: 0.02em;
+  --spacing-letter-heading: 0.08em;
+  --margin-page: 18mm;
+  --page-content-width: 174mm;
+  --radius: 7px;
+  --radius-inline: 3px;
+}
+@page { size: A4; margin: var(--margin-page); @bottom-center { content: "第 " counter(page) " 页 / 共 " counter(pages) " 页"; color: var(--color-muted); font-size: var(--fs-small); } }
+@page cover { @bottom-center { content: none; } }
+section[role="cover"] { page: cover; }
+section[role="body"] { page: auto; }
+* { box-sizing: border-box; }
+html { background: var(--color-page-bg); }
+body { max-width: var(--page-content-width); margin: var(--spacing-0) auto; color: var(--color-text); background: var(--color-white); font-family: var(--ff-body); font-size: var(--fs-body); line-height: 1.72; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+section[role="cover"] { min-height: 245mm; padding: 25mm 11mm 15mm; display: block; background: linear-gradient(145deg, var(--color-cover-start) 0%, var(--color-white) 64%, var(--color-cover-end) 100%); border-bottom: var(--spacing-border-strong) solid var(--color-primary); }
+.cover-kicker { text-align: center; color: var(--color-primary); font-size: var(--fs-small); font-weight: 700; letter-spacing: var(--spacing-letter-wide); margin: var(--spacing-0) var(--spacing-0) var(--spacing-6); }
+.cover-title { text-align: center; color: var(--color-primary-deep); font-family: var(--ff-heading); font-size: var(--fs-h1); line-height: 1.24; letter-spacing: var(--spacing-letter-tight); margin: var(--spacing-0) auto var(--spacing-4); max-width: 145mm; }
+.cover-subtitle { text-align: center; color: var(--color-muted); font-size: var(--fs-h3); margin: var(--spacing-0) auto var(--spacing-6); }
+.cover-meta { width: 100%; border-collapse: collapse; margin: 19mm auto var(--spacing-0); border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); }
+.cover-meta th, .cover-meta td { padding: var(--spacing-3) var(--spacing-4); border-bottom: 1px solid var(--color-line); vertical-align: top; text-align: left; }
+.cover-meta tr:last-child th, .cover-meta tr:last-child td { border-bottom: var(--spacing-0); }
+.cover-meta th { width: 28mm; color: var(--color-primary-deep); font-size: var(--fs-small); font-weight: 700; white-space: nowrap; }
+.cover-meta td { color: var(--color-text); }
+.cover-note { text-align: center; color: var(--color-muted); font-size: var(--fs-small); margin-top: 25mm; }
+section[role="body"] { padding: var(--spacing-0); }
+.body-inner { padding: var(--spacing-0); }
+.doc-nav { margin: var(--spacing-0) var(--spacing-0) var(--spacing-6); padding: var(--spacing-4) var(--spacing-5); border: 1px solid var(--color-line); border-left: var(--spacing-border-accent) solid var(--color-primary); background: var(--color-soft); break-inside: avoid; }
+.doc-nav h2 { font-size: var(--fs-h3); margin: var(--spacing-0) var(--spacing-0) var(--spacing-2); color: var(--color-primary-deep); }
+.doc-nav ul { margin: var(--spacing-0); padding-left: var(--spacing-list); columns: 2; column-gap: var(--spacing-column-gap); }
+.doc-nav li { margin: var(--spacing-0); padding: var(--spacing-0); break-inside: avoid; font-size: var(--fs-small); }
+.doc-nav a { color: var(--color-primary-deep); text-decoration: none; }
+.executive-summary { margin: 0 0 var(--spacing-section); padding: var(--spacing-5); border: 1px solid var(--color-line); border-top: var(--spacing-border-strong) solid var(--color-primary); background: var(--color-accent-soft); break-inside: avoid; }
+.executive-summary-title { margin: 0 0 var(--spacing-3); color: var(--color-primary-deep); font-size: var(--fs-h2); }
+.executive-summary p { margin-bottom: var(--spacing-3); }
+.executive-summary-list { margin: var(--spacing-2) 0 var(--spacing-3); padding-left: var(--spacing-list); }
+.executive-summary-list li { margin-bottom: var(--spacing-2); }
+.section-lead { color: var(--color-muted); margin-top: calc(var(--spacing-2) * -1); }
+h2, h3, h4 { font-family: var(--ff-heading); color: var(--color-primary-deep); font-weight: 750; line-height: 1.32; }
+h2 { font-size: var(--fs-h2); margin: var(--spacing-0) var(--spacing-0) var(--spacing-4); padding-bottom: var(--spacing-2); border-bottom: var(--spacing-border-heading) solid var(--color-primary); break-after: avoid; }
+h2.major-heading { break-before: page; padding-top: var(--spacing-2); }
+h2.major-heading:first-of-type { break-before: auto; }
+h2 .heading-index { display: inline-block; color: var(--color-accent); font-size: var(--fs-small); letter-spacing: var(--spacing-letter-heading); margin-right: var(--spacing-2); vertical-align: middle; }
+h3 { font-size: var(--fs-h3); margin: var(--spacing-6) var(--spacing-0) var(--spacing-2); padding-left: var(--spacing-3); border-left: var(--spacing-border-accent) solid var(--color-accent); break-after: avoid; }
+h4 { font-size: var(--fs-h4); margin: var(--spacing-4) var(--spacing-0) var(--spacing-2); }
+p { margin: var(--spacing-0) var(--spacing-0) var(--spacing-4); orphans: 3; widows: 3; }
+strong { color: var(--color-primary-deep); font-weight: 750; }
+code { color: var(--color-primary-deep); background: var(--color-code); padding: var(--spacing-inline-code-y) var(--spacing-inline-code-x); border-radius: var(--radius-inline); font-family: var(--ff-mono); font-size: var(--fs-inline-code); }
+.section-divider { height: var(--spacing-border-thin); border-top: 1px solid var(--color-line); margin: var(--spacing-5) var(--spacing-0); }
+.table-wrap { width: 100%; overflow: visible; margin: var(--spacing-4) var(--spacing-0) var(--spacing-5); break-inside: auto; }
+.data-table { width: 100%; border-collapse: collapse; table-layout: auto; font-size: var(--fs-small); line-height: 1.52; }
+.data-table thead { display: table-header-group; }
+.data-table tr { break-inside: avoid; }
+.data-table th, .data-table td { border: 1px solid var(--color-line); padding: var(--spacing-2) var(--spacing-3); vertical-align: top; text-align: left; }
+.data-table th { color: var(--color-primary-deep); background: var(--color-soft); font-weight: 750; }
+.data-table tbody tr:nth-child(even) td { background: var(--color-table-alt); }
+ul, ol { margin: var(--spacing-2) var(--spacing-0) var(--spacing-5); padding-left: var(--spacing-list); }
+li { margin: var(--spacing-0) var(--spacing-0) var(--spacing-2); padding-left: var(--spacing-list-item); }
+li::marker { color: var(--color-primary); font-weight: 700; }
+.task-list { list-style: none; padding-left: var(--spacing-0); }
+.task-list li { display: flex; gap: var(--spacing-2); align-items: flex-start; }
+.check-box { flex: 0 0 var(--spacing-checkbox); color: var(--color-success); font-family: var(--ff-body); font-weight: 700; line-height: 1.72; }
+.code-block { margin: var(--spacing-4) var(--spacing-0) var(--spacing-5); border: 1px solid var(--color-line); border-radius: var(--radius); overflow: hidden; background: var(--color-code); break-inside: avoid; }
+.code-label { padding: var(--spacing-code-label-y) var(--spacing-code-label-x); background: var(--color-code-label); color: var(--color-muted); font-size: var(--fs-small); font-weight: 750; letter-spacing: var(--spacing-letter-heading); }
+pre { margin: var(--spacing-0); padding: var(--spacing-4) var(--spacing-5); overflow: visible; white-space: pre-wrap; word-break: break-word; }
+pre code { padding: var(--spacing-0); color: var(--color-text); background: var(--color-transparent); font-size: var(--fs-code); line-height: 1.55; }
+@media screen { body { margin-top: var(--spacing-screen); margin-bottom: var(--spacing-screen); box-shadow: 0 var(--spacing-shadow-y) var(--spacing-shadow-blur) var(--color-shadow); } section[role="body"] { padding: 18mm 11mm 20mm; } }
+@media print { html { background: var(--color-white); } body { max-width: none; box-shadow: none; } section[role="body"] { padding: var(--spacing-0); } .doc-nav a { color: var(--color-primary-deep); } }
+</style>
+</head>
+<body>
+<section role="cover">
+  <p class="cover-kicker">GAME PROJECT · DEVELOPMENT PLAN</p>
+  <h1 class="cover-title">《淹没之城：晴空水巷》首个 20 分钟可玩 Demo 开发计划</h1>
+  <p class="cover-subtitle">首个 20 分钟可玩 Demo · 项目评审与打印版</p>
+  <table class="cover-meta"><tbody><tr><th>版本</th><td>V1.0 &nbsp;</td></tr><tr><th>计划基线</th><td><code>GDD_V1.0.md</code> &nbsp;</td></tr><tr><th>适用工程</th><td><code>/Users/summercards/WorkBuddy/sea</code> &nbsp;</td></tr><tr><th>计划目标</th><td>在现有 Three.js 水下场景基础上，完成首个可连续体验的 20 分钟玩法 Demo。</td></tr></tbody></table>
+  <p class="cover-note">版本基线文档 · 面向产品、设计与工程协作评审</p>
+</section>
+<section role="body" data-page-restart="1">
+  <div class="body-inner">
+    <nav class="doc-nav" aria-label="文档导航"><h2>文档导航</h2><ul><li><a href="#1-计划概述">1. 计划概述</a></li><li><a href="#2-总体目标与非目标">2. 总体目标与非目标</a></li><li><a href="#3-当前基线">3. 当前基线</a></li><li><a href="#4-四个里程碑总览">4. 四个里程碑总览</a></li><li><a href="#5-p0-首个可运行闭环">5. P0：首个可运行闭环</a></li><li><a href="#6-p1-资源经营与船只成长">6. P1：资源经营与船只成长</a></li><li><a href="#7-p2-世界反馈与生活感">7. P2：世界反馈与生活感</a></li><li><a href="#8-p3-产品化与长期维护">8. P3：产品化与长期维护</a></li><li><a href="#9-建议模块边界">9. 建议模块边界</a></li><li><a href="#10-建议数据结构">10. 建议数据结构</a></li><li><a href="#11-首个-20-分钟体验设计">11. 首个 20 分钟体验设计</a></li><li><a href="#12-测试计划">12. 测试计划</a></li><li><a href="#13-风险与降级策略">13. 风险与降级策略</a></li><li><a href="#14-首阶段执行顺序">14. 首阶段执行顺序</a></li><li><a href="#15-definition-of-done">15. Definition of Done</a></li><li><a href="#16-最终执行结论">16. 最终执行结论</a></li></ul></nav>
+    <section class="executive-summary" aria-labelledby="executive-summary-title">
+      <h2 id="executive-summary-title" class="executive-summary-title">执行摘要</h2>
+      <p>本计划的目标是在现有 Three.js 水下场景与交互原型基础上，交付首个可连续体验的 20 分钟玩法 Demo；当前基线已具备三个可交互区域、建筑建设/收取/升级、角色与船只航行、场景动态表现及两份回归测试，但仍缺少首局任务链、多资源库存、打捞、船只成长、区域解锁与持久化。</p>
+      <p><strong>当前基线：</strong>保留现有视觉资产和场景架构，优先补齐玩法垂直切片，避免以继续增加装饰模型替代核心流程建设。</p>
+      <p><strong>四个里程碑：</strong></p>
+      <ul class="executive-summary-list">
+        <li><strong>P0：</strong>把现有能力串成从进入、建设、收取、升级到航行的最小闭环。</li>
+        <li><strong>P1：</strong>补齐木料、旧零件、打捞、码头、船只升级与区域解锁，完成 20 分钟 Demo。</li>
+        <li><strong>P2：</strong>增加居民、区域复兴、发现事件和生活反馈，让世界随建设持续恢复。</li>
+        <li><strong>P3：</strong>完成存档、性能、兼容性、配置化和自动化测试，形成长期维护基础。</li>
+      </ul>
+      <p><strong>交付门槛：</strong>新玩家 30 秒内理解目标，3 分钟内完成第一次建设，12 分钟内完成家园升级，20 分钟内完成船只升级并抵达新区域；全程无运行时错误，现有回归测试继续通过，且新增内容不破坏场景艺术、UI 锚点与窄屏体验。</p>
+    </section>
+    <h2 id="1-计划概述" class="major-heading">1. 计划概述</h2>
+    <p class="section-lead">本章说明项目定位、首个 Demo 的核心目标，以及用于判断是否完成交付的体验结果。</p>
+<h3>1.1 项目定位</h3>
+<p>《淹没之城：晴空水巷》是一款治愈系水上家园建造与轻度资源经营游戏。</p>
+<p>玩家从一座被海水淹没的城市废墟出发，在屋顶、码头和沉没街区之间往返：</p>
+<ol><li>发现可修复的建筑与种植空间。</li><li>修复第一块屋顶或种植床。</li><li>观察植物、设施和生活细节逐步生长。</li><li>收集海贝、木料、旧零件等资源。</li><li>升级太阳能木屋和船只。</li><li>驶向新的沉没街区，看到下一阶段的建设目标。</li></ol>
+<h3>1.2 首个 Demo 的核心目标</h3>
+<p>首个 Demo 不追求完整游戏内容，而是验证一条连续、可理解、可重复体验的 20 分钟核心流程：</p>
+<div class="code-block"><div class="code-label">TEXT</div><pre><code class="language-text">起始木屋
+  → 发现可建设地点
+  → 修复第一块种植床
+  → 种植并等待生长
+  → 收获海贝或基础资源
+  → 升级太阳能木屋
+  → 收集船只升级材料
+  → 在码头升级木船
+  → 驶向远处沉没街区
+  → 看到下一座待建设屋顶</code></pre></div>
+<h3>1.3 Demo 交付判断</h3>
+<p>首个 20 分钟 Demo 至少应满足以下体验结果：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>玩家在首次进入后 30 秒内知道自己可以点击建筑、船只或角色。</span></li><li><span class="check-box">☐</span><span>玩家在前 3 分钟内完成一次明确的建设行为。</span></li><li><span class="check-box">☐</span><span>玩家能观察到建设过程中的阶段性变化，而不是只看到数字变化。</span></li><li><span class="check-box">☐</span><span>玩家在 7 分钟左右完成一次资源收取或资源分配。</span></li><li><span class="check-box">☐</span><span>玩家在 12 分钟左右完成太阳能木屋或家园中心升级。</span></li><li><span class="check-box">☐</span><span>玩家在 20 分钟以内完成一次船只升级并驶向新的区域。</span></li><li><span class="check-box">☐</span><span>Demo 结束时，玩家对“下一座屋顶可以建设成什么”产生明确期待。</span></li><li><span class="check-box">☐</span><span>核心流程不依赖战斗、复杂菜单或长时间阅读。</span></li></ul>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="2-总体目标与非目标" class="major-heading">2. 总体目标与非目标</h2>
+<h3>2.1 总体目标</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>目标</th><th>说明</th><th>验证方式</th></tr></thead><tbody><tr><td>完成首个 20 分钟核心闭环</td><td>从起始木屋开始，完成建设、收获、升级、航行</td><td>浏览器端关键路径测试</td></tr><tr><td>保留现有视觉资产</td><td>延续水下建筑、手绘水彩、水面焦散和巨鲸等视觉特色</td><td>场景视觉回归</td></tr><tr><td>统一三个现有可玩区域的职责</td><td>晴空水巷、横滨沉没铁道、天台种植园分别承担不同功能</td><td>区域功能验收</td></tr><tr><td>建立最小多资源系统</td><td>在现有海贝基础上增加木料与旧零件，服务修缮和船只升级</td><td>资源状态测试</td></tr><tr><td>建立船只成长关系</td><td>船只升级必须影响可见表现或可访问区域</td><td>船只升级测试</td></tr><tr><td>保持极简场景交互</td><td>不重新引入常驻底部工具栏，优先使用场景热点与行动菜单</td><td>UI 回归测试</td></tr><tr><td>保证已有回归能力不倒退</td><td>保持 UI 锚点、收取优先级、升级状态和场景生长测试通过</td><td>两份现有回归测试</td></tr></tbody></table></div>
+<h3>2.2 非目标</h3>
+<p>以下内容不纳入首个 20 分钟 Demo 的交付范围：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>不实现完整自由放置、旋转和拆除式家园建造。</span></li><li><span class="check-box">☐</span><span>不实现战斗、敌人、生命值、武器或失败条件。</span></li><li><span class="check-box">☐</span><span>不实现多人联机、社交关系或玩家间交易。</span></li><li><span class="check-box">☐</span><span>不实现开放世界自由驾驶和实时船只碰撞。</span></li><li><span class="check-box">☐</span><span>不实现完整天气、潮汐、昼夜和季节系统。</span></li><li><span class="check-box">☐</span><span>不实现复杂居民职业、对话树和任务编辑器。</span></li><li><span class="check-box">☐</span><span>不实现完整生产链、复杂配方和大规模仓储管理。</span></li><li><span class="check-box">☐</span><span>不在首个 Demo 中扩展大量新区域。</span></li><li><span class="check-box">☐</span><span>不以继续增加装饰模型作为主要开发目标。</span></li><li><span class="check-box">☐</span><span>不替换现有 Three.js 场景架构。</span></li></ul>
+<h3>2.3 设计取舍原则</h3>
+<ol><li><strong>先保证流程完整，再增加内容数量。</strong></li><li><strong>先让资源和升级形成闭环，再扩展资源种类。</strong></li><li><strong>先让船只升级有明确作用，再增加复杂航海玩法。</strong></li><li><strong>先保证玩家看懂目标，再优化数值深度。</strong></li><li><strong>任何新增系统都必须服务于首个 20 分钟体验。</strong></li></ol>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="3-当前基线" class="major-heading">3. 当前基线</h2>
+<h3>3.1 工程文件基线</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>文件</th><th>当前职责</th><th>已有能力</th><th>当前缺口</th></tr></thead><tbody><tr><td><code>index.html</code></td><td>Three.js 启动入口、渲染器、相机、灯光、水面材质与场景装配</td><td>已有 WebGL 渲染器、俯视构图、轨道控制器、灯光、阴影、水面 Shader、场景动画循环</td><td>入口职责偏重；场景初始化和部分历史控制逻辑仍集中在单文件</td></tr><tr><td><code>gameplay.js</code></td><td>游戏玩法、UI 动态创建、角色状态机、区域航行、建筑升级与资源逻辑</td><td>已有海贝、建筑热点、收取、升级、角色登船、划船、靠岸、行动菜单、三个区域和建设点</td><td>缺少木料、旧零件、仓储、打捞站、码头升级、任务链和持久化</td></tr><tr><td><code>scene-art.js</code></td><td>场景结构细化、可种植地块、废墟轮廓、修缮构件和动态艺术表现</td><td>已有屋顶花床、铁道站台、开放式工业楼、断桥、废墟轮廓、植物生长和修缮动画、部分静态合批</td><td>与玩法状态的绑定仍较隐式，需要明确视觉状态接口</td></tr><tr><td><code>ui.css</code></td><td>HUD、悬停卡片、建筑操作点、行动环、目的地菜单、建造进度和窄屏适配</td><td>已实现极简暖白 UI、44px 热区、悬停卡片、收取与升级图标、目的地选择、移动端和减少动效支持</td><td>缺少任务目标提示、资源分类显示、船只升级反馈和 Demo 阶段提示</td></tr><tr><td><code>tests/ui-regression.cjs</code></td><td>UI 与交互回归测试</td><td>已覆盖收取、收取优先级、余额不足、升级扣费、建造完成、悬停卡片、相机锚点、目的地菜单、窄屏和运行时错误</td><td>尚未覆盖完整首局流程、跨区域建设、船只升级和刷新恢复</td></tr><tr><td><code>tests/scene-art-regression.cjs</code></td><td>场景结构与动态表现回归测试</td><td>已覆盖干燥地块、四类废墟轮廓、土壤变湿、幼苗生长、修缮构件、动态变形和 Shader 编译</td><td>尚未覆盖船只升级后的场景变化、完整 Demo 时间线和性能阈值</td></tr></tbody></table></div>
+<h3>3.2 当前玩法能力</h3>
+<p>当前工程已经具备一个较完整的交互式视觉原型：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>Three.js 水下手绘水彩场景。</span></li><li><span class="check-box">☐</span><span>高角度俯视镜头、灯光、雾效、阴影和水面动画。</span></li><li><span class="check-box">☐</span><span>水深色彩分层、焦散和建筑边缘水花。</span></li><li><span class="check-box">☐</span><span>太阳能木屋、沉没铁道、天台种植园和周边废墟。</span></li><li><span class="check-box">☐</span><span>船只、角色、黑猫、鱼群、飞鸟、水母、魔鬼鱼和巨鲸动画。</span></li><li><span class="check-box">☐</span><span>三个可交互建设点：晴空水巷太阳能木屋花圃、横滨沉没铁道站台与电车园圃、卫星锅天台热带种植园。</span></li><li><span class="check-box">☐</span><span>当前建筑等级、成本、产出增量和阶段性视觉变化。</span></li><li><span class="check-box">☐</span><span>海贝初始值、产出结算和单点存储上限。</span></li><li><span class="check-box">☐</span><span>建筑悬停卡片与屏幕空间操作点。</span></li><li><span class="check-box">☐</span><span>角色登船、航行、靠岸、下船和前往建设点的状态机。</span></li><li><span class="check-box">☐</span><span><code>zone1</code>、<code>zone2</code>、<code>zone3</code> 之间的预设航线。</span></li><li><span class="check-box">☐</span><span>手动镜头接管与自动镜头跟随切换。</span></li></ul>
+<h3>3.3 当前数值基线</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>项目</th><th>当前值</th><th>对 Demo 的意义</th></tr></thead><tbody><tr><td>初始海贝</td><td>80</td><td>可支持首次低成本建设</td></tr><tr><td>建筑产出结算间隔</td><td>6 秒</td><td>适合快速验证收取反馈</td></tr><tr><td>单个建筑存储上限</td><td>10 枚海贝</td><td>可避免无限挂机积累</td></tr><tr><td>太阳能木屋当前等级</td><td>Lv.1</td><td>适合作为起始家园</td></tr><tr><td>木屋升级成本</td><td>20 海贝</td><td>可作为首个家园升级</td></tr><tr><td>横滨铁道第 1 阶段成本</td><td>20 海贝</td><td>适合作为早期建设</td></tr><tr><td>横滨铁道第 2 阶段成本</td><td>40 海贝</td><td>适合作为中期目标</td></tr><tr><td>横滨铁道第 3 阶段成本</td><td>65 海贝</td><td>应放在 Demo 后段或作为延伸目标</td></tr><tr><td>天台种植园第 1 阶段成本</td><td>25 海贝</td><td>适合作为第一批跨区域建设</td></tr><tr><td>天台种植园第 2 阶段成本</td><td>50 海贝</td><td>适合作为 Demo 后段可选目标</td></tr><tr><td>建设过程</td><td><code>jobProgress</code> 驱动</td><td>可复用到修缮、种植和船只升级</td></tr><tr><td>当前状态机</td><td><code>workerMode</code> 驱动</td><td>可复用，但需要与任务和资源系统解耦</td></tr></tbody></table></div>
+<h3>3.4 现有回归测试证据</h3>
+<h4>UI 回归测试</h4>
+<p><code>tests/ui-regression.cjs</code> 当前覆盖以下能力：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>每个建筑只有一个共享操作点。</span></li><li><span class="check-box">☐</span><span>不显示底部常驻工具栏和卡片内操作按钮。</span></li><li><span class="check-box">☐</span><span>建筑和操作点共享悬停信息。</span></li><li><span class="check-box">☐</span><span>悬停卡片支持进入、切换和退出动画。</span></li><li><span class="check-box">☐</span><span>收取优先于升级。</span></li><li><span class="check-box">☐</span><span>收取完成后操作点在同一位置切换为升级箭头。</span></li><li><span class="check-box">☐</span><span>余额不足时显示不可用状态。</span></li><li><span class="check-box">☐</span><span>升级只扣费一次。</span></li><li><span class="check-box">☐</span><span>建设中显示忙碌状态和进度。</span></li><li><span class="check-box">☐</span><span>满级建筑显示解释性提示。</span></li><li><span class="check-box">☐</span><span>操作点和悬停卡片随相机移动保持锚定。</span></li><li><span class="check-box">☐</span><span>小船可以打开目的地选择，<code>Escape</code> 可以关闭。</span></li><li><span class="check-box">☐</span><span>屏幕外操作点隐藏并退出键盘导航。</span></li><li><span class="check-box">☐</span><span>390px 窄屏无横向溢出。</span></li><li><span class="check-box">☐</span><span>无 JavaScript 运行时错误。</span></li></ul>
+<p>当前记录的最大投影误差为：</p>
+<div class="code-block"><div class="code-label">TEXT</div><pre><code class="language-text">0.00042009549690646963</code></pre></div>
+<h4>场景艺术回归测试</h4>
+<p><code>tests/scene-art-regression.cjs</code> 当前覆盖：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>三个可操作区域起始时具有干燥、空置的种植床。</span></li><li><span class="check-box">☐</span><span>场景中存在四种不同的废墟轮廓。</span></li><li><span class="check-box">☐</span><span>土壤先变湿，再出现幼苗。</span></li><li><span class="check-box">☐</span><span>幼苗在固定地块锚点上逐步生长。</span></li><li><span class="check-box">☐</span><span>修缮构件按进度逐步组装。</span></li><li><span class="check-box">☐</span><span>风车、植物和水流随时间变化。</span></li><li><span class="check-box">☐</span><span>场景 Shader 编译无错误。</span></li></ul>
+<p>当前记录的场景绘制调用数约为 <code>1043</code>，后续作为性能基线参考。</p>
+<h3>3.5 基线结论</h3>
+<p>当前工程适合继续采用“保留现有视觉场景，补齐玩法垂直切片”的路线。</p>
+<p>当前最重要的缺口不是场景数量，而是以下四项：</p>
+<ol><li>现有三个建设点尚未形成明确的 A-D 功能分工。</li><li>海贝之外缺少支撑修缮和船只升级的基础资源。</li><li>当前航行已有表现，但船只升级尚未成为真正的成长系统。</li><li>缺少一条由任务、目标提示和解锁条件串联起来的首局流程。</li></ol>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="4-四个里程碑总览" class="major-heading">4. 四个里程碑总览</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>里程碑</th><th>目标</th><th>交付重点</th><th>预计结果</th></tr></thead><tbody><tr><td>P0</td><td>建立首个可运行的最小闭环</td><td>任务链、统一状态、基础资源接口、完整建设与航行流程</td><td>玩家可从开始走到“看到下一座区域”</td></tr><tr><td>P1</td><td>补齐首个 Demo 的资源经营与船只成长</td><td>木料、旧零件、打捞站、码头、船只升级、区域解锁</td><td>玩家完成真正的 20 分钟可玩 Demo</td></tr><tr><td>P2</td><td>增加世界反馈与生活感</td><td>居民、区域复兴、轻量发现事件、更多场景状态</td><td>玩家感到家园和世界正在持续恢复</td></tr><tr><td>P3</td><td>产品化与长期维护</td><td>存档、性能、兼容性、内容配置化、自动化测试</td><td>Demo 具备持续迭代和外部测试基础</td></tr></tbody></table></div>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="5-p0-首个可运行闭环" class="major-heading">5. P0：首个可运行闭环</h2>
+<h3>5.1 P0 目标</h3>
+<p>P0 的目标是把当前已有的建筑、角色、船只和场景能力组织成一条可从头走到尾的最小玩法闭环。</p>
+<p>P0 不要求完成全部经济系统，但必须保证：</p>
+<div class="code-block"><div class="code-label">TEXT</div><pre><code class="language-text">进入游戏
+  → 得到明确目标
+  → 完成一次建设
+  → 看到视觉变化
+  → 获得资源
+  → 完成一次家园升级
+  → 选择目的地
+  → 航行并抵达新区域</code></pre></div>
+<h3>5.2 P0 任务表</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>编号</th><th>任务</th><th>说明</th><th>依赖</th><th>交付物</th></tr></thead><tbody><tr><td>P0-01</td><td>统一区域职责</td><td>明确晴空水巷、横滨沉没铁道、天台种植园分别承担家园、修缮/种植、远期建设职责</td><td>无</td><td>区域职责表</td></tr><tr><td>P0-02</td><td>建立首局任务链</td><td>拆成“修复第一块地”“收取第一笔资源”“升级木屋”“驶向横滨”等阶段目标</td><td>P0-01</td><td>任务定义与状态流转</td></tr><tr><td>P0-03</td><td>统一建筑入口</td><td>保留当前建筑单操作点，将建设、收取和不可用状态统一到同一交互模型</td><td>当前 UI 回归通过</td><td>建筑交互规范</td></tr><tr><td>P0-04</td><td>整理建设状态</td><td>固定 <code>level</code>、<code>jobProgress</code>、<code>activeJobSite</code> 和 <code>workerMode</code> 的关系</td><td>P0-02</td><td>建设状态表</td></tr><tr><td>P0-05</td><td>补充首局目标提示</td><td>在不恢复常驻底部工具栏的前提下，增加轻量目标提示或阶段性浮层</td><td>P0-02</td><td>首局目标提示</td></tr><tr><td>P0-06</td><td>固定首局节奏</td><td>调整首个建设和第一次收获的触发时间，确保前 3 分钟完成第一次有效操作</td><td>P0-02</td><td>首局时间线</td></tr><tr><td>P0-07</td><td>打通跨区域建设</td><td>从当前区域点击其他区域建设点时，自动进入登船、航行、靠岸和建设流程</td><td>P0-04</td><td>跨区域建设流程</td></tr><tr><td>P0-08</td><td>明确 Demo 终点</td><td>抵达新区域后显示下一阶段建设目标，不强制完成全部内容</td><td>P0-07</td><td>Demo 结束状态</td></tr><tr><td>P0-09</td><td>补充关键路径测试</td><td>覆盖开始、建设、收取、升级、航行和抵达</td><td>P0-02 至 P0-08</td><td>关键路径 E2E 测试</td></tr></tbody></table></div>
+<h3>5.3 P0 依赖</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>依赖当前 <code>index.html</code>、<code>gameplay.js</code>、<code>scene-art.js</code> 和 <code>ui.css</code> 的现有接口。</span></li><li><span class="check-box">☐</span><span>依赖现有 UI 回归测试中的建筑操作点、悬停卡片和目的地菜单行为。</span></li><li><span class="check-box">☐</span><span>依赖现有场景艺术回归测试中的地块生长和修缮表现。</span></li><li><span class="check-box">☐</span><span>不依赖完整多资源系统。</span></li><li><span class="check-box">☐</span><span>不依赖完整船只等级系统，但需要预留船只升级入口。</span></li><li><span class="check-box">☐</span><span>不依赖存档系统。</span></li></ul>
+<h3>5.4 P0 验收标准</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>新玩家进入后能在 30 秒内理解首个目标。</span></li><li><span class="check-box">☐</span><span>玩家可以通过现有建筑热点或场景交互开始第一项建设。</span></li><li><span class="check-box">☐</span><span>建设过程中显示进度，且状态不会被重复点击或错误扣费破坏。</span></li><li><span class="check-box">☐</span><span>建设完成后至少有两类可见反馈：模型变化、植物/修缮构件变化、新功能/新目标出现，三者至少满足两项。</span></li><li><span class="check-box">☐</span><span>玩家可以收取资源，并且收取优先于升级。</span></li><li><span class="check-box">☐</span><span>玩家可以完成一次木屋升级或等价的家园中心升级。</span></li><li><span class="check-box">☐</span><span>玩家可以选择一个其他区域并完成航行。</span></li><li><span class="check-box">☐</span><span>航行过程中镜头跟随、角色状态和船只状态保持一致。</span></li><li><span class="check-box">☐</span><span>抵达新区域后不出现空白状态或无目标状态。</span></li><li><span class="check-box">☐</span><span>现有两份回归测试继续通过。</span></li><li><span class="check-box">☐</span><span>P0 关键路径连续运行 20 分钟无 JavaScript 运行时错误。</span></li></ul>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="6-p1-资源经营与船只成长" class="major-heading">6. P1：资源经营与船只成长</h2>
+<h3>6.1 P1 目标</h3>
+<p>P1 是首个 20 分钟 Demo 的核心交付里程碑。</p>
+<p>P1 要把当前“海贝加建筑升级”的原型，扩展为一个最小但完整的双层资源循环：</p>
+<div class="code-block"><div class="code-label">TEXT</div><pre><code class="language-text">建设或种植
+  → 产生海贝或基础资源
+  → 收取并进入库存
+  → 消耗资源修缮或升级
+  → 解锁更高价值的建设和航行</code></pre></div>
+<h3>6.2 P1 功能职责</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>功能区</th><th>对应区域</th><th>首个 Demo 职责</th></tr></thead><tbody><tr><td>家园中心</td><td>晴空水巷太阳能木屋</td><td>提供初始目标、基础存储和家园升级</td></tr><tr><td>种植与修缮区</td><td>横滨沉没铁道站台、电车园圃</td><td>提供视觉生长、海贝和基础资源</td></tr><tr><td>材料获取区</td><td>绞盘打捞站的最小化替代点</td><td>提供木料和旧零件</td></tr><tr><td>船只升级区</td><td>木屋码头或单独码头入口</td><td>消耗海贝与旧零件，解锁远航</td></tr><tr><td>远期扩展区</td><td>天台种植园</td><td>作为中后段建设目标和下一阶段内容预览</td></tr></tbody></table></div>
+<h3>6.3 P1 任务表</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>编号</th><th>任务</th><th>说明</th><th>依赖</th><th>交付物</th></tr></thead><tbody><tr><td>P1-01</td><td>增加资源类型</td><td>在海贝之外加入木料、旧零件两类基础资源</td><td>P0 状态整理</td><td>资源配置表</td></tr><tr><td>P1-02</td><td>增加资源库存</td><td>支持资源增加、消耗、上限和不足反馈</td><td>P1-01</td><td><code>ResourceLedger</code></td></tr><tr><td>P1-03</td><td>建立修缮资源消耗</td><td>第一块种植床消耗木料或旧零件，不能只消耗海贝</td><td>P1-01、P1-02</td><td>修缮消耗规则</td></tr><tr><td>P1-04</td><td>增加最小打捞点</td><td>用现有绞盘、电缆或水道场景作为打捞入口</td><td>P0 跨区域流程</td><td>打捞交互</td></tr><tr><td>P1-05</td><td>增加打捞结果</td><td>打捞点按阶段或冷却时间产出木料、旧零件或少量海贝</td><td>P1-04</td><td>打捞产出表</td></tr><tr><td>P1-06</td><td>增加船只升级状态</td><td>至少支持木船 Lv.1 与改良船 Lv.2</td><td>P1-02</td><td><code>BoatState</code></td></tr><tr><td>P1-07</td><td>增加船只升级视觉反馈</td><td>改变船帆、船体、灯光、船速表现或船上载具细节</td><td>P1-06</td><td>船只升级视觉状态</td></tr><tr><td>P1-08</td><td>增加码头升级入口</td><td>玩家在木屋码头或指定热点执行船只升级</td><td>P1-06</td><td>码头交互</td></tr><tr><td>P1-09</td><td>增加区域解锁条件</td><td>船只升级后解锁远处沉没街町或下一处建设区域</td><td>P1-06</td><td>区域解锁规则</td></tr><tr><td>P1-10</td><td>完成 20 分钟关键路径</td><td>将建设、收获、打捞、木屋升级、船只升级和远航串联</td><td>P1-01 至 P1-09</td><td>可玩 Demo</td></tr><tr><td>P1-11</td><td>增加节奏遥测</td><td>记录玩家完成关键节点所需时间，不记录个人信息</td><td>P1-10</td><td>Demo 测试记录表</td></tr></tbody></table></div>
+<h3>6.4 P1 依赖</h3>
+<p>P1 依赖 P0 的以下结果：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>首局任务链稳定。</span></li><li><span class="check-box">☐</span><span>建设状态可被可靠读取和更新。</span></li><li><span class="check-box">☐</span><span>角色和船只状态不会因跨区域操作失步。</span></li><li><span class="check-box">☐</span><span>建筑操作点的收取、升级和不可用状态保持兼容。</span></li><li><span class="check-box">☐</span><span>场景艺术可以接收离散的视觉阶段，而不是直接依赖玩法内部变量。</span></li></ul>
+<h3>6.5 P1 验收标准</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>海贝、木料和旧零件具有独立的库存显示或可访问状态。</span></li><li><span class="check-box">☐</span><span>资源不足时显示明确的缺口，而不是无响应。</span></li><li><span class="check-box">☐</span><span>至少一个建设行为同时消耗海贝和基础资源。</span></li><li><span class="check-box">☐</span><span>玩家可以在 5 分钟内接触到一次打捞或材料获取行为。</span></li><li><span class="check-box">☐</span><span>打捞结果可以进入库存，并能用于后续升级。</span></li><li><span class="check-box">☐</span><span>船只至少有两个可识别等级。</span></li><li><span class="check-box">☐</span><span>船只升级会带来至少一项可见或可感知变化：模型变化、航行速度变化、航线/区域解锁、货舱/资源能力变化，至少满足一项。</span></li><li><span class="check-box">☐</span><span>玩家可以在 20 分钟内完成一次船只升级。</span></li><li><span class="check-box">☐</span><span>船只升级后的远航可以抵达新区域或触发明确的 Demo 终点。</span></li><li><span class="check-box">☐</span><span>首局不需要玩家依赖隐藏规则或源码知识。</span></li><li><span class="check-box">☐</span><span>P0 与现有 UI、场景回归测试全部通过。</span></li></ul>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="7-p2-世界反馈与生活感" class="major-heading">7. P2：世界反馈与生活感</h2>
+<h3>7.1 P2 目标</h3>
+<p>P2 不再以“能不能完成首局”为核心，而是增强“修复后世界真的活起来了”的反馈。</p>
+<p>重点是让建设不只改变地块和植物，还改变场景中的生活痕迹：屋顶出现灯光，居民或小动物出现，船只在新码头停泊，断桥、晾衣绳和生活船形成更明确的邻里关系，水下废墟出现新的可发现内容。</p>
+<h3>7.2 P2 任务表</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>编号</th><th>任务</th><th>说明</th><th>依赖</th><th>交付物</th></tr></thead><tbody><tr><td>P2-01</td><td>增加居民最小表现</td><td>不实现复杂 AI，仅增加入住、站立、挥手、浇水等轻量状态</td><td>P1 家园升级</td><td>居民状态</td></tr><tr><td>P2-02</td><td>增加生活反馈</td><td>为木屋、站台、种植园增加灯光、晾晒、生活道具或船只停泊</td><td>P1 场景状态接口</td><td>生活反馈清单</td></tr><tr><td>P2-03</td><td>增加区域复兴阶段</td><td>区域拥有“废墟、修复中、初步复兴、稳定运行”等阶段</td><td>P1 区域解锁</td><td><code>ZoneState</code></td></tr><tr><td>P2-04</td><td>增加轻量发现事件</td><td>航线上出现漂流物资、旧招牌、废弃小船或水下生物发现</td><td>P1 航行流程</td><td>发现事件表</td></tr><tr><td>P2-05</td><td>增加可选目标</td><td>玩家可以选择优先建设站台、屋顶花园或家园中心</td><td>P1 任务链</td><td>任务分支</td></tr><tr><td>P2-06</td><td>增加视觉状态回归</td><td>对不同复兴阶段进行截图和结构检查</td><td>P2-01 至 P2-05</td><td>场景回归用例</td></tr><tr><td>P2-07</td><td>优化引导表达</td><td>根据玩家行为动态隐藏已经理解的提示，减少重复说明</td><td>P0 目标提示</td><td>引导规则</td></tr></tbody></table></div>
+<h3>7.3 P2 验收标准</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>至少一个区域从废墟状态进入复兴状态。</span></li><li><span class="check-box">☐</span><span>建设完成后场景中出现新的生活反馈。</span></li><li><span class="check-box">☐</span><span>居民或生活对象不影响核心交互命中。</span></li><li><span class="check-box">☐</span><span>航行过程中至少有一类轻量发现内容。</span></li><li><span class="check-box">☐</span><span>发现内容可以提供资源、提示或新目标。</span></li><li><span class="check-box">☐</span><span>玩家可以在两个以上目标之间选择优先顺序。</span></li><li><span class="check-box">☐</span><span>区域变化不会破坏现有建筑热点和相机锚点。</span></li><li><span class="check-box">☐</span><span>动态数量增加后仍有低端设备降级方案。</span></li><li><span class="check-box">☐</span><span>P0、P1 和现有两份回归测试继续通过。</span></li></ul>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="8-p3-产品化与长期维护" class="major-heading">8. P3：产品化与长期维护</h2>
+<h3>8.1 P3 目标</h3>
+<p>P3 负责把可玩 Demo 从“可演示版本”提升为“可持续测试和迭代版本”。重点包括存档与恢复、配置化数值、性能和兼容性、自动化测试、版本迁移、反馈收集和问题定位。</p>
+<h3>8.2 P3 任务表</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>编号</th><th>任务</th><th>说明</th><th>依赖</th><th>交付物</th></tr></thead><tbody><tr><td>P3-01</td><td>增加本地存档</td><td>保存资源、建筑、船只、区域和任务状态</td><td>P1 状态结构稳定</td><td>存档结构</td></tr><tr><td>P3-02</td><td>增加读档恢复</td><td>刷新页面后恢复到最近一次稳定状态</td><td>P3-01</td><td>恢复流程</td></tr><tr><td>P3-03</td><td>增加版本迁移</td><td>存档带版本号，避免字段变化导致读取失败</td><td>P3-01</td><td>迁移策略</td></tr><tr><td>P3-04</td><td>数值配置化</td><td>将建设成本、产出、冷却、航行时间和解锁条件集中配置</td><td>P1 资源系统</td><td>配置文件</td></tr><tr><td>P3-05</td><td>增加性能基线</td><td>记录低端、中端和高端设备的帧率、绘制调用和内存趋势</td><td>P2 动态内容</td><td>性能报告</td></tr><tr><td>P3-06</td><td>增加 WebGL 降级</td><td>根据设备能力降低像素比、阴影、粒子、远景动态和后处理</td><td>P3-05</td><td>降级档位</td></tr><tr><td>P3-07</td><td>增加浏览器兼容测试</td><td>覆盖 Chromium、Safari 或项目实际支持范围</td><td>P3-05</td><td>兼容性矩阵</td></tr><tr><td>P3-08</td><td>扩展自动化测试</td><td>增加状态机、资源、存档、船只升级和性能测试</td><td>P0 至 P2</td><td>自动化测试集</td></tr><tr><td>P3-09</td><td>增加错误诊断</td><td>记录关键状态转换失败、资源扣除失败和场景绑定错误</td><td>P3-01 至 P3-08</td><td>诊断日志</td></tr><tr><td>P3-10</td><td>形成版本发布检查表</td><td>固化 Demo 发布前的验收、回归和降级流程</td><td>全部前置任务</td><td>发布检查表</td></tr></tbody></table></div>
+<h3>8.3 P3 验收标准</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>玩家刷新页面后可以恢复最近一次稳定进度。</span></li><li><span class="check-box">☐</span><span>旧版本存档无法直接读取时有明确迁移或重置策略。</span></li><li><span class="check-box">☐</span><span>数值调整不需要修改多个业务模块。</span></li><li><span class="check-box">☐</span><span>低端设备可以关闭或降低高成本视觉效果。</span></li><li><span class="check-box">☐</span><span>核心流程在目标浏览器范围内可运行。</span></li><li><span class="check-box">☐</span><span>测试失败时可以定位到资源、状态机、场景或 UI 层。</span></li><li><span class="check-box">☐</span><span>P0、P1、P2 关键流程均有自动化或半自动化验证。</span></li><li><span class="check-box">☐</span><span>发布前能够生成可读的测试结果和性能记录。</span></li></ul>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="9-建议模块边界" class="major-heading">9. 建议模块边界</h2>
+<p>当前工程可以继续保留现有文件作为运行入口，但后续开发应逐步明确以下模块边界。</p>
+<h3>9.1 启动与场景模块</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>模块</th><th>建议职责</th><th>不应承担</th></tr></thead><tbody><tr><td><code>app/bootstrap</code></td><td>创建 Renderer、Scene、Camera、Controls，启动主循环</td><td>不直接处理资源扣费和任务推进</td></tr><tr><td><code>scene/world-builder</code></td><td>创建水面、建筑、船只、角色和区域节点</td><td>不决定玩家是否可以升级</td></tr><tr><td><code>scene/scene-art</code></td><td>根据离散状态刷新植物、修缮、灯光和生活表现</td><td>不直接修改资源库存</td></tr><tr><td><code>scene/anchors</code></td><td>管理建筑热点、角色站位、码头位置、船只停泊位</td><td>不承载任务条件</td></tr></tbody></table></div>
+<h3>9.2 玩法系统模块</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>模块</th><th>建议职责</th><th>核心输入</th><th>核心输出</th></tr></thead><tbody><tr><td><code>systems/game-state</code></td><td>保存全局玩法状态</td><td>初始配置、存档</td><td>当前游戏状态</td></tr><tr><td><code>systems/economy</code></td><td>资源增加、消耗、上限和产出结算</td><td>资源变更请求</td><td>资源结果、错误原因</td></tr><tr><td><code>systems/building</code></td><td>建设、升级、建设进度和完成事件</td><td>建设点、资源、玩家动作</td><td>建筑状态变化</td></tr><tr><td><code>systems/salvage</code></td><td>打捞点冷却、产出和收取</td><td>区域、打捞点</td><td>木料、旧零件或海贝</td></tr><tr><td><code>systems/boat</code></td><td>船只等级、升级、航行能力和解锁条件</td><td>资源、船只状态</td><td>船只等级、可访问区域</td></tr><tr><td><code>systems/travel</code></td><td>角色登船、船只航行、靠岸、下船</td><td>目标区域、当前状态</td><td>状态转换、位置变化</td></tr><tr><td><code>systems/quest</code></td><td>首局目标、阶段完成、引导和 Demo 终点</td><td>事件、玩家行为</td><td>当前任务和提示</td></tr><tr><td><code>systems/save</code></td><td>序列化、恢复、版本迁移</td><td><code>GameState</code></td><td>存档数据或恢复结果</td></tr></tbody></table></div>
+<h3>9.3 表现与 UI 模块</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>模块</th><th>建议职责</th></tr></thead><tbody><tr><td><code>ui/hotspots</code></td><td>建筑、船只、角色和打捞点的屏幕空间热点</td></tr><tr><td><code>ui/tooltip</code></td><td>悬停卡片、状态说明和不可用原因</td></tr><tr><td><code>ui/action-wheel</code></td><td>角色行动、船只目的地和上下船操作</td></tr><tr><td><code>ui/resource-hud</code></td><td>海贝、木料、旧零件等资源的紧凑显示</td></tr><tr><td><code>ui/quest-prompt</code></td><td>当前目标和阶段性提示</td></tr><tr><td><code>ui/progress</code></td><td>建设、打捞和船只升级进度</td></tr><tr><td><code>ui/accessibility</code></td><td>焦点、键盘替代路径、屏幕阅读辅助状态</td></tr></tbody></table></div>
+<h3>9.4 测试模块</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>模块</th><th>建议职责</th></tr></thead><tbody><tr><td><code>tests/fixtures</code></td><td>固定时间、固定随机数、固定初始状态</td></tr><tr><td><code>tests/state</code></td><td>资源、建设、船只和任务状态的确定性测试</td></tr><tr><td><code>tests/e2e</code></td><td>浏览器端首局关键路径</td></tr><tr><td><code>tests/visual</code></td><td>区域、建设阶段和升级阶段截图回归</td></tr><tr><td><code>tests/performance</code></td><td>帧率、绘制调用、加载时间和降级策略</td></tr><tr><td><code>tests/compatibility</code></td><td>浏览器和设备能力矩阵</td></tr></tbody></table></div>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="10-建议数据结构" class="major-heading">10. 建议数据结构</h2>
+<p>以下数据结构用于界定模块边界，具体实现时可根据现有代码逐步迁移。</p>
+<h3>10.1 全局游戏状态</h3>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">const gameState = {
+  version: 1,
+  coins: 80,
+  resources: {
+    wood: 0,
+    scrap: 0,
+    food: 0
+  },
+  currentZone: "zone1",
+  unlockedZones: ["zone1"],
+  workerMode: "IDLE_ASHORE",
+  activeJob: null,
+  activeQuestId: "repair_first_bed",
+  completedQuestIds: [],
+  boat: {
+    level: 1,
+    upgradeProgress: 0,
+    cargoCapacity: 0,
+    unlockedRoutes: ["zone1"]
+  },
+  sites: {
+    home_cabin: {
+      level: 1,
+      maxLevel: 2,
+      storedCoins: 0,
+      visualStage: 0,
+      repaired: false
+    },
+    yokohama_station: {
+      level: 0,
+      maxLevel: 3,
+      storedCoins: 0,
+      visualStage: 0,
+      repaired: false
+    },
+    rooftop_planter: {
+      level: 0,
+      maxLevel: 2,
+      storedCoins: 0,
+      visualStage: 0,
+      repaired: false
+    }
+  }
+};</code></pre></div>
+<h3>10.2 资源账本</h3>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">const resourceLedger = {
+  coins: { amount: 80, capacity: null },
+  wood: { amount: 0, capacity: 20 },
+  scrap: { amount: 0, capacity: 20 },
+  food: { amount: 0, capacity: 20 }
+};</code></pre></div>
+<p>资源变更应使用统一接口，避免业务模块直接修改余额：</p>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">changeResource({
+  type: "wood",
+  amount: 3,
+  reason: "salvage_reward"
+});</code></pre></div>
+<p>返回结果至少包含：</p>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">{
+  ok: true,
+  type: "wood",
+  before: 0,
+  after: 3,
+  delta: 3,
+  reason: "salvage_reward"
+}</code></pre></div>
+<h3>10.3 建设点定义</h3>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">const buildSiteDefinition = {
+  id: "yokohama_station",
+  zone: "zone2",
+  name: "横滨沉没铁道站台",
+  actionType: "plant_or_repair",
+  maxLevel: 3,
+  stages: [
+    {
+      cost: { coins: 20, wood: 2 },
+      duration: 8,
+      visualStage: "station_garden_seeded",
+      reward: { coinsPerCycle: 2 }
+    },
+    {
+      cost: { coins: 40, scrap: 3 },
+      duration: 12,
+      visualStage: "train_rooftop_garden",
+      reward: { coinsPerCycle: 3 }
+    },
+    {
+      cost: { coins: 65, wood: 4, scrap: 5 },
+      duration: 16,
+      visualStage: "glowing_lotus_waterway",
+      reward: { coinsPerCycle: 5 }
+    }
+  ]
+};</code></pre></div>
+<h3>10.4 船只定义</h3>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">const boatDefinition = {
+  levels: [
+    {
+      level: 1,
+      name: "初始木船",
+      routeIds: ["zone1"],
+      cargoCapacity: 0,
+      sailDurationMultiplier: 1,
+      visualStage: "basic_rowboat"
+    },
+    {
+      level: 2,
+      name: "改良探索船",
+      routeIds: ["zone1", "zone2", "zone3"],
+      cargoCapacity: 6,
+      sailDurationMultiplier: 0.85,
+      visualStage: "reinforced_boat"
+    }
+  ],
+  upgrades: [
+    {
+      fromLevel: 1,
+      toLevel: 2,
+      cost: { coins: 50, scrap: 6, wood: 4 },
+      unlocks: ["zone2", "zone3"]
+    }
+  ]
+};</code></pre></div>
+<h3>10.5 任务定义</h3>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">const questDefinition = {
+  id: "repair_first_bed",
+  title: "修复第一块屋顶",
+  description: "前往附近的种植床，修复并种下第一批植物。",
+  steps: [
+    { id: "reach_site", condition: { type: "arrive_at_site", siteId: "yokohama_station" } },
+    { id: "start_build", condition: { type: "start_build", siteId: "yokohama_station", stage: 0 } },
+    { id: "finish_build", condition: { type: "finish_build", siteId: "yokohama_station", stage: 0 } }
+  ],
+  rewards: { coins: 10, wood: 2 },
+  nextQuestId: "collect_first_yield"
+};</code></pre></div>
+<h3>10.6 场景表现接口</h3>
+<p>玩法状态不应直接控制大量 Mesh 细节，建议通过表现接口传递离散状态：</p>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">sceneArt.applySiteStage({
+  siteId: "yokohama_station",
+  stage: 1,
+  progress: 0.65
+});</code></pre></div>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">sceneArt.applyBoatStage({
+  level: 2,
+  visualStage: "reinforced_boat"
+});</code></pre></div>
+<div class="code-block"><div class="code-label">JS</div><pre><code class="language-js">sceneArt.applyZoneState({
+  zoneId: "zone2",
+  state: "recovering"
+});</code></pre></div>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="11-首个-20-分钟体验设计" class="major-heading">11. 首个 20 分钟体验设计</h2>
+<h3>11.1 0–3 分钟：理解世界并完成第一项建设</h3>
+<p>玩家目标：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>看到晴空水巷和起始木屋。</span></li><li><span class="check-box">☐</span><span>发现附近的可建设点。</span></li><li><span class="check-box">☐</span><span>点击建筑或角色进入行动。</span></li><li><span class="check-box">☐</span><span>通过一次航行或短距离移动抵达建设位置。</span></li><li><span class="check-box">☐</span><span>消耗初始资源完成第一阶段建设。</span></li></ul>
+<p>必须提供的反馈：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>当前任务明确。</span></li><li><span class="check-box">☐</span><span>建筑热点可见但不遮挡主要画面。</span></li><li><span class="check-box">☐</span><span>建设过程有进度变化。</span></li><li><span class="check-box">☐</span><span>干燥土壤变湿。</span></li><li><span class="check-box">☐</span><span>修缮构件逐步出现。</span></li><li><span class="check-box">☐</span><span>幼苗在固定位置萌发。</span></li></ul>
+<h3>11.2 3–7 分钟：观察生长并完成第一次收获</h3>
+<p>玩家目标：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>观察植物从幼苗到成株。</span></li><li><span class="check-box">☐</span><span>返回或切换到可收取建筑。</span></li><li><span class="check-box">☐</span><span>收取第一批海贝或基础资源。</span></li><li><span class="check-box">☐</span><span>明白资源不是只会自动增加，也需要主动收取。</span></li></ul>
+<p>必须提供的反馈：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>收取优先于升级。</span></li><li><span class="check-box">☐</span><span>收取后操作点位置不变。</span></li><li><span class="check-box">☐</span><span>顶部资源数字有轻量反馈。</span></li><li><span class="check-box">☐</span><span>资源不足时显示缺口。</span></li><li><span class="check-box">☐</span><span>建设中的建筑显示忙碌状态。</span></li></ul>
+<h3>11.3 7–12 分钟：升级家园中心</h3>
+<p>玩家目标：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>使用海贝与基础资源升级太阳能木屋。</span></li><li><span class="check-box">☐</span><span>看到木屋、码头、灯光、植物或生活物件发生变化。</span></li><li><span class="check-box">☐</span><span>获得下一步“修缮船只”或“收集旧零件”的目标。</span></li></ul>
+<p>必须提供的反馈：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>木屋升级不能只修改等级数字。</span></li><li><span class="check-box">☐</span><span>至少出现一种新的生活细节。</span></li><li><span class="check-box">☐</span><span>升级后开放新的建设或资源入口。</span></li><li><span class="check-box">☐</span><span>玩家能够理解家园升级与船只升级之间的关系。</span></li></ul>
+<h3>11.4 12–20 分钟：升级船只并驶向下一处区域</h3>
+<p>玩家目标：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>通过打捞或建设获得旧零件。</span></li><li><span class="check-box">☐</span><span>在码头打开船只升级入口。</span></li><li><span class="check-box">☐</span><span>消耗资源完成船只升级。</span></li><li><span class="check-box">☐</span><span>看到船只外形、灯光、航行速度或航线能力变化。</span></li><li><span class="check-box">☐</span><span>驶向新的沉没区域。</span></li><li><span class="check-box">☐</span><span>抵达后看到下一处待建设目标。</span></li></ul>
+<p>必须提供的反馈：</p>
+<ul class="task-list"><li><span class="check-box">☐</span><span>船只升级有明确成本。</span></li><li><span class="check-box">☐</span><span>船只升级有明确收益。</span></li><li><span class="check-box">☐</span><span>未升级时目标区域不可用或提示原因。</span></li><li><span class="check-box">☐</span><span>升级后目的地选择中出现新区域。</span></li><li><span class="check-box">☐</span><span>Demo 结束时保留下一阶段期待，不强迫玩家继续完成所有内容。</span></li></ul>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="12-测试计划" class="major-heading">12. 测试计划</h2>
+<h3>12.1 测试分层</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>层级</th><th>测试内容</th><th>目标</th></tr></thead><tbody><tr><td>静态检查</td><td>模块导入、语法、资源路径、关键选择器</td><td>尽早发现基础错误</td></tr><tr><td>状态单元测试</td><td>资源增减、扣费、上限、建设进度、船只升级</td><td>保证规则确定性</td></tr><tr><td>UI 回归</td><td>现有 <code>tests/ui-regression.cjs</code></td><td>防止交互和布局倒退</td></tr><tr><td>场景回归</td><td>现有 <code>tests/scene-art-regression.cjs</code></td><td>防止视觉状态和 Shader 倒退</td></tr><tr><td>关键路径 E2E</td><td>从进入游戏到远航</td><td>验证 20 分钟 Demo 是否闭环</td></tr><tr><td>视觉回归</td><td>各区域、各建设阶段和船只等级截图</td><td>保证场景反馈可见</td></tr><tr><td>性能测试</td><td>FPS、绘制调用、加载时间、内存趋势</td><td>保证低端设备可运行</td></tr><tr><td>兼容性测试</td><td>目标浏览器、窗口尺寸、窄屏</td><td>保证交付稳定性</td></tr><tr><td>持久化测试</td><td>保存、刷新、读档、版本迁移</td><td>P3 验证</td></tr></tbody></table></div>
+<h3>12.2 现有测试必须保留的断言</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>建筑只有一个共享操作点。</span></li><li><span class="check-box">☐</span><span>收取优先于升级。</span></li><li><span class="check-box">☐</span><span>收取后操作点位置不变。</span></li><li><span class="check-box">☐</span><span>余额不足时不可升级。</span></li><li><span class="check-box">☐</span><span>升级扣费只发生一次。</span></li><li><span class="check-box">☐</span><span>建设进度可见。</span></li><li><span class="check-box">☐</span><span>满级建筑不会重复触发升级。</span></li><li><span class="check-box">☐</span><span>悬停卡片跟随相机锚定。</span></li><li><span class="check-box">☐</span><span>船只可以打开目的地菜单。</span></li><li><span class="check-box">☐</span><span><code>Escape</code> 可以关闭上下文菜单。</span></li><li><span class="check-box">☐</span><span>屏幕外热点隐藏。</span></li><li><span class="check-box">☐</span><span>390px 窄屏不产生横向滚动。</span></li><li><span class="check-box">☐</span><span>场景 Shader 无编译错误。</span></li><li><span class="check-box">☐</span><span>干燥地块不会提前显示成株。</span></li><li><span class="check-box">☐</span><span>植物生长锚点保持稳定。</span></li><li><span class="check-box">☐</span><span>修缮构件按进度出现。</span></li><li><span class="check-box">☐</span><span>风车、植物和水流继续动态更新。</span></li></ul>
+<h3>12.3 首局关键路径测试</h3>
+<p>建议将关键路径拆成可复现的固定步骤：</p>
+<ol><li>固定初始资源和随机种子。</li><li>进入 <code>zone1</code>。</li><li>检查起始任务和初始 UI。</li><li>点击第一个建设点。</li><li>验证角色状态切换。</li><li>验证船只或角色抵达建设区域。</li><li>启动建设并验证扣费。</li><li>等待建设完成或注入受控时间。</li><li>验证植物、修缮构件和状态提示变化。</li><li>收取资源。</li><li>升级太阳能木屋。</li><li>获取木料或旧零件。</li><li>打开码头升级入口。</li><li>升级船只。</li><li>检查新区域解锁。</li><li>驶向新区域。</li><li>检查 Demo 终点提示。</li><li>检查无运行时错误。</li></ol>
+<h3>12.4 性能测试建议</h3>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>指标</th><th>建议关注点</th></tr></thead><tbody><tr><td>首屏加载时间</td><td>场景进入后是否能尽快看到可操作目标</td></tr><tr><td>稳态帧率</td><td>主区域观察和航行时是否稳定</td></tr><tr><td>最低帧率</td><td>建设完成、粒子、植物和巨鲸同时出现时是否骤降</td></tr><tr><td>绘制调用数</td><td>现有约 1043 次作为初始参考，不应无计划增长</td></tr><tr><td>GPU 内存趋势</td><td>切换区域后是否持续增加</td></tr><tr><td>Shader 编译时间</td><td>首次进入是否出现明显卡顿</td></tr><tr><td>窄屏布局</td><td>390px 下 UI 是否遮挡热点</td></tr><tr><td>降级效果</td><td>关闭阴影、粒子和远景动画后是否仍可玩</td></tr></tbody></table></div>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="13-风险与降级策略" class="major-heading">13. 风险与降级策略</h2>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>风险</th><th>可能表现</th><th>预防措施</th><th>降级策略</th></tr></thead><tbody><tr><td>P0 范围膨胀</td><td>还未完成闭环就开始增加新区域和装饰</td><td>以 20 分钟关键路径作为唯一验收主线</td><td>暂停新内容，只保留现有三个区域</td></tr><tr><td>多资源系统过重</td><td>玩家需要管理过多资源，节奏变慢</td><td>首个 Demo 只使用海贝、木料、旧零件</td><td>暂时隐藏食物和特殊材料</td></tr><tr><td>船只升级不明显</td><td>玩家完成升级后看不出变化</td><td>预先定义至少一种模型或航线变化</td><td>先采用明显颜色、灯光或船帆变化</td></tr><tr><td>航行等待过长</td><td>玩家在航线上无事可做</td><td>控制航行时间，保证沿途有视觉发现</td><td>采用快速航行或跳过航行动画</td></tr><tr><td>UI 遮挡场景</td><td>任务、资源和热点互相遮挡</td><td>保持上下文显示，避免常驻大面板</td><td>只显示当前目标和必要资源</td></tr><tr><td>状态机失步</td><td>角色、船只、相机和任务状态不一致</td><td>所有状态转换统一经过状态机</td><td>失败时回退到最近安全状态</td></tr><tr><td>场景艺术与玩法脱节</td><td>数字升级了但模型没有变化</td><td>使用统一的场景表现接口</td><td>先启用简单灯光、植物或构件变化</td></tr><tr><td>随机动画影响测试</td><td>回归截图和状态断言不稳定</td><td>测试中冻结时间和随机数</td><td>使用固定测试种子与受控时钟</td></tr><tr><td>绘制调用持续增加</td><td>低端设备掉帧</td><td>静态对象按材质合批，动画对象独立保留</td><td>降低远景、阴影、粒子和动态生物数量</td></tr><tr><td>WebGL 能力不足</td><td>黑屏、Shader 失败或帧率过低</td><td>启动时检查能力并建立档位</td><td>使用低像素比、关闭阴影和复杂 Shader</td></tr><tr><td>数值节奏失衡</td><td>玩家太快完成或长时间等待</td><td>记录关键节点时间</td><td>通过配置快速调整成本、产出和冷却</td></tr><tr><td>存档字段变化</td><td>版本更新后旧存档无法读取</td><td>存档增加版本号和迁移入口</td><td>无法迁移时安全重置并给出说明</td></tr><tr><td>引导过度</td><td>玩家被提示和任务打断</td><td>只在首次出现时展示提示</td><td>允许关闭非关键提示</td></tr></tbody></table></div>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="14-首阶段执行顺序" class="major-heading">14. 首阶段执行顺序</h2>
+<p>首阶段应优先完成 P0，并以 P1 的资源和船只接口作为预留边界。推荐顺序如下：</p>
+<h3>第一步：冻结当前基线</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>记录当前 <code>index.html</code>、<code>gameplay.js</code>、<code>scene-art.js</code>、<code>ui.css</code> 的职责。</span></li><li><span class="check-box">☐</span><span>保留当前两份回归测试作为基线。</span></li><li><span class="check-box">☐</span><span>记录现有 UI 测试通过项和场景绘制调用数。</span></li><li><span class="check-box">☐</span><span>确认当前三个建设点的 ID、区域和视觉锚点。</span></li></ul>
+<h3>第二步：确定 Demo 的唯一主线</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>确定首局从 <code>zone1</code> 开始。</span></li><li><span class="check-box">☐</span><span>确定第一建设目标。</span></li><li><span class="check-box">☐</span><span>确定第一次资源收取节点。</span></li><li><span class="check-box">☐</span><span>确定家园升级节点。</span></li><li><span class="check-box">☐</span><span>确定船只升级节点。</span></li><li><span class="check-box">☐</span><span>确定 Demo 终点区域。</span></li><li><span class="check-box">☐</span><span>删除不服务于主线的临时目标或隐藏入口。</span></li></ul>
+<h3>第三步：整理状态边界</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>将当前状态拆分为资源、建筑、角色、船只、区域和任务六类。</span></li><li><span class="check-box">☐</span><span>明确每个状态的唯一写入入口。</span></li><li><span class="check-box">☐</span><span>明确建设开始、建设中、建设完成和建设失败的转换条件。</span></li><li><span class="check-box">☐</span><span>明确登船、航行、靠岸和下船的状态转换。</span></li><li><span class="check-box">☐</span><span>为资源不足、目标不可用和区域未解锁提供明确错误原因。</span></li></ul>
+<h3>第四步：先完成 P0 关键路径</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>加入首局任务定义。</span></li><li><span class="check-box">☐</span><span>增加轻量当前目标提示。</span></li><li><span class="check-box">☐</span><span>串联第一个建设点。</span></li><li><span class="check-box">☐</span><span>串联收取反馈。</span></li><li><span class="check-box">☐</span><span>串联太阳能木屋升级。</span></li><li><span class="check-box">☐</span><span>串联一次跨区域航行。</span></li><li><span class="check-box">☐</span><span>串联抵达后的 Demo 终点提示。</span></li></ul>
+<h3>第五步：接入最小资源系统</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>增加木料。</span></li><li><span class="check-box">☐</span><span>增加旧零件。</span></li><li><span class="check-box">☐</span><span>增加统一资源变更接口。</span></li><li><span class="check-box">☐</span><span>为第一建设点增加基础资源消耗。</span></li><li><span class="check-box">☐</span><span>为船只升级预留资源消耗结构。</span></li><li><span class="check-box">☐</span><span>增加资源不足的可解释反馈。</span></li></ul>
+<h3>第六步：接入最小打捞和船只升级</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>选择一个已有绞盘或电缆场景作为打捞点。</span></li><li><span class="check-box">☐</span><span>增加打捞冷却和产出。</span></li><li><span class="check-box">☐</span><span>让打捞结果进入库存。</span></li><li><span class="check-box">☐</span><span>增加码头升级入口。</span></li><li><span class="check-box">☐</span><span>增加船只 Lv.1 与 Lv.2。</span></li><li><span class="check-box">☐</span><span>增加至少一个可见船只变化。</span></li><li><span class="check-box">☐</span><span>让升级结果解锁新区域或缩短航行时间。</span></li></ul>
+<h3>第七步：建立关键路径测试</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>将首局流程改造成可受控时间推进的测试。</span></li><li><span class="check-box">☐</span><span>增加资源扣费和返还断言。</span></li><li><span class="check-box">☐</span><span>增加船只升级和区域解锁断言。</span></li><li><span class="check-box">☐</span><span>增加角色、船只、任务状态一致性断言。</span></li><li><span class="check-box">☐</span><span>保证两份现有回归测试继续通过。</span></li></ul>
+<h3>第八步：进行一次完整 Demo 试玩</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>从全新状态开始体验。</span></li><li><span class="check-box">☐</span><span>记录每个关键节点的实际时间。</span></li><li><span class="check-box">☐</span><span>记录玩家是否需要人工解释。</span></li><li><span class="check-box">☐</span><span>记录所有无反馈点击。</span></li><li><span class="check-box">☐</span><span>记录资源不足或等待时间过长的位置。</span></li><li><span class="check-box">☐</span><span>根据实际体验只调整首局必要内容。</span></li></ul>
+<h3>第九步：锁定 P0/P1 交付范围</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>暂停新增装饰模型。</span></li><li><span class="check-box">☐</span><span>暂停新增非必要区域。</span></li><li><span class="check-box">☐</span><span>暂停非核心 UI 重构。</span></li><li><span class="check-box">☐</span><span>只修复影响关键路径、视觉反馈、状态一致性和性能的问题。</span></li></ul>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="15-definition-of-done" class="major-heading">15. Definition of Done</h2>
+<h3>15.1 功能完成</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>玩家可以从新游戏开始完成一条连续的 20 分钟体验。</span></li><li><span class="check-box">☐</span><span>玩家可以完成至少一次建设。</span></li><li><span class="check-box">☐</span><span>玩家可以看到建设过程和完成后的场景变化。</span></li><li><span class="check-box">☐</span><span>玩家可以主动收取资源。</span></li><li><span class="check-box">☐</span><span>玩家可以完成一次家园或木屋升级。</span></li><li><span class="check-box">☐</span><span>玩家可以获取木料或旧零件。</span></li><li><span class="check-box">☐</span><span>玩家可以完成一次船只升级。</span></li><li><span class="check-box">☐</span><span>船只升级后至少有一项明确收益。</span></li><li><span class="check-box">☐</span><span>玩家可以前往一个新区域。</span></li><li><span class="check-box">☐</span><span>新区域抵达后有明确的下一阶段目标。</span></li></ul>
+<h3>15.2 状态一致性</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>资源扣除只发生一次。</span></li><li><span class="check-box">☐</span><span>资源增加只发生一次。</span></li><li><span class="check-box">☐</span><span>建设中不能重复开始同一任务。</span></li><li><span class="check-box">☐</span><span>角色不能同时处于登船和下船状态。</span></li><li><span class="check-box">☐</span><span>船只航行中不能重复触发目的地选择。</span></li><li><span class="check-box">☐</span><span>区域解锁状态与目的地菜单一致。</span></li><li><span class="check-box">☐</span><span>任务状态与实际建设状态一致。</span></li><li><span class="check-box">☐</span><span>场景视觉状态与玩法状态一致。</span></li><li><span class="check-box">☐</span><span>错误操作不会使玩家永久卡死。</span></li><li><span class="check-box">☐</span><span>失败状态可以回退到最近安全状态。</span></li></ul>
+<h3>15.3 视觉与交互</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>保持当前水下手绘水彩视觉方向。</span></li><li><span class="check-box">☐</span><span>保持建筑、植物、修缮构件的阶段性变化。</span></li><li><span class="check-box">☐</span><span>建筑热点和悬停卡片继续随相机正确投影。</span></li><li><span class="check-box">☐</span><span>收取、升级、建设和船只升级具有清晰反馈。</span></li><li><span class="check-box">☐</span><span>不恢复大面积常驻底部工具栏。</span></li><li><span class="check-box">☐</span><span>任务提示不遮挡核心场景。</span></li><li><span class="check-box">☐</span><span>390px 窄屏无横向滚动。</span></li><li><span class="check-box">☐</span><span><code>prefers-reduced-motion</code> 下仍能完成核心操作。</span></li><li><span class="check-box">☐</span><span>关键交互具备键盘或焦点替代路径。</span></li></ul>
+<h3>15.4 测试完成</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span><code>tests/ui-regression.cjs</code> 继续通过。</span></li><li><span class="check-box">☐</span><span><code>tests/scene-art-regression.cjs</code> 继续通过。</span></li><li><span class="check-box">☐</span><span>首局关键路径测试通过。</span></li><li><span class="check-box">☐</span><span>资源状态测试通过。</span></li><li><span class="check-box">☐</span><span>船只升级和区域解锁测试通过。</span></li><li><span class="check-box">☐</span><span>无 JavaScript 运行时错误。</span></li><li><span class="check-box">☐</span><span>无明显 Shader 编译错误。</span></li><li><span class="check-box">☐</span><span>关键截图回归通过。</span></li><li><span class="check-box">☐</span><span>性能基线已记录。</span></li><li><span class="check-box">☐</span><span>至少一种低端设备降级方案已验证。</span></li></ul>
+<h3>15.5 Demo 交付标准</h3>
+<ul class="task-list"><li><span class="check-box">☐</span><span>新玩家无需源码知识或人工讲解即可完成首个目标。</span></li><li><span class="check-box">☐</span><span>前 3 分钟内可以完成第一次有效建设。</span></li><li><span class="check-box">☐</span><span>前 12 分钟内可以完成一次家园升级。</span></li><li><span class="check-box">☐</span><span>20 分钟内可以完成一次船只升级并驶向新区域。</span></li><li><span class="check-box">☐</span><span>Demo 结束时玩家能看到明确的下一阶段内容。</span></li><li><span class="check-box">☐</span><span>首个 Demo 的新增内容没有破坏现有场景艺术和 UI 回归基线。</span></li><li><span class="check-box">☐</span><span>交付版本的范围、已知问题、降级策略和测试结果均有记录。</span></li></ul>
+<div class="section-divider" aria-hidden="true"></div>
+<h2 id="16-最终执行结论" class="major-heading">16. 最终执行结论</h2>
+<p>当前工程不需要推倒重做，也不应继续以增加场景装饰为首要方向。</p>
+<p>首阶段应围绕以下主线推进：</p>
+<div class="code-block"><div class="code-label">TEXT</div><pre><code class="language-text">统一三个可玩区域职责
+  → 建立首局任务链
+  → 接入木料与旧零件
+  → 让打捞成为资源来源
+  → 让木屋升级成为家园反馈
+  → 让船只升级成为区域解锁条件
+  → 完成首个 20 分钟 Demo</code></pre></div>
+<p>P0 负责把现有能力串成完整流程，P1 负责让资源和船只成长真正成立，P2 负责补充生活感和世界反馈，P3 负责存档、性能、兼容性和长期维护。</p>
+<p>首个 Demo 的成功标准不是玩家看到了多少建筑，而是玩家是否经历了一次清晰的变化：</p>
+<div class="code-block"><div class="code-label">TEXT</div><pre><code class="language-text">我修复了一处废墟
+  → 我获得了资源
+  → 我的家园发生了变化
+  → 我的船变得更强
+  → 我可以去更远的地方
+  → 那里还有一座屋顶等待我重新点亮</code></pre></div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,270 @@
+{
+  "passed": [
+    "Three actionable areas start with dry empty beds",
+    "Four distinct ruin silhouettes",
+    "Soil wets before any sprouts appear",
+    "Seedlings grow at fixed soil anchors",
+    "Repair pieces assemble progressively",
+    "Windmill, foliage and water deform over time",
+    "All scene shaders compile without errors"
+  ],
+  "stages": [
+    {
+      "name": "dry",
+      "color": "956844",
+      "seedlings": [
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        }
+      ],
+      "pieces": [
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        }
+      ]
+    },
+    {
+      "name": "wet",
+      "color": "71533a",
+      "seedlings": [
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        }
+      ],
+      "pieces": [
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 0.9343872070312499
+        },
+        {
+          "visible": true,
+          "y": 0.4999999999999998
+        },
+        {
+          "visible": true,
+          "y": 0.0656127929687498
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        },
+        {
+          "visible": false,
+          "y": 0.001
+        }
+      ]
+    },
+    {
+      "name": "sprout",
+      "color": "594535",
+      "seedlings": [
+        {
+          "visible": true,
+          "y": 0.43764467592592593
+        },
+        {
+          "visible": true,
+          "y": 0.3428334762046944
+        },
+        {
+          "visible": true,
+          "y": 0.24965069450152036
+        },
+        {
+          "visible": true,
+          "y": 0.16254595336076808
+        },
+        {
+          "visible": true,
+          "y": 0.08715251690458296
+        },
+        {
+          "visible": true,
+          "y": 0.030563346623567657
+        }
+      ],
+      "pieces": [
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "name": "grown",
+      "color": "594535",
+      "seedlings": [
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        }
+      ],
+      "pieces": [
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        },
+        {
+          "visible": true,
+          "y": 1
+        }
+      ]
+    }
+  ],
+  "drawCalls": 1044
+}

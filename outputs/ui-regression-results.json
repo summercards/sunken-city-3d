@@ -1,0 +1,17 @@
+{
+  "passed": [
+    "One shared action per building; no bottom toolbar or card action button",
+    "Building and icon share a compact, translucent, animated tooltip",
+    "Tooltip animates on entry and exit",
+    "Harvest takes priority, settles once, then reveals an arrow at the identical position",
+    "Insufficient funds show a grey arrow and cannot start an upgrade",
+    "Upgrade deducts once, shows busy state and progress, then completes",
+    "Max level uses the same grey arrow with a one-line explanation",
+    "Shared icon and tooltip remain anchored during camera movement",
+    "Boat still opens destination selection; Escape closes contextual UI",
+    "Offscreen hotspots are hidden and removed from keyboard navigation",
+    "390px layout keeps the bottom clear without horizontal overflow",
+    "No JavaScript runtime errors"
+  ],
+  "maxProjectionError": 0.00042009549690646963
+}
