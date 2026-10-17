@@ -272,6 +272,7 @@
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     import { initSunkenCityGameplay } from './gameplay.js';
     import { refineScene } from './scene-art.js';
+    import { arrangeHarbor, createGridView } from './harbor-layout.js';
 
     // ============================================================================
     // 1. 渲染器、场景与原画精确相机对齐
@@ -309,7 +310,7 @@
     );
 
     // 再拉远一档的高角度俯视机位：让第二区域、断桥与水下城市形成完整阅读层次
-    const ORIGINAL_CAM_POS = new THREE.Vector3(-12.0, 44.0, 36.0);
+    const ORIGINAL_CAM_POS = new THREE.Vector3(-53.55, 78.12, 53.35);
     const ORIGINAL_CAM_TARGET = new THREE.Vector3(0.45, 1.75, -0.65);
 
     camera.position.copy(ORIGINAL_CAM_POS);
@@ -318,7 +319,10 @@
     controls.target.copy(ORIGINAL_CAM_TARGET);
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
-    controls.maxPolarAngle = Math.PI * 0.46;
+    controls.minPolarAngle = controls.maxPolarAngle = Math.PI / 4;
+    controls.minAzimuthAngle = controls.maxAzimuthAngle = -Math.PI / 4;
+    controls.enableRotate = false;
+    controls.mouseButtons.LEFT = THREE.MOUSE.PAN;
     // 允许滚轮在较宽范围内微调远近，既能看清区域也能拉远读完整张地图
     controls.enableZoom = true;
     controls.minDistance = 30;
@@ -682,6 +686,7 @@
         });
       }
 
+      group.userData.legacyTower = true;
       worldGroup.add(group);
       return group;
     }
@@ -1762,53 +1767,17 @@
 
         // 计算水面任意点到各出水建筑真实轮廓的精确有向距离
         float getObjectEdgeDist(vec2 xz) {
-          // 1) 右侧木屋所在中层天台 (中心 4.3, -0.5, 尺寸 9.2 x 10.0, 旋转 -0.22)
-          vec2 pMid = rot2D(xz - vec2(4.3, -0.5), -0.22);
-          float dRightMid = sdBox2D(pMid, vec2(4.65, 5.05));
-
-          // 2) 右上角涂鸦工业楼 (中心 2.8, -6.6, 尺寸 10.8 x 8.2, 旋转 -0.22)
-          vec2 pBack = rot2D(xz - vec2(2.8, -6.6), -0.22);
-          float dRightBack = sdBox2D(pBack, vec2(5.45, 4.15));
-
-          // 3) 左上角圆弧玻璃大厦 (中心 -8.6, -3.5, 半径 6.35)
-          float dLeftCyl = length(xz - vec2(-8.6, -3.5)) - 6.35;
-
-          // 4) 左侧附属方柱
-          vec2 pSidePillar = rot2D(xz - vec2(-3.4, -1.1), 0.15);
-          float dPillar = sdBox2D(pSidePillar, vec2(0.8, 0.8));
-
-          // 5) 第二区域：横滨沉没铁道站台与电车车厢 (中心 -28.0, -18.0)
-          vec2 pZ2Platform = rot2D(xz - vec2(-32.5, -21.5), -0.35);
-          float dZ2Platform = sdBox2D(pZ2Platform, vec2(4.2, 2.5));
-          vec2 pZ2Train = rot2D(xz - vec2(-23.5, -21.0), -0.35);
-          float dZ2Train = sdBox2D(pZ2Train, vec2(2.2, 4.4));
-
-          // 6) 西南邻近区域：天台种植园方顶大楼与断桥桥墩 (中心 -19.5, 13.5)
-          vec2 pZ3Planter = rot2D(xz - vec2(-19.5, 13.5), 0.28);
-          float dZ3Planter = sdBox2D(pZ3Planter, vec2(4.4, 4.4));
-
-          // 7) 东北邻近区域：藤蔓高架断桥与米黄欧式残楼 (中心 19.5, -17.5)
-          vec2 pZ4Overpass = rot2D(xz - vec2(19.5, -17.5), -0.25);
-          float dZ4Overpass = sdBox2D(pZ4Overpass, vec2(4.8, 3.8));
-
-          float dZone1 = min(min(dRightMid, dRightBack), min(dLeftCyl, dPillar));
-          float dZone2 = min(min(dZ2Platform, dZ2Train), min(dZ3Planter, dZ4Overpass));
-          return min(dZone1, dZone2);
+          float home = sdBox2D(rot2D(xz-vec2(4.3,-.5),-.22),vec2(4.65,5.05));
+          float back = sdBox2D(rot2D(xz-vec2(2.8,-6.6),-.22),vec2(5.45,4.15));
+          float farm = length(xz-vec2(-15.0,-6.0))-6.35;
+          float salvage = sdBox2D(xz-vec2(-12.0,13.0),vec2(3.25,2.75));
+          float dock = sdBox2D(xz-vec2(.3,9.0),vec2(2.5,2.0));
+          float aqua = sdBox2D(xz-vec2(16.0,15.0),vec2(3.25,2.75));
+          float railway = sdBox2D(rot2D(xz-vec2(-28.0,-18.0),-.35),vec2(8.5,7.0));
+          return min(min(home,back),min(farm,min(salvage,min(dock,min(aqua,railway)))));
         }
-
-        // 水下浅台水深场（控制水色由浅青向深海群青过渡）
         float getBathymetry(vec2 xz, float edgeDist) {
-          vec2 pLow = rot2D(xz - vec2(5.0, 3.8), -0.22);
-          float dLow = sdBox2D(pLow, vec2(4.8, 4.6));
-          float subD1 = sdBox2D(rot2D(xz - vec2(-1.75, 5.1), -0.18), vec2(1.85, 1.85));
-          float subD2 = sdBox2D(rot2D(xz - vec2(-3.05, 2.05), 0.12), vec2(1.1, 1.1));
-          float subD3 = sdBox2D(rot2D(xz - vec2(-1.25, -3.5), -0.2), vec2(1.7, 2.1));
-          // 第二区域浅水铁道道口与水下摩天楼顶
-          float subZ2 = sdBox2D(rot2D(xz - vec2(-28.0, -18.0), -0.35), vec2(7.5, 6.5));
-          float subSkyscraper = sdBox2D(rot2D(xz - vec2(-14.0, -10.5), 0.2), vec2(4.5, 4.5));
-
-          float minD = min(edgeDist, min(min(subZ2 * 0.45, subSkyscraper * 0.55), min(dLow * 0.65, min(subD1, min(subD2, subD3)))));
-          return clamp(minD / 3.8, 0.0, 1.0);
+          return clamp(edgeDist/4.0,0.0,1.0);
         }
 
         void main() {
@@ -1833,6 +1802,14 @@
           // 浅滩处的手绘水彩亮色笔触
           waterCol = mix(waterCol, uShallowTurquoise, toonBrush * (1.0 - bathy * 0.72) * 0.48);
 
+          // Two crossing wave trains create moving broken crests and narrow sun glints.
+          float waveA=sin(xz.x*2.8+xz.y*1.65-uTime*1.7+noise(xz*.8)*3.0);
+          float waveB=sin(xz.x*1.3-xz.y*3.4+uTime*1.15);
+          float crest=pow(max(0.0,1.0-abs(waveA)*3.5),3.0);
+          float sparkle=crest*smoothstep(.35,.9,waveB)*smoothstep(.35,.7,n1);
+          waterCol+=vec3(.10,.27,.30)*crest*.12;
+          waterCol=mix(waterCol,vec3(.78,.96,.97),sparkle*.52);
+
           // 核心：严格沿着建筑出水边缘生成的断续手绘白线（Object-Edge Foam Contour）
           float waveJitter = (n1 - 0.5) * 0.18 + sin(xz.x * 2.4 + xz.y * 2.1 + uTime * 2.2) * 0.04;
           float dJitter = edgeDist + waveJitter;
@@ -1849,14 +1826,16 @@
           // 远景柔和深海雾融合（拉远镜头后仍保留邻接关系，最远处自然切入群青）
           float camDist = length(vWorldPos - cameraPosition);
           if (camDist > 168.0) discard;
-          float fogFactor = smoothstep(76.0, 158.0, camDist);
+          float fogFactor = smoothstep(130.0, 190.0, camDist);
           waterCol = mix(waterCol, vec3(0.07, 0.38, 0.55), fogFactor);
 
           // 浅水通透见底，深水浓郁纯净
-          float baseAlpha = mix(0.20, 0.38, smoothstep(0.12, 0.82, bathy));
-          float finalAlpha = clamp(baseAlpha + totalEdgeFoam * 0.55 * (1.0 - fogFactor), 0.22, 0.95);
+          float baseAlpha = mix(0.24, 0.43, smoothstep(0.12, 0.82, bathy));
+          float finalAlpha = clamp(baseAlpha + sparkle * .24 + totalEdgeFoam * 0.55 * (1.0 - fogFactor), 0.22, 0.95);
 
           gl_FragColor = vec4(waterCol, finalAlpha);
+          #include <tonemapping_fragment>
+          #include <colorspace_fragment>
         }
       `
     });
@@ -2101,6 +2080,16 @@
     const sceneArt = refineScene({ THREE, worldGroup, makePainterlyMat, WATER_LEVEL,
       leftBuildingGroup, gardenFlowersGroup, gardenWall, gardenSoil, roofWater,
       upperTowerMesh, upperBackTowerGroup, gameplay });
+    const harbor = arrangeHarbor({ THREE, worldGroup, gameplay, sceneArt, leftBuildingGroup, poleGroup, makePainterlyMat, WATER_LEVEL });
+    dynamicCables.forEach((c,i) => {
+      if(i>1){c.mesh.visible=false;return;}
+      c.pStart.set(-11.2,4.5,13);c.pMidBase.set(-8.5,2.5,14);c.pEnd.set(-6.7,1.15,15);
+    });
+    const gridView = createGridView({ THREE, scene, getFocus: () => {
+      const { state, explorerGroup, boatAnchorGroup } = gameplay.art;
+      return (state.workerMode === 'ROWING' ? boatAnchorGroup : explorerGroup).getWorldPosition(new THREE.Vector3());
+    } });
+    gameplay.art.state.worldVisible = gridView.isVisible;
     const clock = new THREE.Clock();
     let prevTime = 0;
 
@@ -2215,6 +2204,8 @@
       controls.update();
       scene.updateMatrixWorld(true);
       camera.updateMatrixWorld(true);
+      harbor.update(t);
+      gridView.update(t);
       gameplay.updateOverlays();
       renderer.render(scene, camera);
     }

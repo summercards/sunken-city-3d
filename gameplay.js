@@ -127,7 +127,8 @@ export function initSunkenCityGameplay({
   destinationWheel.innerHTML = `
     <button class="destination-btn" data-zone="zone1">🏡<small>晴空水巷</small></button>
     <button class="destination-btn" data-zone="zone2">🚃<small>横滨铁道</small></button>
-    <button class="destination-btn" data-zone="zone3">🌱<small>天台种植园</small></button>
+    <button class="destination-btn" data-zone="zone3">🌱<small>圆弧农场</small></button>
+    <button class="destination-btn" data-zone="zone5">🪷<small>浅水养殖</small></button>
     <button class="destination-btn far-sea-destination" data-zone="zone4">🌊<small>远海街町</small></button>
   `;
   document.body.appendChild(destinationWheel);
@@ -135,8 +136,9 @@ export function initSunkenCityGameplay({
   let actorMenuOpen = false;
   let destinationMenuOpen = false;
   function positionActionMenus() {
-    const p = explorerGroup.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 2.5, 0)).project(camera);
-    const visible = p.z > -1 && p.z < 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1;
+    const anchor = explorerGroup.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 2.5, 0));
+    const p = anchor.clone().project(camera);
+    const visible = (!state.worldVisible || state.worldVisible(anchor)) && p.z > -1 && p.z < 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1;
     actionWheel.style.display = destinationWheel.style.display = visible ? '' : 'none';
     if (!visible) return;
     const x = (p.x * 0.5 + 0.5) * window.innerWidth;
@@ -273,7 +275,7 @@ export function initSunkenCityGameplay({
     buildSites.forEach((site) => {
       const orb = ensureResourceOrb(site);
       const p = site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0)).project(camera);
-      const visible = p.z > -1 && p.z < 1 && Math.abs(p.x) < .98 && Math.abs(p.y) < .98;
+      const visible = (!state.worldVisible || state.worldVisible(site.hoverAnchor)) && p.z > -1 && p.z < 1 && Math.abs(p.x) < .98 && Math.abs(p.y) < .98;
       orb.classList.toggle('in-view', visible);
       orb.setAttribute('tabindex', visible ? '0' : '-1');
       orb.style.left = `${(p.x * .5 + .5) * window.innerWidth}px`;
@@ -908,7 +910,7 @@ export function initSunkenCityGameplay({
   // 5. 构建四周环绕的邻近区域（参考图 2：让视野边缘处处感受到周边区域在边上！）
   // ============================================================================
   // 5.1 西南邻近区：【天台卫星锅种植园】（坐标 -19.5, 0, 13.5 —— 从第一区域往左下看直接能感受到它在边上）
-  const ZONE3_CENTER = new THREE.Vector3(-19.5, 0, 13.5);
+  const ZONE3_CENTER = new THREE.Vector3(-15, 0, -6);
   const zone3Root = new THREE.Group();
   zone3Root.position.copy(ZONE3_CENTER);
   zone3Root.rotation.y = 0.28;
@@ -985,7 +987,7 @@ export function initSunkenCityGameplay({
 
   // 5.2 东北邻近区：【藤蔓断桥与晾衣生活船】（坐标 19.5, 0, -17.5 —— 从第一区域往右上看直接能感受到它在边上）
   const zone4Root = new THREE.Group();
-  zone4Root.position.set(19.5, 0, -17.5);
+  zone4Root.position.set(39.5, 0, -41.5);
   zone4Root.rotation.y = -0.25;
   worldGroup.add(zone4Root);
 
@@ -1293,14 +1295,14 @@ export function initSunkenCityGameplay({
   const ZONE2_LAND_STAND = new THREE.Vector3(-30.7, WATER_LEVEL + 1.18, -18.3);
 
   // 区域 3 停泊位（西南邻近天台卫星锅种植园前开阔水域）
-  const ZONE3_BOAT_PARK = new THREE.Vector3(-13.8, WATER_LEVEL, 10.2);
-  const ZONE3_DOCK_EDGE = new THREE.Vector3(-17.2, WATER_LEVEL + 1.95, 11.8);
-  const ZONE3_LAND_STAND = new THREE.Vector3(-19.2, WATER_LEVEL + 1.95, 13.0);
+  const ZONE3_BOAT_PARK = new THREE.Vector3(-9, WATER_LEVEL, 1.5);
+  const ZONE3_DOCK_EDGE = new THREE.Vector3(-10, 3.6, -2);
+  const ZONE3_LAND_STAND = new THREE.Vector3(-13, 4.4, -5);
   // 远海街町先复用现有东北邻近区的生活船与断桥景观，作为 P0 的可见终点。
-  const ZONE4_CENTER = new THREE.Vector3(19.5, 1.4, -17.5);
-  const ZONE4_BOAT_PARK = new THREE.Vector3(13.8, WATER_LEVEL, -13.2);
-  const ZONE4_DOCK_EDGE = new THREE.Vector3(16.8, WATER_LEVEL + 0.3, -15.4);
-  const ZONE4_LAND_STAND = new THREE.Vector3(17.8, WATER_LEVEL + 0.3, -16.8);
+  const ZONE4_CENTER = new THREE.Vector3(39.5, 1.4, -41.5);
+  const ZONE4_BOAT_PARK = new THREE.Vector3(33.8, WATER_LEVEL, -37.2);
+  const ZONE4_DOCK_EDGE = new THREE.Vector3(36.8, WATER_LEVEL + 0.3, -39.4);
+  const ZONE4_LAND_STAND = new THREE.Vector3(37.8, WATER_LEVEL + 0.3, -40.8);
 
   boatAnchorGroup.position.copy(ZONE1_BOAT_PARK);
   boatAnchorGroup.rotation.y = -2.45;
@@ -1308,9 +1310,9 @@ export function initSunkenCityGameplay({
   explorerGroup.rotation.y = -0.6;
 
   // 再拉远一档的默认俯视镜头偏移 & 航行时的远景俯瞰跟随偏移
-  const CAM_OFFSET = new THREE.Vector3(-12.2, 42.5, 36.8);
-  const BOAT_FOLLOW_OFFSET = new THREE.Vector3(-10.5, 43.5, 38.5);
-  const WORKER_FOCUS_OFFSET = new THREE.Vector3(-7.5, 24.0, 25.5);
+  const CAM_OFFSET = new THREE.Vector3(-54, 76.37, 54);
+  const BOAT_FOLLOW_OFFSET = new THREE.Vector3(-54, 76.37, 54);
+  const WORKER_FOCUS_OFFSET = new THREE.Vector3(-35, 49.5, 35);
   let cameraDistanceScale = 1.0;
   let isApplyingCameraLock = false;
   let isUserZooming = false;
@@ -1490,7 +1492,7 @@ export function initSunkenCityGameplay({
     {
       id: 'rooftop_planter',
       zone: 'zone3',
-      name: '卫星锅天台 · 热带种植园',
+      name: '圆弧屋顶农场',
       // 只命中天台种植建筑与屋顶花池，不把整片邻近区域算进交互范围。
       hitRoots: [zone3Root],
       hoverAnchor: new THREE.Vector3(-19.5, WATER_LEVEL + 4.5, 13.5),
@@ -1505,7 +1507,7 @@ export function initSunkenCityGameplay({
         {
           btnText: '🚣 划船去天台花池种植龟背竹 (25 🐚)',
           localBtnText: '🌱 浇水种植大叶龟背竹与花丛 (25 🐚)',
-          desc: '划向西南侧的红框招牌大楼，在卫星锅旁边的方形屋顶土槽里种满大叶龟背竹。',
+          desc: '划向圆弧农场，在圆弧屋顶的木框土槽里种满大叶龟背竹。',
           cost: 25,
           rateAdd: 3,
           applyVisual(progress) {
@@ -1626,8 +1628,8 @@ export function initSunkenCityGameplay({
   salvageBtn.addEventListener('click', () => {
     if (salvageBtn.disabled) return;
     state.salvageRuns += 1;
-    awardResource('wood', 3, new THREE.Vector3(-28, WATER_LEVEL + 4, -18), '木料');
-    awardResource('parts', 2, new THREE.Vector3(-28, WATER_LEVEL + 4.4, -18), '旧零件');
+    awardResource('wood', 3, new THREE.Vector3(-12, WATER_LEVEL + 4, 13), '木料');
+    awardResource('parts', 2, new THREE.Vector3(-12, WATER_LEVEL + 4.4, 13), '旧零件');
     setWorkerStatus('打捞站收集完成，准备返航');
     updateObjectiveUI();
   });
@@ -1703,9 +1705,10 @@ export function initSunkenCityGameplay({
     const worldAnchor = target.type === 'boat'
       ? boatAnchorGroup.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 2.2, 0))
       : target.site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0));
+    const inGrid = !state.worldVisible || state.worldVisible(worldAnchor);
     const p = worldAnchor.project(camera);
     const visible = p.z > -1 && p.z < 1 && Math.abs(p.x) < .98 && Math.abs(p.y) < .98;
-    hoverCard.classList.toggle('out-of-view', !visible);
+    hoverCard.classList.toggle('out-of-view', !visible || !inGrid);
     if (!visible) return;
     const x = (p.x * .5 + .5) * window.innerWidth;
     const y = (-p.y * .5 + .5) * window.innerHeight;
@@ -1772,7 +1775,7 @@ export function initSunkenCityGameplay({
     pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
     const roots = [boatMeshGroup, explorerGroup, ...buildSites.flatMap(s => s.hitRoots || [])];
-    const hit = raycaster.intersectObjects(roots, true)[0];
+    const hit = raycaster.intersectObjects(roots, true).find(h => !state.worldVisible || state.worldVisible(h.point));
     return hit && hit.distance < 115 ? findHoverTargetFromIntersection(hit.object) : null;
   }
 
@@ -1814,6 +1817,7 @@ export function initSunkenCityGameplay({
   // 10. 小人走上船 → 镜头拉高锁定跟随船 → 靠岸停船 → 走上岸浇水播种
   // ============================================================================
   function getZoneShoreEdge(zoneId) {
+    if (zoneId === 'zone5') return new THREE.Vector3(13, 1.8, 14);
     if (zoneId === 'zone2') return ZONE2_DOCK_EDGE;
     if (zoneId === 'zone3') return ZONE3_DOCK_EDGE;
     if (zoneId === 'zone4') return ZONE4_DOCK_EDGE;
@@ -1821,6 +1825,7 @@ export function initSunkenCityGameplay({
   }
 
   function getZoneStandPos(zoneId) {
+    if (zoneId === 'zone5') return new THREE.Vector3(15, 1.8, 15);
     if (zoneId === 'zone2') return ZONE2_LAND_STAND;
     if (zoneId === 'zone3') return ZONE3_LAND_STAND;
     if (zoneId === 'zone4') return ZONE4_LAND_STAND;
@@ -1828,6 +1833,7 @@ export function initSunkenCityGameplay({
   }
 
   function getZoneBoatPark(zoneId) {
+    if (zoneId === 'zone5') return new THREE.Vector3(11, WATER_LEVEL, 12);
     if (zoneId === 'zone2') return ZONE2_BOAT_PARK;
     if (zoneId === 'zone3') return ZONE3_BOAT_PARK;
     if (zoneId === 'zone4') return ZONE4_BOAT_PARK;
@@ -1884,6 +1890,9 @@ export function initSunkenCityGameplay({
     const startPt = boatAnchorGroup.position.clone();
     const destPark = getZoneBoatPark(toZone).clone();
 
+    if (toZone === 'zone3' || fromZone === 'zone3' || toZone === 'zone5' || fromZone === 'zone5') {
+      return makeRoute([startPt, new THREE.Vector3(-5, WATER_LEVEL, 7), destPark]);
+    }
     if (fromZone === 'zone1' && toZone === 'zone2') {
       // 从木屋码头出发 → 穿过中央深水峡谷 → 沿铁道西南侧平行接近船湾
       return makeRoute([
@@ -2329,6 +2338,9 @@ export function initSunkenCityGameplay({
       } else if (state.camLockMode === 'zone3') {
         desiredTarget = ZONE3_CENTER.clone().add(new THREE.Vector3(0.0, 1.6, 0.0));
         desiredCamPos = desiredTarget.clone().add(CAM_OFFSET.clone().multiplyScalar(cameraDistanceScale));
+      } else if (state.camLockMode === 'zone5') {
+        desiredTarget = new THREE.Vector3(16, 1.5, 15);
+        desiredCamPos = desiredTarget.clone().add(CAM_OFFSET.clone().multiplyScalar(cameraDistanceScale));
       } else if (state.camLockMode === 'zone4') {
         desiredTarget = ZONE4_CENTER.clone();
         desiredCamPos = desiredTarget.clone().add(CAM_OFFSET.clone().multiplyScalar(cameraDistanceScale));
@@ -2352,7 +2364,7 @@ export function initSunkenCityGameplay({
   syncCoinUI();
   return {
     updateGameplay,
-    art: { stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
+    art: { camera, zone2Root, explorerGroup, boatAnchorGroup, stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
       planterSoil, rooftopSoilPatch, initialPlants, underwaterCityGroup, buildSites, state,
       crops: [z2CropStage1, z2CropStage2, z2CropStage3, z3CropStage1, z3CropStage2] },
     updateOverlays() {
@@ -2366,14 +2378,14 @@ export function initSunkenCityGameplay({
       const site = state.activeJobSite;
       if (site && state.workerMode === 'BUILDING') {
         const p = site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0)).project(camera);
-        buildProgressEl.style.display = p.z > -1 && p.z < 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1 ? 'inline-flex' : 'none';
+        buildProgressEl.style.display = (!state.worldVisible || state.worldVisible(site.hoverAnchor)) && p.z > -1 && p.z < 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1 ? 'inline-flex' : 'none';
         buildProgressEl.style.left = `${(p.x * .5 + .5) * window.innerWidth}px`;
         buildProgressEl.style.top = `${(-p.y * .5 + .5) * window.innerHeight + 30}px`;
         document.getElementById('bp-fill').style.width = `${Math.round(state.jobProgress * 100)}%`;
       } else buildProgressEl.style.display = 'none';
       for (const [el, anchor] of floatTips) {
         const p = anchor.clone().project(camera);
-        el.style.display = p.z > -1 && p.z < 1 ? '' : 'none';
+        el.style.display = (!state.worldVisible || state.worldVisible(anchor)) && p.z > -1 && p.z < 1 ? '' : 'none';
         el.style.left = `${(p.x * .5 + .5) * window.innerWidth}px`;
         el.style.top = `${(-p.y * .5 + .5) * window.innerHeight}px`;
       }

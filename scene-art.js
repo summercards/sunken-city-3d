@@ -88,7 +88,7 @@ export function refineScene({ THREE: T, worldGroup, makePainterlyMat: material, 
   gardenWall.material=mat('#91b3a1'); gardenSoil.material=mat('#c4baa0');
   roofWater.material=mat('#70b9ae');
   const garden=group(leftBuildingGroup,-.85,4.02,-1,'terraced-roof-garden');
-  [[-2,-1.65],[1.5,-1.65],[-2,1.35],[1.5,1.35]].forEach(([x,z])=>bed(garden,x,0,z,2.2,1.65));
+  [[-2,-1.65],[1.5,-1.65],[-2,1.35],[1.5,1.35]].forEach(([x,z])=>bed(garden,x,0,z,2.2,1.65,buildSites.find(s=>s.id==='rooftop_planter'),z>0?1:0));
   box(garden,-.25,.05,0,.85,.1,7.2,'#ded0ab');
   box(garden,0,.05,-.1,7.2,.1,.8,'#ded0ab');
   for(let i=0;i<10;i++) {
@@ -190,8 +190,7 @@ export function refineScene({ THREE: T, worldGroup, makePainterlyMat: material, 
   // Different ruin silhouettes: open room, broken arcade, stair remnant, partial floor stack.
   underwaterCityGroup.visible=false;
   const ruins=group(worldGroup,0,0,0,'ruin-district');
-  const specs=[[-14,-1.1,-10.5,0],[-21.5,-3.2,-4.2,1],[-9.5,-4.5,-19.5,2],[11.5,-3.8,-10.5,3],[-8.2,-3.6,11.5,2],
-    [15,1.4,8,0],[-19,1.3,-14,1],[8,1.5,18,3],[-14,1.5,22,0],[18,1.2,-4,2],[-2,1.4,-21,1]];
+  const specs=[[-19,1.3,-18,0],[17,1.2,-18,1],[-19,1.3,21,2],[25,1.3,24,3],[7,1.3,22,0]];
   specs.forEach(([x,y,z,type],n)=>{
     const g=group(ruins,x,y,z,`ruin-${type}-${n}`);g.rotation.y=n*.37;
     const w=4.6+(n%2)*1.2,d=4.3;
