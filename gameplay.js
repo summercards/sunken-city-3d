@@ -1731,7 +1731,11 @@ export function initSunkenCityGameplay({
     pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
     const roots = [boatMeshGroup, explorerGroup, ...buildSites.flatMap(s => s.hitRoots || [])];
-    const hit = raycaster.intersectObjects(roots, true).find(h => !state.worldVisible || state.worldVisible(h.point));
+    const hit = raycaster.intersectObjects(roots, true).find(h => {
+      if(h.point.y < WATER_LEVEL + .05 || state.worldVisible && !state.worldVisible(h.point)) return false;
+      for(let obj=h.object;obj;obj=obj.parent) if(!obj.visible) return false;
+      return true;
+    });
     return hit && hit.distance < 115 ? findHoverTargetFromIntersection(hit.object) : null;
   }
 

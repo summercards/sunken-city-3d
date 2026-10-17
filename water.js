@@ -1,0 +1,206 @@
+// Painterly water: depth-aware transmission, sparse broad highlights, and world-space wakes.
+// All foam/ripple pools are fixed-size; neither clicks nor rowing allocate scene objects.
+export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLevel }) {
+  const rippleCount=16,wakeCount=24;
+  const ripples=Array.from({length:rippleCount},()=>new T.Vector4(0,0,-100,0));
+  const wakes=Array.from({length:wakeCount},()=>new T.Vector4(0,0,-100,0));
+  const target=new T.WebGLRenderTarget(1,1,{minFilter:T.LinearFilter,magFilter:T.LinearFilter,depthBuffer:true,type:T.HalfFloatType});
+  target.depthTexture=new T.DepthTexture(1,1,T.UnsignedIntType);
+  const uniforms={uTime:{value:0},uRefractionPixels:{value:64},uSurfaceContrast:{value:.25},uSceneColor:{value:target.texture},uSceneDepth:{value:target.depthTexture},
+    uResolution:{value:new T.Vector2(1,1)},uNearFar:{value:new T.Vector2(camera.near,camera.far)},uInverseProjection:{value:new T.Matrix4()},uCameraWorld:{value:new T.Matrix4()},
+    uBoat:{value:new T.Vector4(0,0,0,0)},uRipples:{value:ripples},uWake:{value:wakes}};
+  const material=new T.ShaderMaterial({uniforms,depthWrite:true,side:T.DoubleSide,
+    vertexShader:`
+      varying vec3 vWaterWorld;
+      varying vec4 vWaterClip;
+      varying float vWaterViewDepth;
+      void main(){
+        vec4 world=modelMatrix*vec4(position,1.0);
+        vWaterWorld=world.xyz;
+        vec4 view=viewMatrix*world;
+        vWaterViewDepth=-view.z;
+        vWaterClip=projectionMatrix*view;
+        gl_Position=vWaterClip;
+      }`,
+    fragmentShader:`
+      uniform float uTime,uRefractionPixels,uSurfaceContrast;
+      uniform sampler2D uSceneColor,uSceneDepth;
+      uniform vec2 uResolution,uNearFar;
+      uniform mat4 uInverseProjection,uCameraWorld;
+      uniform vec4 uBoat;
+      uniform vec4 uRipples[16],uWake[24];
+      varying vec3 vWaterWorld;
+      varying vec4 vWaterClip;
+      varying float vWaterViewDepth;
+      float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+      float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);
+        return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1)),f.x),f.y);}
+      float broad(vec2 p){return noise(p)*.65+noise(p*2.03+13.2)*.25+noise(p*4.01)*.1;}
+      float viewDepth(float z){return uNearFar.x*uNearFar.y/(uNearFar.y-z*(uNearFar.y-uNearFar.x));}
+      float boxSDF(vec2 p,vec2 b){vec2 q=abs(p)-b;return length(max(q,0.0))+min(max(q.x,q.y),0.0);}
+      vec2 turn(vec2 p,float a){float c=cos(a),s=sin(a);return vec2(c*p.x-s*p.y,s*p.x+c*p.y);}
+      float shore(vec2 p){
+        float a=boxSDF(turn(p-vec2(4.3,-.5),-.22),vec2(4.65,5.05));
+        a=min(a,boxSDF(turn(p-vec2(2.8,-6.6),-.22),vec2(5.45,4.15)));
+        a=min(a,length(p-vec2(-15,-6))-6.35);
+        a=min(a,boxSDF(p-vec2(-12,13),vec2(3.25,2.75)));
+        a=min(a,boxSDF(p-vec2(.3,9),vec2(2.5,2)));
+        a=min(a,boxSDF(p-vec2(16,15),vec2(3.25,2.75)));
+        return min(a,boxSDF(turn(p-vec2(-28,-18),-.35),vec2(8.5,7)));
+      }
+      void main(){
+        vec2 p=vWaterWorld.xz;
+        vec2 drift=vec2(uTime*.032,-uTime*.024);
+        float swell=broad(p*.12+drift);
+        float wash=broad(p*.25+vec2(-uTime*.027,uTime*.019));
+        vec2 uv=vWaterClip.xy/vWaterClip.w*.5+.5;
+        float rawDepth=texture2D(uSceneDepth,uv).x;
+        float thickness=clamp(viewDepth(rawDepth)-vWaterViewDepth,0.0,45.0);
+        // Analytic wave derivatives form a continuously changing optical normal.
+        float a=dot(p,vec2(.63,.38))+uTime*.72;
+        float b=dot(p,vec2(-.29,.91))-uTime*.56;
+        float c=dot(p,vec2(1.41,-.73))+uTime*.93;
+        vec2 slope=vec2(.63,.38)*cos(a)*.065+vec2(-.29,.91)*cos(b)*.045+vec2(1.41,-.73)*cos(c)*.015;
+        vec3 normal=normalize(vec3(-slope.x,1.0,-slope.y));
+        // Visible, slow optical motion below the surface; taper at the waterline.
+        float refractionDepth=smoothstep(.15,2.5,thickness)*(1.0-smoothstep(24.0,45.0,thickness));
+        vec2 refractionOffset=slope*uRefractionPixels/uResolution*refractionDepth;
+        vec2 refractUV=clamp(uv+refractionOffset,vec2(.001),vec2(.999));
+        if(viewDepth(texture2D(uSceneDepth,refractUV).x)<vWaterViewDepth+.08)refractUV=uv;
+        float sampleDepth=texture2D(uSceneDepth,refractUV).x;
+        vec3 submerged=texture2D(uSceneColor,refractUV).rgb;
+        vec4 beneath=uInverseProjection*vec4(refractUV*2.0-1.0,sampleDepth*2.0-1.0,1.0);
+        beneath/=beneath.w;
+        vec3 bed=(uCameraWorld*beneath).xyz;
+        float depth=max(0.0,vWaterWorld.y-bed.y);
+        float deep=smoothstep(2.0,23.0,depth);
+        vec3 body=mix(vec3(.008,.30,.25),vec3(.008,.125,.24),deep);
+        body*=1.0+(smoothstep(.30,.70,swell)-.5)*.17*uSurfaceContrast;
+        // Slow facets of light follow the moving wave field, rather than a texture overlay.
+        float waveLight=smoothstep(.10,.85,sin(a)*.45+sin(b)*.35+sin(c)*.20);
+        body+=vec3(.002,.018,.020)*waveLight*uSurfaceContrast;
+        vec2 waveDomain=p*.27+vec2(sin(p.y*.17+uTime*.18),cos(p.x*.13-uTime*.14))*.55;
+        float waterFacet=smoothstep(.44,.56,broad(waveDomain+drift));
+        body+=vec3(.002,.036,.034)*waterFacet*uSurfaceContrast;
+        // Wavelength-dependent absorption preserves nearby structure and loses reds first.
+        vec3 transmission=exp(-thickness*vec3(.125,.064,.046));
+        transmission*=1.0-smoothstep(7.0,21.0,depth);
+        if(rawDepth>.9999)transmission=vec3(0.0);
+        // Moving caustics lie on the submerged geometry, not painted on the surface.
+        vec2 cp=bed.xz*.80+vec2(sin(bed.z*.32+uTime*.6),cos(bed.x*.28-uTime*.5))*.42;
+        float cells=abs(sin(cp.x+uTime*.30)*cos(cp.y-uTime*.24));
+        float caustic=(1.0-smoothstep(.025,.085,cells))*smoothstep(.3,1.2,depth)*(1.0-smoothstep(3.0,15.0,depth));
+        submerged+=vec3(.025,.12,.10)*caustic;
+        vec3 color=submerged*transmission+body*(1.0-transmission);
+        vec3 eye=normalize(cameraPosition-vWaterWorld);
+        float fresnel=.02+.98*pow(1.0-max(dot(normal,eye),0.0),5.0);
+        color=mix(color,vec3(.16,.39,.51),fresnel*.65);
+        vec3 halfLight=normalize(eye+normalize(vec3(.42,.78,-.46)));
+        float sun=pow(max(dot(normal,halfLight),0.0),650.0);
+        color+=vec3(.26,.45,.42)*sun*.018*smoothstep(.52,.72,wash);
+        // Sparse moving flecks, far below the coverage of the former white cloud patches.
+        float fleck=smoothstep(.83,.94,noise(p*1.25+drift*2.0))*smoothstep(.55,.74,swell);
+        color+=vec3(.025,.055,.052)*fleck*uSurfaceContrast;
+        // Soft, broken waterline washes: never a bright wire outlining every wall.
+        float edge=shore(p);
+        float pulse=.12+sin(uTime*.85+p.x*.21+p.y*.17)*.09;
+        float edgeFoam=(1.0-smoothstep(.055,.20,abs(edge-pulse)))*smoothstep(.36,.65,noise(p*.85+drift*2.0));
+        edgeFoam*=step(-.04,edge)*.94;
+        float washFoam=(1.0-smoothstep(.06,.25,abs(edge-.42-pulse)))*smoothstep(.58,.75,noise(p*.7-drift))* .35;
+        float foam=max(edgeFoam,washFoam);
+        // Hull contact plus curved, speed-dependent bow waves.
+        vec2 forward=vec2(sin(uBoat.z),cos(uBoat.z)),side=vec2(forward.y,-forward.x);
+        vec2 rel=p-uBoat.xy;float along=dot(rel,forward),across=dot(rel,side);
+        float hull=length(vec2(across/1.32,along/2.65));
+        float hullLap=(1.0-smoothstep(.035,.15,abs(hull-1.03)))*(.18+.16*sin(uTime*1.4+along*2.0));
+        foam=max(foam,hullLap);
+        float speed=clamp(uBoat.w/3.6,0.0,1.0),tail=-along;
+        float width=1.15+tail*.23;
+        float bow=(1.0-smoothstep(.05,.23,abs(abs(across)-width))) * smoothstep(-.4,.4,tail)*(1.0-smoothstep(3.0,7.5,tail));
+        foam=max(foam,bow*speed*.42*smoothstep(.24,.6,noise(p*1.5-vec2(uTime*.15))));
+        // Historical foam positions remain in the water when the boat turns or stops.
+        for(int i=0;i<24;i++){
+          float age=uTime-uWake[i].z;
+          if(age>=0.0&&age<5.0&&uWake[i].w>0.0){
+            vec2 d=p-uWake[i].xy;float radius=.22+age*.16;
+            float dab=1.0-smoothstep(radius*.30,radius,length(d));
+            float breakup=smoothstep(.22,.66,noise(d*5.0+float(i)));
+            foam=max(foam,dab*breakup*pow(1.0-age/5.0,1.5)*.55);
+          }
+        }
+        // Clicks, paddle dips and dock contact share gently expanding, broken arcs.
+        for(int i=0;i<16;i++){
+          float age=uTime-uRipples[i].z;
+          if(age>=0.0&&age<3.5&&uRipples[i].w>0.0){
+            vec2 d=p-uRipples[i].xy;float radius=.10+age*.88;
+            float ring=1.0-smoothstep(.035,.105,abs(length(d)-radius));
+            float arc=.45+.55*smoothstep(-.5,.5,sin(atan(d.y,d.x)*3.0+float(i)*2.0));
+            float fade=pow(1.0-age/3.5,2.0)*smoothstep(0.0,.12,age);
+            foam=max(foam,ring*arc*fade*uRipples[i].w*.66);
+            color+=vec3(.008,.023,.021)*(1.0-smoothstep(0.0,.25,abs(length(d)-radius-.14)))*fade;
+          }
+        }
+        color=mix(color,vec3(.96,.985,1.0),clamp(foam,0.0,.96));
+        gl_FragColor=vec4(color,1.0);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }`
+  });
+  const surface=new T.Mesh(new T.PlaneGeometry(280,280),material);
+  surface.name='cartoon-water';surface.rotation.x=-Math.PI/2;surface.position.y=waterLevel;surface.renderOrder=3;scene.add(surface);
+  const stats={clicks:0,oarStrokes:0,landings:0,wakeSamples:0};
+  let art=null,rippleIndex=0,wakeIndex=0,lastT=0,oldMode='',stroke=-1,speed=0,travel=0,initialized=false;
+  const previous=new T.Vector3(),pos=new T.Vector3(),pointer=new T.Vector2(),ray=new T.Raycaster(),hit=new T.Vector3();
+  const plane=new T.Plane(new T.Vector3(0,1,0),-waterLevel);
+  const emitRipple=(x,z,strength=1)=>{ripples[rippleIndex].set(x,z,lastT,strength);rippleIndex=(rippleIndex+1)%rippleCount;};
+  function bind(value){art=value;}
+  function update(dt,t){
+    lastT=t;uniforms.uTime.value=t;if(!art)return;
+    art.boatAnchorGroup.getWorldPosition(pos);
+    const delta=initialized?Math.hypot(pos.x-previous.x,pos.z-previous.z):0;
+    const moving=art.state.workerMode==='ROWING';
+    const targetSpeed=moving&&dt>0?Math.min(6,delta/dt):0;
+    speed=T.MathUtils.lerp(speed,targetSpeed,1-Math.exp(-Math.min(dt,.1)*7));
+    const yaw=art.boatAnchorGroup.rotation.y;
+    uniforms.uBoat.value.set(pos.x,pos.z,yaw,speed);
+    if(moving&&delta<3){travel+=delta;if(travel>.42){travel=0;const side=(wakeIndex%2?1:-1)*.26;
+      wakes[wakeIndex].set(pos.x-Math.sin(yaw)*2.75+Math.cos(yaw)*side,pos.z-Math.cos(yaw)*2.75-Math.sin(yaw)*side,t,1);
+      wakeIndex=(wakeIndex+1)%wakeCount;stats.wakeSamples++;}}
+    const nextStroke=Math.floor(t*4.5/(Math.PI*2));
+    if(moving&&nextStroke!==stroke){stroke=nextStroke;stats.oarStrokes++;
+      for(const side of [-1,1])emitRipple(pos.x+Math.cos(yaw)*2.6*side,pos.z-Math.sin(yaw)*2.6*side,.55);
+    }
+    if(oldMode==='ROWING'&&!moving){stats.landings++;emitRipple(pos.x,pos.z,.8);}
+    oldMode=art.state.workerMode;previous.copy(pos);initialized=true;
+  }
+  function renderUnderwater(gridView){
+    const bounds=renderer.getSize(new T.Vector2()),ratio=Math.min(renderer.getPixelRatio(),1.25);
+    const w=Math.round(bounds.x*ratio),h=Math.round(bounds.y*ratio);
+    if(target.width!==w||target.height!==h){target.setSize(w,h);uniforms.uResolution.value.set(w,h);}
+    uniforms.uNearFar.value.set(camera.near,camera.far);
+    uniforms.uInverseProjection.value.copy(camera.projectionMatrixInverse);
+    uniforms.uCameraWorld.value.copy(camera.matrixWorld);
+    const saved=renderer.getRenderTarget(),visible=surface.visible;
+    surface.visible=false;gridView?.setUnderwaterPass(true);
+    try {renderer.setRenderTarget(target);renderer.render(scene,camera);}
+    finally {renderer.setRenderTarget(saved);surface.visible=visible;gridView?.setUnderwaterPass(false);}
+  }
+  let down=null;
+  const canvas=renderer.domElement;
+  canvas.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,id:e.pointerId};});
+  canvas.addEventListener('pointercancel',()=>{down=null;});
+  canvas.addEventListener('pointerup',e=>{
+    const start=down;down=null;
+    if(!art||e.button!==0||!start||start.id!==e.pointerId||Math.hypot(e.clientX-start.x,e.clientY-start.y)>5)return;
+    const r=canvas.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,1-(e.clientY-r.top)/r.height*2);
+    ray.setFromCamera(pointer,camera);if(!ray.ray.intersectPlane(plane,hit)||art.state.worldVisible&&!art.state.worldVisible(hit))return;
+    const distance=ray.ray.origin.distanceTo(hit);
+    const obstacle=ray.intersectObjects(scene.children,true).find(h=>{
+      if(h.object===surface||h.distance>=distance-.08||h.point.y<waterLevel+.08)return false;
+      for(let o=h.object;o;o=o.parent)if(!o.visible)return false;
+      return true;
+    });
+    if(obstacle)return;stats.clicks++;emitRipple(hit.x,hit.z,.85);
+  });
+  return {surface,uniforms,stats,emitRipple,bind,update,renderUnderwater};
+}

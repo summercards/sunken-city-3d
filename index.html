@@ -273,6 +273,7 @@
     import { initSunkenCityGameplay } from './gameplay.js';
     import { refineScene } from './scene-art.js';
     import { arrangeHarbor, createGridView } from './harbor-layout.js';
+    import { createStylizedWater } from './water.js';
 
     // ============================================================================
     // 1. 渲染器、场景与原画精确相机对齐
@@ -1697,153 +1698,8 @@
     // ============================================================================
     // 9. 手绘水深与物体边缘水花着色器（严格还原原画：无圆形波纹，仅在建筑/木码头/船体边缘生成手绘贴边白线）
     // ============================================================================
-    const waterUniforms = {
-      uTime: globalUniforms.uTime,
-      uShallowTurquoise: { value: new THREE.Color('#54beb4') },
-      uMidCerulean: { value: new THREE.Color('#228fb5') },
-      uDeepUltramarine: { value: new THREE.Color('#146e9f') },
-      uAbyssIndigo: { value: new THREE.Color('#125680') },
-      uFoamColor: { value: new THREE.Color('#f4fdff') }
-    };
-
-    const waterMat = new THREE.ShaderMaterial({
-      uniforms: waterUniforms,
-      transparent: true,
-      depthWrite: false,
-      side: THREE.DoubleSide,
-      vertexShader: `
-        uniform float uTime;
-        varying vec2 vUv;
-        varying vec3 vWorldPos;
-        varying float vWave;
-
-        void main() {
-          vUv = uv;
-          vec4 worldPosition = modelMatrix * vec4(position, 1.0);
-          float w1 = sin(worldPosition.x * 0.52 + uTime * 1.45) * cos(worldPosition.z * 0.45 + uTime * 1.25);
-          float w2 = sin((worldPosition.x - worldPosition.z) * 0.85 - uTime * 1.85) * 0.45;
-          vWave = (w1 + w2) * 0.055;
-          worldPosition.y += vWave;
-          vWorldPos = worldPosition.xyz;
-          gl_Position = projectionMatrix * viewMatrix * worldPosition;
-        }
-      `,
-      fragmentShader: `
-        uniform float uTime;
-        uniform vec3 uShallowTurquoise;
-        uniform vec3 uMidCerulean;
-        uniform vec3 uDeepUltramarine;
-        uniform vec3 uAbyssIndigo;
-        uniform vec3 uFoamColor;
-        varying vec2 vUv;
-        varying vec3 vWorldPos;
-        varying float vWave;
-
-        float hash(vec2 p) {
-          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-        }
-        float noise(vec2 p) {
-          vec2 i = floor(p);
-          vec2 f = fract(p);
-          f = f * f * (3.0 - 2.0 * f);
-          return mix(
-            mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), f.x),
-            mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x),
-            f.y
-          );
-        }
-
-        // 旋转二维坐标辅助函数（与场景内各建筑朝向严格对齐）
-        vec2 rot2D(vec2 p, float a) {
-          float c = cos(a), s = sin(a);
-          return vec2(c * p.x - s * p.y, s * p.x + c * p.y);
-        }
-
-        // 2D 矩形有向距离场（SDF），用于精确提取建筑四壁的贴边水线，而非圆形圈
-        float sdBox2D(vec2 p, vec2 b) {
-          vec2 d = abs(p) - b;
-          return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
-        }
-
-        // 计算水面任意点到各出水建筑真实轮廓的精确有向距离
-        float getObjectEdgeDist(vec2 xz) {
-          float home = sdBox2D(rot2D(xz-vec2(4.3,-.5),-.22),vec2(4.65,5.05));
-          float back = sdBox2D(rot2D(xz-vec2(2.8,-6.6),-.22),vec2(5.45,4.15));
-          float farm = length(xz-vec2(-15.0,-6.0))-6.35;
-          float salvage = sdBox2D(xz-vec2(-12.0,13.0),vec2(3.25,2.75));
-          float dock = sdBox2D(xz-vec2(.3,9.0),vec2(2.5,2.0));
-          float aqua = sdBox2D(xz-vec2(16.0,15.0),vec2(3.25,2.75));
-          float railway = sdBox2D(rot2D(xz-vec2(-28.0,-18.0),-.35),vec2(8.5,7.0));
-          return min(min(home,back),min(farm,min(salvage,min(dock,min(aqua,railway)))));
-        }
-        float getBathymetry(vec2 xz, float edgeDist) {
-          return clamp(edgeDist/4.0,0.0,1.0);
-        }
-
-        void main() {
-          vec2 xz = vWorldPos.xz;
-          float edgeDist = getObjectEdgeDist(xz);
-          float bathy = getBathymetry(xz, edgeDist);
-
-          // 柔和的手绘水彩底纹（去除了所有环状波纹）
-          vec2 p = xz * 0.36;
-          float n1 = noise(p + vec2(uTime * 0.18, -uTime * 0.14));
-          float n2 = noise(p * 1.9 - vec2(uTime * 0.22, uTime * 0.18));
-          float combined = n1 * 0.6 + n2 * 0.4;
-
-          float toonBrush = smoothstep(0.42, 0.58, combined) * 0.45 +
-                            smoothstep(0.68, 0.78, combined) * 0.35;
-
-          // 依据水深平滑过渡：建筑边缘浅水呈翡翠松石绿 -> 中水孔雀蓝 -> 中央水道深邃群青蓝
-          vec3 shallowMix = mix(uShallowTurquoise, uMidCerulean, smoothstep(0.0, 0.42, bathy));
-          vec3 deepMix = mix(uDeepUltramarine, uAbyssIndigo, smoothstep(0.45, 1.0, bathy));
-          vec3 waterCol = mix(shallowMix, deepMix, smoothstep(0.18, 0.85, bathy));
-
-          // 浅滩处的手绘水彩亮色笔触
-          waterCol = mix(waterCol, uShallowTurquoise, toonBrush * (1.0 - bathy * 0.72) * 0.48);
-
-          // Two crossing wave trains create moving broken crests and narrow sun glints.
-          float waveA=sin(xz.x*2.8+xz.y*1.65-uTime*1.7+noise(xz*.8)*3.0);
-          float waveB=sin(xz.x*1.3-xz.y*3.4+uTime*1.15);
-          float crest=pow(max(0.0,1.0-abs(waveA)*3.5),3.0);
-          float sparkle=crest*smoothstep(.35,.9,waveB)*smoothstep(.35,.7,n1);
-          waterCol+=vec3(.10,.27,.30)*crest*.12;
-          waterCol=mix(waterCol,vec3(.78,.96,.97),sparkle*.52);
-
-          // 核心：严格沿着建筑出水边缘生成的断续手绘白线（Object-Edge Foam Contour）
-          float waveJitter = (n1 - 0.5) * 0.18 + sin(xz.x * 2.4 + xz.y * 2.1 + uTime * 2.2) * 0.04;
-          float dJitter = edgeDist + waveJitter;
-
-          // 第一道紧贴墙壁的亮白水花线（宽度仅约 0.18 单位）
-          float mainEdgeLine = (1.0 - smoothstep(0.0, 0.18, abs(dJitter - 0.08))) * step(-0.05, edgeDist);
-          // 第二道紧挨在墙外侧 0.38 单位处的断续手绘细白线（模拟原画墙根处的双层手绘水迹）
-          float gapMask = smoothstep(0.38, 0.52, noise(xz * 1.35 + vec2(uTime * 0.3, -uTime * 0.25)));
-          float secondEdgeLine = (1.0 - smoothstep(0.0, 0.075, abs(dJitter - 0.38))) * gapMask * step(0.0, edgeDist);
-
-          float totalEdgeFoam = clamp(mainEdgeLine * 0.94 + secondEdgeLine * 0.72, 0.0, 1.0);
-          waterCol = mix(waterCol, uFoamColor, totalEdgeFoam);
-
-          // 远景柔和深海雾融合（拉远镜头后仍保留邻接关系，最远处自然切入群青）
-          float camDist = length(vWorldPos - cameraPosition);
-          if (camDist > 168.0) discard;
-          float fogFactor = smoothstep(130.0, 190.0, camDist);
-          waterCol = mix(waterCol, vec3(0.07, 0.38, 0.55), fogFactor);
-
-          // 浅水通透见底，深水浓郁纯净
-          float baseAlpha = mix(0.24, 0.43, smoothstep(0.12, 0.82, bathy));
-          float finalAlpha = clamp(baseAlpha + sparkle * .24 + totalEdgeFoam * 0.55 * (1.0 - fogFactor), 0.22, 0.95);
-
-          gl_FragColor = vec4(waterCol, finalAlpha);
-          #include <tonemapping_fragment>
-          #include <colorspace_fragment>
-        }
-      `
-    });
-
-    const waterPlane = new THREE.Mesh(new THREE.PlaneGeometry(280, 280, 200, 200), waterMat);
-    waterPlane.rotation.x = -Math.PI / 2;
-    waterPlane.position.y = WATER_LEVEL;
-    scene.add(waterPlane);
+    const waterSystem = createStylizedWater({ THREE, scene, camera, renderer, waterLevel: WATER_LEVEL });
+    const waterPlane = waterSystem.surface;
 
     // 紧贴各建筑墙体边缘、木码头木桩边缘与轮胎吃水处的直条手绘白色水际线（完全贴合物体轮廓，绝不画圆圈）
     const objectEdgeFoamStrips = [];
@@ -2090,6 +1946,9 @@
       return (state.workerMode === 'ROWING' ? boatAnchorGroup : explorerGroup).getWorldPosition(new THREE.Vector3());
     } });
     gameplay.art.state.worldVisible = gridView.isVisible;
+    waterSystem.bind(gameplay.art);
+    // Water contact is now shaded on the actual surface, not floating mesh strips.
+    [...boatEdgeFoams, ...objectEdgeFoamStrips, ...poolEdgeFoamSegments].forEach(f => f.mesh.visible = false);
     const clock = new THREE.Clock();
     let prevTime = 0;
 
@@ -2206,8 +2065,13 @@
       camera.updateMatrixWorld(true);
       harbor.update(t);
       gridView.update(t);
+      waterSystem.update(dt, t);
       gameplay.updateOverlays();
+      waterSystem.renderUnderwater(gridView);
+      const shadowUpdate = renderer.shadowMap.autoUpdate;
+      renderer.shadowMap.autoUpdate = false;
       renderer.render(scene, camera);
+      renderer.shadowMap.autoUpdate = shadowUpdate;
     }
 
     animate();

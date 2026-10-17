@@ -55,9 +55,9 @@ export function arrangeHarbor({ THREE:T, worldGroup, gameplay, sceneArt, leftBui
 export function createGridView({THREE:T,scene,getFocus}) {
   const size=128,cell=3,origin=-size*cell/2,data=new Uint8Array(size*size*4),pending=new Map();
   const texture=new T.DataTexture(data,size,size,T.RGBAFormat);texture.minFilter=texture.magFilter=T.NearestFilter;texture.generateMipmaps=false;
-  const uniforms={uGridMask:{value:texture},uGridOrigin:{value:origin},uGridSpan:{value:size*cell},uGridCenter:{value:new T.Vector2()},uGridVoid:{value:scene.background.clone().convertLinearToSRGB()}};
+  const uniforms={uGridPrepass:{value:false},uGridMask:{value:texture},uGridOrigin:{value:origin},uGridSpan:{value:size*cell},uGridCenter:{value:new T.Vector2()},uGridVoid:{value:scene.background.clone().convertLinearToSRGB()}};
   const vertex='varying vec3 vGridWorld;\n';
-  const fragment='varying vec3 vGridWorld; uniform sampler2D uGridMask; uniform float uGridOrigin; uniform float uGridSpan; uniform vec2 uGridCenter; uniform vec3 uGridVoid;\n';
+  const fragment='varying vec3 vGridWorld; uniform bool uGridPrepass; uniform sampler2D uGridMask; uniform float uGridOrigin; uniform float uGridSpan; uniform vec2 uGridCenter; uniform vec3 uGridVoid;\n';
   // Underwater pixels use their water-surface footprint, never a second vertical guillotine.
   // A fixed spatial border absorbs silhouettes before the clipping plane; cell reveal stays binary.
   const discard=`
@@ -70,10 +70,12 @@ export function createGridView({THREE:T,scene,getFocus}) {
     if(edgeDistance>=0.0 || any(lessThan(gridUV,vec2(0.0)))||any(greaterThanEqual(gridUV,vec2(1.0)))||texture2D(uGridMask,gridUV).r<0.5) discard;
   `;
   const finish=`
+    if (!uGridPrepass) {
     float depthHaze=smoothstep(5.0,26.0,gridDepth)*0.88;
     gl_FragColor.rgb=mix(gl_FragColor.rgb,vec3(0.055,0.30,0.44),depthHaze);
     gl_FragColor.rgb=mix(uGridVoid,gl_FragColor.rgb,gridInterior);
     gl_FragColor.a=mix(1.0,gl_FragColor.a,gridInterior);
+    }
   `;
   const materials=new WeakSet();
   function patch(){scene.traverse(o=>{for(const m of (Array.isArray(o.material)?o.material:[o.material])){
@@ -105,5 +107,5 @@ export function createGridView({THREE:T,scene,getFocus}) {
     for(const [id,at]of pending)if(t>=at){data.fill(255,id*4,id*4+4);pending.delete(id);dirty=true;}
     if(dirty)texture.needsUpdate=true;
   }
-  return {update,isVisible,texture,pending,cell,center:uniforms.uGridCenter.value};
+  return {update,isVisible,texture,pending,cell,center:uniforms.uGridCenter.value,setUnderwaterPass(value){uniforms.uGridPrepass.value=value;}};
 }
