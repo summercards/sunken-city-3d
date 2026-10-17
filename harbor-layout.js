@@ -40,7 +40,9 @@ export function arrangeHarbor({ THREE:T, worldGroup, gameplay, sceneArt, leftBui
   canvas.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY};});
   canvas.addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clientX-down.x,e.clientY-down.y)>5)return;
     pointer.set(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2);if(e.button!==0)return;ray.setFromCamera(pointer,gameplay.art.camera);
-    const h=ray.intersectObjects([salvage,poleGroup],true)[0];if(h&&(!state.worldVisible||state.worldVisible(h.point)))document.getElementById('salvage-btn').click();
+    const h=ray.intersectObjects([salvage,poleGroup,dock],true)[0];if(!h||state.worldVisible&& !state.worldVisible(h.point))return;
+    if(salvage.children.some(root=>root===h.object||root===h.object.parent||root===h.object.parent?.parent))gameplay.performSalvage();
+    else gameplay.upgradeShip();
   });
   const repairs=[];
   for(let i=0;i<6;i++){const m=box(leftBuildingGroup,1.6+i*.43,3.85,2.3,.39,.18,1.5,'#dbc396');repairs.push(m);}

@@ -44,14 +44,15 @@ export function initSunkenCityGameplay({
   const coinPill = document.createElement('div');
   coinPill.className = 'minimal-coin-pill';
   coinPill.innerHTML = `
-    <span>🐚 海贝</span>
+    <span>🐚</span>
     <span class="coin-num" id="min-coin-val">80</span>
-    <span class="resource-mini" aria-label="木料与旧零件">
-      <span id="min-wood-val">木料 0</span>
-      <span id="min-parts-val">零件 0</span>
+    <span class="resource-mini" aria-label="资源数量">
+      <span id="min-wood-val">🪵 0</span>
+      <span id="min-parts-val">⚙ 0</span>
+      <span id="min-ship-val">⛵ 1</span>
     </span>
-    <span class="coin-rate-subtle" id="min-coin-rate">每 6 秒积累 · 点击屋顶收取</span>
-    <span class="worker-state-dot" id="worker-status-text">🧑‍🌾 小人：木屋码头待机</span>
+    <span class="coin-rate-subtle" id="min-coin-rate"></span>
+    <span class="worker-state-dot" id="worker-status-text"></span>
   `;
   document.body.appendChild(coinPill);
   coinPill.setAttribute('aria-label', '海贝与旅人状态');
@@ -115,8 +116,8 @@ export function initSunkenCityGameplay({
   const actionWheel = document.createElement('div');
   actionWheel.className = 'action-wheel';
   actionWheel.innerHTML = `
-    <button class="action-wheel-btn boat" id="actor-boat-btn" title="划船">🚣<small>划船</small></button>
-    <button class="action-wheel-btn inspect" id="actor-inspect-btn" title="查看状态">◎<small>状态</small></button>
+    <button class="action-wheel-btn boat" id="actor-boat-btn" title="划船" aria-label="划船">🚣</button>
+    <button class="action-wheel-btn inspect" id="actor-inspect-btn" title="查看状态" aria-label="查看状态">◎</button>
     <button class="action-wheel-btn close" id="actor-close-btn" title="关闭">×</button>
     <span class="action-wheel-label">行动</span>
   `;
@@ -125,11 +126,11 @@ export function initSunkenCityGameplay({
   const destinationWheel = document.createElement('div');
   destinationWheel.className = 'destination-wheel';
   destinationWheel.innerHTML = `
-    <button class="destination-btn" data-zone="zone1">🏡<small>晴空水巷</small></button>
-    <button class="destination-btn" data-zone="zone2">🚃<small>横滨铁道</small></button>
-    <button class="destination-btn" data-zone="zone3">🌱<small>圆弧农场</small></button>
-    <button class="destination-btn" data-zone="zone5">🪷<small>浅水养殖</small></button>
-    <button class="destination-btn far-sea-destination" data-zone="zone4">🌊<small>远海街町</small></button>
+    <button class="destination-btn" data-zone="zone1" title="晴空水巷" aria-label="晴空水巷">🏡</button>
+    <button class="destination-btn" data-zone="zone2" title="横滨铁道" aria-label="横滨铁道">🚃</button>
+    <button class="destination-btn" data-zone="zone3" title="圆弧农场" aria-label="圆弧农场">🌱</button>
+    <button class="destination-btn" data-zone="zone5" title="浅水养殖" aria-label="浅水养殖">🪷</button>
+    <button class="destination-btn far-sea-destination" data-zone="zone4" title="远海街町" aria-label="远海街町">🌊</button>
   `;
   document.body.appendChild(destinationWheel);
 
@@ -302,24 +303,9 @@ export function initSunkenCityGameplay({
   const buildProgressEl = document.createElement('div');
   buildProgressEl.className = 'build-progress-pill';
   buildProgressEl.innerHTML = `
-    <span id="bp-label">🌱 种植修缮中</span>
     <div class="bp-bar"><div class="bp-fill" id="bp-fill"></div></div>
   `;
   document.body.appendChild(buildProgressEl);
-
-  const objectivePanel = document.createElement('section');
-  objectivePanel.className = 'demo-objective-panel';
-  objectivePanel.setAttribute('aria-live', 'polite');
-  objectivePanel.innerHTML = `
-    <div class="demo-objective-kicker">首局航海日志</div>
-    <div class="demo-objective-title" id="demo-objective-title">先收取木屋海贝，再修缮家园</div>
-    <div class="demo-objective-detail" id="demo-objective-detail">点击太阳能木屋上方的行动点，完成第一次建设。</div>
-    <div class="demo-objective-actions">
-      <button type="button" class="demo-action-btn" id="salvage-btn">⚓ 打捞旧零件</button>
-      <button type="button" class="demo-action-btn ship-upgrade-btn" id="ship-upgrade-btn">⛵ 升级木船</button>
-    </div>
-  `;
-  document.body.appendChild(objectivePanel);
 
   const floatTips = new Map();
   function spawnFloatTip(worldPos, text) {
@@ -1571,13 +1557,15 @@ export function initSunkenCityGameplay({
 
   function syncCoinUI() {
     elCoinVal.textContent = Math.floor(state.coins);
-    elWoodVal.textContent = `木料 ${state.wood}`;
-    elPartsVal.textContent = `零件 ${state.parts}`;
-    elCoinRate.textContent = `船只 Lv.${state.shipLevel}${state.farSeaUnlocked ? ' · 远海已解锁' : ' · 收集材料升级船只'}`;
+    elWoodVal.textContent = `🪵 ${state.wood}`;
+    elPartsVal.textContent = `⚙ ${state.parts}`;
+    const shipEl = document.getElementById('min-ship-val');
+    if (shipEl) shipEl.textContent = `⛵ ${state.shipLevel}`;
+    elCoinRate.textContent = '';
   }
 
   function setWorkerStatus(text) {
-    elWorkerStatus.textContent = `🧑‍🌾 ${text}`;
+    elWorkerStatus.textContent = text;
   }
 
   function awardResource(resource, amount, anchor, label) {
@@ -1586,56 +1574,24 @@ export function initSunkenCityGameplay({
     spawnFloatTip(anchor, `+${amount} ${label}`);
   }
 
-  const objectiveTitle = document.getElementById('demo-objective-title');
-  const objectiveDetail = document.getElementById('demo-objective-detail');
-  const salvageBtn = document.getElementById('salvage-btn');
-  const shipUpgradeBtn = document.getElementById('ship-upgrade-btn');
-
-  function homeSite() {
-    return buildSites.find(site => site.id === 'home_cabin');
-  }
-
   function updateObjectiveUI() {
-    const home = homeSite();
-    let title = '先收取木屋海贝，再修缮家园';
-    let detail = '点击太阳能木屋上方的行动点，完成第一次建设。';
-    if (home?.level < 2) {
-      title = '① 修缮太阳能木屋';
-      detail = `收取海贝后升级木屋（需要 ${home?.stages[home.level]?.cost || 20} 🐚），让家园长出第一片新绿。`;
-    } else if (state.wood < 6 || state.parts < 4) {
-      title = '② 去废墟打捞船材';
-      detail = `还需要木料 ${Math.max(0, 6 - state.wood)}、旧零件 ${Math.max(0, 4 - state.parts)}，点击“打捞旧零件”完成一次打捞。`;
-    } else if (!state.farSeaUnlocked) {
-      title = '③ 在码头升级木船';
-      detail = '材料齐全后升级木船，解锁远海沉没街町。';
-    } else if (state.currentZone !== 'zone4') {
-      title = '④ 驶向远海沉没街町';
-      detail = '点击小船，选择“远海街町”，看看下一座屋顶。';
-    } else {
-      title = 'Demo 完成：远海街町已抵达';
-      detail = '下一步可以在断桥生活船旁扩建新的水上社区。';
-    }
-    objectiveTitle.textContent = title;
-    objectiveDetail.textContent = detail;
-    salvageBtn.disabled = state.workerMode !== 'IDLE_ASHORE' || state.salvageRuns >= 3;
-    salvageBtn.textContent = state.salvageRuns >= 3 ? '✓ 打捞完成' : '⚓ 打捞旧零件';
-    shipUpgradeBtn.disabled = state.farSeaUnlocked || state.workerMode !== 'IDLE_ASHORE' || state.wood < 6 || state.parts < 4;
-    shipUpgradeBtn.textContent = state.farSeaUnlocked ? '✓ 木船已升级' : `⛵ 升级木船（木料 ${state.wood}/6 · 零件 ${state.parts}/4）`;
-    destinationWheel.querySelector('[data-zone="zone4"]').disabled = !state.farSeaUnlocked;
-    destinationWheel.querySelector('[data-zone="zone4"]').setAttribute('aria-disabled', String(!state.farSeaUnlocked));
+    const farSea = destinationWheel.querySelector('[data-zone="zone4"]');
+    farSea.disabled = !state.farSeaUnlocked;
+    farSea.setAttribute('aria-disabled', String(!state.farSeaUnlocked));
   }
 
-  salvageBtn.addEventListener('click', () => {
-    if (salvageBtn.disabled) return;
+  function performSalvage() {
+    if (state.workerMode !== 'IDLE_ASHORE' || state.salvageRuns >= 3) return false;
     state.salvageRuns += 1;
-    awardResource('wood', 3, new THREE.Vector3(-12, WATER_LEVEL + 4, 13), '木料');
-    awardResource('parts', 2, new THREE.Vector3(-12, WATER_LEVEL + 4.4, 13), '旧零件');
-    setWorkerStatus('打捞站收集完成，准备返航');
-    updateObjectiveUI();
-  });
+    const anchor = new THREE.Vector3(-12, WATER_LEVEL + 4, 13);
+    awardResource('wood', 3, anchor, '🪵');
+    awardResource('parts', 2, anchor.clone().add(new THREE.Vector3(0, .5, 0)), '⚙');
+    syncCoinUI();
+    return true;
+  }
 
-  shipUpgradeBtn.addEventListener('click', () => {
-    if (shipUpgradeBtn.disabled) return;
+  function upgradeShip() {
+    if (state.farSeaUnlocked || state.workerMode !== 'IDLE_ASHORE' || state.wood < 6 || state.parts < 4) return false;
     state.wood -= 6;
     state.parts -= 4;
     state.shipLevel = 2;
@@ -1643,10 +1599,10 @@ export function initSunkenCityGameplay({
     boatMeshGroup.scale.set(1.12, 1.08, 1.16);
     boatMeshGroup.position.y = 0.08;
     syncCoinUI();
-    spawnFloatTip(boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 2.4, 0)), '⛵ 木船升级完成 · 远海解锁');
-    setWorkerStatus('木船升级完成，可以驶向远海');
+    spawnFloatTip(boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 2.4, 0)), '⛵ 2');
     updateObjectiveUI();
-  });
+    return true;
+  }
 
   // ============================================================================
   // 9. 精确 3D Mesh Raycast 悬停检测（鼠标移到模型上才显示，移开立刻消失）
@@ -2364,6 +2320,8 @@ export function initSunkenCityGameplay({
   syncCoinUI();
   return {
     updateGameplay,
+    performSalvage,
+    upgradeShip,
     art: { camera, zone2Root, explorerGroup, boatAnchorGroup, stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
       planterSoil, rooftopSoilPatch, initialPlants, underwaterCityGroup, buildSites, state,
       crops: [z2CropStage1, z2CropStage2, z2CropStage3, z3CropStage1, z3CropStage2] },

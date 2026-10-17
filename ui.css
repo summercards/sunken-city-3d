@@ -36,31 +36,8 @@ button:disabled { cursor: not-allowed; opacity: .5; }
 @keyframes hudEnter { from { opacity: 0; transform: translateY(-7px) scale(.96); } to { opacity: 1; transform: none; } }
 @keyframes coinBump { 50% { transform: translateY(-2px) scale(1.14); color: var(--leaf-dark); } }
 
-/* The card is information only. Its outer node tracks the world; the child animates. */
-.hover-context-card {
-  position: fixed; z-index: 20; width: min(216px, calc(100vw - 24px));
-  transform: translate(calc(-50% + var(--edge-shift, 0px)), -100%);
-  pointer-events: none;
-}
-.hc-content {
-  padding: 11px 13px; border-radius: 14px;
-  background: rgb(255 247 223 / 78%);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  border: 1px solid rgb(255 251 234 / 52%);
-  box-shadow: 0 5px 18px #122e421a; color: var(--ink);
-  opacity: 0; transform: translateY(7px) scale(.88); transform-origin: center bottom;
-  transition: opacity .18s ease, transform .24s cubic-bezier(.4, 0, .8, .4);
-}
-.hover-context-card.visible .hc-content {
-  opacity: 1; transform: translateY(0) scale(1);
-  transition: opacity .15s ease, transform .42s var(--spring);
-}
-.hover-context-card.out-of-view .hc-content { opacity: 0; transform: translateY(5px) scale(.9); }
-.hc-header { display: flex; gap: 8px; align-items: baseline; }
-.hc-title { font-size: 12px; line-height: 1.4; font-weight: 750; flex: 1; min-width: 0; }
-.hc-lvl { font-size: 10px; color: #597365; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.hc-summary { font-size: 11px; line-height: 1.4; margin-top: 5px; color: #637563; }
-.can-upgrade .hc-summary { color: var(--leaf-dark); }
+/* 交互只保留场景反馈与建设进度，不再显示悬停说明卡。 */
+.hover-context-card { display: none !important; }
 
 /* One 44px hit area, one position. The icon changes after harvest is consumed. */
 .resource-orb {
@@ -116,19 +93,6 @@ button:disabled { cursor: not-allowed; opacity: .5; }
 .action-wheel-btn:active, .destination-btn:active { transform: scale(.9); transition-duration: .08s; }
 .action-wheel-btn.close { min-width: 30px; background: transparent; }
 .destination-wheel { z-index: 25; }
-.demo-objective-panel {
-  position: fixed; left: 28px; top: 86px; z-index: 14; width: min(330px, calc(100vw - 56px));
-  padding: 13px 15px; border-radius: 16px; background: rgb(255 247 223 / 82%);
-  border: 1px solid #fff7df85; box-shadow: 0 8px 22px #15364822;
-  color: var(--ink); backdrop-filter: blur(12px); animation: hudEnter .55s var(--spring) both;
-}
-.demo-objective-kicker { font-size: 10px; color: var(--leaf-dark); letter-spacing: .12em; font-weight: 800; }
-.demo-objective-title { margin-top: 4px; font-size: 14px; font-weight: 850; }
-.demo-objective-detail { margin-top: 4px; font-size: 11px; line-height: 1.5; color: #637563; }
-.demo-objective-actions { display: flex; gap: 7px; margin-top: 10px; flex-wrap: wrap; }
-.demo-action-btn { border: 0; border-radius: 10px; padding: 7px 9px; background: #e5ebd2; color: var(--ink); font-size: 11px; font-weight: 750; cursor: pointer; }
-.demo-action-btn:hover:not(:disabled) { background: var(--leaf); transform: translateY(-1px); }
-.demo-action-btn:disabled { cursor: not-allowed; opacity: .52; }
 .far-sea-destination[aria-disabled="true"] { opacity: .46; cursor: not-allowed; }
 .build-progress-pill {
   position: fixed; z-index: 18; transform: translate(-50%, 0);
@@ -157,8 +121,6 @@ button:disabled { cursor: not-allowed; opacity: .5; }
   .minimal-coin-pill { top: 16px; right: 16px; padding: 7px 11px; gap: 7px; font-size: 10px; }
   .coin-num { font-size: 17px; }
   .resource-mini { gap: 4px; padding-left: 5px; font-size: 9px; }
-  .demo-objective-panel { left: 16px; top: 68px; width: min(310px, calc(100vw - 32px)); padding: 10px 12px; }
-  .demo-objective-actions { margin-top: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }

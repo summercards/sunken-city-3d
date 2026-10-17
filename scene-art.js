@@ -313,10 +313,6 @@ export function refineScene({ THREE: T, worldGroup, makePainterlyMat: material, 
       spout.getWorldPosition(drops.position);
       drops.children.forEach((d,i)=>{const f=(t*1.4+i/8)%1;d.position.set(f*.45,-f*.6,Math.sin(i*2)*.1+f*.3);});
     }
-    if(active&&state.workerMode==='BUILDING') {
-      const p=state.jobProgress;
-      document.getElementById('bp-label').textContent=p<.18?'整地修复':p<.4?'浇水润土':p<.7?'幼苗萌发':'枝叶舒展';
-    }
   }
   return {update,plots,repairs,ruins,wind,rotor,flows};
 }
