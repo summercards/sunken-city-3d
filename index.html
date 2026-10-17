@@ -1941,7 +1941,7 @@
       if(i>1){c.mesh.visible=false;return;}
       c.pStart.set(-11.2,4.5,13);c.pMidBase.set(-8.5,2.5,14);c.pEnd.set(-6.7,1.15,15);
     });
-    const gridView = createGridView({ THREE, scene, getFocus: () => {
+    const gridView = createGridView({ THREE, scene, camera, getFocus: () => {
       const { state, explorerGroup, boatAnchorGroup } = gameplay.art;
       return (state.workerMode === 'ROWING' ? boatAnchorGroup : explorerGroup).getWorldPosition(new THREE.Vector3());
     } });

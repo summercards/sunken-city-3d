@@ -44,23 +44,29 @@ export function arrangeHarbor({ THREE:T, worldGroup, gameplay, sceneArt, leftBui
     repairs.forEach((m,i)=>{const a=Math.max(0,Math.min(1,(progress-i*.055)*5));m.visible=a>0;m.scale.y=Math.max(.001,a);m.position.y=3.85+(1-a)*.45;});plants.forEach((p,i)=>{p.position.y=1.5+Math.sin(t*1.3+i)*.035;});}};
 }
 
-// Character-centered world cells. Binary reveal with a separate, fixed spatial water-fog border.
-export function createGridView({THREE:T,scene,getFocus}) {
+// Character-centered world cells. Binary reveal inside an upright, screen-aligned square plate:
+// the visible water reads as a box with straight edges on every side, never a round/diamond blob.
+export function createGridView({THREE:T,scene,camera,getFocus}) {
   const size=128,cell=3,origin=-size*cell/2,data=new Uint8Array(size*size*4),pending=new Map();
   const texture=new T.DataTexture(data,size,size,T.RGBAFormat);texture.minFilter=texture.magFilter=T.NearestFilter;texture.generateMipmaps=false;
-  const uniforms={uGridPrepass:{value:false},uGridMask:{value:texture},uGridOrigin:{value:origin},uGridSpan:{value:size*cell},uGridCenter:{value:new T.Vector2()},uGridVoid:{value:scene.background.clone().convertLinearToSRGB()}};
-  const vertex='varying vec3 vGridWorld;\n';
-  const fragment='varying vec3 vGridWorld; uniform bool uGridPrepass; uniform sampler2D uGridMask; uniform float uGridOrigin; uniform float uGridSpan; uniform vec2 uGridCenter; uniform vec3 uGridVoid;\n';
+  // uGridHalf is the plate's half-size in viewport-height units (0.48/0.48 => a square covering
+  // 96% of the height). Widen x only if the composition ever needs a rectangle instead.
+  const uniforms={uGridPrepass:{value:false},uGridMask:{value:texture},uGridOrigin:{value:origin},uGridSpan:{value:size*cell},uGridCenter:{value:new T.Vector2()},uGridVoid:{value:scene.background.clone().convertLinearToSRGB()},
+    uGridFocusUV:{value:new T.Vector2(.5,.5)},uGridHalf:{value:new T.Vector2(.48,.48)},uGridAspect:{value:1}};
+  const vertex='varying vec3 vGridWorld;\nvarying vec4 vGridClip;\n';
+  const fragment='varying vec3 vGridWorld; varying vec4 vGridClip; uniform bool uGridPrepass; uniform sampler2D uGridMask; uniform float uGridOrigin; uniform float uGridSpan; uniform vec2 uGridCenter; uniform vec3 uGridVoid; uniform vec2 uGridFocusUV; uniform vec2 uGridHalf; uniform float uGridAspect;\n';
   // Underwater pixels use their water-surface footprint, never a second vertical guillotine.
-  // A fixed spatial border absorbs silhouettes before the clipping plane; cell reveal stays binary.
+  // The border is measured on screen (aspect-corrected), so the plate stays an upright square
+  // while the camera pans/zooms. Only the plate clips geometry: the world-cell reveal below is
+  // the explored footprint (what the player may click into), so at any zoom the edge stays a
+  // clean straight line instead of a ragged grid bite.
   const discard=`
     float gridDepth=max(0.0,1.12-vGridWorld.y);
-    vec2 gridPoint=vGridWorld.xz+vec2(-0.70710678,0.70710678)*gridDepth;
-    vec2 gridUV=(gridPoint-vec2(uGridOrigin))/uGridSpan;
-    vec2 edgeQ=abs(gridPoint-uGridCenter)-vec2(20.5);
-    float edgeDistance=length(max(edgeQ,0.0))+min(max(edgeQ.x,edgeQ.y),0.0)-2.0;
-    float gridInterior=1.0-smoothstep(-3.0,0.0,edgeDistance);
-    if(edgeDistance>=0.0 || any(lessThan(gridUV,vec2(0.0)))||any(greaterThanEqual(gridUV,vec2(1.0)))||texture2D(uGridMask,gridUV).r<0.5) discard;
+    vec2 gridScreen=vGridClip.xy/max(vGridClip.w,0.0001)*0.5+0.5;
+    vec2 edgeQ=abs((gridScreen-uGridFocusUV)*vec2(uGridAspect,1.0))-uGridHalf;
+    float edgeDistance=max(edgeQ.x,edgeQ.y);
+    float gridInterior=1.0-smoothstep(-0.008,0.0,edgeDistance);
+    if(edgeDistance>=0.0) discard;
   `;
   const finish=`
     if (!uGridPrepass) {
@@ -74,17 +80,28 @@ export function createGridView({THREE:T,scene,getFocus}) {
   function patch(){scene.traverse(o=>{for(const m of (Array.isArray(o.material)?o.material:[o.material])){
     if(!m||materials.has(m))continue;materials.add(m);const previous=m.onBeforeCompile;
     m.onBeforeCompile=function(shader,renderer){previous.call(this,shader,renderer);Object.assign(shader.uniforms,uniforms);
-      shader.vertexShader=vertex+shader.vertexShader.replace(/void main\s*\(\s*\)\s*\{/,'void main() { vGridWorld=(modelMatrix*vec4(position,1.0)).xyz;');
+      shader.vertexShader=vertex+shader.vertexShader.replace(/void main\s*\(\s*\)\s*\{/,'void main() { vGridWorld=(modelMatrix*vec4(position,1.0)).xyz; vGridClip=projectionMatrix*viewMatrix*vec4(vGridWorld,1.0);');
       shader.fragmentShader=shader.fragmentShader.slice(0,shader.fragmentShader.lastIndexOf('}'))+finish+'}';
       shader.fragmentShader=fragment+shader.fragmentShader.replace(/void main\s*\(\s*\)\s*\{/,'void main() {'+discard);
-    };const key=m.customProgramCacheKey.bind(m);m.customProgramCacheKey=()=>key()+'grid-view-v2';m.needsUpdate=true;
+    };const key=m.customProgramCacheKey.bind(m);m.customProgramCacheKey=()=>key()+'grid-view-v3';m.needsUpdate=true;
   }});}
   patch();
-  let first=true,lastX=Infinity,lastZ=Infinity;
+  let first=true,lastX=Infinity,lastZ=Infinity,radius=7;
+  const camPos=new T.Vector3(),projected=new T.Vector3();
   function isVisible(p){const x=Math.floor((p.x-origin)/cell),z=Math.floor((p.z-origin)/cell);return x>=0&&x<size&&z>=0&&z<size&&data[(z*size+x)*4]>0;}
   function update(t){
     const focus=getFocus();
-    const cx=Math.floor((focus.x-origin)/cell),cz=Math.floor((focus.z-origin)/cell),radius=7;
+    // Keep the plate centered on the character in screen space, so it stays an upright square
+    // no matter where the camera target sits.
+    const ndc=projected.copy(focus).project(camera);
+    uniforms.uGridFocusUV.value.set(ndc.x*.5+.5,ndc.y*.5+.5);
+    uniforms.uGridAspect.value=camera.aspect;
+    // Cells must always cover the plate (they are the explored footprint), so grow the reveal
+    // radius with the view distance instead of leaving a diamond bite in the square corner.
+    camera.getWorldPosition(camPos);
+    const reach=camPos.distanceTo(focus)*Math.tan(camera.fov*Math.PI/360)*2.2;
+    const cx=Math.floor((focus.x-origin)/cell),cz=Math.floor((focus.z-origin)/cell);
+    radius=T.MathUtils.clamp(Math.ceil(reach/cell),7,40);
     uniforms.uGridCenter.value.set(origin+(cx+.5)*cell,origin+(cz+.5)*cell);
     let dirty=false;
     if(cx!==lastX||cz!==lastZ){
@@ -93,12 +110,12 @@ export function createGridView({THREE:T,scene,getFocus}) {
         if(!inside){if(data[id*4]){data.fill(0,id*4,id*4+4);dirty=true;}pending.delete(id);}
         else if(!data[id*4]&&!pending.has(id)){
           if(first){data.fill(255,id*4,id*4+4);dirty=true;}
-          else pending.set(id,t+.08+(Math.abs(x-cx)+Math.abs(z-cz))*.045);
+          else pending.set(id,t+.08+(Math.abs(x-cx)+Math.abs(z-cz))*.012);
         }
       }first=false;lastX=cx;lastZ=cz;patch();
     }
     for(const [id,at]of pending)if(t>=at){data.fill(255,id*4,id*4+4);pending.delete(id);dirty=true;}
     if(dirty)texture.needsUpdate=true;
   }
-  return {update,isVisible,texture,pending,cell,center:uniforms.uGridCenter.value,setUnderwaterPass(value){uniforms.uGridPrepass.value=value;}};
+  return {update,isVisible,texture,pending,cell,center:uniforms.uGridCenter.value,get radius(){return radius;},setUnderwaterPass(value){uniforms.uGridPrepass.value=value;}};
 }
