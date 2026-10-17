@@ -1,0 +1,20 @@
+const {chromium}=require('playwright');const assert=require('node:assert/strict');const fs=require('node:fs');
+(async()=>{const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});try{
+const p=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+await p.route('**/index.html',async r=>{const res=await r.fetch();let body=await res.text();body=body.replace('    const clock = new THREE.Clock();','    window.qa={waterDistrict,livingHarbor,sceneArt,gameplay,camera,controls,renderer,scene,waterSystem};\n    const clock = new THREE.Clock();');body=body.replace('gameplay.updateGameplay(dt, t);','if(!window.freezeLife)gameplay.updateGameplay(dt, t);');await r.fulfill({response:res,body});});
+await p.goto('http://127.0.0.1:8765/index.html');await p.waitForFunction(()=>window.qa);await p.waitForTimeout(1200);
+const results=[];
+for(const [label,level]of [['bare',0],['restored',1],['lush',2]]){
+ const sample=await p.evaluate(level=>{window.freezeLife=true;const q=qa,{state,buildSites}=q.gameplay.art;state.workerMode='IDLE_ASHORE';state.activeJobSite=null;buildSites.find(s=>s.id==='rooftop_planter').level=level;buildSites.find(s=>s.id==='home_cabin').level=level===2?2:1;q.livingHarbor.update(4);q.sceneArt.update(4);return {visible:q.livingHarbor.layers.filter(l=>l.g.visible).length,rubble:q.livingHarbor.rubble.visible};},level);
+ await p.waitForTimeout(200);await p.screenshot({path:`outputs/harbor-${label}.png`});results.push(sample);
+}
+assert(results[0].visible<results[1].visible&&results[1].visible<results[2].visible);assert(results[0].rubble&&!results[2].rubble);
+for(const [label,target,distance] of [['district-wide',[-6,2,0],130],['new-garden',[-36,5,0],32],['new-residence',[4,6,-25],32],['new-courtyard',[12,-1,29],32],['pole',[-12,5,13],26],['facade',[-18,0,-4],34],['rear-house',[2,7,-8],30]]){
+ await p.evaluate(({target,distance})=>{const q=qa;const direction=q.camera.position.clone().sub(q.controls.target).normalize();q.controls.target.set(...target);q.camera.position.copy(q.controls.target).addScaledVector(direction,distance);q.controls.update();q.camera.updateMatrixWorld(true);},{target,distance});
+ await p.waitForTimeout(150);await p.screenshot({path:`outputs/harbor-detail-${label}.png`});
+}
+const district=await p.evaluate(()=>({landmarks:qa.waterDistrict.landmarks.map(g=>({name:g.name,position:g.position.toArray()})),towers:qa.waterDistrict.towers.length,shallow:qa.waterDistrict.shallows.map(g=>g.position.y)}));
+const structure=await p.evaluate(()=>({facade:!!qa.scene.getObjectByName('rounded-arcade-facade'),pole:!!qa.scene.getObjectByName('crafted-utility-pole'),studio:!!qa.scene.getObjectByName('terrace-studio'),deepFloors:qa.waterDistrict.towers.every(g=>{let low=Infinity;g.traverse(m=>{if(m.isInstancedMesh){const a=m.instanceMatrix.array;for(let i=0;i<m.count;i++)low=Math.min(low,a[i*16+13]);}});return low < -18;})}));assert(Object.values(structure).every(Boolean));
+assert.equal(district.landmarks.length,3);assert.equal(new Set(district.landmarks.map(g=>g.name)).size,3);assert.equal(district.towers,5);assert.equal(new Set(district.shallow).size,4);assert(district.shallow.every(y=>y<1.12&&y>-4));
+const motion=await p.evaluate(()=>{const q=qa;q.livingHarbor.update(1);const a=q.livingHarbor.floaters.map(f=>f.g.position.toArray());q.livingHarbor.update(2);return {changed:q.livingHarbor.floaters.every((f,i)=>Math.abs(f.g.position.y-a[i][1])>.0001),count:a.length,calls:q.renderer.info.render.calls};});assert(motion.changed&&motion.count>=6);assert.deepEqual(errors,[]);fs.writeFileSync('outputs/living-harbor-results.json',JSON.stringify({results,district,structure,motion,errors},null,2));console.log(JSON.stringify({results,district,structure,motion,errors},null,2));
+}finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});

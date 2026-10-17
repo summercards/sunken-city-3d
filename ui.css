@@ -114,14 +114,119 @@ button:disabled { cursor: not-allowed; opacity: .5; }
   65% { opacity: 1; }
   100% { opacity: 0; transform: translate(-50%, -56px) scale(.96); }
 }
+/* 收集反馈：图标先在场景里冒一下，再沿弧线飞进右上角的资源格。 */
+.resource-flight {
+  position: fixed; z-index: 26; pointer-events: none; font-size: 21px; line-height: 1;
+  width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%;
+  background: rgb(255 247 223 / 92%); border: 1px solid #fff7dfcc;
+  box-shadow: 0 2px 6px rgb(20 40 45 / 20%); will-change: transform, opacity;
+}
+.res-bump { animation: resBump .42s var(--spring); }
+@keyframes resBump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
 @media (max-width: 720px) {
   .hud-bar { top: 16px; left: 16px; }
   .brand-title { font-size: 21px; }
   .brand-sub { display: none; }
   .minimal-coin-pill { top: 16px; right: 16px; padding: 7px 11px; gap: 7px; font-size: 10px; }
   .coin-num { font-size: 17px; }
-  .resource-mini { gap: 4px; padding-left: 5px; font-size: 9px; }
+  .resource-mini { gap: 5px; padding-left: 5px; font-size: 10px; }
+  .minimal-coin-pill { top: 55px; right: 12px; max-width: calc(100vw - 24px); box-sizing: border-box; }
+  .brand-title { font-size: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* 按需经济面板：不占用底栏，也不覆盖现有资源 HUD。 */
+.economy-panel[hidden], .economy-panel [hidden], .economy-marker[hidden] { display: none !important; }
+.economy-toggle {
+  position: fixed; top: 78px; right: 24px; z-index: 35;
+  min-height: 42px; padding: 9px 17px; border: 1px solid #fffaf0a8; border-radius: 15px;
+  background: rgb(255 250 238 / 90%); color: var(--ink); box-shadow: 0 4px 18px #254e5720;
+  backdrop-filter: blur(12px); font-size: 13px; font-weight: 750; cursor: pointer;
+}
+.economy-toggle[aria-expanded="true"] { background: #e4ecd8; border-color: #aec398; }
+.economy-panel {
+  position: fixed; top: 130px; right: 12px; z-index: 35;
+  box-sizing: border-box; width: 360px; max-width: calc(100vw - 24px);
+  height: calc(100dvh - 150px); max-height: calc(100dvh - 150px); overflow-y: auto;
+  padding: 18px; border: 1px solid #fffcf0c9; border-radius: 21px;
+  background: rgb(255 251 240 / 94%); color: var(--ink);
+  backdrop-filter: blur(18px); box-shadow: 0 14px 48px #153c5030;
+  font: 12px/1.65 system-ui, -apple-system, "PingFang SC", sans-serif;
+  overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #b9c6af transparent;
+  touch-action: pan-y; isolation: isolate;
+}
+.economy-panel *, .economy-panel *::before, .economy-panel *::after { box-sizing: border-box; }
+.economy-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.economy-header h2 { margin: 0; font-size: 19px; font-weight: 780; letter-spacing: .025em; }
+.economy-close {
+  flex: 0 0 36px; height: 36px; border: 0; border-radius: 12px;
+  background: #e7ebdc; color: var(--ink); font-size: 24px; line-height: 1; cursor: pointer;
+}
+.economy-guide { margin: 12px 0 3px; font-size: 11px; color: #446b54; }
+.economy-notice { margin: 0 0 12px; color: #74796b; font-size: 10px; }
+.economy-feedback {
+  margin: 0 0 14px; padding: 10px 12px; border-radius: 12px;
+  background: #eef0e2; border: 1px solid #dce3d0; color: #48674e; overflow-wrap: anywhere;
+}
+.economy-feedback[data-result="failure"] { background: #fff0de; border-color: #e5c99e; color: #84522c; }
+.economy-feedback[data-result="success"] { background: #e6efdb; border-color: #becfaf; color: #385c42; }
+.economy-tabs {
+  display: flex; gap: 5px; position: sticky; top: -18px; z-index: 1;
+  padding: 8px 0; margin-bottom: 6px; background: #fbf8ed;
+}
+.economy-tab {
+  flex: 1; min-height: 38px; border: 1px solid transparent; border-radius: 11px;
+  background: transparent; color: #657564; font-size: 13px; cursor: pointer;
+}
+.economy-tab[aria-selected="true"] { background: #dfe9d1; border-color: #c9d7ba; color: #355943; font-weight: 750; }
+.economy-section { display: grid; gap: 12px; }
+.economy-card {
+  padding: 14px; border: 1px solid #dfdfcd; border-radius: 15px; background: #fffdf7b8;
+  scroll-margin-block: 65px 14px; overflow-wrap: anywhere;
+}
+.economy-card[data-selected="true"] { border-color: #7e9c6c; box-shadow: inset 0 0 0 1px #7e9c6c; }
+.economy-card:focus { outline: 2px solid #b0be87; outline-offset: 2px; }
+.economy-card-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px 10px; }
+.economy-card h3 { flex: 1 1 130px; margin: 0; font-size: 14px; line-height: 1.5; font-weight: 750; }
+.economy-card-status { color: #667a54; font-size: 10px; font-variant-numeric: tabular-nums; }
+.economy-description { margin: 9px 0; color: #647362; font-size: 11px; }
+.economy-details { margin: 10px 0; }
+.economy-details > div { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 8px; margin: 5px 0; }
+.economy-details dt { color: #79806c; font-size: 10px; padding-top: 1px; }
+.economy-details dd { margin: 0; color: #3c5d50; font-size: 11px; }
+.economy-details > div:last-child dd { color: #6c7766; }
+.economy-progress { display: block; width: 100%; height: 5px; margin: 12px 0; accent-color: #7b9c63; border: 0; border-radius: 9px; overflow: hidden; }
+.economy-progress::-webkit-progress-bar { background: #e8eadc; }
+.economy-progress::-webkit-progress-value { background: #7b9c63; border-radius: 9px; }
+.economy-progress::-moz-progress-bar { background: #7b9c63; }
+.economy-reason { margin: 9px 0; color: #7f7155; font-size: 11px; }
+.economy-card-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+.economy-action, .economy-secondary {
+  min-height: 40px; padding: 8px 11px; border: 1px solid #c2d1b3; border-radius: 11px;
+  background: #dfeacd; color: #35573f; font-size: 12px; font-weight: 650; cursor: pointer;
+}
+.economy-action { flex: 1; }
+.economy-secondary { background: #f4f3e8; border-color: #dedfcc; font-size: 11px; }
+.economy-action:disabled { opacity: .65; background: #e9e9de; border-color: #dedfcc; color: #6d7666; }
+.economy-panel button:not(:disabled):hover { filter: brightness(.97); }
+.economy-panel button:focus-visible, .economy-toggle:focus-visible { outline: 3px solid #c6a75f; outline-offset: 2px; }
+.economy-marker {
+  position: fixed; z-index: 20; transform: translate(-50%, -50%); display: block;
+  max-width: 180px; min-height: 34px; padding: 7px 10px; border-radius: 13px;
+  border: 1px solid #fffaf0a8; background: rgb(255 250 234 / 90%); color: #42604d;
+  box-shadow: 0 3px 12px #203f4d24; font: 600 10px/1.4 system-ui, "PingFang SC", sans-serif;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: default;
+  pointer-events: none;
+}
+.economy-marker:hover { background: #ecf2d8; }
+@media (max-width: 720px) {
+  .economy-toggle { top: 110px; right: 12px; min-height: 38px; font-size: 12px; }
+  .economy-panel { top: 150px; padding: 14px; border-radius: 17px; }
+  .economy-tabs { top: -14px; }
 }

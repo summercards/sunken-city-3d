@@ -23,6 +23,9 @@
  *  - 包含多处「水上种植园」与「遗迹修缮点」：小人走上船 → 镜头拉高锁定跟随船 → 船靠岸停留在原地 → 小人跳下船走上岸浇水播种/修缮，植物（芭蕉叶、向日葵、发光睡莲、番茄藤）与建筑模型在建造过程中实时动态生长！
  */
 
+import { createEconomy, MATERIALS, HARVEST_THRESHOLD } from './economy.js';
+import { createEconomyView } from './economy-view.js';
+
 export function initSunkenCityGameplay({
   THREE,
   scene,
@@ -49,6 +52,10 @@ export function initSunkenCityGameplay({
     <span class="resource-mini" aria-label="资源数量">
       <span id="min-wood-val">🪵 0</span>
       <span id="min-parts-val">⚙ 0</span>
+      <span id="min-seeds-val" title="种子">种 3</span>
+      <span id="min-food-val" title="食物">食 0</span>
+      <span id="min-fish-val" title="鱼">鱼 0</span>
+      <span id="min-pearl-val" title="珍珠">珠 0</span>
       <span id="min-ship-val">⛵ 1</span>
     </span>
     <span class="coin-rate-subtle" id="min-coin-rate"></span>
@@ -139,7 +146,7 @@ export function initSunkenCityGameplay({
   function positionActionMenus() {
     const anchor = explorerGroup.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 2.5, 0));
     const p = anchor.clone().project(camera);
-    const visible = (!state.worldVisible || state.worldVisible(anchor)) && p.z > -1 && p.z < 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1;
+    const visible = p.z > -1 && p.z < 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1;
     actionWheel.style.display = destinationWheel.style.display = visible ? '' : 'none';
     if (!visible) return;
     const x = (p.x * 0.5 + 0.5) * window.innerWidth;
@@ -208,21 +215,80 @@ export function initSunkenCityGameplay({
   const resourceOrbs = new Map();
   const MATERIAL_META = {
     wood: { icon: '🪵' },
-    parts: { icon: '⚙' }
+    parts: { icon: '⚙' },
+    seeds: { icon: '种子' }, food: { icon: '食物' }, fish: { icon: '鱼' }, pearl: { icon: '珍珠' }
   };
+
+  // 收集反馈：资源图标先从场景里"冒"出来，再沿一条弧线飞进右上角对应的格子里。
+  const RESOURCE_ICONS = { coins: '🐚', wood: '🪵', parts: '⚙', seeds: '🌱', food: '🥕', fish: '🐟', pearl: '🫧' };
+  const RESOURCE_HUD_IDS = {
+    coins: 'min-coin-val', wood: 'min-wood-val', parts: 'min-parts-val',
+    seeds: 'min-seeds-val', food: 'min-food-val', fish: 'min-fish-val', pearl: 'min-pearl-val'
+  };
+
+  function spawnResourceFlight(worldPos, reward) {
+    const p = worldPos.clone().project(camera);
+    if (p.z > 1) return;
+    // 尊重减少动效偏好：不做飞行，退回到纯文字反馈。
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      spawnFloatTip(worldPos, Object.entries(reward)
+        .map(([key, amount]) => `+${amount} ${MATERIAL_META[key]?.icon ?? ''}`).join(' · '));
+      return;
+    }
+    const sx = (p.x * .5 + .5) * window.innerWidth;
+    const sy = (-p.y * .5 + .5) * window.innerHeight;
+    let landing = null;
+    let keyIndex = 0;
+    for (const [key, amount] of Object.entries(reward)) {
+      if (!(amount > 0)) continue;
+      const targetEl = document.getElementById(RESOURCE_HUD_IDS[key]);
+      if (!targetEl) continue;
+      const rect = targetEl.getBoundingClientRect();
+      const tx = rect.left + rect.width / 2;
+      const ty = rect.top + rect.height / 2;
+      // 一次最多飞 5 个，10 份资源也不会把屏幕铺满。
+      const count = Math.min(5, Math.max(1, Math.round(amount)));
+      for (let i = 0; i < count; i += 1) {
+        const icon = document.createElement('div');
+        icon.className = 'resource-flight';
+        icon.textContent = RESOURCE_ICONS[key];
+        icon.setAttribute('aria-hidden', 'true');
+        icon.style.left = `${sx}px`;
+        icon.style.top = `${sy}px`;
+        document.body.appendChild(icon);
+        const angle = (Math.PI * 2 * i) / count + keyIndex * .9;
+        const burst = 24 + (i % 3) * 9;
+        const bx = Math.cos(angle) * burst;
+        const by = Math.sin(angle) * burst - 16;
+        const delay = keyIndex * 70 + i * 80;
+        const anim = icon.animate([
+          { transform: 'translate(-50%, -50%) scale(.25)', opacity: 0 },
+          { transform: 'translate(-50%, -50%) scale(1.15)', opacity: 1, offset: .2 },
+          { transform: `translate(-50%, -50%) translate(${bx}px, ${by}px) scale(1)`, opacity: 1, offset: .44 },
+          { transform: `translate(-50%, -50%) translate(${tx - sx}px, ${ty - sy}px) scale(.5)`, opacity: .85 }
+        ], { duration: 780, delay, easing: 'cubic-bezier(.42,.05,.35,1)', fill: 'both' });
+        anim.onfinish = () => icon.remove();
+        landing = Math.max(landing ?? 0, delay + 780);
+      }
+      keyIndex += 1;
+    }
+    if (landing === null) return;
+    setTimeout(() => {
+      for (const key of Object.keys(reward)) {
+        const el = document.getElementById(RESOURCE_HUD_IDS[key]);
+        if (!el) continue;
+        el.classList.remove('res-bump');
+        requestAnimationFrame(() => el.classList.add('res-bump'));
+      }
+    }, landing);
+  }
 
   function getStageMaterials(stage) {
     return (stage && stage.materials) || {};
   }
 
   function getMissingCost(stage) {
-    const missing = {};
-    if (state.coins < stage.cost) missing.coins = Math.ceil(stage.cost - state.coins);
-    for (const [key, need] of Object.entries(getStageMaterials(stage))) {
-      const have = state[key] || 0;
-      if (have < need) missing[key] = need - have;
-    }
-    return missing;
+    return economy.missing({ coins: stage.cost || 0, ...getStageMaterials(stage) });
   }
 
   function formatStageCost(stage) {
@@ -240,14 +306,18 @@ export function initSunkenCityGameplay({
   }
 
   function getSiteAction(site) {
-    const hasResource = Math.floor(site.storedCoins) > 0;
+    // 挂机产出要攒满 10 份才亮"可收取"，否则热点一直闪，玩家会以为漏点了什么。
+    const hasResource = Math.floor(site.storedCoins) >= HARVEST_THRESHOLD;
     const maxed = site.level >= site.maxLevel;
     const stage = maxed ? null : site.stages[site.level];
     const idle = state.workerMode === 'IDLE_ASHORE' || state.workerMode === 'BOAT_IDLE' || state.workerMode === 'ROWING';
     const missing = maxed ? {} : getMissingCost(stage);
     const affordable = Object.keys(missing).length === 0;
-    const available = !maxed && idle && affordable;
-    return { mode: hasResource ? 'harvest' : 'upgrade', available, missing, maxed, stage };
+    const requires = stage?.requires || {};
+    const locked = Object.entries(requires).some(([id, level]) =>
+      id === 'boat2' ? state.shipLevel < 2 : (buildSites.find(s => s.id === id)?.level || 0) < level);
+    const available = !maxed && idle && !state.activeJobSite && !economy.job && affordable && !locked;
+    return { mode: hasResource ? 'harvest' : 'upgrade', available, missing, maxed, stage, locked };
   }
 
   function harvestSite(site) {
@@ -255,11 +325,11 @@ export function initSunkenCityGameplay({
     if (orb.classList.contains('collecting') || performance.now() < (orb.nextActionAt || 0)) return false;
     const gain = Math.floor(site.storedCoins);
     if (gain <= 0) return false;
+    if (!economy.receive({ coins: gain })) return false;
     site.storedCoins -= gain;
-    state.coins += gain;
     orb.nextActionAt = performance.now() + 700;
     orb.classList.add('collecting');
-    spawnFloatTip(site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0)), `+${gain} 🐚`);
+    spawnResourceFlight(site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0)), { coins: gain });
     animateCoinGain();
     syncCoinUI();
     setTimeout(() => {
@@ -273,12 +343,15 @@ export function initSunkenCityGameplay({
   function activateSite(site) {
     const action = getSiteAction(site);
     if (action.mode === 'harvest') return harvestSite(site);
-    if (action.available) {
-      queueSiteAction(site);
-      return true;
+    if (action.available) return queueSiteAction(site);
+    if (action.locked) {
+      spawnFloatTip(site.hoverAnchor.clone(), '先升级船只，再带回珍珠修建浅水池');
     }
     // 不可用时不只抖一下：直接把缺什么写在场景上方，玩家不用猜。
-    if (!action.maxed && state.workerMode === 'IDLE_ASHORE' && Object.keys(action.missing).length) {
+    const stored = Math.floor(site.storedCoins);
+    if (stored > 0 && stored < HARVEST_THRESHOLD) {
+      spawnFloatTip(site.hoverAnchor.clone().add(new THREE.Vector3(0, .8, 0)), `海贝积累中 ${stored}/${HARVEST_THRESHOLD}`);
+    } else if (!action.maxed && state.workerMode === 'IDLE_ASHORE' && Object.keys(action.missing).length) {
       spawnFloatTip(site.hoverAnchor.clone().add(new THREE.Vector3(0, .8, 0)), `还差 ${formatMissingCost(action.missing)}`);
     }
     ensureResourceOrb(site).querySelector('.site-action-disc').animate([
@@ -316,7 +389,7 @@ export function initSunkenCityGameplay({
     buildSites.forEach((site) => {
       const orb = ensureResourceOrb(site);
       const p = site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0)).project(camera);
-      const visible = (!state.worldVisible || state.worldVisible(site.hoverAnchor)) && p.z > -1 && p.z < 1 && Math.abs(p.x) < .98 && Math.abs(p.y) < .98;
+      const visible = p.z > -1 && p.z < 1 && Math.abs(p.x) < .98 && Math.abs(p.y) < .98;
       orb.classList.toggle('in-view', visible);
       orb.setAttribute('tabindex', visible ? '0' : '-1');
       orb.style.left = `${(p.x * .5 + .5) * window.innerWidth}px`;
@@ -867,6 +940,7 @@ export function initSunkenCityGameplay({
     windshield.rotation.x = -0.25;
     car.add(windshield);
 
+    car.userData.buoyant = true;
     zone2Root.add(car);
     return car;
   }
@@ -942,7 +1016,7 @@ export function initSunkenCityGameplay({
   // 5. 构建四周环绕的邻近区域（参考图 2：让视野边缘处处感受到周边区域在边上！）
   // ============================================================================
   // 5.1 西南邻近区：【天台卫星锅种植园】（坐标 -19.5, 0, 13.5 —— 从第一区域往左下看直接能感受到它在边上）
-  const ZONE3_CENTER = new THREE.Vector3(-15, 0, -6);
+  const ZONE3_CENTER = new THREE.Vector3(-18, 0, -4);
   const zone3Root = new THREE.Group();
   zone3Root.position.copy(ZONE3_CENTER);
   zone3Root.rotation.y = 0.28;
@@ -1327,9 +1401,9 @@ export function initSunkenCityGameplay({
   const ZONE2_LAND_STAND = new THREE.Vector3(-30.7, WATER_LEVEL + 1.18, -18.3);
 
   // 区域 3 停泊位（西南邻近天台卫星锅种植园前开阔水域）
-  const ZONE3_BOAT_PARK = new THREE.Vector3(-9, WATER_LEVEL, 1.5);
-  const ZONE3_DOCK_EDGE = new THREE.Vector3(-10, 3.6, -2);
-  const ZONE3_LAND_STAND = new THREE.Vector3(-13, 4.4, -5);
+  const ZONE3_BOAT_PARK = new THREE.Vector3(-12, WATER_LEVEL, 3.5);
+  const ZONE3_DOCK_EDGE = new THREE.Vector3(-13, 3.6, 0);
+  const ZONE3_LAND_STAND = new THREE.Vector3(-16, 4.4, -3);
   // 远海街町先复用现有东北邻近区的生活船与断桥景观，作为 P0 的可见终点。
   const ZONE4_CENTER = new THREE.Vector3(39.5, 1.4, -41.5);
   const ZONE4_BOAT_PARK = new THREE.Vector3(33.8, WATER_LEVEL, -37.2);
@@ -1346,7 +1420,7 @@ export function initSunkenCityGameplay({
           (p.x >= 0.7 && p.x <= 3.4 && p.z >= 3.8 && p.z <= 7.4);
       }
     },
-    { id: 'zone3_farm', zone: 'zone3', y: 5.2, minX: -21.5, maxX: -8.5, minZ: -12.5, maxZ: 0.5 },
+    { id: 'zone3_farm', zone: 'zone3', y: 5.2, minX: -24.5, maxX: -11.5, minZ: -10.5, maxZ: 2.5 },
     { id: 'zone1_salvage', zone: 'zone1', y: WATER_LEVEL + .9, minX: -15.5, maxX: -8.5, minZ: 10.0, maxZ: 16.0 },
     { id: 'zone1_aqua', zone: 'zone1', y: WATER_LEVEL + 1.2, minX: 12.5, maxX: 19.5, minZ: 11.8, maxZ: 18.2 },
     { id: 'zone2_station', zone: 'zone2', y: WATER_LEVEL + 1.18, minX: -35.5, maxX: -20.0, minZ: -25.5, maxZ: -11.0 },
@@ -1391,9 +1465,14 @@ export function initSunkenCityGameplay({
     coins: 80,
     wood: 0,
     parts: 0,
+    seeds: 3,
+    food: 0,
+    fish: 0,
+    pearl: 0,
     shipLevel: 1,
     farSeaUnlocked: false,
     salvageRuns: 0,
+    salvageCooldown: 0,
     currentZone: 'zone1', // 'zone1' | 'zone2' | 'zone3'
     workerMode: 'IDLE_ASHORE',
     activeJobSite: null,
@@ -1643,6 +1722,9 @@ export function initSunkenCityGameplay({
     }
   ];
 
+  const economy = createEconomy(state, id => buildSites.find(site => site.id === id)?.level || 0);
+  let economyView = null;
+
   // ============================================================================
   // 8.5 居民与生活反馈：木屋升到 Lv.2 后，码头出现住户，窗内与挂灯亮起暖光
   // ============================================================================
@@ -1826,6 +1908,16 @@ export function initSunkenCityGameplay({
     elPartsVal.textContent = `⚙ ${state.parts}`;
     const shipEl = document.getElementById('min-ship-val');
     if (shipEl) shipEl.textContent = `⛵ ${state.shipLevel}`;
+    for (const [key, short] of [['seeds', '种'], ['food', '食'], ['fish', '鱼'], ['pearl', '珠']]) {
+      const el = document.getElementById(`min-${key}-val`);
+      el.textContent = `${short} ${state[key]}`;
+    }
+    for (const key of ['wood', 'parts', 'seeds', 'food', 'fish', 'pearl']) {
+      const el = document.getElementById(`min-${key}-val`);
+      const label = `${MATERIALS[key].name} ${state[key]}/${MATERIALS[key].capacity}；${MATERIALS[key].source}`;
+      el.title = label;
+      el.setAttribute('aria-label', label);
+    }
     elCoinRate.textContent = '';
   }
 
@@ -1834,9 +1926,11 @@ export function initSunkenCityGameplay({
   }
 
   function awardResource(resource, amount, anchor, label) {
-    state[resource] += amount;
+    if (!economy.receive({ [resource]: amount })) return false;
     syncCoinUI();
-    spawnFloatTip(anchor, `+${amount} ${label}`);
+    if (anchor) spawnResourceFlight(anchor, { [resource]: amount });
+    else spawnFloatTip(explorerGroup.position.clone().add(new THREE.Vector3(0, 1.8, 0)), `+${amount} ${label}`);
+    return true;
   }
 
   function updateObjectiveUI() {
@@ -1845,30 +1939,44 @@ export function initSunkenCityGameplay({
     farSea.setAttribute('aria-disabled', String(!state.farSeaUnlocked));
   }
 
-  // 打捞是一次性的漂流物清理：每次 3 木料 + 2 旧零件。
-  // 上限 8 次刚好覆盖“全部建设 + 船只改造”的材料需求，留出余量；后续 P1-05 会换成冷却式产出。
-  const SALVAGE_LIMIT = 8;
+  // 打捞是冷却式产出，而不是一次性清空：绞盘每 40 秒从水道里拖上一捆漂流物（3 木料 + 2 旧零件）。
+  // 20 分钟 Demo 内约可打捞 30 次，足够覆盖全部建设与船只改造，同时保留“要等一会儿”的节奏。
+  const SALVAGE_COOLDOWN = 40;
+  const SALVAGE_YIELD = { wood: 3, parts: 2 };
+
+  function getSalvageCooldownLeft() {
+    return Math.max(0, state.salvageCooldown || 0);
+  }
+
+  function isSalvageReady() {
+    return getSalvageCooldownLeft() <= 0;
+  }
 
   function performSalvage() {
-    if (state.workerMode !== 'IDLE_ASHORE') return false;
+    if (economy.busy || state.currentZone !== 'zone1') return false;
     const anchor = new THREE.Vector3(-12, WATER_LEVEL + 4, 13);
-    if (state.salvageRuns >= SALVAGE_LIMIT) {
-      spawnFloatTip(anchor, '这片水面已捞干净');
+    const left = getSalvageCooldownLeft();
+    if (left > 0) {
+      spawnFloatTip(anchor, `绞盘冷却中 · ${Math.ceil(left)} 秒`);
+      return false;
+    }
+    if (!economy.receive(SALVAGE_YIELD)) {
+      spawnFloatTip(anchor, '材料仓满：先建造消耗木料或旧零件');
       return false;
     }
     state.salvageRuns += 1;
-    awardResource('wood', 3, anchor, '🪵');
-    awardResource('parts', 2, anchor.clone().add(new THREE.Vector3(0, .5, 0)), '⚙');
+    state.salvageCooldown = SALVAGE_COOLDOWN;
+    spawnResourceFlight(anchor, SALVAGE_YIELD);
     syncCoinUI();
     return true;
   }
 
   function upgradeShip() {
-    if (state.farSeaUnlocked || state.workerMode !== 'IDLE_ASHORE' || state.wood < 6 || state.parts < 4) return false;
-    state.wood -= 6;
-    state.parts -= 4;
-    state.shipLevel = 2;
-    state.farSeaUnlocked = true;
+    const result = economy.upgradeShip();
+    if (!result.ok) {
+      economyView?.open('ship');
+      return false;
+    }
     boatMeshGroup.scale.set(1.12, 1.08, 1.16);
     boatMeshGroup.position.y = 0.08;
     syncCoinUI();
@@ -1888,11 +1996,128 @@ export function initSunkenCityGameplay({
 
   function registerHarborTargets(targets) {
     harborTargets = { salvage: targets.salvage || null, dock: targets.dock || null };
+    buildSalvageGauge();
+    if (!economyView) economyView = createEconomyView({
+      THREE, worldGroup, camera, state, economy, buildSites, activateSite,
+      travel: startSailBetweenZones, upgradeShip, performSalvage, syncUI: syncCoinUI,
+      notify: message => spawnFloatTip(explorerGroup.position.clone(), message)
+    });
   }
+
+  // 绞盘充能指示：平台上一圈会转的暖色环。
+  // 就绪时缓慢旋转并轻轻呼吸（邀请点击）；冷却时停在原处、由小长大逐渐补齐（看得见“快好了”）。
+  let salvageGauge = null;
+  function buildSalvageGauge() {
+    if (salvageGauge || !harborTargets.salvage) return;
+    const group = new THREE.Group();
+    group.name = 'salvage-cooldown-gauge';
+    // 停在绞盘平台靠水一侧，避开木箱与栈板，俯视时不被遮挡。
+    group.position.set(-0.8, 1.4, 1.15);
+
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: '#ffd479',
+      transparent: true,
+      opacity: 0.95,
+      depthWrite: false,
+      side: THREE.DoubleSide
+    });
+    const ring = new THREE.Mesh(new THREE.RingGeometry(0.5, 0.66, 32, 1), ringMat);
+    ring.rotation.x = -Math.PI / 2;
+    group.add(ring);
+
+    // 外侧细亮圈强化轮廓，避免和木板颜色糊在一起。
+    const rimMat = new THREE.MeshBasicMaterial({
+      color: '#fff3cf',
+      transparent: true,
+      opacity: 0.8,
+      depthWrite: false,
+      side: THREE.DoubleSide
+    });
+    const rim = new THREE.Mesh(new THREE.RingGeometry(0.72, 0.76, 32, 1), rimMat);
+    rim.rotation.x = -Math.PI / 2;
+    group.add(rim);
+
+    // 内侧暖色圆盘（半径 1，靠缩放表示充能进度），像绞盘的充能刻度。
+    const coreMat = new THREE.MeshBasicMaterial({
+      color: '#ffcf7a',
+      transparent: true,
+      opacity: 0.7,
+      depthWrite: false
+    });
+    const pip = new THREE.Mesh(new THREE.CircleGeometry(1, 28), coreMat);
+    pip.rotation.x = -Math.PI / 2;
+    pip.position.y = 0.004;
+    pip.scale.setScalar(0.02);
+    group.add(pip);
+
+    // 深色轮毂垫在暖色圆盘下面，让亮部有对比、读作“绞盘刻度盘”而不是一滩光。
+    const hubMat = new THREE.MeshBasicMaterial({
+      color: '#4a3a2b',
+      transparent: true,
+      opacity: 0.5,
+      depthWrite: false
+    });
+    const hub = new THREE.Mesh(new THREE.CircleGeometry(0.48, 28), hubMat);
+    hub.rotation.x = -Math.PI / 2;
+    group.add(hub);
+
+    const glowMat = new THREE.SpriteMaterial({
+      map: warmGlowTexture,
+      color: '#ffd79a',
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    });
+    const glow = new THREE.Sprite(glowMat);
+    glow.scale.set(2.2, 2.2, 1);
+    glow.position.y = 0.14;
+    group.add(glow);
+
+    harborTargets.salvage.add(group);
+    salvageGauge = { group, ring, ringMat, rimMat, pip, coreMat, glowMat, spin: 0 };
+  }
+
+  function updateSalvageGauge(t) {
+    if (!salvageGauge) return;
+    const total = SALVAGE_COOLDOWN;
+    const left = getSalvageCooldownLeft();
+    const charged = total > 0 ? 1 - Math.min(1, left / total) : 1;
+    const ready = left <= 0;
+
+    // 环始终保持满尺寸（缩小会直接看不见），用冷暖与亮度区分可打捞/冷却中。
+    salvageGauge.ringMat.color.set(ready ? '#ffd479' : '#8fb0b6');
+    salvageGauge.rimMat.color.set(ready ? '#fff3cf' : '#cbe0e2');
+    salvageGauge.ringMat.opacity = ready ? 0.86 + Math.sin(t * 2.2) * 0.1 : 0.62;
+    salvageGauge.rimMat.opacity = ready ? 0.72 + Math.sin(t * 2.2) * 0.1 : 0.4;
+
+    // 内侧暖色圆盘随冷却从 0 长到内径，就是“充能进度条”。
+    const fill = ready ? 1 : charged;
+    salvageGauge.pip.scale.setScalar(0.02 + fill * 0.46);
+    salvageGauge.coreMat.opacity = ready ? 0.72 : 0.3 + charged * 0.3;
+    salvageGauge.glowMat.opacity = ready ? 0.22 + Math.sin(t * 2.2) * 0.06 : 0.02;
+
+    // 就绪时缓慢转动表示“可用”，冷却时停在最后角度。
+    if (ready) salvageGauge.spin = t * 0.55;
+    salvageGauge.ring.rotation.z = salvageGauge.spin;
+  }
+
+  // 只读快照用 getter，避免外部拿到初始化时的 null。
+  const salvageApi = {
+    cooldownDuration: SALVAGE_COOLDOWN,
+    yield: SALVAGE_YIELD,
+    get cooldown() { return getSalvageCooldownLeft(); },
+    get ready() { return isSalvageReady(); },
+    get runs() { return state.salvageRuns; },
+    get gauge() { return salvageGauge; }
+  };
 
   function requestHarborAction(kind) {
     if (kind === 'salvage' && state.workerMode === 'IDLE_ASHORE' && state.currentZone === 'zone1') return performSalvage();
-    if (kind === 'dock' && (state.workerMode === 'IDLE_ASHORE' || state.workerMode === 'BOAT_IDLE')) return upgradeShip();
+    if (kind === 'dock' && state.workerMode === 'IDLE_ASHORE' && state.currentZone === 'zone1') {
+      economyView?.open('ship');
+      return true;
+    }
     if (!isBoatMode()) return false;
     const target = kind === 'salvage' ? new THREE.Vector3(-12, WATER_LEVEL, 13) : new THREE.Vector3(.3, WATER_LEVEL, 9);
     state.pendingWorldTarget = { type: kind };
@@ -1934,7 +2159,7 @@ export function initSunkenCityGameplay({
 
   function showHoverTarget(target) {
     cancelHideTimer();
-    if (target.type === 'actor' || target.type === 'salvage' || target.type === 'dock') {
+    if (['actor', 'salvage', 'dock', 'economy'].includes(target.type)) {
       hideHoverCard();
       hoveredTarget = target;
       return;
@@ -1957,10 +2182,9 @@ export function initSunkenCityGameplay({
     const worldAnchor = target.type === 'boat'
       ? boatAnchorGroup.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 2.2, 0))
       : target.site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0));
-    const inGrid = !state.worldVisible || state.worldVisible(worldAnchor);
     const p = worldAnchor.project(camera);
     const visible = p.z > -1 && p.z < 1 && Math.abs(p.x) < .98 && Math.abs(p.y) < .98;
-    hoverCard.classList.toggle('out-of-view', !visible || !inGrid);
+    hoverCard.classList.toggle('out-of-view', !visible);
     if (!visible) return;
     const x = (p.x * .5 + .5) * window.innerWidth;
     const y = (-p.y * .5 + .5) * window.innerHeight;
@@ -1973,7 +2197,7 @@ export function initSunkenCityGameplay({
   }
 
   function renderHoverCardContent() {
-    if (!hoveredTarget || hoveredTarget.type === 'actor' || hoveredTarget.type === 'salvage' || hoveredTarget.type === 'dock') return;
+    if (!hoveredTarget || ['actor', 'salvage', 'dock', 'economy'].includes(hoveredTarget.type)) return;
     if (hoveredTarget.type === 'boat') {
       elHcTitle.textContent = '小船与黑猫';
       elHcLvl.textContent = state.workerMode === 'IDLE_ASHORE' ? '停泊' : '航行中';
@@ -1997,6 +2221,8 @@ export function initSunkenCityGameplay({
   }
 
   function findHoverTargetFromIntersection(hitObj) {
+    const economyTarget = economyView?.findTarget(hitObj);
+    if (economyTarget) return economyTarget;
     let curr = hitObj;
     while (curr) {
       if (curr === explorerGroup) {
@@ -2025,6 +2251,7 @@ export function initSunkenCityGameplay({
     if (!a || !b) return false;
     if (a.type !== b.type) return false;
     if (a.type === 'site') return a.site.id === b.site.id;
+    if (a.type === 'economy') return a.id === b.id;
     return true;
   }
 
@@ -2033,9 +2260,9 @@ export function initSunkenCityGameplay({
     pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
     pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
-    const roots = [boatMeshGroup, explorerGroup, harborTargets.salvage, harborTargets.dock, harborTargets.salvage?.poleGroup, ...buildSites.flatMap(s => s.hitRoots || [])].filter(Boolean);
+    const roots = [boatMeshGroup, explorerGroup, harborTargets.salvage, harborTargets.dock, harborTargets.salvage?.poleGroup, ...(economyView?.roots || []), ...buildSites.flatMap(s => s.hitRoots || [])].filter(Boolean);
     const hit = raycaster.intersectObjects(roots, true).find(h => {
-      if(h.point.y < WATER_LEVEL + .05 || state.worldVisible && !state.worldVisible(h.point)) return false;
+      if(h.point.y < WATER_LEVEL + .05) return false;
       for(let obj=h.object;obj;obj=obj.parent) if(!obj.visible) return false;
       return true;
     });
@@ -2117,10 +2344,7 @@ export function initSunkenCityGameplay({
       // 先扣除建设费用（海贝 + 基础材料），后续由角色抵达目标地块才开始施工。
       // 单次点击只结算一次：扣费后立刻把 activeJobSite 记下，重复调用会被上面的状态检查挡住。
       if (state.activeJobSite === site) return false;
-      state.coins -= action.stage.cost;
-      for (const [key, need] of Object.entries(getStageMaterials(action.stage))) {
-        state[key] = Math.max(0, (state[key] || 0) - need);
-      }
+      if (!economy.spend({ coins: action.stage.cost || 0, ...getStageMaterials(action.stage) })) return false;
       syncCoinUI();
       state.jobProgress = 0;
       state.activeJobSite = site;
@@ -2161,6 +2385,11 @@ export function initSunkenCityGameplay({
   renderer.domElement.addEventListener('pointerup', (e) => {
     if (e.button !== 0 || Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) > 6) return;
     const target = hitTargetAt(e.clientX, e.clientY);
+    if (target?.type === 'economy') {
+      hideHoverCard();
+      economyView.handleTarget(target);
+      return;
+    }
     if (target?.type === 'boat') {
       hideHoverCard();
       if (state.workerMode === 'IDLE_ASHORE') {
@@ -2181,7 +2410,7 @@ export function initSunkenCityGameplay({
     }
     if (target?.type === 'site') {
       hideHoverCard();
-      queueSiteAction(target.site);
+      activateSite(target.site);
       return;
     }
     if (target?.type === 'salvage') {
@@ -2196,7 +2425,7 @@ export function initSunkenCityGameplay({
     }
     if (isBoatMode()) {
       const point = pointAtScreen(e.clientX, e.clientY, WATER_LEVEL);
-      if (point && (!state.worldVisible || state.worldVisible(point)) && isClearWaterPoint(point, e.clientX, e.clientY)) {
+      if (point && isClearWaterPoint(point, e.clientX, e.clientY)) {
         state.sailIntent = 'target';
         state.sailTargetPos = point.clone();
         state.buildingTarget = null;
@@ -2455,7 +2684,9 @@ export function initSunkenCityGameplay({
   }
 
   function startSailBetweenZones(destZone, jobSiteAfterArrival = null) {
-    if (state.workerMode !== 'IDLE_ASHORE') return;
+    if (economy.busy || !['zone1', 'zone2', 'zone3', 'zone4', 'zone5'].includes(destZone)) return false;
+    if (destZone === 'zone4' && !state.farSeaUnlocked) return false;
+    if (destZone === state.currentZone && !jobSiteAfterArrival) return false;
     state.manualCamera = false;
     state.sailIntent = jobSiteAfterArrival ? 'site' : 'zone';
     updateTopButtonsHighlight(destZone);
@@ -2533,20 +2764,55 @@ export function initSunkenCityGameplay({
   const BUILD_SPEED = 0.16;
   const SAIL_SPEED_SCALE = 0.62;
 
-  function updateGameplay(dt, elapsedTime) {
-    const safeDt = Math.min(dt, 0.1);
+  // 探索里程：角色和船的实际位移都算，走够一段就掷一次骰子捡漂流木/旧零件。
+  let lastExplorePos = null;
+  function trackExplore() {
+    const onBoat = explorerGroup.parent !== scene;
+    const pos = onBoat ? boatAnchorGroup.position : explorerGroup.position;
+    if (!lastExplorePos) {
+      lastExplorePos = pos.clone();
+      return;
+    }
+    const moved = Math.hypot(pos.x - lastExplorePos.x, pos.z - lastExplorePos.z);
+    lastExplorePos.copy(pos);
+    // 换区、上船、跳船这类瞬移不是"走出来的"，不计入探索里程。
+    if (moved <= 0.001 || moved > 4) return;
+    const found = economy.explore(moved);
+    if (!found.ok) return;
+    syncCoinUI();
+    spawnResourceFlight(
+      explorerGroup.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 1.4, 0)),
+      found.reward
+    );
+  }
 
-    // 每 6 秒按建筑产出等级积累海贝，每处最多存储 10 枚。
+  function updateGameplay(dt, elapsedTime) {
+    const safeDt = Math.max(0, Math.min(Number.isFinite(dt) ? dt : 0, 0.1));
+    economy.tick(safeDt);
+    trackExplore();
+    economyView?.update(safeDt, elapsedTime);
+
+    // 绞盘冷却按真实时间回落；冷却结束只在岸上提醒一次，避免航行途中刷屏。
+    if (state.salvageCooldown > 0) {
+      const before = state.salvageCooldown;
+      state.salvageCooldown = Math.max(0, state.salvageCooldown - safeDt);
+      if (before > 0 && state.salvageCooldown <= 0 && state.workerMode === 'IDLE_ASHORE') {
+        spawnFloatTip(new THREE.Vector3(-12, WATER_LEVEL + 4, 13), '绞盘已就绪');
+      }
+    }
+    updateSalvageGauge(elapsedTime);
+
+    // 挂机产出放缓：每 9 秒积累一次，攒满 10 份才亮收集标志，收一次大约要等一分半。
     slowCoinTimer += safeDt;
-    if (slowCoinTimer >= 6.0) {
-      slowCoinTimer -= 6.0;
+    if (slowCoinTimer >= 9.0) {
+      slowCoinTimer -= 9.0;
       buildSites.forEach((s) => {
         if (s.coinsPerCycle > 0) {
           s.storedCoins = Math.min(10, s.storedCoins + s.coinsPerCycle);
         }
       });
       syncCoinUI();
-      if (hoveredTarget && !['actor', 'salvage', 'dock'].includes(hoveredTarget.type)) renderHoverCardContent();
+      if (hoveredTarget && !['actor', 'salvage', 'dock', 'economy'].includes(hoveredTarget.type)) renderHoverCardContent();
     }
 
     // 2) 水下深海巨鲸巡游与摆尾动画（参考图3核心水底动态）
@@ -2820,7 +3086,7 @@ export function initSunkenCityGameplay({
         setWorkerStatus('园圃培育完成，岸上待机');
         syncCoinUI();
         updateObjectiveUI();
-        if (hoveredTarget && !['actor', 'salvage', 'dock'].includes(hoveredTarget.type)) renderHoverCardContent();
+        if (hoveredTarget && !['actor', 'salvage', 'dock', 'economy'].includes(hoveredTarget.type)) renderHoverCardContent();
       }
     }
 
@@ -2859,7 +3125,9 @@ export function initSunkenCityGameplay({
 
       const baseCameraDistance = (state.camLockMode === 'boat' ? BOAT_FOLLOW_OFFSET : CAM_OFFSET).length();
       controls.minDistance = baseCameraDistance * 0.70;
-      controls.maxDistance = baseCameraDistance * 1.78;
+      // Capped below the camera far plane (190) so pulling all the way back still frames the harbor;
+      // beyond that the whole map sits past the fog's full-fade distance and reads as empty water.
+      controls.maxDistance = baseCameraDistance * 1.45;
       isApplyingCameraLock = true;
       controls.target.lerp(desiredTarget, 0.06);
       camera.position.lerp(desiredCamPos, 0.06);
@@ -2875,6 +3143,9 @@ export function initSunkenCityGameplay({
     upgradeShip,
     registerHarborTargets,
     requestHarborAction,
+    salvage: salvageApi,
+    economy,
+    get economyView() { return economyView; },
     art: { camera, zone2Root, explorerGroup, boatAnchorGroup, stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
       planterSoil, rooftopSoilPatch, initialPlants, underwaterCityGroup, buildSites, state,
       resident: { group: resident.group, windowGlow, lantern: lanternGroup, homeSite },
@@ -2882,7 +3153,8 @@ export function initSunkenCityGameplay({
     updateOverlays() {
       [btnCamOriginal, btnCamZone2, btnCamZone3].forEach(btn => { btn.disabled = state.workerMode !== 'IDLE_ASHORE'; });
       updateResourceOrbs();
-      if (hoveredTarget && !['actor', 'salvage', 'dock'].includes(hoveredTarget.type)) {
+      economyView?.updateOverlays();
+      if (hoveredTarget && !['actor', 'salvage', 'dock', 'economy'].includes(hoveredTarget.type)) {
         renderHoverCardContent();
         positionHoverCardForTarget(hoveredTarget);
       }
@@ -2890,14 +3162,14 @@ export function initSunkenCityGameplay({
       const site = state.activeJobSite;
       if (site && state.workerMode === 'BUILDING') {
         const p = site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0)).project(camera);
-        buildProgressEl.style.display = (!state.worldVisible || state.worldVisible(site.hoverAnchor)) && p.z > -1 && p.z < 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1 ? 'inline-flex' : 'none';
+        buildProgressEl.style.display = p.z > -1 && p.z < 1 && Math.abs(p.x) < 1 && Math.abs(p.y) < 1 ? 'inline-flex' : 'none';
         buildProgressEl.style.left = `${(p.x * .5 + .5) * window.innerWidth}px`;
         buildProgressEl.style.top = `${(-p.y * .5 + .5) * window.innerHeight + 30}px`;
         document.getElementById('bp-fill').style.width = `${Math.round(state.jobProgress * 100)}%`;
       } else buildProgressEl.style.display = 'none';
       for (const [el, anchor] of floatTips) {
         const p = anchor.clone().project(camera);
-        el.style.display = (!state.worldVisible || state.worldVisible(anchor)) && p.z > -1 && p.z < 1 ? '' : 'none';
+        el.style.display = p.z > -1 && p.z < 1 ? '' : 'none';
         el.style.left = `${(p.x * .5 + .5) * window.innerWidth}px`;
         el.style.top = `${(-p.y * .5 + .5) * window.innerHeight}px`;
       }

@@ -36,14 +36,16 @@ const assert = require('node:assert/strict');
     assert.equal(await page.locator('#min-coin-val').textContent(), '80');
     assert.equal(await page.locator('#min-wood-val').textContent(), '🪵 0');
     assert.equal(await page.locator('#min-parts-val').textContent(), '⚙ 0');
+    assert.equal(await page.locator('#min-fish-val').textContent(), '鱼 0');
     assert.equal(await page.locator('#min-ship-val').textContent(), '⛵ 1');
-    passed.push('顶部 HUD 只保留海贝、木料、零件和船只等级数值');
+    passed.push('顶部 HUD 只保留海贝、木料、零件、鱼和船只等级数值');
 
     await page.evaluate(() => { window.__qa.performSalvage(); });
     assert.equal(await page.locator('#min-wood-val').textContent(), '🪵 3');
     assert.equal(await page.locator('#min-parts-val').textContent(), '⚙ 2');
-    assert.equal(await page.locator('.float-tip').count() > 0, true);
-    passed.push('打捞反馈使用场景上方数值浮字');
+    // 收集反馈改成图标飞入右上角资源栏，不再是纯文字浮字。
+    assert.equal(await page.locator('.resource-flight').count() > 0, true);
+    passed.push('打捞后资源图标从场景飞向右上角资源栏');
 
     assert.equal(await page.locator('#bp-label').count(), 0);
     assert.equal(await page.locator('.bp-bar').count(), 1);

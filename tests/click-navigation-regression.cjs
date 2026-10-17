@@ -11,7 +11,7 @@ const fs = require('node:fs');
     await page.route('**/index.html', async route => {
       const response = await route.fetch();
       let body = await response.text();
-      body = body.replace('    const clock = new THREE.Clock();', '    window.qa={THREE,gameplay,scene,camera,controls,gridView};\n    const clock = new THREE.Clock();');
+      body = body.replace('    const clock = new THREE.Clock();', '    window.qa={THREE,gameplay,scene,camera,controls};\n    const clock = new THREE.Clock();');
       await route.fulfill({ response, body });
     });
     await page.goto((process.env.APP_URL || 'http://127.0.0.1:8765') + '/index.html');

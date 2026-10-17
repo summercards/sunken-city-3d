@@ -107,7 +107,7 @@ export function refineScene({ THREE: T, worldGroup, makePainterlyMat: material, 
   for(const x of [-5.1,0,5.1]) for(const z of [-3.8,3.8]) box(back,x,3,z,.48,6,.48,'#c9bb94');
   for(const x of [-3.4,0,3.4]) openingWall(back,x,3.66,-3.8,3.1,3.1);
   openingWall(back,-5.1,3.66,-.4,5.8,3.4,Math.PI/2);
-  box(back,0,1.6,4,10.8,3.2,.3,upperTowerMesh.material[4]);
+  box(back,0,1.6,4,10.8,3.2,.3,'#d3d0b2');
   for(let i=0;i<4;i++) {
     box(back,-4+i*2.5,6.95,-3.8,1.4,.27,.5,'#e2d0a0');
     plant(back,-4+i*2.5,7.1,-3.8,.7,i%2===0,i);
@@ -190,7 +190,7 @@ export function refineScene({ THREE: T, worldGroup, makePainterlyMat: material, 
   // Different ruin silhouettes: open room, broken arcade, stair remnant, partial floor stack.
   underwaterCityGroup.visible=false;
   const ruins=group(worldGroup,0,0,0,'ruin-district');
-  const specs=[[-19,1.3,-18,0],[17,1.2,-18,1],[-19,1.3,21,2],[25,1.3,24,3],[7,1.3,22,0]];
+  const specs=[[-28,1.3,-35,0],[20,1.2,-36,1],[-30,1.3,32,2],[34,1.3,32,3],[-5,1.3,39,0]];
   specs.forEach(([x,y,z,type],n)=>{
     const g=group(ruins,x,y,z,`ruin-${type}-${n}`);g.rotation.y=n*.37;
     const w=4.6+(n%2)*1.2,d=4.3;

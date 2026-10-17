@@ -8,6 +8,11 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
   target.depthTexture=new T.DepthTexture(1,1,T.UnsignedIntType);
   const uniforms={uTime:{value:0},uRefractionPixels:{value:64},uSurfaceContrast:{value:.25},uSceneColor:{value:target.texture},uSceneDepth:{value:target.depthTexture},
     uResolution:{value:new T.Vector2(1,1)},uNearFar:{value:new T.Vector2(camera.near,camera.far)},uInverseProjection:{value:new T.Matrix4()},uCameraWorld:{value:new T.Matrix4()},
+    // Without the old vision mask the far water reads all the way to the plane's edge, so the
+    // surface has to sink into the same haze as the rest of the scene instead of ending in a seam.
+    // Stored in screen (sRGB) space: the blend happens after tone mapping so it lands on exactly
+    // the same final color as the background behind it.
+    uFogColor:{value:(scene.fog?scene.fog.color:scene.background).clone().convertLinearToSRGB()},uFogRange:{value:new T.Vector2(scene.fog?scene.fog.near:85,scene.fog?scene.fog.far:175)},
     uBoat:{value:new T.Vector4(0,0,0,0)},uRipples:{value:ripples},uWake:{value:wakes}};
   const material=new T.ShaderMaterial({uniforms,depthWrite:true,side:T.DoubleSide,
     vertexShader:`
@@ -26,6 +31,8 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
       uniform float uTime,uRefractionPixels,uSurfaceContrast;
       uniform sampler2D uSceneColor,uSceneDepth;
       uniform vec2 uResolution,uNearFar;
+      uniform vec3 uFogColor;
+      uniform vec2 uFogRange;
       uniform mat4 uInverseProjection,uCameraWorld;
       uniform vec4 uBoat;
       uniform vec4 uRipples[16],uWake[24];
@@ -42,11 +49,18 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
       float shore(vec2 p){
         float a=boxSDF(turn(p-vec2(4.3,-.5),-.22),vec2(4.65,5.05));
         a=min(a,boxSDF(turn(p-vec2(2.8,-6.6),-.22),vec2(5.45,4.15)));
-        a=min(a,length(p-vec2(-15,-6))-6.35);
+        a=min(a,length(p-vec2(-18,-4))-6.35);
         a=min(a,boxSDF(p-vec2(-12,13),vec2(3.25,2.75)));
         a=min(a,boxSDF(p-vec2(.3,9),vec2(2.5,2)));
         a=min(a,boxSDF(p-vec2(16,15),vec2(3.25,2.75)));
-        return min(a,boxSDF(turn(p-vec2(-28,-18),-.35),vec2(8.5,7)));
+        a=min(a,boxSDF(turn(p-vec2(-28,-18),-.35),vec2(8.5,7)));
+        a=min(a,boxSDF(turn(p-vec2(-12,-39),-.12),vec2(3.2,2.5)));
+        a=min(a,boxSDF(turn(p-vec2(31,-22),.12),vec2(2.9,2.6)));
+        a=min(a,boxSDF(turn(p-vec2(39,12),-.12),vec2(2.6,2.4)));
+        a=min(a,boxSDF(turn(p-vec2(-40,21),.12),vec2(2.6,2.2)));
+        a=min(a,length((p-vec2(-36,0))/vec2(1.0,.85))-5.5);
+        a=min(a,boxSDF(p-vec2(4,-25),vec2(3.5,2.9)));
+        return min(a,boxSDF(turn(p-vec2(20,43),-.12),vec2(2.75,2.25)));
       }
       void main(){
         vec2 p=vWaterWorld.xz;
@@ -73,7 +87,7 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
         beneath/=beneath.w;
         vec3 bed=(uCameraWorld*beneath).xyz;
         float depth=max(0.0,vWaterWorld.y-bed.y);
-        float deep=smoothstep(2.0,23.0,depth);
+        float deep=smoothstep(2.0,13.0,depth);
         vec3 body=mix(vec3(.008,.30,.25),vec3(.008,.125,.24),deep);
         body*=1.0+(smoothstep(.30,.70,swell)-.5)*.17*uSurfaceContrast;
         // Slow facets of light follow the moving wave field, rather than a texture overlay.
@@ -84,7 +98,7 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
         body+=vec3(.002,.036,.034)*waterFacet*uSurfaceContrast;
         // Wavelength-dependent absorption preserves nearby structure and loses reds first.
         vec3 transmission=exp(-thickness*vec3(.125,.064,.046));
-        transmission*=1.0-smoothstep(7.0,21.0,depth);
+        transmission*=1.0-smoothstep(4.0,13.0,depth);
         if(rawDepth>.9999)transmission=vec3(0.0);
         // Moving caustics lie on the submerged geometry, not painted on the surface.
         vec2 cp=bed.xz*.80+vec2(sin(bed.z*.32+uTime*.6),cos(bed.x*.28-uTime*.5))*.42;
@@ -103,11 +117,20 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
         color+=vec3(.025,.055,.052)*fleck*uSurfaceContrast;
         // Soft, broken waterline washes: never a bright wire outlining every wall.
         float edge=shore(p);
-        float pulse=.12+sin(uTime*.85+p.x*.21+p.y*.17)*.09;
-        float edgeFoam=(1.0-smoothstep(.055,.20,abs(edge-pulse)))*smoothstep(.36,.65,noise(p*.85+drift*2.0));
-        edgeFoam*=step(-.04,edge)*.94;
-        float washFoam=(1.0-smoothstep(.06,.25,abs(edge-.42-pulse)))*smoothstep(.58,.75,noise(p*.7-drift))* .35;
-        float foam=max(edgeFoam,washFoam);
+        // Wavefronts propagate away from the footprint with a curved, scalloped edge.
+        float scallop=sin(p.x*1.5+p.y*1.1-uTime*.75)*.11+sin(p.y*2.4-p.x*.8+uTime*.45)*.045;
+        float contact=.10+sin(uTime*1.1+p.x*.28+p.y*.23)*.055;
+        float breakup=smoothstep(.31,.58,noise(p*.7+drift*2.0));
+        float edgeFoam=(1.0-smoothstep(.035,.115,abs(edge-contact+scallop)))*breakup*step(-.03,edge)*.88;
+        float outgoing=0.0;
+        for(int band=0;band<2;band++){
+          float age=fract(uTime*.23+float(band)*.5+sin(p.x*.25+p.y*.32)*.10);
+          float front=.25+age*1.6;
+          float crest=1.0-smoothstep(.035,.095,abs(edge-front+scallop*(1.0+age)));
+          float envelope=smoothstep(0.0,.12,age)*(1.0-smoothstep(.42,1.0,age));
+          outgoing=max(outgoing,crest*envelope*breakup*.42);
+        }
+        float foam=max(edgeFoam,outgoing*step(0.0,edge));
         // Hull contact plus curved, speed-dependent bow waves.
         vec2 forward=vec2(sin(uBoat.z),cos(uBoat.z)),side=vec2(forward.y,-forward.x);
         vec2 rel=p-uBoat.xy;float along=dot(rel,forward),across=dot(rel,side);
@@ -144,9 +167,15 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
         gl_FragColor=vec4(color,1.0);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
+        // Fog is blended after tone mapping so the far water lands on the exact screen color of
+        // the background it dissolves into; a linear-space blend would leave a visible horizon.
+        float fogAmount=clamp((vWaterViewDepth-uFogRange.x)/(uFogRange.y-uFogRange.x),0.0,1.0);
+        gl_FragColor.rgb=mix(gl_FragColor.rgb,uFogColor,fogAmount);
       }`
   });
-  const surface=new T.Mesh(new T.PlaneGeometry(280,280),material);
+  // Sized well past the camera's far plane so its own edge never becomes a horizon seam now that
+  // nothing masks the distance; the fog blend above carries the surface out of sight first.
+  const surface=new T.Mesh(new T.PlaneGeometry(640,640),material);
   surface.name='cartoon-water';surface.rotation.x=-Math.PI/2;surface.position.y=waterLevel;surface.renderOrder=3;scene.add(surface);
   const stats={clicks:0,oarStrokes:0,landings:0,wakeSamples:0};
   let art=null,rippleIndex=0,wakeIndex=0,lastT=0,oldMode='',stroke=-1,speed=0,travel=0,initialized=false;
@@ -173,7 +202,7 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
     if(oldMode==='ROWING'&&!moving){stats.landings++;emitRipple(pos.x,pos.z,.8);}
     oldMode=art.state.workerMode;previous.copy(pos);initialized=true;
   }
-  function renderUnderwater(gridView){
+  function renderUnderwater(){
     const bounds=renderer.getSize(new T.Vector2()),ratio=Math.min(renderer.getPixelRatio(),1.25);
     const w=Math.round(bounds.x*ratio),h=Math.round(bounds.y*ratio);
     if(target.width!==w||target.height!==h){target.setSize(w,h);uniforms.uResolution.value.set(w,h);}
@@ -181,9 +210,9 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
     uniforms.uInverseProjection.value.copy(camera.projectionMatrixInverse);
     uniforms.uCameraWorld.value.copy(camera.matrixWorld);
     const saved=renderer.getRenderTarget(),visible=surface.visible;
-    surface.visible=false;gridView?.setUnderwaterPass(true);
+    surface.visible=false;
     try {renderer.setRenderTarget(target);renderer.render(scene,camera);}
-    finally {renderer.setRenderTarget(saved);surface.visible=visible;gridView?.setUnderwaterPass(false);}
+    finally {renderer.setRenderTarget(saved);surface.visible=visible;}
   }
   let down=null;
   const canvas=renderer.domElement;
@@ -193,7 +222,7 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
     const start=down;down=null;
     if(!art||e.button!==0||!start||start.id!==e.pointerId||Math.hypot(e.clientX-start.x,e.clientY-start.y)>5)return;
     const r=canvas.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,1-(e.clientY-r.top)/r.height*2);
-    ray.setFromCamera(pointer,camera);if(!ray.ray.intersectPlane(plane,hit)||art.state.worldVisible&&!art.state.worldVisible(hit))return;
+    ray.setFromCamera(pointer,camera);if(!ray.ray.intersectPlane(plane,hit))return;
     const distance=ray.ray.origin.distanceTo(hit);
     const obstacle=ray.intersectObjects(scene.children,true).find(h=>{
       if(h.object===surface||h.distance>=distance-.08||h.point.y<waterLevel+.08)return false;

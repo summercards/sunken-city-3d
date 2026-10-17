@@ -272,7 +272,9 @@
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     import { initSunkenCityGameplay } from './gameplay.js';
     import { refineScene } from './scene-art.js';
-    import { arrangeHarbor, createGridView } from './harbor-layout.js';
+    import { arrangeHarbor } from './harbor-layout.js';
+    import { polishHarbor } from './living-harbor.js';
+    import { createWaterDistrict } from './water-district.js';
     import { createStylizedWater } from './water.js';
 
     // ============================================================================
@@ -391,7 +393,11 @@
           '#include <worldpos_vertex>',
           `
           #include <worldpos_vertex>
-          vCustomWorldPos = (modelMatrix * vec4(transformed, 1.0)).xyz;
+          vec4 depthWorldPosition = vec4(transformed, 1.0);
+          #ifdef USE_INSTANCING
+            depthWorldPosition = instanceMatrix * depthWorldPosition;
+          #endif
+          vCustomWorldPos = (modelMatrix * depthWorldPosition).xyz;
           `
         );
 
@@ -1937,15 +1943,20 @@
       leftBuildingGroup, gardenFlowersGroup, gardenWall, gardenSoil, roofWater,
       upperTowerMesh, upperBackTowerGroup, gameplay });
     const harbor = arrangeHarbor({ THREE, worldGroup, gameplay, sceneArt, leftBuildingGroup, poleGroup, makePainterlyMat, WATER_LEVEL });
+    const livingHarbor = polishHarbor({ THREE, worldGroup, gameplay, sceneArt, houseGroup, cabinMesh, lowerRoof,
+      leftBuildingGroup, upperBackTowerGroup, poleGroup, makePainterlyMat, WATER_LEVEL });
+    const waterDistrict = createWaterDistrict({ THREE, worldGroup, makePainterlyMat });
     dynamicCables.forEach((c,i) => {
       if(i>1){c.mesh.visible=false;return;}
-      c.pStart.set(-11.2,4.5,13);c.pMidBase.set(-8.5,2.5,14);c.pEnd.set(-6.7,1.15,15);
+      poleGroup.updateWorldMatrix(true,false);houseGroup.updateWorldMatrix(true,false);leftBuildingGroup.updateWorldMatrix(true,false);
+      c.pStart.copy(poleGroup.localToWorld(new THREE.Vector3(i? -1.6:1.6,15.8,0)));
+      c.pEnd.copy(i?leftBuildingGroup.localToWorld(new THREE.Vector3(3.7,4.7,2.8)):houseGroup.localToWorld(new THREE.Vector3(-2.35,1.2,4.5)));
+      c.pMidBase.copy(c.pStart).lerp(c.pEnd,.5);c.pMidBase.y-=1.8;
+      c.mesh.geometry.dispose();c.mesh.geometry=new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(c.pStart,c.pMidBase,c.pEnd),32,i?.035:.055,8,false);
+      c.mesh.material.color.set(i?'#607778':'#c2b38a');
+      c.restPositions=c.mesh.geometry.attributes.position.array.slice();
     });
-    const gridView = createGridView({ THREE, scene, camera, getFocus: () => {
-      const { state, explorerGroup, boatAnchorGroup } = gameplay.art;
-      return (state.workerMode === 'ROWING' ? boatAnchorGroup : explorerGroup).getWorldPosition(new THREE.Vector3());
-    } });
-    gameplay.art.state.worldVisible = gridView.isVisible;
+    // 世界不再做视野遮蔽：整张地图始终可见，点击也全图可达。
     waterSystem.bind(gameplay.art);
     // Water contact is now shaded on the actual surface, not floating mesh strips.
     [...boatEdgeFoams, ...objectEdgeFoamStrips, ...poolEdgeFoamSegments].forEach(f => f.mesh.visible = false);
@@ -2018,8 +2029,13 @@
 
       // 6) 悬垂电缆与屋顶/水下植被随风摇曳
       dynamicCables.forEach((cab, idx) => {
-        cab.mesh.position.x = Math.sin(t * 1.4 + idx) * 0.06;
-        cab.mesh.position.y = Math.cos(t * 1.8 + idx) * 0.04;
+        if(!cab.restPositions)return;
+        const attr=cab.mesh.geometry.attributes.position;
+        for(let v=0;v<attr.count;v++){
+          const u=Math.floor(v/9)/32;
+          attr.array[v*3+1]=cab.restPositions[v*3+1]+Math.sin(Math.PI*u)*Math.sin(t*.8+u*3+idx)*.065;
+        }
+        attr.needsUpdate=true;
       });
 
       swayingPlants.forEach((p) => {
@@ -2064,10 +2080,11 @@
       scene.updateMatrixWorld(true);
       camera.updateMatrixWorld(true);
       harbor.update(t);
-      gridView.update(t);
+      livingHarbor.update(t);
+      waterDistrict.update(t);
       waterSystem.update(dt, t);
       gameplay.updateOverlays();
-      waterSystem.renderUnderwater(gridView);
+      waterSystem.renderUnderwater();
       const shadowUpdate = renderer.shadowMap.autoUpdate;
       renderer.shadowMap.autoUpdate = false;
       renderer.render(scene, camera);
