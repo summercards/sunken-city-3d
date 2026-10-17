@@ -1960,7 +1960,9 @@ export function initSunkenCityGameplay({
     if (isBoatMode()) {
       const point = pointAtScreen(e.clientX, e.clientY, WATER_LEVEL);
       if (point && (!state.worldVisible || state.worldVisible(point)) && isClearWaterPoint(point, e.clientX, e.clientY)) {
+        state.sailIntent = 'target';
         state.sailTargetPos = point.clone();
+        state.buildingTarget = null;
         state.sailCurve = buildSmoothSailCurve(state.currentZone, state.currentZone, state.sailTargetPos);
         state.sailProgress = 0;
         state.sailDuration = Math.max(2.0, state.sailCurve.getLength() / 3.6);
@@ -2480,17 +2482,26 @@ export function initSunkenCityGameplay({
 
       if (state.sailProgress >= 1) {
         explorerBodyPivot.rotation.x = 0;
-        state.currentZone = state.targetZone;
-        updateTopButtonsHighlight(state.currentZone);
-
-        const shoreEdge = getZoneShoreEdge(state.currentZone);
-        unmountExplorerToWorld(boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 0.5, 0)));
-        state.jumpStartPos.copy(explorerGroup.position);
-        state.jumpEndPos.copy(shoreEdge);
-        state.transitionT = 0;
-        state.workerMode = 'DISEMBARKING';
-        state.camLockMode = state.currentZone;
-        setWorkerStatus('靠岸登岛中...');
+        if (state.sailIntent === 'target' || state.sailIntent === 'free') {
+          const pending = state.pendingWorldTarget;
+          state.workerMode = 'BOAT_IDLE';
+          state.sailCurve = null;
+          state.sailTargetPos = null;
+          state.pendingWorldTarget = null;
+          state.sailIntent = 'free';
+          if (pending?.type === 'salvage') performSalvage();
+          if (pending?.type === 'dock') upgradeShip();
+        } else {
+          state.currentZone = state.targetZone;
+          updateTopButtonsHighlight(state.currentZone);
+          const shoreEdge = getZoneShoreEdge(state.currentZone);
+          unmountExplorerToWorld(boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 0.5, 0)));
+          state.jumpStartPos.copy(explorerGroup.position);
+          state.jumpEndPos.copy(shoreEdge);
+          state.transitionT = 0;
+          state.workerMode = 'DISEMBARKING';
+          state.camLockMode = state.currentZone;
+        }
       }
     } else if (state.workerMode === 'DISEMBARKING') {
       window.__playerSailingActive = false;
