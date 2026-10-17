@@ -230,3 +230,51 @@ button:disabled { cursor: not-allowed; opacity: .5; }
   .economy-panel { top: 150px; padding: 14px; border-radius: 17px; }
   .economy-tabs { top: -14px; }
 }
+
+/* Surface dive entry and compact underwater swim controls. */
+#dive-hud { position:fixed; z-index:32; right:24px; bottom:24px; display:grid; justify-items:end; gap:10px; font-family:system-ui,"PingFang SC",sans-serif; }
+#dive-button,.dive-pad button { border:1px solid #fff8; border-radius:999px; padding:11px 18px; color:#164e5b; background:rgb(230 250 235 / 94%); box-shadow:0 5px 18px #053f4c42; font-weight:750; cursor:pointer; transition:transform .22s cubic-bezier(.2,.8,.2,1),background .2s,box-shadow .2s; }
+#dive-button:hover,.dive-pad button:hover { transform:translateY(-2px) scale(1.04); background:#fff7d7; box-shadow:0 8px 22px #053f4c55; }
+#dive-button:active,.dive-pad button:active { transform:scale(.96); }
+#dive-hud.aiming #dive-button { background:#f7df9f; }
+#dive-controls { width:250px; padding:14px 16px; border:1px solid #dffbf0b8; border-radius:19px; color:#effff3; background:linear-gradient(150deg,#125d70dd,#092c4edb); box-shadow:0 8px 26px #062d4670; backdrop-filter:blur(10px); animation:diveCardIn .42s cubic-bezier(.2,.9,.25,1.2) both; }
+#dive-controls[hidden] { display:none; }
+#dive-depth { font-size:17px; font-weight:800; color:#c5fff0; }
+.dive-pad { display:flex; gap:8px; margin-top:10px; }.dive-pad button { flex:1; padding:9px 10px; font-size:12px; }
+#dive-controls p { margin:9px 0 2px; font-size:11px; } #dive-controls>span { font-size:10px; opacity:.82; }
+#dive-progress { position:fixed; z-index:33; left:50%; bottom:100px; transform:translateX(-50%); min-width:210px; padding:12px 18px; border:1px solid #e8fff1b8; border-radius:17px; background:#0d485bd9; box-shadow:0 5px 22px #06263f6b; color:#f4fff2; text-align:center; animation:diveCardIn .35s cubic-bezier(.2,.9,.25,1.2) both; }
+#dive-progress[hidden] { display:none; }.dive-progress-title { display:block; font-weight:700; font-size:13px; margin-bottom:8px; }
+#dive-progress progress { width:190px; height:8px; accent-color:#f2d77c; }
+#dive-found { position:fixed; z-index:34; left:50%; top:22%; transform:translate(-50%,-8px) scale(.92); opacity:0; pointer-events:none; padding:11px 17px; border-radius:999px; color:#174b53; background:#fff3cdeF; box-shadow:0 5px 20px #06314f66; font-weight:750; transition:opacity .3s,transform .35s cubic-bezier(.2,.9,.25,1.3); }
+#dive-found.show { opacity:1; transform:translate(-50%,0) scale(1); }
+@keyframes diveCardIn { from { opacity:0; transform:translateY(12px) scale(.92); } to { opacity:1; transform:translateY(0) scale(1); } }
+@media(max-width:720px){#dive-hud{right:12px;bottom:14px}#dive-controls{width:min(250px,calc(100vw - 40px))}#dive-progress{bottom:140px}}
+.dive-pad { display:grid; grid-template-columns:repeat(3,1fr); }
+.dive-pad button { min-width:55px; }
+#dive-progress { display:flex; align-items:center; justify-content:center; gap:12px; min-width:185px; }
+#dive-progress progress { display:none; }
+.dive-ring { width:48px; height:48px; display:grid; place-items:center; border-radius:50%; background:conic-gradient(#f5db80 var(--progress,0%),#d9f1e73b 0); position:relative; }
+.dive-ring::before { content:""; position:absolute; inset:5px; border-radius:50%; background:#125063; }
+.dive-ring b { position:relative; z-index:1; font-size:10px; }
+#dive-aim-hint { padding:8px 12px; border:1px solid #e8fff1a8; border-radius:12px; background:#12495fe8; color:#e9fff3; font-size:11px; box-shadow:0 4px 15px #06263f5a; animation:diveCardIn .24s ease both; }
+#dive-button:disabled { opacity:.55; cursor:not-allowed; }
+.dive-pad { grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(3,38px); }
+#dive-forward { grid-column:2; grid-row:1; } #dive-left { grid-column:1; grid-row:2; }
+#dive-right { grid-column:3; grid-row:2; } #dive-back { grid-column:2; grid-row:3; }
+#dive-up { grid-column:4; grid-row:1; } #dive-down { grid-column:4; grid-row:3; }
+
+/* Underwater mode has its own unobstructed navigation and world-space salvage cues. */
+.underwater-view .resource-orb,.underwater-view .hover-context-card,
+.underwater-view .economy-marker,.underwater-view .economy-panel,.underwater-view .action-wheel,
+.underwater-view .destination-wheel,.underwater-view .economy-toggle,
+.underwater-view .build-progress-pill { display:none !important; }
+.underwater-view #dive-controls { background:#123b43b8;border-color:#b6decb44;box-shadow:0 8px 30px #071e2925;width:218px; }
+.underwater-view #dive-button { background:#e5f0dfed;font-size:12px; }
+.underwater-view .dive-pad button { min-width:38px;padding:6px;background:#cee4d4d9;font-size:11px;box-shadow:none; }
+.underwater-view .dive-pad { grid-template-rows:repeat(3,30px);gap:5px; }
+.underwater-view #dive-depth { font-size:15px;font-variant-numeric:tabular-nums; }
+.dive-treasure { position:fixed;z-index:31;transform:translate(-50%,-50%);border:1px solid #e9e2b077;border-radius:20px;background:#123c47b8;color:#fff1bb;padding:6px 12px;font:600 12px system-ui;cursor:pointer;backdrop-filter:blur(5px);transition:background .2s,box-shadow .2s; }
+.dive-treasure:hover,.dive-treasure.near { background:#e6d49ce8;color:#234b4a;box-shadow:0 0 20px #e6d49c22; }
+.dive-treasure[hidden]{display:none;}
+.underwater-view #dive-progress { bottom:30px;border-color:#e9e2b077;background:#123c47cf;animation:none; }
+@media(max-width:720px){.underwater-view #dive-controls{width:180px;padding:10px}.underwater-view #dive-hud{bottom:10px;right:10px}}

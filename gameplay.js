@@ -26,6 +26,8 @@
 import { createEconomy, MATERIALS, HARVEST_THRESHOLD } from './economy.js';
 import { createEconomyView } from './economy-view.js';
 
+import { createZoneRegistry } from './zones.js';
+
 export function initSunkenCityGameplay({
   THREE,
   scene,
@@ -40,6 +42,10 @@ export function initSunkenCityGameplay({
   makePainterlyMat,
   addEdgeHighlight
 }) {
+  // 区块注册表：海面每块水域的功能、可站立区域、上岸点、停泊位全在 zones.js 里，
+  // 这里在函数最前面建立，后面摆放区块模型、取景、行走都要用。
+  const zones = createZoneRegistry({ THREE, WATER_LEVEL });
+
   // ============================================================================
   // 1. 极简清爽 UI（顶部单颗海贝胶囊 + 鼠标真正指在模型上才浮现的轻量悬浮卡）
   // ============================================================================
@@ -679,9 +685,8 @@ export function initSunkenCityGameplay({
   // 4. 构建第二区域：【横滨沉没铁道道口（Yokohama Submerged Railway Crossing）】
   //    中心位于 (-28.0, 0, -18.0)，从第一区域向西北望去刚好在迷雾边缘隐约可见，划船数秒即达
   // ============================================================================
-  const ZONE2_CENTER = new THREE.Vector3(-28.0, 0, -18.0);
   const zone2Root = new THREE.Group();
-  zone2Root.position.copy(ZONE2_CENTER);
+  zone2Root.position.copy(zones.get('zone2').origin);
   worldGroup.add(zone2Root);
 
   // 4.1 水下铁道海床基座 + 枕木 + 双轨钢轨 + 白色道口停止线（严格对齐参考图1中央）
@@ -1016,9 +1021,8 @@ export function initSunkenCityGameplay({
   // 5. 构建四周环绕的邻近区域（参考图 2：让视野边缘处处感受到周边区域在边上！）
   // ============================================================================
   // 5.1 西南邻近区：【天台卫星锅种植园】（坐标 -19.5, 0, 13.5 —— 从第一区域往左下看直接能感受到它在边上）
-  const ZONE3_CENTER = new THREE.Vector3(-18, 0, -4);
   const zone3Root = new THREE.Group();
-  zone3Root.position.copy(ZONE3_CENTER);
+  zone3Root.position.set(zones.get('zone3').origin.x, 0, zones.get('zone3').origin.z);
   zone3Root.rotation.y = 0.28;
   worldGroup.add(zone3Root);
 
@@ -1088,12 +1092,14 @@ export function initSunkenCityGameplay({
   initialPlants.position.set(-2.2, WATER_LEVEL + 1.7, -1.6);
   zone3Root.add(initialPlants);
 
-  createSubmergedCar(-12.5, WATER_LEVEL + 0.15, 14.5, 0.42, '#8b68e8', '#d874aa');
-  createLilyPadPatch(-15.5, 11.2, 9, 3.2);
+  // 这两处是打捞台的环境装饰，按打捞点的相对偏移摆放，打捞台搬动时会一起走。
+  const salvageSpot = zones.harborPoint('salvage') || new THREE.Vector3(-12, WATER_LEVEL, 13);
+  createSubmergedCar(salvageSpot.x - 0.5, WATER_LEVEL + 0.15, salvageSpot.z + 1.5, 0.42, '#8b68e8', '#d874aa');
+  createLilyPadPatch(salvageSpot.x - 3.5, salvageSpot.z - 1.8, 9, 3.2);
 
   // 5.2 东北邻近区：【藤蔓断桥与晾衣生活船】（坐标 19.5, 0, -17.5 —— 从第一区域往右上看直接能感受到它在边上）
   const zone4Root = new THREE.Group();
-  zone4Root.position.set(39.5, 0, -41.5);
+  zone4Root.position.copy(zones.get('zone4').origin);
   zone4Root.rotation.y = -0.25;
   worldGroup.add(zone4Root);
 
@@ -1390,48 +1396,85 @@ export function initSunkenCityGameplay({
   // ============================================================================
   // 8. 各种植园与区域修缮点（在建造/播种过程中，植物与模型实时动态生长！）
   // ============================================================================
-  // 区域 1 停泊位（太阳能木屋橙色小码头前开阔水域）
-  const ZONE1_BOAT_PARK = new THREE.Vector3(0.25, WATER_LEVEL, 5.45);
-  const ZONE1_DOCK_EDGE = new THREE.Vector3(2.35, 2.02, 4.45);
-  const ZONE1_DOCK_STAND = new THREE.Vector3(3.35, 2.02, 3.35);
+  // ============================================================================
+  // 7.5 区块注册表（zones.js）——海面每块水域的功能、可站立区域、上岸点、停泊位
+  // ============================================================================
+  // 这里不再写任何区块坐标：增删区块、搬动地块、改上岸点都只改 zones.js。
+  const WALK_REGIONS = zones.walkRegions;
 
-  // 区域 2 停泊位：船湾落在轨道西南侧，靠岸后沿短栈桥走向站台与施工点
-  const ZONE2_BOAT_PARK = new THREE.Vector3(-25.6, WATER_LEVEL, -15.0);
-  const ZONE2_DOCK_EDGE = new THREE.Vector3(-28.6, WATER_LEVEL + 1.18, -17.1);
-  const ZONE2_LAND_STAND = new THREE.Vector3(-30.7, WATER_LEVEL + 1.18, -18.3);
+  // 脚底高度永远跟着模型走：在区块配置的高度窗口里取最高的可站立水平面。
+  // 配置里的 y 只是设计意图，模型改了、道具挪了也不会再出现悬空或陷进木板。
+  let standProbeMeshes = null;
+  const standRay = new THREE.Raycaster();
+  const STAND_DOWN = new THREE.Vector3(0, -1, 0);
+  const standNormalMatrix = new THREE.Matrix3();
+  const standProbePoint = new THREE.Vector3();
+  const standFaceNormal = new THREE.Vector3();
 
-  // 区域 3 停泊位（西南邻近天台卫星锅种植园前开阔水域）
-  const ZONE3_BOAT_PARK = new THREE.Vector3(-12, WATER_LEVEL, 3.5);
-  const ZONE3_DOCK_EDGE = new THREE.Vector3(-13, 3.6, 0);
-  const ZONE3_LAND_STAND = new THREE.Vector3(-16, 4.4, -3);
-  // 远海街町先复用现有东北邻近区的生活船与断桥景观，作为 P0 的可见终点。
-  const ZONE4_CENTER = new THREE.Vector3(39.5, 1.4, -41.5);
-  const ZONE4_BOAT_PARK = new THREE.Vector3(33.8, WATER_LEVEL, -37.2);
-  const ZONE4_DOCK_EDGE = new THREE.Vector3(36.8, WATER_LEVEL + 0.3, -39.4);
-  const ZONE4_LAND_STAND = new THREE.Vector3(37.8, WATER_LEVEL + 0.3, -40.8);
-
-  // 岸上可移动地块：只允许在同一块连续屋顶/码头内移动，水面和断开的楼块不是路面。
-  const WALK_REGIONS = [
-    {
-      id: 'zone1_home_dock', zone: 'zone1', y: ZONE1_DOCK_STAND.y,
-      contains(p) {
-        return (p.x >= 0.0 && p.x <= 8.8 && p.z >= -5.8 && p.z <= 4.8) ||
-          (p.x >= -2.5 && p.x <= 4.4 && p.z >= 4.0 && p.z <= 10.8) ||
-          (p.x >= 0.7 && p.x <= 3.4 && p.z >= 3.8 && p.z <= 7.4);
+  function standProbeList() {
+    if (standProbeMeshes) return standProbeMeshes;
+    const list = [];
+    scene.updateMatrixWorld(true);
+    scene.traverse((o) => {
+      if (!o.isMesh || o === waterPlane || o.name === 'cartoon-water') return;
+      for (let p = o; p; p = p.parent) {
+        if (!p.visible || p === boatAnchorGroup || p === explorerGroup) return;
       }
-    },
-    { id: 'zone3_farm', zone: 'zone3', y: 5.2, minX: -24.5, maxX: -11.5, minZ: -10.5, maxZ: 2.5 },
-    { id: 'zone1_salvage', zone: 'zone1', y: WATER_LEVEL + .9, minX: -15.5, maxX: -8.5, minZ: 10.0, maxZ: 16.0 },
-    { id: 'zone1_aqua', zone: 'zone1', y: WATER_LEVEL + 1.2, minX: 12.5, maxX: 19.5, minZ: 11.8, maxZ: 18.2 },
-    { id: 'zone2_station', zone: 'zone2', y: WATER_LEVEL + 1.18, minX: -35.5, maxX: -20.0, minZ: -25.5, maxZ: -11.0 },
-    { id: 'zone4_shore', zone: 'zone4', y: WATER_LEVEL + .3, minX: 31.5, maxX: 40.5, minZ: -43.5, maxZ: -34.5 }
-  ];
-  WALK_REGIONS.forEach(region => {
-    if (!region.contains) region.contains = p => p.x >= region.minX && p.x <= region.maxX && p.z >= region.minZ && p.z <= region.maxZ;
-  });
+      list.push(o);
+    });
+    standProbeMeshes = list;
+    return list;
+  }
+
+  function sampleStandHeight(x, z, lo, hi) {
+    standRay.set(standProbePoint.set(x, 60, z), STAND_DOWN);
+    standRay.far = 120;
+    let best = null;
+    for (const hit of standRay.intersectObjects(standProbeList(), false)) {
+      if (!hit.face) continue;
+      const y = hit.point.y;
+      if (y <= WATER_LEVEL + 0.02 || y < lo || y > hi) continue;
+      standNormalMatrix.getNormalMatrix(hit.object.matrixWorld);
+      standFaceNormal.copy(hit.face.normal).applyMatrix3(standNormalMatrix).normalize();
+      if (standFaceNormal.y < 0.7) continue;
+      if (best === null || y > best) best = y;
+    }
+    return best;
+  }
+
+  function regionStandHeight(region, x, z) {
+    if (!region) return null;
+    const [lo, hi] = region.span;
+    return sampleStandHeight(x, z, lo, hi);
+  }
+
+  // 走到哪儿就把脚放哪儿；找不到支撑面时保持当前高度（不往下掉）。
+  function settleFootY(group, region) {
+    const y = regionStandHeight(region, group.position.x, group.position.z);
+    if (y !== null) group.position.y = y;
+    return y;
+  }
+
+  // 行走时每 ~14Hz 采一次脚底，避免每帧对整场景做射线。
+  let footProbeClock = 0;
+  function settleFootThrottled(group, region, dt) {
+    footProbeClock += dt;
+    if (footProbeClock < 0.07) return;
+    footProbeClock = 0;
+    settleFootY(group, region);
+  }
+
+  function walkFootRegion() {
+    return WALK_REGIONS.find((item) => item.id === state.walkRegionId)
+      || WALK_REGIONS.find((item) => item.zone === state.currentZone && item.contains(explorerGroup.position))
+      || null;
+  }
 
   function getWalkRegionAt(point) {
-    return WALK_REGIONS.find(region => region.zone === state.currentZone && region.contains(point)) || null;
+    const region = WALK_REGIONS.find((item) => item.zone === state.currentZone && item.contains(point));
+    if (!region) return null;
+    // 矩形内没有真实地面（水面、空中）就不算可走区域。
+    return regionStandHeight(region, point.x, point.z) === null ? null : region;
   }
 
   function isWalkSegmentClear(from, to, region) {
@@ -1448,9 +1491,10 @@ export function initSunkenCityGameplay({
     return true;
   }
 
-  boatAnchorGroup.position.copy(ZONE1_BOAT_PARK);
-  boatAnchorGroup.rotation.y = -2.45;
-  explorerGroup.position.copy(ZONE1_DOCK_STAND);
+  const homeZone = zones.get('zone1');
+  boatAnchorGroup.position.copy(homeZone.boatPark);
+  boatAnchorGroup.rotation.y = homeZone.boatYaw;
+  explorerGroup.position.copy(homeZone.landStand);
   explorerGroup.rotation.y = -0.6;
 
   // 再拉远一档的默认俯视镜头偏移 & 航行时的远景俯瞰跟随偏移
@@ -1599,9 +1643,9 @@ export function initSunkenCityGameplay({
       // 只命中站台建筑本体，不把整片铁路、路基和周边水面算进交互区域。
       hitRoots: [stationPlatformGroup, trainCarGroup],
       hoverAnchor: new THREE.Vector3(-28.0, WATER_LEVEL + 4.2, -18.0),
-      boatParkPos: ZONE2_BOAT_PARK,
-      shoreEdgePos: ZONE2_DOCK_EDGE,
-      buildStandPos: ZONE2_LAND_STAND,
+      boatParkPos: zones.get('zone2').boatPark,
+      shoreEdgePos: zones.get('zone2').dockEdge,
+      buildStandPos: zones.get('zone2').landStand,
       level: 0,
       maxLevel: 3,
       storedCoins: 0,
@@ -1652,9 +1696,9 @@ export function initSunkenCityGameplay({
       // 只命中天台种植建筑与屋顶花池，不把整片邻近区域算进交互范围。
       hitRoots: [zone3Root],
       hoverAnchor: new THREE.Vector3(-19.5, WATER_LEVEL + 4.5, 13.5),
-      boatParkPos: ZONE3_BOAT_PARK,
-      shoreEdgePos: ZONE3_DOCK_EDGE,
-      buildStandPos: ZONE3_LAND_STAND,
+      boatParkPos: zones.get('zone3').boatPark,
+      shoreEdgePos: zones.get('zone3').dockEdge,
+      buildStandPos: zones.get('zone3').landStand,
       level: 0,
       maxLevel: 2,
       storedCoins: 0,
@@ -1693,9 +1737,9 @@ export function initSunkenCityGameplay({
       // 只命中太阳能木屋本体；船仍由独立的 boatMeshGroup 负责交互。
       hitRoots: [houseGroupRef || boatMeshGroup],
       hoverAnchor: new THREE.Vector3(4.3, WATER_LEVEL + 4.8, -0.4),
-      boatParkPos: ZONE1_BOAT_PARK,
-      shoreEdgePos: ZONE1_DOCK_EDGE,
-      buildStandPos: ZONE1_DOCK_STAND,
+      boatParkPos: zones.get('zone1').boatPark,
+      shoreEdgePos: zones.get('zone1').dockEdge,
+      buildStandPos: zones.get('zone1').landStand,
       level: 1,
       maxLevel: 2,
       storedCoins: 0,
@@ -1953,8 +1997,10 @@ export function initSunkenCityGameplay({
   }
 
   function performSalvage() {
-    if (economy.busy || state.currentZone !== 'zone1') return false;
-    const anchor = new THREE.Vector3(-12, WATER_LEVEL + 4, 13);
+    // 打捞台属于哪个区块由 zones.js 的 harbor 配置决定，不在代码里写死 zone1。
+    if (economy.busy || !zones.serviceZones('salvage').includes(state.currentZone)) return false;
+    const spot = zones.harborPoint('salvage') || new THREE.Vector3(-12, WATER_LEVEL, 13);
+    const anchor = spot.clone().add(new THREE.Vector3(0, 4, 0));
     const left = getSalvageCooldownLeft();
     if (left > 0) {
       spawnFloatTip(anchor, `绞盘冷却中 · ${Math.ceil(left)} 秒`);
@@ -1998,7 +2044,7 @@ export function initSunkenCityGameplay({
     harborTargets = { salvage: targets.salvage || null, dock: targets.dock || null };
     buildSalvageGauge();
     if (!economyView) economyView = createEconomyView({
-      THREE, worldGroup, camera, state, economy, buildSites, activateSite,
+      THREE, worldGroup, camera, state, economy, buildSites, activateSite, zones,
       travel: startSailBetweenZones, upgradeShip, performSalvage, syncUI: syncCoinUI,
       notify: message => spawnFloatTip(explorerGroup.position.clone(), message)
     });
@@ -2113,13 +2159,15 @@ export function initSunkenCityGameplay({
   };
 
   function requestHarborAction(kind) {
-    if (kind === 'salvage' && state.workerMode === 'IDLE_ASHORE' && state.currentZone === 'zone1') return performSalvage();
-    if (kind === 'dock' && state.workerMode === 'IDLE_ASHORE' && state.currentZone === 'zone1') {
+    const ashoreHere = state.workerMode === 'IDLE_ASHORE' && zones.serviceZones(kind).includes(state.currentZone);
+    if (kind === 'salvage' && ashoreHere) return performSalvage();
+    if (kind === 'dock' && ashoreHere) {
       economyView?.open('ship');
       return true;
     }
     if (!isBoatMode()) return false;
-    const target = kind === 'salvage' ? new THREE.Vector3(-12, WATER_LEVEL, 13) : new THREE.Vector3(.3, WATER_LEVEL, 9);
+    const target = (zones.harborPoint(kind) || homeZone.boatPark).clone();
+    target.y = WATER_LEVEL;
     state.pendingWorldTarget = { type: kind };
     state.activeJobSite = null;
     state.targetZone = state.currentZone;
@@ -2271,6 +2319,7 @@ export function initSunkenCityGameplay({
 
   // Both the building geometry and its action icon enter the same target state.
   window.addEventListener('pointermove', (e) => {
+    if (state.workerMode === 'DIVING') return;
     if (e.buttons) return;
     if (e.target.closest?.('.resource-orb')) return;
     if (e.target !== renderer.domElement) {
@@ -2325,7 +2374,9 @@ export function initSunkenCityGameplay({
     const region = point && getWalkRegionAt(point);
     if (!region || !isWalkSegmentClear(explorerGroup.position, point, region)) return false;
     state.walkRegionId = region.id;
-    state.walkTargetPos.set(point.x, region.y, point.z);
+    // 落点高度按真实模型取，配置里的 y 只在采样失败时兜底。
+    const standY = regionStandHeight(region, point.x, point.z);
+    state.walkTargetPos.set(point.x, standY === null ? region.y : standY, point.z);
     state.activeJobSite = null;
     state.workerMode = 'WALK_TO_POINT';
     state.camLockMode = 'worker';
@@ -2446,28 +2497,17 @@ export function initSunkenCityGameplay({
   // ============================================================================
   // 10. 小人走上船 → 镜头拉高锁定跟随船 → 靠岸停船 → 走上岸浇水播种
   // ============================================================================
+  // 上岸点 / 待机点 / 停泊位统一从注册表取，不再按区块写 if 链。
   function getZoneShoreEdge(zoneId) {
-    if (zoneId === 'zone5') return new THREE.Vector3(13, 1.8, 14);
-    if (zoneId === 'zone2') return ZONE2_DOCK_EDGE;
-    if (zoneId === 'zone3') return ZONE3_DOCK_EDGE;
-    if (zoneId === 'zone4') return ZONE4_DOCK_EDGE;
-    return ZONE1_DOCK_EDGE;
+    return (zones.get(zoneId) || homeZone).dockEdge;
   }
 
   function getZoneStandPos(zoneId) {
-    if (zoneId === 'zone5') return new THREE.Vector3(15, 1.8, 15);
-    if (zoneId === 'zone2') return ZONE2_LAND_STAND;
-    if (zoneId === 'zone3') return ZONE3_LAND_STAND;
-    if (zoneId === 'zone4') return ZONE4_LAND_STAND;
-    return ZONE1_DOCK_STAND;
+    return (zones.get(zoneId) || homeZone).landStand;
   }
 
   function getZoneBoatPark(zoneId) {
-    if (zoneId === 'zone5') return new THREE.Vector3(11, WATER_LEVEL, 12);
-    if (zoneId === 'zone2') return ZONE2_BOAT_PARK;
-    if (zoneId === 'zone3') return ZONE3_BOAT_PARK;
-    if (zoneId === 'zone4') return ZONE4_BOAT_PARK;
-    return ZONE1_BOAT_PARK;
+    return (zones.get(zoneId) || homeZone).boatPark;
   }
 
   // 航线只在水面移动，并在每次点击时绕开会露出水面的建筑/平台包围盒。
@@ -2598,80 +2638,13 @@ export function initSunkenCityGameplay({
     const destPark = (requestedTarget || getZoneBoatPark(toZone)).clone();
     destPark.y = WATER_LEVEL;
 
-    if (toZone === 'zone3' || fromZone === 'zone3' || toZone === 'zone5' || fromZone === 'zone5') {
-      return makeRoute([startPt, new THREE.Vector3(-5, WATER_LEVEL, 7), destPark]);
-    }
-    if (fromZone === 'zone1' && toZone === 'zone2') {
-      // 从木屋码头出发 → 穿过中央深水峡谷 → 沿铁道西南侧平行接近船湾
-      return makeRoute([
-        startPt,
-        new THREE.Vector3(-0.6, WATER_LEVEL, 1.8),
-        new THREE.Vector3(-2.2, WATER_LEVEL, -5.8),
-        new THREE.Vector3(-8.8, WATER_LEVEL, -12.0),
-        new THREE.Vector3(-16.8, WATER_LEVEL, -14.8),
-        new THREE.Vector3(-22.2, WATER_LEVEL, -15.2),
-        destPark
-      ]);
-    }
-    if (fromZone === 'zone2' && toZone === 'zone1') {
-      return makeRoute([
-        startPt,
-        new THREE.Vector3(-22.2, WATER_LEVEL, -15.2),
-        new THREE.Vector3(-16.8, WATER_LEVEL, -14.8),
-        new THREE.Vector3(-8.8, WATER_LEVEL, -12.0),
-        new THREE.Vector3(-2.2, WATER_LEVEL, -5.8),
-        new THREE.Vector3(-0.6, WATER_LEVEL, 1.8),
-        destPark
-      ]);
-    }
-    if (fromZone === 'zone1' && toZone === 'zone3') {
-      // 从木屋码头向西南绕过前景电杆水域直达天台种植园
-      return makeRoute([
-        startPt,
-        new THREE.Vector3(-1.2, WATER_LEVEL, 7.8),
-        new THREE.Vector3(-5.5, WATER_LEVEL, 10.4),
-        new THREE.Vector3(-10.2, WATER_LEVEL, 11.9),
-        destPark
-      ]);
-    }
-    if (fromZone === 'zone3' && toZone === 'zone1') {
-      return makeRoute([
-        startPt,
-        new THREE.Vector3(-10.2, WATER_LEVEL, 11.9),
-        new THREE.Vector3(-5.5, WATER_LEVEL, 10.4),
-        new THREE.Vector3(-1.2, WATER_LEVEL, 7.8),
-        destPark
-      ]);
-    }
-    if (fromZone === 'zone3' && toZone === 'zone2') {
-      return makeRoute([
-        startPt,
-        new THREE.Vector3(-18.5, WATER_LEVEL, 4.0),
-        new THREE.Vector3(-22.5, WATER_LEVEL, -2.2),
-        new THREE.Vector3(-25.2, WATER_LEVEL, -8.8),
-        destPark
-      ]);
-    }
-    if (fromZone === 'zone2' && toZone === 'zone3') {
-      return makeRoute([
-        startPt,
-        new THREE.Vector3(-25.2, WATER_LEVEL, -8.8),
-        new THREE.Vector3(-22.5, WATER_LEVEL, -2.2),
-        new THREE.Vector3(-18.5, WATER_LEVEL, 4.0),
-        destPark
-      ]);
-    }
-    if (toZone === 'zone4' || fromZone === 'zone4') {
-      const direction = toZone === 'zone4' ? 1 : -1;
-      return makeRoute([
-        startPt,
-        new THREE.Vector3(3.5 * direction, WATER_LEVEL, -5.0),
-        new THREE.Vector3(10.0 * direction, WATER_LEVEL, -11.0),
-        new THREE.Vector3(14.0 * direction, WATER_LEVEL, -13.0),
-        destPark
-      ]);
-    }
-    return makeRoute([startPt, destPark]);
+    // 航点来自 zones.js 的 SAIL_ROUTES；没配的区块组合走直线，再由障碍绕行补齐。
+    const waypoints = zones.routePoints(fromZone, toZone);
+    if (!waypoints || !waypoints.length) return makeRoute([startPt, destPark]);
+    const points = [startPt];
+    for (const [x, z] of waypoints) points.push(new THREE.Vector3(x, WATER_LEVEL, z));
+    points.push(destPark);
+    return makeRoute(points);
   }
 
   function updateTopButtonsHighlight(activeZone) {
@@ -2684,8 +2657,8 @@ export function initSunkenCityGameplay({
   }
 
   function startSailBetweenZones(destZone, jobSiteAfterArrival = null) {
-    if (economy.busy || !['zone1', 'zone2', 'zone3', 'zone4', 'zone5'].includes(destZone)) return false;
-    if (destZone === 'zone4' && !state.farSeaUnlocked) return false;
+    if (economy.busy || !zones.get(destZone)) return false;
+    if (!zones.isUnlocked(destZone, state)) return false;
     if (destZone === state.currentZone && !jobSiteAfterArrival) return false;
     state.manualCamera = false;
     state.sailIntent = jobSiteAfterArrival ? 'site' : 'zone';
@@ -2789,7 +2762,7 @@ export function initSunkenCityGameplay({
   function updateGameplay(dt, elapsedTime) {
     const safeDt = Math.max(0, Math.min(Number.isFinite(dt) ? dt : 0, 0.1));
     economy.tick(safeDt);
-    trackExplore();
+    if (state.workerMode !== 'DIVING') trackExplore();
     economyView?.update(safeDt, elapsedTime);
 
     // 绞盘冷却按真实时间回落；冷却结束只在岸上提醒一次，避免航行途中刷屏。
@@ -2894,7 +2867,10 @@ export function initSunkenCityGameplay({
         next.x += (dx / dist) * step;
         next.z += (dz / dist) * step;
         const region = WALK_REGIONS.find(item => item.id === state.walkRegionId);
-        if (region && isWalkSegmentClear(explorerGroup.position, next, region)) explorerGroup.position.copy(next);
+        if (region && isWalkSegmentClear(explorerGroup.position, next, region)) {
+          explorerGroup.position.copy(next);
+          settleFootThrottled(explorerGroup, region, safeDt);
+        }
         explorerGroup.rotation.y = Math.atan2(dx, dz);
         leftLegPivot.rotation.x = Math.sin(elapsedTime * 11) * 0.55;
         rightLegPivot.rotation.x = -Math.sin(elapsedTime * 11) * 0.55;
@@ -2902,7 +2878,7 @@ export function initSunkenCityGameplay({
         rightArmPivot.rotation.x = Math.sin(elapsedTime * 11) * 0.45;
         explorerBodyPivot.position.y = Math.abs(Math.sin(elapsedTime * 11)) * 0.05;
       } else {
-        explorerGroup.position.y = WALK_REGIONS.find(item => item.id === state.walkRegionId)?.y || explorerGroup.position.y;
+        settleFootY(explorerGroup, WALK_REGIONS.find(item => item.id === state.walkRegionId) || walkFootRegion());
         state.workerMode = 'IDLE_ASHORE';
         state.camLockMode = state.currentZone;
       }
@@ -2915,6 +2891,7 @@ export function initSunkenCityGameplay({
         const step = Math.min(dist, WALK_SPEED * safeDt);
         explorerGroup.position.x += (dx / dist) * step;
         explorerGroup.position.z += (dz / dist) * step;
+        settleFootThrottled(explorerGroup, walkFootRegion(), safeDt);
         explorerGroup.rotation.y = Math.atan2(dx, dz);
         leftLegPivot.rotation.x = Math.sin(elapsedTime * 11) * 0.55;
         rightLegPivot.rotation.x = -Math.sin(elapsedTime * 11) * 0.55;
@@ -2977,7 +2954,17 @@ export function initSunkenCityGameplay({
         boatAnchorGroup.position.x = pt.x;
         boatAnchorGroup.position.z = pt.z;
 
-        const desiredYaw = Math.atan2(tangent.x, tangent.z);
+        let desiredYaw = Math.atan2(tangent.x, tangent.z);
+        // 靠岸最后 18% 逐渐转成区块配置的停泊朝向，避免到位瞬间甩头。
+        const destZone = (state.sailIntent === 'zone' || state.sailIntent === 'site')
+          ? zones.get(state.targetZone)
+          : null;
+        if (destZone && state.sailProgress > 0.82) {
+          let parkDiff = destZone.boatYaw - desiredYaw;
+          while (parkDiff > Math.PI) parkDiff -= Math.PI * 2;
+          while (parkDiff < -Math.PI) parkDiff += Math.PI * 2;
+          desiredYaw += parkDiff * Math.min(1, (state.sailProgress - 0.82) / 0.18);
+        }
         let diff = desiredYaw - boatAnchorGroup.rotation.y;
         while (diff > Math.PI) diff -= Math.PI * 2;
         while (diff < -Math.PI) diff += Math.PI * 2;
@@ -3016,6 +3003,7 @@ export function initSunkenCityGameplay({
 
       if (state.transitionT >= 1) {
         explorerBodyPivot.position.y = 0;
+        settleFootY(explorerGroup, getWalkRegionAt(explorerGroup.position));
         const standTarget = state.activeJobSite
           ? state.activeJobSite.buildStandPos
           : getZoneStandPos(state.currentZone);
@@ -3032,6 +3020,7 @@ export function initSunkenCityGameplay({
         const step = Math.min(dist, WALK_SPEED * safeDt);
         explorerGroup.position.x += (dx / dist) * step;
         explorerGroup.position.z += (dz / dist) * step;
+        settleFootThrottled(explorerGroup, walkFootRegion(), safeDt);
         explorerGroup.rotation.y = Math.atan2(dx, dz);
         leftLegPivot.rotation.x = Math.sin(elapsedTime * 11) * 0.55;
         rightLegPivot.rotation.x = -Math.sin(elapsedTime * 11) * 0.55;
@@ -3046,13 +3035,7 @@ export function initSunkenCityGameplay({
           setWorkerStatus(`正在浇水培育【${state.activeJobSite.name}】...`);
         } else {
           state.workerMode = 'IDLE_ASHORE';
-          const zName =
-            state.currentZone === 'zone2'
-              ? '横滨铁道站台待机'
-              : state.currentZone === 'zone3'
-              ? '天台种植园待机'
-              : '木屋码头待机';
-          setWorkerStatus(zName);
+          setWorkerStatus(zones.get(state.currentZone)?.status || '岸上待机');
         }
       }
     } else if (state.workerMode === 'BUILDING') {
@@ -3105,21 +3088,10 @@ export function initSunkenCityGameplay({
         if (performance.now() > state.focusWorkerUntil && state.workerMode === 'IDLE_ASHORE') {
           state.camLockMode = state.currentZone;
         }
-      } else if (state.camLockMode === 'zone2') {
-        desiredTarget = ZONE2_CENTER.clone().add(new THREE.Vector3(0.0, 1.2, 0.0));
-        desiredCamPos = desiredTarget.clone().add(CAM_OFFSET.clone().multiplyScalar(cameraDistanceScale));
-      } else if (state.camLockMode === 'zone3') {
-        desiredTarget = ZONE3_CENTER.clone().add(new THREE.Vector3(0.0, 1.6, 0.0));
-        desiredCamPos = desiredTarget.clone().add(CAM_OFFSET.clone().multiplyScalar(cameraDistanceScale));
-      } else if (state.camLockMode === 'zone5') {
-        desiredTarget = new THREE.Vector3(16, 1.5, 15);
-        desiredCamPos = desiredTarget.clone().add(CAM_OFFSET.clone().multiplyScalar(cameraDistanceScale));
-      } else if (state.camLockMode === 'zone4') {
-        desiredTarget = ZONE4_CENTER.clone();
-        desiredCamPos = desiredTarget.clone().add(CAM_OFFSET.clone().multiplyScalar(cameraDistanceScale));
       } else {
-        desiredTarget = new THREE.Vector3(0.45, 1.75, -0.65);
-        // 与 index.html 的拉远构图保持一致，同时保留用户滚轮选择的距离。
+        // 区块取景由 zones.js 的 camera 决定，CAM_OFFSET 保持与 index.html 的拉远构图一致。
+        const zoneCam = zones.get(state.camLockMode)?.camera || homeZone.camera;
+        desiredTarget = zoneCam.clone();
         desiredCamPos = desiredTarget.clone().add(CAM_OFFSET.clone().multiplyScalar(cameraDistanceScale));
       }
 
@@ -3146,9 +3118,12 @@ export function initSunkenCityGameplay({
     salvage: salvageApi,
     economy,
     get economyView() { return economyView; },
-    art: { camera, zone2Root, explorerGroup, boatAnchorGroup, stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
+    syncUI: syncCoinUI,
+    zones,
+    art: { camera, zones, zone2Root, explorerGroup, boatAnchorGroup, stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
       planterSoil, rooftopSoilPatch, initialPlants, underwaterCityGroup, buildSites, state,
       resident: { group: resident.group, windowGlow, lantern: lanternGroup, homeSite },
+      swimParts: { explorerBodyPivot, leftArmPivot, rightArmPivot, leftLegPivot, rightLegPivot, toolGroup, hatBrim, hatCrown },
       crops: [z2CropStage1, z2CropStage2, z2CropStage3, z3CropStage1, z3CropStage2] },
     updateOverlays() {
       [btnCamOriginal, btnCamZone2, btnCamZone3].forEach(btn => { btn.disabled = state.workerMode !== 'IDLE_ASHORE'; });

@@ -11,7 +11,9 @@ const POSITIONS = {
   greenhouse: [4.4, 7.7, -.4], recycler: [.3, 1.8, 9]
 };
 
-export function createEconomyView({ THREE, worldGroup, camera, state, economy, buildSites, activateSite, travel, upgradeShip, performSalvage, syncUI, notify }) {
+export function createEconomyView({ THREE, worldGroup, camera, state, economy, buildSites, activateSite, travel, upgradeShip, performSalvage, syncUI, notify, zones }) {
+  // 区块名称与解锁条件以 zones.js 为准，这里只做兜底。
+  const zoneLabel = (id) => zones?.label?.(id) || ZONES[id] || id;
   const roots = [];
   const targets = new Map();
   const visuals = [];
@@ -48,7 +50,7 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
   const siteName = id => siteById.get(id)?.name || id;
   const siteLevel = id => siteById.get(id)?.level || 0;
   const busy = () => economy.busy || state.workerMode !== 'IDLE_ASHORE';
-  const needsBoat = zone => zone === 'zone4' && !state.farSeaUnlocked;
+  const needsBoat = zone => (zones ? !zones.isUnlocked(zone, state) : zone === 'zone4' && !state.farSeaUnlocked);
   function prerequisites(requires = {}) {
     return Object.entries(requires).map(([id, level]) => id === 'boat2'
       ? `船只2级（当前${state.shipLevel || 1}级）`
@@ -67,9 +69,9 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
     if (needsBoat(zone)) return { ...model, status: '航线锁定', label: '远海尚未解锁', available: false, reason: '请在建造页升级船只，再前往远海。', secondary: { label: '查看改船配方', id: 'ship' } };
     if (state.currentZone === zone) return model;
     return {
-      ...model, action: `travel:${zone}`, label: `前往${ZONES[zone]}`,
-      available: !busy(), reason: busy() ? '旅人忙碌中，请靠岸并等待当前操作结束。' : `需在${ZONES[zone]}靠岸后操作。`,
-      invoke: () => travel(zone), allowVoid: true, success: `正在前往${ZONES[zone]}，抵达后请再次确认操作。`
+      ...model, action: `travel:${zone}`, label: `前往${zoneLabel(zone)}`,
+      available: !busy(), reason: busy() ? '旅人忙碌中，请靠岸并等待当前操作结束。' : `需在${zoneLabel(zone)}靠岸后操作。`,
+      invoke: () => travel(zone), allowVoid: true, success: `正在前往${zoneLabel(zone)}，抵达后请再次确认操作。`
     };
   }
 
@@ -289,10 +291,10 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
     return localAction({
       action: `collect:${node.id}`, ...availability, label: node.left > 0 ? '等待补充' : '收集物资',
       status: node.left > 0 ? `${Math.ceil(node.left)}秒后补充` : '可采集',
-      description: `${ZONES[node.zone]} · 收集后${node.cooldown}秒补充。`, cost: '免费', reward: bundle(node.reward),
+      description: `${zoneLabel(node.zone)} · 收集后${node.cooldown}秒补充。`, cost: '免费', reward: bundle(node.reward),
       requires: node.zone === 'zone4' ? '升级船只解锁远海；当前区域空闲靠岸' : '当前区域空闲靠岸',
       missing: economy.canReceive(node.reward) ? '无' : '库存空间不足，请先消耗对应物资',
-      source: node.id === 'sea_cache' ? '远海贝匣。珍珠用于浅水养殖：木料 ×3、旧零件 ×2、珍珠 ×1，前置船只2级。' : `${ZONES[node.zone]}的${node.name}，点击场景标记可定位本卡。`,
+      source: node.id === 'sea_cache' ? '远海贝匣。珍珠用于浅水养殖：木料 ×3、旧零件 ×2、珍珠 ×1，前置船只2级。' : `${zoneLabel(node.zone)}的${node.name}，点击场景标记可定位本卡。`,
       progress: node.left > 0 ? 1 - node.left / node.cooldown : undefined,
       invoke: () => economy.collect(node.id), success: `${node.name}已收集。`
     }, node.zone);
@@ -336,7 +338,7 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
         : dry ? '土壤干涸 · 需要浇水'
         : growing ? `生长中 · ${Math.ceil(plot.remaining)}秒 · 水分${moisture}%`
         : plot.phase === 'ready' ? '可收获' : '空菜箱',
-      description: `${ZONES[plot.zone]} · 播种后约${duration}秒成熟，中途土壤会变干，干了必须浇水才会继续长。成熟后需主动收获。`,
+      description: `${zoneLabel(plot.zone)} · 播种后约${duration}秒成熟，中途土壤会变干，干了必须浇水才会继续长。成熟后需主动收获。`,
       ...costs(plot.phase === 'empty' ? { seeds: 1 } : {}), cost: '每次播种：种子 ×1；浇水与收获免费',
       reward: `${bundle(reward)}（含返还种子 ×1）`, requires: prerequisites({ [plot.siteId]: plot.minLevel }),
       source: MATERIALS.seeds.source, progress: growing ? 1 - plot.remaining / plot.duration : plot.phase === 'ready' ? 1 : undefined,

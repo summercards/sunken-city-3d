@@ -218,6 +218,17 @@
 </head>
 <body>
   <div id="canvas-container"></div>
+  <section id="dive-hud" aria-label="潜水探索">
+    <button id="dive-button" type="button">潜水</button>
+    <div id="dive-aim-hint" hidden>点选海面位置开始潜水</div>
+    <div id="dive-controls" hidden>
+      <div id="dive-depth">深度 0.0 m</div>
+      <div class="dive-pad"><button id="dive-forward" aria-label="向前游">↑</button><button id="dive-up" aria-label="上浮">上浮</button><button id="dive-left" aria-label="向左游">←</button><button id="dive-down" aria-label="下潜">下潜</button><button id="dive-right" aria-label="向右游">→</button><button id="dive-back" aria-label="向后游">↓</button></div>
+      <p>WASD 游动 · E 上浮 · Q 下潜</p><span>点击宝箱自动游近搜索 · 方向键取消自动游动</span>
+    </div>
+  </section>
+  <div id="dive-progress" hidden><span class="dive-progress-title">正在搜索</span><div class="dive-ring"><b>搜索</b></div></div>
+  <div id="dive-found" role="status" aria-live="polite"></div>
   <div class="painterly-overlay"></div>
   <div class="gesture-hint">拖动旋转 · 右键平移 · 滚轮缩放</div>
 
@@ -276,6 +287,7 @@
     import { polishHarbor } from './living-harbor.js';
     import { createWaterDistrict } from './water-district.js';
     import { createStylizedWater } from './water.js';
+    import { createDiving } from './diving.js';
 
     // ============================================================================
     // 1. 渲染器、场景与原画精确相机对齐
@@ -283,6 +295,7 @@
     const WATER_LEVEL = 1.12;
     const globalUniforms = {
       uTime: { value: 0 },
+      uUnderwaterView: { value: 0 },
       uWaterLevel: { value: WATER_LEVEL }
     };
 
@@ -385,6 +398,7 @@
     function enhanceWithUnderwaterDepthShader(mat) {
       mat.onBeforeCompile = (shader) => {
         shader.uniforms.uTime = globalUniforms.uTime;
+        shader.uniforms.uUnderwaterView = globalUniforms.uUnderwaterView;
         shader.uniforms.uWaterLevel = globalUniforms.uWaterLevel;
 
         shader.vertexShader = `
@@ -404,12 +418,13 @@
         shader.fragmentShader = `
           uniform float uTime;
           uniform float uWaterLevel;
+          uniform float uUnderwaterView;
           varying vec3 vCustomWorldPos;
         ` + shader.fragmentShader.replace(
           '#include <dithering_fragment>',
           `
           #include <dithering_fragment>
-          if (vCustomWorldPos.y < uWaterLevel) {
+          if (vCustomWorldPos.y < uWaterLevel && uUnderwaterView < .5) {
             float depth = uWaterLevel - vCustomWorldPos.y;
 
             // 四层手绘水深色彩梯度：亮青绿 -> 孔雀蓝 -> 深钴蓝 -> 深海靛紫
@@ -1939,6 +1954,10 @@
       getCameraModeExternal: () => cameraMode
     });
 
+    const diving = createDiving({ THREE, scene, worldGroup, camera, controls, renderer, waterSystem, globalUniforms,
+      explorerGroup: gameplay.art.explorerGroup, swimParts: gameplay.art.swimParts, state: gameplay.art.state, economy: gameplay.economy,
+      syncUI: gameplay.syncUI, waterLevel: WATER_LEVEL });
+
     const sceneArt = refineScene({ THREE, worldGroup, makePainterlyMat, WATER_LEVEL,
       leftBuildingGroup, gardenFlowersGroup, gardenWall, gardenSoil, roofWater,
       upperTowerMesh, upperBackTowerGroup, gameplay });
@@ -2062,12 +2081,12 @@
       posAttr.needsUpdate = true;
 
       // 9) 相机模式更新
-      if (cameraMode === 'boat') {
+      if (!diving.active && cameraMode === 'boat') {
         const desiredTarget = boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 0.6, 0));
         const desiredCamPos = boatAnchorGroup.position.clone().add(new THREE.Vector3(-5.5, 9.5, 9.5));
         controls.target.lerp(desiredTarget, 0.05);
         camera.position.lerp(desiredCamPos, 0.05);
-      } else if (cameraMode === 'orbit') {
+      } else if (!diving.active && cameraMode === 'orbit') {
         const orbitAngle = t * 0.22;
         const r = 28;
         camera.position.x = Math.sin(orbitAngle) * r;
@@ -2076,7 +2095,8 @@
         controls.target.lerp(ORIGINAL_CAM_TARGET, 0.05);
       }
 
-      controls.update();
+      diving.update(dt, t);
+      if (!diving.active) controls.update();
       scene.updateMatrixWorld(true);
       camera.updateMatrixWorld(true);
       harbor.update(t);
@@ -2084,9 +2104,10 @@
       waterDistrict.update(t);
       waterSystem.update(dt, t);
       gameplay.updateOverlays();
-      waterSystem.renderUnderwater();
+      if (!diving.active) waterSystem.renderUnderwater();
+      else diving.renderRefraction();
       const shadowUpdate = renderer.shadowMap.autoUpdate;
-      renderer.shadowMap.autoUpdate = false;
+      renderer.shadowMap.autoUpdate = diving.active;
       renderer.render(scene, camera);
       renderer.shadowMap.autoUpdate = shadowUpdate;
     }
