@@ -210,42 +210,42 @@ export function initSunkenCityGameplay({
     const hasResource = Math.floor(site.storedCoins) > 0;
     const maxed = site.level >= site.maxLevel;
     const stage = maxed ? null : site.stages[site.level];
-    const available = !maxed && state.workerMode === 'IDLE_ASHORE' && state.coins >= stage.cost;
+    const available = !maxed && (state.workerMode === 'IDLE_ASHORE' || state.workerMode === 'BOAT_IDLE' || state.workerMode === 'ROWING') && state.coins >= stage.cost;
     return { mode: hasResource ? 'harvest' : 'upgrade', available, maxed, stage };
   }
 
-  function activateSite(site) {
+  function harvestSite(site) {
     const orb = ensureResourceOrb(site);
-    if (orb.classList.contains('collecting') || performance.now() < (orb.nextActionAt || 0)) return;
+    if (orb.classList.contains('collecting') || performance.now() < (orb.nextActionAt || 0)) return false;
+    const gain = Math.floor(site.storedCoins);
+    if (gain <= 0) return false;
+    site.storedCoins -= gain;
+    state.coins += gain;
+    orb.nextActionAt = performance.now() + 700;
+    orb.classList.add('collecting');
+    spawnFloatTip(site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0)), `+${gain} 🐚`);
+    animateCoinGain();
+    syncCoinUI();
+    setTimeout(() => {
+      orb.classList.remove('collecting');
+      updateResourceOrbs();
+      if (hoveredTarget?.site === site) renderHoverCardContent();
+    }, 280);
+    return true;
+  }
+
+  function activateSite(site) {
     const action = getSiteAction(site);
-    if (action.mode === 'harvest') {
-      const gain = Math.floor(site.storedCoins);
-      site.storedCoins -= gain;
-      state.coins += gain;
-      orb.nextActionAt = performance.now() + 700;
-      orb.classList.add('collecting');
-      spawnFloatTip(site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0)), `+${gain} 🐚`);
-      animateCoinGain();
-      syncCoinUI();
-      // Consume this click completely; the replacement arrow requires a fresh click.
-      setTimeout(() => {
-        orb.classList.remove('collecting');
-        updateResourceOrbs();
-        if (hoveredTarget?.site === site) renderHoverCardContent();
-      }, 280);
-    } else if (action.available) {
-      triggerBuildAtSite(site);
-      orb.querySelector('.site-action-disc').animate([
-        { transform: 'scale(1)' }, { transform: 'scale(.82)' }, { transform: 'scale(1.08)' }, { transform: 'scale(1)' }
-      ], { duration: 340, easing: 'cubic-bezier(.22,1,.36,1)' });
-    } else {
-      // Grey actions stay focusable so the short tooltip can explain their state.
-      orb.querySelector('.site-action-disc').animate([
-        { transform: 'translateX(0)' }, { transform: 'translateX(-2px)' },
-        { transform: 'translateX(2px)' }, { transform: 'translateX(0)' }
-      ], { duration: 220 });
+    if (action.mode === 'harvest') return harvestSite(site);
+    if (action.available) {
+      queueSiteAction(site);
+      return true;
     }
-    showHoverTarget({ type: 'site', site });
+    ensureResourceOrb(site).querySelector('.site-action-disc').animate([
+      { transform: 'translateX(0)' }, { transform: 'translateX(-2px)' },
+      { transform: 'translateX(2px)' }, { transform: 'translateX(0)' }
+    ], { duration: 220 });
+    return false;
   }
 
   function ensureResourceOrb(site) {
@@ -1290,6 +1290,44 @@ export function initSunkenCityGameplay({
   const ZONE4_DOCK_EDGE = new THREE.Vector3(36.8, WATER_LEVEL + 0.3, -39.4);
   const ZONE4_LAND_STAND = new THREE.Vector3(37.8, WATER_LEVEL + 0.3, -40.8);
 
+  // 岸上可移动地块：只允许在同一块连续屋顶/码头内移动，水面和断开的楼块不是路面。
+  const WALK_REGIONS = [
+    {
+      id: 'zone1_home_dock', zone: 'zone1', y: ZONE1_DOCK_STAND.y,
+      contains(p) {
+        return (p.x >= 0.0 && p.x <= 8.8 && p.z >= -5.8 && p.z <= 4.8) ||
+          (p.x >= -2.5 && p.x <= 4.4 && p.z >= 4.0 && p.z <= 10.8) ||
+          (p.x >= 0.7 && p.x <= 3.4 && p.z >= 3.8 && p.z <= 7.4);
+      }
+    },
+    { id: 'zone3_farm', zone: 'zone3', y: 5.2, minX: -21.5, maxX: -8.5, minZ: -12.5, maxZ: 0.5 },
+    { id: 'zone1_salvage', zone: 'zone1', y: WATER_LEVEL + .9, minX: -15.5, maxX: -8.5, minZ: 10.0, maxZ: 16.0 },
+    { id: 'zone1_aqua', zone: 'zone1', y: WATER_LEVEL + 1.2, minX: 12.5, maxX: 19.5, minZ: 11.8, maxZ: 18.2 },
+    { id: 'zone2_station', zone: 'zone2', y: WATER_LEVEL + 1.18, minX: -35.5, maxX: -20.0, minZ: -25.5, maxZ: -11.0 },
+    { id: 'zone4_shore', zone: 'zone4', y: WATER_LEVEL + .3, minX: 31.5, maxX: 40.5, minZ: -43.5, maxZ: -34.5 }
+  ];
+  WALK_REGIONS.forEach(region => {
+    if (!region.contains) region.contains = p => p.x >= region.minX && p.x <= region.maxX && p.z >= region.minZ && p.z <= region.maxZ;
+  });
+
+  function getWalkRegionAt(point) {
+    return WALK_REGIONS.find(region => region.zone === state.currentZone && region.contains(point)) || null;
+  }
+
+  function isWalkSegmentClear(from, to, region) {
+    const distance = Math.hypot(to.x - from.x, to.z - from.z);
+    const samples = Math.max(2, Math.ceil(distance / .35));
+    for (let i = 1; i <= samples; i++) {
+      const t = i / samples;
+      const probe = new THREE.Vector3(
+        THREE.MathUtils.lerp(from.x, to.x, t), region.y,
+        THREE.MathUtils.lerp(from.z, to.z, t)
+      );
+      if (!region.contains(probe)) return false;
+    }
+    return true;
+  }
+
   boatAnchorGroup.position.copy(ZONE1_BOAT_PARK);
   boatAnchorGroup.rotation.y = -2.45;
   explorerGroup.position.copy(ZONE1_DOCK_STAND);
@@ -1319,9 +1357,13 @@ export function initSunkenCityGameplay({
     jumpStartPos: new THREE.Vector3(),
     jumpEndPos: new THREE.Vector3(),
     walkTargetPos: new THREE.Vector3(),
+    walkRegionId: null,
     sailCurve: null,
     sailProgress: 0,
     sailDuration: 5.5,
+    sailTargetPos: null,
+    sailIntent: null,
+    pendingWorldTarget: null,
     camLockMode: 'zone1',
     focusWorkerUntil: 0,
     manualCamera: false
@@ -1611,6 +1653,29 @@ export function initSunkenCityGameplay({
   const pointer = new THREE.Vector2();
   let hoveredTarget = null;
   let hideCardTimer = null;
+  let harborTargets = { salvage: null, dock: null };
+
+  function registerHarborTargets(targets) {
+    harborTargets = { salvage: targets.salvage || null, dock: targets.dock || null };
+  }
+
+  function requestHarborAction(kind) {
+    if (kind === 'salvage' && state.workerMode === 'IDLE_ASHORE' && state.currentZone === 'zone1') return performSalvage();
+    if (kind === 'dock' && (state.workerMode === 'IDLE_ASHORE' || state.workerMode === 'BOAT_IDLE')) return upgradeShip();
+    if (!isBoatMode()) return false;
+    const target = kind === 'salvage' ? new THREE.Vector3(-12, WATER_LEVEL, 13) : new THREE.Vector3(.3, WATER_LEVEL, 9);
+    state.pendingWorldTarget = { type: kind };
+    state.activeJobSite = null;
+    state.targetZone = state.currentZone;
+    state.sailIntent = 'target';
+    state.sailTargetPos = target;
+    state.sailCurve = buildSmoothSailCurve(state.currentZone, state.currentZone, target);
+    state.sailProgress = 0;
+    state.sailDuration = Math.max(2, state.sailCurve.getLength() / 3.6);
+    state.workerMode = 'ROWING';
+    state.camLockMode = 'boat';
+    return true;
+  }
 
   const elHcTitle = document.getElementById('hc-title');
   const elHcLvl = document.getElementById('hc-lvl');
@@ -1638,7 +1703,7 @@ export function initSunkenCityGameplay({
 
   function showHoverTarget(target) {
     cancelHideTimer();
-    if (target.type === 'actor') {
+    if (target.type === 'actor' || target.type === 'salvage' || target.type === 'dock') {
       hideHoverCard();
       hoveredTarget = target;
       return;
@@ -1677,7 +1742,7 @@ export function initSunkenCityGameplay({
   }
 
   function renderHoverCardContent() {
-    if (!hoveredTarget || hoveredTarget.type === 'actor') return;
+    if (!hoveredTarget || hoveredTarget.type === 'actor' || hoveredTarget.type === 'salvage' || hoveredTarget.type === 'dock') return;
     if (hoveredTarget.type === 'boat') {
       elHcTitle.textContent = '小船与黑猫';
       elHcLvl.textContent = state.workerMode === 'IDLE_ASHORE' ? '停泊' : '航行中';
@@ -1708,6 +1773,12 @@ export function initSunkenCityGameplay({
       if (curr === boatAnchorGroup || curr === boatMeshGroup) {
         return { type: 'boat' };
       }
+      if (harborTargets.salvage && (curr === harborTargets.salvage || curr === harborTargets.salvage.poleGroup)) {
+        return { type: 'salvage' };
+      }
+      if (harborTargets.dock && curr === harborTargets.dock) {
+        return { type: 'dock' };
+      }
       for (const s of buildSites) {
         if (s.hitRoots && s.hitRoots.includes(curr)) {
           return { type: 'site', site: s };
@@ -1730,7 +1801,7 @@ export function initSunkenCityGameplay({
     pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
     pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
-    const roots = [boatMeshGroup, explorerGroup, ...buildSites.flatMap(s => s.hitRoots || [])];
+    const roots = [boatMeshGroup, explorerGroup, harborTargets.salvage, harborTargets.dock, harborTargets.salvage?.poleGroup, ...buildSites.flatMap(s => s.hitRoots || [])].filter(Boolean);
     const hit = raycaster.intersectObjects(roots, true).find(h => {
       if(h.point.y < WATER_LEVEL + .05 || state.worldVisible && !state.worldVisible(h.point)) return false;
       for(let obj=h.object;obj;obj=obj.parent) if(!obj.visible) return false;
@@ -1758,19 +1829,150 @@ export function initSunkenCityGameplay({
   renderer.domElement.addEventListener('pointerdown', (e) => {
     downPos = { x: e.clientX, y: e.clientY };
   });
+
+  function pointAtScreen(clientX, clientY, y) {
+    const rect = renderer.domElement.getBoundingClientRect();
+    pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    const point = new THREE.Vector3();
+    return raycaster.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), -y), point) ? point : null;
+  }
+
+  function isBoatMode() {
+    return state.workerMode === 'ROWING' || state.workerMode === 'BOAT_IDLE';
+  }
+
+  function isClearWaterPoint(point, clientX, clientY) {
+    const rect = renderer.domElement.getBoundingClientRect();
+    pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    const distance = raycaster.ray.origin.distanceTo(point);
+    const blocked = raycaster.intersectObjects(scene.children, true).some(hit => {
+      if (hit.distance >= distance - .12 || hit.point.y < WATER_LEVEL - .05) return false;
+      for (let obj = hit.object; obj; obj = obj.parent) {
+        if (obj === waterPlane || obj === boatAnchorGroup || obj === boatMeshGroup || obj === explorerGroup) return false;
+        if (!obj.visible) return false;
+      }
+      return true;
+    });
+    return !blocked;
+  }
+
+  function requestGroundMove(clientX, clientY) {
+    if (state.workerMode !== 'IDLE_ASHORE') return false;
+    const point = pointAtScreen(clientX, clientY, explorerGroup.getWorldPosition(new THREE.Vector3()).y);
+    const region = point && getWalkRegionAt(point);
+    if (!region || !isWalkSegmentClear(explorerGroup.position, point, region)) return false;
+    state.walkRegionId = region.id;
+    state.walkTargetPos.set(point.x, region.y, point.z);
+    state.activeJobSite = null;
+    state.workerMode = 'WALK_TO_POINT';
+    state.camLockMode = 'worker';
+    state.focusWorkerUntil = performance.now() + 1800;
+    closeActionMenus();
+    return true;
+  }
+
+  function queueSiteAction(site) {
+    if (state.workerMode !== 'IDLE_ASHORE' && !isBoatMode()) return false;
+    const action = getSiteAction(site);
+    if (action.mode === 'upgrade' && !action.available) return false;
+    if (action.mode === 'harvest' && Math.floor(site.storedCoins) <= 0) return false;
+
+    if (action.mode === 'upgrade') {
+      // 先扣除建设费用，后续由角色抵达目标地块才开始施工。
+      state.coins -= action.stage.cost;
+      syncCoinUI();
+      state.jobProgress = 0;
+      state.activeJobSite = site;
+      state.pendingWorldTarget = null;
+    } else {
+      state.activeJobSite = null;
+      state.pendingWorldTarget = { type: 'harvest', site };
+    }
+
+    if (state.workerMode === 'IDLE_ASHORE' && state.currentZone === site.zone) {
+      state.walkTargetPos.copy(site.buildStandPos);
+      state.walkRegionId = getWalkRegionAt(site.buildStandPos)?.id || null;
+      state.workerMode = 'WALK_TO_SITE';
+      state.camLockMode = 'worker';
+      return true;
+    }
+
+    if (isBoatMode()) {
+      state.targetZone = site.zone;
+      state.sailIntent = 'site';
+      state.sailTargetPos = site.shoreEdgePos.clone();
+      state.sailTargetPos.y = WATER_LEVEL;
+      state.sailCurve = buildSmoothSailCurve(state.currentZone, site.zone, state.sailTargetPos);
+      state.sailProgress = 0;
+      state.sailDuration = Math.max(4.0, state.sailCurve.getLength() / 3.6);
+      state.camLockMode = 'boat';
+      state.workerMode = 'ROWING';
+      return true;
+    }
+
+    state.targetZone = site.zone;
+    state.walkTargetPos.copy(getZoneShoreEdge(state.currentZone));
+    state.workerMode = 'WALK_TO_BOAT';
+    state.camLockMode = 'worker';
+    return true;
+  }
+
   renderer.domElement.addEventListener('pointerup', (e) => {
     if (e.button !== 0 || Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) > 6) return;
     const target = hitTargetAt(e.clientX, e.clientY);
-    if (!target) {
+    if (target?.type === 'boat') {
       hideHoverCard();
-      closeActionMenus();
+      if (state.workerMode === 'IDLE_ASHORE') {
+        state.targetZone = state.currentZone;
+        state.sailIntent = 'board';
+        state.sailTargetPos = null;
+        state.walkTargetPos.copy(getZoneShoreEdge(state.currentZone));
+        state.walkRegionId = getWalkRegionAt(state.walkTargetPos)?.id || null;
+        state.workerMode = 'WALK_TO_BOAT';
+        state.camLockMode = 'worker';
+      } else if (isBoatMode()) {
+        state.workerMode = 'BOAT_IDLE';
+        state.sailCurve = null;
+        state.sailTargetPos = null;
+        state.sailIntent = 'free';
+      }
       return;
     }
-    if (target.type === 'actor' || target.type === 'boat') {
+    if (target?.type === 'site') {
       hideHoverCard();
-      openActionMenu();
-      if (target.type === 'boat') openDestinationMenu();
-    } else activateSite(target.site);
+      queueSiteAction(target.site);
+      return;
+    }
+    if (target?.type === 'salvage') {
+      hideHoverCard();
+      requestHarborAction('salvage');
+      return;
+    }
+    if (target?.type === 'dock') {
+      hideHoverCard();
+      requestHarborAction('dock');
+      return;
+    }
+    if (isBoatMode()) {
+      const point = pointAtScreen(e.clientX, e.clientY, WATER_LEVEL);
+      if (point && (!state.worldVisible || state.worldVisible(point)) && isClearWaterPoint(point, e.clientX, e.clientY)) {
+        state.sailTargetPos = point.clone();
+        state.sailCurve = buildSmoothSailCurve(state.currentZone, state.currentZone, state.sailTargetPos);
+        state.sailProgress = 0;
+        state.sailDuration = Math.max(2.0, state.sailCurve.getLength() / 3.6);
+        state.workerMode = 'ROWING';
+        state.camLockMode = 'boat';
+      }
+      return;
+    }
+    if (!requestGroundMove(e.clientX, e.clientY)) {
+      hideHoverCard();
+      closeActionMenus();
+    }
   });
 
   // ============================================================================
@@ -1800,8 +2002,76 @@ export function initSunkenCityGameplay({
     return ZONE1_BOAT_PARK;
   }
 
-  // 生成宽水道、无回弹的平滑样条水路；船只沿曲线推进，不再做实时碰撞纠偏。
-  // 航线刻意从区域 2 的铁路延伸轴线侧面经过，进入船湾后再靠岸，避免穿过轨道基座。
+  // 航线只在水面移动，并在每次点击时绕开会露出水面的建筑/平台包围盒。
+  function getSailObstacleRects(start, end) {
+    const rects = [];
+    const startBox = { x: start.x, z: start.z };
+    const endBox = { x: end.x, z: end.z };
+    const contains = (r, p, pad = 0) => p.x >= r.minX - pad && p.x <= r.maxX + pad && p.z >= r.minZ - pad && p.z <= r.maxZ + pad;
+    scene.updateMatrixWorld(true);
+    scene.traverse(object => {
+      if (!object.isMesh || !object.visible || object === waterPlane || object === boatMeshGroup || object === explorerGroup) return;
+      let parent = object.parent;
+      while (parent) {
+        if (parent === boatAnchorGroup || parent === explorerGroup || parent === waterPlane) return;
+        parent = parent.parent;
+      }
+      const box = new THREE.Box3().setFromObject(object);
+      if (!Number.isFinite(box.min.x) || box.max.y < WATER_LEVEL - .12 || box.min.y > WATER_LEVEL + 2.8) return;
+      const rect = { minX: box.min.x - 1.1, maxX: box.max.x + 1.1, minZ: box.min.z - 1.1, maxZ: box.max.z + 1.1 };
+      if (contains(rect, startBox, .05) || contains(rect, endBox, .05)) return;
+      if (rect.maxX - rect.minX < .5 || rect.maxZ - rect.minZ < .5) return;
+      if (!rects.some(existing => Math.abs(existing.minX - rect.minX) < .18 && Math.abs(existing.minZ - rect.minZ) < .18 && Math.abs(existing.maxX - rect.maxX) < .18 && Math.abs(existing.maxZ - rect.maxZ) < .18)) rects.push(rect);
+    });
+    return rects;
+  }
+
+  function segmentHitsRect(a, b, r) {
+    const dx = b.x - a.x;
+    const dz = b.z - a.z;
+    const p = (x, z) => {
+      const qx = Math.abs(dx) < 1e-6 ? Infinity : (x - a.x) / dx;
+      const qz = Math.abs(dz) < 1e-6 ? Infinity : (z - a.z) / dz;
+      return Math.max(qx, qz);
+    };
+    if (a.x >= r.minX && a.x <= r.maxX && a.z >= r.minZ && a.z <= r.maxZ) return true;
+    if (b.x >= r.minX && b.x <= r.maxX && b.z >= r.minZ && b.z <= r.maxZ) return true;
+    const edges = [[r.minX, r.minZ, r.maxX, r.minZ], [r.maxX, r.minZ, r.maxX, r.maxZ], [r.maxX, r.maxZ, r.minX, r.maxZ], [r.minX, r.maxZ, r.minX, r.minZ]];
+    for (const [x1, z1, x2, z2] of edges) {
+      const den = (x1 - x2) * (a.z - b.z) - (z1 - z2) * (a.x - b.x);
+      if (Math.abs(den) < 1e-6) continue;
+      const u = ((x1 - x2) * (z1 - a.z) - (z1 - z2) * (x1 - a.x)) / den;
+      const v = ((a.x - b.x) * (z1 - a.z) - (a.z - b.z) * (x1 - a.x)) / den;
+      if (u >= 0 && u <= 1 && v >= 0 && v <= 1) return true;
+    }
+    return false;
+  }
+
+  function buildSafeSailPoints(start, end) {
+    const rects = getSailObstacleRects(start, end);
+    const points = [start.clone()];
+    let cursor = start.clone();
+    for (let pass = 0; pass < 8; pass++) {
+      const obstacle = rects.find(r => segmentHitsRect(cursor, end, r));
+      if (!obstacle) break;
+      const corners = [
+        new THREE.Vector3(obstacle.minX, WATER_LEVEL, obstacle.minZ),
+        new THREE.Vector3(obstacle.maxX, WATER_LEVEL, obstacle.minZ),
+        new THREE.Vector3(obstacle.maxX, WATER_LEVEL, obstacle.maxZ),
+        new THREE.Vector3(obstacle.minX, WATER_LEVEL, obstacle.maxZ)
+      ];
+      const candidates = corners.filter(c => !rects.some(r => segmentHitsRect(cursor, c, r)));
+      if (!candidates.length) break;
+      candidates.sort((a, b) => (a.distanceTo(cursor) + a.distanceTo(end)) - (b.distanceTo(cursor) + b.distanceTo(end)));
+      const detour = candidates[0];
+      points.push(detour.clone());
+      cursor = detour;
+      rects.splice(rects.indexOf(obstacle), 1);
+    }
+    points.push(end.clone());
+    return points;
+  }
+
   function getBaseCameraOffset() {
     return state.camLockMode === 'boat' ? BOAT_FOLLOW_OFFSET : CAM_OFFSET;
   }
@@ -1841,14 +2111,24 @@ export function initSunkenCityGameplay({
     }
   }, true);
 
-  function buildSmoothSailCurve(fromZone, toZone) {
+  function buildSmoothSailCurve(fromZone, toZone, requestedTarget = null) {
     const makeRoute = (points) => {
-      const curve = new THREE.CatmullRomCurve3(points, false, 'centripetal', 0.18);
-      curve.arcLengthDivisions = 240;
-      return curve;
+      const safePoints = [];
+      for (let i = 0; i < points.length - 1; i++) {
+        const segment = buildSafeSailPoints(points[i], points[i + 1]);
+        if (i > 0) segment.shift();
+        safePoints.push(...segment);
+      }
+      const path = new THREE.CurvePath();
+      for (let i = 0; i < safePoints.length - 1; i++) {
+        path.add(new THREE.LineCurve3(safePoints[i], safePoints[i + 1]));
+      }
+      path.arcLengthDivisions = Math.max(64, safePoints.length * 32);
+      return path;
     };
     const startPt = boatAnchorGroup.position.clone();
-    const destPark = getZoneBoatPark(toZone).clone();
+    const destPark = (requestedTarget || getZoneBoatPark(toZone)).clone();
+    destPark.y = WATER_LEVEL;
 
     if (toZone === 'zone3' || fromZone === 'zone3' || toZone === 'zone5' || fromZone === 'zone5') {
       return makeRoute([startPt, new THREE.Vector3(-5, WATER_LEVEL, 7), destPark]);
@@ -1938,6 +2218,7 @@ export function initSunkenCityGameplay({
   function startSailBetweenZones(destZone, jobSiteAfterArrival = null) {
     if (state.workerMode !== 'IDLE_ASHORE') return;
     state.manualCamera = false;
+    state.sailIntent = jobSiteAfterArrival ? 'site' : 'zone';
     updateTopButtonsHighlight(destZone);
     state.activeJobSite = jobSiteAfterArrival;
     state.targetZone = destZone;
@@ -1949,23 +2230,7 @@ export function initSunkenCityGameplay({
   }
 
   function triggerBuildAtSite(site) {
-    if (site.level >= site.maxLevel || state.workerMode !== 'IDLE_ASHORE') return;
-    const stg = site.stages[site.level];
-    if (state.coins < stg.cost) return;
-
-    state.coins -= stg.cost;
-    syncCoinUI();
-    updateObjectiveUI();
-    state.jobProgress = 0;
-
-    if (state.currentZone === site.zone) {
-      state.activeJobSite = site;
-      state.walkTargetPos.copy(site.buildStandPos);
-      state.workerMode = 'WALK_TO_SITE';
-      setWorkerStatus(`正走向【${site.name}】播种...`);
-    } else {
-      startSailBetweenZones(site.zone, site);
-    }
+    return queueSiteAction(site);
   }
 
   if (btnCamOriginal) {
@@ -2042,7 +2307,7 @@ export function initSunkenCityGameplay({
         }
       });
       syncCoinUI();
-      if (hoveredTarget) renderHoverCardContent();
+      if (hoveredTarget && !['actor', 'salvage', 'dock'].includes(hoveredTarget.type)) renderHoverCardContent();
     }
 
     // 2) 水下深海巨鲸巡游与摆尾动画（参考图3核心水底动态）
@@ -2095,12 +2360,46 @@ export function initSunkenCityGameplay({
     // 4) 小人登船 → 划船 → 靠岸停船 → 走上岸浇水播种状态机
     if (state.workerMode === 'IDLE_ASHORE') {
       window.__playerSailingActive = false;
+      explorerGroup.position.y = getWalkRegionAt(explorerGroup.position)?.y || explorerGroup.position.y;
       explorerBodyPivot.position.y = Math.abs(Math.sin(elapsedTime * 2.2)) * 0.025;
       leftArmPivot.rotation.x = Math.sin(elapsedTime * 1.8) * 0.1;
       rightArmPivot.rotation.x = -Math.sin(elapsedTime * 1.8) * 0.1;
       leftLegPivot.rotation.x = 0;
       rightLegPivot.rotation.x = 0;
       buildProgressEl.style.display = 'none';
+    } else if (state.workerMode === 'BOAT_IDLE') {
+      window.__playerSailingActive = false;
+      explorerBodyPivot.position.y = Math.abs(Math.sin(elapsedTime * 2.2)) * 0.025;
+      leftOarPivot.rotation.y = 0;
+      rightOarPivot.rotation.y = 0;
+      leftOarPivot.rotation.z = 0;
+      rightOarPivot.rotation.z = 0;
+      leftLegPivot.rotation.x = -1.1;
+      rightLegPivot.rotation.x = -1.1;
+      buildProgressEl.style.display = 'none';
+    } else if (state.workerMode === 'WALK_TO_POINT') {
+      window.__playerSailingActive = false;
+      const dx = state.walkTargetPos.x - explorerGroup.position.x;
+      const dz = state.walkTargetPos.z - explorerGroup.position.z;
+      const dist = Math.hypot(dx, dz);
+      if (dist > 0.12) {
+        const step = Math.min(dist, WALK_SPEED * safeDt);
+        const next = explorerGroup.position.clone();
+        next.x += (dx / dist) * step;
+        next.z += (dz / dist) * step;
+        const region = WALK_REGIONS.find(item => item.id === state.walkRegionId);
+        if (region && isWalkSegmentClear(explorerGroup.position, next, region)) explorerGroup.position.copy(next);
+        explorerGroup.rotation.y = Math.atan2(dx, dz);
+        leftLegPivot.rotation.x = Math.sin(elapsedTime * 11) * 0.55;
+        rightLegPivot.rotation.x = -Math.sin(elapsedTime * 11) * 0.55;
+        leftArmPivot.rotation.x = -Math.sin(elapsedTime * 11) * 0.45;
+        rightArmPivot.rotation.x = Math.sin(elapsedTime * 11) * 0.45;
+        explorerBodyPivot.position.y = Math.abs(Math.sin(elapsedTime * 11)) * 0.05;
+      } else {
+        explorerGroup.position.y = WALK_REGIONS.find(item => item.id === state.walkRegionId)?.y || explorerGroup.position.y;
+        state.workerMode = 'IDLE_ASHORE';
+        state.camLockMode = state.currentZone;
+      }
     } else if (state.workerMode === 'WALK_TO_BOAT') {
       window.__playerSailingActive = false;
       const dx = state.walkTargetPos.x - explorerGroup.position.x;
@@ -2134,18 +2433,16 @@ export function initSunkenCityGameplay({
         explorerBodyPivot.position.y = 0;
         mountExplorerIntoBoat();
         state.camLockMode = 'boat';
-        state.sailCurve = buildSmoothSailCurve(state.currentZone, state.targetZone);
-        state.sailProgress = 0;
-        const curveLen = state.sailCurve.getLength();
-        state.sailDuration = Math.max(7.5, curveLen / 3.6);
-        state.workerMode = 'ROWING';
-        const zoneLabel =
-          state.targetZone === 'zone2'
-            ? '横滨铁道道口'
-            : state.targetZone === 'zone3'
-            ? '天台种植园'
-            : '晴空水巷';
-        setWorkerStatus(`正划船前往：${zoneLabel}...`);
+        if (state.sailIntent === 'board' && state.targetZone === state.currentZone) {
+          state.workerMode = 'BOAT_IDLE';
+          state.sailIntent = 'free';
+        } else {
+          state.sailCurve = buildSmoothSailCurve(state.currentZone, state.targetZone, state.sailTargetPos);
+          state.sailProgress = 0;
+          const curveLen = state.sailCurve.getLength();
+          state.sailDuration = Math.max(2.0, curveLen / 3.6);
+          state.workerMode = 'ROWING';
+        }
       }
     } else if (state.workerMode === 'ROWING') {
       window.__playerSailingActive = true;
@@ -2208,6 +2505,7 @@ export function initSunkenCityGameplay({
           ? state.activeJobSite.buildStandPos
           : getZoneStandPos(state.currentZone);
         state.walkTargetPos.copy(standTarget);
+        state.walkRegionId = getWalkRegionAt(standTarget)?.id || null;
         state.workerMode = 'WALK_TO_SITE';
       }
     } else if (state.workerMode === 'WALK_TO_SITE') {
@@ -2273,7 +2571,7 @@ export function initSunkenCityGameplay({
         setWorkerStatus('园圃培育完成，岸上待机');
         syncCoinUI();
         updateObjectiveUI();
-        if (hoveredTarget) renderHoverCardContent();
+        if (hoveredTarget && !['actor', 'salvage', 'dock'].includes(hoveredTarget.type)) renderHoverCardContent();
       }
     }
 
@@ -2326,13 +2624,15 @@ export function initSunkenCityGameplay({
     updateGameplay,
     performSalvage,
     upgradeShip,
+    registerHarborTargets,
+    requestHarborAction,
     art: { camera, zone2Root, explorerGroup, boatAnchorGroup, stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
       planterSoil, rooftopSoilPatch, initialPlants, underwaterCityGroup, buildSites, state,
       crops: [z2CropStage1, z2CropStage2, z2CropStage3, z3CropStage1, z3CropStage2] },
     updateOverlays() {
       [btnCamOriginal, btnCamZone2, btnCamZone3].forEach(btn => { btn.disabled = state.workerMode !== 'IDLE_ASHORE'; });
       updateResourceOrbs();
-      if (hoveredTarget && hoveredTarget.type !== 'actor') {
+      if (hoveredTarget && !['actor', 'salvage', 'dock'].includes(hoveredTarget.type)) {
         renderHoverCardContent();
         positionHoverCardForTarget(hoveredTarget);
       }

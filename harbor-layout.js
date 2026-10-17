@@ -34,16 +34,9 @@ export function arrangeHarbor({ THREE:T, worldGroup, gameplay, sceneArt, leftBui
   }
   const aquaSite={id:'shallow_aquaculture',zone:'zone5',name:'浅水养殖台',hitRoots:[aqua],hoverAnchor:new T.Vector3(16,2.5,15),boatParkPos:new T.Vector3(11,water,12),shoreEdgePos:new T.Vector3(13,1.8,14),buildStandPos:new T.Vector3(15,1.8,15),level:0,maxLevel:1,storedCoins:0,coinsPerCycle:0,stages:[{cost:35,rateAdd:2,desc:'修整浅水池，培育水生作物。',applyVisual(p){plants.forEach((m,i)=>{const a=Math.max(0,Math.min(1,(p-.35-i*.025)*3));m.visible=a>0;m.scale.set(a,.24*a,.7*a);});}}]};
   buildSites.push(aquaSite);
-  // Use the existing salvage economy from the physical winch as well.
-  const ray=new T.Raycaster(),pointer=new T.Vector2();let down=null;
-  const canvas=document.querySelector('canvas');
-  canvas.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY};});
-  canvas.addEventListener('pointerup',e=>{if(!down||Math.hypot(e.clientX-down.x,e.clientY-down.y)>5)return;
-    pointer.set(e.clientX/innerWidth*2-1,1-e.clientY/innerHeight*2);if(e.button!==0)return;ray.setFromCamera(pointer,gameplay.art.camera);
-    const h=ray.intersectObjects([salvage,poleGroup,dock],true)[0];if(!h||state.worldVisible&& !state.worldVisible(h.point))return;
-    if(salvage.children.some(root=>root===h.object||root===h.object.parent||root===h.object.parent?.parent))gameplay.performSalvage();
-    else gameplay.upgradeShip();
-  });
+  // Harbor targets are consumed by the single click router in gameplay.js.
+  salvage.poleGroup = poleGroup;
+  gameplay.registerHarborTargets({ salvage, dock });
   const repairs=[];
   for(let i=0;i<6;i++){const m=box(leftBuildingGroup,1.6+i*.43,3.85,2.3,.39,.18,1.5,'#dbc396');repairs.push(m);}
   return {salvage,dock,aqua,update(t){
