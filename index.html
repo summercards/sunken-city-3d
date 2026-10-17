@@ -1977,10 +1977,62 @@
     });
     // 世界不再做视野遮蔽：整张地图始终可见，点击也全图可达。
     waterSystem.bind(gameplay.art);
+    // 岸线水纹的轮廓必须来自真实建筑：以前这套形状写死在 water.js 的 shader 里，
+    // 区块一搬水纹就留在原地。现在每次启动按区块地块 + 水街区地标的最终坐标重算。
+    waterSystem.setShore(shoreOutline());
     // Water contact is now shaded on the actual surface, not floating mesh strips.
     [...boatEdgeFoams, ...objectEdgeFoamStrips, ...poolEdgeFoamSegments].forEach(f => f.mesh.visible = false);
     const clock = new THREE.Clock();
     let prevTime = 0;
+
+    // 给水面 shader 的岸线轮廓：方块用 (中心, 半宽, 半深)，圆楼用等半径圆。
+    function shoreOutline() {
+      const shapes = [];
+      const EDGE = .55;
+      const rectUnion = (rects) => ({
+        minX: Math.min(...rects.map(r => r.minX)), maxX: Math.max(...rects.map(r => r.maxX)),
+        minZ: Math.min(...rects.map(r => r.minZ)), maxZ: Math.max(...rects.map(r => r.maxZ))
+      });
+      // 1) 区块地块：地块矩形就是平台与水面相接的地方，搬区块只改 origin，这里自动跟着走。
+      for (const zone of gameplay.zones.list) {
+        for (const region of zone.regions) {
+          const rects = region.rects, u = rectUnion(rects);
+          const inside = (x, z) => rects.some(r => x >= r.minX - .001 && x <= r.maxX + .001 && z >= r.minZ - .001 && z <= r.maxZ + .001);
+          // 地块的矩形如果拼成一个「占满中心、四个角却是空的」轮廓，说明它在描圆形建筑，
+          // 岸线直接用等半径圆，否则方角会在圆楼外面鼓出一个方包。
+          const disc = !inside(u.minX, u.minZ) && !inside(u.maxX, u.minZ) && !inside(u.minX, u.maxZ) && !inside(u.maxX, u.maxZ)
+            && inside((u.minX + u.maxX) / 2, (u.minZ + u.maxZ) / 2);
+          if (disc) {
+            // 地块是把圆描成的一圈环，长短半轴会差一截；取平均当半径，取最大会套个大圈。
+            const r = ((u.maxX - u.minX) + (u.maxZ - u.minZ)) / 4 + .2;
+            shapes.push({ x: (u.minX + u.maxX) / 2, z: (u.minZ + u.maxZ) / 2, hx: r, hz: r, round: true });
+          } else {
+            // 地块矩形是可站立面，比真实甲板略小一圈；水线要落在甲板外侧的水里才看得见。
+            for (const r of rects) shapes.push({ x: (r.minX + r.maxX) / 2, z: (r.minZ + r.maxZ) / 2, hx: (r.maxX - r.minX) / 2 + EDGE, hz: (r.maxZ - r.minZ) / 2 + EDGE });
+          }
+        }
+      }
+      // 2) 水街区里露出水面的地标与废墟塔：只取**穿过水面**的那一层，
+      //    这样屋顶挑檐、顶部爬藤不会把水纹撑大，沉在水下的屋顶也不会画水线。
+      const slice = new THREE.Box3(), unit = new THREE.Box3();
+      for (const node of [...waterDistrict.towers, ...waterDistrict.landmarks]) {
+        slice.makeEmpty();
+        node.updateWorldMatrix(true, true);
+        node.traverse((m) => {
+          if (!m.isMesh || !m.visible) return;
+          unit.setFromObject(m);
+          if (unit.min.y > WATER_LEVEL + .06 || unit.max.y < WATER_LEVEL - .06) return;
+          slice.union(unit);
+        });
+        if (slice.isEmpty()) continue;
+        shapes.push({
+          x: (slice.min.x + slice.max.x) / 2, z: (slice.min.z + slice.max.z) / 2,
+          hx: (slice.max.x - slice.min.x) / 2, hz: (slice.max.z - slice.min.z) / 2,
+          round: node.name === 'reference-round-garden-building'
+        });
+      }
+      return shapes;
+    }
 
     function animate() {
       requestAnimationFrame(animate);

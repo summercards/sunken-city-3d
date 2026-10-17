@@ -1449,8 +1449,10 @@ export function initSunkenCityGameplay({
   }
 
   // 走到哪儿就把脚放哪儿；找不到支撑面时保持当前高度（不往下掉）。
+  let lastSettle = null;
   function settleFootY(group, region) {
     const y = regionStandHeight(region, group.position.x, group.position.z);
+    lastSettle = { x: +group.position.x.toFixed(2), z: +group.position.z.toFixed(2), region: region?.id || null, sampled: y, prev: +group.position.y.toFixed(2) };
     if (y !== null) group.position.y = y;
     return y;
   }
@@ -1642,7 +1644,7 @@ export function initSunkenCityGameplay({
       name: '横滨沉没铁道 · 站台与电车园圃',
       // 只命中站台建筑本体，不把整片铁路、路基和周边水面算进交互区域。
       hitRoots: [stationPlatformGroup, trainCarGroup],
-      hoverAnchor: new THREE.Vector3(-28.0, WATER_LEVEL + 4.2, -18.0),
+      hoverAnchor: zones.get('zone2').hoverAnchor.clone(),
       boatParkPos: zones.get('zone2').boatPark,
       shoreEdgePos: zones.get('zone2').dockEdge,
       buildStandPos: zones.get('zone2').landStand,
@@ -1695,7 +1697,7 @@ export function initSunkenCityGameplay({
       name: '圆弧屋顶农场',
       // 只命中天台种植建筑与屋顶花池，不把整片邻近区域算进交互范围。
       hitRoots: [zone3Root],
-      hoverAnchor: new THREE.Vector3(-19.5, WATER_LEVEL + 4.5, 13.5),
+      hoverAnchor: zones.get('zone3').hoverAnchor.clone(),
       boatParkPos: zones.get('zone3').boatPark,
       shoreEdgePos: zones.get('zone3').dockEdge,
       buildStandPos: zones.get('zone3').landStand,
@@ -1736,7 +1738,7 @@ export function initSunkenCityGameplay({
       name: '晴空水巷 · 太阳能木屋花圃',
       // 只命中太阳能木屋本体；船仍由独立的 boatMeshGroup 负责交互。
       hitRoots: [houseGroupRef || boatMeshGroup],
-      hoverAnchor: new THREE.Vector3(4.3, WATER_LEVEL + 4.8, -0.4),
+      hoverAnchor: zones.get('zone1').hoverAnchor.clone(),
       boatParkPos: zones.get('zone1').boatPark,
       shoreEdgePos: zones.get('zone1').dockEdge,
       buildStandPos: zones.get('zone1').landStand,
@@ -2839,7 +2841,8 @@ export function initSunkenCityGameplay({
     // 4) 小人登船 → 划船 → 靠岸停船 → 走上岸浇水播种状态机
     if (state.workerMode === 'IDLE_ASHORE') {
       window.__playerSailingActive = false;
-      explorerGroup.position.y = getWalkRegionAt(explorerGroup.position)?.y || explorerGroup.position.y;
+      // 待机时也只认模型表面（配置里的 y 会随模型改动而过时）。
+      settleFootY(explorerGroup, getWalkRegionAt(explorerGroup.position) || walkFootRegion());
       explorerBodyPivot.position.y = Math.abs(Math.sin(elapsedTime * 2.2)) * 0.025;
       leftArmPivot.rotation.x = Math.sin(elapsedTime * 1.8) * 0.1;
       rightArmPivot.rotation.x = -Math.sin(elapsedTime * 1.8) * 0.1;
@@ -3029,6 +3032,8 @@ export function initSunkenCityGameplay({
       } else {
         leftLegPivot.rotation.x = 0;
         rightLegPivot.rotation.x = 0;
+        // 到位再贴合一次：节流采样可能停在上一段台阶上。
+        settleFootY(explorerGroup, walkFootRegion());
         if (state.activeJobSite) {
           state.workerMode = 'BUILDING';
           toolGroup.visible = true;
@@ -3119,7 +3124,15 @@ export function initSunkenCityGameplay({
     economy,
     get economyView() { return economyView; },
     syncUI: syncCoinUI,
+    travel: startSailBetweenZones,
     zones,
+    // 调试/校验用：直接问「这个点能站在多高」和探针里收了几个 mesh。
+    probe: {
+      stand: (x, z, lo, hi) => sampleStandHeight(x, z, lo, hi),
+      region: (id) => WALK_REGIONS.find((r) => r.id === id) || null,
+      meshCount: () => standProbeList().length,
+      lastSettle: () => lastSettle
+    },
     art: { camera, zones, zone2Root, explorerGroup, boatAnchorGroup, stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
       planterSoil, rooftopSoilPatch, initialPlants, underwaterCityGroup, buildSites, state,
       resident: { group: resident.group, windowGlow, lantern: lanternGroup, homeSite },

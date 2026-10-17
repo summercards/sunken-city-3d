@@ -9,7 +9,7 @@ export function arrangeHarbor({ THREE:T, worldGroup, gameplay, sceneArt, leftBui
   // Carry the animated windmill onto the farm rather than leaving it on the retired roof.
   leftBuildingGroup.add(sceneArt.rotor);sceneArt.rotor.position.set(3.8,6.6,0);
   const farm=buildSites.find(s=>s.id==='rooftop_planter');
-  farm.hitRoots=[leftBuildingGroup];farm.hoverAnchor.set(zone3.origin.x,5.2,zone3.origin.z);
+  farm.hitRoots=[leftBuildingGroup];farm.hoverAnchor.copy(zone3.hoverAnchor);
   // Remove redundant underwater filler from the navigable channels.
   worldGroup.children.filter(g=>g.userData.legacyTower).forEach(g=>{
     if(g.position.x<0) g.visible=false;
@@ -31,14 +31,15 @@ export function arrangeHarbor({ THREE:T, worldGroup, gameplay, sceneArt, leftBui
   // Short gangway connects the home shore to the dedicated dock.
   const bridge=box(worldGroup,1.8,1.55,6.1,1.5,.2,3.2,'#d6b887');bridge.rotation.y=-.4;
   box(leftBuildingGroup,3.8,5.1,0,.16,3,.16,'#8d9577');
-  const aquaSpot=zones.get('zone5').site;
-  const aqua=island('E · 浅水养殖台',aquaSpot[0],aquaSpot[1],6.5,5.5);
+  const aquaZone=zones.get('zone5');
+  const aquaSpot=aquaZone.site;
+  const aqua=island('E · 浅水养殖台',aquaSpot.x,aquaSpot.z,6.5,5.5);
   const plants=[];
   for(const x of [-1.6,1.6])for(const z of [-1.3,1.3]){
     box(aqua,x,1.23,z,2.7,.25,2.1,'#6ba69b');box(aqua,x,1.38,z,2.25,.08,1.65,'#4b989e');
     for(let i=0;i<3;i++){const p=new T.Mesh(new T.SphereGeometry(.35,6,4),mat('#a9c86e'));p.position.set(x-.6+i*.6,1.5,z);p.scale.set(1,.24,.7);p.visible=false;aqua.add(p);plants.push(p);}
   }
-  const aquaSite={id:'shallow_aquaculture',zone:'zone5',name:'浅水养殖台',hitRoots:[aqua],hoverAnchor:new T.Vector3(aquaSpot[0],2.5,aquaSpot[1]),boatParkPos:zones.get('zone5').boatPark.clone(),shoreEdgePos:zones.get('zone5').dockEdge.clone(),buildStandPos:zones.get('zone5').landStand.clone(),level:0,maxLevel:1,storedCoins:0,coinsPerCycle:0,stages:[{cost:35,materials:{wood:3,parts:2,pearl:1},requires:{boat2:2},rateAdd:2,desc:'用远海珍珠培育浅水池，消耗3木料、2旧零件与1珍珠。船只2级后开放修建。',applyVisual(p){plants.forEach((m,i)=>{const a=Math.max(0,Math.min(1,(p-.35-i*.025)*3));m.visible=a>0;m.scale.set(a,.24*a,.7*a);});}}]};
+  const aquaSite={id:'shallow_aquaculture',zone:'zone5',name:'浅水养殖台',hitRoots:[aqua],hoverAnchor:aquaZone.hoverAnchor.clone(),boatParkPos:zones.get('zone5').boatPark.clone(),shoreEdgePos:zones.get('zone5').dockEdge.clone(),buildStandPos:zones.get('zone5').landStand.clone(),level:0,maxLevel:1,storedCoins:0,coinsPerCycle:0,stages:[{cost:35,materials:{wood:3,parts:2,pearl:1},requires:{boat2:2},rateAdd:2,desc:'用远海珍珠培育浅水池，消耗3木料、2旧零件与1珍珠。船只2级后开放修建。',applyVisual(p){plants.forEach((m,i)=>{const a=Math.max(0,Math.min(1,(p-.35-i*.025)*3));m.visible=a>0;m.scale.set(a,.24*a,.7*a);});}}]};
   buildSites.push(aquaSite);
   // Harbor targets are consumed by the single click router in gameplay.js.
   salvage.poleGroup = poleGroup;

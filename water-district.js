@@ -13,7 +13,7 @@ export function createWaterDistrict({THREE:T,worldGroup,makePainterlyMat:make}) 
     box(g,0,.28,0,w,.55,.32,'#9fb7aa');box(g,-w*.08,h-.2,0,w*.84,.35,.35,'#e1d4b4');return g;}
   const towers=[];
   // Keep the central shipping lane empty; different heights and broken roof lines form depth.
-  const specs=[[-12,-39,6.4,5.0,4.4,0],[31,-22,5.8,5.2,5.4,1],[39,12,5.2,4.8,3.4,2],[-40,21,5.2,4.4,3.0,3],[20,43,5.5,4.5,2.5,1]];
+  const specs=[[-19,-51,6.4,5.0,4.4,0],[31,-22,5.8,5.2,5.4,1],[39,12,5.2,4.8,3.4,2],[-40,21,5.2,4.4,3.0,3],[20,43,5.5,4.5,2.5,1]];
   specs.forEach(([x,z,w,d,top,type],n)=>{
     const g=group(root,x,0,z,`peripheral-ruin-${type}`);g.rotation.y=(n%2?1:-1)*.12;towers.push(g);
     for(let row=0;row<9;row++){
@@ -65,7 +65,7 @@ export function createWaterDistrict({THREE:T,worldGroup,makePainterlyMat:make}) 
     for(let i=0;i<5;i++){const xx=x-w*.35+i*w*.175;piece(p,'leaf',xx,y+.65,z,.35,.38,.38,i%2?'#99be51':'#5a9c56');
       if(i%2)for(let j=0;j<4;j++)piece(p,'leaf',xx+Math.sin(j*1.57)*.14,y+.96,z+Math.cos(j*1.57)*.14,.16,.09,.16,'#ed9ab7');}
   }
-  const round=group(root,-36,0,0,'reference-round-garden-building');landmarks.push(round);
+  const round=group(root,-54,0,12,'reference-round-garden-building');landmarks.push(round);
   // Continuous rounded shell with readable inset bays, not a column with decorations.
   for(let floor=0;floor<9;floor++){
     const y=7.6-floor*2.8;
@@ -82,7 +82,7 @@ export function createWaterDistrict({THREE:T,worldGroup,makePainterlyMat:make}) 
   piece(round,'cyl',2.2,9,0,.06,2.4,.06,'#b28b53');piece(round,'cone',2.2,10.25,0,1.65,.6,1.65,'#f1d9ad');
   for(const x of [1.3,3.0]){box(round,x,8.3,.8,.65,.15,1.25,'#d8b782');box(round,x,8.7,.28,.65,.7,.13,'#eee0ba');}
   for(let k=0;k<12;k++){const a=k*Math.PI/6;trailing(round,Math.cos(a)*5.42,8,Math.sin(a)*4.65,12+k%6);}
-  const residence=group(root,4,0,-25,'reference-balcony-residence');landmarks.push(residence);
+  const residence=group(root,-30,0,40,'reference-balcony-residence');landmarks.push(residence);
   for(let f=0;f<10;f++){
     const y=10-f*2.8;
     box(residence,0,y-1.4,0,7,2.8,5.8,f<3?'#d8dac2':'#82b1ad');box(residence,0,y,0,7.4,.22,6.2,'#e0d8b9');

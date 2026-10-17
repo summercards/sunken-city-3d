@@ -27,16 +27,45 @@ const fs = require('node:fs');
     assert.equal(await page.evaluate(() => qa.gameplay.art.state.workerMode), 'BOAT_IDLE');
 
     const start = await page.evaluate(() => qa.gameplay.art.boatAnchorGroup.position.toArray());
+    // 停泊位会随区块配置变化，所以这里按真实场景找一块「屏幕内且确实没有露出水面的实体」的水面。
     const waterPoint = await page.evaluate(() => {
       const q = qa, T = q.THREE;
-      for (const [dx, dz] of [[9, 7], [-9, -7], [8, -8], [-8, 8]]) {
-        const world = new T.Vector3(q.gameplay.art.boatAnchorGroup.position.x + dx, 1.12, q.gameplay.art.boatAnchorGroup.position.z + dz);
-        const p = world.clone().project(q.camera);
-        if (Math.abs(p.x) < .75 && Math.abs(p.y) < .72) return { x: (p.x * .5 + .5) * innerWidth, y: (-p.y * .5 + .5) * innerHeight };
+      q.scene.updateMatrixWorld(true);
+      const meshes = [];
+      q.scene.traverse(o => {
+        if (!o.isMesh || o.name === 'cartoon-water') return;
+        for (let p = o; p; p = p.parent) {
+          if (!p.visible || p === q.gameplay.art.boatAnchorGroup || p === q.gameplay.art.explorerGroup) return;
+        }
+        meshes.push(o);
+      });
+      const ray = new T.Raycaster();
+      const down = new T.Vector3(0, -1, 0);
+      const clearAt = (x, z) => {
+        ray.set(new T.Vector3(x, 30, z), down);
+        ray.far = 60;
+        return !ray.intersectObjects(meshes, false).some(h => h.point.y > 1.15);
+      };
+      const boat = q.gameplay.art.boatAnchorGroup.position;
+      const found = [];
+      for (let r = 5; r <= 14 && found.length < 4; r += 1.4) {
+        for (let a = 0; a < 32; a++) {
+          const ang = (a / 32) * Math.PI * 2;
+          const x = boat.x + Math.cos(ang) * r, z = boat.z + Math.sin(ang) * r;
+          if (!clearAt(x, z)) continue;
+          const p = new T.Vector3(x, 1.12, z).project(q.camera);
+          if (Math.abs(p.x) < .75 && Math.abs(p.y) < .72) found.push({ x: (p.x * .5 + .5) * innerWidth, y: (-p.y * .5 + .5) * innerHeight });
+        }
       }
-      throw new Error('no test water point');
+      if (!found.length) throw new Error('no test water point');
+      return found.slice(0, 4);
     });
-    await page.mouse.click(waterPoint.x, waterPoint.y);
+    // 镜头还在缓动，偶尔会点到船身；逐点重试直到真的划起来。
+    for (const point of waterPoint) {
+      await page.mouse.click(point.x, point.y);
+      await page.waitForTimeout(260);
+      if (await page.evaluate(() => qa.gameplay.art.state.workerMode) === 'ROWING') break;
+    }
     await page.waitForTimeout(900);
     const moved = await page.evaluate(() => ({ mode: qa.gameplay.art.state.workerMode, pos: qa.gameplay.art.boatAnchorGroup.position.toArray() }));
     assert.equal(moved.mode, 'ROWING');

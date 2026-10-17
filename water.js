@@ -2,6 +2,11 @@
 // All foam/ripple pools are fixed-size; neither clicks nor rowing allocate scene objects.
 export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLevel }) {
   const rippleCount=16,wakeCount=24;
+  // 岸线水纹的形状来自真实建筑/地块（见 setShore），所以水纹永远跟着建筑走。
+  // 数量固定，运行时只改 uniform，不重编译 shader、不分配对象。
+  const SHORE_MAX=32;
+  const shoreA=Array.from({length:SHORE_MAX},()=>new T.Vector4(0,0,0.01,0.01));
+  const shoreB=Array.from({length:SHORE_MAX},()=>new T.Vector4(0,0,0,0));
   const ripples=Array.from({length:rippleCount},()=>new T.Vector4(0,0,-100,0));
   const wakes=Array.from({length:wakeCount},()=>new T.Vector4(0,0,-100,0));
   const target=new T.WebGLRenderTarget(1,1,{minFilter:T.LinearFilter,magFilter:T.LinearFilter,depthBuffer:true,type:T.HalfFloatType});
@@ -13,7 +18,8 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
     // Stored in screen (sRGB) space: the blend happens after tone mapping so it lands on exactly
     // the same final color as the background behind it.
     uFogColor:{value:(scene.fog?scene.fog.color:scene.background).clone().convertLinearToSRGB()},uFogRange:{value:new T.Vector2(scene.fog?scene.fog.near:85,scene.fog?scene.fog.far:175)},
-    uBoat:{value:new T.Vector4(0,0,0,0)},uRipples:{value:ripples},uWake:{value:wakes}};
+    uBoat:{value:new T.Vector4(0,0,0,0)},uRipples:{value:ripples},uWake:{value:wakes},
+    uShoreA:{value:shoreA},uShoreB:{value:shoreB},uShoreCount:{value:0}};
   const material=new T.ShaderMaterial({uniforms,depthWrite:true,side:T.DoubleSide,
     vertexShader:`
       varying vec3 vWaterWorld;
@@ -36,6 +42,10 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
       uniform mat4 uInverseProjection,uCameraWorld;
       uniform vec4 uBoat;
       uniform vec4 uRipples[16],uWake[24];
+      // 岸线轮廓：A = (中心x, 中心z, 半宽, 半深)，B = (朝向角, 是否圆形, -, -)。
+      // 由 zones.js 的地块与 water-district 的建筑实测填入，搬动建筑只需重新 setShore。
+      uniform vec4 uShoreA[32],uShoreB[32];
+      uniform float uShoreCount;
       varying vec3 vWaterWorld;
       varying vec4 vWaterClip;
       varying float vWaterViewDepth;
@@ -47,20 +57,15 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
       float boxSDF(vec2 p,vec2 b){vec2 q=abs(p)-b;return length(max(q,0.0))+min(max(q.x,q.y),0.0);}
       vec2 turn(vec2 p,float a){float c=cos(a),s=sin(a);return vec2(c*p.x-s*p.y,s*p.x+c*p.y);}
       float shore(vec2 p){
-        float a=boxSDF(turn(p-vec2(4.3,-.5),-.22),vec2(4.65,5.05));
-        a=min(a,boxSDF(turn(p-vec2(2.8,-6.6),-.22),vec2(5.45,4.15)));
-        a=min(a,length(p-vec2(-18,-4))-6.35);
-        a=min(a,boxSDF(p-vec2(-12,13),vec2(3.25,2.75)));
-        a=min(a,boxSDF(p-vec2(.3,9),vec2(2.5,2)));
-        a=min(a,boxSDF(p-vec2(16,15),vec2(3.25,2.75)));
-        a=min(a,boxSDF(turn(p-vec2(-28,-18),-.35),vec2(8.5,7)));
-        a=min(a,boxSDF(turn(p-vec2(-12,-39),-.12),vec2(3.2,2.5)));
-        a=min(a,boxSDF(turn(p-vec2(31,-22),.12),vec2(2.9,2.6)));
-        a=min(a,boxSDF(turn(p-vec2(39,12),-.12),vec2(2.6,2.4)));
-        a=min(a,boxSDF(turn(p-vec2(-40,21),.12),vec2(2.6,2.2)));
-        a=min(a,length((p-vec2(-36,0))/vec2(1.0,.85))-5.5);
-        a=min(a,boxSDF(p-vec2(4,-25),vec2(3.5,2.9)));
-        return min(a,boxSDF(turn(p-vec2(20,43),-.12),vec2(2.75,2.25)));
+        float d=1e5;
+        for(int i=0;i<32;i++){
+          if(float(i)>=uShoreCount)break;
+          vec4 a=uShoreA[i],b=uShoreB[i];
+          vec2 q=turn(p-a.xy,-b.x);
+          // 方形靠 boxSDF，圆形（圆柱楼、圆塔）用同心圆，避免四角鼓出方包。
+          d=min(d,mix(boxSDF(q,a.zw),length(q)-max(a.z,a.w),b.y));
+        }
+        return d;
       }
       void main(){
         vec2 p=vWaterWorld.xz;
@@ -183,6 +188,17 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
   const plane=new T.Plane(new T.Vector3(0,1,0),-waterLevel);
   const emitRipple=(x,z,strength=1)=>{ripples[rippleIndex].set(x,z,lastT,strength);rippleIndex=(rippleIndex+1)%rippleCount;};
   function bind(value){art=value;}
+  // 岸线水纹的轮廓从这里进来：每项 { x, z, hx, hz, angle?, round? }（世界坐标，半宽/半深）。
+  // 区块地块与场景建筑实测后各交一份，搬动任何东西只需要再调一次。
+  function setShore(shapes){
+    const list=shapes||[],n=Math.min(list.length,SHORE_MAX);
+    for(let i=0;i<n;i++){
+      const s=list[i];
+      shoreA[i].set(s.x,s.z,Math.max(s.hx,.01),Math.max(s.hz,.01));
+      shoreB[i].set(s.angle||0,s.round?1:0,0,0);
+    }
+    uniforms.uShoreCount.value=n;
+  }
   function update(dt,t){
     lastT=t;uniforms.uTime.value=t;if(!art)return;
     art.boatAnchorGroup.getWorldPosition(pos);
@@ -231,5 +247,5 @@ export function createStylizedWater({ THREE:T, scene, camera, renderer, waterLev
     });
     if(obstacle)return;stats.clicks++;emitRipple(hit.x,hit.z,.85);
   });
-  return {surface,uniforms,stats,emitRipple,bind,update,renderUnderwater};
+  return {surface,uniforms,stats,emitRipple,bind,setShore,update,renderUnderwater};
 }
