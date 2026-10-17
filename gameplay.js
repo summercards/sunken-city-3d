@@ -206,12 +206,48 @@ export function initSunkenCityGameplay({
 
   // Each building owns exactly one screen-space hotspot. Harvest always has priority.
   const resourceOrbs = new Map();
+  const MATERIAL_META = {
+    wood: { icon: '🪵' },
+    parts: { icon: '⚙' }
+  };
+
+  function getStageMaterials(stage) {
+    return (stage && stage.materials) || {};
+  }
+
+  function getMissingCost(stage) {
+    const missing = {};
+    if (state.coins < stage.cost) missing.coins = Math.ceil(stage.cost - state.coins);
+    for (const [key, need] of Object.entries(getStageMaterials(stage))) {
+      const have = state[key] || 0;
+      if (have < need) missing[key] = need - have;
+    }
+    return missing;
+  }
+
+  function formatStageCost(stage) {
+    const parts = [`${stage.cost} 🐚`];
+    for (const [key, need] of Object.entries(getStageMaterials(stage))) {
+      parts.push(`${need} ${MATERIAL_META[key].icon}`);
+    }
+    return parts.join(' · ');
+  }
+
+  function formatMissingCost(missing) {
+    return Object.entries(missing)
+      .map(([key, need]) => `${need} ${key === 'coins' ? '🐚' : MATERIAL_META[key].icon}`)
+      .join(' · ');
+  }
+
   function getSiteAction(site) {
     const hasResource = Math.floor(site.storedCoins) > 0;
     const maxed = site.level >= site.maxLevel;
     const stage = maxed ? null : site.stages[site.level];
-    const available = !maxed && (state.workerMode === 'IDLE_ASHORE' || state.workerMode === 'BOAT_IDLE' || state.workerMode === 'ROWING') && state.coins >= stage.cost;
-    return { mode: hasResource ? 'harvest' : 'upgrade', available, maxed, stage };
+    const idle = state.workerMode === 'IDLE_ASHORE' || state.workerMode === 'BOAT_IDLE' || state.workerMode === 'ROWING';
+    const missing = maxed ? {} : getMissingCost(stage);
+    const affordable = Object.keys(missing).length === 0;
+    const available = !maxed && idle && affordable;
+    return { mode: hasResource ? 'harvest' : 'upgrade', available, missing, maxed, stage };
   }
 
   function harvestSite(site) {
@@ -240,6 +276,10 @@ export function initSunkenCityGameplay({
     if (action.available) {
       queueSiteAction(site);
       return true;
+    }
+    // 不可用时不只抖一下：直接把缺什么写在场景上方，玩家不用猜。
+    if (!action.maxed && state.workerMode === 'IDLE_ASHORE' && Object.keys(action.missing).length) {
+      spawnFloatTip(site.hoverAnchor.clone().add(new THREE.Vector3(0, .8, 0)), `还差 ${formatMissingCost(action.missing)}`);
     }
     ensureResourceOrb(site).querySelector('.site-action-disc').animate([
       { transform: 'translateX(0)' }, { transform: 'translateX(-2px)' },
@@ -281,7 +321,7 @@ export function initSunkenCityGameplay({
       orb.setAttribute('tabindex', visible ? '0' : '-1');
       orb.style.left = `${(p.x * .5 + .5) * window.innerWidth}px`;
       orb.style.top = `${(-p.y * .5 + .5) * window.innerHeight}px`;
-      const { mode, available, maxed } = getSiteAction(site);
+      const { mode, available, missing, maxed } = getSiteAction(site);
       if (!orb.classList.contains('collecting') && orb.dataset.mode !== mode) {
         const icon = orb.querySelector('.site-action-icon');
         const previousMode = orb.dataset.mode;
@@ -296,7 +336,13 @@ export function initSunkenCityGameplay({
       orb.classList.toggle('available', available);
       orb.classList.toggle('is-hot', hoveredTarget?.site === site && hoverCard.classList.contains('visible'));
       orb.setAttribute('aria-disabled', String(mode === 'upgrade' && !available));
-      orb.setAttribute('aria-label', `${site.name}：${mode === 'harvest' ? `收取 ${Math.floor(site.storedCoins)} 枚海贝` : maxed ? '已满级' : available ? '升级' : '暂不可升级'}`);
+      orb.setAttribute('aria-label', `${site.name}：${mode === 'harvest'
+        ? `收取 ${Math.floor(site.storedCoins)} 枚海贝`
+        : maxed
+        ? '已满级'
+        : available
+        ? `升级，需要 ${formatStageCost(site.stages[site.level])}`
+        : `暂不可升级，还差 ${formatMissingCost(missing)}`}`);
     });
   }
 
@@ -1483,10 +1529,11 @@ export function initSunkenCityGameplay({
       coinsPerCycle: 0,
       stages: [
         {
-          btnText: '🚣 划船去站台种植向日葵花圃 (20 🐚)',
-          localBtnText: '🌱 在铁道站台播种向日葵花圃 (20 🐚)',
-          desc: '小人划船前往横滨铁道道口，登岸在混凝土高架站台上开辟木框花床并种下芭蕉与向日葵。',
+          btnText: '🚣 划船去站台种植向日葵花圃 (20 🐚 + 2 🪵)',
+          localBtnText: '🌱 在铁道站台播种向日葵花圃 (20 🐚 + 2 🪵)',
+          desc: '小人划船前往横滨铁道道口，登岸在混凝土高架站台上开辟木框花床并种下芭蕉与向日葵。需要 2 份木料钉花箱。',
           cost: 20,
+          materials: { wood: 2 },
           rateAdd: 2,
           applyVisual(progress) {
             z2CropStage1.visible = true;
@@ -1494,10 +1541,11 @@ export function initSunkenCityGameplay({
           }
         },
         {
-          btnText: '🚣 划船去电车顶培育空中花园 (40 🐚)',
-          localBtnText: '🌿 在复古电车顶种植藤蔓花海 (40 🐚)',
-          desc: '在半淹没的蓝白复古电车车顶培育翠绿热带植物丛与鲜花，让沉没铁道焕发生机。',
+          btnText: '🚣 划船去电车顶培育空中花园 (40 🐚 + 3 ⚙)',
+          localBtnText: '🌿 在复古电车顶种植藤蔓花海 (40 🐚 + 3 ⚙)',
+          desc: '在半淹没的蓝白复古电车车顶培育翠绿热带植物丛与鲜花，让沉没铁道焕发生机。需要 3 个旧零件加固车顶棚架。',
           cost: 40,
+          materials: { parts: 3 },
           rateAdd: 3,
           applyVisual(progress) {
             z2CropStage2.visible = true;
@@ -1505,10 +1553,11 @@ export function initSunkenCityGameplay({
           }
         },
         {
-          btnText: '🚣 划船去水道培育发光睡莲与水母 (65 🐚)',
-          localBtnText: '🪷 培育铁道发光睡莲与水母群 (65 🐚)',
-          desc: '在枕木水道间播撒发光睡莲，吸引透明发光水母环绕道口游弋。',
+          btnText: '🚣 划船去水道培育发光睡莲与水母 (65 🐚 + 3 🪵 + 2 ⚙)',
+          localBtnText: '🪷 培育铁道发光睡莲与水母群 (65 🐚 + 3 🪵 + 2 ⚙)',
+          desc: '在枕木水道间播撒发光睡莲，吸引透明发光水母环绕道口游弋。需要木料与旧零件固定浮床。',
           cost: 65,
+          materials: { wood: 3, parts: 2 },
           rateAdd: 5,
           applyVisual(progress) {
             z2CropStage3.visible = true;
@@ -1533,10 +1582,11 @@ export function initSunkenCityGameplay({
       coinsPerCycle: 0,
       stages: [
         {
-          btnText: '🚣 划船去天台花池种植龟背竹 (25 🐚)',
-          localBtnText: '🌱 浇水种植大叶龟背竹与花丛 (25 🐚)',
-          desc: '划向圆弧农场，在圆弧屋顶的木框土槽里种满大叶龟背竹。',
+          btnText: '🚣 划船去天台花池种植龟背竹 (25 🐚 + 2 🪵)',
+          localBtnText: '🌱 浇水种植大叶龟背竹与花丛 (25 🐚 + 2 🪵)',
+          desc: '划向圆弧农场，在圆弧屋顶的木框土槽里种满大叶龟背竹。需要 2 份木料修补土槽。',
           cost: 25,
+          materials: { wood: 2 },
           rateAdd: 3,
           applyVisual(progress) {
             z3CropStage1.visible = true;
@@ -1544,10 +1594,11 @@ export function initSunkenCityGameplay({
           }
         },
         {
-          btnText: '🚣 划船去扩建天台巨叶芭蕉林 (50 🐚)',
-          localBtnText: '🌴 培育丰茂芭蕉林与翡翠花果 (50 🐚)',
-          desc: '悉心浇灌整座屋顶花坛，让翠绿宽大的热带芭蕉叶与花朵铺满天台。',
+          btnText: '🚣 划船去扩建天台巨叶芭蕉林 (50 🐚 + 2 🪵)',
+          localBtnText: '🌴 培育丰茂芭蕉林与翡翠花果 (50 🐚 + 2 🪵)',
+          desc: '悉心浇灌整座屋顶花坛，让翠绿宽大的热带芭蕉叶与花朵铺满天台。需要木料加高围栏。',
           cost: 50,
+          materials: { wood: 2 },
           rateAdd: 4,
           applyVisual(progress) {
             z3CropStage2.visible = true;
@@ -1573,10 +1624,11 @@ export function initSunkenCityGameplay({
       stages: [
         {},
         {
-          btnText: '🚣 划船回木屋种花与挂灯 (20 🐚)',
-          localBtnText: '🌱 在木屋码头种花并点亮暖灯 (20 🐚)',
-          desc: '在起始木屋码头种植水上盆栽花丛，并点亮暖黄航标灯笼。',
+          btnText: '🚣 划船回木屋种花与挂灯 (20 🐚 + 2 🪵)',
+          localBtnText: '🌱 在木屋码头种花并点亮暖灯 (20 🐚 + 2 🪵)',
+          desc: '在起始木屋码头种植水上盆栽花丛，并点亮暖黄航标灯笼。需要 2 份木料搭花箱。',
           cost: 20,
+          materials: { wood: 2 },
           rateAdd: 2,
           applyVisual(progress) {
             if (!this._plantGroup) {
@@ -1793,10 +1845,18 @@ export function initSunkenCityGameplay({
     farSea.setAttribute('aria-disabled', String(!state.farSeaUnlocked));
   }
 
+  // 打捞是一次性的漂流物清理：每次 3 木料 + 2 旧零件。
+  // 上限 8 次刚好覆盖“全部建设 + 船只改造”的材料需求，留出余量；后续 P1-05 会换成冷却式产出。
+  const SALVAGE_LIMIT = 8;
+
   function performSalvage() {
-    if (state.workerMode !== 'IDLE_ASHORE' || state.salvageRuns >= 3) return false;
-    state.salvageRuns += 1;
+    if (state.workerMode !== 'IDLE_ASHORE') return false;
     const anchor = new THREE.Vector3(-12, WATER_LEVEL + 4, 13);
+    if (state.salvageRuns >= SALVAGE_LIMIT) {
+      spawnFloatTip(anchor, '这片水面已捞干净');
+      return false;
+    }
+    state.salvageRuns += 1;
     awardResource('wood', 3, anchor, '🪵');
     awardResource('parts', 2, anchor.clone().add(new THREE.Vector3(0, .5, 0)), '⚙');
     syncCoinUI();
@@ -1921,7 +1981,7 @@ export function initSunkenCityGameplay({
       return;
     }
     const site = hoveredTarget.site;
-    const { mode, available, maxed, stage } = getSiteAction(site);
+    const { mode, available, missing, maxed, stage } = getSiteAction(site);
     elHcTitle.textContent = site.name.split(' · ').pop();
     elHcLvl.textContent = `Lv.${site.level}/${site.maxLevel}`;
     let summary;
@@ -1930,7 +1990,8 @@ export function initSunkenCityGameplay({
     else if (state.workerMode !== 'IDLE_ASHORE') summary = state.activeJobSite === site
       ? state.workerMode === 'BUILDING' ? `培育中 · ${Math.round(state.jobProgress * 100)}%` : '正在前往培育'
       : '旅人忙碌中';
-    else summary = available ? `升级 · ${stage.cost} 枚海贝` : `升级 · 还差 ${Math.ceil(stage.cost - state.coins)} 枚海贝`;
+    else if (available) summary = `升级 · ${formatStageCost(stage)}`;
+    else summary = `升级 · 还差 ${formatMissingCost(missing)}`;
     if (elHcSummary.textContent !== summary) elHcSummary.textContent = summary;
     hoverCard.classList.toggle('can-upgrade', mode === 'upgrade' && available);
   }
@@ -2053,8 +2114,13 @@ export function initSunkenCityGameplay({
     if (action.mode === 'harvest' && Math.floor(site.storedCoins) <= 0) return false;
 
     if (action.mode === 'upgrade') {
-      // 先扣除建设费用，后续由角色抵达目标地块才开始施工。
+      // 先扣除建设费用（海贝 + 基础材料），后续由角色抵达目标地块才开始施工。
+      // 单次点击只结算一次：扣费后立刻把 activeJobSite 记下，重复调用会被上面的状态检查挡住。
+      if (state.activeJobSite === site) return false;
       state.coins -= action.stage.cost;
+      for (const [key, need] of Object.entries(getStageMaterials(action.stage))) {
+        state[key] = Math.max(0, (state[key] || 0) - need);
+      }
       syncCoinUI();
       state.jobProgress = 0;
       state.activeJobSite = site;

@@ -17,7 +17,7 @@ const fs = require('node:fs');
       const response = await route.fetch();
       const body = (await response.text()).replace(
         '  syncCoinUI();\n  return {',
-        '  window.__qa = { buildSites, state, activateSite, resident, windowGlow, lanternGroup, houseGroupRef };\n  syncCoinUI();\n  return {'
+        '  window.__qa = { buildSites, state, activateSite, performSalvage, resident, windowGlow, lanternGroup, houseGroupRef };\n  syncCoinUI();\n  return {'
       );
       await route.fulfill({ response, body });
     });
@@ -43,6 +43,8 @@ const fs = require('node:fs');
     passed.push('初始状态：木屋 Lv.1，无居民与暖灯');
 
     await page.evaluate(() => {
+      // 木屋现在还要 2 份木料，先打捞一次备料。
+      window.__qa.performSalvage();
       const home = window.__qa.buildSites.find(s => s.id === 'home_cabin');
       window.__qa.activateSite(home);
     });

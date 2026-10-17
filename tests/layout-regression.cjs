@@ -16,7 +16,7 @@ const play=await page.evaluate(()=>{
  const q=qa,{state,buildSites}=q.gameplay.art;let t=200;
  const results=[];
  for(const id of ['rooftop_planter','shallow_aquaculture']){
-  const site=buildSites.find(s=>s.id===id);site.storedCoins=0;state.coins=200;
+  const site=buildSites.find(s=>s.id===id);site.storedCoins=0;state.coins=200;state.wood=6;state.parts=4;
   q.gameplay.updateOverlays();document.querySelector(`[data-site-id="${id}"]`).click();
   for(let i=0;i<5000&&site.level===0;i++){t+=.05;q.gameplay.updateGameplay(.05,t);q.sceneArt.update(t);q.harbor.update(t);}
   results.push({id,level:site.level,mode:state.workerMode,zone:state.currentZone});
