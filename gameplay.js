@@ -1591,6 +1591,177 @@ export function initSunkenCityGameplay({
     }
   ];
 
+  // ============================================================================
+  // 8.5 居民与生活反馈：木屋升到 Lv.2 后，码头出现住户，窗内与挂灯亮起暖光
+  // ============================================================================
+  const homeSite = buildSites.find((s) => s.id === 'home_cabin');
+
+  function createResidentFigure() {
+    const group = new THREE.Group();
+    const bodyPivot = new THREE.Group();
+    group.add(bodyPivot);
+
+    const dressMat = makePainterlyMat('#6fc3a8');
+    const apronMat = makePainterlyMat('#f7ead0');
+    const skinMat = makePainterlyMat('#ffe2c4');
+    const hairMat = makePainterlyMat('#3c3550');
+    const bootMat = makePainterlyMat('#38506e');
+
+    const skirt = new THREE.Mesh(new THREE.ConeGeometry(0.26, 0.62, 8), dressMat);
+    skirt.position.y = 0.49;
+    addEdgeHighlight(skirt, '#c8f5e4', 0.45);
+    bodyPivot.add(skirt);
+
+    const apron = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.34, 0.04), apronMat);
+    apron.position.set(0, 0.44, 0.18);
+    bodyPivot.add(apron);
+
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.17, 12, 12), skinMat);
+    head.position.y = 0.92;
+    bodyPivot.add(head);
+
+    const hair = new THREE.Mesh(
+      new THREE.SphereGeometry(0.175, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.58),
+      hairMat
+    );
+    hair.position.y = 0.95;
+    hair.rotation.x = -0.25;
+    bodyPivot.add(hair);
+
+    const bun = new THREE.Mesh(new THREE.SphereGeometry(0.085, 8, 8), hairMat);
+    bun.position.set(0, 1.05, -0.11);
+    bodyPivot.add(bun);
+
+    const arms = [-1, 1].map((side) => {
+      const pivot = new THREE.Group();
+      pivot.position.set(side * 0.19, 0.72, 0);
+      const arm = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.34, 0.09), dressMat);
+      arm.position.y = -0.15;
+      pivot.add(arm);
+      const hand = new THREE.Mesh(new THREE.SphereGeometry(0.055, 8, 8), skinMat);
+      hand.position.y = -0.32;
+      pivot.add(hand);
+      bodyPivot.add(pivot);
+      return pivot;
+    });
+
+    [-1, 1].forEach((side) => {
+      const leg = new THREE.Mesh(new THREE.BoxGeometry(0.09, 0.24, 0.09), bootMat);
+      leg.position.set(side * 0.09, 0.14, 0);
+      bodyPivot.add(leg);
+    });
+
+    return { group, bodyPivot, head, arms };
+  }
+
+  const resident = createResidentFigure();
+  if (houseGroupRef) {
+    // 站在码头木板前端、屋檐投影之外，俯视镜头才能看见她。
+    resident.group.position.set(0.9, 0.67, 4.55);
+    resident.group.rotation.y = -0.12;
+    houseGroupRef.add(resident.group);
+  } else {
+    resident.group.position.set(4.9, 2.15, 3.0);
+    worldGroup.add(resident.group);
+  }
+  resident.group.visible = false;
+  resident.group.scale.setScalar(0.001);
+
+  // 窗内暖光与灯笼光晕：俯视构图下用朝向镜头的柔光精灵，避免被屋檐完全遮住。
+  function createWarmGlowTexture() {
+    const c = document.createElement('canvas');
+    c.width = c.height = 64;
+    const ctx = c.getContext('2d');
+    const grad = ctx.createRadialGradient(32, 32, 2, 32, 32, 31);
+    grad.addColorStop(0, 'rgba(255, 231, 178, 1)');
+    grad.addColorStop(0.42, 'rgba(255, 196, 128, 0.52)');
+    grad.addColorStop(1, 'rgba(255, 170, 96, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  }
+  const warmGlowTexture = createWarmGlowTexture();
+  const windowGlowMat = new THREE.SpriteMaterial({
+    map: warmGlowTexture,
+    color: '#ffe3ae',
+    transparent: true,
+    opacity: 0.9,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+  const windowGlow = new THREE.Sprite(windowGlowMat);
+  windowGlow.scale.set(1.9, 1.35, 1);
+  const lifeDetails = new THREE.Group();
+  lifeDetails.visible = false;
+  (houseGroupRef || worldGroup).add(lifeDetails);
+  // 暖光落在木屋门前的码头上，俯视构图也能看到“屋里有人点了灯”。
+  windowGlow.position.set(0.35, 1.02, 3.05);
+  lifeDetails.add(windowGlow);
+
+  // 码头挂灯：一根短杆垂下一盏暖黄小灯。
+  const lanternGroup = new THREE.Group();
+  lanternGroup.position.set(2.4, 1.15, 4.8);
+  const lanternRod = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.02, 0.02, 0.44, 6),
+    makePainterlyMat('#6b4a34')
+  );
+  lanternRod.position.y = 0.22;
+  lanternGroup.add(lanternRod);
+  const lanternMat = new THREE.MeshBasicMaterial({ color: '#ffcf7a' });
+  const lanternBulb = new THREE.Mesh(new THREE.SphereGeometry(0.13, 10, 10), lanternMat);
+  lanternBulb.position.y = -0.02;
+  lanternGroup.add(lanternBulb);
+  const lanternCap = new THREE.Mesh(
+    new THREE.ConeGeometry(0.15, 0.12, 8),
+    makePainterlyMat('#c26a3d')
+  );
+  lanternCap.position.y = 0.12;
+  lanternGroup.add(lanternCap);
+  const lanternGlowMat = new THREE.SpriteMaterial({
+    map: warmGlowTexture,
+    color: '#ffd08a',
+    transparent: true,
+    opacity: 0.75,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+  const lanternGlow = new THREE.Sprite(lanternGlowMat);
+  lanternGlow.scale.set(1.05, 1.05, 1);
+  lanternGlow.position.y = -0.02;
+  lanternGroup.add(lanternGlow);
+  lifeDetails.add(lanternGroup);
+
+  let residentScale = 0;
+  let residentArrived = false;
+  function updateResidentLife(t, dt) {
+    const shouldLive = homeSite.level >= 2;
+    residentScale += ((shouldLive ? 1 : 0) - residentScale) * Math.min(1, dt * 5);
+    if (!shouldLive && residentScale < 0.01) residentScale = 0;
+    const alive = residentScale > 0.01;
+    resident.group.visible = alive;
+    lifeDetails.visible = alive;
+    if (!alive) return;
+
+    resident.group.scale.setScalar(Math.max(0.001, residentScale * 1.12));
+    if (!residentArrived) {
+      residentArrived = true;
+      const anchor = resident.group.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 1.7, 0));
+      spawnFloatTip(anchor, '🏡 居民入住');
+    }
+
+    resident.bodyPivot.position.y = Math.sin(t * 1.7) * 0.012;
+    resident.bodyPivot.rotation.z = Math.sin(t * 0.8) * 0.02;
+    resident.head.rotation.y = Math.sin(t * 0.45) * 0.28;
+    const wavePhase = t % 9;
+    resident.arms[1].rotation.z = wavePhase < 1.8
+      ? -2.15 + Math.sin(t * 9) * 0.28
+      : Math.sin(t * 1.3) * 0.06;
+    resident.arms[0].rotation.z = -Math.sin(t * 1.1) * 0.05;
+    windowGlowMat.opacity = 0.82 + Math.sin(t * 1.9) * 0.1;
+    lanternGlowMat.opacity = 0.66 + Math.sin(t * 2.4 + 1.1) * 0.12;
+    lanternMat.color.setHSL(0.09, 0.85, 0.62 + Math.sin(t * 2.4) * 0.04);
+  }
+
   const elCoinVal = document.getElementById('min-coin-val');
   const elWoodVal = document.getElementById('min-wood-val');
   const elPartsVal = document.getElementById('min-parts-val');
@@ -2327,6 +2498,7 @@ export function initSunkenCityGameplay({
 
     // 3) 动态场景元素更新（瀑布、闪烁信号灯、魔鬼鱼、水母、大叶植物摇曳、黑猫呼吸）
     blackCatGroup.scale.y = 1.0 + Math.sin(elapsedTime * 3.2) * 0.04;
+    updateResidentLife(elapsedTime, safeDt);
 
     dynamicAnimItems.forEach((item) => {
       if (item.type === 'sway_leaf') {
@@ -2639,6 +2811,7 @@ export function initSunkenCityGameplay({
     requestHarborAction,
     art: { camera, zone2Root, explorerGroup, boatAnchorGroup, stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
       planterSoil, rooftopSoilPatch, initialPlants, underwaterCityGroup, buildSites, state,
+      resident: { group: resident.group, windowGlow, lantern: lanternGroup, homeSite },
       crops: [z2CropStage1, z2CropStage2, z2CropStage3, z3CropStage1, z3CropStage2] },
     updateOverlays() {
       [btnCamOriginal, btnCamZone2, btnCamZone3].forEach(btn => { btn.disabled = state.workerMode !== 'IDLE_ASHORE'; });
