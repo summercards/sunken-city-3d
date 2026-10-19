@@ -49,13 +49,11 @@ const { test } = require('node:test');
     });
     for (const material of Object.values(MATERIALS)) assert.match(material.source, /[\u4e00-\u9fff]/);
     assert.deepEqual(COLLECTIONS, [
-      { id: 'home_crate', name: '屋顶物资箱', zone: 'zone1', reward: { wood: 3, parts: 1 }, cooldown: 34 },
-      { id: 'shell_bed', name: '浅滩贝床', zone: 'zone1', reward: { coins: 5 }, cooldown: 26 },
-      { id: 'canal_shoal', name: '水巷鱼群', zone: 'zone1', reward: { fish: 2 }, cooldown: 30 },
-      { id: 'garden_cache', name: '农场种子箱', zone: 'zone3', reward: { wood: 4, seeds: 2 }, cooldown: 42 },
-      { id: 'farm_shoal', name: '农场浅滩鱼群', zone: 'zone3', reward: { fish: 3 }, cooldown: 36 },
-      { id: 'workshop_cache', name: '铁道回收堆', zone: 'zone2', reward: { parts: 3, wood: 1 }, cooldown: 42 },
-      { id: 'sea_cache', name: '远海贝匣', zone: 'zone4', reward: { pearl: 1, parts: 2 }, cooldown: 60 }
+      { id: 'home_crate', name: '屋顶物资箱', zone: 'zone1', icon: '🪵', reward: { wood: 3, parts: 1 }, cooldown: 34 },
+      { id: 'shell_bed', name: '浅滩贝床', zone: 'zone1', icon: '🐚', reward: { coins: 5 }, cooldown: 26 },
+      { id: 'garden_cache', name: '农场种子箱', zone: 'zone3', icon: '🌱', reward: { wood: 4, seeds: 2 }, cooldown: 42 },
+      { id: 'workshop_cache', name: '铁道回收堆', zone: 'zone2', icon: '⚙', reward: { parts: 3, wood: 1 }, cooldown: 42 },
+      { id: 'sea_cache', name: '远海贝匣', zone: 'zone4', icon: '🫧', reward: { pearl: 1, parts: 2 }, cooldown: 60 }
     ]);
     assert.deepEqual(FACILITIES, {
       greenhouse: {

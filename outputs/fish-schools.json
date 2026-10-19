@@ -1,0 +1,100 @@
+{
+  "schools": {
+    "count": 7,
+    "noBlock": true,
+    "items": [
+      {
+        "n": 5,
+        "at": [
+          -42.5,
+          15.1
+        ],
+        "inBlocker": false
+      },
+      {
+        "n": 5,
+        "at": [
+          26.2,
+          -22.2
+        ],
+        "inBlocker": false
+      },
+      {
+        "n": 6,
+        "at": [
+          47.4,
+          -16.5
+        ],
+        "inBlocker": false
+      },
+      {
+        "n": 4,
+        "at": [
+          34.6,
+          14.4
+        ],
+        "inBlocker": false
+      },
+      {
+        "n": 4,
+        "at": [
+          37.7,
+          -8.4
+        ],
+        "inBlocker": false
+      },
+      {
+        "n": 6,
+        "at": [
+          -0.6,
+          -47.9
+        ],
+        "inBlocker": false
+      },
+      {
+        "n": 6,
+        "at": [
+          1.5,
+          -15.3
+        ],
+        "inBlocker": false
+      }
+    ]
+  },
+  "pick": {
+    "id": 2,
+    "x": 757.4274458780108,
+    "y": 163.268610467148,
+    "n": 5
+  },
+  "near": {
+    "marker": true,
+    "dist": 2.93,
+    "left": 5,
+    "x": 698.6875,
+    "y": 405.6875,
+    "hit": {
+      "type": "fish",
+      "zone": null,
+      "site": null,
+      "crateId": null
+    }
+  },
+  "after": {
+    "fish": 1,
+    "left": 4,
+    "expect": 4
+  },
+  "respawn": {
+    "countAfterDeplete": 6,
+    "countAfterSpawn": 7
+  },
+  "passed": [
+    "水面上有 7 群鱼，都不挡船",
+    "没靠过去时没有任何 🐟 收获图标",
+    "点鱼群 → WALK_TO_BOAT（自动上船/划过去）",
+    "点 🐟 图标 → 鱼 +1，鱼群 5 → 4 条",
+    "捞完一群 → 散群（6 群）→ 别处重新聚一群（7 群）"
+  ],
+  "errors": []
+}

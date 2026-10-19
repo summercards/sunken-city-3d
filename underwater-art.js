@@ -1,5 +1,6 @@
 import { createUnderwaterNeighborhood } from './underwater-neighborhood.js';
 import { createUnderwaterOptics } from './underwater-optics.js';
+import { createNorthTrench } from './north-trench.js';
 // Art-directed underwater canyon: an independent map with the surface city’s cream masonry and curved bays.
 export function createUnderwaterArt({ THREE: T, scene, worldGroup, waterLevel }) {
   const root = new T.Group(); root.name = 'underwater-city'; root.visible = false; scene.add(root);
@@ -23,14 +24,15 @@ export function createUnderwaterArt({ THREE: T, scene, worldGroup, waterLevel })
         float litTop=max(inverseTransformDirection(normal,viewMatrix).y,0.);
         float shallow=1.-smoothstep(12.,55.,-reefWorld.y);
         outgoingLight+=vec3(.5,.65,.5)*pow(max(0.,sin(p.x*2.1+reefTime*.65)*cos(p.y*1.9-reefTime*.4)),18.)*litTop*shallow*.16;
-        outgoingLight+=diffuseColor.rgb*vec3(.45,1.,.88)*light;
+        outgoingLight+=diffuseColor.rgb*vec3(.45,1.,.88)*light*mix(1.,.18,smoothstep(65.,170.,diveDepth));
         #include <opaque_fragment>`).replace('#include <fog_fragment>',`
         float d=clamp((diveDepth-8.)/72.,0.,1.);
         vec3 top=mix(vec3(.12,.91,.87),vec3(.025,.28,.49),d);
         vec3 bottom=mix(vec3(.025,.36,.62),vec3(.008,.07,.20),d);
         float screenY=clamp(reefClip.y/reefClip.w*.5+.5,0.,1.);
         vec3 waterColor=mix(bottom,top,pow(screenY,.8));
-        float fogAmount=1.-exp(-pow(vFogDepth*.026,1.8));
+        float density=mix(.026,.012,smoothstep(65.,210.,diveDepth));
+        float fogAmount=1.-exp(-pow(vFogDepth*density,1.8));
         gl_FragColor.rgb=mix(gl_FragColor.rgb,waterColor,clamp(fogAmount,0.,1.));
       `);
     };
@@ -48,7 +50,11 @@ export function createUnderwaterArt({ THREE: T, scene, worldGroup, waterLevel })
     o.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),delta.normalize()); return o;
   }
   function boundsAt(y){const d=T.MathUtils.clamp((-y-6)/70,0,1);return {x:30-16*d,z:49-15*d};}
-  function insideBasin(p,margin=0){const b=boundsAt(p.y);return (p.x/(b.x-margin))**2+(p.z/(b.z-margin))**2<1;}
+  function insideBasin(p,margin=0){
+    const b=boundsAt(p.y);
+    const oldBasin=p.y> -75+margin && (p.x/(b.x-margin))**2+(p.z/(b.z-margin))**2<1;
+    return oldBasin||trench.contains(p,margin);
+  }
   // One continuous rock bowl from surface to seabed. There are no gaps beneath isolated platforms.
   const wallPositions=[],wallIndices=[],segments=48,layers=11;
   for(let row=0;row<=layers;row++){
@@ -59,6 +65,9 @@ export function createUnderwaterArt({ THREE: T, scene, worldGroup, waterLevel })
     }
   }
   for(let row=0;row<layers;row++)for(let k=0;k<segments;k++){
+    // Open the north-facing sector all the way down to the original seabed.
+    const angle=(k+.5)/segments*Math.PI*2;
+    if(Math.sin(angle)<-.72)continue;
     const a=row*(segments+1)+k,b=a+segments+1;wallIndices.push(a,b,a+1,b,b+1,a+1);
   }
   const bowlGeo=new T.BufferGeometry();bowlGeo.setAttribute('position',new T.Float32BufferAttribute(wallPositions,3));bowlGeo.setIndex(wallIndices);bowlGeo.computeVertexNormals();
@@ -67,10 +76,13 @@ export function createUnderwaterArt({ THREE: T, scene, worldGroup, waterLevel })
   // Overlapping strata break the silhouette while remaining attached to the continuous rock wall.
   for(let row=0;row<8;row++)for(let k=0;k<24;k++){
     const y=-3-row*10,a=k/24*Math.PI*2,b=boundsAt(y),x=Math.cos(a)*(b.x+3),z=Math.sin(a)*(b.z+3);
+    if(Math.sin(a)<-.70)continue;
     const r=rock(root,row%2?'#4e8295':'#608f9c',x,y,z,5.5,6.8,7.2);r.rotation.y=-a;
   }
   // The floor is 75 metres below the entry. Staggered shelves, not a flat visible bottom.
-  box(root,'#407b88',0,-76,0,1200,2,1200);
+  // Stop the old floor at the northern threshold; an infinite plane would plug
+  // the new canyon at -75 m even if the swim bounds allowed the deeper descent.
+  box(root,'#407b88',0,-76,16,90,2,84);
   const terraces=[
     [-12,2,6,7,-18], [13,-7,7,7,-31], [-12,-20,7,8,-46], [13,12,7,7,-59],
     [-17,25,7,7,-25], [18,-30,8,7,-40], [-14,34,8,8,-62], [0,-27,8,7,-74]
@@ -94,6 +106,7 @@ export function createUnderwaterArt({ THREE: T, scene, worldGroup, waterLevel })
     rock(root,i%3?'#6fa8a1':'#929aba',x,-75+h*.4,z,3+random()*4,h,3+random()*4);
   }
   const neighborhood=createUnderwaterNeighborhood({T,root,group,box,rock,mesh,stem,buildings,solidBuildings});
+  const trench=createNorthTrench({T,root,group,box,rock,mesh,stem,material,solidBuildings});
   function coral(x,y,z,index,scale=1) {
     const g=group(x,y,z,'reef-coral');g.scale.setScalar(scale);
     const colors=['#ff79bf','#b490ef','#5be1e0','#ffb64f'];const c=colors[Math.floor(index/3)%4];
@@ -212,5 +225,5 @@ export function createUnderwaterArt({ THREE: T, scene, worldGroup, waterLevel })
     beams.forEach(b=>{b.rotation.y=Math.atan2(camera.position.x-b.position.x,camera.position.z-b.position.z);});
     for(let i=0;i<180;i++){pts[i*3+1]+=dt*.18;if(pts[i*3+1]>0)pts[i*3+1]=-75;}particleGeo.attributes.position.needsUpdate=true;
   }
-  return {root,update,material,box,rock,schools,terraces,buildings,solidBuildings,boundsAt,insideBasin,optics,bubbleMesh,neighborhood};
+  return {root,update,material,box,rock,schools,terraces,buildings,solidBuildings,boundsAt,insideBasin,optics,bubbleMesh,neighborhood,trench};
 }

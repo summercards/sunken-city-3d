@@ -1,0 +1,30 @@
+{
+  "source_space": "blender_room_local",
+  "origin_mode": "source_foundation_bounds_center_at_measured_walk_plane",
+  "room_frame_world_translation_m": [
+    0.0,
+    8.0,
+    -0.019999999552965164
+  ],
+  "room_frame_world_rotation_z_deg": 0,
+  "source_bounds_xy_m": [
+    [
+      -36.0,
+      -46.0
+    ],
+    [
+      36.0,
+      62.0
+    ]
+  ],
+  "walk_plane_z_m": -0.019999999552965164,
+  "footprint_source_object": "TD_Wet_asphalt_foundation",
+  "footprint_authority": "existing standalone reference-scene asphalt foundation; no gameplay whitebox supplied",
+  "blender_plane": "XY",
+  "blender_up": "+Z",
+  "rotation_y_deg_semantics": "rotation_about_blender_Z",
+  "godot_mapping": "(bx, by, bz) -> (bx, bz, -by)",
+  "scope": "standalone_reference_scene",
+  "block_id": "tower_district",
+  "level_id": null
+}

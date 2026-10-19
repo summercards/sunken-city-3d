@@ -26,8 +26,22 @@ export const ZONE_DEFS = [
     origin: [0, 0, 0],
     camera: [0.45, 1.75, -0.65],
     hover: [4.3, 5.92, -0.4],
-    boat: { park: [6.44, 'water', 7.23], yaw: 1.57 },
+    boat: { park: [6.97, 'water', 7.92], yaw: -1.05 },
     landing: { dockEdge: [6.0, 2.1, 4.3], stand: [3.35, 2.15, 3.35] },
+    // 除主码头外，浮在西南面的绞盘打捞台也得能上去（船可以从它东侧靠泊）。
+    // 每个 extra landing 都有自己的上岸边缘、待机点与停泊位，互不影响。
+    extraLandings: [
+      {
+        id: 'salvage',
+        name: '绞盘打捞台',
+        // 甲板东缘在 x≈-8.9，船侧靠（船头朝 ±z）停在外面 1.7m 处；
+        // 以前船头朝 +x 停在 -6.6，3.3m 长的船尾会插进甲板里（实测推出量 3.96m）。
+        dockEdge: [-9.0, 1.33, 13.0],
+        stand: [-11.6, 1.33, 12.6],
+        park: [-7.2, 'water', 13.9],
+        yaw: 0
+      }
+    ],
     walk: [
       // 木屋四周的木板台面 + 南侧通往交易码头的低栈道；水面与屋顶由高度窗口挡掉。
       { id: 'zone1_home_dock', y: 2.15, span: [1.3, 2.45], rects: [
@@ -53,8 +67,10 @@ export const ZONE_DEFS = [
     origin: [-30, 0, -18],
     camera: [0, 1.2, 0],
     hover: [0, 5.32, 0],
-    boat: { park: [-3.27, 'water', 4.92], yaw: -0.92 },
-    landing: { dockEdge: [-2.6, 1.17, 2.4], stand: [-2.7, 2.83, -0.3] },
+    boat: { park: [-3.51, 'water', 5.78], yaw: -1.57 },
+    // 上岸边原来落在低栈道两块木板之间的缝里（射线打下去只有水面），
+    // 往前挪半块板，保证角色下船第一脚就踩在木板上。
+    landing: { dockEdge: [-2.2, 1.17, 2.3], stand: [-2.7, 2.83, -0.3] },
     walk: [
       // 站台本体是斜向长条，用几段矩形拼出来；北端栈桥直通登岸点。
       { id: 'zone2_station', y: 2.6, span: [1.1, 3.1], rects: [
@@ -81,7 +97,7 @@ export const ZONE_DEFS = [
     origin: [-2.25, 0.3, -36],
     camera: [0, 1.6, 0],
     hover: [0, 5.2, 0],
-    boat: { park: [9, 'water', 2], yaw: -3.14 },
+    boat: { park: [9.9, 'water', 2], yaw: -2.62 },
     landing: { dockEdge: [5.4, 3.1, 2], stand: [2, 4.31, 1] },
     walk: [
       // 东侧 3.1 露台沿台阶登上 4.3~4.56 的屋顶花池，两段高度放在同一个窗口里。
@@ -108,7 +124,7 @@ export const ZONE_DEFS = [
     unlock: 'farSea',
     origin: [39.5, 0, -41.5],
     camera: [0, 1.4, 0],
-    boat: { park: [-5.24, 'water', 5.14], yaw: 0 },
+    boat: { park: [-6.44, 'water', 4.94], yaw: 2.36 },
     landing: { dockEdge: [-3.3, 1.73, 4.1], stand: [-1.7, 1.66, 0.7] },
     walk: [
       { id: 'zone4_shore', y: 1.65, span: [1.3, 2.15], rects: [[-4.1, -0.9, 0.3, 5.5]] }
@@ -125,7 +141,7 @@ export const ZONE_DEFS = [
     site: [0, 0],
     camera: [0, 1.5, 0],
     hover: [0, 2.5, 0],
-    boat: { park: [-4.71, 'water', -0.02], yaw: 0 },
+    boat: { park: [-4.73, 'water', -0.08], yaw: 0 },
     landing: { dockEdge: [-2.8, 1.35, -0.6], stand: [-1, 1.15, 0] },
     walk: [
       // 岛面只有 0.03 露出水面，窗口下限要压到 1.0 才认得到这块地。
@@ -135,29 +151,10 @@ export const ZONE_DEFS = [
   }
 ];
 
-// 航线航点（世界坐标 [x, z]，y 统一贴水面）。未列出的组合走直线，再由 gameplay 的
-// 障碍绕行补齐 —— 所以新增区块可以先不写航线，能跑通再补。
-// 注意：航线是世界坐标、不属于任何区块，搬动区块后要回来核对（zone-spacing 会校验）。
-export const SAIL_ROUTES = {
-  // zone1 的楼体南界 z = -12.8，zone3 北界 z ≈ -27.7，中间是唯一的东西向走廊，
-  // 中线取 z = -16.5（净空 ~4m 到楼、~11m 到 zone3）。所有航线都从这里过，不再从楼里穿。
-  'zone1>zone2': [[12.5, 5], [14, -4], [14, -14], [10, -16.5], [0, -16.5], [-10, -16.5], [-18, -14], [-26, -12]],
-  'zone2>zone1': [[-26, -12], [-18, -14], [-10, -16.5], [0, -16.5], [10, -16.5], [14, -14], [14, -4], [12.5, 5]],
-  'zone1>zone3': [[12.5, 5], [14, -4], [14, -14], [10, -20], [10, -28]],
-  'zone3>zone1': [[10, -28], [10, -20], [14, -14], [14, -4], [12.5, 5]],
-  'zone3>zone2': [[10, -28], [10, -20], [13, -17], [10, -16.5], [0, -16.5], [-10, -16.5], [-18, -14], [-26, -12]],
-  'zone2>zone3': [[-26, -12], [-18, -14], [-10, -16.5], [0, -16.5], [10, -16.5], [13, -17], [10, -20], [10, -28]],
-  'zone1>zone4': [[12.5, 5], [14, -4], [14, -14], [16, -20]],
-  'zone4>zone1': [[16, -20], [14, -14], [14, -4], [12.5, 5]],
-  // 远海往返：沿东侧水道南下，绕开 x≈28~35 的废墟塔
-  'zone5>zone4': [[16, 8], [14, 0], [14, -14], [16, -22], [24, -30], [28, -32]],
-  'zone4>zone5': [[28, -32], [24, -30], [16, -22], [14, -14], [14, 0], [16, 8]],
-  // zone5 在东侧，沿 zone1 与 zone5 之间的南北水道近岸
-  'zone1>zone5': [[12.5, 4], [14, 0], [16, 8]],
-  'zone5>zone1': [[16, 8], [14, 0], [12.5, 4]]
-};
+// 航线不再手写航点：gameplay 会把「高出水面的实体」压成 0.5m 栅格做 A*（sail-nav.js），
+// 路径按船体半宽自动留净空。搬动区块、加建筑之后不用回来改任何航线坐标。
 
-export function createZoneRegistry({ THREE, WATER_LEVEL, defs = ZONE_DEFS, routes = SAIL_ROUTES }) {
+export function createZoneRegistry({ THREE, WATER_LEVEL, defs = ZONE_DEFS }) {
   const num = (v) => (v === 'water' ? WATER_LEVEL : v);
 
   function createZone(d) {
@@ -189,16 +186,39 @@ export function createZoneRegistry({ THREE, WATER_LEVEL, defs = ZONE_DEFS, route
       };
     });
 
+    // 一个区块可以有多个上岸点：主码头 + 若干独立平台（打捞台、养殖台…）。
+    // 主码头沿用 d.boat / d.landing，额外平台写在 extraLandings 里，结构一致。
+    const landings = [
+      {
+        id: 'main',
+        name: d.name,
+        boatPark: vec(d.boat.park),
+        boatYaw: d.boat.yaw ?? 0,
+        dockEdge: vec(d.landing.dockEdge),
+        landStand: vec(d.landing.stand)
+      },
+      ...(d.extraLandings || []).map((l) => ({
+        id: l.id,
+        name: l.name || d.name,
+        boatPark: vec(l.park),
+        boatYaw: l.yaw ?? 0,
+        dockEdge: vec(l.dockEdge),
+        landStand: vec(l.stand)
+      }))
+    ];
+
     return {
       ...d,
       origin: new THREE.Vector3(ox, oy, oz),
       camera: d.camera ? vec(d.camera) : null,
       hoverAnchor: d.hover ? vec(d.hover) : null,
       site: d.site ? vec([d.site[0], 0, d.site[1]]) : null,
-      boatPark: vec(d.boat.park),
-      boatYaw: d.boat.yaw ?? 0,
-      dockEdge: vec(d.landing.dockEdge),
-      landStand: vec(d.landing.stand),
+      // boatPark / boatYaw / dockEdge / landStand 仍然指向主码头，保持旧调用处可用。
+      boatPark: landings[0].boatPark,
+      boatYaw: landings[0].boatYaw,
+      dockEdge: landings[0].dockEdge,
+      landStand: landings[0].landStand,
+      landings,
       harbor: (d.harbor || []).map((h) => ({ ...h, point: vec(h.point) })),
       regions
     };
@@ -210,12 +230,6 @@ export function createZoneRegistry({ THREE, WATER_LEVEL, defs = ZONE_DEFS, route
 
   function get(id) {
     return byId[id] || null;
-  }
-
-  // 航线：显式配置优先，反向自动复用；都没有就返回 null 走直线。
-  function routePoints(from, to) {
-    if (from === to) return null;
-    return routes[`${from}>${to}`] || null;
   }
 
   function isUnlocked(id, state) {
@@ -231,8 +245,17 @@ export function createZoneRegistry({ THREE, WATER_LEVEL, defs = ZONE_DEFS, route
     ids: list.map((z) => z.id),
     walkRegions,
     get,
-    routePoints,
     isUnlocked,
+    // 取某个上岸点（不传 landingId 就取主码头）。
+    landing(zoneId, landingId) {
+      const zone = get(zoneId);
+      if (!zone) return null;
+      if (!landingId || landingId === 'main') return zone.landings[0];
+      return zone.landings.find((l) => l.id === landingId) || zone.landings[0];
+    },
+    landingsOf(zoneId) {
+      return get(zoneId)?.landings || [];
+    },
     label: (id) => get(id)?.name || id,
     role: (id) => get(id)?.role || null,
     serviceZones: (kind) => list.filter((z) => (z.harbor || []).some((h) => h.kind === kind)).map((z) => z.id),

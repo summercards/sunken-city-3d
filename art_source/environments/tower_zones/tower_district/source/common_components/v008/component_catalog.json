@@ -1,0 +1,3334 @@
+{
+  "schema": "tower_district.component_catalog",
+  "library": "v008",
+  "components": [
+    {
+      "slug": "city_backdrop",
+      "name_zh": "远景楼群背景",
+      "category": "environment",
+      "component_family": "city_backdrop",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-CITY-BACKDROP",
+      "geometry_fingerprint": "cd021fce179906b8b2615140d920922d82f9608eaf92d338b912769c6f344a00",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        105.67263793945312,
+        37.19364929199219,
+        31.15620231628418
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_city_backdrop",
+      "root_object": "ROOT_city_backdrop",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-CITY-BACKDROP/city_backdrop.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_city_backdrop",
+      "asset_id": "ENV-TOWER-DISTRICT-CITY-BACKDROP",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "service_duct_tower",
+      "name_zh": "楼顶矩形风道塔",
+      "category": "environment",
+      "component_family": "service_duct_tower",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-SERVICE-DUCT-TOWER",
+      "geometry_fingerprint": "1e71900bc14e917b8b945e1c4a3afbaf1d032a4bc1a7e0c6c0ce590af14bb27a",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        5.02500057220459,
+        4.364999771118164,
+        7.0
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_service_duct_tower",
+      "root_object": "ROOT_service_duct_tower",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-SERVICE-DUCT-TOWER/service_duct_tower.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_service_duct_tower",
+      "asset_id": "ENV-TOWER-DISTRICT-SERVICE-DUCT-TOWER",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "marquee_panel",
+      "name_zh": "灯牌框体",
+      "category": "fitting",
+      "component_family": "marquee_panel",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-MARQUEE-PANEL",
+      "geometry_fingerprint": "ef999a9d5bf68792c5d5c74919ed44aeff83539b69784238f55a85606bec2073",
+      "axis": "fitting",
+      "instance_count": 14,
+      "bounds_size_m": [
+        1.859999656677246,
+        0.8650002479553223,
+        3.2599992752075195
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_marquee_panel",
+      "root_object": "ROOT_marquee_panel",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-MARQUEE-PANEL/marquee_panel.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_marquee_panel",
+      "asset_id": "ENV-TOWER-DISTRICT-MARQUEE-PANEL",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "district_marquee_artwork",
+      "name_zh": "街区灯栅字图",
+      "category": "decoration",
+      "component_family": "district_marquee_artwork",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-DISTRICT-MARQUEE-ARTWORK",
+      "geometry_fingerprint": "856d168ffd5f5bfdac474563628e1d04b7d6a55a95a293c0fbfd7d9178f15981",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        27.420000076293945,
+        0.06750011444091797,
+        2.38700008392334
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_district_marquee_artwork",
+      "root_object": "ROOT_district_marquee_artwork",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-DISTRICT-MARQUEE-ARTWORK/district_marquee_artwork.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_district_marquee_artwork",
+      "asset_id": "ENV-TOWER-DISTRICT-DISTRICT-MARQUEE-ARTWORK",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "marquee_mounting_rail",
+      "name_zh": "灯牌支撑轨",
+      "category": "environment",
+      "component_family": "marquee_mounting_rail",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-MARQUEE-MOUNTING-RAIL",
+      "geometry_fingerprint": "a7c2b2d61a99f40aac629e3412dc9df1bd1873c9bccbd5fc10e088dac22c799e",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        33.900001525878906,
+        0.6599998474121094,
+        2.0
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_marquee_mounting_rail",
+      "root_object": "ROOT_marquee_mounting_rail",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-MARQUEE-MOUNTING-RAIL/marquee_mounting_rail.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_marquee_mounting_rail",
+      "asset_id": "ENV-TOWER-DISTRICT-MARQUEE-MOUNTING-RAIL",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "bridge_pier",
+      "name_zh": "高架桥墩",
+      "category": "structure",
+      "component_family": "bridge_pier",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-BRIDGE-PIER",
+      "geometry_fingerprint": "3afeaa4c2ed874868dd69bee8c92a1dd088a090973e7c8d5091b31d1f0a9fa9c",
+      "axis": "structure",
+      "instance_count": 2,
+      "bounds_size_m": [
+        3.200000286102295,
+        7.699999809265137,
+        6.900000095367432
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_bridge_pier",
+      "root_object": "ROOT_bridge_pier",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-BRIDGE-PIER/bridge_pier.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_bridge_pier",
+      "asset_id": "ENV-TOWER-DISTRICT-BRIDGE-PIER",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "bridge_fascia",
+      "name_zh": "高架桥面檐口",
+      "category": "structure",
+      "component_family": "bridge_fascia",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-BRIDGE-FASCIA",
+      "geometry_fingerprint": "48b9ba6d99565907ee47286a23fe6d81b6a31841b5d6a6095835a9a282044d86",
+      "axis": "structure",
+      "instance_count": 1,
+      "bounds_size_m": [
+        43.0,
+        7.574907302856445,
+        2.7548933029174805
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_bridge_fascia",
+      "root_object": "ROOT_bridge_fascia",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-BRIDGE-FASCIA/bridge_fascia.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_bridge_fascia",
+      "asset_id": "ENV-TOWER-DISTRICT-BRIDGE-FASCIA",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "service_conduit_network",
+      "name_zh": "跨设施矩形管网",
+      "category": "environment",
+      "component_family": "service_conduit_network",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-SERVICE-CONDUIT-NETWORK",
+      "geometry_fingerprint": "fae0f50748d316dcf074cd29948216e20ec384d8f4052c57b01ca7c67b31a63f",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        39.969879150390625,
+        0.9860000610351562,
+        2.3611016273498535
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_service_conduit_network",
+      "root_object": "ROOT_service_conduit_network",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-SERVICE-CONDUIT-NETWORK/service_conduit_network.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_service_conduit_network",
+      "asset_id": "ENV-TOWER-DISTRICT-SERVICE-CONDUIT-NETWORK",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "cooling_fan_unit",
+      "name_zh": "方格风扇机组",
+      "category": "fitting",
+      "component_family": "cooling_fan_unit",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-COOLING-FAN-UNIT",
+      "geometry_fingerprint": "92d808e25942157b7a48089f5c97d27a56136829c04f81621da83cf60f30c42d",
+      "axis": "fitting",
+      "instance_count": 3,
+      "bounds_size_m": [
+        1.25,
+        0.9800000190734863,
+        0.8500003814697266
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_cooling_fan_unit",
+      "root_object": "ROOT_cooling_fan_unit",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-COOLING-FAN-UNIT/cooling_fan_unit.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_cooling_fan_unit",
+      "asset_id": "ENV-TOWER-DISTRICT-COOLING-FAN-UNIT",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "cooling_louver_unit",
+      "name_zh": "百叶冷却机组",
+      "category": "fitting",
+      "component_family": "cooling_louver_unit",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-COOLING-LOUVER-UNIT",
+      "geometry_fingerprint": "51a54c6ee5974f9c34e181b7cc886747311477576b3660ca75e8d77222857d60",
+      "axis": "fitting",
+      "instance_count": 3,
+      "bounds_size_m": [
+        1.25,
+        0.8849999904632568,
+        0.8500003814697266
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_cooling_louver_unit",
+      "root_object": "ROOT_cooling_louver_unit",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-COOLING-LOUVER-UNIT/cooling_louver_unit.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_cooling_louver_unit",
+      "asset_id": "ENV-TOWER-DISTRICT-COOLING-LOUVER-UNIT",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "warning_light_bank",
+      "name_zh": "四格警示灯组",
+      "category": "fitting",
+      "component_family": "warning_light_bank",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-WARNING-LIGHT-BANK",
+      "geometry_fingerprint": "98617ba8d941240f99e99b4e047b0352bea1ec1edbda33d03a3299c4891ab74e",
+      "axis": "fitting",
+      "instance_count": 2,
+      "bounds_size_m": [
+        2.890000104904175,
+        0.5400002002716064,
+        0.9000000953674316
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_warning_light_bank",
+      "root_object": "ROOT_warning_light_bank",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-WARNING-LIGHT-BANK/warning_light_bank.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_warning_light_bank",
+      "asset_id": "ENV-TOWER-DISTRICT-WARNING-LIGHT-BANK",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "tunnel_structure",
+      "name_zh": "下穿通道结构",
+      "category": "structure",
+      "component_family": "tunnel_structure",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-TUNNEL-STRUCTURE",
+      "geometry_fingerprint": "8a074ef8300b987f96bbd61310d455dd81b6ec16802af9f1235ab919edde890b",
+      "axis": "structure",
+      "instance_count": 1,
+      "bounds_size_m": [
+        23.024999618530273,
+        46.900001525878906,
+        7.0
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_tunnel_structure",
+      "root_object": "ROOT_tunnel_structure",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-TUNNEL-STRUCTURE/tunnel_structure.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_tunnel_structure",
+      "asset_id": "ENV-TOWER-DISTRICT-TUNNEL-STRUCTURE",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "tunnel_lantern",
+      "name_zh": "通道壁灯",
+      "category": "fitting",
+      "component_family": "tunnel_lantern",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-TUNNEL-LANTERN",
+      "geometry_fingerprint": "078b91c9273cb7ee52b85bc59d499b1d13aaecb54afc4c8a59b960e643b8fb58",
+      "axis": "fitting",
+      "instance_count": 2,
+      "bounds_size_m": [
+        0.2799997329711914,
+        0.2349996566772461,
+        0.5099999904632568
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_tunnel_lantern",
+      "root_object": "ROOT_tunnel_lantern",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-TUNNEL-LANTERN/tunnel_lantern.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_tunnel_lantern",
+      "asset_id": "ENV-TOWER-DISTRICT-TUNNEL-LANTERN",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "convenience_facade",
+      "name_zh": "便利店外立面",
+      "category": "structure",
+      "component_family": "convenience_facade",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-CONVENIENCE-FACADE",
+      "geometry_fingerprint": "3b77ff4ea3a8cc63e53f5fd5a896476c26c6184af4bcdb63f879997489fbea9d",
+      "axis": "structure",
+      "instance_count": 1,
+      "bounds_size_m": [
+        12.94999885559082,
+        10.960000038146973,
+        8.5
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal",
+        "TD_WetPaint"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_convenience_facade",
+      "root_object": "ROOT_convenience_facade",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-CONVENIENCE-FACADE/convenience_facade.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_convenience_facade",
+      "asset_id": "ENV-TOWER-DISTRICT-CONVENIENCE-FACADE",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "liquor_sign",
+      "name_zh": "酒类竖向灯牌",
+      "category": "fitting",
+      "component_family": "liquor_sign",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-LIQUOR-SIGN",
+      "geometry_fingerprint": "1da2295b60b6c67c2cf25fd16b8462db5c4f0109bb68ceef8252b4a42d1b35bb",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        1.239999771118164,
+        1.2425000667572021,
+        7.104999542236328
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_liquor_sign",
+      "root_object": "ROOT_liquor_sign",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-LIQUOR-SIGN/liquor_sign.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_liquor_sign",
+      "asset_id": "ENV-TOWER-DISTRICT-LIQUOR-SIGN",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "cash_machine",
+      "name_zh": "提款机及附属灯牌",
+      "category": "fitting",
+      "component_family": "cash_machine",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-CASH-MACHINE",
+      "geometry_fingerprint": "064cbcfb701c9da4887b910e034e589e853840126b06e9a3f5cfbbbc7767b4f3",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        2.1700000762939453,
+        0.7749999761581421,
+        3.2200002670288086
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_cash_machine",
+      "root_object": "ROOT_cash_machine",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-CASH-MACHINE/cash_machine.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_cash_machine",
+      "asset_id": "ENV-TOWER-DISTRICT-CASH-MACHINE",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "notice_poster_set",
+      "name_zh": "墙面张贴物组",
+      "category": "decoration",
+      "component_family": "notice_poster_set",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-NOTICE-POSTER-SET",
+      "geometry_fingerprint": "03cd6234230bee7a59a65775b7d938b14fa33565a05ced41ee36bfeb85e92d24",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        8.831814765930176,
+        0.034999966621398926,
+        2.0312180519104004
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_notice_poster_set",
+      "root_object": "ROOT_notice_poster_set",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-NOTICE-POSTER-SET/notice_poster_set.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_notice_poster_set",
+      "asset_id": "ENV-TOWER-DISTRICT-NOTICE-POSTER-SET",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "information_terminal",
+      "name_zh": "街头信息终端",
+      "category": "fitting",
+      "component_family": "information_terminal",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-INFORMATION-TERMINAL",
+      "geometry_fingerprint": "2b57302a9f952c7ac0fe82b71cfc40d440b3b99d828a7561afff0a5d200850a0",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        1.1999998092651367,
+        0.8799999356269836,
+        3.049999952316284
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_information_terminal",
+      "root_object": "ROOT_information_terminal",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-INFORMATION-TERMINAL/information_terminal.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_information_terminal",
+      "asset_id": "ENV-TOWER-DISTRICT-INFORMATION-TERMINAL",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "service_shop_facade",
+      "name_zh": "设备店外立面",
+      "category": "structure",
+      "component_family": "service_shop_facade",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-SERVICE-SHOP-FACADE",
+      "geometry_fingerprint": "7fb45e6ebfce4273284d5cefc81341105982399acb455f9ea1ed01a701453cdf",
+      "axis": "structure",
+      "instance_count": 1,
+      "bounds_size_m": [
+        13.0,
+        12.920000076293945,
+        24.0
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal",
+        "TD_WetPaint"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_service_shop_facade",
+      "root_object": "ROOT_service_shop_facade",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-SERVICE-SHOP-FACADE/service_shop_facade.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_service_shop_facade",
+      "asset_id": "ENV-TOWER-DISTRICT-SERVICE-SHOP-FACADE",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "sector_wordmark",
+      "name_zh": "店铺发光字牌",
+      "category": "fitting",
+      "component_family": "sector_wordmark",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-SECTOR-WORDMARK",
+      "geometry_fingerprint": "2b4e75d1d615f4ac380b339bcfd3622fc10b91dcfdafbb60f937df7aa57b80c9",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        4.100000381469727,
+        0.46000003814697266,
+        1.4499998092651367
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_sector_wordmark",
+      "root_object": "ROOT_sector_wordmark",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-SECTOR-WORDMARK/sector_wordmark.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_sector_wordmark",
+      "asset_id": "ENV-TOWER-DISTRICT-SECTOR-WORDMARK",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "window_indicator_strip",
+      "name_zh": "门厅方灯组",
+      "category": "fitting",
+      "component_family": "window_indicator_strip",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-WINDOW-INDICATOR-STRIP",
+      "geometry_fingerprint": "9da76e1e055d1522e0ff10000e9b69dabeebd7fa4ae597481c9c30e4842c0cee",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        1.029998779296875,
+        0.059999942779541016,
+        0.21000003814697266
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_window_indicator_strip",
+      "root_object": "ROOT_window_indicator_strip",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-WINDOW-INDICATOR-STRIP/window_indicator_strip.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_window_indicator_strip",
+      "asset_id": "ENV-TOWER-DISTRICT-WINDOW-INDICATOR-STRIP",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "loading_information_sign",
+      "name_zh": "装卸说明牌",
+      "category": "fitting",
+      "component_family": "loading_information_sign",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-LOADING-INFORMATION-SIGN",
+      "geometry_fingerprint": "a39a802652104b5cf5f64c3a487262ec4ee55d6d6396bb3d786b880b5e9549d0",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        0.9800004959106445,
+        0.3450000286102295,
+        2.7200000286102295
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_loading_information_sign",
+      "root_object": "ROOT_loading_information_sign",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-LOADING-INFORMATION-SIGN/loading_information_sign.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_loading_information_sign",
+      "asset_id": "ENV-TOWER-DISTRICT-LOADING-INFORMATION-SIGN",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "audio_advert",
+      "name_zh": "音响广告牌",
+      "category": "fitting",
+      "component_family": "audio_advert",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-AUDIO-ADVERT",
+      "geometry_fingerprint": "81e2fc37d8a676fe8842ed23a6b34ebf4f35faeef38eafe6f2f3693c2ef4ba67",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        3.3000001907348633,
+        0.820000171661377,
+        3.0
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_audio_advert",
+      "root_object": "ROOT_audio_advert",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-AUDIO-ADVERT/audio_advert.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_audio_advert",
+      "asset_id": "ENV-TOWER-DISTRICT-AUDIO-ADVERT",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "food_advert",
+      "name_zh": "食品广告牌",
+      "category": "fitting",
+      "component_family": "food_advert",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-FOOD-ADVERT",
+      "geometry_fingerprint": "09a806507f429d2017809cd93a724199fca5caaa6184b39ed48f93db412d0184",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        1.5,
+        0.7950000762939453,
+        3.0
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_food_advert",
+      "root_object": "ROOT_food_advert",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-FOOD-ADVERT/food_advert.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_food_advert",
+      "asset_id": "ENV-TOWER-DISTRICT-FOOD-ADVERT",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "rush_advert",
+      "name_zh": "RUSH广告牌",
+      "category": "fitting",
+      "component_family": "rush_advert",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-RUSH-ADVERT",
+      "geometry_fingerprint": "739e5688466cfaf9169a6883fbb82fe36add5218fa10d4d5742c3ef3ceaa2913",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        2.299999237060547,
+        0.815000057220459,
+        3.0
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_rush_advert",
+      "root_object": "ROOT_rush_advert",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-RUSH-ADVERT/rush_advert.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_rush_advert",
+      "asset_id": "ENV-TOWER-DISTRICT-RUSH-ADVERT",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "vinyl_advert",
+      "name_zh": "唱片竖广告牌",
+      "category": "fitting",
+      "component_family": "vinyl_advert",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-VINYL-ADVERT",
+      "geometry_fingerprint": "b4d5b7a94ff9749e513656ab54bea69866980da793f3a97ac8fa335c248f3da7",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        2.6000003814697266,
+        0.7250003814697266,
+        5.399999618530273
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_vinyl_advert",
+      "root_object": "ROOT_vinyl_advert",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-VINYL-ADVERT/vinyl_advert.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_vinyl_advert",
+      "asset_id": "ENV-TOWER-DISTRICT-VINYL-ADVERT",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "traffic_standard_inverted",
+      "name_zh": "反向悬臂交通杆",
+      "category": "fitting",
+      "component_family": "traffic_standard",
+      "variant_axis": "structure_state",
+      "variant_value": "inverted_cantilever",
+      "variant_reason": "悬臂偏置与可见灯面关系不同，不能靠绕Z旋转互换。",
+      "component_id": "ENV-TOWER-DISTRICT-TRAFFIC-STANDARD-INVERTED",
+      "geometry_fingerprint": "53b819f20f3332718efee3c9a1077119fbdeed5b4998ed90d4dedb2859a09af9",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        1.6599998474121094,
+        0.8399999141693115,
+        8.014999389648438
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_traffic_standard_inverted",
+      "root_object": "ROOT_traffic_standard_inverted",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-TRAFFIC-STANDARD-INVERTED/traffic_standard_inverted.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_traffic_standard_inverted",
+      "asset_id": "ENV-TOWER-DISTRICT-TRAFFIC-STANDARD-INVERTED",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "traffic_standard_standard",
+      "name_zh": "标准悬臂交通杆",
+      "category": "fitting",
+      "component_family": "traffic_standard",
+      "variant_axis": "structure_state",
+      "variant_value": "standard_cantilever",
+      "variant_reason": "悬臂偏置与可见灯面关系不同，不能靠绕Z旋转互换。",
+      "component_id": "ENV-TOWER-DISTRICT-TRAFFIC-STANDARD-STANDARD",
+      "geometry_fingerprint": "b324a4d3e9f96e417d7fd517a4bcc8d016aac0466cea473a74f5db013ec1ee3c",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        1.6599998474121094,
+        0.8399999141693115,
+        8.014999389648438
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_traffic_standard_standard",
+      "root_object": "ROOT_traffic_standard_standard",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-TRAFFIC-STANDARD-STANDARD/traffic_standard_standard.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_traffic_standard_standard",
+      "asset_id": "ENV-TOWER-DISTRICT-TRAFFIC-STANDARD-STANDARD",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "asphalt_foundation",
+      "name_zh": "沥青基础面",
+      "category": "structure",
+      "component_family": "asphalt_foundation",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-ASPHALT-FOUNDATION",
+      "geometry_fingerprint": "71d98883452830980f92ab377443b6c4849974059f407374f4a71bfba10bdec4",
+      "axis": "structure",
+      "instance_count": 1,
+      "bounds_size_m": [
+        72.0,
+        108.0,
+        0.3999999761581421
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_WetPaint"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_asphalt_foundation",
+      "root_object": "ROOT_asphalt_foundation",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-ASPHALT-FOUNDATION/asphalt_foundation.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_asphalt_foundation",
+      "asset_id": "ENV-TOWER-DISTRICT-ASPHALT-FOUNDATION",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "wet_road_surface",
+      "name_zh": "湿路面颗粒与标线",
+      "category": "decoration",
+      "component_family": "wet_road_surface",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-WET-ROAD-SURFACE",
+      "geometry_fingerprint": "1774e3e04caba2c78bc9347254af27665058407b451733fd8d3248a1cc9b766b",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        44.13672637939453,
+        73.85013580322266,
+        0.0469975620508194
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte",
+        "TD_WetPaint"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_wet_road_surface",
+      "root_object": "ROOT_wet_road_surface",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-WET-ROAD-SURFACE/wet_road_surface.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_wet_road_surface",
+      "asset_id": "ENV-TOWER-DISTRICT-WET-ROAD-SURFACE",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "pavement_foundation",
+      "name_zh": "人行道基础",
+      "category": "structure",
+      "component_family": "pavement_foundation",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-PAVEMENT-FOUNDATION",
+      "geometry_fingerprint": "81cfc40ad118a168d5ff91a8b48aaf2c689f52aa39e5d9608a51b9a779a67313",
+      "axis": "structure",
+      "instance_count": 2,
+      "bounds_size_m": [
+        13.0,
+        49.0,
+        0.25999999046325684
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_pavement_foundation",
+      "root_object": "ROOT_pavement_foundation",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-PAVEMENT-FOUNDATION/pavement_foundation.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_pavement_foundation",
+      "asset_id": "ENV-TOWER-DISTRICT-PAVEMENT-FOUNDATION",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "pavement_tile",
+      "name_zh": "人行道砖",
+      "category": "structure",
+      "component_family": "pavement_tile",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-PAVEMENT-TILE",
+      "geometry_fingerprint": "43202242cb79bf15dc078ab811f81ce1e279372bc25167fbe0353a9214afece0",
+      "axis": "structure",
+      "instance_count": 2640,
+      "bounds_size_m": [
+        0.5900001525878906,
+        0.7900009155273438,
+        0.10000000894069672
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          -0.625,
+          -0.125,
+          0
+        ],
+        [
+          -0.375,
+          -0.125,
+          0
+        ],
+        [
+          -0.3125,
+          -0.125,
+          0
+        ],
+        [
+          -0.25,
+          -0.125,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_pavement_tile",
+      "root_object": "ROOT_pavement_tile",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-PAVEMENT-TILE/pavement_tile.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": true,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_pavement_tile",
+      "asset_id": "ENV-TOWER-DISTRICT-PAVEMENT-TILE",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "curbstone",
+      "name_zh": "路缘石",
+      "category": "structure",
+      "component_family": "curbstone",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-CURBSTONE",
+      "geometry_fingerprint": "6a31da20ec27a848e8ec49fe080d7f956263618a1632dab296995379568feb91",
+      "axis": "structure",
+      "instance_count": 144,
+      "bounds_size_m": [
+        0.22999954223632812,
+        0.6100006103515625,
+        0.4000000059604645
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          -0.625,
+          -0.125,
+          0
+        ],
+        [
+          -0.5,
+          -0.125,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_curbstone",
+      "root_object": "ROOT_curbstone",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-CURBSTONE/curbstone.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": true,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_curbstone",
+      "asset_id": "ENV-TOWER-DISTRICT-CURBSTONE",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "pavement_scatter",
+      "name_zh": "路沿碎屑散布层",
+      "category": "decoration",
+      "component_family": "pavement_scatter",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-PAVEMENT-SCATTER",
+      "geometry_fingerprint": "5dae330e30d6cf05a80b1241192e3c9b8867b6e18abe3673161dd0f6a9659138",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        46.14582061767578,
+        32.13256072998047,
+        0.03496268391609192
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_pavement_scatter",
+      "root_object": "ROOT_pavement_scatter",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-PAVEMENT-SCATTER/pavement_scatter.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_pavement_scatter",
+      "asset_id": "ENV-TOWER-DISTRICT-PAVEMENT-SCATTER",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "drain_grate",
+      "name_zh": "排水格栅",
+      "category": "fitting",
+      "component_family": "drain_grate",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-DRAIN-GRATE",
+      "geometry_fingerprint": "a5b04bf3588dd689eec7ec37cd63c633905aaf3b64cb99ab05595ed08b7c83b5",
+      "axis": "fitting",
+      "instance_count": 6,
+      "bounds_size_m": [
+        0.75,
+        0.8000001907348633,
+        0.08000001311302185
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_drain_grate",
+      "root_object": "ROOT_drain_grate",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-DRAIN-GRATE/drain_grate.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_drain_grate",
+      "asset_id": "ENV-TOWER-DISTRICT-DRAIN-GRATE",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "road_barrier",
+      "name_zh": "道路护栏段",
+      "category": "fitting",
+      "component_family": "road_barrier",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-ROAD-BARRIER",
+      "geometry_fingerprint": "d154a9945a7e742d4889dfdc2a1a038b631f880e3c9d5f4f43955a5c2a71e345",
+      "axis": "fitting",
+      "instance_count": 12,
+      "bounds_size_m": [
+        0.4200000762939453,
+        1.864999771118164,
+        1.600000023841858
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_road_barrier",
+      "root_object": "ROOT_road_barrier",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-ROAD-BARRIER/road_barrier.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_road_barrier",
+      "asset_id": "ENV-TOWER-DISTRICT-ROAD-BARRIER",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "street_bin",
+      "name_zh": "街头箱体",
+      "category": "fitting",
+      "component_family": "street_bin",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-STREET-BIN",
+      "geometry_fingerprint": "02859db92f545e5660fb9365005ffa11cde4b580b357d479072d12388a66e221",
+      "axis": "fitting",
+      "instance_count": 5,
+      "bounds_size_m": [
+        0.6900005340576172,
+        0.6349999904632568,
+        0.7399999499320984
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_street_bin",
+      "root_object": "ROOT_street_bin",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-STREET-BIN/street_bin.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_street_bin",
+      "asset_id": "ENV-TOWER-DISTRICT-STREET-BIN",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "bollard",
+      "name_zh": "路桩",
+      "category": "fitting",
+      "component_family": "bollard",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-BOLLARD",
+      "geometry_fingerprint": "a6995b14e369c6ade1542a616cdfdbcb7dee5ccb292199eb4b5557a8b88bfb57",
+      "axis": "fitting",
+      "instance_count": 4,
+      "bounds_size_m": [
+        0.19999980926513672,
+        0.20000000298023224,
+        1.0399999618530273
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte",
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_bollard",
+      "root_object": "ROOT_bollard",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-BOLLARD/bollard.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_bollard",
+      "asset_id": "ENV-TOWER-DISTRICT-BOLLARD",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "street_litter",
+      "name_zh": "街面碎屑散布层",
+      "category": "decoration",
+      "component_family": "street_litter",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-STREET-LITTER",
+      "geometry_fingerprint": "360d5e2855b8b4aa6157da230ff7f43217fa183f9037a7cf72ea7431a5a1fd15",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        30.108325958251953,
+        12.995769500732422,
+        0.08937490731477737
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Matte"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_street_litter",
+      "root_object": "ROOT_street_litter",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-STREET-LITTER/street_litter.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_street_litter",
+      "asset_id": "ENV-TOWER-DISTRICT-STREET-LITTER",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "sedan",
+      "name_zh": "方块轿车",
+      "category": "fitting",
+      "component_family": "sedan",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "material_variation": "palette_uv_shift",
+      "component_id": "ENV-TOWER-DISTRICT-SEDAN",
+      "geometry_fingerprint": "7b7823122057e16822d2bfa82517d32cbb2e160a9e842407be7b0c54c89f09ca",
+      "axis": "fitting",
+      "instance_count": 9,
+      "bounds_size_m": [
+        2.7200000286102295,
+        4.842499732971191,
+        1.972499966621399
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal",
+        "TD_WetPaint"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          -0.4375,
+          -0.125,
+          0
+        ],
+        [
+          -0.4375,
+          -0.0625,
+          0
+        ],
+        [
+          -0.3125,
+          -0.125,
+          0
+        ],
+        [
+          -0.0625,
+          0.0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.0625,
+          0.0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_sedan",
+      "root_object": "ROOT_sedan",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-SEDAN/sedan.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": true,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_sedan",
+      "asset_id": "ENV-TOWER-DISTRICT-SEDAN",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "drone_hull",
+      "name_zh": "巡逻无人机机身",
+      "category": "fitting",
+      "component_family": "drone_hull",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-DRONE-HULL",
+      "geometry_fingerprint": "ef7a34a49c882c0b67f1cd35a4c70e9726cb541b8849e6552efa2f6d34eb15fe",
+      "axis": "fitting",
+      "instance_count": 1,
+      "bounds_size_m": [
+        3.062609910964966,
+        2.4600000381469727,
+        1.8250000476837158
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Emission",
+        "TD_Matte",
+        "TD_Metal",
+        "TD_WetPaint"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_drone_hull",
+      "root_object": "ROOT_drone_hull",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-DRONE-HULL/drone_hull.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_drone_hull",
+      "asset_id": "ENV-TOWER-DISTRICT-DRONE-HULL",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "drone_rotor_guard",
+      "name_zh": "方粒旋翼护圈",
+      "category": "fitting",
+      "component_family": "drone_rotor_guard",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-DRONE-ROTOR-GUARD",
+      "geometry_fingerprint": "eb78374457c8a0da07e0660c43084fa3a01d04cfb8fc9aebb8a163b837fc3eab",
+      "axis": "fitting",
+      "instance_count": 4,
+      "bounds_size_m": [
+        1.2660000324249268,
+        1.2660000324249268,
+        0.25
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_drone_rotor_guard",
+      "root_object": "ROOT_drone_rotor_guard",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-DRONE-ROTOR-GUARD/drone_rotor_guard.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_drone_rotor_guard",
+      "asset_id": "ENV-TOWER-DISTRICT-DRONE-ROTOR-GUARD",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    },
+    {
+      "slug": "drone_rotor_blades",
+      "name_zh": "直条旋翼叶片",
+      "category": "fitting",
+      "component_family": "drone_rotor_blades",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "component_id": "ENV-TOWER-DISTRICT-DRONE-ROTOR-BLADES",
+      "geometry_fingerprint": "ff91851e7b1e26456d9ffbd076c0b5718c6648410dd271373496180e8bfbd45f",
+      "axis": "fitting",
+      "instance_count": 4,
+      "bounds_size_m": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.04500000178813934
+      ],
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "material_roles": [
+        "TD_Metal"
+      ],
+      "serves_room_types": [
+        "TOWER_DISTRICT_REFERENCE"
+      ],
+      "scope": "room_type_local",
+      "room_owned_geometry": false,
+      "material_variants": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "room_type": "TOWER_DISTRICT_REFERENCE",
+      "collection": "Component_drone_rotor_blades",
+      "root_object": "ROOT_drone_rotor_blades",
+      "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-DRONE-ROTOR-BLADES/drone_rotor_blades.blend",
+      "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+      "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+      "collision_owner": "godot_wrapper_if_future_import",
+      "collision_status": "not_authored_this_Blender_structure_task",
+      "palette_uv_layer": "PaletteUV",
+      "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+      "asset_ledger": null,
+      "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+      "geometry_source_created_after_plan_frozen": true,
+      "supports_palette_shift_attribute": false,
+      "root_transform_identity": true,
+      "mesh_transform_identity": true,
+      "collection_instance_offset": [
+        0,
+        0,
+        0
+      ],
+      "standalone_scene": "Component_drone_rotor_blades",
+      "asset_id": "ENV-TOWER-DISTRICT-DRONE-ROTOR-BLADES",
+      "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+      "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+      "material_variant_contract": {
+        "face_mask_attribute": "PaletteVariantMask",
+        "instancer_attribute": "palette_shift",
+        "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+      }
+    }
+  ]
+}

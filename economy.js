@@ -1,7 +1,7 @@
 export const MATERIALS = {
   coins: { name: '海贝', capacity: Infinity, source: '浅滩贝床采集，也用2份食物交换12枚海贝。' },
-  wood: { name: '木料', capacity: 60, source: '在各区域行走或航行时探索拾得，物资箱也会补给。' },
-  parts: { name: '旧零件', capacity: 60, source: '在各区域行走或航行时探索拾得，回收台也会分拣。' },
+  wood: { name: '木料', capacity: 60, source: '划到海面的漂流木箱/木块旁拾取，绞盘打捞也会补给。' },
+  parts: { name: '旧零件', capacity: 60, source: '划到海面的漂流零件桶旁拾取，回收台也会分拣。' },
   seeds: { name: '种子', capacity: 20, source: '圆弧农场的种子箱，菜箱收获时返还种子。' },
   food: { name: '食物', capacity: 40, source: '播种菜箱并按时浇水，成熟后主动收获。' },
   fish: { name: '鱼', capacity: 40, source: '靠近鱼群采集，浅水养殖台投苗。' },
@@ -10,14 +10,14 @@ export const MATERIALS = {
 
 // 采集是冷却式的：点一次拿一笔，然后要等物资重新长回来。
 // 冷却整体放缓，让 20 分钟 Demo 里的采集次数落在"够用但不刷屏"的区间。
+// `icon` 是世界里的采集标记（画面上只显示这一个图标，不带文字框），同一种资源用同一个图标。
+// 鱼不在固定采集点里：海面上的鱼群是活的（fish-schools.js），划到旁边现捞现少。
 export const COLLECTIONS = [
-  { id: 'home_crate', name: '屋顶物资箱', zone: 'zone1', reward: { wood: 3, parts: 1 }, cooldown: 34 },
-  { id: 'shell_bed', name: '浅滩贝床', zone: 'zone1', reward: { coins: 5 }, cooldown: 26 },
-  { id: 'canal_shoal', name: '水巷鱼群', zone: 'zone1', reward: { fish: 2 }, cooldown: 30 },
-  { id: 'garden_cache', name: '农场种子箱', zone: 'zone3', reward: { wood: 4, seeds: 2 }, cooldown: 42 },
-  { id: 'farm_shoal', name: '农场浅滩鱼群', zone: 'zone3', reward: { fish: 3 }, cooldown: 36 },
-  { id: 'workshop_cache', name: '铁道回收堆', zone: 'zone2', reward: { parts: 3, wood: 1 }, cooldown: 42 },
-  { id: 'sea_cache', name: '远海贝匣', zone: 'zone4', reward: { pearl: 1, parts: 2 }, cooldown: 60 }
+  { id: 'home_crate', name: '屋顶物资箱', zone: 'zone1', icon: '🪵', reward: { wood: 3, parts: 1 }, cooldown: 34 },
+  { id: 'shell_bed', name: '浅滩贝床', zone: 'zone1', icon: '🐚', reward: { coins: 5 }, cooldown: 26 },
+  { id: 'garden_cache', name: '农场种子箱', zone: 'zone3', icon: '🌱', reward: { wood: 4, seeds: 2 }, cooldown: 42 },
+  { id: 'workshop_cache', name: '铁道回收堆', zone: 'zone2', icon: '⚙', reward: { parts: 3, wood: 1 }, cooldown: 42 },
+  { id: 'sea_cache', name: '远海贝匣', zone: 'zone4', icon: '🫧', reward: { pearl: 1, parts: 2 }, cooldown: 60 }
 ];
 
 // 探索：木料和旧零件不靠"采集点"，而是走出来的。

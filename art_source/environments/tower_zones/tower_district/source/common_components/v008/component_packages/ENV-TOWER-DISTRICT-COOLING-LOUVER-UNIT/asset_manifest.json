@@ -1,0 +1,77 @@
+{
+  "slug": "cooling_louver_unit",
+  "name_zh": "百叶冷却机组",
+  "category": "fitting",
+  "component_family": "cooling_louver_unit",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "component_id": "ENV-TOWER-DISTRICT-COOLING-LOUVER-UNIT",
+  "geometry_fingerprint": "51a54c6ee5974f9c34e181b7cc886747311477576b3660ca75e8d77222857d60",
+  "axis": "fitting",
+  "instance_count": 3,
+  "bounds_size_m": [
+    1.25,
+    0.8849999904632568,
+    0.8500003814697266
+  ],
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "material_roles": [
+    "TD_Emission",
+    "TD_Matte",
+    "TD_Metal"
+  ],
+  "serves_room_types": [
+    "TOWER_DISTRICT_REFERENCE"
+  ],
+  "scope": "room_type_local",
+  "room_owned_geometry": false,
+  "material_variants": [
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "room_type": "TOWER_DISTRICT_REFERENCE",
+  "collection": "Component_cooling_louver_unit",
+  "root_object": "ROOT_cooling_louver_unit",
+  "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-COOLING-LOUVER-UNIT/cooling_louver_unit.blend",
+  "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+  "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+  "collision_owner": "godot_wrapper_if_future_import",
+  "collision_status": "not_authored_this_Blender_structure_task",
+  "palette_uv_layer": "PaletteUV",
+  "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+  "asset_ledger": null,
+  "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+  "geometry_source_created_after_plan_frozen": true,
+  "supports_palette_shift_attribute": false,
+  "root_transform_identity": true,
+  "mesh_transform_identity": true,
+  "collection_instance_offset": [
+    0,
+    0,
+    0
+  ],
+  "standalone_scene": "Component_cooling_louver_unit",
+  "asset_id": "ENV-TOWER-DISTRICT-COOLING-LOUVER-UNIT",
+  "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+  "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+  "material_variant_contract": {
+    "face_mask_attribute": "PaletteVariantMask",
+    "instancer_attribute": "palette_shift",
+    "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+  }
+}

@@ -216,16 +216,60 @@ button:disabled { cursor: not-allowed; opacity: .5; }
 .economy-action:disabled { opacity: .65; background: #e9e9de; border-color: #dedfcc; color: #6d7666; }
 .economy-panel button:not(:disabled):hover { filter: brightness(.97); }
 .economy-panel button:focus-visible, .economy-toggle:focus-visible { outline: 3px solid #c6a75f; outline-offset: 2px; }
+/* 采集/菜箱/设施的场景标记：只有一个图标，没有外框和文字。
+   下沿贴着锚点（translate -100%），所以整体是"浮在物件上方"而不是压在物件身上。 */
 .economy-marker {
-  position: fixed; z-index: 20; transform: translate(-50%, -50%); display: block;
-  max-width: 180px; min-height: 34px; padding: 7px 10px; border-radius: 13px;
-  border: 1px solid #fffaf0a8; background: rgb(255 250 234 / 90%); color: #42604d;
-  box-shadow: 0 3px 12px #203f4d24; font: 600 10px/1.4 system-ui, "PingFang SC", sans-serif;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: default;
-  pointer-events: none;
+  position: fixed; z-index: 20; transform: translate(-50%, -100%); display: block;
+  margin-top: -6px; line-height: 1;
+  font: 400 32px/1 "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "PingFang SC", system-ui, sans-serif;
+  color: #2f5560; letter-spacing: 0; white-space: nowrap;
+  /* 图标本身有颜色，用一层深色描边保证在浅色珊瑚/白甲板上也看得清。 */
+  filter: drop-shadow(0 0 1px #03202ad9) drop-shadow(0 0 1px #03202ad9) drop-shadow(0 2px 3px #03202a66);
+  cursor: default; pointer-events: none;
+  animation: economy-marker-in .3s cubic-bezier(.2,.9,.25,1.3) both;
 }
-.economy-marker:hover { background: #ecf2d8; }
+/* 干透的菜箱给一点冷色光晕，扫一眼就知道要浇水；其余状态保持中性。 */
+.economy-marker[data-state="thirsty"] { filter: drop-shadow(0 0 7px #6fd3ffd0) drop-shadow(0 1px 2px #062e3a70); }
+.economy-marker[data-state="busy"] { opacity: .82; }
+/* 鼠标悬停在图标上（由 canvas 的命中判定点亮）：放大一点，给个"可以点"的反馈。 */
+.economy-marker.is-hot { transform: translate(-50%, -100%) scale(1.18); }
+@keyframes economy-marker-in {
+  from { opacity: 0; transform: translate(-50%, calc(-100% + 5px)) scale(.72); }
+  to { opacity: 1; transform: translate(-50%, -100%) scale(1); }
+}
+/* 每个区块的 ⚓️ 上岸点：点一下就从这里走上岸。同样只有一个图标，没有外框和底板。
+   hover/active 的 transform 必须带 translate，否则会把定位用的 -50%/-100% 覆盖掉。 */
+.landing-marker {
+  position: fixed; z-index: 22; transform: translate(-50%, -100%); display: block;
+  margin: 0; padding: 3px 5px 4px; border: 0; background: none; line-height: 1;
+  font: 400 30px/1 "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "PingFang SC", system-ui, sans-serif;
+  /* 不接管指针：点击穿透到 canvas，由 hitTargetAt 统一路由。
+     否则图标会挡住它下方的小船、物资箱与地面点击。 */
+  cursor: pointer; pointer-events: none; -webkit-tap-highlight-color: transparent;
+  /* 锚本身是深色图形，深色海面上加一圈白光才看得清。 */
+  filter: drop-shadow(0 0 2px #ffffffd9) drop-shadow(0 1px 3px #02222ee0);
+  transition: transform .18s cubic-bezier(.2,.8,.2,1), opacity .18s;
+}
+/* 人已经停在这片水域的船上：这个锚就是"下船"，给点暖色光。 */
+.landing-marker.is-current { filter: drop-shadow(0 0 9px #ffd479e0) drop-shadow(0 0 2px #ffffffcc); }
+.landing-marker:disabled { opacity: .32; cursor: not-allowed; filter: grayscale(1) drop-shadow(0 2px 3px #03202a55); }
+/* 水面鱼群的可收获标记：和采集图标同一套"只有一个 emoji"的规则，
+   但只在船靠到鱼群旁边时才出现（fish-schools.js 控制显隐）。 */
+.fish-school-marker {
+  position: fixed; z-index: 21; transform: translate(-50%, -100%); display: block;
+  line-height: 1; margin-top: -4px;
+  font: 400 30px/1 "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "PingFang SC", system-ui, sans-serif;
+  pointer-events: none; cursor: pointer;
+  filter: drop-shadow(0 0 1px #03202ad9) drop-shadow(0 2px 3px #03202a70);
+}
+.fish-school-marker.is-target { filter: drop-shadow(0 0 8px #a9f5ffe0) drop-shadow(0 2px 3px #03202a70); }
+/* 关键：作者样式的 display:block 会盖过浏览器默认的 [hidden]{display:none}。
+   少了这一条，el.hidden=true 只改了属性，图标仍然钉在屏幕上 —— 看起来就是"锚点满屏乱飘、
+   图标不在收获点上"。 */
+.landing-marker[hidden], .fish-school-marker[hidden] { display: none !important; }
 @media (max-width: 720px) {
+  .economy-marker { font-size: 28px; }
+  .landing-marker { font-size: 27px; }
   .economy-toggle { top: 110px; right: 12px; min-height: 38px; font-size: 12px; }
   .economy-panel { top: 150px; padding: 14px; border-radius: 17px; }
   .economy-tabs { top: -14px; }
@@ -265,7 +309,7 @@ button:disabled { cursor: not-allowed; opacity: .5; }
 
 /* Underwater mode has its own unobstructed navigation and world-space salvage cues. */
 .underwater-view .resource-orb,.underwater-view .hover-context-card,
-.underwater-view .economy-marker,.underwater-view .economy-panel,.underwater-view .action-wheel,
+.underwater-view .economy-marker,.underwater-view .landing-marker,.underwater-view .fish-school-marker,.underwater-view .economy-panel,.underwater-view .action-wheel,
 .underwater-view .destination-wheel,.underwater-view .economy-toggle,
 .underwater-view .build-progress-pill { display:none !important; }
 .underwater-view #dive-controls { background:#123b43b8;border-color:#b6decb44;box-shadow:0 8px 30px #071e2925;width:218px; }

@@ -1,0 +1,48 @@
+TOWER DISTRICT v008
+├─ 01_制作组件_按组件拆分（母版；主视图排除直接绘制）
+│  ├─ city_backdrop / 远景楼群背景 / 1 实例
+│  ├─ service_duct_tower / 楼顶矩形风道塔 / 1 实例
+│  ├─ marquee_panel / 灯牌框体 / 14 实例
+│  ├─ district_marquee_artwork / 街区灯栅字图 / 1 实例
+│  ├─ marquee_mounting_rail / 灯牌支撑轨 / 1 实例
+│  ├─ bridge_pier / 高架桥墩 / 2 实例
+│  ├─ bridge_fascia / 高架桥面檐口 / 1 实例
+│  ├─ service_conduit_network / 跨设施矩形管网 / 1 实例
+│  ├─ cooling_fan_unit / 方格风扇机组 / 3 实例
+│  ├─ cooling_louver_unit / 百叶冷却机组 / 3 实例
+│  ├─ warning_light_bank / 四格警示灯组 / 2 实例
+│  ├─ tunnel_structure / 下穿通道结构 / 1 实例
+│  ├─ tunnel_lantern / 通道壁灯 / 2 实例
+│  ├─ convenience_facade / 便利店外立面 / 1 实例
+│  ├─ liquor_sign / 酒类竖向灯牌 / 1 实例
+│  ├─ cash_machine / 提款机及附属灯牌 / 1 实例
+│  ├─ notice_poster_set / 墙面张贴物组 / 1 实例
+│  ├─ information_terminal / 街头信息终端 / 1 实例
+│  ├─ service_shop_facade / 设备店外立面 / 1 实例
+│  ├─ sector_wordmark / 店铺发光字牌 / 1 实例
+│  ├─ window_indicator_strip / 门厅方灯组 / 1 实例
+│  ├─ loading_information_sign / 装卸说明牌 / 1 实例
+│  ├─ audio_advert / 音响广告牌 / 1 实例
+│  ├─ food_advert / 食品广告牌 / 1 实例
+│  ├─ rush_advert / RUSH广告牌 / 1 实例
+│  ├─ vinyl_advert / 唱片竖广告牌 / 1 实例
+│  ├─ traffic_standard_inverted / 反向悬臂交通杆 / 1 实例
+│  ├─ traffic_standard_standard / 标准悬臂交通杆 / 1 实例
+│  ├─ asphalt_foundation / 沥青基础面 / 1 实例
+│  ├─ wet_road_surface / 湿路面颗粒与标线 / 1 实例
+│  ├─ pavement_foundation / 人行道基础 / 2 实例
+│  ├─ pavement_tile / 人行道砖 / 2640 实例
+│  ├─ curbstone / 路缘石 / 144 实例
+│  ├─ pavement_scatter / 路沿碎屑散布层 / 1 实例
+│  ├─ drain_grate / 排水格栅 / 6 实例
+│  ├─ road_barrier / 道路护栏段 / 12 实例
+│  ├─ street_bin / 街头箱体 / 5 实例
+│  ├─ bollard / 路桩 / 4 实例
+│  ├─ street_litter / 街面碎屑散布层 / 1 实例
+│  ├─ sedan / 方块轿车 / 9 实例
+│  ├─ drone_hull / 巡逻无人机机身 / 1 实例
+│  ├─ drone_rotor_guard / 方粒旋翼护圈 / 4 实例
+│  ├─ drone_rotor_blades / 直条旋翼叶片 / 4 实例
+├─ 02_游戏输出_独立资产包_v008（只有集合实例）
+├─ 03_动画控制与坐标契约
+└─ 90_展示环境_灯光相机与动态

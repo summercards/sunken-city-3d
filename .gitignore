@@ -13,3 +13,12 @@
 /promo/out/
 /promo/trailers/
 /outputs/material-fusion/
+
+# Blender 自动备份（每次保存都会生成 .blend1，重复内容）
+*.blend1
+
+# tower_district 美术管线：源文件在 art_source/，下面是渲染中间产物与迭代归档
+/outputs/tower_district/cinematic_v009/
+/outputs/tower_district/previews/
+/outputs/tower_district/source/
+/outputs/tower_district/component_migration_v008/

@@ -2,9 +2,8 @@
   "passed": [
     "Depth/refraction render target initialized",
     "Water click emits a world-space ripple",
-    "Camera drags do not splash or move visibility center",
+    "Camera drags do not splash",
     "Moving boat leaves historical foam and paddle ripples",
-    "Character visibility follows the boat",
     "Landing emits one contact ripple",
     "Wake and ripples expire in bounded pools",
     "Water clicks do not upgrade submerged buildings",
@@ -21,27 +20,22 @@
     "clicks": 0
   },
   "moving": {
-    "cameraIndependent": true,
-    "speed": 2.1931712199460773,
+    "speed": 2.193171219946085,
     "stats": {
       "clicks": 1,
       "oarStrokes": 4,
       "landings": 0,
       "wakeSamples": 22
     },
-    "center": [
-      -7.5,
-      1.5
-    ],
     "position": [
-      -8.749999999999986,
-      1.184264393861272,
-      1.4000000000000066
+      -2.029999999999993,
+      1.0786314982944654,
+      3.8700000000000063
     ],
     "liveWakes": 22
   },
   "stopped": {
-    "speed": 1.2609686758487849e-18,
+    "speed": 1.2609686758487895e-18,
     "stats": {
       "clicks": 1,
       "oarStrokes": 4,

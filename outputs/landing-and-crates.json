@@ -1,0 +1,67 @@
+{
+  "markers": [
+    {
+      "zone": "zone1",
+      "noBlock": true,
+      "y": 1.14
+    },
+    {
+      "zone": "zone1-salvage",
+      "noBlock": true,
+      "y": 1.14
+    },
+    {
+      "zone": "zone2",
+      "noBlock": true,
+      "y": 1.14
+    },
+    {
+      "zone": "zone3",
+      "noBlock": true,
+      "y": 1.14
+    },
+    {
+      "zone": "zone4",
+      "noBlock": true,
+      "y": 1.14
+    },
+    {
+      "zone": "zone5",
+      "noBlock": true,
+      "y": 1.14
+    }
+  ],
+  "crateCount": 10,
+  "arrived": {
+    "zone": "zone2",
+    "standGap": 0.1,
+    "boatGap": 0
+  },
+  "afterClick": {
+    "mode": "WALK_TO_BOAT",
+    "intent": "landing",
+    "target": "zone2"
+  },
+  "crate": {
+    "kind": "planks",
+    "id": 4,
+    "reward": {
+      "wood": 3
+    },
+    "x": 639.9999999999999,
+    "y": 446.19690568935215,
+    "onScreen": true,
+    "total": 10
+  },
+  "passed": [
+    "五个区块共 6 个可点的 ⚓️ 上岸图标（含绞盘打捞台，无外框、不挡其它点击）",
+    "海上 10 份漂浮物资都不进碰撞栅格（船可以直接开到箱子上）",
+    "同区块换平台：点绞盘打捞台 ⚓️ → 自动靠泊并走上甲板（离待机点 0.09m）",
+    "点击 zone2 上岸桩 → WALK_TO_BOAT（目标 zone2）",
+    "自动航行到 zone2 并上岸：角色离待机点 0.1m，船离泊位 0m",
+    "整段航行不会自动产出物资（只有真的开到箱子旁才收）",
+    "点物资 → 自动划过去拾取，{\"wood\":3} 到账，箱子消失",
+    "船上点 zone3 上岸桩 → 自动靠岸并下船"
+  ],
+  "errors": []
+}

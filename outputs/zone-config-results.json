@@ -6,10 +6,10 @@
       "role": "home",
       "boat": {
         "park": [
-          6.44,
-          7.23
+          6.97,
+          7.92
         ],
-        "yaw": 1.57,
+        "yaw": -1.05,
         "hullOverlap": 0
       },
       "dock": {
@@ -42,8 +42,8 @@
             1.5
           ],
           "total": 81,
-          "supported": 76,
-          "coverage": 0.94
+          "supported": 74,
+          "coverage": 0.91
         }
       ],
       "path": {
@@ -52,7 +52,63 @@
         "gaps": 0,
         "gapPct": 0,
         "spots": []
-      }
+      },
+      "landings": [
+        {
+          "id": "main",
+          "name": "晴空水巷",
+          "boat": {
+            "park": [
+              6.97,
+              7.92
+            ],
+            "yaw": -1.05,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 2.1,
+            "surface": 2.15
+          },
+          "stand": {
+            "y": 2.15,
+            "surface": 2.15
+          },
+          "path": {
+            "distance": 2.82,
+            "steps": 11,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        },
+        {
+          "id": "salvage",
+          "name": "绞盘打捞台",
+          "boat": {
+            "park": [
+              -7.2,
+              13.9
+            ],
+            "yaw": 0,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 1.33,
+            "surface": 1.33
+          },
+          "stand": {
+            "y": 1.33,
+            "surface": 1.33
+          },
+          "path": {
+            "distance": 2.63,
+            "steps": 10,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     },
     {
       "id": "zone2",
@@ -60,16 +116,16 @@
       "role": "station",
       "boat": {
         "park": [
-          -31.27,
-          -13.08
+          -33.51,
+          -12.219999999999999
         ],
-        "yaw": -0.92,
-        "hullOverlap": 5.4
+        "yaw": -1.57,
+        "hullOverlap": 0
       },
       "dock": {
-        "y": 2,
+        "y": 1.17,
         "surface": 1.17,
-        "diff": -0.83
+        "diff": 0
       },
       "stand": {
         "y": 2.83,
@@ -90,12 +146,41 @@
         }
       ],
       "path": {
-        "distance": 2.7,
-        "steps": 11,
+        "distance": 2.65,
+        "steps": 10,
         "gaps": 0,
         "gapPct": 0,
         "spots": []
-      }
+      },
+      "landings": [
+        {
+          "id": "main",
+          "name": "横滨铁道",
+          "boat": {
+            "park": [
+              -33.51,
+              -12.22
+            ],
+            "yaw": -1.57,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 1.17,
+            "surface": 1.17
+          },
+          "stand": {
+            "y": 2.83,
+            "surface": 2.83
+          },
+          "path": {
+            "distance": 2.65,
+            "steps": 10,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     },
     {
       "id": "zone3",
@@ -103,11 +188,11 @@
       "role": "farm",
       "boat": {
         "park": [
-          -9,
-          -2
+          7.65,
+          -34
         ],
-        "yaw": -3.14,
-        "hullOverlap": 3.2
+        "yaw": -2.62,
+        "hullOverlap": 0
       },
       "dock": {
         "y": 3.1,
@@ -138,7 +223,36 @@
         "gaps": 0,
         "gapPct": 0,
         "spots": []
-      }
+      },
+      "landings": [
+        {
+          "id": "main",
+          "name": "圆弧农场",
+          "boat": {
+            "park": [
+              7.65,
+              -34
+            ],
+            "yaw": -2.62,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 3.1,
+            "surface": 3.1
+          },
+          "stand": {
+            "y": 4.31,
+            "surface": 4.31
+          },
+          "path": {
+            "distance": 3.54,
+            "steps": 13,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     },
     {
       "id": "zone4",
@@ -146,21 +260,21 @@
       "role": "shore",
       "boat": {
         "park": [
-          34.26,
-          -36.36
+          33.06,
+          -36.56
         ],
-        "yaw": 0,
+        "yaw": 2.36,
         "hullOverlap": 0
       },
       "dock": {
         "y": 1.73,
-        "surface": 1.74,
-        "diff": 0.01
+        "surface": 1.7,
+        "diff": -0.03
       },
       "stand": {
         "y": 1.66,
-        "surface": 1.67,
-        "diff": 0.01
+        "surface": 1.61,
+        "diff": -0.05
       },
       "regions": [
         {
@@ -181,7 +295,36 @@
         "gaps": 0,
         "gapPct": 0,
         "spots": []
-      }
+      },
+      "landings": [
+        {
+          "id": "main",
+          "name": "远海街町",
+          "boat": {
+            "park": [
+              33.06,
+              -36.56
+            ],
+            "yaw": 2.36,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 1.73,
+            "surface": 1.7
+          },
+          "stand": {
+            "y": 1.66,
+            "surface": 1.61
+          },
+          "path": {
+            "distance": 3.76,
+            "steps": 14,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     },
     {
       "id": "zone5",
@@ -189,8 +332,8 @@
       "role": "aquaculture",
       "boat": {
         "park": [
-          11.29,
-          14.98
+          17.27,
+          15.92
         ],
         "yaw": 0,
         "hullOverlap": 0
@@ -201,9 +344,9 @@
         "diff": 0
       },
       "stand": {
-        "y": 1.25,
+        "y": 1.15,
         "surface": 1.15,
-        "diff": -0.1
+        "diff": 0
       },
       "regions": [
         {
@@ -224,7 +367,36 @@
         "gaps": 0,
         "gapPct": 0,
         "spots": []
-      }
+      },
+      "landings": [
+        {
+          "id": "main",
+          "name": "浅水养殖台",
+          "boat": {
+            "park": [
+              17.27,
+              15.92
+            ],
+            "yaw": 0,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 1.35,
+            "surface": 1.35
+          },
+          "stand": {
+            "y": 1.15,
+            "surface": 1.15
+          },
+          "path": {
+            "distance": 1.9,
+            "steps": 8,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     }
   ],
   "crossOverlaps": []

@@ -220,7 +220,7 @@
   <div id="canvas-container"></div>
   <section id="dive-hud" aria-label="潜水探索">
     <button id="dive-button" type="button">潜水</button>
-    <div id="dive-aim-hint" hidden>点选海面位置开始潜水</div>
+    <div id="dive-aim-hint" hidden>在所在水域按潜水直接下潜</div>
     <div id="dive-controls" hidden>
       <div id="dive-depth">深度 0.0 m</div>
       <div class="dive-pad"><button id="dive-forward" aria-label="向前游">↑</button><button id="dive-up" aria-label="上浮">上浮</button><button id="dive-left" aria-label="向左游">←</button><button id="dive-down" aria-label="下潜">下潜</button><button id="dive-right" aria-label="向右游">→</button><button id="dive-back" aria-label="向后游">↓</button></div>
@@ -288,6 +288,7 @@
     import { createWaterDistrict } from './water-district.js';
     import { createStylizedWater } from './water.js';
     import { createDiving } from './diving.js';
+    import { createFirstRegion } from './first-region.js';
 
     // ============================================================================
     // 1. 渲染器、场景与原画精确相机对齐
@@ -316,13 +317,13 @@
     // 深邃群青底色（还原原画中央水道深不见底的群青/钴蓝色调）
     scene.background = new THREE.Color('#176d9a');
     // 柔和深海雾效：拉远后仍能读到周边群落，最远处自然融入群青深海
-    scene.fog = new THREE.Fog('#176d9a', 85, 175);
+    scene.fog = new THREE.Fog('#176d9a', 200, 520);
 
     const camera = new THREE.PerspectiveCamera(
       31,
       window.innerWidth / window.innerHeight,
       0.5,
-      190
+      600
     );
 
     // 再拉远一档的高角度俯视机位：让第二区域、断桥与水下城市形成完整阅读层次
@@ -1956,7 +1957,7 @@
 
     const diving = createDiving({ THREE, scene, worldGroup, camera, controls, renderer, waterSystem, globalUniforms,
       explorerGroup: gameplay.art.explorerGroup, swimParts: gameplay.art.swimParts, state: gameplay.art.state, economy: gameplay.economy,
-      syncUI: gameplay.syncUI, waterLevel: WATER_LEVEL });
+      syncUI: gameplay.syncUI, waterLevel: WATER_LEVEL, zones: gameplay.zones });
 
     const sceneArt = refineScene({ THREE, worldGroup, makePainterlyMat, WATER_LEVEL,
       leftBuildingGroup, gardenFlowersGroup, gardenWall, gardenSoil, roofWater,
@@ -1965,6 +1966,7 @@
     const livingHarbor = polishHarbor({ THREE, worldGroup, gameplay, sceneArt, houseGroup, cabinMesh, lowerRoof,
       leftBuildingGroup, upperBackTowerGroup, poleGroup, makePainterlyMat, WATER_LEVEL });
     const waterDistrict = createWaterDistrict({ THREE, worldGroup, makePainterlyMat });
+    const firstRegion = createFirstRegion({ THREE, worldGroup, waterDistrict, makePainterlyMat });
     dynamicCables.forEach((c,i) => {
       if(i>1){c.mesh.visible=false;return;}
       poleGroup.updateWorldMatrix(true,false);houseGroup.updateWorldMatrix(true,false);leftBuildingGroup.updateWorldMatrix(true,false);

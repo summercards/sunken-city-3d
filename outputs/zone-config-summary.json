@@ -15,7 +15,63 @@
         "zone1_salvage"
       ],
       "hullOverlap": 0,
-      "pathGapPct": 0
+      "pathGapPct": 0,
+      "landings": [
+        {
+          "id": "main",
+          "name": "晴空水巷",
+          "boat": {
+            "park": [
+              6.97,
+              7.92
+            ],
+            "yaw": -1.05,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 2.1,
+            "surface": 2.15
+          },
+          "stand": {
+            "y": 2.15,
+            "surface": 2.15
+          },
+          "path": {
+            "distance": 2.82,
+            "steps": 11,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        },
+        {
+          "id": "salvage",
+          "name": "绞盘打捞台",
+          "boat": {
+            "park": [
+              -7.2,
+              13.9
+            ],
+            "yaw": 0,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 1.33,
+            "surface": 1.33
+          },
+          "stand": {
+            "y": 1.33,
+            "surface": 1.33
+          },
+          "path": {
+            "distance": 2.63,
+            "steps": 10,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     },
     {
       "id": "zone2",
@@ -23,8 +79,37 @@
       "regions": [
         "zone2_station"
       ],
-      "hullOverlap": 5.4,
-      "pathGapPct": 0
+      "hullOverlap": 0,
+      "pathGapPct": 0,
+      "landings": [
+        {
+          "id": "main",
+          "name": "横滨铁道",
+          "boat": {
+            "park": [
+              -33.51,
+              -12.22
+            ],
+            "yaw": -1.57,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 1.17,
+            "surface": 1.17
+          },
+          "stand": {
+            "y": 2.83,
+            "surface": 2.83
+          },
+          "path": {
+            "distance": 2.65,
+            "steps": 10,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     },
     {
       "id": "zone3",
@@ -32,8 +117,37 @@
       "regions": [
         "zone3_ground"
       ],
-      "hullOverlap": 3.2,
-      "pathGapPct": 0
+      "hullOverlap": 0,
+      "pathGapPct": 0,
+      "landings": [
+        {
+          "id": "main",
+          "name": "圆弧农场",
+          "boat": {
+            "park": [
+              7.65,
+              -34
+            ],
+            "yaw": -2.62,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 3.1,
+            "surface": 3.1
+          },
+          "stand": {
+            "y": 4.31,
+            "surface": 4.31
+          },
+          "path": {
+            "distance": 3.54,
+            "steps": 13,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     },
     {
       "id": "zone4",
@@ -42,7 +156,36 @@
         "zone4_shore"
       ],
       "hullOverlap": 0,
-      "pathGapPct": 0
+      "pathGapPct": 0,
+      "landings": [
+        {
+          "id": "main",
+          "name": "远海街町",
+          "boat": {
+            "park": [
+              33.06,
+              -36.56
+            ],
+            "yaw": 2.36,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 1.73,
+            "surface": 1.7
+          },
+          "stand": {
+            "y": 1.66,
+            "surface": 1.61
+          },
+          "path": {
+            "distance": 3.76,
+            "steps": 14,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     },
     {
       "id": "zone5",
@@ -51,7 +194,36 @@
         "zone5_aqua"
       ],
       "hullOverlap": 0,
-      "pathGapPct": 0
+      "pathGapPct": 0,
+      "landings": [
+        {
+          "id": "main",
+          "name": "浅水养殖台",
+          "boat": {
+            "park": [
+              17.27,
+              15.92
+            ],
+            "yaw": 0,
+            "hullOverlap": 0
+          },
+          "dock": {
+            "y": 1.35,
+            "surface": 1.35
+          },
+          "stand": {
+            "y": 1.15,
+            "surface": 1.15
+          },
+          "path": {
+            "distance": 1.9,
+            "steps": 8,
+            "gaps": 0,
+            "gapPct": 0,
+            "spots": []
+          }
+        }
+      ]
     }
   ],
   "errors": []

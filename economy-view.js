@@ -439,8 +439,9 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
     roots.push(root);
     targets.set(root, id);
     worldGroup.add(root);
-    // 只作场景标签：不接管指针，避免遮住小船、建筑热点与地面点击。
-    const marker = element('div', 'economy-marker', name);
+    // 只作场景标记：不接管指针，避免遮住小船、建筑热点与地面点击。
+    // 画面上只留一个图标（无外框、无文字），完整说明放在 aria-label / title 里。
+    const marker = element('span', 'economy-marker');
     marker.dataset.econMarker = id;
     marker.tabIndex = -1;
     marker.hidden = true;
@@ -448,14 +449,16 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
     document.body.append(marker);
     const body = new THREE.Group();
     root.add(body);
-    const item = { id, zone, root, body, marker, anchor: new THREE.Vector3(0, height, 0), label: name };
+    const item = { id, zone, root, body, marker, anchor: new THREE.Vector3(0, height, 0), label: name, icon: '' };
     visuals.push(item);
     return item;
   }
   for (const node of economy.nodes) {
-    const item = visualRoot(node.id, node.zone, node.name, 1.6);
+    // 采集标记抬高一点，不压住模型本身（图标下沿刚好落在锚点上）。
+    const item = visualRoot(node.id, node.zone, node.name, 1.18);
     item.kind = 'node';
     item.data = node;
+    item.icon = node.icon || '🎁';
     box(item.root, palette.wood, [0, .04, 0], [1.05, .08, 1.05]);
     const color = node.id === 'garden_cache' ? palette.green : node.id === 'workshop_cache' ? palette.metal : node.id === 'sea_cache' ? palette.shell : palette.wood;
     box(item.body, color, [0, .53, 0], [.9, .9, .9]);
@@ -480,9 +483,10 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
     item.root.add(item.ring);
   }
   for (const plot of economy.plots) {
-    const item = visualRoot(plot.id, plot.zone, plot.name, 1.3);
+    const item = visualRoot(plot.id, plot.zone, plot.name, 0.9);
     item.kind = 'plot';
     item.data = plot;
+    item.icon = '🌱';
     instances(item.body, boxGeometry, palette.wood, [
       { p: [0, .14, -.46], s: [2, .28, .08] }, { p: [0, .14, .46], s: [2, .28, .08] },
       { p: [-.96, .14, 0], s: [.08, .28, .84] }, { p: [.96, .14, 0], s: [.08, .28, .84] }
@@ -502,8 +506,9 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
     item.fruits = instances(item.plants, sphereGeometry, palette.orange, fruits);
   }
   for (const [id, recipe] of Object.entries(FACILITIES)) {
-    const item = visualRoot(id, 'zone1', recipe.name, id === 'greenhouse' ? 2.35 : 1.9);
+    const item = visualRoot(id, 'zone1', recipe.name, id === 'greenhouse' ? 1.95 : 1.35);
     item.kind = 'facility';
+    item.icon = id === 'greenhouse' ? '🥬' : '⚙';
     box(item.root, palette.wood, [0, .035, 0], [id === 'greenhouse' ? 2.1 : 1.5, .07, 1.3]);
     if (id === 'greenhouse') {
       const frame = [];
@@ -537,6 +542,8 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
         item.body.visible = ready;
         item.ring.visible = ready;
         item.ring.scale.setScalar(1 + Math.sin(t * 1.6) * .035);
+        // 冷却中不显示标记（只在可采集时出现），所以图标只有一种。
+        item.icon = item.data.icon || '🎁';
         item.label = ready ? `${item.data.name} · 可采集` : `${item.data.name} · ${Math.ceil(item.data.left)}秒`;
       } else if (item.kind === 'plot') {
         const plot = item.data;
@@ -549,12 +556,15 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
         item.plants.scale.set(wilt, (.18 + growth * .82) * wilt, wilt);
         item.fruits.visible = !dry && (plot.phase === 'ready' || growth > .65);
         item.fruits.material = plot.phase === 'ready' ? palette.orange : palette.green;
+        // 菜箱的三种状态用同一个图标位表达：成熟→萝卜，干透→水滴，其余→嫩芽。
+        item.icon = plot.phase === 'ready' ? '🥕' : dry ? '💧' : '🌱';
         item.label = `${plot.name} · ${plot.phase === 'ready' ? '可收获' : dry ? '需要浇水' : plot.phase === 'growing' ? `${Math.ceil(plot.remaining)}秒` : '播种'}`;
       } else {
         const facility = economy.facilities[item.id];
         const job = economy.job?.id === item.id ? economy.job : null;
         item.body.visible = facility.level >= 1 || Boolean(job);
         item.body.scale.y = job ? Math.max(.06, 1 - job.remaining / job.duration) : 1;
+        item.icon = job ? '🔧' : facility.level < 1 ? '🔨' : item.id === 'greenhouse' ? '🥬' : '⚙';
         item.label = `${FACILITIES[item.id].name} · ${job ? `施工${Math.ceil(job.remaining)}秒` : facility.level < 1 ? '待建造' : item.id === 'recycler' ? `零件${facility.stored.parts || 0}/6` : '已建成'}`;
       }
     }
@@ -576,20 +586,47 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
         projected.copy(item.anchor).applyMatrix4(item.root.matrixWorld).project(camera);
         const x = rect.left + (projected.x + 1) * rect.width / 2;
         const y = rect.top + (1 - projected.y) * rect.height / 2;
-        // 为整个文字按钮留边距，而不仅仅判断锚点是否在屏幕内。
+        // 为整个图标留边距，而不仅仅判断锚点是否在屏幕内。
         visible = projected.z >= -1 && projected.z <= 1 && Number.isFinite(x) && Number.isFinite(y)
-          && x >= Math.max(rect.left, 0) + 92 && x <= Math.min(rect.left + rect.width, window.innerWidth) - 92
-          && y >= Math.max(rect.top, 0) + 24 && y <= Math.min(rect.top + rect.height, window.innerHeight) - 24;
+          && x >= Math.max(rect.left, 0) + 40 && x <= Math.min(rect.left + rect.width, window.innerWidth) - 40
+          && y >= Math.max(rect.top, 0) + 56 && y <= Math.min(rect.top + rect.height, window.innerHeight) - 16;
         if (visible) {
           item.marker.style.left = `${x.toFixed(1)}px`;
           item.marker.style.top = `${y.toFixed(1)}px`;
-          text(item.marker, item.label);
-          item.marker.setAttribute('aria-label', `查看${item.label}物资卡片`);
+          // 图标中心（用于屏幕空间命中）：图标下沿贴锚点，所以中心要往上抬半个图标。
+          item.marker._sx = x;
+          item.marker._sy = y - (item.marker.offsetHeight || 32) / 2;
+          text(item.marker, item.icon);
+          item.marker.dataset.state = item.kind === 'node' ? 'ready'
+            : item.kind === 'plot' ? (item.icon === '💧' ? 'thirsty' : item.icon === '🥕' ? 'ready' : 'growing')
+            : item.icon === '🔧' || item.icon === '🔨' ? 'busy' : 'ready';
+          const label = item.label;
+          item.marker.setAttribute('aria-label', `查看${label}物资卡片`);
+          item.marker.title = label;
         }
       }
       item.marker.hidden = !visible;
     }
   }
+
+  // 图标只画一个 emoji、不接管指针，但玩家会直接点图标本体。
+  // 所以在屏幕空间里按图标中心做命中（半径 22px），返回和点 3D 物件一样的 economy 目标。
+  function markerAt(clientX, clientY) {
+    let best = null;
+    for (const item of visuals) {
+      const el = item.marker;
+      if (!el || el.hidden || !Number.isFinite(el._sx)) continue;
+      const d = Math.hypot(el._sx - clientX, el._sy - clientY);
+      if (d <= 22 && (!best || d < best.d)) best = { d, id: item.id };
+    }
+    return best ? { type: 'economy', id: best.id } : null;
+  }
+
+  // 悬停时把对应图标点亮（鼠标走的是 canvas，图标本身没事件）。
+  function setHot(id) {
+    for (const item of visuals) item.marker.classList?.toggle('is-hot', Boolean(id) && item.id === id);
+  }
+
   function findTarget(object) {
     let id;
     for (let current = object; current; current = current.parent) {
@@ -613,5 +650,5 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
     }
   }
   updateVisuals(0);
-  return { update, updateOverlays, roots, findTarget, open, handleTarget };
+  return { update, updateOverlays, roots, findTarget, markerAt, setHot, open, handleTarget };
 }

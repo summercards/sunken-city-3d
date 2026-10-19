@@ -36,14 +36,19 @@ const WATER = 1.12;
       const meshes = [];
       scene.traverse(o => {
         if (!o.isMesh || o === undefined || o.name === 'cartoon-water') return;
-        for (let p = o; p; p = p.parent) if (!p.visible || p === boat || p === exp) return;
+        // 漂浮物资与上岸桩标了 noSailBlock：它们是可穿过的水面标记，不算挡船实体。
+        for (let p = o; p; p = p.parent) if (!p.visible || p === boat || p === exp || p.userData?.noSailBlock) return;
         meshes.push(o);
       });
-      // 会挡船的实体：任何高出水面的东西（AABB）
+      // 会挡船的实体：只取「船壳吃水高度带」内的东西。
+      // 不能用「凡高出水面即挡」—— 屋顶吊到打捞台的粗缆绳（TubeGeometry）包围盒
+      // 会横跨十几米，把整条停泊位罩住，船壳侵入率会被算成 97.8%（实际船根本不碰它）。
       const solids = [];
       for (const o of meshes) {
         const bb = new T.Box3().setFromObject(o);
-        if (isFinite(bb.min.x) && !bb.isEmpty() && bb.max.y > WATER + 0.02) solids.push(bb);
+        if (!isFinite(bb.min.x) || bb.isEmpty()) continue;
+        if (bb.max.y < WATER + 0.08 || bb.min.y > WATER + 1.25) continue;
+        solids.push(bb);
       }
 
       const ray = new T.Raycaster();
@@ -83,8 +88,10 @@ const WATER = 1.12;
           if (hw < 0) continue;
           for (let u = -hw; u <= hw; u += 0.32) {
             total++;
-            const wx = x + u * SX * cs - lz * SZ * sn;
-            const wz = z + u * SX * sn + lz * SZ * cs;
+            // THREE 的 rotation.y：局部 (x,z) → 世界 (x·cos + z·sin, -x·sin + z·cos)。
+            // 写反会把船头算到船尾、船体左右镜像，侵入率会严重低估（实测量到 5.4% vs 真实 29%）。
+            const wx = x + u * SX * cs + lz * SZ * sn;
+            const wz = z - u * SX * sn + lz * SZ * cs;
             for (const bb of solids) {
               if (wx >= bb.min.x && wx <= bb.max.x && wz >= bb.min.z && wz <= bb.max.z) { hit++; break; }
             }
@@ -117,19 +124,34 @@ const WATER = 1.12;
           (acc, r) => [Math.min(acc[0], r.span[0]), Math.max(acc[1], r.span[1])],
           [Infinity, -Infinity]
         );
-        const dist = Math.hypot(zone.landStand.x - zone.dockEdge.x, zone.landStand.z - zone.dockEdge.z);
-        const steps = Math.max(2, Math.ceil(dist / 0.3));
-        let gaps = 0;
-        const gapSpots = [];
-        for (let i = 0; i <= steps; i++) {
-          const t = i / steps;
-          const x = zone.dockEdge.x + (zone.landStand.x - zone.dockEdge.x) * t;
-          const z = zone.dockEdge.z + (zone.landStand.z - zone.dockEdge.z) * t;
-          if (topIn(span, x, z) === null) {
-            gaps++;
-            if (gapSpots.length < 3) gapSpots.push([+x.toFixed(1), +z.toFixed(1)]);
+        const pathGap = (dockEdge, landStand) => {
+          const d = Math.hypot(landStand.x - dockEdge.x, landStand.z - dockEdge.z);
+          const n = Math.max(2, Math.ceil(d / 0.3));
+          let g = 0;
+          const spots = [];
+          for (let i = 0; i <= n; i++) {
+            const t = i / n;
+            const x = dockEdge.x + (landStand.x - dockEdge.x) * t;
+            const z = dockEdge.z + (landStand.z - dockEdge.z) * t;
+            if (topIn(span, x, z) === null) { g++; if (spots.length < 3) spots.push([+x.toFixed(1), +z.toFixed(1)]); }
           }
-        }
+          return { distance: +d.toFixed(2), steps: n + 1, gaps: g, gapPct: +(g / (n + 1) * 100).toFixed(1), spots };
+        };
+        // 每个上岸点（主码头 + 独立平台）都要单独查：停泊位不能压模型，
+        // 上岸边/待机点必须踩得到真实地面，且两点之间不能踩空。
+        const landingReport = zone.landings.map((l) => {
+          const hull = hullOverlap(l.boatPark, l.boatYaw);
+          const dockS = surfacesAt(l.dockEdge.x, l.dockEdge.z);
+          const standS = surfacesAt(l.landStand.x, l.landStand.z);
+          return {
+            id: l.id,
+            name: l.name,
+            boat: { park: [+l.boatPark.x.toFixed(2), +l.boatPark.z.toFixed(2)], yaw: +l.boatYaw.toFixed(2), hullOverlap: +(hull * 100).toFixed(1) },
+            dock: { y: +l.dockEdge.y.toFixed(2), surface: dockS.length ? +pick(dockS, l.dockEdge.y).toFixed(2) : null },
+            stand: { y: +l.landStand.y.toFixed(2), surface: standS.length ? +pick(standS, l.landStand.y).toFixed(2) : null },
+            path: pathGap(l.dockEdge, l.landStand)
+          };
+        });
 
         return {
           id: zone.id,
@@ -147,7 +169,8 @@ const WATER = 1.12;
             diff: standSurfaces.length ? +(pick(standSurfaces, zone.landStand.y) - zone.landStand.y).toFixed(2) : null
           },
           regions,
-          path: { distance: +dist.toFixed(2), steps: steps + 1, gaps, gapPct: +(gaps / (steps + 1) * 100).toFixed(1), spots: gapSpots }
+          path: landingReport[0].path,
+          landings: landingReport
         };
       });
 
@@ -182,6 +205,13 @@ const WATER = 1.12;
         if (r.coverage < 0.6) failures.push(`${z.id}/${r.id} 可站立覆盖率仅 ${Math.round(r.coverage * 100)}%（配置的矩形大部分是水面或空中）`);
       }
       if (z.path.gapPct > 20) failures.push(`${z.id} 上岸点到待机点有 ${z.path.gapPct}% 的路程踩空（${z.path.spots.map(s => `(${s[0]},${s[1]})`).join(' ')}）`);
+      for (const l of z.landings || []) {
+        const tag = `${z.id}:${l.id}`;
+        if (l.boat.hullOverlap > 8) failures.push(`${tag} 停泊位船壳 ${l.boat.hullOverlap}% 侵入模型（上限 8%）`);
+        if (l.dock.surface === null) failures.push(`${tag} 上岸边下方没有可站立面`);
+        if (l.stand.surface === null) failures.push(`${tag} 待机点下方没有可站立面`);
+        if (l.path.gapPct > 20) failures.push(`${tag} 上岸边→待机点有 ${l.path.gapPct}% 踩空`);
+      }
     }
     for (const o of report.crossOverlaps) failures.push(`区块重叠：${o.a} 与 ${o.b} 抢占同一片地 ${o.area}m²`);
 
@@ -189,6 +219,7 @@ const WATER = 1.12;
     for (const z of report.zones) {
       console.log(`\n${z.id} ${z.name}（${z.role}）`);
       console.log(`  停泊 (${z.boat.park[0]}, ${z.boat.park[1]}) 朝向 ${z.boat.yaw} · 船壳侵入 ${z.boat.hullOverlap}%`);
+      for (const l of z.landings || []) console.log(`    上岸点 ${l.id}：停泊 (${l.boat.park}) 侵入 ${l.boat.hullOverlap}% · 上岸边 ${l.dock.surface} · 待机 ${l.stand.surface} · 踩空 ${l.path.gapPct}%`);
       console.log(`  上岸 (${z.dock.y}) → 模型 ${z.dock.surface}（差 ${z.dock.diff}）`);
       console.log(`  待机 (${z.stand.y}) → 模型 ${z.stand.surface}（差 ${z.stand.diff}）`);
       for (const r of z.regions) console.log(`  地块 ${r.id.padEnd(16)} 窗口[${r.span}] 覆盖 ${Math.round(r.coverage * 100)}%`);
@@ -207,7 +238,7 @@ const WATER = 1.12;
         '上岸点到待机点沿途不踩空',
         '区块之间不抢占同一片地'
       ],
-      zones: report.zones.map(z => ({ id: z.id, role: z.role, regions: z.regions.map(r => r.id), hullOverlap: z.boat.hullOverlap, pathGapPct: z.path.gapPct })),
+      zones: report.zones.map(z => ({ id: z.id, role: z.role, regions: z.regions.map(r => r.id), hullOverlap: z.boat.hullOverlap, pathGapPct: z.path.gapPct, landings: z.landings })),
       errors
     };
     fs.writeFileSync('outputs/zone-config-summary.json', JSON.stringify(summary, null, 2));

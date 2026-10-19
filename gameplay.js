@@ -23,8 +23,12 @@
  *  - 包含多处「水上种植园」与「遗迹修缮点」：小人走上船 → 镜头拉高锁定跟随船 → 船靠岸停留在原地 → 小人跳下船走上岸浇水播种/修缮，植物（芭蕉叶、向日葵、发光睡莲、番茄藤）与建筑模型在建造过程中实时动态生长！
  */
 
+import { refineCharacter } from './character-art.js';
 import { createEconomy, MATERIALS, HARVEST_THRESHOLD } from './economy.js';
 import { createEconomyView } from './economy-view.js';
+import { createNavGrid, findPath, smoothPath, isFree } from './sail-nav.js';
+import { createDriftCrates } from './drift-crates.js';
+import { createFishSchools } from './fish-schools.js';
 
 import { createZoneRegistry } from './zones.js';
 
@@ -1372,6 +1376,8 @@ export function initSunkenCityGameplay({
   rightLegPivot.add(rightLeg);
   explorerBodyPivot.add(rightLegPivot);
 
+  const characterDetail = refineCharacter(THREE, { explorerBodyPivot, torsoMesh, headMesh, hatBrim, hatCrown, leftArmPivot, rightArmPivot, leftLegPivot, rightLegPivot });
+
   const leftOarPivot = new THREE.Group();
   leftOarPivot.position.set(-0.92, 0.56, 0.1);
   leftOarPivot.visible = false;
@@ -1534,11 +1540,21 @@ export function initSunkenCityGameplay({
     sailDuration: 5.5,
     sailTargetPos: null,
     sailIntent: null,
+    // 当前所在（或正前往）的上岸点 id：主码头是 'main'，独立平台各自一个。
+    landingId: 'main',
     pendingWorldTarget: null,
+    boatBlockers: null, // 船体高度带内的实体包围盒，航行开始时重建（见 collectSolidRects）
     camLockMode: 'zone1',
     focusWorkerUntil: 0,
     manualCamera: false
   };
+
+  // economy.busy 的口径是「人不在岸上待机」——拿它拦航行会把「已经在船上」也算成忙，
+  // 结果是在船上点目的地、点上岸桩、点物资全部没反应（看起来就像寻路卡死）。
+  // 这里只拦真正在进行的施工 / 加工。
+  function workInProgress() {
+    return Boolean(state.activeJobSite) || state.workerMode === 'BUILDING' || state.workerMode === 'CRAFTING';
+  }
 
   function focusCameraOnWorker() {
     state.manualCamera = false;
@@ -2183,6 +2199,356 @@ export function initSunkenCityGameplay({
     return true;
   }
 
+  // —— 上岸桩与漂浮物资 ——
+  // 上岸桩由 harbor-layout 在每个上岸点建好（一个区块可能有多根），这里只登记引用并负责点击路由。
+  let landingTargets = {};
+
+  // 每个上岸点水面上立一个 ⚓️ 图标：它是「从这里走上这片区域」的唯一入口。
+  // 键是 `zone`（主码头）或 `zone:landingId`（独立平台）。
+  const landingMarkers = new Map();
+  const landingAnchor = new THREE.Vector3();
+  const landingProjected = new THREE.Vector3();
+
+  function splitLandingKey(key) {
+    const [zone, landing = 'main'] = String(key).split(':');
+    return { zone, landing };
+  }
+
+  function ensureLandingMarker(key) {
+    const existing = landingMarkers.get(key);
+    if (existing) return existing;
+    const { zone, landing } = splitLandingKey(key);
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'landing-marker';
+    el.dataset.landingZone = zone;
+    el.dataset.landingSpot = landing;
+    el.textContent = '⚓️';
+    el.addEventListener('pointerdown', (e) => e.stopPropagation());
+    el.addEventListener('pointerenter', (e) => e.stopPropagation());
+    document.body.appendChild(el);
+    landingMarkers.set(key, el);
+    return el;
+  }
+
+  function registerLandingTargets(map) {
+    landingTargets = map || {};
+    for (const el of landingMarkers.values()) el.remove();
+    landingMarkers.clear();
+    for (const key of Object.keys(landingTargets)) ensureLandingMarker(key);
+  }
+
+  // 每帧把图标贴到各自上岸桩的上方；已经站在这个上岸点上时收起（不需要再"上岸"）。
+  function updateLandingMarkers() {
+    const diving = state.workerMode === 'DIVING';
+    // DOM 图标没有深度测试：镜头拉近时，远处区块的锚会"浮"在前景的屋顶/甲板上，
+    // 看起来就像图标在主界面上乱飘。按镜头距离收敛：拉近只看当前区块（+ 附近），
+    // 拉到全图视角才把所有区块的锚显示出来；同时按距离缩放，远处的锚不再又大又抢眼。
+    const camRange = camera.position.distanceTo(controls.target);
+    const showRange = Math.max(14, Math.min(90, camRange * 0.78));
+    for (const [key, el] of landingMarkers) {
+      const entry = landingTargets[key];
+      const group = entry?.group || entry;
+      const { zone: zoneId, landing: landingId } = splitLandingKey(key);
+      const zone = zones.get(zoneId);
+      if (!group || !zone) { el.hidden = true; continue; }
+      const alreadyHere = state.workerMode === 'IDLE_ASHORE'
+        && state.currentZone === zoneId
+        && (state.landingId || 'main') === landingId;
+      const unlocked = zones.isUnlocked(zoneId, state);
+      // 文案与可用性先写：图标的 title / aria-label 不随"当前是否隐藏"变化。
+      el.disabled = !unlocked;
+      const where = entry?.name && landingId !== 'main' ? entry.name : zone.name;
+      const title = unlocked ? `在${where}上岸` : `${where}尚未开放`;
+      if (el.title !== title) { el.title = title; el.setAttribute('aria-label', title); }
+      group.getWorldPosition(landingAnchor);
+      const nearTarget = controls.target.distanceTo(landingAnchor);
+      const inRange = state.currentZone === zoneId || nearTarget <= showRange;
+      landingProjected.set(landingAnchor.x, landingAnchor.y + 1.75, landingAnchor.z).project(camera);
+      const onScreen = landingProjected.z > -1 && landingProjected.z < 1
+        && Math.abs(landingProjected.x) < .99 && Math.abs(landingProjected.y) < .99;
+      const show = !diving && !alreadyHere && onScreen && inRange;
+      el.hidden = !show;
+      if (!show) continue;
+      const sx = (landingProjected.x * .5 + .5) * window.innerWidth;
+      const sy = (-landingProjected.y * .5 + .5) * window.innerHeight;
+      // 存一份屏幕坐标：图标本身 pointer-events:none（不挡其他点击），
+      // 命中判定在 pickLandingAtScreen 里用这两个值做圆形容差。
+      el._sx = sx;
+      // translate(-50%,-100%)：底边贴锚点，命中按图标中心算。
+      el._sy = sy - (el.offsetHeight || 34) / 2;
+      el.style.left = `${sx.toFixed(1)}px`;
+      el.style.top = `${sy.toFixed(1)}px`;
+      // 镜头越远图标越小（20~32px），远处的锚不会盖过大半个画面。
+      const dCam = camera.position.distanceTo(landingAnchor);
+      const size = Math.round(Math.max(20, Math.min(32, 32 * (34 / Math.max(12, dCam)))));
+      el.style.fontSize = `${size}px`;
+      el.style.opacity = state.currentZone === zoneId ? '1' : '.82';
+      // 停在这片水域的船上 → 这个锚就是"下船"，高亮一下。
+      el.classList.toggle('is-current', state.currentZone === zoneId);
+    }
+  }
+
+  // 海面漂浮的小木箱 / 木块 / 零件桶：属于物资，不挡船，必须开过去才收。
+  const driftCrates = createDriftCrates({
+    THREE,
+    worldGroup,
+    waterLevel: WATER_LEVEL,
+    makeMaterial: (color) => (makePainterlyMat ? makePainterlyMat(color) : undefined),
+    count: 10,
+    pickupRadius: 1.7,
+    // 物资只刷在区块周边一圈水道里，别撒到看不见的远海。
+    spawnBounds: (() => {
+      let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+      for (const zone of zones.list) {
+        for (const p of [zone.boatPark, zone.dockEdge, zone.landStand]) {
+          minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
+          minZ = Math.min(minZ, p.z); maxZ = Math.max(maxZ, p.z);
+        }
+      }
+      const pad = 13;
+      return { minX: minX - pad, maxX: maxX + pad, minZ: minZ - pad, maxZ: maxZ + pad };
+    })(),
+    isWaterPoint(x, z) {
+      const grids = navGrids();
+      const grid = grids[grids.length - 1];
+      if (!isFree(grid, x, z)) return false;
+      // 别刷在甲板上或紧贴建筑：离任何一个区块地块至少 2.2m。
+      for (const zone of zones.list) {
+        for (const r of zone.regions) {
+          const dx = Math.max(r.minX - x, 0, x - r.maxX);
+          const dz = Math.max(r.minZ - z, 0, z - r.maxZ);
+          if (Math.hypot(dx, dz) < 2.2) return false;
+        }
+      }
+      return true;
+    },
+    onCollect(reward, worldPos, label) {
+      spawnResourceFlight(worldPos.clone().add(new THREE.Vector3(0, 0.9, 0)), reward);
+      spawnFloatTip(worldPos.clone().add(new THREE.Vector3(0, 1.9, 0)), `🪵 ${label}`);
+    }
+  });
+
+  // 海面鱼群：散在各处水面，划过去才亮出 🐟，捞一次少一条，捞完散群另处重聚。
+  const fishSchools = createFishSchools({
+    THREE,
+    worldGroup,
+    waterLevel: WATER_LEVEL,
+    makeMaterial: (color) => (makePainterlyMat ? makePainterlyMat(color) : undefined),
+    count: 7,
+    random: Math.random,
+    spawnBounds: (() => {
+      let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+      for (const zone of zones.list) {
+        for (const p of [zone.boatPark, zone.dockEdge, zone.landStand]) {
+          minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
+          minZ = Math.min(minZ, p.z); maxZ = Math.max(maxZ, p.z);
+        }
+      }
+      const pad = 12;
+      return { minX: minX - pad, maxX: maxX + pad, minZ: minZ - pad, maxZ: maxZ + pad };
+    })(),
+    isWaterPoint(x, z) {
+      const grids = navGrids();
+      const grid = grids[grids.length - 1];
+      if (!isFree(grid, x, z)) return false;
+      for (const zone of zones.list) {
+        for (const r of zone.regions) {
+          const dx = Math.max(r.minX - x, 0, x - r.maxX);
+          const dz = Math.max(r.minZ - z, 0, z - r.maxZ);
+          if (Math.hypot(dx, dz) < 2.6) return false;
+        }
+      }
+      return true;
+    },
+    onHarvest(reward, worldPos, depleted) {
+      spawnResourceFlight(worldPos.clone().add(new THREE.Vector3(0, 0.7, 0)), reward);
+      spawnFloatTip(worldPos.clone().add(new THREE.Vector3(0, 1.6, 0)), depleted ? '🐟 这群鱼捞完了' : '🐟 捞到一条鱼');
+    }
+  });
+
+  // 漂浮物资到点结算（点选目标抵达 / 船停下时贴着）。
+  function tryCollectCrate(crate, force = false) {
+    if (!crate || !driftCrates.items.includes(crate)) return false;
+    const boatPos = boatAnchorGroup.position;
+    const walkerPos = explorerGroup.parent === scene ? explorerGroup.position : null;
+    const near = Math.hypot(crate.group.position.x - boatPos.x, crate.group.position.z - boatPos.z) <= 2.4
+      || (walkerPos && Math.hypot(crate.group.position.x - walkerPos.x, crate.group.position.z - walkerPos.z) <= 2.0);
+    if (!force && !near) return false;
+    const result = driftCrates.collect(crate, economy);
+    if (result.ok) setWorkerStatus(`收下${result.label}`);
+    else if (result.reason) spawnFloatTip(crate.group.position.clone().add(new THREE.Vector3(0, 1.6, 0)), result.reason);
+    return result.ok;
+  }
+
+  // 划到某个漂浮物资旁边把它捡起来。
+  function requestCrate(crate) {
+    if (!crate) return false;
+    if (workInProgress()) return false;
+    const p = crate.group.position;
+    state.activeJobSite = null;
+    state.targetZone = state.currentZone;
+    if (isBoatMode()) {
+      state.pendingWorldTarget = { type: 'crate', crate };
+      state.sailIntent = 'crate';
+      state.sailTargetPos = new THREE.Vector3(p.x, WATER_LEVEL, p.z);
+      state.sailCurve = buildSmoothSailCurve(state.currentZone, state.currentZone, state.sailTargetPos);
+      state.sailProgress = 0;
+      state.sailDuration = Math.max(2.0, state.sailCurve.getLength() / 3.6);
+      state.workerMode = 'ROWING';
+      state.camLockMode = 'boat';
+      setWorkerStatus('正划向漂浮物资...');
+      return true;
+    }
+    if (state.workerMode !== 'IDLE_ASHORE') return false;
+    // 岸上：先走回岸边上船，再划过去。
+    // 这里必须把 sailTargetPos 一起改掉 —— BOARDING 完成时是用它来规划航线的，
+    // 留着上一次的值会"点了新目标却开去老地方"。
+    state.pendingWorldTarget = { type: 'crate', crate };
+    state.sailIntent = 'crate';
+    state.sailTargetPos = new THREE.Vector3(p.x, WATER_LEVEL, p.z);
+    const boardCrate = boardLanding(state.currentZone);
+    if (boardCrate) state.walkTargetPos.copy(boardCrate.dockEdge);
+    state.walkRegionId = getWalkRegionAt(state.walkTargetPos)?.id || null;
+    state.workerMode = 'WALK_TO_BOAT';
+    state.camLockMode = 'worker';
+    setWorkerStatus('正走向岸边登船...');
+    return true;
+  }
+
+  // 鱼群：船上靠得住就直接捞；离得远就先把船划过去，到了再点图标捞。
+  function tryHarvestFish(school, force = false) {
+    if (!school || !fishSchools.items.includes(school)) return false;
+    const near = Math.hypot(school.base.x - boatAnchorGroup.position.x, school.base.z - boatAnchorGroup.position.z)
+      <= fishSchools.harvestRadius;
+    if (!force && !near) return false;
+    const result = fishSchools.harvest(school, economy);
+    if (result.ok) {
+      syncCoinUI();
+      setWorkerStatus(`捞到一条鱼（这群还剩 ${result.left} 条）`);
+    } else if (result.reason) {
+      spawnFloatTip(new THREE.Vector3(school.base.x, WATER_LEVEL + 1.4, school.base.z), result.reason);
+    }
+    return result.ok;
+  }
+
+  function requestFishSchool(school) {
+    if (!school) return false;
+    if (workInProgress()) return false;
+    // 已经靠在鱼群边上：直接捞。
+    if (isBoatMode()) {
+      const gap = Math.hypot(school.base.x - boatAnchorGroup.position.x, school.base.z - boatAnchorGroup.position.z);
+      if (gap <= fishSchools.harvestRadius) return tryHarvestFish(school, true);
+    }
+    // 停在鱼群「旁边」而不是正上方：船身压在鱼群上会把 🐟 图标和鱼群全遮住
+    // （俯视时只看到一条船，看不出这里有鱼）。从当前船位方向退 2.1m 作为靠泊点。
+    const away = new THREE.Vector3(
+      boatAnchorGroup.position.x - school.base.x, 0,
+      boatAnchorGroup.position.z - school.base.z
+    );
+    if (away.lengthSq() < 0.01) away.set(0, 0, 1);
+    away.normalize().multiplyScalar(2.1);
+    const spot = new THREE.Vector3(school.base.x + away.x, WATER_LEVEL, school.base.z + away.z);
+    state.activeJobSite = null;
+    state.targetZone = state.currentZone;
+    if (isBoatMode()) {
+      state.pendingWorldTarget = { type: 'fish', school };
+      state.sailIntent = 'fish';
+      state.sailTargetPos = spot;
+      state.sailCurve = buildSmoothSailCurve(state.currentZone, state.currentZone, state.sailTargetPos);
+      state.sailProgress = 0;
+      state.sailDuration = Math.max(2.0, state.sailCurve.getLength() / 3.6);
+      state.workerMode = 'ROWING';
+      state.camLockMode = 'boat';
+      setWorkerStatus('正划向鱼群...');
+      return true;
+    }
+    if (state.workerMode !== 'IDLE_ASHORE') return false;
+    state.pendingWorldTarget = { type: 'fish', school };
+    state.sailIntent = 'fish';
+    state.sailTargetPos = spot;
+    const boardFish = boardLanding(state.currentZone);
+    if (boardFish) state.walkTargetPos.copy(boardFish.dockEdge);
+    state.walkRegionId = getWalkRegionAt(state.walkTargetPos)?.id || null;
+    state.workerMode = 'WALK_TO_BOAT';
+    state.camLockMode = 'worker';
+    setWorkerStatus('正走向岸边登船...');
+    return true;
+  }
+
+  // 人已经在这片水域的船上（停着）：就地停船、走上岸。
+  // 注意船必须真的停在这个上岸点的泊位附近，否则先短程划过去 —— 绝不能
+  // 让小人从半路的水面直接"飞"到岸上（那正是之前看起来跨区瞬移的原因）。
+  function disembarkAtCurrentZone(zoneId = state.currentZone, landingId = state.landingId) {
+    if (!isBoatMode()) return false;
+    const landing = zones.landing(zoneId, landingId) || zones.landing(zoneId);
+    if (!landing) return false;
+    state.landingId = landing.id;
+    const park = landing.boatPark;
+    const gap = Math.hypot(boatAnchorGroup.position.x - park.x, boatAnchorGroup.position.z - park.z);
+    if (gap > 2.6) {
+      // 还没靠到这个上岸点的泊位：短程划过去，到站再下船。
+      state.targetZone = zoneId;
+      state.sailIntent = 'landing';
+      state.sailTargetPos = new THREE.Vector3(park.x, WATER_LEVEL, park.z);
+      state.sailCurve = buildSmoothSailCurve(zoneId, zoneId, state.sailTargetPos);
+      state.sailProgress = 0;
+      state.sailDuration = Math.max(2.0, state.sailCurve.getLength() / 3.6);
+      state.workerMode = 'ROWING';
+      state.camLockMode = 'boat';
+      setWorkerStatus(`正划向${landing.name}上岸...`);
+      return true;
+    }
+    unmountExplorerToWorld(boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 0.5, 0)));
+    state.jumpStartPos.copy(explorerGroup.position);
+    state.jumpEndPos.copy(landing.dockEdge);
+    state.transitionT = 0;
+    state.sailIntent = 'landing';
+    state.sailCurve = null;
+    state.sailProgress = 0;
+    state.sailTargetPos = null;
+    state.pendingWorldTarget = null;
+    state.workerMode = 'DISEMBARKING';
+    state.camLockMode = zoneId;
+    setWorkerStatus(`正在${landing.name}上岸...`);
+    return true;
+  }
+
+  function requestLanding(zoneId, landingId = 'main') {
+    const zone = zones.get(zoneId);
+    if (!zone) return false;
+    const landing = zones.landing(zoneId, landingId) || zones.landing(zoneId);
+    if (!zones.isUnlocked(zoneId, state)) {
+      spawnFloatTip(boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 2, 0)), `⛵ 还不能前往${zone.name}`);
+      return false;
+    }
+    if (state.workerMode === 'IDLE_ASHORE' && state.currentZone === zoneId && (state.landingId || 'main') === landing.id) {
+      spawnFloatTip(explorerGroup.position.clone().add(new THREE.Vector3(0, 1.8, 0)), `已经在${landing.name || zone.name}岸上`);
+      return false;
+    }
+    // 航行中：只有"本来就要去的那个上岸点"才排队上岸，别在半路把人扔下水。
+    if (state.workerMode === 'ROWING') {
+      if (zoneId === state.targetZone) {
+        state.landingId = landing.id;
+        state.sailIntent = 'landing';
+        spawnFloatTip(boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 2, 0)), '靠岸后自动上岸');
+        return true;
+      }
+      spawnFloatTip(boatAnchorGroup.position.clone().add(new THREE.Vector3(0, 2, 0)), `正在前往${zones.label(state.targetZone)}，靠岸后再上岸`);
+      return false;
+    }
+    // 人已经在这片水域里（停着）：直接停船下船，不绕一趟空航行。
+    if (state.currentZone === zoneId && state.workerMode === 'BOAT_IDLE') return disembarkAtCurrentZone(zoneId, landing.id);
+    if (state.workerMode !== 'IDLE_ASHORE') return false;
+    // 只有这里成功走到「上船」才算数：先别改 landingId —— 以前先改后开船，
+    // startSailBetweenZones 因为"同区块"直接返回 false，人会留在原地但 landingId 已经变了，
+    // 之后所有取点（待机点/下船点）都指向另一块平台，看起来就是"人飞过去/区域不对"。
+    const started = startSailBetweenZones(zoneId, null, landing);
+    // 'landing' 与 'zone' 的到站处理一样（靠岸后走下船），单独标出来只为状态文案。
+    if (started) state.sailIntent = 'landing';
+    return started;
+  }
+
   const elHcTitle = document.getElementById('hc-title');
   const elHcLvl = document.getElementById('hc-lvl');
   const elHcSummary = document.getElementById('hc-summary');
@@ -2229,9 +2595,19 @@ export function initSunkenCityGameplay({
   }
 
   function positionHoverCardForTarget(target) {
-    const worldAnchor = target.type === 'boat'
-      ? boatAnchorGroup.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 2.2, 0))
-      : target.site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0));
+    let worldAnchor;
+    if (target.type === 'boat') {
+      worldAnchor = boatAnchorGroup.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 2.2, 0));
+    } else if (target.type === 'crate') {
+      worldAnchor = target.crate.group.position.clone().add(new THREE.Vector3(0, 1.5, 0));
+    } else if (target.type === 'fish') {
+      worldAnchor = new THREE.Vector3(target.school.base.x, WATER_LEVEL + 1.5, target.school.base.z);
+    } else if (target.type === 'landing') {
+      const spot = zones.landing(target.zone, target.landing);
+      worldAnchor = (spot ? spot.dockEdge.clone() : boatAnchorGroup.position.clone()).add(new THREE.Vector3(0, 2.4, 0));
+    } else {
+      worldAnchor = target.site.hoverAnchor.clone().add(new THREE.Vector3(0, .6, 0));
+    }
     const p = worldAnchor.project(camera);
     const visible = p.z > -1 && p.z < 1 && Math.abs(p.x) < .98 && Math.abs(p.y) < .98;
     hoverCard.classList.toggle('out-of-view', !visible);
@@ -2248,6 +2624,41 @@ export function initSunkenCityGameplay({
 
   function renderHoverCardContent() {
     if (!hoveredTarget || ['actor', 'salvage', 'dock', 'economy'].includes(hoveredTarget.type)) return;
+    if (hoveredTarget.type === 'crate') {
+      const spec = driftCrates.KINDS[hoveredTarget.crate.kind] || driftCrates.KINDS.crate;
+      elHcTitle.textContent = spec.label;
+      elHcLvl.textContent = '漂浮物资';
+      const parts = Object.entries(spec.reward).map(([k, v]) => `${v} ${MATERIALS[k]?.name || k}`).join(' · ');
+      elHcSummary.textContent = isBoatMode() ? `点击划过去拾取 · ${parts}` : `点击上船去拾取 · ${parts}`;
+      hoverCard.classList.remove('can-upgrade');
+      return;
+    }
+    if (hoveredTarget.type === 'fish') {
+      const school = hoveredTarget.school;
+      const near = Math.hypot(school.base.x - boatAnchorGroup.position.x, school.base.z - boatAnchorGroup.position.z)
+        <= fishSchools.harvestRadius;
+      elHcTitle.textContent = '海面鱼群';
+      elHcLvl.textContent = `还有 ${school.fishCount} 条`;
+      elHcSummary.textContent = near
+        ? '点击捞一条鱼'
+        : isBoatMode() ? '点击划过去 · 到旁边再捞' : '点击上船去鱼群';
+      hoverCard.classList.remove('can-upgrade');
+      return;
+    }
+    if (hoveredTarget.type === 'landing') {
+      const zone = zones.get(hoveredTarget.zone);
+      const spot = zones.landing(hoveredTarget.zone, hoveredTarget.landing);
+      const where = spot && spot.id !== 'main' ? spot.name : zone?.name || hoveredTarget.zone;
+      elHcTitle.textContent = `上岸 · ${where}`;
+      const here = state.currentZone === hoveredTarget.zone
+        && (state.landingId || 'main') === (spot?.id || 'main');
+      elHcLvl.textContent = state.currentZone === hoveredTarget.zone ? '当前水域' : '可前往';
+      elHcSummary.textContent = state.workerMode === 'IDLE_ASHORE' && here
+        ? '已经在这里的岸上'
+        : '点击自动航行靠岸并走上岸';
+      hoverCard.classList.remove('can-upgrade');
+      return;
+    }
     if (hoveredTarget.type === 'boat') {
       elHcTitle.textContent = '小船与黑猫';
       elHcLvl.textContent = state.workerMode === 'IDLE_ASHORE' ? '停泊' : '航行中';
@@ -2273,6 +2684,10 @@ export function initSunkenCityGameplay({
   function findHoverTargetFromIntersection(hitObj) {
     const economyTarget = economyView?.findTarget(hitObj);
     if (economyTarget) return economyTarget;
+    const crate = driftCrates.findTarget(hitObj);
+    if (crate) return { type: 'crate', crate };
+    const school = fishSchools.findTarget(hitObj);
+    if (school) return { type: 'fish', school };
     let curr = hitObj;
     while (curr) {
       if (curr === explorerGroup) {
@@ -2280,6 +2695,13 @@ export function initSunkenCityGameplay({
       }
       if (curr === boatAnchorGroup || curr === boatMeshGroup) {
         return { type: 'boat' };
+      }
+      for (const [key, entry] of Object.entries(landingTargets)) {
+        if (!entry) continue;
+        if (curr === entry || curr === entry.group) {
+          const { zone, landing } = splitLandingKey(key);
+          return { type: 'landing', zone, landing };
+        }
       }
       if (harborTargets.salvage && (curr === harborTargets.salvage || curr === harborTargets.salvage.poleGroup)) {
         return { type: 'salvage' };
@@ -2302,21 +2724,71 @@ export function initSunkenCityGameplay({
     if (a.type !== b.type) return false;
     if (a.type === 'site') return a.site.id === b.site.id;
     if (a.type === 'economy') return a.id === b.id;
+    if (a.type === 'crate') return a.crate === b.crate;
+    if (a.type === 'landing') return a.zone === b.zone && (a.landing || 'main') === (b.landing || 'main');
     return true;
   }
 
+  // ⚓️ 图标本身不接管指针（否则会挡住下面小船、物资箱与地面的点击），
+  // 所以命中判定在这里做：先看图标中心 20px 内，再看 3D 桩身 12px 内。
+  // 这让"点图标"和"点桩子"都能上岸，而点击仍会穿透到 canvas 走统一路由。
+  function pickLandingAtScreen(clientX, clientY) {
+    let best = null;
+    const consider = (key, sx, sy, radius) => {
+      const entry = landingTargets[key];
+      if (!entry) return;
+      const el = landingMarkers.get(key);
+      if (el?.disabled) return;
+      const d = Math.hypot(sx - clientX, sy - clientY);
+      if (d <= radius && (!best || d < best.d)) {
+        const { zone, landing } = splitLandingKey(key);
+        best = { d, target: { type: 'landing', zone, landing } };
+      }
+    };
+    for (const [key, el] of landingMarkers) {
+      if (el.hidden || !Number.isFinite(el._sx)) continue;
+      consider(key, el._sx, el._sy, 20);
+    }
+    for (const [key, entry] of Object.entries(landingTargets)) {
+      const g = entry?.group || entry;
+      if (!g) continue;
+      const p = g.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 0.9, 0)).project(camera);
+      if (p.z < -1 || p.z > 1) continue;
+      consider(key, (p.x * .5 + .5) * window.innerWidth, (-p.y * .5 + .5) * window.innerHeight, 12);
+    }
+    return best ? best.target : null;
+  }
+
   function hitTargetAt(clientX, clientY) {
+    const landingPick = pickLandingAtScreen(clientX, clientY);
+    if (landingPick) return landingPick;
+    // 采集/菜箱/设施的图标也是"只画图标"，命中同样按图标屏幕位置判定，
+    // 否则图标浮在物件上方，鼠标点图标本体反而落空（之前热区对不上的原因）。
+    const markerPick = economyView?.markerAt?.(clientX, clientY);
+    if (markerPick) return markerPick;
+    // 鱼群的 🐟 同理：图标浮在水面鱼群上方，按图标位置命中。
+    const schoolPick = fishSchools.markerAt(clientX, clientY);
+    if (schoolPick) return { type: 'fish', school: schoolPick };
     const rect = renderer.domElement.getBoundingClientRect();
     pointer.x = ((clientX - rect.left) / rect.width) * 2 - 1;
     pointer.y = -((clientY - rect.top) / rect.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
-    const roots = [boatMeshGroup, explorerGroup, harborTargets.salvage, harborTargets.dock, harborTargets.salvage?.poleGroup, ...(economyView?.roots || []), ...buildSites.flatMap(s => s.hitRoots || [])].filter(Boolean);
+    const roots = [boatMeshGroup, explorerGroup, driftCrates.root, fishSchools.root, ...Object.values(landingTargets).map(e => e?.group || e), harborTargets.salvage, harborTargets.dock, harborTargets.salvage?.poleGroup, ...(economyView?.roots || []), ...buildSites.flatMap(s => s.hitRoots || [])].filter(Boolean);
+    const inFishRoot = (obj) => {
+      for (let o = obj; o; o = o.parent) if (o === fishSchools.root) return true;
+      return false;
+    };
     const hit = raycaster.intersectObjects(roots, true).find(h => {
-      if(h.point.y < WATER_LEVEL + .05) return false;
+      // 鱼群贴着水面游，命中点会略低于水线，这一支要放行；其他物件仍然只认水面上方。
+      if(h.point.y < WATER_LEVEL + .05 && !inFishRoot(h.object)) return false;
       for(let obj=h.object;obj;obj=obj.parent) if(!obj.visible) return false;
       return true;
     });
-    return hit && hit.distance < 115 ? findHoverTargetFromIntersection(hit.object) : null;
+    if (!hit) return null;
+    // 鱼群散在整片水域，默认俯视下经常在 115m 之外；鱼群放宽到接近相机远平面，
+    // 否则"远处的鱼群点不到、也就没法划过去"。
+    const reach = inFishRoot(hit.object) ? 178 : 115;
+    return hit.distance < reach ? findHoverTargetFromIntersection(hit.object) : null;
   }
 
   // Both the building geometry and its action icon enter the same target state.
@@ -2330,6 +2802,8 @@ export function initSunkenCityGameplay({
     }
     const target = hitTargetAt(e.clientX, e.clientY);
     renderer.domElement.style.cursor = target ? 'pointer' : 'default';
+    // 图标是 canvas 上的纯 DOM 装饰（pointer-events:none），悬停反馈得由这里代劳。
+    economyView?.setHot?.(target?.type === 'economy' ? target.id : null);
     if (target) showHoverTarget(target);
     else scheduleHideCard();
   });
@@ -2363,6 +2837,8 @@ export function initSunkenCityGameplay({
       if (hit.distance >= distance - .12 || hit.point.y < WATER_LEVEL - .05) return false;
       for (let obj = hit.object; obj; obj = obj.parent) {
         if (obj === waterPlane || obj === boatAnchorGroup || obj === boatMeshGroup || obj === explorerGroup) return false;
+        // 漂浮物资和上岸桩是可穿过的水面标记，不该把水面点击挡掉。
+        if (obj.userData?.noSailBlock) return false;
         if (!obj.visible) return false;
       }
       return true;
@@ -2418,7 +2894,7 @@ export function initSunkenCityGameplay({
     if (isBoatMode()) {
       state.targetZone = site.zone;
       state.sailIntent = 'site';
-      state.sailTargetPos = site.shoreEdgePos.clone();
+      state.sailTargetPos = getZoneBoatPark(site.zone, 'main').clone();
       state.sailTargetPos.y = WATER_LEVEL;
       state.sailCurve = buildSmoothSailCurve(state.currentZone, site.zone, state.sailTargetPos);
       state.sailProgress = 0;
@@ -2429,14 +2905,20 @@ export function initSunkenCityGameplay({
     }
 
     state.targetZone = site.zone;
-    state.walkTargetPos.copy(getZoneShoreEdge(state.currentZone));
+    // 岸上出发也要标清楚意图：BOARDING 完成后靠它决定是继续航行还是原地停船，
+    // 漏了这一步船会开到目标水域却只停在船上、不上岸施工。
+    state.sailIntent = 'site';
+    state.sailTargetPos = getZoneBoatPark(site.zone, 'main').clone();
+    state.sailTargetPos.y = WATER_LEVEL;
+    state.landingId = 'main';
+    const boardSite = boardLanding(state.currentZone);
+    if (boardSite) state.walkTargetPos.copy(boardSite.dockEdge);
     state.workerMode = 'WALK_TO_BOAT';
     state.camLockMode = 'worker';
     return true;
   }
 
   renderer.domElement.addEventListener('pointerup', (e) => {
-    if (e.button !== 0 || Math.hypot(e.clientX - downPos.x, e.clientY - downPos.y) > 6) return;
     const target = hitTargetAt(e.clientX, e.clientY);
     if (target?.type === 'economy') {
       hideHoverCard();
@@ -2449,7 +2931,8 @@ export function initSunkenCityGameplay({
         state.targetZone = state.currentZone;
         state.sailIntent = 'board';
         state.sailTargetPos = null;
-        state.walkTargetPos.copy(getZoneShoreEdge(state.currentZone));
+        const boardHere = boardLanding(state.currentZone);
+        if (boardHere) state.walkTargetPos.copy(boardHere.dockEdge);
         state.walkRegionId = getWalkRegionAt(state.walkTargetPos)?.id || null;
         state.workerMode = 'WALK_TO_BOAT';
         state.camLockMode = 'worker';
@@ -2464,6 +2947,21 @@ export function initSunkenCityGameplay({
     if (target?.type === 'site') {
       hideHoverCard();
       activateSite(target.site);
+      return;
+    }
+    if (target?.type === 'crate') {
+      hideHoverCard();
+      requestCrate(target.crate);
+      return;
+    }
+    if (target?.type === 'landing') {
+      hideHoverCard();
+      requestLanding(target.zone, target.landing || 'main');
+      return;
+    }
+    if (target?.type === 'fish') {
+      hideHoverCard();
+      requestFishSchool(target.school);
       return;
     }
     if (target?.type === 'salvage') {
@@ -2490,6 +2988,7 @@ export function initSunkenCityGameplay({
       }
       return;
     }
+
     if (!requestGroundMove(e.clientX, e.clientY)) {
       hideHoverCard();
       closeActionMenus();
@@ -2500,86 +2999,284 @@ export function initSunkenCityGameplay({
   // 10. 小人走上船 → 镜头拉高锁定跟随船 → 靠岸停船 → 走上岸浇水播种
   // ============================================================================
   // 上岸点 / 待机点 / 停泊位统一从注册表取，不再按区块写 if 链。
-  function getZoneShoreEdge(zoneId) {
-    return (zones.get(zoneId) || homeZone).dockEdge;
+  // 船停在哪根桩旁边，人就从哪根桩上船。
+  // 以前登船点固定用 state.landingId（那是「目的地」的桩），在绞盘打捞台上点去别区时，
+  // 小人会朝主码头直线走过去 —— 中间全是水，看起来就是"人飞过海面"。
+  function nearestLandingTo(zoneId, pos) {
+    const list = zones.landingsOf(zoneId);
+    if (!list.length) return null;
+    if (!pos) return list[0];
+    let best = list[0];
+    let bestD = Infinity;
+    for (const l of list) {
+      const d = Math.hypot(l.dockEdge.x - pos.x, l.dockEdge.z - pos.z);
+      if (d < bestD) { bestD = d; best = l; }
+    }
+    return best;
   }
 
-  function getZoneStandPos(zoneId) {
-    return (zones.get(zoneId) || homeZone).landStand;
+  function boardLanding(zoneId = state.currentZone) {
+    // 船的实际位置才是权威：人可能站在平台的另一侧，但只要船在这根桩旁边，
+    // 就应该走回这根桩下船/上船，而不是横穿水面去另一块平台。
+    return nearestLandingTo(zoneId, boatAnchorGroup.position)
+      || nearestLandingTo(zoneId, explorerGroup.position);
   }
 
-  function getZoneBoatPark(zoneId) {
-    return (zones.get(zoneId) || homeZone).boatPark;
+  // 一个区块可能有多个上岸点（主码头 + 独立平台），landingId 不传就取主码头。
+  function getZoneShoreEdge(zoneId, landingId = state.landingId) {
+    const landing = zones.landing(zoneId || state.currentZone, landingId);
+    return landing ? landing.dockEdge : (homeZone.dockEdge);
   }
 
-  // 航线只在水面移动，并在每次点击时绕开会露出水面的建筑/平台包围盒。
-  function getSailObstacleRects(start, end) {
+  function getZoneStandPos(zoneId, landingId = state.landingId) {
+    const landing = zones.landing(zoneId || state.currentZone, landingId);
+    return landing ? landing.landStand : (homeZone.landStand);
+  }
+
+  function getZoneBoatPark(zoneId, landingId = state.landingId) {
+    const landing = zones.landing(zoneId || state.currentZone, landingId);
+    return landing ? landing.boatPark : (homeZone.boatPark);
+  }
+
+  // —— 航行碰撞 ——
+  // 船是 3.3m 长、1.5m 宽的真实实体，只靠「航迹避开包围盒」不够：
+  // 规划层按船体半宽给障碍加净空后做栅格 A*（sail-nav.js），
+  // 运行层再按真实船壳轮廓（15 排 × 每排 0.42m 密采样）做刚体推出，
+  // 两层都要在：规划负责「别走进死路」，运行负责「别贴穿模型」。
+  const BOAT_HULL_MARGIN = 0.14;       // 船壳再外扩一点，避免视觉上贴穿
+  // 贴岸容差：给出 0.3m 的裕度，船靠泊/离泊原地转向时允许船壳贴住码头边缘一点点。
+  // 完全按 0 容差算的话，船在窄水巷里永远靠不上岸（实测会卡在离停泊位 2.5m 处）。
+  const BOAT_PENETRATION_ALLOW = 0.3;
+  const BOAT_SCALE_X = 1.12;           // 船模型缩放（与 boatMeshGroup.scale 一致）
+  const BOAT_SCALE_Z = 1.16;
+  // 规划净空从宽到窄依次尝试：宽的先保证离墙远，窄巷再退让，全都不行才走直线。
+  const NAV_CLEARANCES = [1.0, 0.74, 0.5];
+
+  // 船壳真实轮廓的半宽（局部未缩放 z → 半宽），船头收窄、船尾略窄。
+  function boatHullRadiusAt(lz) {
+    if (lz > 2.85 || lz < -2.4) return -1;
+    if (lz > 1.4) return 1.32 * (2.85 - lz) / 1.45;
+    if (lz > -0.6) return 1.22 + 0.1 * ((lz + 0.6) / 2.0);
+    return 0.95 + 0.27 * ((lz + 2.4) / 1.8);
+  }
+
+  // 高度带内所有会挡船实体的水平包围盒（未膨胀）。
+  // 漂浮物资和上岸标记是「可穿过」的装饰，它们整棵子树带 noSailBlock，一律跳过。
+  function collectSolidRects(loY, hiY) {
     const rects = [];
-    const startBox = { x: start.x, z: start.z };
-    const endBox = { x: end.x, z: end.z };
-    const contains = (r, p, pad = 0) => p.x >= r.minX - pad && p.x <= r.maxX + pad && p.z >= r.minZ - pad && p.z <= r.maxZ + pad;
     scene.updateMatrixWorld(true);
     scene.traverse(object => {
-      if (!object.isMesh || !object.visible || object === waterPlane || object === boatMeshGroup || object === explorerGroup) return;
-      let parent = object.parent;
-      while (parent) {
-        if (parent === boatAnchorGroup || parent === explorerGroup || parent === waterPlane) return;
-        parent = parent.parent;
+      if (!object.isMesh || object.name === 'cartoon-water') return;
+      for (let p = object; p; p = p.parent) {
+        if (p === boatAnchorGroup || p === explorerGroup || p === waterPlane) return;
+        if (!p.visible) return;
+        if (p.userData?.noSailBlock) return;
       }
       const box = new THREE.Box3().setFromObject(object);
-      if (!Number.isFinite(box.min.x) || box.max.y < WATER_LEVEL - .12 || box.min.y > WATER_LEVEL + 2.8) return;
-      const rect = { minX: box.min.x - 1.1, maxX: box.max.x + 1.1, minZ: box.min.z - 1.1, maxZ: box.max.z + 1.1 };
-      if (contains(rect, startBox, .05) || contains(rect, endBox, .05)) return;
-      if (rect.maxX - rect.minX < .5 || rect.maxZ - rect.minZ < .5) return;
-      if (!rects.some(existing => Math.abs(existing.minX - rect.minX) < .18 && Math.abs(existing.minZ - rect.minZ) < .18 && Math.abs(existing.maxX - rect.maxX) < .18 && Math.abs(existing.maxZ - rect.maxZ) < .18)) rects.push(rect);
+      if (!Number.isFinite(box.min.x) || box.isEmpty()) return;
+      if (box.max.y < loY || box.min.y > hiY) return;
+      rects.push({ minX: box.min.x, maxX: box.max.x, minZ: box.min.z, maxZ: box.max.z });
     });
     return rects;
   }
 
-  function segmentHitsRect(a, b, r) {
-    const dx = b.x - a.x;
-    const dz = b.z - a.z;
-    const p = (x, z) => {
-      const qx = Math.abs(dx) < 1e-6 ? Infinity : (x - a.x) / dx;
-      const qz = Math.abs(dz) < 1e-6 ? Infinity : (z - a.z) / dz;
-      return Math.max(qx, qz);
-    };
-    if (a.x >= r.minX && a.x <= r.maxX && a.z >= r.minZ && a.z <= r.maxZ) return true;
-    if (b.x >= r.minX && b.x <= r.maxX && b.z >= r.minZ && b.z <= r.maxZ) return true;
-    const edges = [[r.minX, r.minZ, r.maxX, r.minZ], [r.maxX, r.minZ, r.maxX, r.maxZ], [r.maxX, r.maxZ, r.minX, r.maxZ], [r.minX, r.maxZ, r.minX, r.minZ]];
-    for (const [x1, z1, x2, z2] of edges) {
-      const den = (x1 - x2) * (a.z - b.z) - (z1 - z2) * (a.x - b.x);
-      if (Math.abs(den) < 1e-6) continue;
-      const u = ((x1 - x2) * (z1 - a.z) - (z1 - z2) * (x1 - a.x)) / den;
-      const v = ((a.x - b.x) * (z1 - a.z) - (a.z - b.z) * (x1 - a.x)) / den;
-      if (u >= 0 && u <= 1 && v >= 0 && v <= 1) return true;
+  // —— 规划层：水面栅格 A* ——
+  // 旧的「碰到矩形就绕到它的四个角」只能一个一个躲，障碍密的时候会拐进死角或者干脆放弃绕行。
+  // 现在把整片可航水域压成 0.5m 栅格，一次把所有障碍考虑进去，再把结果拉直。
+  let navCache = null;
+
+  function navBounds() {
+    let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+    for (const zone of zones.list) {
+      for (const spot of zone.landings) {
+        for (const p of [spot.boatPark, spot.dockEdge, spot.landStand]) {
+          minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
+          minZ = Math.min(minZ, p.z); maxZ = Math.max(maxZ, p.z);
+        }
+      }
+      for (const r of zone.regions) {
+        minX = Math.min(minX, r.minX); maxX = Math.max(maxX, r.maxX);
+        minZ = Math.min(minZ, r.minZ); maxZ = Math.max(maxZ, r.maxZ);
+      }
     }
-    return false;
+    const pad = 34;
+    const bounds={ minX: minX - pad, maxX: maxX + pad, minZ: minZ - pad, maxZ: maxZ + pad };
+    // Art-authored shorelines may extend beyond the original service islands.
+    // Include their declared extent so the newly opened water remains navigable.
+    worldGroup.traverse(node=>{
+      const b=node.userData.sailBounds;if(!b)return;
+      bounds.minX=Math.min(bounds.minX,b.minX);bounds.maxX=Math.max(bounds.maxX,b.maxX);
+      bounds.minZ=Math.min(bounds.minZ,b.minZ);bounds.maxZ=Math.max(bounds.maxZ,b.maxZ);
+    });
+    return bounds;
   }
 
-  function buildSafeSailPoints(start, end) {
-    const rects = getSailObstacleRects(start, end);
-    const points = [start.clone()];
-    let cursor = start.clone();
-    for (let pass = 0; pass < 8; pass++) {
-      const obstacle = rects.find(r => segmentHitsRect(cursor, end, r));
-      if (!obstacle) break;
-      const corners = [
-        new THREE.Vector3(obstacle.minX, WATER_LEVEL, obstacle.minZ),
-        new THREE.Vector3(obstacle.maxX, WATER_LEVEL, obstacle.minZ),
-        new THREE.Vector3(obstacle.maxX, WATER_LEVEL, obstacle.maxZ),
-        new THREE.Vector3(obstacle.minX, WATER_LEVEL, obstacle.maxZ)
-      ];
-      const candidates = corners.filter(c => !rects.some(r => segmentHitsRect(cursor, c, r)));
-      if (!candidates.length) break;
-      candidates.sort((a, b) => (a.distanceTo(cursor) + a.distanceTo(end)) - (b.distanceTo(cursor) + b.distanceTo(end)));
-      const detour = candidates[0];
-      points.push(detour.clone());
-      cursor = detour;
-      rects.splice(rects.indexOf(obstacle), 1);
+  function navGrids() {
+    if (navCache) return navCache;
+    const rects = collectSolidRects(WATER_LEVEL - .12, WATER_LEVEL + 2.8);
+    const bounds = navBounds();
+    navCache = NAV_CLEARANCES.map(clearance => createNavGrid({ rects, bounds, cell: 0.5, clearance }));
+    return navCache;
+  }
+
+  // 供测试 / 场景重建后清缓存。
+  function resetSailNav() {
+    navCache = null;
+  }
+
+  function buildSailPath(start, end) {
+    for (const grid of navGrids()) {
+      const raw = findPath(grid, start, end);
+      if (raw && raw.length >= 2) return smoothPath(grid, raw);
     }
-    points.push(end.clone());
-    return points;
+    return null;
+  }
+
+  // 停泊位就在平台边上，原地把船头转过去会让船头/船尾扫过码头。
+  // 所以出发时先沿当前船头方向驶出一小段，返港时沿停泊朝向倒推一小段再进泊 ——
+  // 这一段「进出港引道」让转向发生在开阔水面，而不是贴着码头甩尾。
+  function keepWaterPoint(x, z) {
+    const grids = navGrids();
+    return isFree(grids[grids.length - 1], x, z);
+  }
+
+  // 船壳放在 (x,z,yaw) 时是否不与任何实体相交。引道点必须过这一关 ——
+  // 只看船心不够：船头比船心伸出去 3.2m，贴着码头的"空水点"照样会把船头插进平台。
+  function hullClearAt(x, z, yaw) {
+    const blockers = state.boatBlockers;
+    if (!blockers || !blockers.length) return true;
+    const cs = Math.cos(yaw);
+    const sn = Math.sin(yaw);
+    for (let lz = -2.4; lz <= 2.85; lz += 0.45) {
+      const hw = boatHullRadiusAt(lz);
+      if (hw < 0) continue;
+      const radius = hw * BOAT_SCALE_X + BOAT_HULL_MARGIN;
+      const dz = lz * BOAT_SCALE_Z;
+      for (let u = -radius; u <= radius + 1e-6; u += 0.42) {
+        const wx = x + u * cs + dz * sn;
+        const wz = z - u * sn + dz * cs;
+        for (const rect of blockers) {
+          if (wx >= rect.minX && wx <= rect.maxX && wz >= rect.minZ && wz <= rect.maxZ) return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  function withBerthStubs(_ignored, start, dest, startYaw, destYaw) {
+    const pts = [];
+    const push = (p) => {
+      const last = pts[pts.length - 1];
+      if (!last || Math.hypot(p.x - last.x, p.z - last.z) > 0.35) pts.push({ x: p.x, z: p.z });
+    };
+    const fwd = (yaw) => ({ x: Math.sin(yaw), z: Math.cos(yaw) });
+    let from = start;
+    let to = dest;
+    let approach = null;
+
+    // 出发：先沿当前船头方向驶出泊位，别在原地甩尾扫过码头。
+    // 候选方向按「船头方向 ±30°/±60°」逐个试，取第一个船壳不碰东西、且落在水面上的。
+    if (Number.isFinite(startYaw)) {
+      for (const off of [0, 0.52, -0.52, 1.05, -1.05]) {
+        const yaw = startYaw + off;
+        const f = fwd(yaw);
+        const depart = { x: start.x + f.x * 3.6, z: start.z + f.z * 3.6 };
+        if (!keepWaterPoint(depart.x, depart.z)) continue;
+        if (!hullClearAt(depart.x, depart.z, yaw)) continue;
+        from = depart;
+        break;
+      }
+    }
+    // 进港：把「停泊位前方 N 米」当作终点，最后一段永远和停泊朝向同向。
+    // N 从 4.2 逐步放到 7.2：船头比船心长 3.2m，太短的引道会让船头正好扫到码头角。
+    if (Number.isFinite(destYaw)) {
+      const f = fwd(destYaw);
+      for (const dist of [4.2, 5.2, 6.2, 7.2]) {
+        const a = { x: dest.x - f.x * dist, z: dest.z - f.z * dist };
+        if (!keepWaterPoint(a.x, a.z)) continue;
+        if (!hullClearAt(a.x, a.z, destYaw)) continue;
+        approach = a;
+        to = a;
+        break;
+      }
+    }
+
+    push(start);
+    if (from !== start) push(from);
+    const mid = buildSailPath(from, to) || [{ x: from.x, z: from.z }, { x: to.x, z: to.z }];
+    for (const p of mid) push(p);
+    if (approach) push(approach);
+    push(dest);
+    return pts;
+  }
+
+  // 圆 vs 矩形：返回把圆推出矩形所需的最小位移（已经在外侧且不重叠时返回 null）。
+  function pushCircleOutOfRect(cx, cz, rect, radius) {
+    const insideX = cx > rect.minX && cx < rect.maxX;
+    const insideZ = cz > rect.minZ && cz < rect.maxZ;
+    if (insideX && insideZ) {
+      const dl = cx - rect.minX, dr = rect.maxX - cx, dn = cz - rect.minZ, df = rect.maxZ - cz;
+      const m = Math.min(dl, dr, dn, df);
+      if (m === dl) return { x: -(dl + radius), z: 0 };
+      if (m === dr) return { x: dr + radius, z: 0 };
+      if (m === dn) return { x: 0, z: -(dn + radius) };
+      return { x: 0, z: df + radius };
+    }
+    const nx = Math.min(Math.max(cx, rect.minX), rect.maxX);
+    const nz = Math.min(Math.max(cz, rect.minZ), rect.maxZ);
+    const dx = cx - nx;
+    const dz = cz - nz;
+    const dist = Math.hypot(dx, dz);
+    if (dist >= radius || dist < 1e-6) return null;
+    const k = (radius - dist) / dist;
+    return { x: dx * k, z: dz * k };
+  }
+
+  // 把船位修正到「船壳不与任何实体相交」的位置。
+  // 用真实船壳轮廓采样而不是几个大圆：船尾比圆窄、船头收得更快，
+  // 圆近似会漏掉船尾两角 —— 那正是靠岸时最常扫进平台的部位。
+  function resolveBoatPosition(x, z, yaw) {
+    const blockers = state.boatBlockers;
+    if (!blockers || !blockers.length) return { x, z, pushed: 0 };
+    // 只保留船体包围圆覆盖到的实体，避免每帧对着全图几百个矩形做检测。
+    const near = [];
+    for (const r of blockers) {
+      if (r.maxX < x - 3.6 || r.minX > x + 3.6 || r.maxZ < z - 3.6 || r.minZ > z + 3.6) continue;
+      near.push(r);
+    }
+    if (!near.length) return { x, z, pushed: 0 };
+
+    let px = x, pz = z, pushed = 0;
+    const cs = Math.cos(yaw), sn = Math.sin(yaw);
+    // 刚体推出：每轮只处理「最深」的那一处穿透，并按 0.45m 步长位移。
+    // 以前是每排船壳各自把同一个障碍推一遍 —— 贴着长平台时 15 排累加，
+    // 一帧能把船推出 9m（实测整船从 z=-11 瞬移到 z=-21）。
+    for (let iter = 0; iter < 12; iter++) {
+      let deepest = null;
+      for (let lz = -2.4; lz <= 2.85; lz += 0.35) {
+        const hw = boatHullRadiusAt(lz);
+        if (hw < 0) continue;
+        const radius = Math.max(0.05, hw * BOAT_SCALE_X + BOAT_HULL_MARGIN - BOAT_PENETRATION_ALLOW);
+        const dz = lz * BOAT_SCALE_Z;
+        // 每一排沿船宽方向密采样：只取两端会漏掉细柱/箱角，船壳中段照样穿。
+        for (let u = -radius; u <= radius + 1e-6; u += 0.42) {
+          const wx = px + u * cs + dz * sn;
+          const wz = pz - u * sn + dz * cs;
+          for (const rect of near) {
+            const push = pushCircleOutOfRect(wx, wz, rect, 0.05);
+            if (!push) continue;
+            const len = Math.hypot(push.x, push.z);
+            if (!deepest || len > deepest.len) deepest = { x: push.x, z: push.z, len };
+          }
+        }
+      }
+      if (!deepest) break;
+      const step = Math.min(1, 0.45 / deepest.len);
+      px += deepest.x * step;
+      pz += deepest.z * step;
+      pushed += deepest.len * step;
+    }
+    return { x: px, z: pz, pushed };
   }
 
   function getBaseCameraOffset() {
@@ -2590,7 +3287,7 @@ export function initSunkenCityGameplay({
     const base = getBaseCameraOffset();
     if (!base || !base.length()) return;
     const distance = camera.position.distanceTo(controls.target);
-    cameraDistanceScale = THREE.MathUtils.clamp(distance / base.length(), 0.72, 1.85);
+    cameraDistanceScale = THREE.MathUtils.clamp(distance / base.length(), 0.72, 2.25);
   }
 
   controls.addEventListener('end', rememberUserZoom);
@@ -2621,32 +3318,44 @@ export function initSunkenCityGameplay({
     }
   }, true);
 
+  // 给出「从当前位置到目标点」的平滑航迹。先按宽净空找，再逐级退让；
+  // 全都不通才退回直线（运行层的船壳推出会兜住，不至于穿模）。
   function buildSmoothSailCurve(fromZone, toZone, requestedTarget = null) {
-    const makeRoute = (points) => {
-      const safePoints = [];
-      for (let i = 0; i < points.length - 1; i++) {
-        const segment = buildSafeSailPoints(points[i], points[i + 1]);
-        if (i > 0) segment.shift();
-        safePoints.push(...segment);
-      }
-      const path = new THREE.CurvePath();
-      for (let i = 0; i < safePoints.length - 1; i++) {
-        path.add(new THREE.LineCurve3(safePoints[i], safePoints[i + 1]));
-      }
-      path.arcLengthDivisions = Math.max(64, safePoints.length * 32);
-      return path;
-    };
+    // 运行层只认「船壳高度带」内的实体。实测整船（含船上的人）世界包围盒顶到 2.35m，
+    // 也就是水面 +1.23，所以上限取 +1.25：再高一点的东西船是完全从底下过去的，
+    // 算进来会让推进求解在悬挑屋檐下无解、把船顶死在原地。
+    state.boatBlockers = collectSolidRects(WATER_LEVEL + 0.08, WATER_LEVEL + 1.25);
     const startPt = boatAnchorGroup.position.clone();
+    startPt.y = WATER_LEVEL;
     const destPark = (requestedTarget || getZoneBoatPark(toZone)).clone();
     destPark.y = WATER_LEVEL;
 
-    // 航点来自 zones.js 的 SAIL_ROUTES；没配的区块组合走直线，再由障碍绕行补齐。
-    const waypoints = zones.routePoints(fromZone, toZone);
-    if (!waypoints || !waypoints.length) return makeRoute([startPt, destPark]);
-    const points = [startPt];
-    for (const [x, z] of waypoints) points.push(new THREE.Vector3(x, WATER_LEVEL, z));
-    points.push(destPark);
-    return makeRoute(points);
+    // 只有"回区块停泊位"才需要对齐停泊朝向；点水面 / 点物资是就地停下，不需要。
+    const parkRef = toZone ? getZoneBoatPark(toZone) : null;
+    const alignsToPark = parkRef && Math.hypot(destPark.x - parkRef.x, destPark.z - parkRef.z) < 0.6;
+    const poly = withBerthStubs(
+      [],
+      { x: startPt.x, z: startPt.z },
+      { x: destPark.x, z: destPark.z },
+      boatAnchorGroup.rotation.y,
+      alignsToPark ? zones.get(toZone).boatYaw : NaN
+    );
+
+    const path = new THREE.CurvePath();
+    let cursor = startPt.clone();
+    let total = 0;
+    for (const p of poly) {
+      const next = new THREE.Vector3(p.x, WATER_LEVEL, p.z);
+      const len = cursor.distanceTo(next);
+      if (len < 0.05) continue;
+      path.add(new THREE.LineCurve3(cursor, next));
+      total += len;
+      cursor = next;
+    }
+    if (total < 0.05) path.add(new THREE.LineCurve3(startPt, destPark));
+    path.arcLengthDivisions = Math.max(64, poly.length * 16);
+    state.sailPathPoints = poly.length;
+    return path;
   }
 
   function updateTopButtonsHighlight(activeZone) {
@@ -2658,20 +3367,48 @@ export function initSunkenCityGameplay({
     if (activeZone === 'zone3') btnCamZone3.classList.add('active');
   }
 
-  function startSailBetweenZones(destZone, jobSiteAfterArrival = null) {
-    if (economy.busy || !zones.get(destZone)) return false;
+  // 去某个区块上岸。三种起点分别处理，别再一律写 WALK_TO_BOAT ——
+  // 在船上时那样写会把角色状态改成"走向岸边"，人还在船上却开始走路（以前点目的地按钮会卡在这里）。
+  function startSailBetweenZones(destZone, jobSiteAfterArrival = null, landing = null) {
+    if (workInProgress() || !zones.get(destZone)) return false;
     if (!zones.isUnlocked(destZone, state)) return false;
-    if (destZone === state.currentZone && !jobSiteAfterArrival) return false;
+    const target = landing || zones.landing(destZone, state.landingId);
+    const sameZone = destZone === state.currentZone;
+    // 同一区块里换一块平台（主码头 ↔ 绞盘打捞台）也要开船过去，不能因为"同区"直接拒绝。
+    const sameLanding = sameZone && (state.landingId || 'main') === (target?.id || 'main');
+    if (sameZone && sameLanding && !jobSiteAfterArrival && !isBoatMode()) return false;
     state.manualCamera = false;
     state.sailIntent = jobSiteAfterArrival ? 'site' : 'zone';
     updateTopButtonsHighlight(destZone);
     state.activeJobSite = jobSiteAfterArrival;
+    state.pendingWorldTarget = null;
     state.targetZone = destZone;
+    if (target) state.landingId = target.id;
 
-    const currentEdge = getZoneShoreEdge(state.currentZone);
+    if (isBoatMode()) {
+      // 已经在船上：直接规划航迹，不必再"走回岸边"。
+      state.sailTargetPos = target.boatPark.clone();
+      state.sailTargetPos.y = WATER_LEVEL;
+      state.sailCurve = buildSmoothSailCurve(state.currentZone, destZone, state.sailTargetPos);
+      state.sailProgress = 0;
+      state.sailDuration = Math.max(2.4, state.sailCurve.getLength() / 3.6);
+      state.workerMode = 'ROWING';
+      state.camLockMode = 'boat';
+      setWorkerStatus(`正划向${target.name || zones.label(destZone)}...`);
+      return true;
+    }
+
+    // 上船点取「船停着的那根桩」，不是目的地的桩：从绞盘打捞台出发时
+    // 走主码头要横穿海面，小人会像飞过去一样。
+    const currentEdge = (boardLanding(state.currentZone) || target).dockEdge;
+    // 岸上出发也要先把目标点定好：BOARDING 结束时直接拿它规划航线，
+    // 不清掉上一次的值就会出现"点了 A 区却往 B 区开"。
+    state.sailTargetPos = target.boatPark.clone();
+    state.sailTargetPos.y = WATER_LEVEL;
     state.walkTargetPos.copy(currentEdge);
     state.workerMode = 'WALK_TO_BOAT';
     setWorkerStatus('正走向岸边登船...');
+    return true;
   }
 
   function triggerBuildAtSite(site) {
@@ -2739,32 +3476,35 @@ export function initSunkenCityGameplay({
   const BUILD_SPEED = 0.16;
   const SAIL_SPEED_SCALE = 0.62;
 
-  // 探索里程：角色和船的实际位移都算，走够一段就掷一次骰子捡漂流木/旧零件。
-  let lastExplorePos = null;
-  function trackExplore() {
-    const onBoat = explorerGroup.parent !== scene;
-    const pos = onBoat ? boatAnchorGroup.position : explorerGroup.position;
-    if (!lastExplorePos) {
-      lastExplorePos = pos.clone();
-      return;
+  // 海面物资改为「看得见的漂浮物」，不再按里程随机掉落：
+  // 走/划够一段就白送木料的做法会让"捡东西"这件事完全失去存在感。
+  let cratesSpawned = false;
+  function updateDriftCrates(elapsed, dt = 0) {
+    // 等港口与遗迹都摆好之后再撒物资，否则会刷进建筑里。
+    if (!cratesSpawned && elapsed > 1.2) {
+      cratesSpawned = true;
+      driftCrates.spawnAll();
+      fishSchools.setCamera(camera);
+      fishSchools.spawnAll();
     }
-    const moved = Math.hypot(pos.x - lastExplorePos.x, pos.z - lastExplorePos.z);
-    lastExplorePos.copy(pos);
-    // 换区、上船、跳船这类瞬移不是"走出来的"，不计入探索里程。
-    if (moved <= 0.001 || moved > 4) return;
-    const found = economy.explore(moved);
-    if (!found.ok) return;
-    syncCoinUI();
-    spawnResourceFlight(
-      explorerGroup.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, 1.4, 0)),
-      found.reward
-    );
+    fishSchools.update(dt, elapsed);
+    const activeSchool = state.pendingWorldTarget?.type === 'fish' ? state.pendingWorldTarget.school : null;
+    fishSchools.updateMarkers(state.workerMode === 'DIVING' ? null : boatAnchorGroup.position, activeSchool?.id ?? null);
+    const onBoat = isBoatMode() || state.workerMode === 'BOARDING';
+    const shouldPickup = onBoat
+      ? (state.sailIntent === 'crate' || state.workerMode === 'BOAT_IDLE')
+      : state.workerMode !== 'DIVING';
+    return driftCrates.update(0, elapsed, {
+      boatPos: boatAnchorGroup.position,
+      walkerPos: explorerGroup.parent === scene ? explorerGroup.position : null,
+      shouldPickup
+    }, economy);
   }
 
   function updateGameplay(dt, elapsedTime) {
     const safeDt = Math.max(0, Math.min(Number.isFinite(dt) ? dt : 0, 0.1));
     economy.tick(safeDt);
-    if (state.workerMode !== 'DIVING') trackExplore();
+    if (state.workerMode !== 'DIVING') updateDriftCrates(elapsedTime, safeDt);
     economyView?.update(safeDt, elapsedTime);
 
     // 绞盘冷却按真实时间回落；冷却结束只在岸上提醒一次，避免航行途中刷屏。
@@ -2954,16 +3694,15 @@ export function initSunkenCityGameplay({
       if (state.sailCurve) {
         const pt = state.sailCurve.getPointAt(state.sailProgress);
         const tangent = state.sailCurve.getTangentAt(state.sailProgress);
-        boatAnchorGroup.position.x = pt.x;
-        boatAnchorGroup.position.z = pt.z;
 
         let desiredYaw = Math.atan2(tangent.x, tangent.z);
-        // 靠岸最后 18% 逐渐转成区块配置的停泊朝向，避免到位瞬间甩头。
-        const destZone = (state.sailIntent === 'zone' || state.sailIntent === 'site')
-          ? zones.get(state.targetZone)
+        // 靠岸最后 18% 逐渐转成「这次要去的那根桩」的停泊朝向，避免到位瞬间甩头。
+        // 别用 zone.boatYaw —— 那只是主码头的朝向，独立平台（打捞台）的朝向不同。
+        const destLanding = (state.sailIntent === 'zone' || state.sailIntent === 'site' || state.sailIntent === 'landing')
+          ? zones.landing(state.targetZone, state.landingId)
           : null;
-        if (destZone && state.sailProgress > 0.82) {
-          let parkDiff = destZone.boatYaw - desiredYaw;
+        if (destLanding && state.sailProgress > 0.82) {
+          let parkDiff = destLanding.boatYaw - desiredYaw;
           while (parkDiff > Math.PI) parkDiff -= Math.PI * 2;
           while (parkDiff < -Math.PI) parkDiff += Math.PI * 2;
           desiredYaw += parkDiff * Math.min(1, (state.sailProgress - 0.82) / 0.18);
@@ -2972,11 +3711,22 @@ export function initSunkenCityGameplay({
         while (diff > Math.PI) diff -= Math.PI * 2;
         while (diff < -Math.PI) diff += Math.PI * 2;
         boatAnchorGroup.rotation.y += diff * Math.min(1, safeDt * 7.5);
+
+        // 船壳碰撞：曲线只是「想去哪」，最终落点必须过一遍实体推出，
+        // 否则拐角处船头/船尾会直接扫进平台（观感就是完全没碰撞）。
+        const fixed = resolveBoatPosition(pt.x, pt.z, boatAnchorGroup.rotation.y);
+        // 修正量过大说明船已经被卡进大件里：这一帧留在原地，别瞬移出去。
+        if (fixed.pushed <= 1.2) {
+          boatAnchorGroup.position.x = fixed.x;
+          boatAnchorGroup.position.z = fixed.z;
+        }
       }
 
       if (state.sailProgress >= 1) {
         explorerBodyPivot.rotation.x = 0;
-        if (state.sailIntent === 'target' || state.sailIntent === 'free') {
+        // 到站分流：默认上岸；只有"停在水上办事"的意图（点水面/点物资/打捞台）才留在船上。
+        const staysAfloat = state.sailIntent === 'target' || state.sailIntent === 'free' || state.sailIntent === 'crate' || state.sailIntent === 'fish';
+        if (staysAfloat) {
           const pending = state.pendingWorldTarget;
           state.workerMode = 'BOAT_IDLE';
           state.sailCurve = null;
@@ -2985,7 +3735,23 @@ export function initSunkenCityGameplay({
           state.sailIntent = 'free';
           if (pending?.type === 'salvage') performSalvage();
           if (pending?.type === 'dock') upgradeShip();
+          if (pending?.type === 'crate') tryCollectCrate(pending.crate, true);
         } else {
+          // landingId 可能来自上一个区块（比如上趟停在打捞台），到站先归一到本区块
+          // 真实存在的上岸点，否则下船点/待机点会拿到其他区块的桩。
+          const destLanding = zones.landing(state.targetZone, state.landingId)
+            || zones.landing(state.targetZone, 'main');
+          state.landingId = destLanding ? destLanding.id : 'main';
+          // 靠泊吸附：曲线终点是泊位，但运行层每帧的船壳推出会把船挪开一点
+          // （实测差 0.8m），角色下船点就会跟着漂。到这里直接贴回配置的泊位。
+          const park = getZoneBoatPark(state.targetZone, state.landingId);
+          const parkYaw = destLanding?.boatYaw;
+          if (Number.isFinite(parkYaw)) boatAnchorGroup.rotation.y = parkYaw;
+          const snapped = resolveBoatPosition(park.x, park.z, boatAnchorGroup.rotation.y);
+          if (snapped.pushed <= 1.2) {
+            boatAnchorGroup.position.x = snapped.x;
+            boatAnchorGroup.position.z = snapped.z;
+          }
           state.currentZone = state.targetZone;
           updateTopButtonsHighlight(state.currentZone);
           const shoreEdge = getZoneShoreEdge(state.currentZone);
@@ -3102,9 +3868,9 @@ export function initSunkenCityGameplay({
 
       const baseCameraDistance = (state.camLockMode === 'boat' ? BOAT_FOLLOW_OFFSET : CAM_OFFSET).length();
       controls.minDistance = baseCameraDistance * 0.70;
-      // Capped below the camera far plane (190) so pulling all the way back still frames the harbor;
-      // beyond that the whole map sits past the fog's full-fade distance and reads as empty water.
-      controls.maxDistance = baseCameraDistance * 1.45;
+      // The wider overview includes the first region's enclosing skyline and northeast bridge.
+      // Camera far=600 and fog far=520 retain the back row at this distance.
+      controls.maxDistance = baseCameraDistance * 2.25;
       isApplyingCameraLock = true;
       controls.target.lerp(desiredTarget, 0.06);
       camera.position.lerp(desiredCamPos, 0.06);
@@ -3119,6 +3885,13 @@ export function initSunkenCityGameplay({
     performSalvage,
     upgradeShip,
     registerHarborTargets,
+    registerLandingTargets,
+    requestLanding,
+    requestCrate,
+    driftCrates,
+    fishSchools,
+    requestFishSchool,
+    resetSailNav,
     requestHarborAction,
     salvage: salvageApi,
     economy,
@@ -3130,17 +3903,36 @@ export function initSunkenCityGameplay({
     probe: {
       stand: (x, z, lo, hi) => sampleStandHeight(x, z, lo, hi),
       region: (id) => WALK_REGIONS.find((r) => r.id === id) || null,
+      // 屏幕点最终会被派给谁（economy / site / boat / landing / fish …），null 表示落到地面。
+      hit: (clientX, clientY) => hitTargetAt(clientX, clientY),
       meshCount: () => standProbeList().length,
-      lastSettle: () => lastSettle
+      lastSettle: () => lastSettle,
+      // 航行碰撞：给定船位/朝向返回推出后的位置与修正量（调试与回归用）。
+      boatResolve: (x, z, yaw) => resolveBoatPosition(x, z, yaw),
+      hullClear: (x, z, yaw) => hullClearAt(x, z, yaw),
+      refreshBlockers: () => {
+        state.boatBlockers = collectSolidRects(WATER_LEVEL + 0.08, WATER_LEVEL + 1.25);
+        return state.boatBlockers.length;
+      },
+      boatBlockers: () => state.boatBlockers || [],
+      // 寻路：给定起终点返回 A* 平滑后的航点（验证"这条路通不通"）。
+      sailPath: (from, to) => buildSailPath(from, to),
+      // 点击路由：给定屏幕坐标返回会命中的目标（回归用，避免只能靠肉眼点）。
+      targetAt: (clientX, clientY) => {
+        const t = hitTargetAt(clientX, clientY);
+        return t ? { type: t.type, zone: t.zone || null, site: t.site?.id || null, crateId: t.crate?.id || null } : null;
+      },
+      navStats: () => navGrids().map(g => ({ clearance: g.clearance, cols: g.cols, rows: g.rows }))
     },
     art: { camera, zones, zone2Root, explorerGroup, boatAnchorGroup, stationPlatformGroup, trainCarGroup, stationCanopy, trackBedGroup, roadBedMesh, zone4Root, euroBuilding, houseBoatGroup, spout, zone3Root, planterTowerBody,
       planterSoil, rooftopSoilPatch, initialPlants, underwaterCityGroup, buildSites, state,
       resident: { group: resident.group, windowGlow, lantern: lanternGroup, homeSite },
-      swimParts: { explorerBodyPivot, leftArmPivot, rightArmPivot, leftLegPivot, rightLegPivot, toolGroup, hatBrim, hatCrown },
+      swimParts: { detail: characterDetail, explorerBodyPivot, leftArmPivot, rightArmPivot, leftLegPivot, rightLegPivot, toolGroup, hatBrim, hatCrown },
       crops: [z2CropStage1, z2CropStage2, z2CropStage3, z3CropStage1, z3CropStage2] },
     updateOverlays() {
       [btnCamOriginal, btnCamZone2, btnCamZone3].forEach(btn => { btn.disabled = state.workerMode !== 'IDLE_ASHORE'; });
       updateResourceOrbs();
+      updateLandingMarkers();
       economyView?.updateOverlays();
       if (hoveredTarget && !['actor', 'salvage', 'dock', 'economy'].includes(hoveredTarget.type)) {
         renderHoverCardContent();

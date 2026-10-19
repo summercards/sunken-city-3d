@@ -1,0 +1,75 @@
+{
+  "slug": "window_indicator_strip",
+  "name_zh": "门厅方灯组",
+  "category": "fitting",
+  "component_family": "window_indicator_strip",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "component_id": "ENV-TOWER-DISTRICT-WINDOW-INDICATOR-STRIP",
+  "geometry_fingerprint": "9da76e1e055d1522e0ff10000e9b69dabeebd7fa4ae597481c9c30e4842c0cee",
+  "axis": "fitting",
+  "instance_count": 1,
+  "bounds_size_m": [
+    1.029998779296875,
+    0.059999942779541016,
+    0.21000003814697266
+  ],
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "material_roles": [
+    "TD_Emission"
+  ],
+  "serves_room_types": [
+    "TOWER_DISTRICT_REFERENCE"
+  ],
+  "scope": "room_type_local",
+  "room_owned_geometry": false,
+  "material_variants": [
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "room_type": "TOWER_DISTRICT_REFERENCE",
+  "collection": "Component_window_indicator_strip",
+  "root_object": "ROOT_window_indicator_strip",
+  "component_blend": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-WINDOW-INDICATOR-STRIP/window_indicator_strip.blend",
+  "source_room_type_blend": "/Users/summercards/WorkBuddy/sea/outputs/tower_district/source/tower_district_v007.blend",
+  "source_room_type_sha256": "06baac2d7d55f9c73b118e0e15cd4d03234ec12485d8d920431fc4aad9dc16bc",
+  "collision_owner": "godot_wrapper_if_future_import",
+  "collision_status": "not_authored_this_Blender_structure_task",
+  "palette_uv_layer": "PaletteUV",
+  "shared_palette_path": "/Users/summercards/WorkBuddy/sea/assets/art/shared/palette/tower_district_palette.png",
+  "asset_ledger": null,
+  "asset_ledger_status": "standalone_asset_not_registered_in_ShellStorm2",
+  "geometry_source_created_after_plan_frozen": true,
+  "supports_palette_shift_attribute": false,
+  "root_transform_identity": true,
+  "mesh_transform_identity": true,
+  "collection_instance_offset": [
+    0,
+    0,
+    0
+  ],
+  "standalone_scene": "Component_window_indicator_strip",
+  "asset_id": "ENV-TOWER-DISTRICT-WINDOW-INDICATOR-STRIP",
+  "authoritative_library": "/Users/summercards/WorkBuddy/sea/art_source/environments/tower_zones/tower_district/source/common_components/v008/tower_district_components_v008.blend",
+  "component_blend_role": "versioned_standalone_snapshot_of_authoritative_master",
+  "material_variant_contract": {
+    "face_mask_attribute": "PaletteVariantMask",
+    "instancer_attribute": "palette_shift",
+    "export_conversion_status": "not_performed; Blender-specific interface must be translated and verified in a later import stage"
+  }
+}

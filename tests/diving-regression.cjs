@@ -8,9 +8,11 @@ const assert=require('node:assert/strict');
   await page.route('**/index.html',async route=>{const response=await route.fetch();const body=(await response.text()).replace('    const clock = new THREE.Clock();','    window.qa={THREE,diving,gameplay,camera,controls,scene,renderer,waterSystem};\n    const clock = new THREE.Clock();');await route.fulfill({response,body});});
   await page.goto('http://localhost:8765/index.html');await page.waitForFunction(()=>window.qa);await page.waitForTimeout(700);
   await page.evaluate(()=>window.original={parent:qa.gameplay.art.explorerGroup.parent.uuid,position:qa.gameplay.art.explorerGroup.position.toArray(),fov:qa.camera.fov,fog:qa.scene.fog});
+  // 区域化下潜：人已经在某片水域（岸边/船上）时，按潜水就该直接下去，不再要求点选海面。
   await page.click('#dive-button');
-  const entry=await page.evaluate(()=>{const p=new qa.THREE.Vector3(-7,1.12,8).project(qa.camera);return{x:(p.x*.5+.5)*innerWidth,y:(-p.y*.5+.5)*innerHeight}});
-  await page.mouse.click(entry.x,entry.y);await page.waitForFunction(()=>qa.diving.phase==='swim');await page.waitForTimeout(900);
+  await page.waitForFunction(()=>qa.diving.phase==='swim');
+  assert.equal(await page.evaluate(()=>qa.diving.zone),'zone1','应当记录下潜所在区块');
+  await page.waitForTimeout(900);
   const view=await page.evaluate(()=>({under:qa.camera.position.y<1.12,range:qa.camera.position.distanceTo(qa.gameplay.art.explorerGroup.position),fov:qa.camera.fov,water:qa.waterSystem.surface.visible,fish:qa.diving.art.schools.reduce((n,s)=>n+s.members.length,0)}));
   assert(view.under&&view.range<17&&!view.water&&view.fov===55&&view.fish===126,JSON.stringify(view));
   assert.equal(await page.locator('.resource-orb:visible').count(),0);

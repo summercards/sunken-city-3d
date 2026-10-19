@@ -1,0 +1,58 @@
+{
+  "passed": [
+    "每个区块的停泊位船壳不侵入模型",
+    "每个区块的上岸点与待机点落在真实表面上",
+    "每个区块声明的可站立地块大部分有地面",
+    "上岸点到待机点沿途不踩空",
+    "区块之间不抢占同一片地"
+  ],
+  "zones": [
+    {
+      "id": "zone1",
+      "role": "home",
+      "regions": [
+        "zone1_home_dock",
+        "zone1_salvage"
+      ],
+      "hullOverlap": 0,
+      "pathGapPct": 0
+    },
+    {
+      "id": "zone2",
+      "role": "station",
+      "regions": [
+        "zone2_station"
+      ],
+      "hullOverlap": 0,
+      "pathGapPct": 0
+    },
+    {
+      "id": "zone3",
+      "role": "farm",
+      "regions": [
+        "zone3_ground"
+      ],
+      "hullOverlap": 0,
+      "pathGapPct": 0
+    },
+    {
+      "id": "zone4",
+      "role": "shore",
+      "regions": [
+        "zone4_shore"
+      ],
+      "hullOverlap": 0,
+      "pathGapPct": 0
+    },
+    {
+      "id": "zone5",
+      "role": "aquaculture",
+      "regions": [
+        "zone5_aqua"
+      ],
+      "hullOverlap": 0,
+      "pathGapPct": 0
+    }
+  ],
+  "errors": []
+}

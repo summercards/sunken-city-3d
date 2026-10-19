@@ -44,6 +44,46 @@ export function arrangeHarbor({ THREE:T, worldGroup, gameplay, sceneArt, leftBui
   // Harbor targets are consumed by the single click router in gameplay.js.
   salvage.poleGroup = poleGroup;
   gameplay.registerHarborTargets({ salvage, dock });
+  // 每个上岸点立一根「上岸桩」：点它 = 自动航行靠岸 + 角色走上岸。
+  // 桩子贴着平台边缘外侧 0.55m（以前放在水域中间，看起来跟平台毫无关系，还会随镜头漂移），
+  // 整组带 noSailBlock —— 能被点到，但绝不挡船。
+  const landings = {};
+  for (const zone of zones.list) {
+    for (const spot of zone.landings) {
+      const dockEdge = spot.dockEdge;
+      const park = spot.boatPark;
+      const dx = park.x - dockEdge.x;
+      const dz = park.z - dockEdge.z;
+      const len = Math.hypot(dx, dz) || 1;
+      const nx = dx / len;
+      const nz = dz / len;
+      const g = new T.Group();
+      g.name = spot.id === 'main' ? 'landing-' + zone.id : `landing-${zone.id}-${spot.id}`;
+      g.userData.noSailBlock = true;
+      g.position.set(dockEdge.x + nx * 0.55, water + 0.02, dockEdge.z + nz * 0.55);
+      worldGroup.add(g);
+      const post = new T.Mesh(new T.CylinderGeometry(.09, .11, 1.5, 7), mat('#c19a6b'));
+      post.position.y = .72;
+      post.castShadow = true;
+      g.add(post);
+      // 桩顶圆帽 + 侧挂小旗板：从默认俯视角度也能一眼认出"这里能上岸"。
+      const cap = new T.Mesh(new T.SphereGeometry(.17, 10, 7), mat('#f4e6bd'));
+      cap.position.y = 1.5;
+      cap.castShadow = true;
+      g.add(cap);
+      box(g, .24, 1.14, 0, .34, .40, .05, '#e2705f');
+      const ring = new T.Mesh(new T.TorusGeometry(.46, .075, 6, 18), mat('#e8dcb4'));
+      ring.rotation.x = Math.PI / 2;
+      ring.position.y = .05;
+      g.add(ring);
+      for (const [ox, oz] of [[.40, .22], [-.40, -.22], [.22, -.40], [-.22, .40]]) {
+        box(g, ox, .06, oz, .16, .07, .16, '#d2564a');
+      }
+      const key = spot.id === 'main' ? zone.id : `${zone.id}:${spot.id}`;
+      landings[key] = { group: g, zone: zone.id, landing: spot.id, name: spot.name };
+    }
+  }
+  gameplay.registerLandingTargets(landings);
   const repairs=[];
   for(let i=0;i<6;i++){const m=box(leftBuildingGroup,1.6+i*.43,3.85,2.3,.39,.18,1.5,'#dbc396');repairs.push(m);}
   return {salvage,dock,aqua,update(t){
