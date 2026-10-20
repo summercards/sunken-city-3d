@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/underwater_region.gd" id="1_region"]
+
+[node name="UnderwaterTrench" type="Node3D"]
+script = ExtResource("1_region")
+region = "trench"
+region_label = "北境海沟"
+manifest_path = "res://assets/models/underwater/trench/manifest.json"

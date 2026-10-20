@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/underwater_region.gd" id="1_region"]
+
+[node name="UnderwaterNeighborhood" type="Node3D"]
+script = ExtResource("1_region")
+region = "neighborhood"
+region_label = "沉没街区"
+manifest_path = "res://assets/models/underwater/neighborhood/manifest.json"

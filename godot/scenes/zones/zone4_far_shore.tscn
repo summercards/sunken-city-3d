@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/zone_scene.gd" id="1_zone"]
+[ext_resource type="Script" path="res://scripts/world/zone_batch.gd" id="2_batch"]
+[ext_resource type="Script" path="res://scripts/world/walk_area.gd" id="3_walk"]
+[ext_resource type="Script" path="res://scripts/plants/plant_field.gd" id="4_plants"]
+[ext_resource type="PackedScene" path="res://assets/models/zones/zone4_far_shore/units/detail.glb" id="unit_detail"]
+[ext_resource type="PackedScene" path="res://assets/models/zones/zone4_far_shore/units/unit_01.glb" id="unit_unit_01"]
+[ext_resource type="PackedScene" path="res://assets/models/zones/zone4_far_shore/units/unit_02.glb" id="unit_unit_02"]
+[ext_resource type="PackedScene" path="res://assets/models/zones/zone4_far_shore/units/unit_03.glb" id="unit_unit_03"]
+[ext_resource type="PackedScene" path="res://assets/models/zones/zone4_far_shore/units/unit_04.glb" id="unit_unit_04"]
+[ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_0000.tres" id="mat_tn_0000"]
+[ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_1000.tres" id="mat_tn_1000"]
+[ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_t4_0100.tres" id="mat_t4_0100"]
+
+[node name="Zone4FarShore" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.500, 0, -41.500)
+script = ExtResource("1_zone")
+zone_id = "zone4"
+zone_label = "远海街町"
+geometry_source = "scene"
+
+[node name="StaticBatch" type="Node3D" parent="."]
+script = ExtResource("2_batch")
+bake_dir = "res://assets/zones/zone4_far_shore"
+
+
+; >>> models（由 tools/build_zone_scenes.gd 生成，手改会被覆盖）
+[node name="Models" type="Node3D" parent="."]
+
+[node name="detail" parent="Models" instance=ExtResource("unit_detail")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.281, 0.000, 9.557)
+
+[node name="detail" parent="Models/detail/root"]
+surface_material_override/0 = ExtResource("mat_tn_0000")
+cast_shadow = 1
+gi_mode = 0
+
+[node name="unit_01" parent="Models" instance=ExtResource("unit_unit_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.564, 0.000, -3.804)
+
+[node name="unit_01" parent="Models/unit_01/root"]
+surface_material_override/0 = ExtResource("mat_tn_1000")
+cast_shadow = 1
+gi_mode = 0
+
+[node name="unit_02" parent="Models" instance=ExtResource("unit_unit_02")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.925, 0.000, 0.455)
+
+[node name="unit_02" parent="Models/unit_02/root"]
+surface_material_override/0 = ExtResource("mat_tn_0000")
+surface_material_override/1 = ExtResource("mat_tn_1000")
+cast_shadow = 1
+gi_mode = 0
+
+[node name="unit_03" parent="Models" instance=ExtResource("unit_unit_03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.445, 0.000, 2.594)
+
+[node name="unit_03" parent="Models/unit_03/root"]
+surface_material_override/0 = ExtResource("mat_tn_0000")
+surface_material_override/1 = ExtResource("mat_tn_1000")
+cast_shadow = 1
+gi_mode = 0
+
+[node name="unit_04" parent="Models" instance=ExtResource("unit_unit_04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.885, 0.000, 0.567)
+
+[node name="unit_04" parent="Models/unit_04/root"]
+surface_material_override/0 = ExtResource("mat_t4_0100")
+cast_shadow = 1
+gi_mode = 0
+; <<< models
+
+[node name="WalkAreas" type="Node3D" parent="."]
+
+[node name="Walk_zone4_shore" type="Node3D" parent="WalkAreas"]
+script = ExtResource("3_walk")
+area_id = "zone4_shore"
+zone_id = "zone4"
+surface_y = 1.650
+span_min = 1.300
+span_max = 2.150
+rects = [Rect2(-4.100, 0.300, 3.200, 5.200)]
+
+[node name="Landings" type="Node3D" parent="."]
+
+[node name="Plants" type="Node3D" parent="."]
+script = ExtResource("4_plants")
+zone_id = "zone4"
+placement_path = "res://assets/data/plants_zone4_far_shore.json"

@@ -1981,7 +1981,10 @@
     waterSystem.bind(gameplay.art);
     // 岸线水纹的轮廓必须来自真实建筑：以前这套形状写死在 water.js 的 shader 里，
     // 区块一搬水纹就留在原地。现在每次启动按区块地块 + 水街区地标的最终坐标重算。
-    waterSystem.setShore(shoreOutline());
+    // 岸线轮廓同时挂到 window：Godot 侧用 tools/capture_shore.cjs 取同一份数据，
+    // 两边各算一次很容易错位（水纹和建筑对不上）。
+    window.__shoreOutline = shoreOutline();
+    waterSystem.setShore(window.__shoreOutline);
     // Water contact is now shaded on the actual surface, not floating mesh strips.
     [...boatEdgeFoams, ...objectEdgeFoamStrips, ...poolEdgeFoamSegments].forEach(f => f.mesh.visible = false);
     const clock = new THREE.Clock();

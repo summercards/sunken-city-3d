@@ -1,0 +1,387 @@
+{
+ "name": "zone2_yokohama_station",
+ "origin": [
+  -30.0,
+  0.0,
+  -18.0
+ ],
+ "bounds": {
+  "min": [
+   -40.385,
+   -11.43,
+   -27.49
+  ],
+  "max": [
+   -19.615,
+   5.966,
+   -8.51
+  ],
+  "size": [
+   20.77,
+   17.396,
+   18.98
+  ]
+ },
+ "instance_count": 211,
+ "whole": {
+  "slots": [
+   {
+    "tex": -1,
+    "tint": false,
+    "unlit": false,
+    "alpha": false,
+    "double_side": false,
+    "instances": 73,
+    "vertices": 4480,
+    "triangles": 2752
+   },
+   {
+    "tex": -1,
+    "tint": false,
+    "unlit": false,
+    "alpha": false,
+    "double_side": true,
+    "instances": 1,
+    "vertices": 21,
+    "triangles": 24
+   },
+   {
+    "tex": -1,
+    "tint": false,
+    "unlit": true,
+    "alpha": false,
+    "double_side": false,
+    "instances": 3,
+    "vertices": 481,
+    "triangles": 300
+   },
+   {
+    "tex": -1,
+    "tint": false,
+    "unlit": true,
+    "alpha": true,
+    "double_side": false,
+    "instances": 1,
+    "vertices": 64,
+    "triangles": 40
+   },
+   {
+    "tex": -1,
+    "tint": false,
+    "unlit": true,
+    "alpha": true,
+    "double_side": true,
+    "instances": 2,
+    "vertices": 64,
+    "triangles": 60
+   },
+   {
+    "tex": -1,
+    "tint": true,
+    "unlit": false,
+    "alpha": false,
+    "double_side": false,
+    "instances": 130,
+    "vertices": 32899,
+    "triangles": 11328
+   },
+   {
+    "tex": 3,
+    "tint": false,
+    "unlit": true,
+    "alpha": false,
+    "double_side": false,
+    "instances": 1,
+    "vertices": 24,
+    "triangles": 12
+   }
+  ],
+  "bytes": 1868672,
+  "vertices": 38033,
+  "triangles": 14516
+ },
+ "units": [
+  {
+   "id": "detail",
+   "file": "units/detail.glb",
+   "label": "岛心·6m",
+   "origin": [
+    -26.896,
+    0.0,
+    -13.081
+   ],
+   "bounds": {
+    "min": [
+     -31.812,
+     -0.276,
+     -16.76
+    ],
+    "max": [
+     -21.98,
+     5.133,
+     -9.402
+    ],
+    "size": [
+     9.832,
+     5.408,
+     7.358
+    ]
+   },
+   "instance_count": 28,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 20,
+     "vertices": 1272,
+     "triangles": 788
+    },
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": true,
+     "alpha": false,
+     "double_side": false,
+     "instances": 1,
+     "vertices": 121,
+     "triangles": 180
+    },
+    {
+     "tex": -1,
+     "tint": true,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 7,
+     "vertices": 931,
+     "triangles": 372
+    }
+   ],
+   "vertices": 2324,
+   "triangles": 1340,
+   "bytes": 122116
+  },
+  {
+   "id": "unit_01",
+   "file": "units/unit_01.glb",
+   "label": "岛心·0m",
+   "origin": [
+    -30.0,
+    0.0,
+    -18.0
+   ],
+   "bounds": {
+    "min": [
+     -40.385,
+     -11.43,
+     -27.49
+    ],
+    "max": [
+     -19.615,
+     3.84,
+     -8.51
+    ],
+    "size": [
+     20.77,
+     15.27,
+     18.98
+    ]
+   },
+   "instance_count": 51,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 33,
+     "vertices": 1368,
+     "triangles": 1120
+    },
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": true,
+     "alpha": false,
+     "double_side": false,
+     "instances": 1,
+     "vertices": 72,
+     "triangles": 24
+    },
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": true,
+     "alpha": true,
+     "double_side": false,
+     "instances": 1,
+     "vertices": 64,
+     "triangles": 40
+    },
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": true,
+     "alpha": true,
+     "double_side": true,
+     "instances": 2,
+     "vertices": 64,
+     "triangles": 60
+    },
+    {
+     "tex": -1,
+     "tint": true,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 13,
+     "vertices": 2188,
+     "triangles": 804
+    },
+    {
+     "tex": 3,
+     "tint": false,
+     "unlit": true,
+     "alpha": false,
+     "double_side": false,
+     "instances": 1,
+     "vertices": 24,
+     "triangles": 12
+    }
+   ],
+   "vertices": 3780,
+   "triangles": 2060,
+   "bytes": 210772
+  },
+  {
+   "id": "unit_02",
+   "file": "units/unit_02.glb",
+   "label": "岛心·4m",
+   "origin": [
+    -28.151,
+    0.0,
+    -22.061
+   ],
+   "bounds": {
+    "min": [
+     -35.343,
+     0.62,
+     -26.127
+    ],
+    "max": [
+     -20.959,
+     5.818,
+     -17.995
+    ],
+    "size": [
+     14.384,
+     5.198,
+     8.132
+    ]
+   },
+   "instance_count": 64,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 15,
+     "vertices": 1264,
+     "triangles": 636
+    },
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": true,
+     "alpha": false,
+     "double_side": false,
+     "instances": 1,
+     "vertices": 288,
+     "triangles": 96
+    },
+    {
+     "tex": -1,
+     "tint": true,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 48,
+     "vertices": 14844,
+     "triangles": 5016
+    }
+   ],
+   "vertices": 16396,
+   "triangles": 5748,
+   "bytes": 794200
+  },
+  {
+   "id": "unit_03",
+   "file": "units/unit_03.glb",
+   "label": "横滨铁道·4m",
+   "origin": [
+    -34.8,
+    0.0,
+    -22.107
+   ],
+   "bounds": {
+    "min": [
+     -39.44,
+     -5.63,
+     -26.28
+    ],
+    "max": [
+     -30.16,
+     5.966,
+     -17.934
+    ],
+    "size": [
+     9.28,
+     11.596,
+     8.346
+    ]
+   },
+   "instance_count": 68,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 5,
+     "vertices": 576,
+     "triangles": 208
+    },
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": true,
+     "instances": 1,
+     "vertices": 21,
+     "triangles": 24
+    },
+    {
+     "tex": -1,
+     "tint": true,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 62,
+     "vertices": 14936,
+     "triangles": 5136
+    }
+   ],
+   "vertices": 15533,
+   "triangles": 5368,
+   "bytes": 751592
+  }
+ ]
+}

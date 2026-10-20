@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/zone_batch.gd" id="1_batch"]
+
+[node name="Environment" type="Node3D"]
+
+[node name="StaticBatch" type="Node3D" parent="."]
+script = ExtResource("1_batch")
+bake_dir = "res://assets/world/environment"

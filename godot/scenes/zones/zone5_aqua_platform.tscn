@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/zone_scene.gd" id="1_zone"]
+[ext_resource type="Script" path="res://scripts/world/zone_batch.gd" id="2_batch"]
+[ext_resource type="Script" path="res://scripts/world/walk_area.gd" id="3_walk"]
+[ext_resource type="Script" path="res://scripts/plants/plant_field.gd" id="4_plants"]
+[ext_resource type="PackedScene" path="res://assets/models/zones/zone5_aqua_platform/units/detail.glb" id="unit_detail"]
+[ext_resource type="PackedScene" path="res://assets/models/zones/zone5_aqua_platform/units/unit_01.glb" id="unit_unit_01"]
+[ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_0000.tres" id="mat_tn_0000"]
+[ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_0110.tres" id="mat_tn_0110"]
+[ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_1000.tres" id="mat_tn_1000"]
+
+[node name="Zone5AquaPlatform" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.000, 0, 16.000)
+script = ExtResource("1_zone")
+zone_id = "zone5"
+zone_label = "浅水养殖台"
+geometry_source = "scene"
+
+[node name="StaticBatch" type="Node3D" parent="."]
+script = ExtResource("2_batch")
+bake_dir = "res://assets/zones/zone5_aqua_platform"
+
+
+; >>> models（由 tools/build_zone_scenes.gd 生成，手改会被覆盖）
+[node name="Models" type="Node3D" parent="."]
+
+[node name="detail" parent="Models" instance=ExtResource("unit_detail")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012, 0.000, -2.846)
+
+[node name="detail" parent="Models/detail/root"]
+surface_material_override/0 = ExtResource("mat_tn_0000")
+surface_material_override/1 = ExtResource("mat_tn_0110")
+surface_material_override/2 = ExtResource("mat_tn_1000")
+cast_shadow = 1
+gi_mode = 0
+
+[node name="unit_01" parent="Models" instance=ExtResource("unit_unit_01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.639, 0.000, 0.000)
+
+[node name="unit_01" parent="Models/unit_01/root"]
+surface_material_override/0 = ExtResource("mat_tn_0000")
+cast_shadow = 1
+gi_mode = 0
+; <<< models
+
+[node name="WalkAreas" type="Node3D" parent="."]
+
+[node name="Walk_zone5_aqua" type="Node3D" parent="WalkAreas"]
+script = ExtResource("3_walk")
+area_id = "zone5_aqua"
+zone_id = "zone5"
+surface_y = 1.250
+span_min = 1.000
+span_max = 1.550
+rects = [Rect2(-3.200, -2.800, 6.500, 5.500)]
+
+[node name="Landings" type="Node3D" parent="."]
+
+[node name="Plants" type="Node3D" parent="."]
+script = ExtResource("4_plants")
+zone_id = "zone5"
+placement_path = "res://assets/data/plants_zone5_aqua_platform.json"

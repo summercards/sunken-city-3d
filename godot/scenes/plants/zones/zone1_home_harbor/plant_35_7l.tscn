@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/plants/plant.gd" id="1_plant"]
+
+[node name="plant_35_7l" type="Node3D"]
+script = ExtResource("1_plant")
+plant_id = "plant_35_7l"
+mesh_path = "res://assets/plants/zones/zone1_home_harbor/plant_35_7l/mesh.bin"
+shared = false
+effect = "petals"
+sway_amplitude = 0.0280
+wind_strength = 0.90
+
+[node name="EffectPoint" type="Marker3D" parent="."]
+position = Vector3(0, 2.580, 0)

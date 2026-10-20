@@ -1,0 +1,300 @@
+{
+ "name": "zone4_far_shore",
+ "origin": [
+  38.503,
+  0.0,
+  -40.698
+ ],
+ "bounds": {
+  "min": [
+   29.816,
+   -13.08,
+   -49.723
+  ],
+  "max": [
+   47.19,
+   6.92,
+   -31.673
+  ],
+  "size": [
+   17.374,
+   20.0,
+   18.05
+  ]
+ },
+ "instance_count": 40,
+ "whole": {
+  "slots": [
+   {
+    "tex": -1,
+    "tint": false,
+    "unlit": false,
+    "alpha": false,
+    "double_side": false,
+    "instances": 28,
+    "vertices": 1202,
+    "triangles": 1291
+   },
+   {
+    "tex": -1,
+    "tint": true,
+    "unlit": false,
+    "alpha": false,
+    "double_side": false,
+    "instances": 11,
+    "vertices": 2400,
+    "triangles": 804
+   },
+   {
+    "tex": 4,
+    "tint": false,
+    "unlit": true,
+    "alpha": false,
+    "double_side": false,
+    "instances": 1,
+    "vertices": 24,
+    "triangles": 12
+   }
+  ],
+  "bytes": 196852,
+  "vertices": 3626,
+  "triangles": 2107
+ },
+ "units": [
+  {
+   "id": "detail",
+   "file": "units/detail.glb",
+   "label": "远海街町·10m",
+   "origin": [
+    42.781,
+    0.0,
+    -31.943
+   ],
+   "bounds": {
+    "min": [
+     42.496,
+     1.08,
+     -32.213
+    ],
+    "max": [
+     43.066,
+     1.34,
+     -31.673
+    ],
+    "size": [
+     0.57,
+     0.26,
+     0.54
+    ]
+   },
+   "instance_count": 3,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 3,
+     "vertices": 149,
+     "triangles": 175
+    }
+   ],
+   "vertices": 149,
+   "triangles": 175,
+   "bytes": 10156
+  },
+  {
+   "id": "unit_01",
+   "file": "units/unit_01.glb",
+   "label": "远海街町·5m",
+   "origin": [
+    37.936,
+    0.0,
+    -45.304
+   ],
+   "bounds": {
+    "min": [
+     32.959,
+     -13.08,
+     -49.723
+    ],
+    "max": [
+     42.914,
+     6.92,
+     -40.886
+    ],
+    "size": [
+     9.955,
+     20.0,
+     8.837
+    ]
+   },
+   "instance_count": 3,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": true,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 3,
+     "vertices": 1032,
+     "triangles": 348
+    }
+   ],
+   "vertices": 1032,
+   "triangles": 348,
+   "bytes": 51092
+  },
+  {
+   "id": "unit_02",
+   "file": "units/unit_02.glb",
+   "label": "远海街町·6m",
+   "origin": [
+    43.425,
+    0.0,
+    -41.045
+   ],
+   "bounds": {
+    "min": [
+     39.661,
+     -4.68,
+     -44.849
+    ],
+    "max": [
+     47.19,
+     4.805,
+     -37.24
+    ],
+    "size": [
+     7.529,
+     9.485,
+     7.609
+    ]
+   },
+   "instance_count": 14,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 8,
+     "vertices": 192,
+     "triangles": 96
+    },
+    {
+     "tex": -1,
+     "tint": true,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 6,
+     "vertices": 1080,
+     "triangles": 360
+    }
+   ],
+   "vertices": 1272,
+   "triangles": 456,
+   "bytes": 64036
+  },
+  {
+   "id": "unit_03",
+   "file": "units/unit_03.glb",
+   "label": "远海街町·2m",
+   "origin": [
+    38.055,
+    0.0,
+    -38.906
+   ],
+   "bounds": {
+    "min": [
+     35.134,
+     0.754,
+     -42.188
+    ],
+    "max": [
+     40.977,
+     5.542,
+     -35.623
+    ],
+    "size": [
+     5.843,
+     4.788,
+     6.565
+    ]
+   },
+   "instance_count": 19,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 17,
+     "vertices": 861,
+     "triangles": 1020
+    },
+    {
+     "tex": -1,
+     "tint": true,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 2,
+     "vertices": 288,
+     "triangles": 96
+    }
+   ],
+   "vertices": 1149,
+   "triangles": 1116,
+   "bytes": 66544
+  },
+  {
+   "id": "unit_04",
+   "file": "units/unit_04.glb",
+   "label": "远海街町·6m",
+   "origin": [
+    31.615,
+    0.0,
+    -40.933
+   ],
+   "bounds": {
+    "min": [
+     29.816,
+     -0.11,
+     -41.689
+    ],
+    "max": [
+     33.413,
+     3.65,
+     -40.178
+    ],
+    "size": [
+     3.597,
+     3.759,
+     1.511
+    ]
+   },
+   "instance_count": 1,
+   "slots": [
+    {
+     "tex": 4,
+     "tint": false,
+     "unlit": true,
+     "alpha": false,
+     "double_side": false,
+     "instances": 1,
+     "vertices": 24,
+     "triangles": 12
+    }
+   ],
+   "vertices": 24,
+   "triangles": 12,
+   "bytes": 10960
+  }
+ ]
+}

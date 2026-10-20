@@ -1,0 +1,128 @@
+[gd_scene load_steps=24 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://scenes/world/environment.tscn" id="2_env"]
+[ext_resource type="Script" path="res://scripts/orbit_camera.gd" id="3_cam"]
+[ext_resource type="Script" path="res://scripts/boat.gd" id="4_boat"]
+[ext_resource type="Script" path="res://scripts/birds.gd" id="5_birds"]
+[ext_resource type="Script" path="res://scripts/sea_props.gd" id="6_props"]
+[ext_resource type="Script" path="res://scripts/landing_markers.gd" id="7_markers"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="8_hud"]
+[ext_resource type="Script" path="res://scripts/ui/interact_prompt.gd" id="9_prompt"]
+[ext_resource type="Script" path="res://scripts/core/gather_field.gd" id="10_gather"]
+[ext_resource type="Script" path="res://scripts/core/build_field.gd" id="11_build"]
+[ext_resource type="Script" path="res://scripts/core/farm_field.gd" id="12_farm"]
+[ext_resource type="Script" path="res://scripts/ui/color_grade_panel.gd" id="13_grade"]
+[ext_resource type="Environment" path="res://assets/materials/world_env.tres" id="14_worldenv"]
+[ext_resource type="ShaderMaterial" path="res://assets/materials/water.tres" id="15_water"]
+[ext_resource type="PackedScene" path="res://scenes/underwater/underwater_world.tscn" id="16_uw"]
+[ext_resource type="Script" path="res://scripts/character.gd" id="17_character"]
+[ext_resource type="PackedScene" path="res://scenes/zones/zone1_home_harbor.tscn" id="20_zone1"]
+[ext_resource type="PackedScene" path="res://scenes/zones/zone2_yokohama_station.tscn" id="21_zone2"]
+[ext_resource type="PackedScene" path="res://scenes/zones/zone3_arc_farm.tscn" id="22_zone3"]
+[ext_resource type="PackedScene" path="res://scenes/zones/zone4_far_shore.tscn" id="23_zone4"]
+[ext_resource type="PackedScene" path="res://scenes/zones/zone5_aqua_platform.tscn" id="24_zone5"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_water"]
+size = Vector2(640, 640)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = ExtResource("14_worldenv")
+
+[node name="Lights" type="Node3D" parent="World"]
+
+[node name="Sun" type="DirectionalLight3D" parent="World/Lights"]
+transform = Transform3D(0.6060432, -0.7170962, 0.34421608, 0, 0.43274122, 0.9015182, -0.79543173, -0.546359, 0.26225987, 21, 55, 16)
+light_color = Color(1, 0.945098, 0.745098, 1)
+light_energy = 0.48
+shadow_enabled = true
+shadow_bias = 0.006
+shadow_normal_bias = 0.25
+directional_shadow_mode = 1
+directional_shadow_max_distance = 420.0
+
+[node name="HemisphereFill" type="DirectionalLight3D" parent="World/Lights"]
+transform = Transform3D(-0.58430475, 0.33576253, -0.7388177, 0, 0.9103961, 0.41373792, 0.81153435, 0.24174903, -0.53194875, -25, 14, -18)
+light_color = Color(0.639216, 0.85098, 0.811765, 1)
+light_energy = 0.1
+
+[node name="VioletShadow" type="DirectionalLight3D" parent="World/Lights"]
+transform = Transform3D(0.7739573, 0.36438742, -0.5178918, 0, 0.8178473, 0.57543534, 0.63323784, -0.4453624, 0.63297886, -18, 20, 22)
+light_color = Color(0.545098, 0.568627, 0.776471, 1)
+light_energy = 0.07
+
+[node name="GroundBounce" type="DirectionalLight3D" parent="World/Lights"]
+transform = Transform3D(-1, 0, 0, 0, 0, -1, 0, -1, 0, 0, -40, 0)
+light_color = Color(0.0941176, 0.309804, 0.721569, 1)
+light_energy = 0.1
+
+[node name="Environment" parent="World" instance=ExtResource("2_env")]
+
+[node name="Water" type="MeshInstance3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12, 0)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_water")
+material_override = ExtResource("15_water")
+
+[node name="Zones" type="Node3D" parent="World"]
+
+[node name="Zone1HomeHarbor" parent="World/Zones" instance=ExtResource("20_zone1")]
+
+[node name="Zone2YokohamaStation" parent="World/Zones" instance=ExtResource("21_zone2")]
+
+[node name="Zone3ArcFarm" parent="World/Zones" instance=ExtResource("22_zone3")]
+
+[node name="Zone4FarShore" parent="World/Zones" instance=ExtResource("23_zone4")]
+
+[node name="Zone5AquaPlatform" parent="World/Zones" instance=ExtResource("24_zone5")]
+
+[node name="Gameplay" type="Node3D" parent="World"]
+
+[node name="SeaProps" type="Node3D" parent="World/Gameplay"]
+script = ExtResource("6_props")
+
+[node name="GatherField" type="Node3D" parent="World/Gameplay"]
+script = ExtResource("10_gather")
+
+[node name="BuildField" type="Node3D" parent="World/Gameplay"]
+script = ExtResource("11_build")
+
+[node name="FarmField" type="Node3D" parent="World/Gameplay"]
+script = ExtResource("12_farm")
+
+[node name="Camera" type="Camera3D" parent="."]
+current = true
+script = ExtResource("3_cam")
+target = Vector3(0.45, 1.75, -0.65)
+orbit_dir = Vector3(-54, 76.37, 54)
+distance = 108.0017
+
+[node name="Boat" type="Node3D" parent="."]
+script = ExtResource("4_boat")
+
+[node name="Explorer" type="Node3D" parent="Boat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, -0.3)
+script = ExtResource("17_character")
+
+[node name="Birds" type="Node3D" parent="."]
+script = ExtResource("5_birds")
+
+[node name="Underwater" parent="." instance=ExtResource("16_uw")]
+visible = false
+
+[node name="LandingMarkers" type="CanvasLayer" parent="."]
+script = ExtResource("7_markers")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("8_hud")
+
+[node name="InteractPrompt" type="CanvasLayer" parent="."]
+script = ExtResource("9_prompt")
+
+[node name="ColorGrade" type="CanvasLayer" parent="."]
+script = ExtResource("13_grade")

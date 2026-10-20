@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/plants/plant.gd" id="1_plant"]
+
+[node name="plant_15_8l" type="Node3D"]
+script = ExtResource("1_plant")
+plant_id = "plant_15_8l"
+mesh_path = "res://assets/plants/common/plant_15_8l/mesh.bin"
+shared = true
+
+[node name="EffectPoint" type="Marker3D" parent="."]
+position = Vector3(0, 0.843, 0)

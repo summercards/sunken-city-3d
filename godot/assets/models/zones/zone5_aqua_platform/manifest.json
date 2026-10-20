@@ -1,0 +1,171 @@
+{
+ "name": "zone5_aqua_platform",
+ "origin": [
+  22.012,
+  0.0,
+  13.847
+ ],
+ "bounds": {
+  "min": [
+   12.606,
+   -18.35,
+   8.945
+  ],
+  "max": [
+   31.419,
+   2.81,
+   18.75
+  ],
+  "size": [
+   18.813,
+   21.16,
+   9.805
+  ]
+ },
+ "instance_count": 55,
+ "whole": {
+  "slots": [
+   {
+    "tex": -1,
+    "tint": false,
+    "unlit": false,
+    "alpha": false,
+    "double_side": false,
+    "instances": 39,
+    "vertices": 1593,
+    "triangles": 1630
+   },
+   {
+    "tex": -1,
+    "tint": false,
+    "unlit": true,
+    "alpha": true,
+    "double_side": false,
+    "instances": 3,
+    "vertices": 344,
+    "triangles": 548
+   },
+   {
+    "tex": -1,
+    "tint": true,
+    "unlit": false,
+    "alpha": false,
+    "double_side": false,
+    "instances": 13,
+    "vertices": 312,
+    "triangles": 156
+   }
+  ],
+  "bytes": 130804,
+  "vertices": 2249,
+  "triangles": 2334
+ },
+ "units": [
+  {
+   "id": "detail",
+   "file": "units/detail.glb",
+   "label": "岛心·3m",
+   "origin": [
+    22.012,
+    0.0,
+    13.154
+   ],
+   "bounds": {
+    "min": [
+     12.606,
+     -18.35,
+     8.945
+    ],
+    "max": [
+     31.419,
+     1.359,
+     17.363
+    ],
+    "size": [
+     18.813,
+     19.709,
+     8.419
+    ]
+   },
+   "instance_count": 30,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 14,
+     "vertices": 682,
+     "triangles": 795
+    },
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": true,
+     "alpha": true,
+     "double_side": false,
+     "instances": 3,
+     "vertices": 344,
+     "triangles": 548
+    },
+    {
+     "tex": -1,
+     "tint": true,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 13,
+     "vertices": 312,
+     "triangles": 156
+    }
+   ],
+   "vertices": 1338,
+   "triangles": 1499,
+   "bytes": 80628
+  },
+  {
+   "id": "unit_01",
+   "file": "units/unit_01.glb",
+   "label": "岛心·2m",
+   "origin": [
+    23.639,
+    0.0,
+    16.0
+   ],
+   "bounds": {
+    "min": [
+     18.134,
+     -7.0,
+     13.25
+    ],
+    "max": [
+     29.144,
+     2.81,
+     18.75
+    ],
+    "size": [
+     11.01,
+     9.81,
+     5.5
+    ]
+   },
+   "instance_count": 25,
+   "slots": [
+    {
+     "tex": -1,
+     "tint": false,
+     "unlit": false,
+     "alpha": false,
+     "double_side": false,
+     "instances": 25,
+     "vertices": 911,
+     "triangles": 835
+    }
+   ],
+   "vertices": 911,
+   "triangles": 835,
+   "bytes": 51568
+  }
+ ]
+}

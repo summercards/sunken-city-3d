@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/world/underwater_region.gd" id="1_region"]
+
+[node name="UnderwaterBasin" type="Node3D"]
+script = ExtResource("1_region")
+region = "basin"
+region_label = "礁盆与台地"
+manifest_path = "res://assets/models/underwater/basin/manifest.json"

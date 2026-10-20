@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://shaders/toon.gdshader" id="1_shader"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_shader")
+shader_parameter/use_texture = false
+shader_parameter/depth_tint = true
+shader_parameter/water_level = 1.12
+shader_parameter/double_side = true

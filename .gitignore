@@ -12,6 +12,7 @@
 # 大体积媒体渲染产物：重新生成即可，不进版本库
 /promo/out/
 /promo/trailers/
+/exports/
 /outputs/material-fusion/
 
 # Blender 自动备份（每次保存都会生成 .blend1，重复内容）
@@ -22,3 +23,11 @@
 /outputs/tower_district/previews/
 /outputs/tower_district/source/
 /outputs/tower_district/component_migration_v008/
+
+# Godot 移植工程缓存与验收截图
+/godot/.godot/
+/godot/outputs/
+
+# glb 导入时 Godot 解包出来的贴图（源图在 glb 内嵌）
+/godot/assets/models/**/*_tex_*.png
+/godot/assets/models/**/*_tex_*.png.import

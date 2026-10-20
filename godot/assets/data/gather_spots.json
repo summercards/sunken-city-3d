@@ -1,0 +1,98 @@
+{
+ "_note": "由 tools/build_gather_spots.py 生成：世界坐标，已避开建筑与水面边缘。",
+ "spots": [
+  {
+   "id": "zone1_shell",
+   "zone": "zone1",
+   "kind": "shell",
+   "amount": 2,
+   "x": -1.8,
+   "y": 2.15,
+   "z": 10.5,
+   "priority": 2
+  },
+  {
+   "id": "zone1_rope",
+   "zone": "zone1",
+   "kind": "rope",
+   "amount": 1,
+   "x": -14.6,
+   "y": 1.33,
+   "z": 10.4
+  },
+  {
+   "id": "zone1_wood",
+   "zone": "zone1",
+   "kind": "wood",
+   "amount": 2,
+   "x": 0.3,
+   "y": 2.15,
+   "z": 10.5
+  },
+  {
+   "id": "zone2_parts",
+   "zone": "zone2",
+   "kind": "parts",
+   "amount": 1,
+   "x": -33.9,
+   "y": 2.6,
+   "z": -19.75
+  },
+  {
+   "id": "zone2_glass",
+   "zone": "zone2",
+   "kind": "glass",
+   "amount": 1,
+   "x": -27.4,
+   "y": 2.6,
+   "z": -16.15,
+   "requires_site": "yokohama_station",
+   "requires_level": 2
+  },
+  {
+   "id": "zone3_seed",
+   "zone": "zone3",
+   "kind": "seed",
+   "amount": 2,
+   "x": -2.4,
+   "y": 4.3,
+   "z": -33.15
+  },
+  {
+   "id": "zone3_wood",
+   "zone": "zone3",
+   "kind": "wood",
+   "amount": 1,
+   "x": -0.65,
+   "y": 4.3,
+   "z": -33.85
+  },
+  {
+   "id": "zone4_shell",
+   "zone": "zone4",
+   "kind": "shell",
+   "amount": 2,
+   "x": 36.7,
+   "y": 1.65,
+   "z": -36.75
+  },
+  {
+   "id": "zone5_fish",
+   "zone": "zone5",
+   "kind": "fish",
+   "amount": 1,
+   "x": 24.65,
+   "y": 1.25,
+   "z": 18.0
+  },
+  {
+   "id": "zone5_seed",
+   "zone": "zone5",
+   "kind": "seed",
+   "amount": 1,
+   "x": 24.65,
+   "y": 1.25,
+   "z": 13.8
+  }
+ ]
+}
