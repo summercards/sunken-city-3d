@@ -31,3 +31,10 @@
 # glb 导入时 Godot 解包出来的贴图（源图在 glb 内嵌）
 /godot/assets/models/**/*_tex_*.png
 /godot/assets/models/**/*_tex_*.png.import
+
+# Godot Web 导出产物（~800MB，用 Godot --export-release 随时重建）
+/godot/build/
+
+# Python 字节码
+__pycache__/
+*.pyc
