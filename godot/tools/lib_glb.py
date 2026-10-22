@@ -77,7 +77,21 @@ class Glb:
         view = self.add_view(data, 34962)  # ARRAY_BUFFER
         return self.add_accessor(view, len(values) // n, self.FLOAT, type_name)
 
-    def add_indices(self, indices):
+    def add_indices(self, indices, flip=False):
+        """写索引缓冲。
+
+        flip=True 会把每个三角形的后两个索引对调，也就是**反转绕序**。
+
+        默认不翻：源数据与 glTF 使用逆时针前面；Godot 导入器会转换为其原生
+        顺时针索引。导出阶段再次翻转会把正面变成背面。
+        单双面由 manifest.double_side 决定；实体遮挡还必须保证写入深度，
+        不能在实体 shader 中写 ALPHA 而意外进入透明排序。
+        """
+        if flip:
+            buf = list(indices)
+            for i in range(0, len(buf) - 2, 3):
+                buf[i + 1], buf[i + 2] = buf[i + 2], buf[i + 1]
+            indices = buf
         data = struct.pack("<%dI" % len(indices), *indices)
         view = self.add_view(data, 34963)  # ELEMENT_ARRAY_BUFFER
         return self.add_accessor(view, len(indices), self.UINT, "SCALAR")

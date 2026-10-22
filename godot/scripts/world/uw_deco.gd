@@ -8,6 +8,7 @@ extends Node3D
 ##   光柱 9 道，始终朝向相机；
 ##   微粒 180 颗，缓慢上浮到水面后回到 -75m。
 
+const MaterialLib = preload("res://scripts/world/uw_materials.gd")
 const WATER_LEVEL := 1.12
 
 const FISH_COUNT := 18
@@ -98,13 +99,11 @@ func _fish_mesh(color: Color) -> ArrayMesh:
 	st.append_from(tail, 0, Transform3D(tail_basis.scaled(Vector3(0.7, 1.0, 1.0)),
 		Vector3(-0.33, 0, 0)))
 
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = color
-	mat.emission_enabled = true
-	mat.emission = color
-	mat.emission_energy_multiplier = 0.45
-	mat.roughness = 0.6
-	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	var linear := color.srgb_to_linear()
+	var mat := MaterialLib.from_color(color, {
+		"emissive": [linear.r, linear.g, linear.b],
+		"emissive_strength": 0.35 if color in [Color("#ffc55c"), Color("#f19c4a")] else 0.0,
+	})
 	st.set_material(mat)
 	return st.commit()
 
@@ -116,20 +115,10 @@ func _build_bubbles() -> void:
 	sphere.radial_segments = 9
 	sphere.rings = 7
 
-	var mat := StandardMaterial3D.new()
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.albedo_color = Color(0.827, 1.0, 0.945, 0.38)
-	mat.metallic = 0.15
-	mat.roughness = 0.1
-	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
-	mat.emission_enabled = true
-	mat.emission = Color(0.7, 1.0, 0.95)
-	mat.emission_energy_multiplier = 0.25
+	var mat := MaterialLib.from_color(Color("#d3fff1"), {
+		"alpha": true, "opacity": 0.38, "roughness": 0.1, "metallic": 0.15,
+	})
 
-	_bubble_mm = MultiMesh.new()
-	_bubble_mm.transform_format = MultiMesh.TRANSFORM_3D
-	_bubble_mm.mesh = sphere
-	_bubble_mm.instance_count = BUBBLE_COUNT
 	_bubbles = MultiMeshInstance3D.new()
 	_bubbles.name = "VentBubbles"
 	_bubbles.multimesh = _bubble_mm
@@ -209,9 +198,13 @@ func _build_ceiling() -> void:
 func _build_lights() -> void:
 	_key = DirectionalLight3D.new()
 	_key.name = "UnderwaterKey"
-	_key.light_color = Color("#fbfff2")
-	_key.light_energy = 0.85
+	_key.light_color = Color("#edffe3")
+	_key.light_energy = (3.0 / PI)
+	# 与网页版一致：主光投影。深度/绕序问题在实体材质和导入阶段修复。
 	_key.shadow_enabled = true
+	_key.shadow_bias = 0.05
+	_key.shadow_normal_bias = 0.5
+	_key.light_angular_distance = 0.5
 	_key.directional_shadow_max_distance = 120.0
 	add_child(_key)
 	_key.look_at_from_position(Vector3(18, 24, 18), Vector3(-9, -40, -6), Vector3.UP)
@@ -220,21 +213,46 @@ func _build_lights() -> void:
 	_fill.name = "DiverFill"
 	_fill.light_color = Color("#a1f7ef")
 	_fill.omni_range = 32.0
-	_fill.light_energy = 1.8
+	_fill.light_energy = 55.0 / PI
+	_fill.omni_attenuation = 2.0
 	add_child(_fill)
 
 	# 深沟里给巨型珊瑚补三盏冷光（网页版 north-trench.js 末尾）。
 	for spec in [
-		[Vector3(-18, -205, -125), Color("#67d9d9"), 100.0],
-		[Vector3(20, -207, -135), Color("#c6a2ef"), 90.0],
-		[Vector3(0, -199, -122), Color("#b9dfd2"), 70.0],
+		[Vector3(-18, -205, -125), Color("#67d9d9"), 1600.0],
+		[Vector3(20, -207, -135), Color("#c6a2ef"), 1400.0],
+		[Vector3(0, -199, -122), Color("#b9dfd2"), 1100.0],
 	]:
 		var lamp := OmniLight3D.new()
 		lamp.position = spec[0]
 		lamp.light_color = spec[1]
 		lamp.omni_range = 65.0
-		lamp.light_energy = float(spec[2]) / 16.0
+		lamp.light_energy = float(spec[2]) / PI
+		lamp.omni_attenuation = 2.0
 		add_child(lamp)
+
+
+## 诊断：按类别藏掉动态装饰，用来分清画面问题来自静态几何还是这些会动的东西。
+## kind ∈ fish / beam / bubble / mote / ceiling / all
+func hide_kind(kind: String) -> void:
+	match kind:
+		"fish":
+			for school in _fish:
+				(school.mmi as Node3D).visible = false
+		"beam":
+			for b in _beams:
+				(b as Node3D).visible = false
+		"bubble":
+			if _bubbles != null:
+				_bubbles.visible = false
+		"mote":
+			if _motes != null:
+				_motes.visible = false
+		"ceiling":
+			if _ceiling != null:
+				_ceiling.visible = false
+		"all":
+			visible = false
 
 
 func update(dt: float, t: float, diver: Vector3, cam: Camera3D) -> void:
@@ -304,6 +322,6 @@ func _update_motes(dt: float) -> void:
 func _update_lights(diver: Vector3) -> void:
 	var deep: float = clampf((-diver.y - 12.0) / 64.0, 0.0, 1.0)
 	if _key != null:
-		_key.light_energy = 0.85 * (1.0 - deep * 0.75)
+		_key.light_energy = (3.0 / PI) * (1.0 - deep * 0.75)
 	if _fill != null:
 		_fill.global_position = diver + Vector3(0, 2, 3)

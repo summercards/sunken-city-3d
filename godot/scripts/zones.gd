@@ -80,3 +80,24 @@ func zone_at(point: Vector3, radius: float = 12.0) -> String:
 			best_d = d
 			best = z.id
 	return best
+
+
+## 游戏实例场景是地面/泊位的唯一来源；JSON 仅保留区块说明与无场景测试基线。
+func bind_scene(zone: Node3D) -> void:
+	var cfg := get_zone(zone.zone_id)
+	if cfg.is_empty():
+		return
+	var landings: Array = []
+	for point in zone.landing_points():
+		landings.append(point.data())
+	cfg["landings"] = landings
+	var walk: Array = []
+	for area in zone.walk_areas:
+		var rects: Array = []
+		for r: Rect2 in area.rects:
+			var a: Vector3 = area.to_global(Vector3(r.position.x, 0, r.position.y))
+			var b: Vector3 = area.to_global(Vector3(r.end.x, 0, r.end.y))
+			rects.append([a.x, b.x, a.z, b.z])
+		walk.append({"id": area.area_id, "y": area.surface_y, "rects": rects,
+			"span": [area.span_min, area.span_max]})
+	cfg["walk"] = walk

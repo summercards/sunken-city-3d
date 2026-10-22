@@ -13,11 +13,11 @@ class_name FarmPlot
 
 signal acted(plot_id: String, event: String, payload: Dictionary)
 
-var plot_id := ""
-var zone_id := ""
-var plot_name := "菜箱"
-var requires_site := ""
-var requires_level := 0
+@export var plot_id := ""
+@export var zone_id := ""
+@export var plot_name := "菜箱"
+@export var requires_site := ""
+@export var requires_level := 0
 
 ## 四段造型：0 空地/土丘、1 芽、2 叶、3 结果。
 var _stage_roots: Array = []
@@ -46,6 +46,12 @@ func setup(data: Dictionary) -> void:
 
 
 func _on_ready() -> void:
+	id = plot_id
+	label = plot_name
+	priority = 2
+	focus_radius = 2.4
+	accent = Color("#9fe07a")
+	add_to_group("farm_plots")
 	_build_box()
 	_build_plant()
 	# 编辑器里 Economy 是占位实例，不能读种植状态；只把菜箱本身摆出来。
@@ -64,6 +70,10 @@ func focus_text() -> String:
 	if farm == null:
 		return "%s · %s" % [verb, plot_name]
 	return "%s · %s（%s）" % [verb, plot_name, farm.status_text(plot_id)]
+
+
+func blocked_reason() -> String:
+	return Economy.farm.blocked_reason(plot_id) if Economy.farm != null else "种植系统未就绪"
 
 
 func interact(_actor: Node3D) -> Dictionary:
@@ -255,7 +265,7 @@ func _sync(_delta: float) -> void:
 		ripe.scale = Vector3.ONE
 
 	# 土壤：越湿越深。干土偏浅黄，湿土接近深褐。
-	var thirst: float = farm.thirst_seconds(crop_id) if crop_id != "" else 1.0
+	var thirst: float = 1.0
 	var wet: float = 0.28 if phase == "empty" else clampf(float(farm.state(plot_id).water) / maxf(thirst, 0.001), 0.0, 1.0)
 	if _soil_mat != null:
 		_soil_mat.albedo_color = Color("#9a7a52").lerp(Color("#4b3524"), wet)
@@ -276,7 +286,7 @@ func _sync(_delta: float) -> void:
 
 	# 焦点文案与按住时长跟着动作走：浇水比收获慢一点，播种最快。
 	verb = farm.action_label(plot_id)
-	hold_time = 0.55 if verb == "播种" else (0.9 if verb == "浇水" else (0.8 if verb == "收获" else 0.35))
+	hold_time = 0.95 if verb == "播种" else (1.25 if verb == "浇水" else (1.1 if verb == "收获" else 0.35))
 	if phase == "ready":
 		accent = Color("#ffd27a")
 	elif dry:

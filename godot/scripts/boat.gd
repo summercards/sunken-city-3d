@@ -3,9 +3,20 @@ class_name Boat
 ## 小船：模型来自网页版烘焙，运动与起伏在 Godot 内重建。
 
 signal arrived(zone_id: String, landing_id: String)
+signal navigation_blocked
+
+## 主场景提供岸线判定；轨迹圆角与每步运动共用它。
+var segment_clear := Callable()
+var _row_blend := 0.0
+var water_surface: MeshInstance3D
+var _wave_pitch := 0.0
+var _wave_roll := 0.0
 
 const WATER_LEVEL := 1.12
 const BASE := "res://assets/baked/"
+## boat.json geometries 34..40 are the seven createBoatEdgeStroke tubes from
+## index.html, not hull parts. Keep the source bake intact; retire only these overlays.
+const LEGACY_FOAM_GEOMETRIES := [34, 35, 36, 37, 38, 39, 40]
 ## 巡航速度。网页版 `sailDuration = 曲线长度 / 3.6`，这里取同一量级。
 const SPEED := 3.4
 
@@ -17,10 +28,9 @@ var route: Array = []
 var _wp := 0
 var _vel := 0.0
 ## 到达判定：离泊位这么近且速度低于阈值才停稳（否则会「贴上去就瞬移」）。
-## 到达判定的距离与速度必须**同时**满足；速度阈值要给得比「最后一段的目标速度」宽，
-## 否则船会以 0.35m/s 在泊位旁无限打转（比例控制永远收不到 0）。
-const ARRIVE_DIST := 0.45
-const ARRIVE_SPEED := 0.70
+## 位置误差小于 1.5cm 且低速才完成；保留真实位置，不在最后一帧吸附泊位。
+const ARRIVE_DIST := 0.015
+const ARRIVE_SPEED := 0.15
 const ACCEL := 2.2
 const BRAKE := 3.0
 ## 最大转向角速度（rad/s）。划桨船不是快艇：0.95 约等于「一秒转 55°」，
@@ -63,6 +73,8 @@ func build() -> void:
 		meshes.append(_make_mesh(g, verts, idx))
 
 	for b in meta.batches:
+		if int(b.geom) in LEGACY_FOAM_GEOMETRIES and bool(b.unlit) and bool(b.alpha):
+			continue
 		var count := int(b.count)
 		if count <= 0:
 			continue
@@ -119,8 +131,9 @@ func sail_to(pos: Vector3, yaw: float, zone_id: String, landing_id: String, path
 	_to_zone = zone_id
 	_to_landing = landing_id
 	_sailing = true
-	_wp = 0
-	_vel = 0.0
+	_dock_left = 0.0
+	_wp = 1
+	# 中途改道保留速度与划桨相位，避免每次点击都急停重启。
 	route.clear()
 	var goal := Vector2(pos.x, pos.z)
 	if path.size() >= 2:
@@ -132,7 +145,8 @@ func sail_to(pos: Vector3, yaw: float, zone_id: String, landing_id: String, path
 	else:
 		route.append(Vector2(position.x, position.z))
 		route.append(goal)
-	_duration = maxf(0.4, _path_length() / SPEED)
+	route = _rounded_route(route)
+	_duration = maxf(0.4, _path_length() / cruise_speed())
 
 
 func _path_length() -> float:
@@ -191,87 +205,141 @@ func _process(delta: float) -> void:
 			rotation.y += signf(err2) * step2
 			_dock_left = maxf(0.0, absf(angle_difference(rotation.y, want)))
 
-	position.y = WATER_LEVEL + sin(now * 2.1) * 0.065
+	if water_surface != null:
+		var center := Vector2(position.x, position.z)
+		var f := _forward(rotation.y)
+		var side := Vector2(cos(rotation.y), -sin(rotation.y))
+		var bow: Vector3 = water_surface.sample_surface(center + f * 2.0)
+		var stern: Vector3 = water_surface.sample_surface(center - f * 2.0)
+		var port: Vector3 = water_surface.sample_surface(center - side * 1.0)
+		var starboard: Vector3 = water_surface.sample_surface(center + side * 1.0)
+		var response := 1.0 - exp(-5.0 * delta)
+		position.y = lerpf(position.y, WATER_LEVEL + (bow.x + stern.x + port.x + starboard.x) * 0.25, response)
+		_wave_pitch = lerpf(_wave_pitch, atan2(bow.x - stern.x, 4.0), response)
+		_wave_roll = lerpf(_wave_roll, atan2(starboard.x - port.x, 2.0), response)
+	else:
+		position.y = WATER_LEVEL + sin(now * 2.1) * 0.065
 	if model == null:
 		return
 	_animate_oars(delta)
 	if not _sailing:
 		# 停泊时轻轻摇（浪），航行时收平。
-		model.rotation.z = lerp(model.rotation.z, sin(now * 1.7) * 0.04, clamp(delta * 5.0, 0.0, 1.0))
-		model.rotation.x = lerp(model.rotation.x, cos(now * 1.35) * 0.03, clamp(delta * 5.0, 0.0, 1.0))
+		model.rotation.z = lerp(model.rotation.z, _wave_roll, clamp(delta * 5.0, 0.0, 1.0))
+		model.rotation.x = lerp(model.rotation.x, _wave_pitch, clamp(delta * 5.0, 0.0, 1.0))
 		model.rotation.y = lerp(model.rotation.y, 0.0, clamp(delta * 4.0, 0.0, 1.0))
 		model.position.y = lerp(model.position.y, 0.0, clamp(delta * 4.0, 0.0, 1.0))
 	else:
 		# 航行：船身向转弯内侧倾、随每桨左右轻摆、桨频带一点点上下起伏。
 		var bank := clampf(-_turn_rate * 0.22, -0.09, 0.09)
-		model.rotation.z = lerp(model.rotation.z, bank + sin(_stroke) * 0.012,
+		model.rotation.z = lerp(model.rotation.z, _wave_roll + bank + sin(_stroke) * 0.012,
 			clamp(delta * 6.0, 0.0, 1.0))
-		model.rotation.x = lerp(model.rotation.x, -0.012 + sin(_stroke * 2.0) * 0.008,
+		model.rotation.x = lerp(model.rotation.x, _wave_pitch - 0.012 + sin(_stroke * 2.0) * 0.008,
 			clamp(delta * 6.0, 0.0, 1.0))
 		model.rotation.y = sin(_stroke) * 0.018
 		model.position.y = sin(_stroke * 2.0) * 0.012
 
 
-## 每帧的航行积分：先算「该去哪儿、该多快」，再限幅转向、限幅加速。
-##
-## 旧版是起点到终点的 smoothstep 插值：位置永远在直线上，速度不受转向影响，
-## 所以「贴着岛绕过去」根本不可能，靠岸也是硬停。这里改成真运动学：
-##   · 逐段追航点，到段尾自动切下一个；
-##   · 速度有加减速，转弯时降速，接近泊位按刹车距离提前收油；
-##   · 朝向按最大角速度趋近目标航向，转不过来就绕大圈（这才是船）。
+## 对可安全切角的折线生成相切圆角；岸边保留原折线，靠减速转向通过。
+func _rounded_route(points: Array) -> Array:
+	if points.size() < 3:
+		return points.duplicate()
+	var out: Array = [points[0]]
+	for i in range(1, points.size() - 1):
+		var a: Vector2 = points[i - 1]
+		var b: Vector2 = points[i]
+		var c: Vector2 = points[i + 1]
+		var trim := minf(1.8, minf(a.distance_to(b), b.distance_to(c)) * 0.3)
+		var entry := b.move_toward(a, trim)
+		var leave := b.move_toward(c, trim)
+		var curve: Array = [entry]
+		for j in range(1, 13):
+			var t := float(j) / 12.0
+			curve.append(entry.lerp(b, t).lerp(b.lerp(leave, t), t))
+		var valid := _clear(out.back(), entry)
+		for j in range(1, curve.size()):
+			valid = valid and _clear(curve[j - 1], curve[j])
+		if valid:
+			out.append_array(curve)
+		else:
+			out.append(b)
+	out.append(points.back())
+	return out
+
+func _clear(a: Vector2, b: Vector2) -> bool:
+	return not segment_clear.is_valid() or bool(segment_clear.call(a, b))
+
+## 弧长推进保持在经过校验的航路上；提前看向前方，速度服从转弯与刹车距离。
 func _steer(delta: float) -> void:
-	while _wp < route.size() - 1:
-		var seg_to: Vector2 = route[_wp]
-		if Vector2(position.x, position.z).distance_to(seg_to) < 0.75:
+	# 帧率波动时也保持同样的转向/制动结果。
+	var left := minf(delta, 0.25)
+	while left > 0.00001 and _sailing:
+		var dt := minf(left, 1.0 / 120.0)
+		_advance_route(dt)
+		left -= dt
+
+func _ahead(distance: float) -> Vector2:
+	var p := Vector2(position.x, position.z)
+	for i in range(_wp, route.size()):
+		var next: Vector2 = route[i]
+		var length := p.distance_to(next)
+		if length >= distance:
+			return p.move_toward(next, distance)
+		distance -= length
+		p = next
+	return p
+
+func _advance_route(delta: float) -> void:
+	if route.size() < 2:
+		_sailing = false
+		return
+	var here := Vector2(position.x, position.z)
+	while _wp < route.size() - 1 and here.distance_to(route[_wp]) < 0.001:
+		_wp += 1
+	var to := _ahead(0.45 + _vel * 0.22) - here
+	var desired := rotation.y if to.length() < 0.001 else atan2(-to.x, -to.y)
+	var error := angle_difference(rotation.y, desired)
+	var turned := clampf(error * (1.0 - exp(-7.0 * delta)), -TURN_RATE * delta, TURN_RATE * delta)
+	rotation.y += turned
+	_turn_rate = lerpf(_turn_rate, turned / delta, 1.0 - exp(-7.0 * delta))
+	var remaining := remaining_distance()
+	var alignment := pow(maxf(0.0, cos(error)), 2.0)
+	var wanted := cruise_speed() * alignment
+	# 尖角提前减速；圆角的方向变化小，可连续通过。
+	if _wp < route.size() - 1:
+		var incoming: Vector2 = (route[_wp] - here).normalized()
+		var outgoing: Vector2 = (route[_wp + 1] - route[_wp]).normalized()
+		var turn := absf(incoming.angle_to(outgoing))
+		var corner_speed := cruise_speed() * pow(maxf(0.0, cos(turn)), 2.0)
+		wanted = minf(wanted, sqrt(corner_speed * corner_speed + 2.0 * BRAKE * here.distance_to(route[_wp])))
+	wanted = minf(wanted, minf(sqrt(2.0 * BRAKE * remaining), remaining * 1.8))
+	_vel = move_toward(_vel, wanted, (ACCEL if wanted > _vel else BRAKE) * delta)
+	var budget := _vel * delta
+	while budget > 0.0:
+		var next: Vector2 = route[_wp]
+		var distance := here.distance_to(next)
+		var step := minf(distance, budget)
+		var moved := here.move_toward(next, step)
+		if not _clear(here, moved):
+			_sailing = false
+			_vel = 0.0
+			_speed_actual = 0.0
+			navigation_blocked.emit()
+			return
+		here = moved
+		budget -= step
+		if step >= distance and _wp < route.size() - 1:
 			_wp += 1
 		else:
 			break
-	var target: Vector2 = route[mini(_wp, route.size() - 1)]
-	var here := Vector2(position.x, position.z)
-	var to := target - here
-	var dist := to.length()
-
-	# 目标航向：船头朝 -Z，所以 yaw 与 (dx, dz) 的换算带两个负号。
-	var want_yaw := rotation.y
-	if dist > 0.05:
-		want_yaw = atan2(-to.x, -to.y)
-
-
-	# 转向：限角速度。转得越多航速越低（船不是坦克）。
-	var err := angle_difference(rotation.y, want_yaw)
-	var max_step := TURN_RATE * delta
-	var turned := clampf(err, -max_step, max_step)
-	rotation.y += turned
-	_turn_rate = lerp(_turn_rate, turned / maxf(delta, 0.0001), 0.25)
-	var align := 1.0 - clampf(absf(err) / PI, 0.0, 1.0)
-
-	# 速度：巡航 × 对齐度，最后一段按刹车距离收油。
-	var want_speed := SPEED * (0.35 + 0.65 * align)
-	var final_left := dist
-	if _wp >= route.size() - 1:
-		# 最后一段用比例控制（速度 ∝ 剩余距离）：比「刹车距离公式」更稳，
-		# 不会因为一帧推过头就绕着泊位打转。
-		want_speed = minf(want_speed, dist * 1.0)
-	if _vel < want_speed:
-		_vel = minf(want_speed, _vel + ACCEL * delta)
-	else:
-		_vel = maxf(want_speed, _vel - BRAKE * 1.4 * delta)
-
-	# 沿船头方向前进：转向不足时自然会向外飘，不会横向平移。
-	# 每划一桨推一下（±9%），比匀速平移「有划船感」。
-	var surge := 1.0 + sin(_stroke) * 0.09
-	var step := _forward(rotation.y) * _vel * surge * delta
-	position.x += step.x
-	position.z += step.y
+	position.x = here.x
+	position.z = here.y
 	_speed_actual = _vel
-
-	if _wp >= route.size() - 1 and dist <= ARRIVE_DIST and _vel <= ARRIVE_SPEED:
+	if remaining_distance() <= ARRIVE_DIST and _vel <= ARRIVE_SPEED:
 		_sailing = false
 		_vel = 0.0
-		_speed_actual = 0.0
-		position = Vector3(target.x, WATER_LEVEL, target.y)
-		# 到站后先在原地把船身摆正（按同样的角速度上限慢慢拧，不硬 snap），
-		# `arrived` 立刻发出去：玩法不等这几百毫秒，视觉上像是在靠妥。
+		# 保留真实终点附近的位置；不做最后半米瞬移。
+		if manual:
+			_yaw_to = rotation.y
 		_dock_left = absf(angle_difference(rotation.y, _yaw_to))
 		arrived.emit(_to_zone, _to_landing)
 
@@ -316,32 +384,29 @@ func _flat(color: Color) -> StandardMaterial3D:
 	return mat
 
 
-## 桨频跟速度走：停=收桨，慢=2.0 次/秒，满速=3.0 次/秒。
+## 约每秒一桨；收桨/起桨连续混合，避免突然显示、隐藏。
 func _animate_oars(delta: float) -> void:
 	if _oar_l == null or _oar_r == null:
 		return
-	var rate := 0.0
-	if _sailing and _vel > 0.2:
-		rate = 2.0 + 1.0 * clampf(_vel / SPEED, 0.0, 1.0)
-	_stroke = fmod(_stroke + delta * rate * TAU, TAU)
-	if rate <= 0.0:
-		# 没在划：桨收回船内（直接藏起来）。停泊时两根桨横在船外很怪。
-		_oar_l.visible = false
-		_oar_r.visible = false
-		return
+	var effort := clampf(_vel / cruise_speed(), 0.0, 1.0) if _sailing else 0.0
+	_row_blend = lerpf(_row_blend, effort, 1.0 - exp(-4.0 * delta))
+	_stroke = fmod(_stroke + delta * (0.65 + _row_blend * 0.45) * TAU, TAU)
 	_oar_l.visible = true
 	_oar_r.visible = true
 	var swing := sin(_stroke)
 	var dip := cos(_stroke)
-	# 桨**基本垂直于船身**，只在 ±24° 内前后摆 —— 摆幅再大，俯视下桨就压到船头上了。
-	_oar_l.rotation.y = 0.0 + swing * 0.30
-	_oar_r.rotation.y = 0.0 - swing * 0.30
-	_oar_l.rotation.z = 0.10 + dip * 0.16
-	_oar_r.rotation.z = -0.10 - dip * 0.16
+	var turn := clampf(_turn_rate / TURN_RATE, -1.0, 1.0)
+	_oar_l.rotation.y = lerpf(1.1, swing * 0.30 * (1.0 - turn * 0.3), _row_blend)
+	_oar_r.rotation.y = lerpf(-1.1, -swing * 0.30 * (1.0 + turn * 0.3), _row_blend)
+	_oar_l.rotation.z = lerpf(-0.3, 0.10 + dip * 0.16, _row_blend)
+	_oar_r.rotation.z = lerpf(0.3, -0.10 - dip * 0.16, _row_blend)
 
 
 func wake_uniform() -> Vector4:
 	return Vector4(position.x, position.z, rotation.y, _speed_actual)
+
+func rowing_state() -> Vector2:
+	return Vector2(_stroke, _row_blend)
 
 
 func _read_f32(file_name: String) -> PackedFloat32Array:
@@ -394,3 +459,8 @@ func _make_mesh(g: Dictionary, verts: PackedFloat32Array, indices: PackedInt32Ar
 	var mesh := ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return mesh
+
+
+func cruise_speed() -> float:
+	var economy: Node = get_node_or_null("/root/Economy") if is_inside_tree() else null
+	return SPEED * (1.15 if economy != null and int(economy.ship_level) >= 3 else 1.0)

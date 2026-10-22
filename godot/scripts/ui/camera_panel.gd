@@ -17,6 +17,7 @@ class_name CameraPanel
 ## 距离变化时发出去（HUD 用它闪一下百分比，和滚轮缩放共用同一套反馈）。
 signal distance_changed(distance: float)
 
+const UiFontLib = preload("res://scripts/ui/ui_font.gd")
 const PANEL_W := 300.0
 const MARGIN := 18.0
 const TOP := 92.0
@@ -32,7 +33,7 @@ var _panel: PanelContainer
 var _slider: HSlider
 var _readout: Label
 var _status: Label
-var _font: SystemFont
+var _font: Font
 var _syncing := false
 ## 上一次显示的米数：滚轮/捏合在面板外缩放时，读数要跟着走。
 var _last_shown := -1.0
@@ -41,8 +42,7 @@ var _last_shown := -1.0
 func _ready() -> void:
 	layer = 21
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_font = SystemFont.new()
-	_font.font_names = PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"])
+	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
 	_build()
 	visible = false
 	get_viewport().size_changed.connect(_place)
@@ -162,10 +162,8 @@ func _build() -> void:
 	head.add_theme_constant_override("separation", 8)
 	body.add_child(head)
 	head.add_child(_label("相机", 13, Color("#eafaff")))
-	var hint := _label("C 关闭", 10, Color(0.65, 0.82, 0.88, 0.8))
-	hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	head.add_child(hint)
+	var close := _button("关闭",func() -> void: set_open(false))
+	head.add_child(close)
 
 	body.add_child(_separator())
 

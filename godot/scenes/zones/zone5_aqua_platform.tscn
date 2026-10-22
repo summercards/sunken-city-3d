@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/zone_scene.gd" id="1_zone"]
 [ext_resource type="Script" path="res://scripts/world/zone_batch.gd" id="2_batch"]
@@ -9,6 +9,9 @@
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_0000.tres" id="mat_tn_0000"]
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_0110.tres" id="mat_tn_0110"]
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_1000.tres" id="mat_tn_1000"]
+
+[ext_resource type="Script" path="res://scripts/world/landing_point.gd" id="landing_script"]
+[ext_resource type="PackedScene" path="res://scenes/props/farm_plot.tscn" id="farm_prefab"]
 
 [node name="Zone5AquaPlatform" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.000, 0, 16.000)
@@ -55,9 +58,33 @@ span_min = 1.000
 span_max = 1.550
 rects = [Rect2(-3.200, -2.800, 6.500, 5.500)]
 
-[node name="Landings" type="Node3D" parent="."]
+
 
 [node name="Plants" type="Node3D" parent="."]
 script = ExtResource("4_plants")
 zone_id = "zone5"
 placement_path = "res://assets/data/plants_zone5_aqua_platform.json"
+
+[node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_zone5_aqua"]
+position = Vector3(-1, 1.25, 0)
+script = ExtResource("landing_script")
+landing_id = "main"
+landing_label = "浅水养殖台"
+
+[node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_zone5_aqua/Landing_main"]
+position = Vector3(-3.7300000000000004, -0.1299999999999999, -0.08000000000000007)
+rotation = Vector3(0, 0, 0)
+
+[node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_zone5_aqua/Landing_main"]
+position = Vector3(-1.8000000000000007, 0.10000000000000009, -0.5999999999999996)
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="platform_plot" parent="Objects" instance=ExtResource("farm_prefab")]
+position = Vector3(1.9499999999999993, 1.25, -0.09999999999999964)
+rotation = Vector3(0, 0.0, 0)
+plot_id = "platform_plot"
+zone_id = "zone5"
+plot_name = "浮台菜箱"
+requires_site = ""
+requires_level = 0

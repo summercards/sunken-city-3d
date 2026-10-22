@@ -1,25 +1,12 @@
 extends Camera3D
 class_name OrbitCam
-## 俯视相机：平移 / 缩放 / 旋转三件事都要「跟手」。
-##
-## 上一版的问题（用户反馈「没办法缩放，移动反馈不足」）：
-##   · 滚轮每档只改 8%，且 clamp 死在场景里存的 min/max（30~120），从 108 拉近要滚 15 下；
-##   · 只认 InputEventMouseButton 的滚轮，**触控板双指手势（PanGesture / MagnifyGesture）完全不响应**，
-##     用触控板的人会觉得滚轮坏了；
-##   · 平移按「相机基向量 × 像素」算，速度跟距离挂钩，远近手感不一致，松手即停没有惯性；
-##   · 没有旋转 —— 网页版 OrbitControls 固定 45° 俯视，但俯视角下看码头内部经常被屋顶挡住。
-##
-## 现在的手感约定（和常见地图/建造类游戏一致）：
-##   左键拖动    抓地平移：屏幕上鼠标按住的那个点，拖到哪就跟到哪（1:1，不会漂）
-##   右键/中键   绕目标旋转：水平绕 Y，垂直改俯角（22°~78°，不会翻到地平线以下）
-##   滚轮/捏合   朝**鼠标位置**缩放：指针下的那块地不会跑掉
-##   双指滑动    平移（触控板地图手感）
-##   WASD/方向键 平移；Q/E 旋转；Shift 加速
-##   松手后平移有很短的惯性滑行，缩放有阻尼收敛 —— 这是「反馈足」的来源
+## 默认跟随角色；左键拖动越过阈值或触控板平移后手动接管。
+## 参考网页版 dampingFactor=0.06，采用时间相关指数阻尼平滑目标。
+## 松手后保持手动构图；顶部按钮恢复跟随。滚轮缩放、右键旋转保留。
 
 @export var target := Vector3(0.45, 1.75, -0.65)
 @export var orbit_dir := Vector3(-0.5, 0.7, 0.5)
-@export var distance := 106.0
+@export var distance := 54.25
 ## 缩放下限/上限。不再复用 min_distance / max_distance（那两个是旧接口的相容字段）。
 @export var zoom_min := 9.0
 @export var zoom_max := 190.0
@@ -38,6 +25,10 @@ var dir := Vector3(-0.5, 0.7, 0.5).normalized()
 ## 当前是否在拖拽（供主场景区分「点击」和「拖镜头」）。
 var panning := false
 var rotating := false
+var follow_enabled := true
+var follow_subject: Node3D
+var _pan_pressed := false
+var _pan_origin := Vector2.ZERO
 
 ## 平滑用的当前值：外部写 target/distance，相机自己追过去。
 var _cur_target := Vector3.ZERO
@@ -55,9 +46,18 @@ var _drag_screen := Vector2.ZERO
 const ROT_PER_PIXEL := 0.0062
 const WHEEL_STEP := 0.86
 const ZOOM_DAMP := 9.0
-const TARGET_DAMP := 11.0
+const TARGET_DAMP := 3.7125 # 网页每帧 0.06 在 60 FPS 下的等效阻尼
 const INERTIA_DAMP := 3.4
 
+
+func resume_follow() -> void:
+	follow_enabled = true
+	_pan_pressed = false
+	_end_drag()
+	velocity_cancel()
+
+func suspend_follow() -> void:
+	follow_enabled = false
 
 func _ready() -> void:
 	_cur_target = target
@@ -118,10 +118,12 @@ func _update_pose() -> void:
 
 
 func _process(delta: float) -> void:
-	_keyboard(delta)
+	if not _ui_blocked(): _keyboard(delta)
+	if follow_enabled and is_instance_valid(follow_subject) and current:
+		target = follow_subject.global_position + Vector3.UP*0.7
 
-	# 平移惯性：松手后滑一小段（阻尼 3.4/s，约 0.3 秒停下）。
-	if not panning and _velocity.length() > 0.01:
+	# 兼容外部速度输入；日常拖动通过 target 剩余位移缓动。
+	if not follow_enabled and not panning and _velocity.length() > 0.01:
 		target += Vector3(_velocity.x, 0.0, _velocity.y) * delta
 		_velocity *= exp(-INERTIA_DAMP * delta)
 		if _velocity.length() < 0.02:
@@ -158,6 +160,7 @@ func _keyboard(delta: float) -> void:
 		_orbit(-rot * 1.5 * delta, 0.0)
 	if vx == 0.0 and vz == 0.0:
 		return
+	suspend_follow()
 	var boost := 2.4 if (Input.is_physical_key_pressed(KEY_SHIFT) or Input.is_physical_key_pressed(KEY_CTRL)) else 1.0
 	var fwd := -global_transform.basis.z
 	fwd.y = 0.0
@@ -173,6 +176,9 @@ func _keyboard(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	# 面板打开时不抢镜头（面板自己要处理滚轮/拖动）。
 	if _ui_blocked():
+		_pan_pressed = false
+		_end_drag()
+		rotating = false
 		return
 
 	if event is InputEventMouseButton:
@@ -180,8 +186,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		match mb.button_index:
 			MOUSE_BUTTON_LEFT:
 				if mb.pressed:
-					_begin_pan(mb.position)
+					_pan_pressed = true
+					_pan_origin = mb.position
+					_drag_last = mb.position
 				else:
+					_pan_pressed = false
 					_end_drag()
 			MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE:
 				if mb.pressed:
@@ -199,14 +208,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		var mm := event as InputEventMouseMotion
 		if rotating:
 			_orbit(-mm.relative.x * ROT_PER_PIXEL, -mm.relative.y * ROT_PER_PIXEL * 0.7)
-		elif panning:
-			_drag_pan(mm.position)
+		elif _pan_pressed:
+			if not panning and mm.position.distance_to(_pan_origin)>=11.0:
+				_begin_pan(_pan_origin)
+			if panning: _drag_pan(mm.position)
 	elif event is InputEventMagnifyGesture:
 		# 触控板捏合：factor > 1 是放大（拉近）。
 		var mg := event as InputEventMagnifyGesture
 		_zoom_factor(1.0 / maxf(mg.factor, 0.01), mg.position)
 	elif event is InputEventPanGesture:
 		# 触控板双指滑动：当地图平移用（比缩放更符合直觉，也解决「滚轮没反应」）。
+		suspend_follow()
 		var pg := event as InputEventPanGesture
 		target += _screen_delta_to_world(pg.delta)
 		velocity_cancel()
@@ -223,12 +235,18 @@ func _ui_blocked() -> bool:
 	var sp = host.get("salvage_panel")
 	if sp != null and sp.has_method("is_open") and sp.is_open():
 		return true
+	for key in ["order_panel","cam_panel"]:
+		var panel = host.get(key)
+		if panel != null and panel.is_open(): return true
+	var grade = host.get("grade")
+	if grade != null and grade.visible: return true
 	return false
 
 
 ## ---- 平移 -------------------------------------------------------------------
 
 func _begin_pan(screen: Vector2) -> void:
+	suspend_follow()
 	panning = true
 	Input.set_default_cursor_shape(Input.CURSOR_DRAG)
 	_drag_last = screen
@@ -241,27 +259,17 @@ func _begin_pan(screen: Vector2) -> void:
 
 
 func _drag_pan(screen: Vector2) -> void:
-	if _grab_valid:
-		var now := _ray_plane(screen)
-		if now != Vector3.INF:
-			var delta3 := _grab_world - now
-			delta3.y = 0.0
-			# 抓地平移是 1:1 的：拖多少，地就跟多少（手感的关键）。
-			target += delta3
-			# 记录瞬时速度，供松手后的惯性。
-			var inst := Vector2(delta3.x, delta3.z) / maxf(get_process_delta_time(), 0.001)
-			_velocity = _velocity.lerp(inst, 0.35)
-			_grab_world = now
-			return
-	target += _screen_delta_to_world(screen - _drag_last)
+	# 每次输入只累计像素增量；由指数阻尼消化余量，与网页 OrbitControls 一致。
+	target += _screen_delta_to_world(screen-_drag_last)
 	_drag_last = screen
+	_clamp_target()
 
 
 func _end_drag() -> void:
 	panning = false
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	_grab_valid = false
-	# 拖拽停下时速度归零：拖动本身已经跟手，再滑一段会「过头」。
+	# 不额外抛掷；target 与 _cur_target 的余量继续平滑收敛。
 	_velocity = Vector2.ZERO
 
 
@@ -307,6 +315,9 @@ func _zoom_at(closer: bool, screen: Vector2) -> void:
 
 ## 朝光标缩放：缩放前后，指针下的那块地保持在同一个屏幕位置。
 func _zoom_factor(factor: float, screen: Vector2) -> void:
+	if follow_enabled:
+		distance = clampf(distance*factor,zoom_min,zoom_max)
+		return
 	var before := _ray_plane(screen)
 	var want := clampf(distance * factor, zoom_min, zoom_max)
 	if is_equal_approx(want, distance):
@@ -323,9 +334,8 @@ func _zoom_factor(factor: float, screen: Vector2) -> void:
 	if before != Vector3.INF and after != Vector3.INF:
 		var shift := before - after
 		shift.y = 0.0
-		# 锚点修正立即生效（否则缩放过程中画面会朝指针方向漂）。
+		# 目标修正也平滑收敛，避免缩放时瞬间侧跳。
 		target += shift
-		_cur_target += shift
 		_clamp_target()
 		_update_pose()
 

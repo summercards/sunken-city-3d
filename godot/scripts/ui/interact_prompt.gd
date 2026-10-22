@@ -6,25 +6,37 @@ class_name InteractPrompt
 ## 现在世界里只有物件本身，焦点由 Interactor 决定，这里只负责把它说清楚：
 ##   [E]  采集 · 海贝        ▓▓▓▓░░░░
 
-const HINT_COLOR := Color(0.90, 0.99, 1.0, 0.95)
-const BLOCK_COLOR := Color(1.0, 0.82, 0.55, 1.0)
+const UiFontLib = preload("res://scripts/ui/ui_font.gd")
+const HINT_COLOR := Color("#354c57")
+const BLOCK_COLOR := Color("#995d3d")
 const KEY_BG := Color(0.06, 0.30, 0.36, 0.92)
 const PANEL_BG := Color(0.03, 0.12, 0.20, 0.74)
 
+signal action_requested
 var _panel: PanelContainer
-var _key_label: Label
+var _key_label: Button
 var _text: Label
 var _bar: ProgressBar
 var _fill: StyleBoxFlat
-var _font: SystemFont
+var _font: Font
 var _blocked_left := 0.0
 var _last_text := ""
+var _finish_left := 0.0
+
+func celebrate() -> void:
+	_finish_left = 1.4
+	visible = true
+	_bar.value = 1.0
+	_fill.bg_color = Color("#ffce75")
+	_text.text = "完成啦！"
+	_key_label.text = "好啦"
+	_key_label.disabled = true
+	load("res://scripts/ui/cozy_ui.gd").reveal(_panel)
 
 
 func _ready() -> void:
 	layer = 11
-	_font = SystemFont.new()
-	_font.font_names = PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"])
+	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
 
 	var root := Control.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -36,9 +48,9 @@ func _ready() -> void:
 	_panel.anchor_right = 0.5
 	_panel.anchor_top = 1.0
 	_panel.anchor_bottom = 1.0
-	_panel.offset_left = -190
-	_panel.offset_right = 190
-	_panel.offset_top = -196
+	_panel.offset_left = -245
+	_panel.offset_right = 245
+	_panel.offset_top = -238
 	_panel.offset_bottom = -150
 	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_panel.add_theme_stylebox_override("panel", _panel_style())
@@ -59,8 +71,11 @@ func _ready() -> void:
 	badge.add_theme_stylebox_override("panel", _badge_style())
 	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(badge)
-	_key_label = _label("E", 12, Color.WHITE)
-	_key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_key_label = Button.new()
+	_key_label.text = "操作"
+	_key_label.add_theme_font_override("font",_font)
+	_key_label.add_theme_font_size_override("font_size",12)
+	_key_label.pressed.connect(func() -> void: action_requested.emit())
 	badge.add_child(_key_label)
 
 	_text = _label("", 13, HINT_COLOR)
@@ -71,7 +86,7 @@ func _ready() -> void:
 	_bar.max_value = 1.0
 	_bar.value = 0.0
 	_bar.show_percentage = false
-	_bar.custom_minimum_size = Vector2(0, 4)
+	_bar.custom_minimum_size = Vector2(0, 18)
 	_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_bar.add_theme_stylebox_override("background", _bar_bg())
 	_fill = StyleBoxFlat.new()
@@ -87,6 +102,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	_finish_left = maxf(0.0,_finish_left-delta)
 	if _blocked_left > 0.0:
 		_blocked_left -= delta
 		if _blocked_left <= 0.0 and _text != null:
@@ -96,6 +112,8 @@ func _process(delta: float) -> void:
 
 ## 每帧从 Interactor 同步显示状态。
 func update_from(actor: Node) -> void:
+	if _finish_left > 0.0: return
+	_fill.bg_color = Color("#8edbb3")
 	if actor == null or not actor.active or actor.target == null:
 		if visible:
 			visible = false
@@ -108,7 +126,8 @@ func update_from(actor: Node) -> void:
 		_text.add_theme_color_override("font_color", HINT_COLOR)
 		_last_text = spot.focus_text()
 		_text.text = _last_text
-	_key_label.text = "E"
+	_key_label.disabled = actor.progress()>0.0
+	_key_label.text = "进行中" if actor.progress()>0.0 else str(spot.verb)
 	_bar.value = actor.progress()
 
 

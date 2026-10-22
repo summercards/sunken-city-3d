@@ -43,22 +43,8 @@ vec3 apply_depth_tint(vec3 albedo, vec3 wp, out vec3 emit) {
 	// （以前挂了 albedo *= 0.88，深水里的墙比网页暗一档）。
 	albedo = mix(albedo, tint, absorb * 0.46);
 
-	// 浅水焦散
-	float cw1 = sin(wp.x * 1.45 + u_time * 2.1 + sin(wp.z * 1.2));
-	float cw2 = cos(wp.z * 1.55 - u_time * 1.7 + cos(wp.x * 1.1));
-	float net = smoothstep(0.62, 0.86, (cw1 + cw2) * 0.5);
-	float shallow_mask = (1.0 - smoothstep(0.2, 6.5, depth)) * smoothstep(0.0, 0.35, depth);
-	emit += srgb2lin(vec3(0.28, 0.92, 0.85)) * net * shallow_mask * 0.30;
-
-	// 吃水线泡沫
-	float edge_noise = sin(wp.x * 3.8 + wp.z * 3.2 + u_time * 2.4) * 0.045;
-	float thick = 0.16 + edge_noise;
-	float primary = 1.0 - smoothstep(0.02, max(0.05, thick), depth);
-	float sub = (1.0 - smoothstep(0.0, 0.045, abs(depth - (0.32 + edge_noise * 1.3))))
-		* step(0.15, sin(wp.x * 2.2 - wp.z * 2.6 + u_time * 1.8));
-	float mask = clamp(primary * 0.92 + sub * 0.58, 0.0, 1.0);
-	albedo = mix(albedo, vec3(0.96, 1.0, 0.99), mask);
-	emit += vec3(0.55, 0.72, 0.68) * mask * 0.55;
+	// The water shader handles absorption and the actual geometric intersection.
+	// Do not paint emissive foam or caustic lines on the submerged wall.
 
 	return albedo;
 }

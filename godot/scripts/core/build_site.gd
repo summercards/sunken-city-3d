@@ -90,14 +90,20 @@ func hold_time_for() -> float:
 	return 0.9 if _can_deliver() else 0.25
 
 
+func blocked_reason() -> String:
+	if Economy.site_maxed(site_id): return "%s 已经是最高等级" % site_name
+	if Economy.is_building(site_id): return "还在施工，剩 %d 秒" % int(ceil(Economy.site_work_left(site_id)))
+	var cost := Economy.site_next_cost(site_id)
+	return "材料不够：%s" % Economy.construction_missing_text(cost) if not Economy.construction_has(cost) else ""
+
 func interact(_actor: Node3D) -> Dictionary:
 	if Economy.site_maxed(site_id):
 		return {"blocked": "%s 已经是最高等级" % site_name}
 	if Economy.is_building(site_id):
 		return {"blocked": "还在施工，剩 %d 秒" % int(ceil(Economy.site_work_left(site_id)))}
 	var cost := Economy.site_next_cost(site_id)
-	if not Economy.has(cost):
-		return {"blocked": "材料不够：%s" % Economy.missing_text(cost)}
+	if not Economy.construction_has(cost):
+		return {"blocked": "材料不够：%s" % Economy.construction_missing_text(cost)}
 	var r: Dictionary = Economy.begin_site_upgrade(site_id)
 	if not r.get("ok", false):
 		return {"blocked": str(r.get("reason", "现在不能施工"))}

@@ -246,6 +246,7 @@ def export_unit(path, prims, origin, name):
         if vcolors:
             # glTF 的 COLOR_0 是线性值，和 three 的 vertexColors 语义一致。
             attrs["COLOR_0"] = glb.add_floats(col.reshape(-1).tolist(), "VEC3")
+        # glTF 索引保持源数据 CCW；Godot 导入器负责转换，不能按双面标记翻转。
         a_idx = glb.add_indices(idx.tolist())
         mesh_prims.append({
             "attributes": attrs,

@@ -11,6 +11,7 @@ extends CanvasLayer
 
 signal finished(haul: Dictionary, success: bool)
 
+const UiFontLib = preload("res://scripts/ui/ui_font.gd")
 const SalvageLib = preload("res://scripts/core/salvage.gd")
 const ItemDB = preload("res://scripts/core/item_db.gd")
 
@@ -20,11 +21,11 @@ const SNAP := 0.96
 
 const C_PANEL := Color(0.030, 0.098, 0.165, 0.92)
 const C_BORDER := Color(0.42, 0.88, 0.82, 0.40)
-const C_TITLE := Color(0.86, 0.98, 1.0, 1.0)
-const C_TEXT := Color(0.72, 0.86, 0.92, 1.0)
-const C_GOOD := Color(0.45, 0.93, 0.76, 1.0)
-const C_WARN := Color(1.0, 0.80, 0.42, 1.0)
-const C_BAD := Color(1.0, 0.45, 0.42, 1.0)
+const C_TITLE := Color("#354c57")
+const C_TEXT := Color("#52676b")
+const C_GOOD := Color("#32785d")
+const C_WARN := Color("#95602f")
+const C_BAD := Color("#ac514c")
 
 var model = null
 var open := false
@@ -40,7 +41,7 @@ var _progress_bar: ProgressBar
 var _progress_fill: StyleBoxFlat
 var _progress_text: Label
 var _result: Label
-var _font: SystemFont
+var _font: Font
 var _hold_was := false
 ## 打开面板的那次 E 还没松手：必须先松开一次才算「按键」，
 ## 否则玩家一按 E 面板就开、钩子立刻停在 0% 深度。
@@ -59,23 +60,33 @@ class TensionGauge extends Control:
 	func _draw() -> void:
 		var w := size.x
 		var h := size.y
-		draw_rect(Rect2(0, 0, w, h), Color(0.10, 0.24, 0.30, 0.9), true)
+		draw_rect(Rect2(0, 0, w, h), Color("#e5e8d9"), true)
 		# 绿区
 		draw_rect(Rect2(w * sweet_min, 0, w * (sweet_max - sweet_min), h),
-			Color(0.30, 0.78, 0.60, 0.55), true)
+			Color("#9be0b9"), true)
 		# 危险线
 		draw_rect(Rect2(w * snap_at, 0, maxf(1.0, w * (1.0 - snap_at)), h),
-			Color(0.95, 0.36, 0.32, 0.55), true)
+			Color("#f7a391"), true)
 		# 指针
 		var x := clampf(w * tension, 0.0, w - 2.0)
 		draw_rect(Rect2(x - 1.5, -3.0, 3.0, h + 6.0),
-			Color(1.0, 0.72, 0.30, 1.0) if hot else Color(0.93, 0.99, 1.0, 1.0), true)
+			Color(1.0, 0.72, 0.30, 1.0) if hot else Color("#52676b"), true)
 
+
+var _mouse_holding := false
+var _action_button: Button
+
+func cancel() -> void:
+	if not open: return
+	_mouse_holding = false
+	open = false
+	visible = false
+	model = null
+	finished.emit({},false)
 
 func _ready() -> void:
 	layer = 60
-	_font = SystemFont.new()
-	_font.font_names = PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"])
+	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
 
 	var root := Control.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -126,7 +137,7 @@ func _ready() -> void:
 	var tlabel := _label("张力", 11, C_TEXT)
 	box.add_child(tlabel)
 	_tension = TensionGauge.new()
-	_tension.custom_minimum_size = Vector2(0, 13)
+	_tension.custom_minimum_size = Vector2(0, 22)
 	_tension.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(_tension)
 
@@ -142,13 +153,27 @@ func _ready() -> void:
 	_result.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(_result)
 
+	var actions := HBoxContainer.new()
+	box.add_child(actions)
+	_action_button = Button.new()
+	_action_button.add_theme_font_override("font",_font)
+	_action_button.custom_minimum_size = Vector2(220,36)
+	_action_button.button_down.connect(func() -> void: _mouse_holding = true)
+	_action_button.button_up.connect(func() -> void: _mouse_holding = false)
+	actions.add_child(_action_button)
+	var close := Button.new()
+	close.text = "退出打捞"
+	close.add_theme_font_override("font",_font)
+	close.pressed.connect(cancel)
+	actions.add_child(close)
+	_card.mouse_filter = Control.MOUSE_FILTER_STOP
 	visible = false
 
 
 func _process(delta: float) -> void:
 	if not open or model == null:
 		return
-	var raw := Input.is_action_pressed("interact") or Input.is_physical_key_pressed(KEY_SPACE)
+	var raw := _mouse_holding or Input.is_action_pressed("interact") or Input.is_physical_key_pressed(KEY_SPACE)
 	if not raw:
 		_armed = true
 	var holding := raw and _armed
@@ -168,6 +193,7 @@ func _process(delta: float) -> void:
 
 
 func begin() -> void:
+	_mouse_holding = false
 	model = SalvageLib.new()
 	model.start()
 	open = true
@@ -198,10 +224,12 @@ func _sync() -> void:
 
 	match model.phase:
 		SalvageLib.Phase.DROP:
-			_hint.text = "按 E 停住钩子"
+			_hint.text = "钩子到底前可随时停钩"
+			_action_button.text = "点击停钩"
 			_hint.add_theme_color_override("font_color", C_TEXT)
 		SalvageLib.Phase.REEL:
-			_hint.text = "按住 E 收线 · 松开放线"
+			_hint.text = "按住收线 · 松开放线降张力"
+			_action_button.text = "按住收线"
 			var off: float = model.tension_offset()
 			_hint.add_theme_color_override("font_color",
 				C_GOOD if off == 0.0 else (C_BAD if off > 0.0 else C_WARN))
@@ -229,6 +257,13 @@ func _finish_up() -> void:
 	model = null
 	finished.emit(haul, ok)
 
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		_mouse_holding = false
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT: _mouse_holding = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not open:

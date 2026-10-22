@@ -2,12 +2,12 @@
 extends Node3D
 ## 区块场景根节点。
 ##
-## 一个区块 = 一个 tscn，里面固定是五块：
+## 一个区块 = 一个 tscn，地面/泊位与独立物件均在场景里编辑：
 ##   Models       建筑几何（glb 实例节点，编辑器里可直接选中/移动/替换）
 ##   StaticBatch  烘焙实例批次（MultiMesh，不可编辑；对比/回退用）
-##   WalkAreas    可以行走的区域（每块甲板/平台一个节点）
+##   WalkAreas    共用行走地面；Landing_* 是地面子节点，定义上岸点与停船锚点
 ##   Plants       植物（通用 + 专用，按摆放表生成，随建造等级显隐）
-##   Landings     上岸点（供点击导航）
+##   Objects      独立玩法物件（菜箱场景实例等）
 ##
 ## 区块内的坐标全部相对本节点；本节点的 transform 就是 zones.json 的 origin。
 
@@ -138,3 +138,18 @@ func update_time(t: float) -> void:
 		batch.update_time(t)
 	for mat in _timed:
 		mat.set_shader_parameter("u_time", t)
+
+
+func landing_points() -> Array:
+	var result: Array = []
+	for area in walk_areas:
+		for child in area.get_children():
+			if child.has_method("stand_position") and child.has_method("data"):
+				result.append(child)
+	return result
+
+func landing_point(id: String) -> Node3D:
+	for point in landing_points():
+		if point.landing_id == id:
+			return point
+	return null

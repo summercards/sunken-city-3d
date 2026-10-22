@@ -13,6 +13,7 @@ class_name ColorGradePanel
 ## 场景里的默认值来自 `assets/materials/world_env.tres`，可以在编辑器里直接改；
 ## 面板的「复位」回到的就是那份默认值，不是硬编码的数字。
 
+const UiFontLib = preload("res://scripts/ui/ui_font.gd")
 const CFG_PATH := "user://filter.cfg"
 
 const EXPOSURE_MIN := 0.4
@@ -25,7 +26,7 @@ var _defaults := {}
 var _saved := {}
 var _rows := {}
 var _status: Label
-var _font: SystemFont
+var _font: Font
 var _panel: PanelContainer
 var _body: VBoxContainer
 
@@ -33,8 +34,7 @@ var _body: VBoxContainer
 func _ready() -> void:
 	layer = 20
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_font = SystemFont.new()
-	_font.font_names = PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"])
+	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
 	_build()
 	visible = false
 	# 先读盘：读档值要盖回场景默认值，否则每次启动都回到 1.0。
@@ -144,10 +144,8 @@ func _build() -> void:
 	head.add_theme_constant_override("separation", 8)
 	_body.add_child(head)
 	head.add_child(_label("滤镜", 13, Color("#eafaff")))
-	var hint := _label("P 关闭", 10, Color(0.65, 0.82, 0.88, 0.8))
-	hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	head.add_child(hint)
+	var close := _button("关闭",func() -> void: set_open(false))
+	head.add_child(close)
 
 	_body.add_child(_separator())
 

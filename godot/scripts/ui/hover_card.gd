@@ -13,15 +13,16 @@ extends CanvasLayer
 ## 而真正需要悬停的东西（采集点 / 施工牌 / 菜箱 / 锚标 / 漂流物）本来就有世界坐标，
 ## 投影 + 距离阈值更便宜，也不会被水面挡住。
 
+const UiFontLib = preload("res://scripts/ui/ui_font.gd")
 const PropsScript = preload("res://scripts/sea_props.gd")
 
 const HOVER_RADIUS := 30.0
 const CARD_BG := Color(0.030, 0.098, 0.165, 0.90)
 const C_BORDER := Color(0.42, 0.88, 0.82, 0.36)
-const C_TITLE := Color(0.92, 0.99, 1.0, 1.0)
-const C_SUB := Color(0.66, 0.82, 0.88, 1.0)
-const C_WARN := Color(1.0, 0.80, 0.45, 1.0)
-const C_GOOD := Color(0.55, 0.96, 0.82, 1.0)
+const C_TITLE := Color("#354c57")
+const C_SUB := Color("#52676b")
+const C_WARN := Color("#95602f")
+const C_GOOD := Color("#32785d")
 
 var camera: Camera3D
 var markers: CanvasLayer
@@ -36,7 +37,7 @@ var target: Dictionary = {}
 var _card: PanelContainer
 var _title: Label
 var _sub: Label
-var _font: SystemFont
+var _font: Font
 var _canvas: Control
 var _shown := false
 var _hover_world := Vector3.ZERO
@@ -45,8 +46,7 @@ var _hover_world := Vector3.ZERO
 func _ready() -> void:
 	layer = 12
 
-	_font = SystemFont.new()
-	_font.font_names = PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"])
+	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
 
 	_canvas = Control.new()
 	_canvas.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -103,7 +103,7 @@ func _pick(screen: Vector2) -> Dictionary:
 		var spot: Node3D = raw
 		if spot == null or not is_instance_valid(spot) or not spot.is_visible_in_tree():
 			continue
-		var anchor: Vector3 = spot.global_position + Vector3.UP * 0.75
+		var anchor: Vector3 = spot.global_position + Vector3.UP * (0.18 if spot.is_in_group("farm_plots") else 0.75)
 		if camera.is_position_behind(anchor):
 			continue
 		var sp: Vector2 = camera.unproject_position(anchor)
@@ -119,7 +119,7 @@ func _pick(screen: Vector2) -> Dictionary:
 			best = {
 				"type": "spot", "node": spot, "screen": sp, "world": anchor,
 				"title": spot.focus_text(),
-				"sub": ("按 E" if float(spot.hold_time) <= 0.01 else "按住 E") if blocked == "" else blocked,
+				"sub": "点击前往并操作" if blocked == "" else blocked,
 				"warn": blocked != "",
 			}
 

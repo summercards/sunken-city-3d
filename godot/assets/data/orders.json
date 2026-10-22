@@ -1,0 +1,73 @@
+{
+  "_note": "码头订单池。加/改订单只改这张表；tier 是解锁档位（1 起步，船 2 级或 3 级建造点各开一档）。pay 的单位是海贝，至少要盖过物品表的 sell×数量，自检会拦退化的数值。bonus 为额外货（可选）。weight 是抽中权重。",
+  "slots": 3,
+  "refresh_seconds": 9.0,
+  "offer_seconds": [260.0, 430.0],
+  "reroll_cost": 0,
+  "orders": [
+    {
+      "id": "t1_fish_ahai", "tier": 1, "customer": "老渔夫 · 阿海", "weight": 6,
+      "item": "fish", "amount": 3, "pay": 18, "bonus": {}
+    },
+    {
+      "id": "t1_shell_mira", "tier": 1, "customer": "磨坊 · 米拉", "weight": 5,
+      "item": "shell", "amount": 4, "pay": 14, "bonus": {}
+    },
+    {
+      "id": "t1_wood_boss", "tier": 1, "customer": "修补匠 · 老周", "weight": 6,
+      "item": "wood", "amount": 6, "pay": 16, "bonus": {"rope": 1}
+    },
+    {
+      "id": "t1_rope_kite", "tier": 1, "customer": "放风筝的小孩", "weight": 4,
+      "item": "rope", "amount": 3, "pay": 12, "bonus": {}
+    },
+    {
+      "id": "t1_seed_gardener", "tier": 1, "customer": "屋顶园丁 · 千代", "weight": 4,
+      "item": "seed", "amount": 4, "pay": 15, "bonus": {}
+    },
+    {
+      "id": "t1_veg_kitchen", "tier": 1, "customer": "水巷食堂", "weight": 4,
+      "item": "vegetable", "amount": 3, "pay": 21, "bonus": {}
+    },
+    {
+      "id": "t2_parts_bike", "tier": 2, "customer": "修车铺 · 铁头", "weight": 5,
+      "item": "parts", "amount": 4, "pay": 24, "bonus": {}
+    },
+    {
+      "id": "t2_glass_station", "tier": 2, "customer": "车站看守 · 南", "weight": 4,
+      "item": "glass", "amount": 3, "pay": 26, "bonus": {"coins": 4}
+    },
+    {
+      "id": "t2_tomato_cafe", "tier": 2, "customer": "灯塔咖啡馆", "weight": 5,
+      "item": "tomato", "amount": 4, "pay": 44, "bonus": {}
+    },
+    {
+      "id": "t2_veg_school", "tier": 2, "customer": "水上学堂", "weight": 4,
+      "item": "vegetable", "amount": 5, "pay": 36, "bonus": {"seed": 2}
+    },
+    {
+      "id": "t2_fish_market", "tier": 2, "customer": "早市 · 三号摊", "weight": 4,
+      "item": "fish", "amount": 6, "pay": 36, "bonus": {}
+    },
+    {
+      "id": "t3_pearl_broker", "tier": 3, "customer": "远海掮客", "weight": 3,
+      "item": "pearl", "amount": 1, "pay": 36, "bonus": {"glass": 1}
+    },
+    {
+      "id": "t3_pumpkin_feast", "tier": 3, "customer": "秋日祭典筹备组", "weight": 3,
+      "item": "pumpkin", "amount": 2, "pay": 42, "bonus": {"coins": 8}
+    },
+    {
+      "id": "t3_glass_lantern", "tier": 3, "customer": "灯匠 · 阿灯", "weight": 2,
+      "item": "glass", "amount": 6, "pay": 54, "bonus": {"parts": 2}
+    },
+    {
+      "id": "t3_tomato_catering", "tier": 3, "customer": "远洋船员食堂", "weight": 2,
+      "item": "tomato", "amount": 6, "pay": 72, "bonus": {"rope": 2}
+    },
+    {
+      "id": "t3_parts_dock", "tier": 3, "customer": "码头吊机班", "weight": 2,
+      "item": "parts", "amount": 6, "pay": 42, "bonus": {}
+    }
+  ]
+}

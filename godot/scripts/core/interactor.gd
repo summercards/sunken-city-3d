@@ -8,6 +8,7 @@ class_name Interactor
 ## 这里刻意不做「屏幕点击」：海底/海面/以后的所有可交互物共用同一套规则，
 ## 换相机、换场景都不用改判定。
 
+signal action_started(spot: Node3D)
 signal target_changed(spot: Node3D)
 signal progress_changed(ratio: float)
 signal completed(spot: Node3D, reward: Dictionary)
@@ -23,6 +24,8 @@ signal blocked(reason: String)
 var active := false
 ## 点击目标后由 main 打开：小人走到位就自动按住，不用玩家再按 E。
 var auto_hold := false
+## 点击选择的地格优先，避免相邻六格被最近距离抢走。
+var preferred_target: Node3D
 var target: Node3D = null
 var hold := 0.0
 var last_blocked := ""
@@ -89,6 +92,7 @@ func update(delta: float, holding: bool) -> void:
 		_holding_last = true
 		_anchor = global_position
 		last_blocked = ""
+		action_started.emit(target)
 
 	# 走动打断：脚下挪了位置就重来。
 	if global_position.distance_to(_anchor) > move_tolerance:
@@ -145,6 +149,8 @@ func _refresh_target() -> void:
 		# 朝向只影响排序，不作为硬门槛：俯视镜头下要求精确面对很别扭。
 		var align := facing.normalized().dot(dir)
 		var score := dist * (1.22 - 0.22 * align) - float(spot.priority) * 0.25
+		if is_instance_valid(preferred_target) and spot == preferred_target:
+			score -= 100.0
 		if score < best_score:
 			best_score = score
 			best = spot

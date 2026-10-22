@@ -12,7 +12,10 @@ extends Node3D
 ## 调试：`Godot --path . -- --capture` 会在 outputs/godot-preview.png 落一张图后退出。
 
 const WATER_LEVEL := 1.12
+## 渲染后端差异（Reverse-Z 只存在于 Forward+），详见该脚本。
+const RenderFlagsLib = preload("res://scripts/render_flags.gd")
 const OrbitCamScript = preload("res://scripts/orbit_camera.gd")
+const WaterSurfaceScript = preload("res://scripts/world/water_surface.gd")
 const BoatScript = preload("res://scripts/boat.gd")
 const HUDScript = preload("res://scripts/hud.gd")
 const MarkersScript = preload("res://scripts/landing_markers.gd")
@@ -30,9 +33,15 @@ const HoverCardScript = preload("res://scripts/ui/hover_card.gd")
 const ClickReticleScript = preload("res://scripts/ui/click_reticle.gd")
 const SalvagePanelScript = preload("res://scripts/ui/salvage_panel.gd")
 const SalvageWinchScript = preload("res://scripts/core/salvage_winch.gd")
+const TradeBoardScript = preload("res://scripts/core/trade_board.gd")
+const OrderPanelScript = preload("res://scripts/ui/order_panel.gd")
 const SalvageModelLib = preload("res://scripts/core/salvage.gd")
 const RouteRibbonScript = preload("res://scripts/world/route_ribbon.gd")
 const ItemDB = preload("res://scripts/core/item_db.gd")
+const SaveGameLib = preload("res://scripts/core/save_game.gd")
+
+## 自动存档间隔（秒）：太勤会在航行中反复写盘，太稀又容易丢进度。
+const AUTOSAVE_SECONDS := 120.0
 
 var cam: Camera3D
 var boat: Node3D
@@ -62,11 +71,15 @@ var hover = null
 var reticle: Node3D
 var salvage_panel = null
 var salvage_winch: Node3D
+## 码头订单板：世界里的板子 + 面板。规则在 `Economy.orders`（OrderBoard）。
+var trade_board: Node3D
+var order_panel = null
 ## 航线预览（虚线 + 终点环）与水面寻路栅格（第一次开船时才建，约 10ms）。
 var ribbon: Node3D
 var _nav_grid: Dictionary = {}
 ## 岸线形状缓存（判断「点的是水面还是陆地」）。
 var _shore_shapes: Array = []
+var _safe_nav: Dictionary = {}
 ## 手动航行的航线刷新节流。
 var _ribbon_left := 0.0
 ## 上一帧的相机距离（判断是否在缩放）。
@@ -81,13 +94,28 @@ var _zone_nodes: Dictionary = {}
 var _walk_target := Vector3.ZERO
 var _walk_area: Node3D = null
 var _walking := false
+var _walk_path: Array[Vector3] = []
+var _after_walk := Callable()
 const WALK_SPEED := 2.3
 
 var _t := 0.0
 var _ripples := PackedVector4Array()
 var _press_pos := Vector2.ZERO
+var _world_press := false
+var _dragged := false
 var _pending_pick := {}
+## 存档：当前槽位路径、自动存档倒计时、是否允许自动存档（截图/自检时关掉）。
+var _save_path := SaveGameLib.SLOT_PATH
+var _autosave_left := AUTOSAVE_SECONDS
+var _autosave_on := true
 
+
+const CozyUI = preload("res://scripts/ui/cozy_ui.gd")
+func _cozy_node_added(node: Node) -> void:
+	if node is Control and is_ancestor_of(node): CozyUI.apply_instance.call_deferred(node.get_instance_id())
+
+func _apply_cozy_ui() -> void:
+	CozyUI.apply_tree(self)
 
 func _ready() -> void:
 	# 水面是接近纯色的大渐变，8 位输出会出现一圈圈可见色阶（网页版有轻微噪声盖住）。
@@ -106,21 +134,40 @@ func _ready() -> void:
 	_setup_camera_panel()
 	_setup_markers()
 	_setup_player()
+	cam.follow_subject = player
+	cam.target = player.global_position + Vector3.UP*0.7
+	cam._apply()
 	_setup_props()
 	_setup_dive()
 	_setup_hud()
 	_setup_prompt()
 	_setup_grade()
 	_setup_salvage()
+	_setup_trade()
 	_setup_hover()
 	_setup_ribbon()
+	get_tree().node_added.connect(_cozy_node_added)
+	call_deferred("_apply_cozy_ui")
 	_log_render_settings()
 	var args := OS.get_cmdline_user_args()
 	if args.has("--selftest"):
+		_autosave_on = false
 		var t: Node = load("res://scripts/selftest.gd").new()
 		add_child(t)
 		return
+	# 读档必须在 --zone / --grant 这些调试参数之前：
+	# 否则存档会把调试参数覆盖掉（或者反过来，看起来像「存档丢了」）。
+	for a in args:
+		if a.begins_with("--savepath="):
+			# 槽位也要先定：--saveshot 在同一条参数表里可能排在它前面。
+			_save_path = a.trim_prefix("--savepath=")
+	for a in args:
+		if a == "--load":
+			load_game()
+		elif a.begins_with("--load="):
+			load_game(a.trim_prefix("--load="))
 	if args.has("--capture"):
+		_autosave_on = false
 		_capture_after_settle()
 	# 先处理作物选择：--farm=… 会立刻播种，晚一步就会种成默认作物。
 	for a in args:
@@ -156,6 +203,16 @@ func _ready() -> void:
 				_debug_salvage_to(a.trim_prefix("--salvage="))
 		if a.begins_with("--mouse="):
 			_debug_mouse = a.trim_prefix("--mouse=")
+		if a == "--nosave":
+			_autosave_on = false
+		if a == "--saveshot":
+			# 调试：立刻存一次并弹提示（截图核对存档反馈用）。
+			# 提示给 12 秒：截图前要等画面稳定，默认 2.6 秒会先淡出，截到的是空药丸。
+			_autosave_on = false
+			save_game("", false, 12.0)
+		if a == "--orders":
+			# 调试：启动就打开订单板面板（截图核对用）。
+			_open_orders(trade_board)
 		if a == "--winchinfo":
 			_dump_winch()
 		if a.begins_with("--sailto="):
@@ -174,6 +231,37 @@ func _ready() -> void:
 			var xyz := a.trim_prefix("--uwat=").split(",")
 			if xyz.size() == 3 and dive != null:
 				dive.debug_teleport(Vector3(float(xyz[0]), float(xyz[1]), float(xyz[2])))
+		if a == "--uwfreeze":
+			# 诊断：把焦散/闪光冻住。帧间差异如果消失，说明「闪」来自时间动画而不是深度竞争。
+			dive.freeze_time(3.0)
+		if a.begins_with("--uwnear="):
+			# 诊断：改水下相机近裁剪面。深度精度 ∝ far/near，near 越小越容易 z-fighting。
+			if dive != null and dive.camera != null:
+				dive.camera.near = float(a.trim_prefix("--uwnear="))
+		if a == "--uwfacing":
+			# 诊断：海底几何画成「正面绿 / 背面红」。大片红 = 绕序反了。
+			if dive != null:
+				dive.set_facing_debug(true)
+		if a.begins_with("--uwhide="):
+			# 诊断：按类别藏掉动态装饰（fish / beam / bubble / mote / ceiling / all）。
+			# 用来分清「闪 / 穿模」到底来自静态几何还是这些会动的东西。
+			if dive != null and dive.deco != null:
+				for kind in a.trim_prefix("--uwhide=").split(","):
+					dive.deco.hide_kind(kind)
+		if a.begins_with("--uwair="):
+			# 调试：把氧气设到某个比例（截图核对告警配色用）。
+			if dive != null:
+				dive.air.air = dive.air.MAX * clampf(float(a.trim_prefix("--uwair=")), 0.0, 1.0)
+		if a == "--uwlamp=off":
+			if dive != null:
+				dive.air.lamp = false
+		if a == "--uwlamp=on":
+			if dive != null:
+				dive.air.lamp = true
+		if a.begins_with("--uwchest="):
+			# 调试：直接把第 N 个宝箱标成已发现（截图核对标签用）。
+			if dive != null:
+				dive.debug_discover(int(a.trim_prefix("--uwchest=")))
 		if a.begins_with("--orbit="):
 			# 调试：--orbit=0.9,-0.2（水平/俯角增量，弧度）
 			var rot := a.trim_prefix("--orbit=").split(",")
@@ -220,16 +308,16 @@ func _ready() -> void:
 		if a == "--farm=ready" or a == "--farm=mid":
 			# 调试：把所有菜箱直接推到某个生长阶段（截图/演示用）。
 			if Economy.farm != null:
-				Economy.give({"seed": 6})
+				Economy.give({str(Economy.farm.crop_def(Economy.farm.selected_crop).seed): 18})
 				for row in Economy.farm.specs:
 					var pid := str(row.get("id", ""))
 					Economy.farm.plant(pid, Economy.farm.selected_crop)
-					var total: float = Economy.farm.grow_seconds(Economy.farm.selected_crop)
+					var total: float = Economy.farm.grow_days(Economy.farm.selected_crop)
 					if a == "--farm=ready":
 						Economy.farm.state(pid).remaining = 0.0
 					else:
 						Economy.farm.state(pid).remaining = total * 0.45
-					Economy.farm.state(pid).water = 0.0 if a == "--farm=mid" else 30.0
+					Economy.farm.state(pid).water = 0.0 if a == "--farm=mid" else 1.0
 		if a.begins_with("--buildp="):
 			var ratio := clampf(float(a.trim_prefix("--buildp=")), 0.0, 0.99)
 			for bid in Economy.site_work.keys():
@@ -259,29 +347,7 @@ func _setup_environment() -> void:
 ## 数值与 assets/materials/world_env.tres 保持一致，改一边记得改另一边。
 func _make_world_environment() -> WorldEnvironment:
 	var world := WorldEnvironment.new()
-	var env := Environment.new()
-	env.background_mode = Environment.BG_COLOR
-	env.background_color = Color("#176d9a")
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.ambient_light_color = Color("#fff6d6")
-	env.ambient_light_energy = 0.56
-	env.reflected_light_source = Environment.REFLECTION_SOURCE_DISABLED
-	env.tonemap_mode = Environment.TONE_MAPPER_ACES
-	env.tonemap_exposure = 0.96
-	# 原版对比度更高：暗部更沉、亮部更亮。Godot 这边靠 adjustment 补一点。
-	env.adjustment_enabled = true
-	env.adjustment_contrast = 1.00
-	env.adjustment_saturation = 1.00
-	env.fog_enabled = true
-	env.fog_mode = Environment.FOG_MODE_DEPTH
-	env.fog_light_color = Color("#176d9a")
-	env.fog_density = 0.0
-	env.fog_depth_begin = 200.0
-	env.fog_depth_end = 520.0
-	env.fog_sky_affect = 0.0
-	env.fog_aerial_perspective = 0.0
-	env.ssao_enabled = false
-	env.glow_enabled = false
+	var env := (load("res://assets/materials/world_env.tres") as Environment).duplicate() as Environment
 	world.environment = env
 	add_child(world)
 	return world
@@ -308,6 +374,52 @@ func _log_render_settings() -> void:
 	print("[render] water_shader_mtime=%d" % FileAccess.get_modified_time("res://shaders/water.gdshader"))
 
 
+# ---------------------------------------------------------------- 存档 / 读档
+
+## 存档（F5）。潜水 / 打捞进行中不存：这两套状态没有比赛状态可以序列化，
+## 硬存会把玩家丢在一个「面板没了但钩子还在水里」的缝里。
+func save_game(path := "", quiet := false, toast_seconds := 2.6) -> Dictionary:
+	if dive != null and dive.active:
+		if not quiet:
+			hud.toast("潜水时不能存档，先上浮")
+		return {"ok": false, "reason": "潜水时不能存档"}
+	if salvage_panel != null and salvage_panel.is_open():
+		if not quiet:
+			hud.toast("收线时不能存档，先结算这一趟")
+		return {"ok": false, "reason": "打捞进行中不能存档"}
+	var target := path if path != "" else _save_path
+	var res: Dictionary = SaveGameLib.write(target, self)
+	_autosave_left = AUTOSAVE_SECONDS
+	if not quiet:
+		if res.get("ok", false):
+			hud.toast("已存档 · %s · 背包 %d/%d 格" % [
+				Time.get_time_string_from_system().substr(0, 5),
+				Economy.inventory.slots_used(), Economy.inventory.capacity()], toast_seconds)
+		else:
+			hud.toast(str(res.get("reason", "存档失败")), toast_seconds)
+	print("[save] %s -> %s (%d bytes)" % [target, "ok" if res.get("ok", false) else res.get("reason", ""), int(res.get("bytes", 0))])
+	return res
+
+
+## 读档（F9）。失败时保留当前局面，只弹提示，不把玩家踢回主菜单。
+func load_game(path := "") -> Dictionary:
+	if dive != null and dive.active:
+		hud.toast("潜水时不能读档，先上浮")
+		return {"ok": false, "reason": "潜水时不能读档"}
+	var target := path if path != "" else _save_path
+	var doc: Dictionary = SaveGameLib.read(target)
+	if not doc.get("ok", false):
+		hud.toast(str(doc.get("reason", "读档失败")))
+		print("[save] load %s failed: %s" % [target, doc.get("reason", "")])
+		return doc
+	var res: Dictionary = SaveGameLib.restore(self, doc.get("snapshot", {}))
+	_autosave_left = AUTOSAVE_SECONDS
+	hud.toast("已读档 · %s" % str(doc.get("snapshot", {}).get("saved_at", "上次进度")))
+	print("[save] load %s ok (v%d%s)" % [target, int(doc.get("version", 0)),
+		", migrated" if doc.get("migrated", false) else ""])
+	return res
+
+
 func _setup_lights() -> void:
 	var holder := get_node_or_null("World/Lights")
 	if holder != null:
@@ -324,6 +436,7 @@ func _setup_lights() -> void:
 	hemi.light_color = Color("#a3d9cf")
 	hemi.light_energy = 0.10
 	hemi.shadow_enabled = false
+	hemi.light_specular = 0.0
 	hemi.position = Vector3(-25, 14, -18)
 	add_child(hemi)
 	hemi.look_at(Vector3.ZERO, Vector3.UP)
@@ -334,6 +447,7 @@ func _setup_lights() -> void:
 	violet.light_color = Color("#8b91c6")
 	violet.light_energy = 0.07
 	violet.shadow_enabled = false
+	violet.light_specular = 0.0
 	violet.position = Vector3(-18, 20, 22)
 	add_child(violet)
 	violet.look_at(Vector3.ZERO, Vector3.UP)
@@ -345,6 +459,7 @@ func _setup_lights() -> void:
 	ground.light_color = Color("#184fb8")
 	ground.light_energy = 0.10
 	ground.shadow_enabled = false
+	ground.light_specular = 0.0
 	ground.position = Vector3(0, -40, 0)
 	add_child(ground)
 	ground.look_at(Vector3.ZERO, Vector3.FORWARD)
@@ -353,14 +468,15 @@ func _setup_lights() -> void:
 	_surface_lights.append(sun)
 	sun.name = "Sun"
 	sun.light_color = Color("#fff1be")
-	sun.light_energy = 0.48
+	sun.light_energy = 0.58
 	sun.shadow_enabled = true
-	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
+	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS
 	# 相机在 108m 外，阴影正交框要覆盖到场景，否则整个街区都落在框外。
-	sun.directional_shadow_max_distance = 420.0
-	sun.shadow_bias = 0.006
-	sun.shadow_normal_bias = 0.25
-	sun.position = Vector3(21, 55, 16)
+	sun.directional_shadow_max_distance = 220.0
+	sun.shadow_bias = 0.08
+	sun.shadow_normal_bias = 0.8
+	sun.position = Vector3(28, 42, -19)
+	sun.light_angular_distance = 1.2
 	add_child(sun)
 	sun.look_at(Vector3.ZERO, Vector3.UP)
 	sun.shadow_enabled = true
@@ -382,6 +498,7 @@ func _setup_scene() -> void:
 	for child in zones_root.get_children():
 		if "zone_id" in child and not str(child.zone_id).is_empty():
 			_zone_nodes[child.zone_id] = child
+			Zones.bind_scene(child)
 	if _zone_nodes.is_empty():
 		push_error("World/Zones 下没有区块场景实例")
 	_sync_zone_levels()
@@ -420,16 +537,70 @@ func _try_walk(screen: Vector2) -> bool:
 		return false
 	var area: Node3D = hit.area
 	var point: Vector3 = hit.point
-	_walk_area = area
-	_walk_target = Vector3(point.x, area.surface_y, point.z)
-
-	if GameState.mode != GameState.Mode.ASHORE:
-		_disembark_near(area, _walk_target)
-	GameState.set_mode(GameState.Mode.ASHORE)
-	_walking = true
-	player.set_rowing(false)
-	player.set_walking(true)
+	_auto_target = null
+	_pending_pick.clear()
+	interactor.auto_hold = false
+	if _start_walk(area, Vector3(point.x, area.surface_y, point.z)):
+		reticle.show_at(Vector3(point.x,area.surface_y,point.z))
+	# 点击了地面就消费输入；不通的地面不能继续被解释成水面航行。
 	return true
+
+
+func _current_landing() -> Node3D:
+	var zone: Node3D = _zone_nodes.get(GameState.current_zone)
+	return zone.landing_point(GameState.landing_id) if zone != null else null
+
+
+func _start_walk(area: Node3D, target: Vector3) -> bool:
+	if boat.starts_sailing():
+		return false
+	var start := player.global_position
+	var landing := _current_landing()
+	var ashore := GameState.mode == GameState.Mode.ASHORE
+	if not ashore:
+		if landing == null or landing.ground() != area:
+			hud.toast("请先停靠这块地面的泊位")
+			return false
+		var park: Vector3 = landing.get_node("BoatPark").global_position
+		if Vector2(boat.position.x - park.x, boat.position.z - park.z).length() > 1.0:
+			hud.toast("请先靠泊再上岸")
+			return false
+		start = landing.stand_position()
+	elif not area.contains_world(start.x, start.z) or absf(start.y - area.surface_y) > 0.4:
+		hud.toast("这里与脚下地面不连通，请换泊位上岸")
+		return false
+	var path: Array[Vector3] = area.path_between(start, target)
+	if path.is_empty():
+		hud.toast("地面不连通，无法直接走过去")
+		return false
+	if not ashore:
+		_disembark_near(area, start)
+	_after_walk = Callable()
+	_walk_area = area
+	_walk_target = target
+	_walk_path = path
+	_walk_path.pop_front()
+	_walking = not _walk_path.is_empty()
+	GameState.set_mode(GameState.Mode.ASHORE)
+	player.set_rowing(false)
+	player.set_walking(_walking)
+	return true
+
+
+## 离岸必须先沿同一块地面走回上岸点；到位后才上船并执行航行。
+func _depart(action: Callable) -> bool:
+	if GameState.mode != GameState.Mode.ASHORE:
+		action.call()
+		return true
+	var landing := _current_landing()
+	if landing == null or not _start_walk(landing.ground(), landing.stand_position()):
+		return false
+	_auto_target = null
+	_after_walk = func() -> void:
+		_board_player()
+		action.call()
+	return true
+
 
 
 ## 点击水面：划过去。
@@ -451,17 +622,20 @@ func _try_sail_to(screen: Vector2) -> bool:
 	if boat.position.distance_to(p) < 1.2:
 		hud.toast("就在这儿")
 		return true
-	if GameState.mode == GameState.Mode.ASHORE:
-		_board_player()
-	GameState.set_mode(GameState.Mode.SAILING)
 	var path := plan_route_to(p.x, p.z)
-	boat.sail_to_point(p, path)
-	if ribbon != null:
-		ribbon.show_route(boat.route, WATER_LEVEL)
-	if reticle != null:
-		reticle.show_at(p, true)
-	hud.toast("划向那里")
-	return true
+	if path.is_empty():
+		hud.toast("这里没有可通行航路")
+		return true
+	_pending_pick.clear()
+	return _depart(func() -> void:
+		GameState.set_mode(GameState.Mode.SAILING)
+		boat.sail_to_point(p, path)
+		if ribbon != null:
+			ribbon.show_route(boat.route, WATER_LEVEL)
+		if reticle != null:
+			reticle.show_at(p, true)
+		hud.toast("划向那里"))
+
 
 
 ## 屏幕点 → 水面上的世界坐标。没点到水面返回 null。
@@ -507,13 +681,13 @@ func _is_open_water(x: float, z: float) -> bool:
 
 
 ## 下船：把小人从船锚挂到世界上，落在离目标最近的可站立点
-func _disembark_near(area: Node3D, target: Vector3) -> void:
-	var start: Vector2 = area.clamp_point(target.x, target.z)
-	var stand := Vector3(start.x, area.surface_y, start.y)
+func _disembark_near(area: Node3D, _target: Vector3) -> void:
+	var landing := _current_landing()
+	if landing == null or landing.ground() != area:
+		return
 	if player.get_parent() != self:
 		player.reparent(self, true)
-	player.position = stand
-	player.rotation.y = atan2(-(target.z - stand.z), target.x - stand.x)
+	player.global_position = landing.stand_position()
 	hud.toast("走上 " + Zones.label(GameState.current_zone))
 
 
@@ -527,6 +701,8 @@ func _board_player() -> void:
 	player.set_walking(false)
 	player.set_rowing(true)
 	_walking = false
+	_walk_path.clear()
+	_after_walk = Callable()
 	GameState.set_mode(GameState.Mode.ON_BOAT)
 	hud.toast("回到船上")
 
@@ -534,17 +710,27 @@ func _board_player() -> void:
 func _update_walk(delta: float) -> void:
 	if not _walking:
 		return
-	var flat := Vector3(_walk_target.x - player.position.x, 0, _walk_target.z - player.position.z)
-	var dist := flat.length()
-	if dist < 0.08:
+	var budget := WALK_SPEED * delta
+	while not _walk_path.is_empty() and budget > 0.0:
+		var next: Vector3 = _walk_path[0]
+		var offset := next - player.global_position
+		var distance := offset.length()
+		var step := minf(distance, budget)
+		if distance > 0.0001:
+			player.global_position += offset / distance * step
+			player.rotation.y = lerp_angle(player.rotation.y, atan2(-offset.z, offset.x), 1.0 - exp(-12.0 * delta))
+		budget -= step
+		if distance <= step + 0.0001:
+			_walk_path.pop_front()
+		else:
+			break
+	if _walk_path.is_empty():
 		_walking = false
 		player.set_walking(false)
-		return
-	var step := minf(dist, WALK_SPEED * delta)
-	player.position += flat.normalized() * step
-	if _walk_area != null:
-		player.position.y = _walk_area.surface_y
-		player.rotation.y = atan2(-flat.z, flat.x)
+		var callback := _after_walk
+		_after_walk = Callable()
+		if callback.is_valid():
+			callback.call()
 
 
 func _setup_water() -> void:
@@ -553,7 +739,7 @@ func _setup_water() -> void:
 		# 兜底：老场景没有水面节点时现建一块（尺寸与场景里的 PlaneMesh 一致）。
 		var plane := PlaneMesh.new()
 		plane.size = Vector2(640, 640)
-		var water := MeshInstance3D.new()
+		var water := WaterSurfaceScript.new()
 		water.name = "Water"
 		water.mesh = plane
 		water.position = Vector3(0, WATER_LEVEL, 0)
@@ -571,7 +757,11 @@ func _setup_water() -> void:
 	# 只有「每帧/每次启动都不同」的参数在这里写；静态外观交给资源文件。
 	water_mat.set_shader_parameter("u_time", 0.0)
 	water_mat.set_shader_parameter("water_level", WATER_LEVEL)
+	# 深度纹理的 NDC 约定随渲染后端不同，Web(gl_compatibility) 必须换算。
+	water_mat.set_shader_parameter("u_reverse_z", RenderFlagsLib.reverse_z())
 	_set_shore_uniforms()
+	if water_node.has_method("update_surface"):
+		water_node.wake = get_node_or_null("World/BoatWake")
 
 	_ripples.resize(8)
 	for i in 8:
@@ -581,30 +771,9 @@ func _setup_water() -> void:
 
 
 func _set_shore_uniforms() -> void:
-	# 岸线轮廓来自烘焙出的真实建筑（tools/make_shore.py 生成 shore.json），
-	# 不再手写坐标：搬动区块或改建筑后重跑脚本即可。
-	var shapes: Array = []
-	var f := FileAccess.open("res://assets/baked/shore.json", FileAccess.READ)
-	if f != null:
-		var data: Variant = JSON.parse_string(f.get_as_text())
-		if data is Dictionary and data.has("shapes"):
-			shapes = data["shapes"]
-
-	var a := PackedVector4Array()
-	var b := PackedVector4Array()
-	a.resize(32)
-	b.resize(32)
-	for i in 32:
-		if i < shapes.size():
-			var sp: Dictionary = shapes[i]
-			a[i] = Vector4(float(sp["x"]), float(sp["z"]), float(sp["hx"]), float(sp["hz"]))
-			b[i] = Vector4(0.0, 1.0 if bool(sp.get("round", false)) else 0.0, 0.0, 0.0)
-		else:
-			a[i] = Vector4(0, 0, 0.01, 0.01)
-			b[i] = Vector4(0, 0, 0, 0)
-	water_mat.set_shader_parameter("u_shore_a", a)
-	water_mat.set_shader_parameter("u_shore_b", b)
-	water_mat.set_shader_parameter("u_shore_count", min(shapes.size(), 32))
+	# Slice actual visible scene geometry at sea level; no hand-authored shore boxes.
+	var shore_region: Rect2 = get_node("Camera").pan_bounds.grow(24.0)
+	water_node.rebuild_shoreline([get_node("World/Environment"), get_node("World/Zones")], shore_region)
 
 
 func _setup_boat() -> void:
@@ -614,6 +783,16 @@ func _setup_boat() -> void:
 		boat.name = "Boat"
 		add_child(boat)
 	boat.build()
+	boat.segment_clear = _water_segment_clear
+	if water_node.has_method("sample_surface"):
+		boat.water_surface = water_node
+	boat.navigation_blocked.connect(func() -> void:
+		_pending_pick.clear()
+		GameState.set_mode(GameState.Mode.ON_BOAT)
+		player.set_rowing(false)
+		if ribbon != null:
+			ribbon.clear()
+		hud.toast("前方靠岸过近，请重新选择航路"))
 	var l := Zones.landing("zone1", "main")
 	boat.place_at(Vector3(l.boatPark[0], WATER_LEVEL, l.boatPark[2]), float(l.boatYaw))
 	boat.arrived.connect(_on_boat_arrived)
@@ -699,7 +878,7 @@ func _setup_build() -> void:
 		hud.toast("竣工 · %s 升到 Lv.%d" % [_id_name(_id), level], 2.6))
 
 
-## 世界里的菜箱：位置来自 plots.json，规则在 Economy.farm。
+## 世界里的菜箱：区块中独立场景负责位置，FarmField 登记，规则在 Economy.farm。
 func _setup_farm() -> void:
 	farm_field = get_node_or_null("World/Gameplay/FarmField") as Node3D
 	if farm_field == null:
@@ -715,8 +894,8 @@ func _setup_farm() -> void:
 func _on_farm_acted(plot_id: String, event: String, payload: Dictionary) -> void:
 	match event:
 		"planted":
-			hud.toast("播下 · %s（约 %d 秒长成）" % [
-				str(payload.get("name", "")), int(payload.get("seconds", 0))])
+			hud.toast("播下 · %s（需 %d 个浇水日）" % [
+				str(payload.get("name", "")), int(payload.get("days", 0))])
 		"watered":
 			hud.toast("浇水 · %s" % str(payload.get("name", "")))
 		"harvested":
@@ -759,12 +938,20 @@ func _setup_prompt() -> void:
 		prompt = PromptScript.new()
 		prompt.name = "InteractPrompt"
 		add_child(prompt)
+	prompt.action_requested.connect(func() -> void:
+		if interactor.target != null: _approach(interactor.target))
 	if interactor != null:
+		interactor.action_started.connect(func(spot: Node3D) -> void:
+			if spot.is_in_group("farm_plots"): player.play_farm_action(spot.verb))
 		interactor.blocked.connect(func(reason: String) -> void:
+			_auto_target = null
+			interactor.auto_hold = false
+			hud.toast(reason)
 			if prompt != null:
 				prompt.flash_blocked(reason))
 		# 自动接近的流程里，动作一旦成功就不要再按着 E（否则会连采同一个点）。
 		interactor.completed.connect(func(_spot: Node3D, _reward: Dictionary) -> void:
+			prompt.celebrate()
 			_auto_target = null
 			interactor.auto_hold = false)
 
@@ -806,6 +993,82 @@ func _setup_salvage() -> void:
 		salvage_panel.name = "SalvagePanel"
 		add_child(salvage_panel)
 	salvage_panel.finished.connect(_on_salvage_finished)
+
+
+## 码头订单板：世界里的板子（位置由 tools/place_trade_board.py 求解）+ 面板。
+func _setup_trade() -> void:
+	trade_board = get_node_or_null("TradeBoard")
+	if trade_board == null:
+		var data: Dictionary = _load_json("res://assets/data/trade_board.json")
+		var rows: Array = data.get("boards", [])
+		if rows.is_empty():
+			push_error("trade_board.json 里没有板子")
+		else:
+			trade_board = TradeBoardScript.new()
+			trade_board.setup(rows[0])
+			add_child(trade_board)
+	if trade_board != null:
+		trade_board.opened.connect(_open_orders)
+
+	order_panel = get_node_or_null("OrderPanel")
+	if order_panel == null:
+		order_panel = OrderPanelScript.new()
+		order_panel.name = "OrderPanel"
+		add_child(order_panel)
+	order_panel.model = Economy.orders
+	order_panel.fulfill_requested.connect(_on_order_fulfill)
+	order_panel.reroll_requested.connect(_on_order_reroll)
+	if Economy.orders != null:
+		Economy.orders.fulfilled.connect(_on_order_fulfilled)
+		Economy.orders.changed.connect(func() -> void:
+			if order_panel != null and order_panel.is_open():
+				order_panel.refresh())
+
+
+func _open_orders(_board: Node3D) -> void:
+	if order_panel == null or order_panel.is_open():
+		return
+	order_panel.set_open(true)
+	_auto_target = null
+	if interactor != null:
+		interactor.auto_hold = false
+
+
+func _on_order_fulfill(uid: String) -> void:
+	if Economy.orders == null:
+		return
+	var res: Dictionary = Economy.orders.fulfill(uid)
+	if not res.get("ok", false):
+		order_panel.note(str(res.get("reason", "交付失败")))
+		return
+	order_panel.refresh()
+
+
+func _on_order_reroll() -> void:
+	if Economy.orders == null:
+		return
+	var res: Dictionary = Economy.orders.reroll()
+	if not res.get("ok", false):
+		order_panel.note(str(res.get("reason", "换不了")))
+		return
+	order_panel.refresh()
+	order_panel.note("换了一批新单子")
+
+
+func _on_order_fulfilled(order: Dictionary, reward: Dictionary) -> void:
+	var parts: Array = []
+	for k in reward.keys():
+		parts.append("%s×%d" % [ItemDB.label(str(k)), int(reward[k])])
+	hud.toast("交单 · %s · %s" % [str(order.get("customer", "")), "  ".join(parts)], 3.2)
+
+
+func _load_json(path: String) -> Dictionary:
+	var f := FileAccess.open(path, FileAccess.READ)
+	if f == null:
+		push_error("找不到数据表：%s" % path)
+		return {}
+	var data: Variant = JSON.parse_string(f.get_as_text())
+	return data if data is Dictionary else {}
 
 
 func _open_salvage(_winch: Node3D) -> void:
@@ -862,7 +1125,7 @@ func nav_grid() -> Dictionary:
 	var text := FileAccess.get_file_as_string("res://assets/baked/shore.json")
 	var data: Variant = JSON.parse_string(text)
 	if not (data is Dictionary) or not data.has("shapes"):
-		push_warning("shore.json 读不到，航行退化成直线")
+		push_warning("shore.json 读不到，暂停航行")
 		_nav_grid = {}
 		return _nav_grid
 	var shapes: Array = data.shapes
@@ -913,28 +1176,63 @@ func nav_grid() -> Dictionary:
 	return _nav_grid
 
 
-## 规划一条从当前位置到 (x, z) 的水面航线。没有栅格或找不到路时退回直线。
+## 巡航沿用原岸线网格；首尾或窄水道不能通过时，用精确水域网格重规划。
+## 失败明确返回空路径，禁止穿岸直线兜底。
 func plan_route_to(x: float, z: float) -> Array:
-	var grid := nav_grid()
 	var from := Vector2(boat.position.x, boat.position.z)
 	var goal := Vector2(x, z)
+	if not _is_open_water(from.x, from.y) or not _is_open_water(x, z):
+		return []
+	var grid := nav_grid()
 	if grid.is_empty():
-		return [from, goal]
+		return []
 	var path: Variant = SailNavLib.plan_route(grid, from, goal)
-	if path == null or (path as Array).size() < 2:
-		return [from, goal]
-	return path
+	if _valid_water_route(path):
+		return path
+	if _safe_nav.is_empty():
+		_safe_nav = SailNavLib.create_nav_grid([], Rect2(-68, -78, 144, 136), 0.5, 0.9)
+		var blocked: PackedByteArray = _safe_nav.blocked
+		for j in _safe_nav.rows:
+			for i in _safe_nav.cols:
+				var p := SailNavLib.cell_center(_safe_nav, i, j)
+				blocked[j * int(_safe_nav.cols) + i] = 0 if _is_open_water(p.x, p.y) else 1
+		_safe_nav.blocked = blocked
+	path = SailNavLib.plan_route(_safe_nav, from, goal)
+	return path if _valid_water_route(path) else []
+
+func _valid_water_route(path: Variant) -> bool:
+	if path == null or path.size() < 2:
+		return false
+	for i in range(1, path.size()):
+		if not _water_segment_clear(path[i - 1], path[i]):
+			return false
+	return true
+
+func _water_segment_clear(a: Vector2, b: Vector2) -> bool:
+	var steps := maxi(1, int(ceil(a.distance_to(b) / 0.1)))
+	for i in range(steps + 1):
+		var p := a.lerp(b, float(i) / steps)
+		if not _is_open_water(p.x, p.y):
+			return false
+	return true
 
 
 ## 出航统一入口：规划 → 交给船 → 铺航线预览。
-func _sail_to_landing(l: Dictionary, zone_id: String, landing_id: String) -> void:
+func _sail_to_landing(l: Dictionary, zone_id: String, landing_id: String) -> bool:
+	if l.is_empty():
+		return false
 	var goal := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
 	var path := plan_route_to(goal.x, goal.z)
-	boat.sail_to(goal, float(l.boatYaw), zone_id, landing_id, path)
-	GameState.set_mode(GameState.Mode.SAILING)
-	if ribbon != null:
-		ribbon.show_route(boat.route, WATER_LEVEL)
-	markers.set_highlight(zone_id)
+	if path.is_empty():
+		hud.toast("无法到达该泊位")
+		return false
+	_pending_pick.clear()
+	return _depart(func() -> void:
+		boat.sail_to(goal, float(l.boatYaw), zone_id, landing_id, path)
+		GameState.set_mode(GameState.Mode.SAILING)
+		if ribbon != null:
+			ribbon.show_route(boat.route, WATER_LEVEL)
+		markers.set_highlight(zone_id))
 
 
 ## ---- 悬停铭牌 / 落点环 -------------------------------------------------------
@@ -962,9 +1260,10 @@ func _update_pointer_ui() -> void:
 		return
 	var panel_open: bool = (hud != null and hud._panel_open) \
 		or (salvage_panel != null and salvage_panel.is_open()) \
+		or (order_panel != null and order_panel.is_open()) \
 		or (cam_panel != null and cam_panel.is_open()) \
 		or (grade != null and grade.visible)
-	hover.enabled = not dive.active and not panel_open and not _walking \
+	hover.enabled = not dive.active and not panel_open \
 		and (cam == null or not cam.panning)
 	hover.current_zone = GameState.current_zone
 	if hover.enabled:
@@ -973,6 +1272,8 @@ func _update_pointer_ui() -> void:
 		# 拖动镜头时别清指针：相机会把指针设成「抓取」，这里一清就抖成箭头。
 		hover.clear()
 
+	if interactor != null:
+		interactor.preferred_target = _auto_target
 	if _auto_target == null:
 		return
 	if not is_instance_valid(_auto_target) or not _auto_target.is_visible_in_tree():
@@ -981,7 +1282,7 @@ func _update_pointer_ui() -> void:
 			interactor.auto_hold = false
 		return
 	var d: float = player.global_position.distance_to(_auto_target.global_position)
-	interactor.auto_hold = (not _walking) and d <= 2.2
+	interactor.auto_hold = (not panel_open) and (not _walking) and d <= 2.2
 
 
 ## 调试：把打捞小游戏推进到某个阶段。只在截图/回归里用，不影响真实输入。
@@ -1023,6 +1324,8 @@ func _dump_winch() -> void:
 ## 缩放时给一句「缩放 62%」的反馈；手动航行时把已走过的航段从虚线上裁掉。
 func _update_camera_feedback(delta: float) -> void:
 	if cam != null and hud != null:
+		if hud.command_buttons.has("follow"):
+			hud.command_buttons.follow.text = "跟随中" if cam.follow_enabled else "回到角色"
 		var d: float = cam.distance
 		if absf(d - _zoom_seen) > maxf(0.4, _zoom_seen * 0.004):
 			_zoom_seen = d
@@ -1050,6 +1353,11 @@ func _pointer_pos() -> Vector2:
 func _approach(node: Node3D) -> bool:
 	if node == null or dive.active:
 		return false
+	if node.has_method("blocked_reason"):
+		var reason: String = node.blocked_reason()
+		if reason != "":
+			hud.toast(reason)
+			return false
 	var zone: Node3D = _zone_nodes.get(GameState.current_zone, null)
 	if zone == null:
 		return false
@@ -1064,15 +1372,12 @@ func _approach(node: Node3D) -> bool:
 	var dir := from.normalized()
 	var stand: Vector2 = area.clamp_point(
 		node.global_position.x + dir.x * 1.35, node.global_position.z + dir.z * 1.35)
-	_walk_area = area
-	_walk_target = Vector3(stand.x, area.surface_y, stand.y)
-	if GameState.mode != GameState.Mode.ASHORE:
-		_disembark_near(area, _walk_target)
-	GameState.set_mode(GameState.Mode.ASHORE)
-	_walking = true
-	player.set_rowing(false)
-	player.set_walking(true)
+	if not _start_walk(area, Vector3(stand.x, area.surface_y, stand.y)):
+		return false
+	_pending_pick.clear()
 	_auto_target = node
+	interactor.preferred_target = node
+	hud.toast("前往 · " + node.label)
 	if reticle != null:
 		reticle.show_at(_walk_target)
 	return true
@@ -1082,7 +1387,8 @@ func _approach(node: Node3D) -> bool:
 func _activate_hover(hit: Dictionary) -> bool:
 	match str(hit.get("type", "")):
 		"spot":
-			return _approach(hit.node)
+			_approach(hit.node)
+			return true
 		"landing":
 			_select_landing(hit.hit)
 			return true
@@ -1136,6 +1442,7 @@ func _setup_dive() -> void:
 	dive.setup(hide_on_dive, world_env)
 	dive.depth_changed.connect(_on_depth_changed)
 	dive.zone_changed.connect(_on_dive_zone)
+	dive.air_changed.connect(_on_dive_air)
 	dive.message.connect(func(text: String) -> void: hud.toast(text))
 	dive.exited.connect(_on_dive_exited)
 
@@ -1145,10 +1452,12 @@ func _setup_hud() -> void:
 	if hud == null:
 		hud = HUDScript.new()
 		add_child(hud)
+	hud.command_requested.connect(_on_click_command)
 	hud.destination_pressed.connect(_on_destination)
 	hud.dive_pressed.connect(_on_dive)
 	hud.site_focus_requested.connect(_on_focus_site)
 	hud.plot_focus_requested.connect(_on_focus_plot)
+	hud.rest_requested.connect(_rest_for_day)
 	hud.facility_build_requested.connect(_on_build_facility)
 	hud.ship_upgrade_requested.connect(_on_upgrade_ship)
 	# 背包满时只提示一次，连着刷同一句会盖住别的反馈。
@@ -1156,14 +1465,72 @@ func _setup_hud() -> void:
 		hud.toast("背包已满 · %s×%d 没能装下" % [ItemDB.label(id), amount], 3.0))
 
 
+## 所有按钮和快捷键共享命令入口，取消不留下待执行动作。
+func _cancel_action() -> void:
+	_auto_target = null
+	_pending_pick.clear()
+	_walking = false
+	_walk_path.clear()
+	_after_walk = Callable()
+	player.set_walking(false)
+	interactor.auto_hold = false
+	interactor.preferred_target = null
+	interactor._release()
+	if dive.active:
+		dive.cancel_navigation()
+	elif boat.starts_sailing():
+		boat.place_at(boat.position,boat.rotation.y)
+		GameState.set_mode(GameState.Mode.ON_BOAT)
+		player.set_rowing(false)
+	if ribbon != null: ribbon.clear()
+	hud.toast("已停止，可点击新的目标")
+
+func _on_click_command(command: String) -> void:
+	if command != "cancel" and (salvage_panel.is_open() or order_panel.is_open()):
+		hud.toast("请先关闭当前操作面板")
+		return
+	match command:
+		"follow":
+			cam.resume_follow()
+			hud.toast("镜头跟随角色")
+		"close":
+			if hud._panel_open: hud._toggle_panel()
+		"bag", "plant", "build":
+			_auto_target = null
+			interactor.auto_hold = false
+			cam_panel.set_open(false)
+			grade.set_open(false)
+			hud.open_tab(command)
+		"cancel":
+			if salvage_panel.is_open(): salvage_panel.cancel()
+			elif order_panel.is_open(): order_panel.set_open(false)
+			else: _cancel_action()
+		"save": save_game()
+		"load":
+			_cancel_action()
+			load_game()
+		"camera":
+			if hud._panel_open: hud._toggle_panel()
+			grade.set_open(false)
+			cam_panel.set_open(not cam_panel.is_open())
+		"grade":
+			if hud._panel_open: hud._toggle_panel()
+			cam_panel.set_open(false)
+			grade.set_open(not grade.visible)
+		"rise": dive.swim_to(dive.diver_pos + Vector3.UP*3.0)
+		"descend": dive.swim_to(dive.diver_pos + Vector3.DOWN*3.0)
+		"lamp": dive._toggle_lamp()
+
+
 func _on_destination(zone_id: String) -> void:
+	if dive.active:
+		hud.toast("请先上浮再选择航行目的地")
+		return
 	if not Zones.is_unlocked(zone_id):
 		hud.toast("远海街町需要先升级船只")
 		return
-	if boat.starts_sailing():
-		hud.toast("正在航行中…")
+	if not _sail_to_landing(Zones.landing(zone_id, "main"), zone_id, "main"):
 		return
-	_sail_to_landing(Zones.landing(zone_id, "main"), zone_id, "main")
 	hud.toast("启航 · " + Zones.label(zone_id))
 
 
@@ -1174,16 +1541,23 @@ func _on_boat_arrived(zone_id: String, landing_id: String) -> void:
 	if zone_id == "":
 		player.set_rowing(false)
 		GameState.set_mode(GameState.Mode.ON_BOAT)
-		hud.toast("靠岸")
+		hud.toast("已停船")
 		return
 	GameState.landing_id = landing_id
 	GameState.enter_zone(zone_id)
 	GameState.set_mode(GameState.Mode.ON_BOAT)
 	hud.toast("抵达 · " + Zones.label(zone_id))
-	cam.focus_zone(Zones.get_zone(zone_id))
 	markers.set_highlight(zone_id)
 	player.set_rowing(false)
 
+
+## 按下必须发生在世界里；拖出去再拖回来也仍是拖动。
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_world_press = false
+		_dragged = false
+	elif event is InputEventMouseMotion and _world_press:
+		_dragged = _dragged or _press_pos.distance_to(event.position) >= 11.0
 
 func _unhandled_input(event: InputEvent) -> void:
 	# 潜水时输入归海底世界（游动 / 环视 / 宝箱），海面这边一律不响应。
@@ -1192,38 +1566,48 @@ func _unhandled_input(event: InputEvent) -> void:
 	# 打捞面板打开时，E / 空格 / ESC 都归它。
 	if salvage_panel != null and salvage_panel.is_open():
 		return
+	# 订单面板同理：它自己按 ESC 关，别的键点击都不该穿透到世界里。
+	if order_panel != null and order_panel.is_open():
+		return
 	# Tab / B 打开背包（建造也在这个面板里，切换页签即可）。
 	if event is InputEventKey and event.pressed and not event.echo:
 		var key := (event as InputEventKey).physical_keycode
+		# F5 存档 / F9 读档：不占面板，随手就能按（面板开着也照样能用）。
+		if key == KEY_F5:
+			save_game()
+			get_viewport().set_input_as_handled()
+			return
+		if key == KEY_F9:
+			load_game()
+			get_viewport().set_input_as_handled()
+			return
 		if key == KEY_TAB or key == KEY_B:
 			hud._toggle_panel()
 			get_viewport().set_input_as_handled()
 			return
 		# ESC：先关面板，再取消「自动走过去」，与网页版 closeActionMenus 的层级一致。
 		if key == KEY_ESCAPE:
-			if hud._panel_open:
-				hud._toggle_panel()
-			elif _auto_target != null:
-				_auto_target = null
-				if interactor != null:
-					interactor.auto_hold = false
-				hud.toast("取消")
-			else:
-				return
+			if hud._panel_open: hud._toggle_panel()
+			else: _cancel_action()
 			get_viewport().set_input_as_handled()
 			return
+	if hud._panel_open or cam_panel.is_open() or grade.visible:
+		return
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		if mb.button_index != MOUSE_BUTTON_LEFT:
 			return
 		if mb.pressed:
 			_press_pos = mb.position
-		elif _press_pos.distance_to(mb.position) < 11.0:
+			_world_press = true
+		elif _world_press and not _dragged and _press_pos.distance_to(mb.position) < 11.0:
+			_world_press = false
 			if dive.active:
 				return
 			# 悬停命中的目标优先：点图标 → 小人自己走过去，到位自动动手。
-			if hover != null and not hover.target.is_empty():
-				if _activate_hover(hover.target):
+			if hover != null:
+				# 在释放点重新命中，避免读取拖动前的旧目标。
+				if _activate_hover(hover._pick(mb.position)):
 					return
 			var prop: Dictionary = props.pick(mb.position, cam)
 			if not prop.is_empty():
@@ -1243,40 +1627,40 @@ func _unhandled_input(event: InputEvent) -> void:
 func _select_landing(hit: Dictionary) -> void:
 	var zone_id: String = hit.zone
 	var landing_id: String = hit.landing
-	if zone_id == GameState.current_zone and landing_id == GameState.landing_id:
-		if landing_id == "salvage":
-			# 打捞台上不再「点一下就出货」：走过去，在绞盘旁按 E 玩小游戏。
-			if salvage_winch != null and GameState.mode == GameState.Mode.ASHORE:
-				_approach(salvage_winch)
-			else:
-				hud.toast("上岸后走到绞盘旁按住 E")
-		elif GameState.mode == GameState.Mode.ASHORE:
-			_board_player()
+	var selected: Dictionary = Zones.landing(zone_id,landing_id)
+	if selected.is_empty(): return
+	var park := Vector3(float(selected.boatPark[0]),WATER_LEVEL,float(selected.boatPark[2]))
+	if zone_id == GameState.current_zone and landing_id == GameState.landing_id and not boat.starts_sailing() and boat.position.distance_to(park)<1.0:
+		if GameState.mode == GameState.Mode.ASHORE:
+			_depart(func() -> void: pass)
 		else:
-			hud.toast("已经在 " + Zones.label(zone_id))
+			var landing := _current_landing()
+			if landing != null:
+				_start_walk(landing.ground(), landing.stand_position())
 		return
 	if not Zones.is_unlocked(zone_id):
 		hud.toast("远海街町需要先升级船只")
 		return
-	if boat.starts_sailing():
-		hud.toast("正在航行中…")
-		return
 	var l := Zones.landing(zone_id, landing_id)
-	_sail_to_landing(l, zone_id, landing_id)
+	if not _sail_to_landing(l, zone_id, landing_id):
+		return
 	if reticle != null:
 		reticle.show_at(Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2])), true)
 	hud.toast("启航 · " + Zones.label(zone_id) + " · " + str(hit.name))
 
 
 func _handle_prop_click(prop: Dictionary) -> void:
-	if boat.starts_sailing():
-		hud.toast("正在航行中…")
+	if GameState.mode == GameState.Mode.ASHORE:
+		_depart(func() -> void: _handle_prop_click(prop))
 		return
 	if prop.type == "fish":
 		var school: Dictionary = prop.item
 		var target: Vector3 = school.base
 		var goal := target + Vector3(2.1, 0, 0)
 		var path := plan_route_to(goal.x, goal.z)
+		if path.is_empty():
+			hud.toast("无法到达鱼群")
+			return
 		boat.sail_to(goal, boat.rotation.y, GameState.current_zone, GameState.landing_id, path)
 		if ribbon != null:
 			ribbon.show_route(boat.route, WATER_LEVEL)
@@ -1287,6 +1671,9 @@ func _handle_prop_click(prop: Dictionary) -> void:
 		var target2: Vector3 = crate.base
 		var goal2 := target2 + Vector3(1.4, 0, 0)
 		var path2 := plan_route_to(goal2.x, goal2.z)
+		if path2.is_empty():
+			hud.toast("无法到达漂流物")
+			return
 		boat.sail_to(goal2, boat.rotation.y, GameState.current_zone, GameState.landing_id, path2)
 		if ribbon != null:
 			ribbon.show_route(boat.route, WATER_LEVEL)
@@ -1321,6 +1708,10 @@ func _on_depth_changed(depth: float) -> void:
 	hud.set_dive_depth(depth)
 
 
+func _on_dive_air(ratio: float, lamp_on: bool, found: int, total: int) -> void:
+	hud.set_dive_air(ratio, lamp_on, found, total)
+
+
 func _on_dive_zone(name: String) -> void:
 	hud.set_dive_zone(name)
 
@@ -1348,13 +1739,20 @@ func _on_dive() -> void:
 		hud.set_diving(false)
 		hud.toast("上浮")
 		return
+	_cancel_action()
+	if hud._panel_open: hud._toggle_panel()
+	cam_panel.set_open(false)
+	grade.set_open(false)
 	dive.dive(boat.position, Zones.label(GameState.current_zone))
+	# 氧气还没恢复时 dive() 会拒绝并自己发提示，别把 HUD 切成潜水模式。
+	if not dive.active:
+		return
 	player.set_diving(true)
 	hud.set_diving(true)
 	hud.toast("下潜 · %s" % Zones.label(GameState.current_zone))
 
 
-## 建造页的「前往」：把镜头挪过去，真正的施工要在牌子旁按 E。
+## 建造页直接进入前往和自动交付流程。
 func _on_focus_site(id: String) -> void:
 	if build_field == null:
 		return
@@ -1362,9 +1760,10 @@ func _on_focus_site(id: String) -> void:
 	if node == null:
 		hud.toast("找不到建造点：%s" % id)
 		return
-	cam.target = node.global_position + Vector3(0, 0.8, 0)
-	cam._apply()
-	hud.toast("走到建造牌旁按住 E 交付材料", 2.4)
+	if node.zone_id != GameState.current_zone:
+		hud.toast("请先前往 " + Zones.label(node.zone_id))
+		return
+	_approach(node)
 
 
 func _on_build_facility(id: String) -> void:
@@ -1383,9 +1782,23 @@ func _on_focus_plot(plot_id: String) -> void:
 	if node == null:
 		hud.toast("找不到菜箱：%s" % plot_id)
 		return
-	cam.target = node.global_position + Vector3(0, 0.6, 0)
-	cam._apply()
-	hud.toast("走到菜箱旁按住 E", 2.2)
+	if node.zone_id != GameState.current_zone:
+		hud.toast("请先划船前往 " + Zones.label(node.zone_id))
+		return
+	_approach(node)
+
+
+func _rest_for_day() -> void:
+	if dive.active or boat.starts_sailing() or _walking or GameState.mode != GameState.Mode.ASHORE:
+		hud.toast("请在岸上站定后休息")
+		return
+	_auto_target = null
+	interactor.auto_hold = false
+	var result: Dictionary = Economy.farm.advance_day()
+	hud.toast("第 %d 天 · %d 格生长，%d 格成熟" % [result.day,result.grew,result.ready])
+	if hud._panel_open: hud._refresh_panel()
+	if _autosave_on: save_game("",true)
+
 
 
 func _on_upgrade_ship() -> void:
@@ -1398,6 +1811,11 @@ func _on_upgrade_ship() -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
+	if _autosave_on:
+		_autosave_left -= delta
+		if _autosave_left <= 0.0:
+			# 自动存档静默执行，不打断操作；F5 手动存档才有提示。
+			save_game("", true)
 	if environment != null and environment.has_method("update_time"):
 		environment.update_time(_t)
 	for zone in _zone_nodes.values():
@@ -1407,12 +1825,15 @@ func _process(delta: float) -> void:
 	# 交互只在岸上、站定时开放：船上/航行中/潜水都不该出现采集提示。
 	if interactor != null:
 		interactor.active = (not dive.active) and (not _walking) \
-			and GameState.mode == GameState.Mode.ASHORE
+			and GameState.mode == GameState.Mode.ASHORE and not hud._panel_open \
+			and not salvage_panel.is_open() and not order_panel.is_open()
 	if prompt != null:
 		prompt.update_from(interactor)
 	_update_pointer_ui()
 	_update_camera_feedback(delta)
 	water_mat.set_shader_parameter("u_time", _t)
+	if water_node.has_method("update_surface") and not dive.active:
+		water_node.update_surface(_t, boat, cam.target)
 	if props != null and not dive.active:
 		var stopped: bool = not boat.starts_sailing()
 		if not _pending_pick.is_empty() and stopped:
@@ -1483,9 +1904,32 @@ func _capture_after_settle() -> void:
 			" diver=", dive.diver_pos,
 			" cam=", dive.camera.global_position,
 			" dir=", -dive.camera.global_transform.basis.z)
+	if hud != null:
+		# 提示条是唯一会「用完就消失」的 UI，截图回归时先确认它真的画得出来。
+		print("[capture] toast=%s rect=%s alpha=%.2f" % [
+			"\"" + hud._toast.text + "\"" if hud._toast != null else "none",
+			str(hud._toast_box.get_global_rect()) if hud._toast_box != null else "-",
+			hud._toast_box.modulate.a if hud._toast_box != null else -1.0])
 	var dir := ProjectSettings.globalize_path("res://outputs")
 	DirAccess.make_dir_recursive_absolute(dir)
 	var img := get_viewport().get_texture().get_image()
 	img.save_png(dir.path_join("godot-preview.png"))
 	print("[capture] saved ", dir.path_join("godot-preview.png"))
+	if OS.get_cmdline_user_args().has("--flicker"):
+		await _probe_flicker(img, dir)
 	get_tree().quit()
+
+
+## 闪动取证：同一相机连拍两张（中间只隔一帧），交给 tools/compare_flicker.py 求差。
+##
+## 深度竞争（z-fighting）在相邻帧之间会「整块换颜色」，而鱼群/气泡/草的动画
+## 是沿运动方向的小位移。两者的差异分布形态不同，所以只看统计量不够，
+## 还要看差异图长什么样——渲染侧只负责可靠地把两张图落盘。
+func _probe_flicker(first: Image, dir: String) -> void:
+	first.save_png(dir.path_join("flicker-a.png"))
+	await RenderingServer.frame_post_draw
+	await get_tree().process_frame
+	await RenderingServer.frame_post_draw
+	var second := get_viewport().get_texture().get_image()
+	second.save_png(dir.path_join("flicker-b.png"))
+	print("[flicker] captured a/b %s" % str(second.get_size()))

@@ -21,6 +21,7 @@ signal item_gained(id: String, amount: int)
 const ItemDBLib = preload("res://scripts/core/item_db.gd")
 const InventoryLib = preload("res://scripts/core/inventory.gd")
 const FarmLib = preload("res://scripts/core/farm.gd")
+const OrderBoardLib = preload("res://scripts/core/orders.gd")
 
 ## 采集类资源的展示信息（物品表里的子集）。保留是为了不破坏旧调用。
 var COLLECTIONS := {}
@@ -41,9 +42,15 @@ const SITES := {
 }
 
 const FACILITIES := {
+	"warehouse": {
+		"name": "材料仓库",
+		"description": "48 格材料专用仓库；建设自动使用仓库材料。",
+		"cost": {"coins": 12, "wood": 4},
+		"requires": {"home_cabin": 1},
+	},
 	"greenhouse": {
 		"name": "屋顶温室",
-		"description": "菜箱生长缩短 28%，每次浇水更耐旱，每茬多收 1 份。",
+		"description": "新种作物首茬少长 1 天，每茬多收 1 份。",
 		"cost": {"coins": 15, "wood": 5, "parts": 3, "glass": 2},
 		"requires": {"home_cabin": 2, "rooftop_planter": 1},
 	},
@@ -57,11 +64,15 @@ const FACILITIES := {
 
 const SHIP_RECIPE := {"coins": 25, "wood": 6, "parts": 4, "rope": 2}
 
+var warehouse = InventoryLib.new(48)
+var tracked_goal := ""
 var inventory: RefCounted
 ## 种植规则与状态（Node 子节点，天然跟场景树同生共死）。
 ## 故意不加静态类型：FarmModel 的方法（plant/tick/to_dict）在 Node 基类上不存在，
 ## 标成 Node 会让编译器拒绝调用。
 var farm = null
+## 码头订单板（规则层）：三张待交的单子、换单、档位解锁。同样不加静态类型。
+var orders = null
 var ship_level: int = 1
 
 var site_levels := {"home_cabin": 1, "rooftop_planter": 1, "yokohama_station": 1}
@@ -114,6 +125,8 @@ func _process(delta: float) -> void:
 		tick_sites(delta)
 		if farm != null:
 			farm.tick(delta)
+		if orders != null:
+			orders.tick(delta)
 
 
 func _ready() -> void:
@@ -122,9 +135,13 @@ func _ready() -> void:
 	inventory.capacity_changed.connect(func(_u: int, _c: int) -> void: resources_changed.emit())
 	_build_collections()
 	inventory.set_count("coins", 80)
+	inventory.set_count("lettuce_seed", 3)
 	farm = FarmLib.new()
 	farm.name = "Farm"
 	add_child(farm)
+	orders = OrderBoardLib.new()
+	orders.name = "Orders"
+	add_child(orders)
 
 
 ## 采集类资源的展示信息从物品表生成：货币与成品不在采集表里。
@@ -301,8 +318,8 @@ func begin_site_upgrade(id: String) -> Dictionary:
 	var cost := site_next_cost(id)
 	if cost.is_empty():
 		return {"ok": false, "reason": "没有更多等级"}
-	if not pay(cost):
-		return {"ok": false, "reason": missing_text(cost)}
+	if not construction_pay(cost):
+		return {"ok": false, "reason": construction_missing_text(cost)}
 	var seconds := site_build_seconds(id)
 	site_work[id] = {"left": seconds, "total": seconds}
 	site_work_started.emit(id, seconds)
@@ -347,7 +364,7 @@ func can_build_facility(id: String) -> bool:
 		return false
 	if facility_requirement_text(id) != "":
 		return false
-	return has(spec.cost)
+	return construction_has(spec.cost)
 
 
 func build_facility(id: String) -> Dictionary:
@@ -359,22 +376,22 @@ func build_facility(id: String) -> Dictionary:
 	var req_text := facility_requirement_text(id)
 	if req_text != "":
 		return {"ok": false, "reason": req_text}
-	if not pay(spec.cost):
-		return {"ok": false, "reason": missing_text(spec.cost)}
+	if not construction_pay(spec.cost):
+		return {"ok": false, "reason": construction_missing_text(spec.cost)}
 	facilities[id] = true
 	sites_changed.emit()
 	return {"ok": true, "name": spec.name}
 
 
 func can_upgrade_ship() -> bool:
-	return ship_level < 3 and has(SHIP_RECIPE)
+	return ship_level < 3 and construction_has(ship_cost())
 
 
 func upgrade_ship() -> Dictionary:
 	if ship_level >= 3:
 		return {"ok": false, "reason": "船已经满级"}
-	if not pay(SHIP_RECIPE):
-		return {"ok": false, "reason": missing_text(SHIP_RECIPE)}
+	if not construction_pay(ship_cost()):
+		return {"ok": false, "reason": construction_missing_text(ship_cost())}
 	ship_level += 1
 	GameState.far_sea_unlocked = true
 	resources_changed.emit()
@@ -386,17 +403,22 @@ func upgrade_ship() -> Dictionary:
 func to_dict() -> Dictionary:
 	return {
 		"inventory": inventory.to_dict(),
+		"warehouse": warehouse.to_dict(),
+		"tracked_goal": tracked_goal,
 		"ship_level": ship_level,
 		"site_levels": site_levels.duplicate(),
 		"facilities": facilities.duplicate(),
 		"salvage_ready_at": salvage_ready_at,
 		"site_work": site_work.duplicate(true),
 		"farm": farm.to_dict() if farm != null else {},
+		"orders": orders.to_dict() if orders != null else {},
 	}
 
 
 func from_dict(data: Dictionary) -> void:
 	inventory.from_dict(data.get("inventory", {}))
+	warehouse.from_dict(data.get("warehouse", {"capacity":48}))
+	tracked_goal = str(data.get("tracked_goal", ""))
 	ship_level = int(data.get("ship_level", 1))
 	site_levels = {"home_cabin": 1, "rooftop_planter": 1, "yokohama_station": 1}
 	for id in data.get("site_levels", {}).keys():
@@ -414,5 +436,89 @@ func from_dict(data: Dictionary) -> void:
 		}
 	if farm != null:
 		farm.from_dict(data.get("farm", {}))
+	if orders != null:
+		orders.from_dict(data.get("orders", {}))
 	resources_changed.emit()
 	sites_changed.emit()
+
+
+## 材料留在仓库，不参与出售或订单；建设先用背包，再用仓库。
+func construction_count(id: String) -> int:
+	return count(id) + warehouse.count(id)
+
+func construction_has(cost: Dictionary) -> bool:
+	for id in cost:
+		if construction_count(id) < int(cost[id]): return false
+	return true
+
+func construction_pay(cost: Dictionary) -> bool:
+	if not construction_has(cost): return false
+	for id in cost:
+		var carried := mini(count(id), int(cost[id]))
+		inventory.remove(id, carried)
+		warehouse.remove(id, int(cost[id]) - carried)
+	resources_changed.emit()
+	return true
+
+func construction_missing_text(cost: Dictionary) -> String:
+	var bits: Array[String] = []
+	for id in cost:
+		var lack := int(cost[id]) - construction_count(id)
+		if lack > 0: bits.append("%s×%d" % [ItemDBLib.label(id), lack])
+	return "还差 " + "、".join(bits) if not bits.is_empty() else ""
+
+func construction_progress(cost: Dictionary) -> String:
+	var bits: Array[String] = []
+	for id in cost:
+		bits.append("%s %d/%d" % [ItemDBLib.label(id), construction_count(id), int(cost[id])])
+	return " · ".join(bits)
+
+func deposit_materials() -> Dictionary:
+	if not facility_unlocked("warehouse"): return {"blocked":"先在建设页建好材料仓库"}
+	var moved := 0
+	var remaining := 0
+	for id in inventory.all():
+		if str(ItemDBLib.get_item(id).get("category", "")) != "material": continue
+		var amount := mini(count(id), warehouse.room_for(id))
+		inventory.remove(id, amount)
+		warehouse.add(id, amount)
+		moved += amount
+		remaining += count(id)
+	resources_changed.emit()
+	return {"message":"已存入 %d 份材料%s" % [moved, "，其余留在背包（仓库已满）" if remaining > 0 else ""], "moved":moved}
+
+func withdraw_material(id: String) -> Dictionary:
+	if not facility_unlocked("warehouse"): return {"blocked":"仓库尚未建成"}
+	var amount := mini(warehouse.count(id), inventory.room_for(id))
+	if amount <= 0: return {"blocked":"背包已满或没有库存"}
+	warehouse.remove(id, amount)
+	inventory.add(id, amount)
+	resources_changed.emit()
+	return {"message":"已取出 %s ×%d" % [ItemDBLib.label(id), amount]}
+
+func ship_cost() -> Dictionary:
+	return SHIP_RECIPE if ship_level == 1 else {"coins":60, "wood":10, "parts":8, "rope":4}
+
+func goal_complete(id: String) -> bool:
+	if FACILITIES.has(id): return facility_unlocked(id)
+	if id == "ship": return ship_level >= 2
+	if id == "ship3": return ship_level >= 3
+	if SITES.has(id): return site_level(id) >= 2
+	return true
+
+func goal_info() -> Dictionary:
+	var id := tracked_goal
+	if id == "" or goal_complete(id):
+		id = ""
+		for candidate in ["warehouse", "rooftop_planter", "home_cabin", "ship", "greenhouse", "recycler", "ship3"]:
+			if not goal_complete(candidate):
+				id = candidate
+				break
+	if id == "": return {"id":"", "name":"第一阶段建设已完成，享受种植与探索吧", "cost":{}}
+	if FACILITIES.has(id): return {"id":id, "name":FACILITIES[id].name, "cost":FACILITIES[id].cost}
+	if id.begins_with("ship"): return {"id":id, "name":"小船升到 %d 级" % (2 if id == "ship" else 3), "cost":ship_cost()}
+	return {"id":id, "name":SITES[id].name + "升到 2 级", "cost":site_next_cost(id)}
+
+func track_goal(id: String) -> void:
+	tracked_goal = id
+	resources_changed.emit()

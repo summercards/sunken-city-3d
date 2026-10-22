@@ -66,6 +66,8 @@ func build() -> void:
 func _apply_materials(root: Node, slots: Array) -> void:
 	for raw in _mesh_instances(root):
 		var mi: MeshInstance3D = raw
+		# imported material_override 优先级高于 surface override，必须先清除。
+		mi.material_override = null
 		var count: int = mi.mesh.get_surface_count()
 		for i in count:
 			if i >= slots.size():

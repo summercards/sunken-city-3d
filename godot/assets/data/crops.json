@@ -1,23 +1,56 @@
 {
-  "_note": "作物定义唯一来源。加作物只改这里；yield 里的 id 必须存在于 items.json。grow=长成需要的生长秒数，thirst=一次浇水能维持的秒数（湿地才长个）。",
+  "_note": "日制种植定义：grow_days / regrow_days / harvests / seed_price。每格每天浇一次水，休息结算一天。grow/thirst 保留用于旧存档迁移。",
   "crops": [
     {
-      "id": "lettuce", "name": "生菜", "icon": "🥬", "seed": "seed",
-      "grow": 30.0, "thirst": 16.0, "yield": {"vegetable": 2},
+      "id": "lettuce",
+      "name": "生菜",
+      "icon": "🥬",
+      "seed": "lettuce_seed",
+      "grow": 30.0,
+      "thirst": 16.0,
+      "yield": {
+        "vegetable": 2
+      },
       "color": "#8fd06a",
-      "desc": "最快的一茬。播下后约半分钟长成，中途要补一次水。"
+      "desc": "3 个浇水日成熟；收获后地格空出，可重新播种。",
+      "grow_days": 3,
+      "seed_price": 4,
+      "harvests": 1,
+      "regrow_days": 0
     },
     {
-      "id": "tomato", "name": "番茄", "icon": "🍅", "seed": "seed",
-      "grow": 46.0, "thirst": 18.0, "yield": {"tomato": 2},
+      "id": "tomato",
+      "name": "番茄",
+      "icon": "🍅",
+      "seed": "tomato_seed",
+      "grow": 46.0,
+      "thirst": 18.0,
+      "yield": {
+        "tomato": 2
+      },
       "color": "#e2685a",
-      "desc": "长得慢，但码头肯出好价。缺水只是停住，不会枯死。"
+      "desc": "5 个浇水日成熟；每隔 2 个浇水日再收一茬，共 3 茬。",
+      "grow_days": 5,
+      "seed_price": 10,
+      "harvests": 3,
+      "regrow_days": 2
     },
     {
-      "id": "pumpkin", "name": "南瓜", "icon": "🎃", "seed": "seed",
-      "grow": 74.0, "thirst": 24.0, "yield": {"pumpkin": 1, "vegetable": 1},
+      "id": "pumpkin",
+      "name": "南瓜",
+      "icon": "🎃",
+      "seed": "pumpkin_seed",
+      "grow": 74.0,
+      "thirst": 24.0,
+      "yield": {
+        "pumpkin": 3
+      },
       "color": "#e8a24a",
-      "desc": "占地最久的一茬：整箱被它占住一分多钟，收成也最实在。"
+      "desc": "7 个浇水日成熟；收获后地格空出，可重新播种。",
+      "grow_days": 7,
+      "seed_price": 12,
+      "harvests": 1,
+      "regrow_days": 0
     }
   ]
 }

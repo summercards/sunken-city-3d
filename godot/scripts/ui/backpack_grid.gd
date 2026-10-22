@@ -8,13 +8,13 @@ const ItemDBLib = preload("res://scripts/core/item_db.gd")
 const COLUMNS := 3
 const SLOT_H := 46
 
-var _font: SystemFont
+var _font: Font
 var _grid: GridContainer
 var _head: Label
 var _inv: RefCounted
 
 
-func setup(font: SystemFont, inventory: RefCounted) -> void:
+func setup(font: Font, inventory: RefCounted) -> void:
 	_font = font
 	_inv = inventory
 	add_theme_constant_override("separation", 7)

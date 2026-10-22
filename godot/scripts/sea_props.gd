@@ -171,22 +171,10 @@ func _spawn_school() -> void:
 		child.scale = Vector3.ONE * (0.75 + _rng.randf() * 0.4)
 		root.add_child(child)
 
-	# 双涟漪（贴水面，俯视时的可见信号）
-	for k in 2:
-		var ripple := MeshInstance3D.new()
-		var torus := TorusMesh.new()
-		torus.inner_radius = 1.1 + k * 0.55
-		torus.outer_radius = 1.22 + k * 0.55
-		torus.rings = 24
-		torus.ring_segments = 6
-		ripple.mesh = torus
-		var rm := StandardMaterial3D.new()
-		rm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		rm.albedo_color = Color(0.78, 0.98, 1.0, 0.22 - k * 0.07)
-		rm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		ripple.material_override = rm
-		ripple.position = Vector3(0, 0.03 + k * 0.002, 0)
-		root.add_child(ripple)
+	# 仅用于复制的鱼原型没有挂到树上，副本已持有共享 mesh/material。
+	fish.free()
+
+	# Fish remain the interaction cue; no static torus pretending to be a water ripple.
 
 	schools.append({
 		"root": root,

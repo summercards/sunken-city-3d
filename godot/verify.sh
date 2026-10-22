@@ -16,11 +16,17 @@ if [ "$1" != "--no-shot" ]; then
   echo "== 3/3 画面截图 =="
   "$GODOT" --path . --resolution 1440x900 -- --capture --frames=110 2>&1 | grep -E "capture" || true
   cp outputs/godot-preview.png outputs/godot-preview-latest.png 2>/dev/null || true
-  # 海底：入口 / 街区 / 海沟（--uwat 是调试传送，只影响截图）
+  # 存档反馈：写一次演示档并截下提示条（用独立的槽位，不碰玩家真实的 save_slot_0）
+  "$GODOT" --path . --resolution 1440x900 -- --saveshot --savepath=user://demo_save.json \
+    --capture --frames=90 2>&1 | grep -E "capture|\[save\]" || true
+  cp outputs/godot-preview.png outputs/save-toast.png 2>/dev/null || true
+  # 海底：入口 / 街区 / 珊瑚礁 / 海沟（--uwat 是调试传送，只影响截图）
   "$GODOT" --path . --resolution 1440x900 -- --dive --capture --frames=200 2>&1 | grep -E "capture" || true
   cp outputs/godot-preview.png outputs/underwater-overview.png 2>/dev/null || true
   "$GODOT" --path . --resolution 1440x900 -- --dive --uwat=-14,-6,20 --capture --frames=200 2>&1 | grep -E "capture" || true
   cp outputs/godot-preview.png outputs/underwater-neighborhood.png 2>/dev/null || true
+  "$GODOT" --path . --resolution 1440x900 -- --dive --uwat=8,-14,-22 --capture --frames=200 2>&1 | grep -E "capture" || true
+  cp outputs/godot-preview.png outputs/underwater-reef.png 2>/dev/null || true
   "$GODOT" --path . --resolution 1440x900 -- --dive --uwat=-2,-200,-120 --capture --frames=200 2>&1 | grep -E "capture" || true
   cp outputs/godot-preview.png outputs/underwater-trench.png 2>/dev/null || true
 fi

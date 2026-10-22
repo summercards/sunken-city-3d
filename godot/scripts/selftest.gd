@@ -49,7 +49,10 @@ func _ready() -> void:
 	_test_camera()
 	_test_water_click()
 	_test_salvage()
+	_test_trade()
+	_test_dive_air()
 	_test_pointer_detail()
+	_test_save()
 	print("\n[selftest] %d passed, %d failed" % [_pass, _fail])
 	get_tree().quit(1 if _fail > 0 else 0)
 
@@ -72,7 +75,8 @@ func _test_zones() -> void:
 	_ok("解锁后 zone4 可去", Zones.is_unlocked("zone4"))
 	GameState.far_sea_unlocked = false
 	var l := Zones.landing("zone1", "salvage")
-	_ok("打捞台坐标", abs(float(l.boatPark[0]) + 7.2) < 0.01, str(l.get("boatPark")))
+	_ok("打捞泊位与场景锚点一致", l == get_parent()._zone_nodes.zone1.landing_point("salvage").data())
+	_ok("打捞泊位保留岸线间距", get_parent()._is_open_water(l.boatPark[0], l.boatPark[2]))
 
 
 func _test_economy() -> void:
@@ -304,8 +308,9 @@ func _water_until_ready(farm, plot_id: String, limit := 12) -> bool:
 		if farm.phase(plot_id) == "ready":
 			return true
 		if farm.is_dry(plot_id):
+			farm.refill()
 			farm.interact(plot_id)
-		farm.tick(farm.thirst_seconds(farm.crop_of(plot_id)))
+		farm.advance_day()
 	return farm.phase(plot_id) == "ready"
 
 
@@ -322,7 +327,7 @@ func _test_farm() -> void:
 	_ok("种植模型已挂到 Economy", farm != null)
 	if farm == null or field == null:
 		return
-	_ok("菜箱数量", field.plots.size() == 3, str(field.plots.size()))
+	_ok("菜箱数量", field.plots.size() == 18, str(field.plots.size()))
 	_ok("作物表至少三种", farm.crops.size() >= 3, str(farm.crops.size()))
 
 	# 契约一：菜箱落在所属区块的可行走面上（和建造牌同一条规则）。
@@ -331,13 +336,13 @@ func _test_farm() -> void:
 		var on_deck := false
 		for w in cfg.get("walk", []):
 			for rect in w.get("rects", []):
-				var inside: bool = node.position.x >= float(rect[0]) - 0.05 \
-					and node.position.x <= float(rect[1]) + 0.05 \
-					and node.position.z >= float(rect[2]) - 0.05 \
-					and node.position.z <= float(rect[3]) + 0.05
-				if inside and absf(node.position.y - float(w.get("y", node.position.y))) < 0.4:
+				var inside: bool = node.global_position.x >= float(rect[0]) - 0.05 \
+					and node.global_position.x <= float(rect[1]) + 0.05 \
+					and node.global_position.z >= float(rect[2]) - 0.05 \
+					and node.global_position.z <= float(rect[3]) + 0.05
+				if inside and absf(node.global_position.y - float(w.get("y", node.global_position.y))) < 0.4:
 					on_deck = true
-		_ok("%s 落在可行走面" % node.plot_id, on_deck, str(node.position))
+		_ok("%s 落在可行走面" % node.plot_id, on_deck, str(node.global_position))
 
 	# 契约二：作物产量引用的物品必须真的存在于物品表。
 	for crop_id in farm.crops.keys():
@@ -347,38 +352,37 @@ func _test_farm() -> void:
 
 	Economy.ticking = false
 	Economy.inventory.clear()
-	Economy.site_levels["home_cabin"] = 1
+	Economy.site_levels["home_cabin"] = 0
 	Economy.facilities["greenhouse"] = false
 	farm.selected_crop = "tomato"
 	farm.from_dict({})
-	Economy.give({"seed": 5})
+	Economy.give({"tomato_seed": 5})
 
 	# 契约三：前置没到，播种被挡住且不扣种子。
-	var before_seed := Economy.count("seed")
+	var before_seed := Economy.count("tomato_seed")
 	var locked: Dictionary = farm.interact("home_plot", "tomato")
 	_ok("前置未满足被挡住", locked.has("blocked"), str(locked))
-	_ok("挡住时种子不扣", Economy.count("seed") == before_seed)
+	_ok("挡住时种子不扣", Economy.count("tomato_seed") == before_seed)
 	_ok("挡住时地是空的", farm.phase("home_plot") == "empty")
 
 	Economy.site_levels["home_cabin"] = 2
 	var planted: Dictionary = farm.interact("home_plot", "tomato")
 	_ok("解锁后可播种", planted.get("event", "") == "planted", str(planted))
-	_ok("播种扣 1 颗种子", Economy.count("seed") == before_seed - 1)
+	_ok("播种扣 1 颗种子", Economy.count("tomato_seed") == before_seed - 1)
 	_ok("播种后进入生长", farm.phase("home_plot") == "growing")
-	var grow_total: float = farm.grow_seconds("tomato")
+	var grow_total: float = farm.grow_days("tomato")
 	_ok("生长时长来自作物表", absf(float(farm.state("home_plot").remaining) - grow_total) < 0.01,
 		"%.1f" % grow_total)
-	_ok("刚播下是湿的", not farm.is_dry("home_plot"))
+	_ok("播种后需要浇水", farm.is_dry("home_plot"))
 
 	# 契约四：水用完就停长（不是「时间到了自动熟」）。
-	var thirst: float = farm.thirst_seconds("tomato")
-	farm.tick(thirst + 5.0)
+	farm.advance_day()
 	_ok("水已耗尽", farm.is_dry("home_plot"))
 	var stalled: float = float(farm.state("home_plot").remaining)
 	farm.tick(30.0)
 	_ok("缺水时停止生长", absf(float(farm.state("home_plot").remaining) - stalled) < 0.001,
 		"%.1f → %.1f" % [stalled, float(farm.state("home_plot").remaining)])
-	_ok("缺水给出明确状态", farm.status_text("home_plot").contains("缺水"),
+	_ok("缺水给出明确状态", farm.status_text("home_plot").contains("待浇水"),
 		farm.status_text("home_plot"))
 
 	# 契约五：浇水后继续长，浇满不求人。
@@ -396,11 +400,11 @@ func _test_farm() -> void:
 	_ok("收获成功", picked.get("event", "") == "harvested", str(picked))
 	_ok("番茄进背包", Economy.count("tomato") == veg_before + 2,
 		"%d → %d" % [veg_before, Economy.count("tomato")])
-	_ok("收完地空了", farm.phase("home_plot") == "empty")
+	_ok("番茄收后继续生长", farm.phase("home_plot") == "growing")
 
 	# 契约七：背包满时不能收，菜也不会丢。
 	Economy.inventory.clear()
-	Economy.give({"seed": 1})
+	Economy.give({"lettuce_seed": 1})
 	farm.interact("farm_plot_a", "lettuce")
 	_ok("农场菜箱熟了", _water_until_ready(farm, "farm_plot_a"), farm.phase("farm_plot_a"))
 	Economy.inventory.add("wood", Economy.inventory.slots_free() * 40)
@@ -411,10 +415,10 @@ func _test_farm() -> void:
 	# 契约八：温室加成体现在「更快 + 更多」，而不是偷偷改一个数。
 	Economy.inventory.clear()
 	farm.from_dict({})
-	var plain_grow: float = farm.grow_seconds("lettuce")
+	var plain_grow: float = farm.grow_days("lettuce")
 	var plain_yield: Dictionary = farm.yield_of("lettuce")
 	Economy.facilities["greenhouse"] = true
-	var fast_grow: float = farm.grow_seconds("lettuce")
+	var fast_grow: float = farm.grow_days("lettuce")
 	var rich_yield: Dictionary = farm.yield_of("lettuce")
 	_ok("温室缩短生长", fast_grow < plain_grow, "%.1f vs %.1f" % [fast_grow, plain_grow])
 	_ok("温室多收一份", int(rich_yield.get("vegetable", 0)) == int(plain_yield.get("vegetable", 0)) + 1,
@@ -422,7 +426,7 @@ func _test_farm() -> void:
 	Economy.facilities["greenhouse"] = false
 
 	# 契约九：存档往返保留作物、进度与水分；未知菜箱被忽略。
-	Economy.give({"seed": 2})
+	Economy.give({"pumpkin_seed": 2})
 	farm.interact("farm_plot_a", "pumpkin")
 	farm.tick(7.5)
 	var blob: Dictionary = Economy.to_dict()
@@ -475,26 +479,27 @@ func _test_scene_contract() -> void:
 	if we != null and we.environment != null:
 		_ok("Environment 来自资源文件", we.environment.resource_path != "",
 			we.environment.resource_path)
-		_ok("环境亮度是标定值", absf(we.environment.ambient_light_energy - 0.56) < 0.001,
+		_ok("环境亮度是标定值", absf(we.environment.ambient_light_energy - 0.38) < 0.001,
 			"%.2f" % we.environment.ambient_light_energy)
 
 	# 水面材质同样要可编辑，且运行时只补动态参数。
 	var water: MeshInstance3D = main.get_node_or_null("World/Water")
 	if water != null:
 		var mat := water.material_override as ShaderMaterial
-		_ok("水面材质来自资源文件", mat != null and mat.resource_path != "",
-			mat.resource_path if mat != null else "-")
+		var authored := load("res://assets/materials/water.tres") as ShaderMaterial
+		_ok("水面使用资源着色器及独立动态参数", mat != null and mat != authored
+			and mat.shader == authored.shader and mat.render_priority == authored.render_priority)
 		if mat != null:
 			_ok("水面高度与常量一致", absf(water.position.y - WATER_LEVEL) < 0.001)
-			_ok("岸线数据已注入", int(mat.get_shader_parameter("u_shore_count")) > 0,
-				str(mat.get_shader_parameter("u_shore_count")))
+			_ok("岸线数据已注入", bool(mat.get_shader_parameter("shore_enabled")),
+				str(mat.get_shader_parameter("shore_bounds")))
 
 	# 相机机位是 export 值：编辑器里改，运行时照做。
 	var cam := main.get_node_or_null("Camera") as Camera3D
 	if cam != null:
 		_ok("相机有可编辑的 target", cam.has_method("refresh"))
 		var expect: Vector3 = cam.get("target")
-		_ok("相机 target 是场景默认值", expect.distance_to(Vector3(0.45, 1.75, -0.65)) < 0.01,
+		_ok("相机默认跟随角色", cam.follow_enabled and cam.follow_subject == main.player,
 			str(expect))
 
 	# 滤镜面板：写入的必须是场景里那一个 Environment。
@@ -923,6 +928,62 @@ func _test_underwater() -> void:
 	_ok("五个宝箱", uw.chest_count() == 5, str(uw.chest_count()))
 	_ok("七群鱼", uw.deco._fish.size() == 7, str(uw.deco._fish.size()))
 
+	# 三角形绕序的硬约束。这一条被我来回改错过两次，把**最终**结论钉在这里：
+	#
+	# 事实链（全部来自实测，不是文档推断）：
+	#   1. three 的模型绕序是 CCW 朝外（glTF 规范正面）；
+	#   2. `tools/winding_probe.gd`：两块法线都朝相机、绕序一正一反的四边面，
+	#      在 `cull_back` 下**左边（CCW、不翻）完整可见** → glTF 的 CCW 就是 Godot 的正面；
+	#   3. 所以 `lib_glb.add_indices(flip=False)` 才是对的，导出时**不要**翻。
+	#      2026-10-20 曾经翻过一次，结果墙面全变背面，`cull_back` 下整栋楼只剩内部 ——
+	#      「建筑碎了、一直在闪」的真因其实是无条件 `cull_disabled` 抢深度（见 uw_materials.gd）。
+	#
+	# ⇒ 但 Godot 的 glTF 导入器会把索引转成内部顺序，所以**运行时**网格里
+	#   `(b-a)×(c-a)` 与顶点法线**反向**才是朝外。判据按表面的材质分开：
+	#   单面表面（`*_culled`）要求这个点积 < 0；双面表面两侧都画，比值无意义，不计入。
+	for region_id in ["basin", "neighborhood", "reef", "trench"]:
+		var reg: Node3D = uw.region_node(region_id)
+		_ok("%s 区块可寻址" % region_id, reg != null)
+		if reg == null:
+			continue
+		var agree := 0
+		var total := 0
+		var double_surfaces := 0
+		for unit in reg.units:
+			for mi in _all_meshes(unit):
+				var mesh: Mesh = mi.mesh
+				for s in mesh.get_surface_count():
+					var mat: Material = mi.get_surface_override_material(s)
+					if mat == null:
+						mat = mesh.surface_get_material(s)
+					var single := true
+					if mat is ShaderMaterial:
+						var path: String = (mat as ShaderMaterial).shader.resource_path
+						single = path.contains("culled")
+					if not single:
+						double_surfaces += 1
+						continue
+					var arr: Array = mesh.surface_get_arrays(s)
+					var verts: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+					var nrms: PackedVector3Array = arr[Mesh.ARRAY_NORMAL]
+					var idx: PackedInt32Array = arr[Mesh.ARRAY_INDEX]
+					var step := maxi(1, int(idx.size() / 3 / 400))  # 每个 surface 最多抽 400 个三角形
+					var t := 0
+					while t + 2 < idx.size():
+						var a := verts[idx[t]]
+						var b := verts[idx[t + 1]]
+						var c := verts[idx[t + 2]]
+						var gn := (b - a).cross(c - a)
+						if gn.length() > 1e-9:
+							var vn := nrms[idx[t]] + nrms[idx[t + 1]] + nrms[idx[t + 2]]
+							total += 1
+							if gn.normalized().dot(vn.normalized()) < 0.0:
+								agree += 1
+						t += 3 * step
+		var ratio := 1.0 if total == 0 else float(agree) / float(total)
+		_ok("%s 单面表面绕序朝外" % region_id, ratio > 0.97,
+			"%.1f%% (%d/%d) 双面表面 %d" % [ratio * 100.0, agree, total, double_surfaces])
+
 	# 下潜
 	uw.dive(Vector3.ZERO, "晴空水巷")
 	_ok("下潜后 active", uw.active)
@@ -938,9 +999,17 @@ func _test_underwater() -> void:
 	_ok("盆外算碰撞", uw.blocked(Vector3(200, -12, 0)))
 	_ok("盆内不碰撞", not uw.blocked(Vector3(0, -12, 10)))
 
-	# 宝箱：走到旁边 → 搜索 3 秒 → 到账
+	# 宝箱：先发现（没发现不能导航），再走到旁边 → 搜索 3 秒 → 到账
+	# 最深处的那个一定还没被发现：从出生点既不在 11m 内，也不在灯锥里。
+	var deep_chest: Dictionary = uw._chests[uw._chests.size() - 1]
+	_ok("深处宝箱初始未发现", not bool(deep_chest.discovered))
 	var chest: Dictionary = uw._chests[0]
 	uw.debug_teleport(chest.pos + Vector3(1.5, 1.2, 1.0))
+	# 发现由「游到跟前 / 头灯扫到」触发，这里模拟一帧扫描。
+	uw._scan_chests()
+	_ok("靠近后自动发现", bool(chest.discovered))
+	var found_before_open: int = uw.discovered_count()
+	_ok("已发现计数至少 1", found_before_open >= 1, str(found_before_open))
 	var coins_before: int = Economy.coins
 	var parts_before: int = Economy.parts
 	uw._visit_chest(chest)
@@ -952,6 +1021,9 @@ func _test_underwater() -> void:
 	var gained_coins: int = Economy.coins - coins_before
 	_ok("奖励到账", gained_parts + gained_coins > 0,
 		"parts+%d coins+%d" % [gained_parts, gained_coins])
+	_ok("开过的宝箱不再计入已发现",
+		uw.discovered_count() == found_before_open - 1,
+		"%d → %d" % [found_before_open, uw.discovered_count()])
 
 	# 上浮：恢复到海面状态
 	uw.surface()
@@ -1050,11 +1122,13 @@ func _test_pointer_detail() -> void:
 		winch.position.x, winch.position.z) != null, str(winch.position))
 
 	# 悬停文案：可交互物要能报出「动作 + 名字」
-	var spot: Node3D = null
-	for s in get_tree().get_nodes_in_group("interactable"):
-		if s.has_method("focus_text") and s.can_interact():
-			spot = s
-			break
+	# 使用明确可执行的地格，不能再把“能聚焦”误当作“满足交互前置”。
+	var spot: Node3D = main.farm_field.find("home_plot")
+	Economy.site_levels["home_cabin"] = 1
+	Economy.farm.states["home_plot"] = Economy.farm._empty_state()
+	Economy.farm.selected_crop = "lettuce"
+	Economy.inventory.clear()
+	Economy.give({"lettuce_seed":1})
 	_ok("能找到可交互物", spot != null)
 	if spot != null:
 		_ok("焦点文案非空", spot.focus_text() != "", spot.focus_text())
@@ -1071,6 +1145,332 @@ func _test_pointer_detail() -> void:
 		_ok("到位后自动长按", main.interactor.auto_hold)
 		main._auto_target = null
 		main.interactor.auto_hold = false
+
+
+## 存档：往返一致、相对冷却、版本迁移、坏档拒绝。
+## 关键不是「能写出文件」，而是**跨进程**也成立：所以冷却一律按剩余秒数校验。
+func _test_save() -> void:
+	print("\n[save]")
+	var main := get_parent()
+	var lib = preload("res://scripts/core/save_game.gd")
+	var path := "user://selftest_save.json"
+
+	# 造一个有辨识度的局面
+	Economy.give({"wood": 9, "parts": 4, "glass": 2, "pearl": 1})
+	var wood0 := Economy.wood
+	var parts0 := Economy.parts
+	Economy.site_levels["home_cabin"] = 2
+	Economy.facilities["greenhouse"] = true
+	var farm = Economy.farm
+	var plot_id := str(farm.specs[0].get("id", ""))
+	var crop_id := str(farm.crops.keys()[0])
+	farm.selected_crop = crop_id
+	farm.states[plot_id] = {"crop": crop_id, "remaining": 2.0, "total": 3.0, "water": 1.0, "harvests": 0}
+	var spot: Node3D = main.gather.spots[0]
+	var spot_id := str(spot.id)
+	spot.restore_cooldown(37.0)
+	Economy.salvage_ready_at = lib.now_seconds() + 12.0
+	var l2: Dictionary = Zones.landing("zone2", "main")
+	main.boat.place_at(Vector3(float(l2.boatPark[0]), WATER_LEVEL, float(l2.boatPark[2])), float(l2.boatYaw))
+	GameState.enter_zone("zone2")
+	GameState.landing_id = "main"
+	GameState.set_mode(GameState.Mode.ON_BOAT)
+
+	var res: Dictionary = lib.write(path, main)
+	_ok("能写入存档", res.get("ok", false), str(res.get("reason", "")))
+	_ok("存档体积合理", int(res.get("bytes", 0)) > 200, str(res.get("bytes", 0)))
+	_ok("写入后没有残留 .tmp", not FileAccess.file_exists(path + ".tmp"))
+
+	# 把现场全部破坏掉
+	Economy.inventory.clear()
+	Economy.site_levels["home_cabin"] = 1
+	Economy.facilities["greenhouse"] = false
+	farm.states[plot_id] = farm._empty_state()
+	spot.restore_cooldown(0.0)
+	Economy.salvage_ready_at = 0.0
+	var l1: Dictionary = Zones.landing("zone1", "main")
+	main.boat.place_at(Vector3(float(l1.boatPark[0]), WATER_LEVEL, float(l1.boatPark[2])), float(l1.boatYaw))
+	GameState.enter_zone("zone1")
+	GameState.set_mode(GameState.Mode.ON_BOAT)
+
+	var doc: Dictionary = lib.read(path)
+	_ok("能读回存档", doc.get("ok", false), str(doc.get("reason", "")))
+	_ok("版本号是当前版本", int(doc.get("version", 0)) == int(lib.VERSION))
+	var applied: Dictionary = lib.restore(main, doc.get("snapshot", {}))
+	_ok("应用存档成功", applied.get("ok", false), str(applied.get("reason", "")))
+
+	_ok("木料复原", Economy.count("wood") == wood0, str(Economy.count("wood")))
+	_ok("零件复原", Economy.count("parts") == parts0, str(Economy.count("parts")))
+	_ok("玻璃与珍珠复原", Economy.count("glass") >= 2 and Economy.count("pearl") >= 1)
+	_ok("建造等级复原", Economy.site_level("home_cabin") == 2, str(Economy.site_level("home_cabin")))
+	_ok("设施复原", Economy.facilities.get("greenhouse", false))
+	_ok("作物复原", farm.crop_of(plot_id) == crop_id, farm.crop_of(plot_id))
+	_ok("生长剩余天数复原", absf(float(farm.state(plot_id).remaining) - 2.0) < 0.01,
+		str(farm.state(plot_id).remaining))
+	var spot2: Node3D = main.gather.find(spot_id)
+	_ok("采集点冷却复原", spot2 != null and absf(spot2.seconds_left() - 37.0) < 1.0,
+		"%.2f" % (spot2.seconds_left() if spot2 != null else -1.0))
+	_ok("打捞冷却是「剩余秒」而非绝对时间",
+		absf(Economy.salvage_cooldown_left(lib.now_seconds()) - 12.0) < 1.0,
+		"%.2f" % Economy.salvage_cooldown_left(lib.now_seconds()))
+	_ok("区块复原", GameState.current_zone == "zone2", GameState.current_zone)
+	_ok("船位复原", Vector2(main.boat.position.x, main.boat.position.z).distance_to(
+		Vector2(float(l2.boatPark[0]), float(l2.boatPark[2]))) < 0.05, str(main.boat.position))
+	_ok("读档镜头对准角色", main.cam.follow_enabled and main.cam.target.distance_to(main.player.global_position+Vector3.UP*.7)<.05)
+
+
+	# 坏档 / 旧档 / 未来版本
+	_ok("缺文件时给出原因", not lib.read("user://no_such_save_at_all.json").get("ok", true))
+	_ok("坏 JSON 被拒绝", not lib.decode("{ not json").get("ok", true))
+	_ok("缺少经济数据被拒绝", not lib.decode("{\"version\":1}").get("ok", true))
+	_ok("未来版本被拒绝", not lib.decode(JSON.stringify({"version": 99, "economy": {}})).get("ok", true))
+	var v0: Dictionary = lib.decode(JSON.stringify({
+		"inventory": {"capacity": 24, "counts": {"wood": 5}},
+		"site_levels": {"home_cabin": 3},
+	}))
+	_ok("v0 扁平存档能迁移", v0.get("ok", false) and v0.get("migrated", false), str(v0.get("reason", "")))
+	_ok("v0 迁出经济字段", int(v0.get("snapshot", {}).get("economy", {})
+		.get("site_levels", {}).get("home_cabin", 0)) == 3)
+
+	# 清理，避免下次跑自检读到旧档
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+
+
+## 码头订单板：数据合法性、交付扣货与入账、到期换单、换一批、档位、存档。
+func _test_trade() -> void:
+	print("\n[trade]")
+	var main := get_parent()
+	var board = Economy.orders
+	_ok("订单板已挂到经济层", board != null)
+	if board == null:
+		return
+	var world: Node3D = main.trade_board
+	_ok("世界里有一块订单板", world != null)
+	_ok("有订单面板", main.order_panel != null)
+	if world != null:
+		var zone: Node3D = main._zone_nodes.get("zone1", null)
+		_ok("订单板在可行走区域里", zone != null
+			and zone.area_containing(world.position.x, world.position.z) != null,
+			str(world.position))
+		# 不能和采集点/施工牌/菜箱抢焦点（交互半径 2.4~2.6m）
+		var nearest := 999.0
+		var nearest_id := ""
+		var spots: Array = main.gather.spots if main.gather != null else []
+		for s in spots:
+			if str(s.get_meta("zone", "")) != "zone1":
+				continue
+			var d: float = Vector2(s.position.x - world.position.x,
+				s.position.z - world.position.z).length()
+			if d < nearest:
+				nearest = d
+				nearest_id = str(s.id)
+		_ok("离最近的采集点 ≥2.4m", nearest >= 2.4, "%s %.2fm" % [nearest_id, nearest])
+
+	# 数据合法性：报酬不能低于货值，否则交单不如直接卖
+	var table: Dictionary = JSON.parse_string(
+		FileAccess.get_file_as_string("res://assets/data/orders.json"))
+	var bad: Array = []
+	for row in table.get("orders", []):
+		var item := str(row.get("item", ""))
+		var info: Dictionary = ItemDB.get_item(item)
+		if info.is_empty():
+			bad.append(str(row.get("id", "?")) + ":未知物品")
+			continue
+		var worth := int(info.get("sell", 0)) * int(row.get("amount", 0))
+		if int(row.get("pay", 0)) < worth:
+			bad.append(str(row.get("id", "?")) + ":报酬低于货值")
+	_ok("每张订单的报酬都不低于货值", bad.is_empty(), str(bad))
+	_ok("订单池覆盖多个档位",
+		int(table.get("orders", []).size()) >= 9 and board.max_tier() >= 1)
+
+	# 开局档位 1，船 2 级 + 3 级建造点后到 3
+	var ship_backup: int = Economy.ship_level
+	var site_backup: Dictionary = Economy.site_levels.duplicate()
+	Economy.ship_level = 1
+	for sid in Economy.site_levels.keys():
+		Economy.site_levels[sid] = 1
+	_ok("开局只看到 1 档订单", board.max_tier() == 1, str(board.max_tier()))
+	Economy.ship_level = 2
+	Economy.site_levels["home_cabin"] = 3
+	_ok("船 2 级 + 3 级建造点解锁 3 档", board.max_tier() == 3, str(board.max_tier()))
+
+	# 手上没有货时不能交，也不能扣东西
+	board.set_seed(7)
+	board.reset()
+	_ok("板上有 3 张单子", board.slots.size() == 3, str(board.slots.size()))
+	var live := 0
+	for s in board.slots:
+		if not s.is_empty() and not s.has("refill"):
+			live += 1
+	_ok("3 张都是待交状态", live == 3, str(live))
+
+	var slot: Dictionary = board.slots[0]
+	var item := str(slot.get("item", ""))
+	var need := int(slot.get("amount", 0))
+	var uid := str(slot.get("uid", ""))
+	Economy.inventory.set_count(item, 0)
+	var denied: Dictionary = board.fulfill(uid)
+	_ok("缺货时拒绝交付", not denied.get("ok", true), str(denied.get("reason", "")))
+	_ok("拒绝时订单还在板上", str(board.slots[0].get("uid", "")) == uid)
+
+	# 给足货：交单成功、扣货、入账、位置进入补位
+	Economy.inventory.set_count(item, need + 2)
+	var coins0 := Economy.count("coins")
+	var bonus: Dictionary = slot.get("bonus", {})
+	var ok: Dictionary = board.fulfill(uid)
+	_ok("货齐时能交付", ok.get("ok", false), str(ok.get("reason", "")))
+	_ok("货被扣掉", Economy.count(item) == 2, str(Economy.count(item)))
+	var want_coins := coins0 + int(slot.get("pay", 0)) + int(bonus.get("coins", 0))
+	_ok("报酬当场入账", Economy.count("coins") == want_coins,
+		"%d -> %d (期望 %d)" % [coins0, Economy.count("coins"), want_coins])
+	_ok("交付后位置进入补位", board.slots[0].has("refill"))
+	_ok("重复交同一单被拒", not board.fulfill(uid).get("ok", true))
+
+	# 补位倒计时到点 → 来新单
+	var refill: float = board.refresh_seconds()
+	board.tick(refill + 0.1)
+	_ok("补位后重新挂单", not board.slots[0].is_empty() and not board.slots[0].has("refill"))
+
+	# 到期换单：把剩余时间推到 0，不扣任何东西
+	var before_uid := str(board.slots[1].get("uid", ""))
+	var before_coins := Economy.count("coins")
+	board.slots[1].left = 0.05
+	board.tick(0.2)
+	_ok("长期订单不会过期", str(board.slots[1].get("uid", "")) == before_uid)
+	_ok("到期不罚钱", Economy.count("coins") == before_coins)
+
+	# 换一批：扣钱重抽；钱不够时拒绝
+	Economy.inventory.set_count("coins", 50)
+	var cost: int = board.reroll_cost()
+	var uids_before: Array = []
+	for s in board.slots:
+		if not s.is_empty() and not s.has("refill"):
+			uids_before.append(str(s.get("uid", "")))
+	var rr: Dictionary = board.reroll()
+	_ok("能换一批", rr.get("ok", false), str(rr.get("reason", "")))
+	_ok("换单不扣海贝", Economy.count("coins") == 50 - cost, str(Economy.count("coins")))
+	var changed := 0
+	for s in board.slots:
+		if not s.is_empty() and not s.has("refill") and not uids_before.has(str(s.get("uid", ""))):
+			changed += 1
+	_ok("板上的单子都换掉了", changed == 3, "%d/3" % changed)
+	Economy.inventory.set_count("coins", 0)
+	_ok("没有海贝也能免费换单", board.reroll().get("ok", false))
+
+	# 板上不重复：同一个订单 id 最多出现一次
+	board.set_seed(3)
+	board.reset()
+	var ids := {}
+	var dup := false
+	for s in board.slots:
+		if s.is_empty() or s.has("refill"):
+			continue
+		var oid := str(s.get("order", ""))
+		if ids.has(oid):
+			dup = true
+		ids[oid] = true
+	_ok("同一条订单不会重复上板", not dup, str(ids.keys()))
+
+	# 存档：订单状态经 Economy 往返，剩余时间按相对秒保存
+	var snap: Dictionary = Economy.to_dict()
+	_ok("存档里带订单", snap.has("orders"))
+	var left0 := float(board.slots[2].get("left", 0.0))
+	Economy.from_dict(snap)
+	_ok("读档后订单数不变", Economy.orders.slots.size() == 3)
+	_ok("读档后剩余时间一致（相对秒）",
+		absf(float(Economy.orders.slots[2].get("left", 0.0)) - left0) < 0.01,
+		"%s vs %s" % [Economy.orders.slots[2].get("left", "?"), left0])
+
+	Economy.ship_level = ship_backup
+	Economy.site_levels = site_backup
+	board.set_seed(11)
+	board.reset()
+
+	# 面板开关：板子交互能开，ESC 能关（关不掉会把玩家锁在 UI 里）
+	if world != null and main.order_panel != null:
+		main.trade_board.interact(null)
+		_ok("对着板子按 E 能打开面板", main.order_panel.is_open())
+		var esc := InputEventKey.new()
+		esc.physical_keycode = KEY_ESCAPE
+		esc.pressed = true
+		main.order_panel._input(esc)
+		_ok("ESC 能关掉面板", not main.order_panel.is_open())
+
+
+## 潜水氧气：纯规则层，按固定步长推。这里的每条断言都对应一个玩家能感知的取舍。
+func _test_dive_air() -> void:
+	print("\n[dive]")
+	var air = load("res://scripts/core/dive_air.gd").new()
+	_ok("初始满气", is_equal_approx(air.ratio(), 1.0), "%.2f" % air.ratio())
+	_ok("初始可以下潜", air.can_dive())
+
+	# 深度：越深耗得越快。这条先关灯，只比较深度这一项。
+	air.lamp = false
+	var shallow: float = air.drain_rate(10.0, false, false)
+	var deep: float = air.drain_rate(70.0, false, false)
+	_ok("深水耗氧更快", deep > shallow * 1.4, "%.2f vs %.2f" % [deep, shallow])
+	air.lamp = true
+	# 动作：游动 > 悬浮，冲刺 > 游动。
+	var hover: float = air.drain_rate(20.0, false, false)
+	var swim: float = air.drain_rate(20.0, true, false)
+	var sprint: float = air.drain_rate(20.0, true, true)
+	_ok("游动比悬浮费氧", swim > hover, "%.2f vs %.2f" % [swim, hover])
+	_ok("冲刺比游动费氧", sprint > swim, "%.2f vs %.2f" % [sprint, swim])
+	# 头灯：开着更费，这是「看得见」的代价。
+	air.lamp = false
+	var dark: float = air.drain_rate(20.0, false, false)
+	air.lamp = true
+	_ok("头灯额外耗氧", air.drain_rate(20.0, false, false) > dark)
+
+	# 浅水悬停 10 秒：会掉，但不至于见底。
+	air.reset()
+	for i in 100:
+		air.update(0.1, 12.0, false, false)
+	_ok("浅水 10 秒后还有气", air.ratio() > 0.6 and air.ratio() < 1.0, "%.2f" % air.ratio())
+	_ok("浅水 10 秒不告警", not air.crit_warned)
+
+	# 深水（75m）持续游动：一定会见底，并进入恢复冷却。
+	air.reset()
+	var event := ""
+	for i in 400:
+		event = air.update(0.1, 75.0, true, true)
+		if event == "empty":
+			break
+	_ok("深水冲刺会见底", event == "empty", event)
+	_ok("见底后进入恢复", not air.can_dive())
+	_ok("见底后 summary 说明原因", air.summary().contains("氧气耗尽") or air.summary().contains("换气"),
+		air.summary())
+
+	# 水面换气：回到满气并能再次下潜。
+	for i in 80:
+		air.update(0.1, 0.0, false, false)
+	_ok("水面能回满", air.ratio() > 0.99, "%.2f" % air.ratio())
+	_ok("喘过气可以再潜", air.can_dive())
+
+	# 世界层：潜水时氧气真的在掉，出水后回满。
+	var uw: Node = get_parent().dive
+	if uw != null:
+		var opened_ids: Array = uw.to_dict().get("opened", [])
+		_ok("宝箱进度可序列化", opened_ids.size() >= 1, str(opened_ids))
+		# 上一段测试已经上浮，这里重新下潜才有 active。
+		uw.dive(Vector3.ZERO, "晴空水巷")
+		uw.phase = "swim"
+		uw.debug_teleport(Vector3(0, -40, 10))
+		var before: float = uw.air.ratio()
+		for i in 30:
+			uw._process(0.1)
+		_ok("潜水时氧气下降", uw.air.ratio() < before, "%.2f → %.2f" % [before, uw.air.ratio()])
+		# 读档接口：发现/打开状态能来回。
+		var snapshot: Dictionary = uw.to_dict()
+		uw.from_dict({"found": [], "opened": []})
+		_ok("清空后已发现归零", uw.discovered_count() == 0, str(uw.discovered_count()))
+		uw.from_dict(snapshot)
+		_ok("还原后宝箱进度回来", uw.opened_chests() >= 1, str(uw.opened_chests()))
+		# 收尾：必须浮回海面，否则后面的指针/采集测试会全部落在潜水模式里。
+		uw.surface()
+		for i in 80:
+			uw._process(0.1)
+		_ok("测试收尾回到海面", not uw.active)
 
 
 ## 水面寻路：栅格、可通达性、以及「航线不穿岛」这条硬约束。

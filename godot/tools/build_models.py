@@ -348,6 +348,8 @@ def export_glb(path, primitives, origin, name, bake):
         a_nrm = glb.add_floats(prim["nrm"].reshape(-1).tolist(), "VEC3")
         a_uv = glb.add_floats(prim["uv"].reshape(-1).tolist(), "VEC2")
         a_col = glb.add_floats(prim["col"].reshape(-1).tolist(), "VEC3")
+        # 绕序原样写：glTF 的逆时针在 Godot 里就是正面（tools/winding_probe.gd 实测）。
+        # 别翻 —— 翻了所有面变成背面，单面材质下整栋楼只剩内部。
         a_idx = glb.add_indices(prim["idx"].tolist())
         # POSITION 的 min/max 是规范硬要求
         mn = pos.min(axis=0)

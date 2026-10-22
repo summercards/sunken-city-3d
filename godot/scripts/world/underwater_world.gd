@@ -16,10 +16,15 @@ extends Node3D
 signal depth_changed(depth: float)
 signal zone_changed(name: String)
 signal exited
+
+const RenderFlagsLib = preload("res://scripts/render_flags.gd")
 signal message(text: String)
+## 氧气 / 头灯 / 已发现宝箱数。HUD 据此画左下的仪表。
+signal air_changed(ratio: float, lamp_on: bool, found: int, total: int)
 
 const WATER_LEVEL := 1.12
 const SWIM_SPEED := 3.8
+const SPRINT_SPEED := 6.2
 const ENTER_TIME := 2.2
 const ENTER_DEPTH := -10.0
 const CAM_MIN := 5.0
@@ -29,9 +34,19 @@ const SEARCH_TIME := 3.0
 const MOVE_MIN_Y := -223.5
 const MOVE_MAX_Y := -4.8
 
+## 宝箱的「发现」规则。**这是 F8 重做的核心**：
+## 旧版五个宝箱一进水就在屏幕上列成清单、点一下就自动游过去，探索没有意义。
+## 现在必须自己看见 —— 要么游到跟前，要么把头灯扫过去。
+const DISCOVER_NEAR := 11.0
+## 头灯照到能发现的距离。
+const DISCOVER_LAMP := 26.0
+## 头灯锥形：视线方向与指向宝箱方向的点积下限（约 55°）。
+const DISCOVER_DOT := 0.55
+
 const SWIM_DATA := "res://assets/baked/underwater/swim.json"
 const MaterialLib = preload("res://scripts/world/uw_materials.gd")
 const CharacterScript = preload("res://scripts/character.gd")
+const DiveAirLib = preload("res://scripts/core/dive_air.gd")
 
 @onready var regions_root: Node3D = $Regions
 @onready var deco: Node3D = $Deco
@@ -56,6 +71,7 @@ var _world_env: WorldEnvironment
 var _saved_env: Environment
 var _uw_env: Environment
 var _sky_material: ShaderMaterial
+var _fog_material: ShaderMaterial
 var _surface_zone := ""
 
 var _solids: Array = []
@@ -70,6 +86,10 @@ var _drag := false
 var _marker_layer: CanvasLayer
 var _diver: Node3D
 var _heading := 0.0
+## 氧气与头灯（纯状态机，见 scripts/core/dive_air.gd）。
+var air = DiveAirLib.new()
+## 每帧推给 HUD 的节流（不必每帧改 Label）。
+var _air_emit_t := 0.0
 
 
 func setup(surface_nodes: Array, world_env: WorldEnvironment) -> void:
@@ -77,6 +97,7 @@ func setup(surface_nodes: Array, world_env: WorldEnvironment) -> void:
 	_world_env = world_env
 	_saved_env = world_env.environment
 	_build_environment()
+	_build_fog_pass()
 	_load_swim_data()
 	_build_diver()
 	_build_chests()
@@ -91,6 +112,11 @@ func setup(surface_nodes: Array, world_env: WorldEnvironment) -> void:
 func dive(_boat_pos: Vector3, zone_label := "") -> void:
 	if active:
 		return
+	# 氧气耗尽被强制上浮后，得先在水面喘几秒 —— 失败有代价，但不扣资源。
+	if not air.can_dive():
+		message.emit("刚上浮，先喘口气（%.0f 秒）" % ceil(air.recover))
+		return
+	air.refill()
 	_surface_zone = zone_label
 	active = true
 	phase = "enter"
@@ -102,6 +128,7 @@ func dive(_boat_pos: Vector3, zone_label := "") -> void:
 	_velocity = Vector3.ZERO
 	_route.clear()
 	_search = {}
+	_refresh_chest_visibility()
 
 	visible = true
 	_set_surface_visible(false)
@@ -114,7 +141,9 @@ func dive(_boat_pos: Vector3, zone_label := "") -> void:
 	if _marker_layer != null:
 		_marker_layer.visible = true
 	_update_camera(0.0, true)
+	_update_lamp()
 	depth_changed.emit(0.0)
+	_emit_air()
 
 
 func surface() -> void:
@@ -132,6 +161,9 @@ func surface() -> void:
 func _finish_exit() -> void:
 	active = false
 	phase = "surface"
+	# 灯必须关掉：海面材质与水下材质不是一套，但 uniform 会留在同一个
+	# ShaderMaterial 缓存里，下次进水前如果没重设就会「灯没开却亮着」。
+	MaterialLib.set_lamp(false, Vector3.ZERO, Vector3(0, 0, -1))
 	visible = false
 	_set_surface_visible(true)
 	_world_env.environment = _saved_env
@@ -160,24 +192,27 @@ func _build_environment() -> void:
 	_uw_env.sky = sky
 	_sky_material = mat
 
-	# 环境光用中性偏青的固有色，而不是整片天空：
-	# 天空取光会把墙面的暖色（奶油/木色）压成和海水一样的青色，
-	# 房子看起来像玻璃盒子。这里保留一点水色就行。
-	_uw_env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	# 可见水色与环境辐照分开；天空 cubemap 提供网页版半球光的上下两色。
+	_uw_env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
 	_uw_env.ambient_light_color = Color("#b9e9e2")
-	_uw_env.ambient_light_energy = 0.72
+	_uw_env.ambient_light_energy = (1.9 / PI)
 	_uw_env.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
 	_uw_env.tonemap_mode = Environment.TONE_MAPPER_ACES
-	_uw_env.tonemap_exposure = 1.05
-	# 水雾在材质里做（屏幕空间上下渐变，见 uw_common.gdshaderinc）。
-	# 环境雾只有单一颜色，会和它叠成两层，所以这里直接关掉。
+	# Three ACES 输入倍率为 exposure/0.6，Godot 为 exposure*1.8。
+	_uw_env.tonemap_exposure = 1.1 / (0.6 * 1.8)
+	# 使 Godot ACES 白点归一化因子为 1，与 Three 的曲线一致。
+	_uw_env.tonemap_white = 14.260244
+	# 实体由 uw_fog 屏幕通道统一叠雾，透明材质自行衰减，避免环境雾重复叠加。
 	_uw_env.fog_enabled = false
 
 
 func _update_sky(depth_now: float) -> void:
 	if _sky_material != null:
-		_sky_material.set_shader_parameter("deep", clampf((depth_now - 8.0) / 72.0, 0.0, 1.0))
-	MaterialLib.set_depth(depth_now)
+		_sky_material.set_shader_parameter("dive_depth", maxf(0.0, -diver_pos.y))
+	_fog_material.set_shader_parameter("dive_depth", maxf(0.0, -diver_pos.y))
+	MaterialLib.set_depth(maxf(0.0, -diver_pos.y))
+	var deep := clampf((-diver_pos.y - 12.0) / 64.0, 0.0, 1.0)
+	_uw_env.ambient_light_energy = (1.9 / PI) * (1.0 - deep * 0.6)
 
 
 # ---------------------------------------------------------------- 数据 / 碰撞
@@ -274,12 +309,44 @@ func blocked(p: Vector3, margin := 0.35) -> bool:
 
 
 # ---------------------------------------------------------------- 输入
+func cancel_navigation() -> void:
+	_route.clear()
+	_route_target_chest = {}
+	_search = {}
+	_search_t = 0.0
+	_velocity = Vector3.ZERO
+
+func swim_to(destination: Vector3) -> bool:
+	if not active or phase != "swim": return false
+	destination.y = clampf(destination.y,MOVE_MIN_Y,MOVE_MAX_Y)
+	if not _inside_basin(destination,1.0) or blocked(destination):
+		message.emit("这里有障碍，请点击附近的开阔水域")
+		return false
+	var points := _plan_route(destination)
+	if points.is_empty():
+		message.emit("这里暂时游不过去，请换个目标")
+		return false
+	cancel_navigation()
+	_route = points
+	message.emit("正在游向目标 · 可点取消停止")
+	return true
+
+func swim_to_screen(screen: Vector2) -> bool:
+	var origin := camera.project_ray_origin(screen)
+	var direction := camera.project_ray_normal(screen)
+	if absf(direction.y) < 0.001: return false
+	var distance := (diver_pos.y-origin.y)/direction.y
+	if distance <= 0.0: return false
+	return swim_to(origin+direction*distance)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not active:
 		return
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
-		if mb.button_index == MOUSE_BUTTON_RIGHT:
+		if mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
+			swim_to_screen(mb.position)
+		elif mb.button_index == MOUSE_BUTTON_RIGHT:
 			_drag = mb.pressed
 		elif mb.button_index == MOUSE_BUTTON_WHEEL_UP and mb.pressed:
 			_distance = clampf(_distance - 0.8, CAM_MIN, CAM_MAX)
@@ -293,10 +360,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		var k := event as InputEventKey
 		if k.pressed and not k.echo and k.keycode == KEY_ESCAPE and phase == "swim":
 			surface()
+		elif k.pressed and not k.echo and k.keycode == KEY_F and phase == "swim":
+			# F 开头灯。开着能照见 26m 内的宝箱，但每秒额外烧氧。
+			_toggle_lamp()
 
 
 func _process(delta: float) -> void:
 	if not active:
+		# 上浮之后氧气照样回、恢复冷却照样走。否则「被强制上浮 → 想再潜」
+		# 会永远卡在冷却里（_process 在 inactive 时早退）。
+		if air != null:
+			air.update(delta, 0.0, false, false)
 		return
 	_t += delta
 	var dt := minf(delta, 0.05)
@@ -320,9 +394,11 @@ func _process(delta: float) -> void:
 
 	depth = maxf(0.0, WATER_LEVEL - diver_pos.y)
 	_update_camera(dt, phase == "enter" or phase == "exit")
+	_update_lamp()
 	deco.update(dt, _t, diver_pos, camera)
 	_update_diver(dt)
 	_update_sky(depth)
+	_update_air(dt)
 	_update_markers()
 	depth_changed.emit(depth)
 	zone_changed.emit(_zone_name())
@@ -343,9 +419,11 @@ func _update_swim(dt: float) -> void:
 	var desired := Vector3(x, y * 0.7, z)
 	if desired.length() > 1.0:
 		desired = desired.normalized()
-	desired = desired.rotated(Vector3.UP, _yaw) * SWIM_SPEED
+	# Shift 加速：省时间，但氧气消耗乘 1.9（见 dive_air.gd）。
+	var sprint := Input.is_physical_key_pressed(KEY_SHIFT)
+	desired = desired.rotated(Vector3.UP, _yaw) * (SPRINT_SPEED if sprint else SWIM_SPEED)
 	if absf(x) + absf(y) + absf(z) > 0.01:
-		_route.clear()
+		cancel_navigation()
 
 	if not _route.is_empty():
 		var target: Vector3 = _route[0]
@@ -388,7 +466,9 @@ func _update_swim(dt: float) -> void:
 	# 搜索进度
 	if not _search.is_empty():
 		var chest: Dictionary = _search
-		if diver_pos.distance_to(chest.pos) > SEARCH_RADIUS:
+		if not _route.is_empty():
+			_search_t = 0.0
+		elif diver_pos.distance_to(chest.pos) > SEARCH_RADIUS:
 			_search = {}
 			_search_t = 0.0
 			message.emit("离宝箱太远了")
@@ -414,6 +494,45 @@ func _update_camera(dt: float, snap: bool) -> void:
 	camera.look_at(target, Vector3.UP)
 
 
+## 氧气推进。归零不是扣资源，而是强制上浮 —— 失败有代价，但不清空背包。
+func _update_air(dt: float) -> void:
+	var moving := _velocity.length() > 0.45
+	var sprint := Input.is_physical_key_pressed(KEY_SHIFT) and moving
+	var event := air.update(dt, depth, moving, sprint)
+	match event:
+		"low":
+			message.emit("余气不多 · 还剩 %d%%" % int(round(air.ratio() * 100.0)))
+		"crit":
+			message.emit("氧气见底！按 E 或点上浮回水面")
+		"empty":
+			message.emit("氧气耗尽 · 强制上浮")
+			surface()
+	_air_emit_t += dt
+	if _air_emit_t >= 0.12:
+		_air_emit_t = 0.0
+		_emit_air()
+
+
+func _emit_air() -> void:
+	air_changed.emit(air.ratio(), air.lamp, discovered_count(), _chests.size())
+
+
+## 头灯：位置与朝向跟着相机走（右键拖拽环视时灯也跟着扫）。
+## 主光和补光走 PBR；这里推送额外头灯散射项。
+func _update_lamp() -> void:
+	var on: bool = bool(air.lamp) and phase != "surface"
+	var basis := camera.global_transform.basis
+	var pos := camera.global_position + basis * Vector3(0.34, -0.22, -0.1)
+	var dir := -basis.z
+	MaterialLib.set_lamp(on, pos, dir)
+
+
+func _toggle_lamp() -> void:
+	air.lamp = not air.lamp
+	message.emit("头灯 " + ("开" if air.lamp else "关"))
+	_emit_air()
+
+
 func _update_diver(dt: float) -> void:
 	if _diver == null:
 		return
@@ -430,6 +549,24 @@ func debug_teleport(p: Vector3) -> void:
 	diver_pos = p
 	_velocity = Vector3.ZERO
 	_update_camera(0.0, true)
+
+
+## 诊断：冻住焦散/闪光的相位（负值恢复成跟 TIME 走）。
+func freeze_time(t: float) -> void:
+	MaterialLib.freeze_time(t)
+
+
+## 诊断：把所有海底几何画成「正面绿 / 背面红」，用来看绕序有没有整体反掉。
+func set_facing_debug(on: bool) -> void:
+	MaterialLib.set_facing_debug(self, on)
+
+
+## 取某个海底区块的节点（诊断与自检用）：按 `region` 字段找，不靠节点名。
+func region_node(id: String) -> Node3D:
+	for r in region_nodes():
+		if str(r.get("region")) == id:
+			return r
+	return null
 
 
 func _zone_name() -> String:
@@ -449,6 +586,8 @@ func _build_diver() -> void:
 	add_child(_diver)
 	_diver.build()
 	_diver.set_diving(true)
+	_diver.hat.visible = false
+	MaterialLib.apply_to_standard_meshes(_diver)
 	_diver.scale = Vector3.ONE * 1.25
 	_diver.position = Vector3(0, WATER_LEVEL, 12)
 	_diver.rotation.y = PI
@@ -486,6 +625,7 @@ func _build_chests() -> void:
 			"node": g,
 			"lid": lid,
 			"opened": false,
+			"discovered": false,
 			"open_t": 0.0,
 			"marker": null,
 		})
@@ -498,9 +638,7 @@ func _box(parent: Node3D, color: Color, pos: Vector3, size: Vector3) -> MeshInst
 	mesh.size = size
 	mi.mesh = mesh
 	mi.position = pos
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = color
-	mat.roughness = 0.85
+	var mat := MaterialLib.from_color(color)
 	mi.material_override = mat
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
 	parent.add_child(mi)
@@ -527,7 +665,8 @@ func _build_markers() -> void:
 		label.gui_input.connect(_on_marker_input.bind(chest))
 		_marker_layer.add_child(label)
 		chest.marker = label
-		label.visible = true
+		# 没发现的宝箱不给标签，否则又变成一张清单。
+		label.visible = bool(chest.discovered)
 
 
 func _on_marker_input(event: InputEvent, chest: Dictionary) -> void:
@@ -536,18 +675,63 @@ func _on_marker_input(event: InputEvent, chest: Dictionary) -> void:
 	var mb := event as InputEventMouseButton
 	if mb.button_index != MOUSE_BUTTON_LEFT or not mb.pressed:
 		return
+	# 只能点自己已经发现的宝箱。没发现的连标签都没有，这里是双保险。
+	if not bool(chest.discovered):
+		return
 	_visit_chest(chest)
+
+
+## 头灯扫过 / 游到跟前，就算「发现」。发现后标签常驻（本次游戏内）。
+func _scan_chests() -> void:
+	var basis := camera.global_transform.basis
+	var fwd := -basis.z
+	var lamp_on: bool = bool(air.lamp) and phase == "swim"
+	for chest in _chests:
+		if bool(chest.discovered):
+			continue
+		var to: Vector3 = chest.pos - diver_pos
+		var dist := to.length()
+		var near: bool = dist <= DISCOVER_NEAR
+		var lit: bool = false
+		if lamp_on and dist <= DISCOVER_LAMP and dist > 0.01:
+			lit = fwd.dot(to / dist) >= DISCOVER_DOT
+		if not (near or lit):
+			continue
+		chest.discovered = true
+		if chest.marker != null:
+			chest.marker.visible = not chest.opened
+		var left := _chests.size() - discovered_count()
+		if left > 0:
+			message.emit("发现 · %s（还剩 %d 处未发现）" % [chest.name, left])
+		else:
+			message.emit("发现 · %s（已找齐 %d 处）" % [chest.name, _chests.size()])
+
+
+func _refresh_chest_visibility() -> void:
+	for chest in _chests:
+		if chest.marker != null:
+			chest.marker.visible = bool(chest.discovered) and not bool(chest.opened)
+
+
+func discovered_count() -> int:
+	var n := 0
+	for c in _chests:
+		if bool(c.discovered) and not bool(c.opened):
+			n += 1
+	return n
 
 
 func _update_markers() -> void:
 	if _marker_layer == null or not _marker_layer.visible:
 		return
-	var size := get_viewport().get_visible_rect().size
+	# 先看这一帧有没有新发现（头灯扫到 / 游到跟前），再更新标签。
+	if phase == "swim":
+		_scan_chests()
 	for chest in _chests:
 		var label: Label = chest.marker
 		if label == null:
 			continue
-		if chest.opened:
+		if chest.opened or not bool(chest.discovered):
 			label.visible = false
 			continue
 		var world: Vector3 = chest.pos + Vector3(0, 1.6, 0)
@@ -568,8 +752,6 @@ func _update_markers() -> void:
 		var near := dist < SEARCH_RADIUS
 		label.add_theme_color_override("font_color",
 			Color("#fff3c9") if near else Color("#e8fdf4"))
-	if size.x <= 0:
-		return
 
 
 var _route_target_chest: Dictionary = {}
@@ -578,8 +760,13 @@ var _route_target_chest: Dictionary = {}
 func _visit_chest(chest: Dictionary) -> void:
 	if phase != "swim" or chest.opened:
 		return
+	if not bool(chest.discovered):
+		# 没发现的地方不给导航 —— 否则「探索」又变回点清单。
+		message.emit("这里什么都看不见，先找到它")
+		return
 	if _search.get("id", -1) == chest.id:
 		return
+	cancel_navigation()
 	if diver_pos.distance_to(chest.pos) <= SEARCH_RADIUS:
 		_search = chest
 		_search_t = 0.0
@@ -676,12 +863,14 @@ func _open_chest(chest: Dictionary) -> void:
 	for key in reward.keys():
 		Economy.add_resource(str(key), int(reward[key]))
 	chest.opened = true
+	chest.discovered = true
 	if chest.marker != null:
 		chest.marker.visible = false
 	var parts: Array = []
 	for key in reward.keys():
 		parts.append("%s +%d" % [_material_name(str(key)), int(reward[key])])
 	message.emit("找到物资 · " + "  ".join(parts))
+	_emit_air()
 
 
 func _material_name(key: String) -> String:
@@ -702,6 +891,44 @@ func _physics_process(_delta: float) -> void:
 			lid.rotation.x = lerpf(lid.rotation.x, -1.7, chest.open_t * 0.2)
 
 
+# ---------------------------------------------------------------- 存档
+## 潜水的进度只存「哪些宝箱被发现 / 打开」。氧气是**本次下潜内**的资源，
+## 读档一律回到船上并满氧气，否则会出现「在船上却没气」的荒谬状态。
+func to_dict() -> Dictionary:
+	var found: Array = []
+	var opened: Array = []
+	for chest in _chests:
+		if bool(chest.discovered):
+			found.append(int(chest.id))
+		if bool(chest.opened):
+			opened.append(int(chest.id))
+	return {"found": found, "opened": opened}
+
+
+func from_dict(data: Dictionary) -> void:
+	var found: Array = data.get("found", [])
+	var opened: Array = data.get("opened", [])
+	# 这是一份**全量**快照：先全部复位，再按档里的记录打回去。
+	# 只做「加上」不做「清掉」的话，读旧档会把当前进度叠在新档上。
+	for chest in _chests:
+		chest.opened = false
+		chest.discovered = false
+		chest.open_t = 0.0
+		if chest.lid != null:
+			(chest.lid as Node3D).rotation.x = 0.0
+	for chest in _chests:
+		var id := int(chest.id)
+		if opened.has(id) or opened.has(float(id)):
+			chest.opened = true
+			chest.discovered = true
+			chest.open_t = 1.0
+			if chest.lid != null:
+				(chest.lid as Node3D).rotation.x = -1.7
+		elif found.has(id) or found.has(float(id)):
+			chest.discovered = true
+	_refresh_chest_visibility()
+
+
 # ---------------------------------------------------------------- 查询接口（供测试）
 func chest_count() -> int:
 	return _chests.size()
@@ -715,9 +942,36 @@ func opened_chests() -> int:
 	return n
 
 
+## 自检用：直接给某个宝箱打上「已发现」，不必真的游过去。
+func debug_discover(index: int) -> void:
+	if index < 0 or index >= _chests.size():
+		return
+	_chests[index].discovered = true
+	_refresh_chest_visibility()
+
+
 func region_nodes() -> Array:
 	return regions_root.get_children() if regions_root != null else []
 
 
 func search_state() -> Dictionary:
 	return _search
+
+
+func _build_fog_pass() -> void:
+	var quad := MeshInstance3D.new()
+	quad.name = "UnderwaterFogPass"
+	var mesh := QuadMesh.new()
+	mesh.size = Vector2(2, 2)
+	quad.mesh = mesh
+	_fog_material = ShaderMaterial.new()
+	_fog_material.shader = load("res://shaders/uw_fog.gdshader")
+	# Web(gl_compatibility) 不是 Reverse-Z，深度反投影要换算（否则水雾整片糊死）。
+	_fog_material.set_shader_parameter("u_reverse_z", RenderFlagsLib.reverse_z())
+	_fog_material.render_priority = -128
+	quad.material_override = _fog_material
+	quad.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	quad.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
+	quad.extra_cull_margin = 16384.0
+	camera.add_child(quad)
+	quad.position.z = -1.0

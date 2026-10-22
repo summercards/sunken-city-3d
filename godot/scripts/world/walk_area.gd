@@ -14,14 +14,30 @@ extends Node3D
 @export var span_min := 1.3
 @export var span_max := 2.45
 @export var rects: Array = []
+@export var polygons: Array[PackedVector2Array] = []
+const GroundPath = preload("res://src/core/ground_path.gd")
+
+func outlines() -> Array:
+	var result: Array = polygons.duplicate()
+	for r: Rect2 in rects:
+		result.append(PackedVector2Array([r.position, Vector2(r.end.x, r.position.y),
+			r.end, Vector2(r.position.x, r.end.y)]))
+	return result
+
+func path_between(start: Vector3, goal: Vector3) -> Array[Vector3]:
+	var a := to_local(start)
+	var b := to_local(goal)
+	var route := GroundPath.route(outlines(), Vector2(a.x, a.z), Vector2(b.x, b.z))
+	var result: Array[Vector3] = []
+	for p in route:
+		var w := to_global(Vector3(p.x, 0, p.y))
+		w.y = surface_y
+		result.append(w)
+	return result
 
 
 func contains_local(x: float, z: float) -> bool:
-	for r in rects:
-		var rect: Rect2 = r
-		if rect.has_point(Vector2(x, z)):
-			return true
-	return false
+	return GroundPath.contains(outlines(), Vector2(x, z))
 
 
 func contains_world(x: float, z: float) -> bool:

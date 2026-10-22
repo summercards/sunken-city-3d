@@ -13,7 +13,7 @@ signal harvested(kind: String, amount: int, label: String)
 
 ## 资源元数据：标签、颜色、造型。
 const KINDS := {
-	"shell": {"label": "海贝", "color": Color("#f4d9a8"), "shape": "shell", "respawn": 55.0, "hold": 1.0},
+	"shell": {"label": "贝壳", "color": Color("#f4d9a8"), "shape": "shell", "respawn": 55.0, "hold": 1.0},
 	"rope": {"label": "缆绳", "color": Color("#d9b483"), "shape": "rope", "respawn": 75.0, "hold": 1.3},
 	"wood": {"label": "木料", "color": Color("#c08a52"), "shape": "log", "respawn": 80.0, "hold": 1.4},
 	"parts": {"label": "零件", "color": Color("#b9c6d4"), "shape": "gear", "respawn": 95.0, "hold": 1.6},
@@ -162,6 +162,20 @@ func debug_advance(seconds: float) -> void:
 
 func seconds_left() -> float:
 	return maxf(cooldown_left, 0.0)
+
+
+## 存档用：把采集点摆回「还剩 N 秒」的状态。
+## 0 秒 = 有货；大于 0 按枯竭处理（造型缩暗、信号珠熄灭），
+## 必须走 _dim()，否则读档后物件看着还在、却采不了。
+func restore_cooldown(seconds: float) -> void:
+	var left := maxf(seconds, 0.0)
+	if left <= 0.0:
+		if not available:
+			_restore()
+		return
+	available = false
+	cooldown_left = left
+	_dim()
 
 
 func _restore() -> void:

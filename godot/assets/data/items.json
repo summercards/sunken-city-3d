@@ -3,64 +3,154 @@
   "capacity": 24,
   "items": [
     {
-      "id": "coins", "label": "海贝", "icon": "🪙", "category": "currency",
-      "stack": 0, "sell": 0, "color": "#f6d98a",
+      "id": "coins",
+      "label": "海贝",
+      "icon": "🪙",
+      "category": "currency",
+      "stack": 0,
+      "sell": 0,
+      "color": "#f6d98a",
       "desc": "水巷里通用的一般等价物。交易、升级、雇工都用它结算。"
     },
     {
-      "id": "wood", "label": "木料", "icon": "🪵", "category": "material",
-      "stack": 40, "sell": 2, "color": "#c08a52",
+      "id": "wood",
+      "label": "木料",
+      "icon": "🪵",
+      "category": "material",
+      "stack": 40,
+      "sell": 2,
+      "color": "#c08a52",
       "desc": "拆自沉船的旧木。建造与升级的基础材料，也用于修补甲板。"
     },
     {
-      "id": "parts", "label": "零件", "icon": "⚙", "category": "material",
-      "stack": 30, "sell": 4, "color": "#b9c6d4",
+      "id": "parts",
+      "label": "零件",
+      "icon": "⚙",
+      "category": "material",
+      "stack": 30,
+      "sell": 4,
+      "color": "#b9c6d4",
       "desc": "还能转的齿轮与轴承。机械类建造离不开它。"
     },
     {
-      "id": "rope", "label": "缆绳", "icon": "🧵", "category": "material",
-      "stack": 20, "sell": 3, "color": "#d9b483",
+      "id": "rope",
+      "label": "缆绳",
+      "icon": "🧵",
+      "category": "material",
+      "stack": 20,
+      "sell": 3,
+      "color": "#d9b483",
       "desc": "泡过海水仍然结实的麻绳。系船、打捞、搭棚都要用。"
     },
     {
-      "id": "glass", "label": "玻璃", "icon": "🔷", "category": "material",
-      "stack": 20, "sell": 6, "color": "#9fe6e2",
+      "id": "glass",
+      "label": "玻璃",
+      "icon": "🔷",
+      "category": "material",
+      "stack": 20,
+      "sell": 6,
+      "color": "#9fe6e2",
       "desc": "从沉没车站的窗框上取下的完整玻璃。做温室与灯罩的关键。"
     },
     {
-      "id": "seed", "label": "种子", "icon": "🌱", "category": "seed",
-      "stack": 20, "sell": 3, "color": "#a8d873",
-      "desc": "圆弧农场留种。种下后需要浇水，成熟才能收获。"
+      "id": "seed",
+      "label": "种子",
+      "icon": "🌱",
+      "category": "seed",
+      "stack": 20,
+      "sell": 3,
+      "color": "#a8d873",
+      "desc": "旧种子或采集所得，可在种植页一比一换成生菜种子。"
     },
     {
-      "id": "shell", "label": "海贝", "icon": "🐚", "category": "material",
-      "stack": 30, "sell": 3, "color": "#f4d9a8",
+      "id": "shell",
+      "label": "贝壳",
+      "icon": "🐚",
+      "category": "material",
+      "stack": 30,
+      "sell": 3,
+      "color": "#f4d9a8",
       "desc": "浅滩上捡到的完整贝壳。磨成粉能拌进种植土，也能卖给码头。"
     },
     {
-      "id": "fish", "label": "鱼", "icon": "🐟", "category": "produce",
-      "stack": 20, "sell": 5, "color": "#8fd2ef",
+      "id": "fish",
+      "label": "鱼",
+      "icon": "🐟",
+      "category": "produce",
+      "stack": 20,
+      "sell": 5,
+      "color": "#8fd2ef",
       "desc": "从鱼群里捞到的鲜鱼。可以吃，也可以在码头卖掉。"
     },
     {
-      "id": "vegetable", "label": "蔬菜", "icon": "🥬", "category": "produce",
-      "stack": 20, "sell": 6, "color": "#8dc46a",
+      "id": "vegetable",
+      "label": "蔬菜",
+      "icon": "🥬",
+      "category": "produce",
+      "stack": 20,
+      "sell": 6,
+      "color": "#8dc46a",
       "desc": "温室与菜箱的产出。比鱼耐放，是长期的口粮。"
     },
     {
-      "id": "tomato", "label": "番茄", "icon": "🍅", "category": "produce",
-      "stack": 20, "sell": 9, "color": "#e2685a",
+      "id": "tomato",
+      "label": "番茄",
+      "icon": "🍅",
+      "category": "produce",
+      "stack": 20,
+      "sell": 9,
+      "color": "#e2685a",
       "desc": "菜箱里长出的番茄。比口粮值钱，适合拿去码头换海贝。"
     },
     {
-      "id": "pumpkin", "label": "南瓜", "icon": "🎃", "category": "produce",
-      "stack": 10, "sell": 14, "color": "#e8a24a",
+      "id": "pumpkin",
+      "label": "南瓜",
+      "icon": "🎃",
+      "category": "produce",
+      "stack": 10,
+      "sell": 14,
+      "color": "#e8a24a",
       "desc": "沉甸甸的一颗，耐放。占箱时间最久，但一颗顶几筐菜。"
     },
     {
-      "id": "pearl", "label": "珍珠", "icon": "🫧", "category": "rare",
-      "stack": 10, "sell": 25, "color": "#f3f6ff",
+      "id": "pearl",
+      "label": "珍珠",
+      "icon": "🫧",
+      "category": "rare",
+      "stack": 10,
+      "sell": 25,
+      "color": "#f3f6ff",
       "desc": "深水贝类里偶然结成。码头商人对它很有兴趣。"
+    },
+    {
+      "id": "lettuce_seed",
+      "label": "生菜种子",
+      "icon": "🌱",
+      "category": "seed",
+      "stack": 20,
+      "sell": 1,
+      "color": "#a8d873",
+      "desc": "在空地格播种，浇水后休息推进生长。"
+    },
+    {
+      "id": "tomato_seed",
+      "label": "番茄种子",
+      "icon": "🌱",
+      "category": "seed",
+      "stack": 20,
+      "sell": 1,
+      "color": "#a8d873",
+      "desc": "在空地格播种，浇水后休息推进生长。"
+    },
+    {
+      "id": "pumpkin_seed",
+      "label": "南瓜种子",
+      "icon": "🌱",
+      "category": "seed",
+      "stack": 20,
+      "sell": 1,
+      "color": "#a8d873",
+      "desc": "在空地格播种，浇水后休息推进生长。"
     }
   ]
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3]
+[gd_scene load_steps=26 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://scenes/world/environment.tscn" id="2_env"]
@@ -23,6 +23,9 @@
 [ext_resource type="PackedScene" path="res://scenes/zones/zone4_far_shore.tscn" id="23_zone4"]
 [ext_resource type="PackedScene" path="res://scenes/zones/zone5_aqua_platform.tscn" id="24_zone5"]
 
+[ext_resource type="Script" path="res://scripts/world/water_surface.gd" id="25_ocean"]
+[ext_resource type="Script" path="res://scripts/world/boat_wake.gd" id="26_wake"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_water"]
 size = Vector2(640, 640)
 
@@ -37,29 +40,33 @@ environment = ExtResource("14_worldenv")
 [node name="Lights" type="Node3D" parent="World"]
 
 [node name="Sun" type="DirectionalLight3D" parent="World/Lights"]
-transform = Transform3D(0.6060432, -0.7170962, 0.34421608, 0, 0.43274122, 0.9015182, -0.79543173, -0.546359, 0.26225987, 21, 55, 16)
+transform = Transform3D(-0.56150142, 0.0, -0.82747577, -0.64436615, 0.62738031, 0.43724846, 0.51914201, 0.77871301, -0.35227493, 28, 42, -19)
 light_color = Color(1, 0.945098, 0.745098, 1)
-light_energy = 0.48
+light_energy = 0.58
+light_angular_distance = 1.2
 shadow_enabled = true
-shadow_bias = 0.006
-shadow_normal_bias = 0.25
-directional_shadow_mode = 1
-directional_shadow_max_distance = 420.0
+shadow_bias = 0.08
+shadow_normal_bias = 0.8
+directional_shadow_mode = 2
+directional_shadow_max_distance = 220.0
 
 [node name="HemisphereFill" type="DirectionalLight3D" parent="World/Lights"]
 transform = Transform3D(-0.58430475, 0.33576253, -0.7388177, 0, 0.9103961, 0.41373792, 0.81153435, 0.24174903, -0.53194875, -25, 14, -18)
 light_color = Color(0.639216, 0.85098, 0.811765, 1)
 light_energy = 0.1
+light_specular = 0.0
 
 [node name="VioletShadow" type="DirectionalLight3D" parent="World/Lights"]
 transform = Transform3D(0.7739573, 0.36438742, -0.5178918, 0, 0.8178473, 0.57543534, 0.63323784, -0.4453624, 0.63297886, -18, 20, 22)
 light_color = Color(0.545098, 0.568627, 0.776471, 1)
 light_energy = 0.07
+light_specular = 0.0
 
 [node name="GroundBounce" type="DirectionalLight3D" parent="World/Lights"]
 transform = Transform3D(-1, 0, 0, 0, 0, -1, 0, -1, 0, 0, -40, 0)
 light_color = Color(0.0941176, 0.309804, 0.721569, 1)
 light_energy = 0.1
+light_specular = 0.0
 
 [node name="Environment" parent="World" instance=ExtResource("2_env")]
 
@@ -68,6 +75,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12, 0)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_water")
 material_override = ExtResource("15_water")
+script = ExtResource("25_ocean")
+
+[node name="BoatWake" type="Node3D" parent="World"]
+script = ExtResource("26_wake")
 
 [node name="Zones" type="Node3D" parent="World"]
 
@@ -100,7 +111,7 @@ current = true
 script = ExtResource("3_cam")
 target = Vector3(0.45, 1.75, -0.65)
 orbit_dir = Vector3(-54, 76.37, 54)
-distance = 108.0017
+distance = 54.25
 
 [node name="Boat" type="Node3D" parent="."]
 script = ExtResource("4_boat")

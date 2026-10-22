@@ -30,6 +30,11 @@ var mask: Node3D
 
 var _t := 0.0
 var _rowing := false
+var _farm_action_left := 0.0
+
+func play_farm_action(_event: String) -> void:
+	_farm_action_left = 1.1
+
 var _walking := false
 
 
@@ -248,17 +253,31 @@ func set_diving(on: bool) -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
+	var rowing := Vector2(_t * 3.4, 1.0)
+	if get_parent().has_method("rowing_state"):
+		rowing = get_parent().rowing_state()
+		_rowing = rowing.y > 0.01
+	if _farm_action_left > 0.0:
+		_farm_action_left = maxf(0.0,_farm_action_left-delta)
+		var bend := sin((1.0-_farm_action_left/1.1)*PI)
+		body_pivot.rotation.x = bend*0.3
+		left_arm.rotation.x = -bend*0.8
+		right_arm.rotation.x = -bend*1.1
+		return
 	if _rowing:
-		# 划桨：双臂交替、上身前倾
-		var s := sin(_t * 3.4)
-		left_arm.rotation.x = -0.95 + s * 0.42
-		right_arm.rotation.x = -0.95 - s * 0.42
-		left_elbow.rotation.x = -0.35 + s * 0.22
-		right_elbow.rotation.x = -0.35 - s * 0.22
-		left_leg.rotation.x = 0.12
-		right_leg.rotation.x = 0.12
-		body_pivot.rotation.x = 0.10 + s * 0.03
-		body_pivot.position.y = sin(_t * 1.7) * 0.012
+		# 双桨同相划动，人物、船桨和船体使用同一相位及出力。
+		var s := sin(rowing.x)
+		var blend := 1.0 - exp(-9.0 * delta)
+		var arm := lerpf(0.05, -0.95 + s * 0.42, rowing.y)
+		var elbow := lerpf(-0.22, -0.35 + s * 0.22, rowing.y)
+		left_arm.rotation.x = lerpf(left_arm.rotation.x, arm, blend)
+		right_arm.rotation.x = lerpf(right_arm.rotation.x, arm, blend)
+		left_elbow.rotation.x = lerpf(left_elbow.rotation.x, elbow, blend)
+		right_elbow.rotation.x = lerpf(right_elbow.rotation.x, elbow, blend)
+		left_leg.rotation.x = lerpf(left_leg.rotation.x, 0.12 * rowing.y, blend)
+		right_leg.rotation.x = lerpf(right_leg.rotation.x, 0.12 * rowing.y, blend)
+		body_pivot.rotation.x = lerpf(body_pivot.rotation.x, (0.10 + s * 0.03) * rowing.y, blend)
+		body_pivot.position.y = sin(rowing.x) * 0.012 * rowing.y
 	elif _walking:
 		var s := sin(_t * 6.4)
 		left_arm.rotation.x = s * 0.7

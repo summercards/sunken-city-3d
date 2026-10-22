@@ -5,13 +5,16 @@ class_name GameHUD
 signal destination_pressed(zone_id: String)
 signal dive_pressed
 signal build_pressed
-## 建造页的「前往」：把镜头挪到该建造点，真正施工要在世界里按 E。
+## 建造页的「前往」：走到建造牌并执行一次交付。
 signal site_focus_requested(id: String)
-## 种植页的「前往」：把镜头挪到菜箱。
+## 种植页的「前往」：走到指定地格并执行一次操作。
 signal plot_focus_requested(id: String)
+signal command_requested(command: String)
+signal rest_requested
 signal facility_build_requested(id: String)
 signal ship_upgrade_requested
 
+const UiFontLib = preload("res://scripts/ui/ui_font.gd")
 const ItemDBLib = preload("res://scripts/core/item_db.gd")
 
 const DESTINATIONS := [
@@ -24,19 +27,34 @@ const DESTINATIONS := [
 
 var _res_label: Label
 var _toast: Label
+## 提示条的药丸底：淡出改这个节点的 modulate（改 Label 的会和底色脱节）。
+var _toast_box: PanelContainer
 var _toast_left := 0.0
-var _font: SystemFont
+var _font: Font
 var _root: Control
-const SURFACE_HINT := "左键拖动 平移   ·   右键拖动 旋转   ·   滚轮 缩放   ·   点水面开船   ·   C 相机 · P 滤镜"
-const DIVE_HINT := "WASD 游动   ·   E 上浮   ·   Q 下潜   ·   右键拖拽环视   ·   滚轮拉远   ·   点宝箱游过去"
+const SURFACE_HINT := "点目标去做事 · 拖动看风景"
+const DIVE_HINT := "点水域游过去 · 点宝箱搜索 · 按钮调整深度 · 右键环视 · 上浮返回"
 
 var _dive_label: Label
 var _dive_zone := ""
+## 左下的潜水仪表：氧气条 + 头灯 / 已发现宝箱。
+var _dive_meter: PanelContainer
+var _air_bar: ProgressBar
+var _air_value: Label
+var _dive_meta: Label
+var _air_ratio := 1.0
+var _lamp_on := true
+var _found := 0
+var _found_total := 0
+## 低氧闪烁的相位。
+var _dive_pulse := 0.0
 var _hint_label: Label
 ## 缩放提示的剩余时间：滚轮/捏合时临时把缩放百分比显示在底部提示条里。
 var _hint_left := 0.0
 var _dive_btn: Button
 var _diving := false
+var _dive_controls: HBoxContainer
+var command_buttons := {}
 var _panel: PanelContainer
 var _panel_box: VBoxContainer
 var _panel_open := false
@@ -54,8 +72,7 @@ const BackpackGridLib = preload("res://scripts/ui/backpack_grid.gd")
 
 func _ready() -> void:
 	layer = 10
-	_font = SystemFont.new()
-	_font.font_names = PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"])
+	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
 	_root = Control.new()
 	_root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -66,6 +83,7 @@ func _ready() -> void:
 	_build_hints()
 	_build_toast()
 	_build_panel()
+	_build_dive_meter()
 	Economy.sites_changed.connect(func(): _refresh_panel())
 	Economy.resources_changed.connect(_refresh)
 	_refresh()
@@ -156,21 +174,36 @@ func _build_resources() -> void:
 	_res_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	pill.add_child(_res_label)
 
-	var build := Button.new()
-	build.text = "物资 / 建造"
-	build.add_theme_font_override("font", _font)
-	build.add_theme_font_size_override("font_size", 11)
-	build.add_theme_color_override("font_color", Color("#e9f8ff"))
-	build.add_theme_stylebox_override("normal", _btn_style(Color(22.0 / 255.0, 62.0 / 255.0, 120.0 / 255.0, 0.58), Color(132.0 / 255.0, 226.0 / 255.0, 236.0 / 255.0, 0.28)))
-	build.add_theme_stylebox_override("hover", _btn_style(Color(44.0 / 255.0, 114.0 / 255.0, 192.0 / 255.0, 0.82), Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.7)))
-	build.anchor_left = 1.0
-	build.anchor_right = 1.0
-	build.offset_left = -134
-	build.offset_right = -14
-	build.offset_top = 64
-	build.offset_bottom = 92
-	build.pressed.connect(_toggle_panel)
-	_root.add_child(build)
+	var bar := HBoxContainer.new()
+	bar.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	bar.position = Vector2(-880,64)
+	_root.add_child(bar)
+	for entry in [["follow","跟随中"],["bag","背包"],["plant","种植"],["build","建造"],["cancel","取消"],["save","保存"],["load","读档"],["camera","视角"],["grade","滤镜"]]:
+		var button := _command_button(str(entry[1]),str(entry[0]))
+		bar.add_child(button)
+	_dive_controls = HBoxContainer.new()
+	_dive_controls.position = Vector2(18,104)
+	_root.add_child(_dive_controls)
+	for entry in [["rise","上游 3 米"],["descend","下游 3 米"],["lamp","头灯开关"]]:
+		_dive_controls.add_child(_command_button(str(entry[1]),str(entry[0])))
+	_dive_controls.visible = false
+
+func _command_button(title: String, command: String) -> Button:
+	var button := Button.new()
+	button.text = title
+	button.custom_minimum_size = Vector2(70,34)
+	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	button.add_theme_font_override("font",_font)
+	button.add_theme_font_size_override("font_size",13)
+	button.add_theme_stylebox_override("normal",_btn_style(Color("#163c58"),Color("#558b99")))
+	button.pressed.connect(func() -> void: command_requested.emit(command))
+	command_buttons[command] = button
+	return button
+
+func open_tab(tab: String) -> void:
+	_tab = tab
+	if not _panel_open: _toggle_panel()
+	else: _refresh_panel()
 
 
 func _build_destinations() -> void:
@@ -180,8 +213,8 @@ func _build_destinations() -> void:
 	bar.anchor_right = 0.5
 	bar.anchor_top = 1.0
 	bar.anchor_bottom = 1.0
-	bar.offset_left = -145
-	bar.offset_right = 145
+	bar.offset_left = -340
+	bar.offset_right = 340
 	bar.offset_top = -78
 	bar.offset_bottom = -28
 	bar.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -189,10 +222,11 @@ func _build_destinations() -> void:
 
 	for d in DESTINATIONS:
 		var b := Button.new()
-		b.text = d.icon
+		b.add_theme_font_override("font",_font)
+		b.text = str(d.icon) + " " + str(d.name)
 		b.tooltip_text = d.name
-		b.add_theme_font_size_override("font_size", 18)
-		b.custom_minimum_size = Vector2(46, 46)
+		b.add_theme_font_size_override("font_size", 14)
+		b.custom_minimum_size = Vector2(110, 48)
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		b.add_theme_stylebox_override("normal", _btn_style(Color(8.0 / 255.0, 28.0 / 255.0, 64.0 / 255.0, 0.68), Color(118.0 / 255.0, 235.0 / 255.0, 220.0 / 255.0, 0.38), 23))
 		b.add_theme_stylebox_override("hover", _btn_style(Color(44.0 / 255.0, 114.0 / 255.0, 192.0 / 255.0, 0.82), Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.7), 23))
@@ -212,7 +246,7 @@ func _build_hints() -> void:
 	hint.offset_bottom = -14
 	hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(hint)
-	_hint_label = _label(SURFACE_HINT, 11, Color(230.0 / 255.0, 247.0 / 255.0, 1.0, 0.92))
+	_hint_label = _label("点一点，慢慢逛 · 拖动看风景", 13, Color(230.0 / 255.0, 247.0 / 255.0, 1.0, 0.92))
 	hint.add_child(_hint_label)
 
 	_dive_label = _label("区块名 · 深度 0.0 m", 11, Color(0.9, 0.99, 1.0, 0.0))
@@ -246,14 +280,69 @@ func _build_hints() -> void:
 	_root.add_child(dive)
 
 
+func _build_dive_meter() -> void:
+	_dive_meter = PanelContainer.new()
+	_dive_meter.name = "DiveMeter"
+	_dive_meter.add_theme_stylebox_override("panel", _panel_style(
+		Color(6.0 / 255.0, 26.0 / 255.0, 58.0 / 255.0, 0.74),
+		Color(118.0 / 255.0, 235.0 / 255.0, 220.0 / 255.0, 0.34), 12))
+	_dive_meter.anchor_left = 0.0
+	_dive_meter.anchor_right = 0.0
+	_dive_meter.anchor_top = 1.0
+	_dive_meter.anchor_bottom = 1.0
+	_dive_meter.offset_left = 14
+	_dive_meter.offset_right = 216
+	# 高度按内容给：标题行 ~16 + 进度条 7 + 说明行 ~14 + 间距 6 + 内边距 16 ≈ 60。
+	# 原先给 92，面板底下会空一大块。
+	_dive_meter.offset_top = -136
+	_dive_meter.offset_bottom = -72
+	_dive_meter.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# 只在潜水时出现。字体色不透明，靠 visible 开关而不是 alpha。
+	_dive_meter.visible = false
+	_root.add_child(_dive_meter)
+
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 3)
+	_dive_meter.add_child(box)
+
+	var head := HBoxContainer.new()
+	box.add_child(head)
+	var caption := _label("氧气", 11, Color(0.86, 0.98, 1.0, 1.0))
+	head.add_child(caption)
+	_air_value = _label("100%", 11, Color(0.86, 0.98, 1.0, 1.0))
+	_air_value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_air_value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(_air_value)
+
+	_air_bar = ProgressBar.new()
+	_air_bar.min_value = 0.0
+	_air_bar.max_value = 1.0
+	_air_bar.value = 1.0
+	_air_bar.show_percentage = false
+	_air_bar.custom_minimum_size = Vector2(0, 7)
+	_air_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var track := StyleBoxFlat.new()
+	track.bg_color = Color(3.0 / 255.0, 18.0 / 255.0, 40.0 / 255.0, 0.85)
+	track.set_corner_radius_all(4)
+	_air_bar.add_theme_stylebox_override("background", track)
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = air_color(1.0)
+	fill.set_corner_radius_all(4)
+	_air_bar.add_theme_stylebox_override("fill", fill)
+	box.add_child(_air_bar)
+
+	_dive_meta = _label("头灯 开 (F)   ·   宝箱 0/5", 10, Color(0.84, 0.97, 1.0, 0.88))
+	box.add_child(_dive_meta)
+
+
 func _build_panel() -> void:
 	_panel = PanelContainer.new()
 	_panel.add_theme_stylebox_override("panel", _panel_style(Color(8.0 / 255.0, 28.0 / 255.0, 64.0 / 255.0, 0.9), Color(118.0 / 255.0, 235.0 / 255.0, 220.0 / 255.0, 0.45), 14))
 	_panel.anchor_left = 1.0
 	_panel.anchor_right = 1.0
-	_panel.offset_left = -392
+	_panel.offset_left = -530
 	_panel.offset_right = -14
-	_panel.offset_top = 104
+	_panel.offset_top = 122
 	_panel.visible = false
 	_root.add_child(_panel)
 
@@ -261,6 +350,8 @@ func _build_panel() -> void:
 	_panel_box.add_theme_constant_override("separation", 8)
 	_panel.add_child(_panel_box)
 
+	var close := _command_button("关闭", "close")
+	_panel_box.add_child(close)
 	var tabs := HBoxContainer.new()
 	tabs.add_theme_constant_override("separation", 5)
 	_panel_box.add_child(tabs)
@@ -281,7 +372,12 @@ func _build_panel() -> void:
 
 	_tab_body = VBoxContainer.new()
 	_tab_body.add_theme_constant_override("separation", 7)
-	_panel_box.add_child(_tab_body)
+	var scroll := ScrollContainer.new()
+	scroll.custom_minimum_size = Vector2(470, 390)
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_panel_box.add_child(scroll)
+	_tab_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(_tab_body)
 
 
 func _toggle_panel() -> void:
@@ -295,7 +391,9 @@ func _refresh_panel() -> void:
 	if _tab_body == null:
 		return
 	for c in _tab_body.get_children():
+		_tab_body.remove_child(c)
 		c.queue_free()
+	_tab_body.get_parent().scroll_vertical = 0
 	if _tab == TAB_BAG:
 		_refresh_bag()
 	elif _tab == TAB_PLANT:
@@ -312,71 +410,90 @@ func _refresh_bag() -> void:
 	# 货币单独一行：它不占格，但需要随时可见。
 	var purse := _label("🪙 海贝 ×%d" % Economy.coins, 12, Color(0.96, 0.90, 0.66, 1.0))
 	_tab_body.add_child(purse)
-	var tip := _label("采集按 E 长按；背包装满后产出会被丢弃。", 10, Color(0.72, 0.86, 0.90, 0.75))
+	var tip := _label("点击物件即可前往采集；建设材料可以存入仓库。", 10, Color(0.72, 0.86, 0.90, 0.75))
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tip.custom_minimum_size = Vector2(300, 0)
 	_tab_body.add_child(tip)
+
+	if Economy.facility_unlocked("warehouse"):
+		var deposit := _row("材料仓库 %d/48 格 · 建设自动取料" % Economy.warehouse.slots_used(), "材料一键入库", true)
+		deposit.button.pressed.connect(func() -> void: _farm_action(Economy.deposit_materials))
+		_tab_body.add_child(deposit.box)
+		for item in Economy.warehouse.all():
+			var id := str(item)
+			var row := _row("%s ×%d" % [ItemDBLib.label(id), Economy.warehouse.count(id)], "取回背包", true)
+			row.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return Economy.withdraw_material(id)))
+			_tab_body.add_child(row.box)
+	else:
+		var storage := _row("建造材料仓库，腾出背包空间", "前往建设", true)
+		storage.button.pressed.connect(func() -> void: open_tab(TAB_BUILD))
+		_tab_body.add_child(storage.box)
 
 
 ## 种植页：选作物 + 每块地的实时状态。
 func _refresh_plant() -> void:
 	_plant_rows.clear()
-	if Economy.farm == null:
-		_tab_body.add_child(_label("种植系统未就绪", 11, Color(1, 0.8, 0.6)))
-		return
-
-	var head := _label("播种用哪种作物", 10, Color(0.72, 0.86, 0.90, 0.8))
-	_tab_body.add_child(head)
-
-	var picker := HBoxContainer.new()
-	picker.add_theme_constant_override("separation", 4)
-	_tab_body.add_child(picker)
-	for crop_id in Economy.farm.crops.keys():
-		var crop: Dictionary = Economy.farm.crops[crop_id]
-		var b := Button.new()
-		b.text = "%s %s" % [str(crop.get("icon", "•")), str(crop.get("name", crop_id))]
-		b.add_theme_font_override("font", _font)
-		b.add_theme_font_size_override("font_size", 11)
-		b.add_theme_color_override("font_color", Color("#e9f8ff"))
-		var on := str(crop_id) == str(Economy.farm.selected_crop)
-		var bg := Color(44.0 / 255.0, 132.0 / 255.0, 110.0 / 255.0, 0.85) if on \
-			else Color(18.0 / 255.0, 52.0 / 255.0, 86.0 / 255.0, 0.55)
-		var edge := Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.75) if on \
-			else Color(120.0 / 255.0, 200.0 / 255.0, 210.0 / 255.0, 0.2)
-		b.add_theme_stylebox_override("normal", _btn_style(bg, edge))
-		b.add_theme_stylebox_override("hover", _btn_style(Color(44.0 / 255.0, 140.0 / 255.0, 160.0 / 255.0, 0.9), edge))
-		b.custom_minimum_size = Vector2(0, 24)
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if Economy.farm == null: return
+	var farm = Economy.farm
+	_tab_body.add_child(_label("第 %d 天 · 水壶 %d/%d · 海贝 %d" % [farm.day, farm.watering_can, farm.WATER_CAPACITY, Economy.coins], 12, Color("#d6f1df")))
+	var rest := _row("浇水后的地格在休息时生长一天", "休息到明天", true)
+	rest.button.pressed.connect(func() -> void: rest_requested.emit())
+	_tab_body.add_child(rest.box)
+	var refill := _row("岸上补给 · 免费淡水", "补满水壶", true)
+	refill.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.refill()))
+	_tab_body.add_child(refill.box)
+	for crop_id in farm.crops:
+		var crop: Dictionary = farm.crops[crop_id]
 		var chosen := str(crop_id)
-		b.pressed.connect(func() -> void:
-			Economy.farm.selected_crop = chosen
-			_refresh_plant())
-		picker.add_child(b)
-
-	for row in Economy.farm.specs:
-		if not (row is Dictionary):
-			continue
-		var id := str(row.get("id", ""))
-		var line := _row(_plot_line(id), "前往", true)
-		line.button.pressed.connect(func(): plot_focus_requested.emit(id))
+		var row := HBoxContainer.new()
+		var select := Button.new()
+		select.text = ("✓ " if farm.selected_crop == chosen else "") + str(crop.name) + " · 种子 %d" % Economy.count(str(crop.seed))
+		select.add_theme_font_override("font", _font)
+		select.add_theme_font_size_override("font_size", 12)
+		select.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		select.pressed.connect(func() -> void:
+			farm.selected_crop = chosen
+			_refresh_panel())
+		row.add_child(select)
+		var buy := Button.new()
+		buy.add_theme_font_override("font", _font)
+		buy.add_theme_font_size_override("font_size", 12)
+		buy.text = "买 1 包 · %d 贝" % int(crop.seed_price)
+		buy.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.buy_seed(chosen)))
+		row.add_child(buy)
+		_tab_body.add_child(row)
+	var sell := _row("出售背包内全部农产品（订单用料也会卖出）", "出售农产品", true)
+	sell.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.sell_produce()))
+	_tab_body.add_child(sell.box)
+	if Economy.count("seed") > 0:
+		var exchange := _row("旧种子 ×%d" % Economy.count("seed"), "换生菜种子", true)
+		exchange.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.exchange_seed()))
+		_tab_body.add_child(exchange.box)
+	_tab_body.add_child(_label("选择种子后点地格操作；每天浇一次，缺水只停长。", 10, Color("#d6f1df")))
+	for spec_row in farm.specs:
+		var id := str(spec_row.id)
+		var line := _row(_plot_line(id), "前往操作", true)
+		line.button.pressed.connect(func() -> void:
+			_toggle_panel()
+			plot_focus_requested.emit(id))
 		_tab_body.add_child(line.box)
-		_plant_rows[id] = {"info": line.label, "button": line.button}
+		_plant_rows[id] = {"info":line.label,"button":line.button}
 
-	var tip := _label("到菜箱旁按住 E 播种／浇水／收获；缺水只是停长，不会枯死。",
-		10, Color(0.72, 0.86, 0.90, 0.75))
-	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	tip.custom_minimum_size = Vector2(300, 0)
-	_tab_body.add_child(tip)
+func _farm_action(action: Callable) -> void:
+	if GameState.mode != GameState.Mode.ASHORE:
+		toast("请先上岸使用补给服务")
+		return
+	var result: Dictionary = action.call()
+	toast(str(result.get("blocked",result.get("message","已完成"))))
+	_refresh_panel()
 
 
 ## 种植页一行：菜箱名 + 状态（未解锁时说明前置）。
 func _plot_line(id: String) -> String:
 	var row: Dictionary = Economy.farm.spec(id)
 	var name := str(row.get("name", id))
-	var need := str(row.get("requires_site", ""))
-	var level := int(row.get("requires_level", 0))
-	if need != "" and Economy.site_level(need) < level:
-		return "%s  未解锁（%s Lv.%d）" % [name, _site_name(need), level]
+	var reason: String = Economy.farm._access_reason(id)
+	if reason != "": return "%s · %s" % [name, reason]
 	return "%s  %s" % [name, Economy.farm.status_text(id)]
 
 
@@ -387,12 +504,26 @@ func _site_name(id: String) -> String:
 
 func _refresh_build() -> void:
 	_build_rows.clear()
+	var goal: Dictionary = Economy.goal_info()
+	var heading := _label("小目标 · " + str(goal.name), 14)
+	_tab_body.add_child(heading)
+	var progress := _label(Economy.construction_progress(goal.cost), 12)
+	progress.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	progress.custom_minimum_size.x = 440
+	_tab_body.add_child(progress)
+	_tab_body.add_child(_label("数量合计背包与仓库；建好后自动推荐下一目标。", 11))
+	var source := _label("木料／缆绳：晴空水巷采集 · 零件／玻璃：横滨铁道\n海贝：农产品出售或码头交单；打捞也能补充木料与零件。", 11)
+	source.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_tab_body.add_child(source)
 	for id in Economy.SITES.keys():
 		var row := _row(_site_line(id), "前往", true)
-		row.button.pressed.connect(func(): site_focus_requested.emit(id))
+		row.button.pressed.connect(func():
+			_toggle_panel()
+			site_focus_requested.emit(id))
 		_tab_body.add_child(row.box)
 		_build_rows[id] = {"info": row.label, "button": row.button}
-	var tip := _label("施工要在世界里的建造牌旁按 E 交付材料；走开也不会停工。",
+		_add_goal_button(str(id))
+	var tip := _label("点击建造牌即可前往交付；走开也不会停工。",
 		10, Color(0.72, 0.86, 0.90, 0.75))
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tip.custom_minimum_size = Vector2(300, 0)
@@ -401,15 +532,20 @@ func _refresh_build() -> void:
 	for id in Economy.FACILITIES.keys():
 		var f: Dictionary = Economy.FACILITIES[id]
 		var built := Economy.facility_unlocked(id)
-		var text := "%s  %s" % [f.name, "已建成" if built else Economy.cost_text(f.cost)]
+		var requirement: String = Economy.facility_requirement_text(id)
+		var text := "%s  %s" % [f.name, "已建成" if built else Economy.construction_progress(f.cost)]
+		if requirement != "": text += "\n" + requirement
+		text += "\n" + str(f.description)
 		var row2 := _row(text, "建造" if not built else "—", not built and Economy.can_build_facility(id))
 		row2.button.pressed.connect(func(): facility_build_requested.emit(id))
 		_tab_body.add_child(row2.box)
+		_add_goal_button(str(id))
 
-	var ship_text := "小船  Lv.%d  %s" % [Economy.ship_level, Economy.cost_text(Economy.SHIP_RECIPE)]
+	var ship_text := "小船 Lv.%d · %s\n2 级开放远海与平台种植床；3 级航速提高 15%%" % [Economy.ship_level, Economy.construction_progress(Economy.ship_cost()) if Economy.ship_level < 3 else "满级"]
 	var row3 := _row(ship_text, "升级", Economy.can_upgrade_ship())
 	row3.button.pressed.connect(func(): ship_upgrade_requested.emit())
 	_tab_body.add_child(row3.box)
+	_add_goal_button("ship" if Economy.ship_level < 2 else "ship3")
 
 
 ## 建造页一行：等级 / 下一级费用 / 施工进度。
@@ -424,7 +560,7 @@ func _site_line(id: String) -> String:
 	if Economy.site_maxed(id):
 		return "%s  Lv.%d（满级）" % [spec.name, level]
 	return "%s  Lv.%d → Lv.%d  %s" % [
-		spec.name, level, level + 1, Economy.cost_text(Economy.site_next_cost(id))]
+		spec.name, level, level + 1, Economy.construction_progress(Economy.site_next_cost(id))]
 
 
 func _cost_text(cost: Dictionary) -> String:
@@ -435,8 +571,9 @@ func _row(text: String, action: String, enabled: bool) -> Dictionary:
 	var box := HBoxContainer.new()
 	box.add_theme_constant_override("separation", 6)
 	var l := _label(text, 11, Color(0.92, 0.98, 1.0, 0.95))
-	l.custom_minimum_size = Vector2(246, 0)
-	l.clip_text = true
+	l.custom_minimum_size = Vector2(285, 0)
+	l.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	box.add_child(l)
 	var b := Button.new()
 	b.text = action
@@ -453,25 +590,49 @@ func _row(text: String, action: String, enabled: bool) -> Dictionary:
 
 
 func _build_toast() -> void:
-	_toast = _label("", 14, Color(0.96, 1.0, 0.99, 0.0))
-	_toast.anchor_left = 0.5
-	_toast.anchor_right = 0.5
-	_toast.anchor_top = 0.72
-	_toast.anchor_bottom = 0.72
-	_toast.offset_left = -300
-	_toast.offset_right = 300
+	# 提示条压在场景上：单独的白字在浅色甲板上根本看不清，
+	# 所以包一层深色药丸底，位置也从 72% 抬到底部提示条上方。
+	_toast_box = PanelContainer.new()
+	_toast_box.add_theme_stylebox_override("panel",
+		_panel_style(Color(8.0 / 255.0, 28.0 / 255.0, 64.0 / 255.0, 0.72),
+			Color(118.0 / 255.0, 235.0 / 255.0, 220.0 / 255.0, 0.30), 12))
+	_toast_box.anchor_left = 0.5
+	_toast_box.anchor_right = 0.5
+	_toast_box.anchor_top = 1.0
+	_toast_box.anchor_bottom = 1.0
+	_toast_box.offset_top = -140
+	_toast_box.offset_bottom = -102
+	_toast_box.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_toast_box.modulate.a = 0.0
+	_toast_box.visible = false
+	_root.add_child(_toast_box)
+
+	# 字体色 alpha 必须是 1：淡出交给 modulate 做。
+	# 这里原来写的是 alpha=0，toast() 只改 modulate.a，
+	# 结果所有提示（采集/建造/航行/存档）在画面上从来没出现过。
+	_toast = _label("", 14, Color(0.96, 1.0, 0.99, 1.0))
+	_toast.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_toast.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_root.add_child(_toast)
+	_toast_box.add_child(_toast)
 
 
 func toast(text: String, seconds := 2.4) -> void:
 	_toast.text = text
-	_toast_left = seconds
-	_toast.modulate.a = 1.0
+	_toast_left = maxf(seconds,3.2)
+	if _toast_box != null:
+		_toast_box.modulate.a = 1.0
+		# 有内容才占位：空字符串时药丸底色会变成一小块深色斑。
+		_toast_box.visible = text != ""
+		load("res://scripts/ui/cozy_ui.gd").reveal(_toast_box)
 
 
 func set_diving(on: bool) -> void:
 	_diving = on
+	_dive_controls.visible = on
+	for command in ["follow","bag","plant","build","camera","grade","save","load"]:
+		command_buttons[command].disabled = on
+	if on and _panel_open: _toggle_panel()
 	# 深度标签的字体颜色 alpha 是 0，只改 modulate 是看不见的，必须改字体色本身。
 	_dive_label.add_theme_color_override("font_color", Color(0.90, 0.99, 1.0, 1.0 if on else 0.0))
 	if _hint_label != null:
@@ -481,6 +642,35 @@ func set_diving(on: bool) -> void:
 	_dive_btn.text = "上浮" if on else "潜水"
 	if not on:
 		_dive_label.text = ""
+	if _dive_meter != null:
+		_dive_meter.visible = on
+
+
+## 潜水仪表：氧气条随余量变色，低于告警线时整条闪烁提醒。
+func set_dive_air(ratio: float, lamp_on: bool, found: int, total: int) -> void:
+	_air_ratio = clampf(ratio, 0.0, 1.0)
+	_lamp_on = lamp_on
+	_found = found
+	_found_total = total
+	if _air_bar == null:
+		return
+	_air_bar.value = _air_ratio
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = air_color(_air_ratio)
+	fill.set_corner_radius_all(4)
+	_air_bar.add_theme_stylebox_override("fill", fill)
+	_air_value.text = "%d%%" % int(round(_air_ratio * 100.0))
+	_air_value.add_theme_color_override("font_color", air_color(_air_ratio))
+	_dive_meta.text = "头灯 %s (F)   ·   宝箱 %d/%d" % [
+		"开" if _lamp_on else "关", _found, _found_total]
+
+
+static func air_color(ratio: float) -> Color:
+	if ratio <= 0.15:
+		return Color(1.0, 0.42, 0.38, 0.95)
+	if ratio <= 0.35:
+		return Color(1.0, 0.78, 0.35, 0.95)
+	return Color(0.46, 0.95, 0.86, 0.95)
 
 
 func set_dive_zone(name: String) -> void:
@@ -512,10 +702,25 @@ func _process(delta: float) -> void:
 			_hint_label.text = SURFACE_HINT
 	if _toast_left > 0.0:
 		_toast_left -= delta
-		if _toast_left < 0.6:
-			_toast.modulate.a = clamp(_toast_left / 0.6, 0.0, 1.0)
+		var a := clampf(_toast_left / 0.9, 0.0, 1.0)
+		# 淡出要作用在药丸底上，只改 Label 会留下一个空的深色块。
+		_toast_box.modulate.a = a
+		if _toast_left <= 0.0:
+			_toast_box.visible = false
 	_tick_build_rows()
 	_tick_plant_rows()
+	_tick_dive_meter(delta)
+
+
+## 氧气见底时整块仪表呼吸式闪烁：画面很花的海底，静态变色不够醒目。
+func _tick_dive_meter(delta: float) -> void:
+	if _dive_meter == null or not _dive_meter.visible:
+		return
+	_dive_pulse += delta
+	if _air_ratio > 0.15:
+		_dive_meter.modulate.a = 1.0
+		return
+	_dive_meter.modulate.a = 0.62 + 0.38 * (0.5 + 0.5 * sin(_dive_pulse * 2.5))
 
 
 ## 种植页：只改文案，不重建（重建会丢按钮焦点、作物选择也会跳）。
@@ -567,3 +772,12 @@ func _refresh() -> void:
 	var line1 := "      ".join(parts.slice(0, 3))
 	var line2 := "      ".join(parts.slice(3)) if parts.size() > 3 else ""
 	_res_label.text = line1 if line2 == "" else line1 + "\n" + line2
+
+
+func _add_goal_button(id: String) -> void:
+	if Economy.goal_complete(id): return
+	var button := Button.new()
+	button.text = "正在追踪" if str(Economy.goal_info().id) == id else "设为小目标"
+	button.disabled = str(Economy.goal_info().id) == id
+	button.pressed.connect(func() -> void: Economy.track_goal(id))
+	_tab_body.add_child(button)

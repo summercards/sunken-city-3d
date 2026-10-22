@@ -20,7 +20,7 @@
 | `--frames=N` | 截图前多等 N 帧（默认 90） |
 | `--panel` | 展开建造面板 |
 | `--zone=zone3` | 直接把船摆到该区块并对齐镜头，用于逐区块回归截图 |
-| `--selftest` | 跑逻辑自检（358 项）后退出 |
+| `--selftest` | 跑逻辑自检（500 项）后退出；加 `--skip-models` 跳过 glb 对账（快一倍） |
 | `--dive` | 直接下潜 |
 | `--look=x,y,z` | 镜头对准世界坐标（核对细节） |
 | `--stand=x,y,z` | 把小人放到世界坐标（核对落脚面） |
@@ -32,6 +32,27 @@
 | `--sites=2` | 把所有建造点提到同一等级（演示用） |
 | `--grade` | 启动就打开滤镜面板 |
 | `--grade=0.96,1.05,1.06,1.08` | 直接套一组滤镜（曝光,亮度,对比度,饱和度） |
+| `--orders` | 启动就打开码头订单板面板（截图核对用） |
+| `--saveshot` | 立刻存一次档并弹提示（截图核对存档反馈用） |
+| `--savepath=user://x.json` | 换一个存档槽位（默认 `user://save_slot_0.json`） |
+| `--load` / `--load=user://x.json` | 启动即读档（在 `--zone` / `--grant` 之前执行） |
+| `--nosave` | 关掉 120 秒自动存档（截图/回归用） |
+| `--flicker` | 同机位连拍两帧存 `outputs/flicker-{a,b}.png`，交给 `tools/compare_flicker.py` 判读闪动 |
+| `--uwfreeze` | 冻住水下焦散相位（把「时间动画」与「深度竞争」分开） |
+| `--uwfacing` | 海底几何画成正面绿/背面红（查三角形绕序） |
+| `--uwnear=1.5` | 改水下相机近裁剪面（深度精度诊断） |
+| `--uwair=0.12` | 把氧气设到某个比例（截图核对告警配色） |
+| `--uwlamp=on` / `--uwlamp=off` | 强制开关头灯（对比灯效） |
+| `--uwchest=2` | 直接把第 N 个宝箱标成「已发现」（截图核对标签） |
+
+绕序 / 剔除类问题不用开游戏，直接跑两个探针（各出一组图，比肉眼猜快得多）：
+
+```bash
+Godot --path . --resolution 900x420 --script res://tools/winding_probe.gd           # 已知绕序的四边面
+Godot --path . --script res://tools/unit_cull_probe.gd -- assets/models/underwater/neighborhood/units/house_00.glb
+```
+
+前者回答「Godot 认哪边是正面」，后者回答「这个模型在 cull_back 下完整不完整」。
 
 ## 玩法：交互与采集
 
@@ -92,16 +113,44 @@
 
 ## 玩法：种植与温室
 
-世界里三只木箱：木屋菜箱（需木屋 Lv.2）、圆弧农场菜箱、远海浮台菜箱。
-走近按住 **E**：空地播种、缺水浇水、成熟收获；湿着的时候按 E 只会告诉你还差几秒。
+三张独立种植床，每床 6 格，共 18 格。上岸后按 B → 种植，购买/选择种子，点击地格“前往操作”，也可走近按住 E。空地播种、干土浇水、成熟收获。
 
-- **状态长在箱子上**：土色随含水量由浅变深，作物分「芽 → 叶 → 结果」三段，
-  缺水时叶片发黄下垂、生长停住，**但不会枯死**；
-- 一茬要浇几次水（番茄 46 秒长成、一次浇水维持 18 秒）；走开不会替你浇，也不会惩罚你；
-- **加作物只改** `assets/data/crops.json`，产量引用的物品必须在 `items.json`；
-- 温室（已建设施）＝ 生长 0.72 倍 + 浇水多撑 30% + 每茬多收 1 份；
-- 规则在 `scripts/core/farm.gd`（`Economy.farm`），世界节点是 `farm_plot.gd` / `farm_field.gd`；
-- 摆放表 `assets/data/plots.json` 由 `tools/build_plots.py` 求解，**不要手写**。
+作物按休息结算天数：生菜 3 日、番茄 5 日（之后每 2 日再收，共 3 茬）、南瓜 7 日。每天浇水才生长，缺水只停长；水壶 12 份，可岸上免费补满。出售农产品后可购买新种子形成循环。新游戏赠送 3 包生菜种子，木屋 Lv.1 即可开始。
+
+完整数值、操作、场景职责、存档迁移和范围说明见 [种植系统设计与实现](FARMING_DESIGN.md)。验收：`bash godot/verify_farming.sh`（从仓库根目录）。
+
+## 玩法：交易与订单
+
+zone1 **打捞浮台**上立着一块订单板（三张钉着的单子 + 一盏会晃的灯）。点击前往打开（也可走近按 **E**）：
+
+- 板上同时挂 **3 张订单**：客人、货品 ×数量、报酬（海贝）、可选额外货，长期有效；
+- 货够点「交付」→ 立刻扣货、报酬当场入账，位子 **9 秒**后补一张新单；
+- 货不够 → 按钮显示「缺货」并禁用（行内写「手上 2/6」）；
+- **订单不设期限**，可以按自己的节奏准备；
+- **免费换一批**重抽三张，零海贝也能换；
+- 档位随进度解锁：船 2 级或有 2 级建造点开 2 档，船 2 级且 3 级建造点开 3 档。
+
+- 规则：`scripts/core/orders.gd`（`Economy.orders`：抽单 / 长期保留 / 补位 / 换一批 / 档位 / 存档）；
+- 世界：`scripts/core/trade_board.gd`，面板 `scripts/ui/order_panel.gd`；
+- 数据：订单池 `assets/data/orders.json`（唯一来源），摆放表 `assets/data/trade_board.json`
+  由 `tools/place_trade_board.py` 求解（**不要手写**：要避让采集点/建造牌/菜箱 2.6m）；
+- 改数值只改表；**报酬必须 ≥ 物品售价 × 数量**，自检会拦。
+
+## 玩法：存档与读档
+
+| 键 | 行为 |
+| --- | --- |
+| **F5** | 存档（提示「已存档 · 09:50 · 背包 7/24 格」） |
+| **F9** | 读档（回到存档时的区块 / 船位 / 站位） |
+| — | 每 **120 秒**静默自动存档一次 |
+
+- 槽位 `user://save_slot_0.json`（macOS：`~/Library/Application Support/Godot/app_userdata/晴空水巷/`）；
+- 存：背包、船等级、建造等级与施工进度、设施、菜箱、**订单剩余秒数**、
+  **打捞/采集冷却剩余秒数**、区块 / 上岸点 / 模式 / 船位 / 站位；
+- **只存相对时间**：`Time.get_ticks_msec()` 每次启动从 0 开始，存绝对时间会让冷却变成几十年；
+- 读档容错：表里删掉的物品 / 订单 / 菜箱直接跳过，不整档读废；写入是 `.tmp` → 读回比对 → rename；
+- 版本 `VERSION=1`，读到 v0 扁平档自动迁移，读到更新版本直接拒绝；
+- 潜水 / 收线进行中不允许存读（没有可序列化的中间态），会说明原因。
 
 ## 场景结构
 
@@ -236,6 +285,10 @@ assets/models/zones/<zone_key>/
 
 # 核心逻辑 parity（zones / economy / sail_nav，422 条）
 ~/Applications/Godot.app/Contents/MacOS/Godot --headless --path godot --script res://tests/test_core.gd
+
+# 存档跨进程往返（A 存 → B 读再存，比对字段）
+~/Applications/Godot.app/Contents/MacOS/Godot --headless --path godot -- --grant=wood:30,parts:7 --saveshot --savepath=user://e2e_a.json --nosave
+~/Applications/Godot.app/Contents/MacOS/Godot --headless --path godot -- --load=user://e2e_a.json --saveshot --savepath=user://e2e_b.json --nosave
 ```
 
 画面基准：网页版 `outputs/harbor-lush.png`。
@@ -247,3 +300,23 @@ assets/models/zones/<zone_key>/
 2. **先抽植物再切区块**：`build_plants.py` 产出 `plant_claim.json`，`build_zones.py` 据此排除，
    否则同一片叶子会被画两遍。
 3. **Godot 4.7 把 `var x := <Variant>` 当编译错误**：从 Dictionary 取值必须显式标类型。
+
+## 点击优先操作（2026-10-22）
+
+顶部可直接点背包、种植、建造、取消、保存、读档、视角和滤镜。世界目标点击后自动前往并操作一次；海底可点水域游动，用按钮调整深度与头灯，打捞支持鼠标按住收线。完整规则和验证见 [点击操作规范](CLICK_CONTROLS.md)。
+
+## 休闲界面与动效（2026-10-22）
+
+已切换为奶油卡片和彩色圆角按钮，统一鼠标缓动、动作进度和完成反馈。色板、时序和实现见 [休闲界面规范](COZY_UI_DESIGN.md)，演示见 `outputs/cozy-ui-demo.mp4`。
+
+## 默认角色跟随镜头
+
+默认距离为缩放区间 25%，智能跟随角色；手动拖动后保持自由观察，点顶部“回到角色”恢复。滑动参考网页版 0.06 阻尼并适配不同帧率。详见 [镜头说明](CAMERA_FOLLOW.md)。
+
+## 经营循环
+
+已接入仓库、建设目标、长期订单、分阶段种植床与船升级。规则、成本、操作及验收见 [经营循环设计](MANAGEMENT_LOOP.md)。
+
+## 立体水面与船行浪（2026-10-22）
+
+Godot 海面已更新为网格波浪、按波面采样的船体浮动、保留转弯航迹的尾流，以及天空反射和场景光影。白边与波纹由实际模型交线自动驱动 Shader；开阔水面的白浪随浪峰间歇出现、推进并消散，保留细碎孔隙和薄沫层次。该方案替代上文“画面：对齐网页版”中的旧水面及灯光基准。参数、限制、验收和录像命令见 [水面渲染说明](OCEAN_RENDERING.md)。

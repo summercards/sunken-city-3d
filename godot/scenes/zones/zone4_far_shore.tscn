@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/zone_scene.gd" id="1_zone"]
 [ext_resource type="Script" path="res://scripts/world/zone_batch.gd" id="2_batch"]
@@ -12,6 +12,8 @@
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_0000.tres" id="mat_tn_0000"]
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_1000.tres" id="mat_tn_1000"]
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_t4_0100.tres" id="mat_t4_0100"]
+
+[ext_resource type="Script" path="res://scripts/world/landing_point.gd" id="landing_script"]
 
 [node name="Zone4FarShore" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.500, 0, -41.500)
@@ -82,9 +84,22 @@ span_min = 1.300
 span_max = 2.150
 rects = [Rect2(-4.100, 0.300, 3.200, 5.200)]
 
-[node name="Landings" type="Node3D" parent="."]
+
 
 [node name="Plants" type="Node3D" parent="."]
 script = ExtResource("4_plants")
 zone_id = "zone4"
 placement_path = "res://assets/data/plants_zone4_far_shore.json"
+
+[node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_zone4_shore"]
+position = Vector3(-1.7000000000000028, 1.65, 0.7000000000000028)
+script = ExtResource("landing_script")
+landing_id = "main"
+landing_label = "远海街町"
+
+[node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_zone4_shore/Landing_main"]
+position = Vector3(-4.739999999999995, -0.5299999999999998, 4.239999999999995)
+rotation = Vector3(0, 2.36, 0)
+
+[node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_zone4_shore/Landing_main"]
+position = Vector3(-1.5999999999999943, 0.08000000000000007, 3.3999999999999986)
