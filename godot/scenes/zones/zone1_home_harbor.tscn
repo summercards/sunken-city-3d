@@ -25,7 +25,7 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000, 0, 0.000)
 script = ExtResource("1_zone")
 zone_id = "zone1"
-zone_label = "晴空水巷"
+zone_label = "sea"
 geometry_source = "scene"
 
 [node name="StaticBatch" type="Node3D" parent="."]
@@ -115,7 +115,7 @@ placement_path = "res://assets/data/plants_zone1_home_harbor.json"
 position = Vector3(3.35, 2.15, 3.35)
 script = ExtResource("landing_script")
 landing_id = "main"
-landing_label = "晴空水巷"
+landing_label = "sea"
 
 [node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_zone1_home_dock/Landing_main"]
 position = Vector3(3.6199999999999997, -1.0299999999999998, 4.57)

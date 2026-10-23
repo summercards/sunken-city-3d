@@ -1,5 +1,5 @@
 /**
- * 《淹没之城：晴空水巷》第二区域（横滨沉没铁道道口）+ 四周环绕遗迹群 + 水上种植 + 水底巨鲸与建筑森林
+ * sea 第二区域（横滨沉没铁道道口）+ 四周环绕遗迹群 + 水上种植 + 水底巨鲸与建筑森林
  * ---------------------------------------------------------------------------------------------------
  * 严格依据用户提供的 3 张新参考图还原，并保持原画手绘水彩风格：
  *
@@ -32,7 +32,7 @@ import { createFishSchools } from './fish-schools.js';
 
 import { createZoneRegistry } from './zones.js';
 
-export function initSunkenCityGameplay({
+export function initSeaGameplay({
   THREE,
   scene,
   camera,
@@ -79,7 +79,7 @@ export function initSunkenCityGameplay({
   const controlsGroup = document.querySelector('.controls-group');
   const btnCamOriginal = document.getElementById('btn-cam-original');
   if (btnCamOriginal) {
-    btnCamOriginal.innerHTML = '<span>🏡 晴空水巷</span>';
+    btnCamOriginal.innerHTML = '<span>🏡 sea</span>';
   }
   const btnCamZone2 = document.createElement('button');
   btnCamZone2.className = 'hud-btn';
@@ -143,7 +143,7 @@ export function initSunkenCityGameplay({
   const destinationWheel = document.createElement('div');
   destinationWheel.className = 'destination-wheel';
   destinationWheel.innerHTML = `
-    <button class="destination-btn" data-zone="zone1" title="晴空水巷" aria-label="晴空水巷">🏡</button>
+    <button class="destination-btn" data-zone="zone1" title="sea" aria-label="sea">🏡</button>
     <button class="destination-btn" data-zone="zone2" title="横滨铁道" aria-label="横滨铁道">🚃</button>
     <button class="destination-btn" data-zone="zone3" title="圆弧农场" aria-label="圆弧农场">🌱</button>
     <button class="destination-btn" data-zone="zone5" title="浅水养殖" aria-label="浅水养殖">🪷</button>
@@ -1751,7 +1751,7 @@ export function initSunkenCityGameplay({
     {
       id: 'home_cabin',
       zone: 'zone1',
-      name: '晴空水巷 · 太阳能木屋花圃',
+      name: 'sea · 太阳能木屋花圃',
       // 只命中太阳能木屋本体；船仍由独立的 boatMeshGroup 负责交互。
       hitRoots: [houseGroupRef || boatMeshGroup],
       hoverAnchor: zones.get('zone1').hoverAnchor.clone(),

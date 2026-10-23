@@ -18,7 +18,7 @@ const UiFontLib = preload("res://scripts/ui/ui_font.gd")
 const ItemDBLib = preload("res://scripts/core/item_db.gd")
 
 const DESTINATIONS := [
-	{"id": "zone1", "icon": "🏡", "name": "晴空水巷"},
+	{"id": "zone1", "icon": "🏡", "name": "sea"},
 	{"id": "zone2", "icon": "🚃", "name": "横滨铁道"},
 	{"id": "zone3", "icon": "🌱", "name": "圆弧农场"},
 	{"id": "zone5", "icon": "🪷", "name": "浅水养殖"},
@@ -155,7 +155,7 @@ func _build_brand() -> void:
 	vb.add_theme_constant_override("separation", 1)
 	vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hb.add_child(vb)
-	vb.add_child(_label("晴空水巷", 13, Color("#ffffff")))
+	vb.add_child(_label("sea", 13, Color("#ffffff")))
 	vb.add_child(_label("一片小小水域，一段慢慢的生活", 10, Color(205.0 / 255.0, 238.0 / 255.0, 1.0, 0.85)))
 
 
@@ -512,7 +512,7 @@ func _refresh_build() -> void:
 	progress.custom_minimum_size.x = 440
 	_tab_body.add_child(progress)
 	_tab_body.add_child(_label("数量合计背包与仓库；建好后自动推荐下一目标。", 11))
-	var source := _label("木料／缆绳：晴空水巷采集 · 零件／玻璃：横滨铁道\n海贝：农产品出售或码头交单；打捞也能补充木料与零件。", 11)
+	var source := _label("木料／缆绳：sea采集 · 零件／玻璃：横滨铁道\n海贝：农产品出售或码头交单；打捞也能补充木料与零件。", 11)
 	source.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_tab_body.add_child(source)
 	for id in Economy.SITES.keys():

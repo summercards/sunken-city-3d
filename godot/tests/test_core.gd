@@ -211,7 +211,7 @@ func test_capacity() -> void:
 
 func test_collections() -> void:
 	current = "collections"
-	var names := {"zone1": "晴空水巷", "zone2": "横滨铁道", "zone3": "圆弧农场", "zone4": "远海街町"}
+	var names := {"zone1": "sea", "zone2": "横滨铁道", "zone3": "圆弧农场", "zone4": "远海街町"}
 	for node in EconomyLib.COLLECTIONS:
 		var ctx := make({"farSeaUnlocked": true, "currentZone": "elsewhere"})
 		var state: Dictionary = ctx.state
@@ -472,7 +472,7 @@ func test_trade() -> void:
 	eq(unchanged(ctx, func(): return ctx.eco.trade_food()).ok, false, "食物不足")
 	state.food = 2
 	state.currentZone = "zone3"
-	eq(unchanged(ctx, func(): return ctx.eco.trade_food()).reason, "先前往晴空水巷靠岸", "异地不可交易")
+	eq(unchanged(ctx, func(): return ctx.eco.trade_food()).reason, "先前往sea靠岸", "异地不可交易")
 	state.currentZone = "zone1"
 	state.workerMode = "SAILING"
 	eq(unchanged(ctx, func(): return ctx.eco.trade_food()).reason, "旅人忙碌中", "航行不可交易")

@@ -27,7 +27,7 @@ static func _build_defs() -> Array:
 	return [
 		{
 			"id": "zone1",
-			"name": "晴空水巷",
+			"name": "sea",
 			"role": "home",
 			"purpose": "起始据点：太阳能木屋、交易码头、绞盘打捞台",
 			"status": "木屋码头待机",

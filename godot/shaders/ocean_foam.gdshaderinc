@@ -4,7 +4,7 @@ uniform vec4 shore_bounds;
 uniform float shore_texel = 0.0009765625;
 uniform bool shore_enabled = false;
 uniform float shore_foam_strength : hint_range(0.0, 1.5) = 1.0;
-uniform float crest_foam_strength : hint_range(0.0, 1.5) = 0.34;
+uniform float crest_foam_strength : hint_range(0.0, 1.5) = 0.0;
 uniform vec3 foam_color : source_color = vec3(0.91, 0.98, 0.94);
 // Stylized contact rim: one crisp white line along every waterline, produced by
 // hard-cutting the water-column gradient instead of softening it.
@@ -109,10 +109,10 @@ float contact_edge(vec2 p, float thickness, float view_dist) {
 // down, then cut by the same steep ramp so its outer edge tears instead of
 // fading.
 //
-// `thickness` is the water column under this pixel and acts as a reality check:
-// the contour atlas also holds a few stray segments (thin trim, ropes) that lie
-// in open water, and without this gate they paint a white stick floating on
-// nothing. A real waterline has almost no water column beneath it.
+// `thickness` is the water column under this pixel. It only has to rule out the
+// contour atlas' stray segments that lie in open water; the browser draws its
+// outline from block footprints and ignores depth entirely, so a tight depth
+// gate here leaves the rim patchy along one side of every platform.
 float shore_rim(vec2 p, float thickness) {
 	vec2 shore = shoreline_data(p);
 	float d = shore.x;
@@ -130,13 +130,17 @@ float shore_rim(vec2 p, float thickness) {
 	// edge_blend for the same reason); this keeps the ribbon attached to the
 	// waterline while its outer boundary stays broken by the grain.
 	rim *= smoothstep(0.06, 0.30, edge_t);
-	// The contour atlas also holds a few stray segments (thin trim, ropes) that
-	// lie in open water; a real waterline sits over a shallow column. This gate
-	// used to stop at 0.55 m, which is only the pixel directly on top of an
-	// object — the water strip just outside a platform looks through metres of
-	// water to the sunken block behind it, so the whole rim was being erased.
-	// Anything closer than ~3 m still counts as a waterline here.
-	float near_object = 1.0 - smoothstep(0.10, 3.0, thickness);
+	// Thin trims, mooring posts and handrails are real geometry in the atlas but
+	// they are not shorelines; with the depth gate loosened they would paint white
+	// sticks floating on open water. `shore.y` is the size of the entity that
+	// seeded the contour, so a size gate separates 4 m platforms from 0.4 m rails.
+	rim *= smoothstep(0.18, 0.45, shore.y);
+	// No depth gate here on purpose. A platform standing in 10 m of water has no
+	// shallow column beneath its edge, so any thickness test erases the rim from
+	// exactly the side you look at. The browser draws its outline from footprint
+	// distance alone for the same reason; the size gate above is what keeps stray
+	// atlas segments out.
+	float near_object = 1.0;
 	return rim * edge_strength * near_object;
 }
 

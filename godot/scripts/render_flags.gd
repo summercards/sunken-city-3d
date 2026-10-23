@@ -14,3 +14,16 @@ static func reverse_z() -> float:
 		var method: String = RenderingServer.get_current_rendering_method()
 		_reverse_z = 0.0 if method.begins_with("gl_compatibility") else 1.0
 	return _reverse_z
+
+
+## 水面是「纯自发光」的：颜色全走 EMISSION，不进光照。
+## 同一个输入在 gl_compatibility 上比 Forward+ 暗得多（实测 0.25 线性值 → 89 对 212），
+## 只在自发光材质上出现，因为兼容后端对 EMISSION 的色调映射曲线与 Forward+ 不同。
+## 这里给出实测补偿系数，让两个后端的水色落在同一个像素值上。
+## 逐通道实测：兼容后端对蓝通道压缩得比绿通道厉害，单标量无法同时对上
+## （增益 3.0 时绿偏低 40，增益 4.0 时蓝偏高 60），所以给三个分量。
+static func water_emission_gain() -> Vector3:
+	var method: String = RenderingServer.get_current_rendering_method()
+	if method.begins_with("gl_compatibility"):
+		return Vector3(3.8, 3.8, 2.7)
+	return Vector3.ONE

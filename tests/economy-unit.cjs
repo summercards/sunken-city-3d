@@ -162,7 +162,7 @@ const { test } = require('node:test');
   });
 
   test('所有采集点必须位于对应区域，同区但非岸上或忙碌不可拾取', () => {
-    const names = { zone1: '晴空水巷', zone2: '横滨铁道', zone3: '圆弧农场', zone4: '远海街町' };
+    const names = { zone1: 'sea', zone2: '横滨铁道', zone3: '圆弧农场', zone4: '远海街町' };
     for (const node of COLLECTIONS) {
       const context = setup({ farSeaUnlocked: true, currentZone: 'elsewhere' });
       const { state, economy } = context;
@@ -382,7 +382,7 @@ const { test } = require('node:test');
     state.parts = 10;
     for (const id of ['greenhouse', 'recycler']) {
       state.currentZone = 'zone2';
-      assert.equal(economy.getFacilityAction(id).reason, '先前往晴空水巷靠岸');
+      assert.equal(economy.getFacilityAction(id).reason, '先前往sea靠岸');
       assert.equal(unchanged(context, () => economy.buildFacility(id)).ok, false);
       state.currentZone = 'zone1';
       state.activeJobSite = 'home_cabin';
@@ -477,7 +477,7 @@ const { test } = require('node:test');
     assert.equal(unchanged(context, () => economy.collectFacility('recycler')).ok, false);
     state.parts = 54;
     state.currentZone = 'zone3';
-    assert.equal(unchanged(context, () => economy.collectFacility('recycler')).reason, '先前往晴空水巷靠岸');
+    assert.equal(unchanged(context, () => economy.collectFacility('recycler')).reason, '先前往sea靠岸');
     state.currentZone = 'zone1';
     state.workerMode = 'SAILING';
     assert.equal(unchanged(context, () => economy.collectFacility('recycler')).reason, '旅人忙碌中');
@@ -555,7 +555,7 @@ const { test } = require('node:test');
     const { economy, state } = context;
     for (const zone of ['zone2', 'zone3', 'zone4']) {
       state.currentZone = zone;
-      assert.equal(economy.getShipAction().reason, '先前往晴空水巷靠岸');
+      assert.equal(economy.getShipAction().reason, '先前往sea靠岸');
       assert.equal(unchanged(context, () => economy.upgradeShip()).ok, false);
     }
     state.currentZone = 'zone1';
@@ -572,7 +572,7 @@ const { test } = require('node:test');
     assert.equal(unchanged(context, () => economy.tradeFood()).ok, false);
     state.food = 2;
     state.currentZone = 'zone3';
-    assert.equal(unchanged(context, () => economy.tradeFood()).reason, '先前往晴空水巷靠岸');
+    assert.equal(unchanged(context, () => economy.tradeFood()).reason, '先前往sea靠岸');
     state.currentZone = 'zone1';
     state.workerMode = 'SAILING';
     assert.equal(unchanged(context, () => economy.tradeFood()).reason, '旅人忙碌中');

@@ -7,7 +7,7 @@
 
 # id -> (文件夹/文件名用, 场景节点名, 中文名)
 ZONES = {
-    "zone1": ("zone1_home_harbor", "Zone1HomeHarbor", "晴空水巷"),
+    "zone1": ("zone1_home_harbor", "Zone1HomeHarbor", "sea"),
     "zone2": ("zone2_yokohama_station", "Zone2YokohamaStation", "横滨铁道"),
     "zone3": ("zone3_arc_farm", "Zone3ArcFarm", "圆弧农场"),
     "zone4": ("zone4_far_shore", "Zone4FarShore", "远海街町"),

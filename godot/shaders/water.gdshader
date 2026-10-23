@@ -1,9 +1,17 @@
-// Stylized ocean surface.
-// Depth absorption follows Beer-Lambert with a normalized curve (depth_distance / beers_law),
-// so the water body saturates smoothly instead of being cut off at a hard distance.
-// Reference model: godotshaders.com/shader/absorption-based-stylized-water
+// Stylized ocean surface — ported from the browser build's water.js.
+//
+// The web version paints the surface instead of lighting it: a depth-weighted
+// blend of the refracted scene and a flat two-colour body, then a fresnel tint,
+// a few additive painterly facets and hard white foam. Nothing is shaded by the
+// sun or the ambient, which is why its water reads as one flat turquoise sheet
+// while a lit material picks up a bright rim, a vertical gradient and specular
+// smudges that the web version simply does not have.
+//
+// So this shader writes the composed colour straight into EMISSION with a zero
+// albedo. Keep it that way: anything that reintroduces lighting (albedo > 0,
+// specular > 0) will drift away from the browser look again.
 shader_type spatial;
-render_mode blend_mix, depth_draw_never, cull_disabled, diffuse_burley, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_never, cull_disabled;
 #include "res://shaders/ocean_waves.gdshaderinc"
 #include "res://shaders/ocean_wake.gdshaderinc"
 
@@ -15,29 +23,41 @@ uniform vec4 u_ripples[8];
 uniform int u_ripple_count = 0;
 
 group_uniforms color;
-uniform vec3 shallow_color : source_color = vec3(0.10, 0.62, 0.58);
-uniform vec3 deep_color : source_color = vec3(0.015, 0.285, 0.445);
-// Absorbed colour per metre: red vanishes first, blue last. The remaining
-// transmitted colour is what the seabed is seen through.
-uniform vec3 absorption = vec3(0.34, 0.15, 0.075);
-// Column depth that counts as "open sea"; beers_law shapes how fast it saturates.
-uniform float depth_distance : hint_range(1.0, 60.0, 0.5) = 26.0;
-uniform float beers_law : hint_range(0.5, 12.0, 0.1) = 4.2;
-uniform float body_gain : hint_range(0.0, 1.5, 0.01) = 0.72;
+// Straight from water.js: `body=mix(vec3(.008,.30,.25), vec3(.008,.125,.24), deep)`.
+// Linear values, no red at all — the browser water is a cyan with the red channel
+// absorbed away, which is what makes it look like water instead of blue paint.
+uniform vec3 body_shallow = vec3(0.008, 0.300, 0.250);
+uniform vec3 body_deep = vec3(0.008, 0.125, 0.240);
+// Where the body has fully turned into `body_deep`, in metres of water column.
+uniform float depth_near : hint_range(0.0, 20.0, 0.1) = 2.0;
+uniform float depth_far : hint_range(1.0, 40.0, 0.1) = 13.0;
+// Per-metre absorption (water.js: vec3(.125,.064,.046)). Much gentler than the
+// previous 0.34/0.15/0.075, which is what kept the drowned blocks readable.
+uniform vec3 absorption = vec3(0.125, 0.064, 0.046);
+// How fast the seabed stops being visible with depth.
+uniform float transmission_near : hint_range(0.0, 20.0, 0.1) = 4.0;
+uniform float transmission_far : hint_range(1.0, 40.0, 0.1) = 13.0;
+// Strength of the painterly variation (swell shading, light facets, flecks).
+uniform float surface_contrast : hint_range(0.0, 1.0, 0.01) = 0.25;
+// The browser renders at exposure 1.1, this project at 1.63. ACES is what turns
+// a linear colour into the final pixel, so the body has to be pre-scaled by the
+// same ratio or the water comes out a stop too pale.
+uniform float exposure_comp : hint_range(0.2, 2.5, 0.01) = 0.55;
+// The gl_compatibility renderer (web export) resolves an emission-only surface far
+// darker than Forward+ at the same input. render_flags.gd supplies the measured
+// factor so both backends land on the same water colour.
+uniform vec3 emission_gain = vec3(1.0);
 
 group_uniforms surface;
-uniform float water_roughness : hint_range(0.02, 0.8, 0.01) = 0.13;
-uniform float specular_strength : hint_range(0.0, 1.0, 0.01) = 0.2546;
-// Grazing sky tint. Smaller fresnel_radius packs the band closer to the horizon.
-uniform vec3 fresnel_color : source_color = vec3(0.44, 0.74, 0.86);
-uniform float fresnel_radius : hint_range(0.5, 8.0, 0.01) = 3.6;
-uniform float fresnel_gain : hint_range(0.0, 1.5, 0.01) = 0.30;
-uniform float refraction_strength : hint_range(0.0, 80.0, 0.5) = 32.0;
-// How much of the ripple slope reaches the lit normal. At 1.0 every chop gets a
-// real diffuse highlight and the surface reads photographic; the reference look
-// keeps the water closer to flat-shaded and lets the painted waterline carry the
-// shape. Refraction and reflection still use the full slope.
-uniform float normal_lighting : hint_range(0.0, 1.0, 0.01) = 0.55;
+// Grazing sky tint (water.js mixes toward vec3(.16,.39,.51) at fresnel*.65).
+uniform vec3 fresnel_color = vec3(0.16, 0.39, 0.51);
+uniform float fresnel_radius : hint_range(1.0, 8.0, 0.01) = 5.0;
+uniform float fresnel_gain : hint_range(0.0, 1.0, 0.01) = 0.65;
+uniform float refraction_strength : hint_range(0.0, 80.0, 0.5) = 26.0;
+// How much of the ripple slope reaches the optical normal. The browser builds its
+// normal from three low-frequency sines only, so this stays low on purpose:
+// the surface is meant to read as a sheet with slow facets, not as chop.
+uniform float normal_lighting : hint_range(0.0, 1.0, 0.01) = 0.40;
 
 group_uniforms detail;
 uniform float detail_broad : hint_range(0.0, 1.0, 0.01) = 0.40;
@@ -45,7 +65,8 @@ uniform float detail_mid : hint_range(0.0, 1.0, 0.01) = 0.58;
 uniform float detail_fine : hint_range(0.0, 1.0, 0.01) = 0.24;
 
 group_uniforms reflections;
-uniform float ssr_mix : hint_range(0.0, 1.0, 0.01) = 0.38;
+// The browser has no screen-space reflection at all. Left switchable, default off.
+uniform float ssr_mix : hint_range(0.0, 1.0, 0.01) = 0.0;
 uniform float ssr_travel : hint_range(0.0, 200.0, 1.0) = 60.0;
 
 varying vec3 v_world;
@@ -56,6 +77,8 @@ float noise(vec2 p) {
 	vec2 i=floor(p); vec2 f=fract(p); f=f*f*(3.0-2.0*f);
 	return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1)),f.x),f.y);
 }
+// water.js `broad()`: three noise octaves, used for the swell and the facets.
+float broad(vec2 p) { return noise(p)*0.65 + noise(p*2.03+13.2)*0.25 + noise(p*4.01)*0.1; }
 // Value noise together with its analytic gradient (value, d/dx, d/dz).
 // One evaluation gives a full slope instead of three finite differences.
 vec3 noise_grad(vec2 p) {
@@ -107,9 +130,6 @@ void fragment() {
 		shore_height(p + vec2(0.0, 0.10)) - shore_height(p - vec2(0.0, 0.10))) / 0.20;
 	// Ripple octaves stretched across the wind, the way wind chop actually
 	// forms: ridges run perpendicular to travel, not as round blobs.
-	// Kept to two broad bands on purpose. Three finely-tuned octaves gave a
-	// continuous light gradient across the whole surface, which reads as
-	// photographic water; the stylised look wants a few large facets instead.
 	// Fine detail fades much earlier so it cannot alias into sparkle.
 	float view_dist = length(VERTEX);
 	float fade_mid = 1.0 - smoothstep(70.0, 200.0, view_dist);
@@ -131,107 +151,91 @@ void fragment() {
 	}
 	vec3 normal=normalize(vec3(-slope.x*normal_lighting,1.0,-slope.y*normal_lighting));
 	NORMAL=normalize((VIEW_MATRIX*vec4(normal,0.0)).xyz);
-	// Composed slope magnitude: the crests the eye can see, swell + chop + wake.
-	float steep = length(slope);
 
 	// Water column under this pixel, in metres.
 	float water_depth=-VERTEX.z;
 	float raw=textureLod(depth_tex,SCREEN_UV,0.0).r;
 	vec3 bed_view=view_position(SCREEN_UV,raw,INV_PROJECTION_MATRIX);
-	float thickness=clamp(-bed_view.z-water_depth,0.0,60.0);
+	float thickness=clamp(-bed_view.z-water_depth,0.0,45.0);
 	vec3 bed=(INV_VIEW_MATRIX*vec4(bed_view,1.0)).xyz;
 	float depth=max(0.0,v_world.y-bed.y);
-	bool open_sea = thickness>59.0;
+	bool open_sea = thickness>44.0;
 	if(open_sea) depth=60.0;
 
-	// Normalized depth: 0 at the surface, 1 at depth_distance, then Beer-Lambert.
-	float depth_n=clamp(depth/max(depth_distance,0.01),0.0,1.0);
-	float depth_blend=1.0-exp(-depth_n*beers_law);
-
+	// Refraction fades out at the waterline and again once the bed is too far to
+	// resolve; the browser tapers it over exactly this range.
+	float refract_fade = smoothstep(0.15,2.5,thickness)*(1.0-smoothstep(24.0,45.0,thickness));
 	vec2 view_slope=(VIEW_MATRIX*vec4(slope.x,0.0,slope.y,0.0)).xy;
-	vec2 refract_uv=clamp(SCREEN_UV+view_slope*(refraction_strength/VIEWPORT_SIZE)*smoothstep(0.0,1.5,thickness),vec2(0.001),vec2(0.999));
+	vec2 refract_uv=clamp(SCREEN_UV+view_slope*(refraction_strength/VIEWPORT_SIZE)*refract_fade,vec2(0.001),vec2(0.999));
 	vec3 ref_view=view_position(refract_uv,textureLod(depth_tex,refract_uv,0.0).r,INV_PROJECTION_MATRIX);
-	if(-ref_view.z<water_depth+0.05) refract_uv=SCREEN_UV;
+	if(-ref_view.z<water_depth+0.08) refract_uv=SCREEN_UV;
 	vec3 submerged=textureLod(screen_tex,refract_uv,0.0).rgb;
+	// The bed that the caustics actually land on is the refracted one.
+	vec3 caustic_bed=(INV_VIEW_MATRIX*vec4(view_position(refract_uv,textureLod(depth_tex,refract_uv,0.0).r,INV_PROJECTION_MATRIX),1.0)).xyz;
 
-	// Beer-Lambert over the actual view path; the bed also fades out on the
-	// same normalized curve, so deep water dissolves into the body colour.
+	// ---- body: flat two-colour water, modulated by moving swell -------------
+	vec2 drift=vec2(u_time*0.032,-u_time*0.024);
+	float swell=broad(p*0.12+drift);
+	float wash=broad(p*0.25+vec2(-u_time*0.027,u_time*0.019));
+	float deep=smoothstep(depth_near,depth_far,depth);
+	vec3 body=mix(body_shallow,body_deep,deep);
+	body*=1.0+(smoothstep(0.30,0.70,swell)-0.5)*0.17*surface_contrast;
+	// Slow facets of light that follow the wave field instead of a texture.
+	float a=dot(p,vec2(0.63,0.38))+u_time*0.72;
+	float b=dot(p,vec2(-0.29,0.91))-u_time*0.56;
+	float c=dot(p,vec2(1.41,-0.73))+u_time*0.93;
+	float wave_light=smoothstep(0.10,0.85,sin(a)*0.45+sin(b)*0.35+sin(c)*0.20);
+	body+=vec3(0.002,0.018,0.020)*wave_light*surface_contrast;
+	vec2 wave_domain=p*0.27+vec2(sin(p.y*0.17+u_time*0.18),cos(p.x*0.13-u_time*0.14))*0.55;
+	float facet=smoothstep(0.44,0.56,broad(wave_domain+drift));
+	body+=vec3(0.002,0.036,0.034)*facet*surface_contrast;
+
+	// ---- transmission: what is left of the drowned geometry ---------------
 	vec3 transmission=exp(-thickness*absorption);
-	transmission*=1.0-smoothstep(0.72,1.0,depth_n);
+	transmission*=1.0-smoothstep(transmission_near,transmission_far,depth);
 	if(open_sea) transmission=vec3(0.0);
-	vec3 body=mix(shallow_color,deep_color,depth_blend);
+	// Caustics sit on the submerged geometry, they are not painted on the surface.
+	vec2 cp=caustic_bed.xz*0.80+vec2(sin(caustic_bed.z*0.32+u_time*0.6),cos(caustic_bed.x*0.28-u_time*0.5))*0.42;
+	float cells=abs(sin(cp.x+u_time*0.30)*cos(cp.y-u_time*0.24));
+	float caustic=(1.0-smoothstep(0.025,0.085,cells))*smoothstep(0.3,1.2,depth)*(1.0-smoothstep(3.0,15.0,depth));
+	submerged+=vec3(0.025,0.12,0.10)*caustic;
 
-	// Water-air IOR 1.333 gives F0 = 0.02037 (Godot SPECULAR: F0=0.08*s).
+	vec3 color=submerged*transmission+body*(1.0-transmission);
+
+	// ---- grazing tint ----------------------------------------------------
 	vec3 to_eye=normalize(CAMERA_POSITION_WORLD-v_world);
-	float facing = clamp(dot(normal, to_eye), 0.0, 1.0);
-	float schlick = 0.02037 + 0.97963 * pow(1.0 - facing, 5.0);
-	float fres_wide = pow(1.0 - facing, fresnel_radius);
+	float facing=clamp(dot(normal,to_eye),0.0,1.0);
+	float fres=pow(1.0-facing,fresnel_radius);
+	color=mix(color,fresnel_color,fres*fresnel_gain);
 
-	float shore_d = shoreline_distance(p);
-	float foam = max(shore_foam(p, shore_d), crest_foam(p, shore_d, view_dist, wave.x));
-	// One crisp rim along every waterline: hulls, platforms, drowned walls.
-	// Two sources because a top-down camera sees the metric shoreline contour
-	// far better than a view-space depth band.
-	float rim = max(contact_edge(p, thickness, view_dist), shore_rim(p, thickness));
-	vec3 trail = wake_profile(p);
-	trail.x += (noise(p * 1.15 + vec2(u_time * 0.07, 0.0)) - 0.5) * (0.14 + trail.y * 0.025);
-	float trail_width = 0.035 + trail.y * 0.006;
-	float trail_line = 1.0 - smoothstep(trail_width, trail_width + clamp(fwidth(trail.x), 0.025, 0.09), abs(trail.x));
-	float trail_break = smoothstep(0.17 + trail.y * 0.045, 0.44 + trail.y * 0.045, noise(p * 2.1 + u_time * 0.07));
-	foam = max(foam, trail_line * trail.z * trail_break * foam_grain(p, trail.y / 9.0) * 0.68);
-	foam = clamp(foam, 0.0, 0.95);
+	// ---- sun sparkle and flecks -------------------------------------------
+	vec3 half_light=normalize(to_eye+normalize(vec3(0.42,0.78,-0.46)));
+	float sparkle=pow(max(dot(normal,half_light),0.0),650.0);
+	color+=vec3(0.26,0.45,0.42)*sparkle*0.018*smoothstep(0.52,0.72,wash);
+	float fleck=smoothstep(0.83,0.94,noise(p*1.25+drift*2.0))*smoothstep(0.55,0.74,swell);
+	color+=vec3(0.025,0.055,0.052)*fleck*surface_contrast;
 
-	ALBEDO = body * (vec3(1.0) - transmission) * body_gain;
-	EMISSION = submerged * transmission * (1.0 - schlick);
-	EMISSION += fresnel_color * fres_wide * fresnel_gain;
+	// ---- painterly foam ---------------------------------------------------
+	float shore_d=shoreline_distance(p);
+	float foam=max(shore_foam(p,shore_d),crest_foam(p,shore_d,view_dist,wave.x));
+	float rim=max(contact_edge(p,thickness,view_dist),shore_rim(p,thickness));
+	vec3 trail=wake_profile(p);
+	trail.x+=(noise(p*1.15+vec2(u_time*0.07,0.0))-0.5)*(0.14+trail.y*0.025);
+	float trail_width=0.035+trail.y*0.006;
+	float trail_line=1.0-smoothstep(trail_width,trail_width+clamp(fwidth(trail.x),0.025,0.09),abs(trail.x));
+	float trail_break=smoothstep(0.17+trail.y*0.045,0.44+trail.y*0.045,noise(p*2.1+u_time*0.07));
+	foam=max(foam,max(rim,trail_line*trail.z*trail_break*foam_grain(p,trail.y/9.0)*0.68));
+	// water.js paints foam as flat near-white (vec3(.96,.985,1.0)).
+	color=mix(color,vec3(0.96,0.985,1.0),clamp(foam,0.0,0.96));
 
-	// Screen-space reflections: sky-only environment misses the harbour walls,
-	// so trace the opaque colour buffer along the reflected view ray.
-	vec3 reflection = vec3(0.0);
-	float reflection_hit = 0.0;
-	if (ssr_mix > 0.001) {
-		vec3 view_normal = normalize(NORMAL);
-		vec3 ray = reflect(-VIEW, view_normal);
-		float step_len = 0.55;
-		float travel = 0.0;
-		vec3 probe = VERTEX;
-		for (int i = 0; i < 18; i++) {
-			probe += ray * step_len;
-			travel += step_len;
-			if (travel > ssr_travel) break;
-			vec4 clip = PROJECTION_MATRIX * vec4(probe, 1.0);
-			vec2 uv = clip.xy / clip.w * 0.5 + 0.5;
-			if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) break;
-			vec3 scene_view = view_position(uv, textureLod(depth_tex, uv, 0.0).r, INV_PROJECTION_MATRIX);
-			float gap = scene_view.z - probe.z;
-			if (gap > 0.0 && gap < step_len * 2.2) {
-				vec2 edge = min(uv, vec2(1.0) - uv);
-				reflection_hit = clamp(min(edge.x, edge.y) * 12.0, 0.0, 1.0)
-					* (1.0 - smoothstep(0.6, 1.0, travel / max(ssr_travel, 1.0)));
-				reflection = textureLod(screen_tex, uv, 1.0).rgb;
-				break;
-			}
-			step_len *= 1.18;
-		}
-	}
-	// Reflections only belong at grazing angles: from the default top-down camera
-	// the reflected ray dives under the platforms and returns a flat, blurred
-	// white slab that reads as fog lying on the water. Gate on the same grazing
-	// term the sky tint uses, so up close the surface keeps its own colour.
-	float ssr_grazing = smoothstep(0.06, 0.42, fres_wide);
-	// Foam suppresses this later (EMISSION *= 1 - foam); do not attenuate twice.
-	EMISSION += reflection * reflection_hit * ssr_mix * ssr_grazing;
-
-	ALBEDO = mix(ALBEDO, foam_color, foam);
-	// Lit foam turns grey once the sun leaves it. The reference paints white
-	// straight in, so keep a floor of brightness instead of killing emission.
-	EMISSION *= 1.0 - foam * 0.90;
-	EMISSION = mix(EMISSION, vec3(0.88, 0.96, 0.95), foam * 0.42);
-	// Stylized rim: painted white, not lit white.
-	ALBEDO = mix(ALBEDO, vec3(1.0), rim * 0.92);
-	EMISSION = mix(EMISSION, vec3(0.86, 0.97, 0.96), rim * 0.55);
-	ROUGHNESS = mix(mix(water_roughness, 0.64, foam), 0.42, rim);
-	SPECULAR = specular_strength;
-	METALLIC = 0.0;
-	ALPHA = 1.0;
+	// Albedo stays zero so no light can reach the surface: the composed colour is
+	// the whole shading model, exactly like water.js. Emission carries it. Do not
+	// switch this to `render_mode unshaded` + ALBEDO — the gl_compatibility
+	// renderer behind the web export composites that combination as pure black.
+	ALBEDO=vec3(0.0);
+	EMISSION=color*exposure_comp*emission_gain;
+	SPECULAR=0.0;
+	ROUGHNESS=1.0;
+	METALLIC=0.0;
+	ALPHA=1.0;
 }

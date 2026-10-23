@@ -108,7 +108,9 @@ func _slice(mesh: Mesh, transform: Transform3D) -> void:
 	if box.position.y > _level or box.end.y < _level: return
 	# Thin surface decoration, leaves and fish must not seed broad shoreline surf.
 	# Their actual water contact remains visible through screen-depth shading.
-	if box.size.y < 0.5: return
+	# 0.22 m lets floating decks and seawalls register (they are only ~0.3 m
+	# thick); leaves, trim and foam tubes are far thinner and stay out.
+	if box.size.y < 0.22: return
 	if _region.has_area() and not _region.intersects(Rect2(Vector2(box.position.x, box.position.z), Vector2(box.size.x, box.size.z))): return
 	var id := mesh.get_instance_id()
 	if not _triangles.has(id):
@@ -127,7 +129,7 @@ func _slice(mesh: Mesh, transform: Transform3D) -> void:
 	# solids separately so a leaf/old decorative foam tube cannot emit island surf.
 	for component in _triangles[id]:
 		var part_box: AABB = transform * component.box
-		if part_box.size.y < 0.5 or part_box.position.y > _level or part_box.end.y < _level: continue
+		if part_box.size.y < 0.22 or part_box.position.y > _level or part_box.end.y < _level: continue
 		var faces: PackedVector3Array = component.faces
 		for i in range(0, faces.size() - 2, 3):
 			var a := transform * faces[i]

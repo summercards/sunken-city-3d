@@ -1,6 +1,6 @@
 import { MATERIALS, FACILITIES, SHIP_RECIPE } from './economy.js';
 
-const ZONES = { zone1: '晴空水巷', zone2: '横滨铁道', zone3: '圆弧农场', zone4: '远海街町', zone5: '浅水养殖台' };
+const ZONES = { zone1: 'sea', zone2: '横滨铁道', zone3: '圆弧农场', zone4: '远海街町', zone5: '浅水养殖台' };
 const POSITIONS = {
   home_crate: [6.8, 2.1, 2.1], garden_cache: [-20.4, 4.2, -6.2],
   workshop_cache: [-31, 2.5, -16.8], sea_cache: [37.8, 1.55, -40.8],
@@ -307,7 +307,7 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
     return localAction({
       action: 'salvage', status: left > 0 ? `${Math.ceil(left)}秒后可用` : '可打捞',
       description: '家园外侧绞盘台，每次打捞后冷却40秒。', cost: '免费', reward: bundle(reward),
-      requires: '晴空水巷空闲靠岸', missing: economy.canReceive(reward) ? '无' : '库存空间不足',
+      requires: 'sea空闲靠岸', missing: economy.canReceive(reward) ? '无' : '库存空间不足',
       source: '家园绞盘台的漂流物，补充木料与旧零件。', label: '打捞漂流物', available: !reason, reason,
       invoke: performSalvage, success: `打捞成功，获得${bundle(reward)}。`
     }, 'zone1');
@@ -319,7 +319,7 @@ export function createEconomyView({ THREE, worldGroup, camera, state, economy, b
       : !economy.canReceive({ coins: 12 }) ? '海贝余额无法接收本次收益。' : '';
     return localAction({
       action: 'trade', status: '家园交易', description: '用收获的食物交换建造所需海贝。', ...costs(cost),
-      reward: '海贝 ×12', requires: '晴空水巷空闲靠岸', label: '交换12海贝', available: !reason, reason,
+      reward: '海贝 ×12', requires: 'sea空闲靠岸', label: '交换12海贝', available: !reason, reason,
       invoke: () => economy.tradeFood(), success: '交易完成，已消耗食物 ×2。'
     }, 'zone1');
   });

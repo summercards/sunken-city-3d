@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>晴空水巷 · 水上慢生活</title>
+  <title>sea · 水上慢生活</title>
   <script type="importmap">
     {
       "imports": {
@@ -237,7 +237,7 @@
     <div class="brand-pill">
       <span class="brand-dot"></span>
       <div>
-        <div class="brand-title">晴空水巷</div>
+        <div class="brand-title">sea</div>
         <div class="brand-sub">一片小小水域，一段慢慢的生活</div>
       </div>
     </div>
@@ -281,7 +281,7 @@
   <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import { initSunkenCityGameplay } from './gameplay.js';
+    import { initSeaGameplay } from './gameplay.js';
     import { refineScene } from './scene-art.js';
     import { arrangeHarbor } from './harbor-layout.js';
     import { polishHarbor } from './living-harbor.js';
@@ -1938,7 +1938,7 @@
     // ============================================================================
     // 13. 接入阶段二玩法系统（乘船探索 · 废墟修复 · 货币建造）与主动画循环
     // ============================================================================
-    const gameplay = initSunkenCityGameplay({
+    const gameplay = initSeaGameplay({
       THREE,
       scene,
       camera,

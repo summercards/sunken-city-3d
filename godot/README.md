@@ -1,4 +1,4 @@
-# 晴空水巷 · Godot 版
+# sea · Godot 版
 
 网页版（`sea/` 根目录，Three.js）的 1:1 画面移植。**静态场景由网页版烘焙而来**，
 光照 / 水面 / 动画 / 玩法在 Godot 内原生重建。
@@ -144,7 +144,7 @@ zone1 **打捞浮台**上立着一块订单板（三张钉着的单子 + 一盏�
 | **F9** | 读档（回到存档时的区块 / 船位 / 站位） |
 | — | 每 **120 秒**静默自动存档一次 |
 
-- 槽位 `user://save_slot_0.json`（macOS：`~/Library/Application Support/Godot/app_userdata/晴空水巷/`）；
+- 槽位 `user://save_slot_0.json`（macOS：`~/Library/Application Support/Godot/app_userdata/sea/`）；
 - 存：背包、船等级、建造等级与施工进度、设施、菜箱、**订单剩余秒数**、
   **打捞/采集冷却剩余秒数**、区块 / 上岸点 / 模式 / 船位 / 站位；
 - **只存相对时间**：`Time.get_ticks_msec()` 每次启动从 0 开始，存绝对时间会让冷却变成几十年；

@@ -985,7 +985,7 @@ func _test_underwater() -> void:
 			"%.1f%% (%d/%d) 双面表面 %d" % [ratio * 100.0, agree, total, double_surfaces])
 
 	# 下潜
-	uw.dive(Vector3.ZERO, "晴空水巷")
+	uw.dive(Vector3.ZERO, "sea")
 	_ok("下潜后 active", uw.active)
 	_ok("海面几何已隐藏", main.world_root.visible == false)
 	_ok("海面灯光已隐藏", main._surface_lights.size() > 0 and main._surface_lights[0].visible == false)
@@ -1453,7 +1453,7 @@ func _test_dive_air() -> void:
 		var opened_ids: Array = uw.to_dict().get("opened", [])
 		_ok("宝箱进度可序列化", opened_ids.size() >= 1, str(opened_ids))
 		# 上一段测试已经上浮，这里重新下潜才有 active。
-		uw.dive(Vector3.ZERO, "晴空水巷")
+		uw.dive(Vector3.ZERO, "sea")
 		uw.phase = "swim"
 		uw.debug_teleport(Vector3(0, -40, 10))
 		var before: float = uw.air.ratio()

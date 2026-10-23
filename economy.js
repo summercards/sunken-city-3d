@@ -53,14 +53,14 @@ export const SHIP_RECIPE = {
 };
 
 const ZONE_NAMES = {
-  zone1: '晴空水巷',
+  zone1: 'sea',
   zone2: '横滨铁道',
   zone3: '圆弧农场',
   zone4: '远海街町'
 };
 
 const SITE_NAMES = {
-  home_cabin: '晴空水巷 · 太阳能木屋花圃',
+  home_cabin: 'sea · 太阳能木屋花圃',
   rooftop_planter: '圆弧屋顶农场',
   yokohama_station: '横滨沉没铁道 · 站台与电车园圃'
 };

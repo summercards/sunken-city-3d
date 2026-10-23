@@ -1,5 +1,5 @@
 extends Node3D
-## 《晴空水巷》Godot 版主场景。
+## sea Godot 版主场景。
 ##
 ## 结构（装配式：场景内容都在 tscn 里，代码只负责接线）：
 ##   Environment/Lights  —— 对齐网页版的灯光与雾
@@ -759,6 +759,8 @@ func _setup_water() -> void:
 	water_mat.set_shader_parameter("water_level", WATER_LEVEL)
 	# 深度纹理的 NDC 约定随渲染后端不同，Web(gl_compatibility) 必须换算。
 	water_mat.set_shader_parameter("u_reverse_z", RenderFlagsLib.reverse_z())
+	# 水面是纯自发光材质，兼容后端对 EMISSION 的解码比 Forward+ 暗一档多。
+	water_mat.set_shader_parameter("emission_gain", RenderFlagsLib.water_emission_gain())
 	_set_shore_uniforms()
 	if water_node.has_method("update_surface"):
 		water_node.wake = get_node_or_null("World/BoatWake")
