@@ -27,6 +27,10 @@ var mat_lines := {}   # key -> tres 文本
 
 
 func _init() -> void:
+	if not FileAccess.file_exists("res://.sea-generation-candidate"):
+		printerr("Refusing to overwrite authored resources; use scripts/create_generation_candidate.py")
+		quit(2)
+		return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(MAT_DIR))
 	for zone in ZONES:
 		_build_zone(zone)

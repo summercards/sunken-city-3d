@@ -1,3 +1,5 @@
+> 技术参考与历史记录。项目管理入口为 [主文档](../GDD_V1.0.md#feature-control)，本主题从 [独立功能文档](../docs/features/camera/spec.md) 和 [账本](../docs/features/camera/ledger.md) 进入。下文历史验收只对原记录时点成立。
+
 # 镜头跟随与手动接管
 
 2026-10-22

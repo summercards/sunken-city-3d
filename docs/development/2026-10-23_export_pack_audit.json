@@ -1,0 +1,2358 @@
+{
+  "format": 4,
+  "file_count": 584,
+  "pack_bytes": 105261300,
+  "payload_bytes": 105202504,
+  "index_end_verified": true,
+  "directory_counts": {
+    ".godot": 152,
+    "assets": 232,
+    "icon.svg": 1,
+    "icon.svg.import": 1,
+    "project.binary": 1,
+    "scenes": 56,
+    "shaders": 21,
+    "src": 120
+  },
+  "forbidden_entries": [],
+  "missing_required": [],
+  "passed": true,
+  "entries": [
+    {
+      "path": ".godot/exported/133200997/export-019411b3e817fc6fb35a933636f3f6a7-region_reef.scn",
+      "bytes": 871
+    },
+    {
+      "path": ".godot/exported/133200997/export-0266c14883dd4de5bccedb069a492459-plant_28_7l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-03e0779ef8ea3c57dc09c0182eabd11f-plant_27_13l.scn",
+      "bytes": 1065
+    },
+    {
+      "path": ".godot/exported/133200997/export-054ae4e3181f934a4ceb145c9ce6ffde-baked_tn_0110.res",
+      "bytes": 500
+    },
+    {
+      "path": ".godot/exported/133200997/export-05ad1943cb3ffd7eeff6d60057379261-plant_00_4l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-05cbe5b711e4196bec07afea205f7682-region_neighborhood.scn",
+      "bytes": 889
+    },
+    {
+      "path": ".godot/exported/133200997/export-0a518e0a741bc4865dcdf0cb6856e606-plant_23_3l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-0cc85210191c153a8500318063a1774e-plant_20_10l.scn",
+      "bytes": 1074
+    },
+    {
+      "path": ".godot/exported/133200997/export-0fb47fa8313e55a3edae7853526e94dd-plant_21_4l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-12bd7034e53d1f9301993edfd14cdd5c-plant_25_7l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-1eac36637ea992a4692b0531bd057b76-ocean_sky.res",
+      "bytes": 793
+    },
+    {
+      "path": ".godot/exported/133200997/export-21db0722411a647c860d1abc59be9bdc-plant_18_3l.scn",
+      "bytes": 970
+    },
+    {
+      "path": ".godot/exported/133200997/export-25dec905fb53b14a0f2dc320f1716cc0-world_env.res",
+      "bytes": 2808
+    },
+    {
+      "path": ".godot/exported/133200997/export-36a2b2826d5edcccfbbf41d9bf0f7d68-zone3_arc_farm.scn",
+      "bytes": 3056
+    },
+    {
+      "path": ".godot/exported/133200997/export-3ad5c15c4f3250da0cc7c1af1770d85f-main.scn",
+      "bytes": 5323
+    },
+    {
+      "path": ".godot/exported/133200997/export-3b7497f55eceaba500f134a2158be47e-plant_30_3l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-3e92e78211cb02d2468af636d1b4cefd-zone2_yokohama_station.scn",
+      "bytes": 3078
+    },
+    {
+      "path": ".godot/exported/133200997/export-3ec2a565ada04fff6c33d2c5c0a49e45-baked_t2_0000.res",
+      "bytes": 694
+    },
+    {
+      "path": ".godot/exported/133200997/export-417429544b5e6713824e384f49aef614-plant_22_11l.scn",
+      "bytes": 1065
+    },
+    {
+      "path": ".godot/exported/133200997/export-4269eb35b9e3b8b991810c9da1eea6c0-baked_tn_1000.res",
+      "bytes": 622
+    },
+    {
+      "path": ".godot/exported/133200997/export-4500aebcabd3ac72382816b2d925565c-plant_07_6l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-4e78f35873da79dede936c9ddb5c8fc6-baked_tn_0000.res",
+      "bytes": 622
+    },
+    {
+      "path": ".godot/exported/133200997/export-5a51ac3d694699502d9e950141563731-farm_plot.scn",
+      "bytes": 1389
+    },
+    {
+      "path": ".godot/exported/133200997/export-5c66d2fcd9bb6e223f15523f59256ae6-baked_tn_0001.res",
+      "bytes": 622
+    },
+    {
+      "path": ".godot/exported/133200997/export-5d3daf492f029b8acec8f1dbf843d968-plant_13_8l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-5f3d5353b057b2e9f988740b0f59eecb-plant_26_6l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-5f5f2133ea98cce67c5576537a8c5d0a-plant_05_4l.scn",
+      "bytes": 970
+    },
+    {
+      "path": ".godot/exported/133200997/export-647e06b7c1925804ce5125931fe400d5-baked_t4_0100.res",
+      "bytes": 566
+    },
+    {
+      "path": ".godot/exported/133200997/export-6bbb0704b411bd45e9e57bcff43adac7-plant_39_3l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-6ef062a4ac4f327f639bfa76e985ff91-plant_10_5l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-769924ffd8c62c350bc5b6e1bb365165-plant_17_14l.scn",
+      "bytes": 1065
+    },
+    {
+      "path": ".godot/exported/133200997/export-792f5c4a790bfc563a3389331d3747eb-plant_41_5l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-7bf6a0d5765f0dbd1c7772aa23c28658-baked_tn_0100.res",
+      "bytes": 494
+    },
+    {
+      "path": ".godot/exported/133200997/export-7d90f64630b571d985c7438748ca23ea-zone5_aqua_platform.scn",
+      "bytes": 2831
+    },
+    {
+      "path": ".godot/exported/133200997/export-8e0430e88ea09e0148b046cfdf926782-region_trench.scn",
+      "bytes": 871
+    },
+    {
+      "path": ".godot/exported/133200997/export-8e1db590fec6f428bae2eb5258e8862e-baked_tn_1001.res",
+      "bytes": 622
+    },
+    {
+      "path": ".godot/exported/133200997/export-8ee3442f27fbf9d5ea90a89f6ec60c85-plant_29_6l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-938ab32b028e250490ad36c840d76ff3-plant_37_3l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-973b2ac94a1e766c6714723fdcc19a6e-plant_38_3l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-97fd9478e777d887e80c00fc42f0967a-plant_33_9l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-9c0114795e7130a861ff4d07c73dbcc3-zone4_far_shore.scn",
+      "bytes": 3076
+    },
+    {
+      "path": ".godot/exported/133200997/export-a2795331739f2ec485c53954e34f9573-plant_16_6l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-a6c6e7904d1bf310d819eeb06b0d251f-plant_35_7l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-ae30baca88d4d60c48643ef109b55df2-baked_tn_0111.res",
+      "bytes": 500
+    },
+    {
+      "path": ".godot/exported/133200997/export-bd9dd1778b3b74d471c40547a707d536-plant_06_6l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-c4a26a359d049a07eb487d0c3118e6c3-region_basin.scn",
+      "bytes": 871
+    },
+    {
+      "path": ".godot/exported/133200997/export-c6ecaadbdb2615a95edf4db849479c9c-plant_03_4l.scn",
+      "bytes": 970
+    },
+    {
+      "path": ".godot/exported/133200997/export-c75b7cc968f698c0d5480534cea42896-plant_24_6l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-ca022e7257f72951aa3e9ff9be521b91-plant_15_8l.scn",
+      "bytes": 970
+    },
+    {
+      "path": ".godot/exported/133200997/export-caf848a425ce522a9c096facb10ef8da-plant_09_12l.scn",
+      "bytes": 1065
+    },
+    {
+      "path": ".godot/exported/133200997/export-cb8fb169f538e5e828b8e466131f93d5-plant_34_5l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-cbd31a816e01cad36452a973f8e5fe74-farm_cell.scn",
+      "bytes": 690
+    },
+    {
+      "path": ".godot/exported/133200997/export-cda42fadfca82d77040749d77d43dbbd-plant_08_4l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-d09b644b8c47b1660f335284bd66bda3-plant_19_10l.scn",
+      "bytes": 1074
+    },
+    {
+      "path": ".godot/exported/133200997/export-d3c15033db06f7bab49f7b1ecab74742-plant_31_8l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-d5c8d5d4ed819a0215933ab0c4139df2-baked_t0_1000.res",
+      "bytes": 694
+    },
+    {
+      "path": ".godot/exported/133200997/export-d815aac00be22e21c208ad99b7a60ee3-plant_12_3l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-dc5f9d90642d21527b9e76a82337666a-plant_11_3l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-dcc62d1fdb147580155ab9614a175280-environment.scn",
+      "bytes": 800
+    },
+    {
+      "path": ".godot/exported/133200997/export-e2500703edb323f68ff116b2e6ee1db0-plant_32_7l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-e30289927176a91f294bf613ee7dd318-plant_04_8l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-e568840bd5658c8c45b445b74e02f8ef-zone1_home_harbor.scn",
+      "bytes": 3884
+    },
+    {
+      "path": ".godot/exported/133200997/export-e725cb1ce24817a3515b1f95ff6d4c3f-water.res",
+      "bytes": 2357
+    },
+    {
+      "path": ".godot/exported/133200997/export-e841c79ef02922981634249a337e1150-plant_01_5l.scn",
+      "bytes": 970
+    },
+    {
+      "path": ".godot/exported/133200997/export-e96809805256765a9a4686d5a29ef469-baked_t3_0100.res",
+      "bytes": 566
+    },
+    {
+      "path": ".godot/exported/133200997/export-eb8e37835d41d55f640996bb6050ab73-plant_02_3l.scn",
+      "bytes": 970
+    },
+    {
+      "path": ".godot/exported/133200997/export-ef781ee4e43944875663f11228fe5766-baked_t1_1000.res",
+      "bytes": 694
+    },
+    {
+      "path": ".godot/exported/133200997/export-efb351a8f17ffa405165512d51e5918c-underwater_world.scn",
+      "bytes": 1585
+    },
+    {
+      "path": ".godot/exported/133200997/export-f1c9a8d794adedb182f6d0acd1b4141d-plant_14_3l.scn",
+      "bytes": 1062
+    },
+    {
+      "path": ".godot/exported/133200997/export-f3e71c75476b265fb9021be8c6cfc8c9-plant_36_3l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/exported/133200997/export-fb2053b25ac049478e06c2e218eebb3c-plant_40_4l.scn",
+      "bytes": 1071
+    },
+    {
+      "path": ".godot/global_script_class_cache.cfg",
+      "bytes": 3883
+    },
+    {
+      "path": ".godot/imported/NotoSansSC-Regular.otf-c0c85f3b3b2ad6d96b65df5f3103bb43.fontdata",
+      "bytes": 7596393
+    },
+    {
+      "path": ".godot/imported/basin.glb-2d306bff076ecd92a012ad80edec32dc.scn",
+      "bytes": 1038930
+    },
+    {
+      "path": ".godot/imported/bridge.glb-cbe481407c8131dab34ebf22ce096b5a.scn",
+      "bytes": 40365
+    },
+    {
+      "path": ".godot/imported/brig.glb-5707a026d729d605a26f6e38c6807db6.scn",
+      "bytes": 243149
+    },
+    {
+      "path": ".godot/imported/coral_00.glb-68a42bc8461642af26f0066e5097463b.scn",
+      "bytes": 1505774
+    },
+    {
+      "path": ".godot/imported/coral_01.glb-120e56193f9e57933dfbd70f6b306af4.scn",
+      "bytes": 1462988
+    },
+    {
+      "path": ".godot/imported/coral_02.glb-86949fb1b1d03b9a6909283d779d6704.scn",
+      "bytes": 1495954
+    },
+    {
+      "path": ".godot/imported/coral_03.glb-90cb03ded962a50520570bba771c727e.scn",
+      "bytes": 1495766
+    },
+    {
+      "path": ".godot/imported/coral_04.glb-16d99525ae2b2a0a8cf29e5ac47edcf5.scn",
+      "bytes": 1426576
+    },
+    {
+      "path": ".godot/imported/coral_05.glb-0cba7c5f0bc34cbe09b2822ab6496a3d.scn",
+      "bytes": 1466052
+    },
+    {
+      "path": ".godot/imported/coral_06.glb-913a86bb7e6b156c7bb258b2fbe1a48c.scn",
+      "bytes": 1439228
+    },
+    {
+      "path": ".godot/imported/coral_07.glb-7f32a37d0cb475f9fdc270dd75cdd8f2.scn",
+      "bytes": 1034635
+    },
+    {
+      "path": ".godot/imported/detail.glb-1e9271880fc82b60b63c9b8aed9a8243.scn",
+      "bytes": 39142
+    },
+    {
+      "path": ".godot/imported/detail.glb-1ea4482bc7a8b1fda4b4edd0c57fa47c.scn",
+      "bytes": 37949
+    },
+    {
+      "path": ".godot/imported/detail.glb-2640d00b52a187b9ee9134f517246a64.scn",
+      "bytes": 447184
+    },
+    {
+      "path": ".godot/imported/detail.glb-2a4d2c27c2fa41b45101a73b4c56b23f.scn",
+      "bytes": 1932537
+    },
+    {
+      "path": ".godot/imported/detail.glb-79cb6a90f40b09e395ef69f004593ca5.scn",
+      "bytes": 6983
+    },
+    {
+      "path": ".godot/imported/house_00.glb-fba29f8a3e7e70701e103e2cd08ade67.scn",
+      "bytes": 166330
+    },
+    {
+      "path": ".godot/imported/house_01.glb-75f29161a790d4f11287c47f12eeaa00.scn",
+      "bytes": 131809
+    },
+    {
+      "path": ".godot/imported/house_02.glb-7877db0196d5b032a37b26f9a502d4da.scn",
+      "bytes": 66020
+    },
+    {
+      "path": ".godot/imported/house_03.glb-2d64f244d888f796f81d2a47da7095ba.scn",
+      "bytes": 169016
+    },
+    {
+      "path": ".godot/imported/house_04.glb-ccac392f73a55daa8a33803458d9ea79.scn",
+      "bytes": 87575
+    },
+    {
+      "path": ".godot/imported/house_05.glb-73e0f211af64a93814349b96d563fcf3.scn",
+      "bytes": 126301
+    },
+    {
+      "path": ".godot/imported/house_06.glb-a555b1478c762fa40500d2a8b7d536bd.scn",
+      "bytes": 130604
+    },
+    {
+      "path": ".godot/imported/house_07.glb-2ca19f62b91ed0f1600afe72bc4b1115.scn",
+      "bytes": 90070
+    },
+    {
+      "path": ".godot/imported/house_08.glb-d68c4a0535c34db8e369c7053c7e1139.scn",
+      "bytes": 88900
+    },
+    {
+      "path": ".godot/imported/house_09.glb-66658141a32f04625370d2cc9f388267.scn",
+      "bytes": 69137
+    },
+    {
+      "path": ".godot/imported/house_10.glb-78f3baab263ca4b0b0581e8664edd39d.scn",
+      "bytes": 74258
+    },
+    {
+      "path": ".godot/imported/house_11.glb-0e1e1a22d954d5466eedc1945565da9e.scn",
+      "bytes": 70820
+    },
+    {
+      "path": ".godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex",
+      "bytes": 1938
+    },
+    {
+      "path": ".godot/imported/kelp_00.glb-68b4f75f5aa3ce4593567c2288f33cdf.scn",
+      "bytes": 95324
+    },
+    {
+      "path": ".godot/imported/kelp_01.glb-1e66963be9d562959921dfdb7c077f63.scn",
+      "bytes": 87154
+    },
+    {
+      "path": ".godot/imported/lamps.glb-7c96fb395a14daacf8625cec1127a5d6.scn",
+      "bytes": 21306
+    },
+    {
+      "path": ".godot/imported/neighborhood.glb-b25e382d584d4cb84c4be5bee4765aeb.scn",
+      "bytes": 1424647
+    },
+    {
+      "path": ".godot/imported/quad_test.glb-97be834a2a2118abdb31e5ee8a44b727.scn",
+      "bytes": 1965
+    },
+    {
+      "path": ".godot/imported/reef.glb-8fd05b74fcd2a92853cc35b770d637f8.scn",
+      "bytes": 12097797
+    },
+    {
+      "path": ".godot/imported/shell.glb-89a96e0605e6cfc2142c89a0d3f511e2.scn",
+      "bytes": 836143
+    },
+    {
+      "path": ".godot/imported/terraces.glb-c55f459942c43ca2c2252d13c039a5d2.scn",
+      "bytes": 203167
+    },
+    {
+      "path": ".godot/imported/tex_0.png-591d0fc4cdc4a3fe4c84b2b973bc93c8.s3tc.ctex",
+      "bytes": 87452
+    },
+    {
+      "path": ".godot/imported/tex_1.png-e496bcf2aa7bfcccd9918908829d861f.s3tc.ctex",
+      "bytes": 87452
+    },
+    {
+      "path": ".godot/imported/tex_2.png-fb334cb8f7f92dc6d5ecf28cf68f5419.s3tc.ctex",
+      "bytes": 174828
+    },
+    {
+      "path": ".godot/imported/tex_3.png-239f342fb1ccae74f4622b34741886da.s3tc.ctex",
+      "bytes": 65604
+    },
+    {
+      "path": ".godot/imported/tex_4.png-f28472c52b1d1a0f46fc3516b831c4f9.s3tc.ctex",
+      "bytes": 43756
+    },
+    {
+      "path": ".godot/imported/trench.glb-e46569da493ca2655632c38c72a727b4.scn",
+      "bytes": 4181568
+    },
+    {
+      "path": ".godot/imported/trench_shell.glb-3c3909c8fe93b13bb6a947f8762ee534.scn",
+      "bytes": 114025
+    },
+    {
+      "path": ".godot/imported/trench_shell.glb-620ba54e20bfa9105d0178aacbd83bc3.scn",
+      "bytes": 3921556
+    },
+    {
+      "path": ".godot/imported/trench_stairs.glb-f954e925c68a6689ac48c1f404e30c9d.scn",
+      "bytes": 12889
+    },
+    {
+      "path": ".godot/imported/unit_01.glb-50672770e132a977feca8bea3543b5ff.scn",
+      "bytes": 835637
+    },
+    {
+      "path": ".godot/imported/unit_01.glb-5ce3a4d32249b3cf907fdf37ed470512.scn",
+      "bytes": 2202897
+    },
+    {
+      "path": ".godot/imported/unit_01.glb-9a739d702a389ceb69b22033599b489e.scn",
+      "bytes": 9182
+    },
+    {
+      "path": ".godot/imported/unit_01.glb-a051da87d42d24b7526e24af25e6cb85.scn",
+      "bytes": 60070
+    },
+    {
+      "path": ".godot/imported/unit_01.glb-dc33d6f779991b7c3fb712e29a96fdac.scn",
+      "bytes": 24536
+    },
+    {
+      "path": ".godot/imported/unit_01_tex_0.png-887bf662ef15c0261859a4a5ca5f25f7.s3tc.ctex",
+      "bytes": 87452
+    },
+    {
+      "path": ".godot/imported/unit_01_tex_0.png-dfdf85f8498f3ca0c1b8f0fcfe71b3b0.s3tc.ctex",
+      "bytes": 87452
+    },
+    {
+      "path": ".godot/imported/unit_01_tex_1.png-6813a65cf57532da0ee26da6b07617b5.s3tc.ctex",
+      "bytes": 87452
+    },
+    {
+      "path": ".godot/imported/unit_01_tex_3.png-aedd41938876240b1877e8ff8cb2fe30.s3tc.ctex",
+      "bytes": 65604
+    },
+    {
+      "path": ".godot/imported/unit_02.glb-82cf12fc5794d631d5d22f7a5eb9761f.scn",
+      "bytes": 1127574
+    },
+    {
+      "path": ".godot/imported/unit_02.glb-c44b2ff677186d23aaa48a1b608dfab5.scn",
+      "bytes": 14478
+    },
+    {
+      "path": ".godot/imported/unit_02.glb-d4e576fdf583f85cd3adc6e45ed29247.scn",
+      "bytes": 217496
+    },
+    {
+      "path": ".godot/imported/unit_02_tex_1.png-f441c532b9b96dca47388b669985ca4b.s3tc.ctex",
+      "bytes": 87452
+    },
+    {
+      "path": ".godot/imported/unit_03.glb-3237a53c33e3dd51564bae642f89b717.scn",
+      "bytes": 204672
+    },
+    {
+      "path": ".godot/imported/unit_03.glb-3d78ab83424e1e9cad755727c14e1206.scn",
+      "bytes": 32588
+    },
+    {
+      "path": ".godot/imported/unit_03.glb-7310d118de12350cb243051dbc208895.scn",
+      "bytes": 1089098
+    },
+    {
+      "path": ".godot/imported/unit_03_tex_1.png-c81dafcd3e9760e8415684283ba2d6c5.s3tc.ctex",
+      "bytes": 87452
+    },
+    {
+      "path": ".godot/imported/unit_03_tex_2.png-69f6b5cacd1c5b9f33570efd0f32fcf9.s3tc.ctex",
+      "bytes": 174828
+    },
+    {
+      "path": ".godot/imported/unit_04.glb-7606b53d5af03bab6698cc0612f1ba99.scn",
+      "bytes": 1805
+    },
+    {
+      "path": ".godot/imported/unit_04_tex_4.png-6f873cc07ef5088cfdfa6c6f787d2010.s3tc.ctex",
+      "bytes": 43756
+    },
+    {
+      "path": ".godot/imported/vehicles.glb-559e97011e671e1947e4e8fea216b0a8.scn",
+      "bytes": 104292
+    },
+    {
+      "path": ".godot/imported/zone1_home_harbor.glb-d0abb942517af667b430c364a4d5da89.scn",
+      "bytes": 3574669
+    },
+    {
+      "path": ".godot/imported/zone1_home_harbor_tex_0.png-b94e039a9bdf6c4b8f1ba92ea67d1b04.ctex",
+      "bytes": 29878
+    },
+    {
+      "path": ".godot/imported/zone1_home_harbor_tex_1.png-764389302f4b0cae73102677fa083e2c.ctex",
+      "bytes": 30590
+    },
+    {
+      "path": ".godot/imported/zone1_home_harbor_tex_2.png-c3795148ac49fa0c8ef71acf07ffa150.ctex",
+      "bytes": 78050
+    },
+    {
+      "path": ".godot/imported/zone2_yokohama_station.glb-2261e895d7f4645aa74dde838df62517.scn",
+      "bytes": 627790
+    },
+    {
+      "path": ".godot/imported/zone2_yokohama_station_tex_3.png-d340d3172cbc2e7d52a19053c87a14d9.ctex",
+      "bytes": 8012
+    },
+    {
+      "path": ".godot/imported/zone3_arc_farm.glb-a33ed551efb148d5573811210c66e781.scn",
+      "bytes": 4152309
+    },
+    {
+      "path": ".godot/imported/zone3_arc_farm_tex_0.png-940e07d5e10de8674fc3ecf6eb955e3e.ctex",
+      "bytes": 29878
+    },
+    {
+      "path": ".godot/imported/zone4_far_shore.glb-900ff89f4cc1516e98c801ffbe56c8b6.scn",
+      "bytes": 65419
+    },
+    {
+      "path": ".godot/imported/zone4_far_shore_tex_4.png-9425c27e371f63fb376018b930d8515f.ctex",
+      "bytes": 4330
+    },
+    {
+      "path": ".godot/imported/zone5_aqua_platform.glb-1a71ee1c5ed71e6183ba09f17ef8999d.scn",
+      "bytes": 64922
+    },
+    {
+      "path": ".godot/uid_cache.bin",
+      "bytes": 9146
+    },
+    {
+      "path": "assets/baked/birds.json",
+      "bytes": 19376
+    },
+    {
+      "path": "assets/baked/boat.json",
+      "bytes": 8287
+    },
+    {
+      "path": "assets/baked/boat_geoms.bin",
+      "bytes": 183840
+    },
+    {
+      "path": "assets/baked/boat_geoms_idx.bin",
+      "bytes": 40440
+    },
+    {
+      "path": "assets/baked/boat_instances.bin",
+      "bytes": 3008
+    },
+    {
+      "path": "assets/baked/geoms.bin",
+      "bytes": 5520672
+    },
+    {
+      "path": "assets/baked/geoms_idx.bin",
+      "bytes": 262308
+    },
+    {
+      "path": "assets/baked/instances.bin",
+      "bytes": 16197248
+    },
+    {
+      "path": "assets/baked/scene.json",
+      "bytes": 266886
+    },
+    {
+      "path": "assets/baked/shore.json",
+      "bytes": 2175
+    },
+    {
+      "path": "assets/baked/textures/tex_0.png.import",
+      "bytes": 237
+    },
+    {
+      "path": "assets/baked/textures/tex_1.png.import",
+      "bytes": 238
+    },
+    {
+      "path": "assets/baked/textures/tex_2.png.import",
+      "bytes": 238
+    },
+    {
+      "path": "assets/baked/textures/tex_3.png.import",
+      "bytes": 238
+    },
+    {
+      "path": "assets/baked/textures/tex_4.png.import",
+      "bytes": 238
+    },
+    {
+      "path": "assets/baked/underwater/geoms.bin",
+      "bytes": 765140
+    },
+    {
+      "path": "assets/baked/underwater/geoms_idx.bin",
+      "bytes": 377328
+    },
+    {
+      "path": "assets/baked/underwater/instances.bin",
+      "bytes": 943680
+    },
+    {
+      "path": "assets/baked/underwater/scene.json",
+      "bytes": 370445
+    },
+    {
+      "path": "assets/baked/underwater/swim.json",
+      "bytes": 4814
+    },
+    {
+      "path": "assets/data/build_sites.json",
+      "bytes": 628
+    },
+    {
+      "path": "assets/data/crops.json",
+      "bytes": 1400
+    },
+    {
+      "path": "assets/data/gather_spots.json",
+      "bytes": 1501
+    },
+    {
+      "path": "assets/data/items.json",
+      "bytes": 4060
+    },
+    {
+      "path": "assets/data/orders.json",
+      "bytes": 3036
+    },
+    {
+      "path": "assets/data/plant_claim.json",
+      "bytes": 11808
+    },
+    {
+      "path": "assets/data/plants_zone1_home_harbor.json",
+      "bytes": 6869
+    },
+    {
+      "path": "assets/data/plants_zone2_yokohama_station.json",
+      "bytes": 52
+    },
+    {
+      "path": "assets/data/plants_zone3_arc_farm.json",
+      "bytes": 18901
+    },
+    {
+      "path": "assets/data/plants_zone4_far_shore.json",
+      "bytes": 45
+    },
+    {
+      "path": "assets/data/plants_zone5_aqua_platform.json",
+      "bytes": 167
+    },
+    {
+      "path": "assets/data/plots.json",
+      "bytes": 763
+    },
+    {
+      "path": "assets/data/trade_board.json",
+      "bytes": 181
+    },
+    {
+      "path": "assets/data/zones.json",
+      "bytes": 7896
+    },
+    {
+      "path": "assets/fonts/NotoSansSC-Regular.otf.import",
+      "bytes": 174
+    },
+    {
+      "path": "assets/materials/models/baked_t0_1000.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_t1_1000.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_t2_0000.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_t3_0100.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_t4_0100.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_tn_0000.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_tn_0001.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_tn_0100.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_tn_0110.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_tn_0111.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_tn_1000.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/models/baked_tn_1001.tres.remap",
+      "bytes": 106
+    },
+    {
+      "path": "assets/materials/ocean_sky.tres.remap",
+      "bytes": 102
+    },
+    {
+      "path": "assets/materials/water.tres.remap",
+      "bytes": 98
+    },
+    {
+      "path": "assets/materials/world_env.tres.remap",
+      "bytes": 102
+    },
+    {
+      "path": "assets/models/debug/quad_test.glb.import",
+      "bytes": 171
+    },
+    {
+      "path": "assets/models/underwater/basin/basin.glb.import",
+      "bytes": 167
+    },
+    {
+      "path": "assets/models/underwater/basin/manifest.json",
+      "bytes": 23331
+    },
+    {
+      "path": "assets/models/underwater/basin/units/shell.glb.import",
+      "bytes": 167
+    },
+    {
+      "path": "assets/models/underwater/basin/units/terraces.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/basin/units/trench_shell.glb.import",
+      "bytes": 174
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/manifest.json",
+      "bytes": 189375
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/neighborhood.glb.import",
+      "bytes": 174
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/bridge.glb.import",
+      "bytes": 167
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_00.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_01.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_02.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_03.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_04.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_05.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_06.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_07.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_08.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_09.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_10.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/house_11.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/lamps.glb.import",
+      "bytes": 167
+    },
+    {
+      "path": "assets/models/underwater/neighborhood/units/vehicles.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/reef/manifest.json",
+      "bytes": 23565
+    },
+    {
+      "path": "assets/models/underwater/reef/reef.glb.import",
+      "bytes": 166
+    },
+    {
+      "path": "assets/models/underwater/reef/units/coral_00.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/reef/units/coral_01.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/reef/units/coral_02.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/reef/units/coral_03.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/reef/units/coral_04.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/reef/units/coral_05.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/underwater/reef/units/coral_06.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/reef/units/coral_07.glb.import",
+      "bytes": 170
+    },
+    {
+      "path": "assets/models/underwater/reef/units/kelp_00.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/underwater/reef/units/kelp_01.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/underwater/trench/manifest.json",
+      "bytes": 38749
+    },
+    {
+      "path": "assets/models/underwater/trench/trench.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/underwater/trench/units/brig.glb.import",
+      "bytes": 166
+    },
+    {
+      "path": "assets/models/underwater/trench/units/trench_shell.glb.import",
+      "bytes": 174
+    },
+    {
+      "path": "assets/models/underwater/trench/units/trench_stairs.glb.import",
+      "bytes": 174
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/manifest.json",
+      "bytes": 6985
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units.json",
+      "bytes": 578
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units/detail.glb.import",
+      "bytes": 167
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units/unit_01.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units/unit_01_tex_0.png.import",
+      "bytes": 312
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units/unit_01_tex_1.png.import",
+      "bytes": 313
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units/unit_02.glb.import",
+      "bytes": 167
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units/unit_02_tex_1.png.import",
+      "bytes": 313
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units/unit_03.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units/unit_03_tex_1.png.import",
+      "bytes": 312
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/units/unit_03_tex_2.png.import",
+      "bytes": 313
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/zone1_home_harbor.glb.import",
+      "bytes": 179
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/zone1_home_harbor_tex_0.png.import",
+      "bytes": 279
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/zone1_home_harbor_tex_1.png.import",
+      "bytes": 278
+    },
+    {
+      "path": "assets/models/zones/zone1_home_harbor/zone1_home_harbor_tex_2.png.import",
+      "bytes": 279
+    },
+    {
+      "path": "assets/models/zones/zone2_yokohama_station/manifest.json",
+      "bytes": 6069
+    },
+    {
+      "path": "assets/models/zones/zone2_yokohama_station/units.json",
+      "bytes": 582
+    },
+    {
+      "path": "assets/models/zones/zone2_yokohama_station/units/detail.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/zones/zone2_yokohama_station/units/unit_01.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/zones/zone2_yokohama_station/units/unit_01_tex_3.png.import",
+      "bytes": 312
+    },
+    {
+      "path": "assets/models/zones/zone2_yokohama_station/units/unit_02.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/zones/zone2_yokohama_station/units/unit_03.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/zones/zone2_yokohama_station/zone2_yokohama_station.glb.import",
+      "bytes": 183
+    },
+    {
+      "path": "assets/models/zones/zone2_yokohama_station/zone2_yokohama_station_tex_3.png.import",
+      "bytes": 284
+    },
+    {
+      "path": "assets/models/zones/zone3_arc_farm/manifest.json",
+      "bytes": 3418
+    },
+    {
+      "path": "assets/models/zones/zone3_arc_farm/units.json",
+      "bytes": 297
+    },
+    {
+      "path": "assets/models/zones/zone3_arc_farm/units/detail.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/zones/zone3_arc_farm/units/unit_01.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/zones/zone3_arc_farm/units/unit_01_tex_0.png.import",
+      "bytes": 312
+    },
+    {
+      "path": "assets/models/zones/zone3_arc_farm/zone3_arc_farm.glb.import",
+      "bytes": 176
+    },
+    {
+      "path": "assets/models/zones/zone3_arc_farm/zone3_arc_farm_tex_0.png.import",
+      "bytes": 276
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/manifest.json",
+      "bytes": 4355
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/units.json",
+      "bytes": 743
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/units/detail.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/units/unit_01.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/units/unit_02.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/units/unit_03.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/units/unit_04.glb.import",
+      "bytes": 169
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/units/unit_04_tex_4.png.import",
+      "bytes": 313
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/zone4_far_shore.glb.import",
+      "bytes": 177
+    },
+    {
+      "path": "assets/models/zones/zone4_far_shore/zone4_far_shore_tex_4.png.import",
+      "bytes": 276
+    },
+    {
+      "path": "assets/models/zones/zone5_aqua_platform/manifest.json",
+      "bytes": 2473
+    },
+    {
+      "path": "assets/models/zones/zone5_aqua_platform/units.json",
+      "bytes": 156
+    },
+    {
+      "path": "assets/models/zones/zone5_aqua_platform/units/detail.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/zones/zone5_aqua_platform/units/unit_01.glb.import",
+      "bytes": 168
+    },
+    {
+      "path": "assets/models/zones/zone5_aqua_platform/zone5_aqua_platform.glb.import",
+      "bytes": 181
+    },
+    {
+      "path": "assets/plants/common/plant_01_5l/mesh.bin",
+      "bytes": 5048
+    },
+    {
+      "path": "assets/plants/common/plant_01_5l/meta.json",
+      "bytes": 208
+    },
+    {
+      "path": "assets/plants/common/plant_02_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/common/plant_02_3l/meta.json",
+      "bytes": 206
+    },
+    {
+      "path": "assets/plants/common/plant_03_4l/mesh.bin",
+      "bytes": 4040
+    },
+    {
+      "path": "assets/plants/common/plant_03_4l/meta.json",
+      "bytes": 205
+    },
+    {
+      "path": "assets/plants/common/plant_05_4l/mesh.bin",
+      "bytes": 4040
+    },
+    {
+      "path": "assets/plants/common/plant_05_4l/meta.json",
+      "bytes": 205
+    },
+    {
+      "path": "assets/plants/common/plant_15_8l/mesh.bin",
+      "bytes": 8072
+    },
+    {
+      "path": "assets/plants/common/plant_15_8l/meta.json",
+      "bytes": 206
+    },
+    {
+      "path": "assets/plants/common/plant_18_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/common/plant_18_3l/meta.json",
+      "bytes": 201
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_04_8l/mesh.bin",
+      "bytes": 8072
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_04_8l/meta.json",
+      "bytes": 212
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_07_6l/mesh.bin",
+      "bytes": 6056
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_07_6l/meta.json",
+      "bytes": 209
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_11_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_11_3l/meta.json",
+      "bytes": 210
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_12_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_12_3l/meta.json",
+      "bytes": 209
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_13_8l/mesh.bin",
+      "bytes": 8072
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_13_8l/meta.json",
+      "bytes": 209
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_19_10l/mesh.bin",
+      "bytes": 10088
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_19_10l/meta.json",
+      "bytes": 211
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_20_10l/mesh.bin",
+      "bytes": 10088
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_20_10l/meta.json",
+      "bytes": 213
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_33_9l/mesh.bin",
+      "bytes": 9080
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_33_9l/meta.json",
+      "bytes": 211
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_34_5l/mesh.bin",
+      "bytes": 5048
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_34_5l/meta.json",
+      "bytes": 211
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_35_7l/mesh.bin",
+      "bytes": 7064
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_35_7l/meta.json",
+      "bytes": 209
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_36_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_36_3l/meta.json",
+      "bytes": 210
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_37_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_37_3l/meta.json",
+      "bytes": 210
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_38_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_38_3l/meta.json",
+      "bytes": 210
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_39_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_39_3l/meta.json",
+      "bytes": 210
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_40_4l/mesh.bin",
+      "bytes": 4040
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_40_4l/meta.json",
+      "bytes": 209
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_41_5l/mesh.bin",
+      "bytes": 5048
+    },
+    {
+      "path": "assets/plants/zones/zone1_home_harbor/plant_41_5l/meta.json",
+      "bytes": 210
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_00_4l/mesh.bin",
+      "bytes": 4040
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_00_4l/meta.json",
+      "bytes": 207
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_06_6l/mesh.bin",
+      "bytes": 6056
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_06_6l/meta.json",
+      "bytes": 207
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_08_4l/mesh.bin",
+      "bytes": 4040
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_08_4l/meta.json",
+      "bytes": 208
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_09_12l/mesh.bin",
+      "bytes": 12104
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_09_12l/meta.json",
+      "bytes": 209
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_10_5l/mesh.bin",
+      "bytes": 5048
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_10_5l/meta.json",
+      "bytes": 206
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_14_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_14_3l/meta.json",
+      "bytes": 207
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_16_6l/mesh.bin",
+      "bytes": 6056
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_16_6l/meta.json",
+      "bytes": 209
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_17_14l/mesh.bin",
+      "bytes": 14120
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_17_14l/meta.json",
+      "bytes": 209
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_21_4l/mesh.bin",
+      "bytes": 4040
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_21_4l/meta.json",
+      "bytes": 206
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_22_11l/mesh.bin",
+      "bytes": 11096
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_22_11l/meta.json",
+      "bytes": 208
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_23_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_23_3l/meta.json",
+      "bytes": 205
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_24_6l/mesh.bin",
+      "bytes": 6056
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_24_6l/meta.json",
+      "bytes": 204
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_25_7l/mesh.bin",
+      "bytes": 7064
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_25_7l/meta.json",
+      "bytes": 206
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_26_6l/mesh.bin",
+      "bytes": 6056
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_26_6l/meta.json",
+      "bytes": 205
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_27_13l/mesh.bin",
+      "bytes": 13112
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_27_13l/meta.json",
+      "bytes": 209
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_28_7l/mesh.bin",
+      "bytes": 7064
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_28_7l/meta.json",
+      "bytes": 206
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_29_6l/mesh.bin",
+      "bytes": 6056
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_29_6l/meta.json",
+      "bytes": 206
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_30_3l/mesh.bin",
+      "bytes": 3032
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_30_3l/meta.json",
+      "bytes": 204
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_31_8l/mesh.bin",
+      "bytes": 8072
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_31_8l/meta.json",
+      "bytes": 208
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_32_7l/mesh.bin",
+      "bytes": 7064
+    },
+    {
+      "path": "assets/plants/zones/zone3_arc_farm/plant_32_7l/meta.json",
+      "bytes": 208
+    },
+    {
+      "path": "assets/world/environment/bake.json",
+      "bytes": 55892
+    },
+    {
+      "path": "assets/world/environment/instances.bin",
+      "bytes": 15944704
+    },
+    {
+      "path": "assets/zones/zone1_home_harbor/bake.json",
+      "bytes": 62753
+    },
+    {
+      "path": "assets/zones/zone1_home_harbor/instances.bin",
+      "bytes": 91776
+    },
+    {
+      "path": "assets/zones/zone2_yokohama_station/bake.json",
+      "bytes": 34728
+    },
+    {
+      "path": "assets/zones/zone2_yokohama_station/instances.bin",
+      "bytes": 13504
+    },
+    {
+      "path": "assets/zones/zone3_arc_farm/bake.json",
+      "bytes": 36679
+    },
+    {
+      "path": "assets/zones/zone3_arc_farm/instances.bin",
+      "bytes": 78336
+    },
+    {
+      "path": "assets/zones/zone4_far_shore/bake.json",
+      "bytes": 6974
+    },
+    {
+      "path": "assets/zones/zone4_far_shore/instances.bin",
+      "bytes": 2560
+    },
+    {
+      "path": "assets/zones/zone5_aqua_platform/bake.json",
+      "bytes": 3215
+    },
+    {
+      "path": "assets/zones/zone5_aqua_platform/instances.bin",
+      "bytes": 3328
+    },
+    {
+      "path": "icon.svg",
+      "bytes": 464
+    },
+    {
+      "path": "icon.svg.import",
+      "bytes": 193
+    },
+    {
+      "path": "project.binary",
+      "bytes": 935
+    },
+    {
+      "path": "scenes/main.tscn.remap",
+      "bytes": 97
+    },
+    {
+      "path": "scenes/plants/common/plant_01_5l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/common/plant_02_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/common/plant_03_4l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/common/plant_05_4l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/common/plant_15_8l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/common/plant_18_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_04_8l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_07_6l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_11_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_12_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_13_8l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_19_10l.tscn.remap",
+      "bytes": 105
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_20_10l.tscn.remap",
+      "bytes": 105
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_33_9l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_34_5l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_35_7l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_36_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_37_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_38_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_39_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_40_4l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone1_home_harbor/plant_41_5l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_00_4l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_06_6l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_08_4l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_09_12l.tscn.remap",
+      "bytes": 105
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_10_5l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_14_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_16_6l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_17_14l.tscn.remap",
+      "bytes": 105
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_21_4l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_22_11l.tscn.remap",
+      "bytes": 105
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_23_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_24_6l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_25_7l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_26_6l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_27_13l.tscn.remap",
+      "bytes": 105
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_28_7l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_29_6l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_30_3l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_31_8l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/plants/zones/zone3_arc_farm/plant_32_7l.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/props/farm_cell.tscn.remap",
+      "bytes": 102
+    },
+    {
+      "path": "scenes/props/farm_plot.tscn.remap",
+      "bytes": 102
+    },
+    {
+      "path": "scenes/underwater/region_basin.tscn.remap",
+      "bytes": 105
+    },
+    {
+      "path": "scenes/underwater/region_neighborhood.tscn.remap",
+      "bytes": 112
+    },
+    {
+      "path": "scenes/underwater/region_reef.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/underwater/region_trench.tscn.remap",
+      "bytes": 106
+    },
+    {
+      "path": "scenes/underwater/underwater_world.tscn.remap",
+      "bytes": 109
+    },
+    {
+      "path": "scenes/world/environment.tscn.remap",
+      "bytes": 104
+    },
+    {
+      "path": "scenes/zones/zone1_home_harbor.tscn.remap",
+      "bytes": 110
+    },
+    {
+      "path": "scenes/zones/zone2_yokohama_station.tscn.remap",
+      "bytes": 115
+    },
+    {
+      "path": "scenes/zones/zone3_arc_farm.tscn.remap",
+      "bytes": 107
+    },
+    {
+      "path": "scenes/zones/zone4_far_shore.tscn.remap",
+      "bytes": 108
+    },
+    {
+      "path": "scenes/zones/zone5_aqua_platform.tscn.remap",
+      "bytes": 112
+    },
+    {
+      "path": "shaders/ocean_foam.gdshaderinc",
+      "bytes": 11005
+    },
+    {
+      "path": "shaders/ocean_wake.gdshaderinc",
+      "bytes": 1434
+    },
+    {
+      "path": "shaders/ocean_waves.gdshaderinc",
+      "bytes": 1909
+    },
+    {
+      "path": "shaders/toon.gdshader",
+      "bytes": 746
+    },
+    {
+      "path": "shaders/toon_alpha.gdshader",
+      "bytes": 794
+    },
+    {
+      "path": "shaders/toon_common.gdshaderinc",
+      "bytes": 1775
+    },
+    {
+      "path": "shaders/underwater.gdshader",
+      "bytes": 229
+    },
+    {
+      "path": "shaders/underwater_alpha.gdshader",
+      "bytes": 262
+    },
+    {
+      "path": "shaders/underwater_alpha_culled.gdshader",
+      "bytes": 258
+    },
+    {
+      "path": "shaders/underwater_culled.gdshader",
+      "bytes": 225
+    },
+    {
+      "path": "shaders/unlit.gdshader",
+      "bytes": 423
+    },
+    {
+      "path": "shaders/unlit_alpha.gdshader",
+      "bytes": 340
+    },
+    {
+      "path": "shaders/uw_beam.gdshader",
+      "bytes": 495
+    },
+    {
+      "path": "shaders/uw_ceiling.gdshader",
+      "bytes": 1138
+    },
+    {
+      "path": "shaders/uw_common.gdshaderinc",
+      "bytes": 5275
+    },
+    {
+      "path": "shaders/uw_facing_debug.gdshader",
+      "bytes": 1060
+    },
+    {
+      "path": "shaders/uw_fog.gdshader",
+      "bytes": 1418
+    },
+    {
+      "path": "shaders/uw_sky.gdshader",
+      "bytes": 478
+    },
+    {
+      "path": "shaders/uw_surface.gdshaderinc",
+      "bytes": 944
+    },
+    {
+      "path": "shaders/uw_water_color.gdshaderinc",
+      "bytes": 2222
+    },
+    {
+      "path": "shaders/water.gdshader",
+      "bytes": 12512
+    },
+    {
+      "path": "src/ambient/birds.gd.remap",
+      "bytes": 44
+    },
+    {
+      "path": "src/ambient/birds.gdc",
+      "bytes": 2889
+    },
+    {
+      "path": "src/ambient/mesh_io.gd.remap",
+      "bytes": 46
+    },
+    {
+      "path": "src/ambient/mesh_io.gdc",
+      "bytes": 1363
+    },
+    {
+      "path": "src/ambient/plant.gd.remap",
+      "bytes": 44
+    },
+    {
+      "path": "src/ambient/plant.gdc",
+      "bytes": 1794
+    },
+    {
+      "path": "src/ambient/plant_effect.gd.remap",
+      "bytes": 51
+    },
+    {
+      "path": "src/ambient/plant_effect.gdc",
+      "bytes": 2260
+    },
+    {
+      "path": "src/ambient/plant_field.gd.remap",
+      "bytes": 50
+    },
+    {
+      "path": "src/ambient/plant_field.gdc",
+      "bytes": 3298
+    },
+    {
+      "path": "src/bootstrap/game_state.gd.remap",
+      "bytes": 51
+    },
+    {
+      "path": "src/bootstrap/game_state.gdc",
+      "bytes": 717
+    },
+    {
+      "path": "src/bootstrap/main.gd.remap",
+      "bytes": 45
+    },
+    {
+      "path": "src/bootstrap/main.gdc",
+      "bytes": 47685
+    },
+    {
+      "path": "src/camera/camera_panel.gd.remap",
+      "bytes": 50
+    },
+    {
+      "path": "src/camera/camera_panel.gdc",
+      "bytes": 8135
+    },
+    {
+      "path": "src/camera/orbit_camera.gd.remap",
+      "bytes": 50
+    },
+    {
+      "path": "src/camera/orbit_camera.gdc",
+      "bytes": 8301
+    },
+    {
+      "path": "src/construction/build_field.gd.remap",
+      "bytes": 55
+    },
+    {
+      "path": "src/construction/build_field.gdc",
+      "bytes": 1774
+    },
+    {
+      "path": "src/construction/build_site.gd.remap",
+      "bytes": 54
+    },
+    {
+      "path": "src/construction/build_site.gdc",
+      "bytes": 7338
+    },
+    {
+      "path": "src/diving/dive_air.gd.remap",
+      "bytes": 46
+    },
+    {
+      "path": "src/diving/dive_air.gdc",
+      "bytes": 2133
+    },
+    {
+      "path": "src/diving/underwater_region.gd.remap",
+      "bytes": 55
+    },
+    {
+      "path": "src/diving/underwater_region.gdc",
+      "bytes": 2841
+    },
+    {
+      "path": "src/diving/underwater_world.gd.remap",
+      "bytes": 54
+    },
+    {
+      "path": "src/diving/underwater_world.gdc",
+      "bytes": 26567
+    },
+    {
+      "path": "src/diving/uw_deco.gd.remap",
+      "bytes": 45
+    },
+    {
+      "path": "src/diving/uw_deco.gdc",
+      "bytes": 9067
+    },
+    {
+      "path": "src/diving/uw_materials.gd.remap",
+      "bytes": 50
+    },
+    {
+      "path": "src/diving/uw_materials.gdc",
+      "bytes": 4103
+    },
+    {
+      "path": "src/economy/economy.gd.remap",
+      "bytes": 46
+    },
+    {
+      "path": "src/economy/economy.gdc",
+      "bytes": 14231
+    },
+    {
+      "path": "src/farming/farm.gd.remap",
+      "bytes": 43
+    },
+    {
+      "path": "src/farming/farm.gdc",
+      "bytes": 8385
+    },
+    {
+      "path": "src/farming/farm_bed.gd.remap",
+      "bytes": 47
+    },
+    {
+      "path": "src/farming/farm_bed.gdc",
+      "bytes": 671
+    },
+    {
+      "path": "src/farming/farm_field.gd.remap",
+      "bytes": 49
+    },
+    {
+      "path": "src/farming/farm_field.gdc",
+      "bytes": 1177
+    },
+    {
+      "path": "src/farming/farm_plot.gd.remap",
+      "bytes": 48
+    },
+    {
+      "path": "src/farming/farm_plot.gdc",
+      "bytes": 8451
+    },
+    {
+      "path": "src/farming/farming_ports.gd.remap",
+      "bytes": 52
+    },
+    {
+      "path": "src/farming/farming_ports.gdc",
+      "bytes": 344
+    },
+    {
+      "path": "src/gathering/gather_field.gd.remap",
+      "bytes": 53
+    },
+    {
+      "path": "src/gathering/gather_field.gdc",
+      "bytes": 1771
+    },
+    {
+      "path": "src/gathering/gather_spot.gd.remap",
+      "bytes": 52
+    },
+    {
+      "path": "src/gathering/gather_spot.gdc",
+      "bytes": 8978
+    },
+    {
+      "path": "src/interaction/click_reticle.gd.remap",
+      "bytes": 56
+    },
+    {
+      "path": "src/interaction/click_reticle.gdc",
+      "bytes": 2179
+    },
+    {
+      "path": "src/interaction/hover_card.gd.remap",
+      "bytes": 53
+    },
+    {
+      "path": "src/interaction/hover_card.gdc",
+      "bytes": 6105
+    },
+    {
+      "path": "src/interaction/interact_prompt.gd.remap",
+      "bytes": 58
+    },
+    {
+      "path": "src/interaction/interact_prompt.gdc",
+      "bytes": 5006
+    },
+    {
+      "path": "src/interaction/interactable.gd.remap",
+      "bytes": 55
+    },
+    {
+      "path": "src/interaction/interactable.gdc",
+      "bytes": 2308
+    },
+    {
+      "path": "src/interaction/interactor.gd.remap",
+      "bytes": 53
+    },
+    {
+      "path": "src/interaction/interactor.gdc",
+      "bytes": 3738
+    },
+    {
+      "path": "src/inventory/backpack_grid.gd.remap",
+      "bytes": 54
+    },
+    {
+      "path": "src/inventory/backpack_grid.gdc",
+      "bytes": 3779
+    },
+    {
+      "path": "src/inventory/inventory.gd.remap",
+      "bytes": 50
+    },
+    {
+      "path": "src/inventory/inventory.gdc",
+      "bytes": 3085
+    },
+    {
+      "path": "src/inventory/item_db.gd.remap",
+      "bytes": 48
+    },
+    {
+      "path": "src/inventory/item_db.gdc",
+      "bytes": 2009
+    },
+    {
+      "path": "src/navigation/boat.gd.remap",
+      "bytes": 46
+    },
+    {
+      "path": "src/navigation/boat.gdc",
+      "bytes": 13134
+    },
+    {
+      "path": "src/navigation/ground_path.gd.remap",
+      "bytes": 53
+    },
+    {
+      "path": "src/navigation/ground_path.gdc",
+      "bytes": 1697
+    },
+    {
+      "path": "src/navigation/landing_point.gd.remap",
+      "bytes": 55
+    },
+    {
+      "path": "src/navigation/landing_point.gdc",
+      "bytes": 840
+    },
+    {
+      "path": "src/navigation/route_ribbon.gd.remap",
+      "bytes": 54
+    },
+    {
+      "path": "src/navigation/route_ribbon.gdc",
+      "bytes": 3351
+    },
+    {
+      "path": "src/navigation/walk_area.gd.remap",
+      "bytes": 51
+    },
+    {
+      "path": "src/navigation/walk_area.gdc",
+      "bytes": 2296
+    },
+    {
+      "path": "src/orders/order_panel.gd.remap",
+      "bytes": 49
+    },
+    {
+      "path": "src/orders/order_panel.gdc",
+      "bytes": 8783
+    },
+    {
+      "path": "src/orders/order_ports.gd.remap",
+      "bytes": 49
+    },
+    {
+      "path": "src/orders/order_ports.gdc",
+      "bytes": 284
+    },
+    {
+      "path": "src/orders/orders.gd.remap",
+      "bytes": 44
+    },
+    {
+      "path": "src/orders/orders.gdc",
+      "bytes": 6700
+    },
+    {
+      "path": "src/orders/trade_board.gd.remap",
+      "bytes": 49
+    },
+    {
+      "path": "src/orders/trade_board.gdc",
+      "bytes": 4244
+    },
+    {
+      "path": "src/pickups/sea_props.gd.remap",
+      "bytes": 48
+    },
+    {
+      "path": "src/pickups/sea_props.gdc",
+      "bytes": 10230
+    },
+    {
+      "path": "src/player/character.gd.remap",
+      "bytes": 47
+    },
+    {
+      "path": "src/player/character.gdc",
+      "bytes": 8714
+    },
+    {
+      "path": "src/rendering/boat_wake.gd.remap",
+      "bytes": 50
+    },
+    {
+      "path": "src/rendering/boat_wake.gdc",
+      "bytes": 2095
+    },
+    {
+      "path": "src/rendering/color_grade_panel.gd.remap",
+      "bytes": 58
+    },
+    {
+      "path": "src/rendering/color_grade_panel.gdc",
+      "bytes": 10436
+    },
+    {
+      "path": "src/rendering/render_flags.gd.remap",
+      "bytes": 53
+    },
+    {
+      "path": "src/rendering/render_flags.gdc",
+      "bytes": 552
+    },
+    {
+      "path": "src/rendering/shore_distance.gd.remap",
+      "bytes": 55
+    },
+    {
+      "path": "src/rendering/shore_distance.gdc",
+      "bytes": 7303
+    },
+    {
+      "path": "src/rendering/water_surface.gd.remap",
+      "bytes": 54
+    },
+    {
+      "path": "src/rendering/water_surface.gdc",
+      "bytes": 4510
+    },
+    {
+      "path": "src/salvage/salvage.gd.remap",
+      "bytes": 46
+    },
+    {
+      "path": "src/salvage/salvage.gdc",
+      "bytes": 2874
+    },
+    {
+      "path": "src/salvage/salvage_panel.gd.remap",
+      "bytes": 52
+    },
+    {
+      "path": "src/salvage/salvage_panel.gdc",
+      "bytes": 8780
+    },
+    {
+      "path": "src/salvage/salvage_winch.gd.remap",
+      "bytes": 52
+    },
+    {
+      "path": "src/salvage/salvage_winch.gdc",
+      "bytes": 6114
+    },
+    {
+      "path": "src/save/save_game.gd.remap",
+      "bytes": 45
+    },
+    {
+      "path": "src/save/save_game.gdc",
+      "bytes": 6724
+    },
+    {
+      "path": "src/ui/cozy_ui.gd.remap",
+      "bytes": 41
+    },
+    {
+      "path": "src/ui/cozy_ui.gdc",
+      "bytes": 4139
+    },
+    {
+      "path": "src/ui/hud.gd.remap",
+      "bytes": 37
+    },
+    {
+      "path": "src/ui/hud.gdc",
+      "bytes": 24343
+    },
+    {
+      "path": "src/ui/landing_markers.gd.remap",
+      "bytes": 49
+    },
+    {
+      "path": "src/ui/landing_markers.gdc",
+      "bytes": 4161
+    },
+    {
+      "path": "src/ui/ui_font.gd.remap",
+      "bytes": 41
+    },
+    {
+      "path": "src/ui/ui_font.gdc",
+      "bytes": 756
+    },
+    {
+      "path": "src/world/bake_store.gd.remap",
+      "bytes": 47
+    },
+    {
+      "path": "src/world/bake_store.gdc",
+      "bytes": 3959
+    },
+    {
+      "path": "src/world/zone_batch.gd.remap",
+      "bytes": 47
+    },
+    {
+      "path": "src/world/zone_batch.gdc",
+      "bytes": 3276
+    },
+    {
+      "path": "src/world/zone_scene.gd.remap",
+      "bytes": 47
+    },
+    {
+      "path": "src/world/zone_scene.gdc",
+      "bytes": 3401
+    },
+    {
+      "path": "src/world/zones.gd.remap",
+      "bytes": 42
+    },
+    {
+      "path": "src/world/zones.gdc",
+      "bytes": 2575
+    }
+  ]
+}

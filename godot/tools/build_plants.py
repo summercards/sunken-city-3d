@@ -46,6 +46,8 @@ def color_key(c):
 
 
 def main():
+    from authored_guard import require_candidate
+    require_candidate(__file__)
     bake = Bake(BAKED)
     zones = json.load(open(os.path.join(ROOT, "assets", "data", "zones.json")))
 
@@ -227,7 +229,7 @@ def main():
 
 def write_plant_scene(path, pid, scope, shared, effect, meta):
     lines = ["[gd_scene load_steps=3 format=3]", ""]
-    lines.append('[ext_resource type="Script" path="res://scripts/plants/plant.gd" id="1_plant"]')
+    lines.append('[ext_resource type="Script" path="res://src/ambient/plant.gd" id="1_plant"]')
     lines.append("")
     lines.append('[node name="%s" type="Node3D"]' % pid)
     lines.append('script = ExtResource("1_plant")')

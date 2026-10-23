@@ -1,7 +1,7 @@
 extends SceneTree
-const Surface = preload("res://scripts/world/water_surface.gd")
-const Wake = preload("res://scripts/world/boat_wake.gd")
-const Vessel = preload("res://scripts/boat.gd")
+const Surface = preload("res://src/rendering/water_surface.gd")
+const Wake = preload("res://src/rendering/boat_wake.gd")
+const Vessel = preload("res://src/navigation/boat.gd")
 var failures := 0
 var checks := 0
 func check(ok: bool, message: String) -> void:
@@ -88,7 +88,7 @@ func run() -> void:
 	box.size = Vector3(4, 4, 4)
 	block.mesh = box
 	shore_root.add_child(block)
-	var atlas := preload("res://scripts/world/shore_distance.gd").new()
+	var atlas := preload("res://src/rendering/shore_distance.gd").new()
 	atlas.rebuild([shore_root], 1.12, 128)
 	check(atlas.segments.size() == 8, "box slice derives eight triangle segments")
 	check(atlas.distance_at(Vector2(2, 0)) < 0.2, "derived contour follows actual box edge")

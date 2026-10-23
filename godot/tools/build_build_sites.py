@@ -10,7 +10,7 @@
   4. 在合格点里挑离区块镜头中心最近的——玩家一眼能看到它。
 
 输出字段：id / name / zone / x / y / z / yaw / seconds（施工时长）。
-费用仍写在 `scripts/economy.gd` 的 SITES 里，这里只管「牌子立在哪」。
+费用仍写在 `src/economy/economy.gd` 的 SITES 里，这里只管「牌子立在哪」。
 
 用法：python3 tools/build_build_sites.py
 """

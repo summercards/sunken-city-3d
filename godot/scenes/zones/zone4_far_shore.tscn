@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=3]
 
-[ext_resource type="Script" path="res://scripts/world/zone_scene.gd" id="1_zone"]
-[ext_resource type="Script" path="res://scripts/world/zone_batch.gd" id="2_batch"]
-[ext_resource type="Script" path="res://scripts/world/walk_area.gd" id="3_walk"]
-[ext_resource type="Script" path="res://scripts/plants/plant_field.gd" id="4_plants"]
+[ext_resource type="Script" path="res://src/world/zone_scene.gd" id="1_zone"]
+[ext_resource type="Script" path="res://src/world/zone_batch.gd" id="2_batch"]
+[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="3_walk"]
+[ext_resource type="Script" path="res://src/ambient/plant_field.gd" id="4_plants"]
 [ext_resource type="PackedScene" path="res://assets/models/zones/zone4_far_shore/units/detail.glb" id="unit_detail"]
 [ext_resource type="PackedScene" path="res://assets/models/zones/zone4_far_shore/units/unit_01.glb" id="unit_unit_01"]
 [ext_resource type="PackedScene" path="res://assets/models/zones/zone4_far_shore/units/unit_02.glb" id="unit_unit_02"]
@@ -13,7 +13,7 @@
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_1000.tres" id="mat_tn_1000"]
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_t4_0100.tres" id="mat_t4_0100"]
 
-[ext_resource type="Script" path="res://scripts/world/landing_point.gd" id="landing_script"]
+[ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing_script"]
 
 [node name="Zone4FarShore" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.500, 0, -41.500)

@@ -1,0 +1,245 @@
+{
+  "baseline_commit": "826a0012bc3fbd2100452104c8f5b6942814b075",
+  "scope": "Uncommitted split working tree on codex/feature-controlled-structure; runtime unchanged after these runs. Docs and evidence finalized afterwards.",
+  "runs": [
+    {
+      "directory": "/Users/summercards/WorkBuddy/sea-work/verification/20261023-163848-before-split-1be5ff",
+      "results": {
+        "parity": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "c4f995f6877e03d3cb86f29efdb9970964c4de0778efa711d21e12dc5a70e2e3"
+        },
+        "farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "672121346860468456946696763873451ce1e7365259354b30793244ae4eff5e"
+        },
+        "surface": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "411d9a142dae512e842aa577fc7082f3a0a801b265b0405548bd5dd54203a697"
+        },
+        "click": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "c3f08c37c0a76421456c20a368aee4d5b3ef4b72742df889ba912bf25e224f1d"
+        },
+        "management": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "c1b445fe7fce71d88391bef66ed90eee0a85cc517d7348866f5b195485f6c92a"
+        },
+        "camera": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "1ea017b42aef6571e5ef1c91f63e8ef76fc76fc9254cc8e8f16e2298efbc87e6"
+        },
+        "ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "02137f068d3ce48e7cdf98db7991cf73f2fe9506706d0f50a8b143f6ebc2c84a"
+        },
+        "selftest": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [
+            "ERROR: Parse JSON failed. Error at line 0: Expected key"
+          ],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "2a7b33f0565b5adbab781279afdec2fdf3c8cf688a453370a22e302dfae3433e"
+        }
+      }
+    },
+    {
+      "directory": "/Users/summercards/WorkBuddy/sea-work/verification/20261023-165051-feature-ports-2bd0cc",
+      "results": {
+        "modules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "35447f6971ce56c1a70c51d38d29e6b6c995e60c001c8c8c7b9f73e8bda9c176"
+        },
+        "farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "30ab3c345427ecad3e071ef3a217b40147b63e31ee13a7a96a2ec9c76a583a16"
+        },
+        "management": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "f53ee21c047b781e6b4d289eea3e7fd58fe9251b41b20798c72edbd7bcfef3fe"
+        }
+      }
+    },
+    {
+      "directory": "/Users/summercards/WorkBuddy/sea-work/verification/20261023-165838-after-split-127b48",
+      "results": {
+        "modules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "35447f6971ce56c1a70c51d38d29e6b6c995e60c001c8c8c7b9f73e8bda9c176"
+        },
+        "parity": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "c4f995f6877e03d3cb86f29efdb9970964c4de0778efa711d21e12dc5a70e2e3"
+        },
+        "farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "3efef2c736bea169af41afa2a62aaa6531baf5ebab986634966e34b3fe9488cb"
+        },
+        "surface": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "6d8dd79c8557997f94dc519672e397aa4f9c61e1cae2ff0dfd3df42e6314d36f"
+        },
+        "click": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "bce686a0cfdd456633ffb15424212bb321df4baa22ccff35e7ad8ab31f5b77e8"
+        },
+        "management": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "a75c1f9864ed8e499fec48b8121b6cf694df23ac4f11dbfc8b3aa073e17471ff"
+        },
+        "camera": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "7af0b9810426cad8d874d766afd7e1863368c0af1f01fd3c9b2e972bfc06f8f5"
+        },
+        "ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "8fb1df4fc10d788ecc387cff2c1767a06e470020419b7618bf9b4b66cad2fcea"
+        },
+        "selftest": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [
+            "ERROR: Parse JSON failed. Error at line 0: Expected key"
+          ],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "1fb58722deb27f3a0c7c6014003da70c4aeb8f6fd8ee7d83af484973ac3e5836"
+        }
+      }
+    },
+    {
+      "directory": "/Users/summercards/WorkBuddy/sea-work/verification/20261023-170010-split-real-render-a0ea26",
+      "results": {
+        "visual-farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "d8460fc0b0d4b802b21386f05019ae4b27fd9fdebc710f4cd75cd4f8abf98272"
+        },
+        "visual-management": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "17c82c01ea4dcc61acf1b58a5be6808c84b205ff4fa05438b179d873782b7bdd"
+        },
+        "visual-click": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "[farm-ui] FAIL 直接点击世界中的第二格命中正确目标"
+          ],
+          "completion_marker": false,
+          "log_sha256": "b8529414a2309575d8e608ca817f756372c5bb2b7c3f592b40833691a7e6a0e7"
+        },
+        "visual-underwater-depth": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "6de19374a3d3503918088a8bafcf2d16a324b3ff35fb53a3382907d768da4e44"
+        }
+      }
+    },
+    {
+      "directory": "/Users/summercards/WorkBuddy/sea-work/verification/20261023-170129-split-underwater-4e1565",
+      "results": {
+        "visual-underwater-capture": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log_sha256": "359c090c86a41b4992480d411211f77e02d8c1c7faea8dbb91aa2d291accdf21"
+        }
+      }
+    }
+  ],
+  "baseline_visual_click": {
+    "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261023-163848-before-split-1be5ff/baseline-visual-click.log",
+    "log_sha256": "e61ee689ef811f6e9da52fe666c2c0cdcf6676cb90e47ff3ce234425111c72eb",
+    "passed": false,
+    "failure": "直接点击世界中的第二格命中正确目标",
+    "completion": "[click-ui] failures=1",
+    "note": "Same unchanged visual assertion fails before and after migration; root cause not signed off."
+  }
+}

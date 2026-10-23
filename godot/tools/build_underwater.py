@@ -353,7 +353,7 @@ def write_region_scene(manifest):
     region = manifest["region"]
     node = "Underwater" + region.capitalize()
     lines = ["[gd_scene load_steps=3 format=3]", ""]
-    lines.append('[ext_resource type="Script" path="res://scripts/world/underwater_region.gd" id="1_region"]')
+    lines.append('[ext_resource type="Script" path="res://src/diving/underwater_region.gd" id="1_region"]')
     lines.append("")
     lines.append('[node name="%s" type="Node3D"]' % node)
     lines.append('script = ExtResource("1_region")')
@@ -369,11 +369,11 @@ def write_region_scene(manifest):
 def write_world_scene(regions):
     """生成 scenes/underwater/underwater_world.tscn：四个区块 + 动态层 + 相机。"""
     lines = ["[gd_scene load_steps=%d format=3]" % (len(regions) + 3), ""]
-    lines.append('[ext_resource type="Script" path="res://scripts/world/underwater_world.gd" id="1_world"]')
+    lines.append('[ext_resource type="Script" path="res://src/diving/underwater_world.gd" id="1_world"]')
     for i, r in enumerate(regions):
         lines.append('[ext_resource type="PackedScene" path="res://scenes/underwater/region_%s.tscn" id="%d_%s"]'
                      % (r, i + 2, r))
-    lines.append('[ext_resource type="Script" path="res://scripts/world/uw_deco.gd" id="%d_deco"]'
+    lines.append('[ext_resource type="Script" path="res://src/diving/uw_deco.gd" id="%d_deco"]'
                  % (len(regions) + 2))
     lines.append("")
     lines.append('[node name="UnderwaterWorld" type="Node3D"]')
@@ -401,6 +401,8 @@ def write_world_scene(regions):
 
 
 def main():
+    from authored_guard import require_candidate
+    require_candidate(__file__)
     ap = argparse.ArgumentParser()
     ap.add_argument("--region", default="")
     args = ap.parse_args()

@@ -1,17 +1,25 @@
 # sea 游戏设计文档
 
 **版本：** V1.0  
-**文档状态：** 项目主设计文档 / 首个可玩 Demo 规划基线  
-**记录日期：** 2026-10-17  
+**文档状态：** 项目主文档 / 功能管理中控
+**记录日期：** 2026-10-17；管理结构修订：2026-10-23
 **项目类型：** 治愈系水上家园建造 × 轻度资源经营 × 航海探索
 
 ---
 
-## 0. 文档目的
+## 0. 主文档中控规则
 
-本文档记录sea 第一版本的核心方向、区域规划、首局体验、数值草案和开发优先级，并在文档末尾附上基于当前工程实际代码的完成度评估。
+本文是 sea 的唯一项目管理中枢。先在本页确定目标、全局规则和功能关系，再进入每个功能的独立文档与独立账本。Godot 为当前正式运行工程；根目录 Three.js 保留为原型、烘焙来源和对照，不作为第二份当前玩法主设计。
 
-当前工程已经具备较完整的 Three.js 水下场景、角色与船只动画、固定区域航行、建筑升级、海贝产出和悬停交互。因此，本版本的目标不是推倒重做，而是在现有场景基础上完成一个从“种下第一块田”到“升级第一艘船并驶向远海街町”的 20 分钟可玩垂直切片。
+- 每个功能一个稳定 FeatureID、一份独立功能文档、一份独立功能账本；规划中的功能同样登记。
+- 本文拥有全局目标、功能范围、依赖和阶段安排；功能文档拥有该功能细则；功能账本拥有实施状态与证据。
+- 功能之间通过公开命令/查询/事件和稳定 ID 交接，资源与状态只有一个最终写入者。
+- 新增功能先登记本页再建独立文件；修改功能先读其文档和账本，验证后回填账本并同步本页摘要。
+- 本页状态摘要由 `python3 scripts/check_feature_contracts.py --sync` 从功能账本更新；禁止在两处手工维护不同进度。
+- 第一版按完整行为闭环划分功能。例如种植含播种、浇水、生长、收获，各步骤有独立设计条款；后续若升级为独立功能，先在本页拆 FeatureID，再拆文件。
+- 目标设计与当前实现分别保留；已有代码不能自动取代用户目标，旧完成度百分比不代表当前状态。
+
+[功能导航](#feature-control) · [工程约定](docs/standards/工程管理规范.md) · [本次拆分记录](docs/development/2026-10-23_feature_split.md) · [拆分前完整主文档](docs/archive/pre_split_20261023/GDD_V1.0.md)
 
 ---
 
@@ -129,76 +137,13 @@
 
 ## 4. 建筑与场景成长表现
 
-### 4.1 太阳能木屋
-
-- **Lv.1：** 破旧木屋、基础码头、少量储物空间。
-- **Lv.2：** 屋顶出现花盆和暖灯，居民入住，解锁更多种植位。
-- **Lv.3：** 增加屋顶生活区、晾衣绳、小桥或邻接平台，成为聚落中心。
-
-### 4.2 屋顶农场
-
-- **Lv.1：** 修复两格农田，种植基础蔬菜。
-- **Lv.2：** 增加种植箱和热带植物，产量提升。
-- **Lv.3：** 形成完整屋顶温室或花园，解锁更高价值作物。
-
-### 4.3 绞盘打捞站
-
-- **Lv.1：** 修好绞盘和基础吊钩，可打捞漂流物。
-- **Lv.2：** 增加分类台和储物架，打捞效率提升。
-- **Lv.3：** 出现悬臂吊车和工作灯，可打捞特殊零件。
-
-### 4.4 水上码头与船只
-
-- **Lv.1：** 初始木船，只能往返附近屋顶。
-- **Lv.2：** 加装帆具或更稳定的船体，开放远海沉没街町。
-- **Lv.3：** 增加货舱、打捞工具和更远航线，连接新的区域群落。
-
-### 4.5 场景反馈要求
-
-每次升级至少提供以下三类反馈中的两类：
-
-1. **模型变化：** 建筑、植物、桥、灯、船体或设施本身发生变化。
-2. **生活变化：** 居民、灯光、晾晒物、风铃、花盆、船只或小动物出现。
-3. **功能变化：** 新资源、新种植位、新航线、新建筑或新交易选项解锁。
+详细设计已归入 [SEA-BUILD 功能文档](docs/features/build/spec.md)，实施状态见 [独立账本](docs/features/build/ledger.md)。原始设计全文已保留，历史网页数值不作为当前 Godot 数值。
 
 ---
 
-## 5. 资源与数值草案
+## 5. 资源与数值
 
-### 5.1 资源层级
-
-第一版建议分为三层：
-
-1. **海贝：** 通用货币，用于升级和基础交易。
-2. **基础物资：** 木料、旧零件、食物等，用于修缮、生产和船只改造。
-3. **特殊材料：** 深海材料、旧时代零件或稀有生物资源，用于高阶船只和特殊建筑。
-
-当前工程已实现海贝的可玩闭环，但基础物资、特殊材料、仓储和交易链仍属于后续开发内容。
-
-### 5.2 当前工程已存在的数值基线
-
-下表是根据当前工程代码整理出的可运行数值，不等同于最终平衡方案：
-
-| 项目 | 当前值 |
-| --- | ---: |
-| 初始海贝 | 80 |
-| 建筑产出结算间隔 | 6 秒 |
-| 单个建筑储存上限 | 10 枚海贝 |
-| 初始木屋等级 | Lv.1 |
-| 木屋升级成本 | 20 海贝 |
-| 横滨铁道第 1 阶段成本 | 20 海贝 |
-| 横滨铁道第 2 阶段成本 | 40 海贝 |
-| 横滨铁道第 3 阶段成本 | 65 海贝 |
-| 天台种植园第 1 阶段成本 | 25 海贝 |
-| 天台种植园第 2 阶段成本 | 50 海贝 |
-
-### 5.3 数值设计原则
-
-- 前 3 分钟内玩家应能完成第一次低成本建造。
-- 第一次收获应明确帮助玩家完成下一次升级，而不是只增加无意义余额。
-- 船只升级应需要“海贝 + 航海材料”，避免完全依赖单一货币。
-- 产出上限和收获操作用于制造轻度节奏，不应迫使玩家频繁上线。
-- 数值最终应服务于场景变化和探索解锁，而不是无限增长。
+详细设计已归入 [SEA-INVENTORY 功能文档](docs/features/inventory/spec.md)，实施状态见 [独立账本](docs/features/inventory/ledger.md)。原始设计全文已保留，历史网页数值不作为当前 Godot 数值。
 
 ---
 
@@ -237,26 +182,9 @@
 
 ---
 
-## 7. 航海成长与探索设计
+## 7. 航海成长与探索
 
-### 7.1 航海的角色
-
-航海不是独立于家园之外的小游戏，而是连接家园建设、资源获取和世界扩展的空间纽带。
-
-### 7.2 船只成长方向
-
-| 阶段 | 船只能力 | 解锁内容 |
-| --- | --- | --- |
-| 木船 | 近距离往返 | 初始屋顶、邻近废墟 |
-| 帆船 | 更远距离航行 | 远海沉没街町、新建筑材料 |
-| 改良探索船 | 运输、打捞、深水探索 | 深海材料、远距离区域和高阶建筑 |
-
-### 7.3 航线上应出现的内容
-
-- 漂流木料、旧零件和可回收物资。
-- 水下建筑、鱼群、巨鲸、废弃车辆和沉没招牌。
-- 轻量发现事件，例如一处新屋顶、一艘废弃小船或一段旧时代生活痕迹。
-- 不设置强制战斗；风险主要通过路线、天气、深水和船只能力表达。
+详细设计已归入 [SEA-SHIP 功能文档](docs/features/ship/spec.md)，实施状态见 [独立账本](docs/features/ship/ledger.md)。原始设计全文已保留，历史网页数值不作为当前 Godot 数值。
 
 ---
 
@@ -313,184 +241,54 @@
 
 ---
 
-# 10. 当前工程完成度评估
 
-## 10.1 评估范围与依据
+<a id="feature-control"></a>
+## 10. 功能管理与导航
 
-本评估基于项目当前文件：
+下表逐行定义功能范围与前置关系；依赖是契约/数据交接，不代表允许读取对方内部字段。模块可承载多个功能，所有功能都必须独立有文档、有账本。状态摘要来源为各功能账本；`部分实现` 包括已具备行为但目标、解耦或验收尚未全部闭环。
 
-- `index.html`
-- `gameplay.js`
-- `ui.css`
-- `tests/ui-regression.cjs`
-- `outputs/ui-regression-results.json`
-- `outputs/UI-redesign-notes.md`
+<!-- FEATURE_CONTROL_BEGIN -->
+| FeatureID | 功能 | 所属系统 | 前置功能 | 独立文档 | 独立账本 | 状态摘要 |
+|---|---|---|---|---|---|---|
+| <a id="sea-boot"></a>SEA-BOOT | 启动与会话装配 | 基础 | — | [文档](docs/features/boot/spec.md) | [账本](docs/features/boot/ledger.md) | 部分实现 |
+| <a id="sea-world"></a>SEA-WORLD | 区块与世界装配 | 世界 | SEA-BOOT | [文档](docs/features/world/spec.md) | [账本](docs/features/world/ledger.md) | 部分实现 |
+| <a id="sea-move"></a>SEA-MOVE | 角色移动与上下船 | 3C | SEA-WORLD | [文档](docs/features/move/spec.md) | [账本](docs/features/move/ledger.md) | 部分实现 |
+| <a id="sea-nav"></a>SEA-NAV | 航行与靠泊 | 3C | SEA-WORLD, SEA-MOVE | [文档](docs/features/nav/spec.md) | [账本](docs/features/nav/ledger.md) | 部分实现 |
+| <a id="sea-camera"></a>SEA-CAMERA | 相机跟随与手动控制 | 3C | SEA-MOVE | [文档](docs/features/camera/spec.md) | [账本](docs/features/camera/ledger.md) | 部分实现 |
+| <a id="sea-interact"></a>SEA-INTERACT | 点击与长按交互 | 交互 | SEA-MOVE | [文档](docs/features/interact/spec.md) | [账本](docs/features/interact/ledger.md) | 部分实现 |
+| <a id="sea-gather"></a>SEA-GATHER | 岸边采集 | 资源 | SEA-INTERACT, SEA-INVENTORY | [文档](docs/features/gather/spec.md) | [账本](docs/features/gather/ledger.md) | 部分实现 |
+| <a id="sea-inventory"></a>SEA-INVENTORY | 资源与背包 | 经营 | — | [文档](docs/features/inventory/spec.md) | [账本](docs/features/inventory/ledger.md) | 部分实现 |
+| <a id="sea-warehouse"></a>SEA-WAREHOUSE | 材料仓储 | 经营 | SEA-INVENTORY, SEA-FACILITY | [文档](docs/features/warehouse/spec.md) | [账本](docs/features/warehouse/ledger.md) | 部分实现 |
+| <a id="sea-build"></a>SEA-BUILD | 建筑修缮与升级 | 经营 | SEA-INVENTORY, SEA-INTERACT | [文档](docs/features/build/spec.md) | [账本](docs/features/build/ledger.md) | 部分实现 |
+| <a id="sea-facility"></a>SEA-FACILITY | 设施解锁与生产 | 经营 | SEA-BUILD, SEA-INVENTORY | [文档](docs/features/facility/spec.md) | [账本](docs/features/facility/ledger.md) | 部分实现 |
+| <a id="sea-ship"></a>SEA-SHIP | 船只升级与区域解锁 | 成长 | SEA-INVENTORY, SEA-BUILD | [文档](docs/features/ship/spec.md) | [账本](docs/features/ship/ledger.md) | 部分实现 |
+| <a id="sea-farm"></a>SEA-FARM | 种植与日常照料 | 经营 | SEA-INVENTORY, SEA-FACILITY, SEA-WORLD | [文档](docs/features/farm/spec.md) | [账本](docs/features/farm/ledger.md) | 部分实现 |
+| <a id="sea-salvage"></a>SEA-SALVAGE | 绞盘打捞 | 探索 | SEA-INTERACT, SEA-INVENTORY | [文档](docs/features/salvage/spec.md) | [账本](docs/features/salvage/ledger.md) | 部分实现 |
+| <a id="sea-dive"></a>SEA-DIVE | 潜水探索与宝箱 | 探索 | SEA-WORLD, SEA-INVENTORY | [文档](docs/features/dive/spec.md) | [账本](docs/features/dive/ledger.md) | 部分实现 |
+| <a id="sea-pickup"></a>SEA-PICKUP | 海面漂流物与鱼群收取 | 探索 | SEA-NAV, SEA-INVENTORY | [文档](docs/features/pickup/spec.md) | [账本](docs/features/pickup/ledger.md) | 部分实现 |
+| <a id="sea-order"></a>SEA-ORDER | 交易与订单 | 经营 | SEA-INVENTORY, SEA-BUILD, SEA-SHIP | [文档](docs/features/order/spec.md) | [账本](docs/features/order/ledger.md) | 部分实现 |
+| <a id="sea-goal"></a>SEA-GOAL | 小目标追踪与引导 | 成长 | SEA-BUILD, SEA-SHIP | [文档](docs/features/goal/spec.md) | [账本](docs/features/goal/ledger.md) | 部分实现 |
+| <a id="sea-resident"></a>SEA-RESIDENT | 居民与生活行为 | 生活 | SEA-WORLD, SEA-BUILD | [文档](docs/features/resident/spec.md) | [账本](docs/features/resident/ledger.md) | 规划中 |
+| <a id="sea-time"></a>SEA-TIME | 天气与世界时间 | 生活 | SEA-WORLD | [文档](docs/features/time/spec.md) | [账本](docs/features/time/ledger.md) | 规划中 |
+| <a id="sea-aqua"></a>SEA-AQUA | 浅水养殖 | 经营 | SEA-WORLD, SEA-INVENTORY | [文档](docs/features/aqua/spec.md) | [账本](docs/features/aqua/ledger.md) | 规划中 |
+| <a id="sea-quest"></a>SEA-QUEST | 任务成就与区域复兴 | 成长 | SEA-GOAL, SEA-WORLD | [文档](docs/features/quest/spec.md) | [账本](docs/features/quest/ledger.md) | 规划中 |
+| <a id="sea-ui"></a>SEA-UI | HUD 与菜单反馈 | 表现 | SEA-INTERACT, SEA-INVENTORY | [文档](docs/features/ui/spec.md) | [账本](docs/features/ui/ledger.md) | 部分实现 |
+| <a id="sea-ocean"></a>SEA-OCEAN | 水面与光照渲染 | 表现 | SEA-WORLD | [文档](docs/features/ocean/spec.md) | [账本](docs/features/ocean/ledger.md) | 部分实现 |
+| <a id="sea-ambient"></a>SEA-AMBIENT | 环境植物与生活表现 | 表现 | SEA-WORLD | [文档](docs/features/ambient/spec.md) | [账本](docs/features/ambient/ledger.md) | 部分实现 |
+| <a id="sea-save"></a>SEA-SAVE | 存档与恢复 | 基础 | SEA-BOOT, SEA-INVENTORY | [文档](docs/features/save/spec.md) | [账本](docs/features/save/ledger.md) | 部分实现 |
+| <a id="sea-sfx"></a>SEA-SFX | 环境与交互音效 | 表现 | SEA-INTERACT | [文档](docs/features/sfx/spec.md) | [账本](docs/features/sfx/ledger.md) | 规划中 |
+| <a id="sea-music"></a>SEA-MUSIC | 场景音乐 | 表现 | SEA-BOOT, SEA-WORLD | [文档](docs/features/music/spec.md) | [账本](docs/features/music/ledger.md) | 规划中 |
+| <a id="sea-asset"></a>SEA-ASSET | 美术组件生产与登记 | 生产 | — | [文档](docs/features/asset/spec.md) | [账本](docs/features/asset/ledger.md) | 部分实现 |
+| <a id="sea-quality"></a>SEA-QUALITY | 验证与性能治理 | 工程 | SEA-BOOT | [文档](docs/features/quality/spec.md) | [账本](docs/features/quality/ledger.md) | 部分实现 |
+| <a id="sea-release"></a>SEA-RELEASE | 导出与发行 | 工程 | SEA-QUALITY | [文档](docs/features/release/spec.md) | [账本](docs/features/release/ledger.md) | 部分实现 |
+<!-- FEATURE_CONTROL_END -->
 
-评估的是当前工程作为“可交互视觉原型 / 首个玩法垂直切片”的完成度，不把尚未实现的完整商业化产品能力计入现状。
+## 11. 跨功能交接与推进顺序
 
-## 10.2 总体判断
+经营主链：采集/打捞/种植 → 背包 → 订单或出售 → 仓储与建造 → 设施和船升级 → 更多种植空间与探索。UI 发送命令、显示结果；存档收集各所有者快照。资源写入由库存所有者执行，业务模块负责本功能状态。
 
-当前工程已经不是单纯的展示场景，而是具备可运行玩法的垂直切片：玩家可以在水下场景中观察建筑、点击建筑操作点、收取海贝、启动升级、等待建造完成，并通过角色登船、划船和靠岸流程前往其他区域。
+工程推进顺序：文档与账本闭环 → 功能目录和接口 → 独立专项 → 正式游戏集成 → 真实表现 → 发行验证。每个阶段的事实与缺口在对应功能账本登记，不用总完成度百分比代替证据。
 
-但它距离本设计文档定义的完整首局流程仍有明显差距，尤其是船只升级、多资源经营、打捞站、码头、存档和新手流程尚未形成完整闭环。
-
-### 分项完成度估计
-
-| 维度 | 完成度 | 判断 |
-| --- | ---: | --- |
-| 水下视觉场景与氛围 | 约 90% | 场景、灯光、水面、水深、焦散、鱼群、巨鲸等表现较完整 |
-| 核心可玩循环 | 约 75% | 已有航行、到达、建造、产出、收取，但仍是固定点位和单货币循环 |
-| 资源与建筑系统 | 约 55% | 有海贝和建筑阶段，但没有多资源、仓储、交易和打捞材料链 |
-| 船只与探索成长 | 约 45% | 有预设航线和登船动画，没有船只升级、自由驾驶和运输/打捞能力 |
-| 完整游戏产品化 | 约 45% | 缺少存档、任务、居民、引导、长期成长和更全面测试 |
-
-**按“可交互视觉原型”评估：约 75%。**  
-**按本 GDD V1.0 的完整首个 Demo 目标评估：约 55%–60%。**
-
-## 10.3 已完成内容
-
-### 场景与视觉
-
-- Three.js 水下手绘水彩风格场景。
-- 高角度俯视镜头、灯光、阴影、雾效和水面动画。
-- 水深颜色分层、焦散、吃水线水花和水下建筑表现。
-- 水下建筑群、远景建筑、鱼群、飞鸟、巨鲸、魔鬼鱼、水母等动态元素。
-- 现有场景已经包含太阳能木屋、沉没铁道、天台种植园和周边遗迹群，适合作为首个可玩区域的基础。
-
-主要实现位置：`index.html` 的渲染器、灯光、材质和水面 Shader；`gameplay.js` 的场景模型与动态动画部分。
-
-### 建筑与种植
-
-- 当前有 3 个可交互建设点：
-  - sea · 太阳能木屋花圃。
-  - 横滨沉没铁道 · 站台与电车园圃。
-  - 卫星锅天台 · 热带种植园。
-- 建筑具有等级、成本、产出增量和阶段性视觉变化。
-- 建造过程中会显示进度，并让植物、花园、睡莲或水母等模型逐步生长。
-- 建造完成后会改变对应场景，而不仅是修改数字。
-
-主要实现位置：`gameplay.js` 中 `buildSites`、各区域作物阶段模型和 `BUILDING` 状态机。
-
-### 资源与交互
-
-- 已实现单一货币“海贝”。
-- 初始海贝为 80；建筑每 6 秒结算一次；每个建筑最多储存 10 枚。
-- 建筑上方有共享操作点：有资源时优先收取，没有资源时显示升级状态。
-- 支持不足资源、建造中、已满级等状态反馈。
-- 支持鼠标悬停卡片、3D Mesh Raycast、角色行动环、目的地选择和 Escape 关闭。
-- 支持相机移动后的操作点和提示卡片投影跟随。
-- 支持 390px 移动端无横向溢出和 `prefers-reduced-motion`。
-
-主要实现位置：`gameplay.js` 的资源操作点、悬停检测、行动菜单和 `ui.css`。
-
-### 角色、船只与区域移动
-
-- 已实现角色步行、登船、划船、靠岸、下船和前往建筑的状态机。
-- 当前可在 `zone1`、`zone2`、`zone3` 之间沿预设 Catmull-Rom 航线移动。
-- 航行时镜头会跟随船只，手动右键拖动后可以接管镜头。
-- 船只、黑猫、船桨、植物、瀑布、信号灯等具有动画反馈。
-
-主要实现位置：`gameplay.js` 的 `state`、`buildSmoothSailCurve`、`startSailBetweenZones` 和 `updateGameplay`。
-
-### 已有测试证据
-
-`outputs/ui-regression-results.json` 已记录 13 项 UI 回归通过，包括：
-
-- 收取资源与收取优先级。
-- 资源不足和满级状态。
-- 升级扣费、建造进度和完成状态。
-- 悬停卡片进出动画。
-- 相机移动后的操作点锚定。
-- 船只目的地菜单与 Escape 关闭。
-- 屏幕外热点隐藏。
-- 390px 移动端布局。
-- 无 JavaScript 运行时错误。
-
-已有结果中的最大投影误差为 `0.00042009549690646963`。
-
-## 10.4 部分完成内容
-
-### 1. 区域功能尚未与 GDD 对齐
-
-视觉上已有多处废墟和邻近区域，但当前真正可交互的建设点只有 3 个。GDD 规划的 A 太阳能木屋、B 圆弧屋顶农场、C 绞盘打捞站、D 水上码头、E 浅水养殖台尚未全部以独立功能接入。
-
-当前的横滨铁道和天台种植园更接近“可升级种植点”，还不是完整的农场、打捞站或码头系统。
-
-### 2. 船只已有航行表现，但没有船只成长
-
-当前航行由预设样条曲线驱动，重点是展示角色登船、划桨、航行和靠岸过程。源码中没有完整的船只等级、船体属性、货舱、耐久、帆具或升级材料系统。
-
-### 3. 建筑升级已有视觉变化，但仍是固定点位脚本
-
-当前升级只能在预定义 `buildSites` 上进行，没有自由选址、建筑旋转、拆除、移动、建筑配方或建筑之间的空间依赖。
-
-作为垂直切片这是合理的，但还不能代表完整的家园建造系统。
-
-### 4. UI 回归覆盖较好，但核心流程测试不足
-
-现有测试主要验证 UI、资源收取、升级状态、投影锚点和窄屏布局。尚缺少完整的航线组合、角色登船/下船、建造中断、刷新恢复、船只升级和性能测试。
-
-## 10.5 尚未实现或当前源码中未发现
-
-- 木料、旧零件、食物等多资源系统。
-- 背包、仓储、生产链和交易系统。
-- 绞盘打捞站的可玩打捞流程。
-- 水上码头的船只改造和船只等级。
-- 自由驾驶、实时碰撞、障碍规避和漂流物资收集。
-- 船只货舱、运输、耐久或特殊航海能力。
-- 浅水养殖台。
-- 存档、读档、`localStorage` 或 IndexedDB 持久化。
-- 居民、任务、对话、成就和新手引导。
-- 战斗、敌人、生命值和失败条件；这些不是本项目当前优先方向，但应明确不纳入治愈系第一版核心。
-- 完整的“修复木屋 → 种植 → 打捞 → 交易 → 升级船 → 远航”首局流程。
-- 单元测试、性能/FPS 测试、WebGL 兼容性测试和自动化视觉差异测试。
-
-## 10.6 与 V1.0 目标的差距排序
-
-### 第一优先级：补齐可玩闭环
-
-1. 明确 A-D 四个功能区在现有地图中的对应建筑和入口。
-2. 将木屋、农场、打捞站和码头接入统一资源流。
-3. 把当前海贝升级扩展为“海贝 + 基础材料”的最小双资源系统。
-4. 增加一个清晰的首局任务链，串联前 20 分钟体验。
-5. 增加船只升级按钮、升级材料和远海区域解锁条件。
-
-### 第二优先级：增加探索和建造成就感
-
-1. 给航线加入漂流物资或轻量发现事件。
-2. 让船只升级在模型、速度、航线或货舱上产生可见变化。
-3. 让木屋升级解锁种植位和居民/生活反馈。
-4. 让绞盘站真的产出木料和旧零件。
-5. 让码头消耗材料完成船只改造，而不是只切换区域。
-
-### 第三优先级：补齐产品基础设施
-
-1. 增加自动存档和刷新恢复。
-2. 增加核心玩法状态测试。
-3. 增加性能基线和低端设备降级策略。
-4. 清理 `index.html` 中残留的旧船只巡航控制逻辑，统一旧 UI 与 `gameplay.js` 的职责。
-5. 增加可访问性和键盘操作的替代路径，降低对纯 3D 鼠标命中的依赖。
-
-## 10.7 结论
-
-当前工程最适合继续沿“保留现有美术场景，完成玩法垂直切片”的路线推进，而不是重建场景。
-
-现有工程已经证明以下方向成立：
-
-- 水下废墟与温暖屋顶家园的视觉反差成立。
-- 角色登船、航行、靠岸和建造的节奏成立。
-- 建筑升级带来场景变化的反馈成立。
-- 极简悬停式交互适合保持画面空灵感。
-
-下一步最值得投入的不是继续增加装饰模型，而是把现有三个可玩点组织成一条完整的 20 分钟体验：
-
-```text
-修复第一块田
-  → 收获农产品
-  → 打捞木料和旧零件
-  → 升级太阳能木屋
-  → 在码头改造木船
-  → 驶向远海沉没街町
-```
-
-只要这段体验能够让玩家明确期待“下一座屋顶可以建成什么样”，sea 的核心方向就基本成立。
+- [资产总索引与分账本](assets/registry/README.md)支撑各功能，不取代独立功能账本。
+- [结构门禁与运行验收](docs/standards/工程管理规范.md)是持续维护入口。
+- [历史开发计划](docs/archive/pre_split_20261023/开发计划_V1.0.md)和[历史功能计划](docs/archive/pre_split_20261023/功能重做计划.md)保留未完成设计与原始依据，当前调度以本页及独立功能文件为准。

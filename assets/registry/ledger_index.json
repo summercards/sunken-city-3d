@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "master_document": "GDD_V1.0.md",
+  "domains": {
+    "scenes": {
+      "ledger": "assets/registry/ledgers/scenes.json",
+      "asset_key": "assets"
+    }
+  },
+  "runtime_inventory": "assets/registry/runtime_resource_inventory.json",
+  "content_index": "assets/registry/content_index.json",
+  "note": "总索引只路由，不含资产主记录；新增生产域时增分账本。"
+}

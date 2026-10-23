@@ -1,0 +1,147 @@
+#!/usr/bin/env python3
+"""Run sea checks with isolated user data, full logs and unmasked exit codes."""
+import argparse
+import datetime as dt
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import uuid
+
+ROOT = Path(__file__).resolve().parents[1]
+GODOT_ROOT = ROOT / 'godot'
+TESTS = {
+    'modules': ('tests/test_feature_modules.gd', r'\[modules\] \d+ checks, 0 failures'),
+    'parity': ('tests/test_core.gd', r'\d+ checks, 0 failures'),
+    'farming': ('tests/test_farming.gd', r'\[farming\] \d+ checks, 0 failed'),
+    'surface': ('tests/test_surface_movement.gd', r'\[surface\].*failures=0'),
+    'click': ('tests/test_click_controls.gd', r'\[click-controls\] \d+ checks, 0 failures'),
+    'management': ('tests/test_management_loop.gd', r'\[management\] \d+ checks, 0 failed'),
+    'camera': ('tests/test_camera_follow.gd', r'\[camera-follow\].*failures=0'),
+    'ocean': ('tests/test_ocean.gd', r'\[ocean\].*failures=0'),
+    'selftest': (None, r'\[selftest\] \d+ passed, 0 failed'),
+}
+CORE = list(TESTS)
+TESTS.update({
+    'visual-farming': ('tools/capture_farm_cycle.gd', r'\[farm-ui\] failures=0'),
+    'visual-management': ('tools/capture_management_loop.gd', r'\[management-ui\].*0 failed'),
+    'visual-click': ('tools/capture_click_controls.gd', r'\[click-ui\] failures=0'),
+    'visual-underwater-depth': ('tests/test_underwater_depth.gd', r'\[uw-depth\] double_sided_lighting.*PASS'),
+    'visual-underwater-capture': ('tools/capture_underwater_suite.gd', r'\[uw-suite\] surface_environment_restored=true'),
+})
+EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
+
+
+def inspect_log(name, code, text, marker):
+    expected = []
+    errors = []
+    for line in text.splitlines():
+        if name == 'selftest' and line.strip() == EXPECTED_JSON_ERROR:
+            expected.append(line)
+        elif re.search(r'SCRIPT ERROR|SHADER ERROR|ERROR:|\bFAIL\b', line):
+            errors.append(line)
+    ok = code == 0 and not errors and len(expected) <= 1 and re.search(marker, text) is not None
+    return {'exit_code': code, 'passed': ok, 'expected_errors': expected,
+            'unexpected_errors': errors, 'completion_marker': bool(re.search(marker, text))}
+
+
+def isolated_project(run_dir):
+    project = run_dir / 'project'
+    project.mkdir()
+    for name in ['src', 'scripts', 'scenes', 'tests', 'tools', 'shaders']:
+        source = GODOT_ROOT / name
+        if source.exists():
+            shutil.copytree(source, project / name, ignore=shutil.ignore_patterns('__pycache__'))
+    # Assets and imported binary cache are read-only inputs to test scripts.
+    for name in ['assets', 'icon.svg']:
+        (project / name).symlink_to(GODOT_ROOT / name)
+    cache = project / '.godot'
+    cache.mkdir()
+    (cache / '.gdignore').touch()
+    if (GODOT_ROOT / '.godot/imported').exists():
+        (cache / 'imported').symlink_to(GODOT_ROOT / '.godot/imported')
+    classes = GODOT_ROOT / '.godot/global_script_class_cache.cfg'
+    if classes.exists():
+        shutil.copy2(classes, cache / classes.name)
+    uid_cache = GODOT_ROOT / '.godot/uid_cache.bin'
+    if uid_cache.exists():
+        shutil.copy2(uid_cache, cache / uid_cache.name)
+    text = (GODOT_ROOT / 'project.godot').read_text()
+    # Applied BEFORE Godot starts and before any Autoload is constructed.
+    user_name = 'sea-verification/' + run_dir.name
+    text = re.sub(r'^config/name=.*$', 'config/name="' + user_name + '"', text, flags=re.M)
+    text = re.sub(r'^config/(?:use_custom_user_dir|custom_user_dir_name)=.*\n?', '', text, flags=re.M)
+    text = text.replace('[application]', '[application]\nconfig/use_custom_user_dir=true\n'
+                        + 'config/custom_user_dir_name="' + user_name + '"')
+    (project / 'project.godot').write_text(text)
+    (project / 'outputs').mkdir()
+    camera_baseline = GODOT_ROOT / 'outputs/uw-standard-web-cameras.json'
+    if camera_baseline.is_file():
+        shutil.copy2(camera_baseline, project / 'outputs' / camera_baseline.name)
+    return project, user_name
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('checks', nargs='*', default=['core'])
+    parser.add_argument('--label', default='verification')
+    parser.add_argument('--timeout', type=int, default=180)
+    parser.add_argument('--visual', action='store_true')
+    args = parser.parse_args()
+    checks = CORE if args.checks == ['core'] else args.checks
+    unknown = set(checks) - set(TESTS)
+    if unknown:
+        parser.error('unknown checks: ' + ', '.join(sorted(unknown)))
+    exe = os.environ.get('GODOT') or shutil.which('godot') or str(Path.home() / 'Applications/Godot.app/Contents/MacOS/Godot')
+    if not Path(exe).is_file():
+        parser.error('Godot executable unavailable; set GODOT')
+    work = Path(os.environ.get('SEA_WORK_ROOT', str(ROOT.parent / 'sea-work'))).resolve()
+    if work == ROOT or ROOT in work.parents:
+        parser.error('SEA_WORK_ROOT must be outside the repository')
+    label = re.sub(r'[^A-Za-z0-9_-]', '_', args.label)
+    run_dir = work / 'verification' / (dt.datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + label + '-' + uuid.uuid4().hex[:6])
+    run_dir.mkdir(parents=True)
+    project, user_name = isolated_project(run_dir)
+    full_config = (project / 'project.godot').read_text()
+    report = {'label': label, 'run_dir': str(run_dir), 'user_data_name': user_name,
+              'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+              'working_tree': subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True),
+              'renderer': 'per check; visual-* always use real renderer', 'results': {}}
+    print('Evidence:', run_dir, flush=True)
+    for name in checks:
+        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name == 'modules' else full_config
+        (project / 'project.godot').write_text(config)
+        script, marker = TESTS[name]
+        cmd = [exe, '--path', str(project)]
+        is_visual = args.visual or name.startswith('visual-')
+        if not is_visual:
+            cmd.append('--headless')
+        else:
+            cmd += ['--resolution', '1280x800', '--fixed-fps', '60']
+        if script:
+            cmd += ['--script', 'res://' + script]
+        else:
+            cmd += ['--', '--selftest', '--nosave']
+        log = run_dir / (name + '.log')
+        with log.open('w') as output:
+            try:
+                code = subprocess.run(cmd, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout).returncode
+            except subprocess.TimeoutExpired:
+                code = 124
+        text = log.read_text(errors='replace')
+        result = inspect_log(name, code, text, marker)
+        result['log'] = str(log)
+        result['renderer'] = 'real' if is_visual else 'headless'
+        result['command'] = cmd
+        report['results'][name] = result
+        print(name, 'PASS' if result['passed'] else 'FAIL', 'exit=' + str(code), flush=True)
+        if not result['passed']:
+            print('\n'.join(text.splitlines()[-18:]), flush=True)
+        (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+    return 0 if all(x['passed'] for x in report['results'].values()) else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

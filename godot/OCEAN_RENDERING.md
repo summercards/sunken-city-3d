@@ -1,3 +1,5 @@
+> 技术参考与历史记录。项目管理入口为 [主文档](../GDD_V1.0.md#feature-control)，本主题从 [独立功能文档](../docs/features/ocean/spec.md) 和 [账本](../docs/features/ocean/ledger.md) 进入。下文历史验收只对原记录时点成立。
+
 # 水面、白浪与边缘波纹（2026-10-22）
 
 视觉参考：TechFusion《花了一周在Unity中写的风格化海洋环境渲染》
@@ -7,7 +9,7 @@ https://www.bilibili.com/video/BV1TqM76nEWf/
 
 ## 自动岸线
 
-`scripts/world/shore_distance.gd` 遍历实际可见场景几何（MeshInstance3D / MultiMesh），求三角形与海拔 1.12 米平面的交线，再生成欧氏距离纹理。材质不再使用旧 `shore.json` 中的矩形；旧 JSON 仍供原有导航逻辑使用。
+`src/rendering/shore_distance.gd` 遍历实际可见场景几何（MeshInstance3D / MultiMesh），求三角形与海拔 1.12 米平面的交线，再生成欧氏距离纹理。材质不再使用旧 `shore.json` 中的矩形；旧 JSON 仍供原有导航逻辑使用。
 
 - 合并 GLB 按焊接顶点连通性拆分，避免薄片装饰、旧水花管线等被当成实体岸线。排除高度小于 0.5 米的连通分量、隐藏对象和完全没入水中的对象。
 - 1536×1536 RG 浮点纹理：R 为到轮廓的米制距离，G 为附近实体的尺寸系数。小箱子、细柱产生更小的波纹，避免大圆圈包围小物体。
@@ -70,7 +72,7 @@ EMISSION = color * exposure_comp * emission_gain;
 同一个 `EMISSION` 输入，Forward+ 与 gl_compatibility 出来的像素差得很远
 （实测 0.25 线性值 → 212 对 89），而且**蓝通道压缩得更狠**，单标量补偿对不上：
 增益 3.0 时绿差 40，增益 4.0 时蓝差 60。所以 `emission_gain` 是 `vec3`，
-由 `scripts/render_flags.gd` 的 `water_emission_gain()` 按后端给出
+由 `src/rendering/render_flags.gd` 的 `water_emission_gain()` 按后端给出
 （兼容后端 `Vector3(3.8, 3.8, 2.7)`，Forward+ `Vector3.ONE`）。
 Web 导出走兼容后端，**改完必须单独用 `--rendering-driver opengl3` 截一张**核对，
 否则会出现「桌面正常、网页一片黑」。

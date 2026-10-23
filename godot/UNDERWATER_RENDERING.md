@@ -1,3 +1,5 @@
+> 技术参考与历史记录。项目管理入口为 [主文档](../GDD_V1.0.md#feature-control)，本主题从 [独立功能文档](../docs/features/dive/spec.md) 和 [账本](../docs/features/dive/ledger.md) 进入。下文历史验收只对原记录时点成立。
+
 # 海底材质规范与验收
 
 2026-10-21，实测 Godot 4.7.2 stable，macOS / Apple M1 / Metal Forward+。
@@ -5,7 +7,7 @@
 
 ## 材质入口
 
-- 所有海底模型、程序鱼、宝箱和潜水员通过 `scripts/world/uw_materials.gd` 创建材质。
+- 所有海底模型、程序鱼、宝箱和潜水员通过 `src/diving/uw_materials.gd` 创建材质。
 - manifest 的 Three.js 颜色已经是线性值，不再次做 sRGB 转换；代码中的美术色走 `from_color`，仅转换一次。
 - 实体 shader 禁止写 ALPHA，使用不透明深度写入。透明变体只给真正透明的物体，测试深度但不写深度。
 - 单双面遵循 manifest.double_side。Godot 自动处理 PBR 背面法线，自定义世界法线只在焦散/头灯计算中翻转一次。

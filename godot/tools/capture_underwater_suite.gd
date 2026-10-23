@@ -1,7 +1,7 @@
 extends SceneTree
 ## 同机位验收：网页版相机 JSON + 固定水下时间，关闭网页版没有的头灯。
 ## Godot --path godot --resolution 1440x900 --script res://tools/capture_underwater_suite.gd
-const Materials = preload("res://scripts/world/uw_materials.gd")
+const Materials = preload("res://src/diving/uw_materials.gd")
 
 func _init() -> void:
 	call_deferred("_run")

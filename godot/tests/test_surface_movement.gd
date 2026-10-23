@@ -1,6 +1,6 @@
 extends SceneTree
-const BoatScript = preload("res://scripts/boat.gd")
-const Ground = preload("res://src/core/ground_path.gd")
+const BoatScript = preload("res://src/navigation/boat.gd")
+const Ground = preload("res://src/navigation/ground_path.gd")
 var failures := 0
 var checks := 0
 func check(ok: bool, message: String) -> void:

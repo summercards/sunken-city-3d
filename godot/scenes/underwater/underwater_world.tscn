@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3]
 
-[ext_resource type="Script" path="res://scripts/world/underwater_world.gd" id="1_world"]
+[ext_resource type="Script" path="res://src/diving/underwater_world.gd" id="1_world"]
 [ext_resource type="PackedScene" path="res://scenes/underwater/region_basin.tscn" id="2_basin"]
 [ext_resource type="PackedScene" path="res://scenes/underwater/region_neighborhood.tscn" id="3_neighborhood"]
 [ext_resource type="PackedScene" path="res://scenes/underwater/region_reef.tscn" id="4_reef"]
 [ext_resource type="PackedScene" path="res://scenes/underwater/region_trench.tscn" id="5_trench"]
-[ext_resource type="Script" path="res://scripts/world/uw_deco.gd" id="6_deco"]
+[ext_resource type="Script" path="res://src/diving/uw_deco.gd" id="6_deco"]
 
 [node name="UnderwaterWorld" type="Node3D"]
 script = ExtResource("1_world")

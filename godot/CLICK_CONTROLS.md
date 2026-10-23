@@ -1,3 +1,5 @@
+> 技术参考与历史记录。项目管理入口为 [主文档](../GDD_V1.0.md#feature-control)，本主题从 [独立功能文档](../docs/features/interact/spec.md) 和 [账本](../docs/features/interact/ledger.md) 进入。下文历史验收只对原记录时点成立。
+
 # 点击优先交互规范与实现
 
 2026-10-22。现有玩法统一提供鼠标入口，键盘保留为快捷操作。点击、长按收线、拖动镜头和滚轮缩放都属于鼠标操作；本次没有加入触屏适配。
@@ -36,12 +38,12 @@
 
 ## 实现位置
 
-- `scripts/main.gd`：统一按钮命令、任务取消、点击归属、菜单隔离、导航与交互。
-- `scripts/hud.gd`：直接入口、关闭按钮、潜水深度和头灯按钮、点击提示。
-- `scripts/ui/hover_card.gd`、`interact_prompt.gd`：可点击目标说明和近处操作按钮。
-- `scripts/ui/salvage_panel.gd`：鼠标按住/松开和退出；窗口失焦也清除鼠标收线状态。
-- `scripts/world/underwater_world.gd`：当前深度点击导航、上下游、取消、自动搜索衔接。
-- `scripts/orbit_camera.gd`：面板打开时清理拖动并停止抢输入。
+- `src/bootstrap/main.gd`：统一按钮命令、任务取消、点击归属、菜单隔离、导航与交互。
+- `src/ui/hud.gd`：直接入口、关闭按钮、潜水深度和头灯按钮、点击提示。
+- `src/interaction/hover_card.gd`、`interact_prompt.gd`：可点击目标说明和近处操作按钮。
+- `src/salvage/salvage_panel.gd`：鼠标按住/松开和退出；窗口失焦也清除鼠标收线状态。
+- `src/diving/underwater_world.gd`：当前深度点击导航、上下游、取消、自动搜索衔接。
+- `src/camera/orbit_camera.gd`：面板打开时清理拖动并停止抢输入。
 
 ## 验证
 

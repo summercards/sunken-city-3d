@@ -510,6 +510,8 @@ def labeler(zone):
 
 
 def main():
+    from authored_guard import require_candidate
+    require_candidate(__file__)
     ap = argparse.ArgumentParser()
     ap.add_argument("--zone", default="", help="只导某个区块，如 zone1")
     ap.add_argument("--env", action="store_true", help="连外围环境一起导")

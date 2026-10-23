@@ -3,11 +3,11 @@
 import re, pathlib, sys
 
 ROOT = pathlib.Path("/Users/summercards/WorkBuddy/sea/godot")
-CONST_LINE = 'const UiFontLib = preload("res://scripts/ui/ui_font.gd")'
+CONST_LINE = 'const UiFontLib = preload("res://src/ui/ui_font.gd")'
 
-FILES = ["scripts/hud.gd", "scripts/ui/interact_prompt.gd", "scripts/ui/salvage_panel.gd",
-         "scripts/ui/order_panel.gd", "scripts/ui/camera_panel.gd", "scripts/ui/color_grade_panel.gd",
-         "scripts/ui/backpack_grid.gd", "scripts/ui/hover_card.gd"]
+FILES = ["src/ui/hud.gd", "src/interaction/interact_prompt.gd", "src/salvage/salvage_panel.gd",
+         "src/orders/order_panel.gd", "src/camera/camera_panel.gd", "src/rendering/color_grade_panel.gd",
+         "src/inventory/backpack_grid.gd", "src/interaction/hover_card.gd"]
 
 pat = re.compile(
     r'(?P<indent>\t*)_font = SystemFont\.new\(\)\n'

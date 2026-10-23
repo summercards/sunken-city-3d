@@ -1,8 +1,8 @@
 extends SceneTree
 
-const ZoneSpecsLib = preload("res://src/core/zones.gd")
-const EconomyLib = preload("res://src/core/economy.gd")
-const SailNavLib = preload("res://src/core/sail_nav.gd")
+const ZoneSpecsLib = preload("res://tests/parity/zones.gd")
+const EconomyLib = preload("res://tests/parity/economy.gd")
+const SailNavLib = preload("res://tests/parity/sail_nav.gd")
 
 ## 核心层 parity 测试：逐条对应 sea/tests/economy-unit.cjs 与 sail-nav-unit.cjs。
 ## 运行：Godot --headless --path godot --script res://tests/test_core.gd

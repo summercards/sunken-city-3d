@@ -1,3 +1,5 @@
+> 技术参考与历史记录。项目管理入口为 [主文档](../GDD_V1.0.md#feature-control)，本主题从 [独立功能文档](../docs/features/farm/spec.md) 和 [账本](../docs/features/farm/ledger.md) 进入。下文历史验收只对原记录时点成立。
+
 # 种植系统设计与实现
 
 版本：第一版可玩闭环，2026-10-22。本文描述已接入 Godot 的规则；后续扩展另列，不代表已经实现。
@@ -17,11 +19,11 @@
 | 对象 | 职责 | 实现 |
 |---|---|---|
 | WalkArea / LandingPoint | 地面、路径、泊位及上下船 | 现有地面系统 |
-| FarmBed | 一个独立种植床，管理六格的 ID、所属区域和解锁要求 | `scenes/props/farm_plot.tscn` + `scripts/core/farm_bed.gd` |
-| FarmPlot / 地格 | 单格模型、干湿/生长阶段、选中反馈及交互转发 | `scenes/props/farm_cell.tscn` + `scripts/core/farm_plot.gd` |
-| FarmField | 收集场景地格、校验重复 ID、转发交互事件 | `scripts/core/farm_field.gd` |
-| FarmModel | 作物规则、天数、浇水、买卖及状态存档 | `scripts/core/farm.gd` |
-| HUD / main | 种植菜单、前往指定格、休息入口、角色动作和提示 | `scripts/hud.gd`、`scripts/main.gd` |
+| FarmBed | 一个独立种植床，管理六格的 ID、所属区域和解锁要求 | `scenes/props/farm_plot.tscn` + `src/farming/farm_bed.gd` |
+| FarmPlot / 地格 | 单格模型、干湿/生长阶段、选中反馈及交互转发 | `scenes/props/farm_cell.tscn` + `src/farming/farm_plot.gd` |
+| FarmField | 收集场景地格、校验重复 ID、转发交互事件 | `src/farming/farm_field.gd` |
+| FarmModel | 作物规则、天数、浇水、买卖及状态存档 | `src/farming/farm.gd` |
+| HUD / main | 种植菜单、前往指定格、休息入口、角色动作和提示 | `src/ui/hud.gd`、`src/bootstrap/main.gd` |
 | 数据定义 | 作物参数、种子物品、售价与堆叠 | `assets/data/crops.json`、`items.json` |
 
 三个种植床各有 **3×2 六格，共 18 格**，在对应区块 Objects 下摆放，地格是编辑器中可见的子场景实例。每格作物和水分独立。移动种植床会带着六格一起移动；增加种植内容不应修改泊位或船逻辑。
@@ -100,7 +102,7 @@
 
 规则：`tests/test_farming.gd` 检查购买、种植、干旱、重复浇水、逐日成熟、收获出售再投入、番茄三茬、12 份水限制、补水、18 格存档往返、旧版迁移、满包保护和船上禁止休息。
 
-场景：原有 `tests/test_surface_movement.gd` 验证每个地格是独立子场景、从对应泊位可达，以及 30 条有向航线。`scripts/selftest.gd` 更新为日制契约。
+场景：原有 `tests/test_surface_movement.gd` 验证每个地格是独立子场景、从对应泊位可达，以及 30 条有向航线。`tests/integration/selftest.gd` 更新为日制契约。
 
 真实画面：`tools/capture_farm_cycle.gd` 使用正常 Metal 渲染和 Viewport 鼠标按下/松开事件，点菜单购买、指定第二格、走近播种/浇水、休息三日、收获、出售、再次播种。测试关闭自动存档，不覆盖玩家槽位。
 

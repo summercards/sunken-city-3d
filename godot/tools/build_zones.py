@@ -26,6 +26,8 @@ PAD = 6.0
 
 
 def main():
+    from authored_guard import require_candidate
+    require_candidate(__file__)
     bake = Bake(BAKED)
     zones = json.load(open(os.path.join(ROOT, "assets", "data", "zones.json")))
     claim_path = os.path.join(ROOT, "assets", "data", "plant_claim.json")
@@ -149,10 +151,10 @@ def write_zone_scene(zone, asset):
     ox, oz = zone["origin"][0], zone["origin"][2]
 
     lines = ["[gd_scene load_steps=5 format=3]", ""]
-    lines.append('[ext_resource type="Script" path="res://scripts/world/zone_scene.gd" id="1_zone"]')
-    lines.append('[ext_resource type="Script" path="res://scripts/world/zone_batch.gd" id="2_batch"]')
-    lines.append('[ext_resource type="Script" path="res://scripts/world/walk_area.gd" id="3_walk"]')
-    lines.append('[ext_resource type="Script" path="res://scripts/plants/plant_field.gd" id="4_plants"]')
+    lines.append('[ext_resource type="Script" path="res://src/world/zone_scene.gd" id="1_zone"]')
+    lines.append('[ext_resource type="Script" path="res://src/world/zone_batch.gd" id="2_batch"]')
+    lines.append('[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="3_walk"]')
+    lines.append('[ext_resource type="Script" path="res://src/ambient/plant_field.gd" id="4_plants"]')
     lines.append("")
     lines.append('[node name="%s" type="Node3D"]' % node)
     lines.append("transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, %.3f, 0, %.3f)" % (ox, oz))
@@ -198,7 +200,7 @@ def write_zone_scene(zone, asset):
 
 def write_environment_scene(asset):
     lines = ["[gd_scene load_steps=3 format=3]", ""]
-    lines.append('[ext_resource type="Script" path="res://scripts/world/zone_batch.gd" id="1_batch"]')
+    lines.append('[ext_resource type="Script" path="res://src/world/zone_batch.gd" id="1_batch"]')
     lines.append("")
     lines.append('[node name="Environment" type="Node3D"]')
     lines.append("")
@@ -213,7 +215,7 @@ def write_environment_scene(asset):
 
 def write_main_scene(zones):
     lines = ["[gd_scene load_steps=%d format=3]" % (2 + len(zones)), ""]
-    lines.append('[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]')
+    lines.append('[ext_resource type="Script" path="res://src/bootstrap/main.gd" id="1_main"]')
     lines.append('[ext_resource type="PackedScene" path="res://scenes/world/environment.tscn" id="2_env"]')
     for i, z in enumerate(zones):
         lines.append('[ext_resource type="PackedScene" path="res://scenes/zones/%s.tscn" id="%d_%s"]'

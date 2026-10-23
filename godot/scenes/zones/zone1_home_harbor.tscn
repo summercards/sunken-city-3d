@@ -1,9 +1,9 @@
 [gd_scene load_steps=20 format=3]
 
-[ext_resource type="Script" path="res://scripts/world/zone_scene.gd" id="1_zone"]
-[ext_resource type="Script" path="res://scripts/world/zone_batch.gd" id="2_batch"]
-[ext_resource type="Script" path="res://scripts/world/walk_area.gd" id="3_walk"]
-[ext_resource type="Script" path="res://scripts/plants/plant_field.gd" id="4_plants"]
+[ext_resource type="Script" path="res://src/world/zone_scene.gd" id="1_zone"]
+[ext_resource type="Script" path="res://src/world/zone_batch.gd" id="2_batch"]
+[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="3_walk"]
+[ext_resource type="Script" path="res://src/ambient/plant_field.gd" id="4_plants"]
 [ext_resource type="PackedScene" path="res://assets/models/zones/zone1_home_harbor/units/detail.glb" id="unit_detail"]
 [ext_resource type="PackedScene" path="res://assets/models/zones/zone1_home_harbor/units/unit_01.glb" id="unit_unit_01"]
 [ext_resource type="PackedScene" path="res://assets/models/zones/zone1_home_harbor/units/unit_02.glb" id="unit_unit_02"]
@@ -18,7 +18,7 @@
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_t1_1000.tres" id="mat_t1_1000"]
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_t2_0000.tres" id="mat_t2_0000"]
 
-[ext_resource type="Script" path="res://scripts/world/landing_point.gd" id="landing_script"]
+[ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing_script"]
 [ext_resource type="PackedScene" path="res://scenes/props/farm_plot.tscn" id="farm_prefab"]
 
 [node name="Zone1HomeHarbor" type="Node3D"]

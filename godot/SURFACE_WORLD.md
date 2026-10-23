@@ -1,3 +1,5 @@
+> 技术参考与历史记录。项目管理入口为 [主文档](../GDD_V1.0.md#feature-control)，本主题从 [独立功能文档](../docs/features/world/spec.md) 和 [账本](../docs/features/world/ledger.md) 进入。下文历史验收只对原记录时点成立。
+
 # 地面、泊位、种植与航行
 
 正式布局在 `scenes/zones/zone*.tscn` 中管理；保持现有海面、岸线数据与航行网格结构。

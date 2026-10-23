@@ -9,6 +9,10 @@ const WATER_LEVEL := 1.12
 
 
 func _init() -> void:
+	if not FileAccess.file_exists("res://.sea-generation-candidate"):
+		printerr("Refusing to overwrite authored resources; use scripts/create_generation_candidate.py")
+		quit(2)
+		return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT_DIR))
 	_save_env()
 	_save_water()

@@ -1,0 +1,598 @@
+{
+  "generated_from": "GDD_V1.0.md + individual feature ledgers; DO NOT EDIT",
+  "features": [
+    {
+      "feature_id": "SEA-BOOT",
+      "name": "启动与会话装配",
+      "group": "基础",
+      "dependencies": [],
+      "spec": "docs/features/boot/spec.md",
+      "ledger": "docs/features/boot/ledger.md",
+      "status": "partial",
+      "owner": "GameState / Main 装配层",
+      "code_paths": [
+        "godot/src/bootstrap",
+        "godot/project.godot",
+        "godot/scenes/main.tscn"
+      ],
+      "verification": [
+        "selftest"
+      ]
+    },
+    {
+      "feature_id": "SEA-WORLD",
+      "name": "区块与世界装配",
+      "group": "世界",
+      "dependencies": [
+        "SEA-BOOT"
+      ],
+      "spec": "docs/features/world/spec.md",
+      "ledger": "docs/features/world/ledger.md",
+      "status": "partial",
+      "owner": "Zones / ZoneScene",
+      "code_paths": [
+        "godot/src/world",
+        "godot/scenes/zones",
+        "godot/scenes/world",
+        "godot/assets/data/zones.json"
+      ],
+      "verification": [
+        "selftest",
+        "surface"
+      ]
+    },
+    {
+      "feature_id": "SEA-MOVE",
+      "name": "角色移动与上下船",
+      "group": "3C",
+      "dependencies": [
+        "SEA-WORLD"
+      ],
+      "spec": "docs/features/move/spec.md",
+      "ledger": "docs/features/move/ledger.md",
+      "status": "partial",
+      "owner": "角色 / 行走协调器（当前 Main）",
+      "code_paths": [
+        "godot/src/player",
+        "godot/src/navigation/walk_area.gd",
+        "godot/src/navigation/ground_path.gd",
+        "godot/src/navigation/landing_point.gd"
+      ],
+      "verification": [
+        "surface",
+        "click"
+      ]
+    },
+    {
+      "feature_id": "SEA-NAV",
+      "name": "航行与靠泊",
+      "group": "3C",
+      "dependencies": [
+        "SEA-WORLD",
+        "SEA-MOVE"
+      ],
+      "spec": "docs/features/nav/spec.md",
+      "ledger": "docs/features/nav/ledger.md",
+      "status": "partial",
+      "owner": "Boat / 航行协调器",
+      "code_paths": [
+        "godot/src/navigation/boat.gd",
+        "godot/src/navigation/route_ribbon.gd"
+      ],
+      "verification": [
+        "surface",
+        "selftest"
+      ]
+    },
+    {
+      "feature_id": "SEA-CAMERA",
+      "name": "相机跟随与手动控制",
+      "group": "3C",
+      "dependencies": [
+        "SEA-MOVE"
+      ],
+      "spec": "docs/features/camera/spec.md",
+      "ledger": "docs/features/camera/ledger.md",
+      "status": "partial",
+      "owner": "OrbitCamera",
+      "code_paths": [
+        "godot/src/camera"
+      ],
+      "verification": [
+        "camera",
+        "click"
+      ]
+    },
+    {
+      "feature_id": "SEA-INTERACT",
+      "name": "点击与长按交互",
+      "group": "交互",
+      "dependencies": [
+        "SEA-MOVE"
+      ],
+      "spec": "docs/features/interact/spec.md",
+      "ledger": "docs/features/interact/ledger.md",
+      "status": "partial",
+      "owner": "Interactor / Interactable",
+      "code_paths": [
+        "godot/src/interaction"
+      ],
+      "verification": [
+        "click",
+        "surface"
+      ]
+    },
+    {
+      "feature_id": "SEA-GATHER",
+      "name": "岸边采集",
+      "group": "资源",
+      "dependencies": [
+        "SEA-INTERACT",
+        "SEA-INVENTORY"
+      ],
+      "spec": "docs/features/gather/spec.md",
+      "ledger": "docs/features/gather/ledger.md",
+      "status": "partial",
+      "owner": "GatherSpot / GatherField",
+      "code_paths": [
+        "godot/src/gathering",
+        "godot/assets/data/gather_spots.json"
+      ],
+      "verification": [
+        "selftest"
+      ]
+    },
+    {
+      "feature_id": "SEA-INVENTORY",
+      "name": "资源与背包",
+      "group": "经营",
+      "dependencies": [],
+      "spec": "docs/features/inventory/spec.md",
+      "ledger": "docs/features/inventory/ledger.md",
+      "status": "partial",
+      "owner": "Inventory / ItemDB",
+      "code_paths": [
+        "godot/src/inventory",
+        "godot/assets/data/items.json"
+      ],
+      "verification": [
+        "selftest",
+        "management"
+      ]
+    },
+    {
+      "feature_id": "SEA-WAREHOUSE",
+      "name": "材料仓储",
+      "group": "经营",
+      "dependencies": [
+        "SEA-INVENTORY",
+        "SEA-FACILITY"
+      ],
+      "spec": "docs/features/warehouse/spec.md",
+      "ledger": "docs/features/warehouse/ledger.md",
+      "status": "partial",
+      "owner": "Economy.warehouse / Inventory",
+      "code_paths": [
+        "godot/src/economy/economy.gd"
+      ],
+      "verification": [
+        "management"
+      ]
+    },
+    {
+      "feature_id": "SEA-BUILD",
+      "name": "建筑修缮与升级",
+      "group": "经营",
+      "dependencies": [
+        "SEA-INVENTORY",
+        "SEA-INTERACT"
+      ],
+      "spec": "docs/features/build/spec.md",
+      "ledger": "docs/features/build/ledger.md",
+      "status": "partial",
+      "owner": "Economy 建造状态 / BuildSite",
+      "code_paths": [
+        "godot/src/construction"
+      ],
+      "verification": [
+        "selftest",
+        "management"
+      ]
+    },
+    {
+      "feature_id": "SEA-FACILITY",
+      "name": "设施解锁与生产",
+      "group": "经营",
+      "dependencies": [
+        "SEA-BUILD",
+        "SEA-INVENTORY"
+      ],
+      "spec": "docs/features/facility/spec.md",
+      "ledger": "docs/features/facility/ledger.md",
+      "status": "partial",
+      "owner": "Economy 设施状态",
+      "code_paths": [
+        "godot/src/economy/economy.gd"
+      ],
+      "verification": [
+        "management",
+        "selftest"
+      ]
+    },
+    {
+      "feature_id": "SEA-SHIP",
+      "name": "船只升级与区域解锁",
+      "group": "成长",
+      "dependencies": [
+        "SEA-INVENTORY",
+        "SEA-BUILD"
+      ],
+      "spec": "docs/features/ship/spec.md",
+      "ledger": "docs/features/ship/ledger.md",
+      "status": "partial",
+      "owner": "Economy 船等级 / GameState 区域资格",
+      "code_paths": [
+        "godot/src/economy/economy.gd",
+        "godot/src/navigation/boat.gd"
+      ],
+      "verification": [
+        "management",
+        "surface"
+      ]
+    },
+    {
+      "feature_id": "SEA-FARM",
+      "name": "种植与日常照料",
+      "group": "经营",
+      "dependencies": [
+        "SEA-INVENTORY",
+        "SEA-FACILITY",
+        "SEA-WORLD"
+      ],
+      "spec": "docs/features/farm/spec.md",
+      "ledger": "docs/features/farm/ledger.md",
+      "status": "partial",
+      "owner": "FarmModel",
+      "code_paths": [
+        "godot/src/farming",
+        "godot/assets/data/crops.json",
+        "godot/scenes/props/farm_plot.tscn",
+        "godot/scenes/props/farm_cell.tscn"
+      ],
+      "verification": [
+        "farming",
+        "management",
+        "modules"
+      ]
+    },
+    {
+      "feature_id": "SEA-SALVAGE",
+      "name": "绞盘打捞",
+      "group": "探索",
+      "dependencies": [
+        "SEA-INTERACT",
+        "SEA-INVENTORY"
+      ],
+      "spec": "docs/features/salvage/spec.md",
+      "ledger": "docs/features/salvage/ledger.md",
+      "status": "partial",
+      "owner": "SalvageModel / 结算冷却协调",
+      "code_paths": [
+        "godot/src/salvage"
+      ],
+      "verification": [
+        "selftest",
+        "management",
+        "modules"
+      ]
+    },
+    {
+      "feature_id": "SEA-DIVE",
+      "name": "潜水探索与宝箱",
+      "group": "探索",
+      "dependencies": [
+        "SEA-WORLD",
+        "SEA-INVENTORY"
+      ],
+      "spec": "docs/features/dive/spec.md",
+      "ledger": "docs/features/dive/ledger.md",
+      "status": "partial",
+      "owner": "UnderwaterWorld / DiveAir",
+      "code_paths": [
+        "godot/src/diving",
+        "godot/scenes/underwater"
+      ],
+      "verification": [
+        "selftest",
+        "modules"
+      ]
+    },
+    {
+      "feature_id": "SEA-PICKUP",
+      "name": "海面漂流物与鱼群收取",
+      "group": "探索",
+      "dependencies": [
+        "SEA-NAV",
+        "SEA-INVENTORY"
+      ],
+      "spec": "docs/features/pickup/spec.md",
+      "ledger": "docs/features/pickup/ledger.md",
+      "status": "partial",
+      "owner": "SeaProps",
+      "code_paths": [
+        "godot/src/pickups"
+      ],
+      "verification": [
+        "selftest"
+      ]
+    },
+    {
+      "feature_id": "SEA-ORDER",
+      "name": "交易与订单",
+      "group": "经营",
+      "dependencies": [
+        "SEA-INVENTORY",
+        "SEA-BUILD",
+        "SEA-SHIP"
+      ],
+      "spec": "docs/features/order/spec.md",
+      "ledger": "docs/features/order/ledger.md",
+      "status": "partial",
+      "owner": "OrderBoard",
+      "code_paths": [
+        "godot/src/orders",
+        "godot/assets/data/orders.json",
+        "godot/assets/data/trade_board.json"
+      ],
+      "verification": [
+        "management",
+        "selftest",
+        "modules"
+      ]
+    },
+    {
+      "feature_id": "SEA-GOAL",
+      "name": "小目标追踪与引导",
+      "group": "成长",
+      "dependencies": [
+        "SEA-BUILD",
+        "SEA-SHIP"
+      ],
+      "spec": "docs/features/goal/spec.md",
+      "ledger": "docs/features/goal/ledger.md",
+      "status": "partial",
+      "owner": "Economy 目标追踪 / HUD",
+      "code_paths": [
+        "godot/src/economy/economy.gd",
+        "godot/src/ui/hud.gd"
+      ],
+      "verification": [
+        "management"
+      ]
+    },
+    {
+      "feature_id": "SEA-RESIDENT",
+      "name": "居民与生活行为",
+      "group": "生活",
+      "dependencies": [
+        "SEA-WORLD",
+        "SEA-BUILD"
+      ],
+      "spec": "docs/features/resident/spec.md",
+      "ledger": "docs/features/resident/ledger.md",
+      "status": "planned",
+      "owner": "规划：ResidentService",
+      "code_paths": [],
+      "verification": []
+    },
+    {
+      "feature_id": "SEA-TIME",
+      "name": "天气与世界时间",
+      "group": "生活",
+      "dependencies": [
+        "SEA-WORLD"
+      ],
+      "spec": "docs/features/time/spec.md",
+      "ledger": "docs/features/time/ledger.md",
+      "status": "planned",
+      "owner": "规划：WorldClock / WeatherService",
+      "code_paths": [],
+      "verification": []
+    },
+    {
+      "feature_id": "SEA-AQUA",
+      "name": "浅水养殖",
+      "group": "经营",
+      "dependencies": [
+        "SEA-WORLD",
+        "SEA-INVENTORY"
+      ],
+      "spec": "docs/features/aqua/spec.md",
+      "ledger": "docs/features/aqua/ledger.md",
+      "status": "planned",
+      "owner": "规划：AquacultureService",
+      "code_paths": [],
+      "verification": []
+    },
+    {
+      "feature_id": "SEA-QUEST",
+      "name": "任务成就与区域复兴",
+      "group": "成长",
+      "dependencies": [
+        "SEA-GOAL",
+        "SEA-WORLD"
+      ],
+      "spec": "docs/features/quest/spec.md",
+      "ledger": "docs/features/quest/ledger.md",
+      "status": "planned",
+      "owner": "规划：QuestService",
+      "code_paths": [],
+      "verification": []
+    },
+    {
+      "feature_id": "SEA-UI",
+      "name": "HUD 与菜单反馈",
+      "group": "表现",
+      "dependencies": [
+        "SEA-INTERACT",
+        "SEA-INVENTORY"
+      ],
+      "spec": "docs/features/ui/spec.md",
+      "ledger": "docs/features/ui/ledger.md",
+      "status": "partial",
+      "owner": "HUD / UI presenters",
+      "code_paths": [
+        "godot/src/ui"
+      ],
+      "verification": [
+        "click",
+        "management"
+      ]
+    },
+    {
+      "feature_id": "SEA-OCEAN",
+      "name": "水面与光照渲染",
+      "group": "表现",
+      "dependencies": [
+        "SEA-WORLD"
+      ],
+      "spec": "docs/features/ocean/spec.md",
+      "ledger": "docs/features/ocean/ledger.md",
+      "status": "partial",
+      "owner": "WaterSurface / ShaderMaterial",
+      "code_paths": [
+        "godot/src/rendering",
+        "godot/shaders",
+        "godot/assets/materials"
+      ],
+      "verification": [
+        "ocean"
+      ]
+    },
+    {
+      "feature_id": "SEA-AMBIENT",
+      "name": "环境植物与生活表现",
+      "group": "表现",
+      "dependencies": [
+        "SEA-WORLD"
+      ],
+      "spec": "docs/features/ambient/spec.md",
+      "ledger": "docs/features/ambient/ledger.md",
+      "status": "partial",
+      "owner": "PlantField / Birds",
+      "code_paths": [
+        "godot/src/ambient",
+        "godot/scenes/plants"
+      ],
+      "verification": [
+        "selftest"
+      ]
+    },
+    {
+      "feature_id": "SEA-SAVE",
+      "name": "存档与恢复",
+      "group": "基础",
+      "dependencies": [
+        "SEA-BOOT",
+        "SEA-INVENTORY"
+      ],
+      "spec": "docs/features/save/spec.md",
+      "ledger": "docs/features/save/ledger.md",
+      "status": "partial",
+      "owner": "SaveGame 协调 / 各功能状态所有者",
+      "code_paths": [
+        "godot/src/save"
+      ],
+      "verification": [
+        "selftest",
+        "management"
+      ]
+    },
+    {
+      "feature_id": "SEA-SFX",
+      "name": "环境与交互音效",
+      "group": "表现",
+      "dependencies": [
+        "SEA-INTERACT"
+      ],
+      "spec": "docs/features/sfx/spec.md",
+      "ledger": "docs/features/sfx/ledger.md",
+      "status": "planned",
+      "owner": "规划：SfxService",
+      "code_paths": [],
+      "verification": []
+    },
+    {
+      "feature_id": "SEA-MUSIC",
+      "name": "场景音乐",
+      "group": "表现",
+      "dependencies": [
+        "SEA-BOOT",
+        "SEA-WORLD"
+      ],
+      "spec": "docs/features/music/spec.md",
+      "ledger": "docs/features/music/ledger.md",
+      "status": "planned",
+      "owner": "规划：MusicService",
+      "code_paths": [],
+      "verification": []
+    },
+    {
+      "feature_id": "SEA-ASSET",
+      "name": "美术组件生产与登记",
+      "group": "生产",
+      "dependencies": [],
+      "spec": "docs/features/asset/spec.md",
+      "ledger": "docs/features/asset/ledger.md",
+      "status": "partial",
+      "owner": "制作源负责人 / 各域资产账本",
+      "code_paths": [
+        "art_source",
+        "assets/registry",
+        "tools/blender"
+      ],
+      "verification": [
+        "structure"
+      ]
+    },
+    {
+      "feature_id": "SEA-QUALITY",
+      "name": "验证与性能治理",
+      "group": "工程",
+      "dependencies": [
+        "SEA-BOOT"
+      ],
+      "spec": "docs/features/quality/spec.md",
+      "ledger": "docs/features/quality/ledger.md",
+      "status": "partial",
+      "owner": "验证 runner / 功能专项测试",
+      "code_paths": [
+        "scripts",
+        "godot/tests",
+        "tests"
+      ],
+      "verification": [
+        "structure"
+      ]
+    },
+    {
+      "feature_id": "SEA-RELEASE",
+      "name": "导出与发行",
+      "group": "工程",
+      "dependencies": [
+        "SEA-QUALITY"
+      ],
+      "spec": "docs/features/release/spec.md",
+      "ledger": "docs/features/release/ledger.md",
+      "status": "partial",
+      "owner": "导出配置 / 发布工具",
+      "code_paths": [
+        "godot/export_presets.cfg",
+        "tools/make_web_dist.py"
+      ],
+      "verification": [
+        "structure"
+      ]
+    }
+  ]
+}

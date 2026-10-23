@@ -109,6 +109,8 @@ def pick(boxes, zone, anchor, avoid, avoid_spot=AVOID_SPOT):
 
 
 def main():
+    from authored_guard import require_candidate
+    require_candidate(__file__)
     zones = {z["id"]: z for z in json.load(open(ZONES_JSON))}
     signs = {s["id"]: s for s in json.load(open(SITES_JSON)).get("sites", [])}
     spots = load_points(GATHER_JSON, "spots")

@@ -18,9 +18,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Zones="*res://scripts/zones.gd"
-Economy="*res://scripts/economy.gd"
-GameState="*res://scripts/game_state.gd"
+Zones="*res://src/world/zones.gd"
+Economy="*res://src/economy/economy.gd"
+GameState="*res://src/bootstrap/game_state.gd"
 
 [display]
 

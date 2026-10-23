@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "tables": [
+    {
+      "owner": "SEA-INVENTORY",
+      "path": "godot/assets/data/items.json",
+      "collection_key": "items",
+      "ids": [
+        "coins",
+        "wood",
+        "parts",
+        "rope",
+        "glass",
+        "seed",
+        "shell",
+        "fish",
+        "vegetable",
+        "tomato",
+        "pumpkin",
+        "pearl",
+        "lettuce_seed",
+        "tomato_seed",
+        "pumpkin_seed"
+      ],
+      "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+    },
+    {
+      "owner": "SEA-FARM",
+      "path": "godot/assets/data/crops.json",
+      "collection_key": "crops",
+      "ids": [
+        "lettuce",
+        "tomato",
+        "pumpkin"
+      ],
+      "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+    },
+    {
+      "owner": "SEA-ORDER",
+      "path": "godot/assets/data/orders.json",
+      "collection_key": "orders",
+      "ids": [
+        "t1_fish_ahai",
+        "t1_shell_mira",
+        "t1_wood_boss",
+        "t1_rope_kite",
+        "t1_seed_gardener",
+        "t1_veg_kitchen",
+        "t2_parts_bike",
+        "t2_glass_station",
+        "t2_tomato_cafe",
+        "t2_veg_school",
+        "t2_fish_market",
+        "t3_pearl_broker",
+        "t3_pumpkin_feast",
+        "t3_glass_lantern",
+        "t3_tomato_catering",
+        "t3_parts_dock"
+      ],
+      "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+    },
+    {
+      "owner": "SEA-GATHER",
+      "path": "godot/assets/data/gather_spots.json",
+      "collection_key": "spots",
+      "ids": [
+        "zone1_shell",
+        "zone1_rope",
+        "zone1_wood",
+        "zone2_parts",
+        "zone2_glass",
+        "zone3_seed",
+        "zone3_wood",
+        "zone4_shell",
+        "zone5_fish",
+        "zone5_seed"
+      ],
+      "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+    },
+    {
+      "owner": "SEA-BUILD",
+      "path": "godot/assets/data/build_sites.json",
+      "collection_key": "sites",
+      "ids": [
+        "home_cabin",
+        "yokohama_station",
+        "rooftop_planter"
+      ],
+      "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+    },
+    {
+      "owner": "SEA-ORDER",
+      "path": "godot/assets/data/trade_board.json",
+      "collection_key": "boards",
+      "ids": [
+        "dock_orders"
+      ],
+      "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+    },
+    {
+      "owner": "SEA-FARM",
+      "path": "godot/assets/data/plots.json",
+      "collection_key": "plots",
+      "ids": [
+        "home_plot",
+        "farm_plot_a",
+        "platform_plot"
+      ],
+      "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+    },
+    {
+      "owner": "SEA-WORLD",
+      "path": "godot/assets/data/zones.json",
+      "collection_key": null,
+      "ids": [
+        "zone1",
+        "zone2",
+        "zone3",
+        "zone4",
+        "zone5"
+      ],
+      "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+    }
+  ]
+}

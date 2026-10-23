@@ -1,3 +1,5 @@
+> 技术参考与历史记录。项目管理入口为 [主文档](../GDD_V1.0.md#feature-control)，本主题从 [独立功能文档](../docs/features/order/spec.md) 和 [账本](../docs/features/order/ledger.md) 进入。下文历史验收只对原记录时点成立。
+
 # sea · 第一版经营循环
 
 版本：2026-10-22，已接入 Godot。本文区分实际规则与后续扩展。
@@ -64,12 +66,12 @@ flowchart LR
 
 ## 实现职责与存档
 
-- `scripts/economy.gd`：独立仓库 Inventory、联合建设支付、船成本、目标追踪、存档。
-- `scripts/core/orders.gd`：不再递减订单期限；奖励容量检查；免费换单。旧存档的 left 字段为兼容保留，不参与过期判断。
-- `scripts/core/farm.gd` 与 zone3 场景：第二床建筑门槛、第三床船等级门槛及旧作物保护。
-- `scripts/core/build_site.gd`：世界建造牌使用同一套联合支付检查。
-- `scripts/hud.gd`、`scripts/ui/order_panel.gd`：仓库入口、目标与进度、长期订单展示。
-- `scripts/boat.gd`：三级船巡航系数。
+- `src/economy/economy.gd`：独立仓库 Inventory、联合建设支付、船成本、目标追踪、存档。
+- `src/orders/orders.gd`：不再递减订单期限；奖励容量检查；免费换单。旧存档的 left 字段为兼容保留，不参与过期判断。
+- `src/farming/farm.gd` 与 zone3 场景：第二床建筑门槛、第三床船等级门槛及旧作物保护。
+- `src/construction/build_site.gd`：世界建造牌使用同一套联合支付检查。
+- `src/ui/hud.gd`、`src/orders/order_panel.gd`：仓库入口、目标与进度、长期订单展示。
+- `src/navigation/boat.gd`：三级船巡航系数。
 
 Economy 存档新增 warehouse（capacity/counts）与 tracked_goal；旧档缺字段时建立空的 48 格仓库，不改变已有背包、建筑和作物。沿用现有 SaveGame 自动／手动存读档入口。
 

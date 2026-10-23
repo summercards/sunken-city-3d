@@ -1,5 +1,5 @@
 extends SceneTree
-const Materials = preload("res://scripts/world/uw_materials.gd")
+const Materials = preload("res://src/diving/uw_materials.gd")
 ## GPU 回归：同一网格先提交近处红面，再提交远处蓝面，近面必须遮住远面。
 ## 需真实渲染器运行（不能用 --headless）。
 ## Godot --path godot --script res://tests/test_underwater_depth.gd

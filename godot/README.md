@@ -1,3 +1,5 @@
+> 当前管理入口：[主文档](../GDD_V1.0.md#feature-control)。功能规则与进度以对应独立文档、账本为准；本页保留运行与技术使用说明。
+
 # sea · Godot 版
 
 网页版（`sea/` 根目录，Three.js）的 1:1 画面移植。**静态场景由网页版烘焙而来**，
@@ -60,7 +62,7 @@ Godot --path . --script res://tools/unit_cull_probe.gd -- assets/models/underwat
 采完物件枯竭变暗，冷却结束原地恢复。部分点位有建造前提（如铁道站的玻璃需要车站 2 级）。
 
 - 规则实现在 `scripts/core/`（`interactable` / `gather_spot` / `gather_field` / `interactor`），
-  提示条是 `scripts/ui/interact_prompt.gd`；
+  提示条是 `src/interaction/interact_prompt.gd`；
 - 摆放表 `assets/data/gather_spots.json` 由 `tools/build_gather_spots.py` 从行走矩形 + 建筑包围盒求解生成，
   **不要手写坐标**（很容易埋进建筑里）；
 - 重生成：`python3 tools/build_gather_spots.py`。
@@ -74,8 +76,8 @@ Godot --path . --script res://tools/unit_cull_probe.gd -- assets/models/underwat
 「建造」页与背包同一面板，成本显示为图标 + 数量，材料不够的按钮自动灰显。
 
 - 物品定义在 `assets/data/items.json`（唯一来源），**加物品只改这张表**；
-- 账本是 `scripts/core/inventory.gd`：叠放、容量、原子扣除、`to_dict/from_dict` 存档接口；
-- `scripts/economy.gd` 只剩规则（建造点/设施/打捞/船），资源读写全部经 `inventory`，
+- 账本是 `src/inventory/inventory.gd`：叠放、容量、原子扣除、`to_dict/from_dict` 存档接口；
+- `src/economy/economy.gd` 只剩规则（建造点/设施/打捞/船），资源读写全部经 `inventory`，
   旧的 `Economy.wood` 之类属性作为兼容层保留（读=查账本，写=改账本）。
 
 ## 画面：对齐网页版
@@ -88,7 +90,7 @@ Godot --path . --script res://tools/unit_cull_probe.gd -- assets/models/underwat
 - **参考图**：`tools/capture_reference.cjs` 截网页版 1440x900 **建成态**（先拉满建造等级，
   否则圆楼顶上是空地，和 Godot 的烘焙资产对不上），存 `outputs/reference-web.png`。
 
-光照用线性单位标定（`scripts/main.gd`）：`sun 0.48`、`ambient 0.56`、`hemi/ground 0.10`、`violet 0.07`，
+光照用线性单位标定（`src/bootstrap/main.gd`）：`sun 0.48`、`ambient 0.56`、`hemi/ground 0.10`、`violet 0.07`，
 `tonemap ACES / exposure 0.96`，**不做 contrast/saturation 加成**（加了会过曝、发灰）。
 材质保留极弱高光（`SPECULAR 0.10 / ROUGHNESS 0.94`）——全关高光会让大面积浅墙糊成白纸。
 
@@ -106,7 +108,7 @@ Godot --path . --script res://tools/unit_cull_probe.gd -- assets/models/underwat
 （把镜头挪到牌子旁），真正的施工必须在世界里做。
 
 - 规则：`Economy.begin_site_upgrade()` / `tick_sites()` / `site_work_progress()`；
-- 世界：`scripts/core/build_site.gd`（牌子 + 现场）、`build_field.gd`（读表生成）；
+- 世界：`src/construction/build_site.gd`（牌子 + 现场）、`build_field.gd`（读表生成）；
 - 摆放表 `assets/data/build_sites.json` 由 `tools/build_build_sites.py` 求解，
   **不要手写**：牌子必须落在行走面上、离建筑 0.9m、离采集点 ≥2.2m（否则抢焦点）；
 - 费用与工期在 `Economy.SITES`，改数值不用改代码。
@@ -130,8 +132,8 @@ zone1 **打捞浮台**上立着一块订单板（三张钉着的单子 + 一盏�
 - **免费换一批**重抽三张，零海贝也能换；
 - 档位随进度解锁：船 2 级或有 2 级建造点开 2 档，船 2 级且 3 级建造点开 3 档。
 
-- 规则：`scripts/core/orders.gd`（`Economy.orders`：抽单 / 长期保留 / 补位 / 换一批 / 档位 / 存档）；
-- 世界：`scripts/core/trade_board.gd`，面板 `scripts/ui/order_panel.gd`；
+- 规则：`src/orders/orders.gd`（`Economy.orders`：抽单 / 长期保留 / 补位 / 换一批 / 档位 / 存档）；
+- 世界：`src/orders/trade_board.gd`，面板 `src/orders/order_panel.gd`；
 - 数据：订单池 `assets/data/orders.json`（唯一来源），摆放表 `assets/data/trade_board.json`
   由 `tools/place_trade_board.py` 求解（**不要手写**：要避让采集点/建造牌/菜箱 2.6m）；
 - 改数值只改表；**报酬必须 ≥ 物品售价 × 数量**，自检会拦。
@@ -215,7 +217,9 @@ scenes/
    scenes/plants/ + 摆放表    assets/zones/ + 场景    assets/models/zones/
 ```
 
-完整重建（网页版改了才需要）：
+完整重建（只在候选工程内执行，不能覆盖手工正式场景）：
+
+先从仓库根执行 `python3 scripts/create_generation_candidate.py`，切换到它输出的候选目录运行下列 Godot 构建步骤；原网页服务仍从原仓库根启动。候选结果须逐项比对后接入。以下构建器直接在正式工程运行会拒绝。
 
 ```sh
 cd sea && python3 -m http.server 8765 --bind 127.0.0.1

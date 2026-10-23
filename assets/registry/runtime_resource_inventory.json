@@ -1,0 +1,1532 @@
+{
+  "schema_version": 1,
+  "note": "已跟踪运行资源路径与内容基线；不凭路径自动发明生产 AssetID，不等于资产制作验收。",
+  "resources": [
+    {
+      "path": "godot/assets/baked/birds.json",
+      "bytes": 19376,
+      "sha256": "8b640b7c684e0c3275384380664b97811c6798d4b2f12a349311fe20a5dc4762",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/boat.json",
+      "bytes": 8287,
+      "sha256": "324cc9510eb98b1c51ac4777ea67f7cc8e2084e8f769e7768b6fc52e61cda5c5",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/boat_geoms.bin",
+      "bytes": 183840,
+      "sha256": "59c1c5c75b6a884e6a18d5ed0bc58f5ee70c41c37c9a38e0324b54d892add5aa",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/boat_geoms_idx.bin",
+      "bytes": 40440,
+      "sha256": "825d4c1a9362868cba3866cbf9376eaa747a1dafe6a2dc840a55f40d744f3e26",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/boat_instances.bin",
+      "bytes": 3008,
+      "sha256": "6fabf86586fbe6a26cffec88e6ab4a84a474245ef7725ade448fa0a28f4fff58",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/geoms.bin",
+      "bytes": 5520672,
+      "sha256": "1e16209b34f6d761c32fa66dad038b941f9895265388fec75272d472e734756a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/geoms_idx.bin",
+      "bytes": 262308,
+      "sha256": "c193c5f0469d6eaf082aa3370cd78c2b520349ba8fced3d5487c78acb16daddb",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/instances.bin",
+      "bytes": 16197248,
+      "sha256": "2a249c7acc0506915ce89c8bbf15d4ad146513ddea8eabf64c68df5d7325998a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/scene.json",
+      "bytes": 266886,
+      "sha256": "2dcffe77d58e961694330db2fca6115fb0de048347696fe451fe1bdc45e9362f",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/shore.json",
+      "bytes": 2175,
+      "sha256": "965246146891da0e578515bcd1422b4d433fee3401780e8a2846b63ee0d7e8bf",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/textures/tex_0.png",
+      "bytes": 36585,
+      "sha256": "b98dd018af1c4b8ae9233efdecc63723936fca65e749cbf257d1f31bd1130c44",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/textures/tex_1.png",
+      "bytes": 37771,
+      "sha256": "be00796824e4343a62d19d63574ba24047be1c63dffcedf0ff2cd97facd5eaa5",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/textures/tex_2.png",
+      "bytes": 229898,
+      "sha256": "e4faad0e55bb8468ace2e9a68c938c35c6f8007cf0485cce531847d5a806cf7a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/textures/tex_3.png",
+      "bytes": 12368,
+      "sha256": "c522c8118bf794901c4f0600013e78d4daa0428a8e57f78168a674e1db45591b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/textures/tex_4.png",
+      "bytes": 8032,
+      "sha256": "a134d81a6b719a444cd469a8ee33cf96bd57b30b1c85d81e908f8c8b624cf132",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/underwater/geoms.bin",
+      "bytes": 765140,
+      "sha256": "f808067f687b6f6abb12c890eb507dc5509aee850678812d824e7e66a964cec6",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/underwater/geoms_idx.bin",
+      "bytes": 377328,
+      "sha256": "bb60141dd429a6b6886a4804bf3aaf01adbf3370f8d122b3966beec12e569530",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/underwater/instances.bin",
+      "bytes": 943680,
+      "sha256": "acc476438590f318208943cc4eba6c8aa5371c585a8ad988168b66bf5eb7b5b9",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/underwater/scene.json",
+      "bytes": 370445,
+      "sha256": "8784822b178fa94528ff91ee2803b6c56d0e1941552e4adc15b2f41908711b0a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/baked/underwater/swim.json",
+      "bytes": 4814,
+      "sha256": "b9ca6a387a5c7f8457ef554b647677c7f8c4388adef33c23dd514ff5127146b5",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/build_sites.json",
+      "bytes": 628,
+      "sha256": "14057c1a32e8d07adb228a6c8d2edb4138a2b8a5d502ece488a1d088fc4b6693",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/crops.json",
+      "bytes": 1400,
+      "sha256": "d0fcbd4e73a62c60b8a75abba30f05c6a787d21c949c0387d42a2ad8e64e57ce",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/gather_spots.json",
+      "bytes": 1501,
+      "sha256": "0a2ecee9c8a58460a13c1fd5559b7108dc53f62ab917c6299c0951d8bc953d58",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/items.json",
+      "bytes": 4060,
+      "sha256": "af8d883c5c59a8e160457e124940c59a248045a9b7862e334a570459adb4a0aa",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/orders.json",
+      "bytes": 3036,
+      "sha256": "d8dcbf51a544e662cf33d24789fa4516bc3881cf5268dc9218b460283fa363db",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/plant_claim.json",
+      "bytes": 11808,
+      "sha256": "1159c718f0a7b03a65131de311d633d4a2e3608adb5cd08a7e284adfae96e3ef",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/plants_zone1_home_harbor.json",
+      "bytes": 6869,
+      "sha256": "b53113bd6eb88e3c7396075839cb185bcb13941f7c6ae5e139cda0d782befdfe",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/plants_zone2_yokohama_station.json",
+      "bytes": 52,
+      "sha256": "f5b527fab4d6ae816edea7a3fead2cf3dddc3c6bae626791cc7ed9fca7e90dec",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/plants_zone3_arc_farm.json",
+      "bytes": 18901,
+      "sha256": "2594c8a8e713deec1a79b5966bd38eaa9f61d18df1586ed454325ea15b26e568",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/plants_zone4_far_shore.json",
+      "bytes": 45,
+      "sha256": "06dd473b4236a21434e539f996fda97849cab84f0362e0285ad1347f76697803",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/plants_zone5_aqua_platform.json",
+      "bytes": 167,
+      "sha256": "04c91f275e0ae8e35e488f40d8a8d0cca668d6348a90c001db98632a05832f21",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/plots.json",
+      "bytes": 763,
+      "sha256": "8ebbc24c537b577a3d66b30928f2fc4cbf659e577f56b5330c93801bfc432429",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/trade_board.json",
+      "bytes": 181,
+      "sha256": "4e80aecc1ccf55b97def801858e70df95eb31584628d648ab9cd62f4dd67e29f",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/data/zones.json",
+      "bytes": 7896,
+      "sha256": "7ffc9f0b1c4860646f5cf012ea81582d5ebb56940c02577a7558a2afb86b9416",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/fonts/NotoSansSC-Regular.otf",
+      "bytes": 8331336,
+      "sha256": "faa6c9df652116dde789d351359f3d7e5d2285a2b2a1f04a2d7244df706d5ea9",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_t0_1000.tres",
+      "bytes": 448,
+      "sha256": "d93a9f4e5bd4108326a490077bfb008d0040f5ef8132013bec969c40df5cd0f7",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_t1_1000.tres",
+      "bytes": 448,
+      "sha256": "71e72ce27b333f4c187570e4cf5454468e8923b030599f1afb54c64c12356cab",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_t2_0000.tres",
+      "bytes": 449,
+      "sha256": "e16abf5cd7f82136e9f464806f79ef9c4eb697b621fdc8a47eddfb5a464e589c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_t3_0100.tres",
+      "bytes": 450,
+      "sha256": "eaabec3f273681a2b3d6a2fa55778358b31bbec48f1e8c796834dd3757474a03",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_t4_0100.tres",
+      "bytes": 450,
+      "sha256": "d9eec124fe2be80e16b430e35cd50ec5e4f71f7585ea8ed0b378bc10b2e84dc5",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_tn_0000.tres",
+      "bytes": 311,
+      "sha256": "430976758bbaf1a424b62725bcca2ef9b31c1178e0703f47e3dd1aa5ca93a60c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_tn_0001.tres",
+      "bytes": 347,
+      "sha256": "5debf1ce69194e6dc8f04996f0f0534753a937497650e01b17007acf945b3fd7",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_tn_0100.tres",
+      "bytes": 312,
+      "sha256": "fd8a9954da80be63f3880d461e0eb86f80348eaace61032084d188935a8ddfed",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_tn_0110.tres",
+      "bytes": 318,
+      "sha256": "b5d71a9d54fabfb8216aee0d5bf3a87e6cd1b5b7342a6345cff84e61d3f0228e",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_tn_0111.tres",
+      "bytes": 354,
+      "sha256": "87b221aafb2ed00e6c0a3f57ed5cb5756b9e9b0dc59be38971a5db6dae32d609",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_tn_1000.tres",
+      "bytes": 310,
+      "sha256": "c1940b364512bcb47f6dc51545641d94098574c07c055152ca7034227bdbd1e3",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/models/baked_tn_1001.tres",
+      "bytes": 346,
+      "sha256": "767213ae2aac9490faca7beb210c973f9aa2a4971e8075fa42cdc66790f7af06",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/ocean_sky.tres",
+      "bytes": 423,
+      "sha256": "8dcd9e58d5225960eff6d04b0b9de0f0028d35e96d9de3c71f76e6fa21f754d1",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/water.tres",
+      "bytes": 1344,
+      "sha256": "c4f115b360cea71bfd69ce4adf094b6bcd3de951e205101ba1644cb276c0d40e",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/world_env.tres",
+      "bytes": 774,
+      "sha256": "badc0aaf3410bbd32c9ba8140da9abf83f534741895dcd9f57397422cfc25bd8",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/debug/quad_test.glb",
+      "bytes": 1772,
+      "sha256": "2081d93f4e28259a0af9a706609ec8c86ebf0681a90d10e16b399fb336686148",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/basin/basin.glb",
+      "bytes": 3248512,
+      "sha256": "68065ba00f8b47932ac36a4681d759abc824b224c3141610cae1b2e0b6eadf01",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/basin/manifest.json",
+      "bytes": 23331,
+      "sha256": "f2b488b86c15b7af8cbf77d874d583acf6888b17a78b88628daec192ea5cac97",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/basin/units/shell.glb",
+      "bytes": 2703884,
+      "sha256": "137c92611055fe50caceac3217411eef7e861e7f3ef970385ce77c1b90adcef2",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/basin/units/terraces.glb",
+      "bytes": 545148,
+      "sha256": "a70b40fc5de0be90a595bb8dd8e83a16e6326251127c41438a2aab40d7a12841",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/basin/units/trench_shell.glb",
+      "bytes": 257372,
+      "sha256": "ef83476956e0d163a61f3bdafd52e77b58b73195f61ef547f0493bf72e67c361",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/manifest.json",
+      "bytes": 189375,
+      "sha256": "8c2f9cf462f7f3216640ea8c10d39c6e43f599da383879551fb4441785ccd102",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/neighborhood.glb",
+      "bytes": 6255732,
+      "sha256": "6a1c76501471770024b9029d87d77f4bb284e8f2f2cacfd3d008bcb0169c978c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/bridge.glb",
+      "bytes": 152956,
+      "sha256": "2a1f547d6aeee6177f5548e0ac7bc145783b7208152b828302cf551a8b0d90fb",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_00.glb",
+      "bytes": 772480,
+      "sha256": "ac703cbb994505162d2c72008f3496b3d82f901ac3aa59bb0e7b576b0463c528",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_01.glb",
+      "bytes": 638564,
+      "sha256": "38c13ec359b1fdd462592a52ddd62798a2e5e8b53b3b35e270fae66b5b4ba5fe",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_02.glb",
+      "bytes": 312696,
+      "sha256": "54e006a4606389d43ba1fe4478631a902a5f997f56479340c9f844f176eb5e7b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_03.glb",
+      "bytes": 768960,
+      "sha256": "a401211e994233e079c32b43dec15cb5e82b8d6378e6e399f18122a2b9253182",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_04.glb",
+      "bytes": 421544,
+      "sha256": "3ae86e9c7f41ecc7e4d00c8c468a103ff8a58ec5ca7fc3a1684e909e9718a093",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_05.glb",
+      "bytes": 618208,
+      "sha256": "07ef843361ab8db4b0da37beef2dbf783295a7e3641ad926024c21dcaf57f829",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_06.glb",
+      "bytes": 643064,
+      "sha256": "0e90d1cf9953ec8d031475b5784eb4bc6488571166823b5aff4baea7b8757008",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_07.glb",
+      "bytes": 431944,
+      "sha256": "c041a16cf4a7bec199a26700963f5bfe286110bf8ba5ac5beb342bd3aa46ead6",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_08.glb",
+      "bytes": 423572,
+      "sha256": "aaf9a52555dbd14f76ba411c359deeceba6c5e7e391490230ab7e87d8e2ade96",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_09.glb",
+      "bytes": 309672,
+      "sha256": "c7c2b548a5098bea8ac6d531fb35e3e0287717d51a4c9e7ee6e5752447fb5d73",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_10.glb",
+      "bytes": 330608,
+      "sha256": "1c86829b0b9947f58d497d67ba26dddc82c3cfc305cf438c9bbe8206d97c1fd0",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/house_11.glb",
+      "bytes": 328092,
+      "sha256": "cb89976afc2cbe8c01edfe2d18e5d1e97646bd36f2e59f57ae616988b7e0edbc",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/lamps.glb",
+      "bytes": 65364,
+      "sha256": "4d4c88720242699c36eb3288c456c0449f7a3be1e2445888927fcdf90ce9757b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/neighborhood/units/vehicles.glb",
+      "bytes": 318040,
+      "sha256": "32b44649fcb456d2dff3ee56af555cd54585e2ac22b94ccf563077ce21cbef91",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/manifest.json",
+      "bytes": 23565,
+      "sha256": "bff7a82885cd4ac897e2e89de1841cdc10bf56af6d204e8caec0ceeac55320c2",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/reef.glb",
+      "bytes": 29012088,
+      "sha256": "9cee8badec2006ca5006db0208442fbfd6adbab352084832c164e4386639e082",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/coral_00.glb",
+      "bytes": 3779824,
+      "sha256": "41bbfc87803dfbd80912d30946c86995f344fdee46b4cb604d5c17074f44266b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/coral_01.glb",
+      "bytes": 3619884,
+      "sha256": "878fcf3c1cea5c9d46f0f7764badd6df6a82f90e26fa35005104a19611997d6b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/coral_02.glb",
+      "bytes": 3752940,
+      "sha256": "6bec7f544534651730b5e619e37261eb589a151a7af8f4b5e4f60179e9be8fa2",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/coral_03.glb",
+      "bytes": 3779820,
+      "sha256": "10babb1b5e25dbb09d37a4ba17ca4d336c9d735cf81faf20a527f968e3bd86fe",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/coral_04.glb",
+      "bytes": 3619880,
+      "sha256": "0755ecf33fc324e96f9911e44068d7f53adf4773c22c94bfb73c829c74803edc",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/coral_05.glb",
+      "bytes": 3752940,
+      "sha256": "04fce106931e6fd6cd530309d9530b2cededcb87aace75b89139330ce0ac2532",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/coral_06.glb",
+      "bytes": 3619884,
+      "sha256": "6e9f75cf9fb40717b1813b67e6e9c2545b307f489e9690be4c77924119ee152a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/coral_07.glb",
+      "bytes": 2654888,
+      "sha256": "546be4287102fedc51f6bb3ba3abe9cd3d167f348ad0bda4cc130d60caa9da26",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/kelp_00.glb",
+      "bytes": 237268,
+      "sha256": "2d2db55684c209413ebd5cd23f3ee14cf48c5fbf56d9cb527c985685ff693a1a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/reef/units/kelp_01.glb",
+      "bytes": 228868,
+      "sha256": "1bdeec387605e413feb887c94389773947b09bbfd8df97265f39604e91e5694d",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/trench/manifest.json",
+      "bytes": 38749,
+      "sha256": "08e769211dc7772c6c186d587eaa4bd8cf548095afd8be713515e4fb844db7dd",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/trench/trench.glb",
+      "bytes": 12527752,
+      "sha256": "18fb26837de209132c800e59968b049a8ed69e55df88ad0532d90c0a38d95980",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/trench/units/brig.glb",
+      "bytes": 775688,
+      "sha256": "1ed8d6bc2cf04c72e2f8115da454c5b35092ce06d94a1da1af0ba291a4eca939",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/trench/units/trench_shell.glb",
+      "bytes": 11709660,
+      "sha256": "0547244bf6b16c03d1bbc336180be453af258381d6775c0eabd7a86b1c1b808b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/underwater/trench/units/trench_stairs.glb",
+      "bytes": 42888,
+      "sha256": "a40f063ecd952a238f4c111b8ca47396bd5b3b9b97d45672469cd96bd62b683c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone1_home_harbor/manifest.json",
+      "bytes": 6985,
+      "sha256": "9e26e4f2e37019976f415a72688ec4c48de2ac1327b2e7bceadab93d3fc6a40e",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone1_home_harbor/units.json",
+      "bytes": 578,
+      "sha256": "2725dbea54e3dc282ba15e4d4b6daa9fede7a93ec47c4f1382eba025380acd27",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone1_home_harbor/units/detail.glb",
+      "bytes": 1453888,
+      "sha256": "3027c253758a3b873d76e282a85017ca6304464d510673f88dce214ba4d61b86",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone1_home_harbor/units/unit_01.glb",
+      "bytes": 2869036,
+      "sha256": "09ab6cd6303e1674ffab98dee174cd6eed50a90b818acf735d01d4d8bc5fc577",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone1_home_harbor/units/unit_02.glb",
+      "bytes": 4083616,
+      "sha256": "1dc56b460305d57a9c9daca0734eabcd39f32898c3ccdbdd98857b8332193683",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone1_home_harbor/units/unit_03.glb",
+      "bytes": 4126204,
+      "sha256": "ddc85c05109c8dd20c038d1b5809c5388af1adb5343d4cfb0c202891b65ce7a6",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone1_home_harbor/zone1_home_harbor.glb",
+      "bytes": 12445760,
+      "sha256": "6104ac442fe0b300909b0012da7e73ffc993093303ad84c0fdd10270470ba19c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone2_yokohama_station/manifest.json",
+      "bytes": 6069,
+      "sha256": "b812c0ff8f664ce15f2712348e7323d5d8fccb8470df6536776d53ad2b113443",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone2_yokohama_station/units.json",
+      "bytes": 582,
+      "sha256": "1a868ef0081d2bb20399fbcdcf12f9de0cc6242c60eb5d3fee712a8191841c72",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone2_yokohama_station/units/detail.glb",
+      "bytes": 122116,
+      "sha256": "1d49c02f0375110a99fd22c3f329f874ceb525834c2332aaffd95882281396e5",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone2_yokohama_station/units/unit_01.glb",
+      "bytes": 210772,
+      "sha256": "781e6ba2a258b0c3395733f194f45575cce858c9a4d49d13d4a9cfe50ea858e5",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone2_yokohama_station/units/unit_02.glb",
+      "bytes": 794200,
+      "sha256": "4671a79b81bdac701d1bc5fccff42bd055ea20a6a6a719fe3ab5f459839b0675",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone2_yokohama_station/units/unit_03.glb",
+      "bytes": 751592,
+      "sha256": "90448cc9c42dc14c6871c9399a751bf40f24287c597608fa7bc23e77b177e7ef",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone2_yokohama_station/zone2_yokohama_station.glb",
+      "bytes": 1868672,
+      "sha256": "bcdda92ad339e91ff388c73c3d20da18d2b4921fad7225b2151c290bd370da65",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone3_arc_farm/manifest.json",
+      "bytes": 3418,
+      "sha256": "13fe36e0b896b980f54d9eef87d21dcf4b24cb0981ee1156f1fdb8790e6e7b73",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone3_arc_farm/units.json",
+      "bytes": 297,
+      "sha256": "a8273a67a26aab4f3fe77d6879fc666e098450a767490309e7a285d834f1df62",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone3_arc_farm/units/detail.glb",
+      "bytes": 7011716,
+      "sha256": "33e1ff8e22ba6f9798571a5253860e4d15849ec0d46fb22896e130bfd6392329",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone3_arc_farm/units/unit_01.glb",
+      "bytes": 8172536,
+      "sha256": "3fd773b849941a6485d742e28195d50291c63b2a3aeca7770cc070fa5078cc92",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone3_arc_farm/zone3_arc_farm.glb",
+      "bytes": 15181696,
+      "sha256": "8eef708f7136dce5e913b38641a5ac1982116429828d7ead796aadfb7977e080",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone4_far_shore/manifest.json",
+      "bytes": 4355,
+      "sha256": "c9aadf63e542c680aa614dbda6d15b5f3bddf5c24ceeffb6438ead5a162b52c0",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone4_far_shore/units.json",
+      "bytes": 743,
+      "sha256": "4bb4537c75a32536d43cd17c77fed9ba63406a79eb11d1cfb292336a09ccb622",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone4_far_shore/units/detail.glb",
+      "bytes": 10156,
+      "sha256": "7760f6c8f32c66b4d56c805aced74b7c52ee366139eae36daf8d96ad4a184e41",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone4_far_shore/units/unit_01.glb",
+      "bytes": 51092,
+      "sha256": "5749c6f300218697a4bb1d586c363574e540d5611e1b4619a9675553a09d97b4",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone4_far_shore/units/unit_02.glb",
+      "bytes": 64036,
+      "sha256": "9637fd3fa18cf8910d4c319723d4ac02946b70317d01117e44bf807b2d84d8c5",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone4_far_shore/units/unit_03.glb",
+      "bytes": 66544,
+      "sha256": "176f9a830c640aa01a8d3e20cc574cd9d3eeaf456e5c6e274b8ee9bcaf413cb9",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone4_far_shore/units/unit_04.glb",
+      "bytes": 10960,
+      "sha256": "c37623d7ead5475d303eb6a9b3b341721520b86e172eb13be1dee26944a03651",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone4_far_shore/zone4_far_shore.glb",
+      "bytes": 196852,
+      "sha256": "59e962a917e2a08241169429974af8206926a6721263a37a3a937781ae704db9",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone5_aqua_platform/manifest.json",
+      "bytes": 2473,
+      "sha256": "2c99adaddc869e8ed8189f9d43adf62a8b5bc70d2ebb509c2849a0e398356a25",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone5_aqua_platform/units.json",
+      "bytes": 156,
+      "sha256": "4d42c948f9e73826eabdf3a23fcd1a4f3cc79764a2da208ec7be6cf2adda10ee",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone5_aqua_platform/units/detail.glb",
+      "bytes": 80628,
+      "sha256": "2cf1f645d3bcc4b81484ea585acdb8bc8f3688d85f28a52cfeff8b4b128f14f0",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone5_aqua_platform/units/unit_01.glb",
+      "bytes": 51568,
+      "sha256": "b291f5cfbbad2ed8fb688360d35d8d944260a06f16a9b08feecdb1e8a5b35c0c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/zones/zone5_aqua_platform/zone5_aqua_platform.glb",
+      "bytes": 130804,
+      "sha256": "9ab3eec26dbbc97c86eb96270f31593eaa68fca8c3e46cf582f606ca13b30bdf",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_01_5l/mesh.bin",
+      "bytes": 5048,
+      "sha256": "5abf5afbf27c23abfd8b3d33c508eb2ddb9e56e1f035027e8095360e16752975",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_01_5l/meta.json",
+      "bytes": 208,
+      "sha256": "1c33b6af36ecae858f3ab927da04eb806e93458a14aa88d31ee351f16bdbfa74",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_02_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "7c907e34b8392a14d289c86dbd396abd8fe59c812b2af5a49a44309380669cf3",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_02_3l/meta.json",
+      "bytes": 206,
+      "sha256": "2b08e2f57931db02f16ae5aff9031c69ebfd7f09a1e53ea84083ce9a86e9b5a7",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_03_4l/mesh.bin",
+      "bytes": 4040,
+      "sha256": "3657a02555c11a11489ddc48d8ba4e723cad13f7f3706b8f2ce93b5c94f36367",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_03_4l/meta.json",
+      "bytes": 205,
+      "sha256": "f18972fe8ff05ada62fc60a72fc1ed2dcfdbcd1d5b0b16413988f80d0b78eb48",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_05_4l/mesh.bin",
+      "bytes": 4040,
+      "sha256": "ce8c402df40cae464a7a10049b4ffbf9eeb8c9efa86ac93ce9c6dd0d9fe781f3",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_05_4l/meta.json",
+      "bytes": 205,
+      "sha256": "a0100debe221eccc119b4cd8e3b237f291e944df9900a385eeaa9de714a4cba6",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_15_8l/mesh.bin",
+      "bytes": 8072,
+      "sha256": "f58ffd2fa778fad822bdd2211559ed20bfdafab7f383996381a9de6aa54d339e",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_15_8l/meta.json",
+      "bytes": 206,
+      "sha256": "823f2e0413beca3a62ca7e9a4a18c777748e394b9bfc74dfc522b8cf63c618f5",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_18_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "55dcfb0de7839fe7781f496f8a90870688152814c2dc230f700ffc6aa4606ee6",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/common/plant_18_3l/meta.json",
+      "bytes": 201,
+      "sha256": "34b01873fc69c0e9659df1ac669502176018b937443a7f40449ea84cf418d98b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_04_8l/mesh.bin",
+      "bytes": 8072,
+      "sha256": "4d5c89c542af008269b015429b9a55aa9a77964a1e130c4da8532b4ee1c375bf",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_04_8l/meta.json",
+      "bytes": 212,
+      "sha256": "8941277ce229dd0a761b3cdf2a306d8deb4d7252e2fb7b1238a6dc541b4f3cde",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_07_6l/mesh.bin",
+      "bytes": 6056,
+      "sha256": "ae6b3d459002e4142796158946b2e4932332aafcb8a4787fed2f8579b65e3ced",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_07_6l/meta.json",
+      "bytes": 209,
+      "sha256": "45d8c708e9ebceb2ecd702507b0520aa4640c23146a77c72b30afa018ab3cade",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_11_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "b92164dd3d86b31d3af27109796ef810a8ede9556bf2698f4e8000bd5edfd8c6",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_11_3l/meta.json",
+      "bytes": 210,
+      "sha256": "a68cf7f14bbff4e3d44606fa93a7bf2b42d6290d866f52810836414f54625827",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_12_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "f1c59690cd1eca53d75a3c5f9123714b0cedf5e74c3495ce12d74be2e016d8f0",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_12_3l/meta.json",
+      "bytes": 209,
+      "sha256": "735778d719a547b522e64f0e9ffc74b06bdc5ffff7f38b652aa23718ddf76a7d",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_13_8l/mesh.bin",
+      "bytes": 8072,
+      "sha256": "2974e56b91e57c788e0f8d01d2590f643aead3f36baab137c5d2390f606300cf",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_13_8l/meta.json",
+      "bytes": 209,
+      "sha256": "344c5f01aa916c927d35bcfb7a6ea1528fabacb475c4ab5a446d253f9399d338",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_19_10l/mesh.bin",
+      "bytes": 10088,
+      "sha256": "96924a6a4370125f0200d6d6506453aee00cd93c0a0f4e8d6f745f33c2a2007b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_19_10l/meta.json",
+      "bytes": 211,
+      "sha256": "bf67939789f4e7b726a6856c0b85ec570f848b581f14d6a9d788b1fb80f4dc9d",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_20_10l/mesh.bin",
+      "bytes": 10088,
+      "sha256": "c7a1bae3519954d975659134f635aac1c5d8dd5dd3faf9fcb44f541934eb81bd",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_20_10l/meta.json",
+      "bytes": 213,
+      "sha256": "ac923f2ac650fd1e889a9e2b53b9e74dcbf4e0872264e0a7cf82c49e0481a60e",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_33_9l/mesh.bin",
+      "bytes": 9080,
+      "sha256": "9bfc9d2f93e01dba3d29c5ff2664001ff8e4b4be77594326c84c2be3c7335b03",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_33_9l/meta.json",
+      "bytes": 211,
+      "sha256": "8803e90c84f57364b6bec165e6ed24b52bf8412df3df2b2447c6c6a5ddc4a54e",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_34_5l/mesh.bin",
+      "bytes": 5048,
+      "sha256": "5434497e09195caa37622de96de6ef0b08293aa9c446a1ebc74f2ebc93ba1059",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_34_5l/meta.json",
+      "bytes": 211,
+      "sha256": "4d16474a1d63f9de803d989cb7d3a06f590636aa01c519e34fdcde44bdb00ba7",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_35_7l/mesh.bin",
+      "bytes": 7064,
+      "sha256": "c06a8089080e9c30dfd308e59334585a613df04df7663c80ae3ce037a686b118",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_35_7l/meta.json",
+      "bytes": 209,
+      "sha256": "fb407d1917860498a19cac05650c3e1920af1737eb5f0742a41eb5eb88fb56cc",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_36_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "2052ed8aea0d086e8dab2f379ff592f0a5cffda0c61982f786db37cf9295cfae",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_36_3l/meta.json",
+      "bytes": 210,
+      "sha256": "391612fea76a8ee23f51c7b5dbf8c54276165a2c76fcfece9cd9e332cb432a81",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_37_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "a248960f57ff9b8b78a89bf4710d848f210113928d85faff903da3dadc5b7b43",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_37_3l/meta.json",
+      "bytes": 210,
+      "sha256": "c5ccac985735ccb5c93e67defc3f0f4f95c83fba0f4031fb679235a379b307e8",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_38_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "ed63c0682455f20ebef70622c202140fe85a5adf80a18e4bddae942fd0828e65",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_38_3l/meta.json",
+      "bytes": 210,
+      "sha256": "e2e282f7408f3192af674bd390af7aec4eb0bb4c44e6fb72820a1a3736d177f3",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_39_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "fe41869e9571d0c0312c70fb6fb076421dbb5e5782cb9c2b7ddf261c703f316c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_39_3l/meta.json",
+      "bytes": 210,
+      "sha256": "5741179beb14f0578a784cad0b43e0091dced046bae387698f32de7840f7e772",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_40_4l/mesh.bin",
+      "bytes": 4040,
+      "sha256": "fadd2157c56216628cc67e2aedcb76296fc201ebc9f24e3911b995c399349178",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_40_4l/meta.json",
+      "bytes": 209,
+      "sha256": "2cdb5bb1eb2890db0e4a24de5e9a770083127cc769f795ebdbe7bc60fe539280",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_41_5l/mesh.bin",
+      "bytes": 5048,
+      "sha256": "e46888118d80f8867b6b984abbe313a2ee543424adb29720b958d57d85bb27d3",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone1_home_harbor/plant_41_5l/meta.json",
+      "bytes": 210,
+      "sha256": "a257ae09a0ca6f69dad8f73b9d22154961106549145ee1c63f27d6756105e367",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_00_4l/mesh.bin",
+      "bytes": 4040,
+      "sha256": "0fd858b8050a644a425ec0c7c23d6c873122e2e8b653a6e99799a1defc5b5fe4",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_00_4l/meta.json",
+      "bytes": 207,
+      "sha256": "8c75ec0a54a08346333bf6c7f53fe3a1156bd8132c5468b79296bffed73eeb92",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_06_6l/mesh.bin",
+      "bytes": 6056,
+      "sha256": "6a8a5c0030bad080b9558b923719d65184cd13f839b9db8c27c7b498759a9e19",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_06_6l/meta.json",
+      "bytes": 207,
+      "sha256": "50c25ea7149f48e825f117f3f88b8d8a9aaf27fa883f5a5cbd913c232b9b46a7",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_08_4l/mesh.bin",
+      "bytes": 4040,
+      "sha256": "7596bacc6580d4624d3b916d3fc2f6257dd50593b29392d0389b3d646bda7417",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_08_4l/meta.json",
+      "bytes": 208,
+      "sha256": "564efd91b2d6bb78092998e043e20f3df3c294c93c2907ea14010ed647915bfb",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_09_12l/mesh.bin",
+      "bytes": 12104,
+      "sha256": "17e94569fc6ad5389cd2f75d6f2ea37f5e0448b91949bdefb6ce2e60c4767b25",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_09_12l/meta.json",
+      "bytes": 209,
+      "sha256": "946779362cc15c1e1ceab736e2250e1c207314e6474b2027394591838d0286f5",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_10_5l/mesh.bin",
+      "bytes": 5048,
+      "sha256": "65101cf27a3a5c71cbccab651e297e6acfd0ac2c08356523cc285fb18d3e555d",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_10_5l/meta.json",
+      "bytes": 206,
+      "sha256": "e8ee3861da575444c0e689e3be2d3a15fb923684eea60ea84c913c25f51eb35a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_14_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "9a7071e41b3ae6c9acdb7a336f59d3ed9f57500596eaf7fa76c27619b49d0b35",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_14_3l/meta.json",
+      "bytes": 207,
+      "sha256": "cc44e3c1b9df848e78bf4c88743b6d0007c55e176cc3fbec03fee95e6fd1dbfd",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_16_6l/mesh.bin",
+      "bytes": 6056,
+      "sha256": "6f8e869b6eba9ff20acb2bffd5ca4fcf524f09d3c5db756fb543ff50f802c023",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_16_6l/meta.json",
+      "bytes": 209,
+      "sha256": "843149d862bafca916c7e0fdddd79b36e53d5aeea817ff8d66e0fdc388956c11",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_17_14l/mesh.bin",
+      "bytes": 14120,
+      "sha256": "ce11847e40036d1ebabf819cb598d4ad93439da2b602c7a9c47a411d1d76b506",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_17_14l/meta.json",
+      "bytes": 209,
+      "sha256": "1596a61af6578486a2cbc7e79c5027fba7ae1180553e59b68a1c9a3504d04e63",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_21_4l/mesh.bin",
+      "bytes": 4040,
+      "sha256": "e4ca4ea0cd8a90984d882dbf892453f88774ab024f7fbd15a82b27968e6d6fa6",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_21_4l/meta.json",
+      "bytes": 206,
+      "sha256": "ab4144f7f3802ba537c8ff4f1ed061b97aeec0aa7d53655b4d82198553234965",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_22_11l/mesh.bin",
+      "bytes": 11096,
+      "sha256": "52a4d80543b122f2cf900cc9defbfd7b8e75cd0d77017ddcefc003e82233ff26",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_22_11l/meta.json",
+      "bytes": 208,
+      "sha256": "4019842bf375ca55d20e0987095449de16f59b91573997047a652da06ee99252",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_23_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "47a1135bf379d1ce93067f31deaa02a2c203e66aaa1ff76bdfff406ab173d294",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_23_3l/meta.json",
+      "bytes": 205,
+      "sha256": "388b5f77bcce430e2244d616b0d33fdded56799bf9f995be5706dd56c54ab0bc",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_24_6l/mesh.bin",
+      "bytes": 6056,
+      "sha256": "8637fca78381d2314bcc08a374cc8473bb8f5a11dfed0b2dfe15c87d9a1a239b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_24_6l/meta.json",
+      "bytes": 204,
+      "sha256": "fc1653dfe2fe53d546fd242f2b87e3838420e57be65243d1800913db229020bf",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_25_7l/mesh.bin",
+      "bytes": 7064,
+      "sha256": "11ec4486598fd65e774109177dec077c12c8972a31021817d97a7a8e709ca6ef",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_25_7l/meta.json",
+      "bytes": 206,
+      "sha256": "8dd6abf59b4ddcd2e56141c01081471294609da5f3edf3a1424137f622aac92c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_26_6l/mesh.bin",
+      "bytes": 6056,
+      "sha256": "2869dfef523151d1986d11e1c01d25cdf4a67bbe9d6b55fb68a87810a99eb003",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_26_6l/meta.json",
+      "bytes": 205,
+      "sha256": "853763174b1ae5f069ca1d621fb6060d38473480347c44ccc3cbd4eff1a4eb8a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_27_13l/mesh.bin",
+      "bytes": 13112,
+      "sha256": "bd0b7ca459cce57b68671bc358e8dd7b6109abc85e5089a6812ea0c52318c49f",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_27_13l/meta.json",
+      "bytes": 209,
+      "sha256": "15e341db91c0916a15a16ce9a4b369d79d52fbc63e135c9fbdaf1c2e443ca3bf",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_28_7l/mesh.bin",
+      "bytes": 7064,
+      "sha256": "06b00ff90720894af8ff3ebd85ae880945c1c57d09ced36463850b1f9bf0ba2b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_28_7l/meta.json",
+      "bytes": 206,
+      "sha256": "f2540d63359a2f14051cf4161c3b5c22ca0e6db07fcecd659491d6b39106a555",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_29_6l/mesh.bin",
+      "bytes": 6056,
+      "sha256": "642fdb794c921430ff8a6cb557914c39f020bd8a8eeb70fcb87fb027a82af31c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_29_6l/meta.json",
+      "bytes": 206,
+      "sha256": "6269a5feef112b7ca4aa3f32e6e450bcbe7a26d513862aa5247dd51c37623e4d",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_30_3l/mesh.bin",
+      "bytes": 3032,
+      "sha256": "d48717d4bed8e0c5836745cf16a7de2daef0cab1a3ab349f7baf6e32df653d5b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_30_3l/meta.json",
+      "bytes": 204,
+      "sha256": "810a2ef328c4ee71f608f5fdde783f72275474c1bee0e674b50c7feab2913b79",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_31_8l/mesh.bin",
+      "bytes": 8072,
+      "sha256": "d967fa574af643187820a536d7afca85e005ca81efdebfd11859bf46367fa6b1",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_31_8l/meta.json",
+      "bytes": 208,
+      "sha256": "9d154dcc23239432569fb7be14d9a0c0a7d3b7deebe8d833db0cfebc1e8d6677",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_32_7l/mesh.bin",
+      "bytes": 7064,
+      "sha256": "0219ed955f46631700e676fada335d790426ecf31b2a24bbf17843c2f8f911ad",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/plants/zones/zone3_arc_farm/plant_32_7l/meta.json",
+      "bytes": 208,
+      "sha256": "ffd6a81c57973918dbc0964d29ad99a2dcea7bf499a7e969089da58758235b44",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/world/environment/bake.json",
+      "bytes": 55892,
+      "sha256": "aee37e0edcc545ff8e80a81ce1bebae68dcc2ac5d61906660ac45d965eb555cb",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/world/environment/instances.bin",
+      "bytes": 15944704,
+      "sha256": "8195ea5ecef5ae4dff7f60526708836074414862b427742e0daaca22eb2fb1e4",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone1_home_harbor/bake.json",
+      "bytes": 62753,
+      "sha256": "2542f170ec7618545ec5f33710eca834fcf537e74964329e62be76aee67aae0c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone1_home_harbor/instances.bin",
+      "bytes": 91776,
+      "sha256": "394ebd412dc9ec1b2ae9deff13f1ad6e211db5012e517abcb4dbfb4d0ade187b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone2_yokohama_station/bake.json",
+      "bytes": 34728,
+      "sha256": "6f40cacc664e24946353126bc8a6fb22745283543a2c875f04e5895314f98b5b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone2_yokohama_station/instances.bin",
+      "bytes": 13504,
+      "sha256": "60e1e6d4e1d2bf240557f16a7f2c064d792ed797a44b0e198db17fbc06be8111",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone3_arc_farm/bake.json",
+      "bytes": 36679,
+      "sha256": "3aef174f30af8d22a2672dfce4e3cf194e3f414092572112dbd9a788c5c9e62d",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone3_arc_farm/instances.bin",
+      "bytes": 78336,
+      "sha256": "08f7e697b82cd7c213d981cfb56d6c11066abd4985b9e8f5522229a400cef28a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone4_far_shore/bake.json",
+      "bytes": 6974,
+      "sha256": "1f114f5274d0672df7f8fb0961d02efcdbbd989bfd8a7fe7a3187f47bb0ba675",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone4_far_shore/instances.bin",
+      "bytes": 2560,
+      "sha256": "dc98953eea2028c094f170eaf5b99fc6062df23e68537a50852cea50795b0847",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone5_aqua_platform/bake.json",
+      "bytes": 3215,
+      "sha256": "4240429811ff1af872c85291557a25dff26edd9b91e57990394d80fb35590489",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone5_aqua_platform/instances.bin",
+      "bytes": 3328,
+      "sha256": "89efb2e57f9f4c00b12bd614482d78060019b8351632e0930618634f9b695892",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    }
+  ]
+}

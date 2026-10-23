@@ -1,5 +1,5 @@
 [gd_scene load_steps=3 format=3]
-[ext_resource type="Script" path="res://scripts/core/farm_bed.gd" id="1"]
+[ext_resource type="Script" path="res://src/farming/farm_bed.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/props/farm_cell.tscn" id="2"]
 [node name="FarmPlot" type="Node3D"]
 script = ExtResource("1")
