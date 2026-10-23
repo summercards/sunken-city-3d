@@ -27,11 +27,20 @@ var schools: Array = []
 var _pending := {}
 var _t := 0.0
 var _rng := RandomNumberGenerator.new()
-var _fish_icon_tex: Texture2D
+const FishVisual = preload("res://src/pickups/fish_school_visual.gd")
+# Existing web snapshot positions, recovered from environment and zone geom 751 pairs.
+const WEB_ANCHORS = [Vector2(18.50664, -23.00175), Vector2(-13.04740, -9.35030), Vector2(44.09835, 17.45034), Vector2(43.61626, -31.29347), Vector2(-45.09357, -47.52166), Vector2(-20.83852, 9.64335), Vector2(29.22829, 15.19535)]
+var water_surface: MeshInstance3D
+var water_point_clear := Callable()
+var _fish_rng := RandomNumberGenerator.new()
+var _fish_bounds := Rect2()
+var _anchor_index := 0
 
 
 func build() -> void:
 	_rng.seed = 20261019
+	_fish_rng.seed = 20261023
+	_fish_bounds = _school_bounds()
 	for i in 9:
 		_spawn_crate()
 	for i in 7:
@@ -48,6 +57,7 @@ func _spawn_crate() -> void:
 	var kind := "crate" if roll < 0.5 else ("planks" if roll < 0.8 else "barrel")
 	var root := _build_crate_mesh(kind)
 	root.position = Vector3(p.x, WATER_LEVEL, p.y)
+	root.get_node("Ring").material_override.set_shader_parameter("phase", p.x * 0.7 + p.y * 0.3)
 	add_child(root)
 	crates.append({
 		"kind": kind,
@@ -132,21 +142,8 @@ func _build_crate_mesh(kind: String) -> Node3D:
 		label.scale = Vector3(0.20, 0.12, 0.03)
 		g.add_child(label)
 
-	# 水面浮标圈（俯视时更容易看见）
-	var ring_mesh := TorusMesh.new()
-	ring_mesh.inner_radius = 0.62
-	ring_mesh.outer_radius = 0.78
-	ring_mesh.rings = 20
-	ring_mesh.ring_segments = 8
-	var ring := MeshInstance3D.new()
+	var ring := FishVisual.make_ripple(1.12, 0.0)
 	ring.name = "Ring"
-	ring.mesh = ring_mesh
-	var ring_mat := StandardMaterial3D.new()
-	ring_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	ring_mat.albedo_color = Color(0.92, 0.96, 0.85, 0.42)
-	ring_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	ring.material_override = ring_mat
-	ring.position = Vector3(0, 0.02, 0)
 	g.add_child(ring)
 	return g
 
@@ -154,61 +151,52 @@ func _build_crate_mesh(kind: String) -> Node3D:
 # ---------------------------------------------------------------- 鱼群
 
 func _spawn_school() -> void:
-	var p := _random_water_point()
-	if p == Vector2.ZERO:
+	var p := _school_point()
+	if p == Vector2.INF:
 		return
-	var root := Node3D.new()
+	var root := FishVisual.new()
 	root.name = "FishSchool"
 	root.position = Vector3(p.x, WATER_LEVEL, p.y)
 	add_child(root)
+	var phase := _fish_rng.randf() * TAU
+	root.build(_fish_rng, _fish_rng.randi_range(3, 6), phase)
+	schools.append({"root": root, "base": root.position, "phase": phase, "fish": root.fish})
 
-	var fish := _build_fish_mesh()
-	for i in 7:
-		var child := fish.duplicate() as Node3D
-		var a := _rng.randf() * TAU
-		var r := 0.7 + _rng.randf() * 1.5
-		child.position = Vector3(cos(a) * r, -0.12 - _rng.randf() * 0.06, sin(a) * r)
-		child.scale = Vector3.ONE * (0.75 + _rng.randf() * 0.4)
-		root.add_child(child)
+func _school_bounds() -> Rect2:
+	var lo := Vector2(INF, INF)
+	var hi := Vector2(-INF, -INF)
+	for zone in Zones.list:
+		# Browser derives the region from each zone's primary landing, plus 12 m.
+		for key in ["boatPark", "dockEdge", "landStand"]:
+			var p: Array = zone.landings[0][key]
+			lo = lo.min(Vector2(p[0], p[2]))
+			hi = hi.max(Vector2(p[0], p[2]))
+	return Rect2(lo - Vector2.ONE * 12.0, hi - lo + Vector2.ONE * 24.0)
 
-	# 仅用于复制的鱼原型没有挂到树上，副本已持有共享 mesh/material。
-	fish.free()
+func _school_water(p: Vector2) -> bool:
+	if not _fish_bounds.has_point(p): return false
+	if water_point_clear.is_valid() and not water_point_clear.call(p): return false
+	for zone in Zones.list:
+		for walk in zone.get("walk", []):
+			for r in walk.rects:
+				var nearest := Vector2(clampf(p.x, r[0], r[1]), clampf(p.y, r[2], r[3]))
+				if p.distance_to(nearest) < 2.6: return false
+	return true
 
-	# Fish remain the interaction cue; no static torus pretending to be a water ripple.
-
-	schools.append({
-		"root": root,
-		"base": Vector3(p.x, WATER_LEVEL, p.y),
-		"phase": _rng.randf() * TAU,
-		"fish": root.get_children().filter(func(c): return c is Node3D and c.name.begins_with("FishGroup")),
-	})
-
-
-func _build_fish_mesh() -> Node3D:
-	# 一尾小鱼：椭圆身体 + 三角尾鳍
-	var root := Node3D.new()
-	root.name = "FishGroup"
-	var body := SphereMesh.new()
-	body.radius = 1.0
-	body.height = 2.0
-	body.radial_segments = 10
-	body.rings = 6
-	var bi := MeshInstance3D.new()
-	bi.mesh = body
-	bi.material_override = _flat(Color("#4fd6c8"))
-	bi.scale = Vector3(0.17, 0.1, 0.09)
-	root.add_child(bi)
-
-	var tail := PrismMesh.new()
-	tail.size = Vector3(0.14, 0.18, 0.02)
-	var ti := MeshInstance3D.new()
-	ti.mesh = tail
-	ti.material_override = _flat(Color("#ffe98a"))
-	ti.position = Vector3(-0.19, 0, 0)
-	ti.rotation.y = PI * 0.5
-	ti.rotation.z = PI * 0.5
-	root.add_child(ti)
-	return root
+func _school_point() -> Vector2:
+	for attempt in 260:
+		var p: Vector2
+		if _anchor_index < WEB_ANCHORS.size():
+			p = WEB_ANCHORS[_anchor_index]
+			_anchor_index += 1
+		else:
+			p = Vector2(_fish_rng.randf_range(_fish_bounds.position.x, _fish_bounds.end.x), _fish_rng.randf_range(_fish_bounds.position.y, _fish_bounds.end.y))
+		if not _school_water(p): continue
+		var clear := true
+		for s in schools:
+			if p.distance_to(Vector2(s.base.x, s.base.z)) < 9.0: clear = false
+		if clear: return p
+	return Vector2.INF
 
 
 # ---------------------------------------------------------------- 通用
@@ -268,25 +256,21 @@ func _process(delta: float) -> void:
 		)
 		root.rotation.y = c.yaw + sin(_t * 0.3 + phase) * 0.35
 		root.rotation.z = sin(_t * 0.9 + phase) * 0.05
-		var ring = c.ring
-		if ring and ring.material_override:
-			ring.material_override.albedo_color.a = 0.34 + sin(_t * 1.6 + phase) * 0.14
+		var ring: MeshInstance3D = c.ring
+		if ring != null:
+			# Follow water independently of the floating crate's roll/bob.
+			ring.global_transform = Transform3D(Basis.IDENTITY, Vector3(root.position.x, WATER_LEVEL, root.position.z))
+			FishVisual.sync_ripple(ring, water_surface, _t)
 
 	for s in schools:
 		var phase: float = s.phase
 		var base: Vector3 = s.base
+		var candidate := Vector2(base.x + sin(_t * 0.21 + phase) * 0.12 * delta, base.z + cos(_t * 0.18 + phase) * 0.12 * delta)
+		if _school_water(candidate):
+			s.base = Vector3(candidate.x, WATER_LEVEL, candidate.y)
 		var root: Node3D = s.root
-		root.position = Vector3(
-			base.x + sin(_t * 0.12 + phase) * 1.1,
-			WATER_LEVEL,
-			base.z + cos(_t * 0.1 + phase) * 1.1
-		)
-		for i in s.fish.size():
-			var f: Node3D = s.fish[i]
-			var a: float = _t * (0.7 + i * 0.06) + i * 1.7
-			var r: float = 0.9 + (i % 3) * 0.45
-			f.position = Vector3(cos(a) * r, -0.12 + sin(_t * 1.6 + i) * 0.03, sin(a) * r)
-			f.rotation.y = -a + PI * 0.5
+		root.position = s.base
+		root.animate(_t, water_surface)
 
 	# 补货
 	var now := Time.get_ticks_msec() / 1000.0

@@ -479,7 +479,7 @@ func _test_scene_contract() -> void:
 	if we != null and we.environment != null:
 		_ok("Environment 来自资源文件", we.environment.resource_path != "",
 			we.environment.resource_path)
-		_ok("环境亮度是标定值", absf(we.environment.ambient_light_energy - 0.38) < 0.001,
+		_ok("环境亮度是标定值", absf(we.environment.ambient_light_energy - 0.36) < 0.001,
 			"%.2f" % we.environment.ambient_light_energy)
 
 	# 水面材质同样要可编辑，且运行时只补动态参数。

@@ -25,6 +25,7 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'visual-sea-style': ('tools/capture_sea_style.gd', r'\[sea-style\] complete'),
     'visual-farming': ('tools/capture_farm_cycle.gd', r'\[farm-ui\] failures=0'),
     'visual-management': ('tools/capture_management_loop.gd', r'\[management-ui\].*0 failed'),
     'visual-click': ('tools/capture_click_controls.gd', r'\[click-ui\] failures=0'),

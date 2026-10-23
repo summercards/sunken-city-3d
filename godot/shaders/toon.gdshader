@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode diffuse_toon, specular_schlick_ggx, cull_disabled, depth_draw_opaque;
+render_mode specular_disabled, cull_disabled, depth_draw_opaque;
 
 #include "res://shaders/toon_common.gdshaderinc"
 
@@ -19,11 +19,18 @@ void fragment() {
 		albedo = apply_depth_tint(albedo, wp, emit);
 	}
 	ALBEDO = albedo;
-	// 墙面是刷过石灰的旧木/砖，不是塑料：高光只留一点点，粗糙度很高。
-	// 全关高光会让大面积浅色墙面完全平掉，看起来就是"白纸过曝"。
-	SPECULAR = 0.10;
-	ROUGHNESS = 0.94;
+	SPECULAR = 0.04;
+	ROUGHNESS = 0.96;
 	METALLIC = 0.0;
 	EMISSION += emit;
 }
 
+void light() {
+	float ndl = dot(normalize(NORMAL), normalize(LIGHT));
+	// Soft watercolor shading that preserves clear, readable cast shadows (ATTENUATION)
+	float half_lambert = clamp(ndl * 0.5 + 0.5, 0.0, 1.0);
+	float lit_factor = half_lambert * ATTENUATION;
+	float soft_band = mix(0.26, 0.96, smoothstep(0.14, 0.78, lit_factor));
+	vec3 shadow_tint = mix(vec3(0.68, 0.86, 0.94), vec3(1.0, 0.99, 0.96), smoothstep(0.18, 0.72, lit_factor));
+	DIFFUSE_LIGHT += soft_band * shadow_tint * LIGHT_COLOR / PI;
+}

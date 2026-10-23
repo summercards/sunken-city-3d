@@ -11,6 +11,9 @@ const BakeStore = preload("res://src/world/bake_store.gd")
 @export var cast_shadow := true
 ## 关掉后不建 MultiMesh。区块切到模型装配时由 zone_scene 置 false，避免双份几何。
 @export var enabled := true
+## Explicit migration exclusions; source bakes remain untouched.
+@export var retired_geometries := PackedInt32Array()
+@export var retired_alpha_geometries := PackedInt32Array()
 
 var instance_count := 0
 var batch_count := 0
@@ -26,6 +29,7 @@ func build() -> void:
 	for c in get_children():
 		c.queue_free()
 	batch_count = 0
+	instance_count = 0
 	if bake_dir.is_empty():
 		push_warning("StaticBatch 缺少 bake_dir")
 		return
@@ -42,6 +46,8 @@ func build() -> void:
 		return
 
 	for b in meta.batches:
+		if int(b.geom) in retired_geometries or (bool(b.alpha) and int(b.geom) in retired_alpha_geometries):
+			continue
 		var count := int(b.count)
 		if count <= 0:
 			continue
@@ -59,6 +65,7 @@ func build() -> void:
 
 		var mmi := MultiMeshInstance3D.new()
 		mmi.name = "Batch%03d" % batch_count
+		mmi.set_meta("source_geometry", int(b.geom))
 		mmi.multimesh = mm
 		mmi.material_override = BakeStore.material(
 			int(b.tex), bool(b.tint), bool(b.unlit), bool(b.alpha), bool(b.doubleSide))

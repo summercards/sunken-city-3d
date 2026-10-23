@@ -41,31 +41,33 @@ environment = ExtResource("14_worldenv")
 
 [node name="Sun" type="DirectionalLight3D" parent="World/Lights"]
 transform = Transform3D(-0.56150142, 0.0, -0.82747577, -0.64436615, 0.62738031, 0.43724846, 0.51914201, 0.77871301, -0.35227493, 28, 42, -19)
-light_color = Color(1, 0.945098, 0.745098, 1)
-light_energy = 0.58
-light_angular_distance = 1.2
+light_color = Color(1, 0.955, 0.80, 1)
+light_energy = 0.54
+light_angular_distance = 1.35
 shadow_enabled = true
 shadow_bias = 0.08
 shadow_normal_bias = 0.8
+shadow_opacity = 0.86
+shadow_blur = 1.4
 directional_shadow_mode = 2
 directional_shadow_max_distance = 220.0
 
 [node name="HemisphereFill" type="DirectionalLight3D" parent="World/Lights"]
 transform = Transform3D(-0.58430475, 0.33576253, -0.7388177, 0, 0.9103961, 0.41373792, 0.81153435, 0.24174903, -0.53194875, -25, 14, -18)
-light_color = Color(0.639216, 0.85098, 0.811765, 1)
-light_energy = 0.1
+light_color = Color(0.65, 0.87, 0.84, 1)
+light_energy = 0.12
 light_specular = 0.0
 
 [node name="VioletShadow" type="DirectionalLight3D" parent="World/Lights"]
 transform = Transform3D(0.7739573, 0.36438742, -0.5178918, 0, 0.8178473, 0.57543534, 0.63323784, -0.4453624, 0.63297886, -18, 20, 22)
-light_color = Color(0.545098, 0.568627, 0.776471, 1)
-light_energy = 0.07
+light_color = Color(0.56, 0.60, 0.82, 1)
+light_energy = 0.08
 light_specular = 0.0
 
 [node name="GroundBounce" type="DirectionalLight3D" parent="World/Lights"]
 transform = Transform3D(-1, 0, 0, 0, 0, -1, 0, -1, 0, 0, -40, 0)
-light_color = Color(0.0941176, 0.309804, 0.721569, 1)
-light_energy = 0.1
+light_color = Color(0.12, 0.42, 0.72, 1)
+light_energy = 0.11
 light_specular = 0.0
 
 [node name="Environment" parent="World" instance=ExtResource("2_env")]

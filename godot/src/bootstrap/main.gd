@@ -1425,6 +1425,8 @@ func _setup_props() -> void:
 		props = PropsScript.new()
 		props.name = "SeaProps"
 		add_child(props)
+	props.water_surface = water_node
+	props.water_point_clear = func(p: Vector2) -> bool: return SailNavLib.is_free(nav_grid(), p.x, p.y)
 	props.build()
 	props.collected.connect(_on_crate_collected)
 	props.fish_collected.connect(_on_fish_collected)

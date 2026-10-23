@@ -1,0 +1,34 @@
+{
+  "run_dir": "/Users/summercards/WorkBuddy/sea-work/verification/20261023-222032-soft-shadow-final-50af79",
+  "results": {
+    "visual-sea-style": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "renderer": "real",
+      "log_sha256": "be2011825703549d48152a11146a2f45611865e4748440a9fa72d0e299c512d4"
+    },
+    "ocean": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "renderer": "headless",
+      "log_sha256": "ddd1c33329795a9c54f2bfcdde266a0a95b9a0ae49f774d6fcf0584f9f11ea3a"
+    },
+    "selftest": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [
+        "ERROR: Parse JSON failed. Error at line 0: Expected key"
+      ],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "renderer": "headless",
+      "log_sha256": "a9b6c5903037f67d070a4acd180bdaabea2c1068e10a80f073121ebe30999371"
+    }
+  }
+}
