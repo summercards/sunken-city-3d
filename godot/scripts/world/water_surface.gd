@@ -4,9 +4,9 @@ extends MeshInstance3D
 ## Waves are shared with the boat and wake, using one simulation clock.
 @export var ocean_waves := PackedVector4Array([
 	Vector4(0.94, 0.34, 0.16, 12.0),
-	Vector4(-0.42, 0.91, 0.085, 7.3),
-	Vector4(0.72, -0.69, 0.035, 3.8),
-	Vector4(-0.85, -0.53, 0.012, 1.9),
+	Vector4(-0.42, 0.91, 0.085, 7.6),
+	Vector4(0.72, -0.69, 0.0325, 4.9),
+	Vector4(-0.85, -0.53, 0.0105, 2.55),
 ])
 @export_range(0.0, 2.0, 0.05) var wave_scale := 1.0
 var shoreline: RefCounted

@@ -28,6 +28,9 @@
 /godot/.godot/
 /godot/outputs/
 
+# 水面调参的迭代截图与成片（约 150 MB，用 capture_water_showcase.gd 重生成）
+/outputs/ocean-absorption/
+
 # glb 导入时 Godot 解包出来的贴图（源图在 glb 内嵌）
 /godot/assets/models/**/*_tex_*.png
 /godot/assets/models/**/*_tex_*.png.import
