@@ -285,6 +285,10 @@ func _ready() -> void:
 			var parts := a.trim_prefix("--grade=").split(",")
 			if parts.size() == 4:
 				grade.set_values(float(parts[0]), float(parts[1]), float(parts[2]), float(parts[3]))
+		if a == "--water" and grade != null:
+			# 调试：直接翻到「水面」页，省得每次按 P 再点一下。
+			grade.set_open(true)
+			grade.set_tab("water")
 		if a.begins_with("--grant="):
 			# 调试：给物品（截图/演示用）。格式 --grant=wood:12,parts:5
 			for pair in a.trim_prefix("--grant=").split(","):

@@ -46,6 +46,13 @@ static func reveal(control: Control) -> void:
 
 static func apply(control: Control) -> void:
 	if not is_instance_valid(control) or control.is_queued_for_deletion(): return
+	# 祖先带 cozy_skip 就整棵子树不碰。
+	# 只看自己有没有标记是不够的：面板的子控件是运行时一个个 add_child 的，
+	# 每个都会单独走一次 node_added → apply，那时标记只打在面板根上。
+	var n: Node = control
+	while n != null:
+		if n.has_meta("cozy_skip"): return
+		n = n.get_parent()
 	if control is Label:
 		var previous: Color = control.get_theme_color("font_color")
 		control.add_theme_color_override("font_color",Color(INK,previous.a))
@@ -95,7 +102,10 @@ static func apply(control: Control) -> void:
 		control.custom_minimum_size.y = maxf(16,control.custom_minimum_size.y)
 
 static func apply_tree(root: Node) -> void:
-	if root is Control: apply(root)
+	# 标记打在祖先上就整棵子树跳过：面板里挂的对话框、下拉弹层也一起豁免。
+	if root is Control:
+		if root.has_meta("cozy_skip"): return
+		apply(root)
 	for child in root.get_children(): apply_tree(child)
 
 

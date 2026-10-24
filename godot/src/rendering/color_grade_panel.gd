@@ -1,40 +1,111 @@
 extends CanvasLayer
 class_name ColorGradePanel
-## 实时滤镜面板（P 键开关）。
+## 运行期调试面板（P 键开关），两页：
 ##
-## 改的是 `WorldEnvironment` 上那一个 Environment 的调整项，也就是整幅画面的最终调色：
-##   曝光 → tonemap_exposure
-##   亮度 / 对比度 / 饱和度 → adjustment_brightness / contrast / saturation
+##   滤镜 —— 整幅画面的最终调色，改的是 `WorldEnvironment` 上那个 Environment：
+##           曝光 → tonemap_exposure，亮度/对比度/饱和度 → adjustment_*。
+##   水面 —— `assets/materials/water.tres` 上所有还能改的参数，按着色器的
+##           group 分成水体 / 表面细节 / 天空反射 / 太阳高光 / 波纹 / 泡沫 /
+##           波浪几何 / 输出。清单在 `water_params.gd`，这里只负责生成控件。
 ##
-## 参考 ShellStorm2 的调试面板：拖动即时生效、可一键复位、可把数值复制出来
-## 贴回场景资源。这里额外多做一件事 —— 数值会记在 `user://filter.cfg`，
-## 下次启动仍然是你调好的样子（不然每次重启都要重调）。
+## 两页都遵守同一套约定：拖动即时生效、可一键复位、可复制、可写回资源文件、
+## 数值记在 `user://` 下（`filter.cfg` / `water.cfg`），下次启动还是你调好的样子 ——
+## 不然每次重启都要重调一遍。
 ##
-## 场景里的默认值来自 `assets/materials/world_env.tres`，可以在编辑器里直接改；
-## 面板的「复位」回到的就是那份默认值，不是硬编码的数字。
+## 场景里的默认值来自资源文件本身，所以「复位」回到的是那份文件的值，
+## 不是硬编码的数字。
 
 const UiFontLib = preload("res://src/ui/ui_font.gd")
+const ParamsLib = preload("res://src/rendering/water_params.gd")
+
 const CFG_PATH := "user://filter.cfg"
+const WATER_CFG_PATH := "user://water.cfg"
+const WATER_MAT_PATH := "res://assets/materials/water.tres"
+
+## 收藏的参数组合。和 `water.cfg` 分开放：那个记的是「上次调到哪」，
+## 这个是「我特意存下来的几套」，性质不同。
+const WATER_PRESET_PATH := "user://water_presets.cfg"
+
+## 预设下拉里的第一项，永远指向 water.tres 本身，不可删。
+const PRESET_FACTORY := "出厂（water.tres）"
+## `water.cfg` 里记出厂指纹的键。指纹变了说明 water.tres 换了另一套数，
+## 旧存档立刻作废 —— 否则改了出厂值重启还是被老存档盖住。
+const CFG_SIG_KEY := "__mat_sig"
+
+const TAB_FILTER := "filter"
+const TAB_WATER := "water"
 
 const EXPOSURE_MIN := 0.4
 const EXPOSURE_MAX := 2.0
 const ADJ_MIN := 0.0
 const ADJ_MAX := 2.0
 
+const PANEL_WIDTH := 352
+## 名字列 / 数值列的宽度。窄一点才能给滑杆留出可拖的长度。
+const NAME_W := 92
+const VALUE_W := 48
+
 var _env: Environment
 var _defaults := {}
-var _saved := {}
 var _rows := {}
-var _status: Label
+
 var _font: Font
 var _panel: PanelContainer
 var _body: VBoxContainer
+var _filter_body: VBoxContainer
+var _water_wrap: VBoxContainer
+var _water_body: VBoxContainer
+var _water_scroll: ScrollContainer
+var _status: Label
+var _tab := TAB_FILTER
+var _tab_buttons := {}
+
+## 参数清单摊平后的副本，省掉每次读盘都重新摊一次。
+var _spec := {}
+## 生成顺序（schema 的声明顺序，别用字典 key 顺序，那是乱的）。
+var _order: Array[String] = []
+## key -> 把值推回控件用的 Callable。
+var _water_widgets := {}
+## 回填控件时屏蔽回调，否则 `sync` 一个值就会触发一次写材质。
+var _syncing := false
+
+var _water_mat: ShaderMaterial
+var _water_node: MeshInstance3D
+## Water 节点上 `wave_scale` 的出厂值。它写在 `main.tscn` 的导出属性里，
+## 不在 `water.tres` 里，所以「复位」得单独记一份，不能拿清单的 default 顶替。
+var _factory_wave_scale := 1.0
+var _factory_captured := false
+## water.tres 里的出厂值，`_water_default()` 惰性填充。
+var _file_defaults := {}
+var _file_defaults_loaded := false
+## 只有真的动过滑块才写 `user://water.cfg`。
+## 否则「打开看一眼再关掉」就会把当时的值存成一套存档，
+## 之后改 water.tres 的出厂值会全部被这份存档盖住。
+var _water_dirty := false
+
+## 收藏下拉当前列出的预设名（不含出厂那一项），顺序即显示顺序。
+var _preset_names: Array[String] = []
+## 下拉每一项的描述，index 与 OptionButton 的 item 一一对应。
+## `kind` 取 factory / builtin / user，分隔线记成 sep（选中时忽略）。
+var _preset_items: Array[Dictionary] = []
+var _preset_option: OptionButton
+var _preset_delete: Button
+var _name_dialog: AcceptDialog
+var _name_edit: LineEdit
+var _delete_dialog: ConfirmationDialog
 
 
 func _ready() -> void:
 	layer = 20
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# 这是调试面板，不是玩家界面：深色皮肤自己画，别让 CozyUI 接管
+	# （它会把分组标题染成珊瑚色、把每个按钮顶到 38 px 高，排版会散）。
+	set_meta("cozy_skip", true)
 	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
+	_spec = ParamsLib.flat()
+	for g in ParamsLib.GROUPS:
+		for row in g.rows:
+			_order.append(row.key)
 	_build()
 	visible = false
 	# 先读盘：读档值要盖回场景默认值，否则每次启动都回到 1.0。
@@ -58,8 +129,11 @@ func set_open(open: bool) -> void:
 		_ensure_env()
 		_sync_from_env()
 		_refresh_labels()
+		_ensure_water()
+		_sync_water()
 	else:
 		_save_cfg()
+		_save_water_cfg()
 
 
 ## 供调试参数调用：`--grade` 启动就打开，`--grade=1.1,1.06,1.03` 直接套一组数。
@@ -74,6 +148,14 @@ func set_values(exposure: float, brightness: float, contrast: float, saturation:
 	_env.adjustment_saturation = clampf(saturation, ADJ_MIN, ADJ_MAX)
 	_sync_from_env()
 	_refresh_labels()
+
+
+## `--water` 直接从「水面」页打开，方便截图和交接时直接指到那一页。
+func set_tab(id: String) -> void:
+	_set_tab(id)
+	if visible:
+		_ensure_water()
+		_sync_water()
 
 
 # ---- 环境解析 ---------------------------------------------------------------
@@ -120,6 +202,137 @@ func _snapshot(env: Environment) -> Dictionary:
 	}
 
 
+# ---- 水面材质解析 -----------------------------------------------------------
+
+func _ensure_water() -> void:
+	if is_instance_valid(_water_mat) and is_instance_valid(_water_node):
+		return
+	var scene := get_tree().current_scene
+	if scene != null:
+		_water_node = scene.get_node_or_null("World/Water") as MeshInstance3D
+	if _water_node == null:
+		_water_node = _find_water_recursive(get_tree().root)
+	if _water_node == null:
+		return
+	_water_mat = _water_node.material_override as ShaderMaterial
+	if not _factory_captured:
+		_factory_captured = true
+		_factory_wave_scale = float(_water_node.get("wave_scale"))
+
+
+func _find_water_recursive(node: Node) -> MeshInstance3D:
+	var mi := node as MeshInstance3D
+	if mi != null:
+		var mat := mi.material_override as ShaderMaterial
+		if mat != null and mat.shader != null and String(mat.shader.resource_path).ends_with("water.gdshader"):
+			return mi
+	for c in node.get_children():
+		var found := _find_water_recursive(c)
+		if found != null:
+			return found
+	return null
+
+
+## 从资源文件重读一份材质，只用来取「出厂值」和写回时的干净底稿。
+## `CACHE_MODE_IGNORE` 是关键：不加就会拿到运行时那份改过的实例。
+func _load_water_file() -> ShaderMaterial:
+	var res: Resource = ResourceLoader.load(WATER_MAT_PATH, "", ResourceLoader.CACHE_MODE_IGNORE)
+	return res as ShaderMaterial
+
+
+func _water_read(key: String) -> Variant:
+	var spec: Dictionary = _spec.get(key, {})
+	if spec.is_empty():
+		return null
+	if spec.kind == "node":
+		if is_instance_valid(_water_node):
+			return _water_node.get("wave_scale")
+		return float(spec.get("default", 1.0))
+	var raw: Variant = null
+	if is_instance_valid(_water_mat):
+		raw = _water_mat.get_shader_parameter(key)
+	if raw == null:
+		# 材质上没这一项（资源文件漏写）时退回文件里的值，别让控件停在 0。
+		raw = _water_default(key)
+	if raw == null:
+		return null
+	match spec.kind:
+		"color":
+			return _as_color3(raw)
+		"color4":
+			return _as_color4(raw)
+	return raw
+
+
+## 出厂值：每次现读磁盘，读一次缓存起来。`CACHE_MODE_IGNORE` 是关键，
+## 不加会拿到运行时改过的那份实例，于是「复位」毫无变化。
+func _water_default(key: String) -> Variant:
+	if not _file_defaults_loaded:
+		_file_defaults_loaded = true
+		var fresh := _load_water_file()
+		if fresh != null:
+			for k in _order:
+				var v: Variant = fresh.get_shader_parameter(k)
+				if v != null:
+					_file_defaults[k] = v
+	return _file_defaults.get(key)
+
+
+func _water_write(key: String, value: Variant) -> void:
+	var spec: Dictionary = _spec.get(key, {})
+	if spec.is_empty():
+		return
+	if spec.kind == "node":
+		if is_instance_valid(_water_node):
+			# 节点上的 wave_scale 每帧由 water_surface.gd 同步进材质，
+			# 所以这里改节点就够了，别绕过去直接写材质（会被覆盖）。
+			_water_node.set("wave_scale", float(value))
+			_water_dirty = true
+		return
+	if not is_instance_valid(_water_mat):
+		return
+	_water_dirty = true
+	_water_mat.set_shader_parameter(key, _to_shader_value(spec, value))
+
+
+## 面板里的值 → 着色器要的形式。
+##
+## `source_color` 的 vec3 必须存 Color，不能存 Vector3：存 Vector3 读出来一模一样，
+## 但 `ResourceSaver` 认为它和属性声明的类型（COLOR）不符，保存时会写成一个
+## `= null`，参数就没了。`vec4` 和普通 vec3/vec2 照原样即可。
+func _to_shader_value(spec: Dictionary, value: Variant) -> Variant:
+	match String(spec.kind):
+		"color":
+			var c := _as_color3(value)
+			return Color(c.r, c.g, c.b, 1.0)
+		"color4":
+			return _as_color4(value)
+		"bool":
+			return bool(value)
+	return value
+
+
+func _as_color3(v: Variant) -> Color:
+	if v is Color:
+		return v as Color
+	if v is Vector3:
+		var t := v as Vector3
+		return Color(t.x, t.y, t.z)
+	return Color.WHITE
+
+
+func _as_color4(v: Variant) -> Color:
+	if v is Color:
+		return v as Color
+	if v is Vector3:
+		var t := v as Vector3
+		return Color(t.x, t.y, t.z, 1.0)
+	if v is Vector4:
+		var q := v as Vector4
+		return Color(q.x, q.y, q.z, q.w)
+	return Color.WHITE
+
+
 # ---- UI ---------------------------------------------------------------------
 
 func _build() -> void:
@@ -131,7 +344,7 @@ func _build() -> void:
 	_panel = PanelContainer.new()
 	# 放到标题下面：左上角是品牌区，压上去会两边都看不清。
 	_panel.position = Vector2(18, 92)
-	_panel.custom_minimum_size = Vector2(316, 0)
+	_panel.custom_minimum_size = Vector2(PANEL_WIDTH, 0)
 	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	_panel.add_theme_stylebox_override("panel", _panel_style())
 	root.add_child(_panel)
@@ -141,38 +354,754 @@ func _build() -> void:
 	_panel.add_child(_body)
 
 	var head := HBoxContainer.new()
-	head.add_theme_constant_override("separation", 8)
+	head.add_theme_constant_override("separation", 5)
 	_body.add_child(head)
-	head.add_child(_label("滤镜", 13, Color("#eafaff")))
-	var close := _button("关闭",func() -> void: set_open(false))
+	head.add_child(_label("调试", 13, Color("#eafaff")))
+	var tabs := HBoxContainer.new()
+	tabs.add_theme_constant_override("separation", 3)
+	tabs.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(tabs)
+	_tab_buttons[TAB_FILTER] = _tab_button("滤镜", TAB_FILTER, tabs)
+	_tab_buttons[TAB_WATER] = _tab_button("水面", TAB_WATER, tabs)
+	var close := _button("关闭", func() -> void: set_open(false))
+	close.custom_minimum_size = Vector2(46, 24)
+	close.size_flags_horizontal = Control.SIZE_SHRINK_END
 	head.add_child(close)
 
 	_body.add_child(_separator())
 
+	_filter_body = VBoxContainer.new()
+	_filter_body.add_theme_constant_override("separation", 7)
+	_body.add_child(_filter_body)
+	_build_filter()
+
+	_water_wrap = VBoxContainer.new()
+	_water_wrap.add_theme_constant_override("separation", 6)
+	_water_wrap.visible = false
+	_body.add_child(_water_wrap)
+	_build_water()
+
+	_status = _label("P 开关 · 拖动即时生效，数值会记住", 9, Color(0.62, 0.80, 0.86, 0.85))
+	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_status.custom_minimum_size = Vector2(PANEL_WIDTH - 24, 0)
+	_body.add_child(_status)
+
+	_set_tab(_tab)
+
+
+func _build_filter() -> void:
 	_add_row("exposure", "曝光", EXPOSURE_MIN, EXPOSURE_MAX, 0.01)
 	_add_row("brightness", "亮度", ADJ_MIN, ADJ_MAX, 0.01)
 	_add_row("contrast", "对比度", ADJ_MIN, ADJ_MAX, 0.01)
 	_add_row("saturation", "饱和度", ADJ_MIN, ADJ_MAX, 0.01)
 
-	_body.add_child(_separator())
+	_filter_body.add_child(_separator())
 
 	var buttons := HBoxContainer.new()
 	buttons.add_theme_constant_override("separation", 5)
-	_body.add_child(buttons)
+	_filter_body.add_child(buttons)
 	buttons.add_child(_button("复位", _on_reset))
 	buttons.add_child(_button("复制参数", _on_copy))
 	buttons.add_child(_button("写入场景", _on_save_to_scene))
 
-	_status = _label("P 开关 · 拖动即时生效，数值会记住", 9, Color(0.62, 0.80, 0.86, 0.85))
-	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_status.custom_minimum_size = Vector2(292, 0)
-	_body.add_child(_status)
+
+func _build_water() -> void:
+	_build_preset_bar()
+
+	_water_scroll = ScrollContainer.new()
+	_water_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_water_scroll.custom_minimum_size = Vector2(0, _scroll_height())
+	_water_wrap.add_child(_water_scroll)
+
+	_water_body = VBoxContainer.new()
+	_water_body.add_theme_constant_override("separation", 4)
+	_water_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_water_scroll.add_child(_water_body)
+
+	for g in ParamsLib.GROUPS:
+		_add_group(g)
+
+	_water_wrap.add_child(_separator())
+
+	var buttons := HBoxContainer.new()
+	buttons.add_theme_constant_override("separation", 5)
+	_water_wrap.add_child(buttons)
+	buttons.add_child(_button("复位", _on_water_reset))
+	buttons.add_child(_button("复制参数", _on_water_copy))
+	buttons.add_child(_button("写入 water.tres", _on_water_save))
+
+
+## 顶部一行：收藏下拉 + 存 / 删。
+##
+## 为什么要有它：参数一共 50 个，想比较「雾天版 / 黄昏版」只能靠记数字，
+## 记忆不可靠。这里把整套值按名字存下来，选一下就整套套用。
+## 出厂那一项直接读 `water.tres`，所以任何时候都能退回干净状态。
+func _build_preset_bar() -> void:
+	var bar := HBoxContainer.new()
+	bar.add_theme_constant_override("separation", 5)
+	_water_wrap.add_child(bar)
+
+	var tag := _label("收藏", 10, Color(0.72, 0.93, 1.0, 0.9))
+	tag.custom_minimum_size = Vector2(28, 0)
+	tag.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	tag.tooltip_text = "选一套存过的参数整套套用。第一项是 water.tres 的出厂值。"
+	bar.add_child(tag)
+
+	_preset_option = OptionButton.new()
+	_preset_option.add_theme_font_override("font", _font)
+	_preset_option.add_theme_font_size_override("font_size", 10)
+	_preset_option.add_theme_color_override("font_color", Color("#e9f8ff"))
+	_preset_option.add_theme_stylebox_override("normal", _btn_style(
+		Color(14.0 / 255.0, 40.0 / 255.0, 64.0 / 255.0, 0.9),
+		Color(110.0 / 255.0, 190.0 / 255.0, 200.0 / 255.0, 0.30)))
+	_preset_option.add_theme_stylebox_override("hover", _btn_style(
+		Color(32.0 / 255.0, 90.0 / 255.0, 138.0 / 255.0, 0.92),
+		Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.6)))
+	_preset_option.add_theme_stylebox_override("pressed", _btn_style(
+		Color(30.0 / 255.0, 104.0 / 255.0, 118.0 / 255.0, 0.95),
+		Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.75)))
+	_preset_option.custom_minimum_size = Vector2(0, 24)
+	_preset_option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_preset_option.focus_mode = Control.FOCUS_NONE
+	_preset_option.tooltip_text = "选一套存过的参数整套套用，改完再点「存」覆盖。"
+	_preset_option.item_selected.connect(_on_preset_selected)
+	# 下拉弹层是独立的 PopupMenu，字体得单独给，否则会掉回默认的西文字体。
+	var pop := _preset_option.get_popup()
+	pop.add_theme_font_override("font", _font)
+	pop.add_theme_font_size_override("font_size", 10)
+	bar.add_child(_preset_option)
+
+	bar.add_child(_mini_button("存", _on_preset_save, "把当前这一整套参数存成一个收藏。"))
+	_preset_delete = _mini_button("删", _on_preset_delete, "删掉下拉里选中的那一套收藏。")
+	bar.add_child(_preset_delete)
+
+	_refresh_preset_list("")
+
+
+func _mini_button(text: String, cb: Callable, tip: String = "") -> Button:
+	var b := _button(text, cb)
+	b.custom_minimum_size = Vector2(30, 24)
+	# `_button` 默认拉满整行，这里要挤在右边，所以改回收缩。
+	b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	if tip != "":
+		b.tooltip_text = tip
+	return b
+
+
+# ---- 收藏 -------------------------------------------------------------------
+
+## 当前这一整套值，按「面板值」的形态抓一份：颜色是 Color、向量是 Vector3、
+## 节点属性是 float。跟 `_water_read` 的输出保持同一套类型，
+## 套用的时候原样喂回 `_water_write` 就行，不用再猜格式。
+func _capture_values() -> Dictionary:
+	var out := {}
+	for key in _order:
+		var v: Variant = _water_read(key)
+		if v == null:
+			continue
+		out[key] = v
+	return out
+
+
+## 文件里各 section 的顺序不保证，所以顺序单独记在 `[meta] names` 里。
+## 顺手兼容「section 存在但 names 漏了」的手改情况。
+func _preset_order() -> Array[String]:
+	var names: Array[String] = []
+	var cfg := ConfigFile.new()
+	if cfg.load(WATER_PRESET_PATH) != OK:
+		return names
+	for n in cfg.get_value("meta", "names", PackedStringArray()):
+		var s := String(n)
+		if s != "" and cfg.has_section("preset:" + s) and not names.has(s):
+			names.append(s)
+	for section in cfg.get_sections():
+		if not section.begins_with("preset:"):
+			continue
+		var s := section.substr(7)
+		if not names.has(s):
+			names.append(s)
+	return names
+
+
+func _load_presets() -> Dictionary:
+	var out := {}
+	var cfg := ConfigFile.new()
+	if cfg.load(WATER_PRESET_PATH) != OK:
+		return out
+	for section in cfg.get_sections():
+		if not section.begins_with("preset:"):
+			continue
+		var d := {}
+		for key in cfg.get_section_keys(section):
+			d[key] = cfg.get_value(section, key)
+		out[section.substr(7)] = d
+	return out
+
+
+func _write_presets(names: Array[String], data: Dictionary) -> void:
+	var cfg := ConfigFile.new()
+	cfg.set_value("meta", "names", PackedStringArray(names))
+	for n in names:
+		if not data.has(n):
+			continue
+		var d: Dictionary = data[n]
+		for key in d.keys():
+			cfg.set_value("preset:" + n, String(key), d[key])
+	cfg.save(WATER_PRESET_PATH)
+
+
+func _refresh_preset_list(select_key: String) -> void:
+	if _preset_option == null:
+		return
+	_preset_names = _preset_order()
+	_preset_option.clear()
+	_preset_items.clear()
+
+	_add_preset_item({"kind": "factory", "name": PRESET_FACTORY})
+
+	if not ParamsLib.BUILTIN_PRESETS.is_empty():
+		_add_separator_item("内置")
+		for p in ParamsLib.BUILTIN_PRESETS:
+			_add_preset_item({"kind": "builtin", "name": String(p.name)})
+
+	if not _preset_names.is_empty():
+		_add_separator_item("我的收藏")
+		for n in _preset_names:
+			_add_preset_item({"kind": "user", "name": n})
+
+	# 分隔项本身不能被选中，否则按钮上的文字会变成「内置」「我的收藏」。
+	var want := 0
+	for i in _preset_items.size():
+		if String(_preset_items[i].get("kind", "")) == "sep":
+			continue
+		if _preset_key(_preset_items[i]) == select_key:
+			want = i
+			break
+	_preset_option.select(want)
+	_update_preset_delete()
+
+
+## `add_separator()` 也占一个 index，所以两边必须同步追加，否则选中项会串位。
+func _add_preset_item(item: Dictionary) -> void:
+	_preset_option.add_item(String(item.name))
+	_preset_items.append(item)
+
+
+func _add_separator_item(title: String) -> void:
+	_preset_option.add_separator(title)
+	# 同 index 的 item 关掉：点它没反应，select() 也不会停在它上面。
+	_preset_option.set_item_disabled(_preset_option.item_count - 1, true)
+	_preset_items.append({"kind": "sep", "name": title})
+
+
+func _preset_key(item: Dictionary) -> String:
+	match String(item.get("kind", "")):
+		"factory":
+			return "factory"
+		"builtin":
+			return "builtin:" + String(item.name)
+		"user":
+			return "user:" + String(item.name)
+	return ""
+
+
+func _selected_preset() -> Dictionary:
+	if _preset_option == null:
+		return {}
+	var idx := _preset_option.selected
+	if idx < 0 or idx >= _preset_items.size():
+		return {}
+	return _preset_items[idx]
+
+
+func _update_preset_delete() -> void:
+	if _preset_delete == null:
+		return
+	# 只有自己存的那几条能删：出厂是资源文件本身，内置写在代码里。
+	_preset_delete.disabled = String(_selected_preset().get("kind", "")) != "user"
+
+
+func _on_preset_selected(index: int) -> void:
+	if index < 0 or index >= _preset_items.size():
+		return
+	var item: Dictionary = _preset_items[index]
+	var kind := String(item.get("kind", ""))
+	if kind == "sep":
+		return
+	if kind == "factory":
+		if _apply_factory_values():
+			_flash("已套用 %s" % PRESET_FACTORY)
+		_update_preset_delete()
+		return
+	if kind == "builtin":
+		var preset := ParamsLib.builtin(String(item.name))
+		if preset.is_empty():
+			_flash("找不到内置预设「%s」" % item.name)
+			return
+		# 内置预设只记差异项，其余必须回落到出厂值，否则会带上上一个预设的残留。
+		_apply_values(preset.values, true)
+		_flash("已套用内置「%s」" % item.name)
+		_update_preset_delete()
+		return
+	var name := String(item.name)
+	var all := _load_presets()
+	if not all.has(name):
+		_flash("找不到收藏「%s」，可能已被删除" % name)
+		_refresh_preset_list("")
+		return
+	_apply_values(all[name])
+	_flash("已套用收藏「%s」" % name)
+	_update_preset_delete()
+
+
+## 把一整套值写进材质。
+##
+## `fill_from_factory` 为真时，`values` 里没出现的参数会被复位成 `water.tres`
+## 的值 —— 内置预设只写差异项，靠这个补齐；用户收藏是全量，传 false 即可。
+func _apply_values(values: Dictionary, fill_from_factory := false) -> void:
+	if not is_instance_valid(_water_mat) and not is_instance_valid(_water_node):
+		_flash("找不到水面材质，无法套用")
+		return
+	var fresh: ShaderMaterial = _load_water_file() if fill_from_factory else null
+	for key in _order:
+		var spec: Dictionary = _spec.get(key, {})
+		if spec.is_empty():
+			continue
+		if values.has(key):
+			_water_write(key, values[key])
+			continue
+		if not fill_from_factory:
+			continue
+		if spec.kind == "node":
+			_water_write(key, _factory_wave_scale)
+			continue
+		if fresh != null:
+			var v: Variant = fresh.get_shader_parameter(key)
+			if v != null:
+				_water_write(key, v)
+	_sync_water()
+	_save_water_cfg()
+
+
+func _on_preset_save() -> void:
+	_ensure_water()
+	if not is_instance_valid(_water_mat):
+		_flash("找不到水面材质，无法收藏")
+		return
+	_ensure_name_dialog()
+	_name_edit.text = _next_preset_name()
+	_name_dialog.popup_centered()
+	_name_edit.grab_focus()
+	_name_edit.select_all()
+
+
+func _next_preset_name() -> String:
+	var i := 1
+	while _preset_names.has("预设 %d" % i):
+		i += 1
+	return "预设 %d" % i
+
+
+func _on_preset_name_confirmed() -> void:
+	_commit_preset(_name_edit.text)
+
+
+func _commit_preset(raw_name: String) -> void:
+	# ConfigFile 的 section 名用 `[` `]` 收尾，名字里带这两个字符会把文件写坏。
+	var name := raw_name.strip_edges().replace("[", "").replace("]", "")
+	if name == "":
+		name = _next_preset_name()
+	if name == PRESET_FACTORY:
+		_flash("「出厂」是内置项，换个名字")
+		return
+	if ParamsLib.builtin_names().has(name):
+		_flash("「%s」是内置预设名，换个名字" % name)
+		return
+	var all := _load_presets()
+	var names := _preset_order()
+	var replaced := all.has(name)
+	all[name] = _capture_values()
+	if not names.has(name):
+		names.append(name)
+	_write_presets(names, all)
+	_refresh_preset_list("user:" + name)
+	_flash("已%s收藏「%s」" % ["覆盖" if replaced else "存下", name])
+
+
+func _on_preset_delete() -> void:
+	var item := _selected_preset()
+	if String(item.get("kind", "")) != "user":
+		_flash("只有自己存的收藏能删，出厂和内置都是固定的")
+		return
+	_ensure_delete_dialog()
+	_delete_dialog.dialog_text = "删除收藏「%s」？\n删掉就只能重新调一遍了。" % item.name
+	_delete_dialog.popup_centered()
+
+
+func _do_delete_preset() -> void:
+	var item := _selected_preset()
+	if String(item.get("kind", "")) != "user":
+		return
+	var name := String(item.name)
+	var all := _load_presets()
+	var names := _preset_order()
+	all.erase(name)
+	names.erase(name)
+	_write_presets(names, all)
+	_refresh_preset_list("")
+	_flash("已删除收藏「%s」" % name)
+
+
+func _ensure_name_dialog() -> void:
+	if _name_dialog != null:
+		return
+	_name_dialog = AcceptDialog.new()
+	_name_dialog.title = "收藏当前水面参数"
+	_name_dialog.ok_button_text = "保存"
+	_name_dialog.add_cancel_button("取消")
+	_name_dialog.min_size = Vector2i(300, 0)
+	add_child(_name_dialog)
+
+	_name_edit = LineEdit.new()
+	_name_edit.custom_minimum_size = Vector2(272, 28)
+	_name_edit.add_theme_font_override("font", _font)
+	_name_edit.add_theme_font_size_override("font_size", 11)
+	_name_edit.placeholder_text = "给这套参数起个名字"
+	_name_dialog.add_child(_name_edit)
+	_name_dialog.register_text_enter(_name_edit)
+	_name_dialog.confirmed.connect(_on_preset_name_confirmed)
+
+
+func _ensure_delete_dialog() -> void:
+	if _delete_dialog != null:
+		return
+	_delete_dialog = ConfirmationDialog.new()
+	_delete_dialog.title = "删除收藏"
+	_delete_dialog.ok_button_text = "删除"
+	_delete_dialog.cancel_button_text = "取消"
+	add_child(_delete_dialog)
+	_delete_dialog.confirmed.connect(_do_delete_preset)
+
+
+## 面板高度得跟着窗口走：720p 下大约 440 px，够看六七行再滚动。
+func _scroll_height() -> float:
+	var vh := 720.0
+	var vp := get_viewport()
+	if vp != null:
+		vh = vp.get_visible_rect().size.y
+	return clampf(vh - 300.0, 240.0, 560.0)
+
+
+func _add_group(g: Dictionary) -> void:
+	var head := Button.new()
+	head.text = "▾  " + String(g.label)
+	head.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	head.add_theme_font_override("font", _font)
+	head.add_theme_font_size_override("font_size", 10)
+	head.add_theme_color_override("font_color", Color(0.72, 0.93, 1.0, 0.95))
+	head.add_theme_stylebox_override("normal", _btn_style(Color(12.0 / 255.0, 38.0 / 255.0, 62.0 / 255.0, 0.75),
+		Color(110.0 / 255.0, 190.0 / 255.0, 200.0 / 255.0, 0.22)))
+	head.add_theme_stylebox_override("hover", _btn_style(Color(24.0 / 255.0, 74.0 / 255.0, 118.0 / 255.0, 0.9),
+		Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.55)))
+	head.custom_minimum_size = Vector2(0, 20)
+	head.focus_mode = Control.FOCUS_NONE
+	_water_body.add_child(head)
+
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 4)
+	_water_body.add_child(box)
+
+	var note := String(g.get("note", ""))
+	if note != "":
+		var tip := _label(note, 9, Color(0.60, 0.80, 0.88, 0.72))
+		tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		tip.custom_minimum_size = Vector2(PANEL_WIDTH - 46, 0)
+		box.add_child(tip)
+
+	for row in g.rows:
+		_add_water_row(box, row)
+
+	head.pressed.connect(func() -> void:
+		box.visible = not box.visible
+		head.text = ("▾  " if box.visible else "▸  ") + String(g.label))
+
+
+func _add_water_row(parent: VBoxContainer, spec: Dictionary) -> void:
+	match String(spec.kind):
+		"float", "node":
+			_add_scalar_row(parent, spec)
+		"bool":
+			_add_bool_row(parent, spec)
+		"color":
+			_add_color_row(parent, spec, false)
+		"color4":
+			_add_color_row(parent, spec, true)
+		"vec3", "vec2":
+			_add_vector_row(parent, spec)
+
+
+func _row_shell(parent: VBoxContainer, spec: Dictionary) -> VBoxContainer:
+	var holder := VBoxContainer.new()
+	holder.add_theme_constant_override("separation", 1)
+	parent.add_child(holder)
+	return holder
+
+
+## 提示挂在真正接鼠标的控件上才弹得出来 —— Godot 的 tooltip 不往父节点问。
+func _tip(c: Control, spec: Dictionary) -> void:
+	var hint := String(spec.get("hint", ""))
+	if hint != "":
+		c.tooltip_text = hint
+
+
+func _add_scalar_row(parent: VBoxContainer, spec: Dictionary) -> void:
+	var holder := _row_shell(parent, spec)
+	var spec_key := String(spec.key)
+
+	var line := HBoxContainer.new()
+	line.add_theme_constant_override("separation", 6)
+	holder.add_child(line)
+
+	line.add_child(_name_label(spec))
+
+	var slider := _slider(float(spec.min), float(spec.max), float(spec.step))
+	_tip(slider, spec)
+	line.add_child(slider)
+
+	var value := _value_label()
+	line.add_child(value)
+
+	var fmt := String(spec.get("fmt", "%.2f"))
+	var unit := String(spec.get("unit", ""))
+	slider.value_changed.connect(func(v: float) -> void:
+		value.text = fmt % v + unit
+		if _syncing:
+			return
+		_water_write(spec_key, v))
+	slider.drag_ended.connect(func(_changed: bool) -> void:
+		if not _syncing:
+			_save_water_cfg())
+	# 滚轮交给 ScrollContainer：否则在列表里滚动会把参数一路改掉。
+	slider.scrollable = false
+	value.text = fmt % slider.value + unit
+
+	_water_widgets[spec_key] = func(v: Variant) -> void:
+		slider.set_value_no_signal(float(v))
+		value.text = fmt % float(v) + unit
+
+
+func _add_bool_row(parent: VBoxContainer, spec: Dictionary) -> void:
+	var spec_key := String(spec.key)
+	var holder := _row_shell(parent, spec)
+	var line := HBoxContainer.new()
+	line.add_theme_constant_override("separation", 6)
+	holder.add_child(line)
+
+	line.add_child(_name_label(spec))
+	var check := CheckBox.new()
+	check.text = ""
+	check.add_theme_font_override("font", _font)
+	check.focus_mode = Control.FOCUS_NONE
+	check.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_tip(check, spec)
+	check.toggled.connect(func(on: bool) -> void:
+		if _syncing:
+			return
+		_water_write(spec_key, on)
+		_save_water_cfg())
+	line.add_child(check)
+
+	_water_widgets[spec_key] = func(v: Variant) -> void:
+		check.set_pressed_no_signal(bool(v))
+
+
+func _add_color_row(parent: VBoxContainer, spec: Dictionary, with_alpha: bool) -> void:
+	var spec_key := String(spec.key)
+	var holder := _row_shell(parent, spec)
+	var line := HBoxContainer.new()
+	line.add_theme_constant_override("separation", 6)
+	holder.add_child(line)
+
+	line.add_child(_name_label(spec))
+
+	var picker := ColorPickerButton.new()
+	picker.custom_minimum_size = Vector2(52, 18)
+	picker.edit_alpha = with_alpha
+	picker.focus_mode = Control.FOCUS_NONE
+	picker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_tip(picker, spec)
+	line.add_child(picker)
+
+	var hex := _label("000000", 8, Color(0.72, 0.88, 0.92, 0.8))
+	# 只显示六位色值：带透明度是八位，在 48 px 的数值列里放不下，
+	# 右对齐会把尾部挤出面板边框（看着像色值少了一截）。透明度用取色器的
+	# alpha 条看，这里不重复。
+	hex.custom_minimum_size = Vector2(VALUE_W, 0)
+	hex.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	line.add_child(hex)
+
+	picker.color_changed.connect(func(c: Color) -> void:
+		hex.text = c.to_html(false).trim_prefix("#")
+		if _syncing:
+			return
+		_water_write(spec_key, c)
+		_save_water_cfg())
+
+	_water_widgets[spec_key] = func(v: Variant) -> void:
+		var c := _as_color4(v) if with_alpha else _as_color3(v)
+		picker.color = c
+		hex.text = c.to_html(false).trim_prefix("#")
+
+
+func _add_vector_row(parent: VBoxContainer, spec: Dictionary) -> void:
+	var spec_key := String(spec.key)
+	var holder := _row_shell(parent, spec)
+
+	var head := HBoxContainer.new()
+	head.add_theme_constant_override("separation", 6)
+	holder.add_child(head)
+	var name_label := _name_label(spec)
+	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	head.add_child(name_label)
+
+	var fmt := String(spec.get("fmt", "%.2f"))
+	var unit := String(spec.get("unit", ""))
+	var labels: Array = spec.get("sub", ["X", "Y", "Z"])
+	var count := 3 if String(spec.kind) == "vec3" else 2
+	var sliders: Array[HSlider] = []
+	var values: Array[Label] = []
+
+	for i in mini(count, labels.size()):
+		var line := HBoxContainer.new()
+		line.add_theme_constant_override("separation", 6)
+		holder.add_child(line)
+
+		var sub := _label(String(labels[i]), 9, Color(0.66, 0.84, 0.90, 0.85))
+		sub.custom_minimum_size = Vector2(NAME_W - 24, 0)
+		sub.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		line.add_child(sub)
+
+		var slider := _slider(float(spec.min), float(spec.max), float(spec.step))
+		slider.scrollable = false
+		_tip(slider, spec)
+		line.add_child(slider)
+		sliders.append(slider)
+
+		var value := _value_label()
+		line.add_child(value)
+		values.append(value)
+
+	if sliders.is_empty():
+		return
+
+	var push := func() -> void:
+		if _syncing:
+			return
+		if sliders.size() >= 3:
+			_water_write(spec_key, Vector3(sliders[0].value, sliders[1].value, sliders[2].value))
+		else:
+			_water_write(spec_key, Vector2(sliders[0].value, sliders[1].value))
+
+	for i in sliders.size():
+		sliders[i].value_changed.connect(func(v: float) -> void:
+			values[i].text = fmt % v + unit
+			push.call())
+		sliders[i].drag_ended.connect(func(_changed: bool) -> void:
+			if not _syncing:
+				_save_water_cfg())
+
+	_water_widgets[spec_key] = func(v: Variant) -> void:
+		var comps: Array[float] = []
+		if v is Vector3:
+			var t := v as Vector3
+			comps = [t.x, t.y, t.z]
+		elif v is Vector2:
+			var q := v as Vector2
+			comps = [q.x, q.y]
+		elif v is Vector4:
+			var w := v as Vector4
+			comps = [w.x, w.y, w.z]
+		for i in mini(sliders.size(), comps.size()):
+			sliders[i].set_value_no_signal(comps[i])
+			values[i].text = fmt % comps[i] + unit
+
+
+func _slider(lo: float, hi: float, step: float) -> HSlider:
+	var slider := HSlider.new()
+	slider.min_value = lo
+	slider.max_value = hi
+	slider.step = step
+	slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	slider.custom_minimum_size = Vector2(90, 16)
+	slider.focus_mode = Control.FOCUS_NONE
+	slider.add_theme_stylebox_override("slider", _track_style())
+	slider.add_theme_stylebox_override("grabber_area", _grabber_style(Color(0.55, 0.95, 0.85, 0.85)))
+	return slider
+
+
+func _name_label(spec: Dictionary) -> Label:
+	# PASS 而不是 IGNORE：名字这一列也要能弹出参数说明。
+	var l := _label(String(spec.label), 10, Color(0.90, 0.97, 1.0, 0.92))
+	l.custom_minimum_size = Vector2(NAME_W, 0)
+	l.mouse_filter = Control.MOUSE_FILTER_PASS
+	_tip(l, spec)
+	return l
+
+
+func _value_label() -> Label:
+	var l := _label("0.00", 9, Color(0.99, 0.92, 0.72, 1.0))
+	l.custom_minimum_size = Vector2(VALUE_W, 0)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	return l
+
+
+func _tab_button(text: String, id: String, parent: HBoxContainer) -> Button:
+	var b := Button.new()
+	b.text = text
+	b.add_theme_font_override("font", _font)
+	b.add_theme_font_size_override("font_size", 10)
+	b.focus_mode = Control.FOCUS_NONE
+	b.custom_minimum_size = Vector2(48, 22)
+	b.add_theme_stylebox_override("normal", _btn_style(Color(14.0 / 255.0, 40.0 / 255.0, 64.0 / 255.0, 0.85),
+		Color(110.0 / 255.0, 190.0 / 255.0, 200.0 / 255.0, 0.22)))
+	b.add_theme_stylebox_override("hover", _btn_style(Color(32.0 / 255.0, 90.0 / 255.0, 138.0 / 255.0, 0.92),
+		Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.6)))
+	b.pressed.connect(func() -> void: _set_tab(id))
+	parent.add_child(b)
+	return b
+
+
+func _set_tab(id: String) -> void:
+	_tab = id
+	for key in _tab_buttons.keys():
+		var b: Button = _tab_buttons[key]
+		var active: bool = key == id
+		b.add_theme_color_override("font_color", Color("#d6fff2") if active else Color(0.72, 0.86, 0.92, 0.8))
+		b.add_theme_stylebox_override("normal", _btn_style(
+			Color(30.0 / 255.0, 104.0 / 255.0, 118.0 / 255.0, 0.95) if active
+				else Color(14.0 / 255.0, 40.0 / 255.0, 64.0 / 255.0, 0.85),
+			Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.75) if active
+				else Color(110.0 / 255.0, 190.0 / 255.0, 200.0 / 255.0, 0.22)))
+	if _filter_body != null:
+		_filter_body.visible = id == TAB_FILTER
+	if _water_wrap != null:
+		_water_wrap.visible = id == TAB_WATER
+	_refresh_status()
+
+
+func _refresh_status() -> void:
+	if _status == null:
+		return
+	if _tab == TAB_WATER:
+		_status.text = "水面参数 · 收藏可整套切换 · 滚轮翻列表，右列是当前值"
+	else:
+		_status.text = "P 开关 · 拖动即时生效，数值会记住"
 
 
 func _add_row(key: String, title: String, lo: float, hi: float, step: float) -> void:
 	var line := HBoxContainer.new()
 	line.add_theme_constant_override("separation", 6)
-	_body.add_child(line)
+	_filter_body.add_child(line)
 
 	var name_label := _label(title, 11, Color(0.90, 0.97, 1.0, 0.92))
 	name_label.custom_minimum_size = Vector2(52, 0)
@@ -241,6 +1170,26 @@ func _refresh_labels() -> void:
 		_status.text = "找不到 WorldEnvironment，滤镜无法写入"
 
 
+func _sync_water() -> void:
+	_ensure_water()
+	if _water_widgets.is_empty():
+		return
+	if not is_instance_valid(_water_mat):
+		if _tab == TAB_WATER:
+			_status.text = "找不到 World/Water 的 ShaderMaterial，水面参数无法写入"
+		return
+	_syncing = true
+	for key in _order:
+		var setter: Variant = _water_widgets.get(key)
+		if setter == null:
+			continue
+		var v: Variant = _water_read(key)
+		if v == null:
+			continue
+		(setter as Callable).call(v)
+	_syncing = false
+
+
 func _on_reset() -> void:
 	_ensure_env()
 	if _env == null:
@@ -287,6 +1236,136 @@ func _on_save_to_scene() -> void:
 		_flash("写入失败：%s" % error_string(err))
 
 
+# ---- 水面：复位 / 复制 / 写回 -----------------------------------------------
+
+func _on_water_reset() -> void:
+	if _apply_factory_values():
+		_flash("水面已回到 water.tres 的出厂值")
+
+
+## 把整套值退回资源文件里的那份。「复位」按钮和收藏下拉的第一项共用它。
+## 返回 false 表示读不到资源，调用方自己决定报什么。
+func _apply_factory_values() -> bool:
+	_ensure_water()
+	var fresh := _load_water_file()
+	if fresh == null:
+		_flash("读不到 %s，无法复位" % WATER_MAT_PATH)
+		return false
+	for key in _order:
+		var spec: Dictionary = _spec.get(key, {})
+		if spec.kind == "node":
+			_water_write(key, _factory_wave_scale)
+			continue
+		var v: Variant = fresh.get_shader_parameter(key)
+		if v == null:
+			continue
+		_water_write(key, v)
+	_sync_water()
+	_save_water_cfg()
+	return true
+
+
+func _on_water_copy() -> void:
+	if not is_instance_valid(_water_mat):
+		_flash("找不到水面材质，无法复制")
+		return
+	var lines := PackedStringArray()
+	for key in _order:
+		var spec: Dictionary = _spec.get(key, {})
+		var v: Variant = _water_read(key)
+		if v == null:
+			continue
+		if spec.kind == "node":
+			lines.append("# wave_scale = %s（Water 节点属性，不在材质里）" % var_to_str(v))
+			continue
+		if spec.kind == "color":
+			var c := _as_color3(v)
+			lines.append("shader_parameter/%s = %s" % [key, var_to_str(Color(c.r, c.g, c.b, 1.0))])
+		elif spec.kind == "color4":
+			lines.append("shader_parameter/%s = %s" % [key, var_to_str(_as_color4(v))])
+		else:
+			lines.append("shader_parameter/%s = %s" % [key, var_to_str(v)])
+	var text := "\n".join(lines)
+	DisplayServer.clipboard_set(text)
+	_flash("已复制 %d 行 shader_parameter" % lines.size())
+
+
+## 写回 `assets/materials/water.tres`。
+##
+## 只改文本里的 `shader_parameter/<key> = ...` 行，不走 `ResourceSaver`，原因有三个：
+##   · 存过运行时那份材质，会把 u_time / u_ripples / u_boat 这些每帧改的临时值
+##     一起写进去，文件变成一堆噪声；
+##   · `ResourceSaver` 会给「材质里没有」的参数写一行 `= null`，等于往资源里塞垃圾；
+##   · 它会重排整个文件（format / uid / 顺序都变），diff 看不出改了什么。
+## 逐行替换的话，没动的行一个字节都不变，uid 和手写注释也留着。
+func _on_water_save() -> void:
+	_ensure_water()
+	if not is_instance_valid(_water_mat):
+		_flash("找不到水面材质，无法写回")
+		return
+	if OS.has_feature("template"):
+		_flash("导出版无法写回 res://，请用「复制参数」")
+		return
+	var text := FileAccess.get_file_as_string(WATER_MAT_PATH)
+	if text.is_empty():
+		_flash("读不到 %s" % WATER_MAT_PATH)
+		return
+
+	# 仓库在 Windows 上是 CRLF 检出，换行风格照原样还回去，别制造整文件 diff。
+	var eol := "\r\n" if text.contains("\r\n") else "\n"
+	var lines := text.replace("\r\n", "\n").split("\n")
+	var written := 0
+
+	for key in _order:
+		var spec: Dictionary = _spec.get(key, {})
+		if spec.kind == "node":
+			continue
+		var v: Variant = _water_read(key)
+		if v == null:
+			continue
+		var line := "shader_parameter/%s = %s" % [key, var_to_str(_to_shader_value(spec, v))]
+		var prefix := "shader_parameter/%s = " % key
+		var found := false
+		for i in lines.size():
+			if String(lines[i]).begins_with(prefix):
+				lines[i] = line
+				found = true
+				break
+		if not found:
+			# 文件里缺这一项（新加的参数）就补到末尾，别插进别的段里。
+			while not lines.is_empty() and String(lines[lines.size() - 1]).strip_edges() == "":
+				lines.remove_at(lines.size() - 1)
+			lines.append(line)
+			lines.append("")
+		written += 1
+
+	var out := eol.join(PackedStringArray(lines))
+	var f := FileAccess.open(WATER_MAT_PATH, FileAccess.WRITE)
+	if f == null:
+		_flash("写入失败：%s" % error_string(FileAccess.get_open_error()))
+		return
+	f.store_string(out)
+	f.close()
+
+	# 兜底自检：写回来的必须是资源文本，且不能夹带每帧改的运行时参数。
+	# 这两个条件一旦不成立，立刻用写之前的内容覆盖回去 —— 宁可这次没写成，
+	# 也不能让一份坏掉的 water.tres 留在磁盘上（水面会整体失色）。
+	var after := FileAccess.get_file_as_string(WATER_MAT_PATH)
+	if not after.contains("[gd_resource") or after.contains("shader_parameter/u_ripples"):
+		var undo := FileAccess.open(WATER_MAT_PATH, FileAccess.WRITE)
+		if undo != null:
+			undo.store_string(text)
+			undo.close()
+		_flash("写回结果不像资源文本，已还原原文件")
+		return
+
+	# 出厂值缓存作废：下次「复位」要按刚写进去的这份。
+	_file_defaults.clear()
+	_file_defaults_loaded = false
+	_save_water_cfg()
+	_flash("已写入 water.tres 的 %d 项（当场生效，重开也保留）" % written)
+
+
 func _flash(text: String) -> void:
 	if _status == null:
 		return
@@ -296,23 +1375,52 @@ func _flash(text: String) -> void:
 # ---- 持久化 -----------------------------------------------------------------
 
 func _apply_saved_on_start() -> void:
+	_ensure_env()
+	_apply_filter_cfg()
+	_ensure_water()
+	_apply_water_cfg()
+	_sync_water()
+
+
+func _apply_filter_cfg() -> void:
+	if _env == null:
+		return
 	var cfg := ConfigFile.new()
 	if cfg.load(CFG_PATH) != OK:
 		return
-	_ensure_env()
-	if _env == null:
-		return
-	_saved = {
-		"exposure": float(cfg.get_value("filter", "exposure", _env.tonemap_exposure)),
-		"brightness": float(cfg.get_value("filter", "brightness", _env.adjustment_brightness)),
-		"contrast": float(cfg.get_value("filter", "contrast", _env.adjustment_contrast)),
-		"saturation": float(cfg.get_value("filter", "saturation", _env.adjustment_saturation)),
-	}
-	_env.tonemap_exposure = _saved.exposure
+	_env.tonemap_exposure = float(cfg.get_value("filter", "exposure", _env.tonemap_exposure))
 	_env.adjustment_enabled = true
-	_env.adjustment_brightness = _saved.brightness
-	_env.adjustment_contrast = _saved.contrast
-	_env.adjustment_saturation = _saved.saturation
+	_env.adjustment_brightness = float(cfg.get_value("filter", "brightness", _env.adjustment_brightness))
+	_env.adjustment_contrast = float(cfg.get_value("filter", "contrast", _env.adjustment_contrast))
+	_env.adjustment_saturation = float(cfg.get_value("filter", "saturation", _env.adjustment_saturation))
+
+
+func _apply_water_cfg() -> void:
+	if not is_instance_valid(_water_mat) and not is_instance_valid(_water_node):
+		return
+	var cfg := ConfigFile.new()
+	if cfg.load(WATER_CFG_PATH) != OK:
+		return
+	# 存档只对「当时那份 water.tres」有效。文件换了另一套出厂值（或者这份存档
+	# 是加指纹之前留的，读出来是空串），立刻作废 —— 否则新出厂值永远被盖住，
+	# 调好的参数看起来像没生效。
+	if String(cfg.get_value("water", CFG_SIG_KEY, "")) != _mat_signature():
+		return
+	for key in _order:
+		if not cfg.has_section_key("water", key):
+			continue
+		var v: Variant = cfg.get_value("water", key)
+		if v == null:
+			continue
+		_water_write(key, v)
+
+
+## `water.tres` 的内容指纹。只用来判断「出厂值有没有换过」，不做完整性校验。
+func _mat_signature() -> String:
+	var text := FileAccess.get_file_as_string(WATER_MAT_PATH)
+	if text.is_empty():
+		return ""
+	return text.md5_text()
 
 
 func _save_cfg() -> void:
@@ -325,6 +1433,24 @@ func _save_cfg() -> void:
 	cfg.set_value("filter", "contrast", _env.adjustment_contrast)
 	cfg.set_value("filter", "saturation", _env.adjustment_saturation)
 	cfg.save(CFG_PATH)
+
+
+func _save_water_cfg() -> void:
+	# 没动过就不写：光开面板看一眼不该留下存档，否则以后改 water.tres
+	# 的出厂值会被这份「当时恰好是这样的」存档全盖住。
+	if not _water_dirty:
+		return
+	if not is_instance_valid(_water_mat) and not is_instance_valid(_water_node):
+		return
+	var cfg := ConfigFile.new()
+	cfg.load(WATER_CFG_PATH)
+	for key in _order:
+		var v: Variant = _water_read(key)
+		if v == null:
+			continue
+		cfg.set_value("water", key, v)
+	cfg.set_value("water", CFG_SIG_KEY, _mat_signature())
+	cfg.save(WATER_CFG_PATH)
 
 
 # ---- 小工具 -----------------------------------------------------------------
@@ -349,8 +1475,13 @@ func _button(text: String, cb: Callable) -> Button:
 		Color(120.0 / 255.0, 200.0 / 255.0, 210.0 / 255.0, 0.28)))
 	b.add_theme_stylebox_override("hover", _btn_style(Color(44.0 / 255.0, 114.0 / 255.0, 192.0 / 255.0, 0.9),
 		Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.7)))
+	# 禁用态（比如「删」在选中出厂项时）画得明显灰一点，别让人以为是没反应。
+	b.add_theme_stylebox_override("disabled", _btn_style(Color(18.0 / 255.0, 52.0 / 255.0, 86.0 / 255.0, 0.4),
+		Color(120.0 / 255.0, 200.0 / 255.0, 210.0 / 255.0, 0.12)))
+	b.add_theme_color_override("font_disabled_color", Color(0.62, 0.78, 0.84, 0.35))
 	b.custom_minimum_size = Vector2(0, 24)
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	b.focus_mode = Control.FOCUS_NONE
 	b.pressed.connect(cb)
 	return b
 
