@@ -28,7 +28,7 @@
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-OCEAN-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-OCEAN-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-OCEAN-R02 | 本机双后端实测通过，目标设备未覆盖 | 后端差异集中在 `src/rendering/render_flags.gd`；2026-10-24 按重做后的着色器重测 `water_emission_gain()`，开阔水面像素均值 Forward+ `1/105/147` 对 gl_compatibility `10/103/147`（平均绝对误差 4.0，旧系数下为 140.7）。真实渲染图像比对，非无头逻辑测试。 [测量记录](../../development/2026-10-24_water_backend_parity.md) |
 | SEA-OCEAN-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-OCEAN-R04 | 本轮表现与专项通过 | 岸线双环开放波纹弧线与3层动态外扩涟漪、柔和半兰伯特光影与清晰投射阴影标定完成；Metal Forward+ 实机目视验证与 ocean 回归通过。 [交付记录](../../development/2026-10-23_sea_visual_style.md) |
 | SEA-OCEAN-R05 | 本轮表现与专项通过 | 交接带改由 `shaders/contact_foam.gdshaderinc` 承担（移植 stylized_water_prod 的 ContactFoam），旧的 `shore_rim`/`shore_foam` 已移除；Forward+ 与 gl_compatibility 双后端实机目视通过，条纹纹理授权待补。 [交付记录](../../development/2026-10-23_water_contact_foam_port.md) |
@@ -63,7 +63,7 @@
 
 ## 遗留与下一步
 
-保留拆分前水面修改；跨后端与目标设备仍需专项验证。
+保留拆分前水面修改。本机 Forward+ 与 gl_compatibility 的双后端水色已按像素实测对齐（见 R02）；目标设备（Web 实机、移动端）仍需专项验证。网页原型 `web/water.js` 未同步本轮参数与着色模型。`foam_line.png` / `large_waves.png` / `ripple_pattern.png` 的第三方授权登记仍为 pending。
 
 ## 变更记录
 
@@ -86,3 +86,6 @@
 - 2026-10-24 水面光点进面板：建筑附近水面漂动的小白点（`facility-vicinity water glints` 段）原本全是硬编码常量，抽成 `glints` 组 10 个参数（开关 / 颜色 / 强度 / 密度 / 大小 / 速度 / 漂移 / 明灭锐度 / 内外边界）。环带两端改成按半径比例淡入淡出，系数取 `0.95/2.2` 与 `6.2/11.8` 的精确比值，默认值下与改动前逐像素一致。参数总数 50 → 60，`check_water_params.gd` PASS。 [交付记录](../../development/2026-10-24_water_glints_params.md)。
 
 - 2026-10-24 调参工具整体丢失后的恢复与收尾验证：工作区被还原成 HEAD 后，按内容特征从文件历史里恢复 `water.gdshader`（含 `glints` 组）、两页面板 `color_grade_panel.gd`、`water_params.gd`、`water.tres`（68 项）、`cozy_ui.gd` 的祖先链豁免与 `--water` 启动参数；补回内置预设「参考包初版」。顺手修 `scripts/run_verification.py`：Windows 上 `symlink_to` 无权限时不报错而是留空目录，导致隔离工程读不到 `res://assets` 全线假红，改用 junction 并复制兜底。判定 `ocean_sky.tres` / `world_env.tres` 的哈希漂移为 CRLF 行尾幻影，还原行尾而非重算哈希。core 9 项 PASS，双后端无 SHADER ERROR，`check_feature_contracts.py` 只剩 `main.gd:1928` 一条历史遗留。 [交付记录](../../development/2026-10-24_water_restore_verification.md)。
+
+- 2026-10-24 双后端水色重新对齐：水面重做后 `gl_compatibility` 的水被旧增益 (3.8, 3.8, 2.7) 推到接近削顶（开阔水面 170/241/236，Forward+ 是 1/103/147），本机 GL 端整片水面发白、海底连带被冲淡。按 gain 0.3~3.8 逐档真实渲染 + 开阔水面像素均值拟合，`water_emission_gain()` 改为 1.26，误差 140.7 → 4.0；红通道有约 +9 的色调映射地板，任何增益都压不到 0。新增可复跑工具 `tools/capture_water_gain_probe.gd` 与 `scripts/measure_water_backend_parity.py`。 [测量记录](../../development/2026-10-24_water_backend_parity.md)。
+
