@@ -16,7 +16,7 @@ https://www.bilibili.com/video/BV1TqM76nEWf/
 - 覆盖相机平移范围加 24 米边界；当前为 204×204 米，每像素约 0.133 米。每次启动从当前场景重新生成，移动/旋转/更换场景模型后无需手画岸线。
 - 运行中主动改动静态场景或水位时，调用 `Water.rebuild_shoreline(roots, region)` 重建。并非每帧重切静态模型；移动船体使用当帧深度交界和实际航迹。
 
-`shaders/ocean_foam.gdshaderinc` 根据距离产生细接触白边和错相的外推波包。轮廓有小幅扇贝状弯曲，浪线在传播时拉薄、断裂并消散，复位前强度归零。岸浪同时贡献最多约 2.4 厘米的位移和相应法线，不只改变颜色。
+`shaders/contact_foam.gdshaderinc` 负责「水与物体交接」的那一条带：贴合实体的米制白水线 + 由 `foam_line.png` 条带侵蚀出来的中间/外圈泡沫，带「出生 → 保持 → 退去」生命周期（2026-10-23 从生产版卡通水面包移植，见文末）。`shaders/ocean_foam.gdshaderinc` 只剩岸浪几何位移、开阔海面浪尖白斑、船尾迹，以及给细栏杆/缆绳用的极淡深度描边。岸浪同时贡献最多约 2.4 厘米的位移和相应法线，不只改变颜色。
 
 ## 海面白浪与材质
 
@@ -24,7 +24,7 @@ https://www.bilibili.com/video/BV1TqM76nEWf/
 - 浪头是**有宽度的破碎白斑**（宽带 + 亮核 + 后侧渐薄的水膜），不是一像素描线；40 米外整体淡出，避免远看塌成扁平白斑。
 - 白沫使用受场景光照影响的浅色材质、较高粗糙度和较低透射，保留明暗与厚薄层次；不使用白色自发光。
 - `water.gdshader` 保留深度吸收、屏幕折射、GGX 高光与天空环境反射。水粗糙度默认 0.13，水/空气 F0 约 0.02037。透射颜色不再被水材质重复照亮。
-- 可调参数：`shore_foam_strength`、`crest_foam_strength`、`foam_color`、`water_roughness`。
+- 可调参数：`crest_foam_strength`、`foam_color`、`water_roughness`，交接带另见 `contact_foam_*`。
 
 ## 对标网页版（2026-10-23，以 `water.js` 为准）
 
@@ -242,3 +242,65 @@ mkdir -p godot/outputs/ocean-absorption/movie/seq
 最新录像为 `outputs/water-upgrade/wave-detail.mp4`（固定镜头观察白浪和岸线）与 `shore-waves.mp4`（航行）。历史 `clean-ocean.mp4` 是误删白沫的迭代，已不代表当前实现。录像固定 30 Hz 离线录制，不能据此推断实时 FPS。
 
 这是风格化解析水面和程序泡沫，不是完整流体求解器；反射来自场景灯光和天空，尚未实现建筑平面镜像反射。P 面板的个人滤镜仍优先，录像使用曝光 1.05、亮度/对比度/饱和度 1.0。独立海底地图不受影响。
+
+## 交接泡沫：移植生产版卡通水面（2026-10-23）
+
+来源：用户提供的 `stylized_water_prod_2026-10-23.zip`（`demos/stylized_water_prod/`）。该包是一整套水面材质（深度透射 + 天空 Cubemap 反射 + 太阳高光 + 涟漪网络 + 交接泡沫），**这里只取「和物体交接」的那一层**：`ContactFoam`。其余部分不接入——本项目的水面已经是自己的平涂合成（体色走 `EMISSION`、不吃光照），换掉会退回网页版之前的状态。
+
+### 包里的用法（要点）
+
+1. 材质赋给一块水平矩形水面网格的 `Material Override`；水面 `Cast Shadow = Off`、`Extra Cull Margin ≥ 0.9 m`，网格要有足够细分支撑顶点位移。
+2. 交接泡沫不是靠屏幕深度现算的，而是**离线烘焙一张固定水位二维距离场**：编辑器里选中水面网格 → 菜单执行 `tools/generate_contact_field.gd` → 再选障碍网格/父节点 → 设 texel 尺寸（默认 0.08 m）→ 生成。输出 `水面名_稳定标识_contact_field.res`（R16F 单通道、无 mip、截断 2.0 m，符号距离：实体内部为负）。
+3. 工具只往材质写四个技术参数：`contact_field_texture`、`contact_field_mapping`（全局整数格原点 + texel 间距）、`contact_field_valid`，以及一段元数据；艺术参数（颜色/宽度/速度/图案）一律不动。
+4. 着色器把世界 XZ 换算成格子 UV：
+   ```glsl
+   vec2 grid = world_position.xz / contact_field_mapping.zw - contact_field_mapping.xy;
+   contact_field_uv = (grid + 0.5) / vec2(textureSize(contact_field_texture, 0));
+   ```
+5. `ContactFoam` 有两种美术模式，由 `contact_foam_pattern` 是否为空决定：
+   - **程序模式**：`边缘线`（贴边、宽度缓慢呼吸）与 `外推环`（从贴边向外推进、用三角波撕成开口弧线）取 `max`。
+   - **条形纹理模式**：`foam_line.png` 是一张灰度条带，U 沿水线重复、V 从贴边指向外侧；随生命周期推进把采样半径当作「侵蚀半径」做 5 次 `min` 取样，于是同一张图会**真的被吃掉**而不是整体淡出。
+6. 生命周期是显式三段：`birth → hold → retreat`，可选 `interval` 空档；`source_v = v / expansion` 让图案从贴边向外生长。
+
+### 本项目的接入方式
+
+不新开烘焙流程：`src/rendering/shore_distance.gd` 每次启动已经把可见几何与 1.12 米水位平面的交线烘成 1536² 的距离图（R = 米制距离，G = 实体尺寸系数），与包里的固定水位距离场是同一类数据。`shaders/contact_foam.gdshaderinc` 直接读它，因此：
+
+- 不需要编辑器工具、不需要额外纹理、不改变现有资产与场景路径；
+- 几何/水位变化后仍旧走 `Water.rebuild_shoreline(roots, region)` 重建，与原来一致；
+- 包里的 `contact_field_*` 三个技术参数不引入。
+
+### 一处有意的偏离（重要）
+
+包里那条约 0.05 米宽的实白水线**画在条带自身的前 5% V 里**，而它的距离场是 0.08 米/格。本项目的距离图是 **0.133 米/格**，那条线会落进第一个 texel 里被双线性插值抹平——实测整条交接带直接消失。因此：
+
+- **水线改成米制现算**（`contact_rim`，宽度 `contact_foam_rim_width`，默认 0.24 m，两档世界噪声做手绘粗细起伏），不再依赖条带的前几行；
+- 条带只负责中间与外侧的侵蚀泡沫（`contact_foam_width` 默认 1.15 m），它的前几行恰好落在同一位置，两者叠起来仍读作一条带；
+- 另外给 V 加了世界噪声扰动（`v_paint`），否则距离图的等距台阶会显成一条条偏置弧线。
+
+`ocean_foam.gdshaderinc` 里原来的 `shore_rim`（圆环描边 + 两道同心弧线）与 `shore_foam`（三层外扩涟漪）**已删除**，交接带统一由 `contact_foam` 负责。保留 `contact_edge` 作为细栏杆/缆绳的兜底（距离图会排除竖向厚度 < 0.22 m 的实体），强度降到 0.28，只留一层极淡内晕。
+
+### 参数
+
+| 参数 | 默认 | 作用 |
+| --- | --- | --- |
+| `contact_foam_color` | `(0.93,0.99,0.97,1)` | 交接泡沫颜色与整体不透明度；A=0 关闭该层 |
+| `contact_foam_rim_width` | `0.24` | 米制水线宽度，必须大于距离图 texel（0.133 m） |
+| `contact_foam_width` | `1.15` | 侵蚀泡沫的外扩范围（米），0 只留水线 |
+| `contact_foam_strength` | `1.0` | 整体强度 |
+| `contact_foam_animation_speed` | `1.0` | 泡沫自身生命周期速度（不影响波浪） |
+| `contact_foam_interval_seconds` | `0.5` | 一轮结束后的额外空档 |
+| `contact_foam_pattern` | `foam_line.png` | 留空/1×1 则退回程序模式 |
+| `contact_foam_repeat_metres` | `5.0` | 条带沿水线的世界重复尺度 |
+
+条带沿水线用固定的世界斜投影（`0.73x + 0.68z`）取 U，这是包里已知的方向相关拉伸限制，未改动。
+
+### 资产与授权
+
+`godot/assets/textures/water/foam_line.png`（2172×724 灰度，无损、生成 mip）来自该包，导入参数与本项目其他贴图一致（`mipmaps/generate=true`、`size_limit=0`、`detect_3d/compress_to=0`）。**该压缩包未附授权声明**，因此运行资源清单里登记为 `third_party_package_source_license_and_registration_pending`，未取生产 AssetID；正式发行前需要补齐授权或替换为自制条带。
+
+### 验收
+
+- Forward+ 与 gl_compatibility（Web 导出后端）均无 SHADER ERROR，两个后端都能看到交接带。
+- `python3 scripts/run_verification.py visual-sea-style ocean selftest`：全部退出 0。`ocean` 仍覆盖波高、浮力、尾浪、距离场与薄片排除；`selftest` 537 项通过。
+- 近距离（`--zoom=16 --look=1,1.12,3`）确认水线贴合实体、粗细起伏自然、外圈有断裂的侵蚀泡沫，开阔水面不出现乱白点。

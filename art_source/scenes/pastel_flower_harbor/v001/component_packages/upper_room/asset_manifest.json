@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-UPPER-ROOM",
+  "slug": "upper_room",
+  "name": "后排顶层小屋",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "upper_room",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-UPPER-ROOM",
+  "root_object": "ROOT_upper_room",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_room/upper_room.blend",
+  "bounds_size_m": [
+    2.6500000953674316,
+    1.649999976158142,
+    1.3799999952316284
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "ef34a92793af79d9e319549547f55e8597dca538985c6996b7108889987810e0",
+  "source_sha256": "21b69e406c3bd81997e4e6e1dd1ba3fa52ade0cf51ffc870295852b3d8ba15b9",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-UPPER-ROOM",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "upper_room_body"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+  "slug": "solar_panel",
+  "name": "太阳能板",
+  "category": "building",
+  "component_family": "solar_panel",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+  "root_object": "ROOT_solar_panel",
+  "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/solar_panel/solar_panel.blend",
+  "bounds_size_m": [
+    1.4199999570846558,
+    1.5299999713897705,
+    0.12299999594688416
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    -0.05999999865889549
+  ],
+  "instance_count": 6,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "338ac70a0eddfe52daef72e94cb8d9cf7470f5c9c7fef999a1c864c065ddc532",
+  "source_sha256": "2f28c8b82d58810991b2c005887d9bf12333003cd64cb67cbbac1950c4d73f41",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-SOLAR-PANEL",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "solar_panel_body"
+  ],
+  "geometry_budget": {
+    "triangles_per_component": 38,
+    "polygons_per_component": 15,
+    "instances": 6,
+    "expanded_triangles": 228
+  },
+  "version": "v002"
+}

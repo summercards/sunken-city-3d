@@ -1,0 +1,56 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-COSMOS",
+  "slug": "cosmos",
+  "name": "粉色波斯菊",
+  "category": "flora",
+  "component_family": "flower_cosmos",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-COSMOS",
+  "root_object": "ROOT_cosmos",
+  "component_blend": "art_source/scenes/solar_flower_house/v003/component_packages/cosmos/cosmos.blend",
+  "bounds_size_m": [
+    0.9980000257492065,
+    0.7378368377685547,
+    0.7977851629257202
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    1.4901161193847656e-08,
+    0.0308811217546463,
+    0.017214812338352203
+  ],
+  "instance_count": 11,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "07f227dadefaf7f400e4d0dbf2a99ac870670c9273d20eb339dcb384bdc5c4b7",
+  "source_sha256": "8d45aabce716d0ae302e952f9fd1162d17c590216c7a2b78fe6db97d7e4af195",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-COSMOS",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "cosmos_body"
+  ],
+  "version": "v003",
+  "style_base_version": "v001"
+}

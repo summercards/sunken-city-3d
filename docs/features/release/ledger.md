@@ -13,7 +13,7 @@
   "owner": "导出配置 / 发布工具",
   "code_paths": [
     "godot/export_presets.cfg",
-    "tools/make_web_dist.py"
+    "godot/tools/make_web_dist.py"
   ],
   "verification": [
     "structure"
@@ -32,7 +32,7 @@
 ## 资源与调用入口
 
 - [godot/export_presets.cfg](../../../godot/export_presets.cfg)
-- [tools/make_web_dist.py](../../../tools/make_web_dist.py)
+- [godot/tools/make_web_dist.py](../../../godot/tools/make_web_dist.py)
 
 资产记录见 [资产总入口](../../../assets/registry/README.md)。共用资产按 AssetID 引用；未取得生产 AssetID 的旧运行资源通过路径定位并标注补登，不自动认定正式资产验收完成。
 

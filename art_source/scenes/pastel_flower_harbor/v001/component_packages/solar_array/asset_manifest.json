@@ -1,0 +1,57 @@
+{
+  "component_id": "SEA-SCENE-PFH-SOLAR-ARRAY",
+  "slug": "solar_array",
+  "name": "十二格太阳能板",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "solar_array",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-SOLAR-ARRAY",
+  "root_object": "ROOT_solar_array",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/solar_array/solar_array.blend",
+  "bounds_size_m": [
+    3.5,
+    2.4000000953674316,
+    0.27250000834465027
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "2aea1459c27c2b5fc3de80c53e39731ff5dad41694d9dd809d2e7f91aac03a71",
+  "source_sha256": "dac004499cd09b0a204c7cf2c5b21fac89f23a8a8248fdd2cf8e4fd7a840b592",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-SOLAR-ARRAY",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "solar_array_body"
+  ]
+}

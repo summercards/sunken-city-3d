@@ -1,0 +1,1660 @@
+{
+  "schema": "sea.scene.component_catalog",
+  "components": [
+    {
+      "component_id": "SEA-SCENE-PFH-PILLAR",
+      "slug": "pillar",
+      "name": "支撑木墩",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "pillar",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-PILLAR",
+      "root_object": "ROOT_pillar",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pillar/pillar.blend",
+      "bounds_size_m": [
+        0.25999999046325684,
+        0.2800000011920929,
+        1.159999966621399
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 10,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "17411a1810a5b22e9ebecb436eee9f0faba478b71c76f3e1443533b64eaacc44",
+      "source_sha256": "fbed354047c165a9c1da7ad902dce1758577418c5b25b222d6d0be31dcb2cfe9",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PILLAR",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "pillar_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-BASE",
+      "slug": "base",
+      "name": "奶油平台底框",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "base",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-BASE",
+      "root_object": "ROOT_base",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/base/base.blend",
+      "bounds_size_m": [
+        7.380000114440918,
+        6.710000038146973,
+        0.26499998569488525
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.009999990463256836,
+        -0.14499998092651367,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "3028068ea56433d577368d4cfc4de660892b1af49387606bf7d7475db4eeb986",
+      "source_sha256": "8abb84c367aba53a7cc8ecd4a845f6c0614dd07040d5b379e7d8ade1fa815fcc",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-BASE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "base_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-HOUSE",
+      "slug": "house",
+      "name": "底层奶油墙壳",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "house",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-HOUSE",
+      "root_object": "ROOT_house",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/house/house.blend",
+      "bounds_size_m": [
+        4.890000343322754,
+        3.690000057220459,
+        2.4000000953674316
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        -0.034999966621398926,
+        -0.0350000262260437,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "6df03ddaeced75a4cfa97d0df1230371ba9804476a3b19f361ad063129fc7a1a",
+      "source_sha256": "3b32e3713fb5c4c37b39309dec1f42dae6ac09761da0c4ec2aa4fdda47326d6b",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-HOUSE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "house_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-TERRACE",
+      "slug": "terrace",
+      "name": "屋顶露台板",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "terrace",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-TERRACE",
+      "root_object": "ROOT_terrace",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/terrace/terrace.blend",
+      "bounds_size_m": [
+        5.099999904632568,
+        3.9000000953674316,
+        0.25999999046325684
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "58bc1d613024c5deedcc88f99202235b879d6e38ccd99b2f1c916bd8e85f75ce",
+      "source_sha256": "c8298fff384781e1d123a2644225db0724cd3d436a97f9a4f51703f8a95af9a1",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-TERRACE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "terrace_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-UPPER-ROOM",
+      "slug": "upper_room",
+      "name": "后排顶层小屋",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "upper_room",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-UPPER-ROOM",
+      "root_object": "ROOT_upper_room",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_room/upper_room.blend",
+      "bounds_size_m": [
+        2.6500000953674316,
+        1.649999976158142,
+        1.3799999952316284
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "ef34a92793af79d9e319549547f55e8597dca538985c6996b7108889987810e0",
+      "source_sha256": "21b69e406c3bd81997e4e6e1dd1ba3fa52ade0cf51ffc870295852b3d8ba15b9",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-UPPER-ROOM",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "upper_room_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-UPPER-ROOF",
+      "slug": "upper_roof",
+      "name": "小屋平顶",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "upper_roof",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-UPPER-ROOF",
+      "root_object": "ROOT_upper_roof",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_roof/upper_roof.blend",
+      "bounds_size_m": [
+        2.880000114440918,
+        1.899999976158142,
+        0.18000000715255737
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "cd76b36f3b1a3b7d9db6a71d70b19e95dfcd5db4a1bfc28843c67556c96a5895",
+      "source_sha256": "6c1bfa804de42d01039143c0b2df1c57a45d22e993bfb8d15f63f7da536be15e",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-UPPER-ROOF",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "upper_roof_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PERGOLA",
+      "slug": "pergola",
+      "name": "后排花架",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "pergola",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-PERGOLA",
+      "root_object": "ROOT_pergola",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pergola/pergola.blend",
+      "bounds_size_m": [
+        5.050000190734863,
+        0.23999999463558197,
+        2.240000009536743
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "7f08e8806f173668b0245118a78a443604a5bc9bd2b60b4752c6afff4eb8d792",
+      "source_sha256": "c12e1c6925f257cd444461e5aa0d0056f42e6b618ebc4ac14722a9e276ec5b43",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PERGOLA",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "pergola_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-RAIL",
+      "slug": "rail",
+      "name": "露台栏杆",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "rail",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-RAIL",
+      "root_object": "ROOT_rail",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/rail/rail.blend",
+      "bounds_size_m": [
+        1.7200000286102295,
+        0.17000000178813934,
+        0.8399999737739563
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 3,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "99d96f5ed2e7589137d29a22ce065ff65abb877a10c4bc1b58ea6e018a4f8e48",
+      "source_sha256": "645217b6a26280617615751cfee4d7a2aab8db410ffda004b638ccb93305c6d7",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-RAIL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "rail_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PORCH-ROOF",
+      "slug": "porch_roof",
+      "name": "前廊暖黄平顶",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "porch_roof",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-PORCH-ROOF",
+      "root_object": "ROOT_porch_roof",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_roof/porch_roof.blend",
+      "bounds_size_m": [
+        3.9600000381469727,
+        3.1499998569488525,
+        1.1161816120147705
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.02499997615814209,
+        -0.020000003278255463
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "c60e314126aaa016fea5680e866972280aebb177e51e40991538baa216a662ba",
+      "source_sha256": "bd0682711aebf4e3d7b2277d40eeee4e609215a52720a633e3bab9dae2a160aa",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PORCH-ROOF",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "porch_roof_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PORCH-POST",
+      "slug": "porch_post",
+      "name": "前廊立柱",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "porch_post",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-PORCH-POST",
+      "root_object": "ROOT_porch_post",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_post/porch_post.blend",
+      "bounds_size_m": [
+        0.23000000417232513,
+        0.25,
+        2.4000000953674316
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "a5376104cf140ec2f8c89930a27b2a2f9339eec757a7370be9cfed54b82191ed",
+      "source_sha256": "744d8f3f93f0e39f03a3cf5ea9be20e45927e553f1885acb8377cf0e986a7c9e",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PORCH-POST",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "porch_post_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-DOCK-POST",
+      "slug": "dock_post",
+      "name": "码头白帽木桩",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "dock_post",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-DOCK-POST",
+      "root_object": "ROOT_dock_post",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_post/dock_post.blend",
+      "bounds_size_m": [
+        0.25999999046325684,
+        0.27000001072883606,
+        1.5449999570846558
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 14,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "c03878250c0444c9d686ceb4ca9cba622e2d8b7cd1cda4978ebd1292bb5850c2",
+      "source_sha256": "7c811d8a42204e83fdd62712609bb7507900f351844082c8509421a4e7f1f809",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-DOCK-POST",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "dock_post_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-WINDOW",
+      "slug": "window",
+      "name": "蓝玻璃方窗",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "window",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-WINDOW",
+      "root_object": "ROOT_window",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/window/window.blend",
+      "bounds_size_m": [
+        1.100000023841858,
+        0.14750000834465027,
+        1.3599998950958252
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.036249998956918716,
+        -0.06000000238418579
+      ],
+      "instance_count": 4,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "de9ab24940d4e0521b8de261374f22dc8564abcea15deb68079360e402b96a73",
+      "source_sha256": "07c01386706b375db99fa7cfd6a0ba47f69a9204ceda87f6fe57aa76dfede601",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-WINDOW",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "window_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-CABINET",
+      "slug": "cabinet",
+      "name": "紫色开放柜",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "cabinet",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-CABINET",
+      "root_object": "ROOT_cabinet",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/cabinet/cabinet.blend",
+      "bounds_size_m": [
+        1.0800000429153442,
+        0.5199999809265137,
+        1.9049999713897705
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.020000003278255463,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "ec34f39aff8c6630ea64d206dbbfa941e8c0b18717dfe8406c066f8c9e16c0ef",
+      "source_sha256": "3c2adc418649986f38aee96ba996313db6a1c6e617ce8b49b7a6b7609f97d62f",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-CABINET",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "cabinet_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-SOLAR-ARRAY",
+      "slug": "solar_array",
+      "name": "十二格太阳能板",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "solar_array",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-SOLAR-ARRAY",
+      "root_object": "ROOT_solar_array",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/solar_array/solar_array.blend",
+      "bounds_size_m": [
+        3.5,
+        2.4000000953674316,
+        0.27250000834465027
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "2aea1459c27c2b5fc3de80c53e39731ff5dad41694d9dd809d2e7f91aac03a71",
+      "source_sha256": "dac004499cd09b0a204c7cf2c5b21fac89f23a8a8248fdd2cf8e4fd7a840b592",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-SOLAR-ARRAY",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "solar_array_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-AWNING",
+      "slug": "awning",
+      "name": "黄白条纹棚",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "awning",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-AWNING",
+      "root_object": "ROOT_awning",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/awning/awning.blend",
+      "bounds_size_m": [
+        2.7990000247955322,
+        0.6687709093093872,
+        0.29781466722488403
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.2631145119667053,
+        -0.09000000357627869
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "b8cf8734bc4896d4b76df295f093704ae058efdb49ec3381c78a08544ec72156",
+      "source_sha256": "81f7376fb6bcc47ec38cc5b98f05b60606d752e97e041a7e19d4c6a313034f38",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-AWNING",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "awning_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PLANTER-BOX",
+      "slug": "planter_box",
+      "name": "长形木花箱",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "planter_box",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-PLANTER-BOX",
+      "root_object": "ROOT_planter_box",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/planter_box/planter_box.blend",
+      "bounds_size_m": [
+        1.2799999713897705,
+        0.6150000095367432,
+        0.47999998927116394
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.009999990463256836
+      ],
+      "instance_count": 8,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "5f1db04c2f5223cbc722bf244c724cc197827c0370bf0b1b920097c76483b3ee",
+      "source_sha256": "ef67946634c40d70258a663b6955951f6118cfd54605e3551ba22420038db434",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PLANTER-BOX",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "planter_box_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-POT",
+      "slug": "pot",
+      "name": "陶土圆花盆",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "pot",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-POT",
+      "root_object": "ROOT_pot",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pot/pot.blend",
+      "bounds_size_m": [
+        0.6100000143051147,
+        0.6100000143051147,
+        0.4350000023841858
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 5,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "0571fb49215c07d78b4be140a8848fc2842918c7c6bbfd607c787514227e756b",
+      "source_sha256": "34f6885645110bb15fe211e229c1ff32d60e3d7f9b377dc283c60e8afa5522e8",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-POT",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "pot_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-CRATE",
+      "slug": "crate",
+      "name": "木箱",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "crate",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-CRATE",
+      "root_object": "ROOT_crate",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/crate/crate.blend",
+      "bounds_size_m": [
+        0.8500000238418579,
+        0.6825000047683716,
+        0.637499988079071
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.011250004172325134,
+        0.0
+      ],
+      "instance_count": 4,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "830236a764edd7a09f2cacf36f0b94821d81b33f9cc02a701a657c7dd997ce38",
+      "source_sha256": "974c72495f34f8fd8884c4ab7d6dec1439ee9979575e71b8f70dc8658be3f0c1",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-CRATE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "crate_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-BENCH",
+      "slug": "bench",
+      "name": "木长凳",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "bench",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-BENCH",
+      "root_object": "ROOT_bench",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/bench/bench.blend",
+      "bounds_size_m": [
+        1.5499999523162842,
+        0.5299999713897705,
+        0.5299999713897705
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "0cba2e16d3347d9c7d5711cdb62fa85a3f80b1cdc77524fa823bccb700dd4e6a",
+      "source_sha256": "5f1018684cebd744c54b091762e71cadab2574b88074ea114c77db1f5206d8c6",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-BENCH",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "bench_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-TIRE",
+      "slug": "tire",
+      "name": "蓝色轮胎护舷",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "tire",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-TIRE",
+      "root_object": "ROOT_tire",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/tire/tire.blend",
+      "bounds_size_m": [
+        0.7099999785423279,
+        0.22700001299381256,
+        0.7099999189376831
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.008500002324581146,
+        -0.034999996423721313
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "d78590216e32b6de4a25852a7d9451b6d82d697ae0ad75da5bae2bb3876ab0c6",
+      "source_sha256": "1946055aa3a767b8410d2ab26ce6be611b4e4d9921a50ce55312cbc93245130e",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-TIRE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "tire_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-LANTERN",
+      "slug": "lantern",
+      "name": "薄荷提灯",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "lantern",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-LANTERN",
+      "root_object": "ROOT_lantern",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/lantern/lantern.blend",
+      "bounds_size_m": [
+        0.33754751086235046,
+        0.33754751086235046,
+        0.6100000143051147
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "d123c5985b3698d0411edff71eb3af6fa61bb987ec21cf4d930ddfdf699e3c45",
+      "source_sha256": "8c17adda2e3eece0cf2fa526cf62a14814af7062a2bf8a7a208101e9c7afb918",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-LANTERN",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "lantern_body",
+        "lantern_emissive"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-LEAF-CLUSTER",
+      "slug": "leaf_cluster",
+      "name": "圆润宽叶簇",
+      "category": "flora",
+      "subcategory": "flora",
+      "component_family": "leaf_cluster",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 5000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-LEAF-CLUSTER",
+      "root_object": "ROOT_leaf_cluster",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/leaf_cluster/leaf_cluster.blend",
+      "bounds_size_m": [
+        0.9567351341247559,
+        0.9856470227241516,
+        0.5851361751556396
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.03523243963718414,
+        0.0016995370388031006,
+        0.062431901693344116
+      ],
+      "instance_count": 23,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "a22d3907e78d72d9c8f511ff024b5fe5b70a229c99fa6ac0632df09edac391eb",
+      "source_sha256": "73a55f48bfbaff4a7d1e295b4f78828cf6a791b27f0d3680dae0fc145052dc74",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-LEAF-CLUSTER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "leaf_cluster_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-VINE",
+      "slug": "vine",
+      "name": "稀疏圆叶藤",
+      "category": "flora",
+      "subcategory": "flora",
+      "component_family": "vine",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 5000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-VINE",
+      "root_object": "ROOT_vine",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/vine/vine.blend",
+      "bounds_size_m": [
+        0.43522486090660095,
+        0.23880891501903534,
+        1.3166825771331787
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        -1.4901161193847656e-08,
+        -0.009999997913837433,
+        -1.2983412742614746
+      ],
+      "instance_count": 10,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "c6617ed28954a3df1cbdb49e98d5ebc58e8269156b3ffb6e4b2fe780307c269d",
+      "source_sha256": "9fc6e277566f357c8b8a2c1a2b70c6701b285ce936fa23aa9a11471e1ff2f0e6",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-VINE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "vine_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-FLOWER-CLUSTER",
+      "slug": "flower_cluster",
+      "name": "粉白圆瓣花簇",
+      "category": "flora",
+      "subcategory": "flora",
+      "component_family": "flower_cluster",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 5000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-FLOWER-CLUSTER",
+      "root_object": "ROOT_flower_cluster",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/flower_cluster/flower_cluster.blend",
+      "bounds_size_m": [
+        0.9281886219978333,
+        0.6978181004524231,
+        0.712966799736023
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        -0.0010719597339630127,
+        0.010923773050308228,
+        0.04703319072723389
+      ],
+      "instance_count": 32,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "1c8be330fdeb6a6387284eab4dd1652129fd1c640d3e591969c5bd2510790305",
+      "source_sha256": "a5e30b74e0c0ba8bfbf9ba7e514ed07c8deff34722fe91f956fe1c63f4bc62d2",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-FLOWER-CLUSTER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "flower_cluster_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PORCH-FLOOR",
+      "slug": "porch_floor",
+      "name": "暖橙前廊铺板",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "porch_floor",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-PORCH-FLOOR",
+      "root_object": "ROOT_porch_floor",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_floor/porch_floor.blend",
+      "bounds_size_m": [
+        3.9000000953674316,
+        3.0950000286102295,
+        0.14000000059604645
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "b3249caf4542a271660547429794f6066a902f879dd4edf57053bd9cb54a1f28",
+      "source_sha256": "5faa929f69960d75ffcbe194e6a5ae28770cc20b047654b703e2eb5ff96ef60f",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PORCH-FLOOR",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "porch_floor_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PORCH-RAIL",
+      "slug": "porch_rail",
+      "name": "前廊短木栏",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "porch_rail",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-PORCH-RAIL",
+      "root_object": "ROOT_porch_rail",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_rail/porch_rail.blend",
+      "bounds_size_m": [
+        1.2999999523162842,
+        0.1899999976158142,
+        0.7199999690055847
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "2a78b6d0c5d12d51a05909af9a5b6c046ae1a29c3ba11d52d536b6c8cf2765ac",
+      "source_sha256": "fa5b9ea2e0f5f194d85dd436a550be575610fb9aca6fdd508fed67628bf4057c",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PORCH-RAIL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "porch_rail_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-DOCK-SECTION",
+      "slug": "dock_section",
+      "name": "白边木栈桥段",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "dock_section",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-DOCK-SECTION",
+      "root_object": "ROOT_dock_section",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_section/dock_section.blend",
+      "bounds_size_m": [
+        1.659999966621399,
+        1.0199999809265137,
+        0.19499999284744263
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 6,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "57b372c723a85dbb6a15b77d53b3789f46e5568326f26fda6b7f2697adce8178",
+      "source_sha256": "8bc2e21dc09b3c87bf087238b01ce4c809e1d14dc99542176c727d9685f33f3c",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-DOCK-SECTION",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "dock_section_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-LANDING",
+      "slug": "landing",
+      "name": "码头横向落脚平台",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "landing",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-LANDING",
+      "root_object": "ROOT_landing",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/landing/landing.blend",
+      "bounds_size_m": [
+        3.3499999046325684,
+        1.899999976158142,
+        0.20499999821186066
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "69efbf06eb1393ef59b9b2cabd2b2a157e8951b82808f0e7e2181c983b9c9587",
+      "source_sha256": "fab9055daedfbed92cfdafe741fd2dd88a8a8e27aa1ee014c4ce074069a0f182",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-LANDING",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "landing_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-GOLD-BLOOM",
+      "slug": "gold_bloom",
+      "name": "顶柱黄花",
+      "category": "flora",
+      "subcategory": "flora",
+      "component_family": "gold_bloom",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-GOLD-BLOOM",
+      "root_object": "ROOT_gold_bloom",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/gold_bloom/gold_bloom.blend",
+      "bounds_size_m": [
+        0.5642728209495544,
+        0.5811627507209778,
+        0.4168977737426758
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.019579917192459106,
+        -2.9802322387695312e-08,
+        -0.0018977373838424683
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "e50d0649dae2268bb0eafae32105f1a048bd19e281f66ac39a7ca2c0bb7e0a10",
+      "source_sha256": "ba89ee529a5732dafd92de1bae3f34ea399f1d3e54900ae0de43ea678575a89f",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-GOLD-BLOOM",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "gold_bloom_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-RESIDENT-FIGURE",
+      "slug": "resident_figure",
+      "name": "参考图前廊静态人物",
+      "category": "building",
+      "subcategory": "display_figure",
+      "component_family": "resident_figure",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000,
+      "version": "v001",
+      "collection": "SEA-SCENE-PFH-RESIDENT-FIGURE",
+      "root_object": "ROOT_resident_figure",
+      "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/resident_figure/resident_figure.blend",
+      "bounds_size_m": [
+        0.4799909293651581,
+        0.2799999713897705,
+        0.8999999761581421
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        1.4901161193847656e-08,
+        0.005000002682209015,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "055a287824cc3c9d7131cf97c651fa8699c253722128ab0a7f01efc7ef4ac599",
+      "source_sha256": "fe1abe982e0e8cb12f26c89408396de351d743c14c0a1b2cd5308d01c3a7f9c1",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-RESIDENT-FIGURE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "resident_figure_body"
+      ]
+    }
+  ]
+}

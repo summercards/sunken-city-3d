@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-VINE",
+  "slug": "vine",
+  "name": "垂落藤蔓",
+  "category": "flora",
+  "component_family": "vine",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-VINE",
+  "root_object": "ROOT_vine",
+  "component_blend": "art_source/scenes/solar_flower_house/v001/component_packages/vine/vine.blend",
+  "bounds_size_m": [
+    0.9900702238082886,
+    0.18486163020133972,
+    1.8984993696212769
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    -0.007302150130271912,
+    -0.05095614865422249,
+    -1.7960284948349
+  ],
+  "instance_count": 18,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "fbf6f52b685b772b244788c814df3740291a8c0526817b26aa6d9541861af1e2",
+  "source_sha256": "eb63af9b8a38db44f92fcd071da796c8955b496812f007081be133f637151ab5",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-VINE",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "vine_body"
+  ]
+}

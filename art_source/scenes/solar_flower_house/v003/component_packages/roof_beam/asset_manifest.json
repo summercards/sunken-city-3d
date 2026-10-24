@@ -1,0 +1,56 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-ROOF-BEAM",
+  "slug": "roof_beam",
+  "name": "太阳能木梁",
+  "category": "building",
+  "component_family": "roof_beam",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-ROOF-BEAM",
+  "root_object": "ROOT_roof_beam",
+  "component_blend": "art_source/scenes/solar_flower_house/v003/component_packages/roof_beam/roof_beam.blend",
+  "bounds_size_m": [
+    0.18000000715255737,
+    3.799999952316284,
+    0.20000000298023224
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    -0.10000000149011612
+  ],
+  "instance_count": 5,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "4e2b9641edce71145e686d1424132a4fb199c7e0e70235c05f95183300e5e9e5",
+  "source_sha256": "35b613511af53b3e878440230acd5c04e57dc026621c397b75047e76162050b0",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-ROOF-BEAM",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "roof_beam_body"
+  ],
+  "version": "v003",
+  "style_base_version": "v001"
+}

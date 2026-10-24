@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-BOILER",
+  "slug": "boiler",
+  "name": "蓝色小锅炉",
+  "category": "building",
+  "component_family": "boiler",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-BOILER",
+  "root_object": "ROOT_boiler",
+  "component_blend": "art_source/scenes/solar_flower_house/v001/component_packages/boiler/boiler.blend",
+  "bounds_size_m": [
+    1.189772605895996,
+    0.8999999761581421,
+    1.8650987148284912
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.019999999552965164
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "62693943ab4b3ee35b3ee6d201c1a7f657bf4fecfaa79c9f6094a1dd862517f9",
+  "source_sha256": "6de59ec623bb56d091cd446ab8414b78a861b6064622d6295159b39ce9d0fc58",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-BOILER",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "boiler_body"
+  ]
+}

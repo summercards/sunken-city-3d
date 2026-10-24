@@ -38,6 +38,9 @@
 # Godot Web 导出产物（~800MB，用 Godot --export-release 随时重建）
 /godot/build/
 
+# 工程外运行产物（AGENTS.md 规则 9：验证/审计输出，可用 SEA_WORK_ROOT 重定向）
+/sea-work/
+
 # Python 字节码
 __pycache__/
 *.pyc

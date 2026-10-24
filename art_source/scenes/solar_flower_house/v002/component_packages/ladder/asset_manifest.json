@@ -1,0 +1,61 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-LADDER",
+  "slug": "ladder",
+  "name": "木梯",
+  "category": "building",
+  "component_family": "ladder",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-LADDER",
+  "root_object": "ROOT_ladder",
+  "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/ladder/ladder.blend",
+  "bounds_size_m": [
+    0.7599999904632568,
+    0.14499999582767487,
+    2.9000000953674316
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.012499997392296791,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "097d35e8c2baa875a1f4f9076cfc6c9a1c4d7e732b9afade0286067d218ea4b8",
+  "source_sha256": "912fd0b552b73014b41bc44e8c32ec0b2c5ff804c0fa2e241d0b35e60d32bf53",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-LADDER",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "ladder_body"
+  ],
+  "geometry_budget": {
+    "triangles_per_component": 84,
+    "polygons_per_component": 42,
+    "instances": 1,
+    "expanded_triangles": 84
+  },
+  "version": "v002"
+}

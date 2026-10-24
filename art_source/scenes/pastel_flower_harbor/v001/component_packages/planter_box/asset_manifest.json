@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-PLANTER-BOX",
+  "slug": "planter_box",
+  "name": "长形木花箱",
+  "category": "building",
+  "subcategory": "furnishing",
+  "component_family": "planter_box",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-PLANTER-BOX",
+  "root_object": "ROOT_planter_box",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/planter_box/planter_box.blend",
+  "bounds_size_m": [
+    1.2799999713897705,
+    0.6150000095367432,
+    0.47999998927116394
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    -0.009999990463256836
+  ],
+  "instance_count": 8,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "5f1db04c2f5223cbc722bf244c724cc197827c0370bf0b1b920097c76483b3ee",
+  "source_sha256": "ef67946634c40d70258a663b6955951f6118cfd54605e3551ba22420038db434",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PLANTER-BOX",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "planter_box_body"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-PILLAR",
+  "slug": "pillar",
+  "name": "支撑木墩",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "pillar",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-PILLAR",
+  "root_object": "ROOT_pillar",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pillar/pillar.blend",
+  "bounds_size_m": [
+    0.25999999046325684,
+    0.2800000011920929,
+    1.159999966621399
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 10,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "17411a1810a5b22e9ebecb436eee9f0faba478b71c76f3e1443533b64eaacc44",
+  "source_sha256": "fbed354047c165a9c1da7ad902dce1758577418c5b25b222d6d0be31dcb2cfe9",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PILLAR",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "pillar_body"
+  ]
+}

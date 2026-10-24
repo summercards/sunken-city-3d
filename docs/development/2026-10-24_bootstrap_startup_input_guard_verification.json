@@ -1,0 +1,64 @@
+{
+  "label": "bootstrap-input-guard",
+  "run_dir": "/Users/summercards/WorkBuddy/sea-work/verification/20261024-081722-bootstrap-input-guard-e16995",
+  "user_data_name": "sea-verification/20261024-081722-bootstrap-input-guard-e16995",
+  "head": "346f5f8d7bceac86c574f006e4d1290eecb88c7e",
+  "working_tree": " M AGENTS.md\n M GDD_V1.0.md\n M README.md\n M assets/registry/README.md\n M assets/registry/current_source_index.json\n M assets/registry/ledgers/scenes.json\n M assets/registry/runtime_resource_inventory.json\n M docs/features/asset/ledger.md\n M docs/features/asset/spec.md\n M docs/features/ocean/ledger.md\n M docs/features/ocean/spec.md\n M docs/features/release/ledger.md\n M docs/features/release/spec.md\n M docs/generated/feature_index.json\n M godot/OCEAN_RENDERING.md\n M godot/assets/materials/water.tres\n M godot/shaders/ocean_foam.gdshaderinc\n M godot/shaders/surface_ripple.gdshader\n M godot/shaders/toon.gdshader\n M godot/shaders/toon_alpha.gdshader\n M godot/shaders/toon_common.gdshaderinc\n M godot/shaders/water.gdshader\n M godot/src/bootstrap/main.gd\n M godot/src/navigation/boat.gd\nR  tools/fetch_web_template.py -> godot/tools/fetch_web_template.py\nR  tools/make_web_dist.py -> godot/tools/make_web_dist.py\nR  tools/web_font_refactor.py -> godot/tools/web_font_refactor.py\nR  boat-navigation.js -> web/boat-navigation.js\nR  character-art.js -> web/character-art.js\nR  diving.js -> web/diving.js\nR  drift-crates.js -> web/drift-crates.js\nR  economy-view.js -> web/economy-view.js\nR  economy.js -> web/economy.js\nR  first-region.js -> web/first-region.js\nR  fish-schools.js -> web/fish-schools.js\nRM gameplay.js -> web/gameplay.js\nR  harbor-boundary-shape.js -> web/harbor-boundary-shape.js\nR  harbor-layout.js -> web/harbor-layout.js\nRM index.html -> web/index.html\nR  living-harbor.js -> web/living-harbor.js\nR  north-trench.js -> web/north-trench.js\nR  outer-city.js -> web/outer-city.js\nR  ref_overpass.png -> web/refs/ref_overpass.png\nR  ref_underwater.png -> web/refs/ref_underwater.png\nR  ref_yokohama.png -> web/refs/ref_yokohama.png\nR  reference.png -> web/refs/reference.png\nR  reference2.png -> web/refs/reference2.png\nR  sail-nav.js -> web/sail-nav.js\nR  scene-art.js -> web/scene-art.js\nR  tests/boat-collision.cjs -> web/tests/boat-collision.cjs\nR  tests/character-animation.cjs -> web/tests/character-animation.cjs\nR  tests/click-navigation-regression.cjs -> web/tests/click-navigation-regression.cjs\nR  tests/diving-regression.cjs -> web/tests/diving-regression.cjs\nR  tests/economy-unit.cjs -> web/tests/economy-unit.cjs\nR  tests/first-region-regression.cjs -> web/tests/first-region-regression.cjs\nR  tests/fish-schools.cjs -> web/tests/fish-schools.cjs\nR  tests/landing-and-crates.cjs -> web/tests/landing-and-crates.cjs\nR  tests/layout-regression.cjs -> web/tests/layout-regression.cjs\nR  tests/living-harbor.cjs -> web/tests/living-harbor.cjs\nR  tests/material-cost.cjs -> web/tests/material-cost.cjs\nR  tests/neighborhood-regression.cjs -> web/tests/neighborhood-regression.cjs\nR  tests/p0-core-flow.cjs -> web/tests/p0-core-flow.cjs\nR  tests/resident-life.cjs -> web/tests/resident-life.cjs\nR  tests/sail-nav-unit.cjs -> web/tests/sail-nav-unit.cjs\nR  tests/salvage-cooldown.cjs -> web/tests/salvage-cooldown.cjs\nR  tests/scene-art-regression.cjs -> web/tests/scene-art-regression.cjs\nR  tests/ui-regression.cjs -> web/tests/ui-regression.cjs\nR  tests/underwater-art-regression.cjs -> web/tests/underwater-art-regression.cjs\nR  tests/water-regression.cjs -> web/tests/water-regression.cjs\nR  tests/zone-config.cjs -> web/tests/zone-config.cjs\nR  tests/zone-spacing.cjs -> web/tests/zone-spacing.cjs\nR  tests/zone-travel.cjs -> web/tests/zone-travel.cjs\nR  tools/cdp_play.mjs -> web/tools/cdp_play.mjs\nR  tools/cdp_shot.mjs -> web/tools/cdp_shot.mjs\nR  ui.css -> web/ui.css\nR  underwater-art.js -> web/underwater-art.js\nR  underwater-neighborhood.js -> web/underwater-neighborhood.js\nR  underwater-optics.js -> web/underwater-optics.js\nR  vendor/OrbitControls.js -> web/vendor/OrbitControls.js\nR  vendor/three.module.js -> web/vendor/three.module.js\nR  water-district.js -> web/water-district.js\nR  water.js -> web/water.js\nR  zones.js -> web/zones.js\n?? .agents/\n?? art_source/.gdignore\n?? art_source/scenes/\n?? art_source/shared/\n?? docs/development/2026-10-23_solar_flower_house.md\n?? docs/development/2026-10-23_solar_flower_house_verification.json\n?? docs/development/2026-10-23_water_contact_foam_port.md\n?? docs/development/2026-10-23_water_contact_foam_verification.json\n?? docs/development/2026-10-24_solar_flower_house_lowpoly.md\n?? docs/development/2026-10-24_solar_flower_house_lowpoly_verification.json\n?? docs/development/2026-10-24_solar_flower_house_style.md\n?? docs/development/2026-10-24_solar_flower_house_style_verification.json\n?? godot/assets/textures/\n?? godot/shaders/contact_foam.gdshaderinc\n?? godot/shaders/contact_foam.gdshaderinc.uid\n?? tools/blender/solar_flower_house/\n",
+  "renderer": "per check; visual-* always use real renderer",
+  "results": {
+    "selftest": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [
+        "ERROR: Parse JSON failed. Error at line 0: Expected key"
+      ],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261024-081722-bootstrap-input-guard-e16995/selftest.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261024-081722-bootstrap-input-guard-e16995/project",
+        "--headless",
+        "--",
+        "--selftest",
+        "--nosave"
+      ]
+    },
+    "ocean": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261024-081722-bootstrap-input-guard-e16995/ocean.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261024-081722-bootstrap-input-guard-e16995/project",
+        "--headless",
+        "--script",
+        "res://tests/test_ocean.gd"
+      ]
+    },
+    "parity": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261024-081722-bootstrap-input-guard-e16995/parity.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261024-081722-bootstrap-input-guard-e16995/project",
+        "--headless",
+        "--script",
+        "res://tests/test_core.gd"
+      ]
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-PERGOLA",
+  "slug": "pergola",
+  "name": "后排花架",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "pergola",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-PERGOLA",
+  "root_object": "ROOT_pergola",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pergola/pergola.blend",
+  "bounds_size_m": [
+    5.050000190734863,
+    0.23999999463558197,
+    2.240000009536743
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "7f08e8806f173668b0245118a78a443604a5bc9bd2b60b4752c6afff4eb8d792",
+  "source_sha256": "c12e1c6925f257cd444461e5aa0d0056f42e6b618ebc4ac14722a9e276ec5b43",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PERGOLA",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "pergola_body"
+  ]
+}

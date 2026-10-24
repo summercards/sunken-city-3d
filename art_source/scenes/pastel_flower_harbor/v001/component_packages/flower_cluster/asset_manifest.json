@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-FLOWER-CLUSTER",
+  "slug": "flower_cluster",
+  "name": "粉白圆瓣花簇",
+  "category": "flora",
+  "subcategory": "flora",
+  "component_family": "flower_cluster",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 5000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-FLOWER-CLUSTER",
+  "root_object": "ROOT_flower_cluster",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/flower_cluster/flower_cluster.blend",
+  "bounds_size_m": [
+    0.9281886219978333,
+    0.6978181004524231,
+    0.712966799736023
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    -0.0010719597339630127,
+    0.010923773050308228,
+    0.04703319072723389
+  ],
+  "instance_count": 32,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "1c8be330fdeb6a6387284eab4dd1652129fd1c640d3e591969c5bd2510790305",
+  "source_sha256": "a5e30b74e0c0ba8bfbf9ba7e514ed07c8deff34722fe91f956fe1c63f4bc62d2",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-FLOWER-CLUSTER",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "flower_cluster_body"
+  ]
+}

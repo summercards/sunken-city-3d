@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-DOCK-POST",
+  "slug": "dock_post",
+  "name": "码头白帽木桩",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "dock_post",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-DOCK-POST",
+  "root_object": "ROOT_dock_post",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_post/dock_post.blend",
+  "bounds_size_m": [
+    0.25999999046325684,
+    0.27000001072883606,
+    1.5449999570846558
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 14,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "c03878250c0444c9d686ceb4ca9cba622e2d8b7cd1cda4978ebd1292bb5850c2",
+  "source_sha256": "7c811d8a42204e83fdd62712609bb7507900f351844082c8509421a4e7f1f809",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-DOCK-POST",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "dock_post_body"
+  ]
+}

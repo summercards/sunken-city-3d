@@ -1,0 +1,56 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-PIER",
+  "slug": "pier",
+  "name": "石质墩柱",
+  "category": "building",
+  "component_family": "pier",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-PIER",
+  "root_object": "ROOT_pier",
+  "component_blend": "art_source/scenes/solar_flower_house/v003/component_packages/pier/pier.blend",
+  "bounds_size_m": [
+    0.8199999928474426,
+    0.8199999928474426,
+    1.840000033378601
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 6,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "7d367db1c0ebf4c27df05b6b461502f0c67a29e5ffca10930732033dca17ec5c",
+  "source_sha256": "5b6b48d7a19a6765da55d6b05adf03102985c2a0716cdeaa182d2dcef916ed1a",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PIER",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "pier_body"
+  ],
+  "version": "v003",
+  "style_base_version": "v001"
+}

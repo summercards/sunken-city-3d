@@ -1,0 +1,179 @@
+{
+  "schema": "sea.scene.geometry_budget",
+  "limit": 3000,
+  "expanded_triangles": 2999,
+  "expanded_polygons": 1947,
+  "components": {
+    "pier": {
+      "triangles_per_component": 44,
+      "polygons_per_component": 26,
+      "instances": 4,
+      "expanded_triangles": 176
+    },
+    "foundation": {
+      "triangles_per_component": 44,
+      "polygons_per_component": 26,
+      "instances": 1,
+      "expanded_triangles": 44
+    },
+    "deck_plank": {
+      "triangles_per_component": 2,
+      "polygons_per_component": 1,
+      "instances": 12,
+      "expanded_triangles": 24
+    },
+    "wall_shell": {
+      "triangles_per_component": 200,
+      "polygons_per_component": 116,
+      "instances": 1,
+      "expanded_triangles": 200
+    },
+    "roof_terrace": {
+      "triangles_per_component": 44,
+      "polygons_per_component": 26,
+      "instances": 1,
+      "expanded_triangles": 44
+    },
+    "solar_panel": {
+      "triangles_per_component": 38,
+      "polygons_per_component": 15,
+      "instances": 6,
+      "expanded_triangles": 228
+    },
+    "roof_beam": {
+      "triangles_per_component": 12,
+      "polygons_per_component": 6,
+      "instances": 3,
+      "expanded_triangles": 36
+    },
+    "ladder": {
+      "triangles_per_component": 84,
+      "polygons_per_component": 42,
+      "instances": 1,
+      "expanded_triangles": 84
+    },
+    "door_arch": {
+      "triangles_per_component": 59,
+      "polygons_per_component": 28,
+      "instances": 1,
+      "expanded_triangles": 59
+    },
+    "door_shutter": {
+      "triangles_per_component": 44,
+      "polygons_per_component": 26,
+      "instances": 1,
+      "expanded_triangles": 44
+    },
+    "porthole": {
+      "triangles_per_component": 74,
+      "polygons_per_component": 35,
+      "instances": 1,
+      "expanded_triangles": 74
+    },
+    "awning": {
+      "triangles_per_component": 48,
+      "polygons_per_component": 24,
+      "instances": 1,
+      "expanded_triangles": 48
+    },
+    "shade_sail": {
+      "triangles_per_component": 8,
+      "polygons_per_component": 4,
+      "instances": 1,
+      "expanded_triangles": 8
+    },
+    "post": {
+      "triangles_per_component": 16,
+      "polygons_per_component": 7,
+      "instances": 8,
+      "expanded_triangles": 128
+    },
+    "rope_span": {
+      "triangles_per_component": 20,
+      "polygons_per_component": 11,
+      "instances": 7,
+      "expanded_triangles": 140
+    },
+    "tire": {
+      "triangles_per_component": 72,
+      "polygons_per_component": 37,
+      "instances": 3,
+      "expanded_triangles": 216
+    },
+    "lifebuoy": {
+      "triangles_per_component": 64,
+      "polygons_per_component": 32,
+      "instances": 1,
+      "expanded_triangles": 64
+    },
+    "lantern": {
+      "triangles_per_component": 24,
+      "polygons_per_component": 12,
+      "instances": 2,
+      "expanded_triangles": 48
+    },
+    "bench": {
+      "triangles_per_component": 112,
+      "polygons_per_component": 64,
+      "instances": 1,
+      "expanded_triangles": 112
+    },
+    "planter_round": {
+      "triangles_per_component": 20,
+      "polygons_per_component": 8,
+      "instances": 2,
+      "expanded_triangles": 40
+    },
+    "boiler": {
+      "triangles_per_component": 72,
+      "polygons_per_component": 27,
+      "instances": 1,
+      "expanded_triangles": 72
+    },
+    "rug": {
+      "triangles_per_component": 2,
+      "polygons_per_component": 1,
+      "instances": 1,
+      "expanded_triangles": 2
+    },
+    "leaf_cluster": {
+      "triangles_per_component": 48,
+      "polygons_per_component": 36,
+      "instances": 8,
+      "expanded_triangles": 384
+    },
+    "vine": {
+      "triangles_per_component": 48,
+      "polygons_per_component": 48,
+      "instances": 5,
+      "expanded_triangles": 240
+    },
+    "daisy": {
+      "triangles_per_component": 48,
+      "polygons_per_component": 48,
+      "instances": 4,
+      "expanded_triangles": 192
+    },
+    "cosmos": {
+      "triangles_per_component": 48,
+      "polygons_per_component": 48,
+      "instances": 4,
+      "expanded_triangles": 192
+    },
+    "palm": {
+      "triangles_per_component": 60,
+      "polygons_per_component": 60,
+      "instances": 1,
+      "expanded_triangles": 60
+    },
+    "sail_mast": {
+      "triangles_per_component": 20,
+      "polygons_per_component": 8,
+      "instances": 2,
+      "expanded_triangles": 40
+    }
+  },
+  "instances": 84,
+  "passed": true,
+  "counting": "mesh evaluated after modifiers, triangulated, multiplied by every visible Collection Instance; library master scene not added twice"
+}

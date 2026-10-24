@@ -1,0 +1,105 @@
+{
+  "schema": "sea.scene.source_verification",
+  "source_only": true,
+  "checks": {
+    "assembled_source": true,
+    "standalone_packages_reopened": 36
+  },
+  "metrics": {
+    "components": 36,
+    "instances": 255,
+    "polygons": 157674,
+    "vertices": 157756,
+    "faces_uv_checked": 157674
+  },
+  "errors": [],
+  "passed": true,
+  "expected_faults": [],
+  "not_executed": [
+    "Godot import",
+    "runtime collision/navigation",
+    "game performance",
+    "reference commercial rights review"
+  ],
+  "runtime_status": "pending",
+  "feature_id": "SEA-ASSET",
+  "started_date": "2026-10-23",
+  "completed_date": "2026-10-24",
+  "blender_version": "5.2.2 LTS",
+  "source_blend": "art_source/scenes/solar_flower_house/v001/solar_flower_house.blend",
+  "source_sha256": "4348a3dd2af7055a9756f6fe06bd8710a6eb332b0ffa436687687266e8a92109",
+  "commands": [
+    {
+      "command": "Blender --background --factory-startup --python-exit-code 1 --python tools/blender/solar_flower_house/build_source.py -- --replace-generated --render",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house/build.log"
+    },
+    {
+      "command": "Blender --background --factory-startup --python-exit-code 1 --python tools/blender/solar_flower_house/finalize_packages.py",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house/packages.log"
+    },
+    {
+      "command": "Blender --background --factory-startup --python-exit-code 1 --python tools/blender/solar_flower_house/verify_source.py -- --render",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house/verify.log"
+    },
+    {
+      "command": "python3 tools/blender/solar_flower_house/register_sources.py",
+      "exit_code": 0
+    },
+    {
+      "command": "skill-validation-env/bin/python quick_validate.py .agents/skills/sea-scene-component-authoring",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/check_feature_contracts.py --sync",
+      "exit_code": 1,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house/contracts-sync.log"
+    },
+    {
+      "command": "python3 scripts/check_feature_contracts.py",
+      "exit_code": 1,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house/contracts-check.log"
+    }
+  ],
+  "visual_review": {
+    "passed": true,
+    "method": "direct inspection of actual Cycles render outputs",
+    "images": [
+      {
+        "path": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house/previews/solar_flower_house_beauty.png",
+        "sha256": "1115338b6d9bcd29102c4b2034dd1ad604b7200a25e3e7298a9a1c08de9547c8"
+      },
+      {
+        "path": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house/previews/building_only.png",
+        "sha256": "f3af32a46d5210b8bc369cce08507d6e656feccc40eb2f88da2233fd037d827a"
+      },
+      {
+        "path": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house/previews/detail.png",
+        "sha256": "9607954f8b24f3f3b510b60cc325a69f59bb0f5218a5b315b11843c0c61e5540"
+      },
+      {
+        "path": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house/previews/top.png",
+        "sha256": "65640739db9f344ae93efa8f6ccb3854e3e5e00c33598b2e7275f3b558873699"
+      }
+    ],
+    "checks": [
+      "reference silhouette and six solar panels",
+      "beveled wall, furniture and timber edges",
+      "separate architecture visibility",
+      "canopy/sail overlap corrected",
+      "leaf and flower separation",
+      "platform layout and roof from top"
+    ]
+  },
+  "project_contract_check": {
+    "passed": false,
+    "issues": [
+      "runtime hash drift: godot/assets/materials/water.tres"
+    ],
+    "scope": "pre-existing ocean work outside this scene asset task",
+    "unrelated_runtime_hashes_modified": false,
+    "feature_summary": "SEA-ASSET remains partial; no summary state transition requested; --sync attempted but atomic write prevented by unrelated runtime hash drift"
+  }
+}

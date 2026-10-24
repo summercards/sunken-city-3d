@@ -1,0 +1,44 @@
+{
+  "base_version": "v001",
+  "palette_uv_remap": {
+    "cream": "mint_white",
+    "plaster": "mint_white",
+    "sand": "plaster",
+    "wood_light": "wood_mid",
+    "wood": "wood_mid",
+    "wood_mid": "wood_dark",
+    "wood_dark": "bark",
+    "wood_edge": "wood_light",
+    "aqua": "seafoam",
+    "teal": "ocean",
+    "deepblue": "ocean",
+    "yellow": "butter",
+    "gold": "yellow",
+    "coral": "red",
+    "leaf_light": "spring",
+    "lime": "moss_light",
+    "leaf_yellow": "moss",
+    "leaf": "fern",
+    "leaf_mid": "leaf_dark",
+    "forest": "jade",
+    "pink": "pink_light",
+    "rose": "pink",
+    "magenta": "rose"
+  },
+  "reference": "style_reference.png",
+  "geometry_scope": {
+    "locked_geometry": "all 30 building components plus palm",
+    "editable_geometry": [
+      "leaf_cluster",
+      "vine",
+      "daisy",
+      "cosmos",
+      "goldflower"
+    ],
+    "palette": "reuse existing palette; remap face PaletteUV only, do not alter shared PNG",
+    "layout": "preserve 255 component placements at original design anchors; origin normalization compensated for changed plant bounds",
+    "style_reference": "pale ivory/mint, warm orange timber, round pink/cream five-petal flowers with yellow center and broad oval leaves",
+    "triangle_target_status": "deferred_for_style_iteration_on_v001; not a <=3000 claim"
+  },
+  "material_finish": "matte_neutral_fill"
+}

@@ -1,0 +1,61 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-PORTHOLE",
+  "slug": "porthole",
+  "name": "黄框圆窗",
+  "category": "building",
+  "component_family": "window",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-PORTHOLE",
+  "root_object": "ROOT_porthole",
+  "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/porthole/porthole.blend",
+  "bounds_size_m": [
+    1.0199999809265137,
+    0.14100000262260437,
+    1.0199999809265137
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.0005000010132789612,
+    -0.5099999904632568
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "5b5f3a777f5066aacd5c9453234e9f4b5f74086ad15bb9b983ade075f5987d04",
+  "source_sha256": "4437d0f9b1e95455adb073a406d02e1e7c98b1422e13936eae316d73e7a40b3b",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PORTHOLE",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "porthole_body"
+  ],
+  "geometry_budget": {
+    "triangles_per_component": 74,
+    "polygons_per_component": 35,
+    "instances": 1,
+    "expanded_triangles": 74
+  },
+  "version": "v002"
+}

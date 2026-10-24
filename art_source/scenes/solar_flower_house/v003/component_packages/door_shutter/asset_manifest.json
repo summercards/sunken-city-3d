@@ -1,0 +1,56 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-DOOR-SHUTTER",
+  "slug": "door_shutter",
+  "name": "青色百叶门",
+  "category": "building",
+  "component_family": "door",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-DOOR-SHUTTER",
+  "root_object": "ROOT_door_shutter",
+  "component_blend": "art_source/scenes/solar_flower_house/v003/component_packages/door_shutter/door_shutter.blend",
+  "bounds_size_m": [
+    0.6299999952316284,
+    0.22499999403953552,
+    1.899999976158142
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.057500001043081284,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "56608e56750663c016149a880e6553be7714ad295f8f2957830087dcfad1d998",
+  "source_sha256": "3482e71cd66ce535238e6931f78db3c97bc598eca896bcde9be3e549feb07558",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-DOOR-SHUTTER",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "door_shutter_body"
+  ],
+  "version": "v003",
+  "style_base_version": "v001"
+}

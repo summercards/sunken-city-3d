@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-PORCH-POST",
+  "slug": "porch_post",
+  "name": "前廊立柱",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "porch_post",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-PORCH-POST",
+  "root_object": "ROOT_porch_post",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_post/porch_post.blend",
+  "bounds_size_m": [
+    0.23000000417232513,
+    0.25,
+    2.4000000953674316
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "a5376104cf140ec2f8c89930a27b2a2f9339eec757a7370be9cfed54b82191ed",
+  "source_sha256": "744d8f3f93f0e39f03a3cf5ea9be20e45927e553f1885acb8377cf0e986a7c9e",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-PORCH-POST",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "porch_post_body"
+  ]
+}

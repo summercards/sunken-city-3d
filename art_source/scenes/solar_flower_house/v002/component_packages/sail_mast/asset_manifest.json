@@ -1,0 +1,61 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-SAIL-MAST",
+  "slug": "sail_mast",
+  "name": "遮阳帆细木杆",
+  "category": "building",
+  "component_family": "sail_mast",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-SAIL-MAST",
+  "root_object": "ROOT_sail_mast",
+  "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/sail_mast/sail_mast.blend",
+  "bounds_size_m": [
+    0.14000000059604645,
+    0.12124355137348175,
+    2.200000047683716
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "b1cd2cb9d2fc50ed2b373e99cee92a286b3019a01b030af2b03da2196611a895",
+  "source_sha256": "6cb4262a20a84690c1ab4622ff9e5a6be9a37104915faffd5d7faf87a070ee89",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-SAIL-MAST",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "sail_mast_body"
+  ],
+  "geometry_budget": {
+    "triangles_per_component": 20,
+    "polygons_per_component": 8,
+    "instances": 2,
+    "expanded_triangles": 40
+  },
+  "version": "v002"
+}

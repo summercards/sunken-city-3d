@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-BASE",
+  "slug": "base",
+  "name": "奶油平台底框",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "base",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-BASE",
+  "root_object": "ROOT_base",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/base/base.blend",
+  "bounds_size_m": [
+    7.380000114440918,
+    6.710000038146973,
+    0.26499998569488525
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.009999990463256836,
+    -0.14499998092651367,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "3028068ea56433d577368d4cfc4de660892b1af49387606bf7d7475db4eeb986",
+  "source_sha256": "8abb84c367aba53a7cc8ecd4a845f6c0614dd07040d5b379e7d8ade1fa815fcc",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-BASE",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "base_body"
+  ]
+}

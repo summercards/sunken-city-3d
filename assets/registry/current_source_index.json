@@ -258,6 +258,420 @@
       "source": "art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-WINDOW-INDICATOR-STRIP/window_indicator_strip.blend",
       "source_sha256": "f5d5d5bba39e7a979a7b61edb22278ad9dc446b679c71ce478ec72fc80b80e02",
       "manifest": "art_source/environments/tower_zones/tower_district/source/common_components/v008/component_packages/ENV-TOWER-DISTRICT-WINDOW-INDICATOR-STRIP/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PIER",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/pier/pier.blend",
+      "source_sha256": "5b6b48d7a19a6765da55d6b05adf03102985c2a0716cdeaa182d2dcef916ed1a",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/pier/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-FOUNDATION",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/foundation/foundation.blend",
+      "source_sha256": "58a671768895e1adf79d1ce2e8a5fbb1d52ffa6b0a1a5947079fb9dcd3d4552c",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/foundation/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/deck_plank/deck_plank.blend",
+      "source_sha256": "8d696c41ee70130ebac847ebde918a0276a79ef28de21b0f22039c4f2296157d",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/deck_plank/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-WALL-SHELL",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/wall_shell/wall_shell.blend",
+      "source_sha256": "1b516d1913fef3a612d7654c238b544fe9a6a61f1278d94ec2593289230d620c",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/wall_shell/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-ROOF-TERRACE",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/roof_terrace/roof_terrace.blend",
+      "source_sha256": "24af729177e711904ca8b600f286706e701135778a6c4282b06ea19764b78329",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/roof_terrace/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PARAPET",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/parapet/parapet.blend",
+      "source_sha256": "7766e6731de7ffc69333adc86b6718383dfc592abf021211247adaf4bb2c02f9",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/parapet/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/solar_panel/solar_panel.blend",
+      "source_sha256": "e6249a2f83a3b223e57219d1d56e51650d256e0106990184acfb429fa073095c",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/solar_panel/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-ROOF-BEAM",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/roof_beam/roof_beam.blend",
+      "source_sha256": "35b613511af53b3e878440230acd5c04e57dc026621c397b75047e76162050b0",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/roof_beam/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-LADDER",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/ladder/ladder.blend",
+      "source_sha256": "d38ff10c63a967195a8f60a5e4b5800032a5cb5e130a7e109dd42a5686922abd",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/ladder/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-DOOR-ARCH",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/door_arch/door_arch.blend",
+      "source_sha256": "5349f82cbd713b012ac797367f852c66da6ec5782427aa8e24c5caf2af6282fd",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/door_arch/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-DOOR-SHUTTER",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/door_shutter/door_shutter.blend",
+      "source_sha256": "3482e71cd66ce535238e6931f78db3c97bc598eca896bcde9be3e549feb07558",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/door_shutter/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PORTHOLE",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/porthole/porthole.blend",
+      "source_sha256": "97d25de03fc2ac34dc6add1e7c229829ff12dff7749e9b6e6d6ede012bc3a80c",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/porthole/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-AWNING",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/awning/awning.blend",
+      "source_sha256": "7cec8df386fc3918978433e61a0c7fd57ba6626ff30d7fcf746bee721f571680",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/awning/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-SHADE-SAIL",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/shade_sail/shade_sail.blend",
+      "source_sha256": "944678aac5014603be712c2b21062ea25c7e209ead797d71d9844327756246f4",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/shade_sail/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-POST",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/post/post.blend",
+      "source_sha256": "b2de4213cfb4a10c4cc085f53a9ca033a78ea88cc4dfdc1cf3aeb2e35b94768d",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/post/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/rope_span/rope_span.blend",
+      "source_sha256": "d61290ab1fc1d294d76ebd80bbae5c57c76b9d0c290ec7d4c23ece15cff0be04",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/rope_span/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-TIRE",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/tire/tire.blend",
+      "source_sha256": "1138522fb92660dde314de2d4292f4214d1f38127e08ca72b4890d4a103ff464",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/tire/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-LIFEBUOY",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/lifebuoy/lifebuoy.blend",
+      "source_sha256": "21b4f52e592a74e0271e69a1cfc1f0c1111ba34e4e668b7f3204554abe8bdd5d",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/lifebuoy/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-LANTERN",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/lantern/lantern.blend",
+      "source_sha256": "4a6d6c24da0668cbd858ccff25ed7604a4c73cd214abcafb1b6252e7c9a5e6eb",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/lantern/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-BENCH",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/bench/bench.blend",
+      "source_sha256": "207fa5fccac01744f221f7b95983d2f8e9457f0468ee63ea8413fe1d3f96e8ad",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/bench/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-SHELF",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/shelf/shelf.blend",
+      "source_sha256": "5f75d08ca88359095a4e020d11f2c7c91271e973e12017b1b3bb5bd9bbabbd1a",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/shelf/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/planter_round/planter_round.blend",
+      "source_sha256": "9e919b82190d090be4a6edf64725c057b3c31b7318d65e7b0325cbfee4209427",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/planter_round/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PLANTER-SQUARE",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/planter_square/planter_square.blend",
+      "source_sha256": "71318ee2980b846da7de1c0bf2d5341642400111efcbee58867a0359d896ad13",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/planter_square/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-CRATE",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/crate/crate.blend",
+      "source_sha256": "d7be20fc0745846c514f43f9ece4366892e4ad8012cb1a282f606c3d6bb345e1",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/crate/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-BOILER",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/boiler/boiler.blend",
+      "source_sha256": "2ee4ca52c54f84dfe19078231de0fa0c138706d02757967a47a766f8bfb91b2e",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/boiler/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-RUG",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/rug/rug.blend",
+      "source_sha256": "3f8be9f34959d44fc637b380978091a37a745dcbe7f32e1d0154f5f260d49b9b",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/rug/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-GUTTER",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/gutter/gutter.blend",
+      "source_sha256": "bf50c032cb9f5ca0c46948c9b50ac29b853a40c3eb09fa70926102962745e225",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/gutter/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-CUP",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/cup/cup.blend",
+      "source_sha256": "c5e0ddfb9ce2447524139f5c18f0bd68aa5fdf4d8ad0a4742f76d4203894cc24",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/cup/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-TABLE",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/table/table.blend",
+      "source_sha256": "7041b572bd0bcd39b0843ea6dae0e88bc793c3da63c9c2dc5b7d5790238de0d0",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/table/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/leaf_cluster/leaf_cluster.blend",
+      "source_sha256": "29f753cb4cc639dbe939b4177ec2aedbf07aca86c109533a4b11107ecd58c600",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/leaf_cluster/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-VINE",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/vine/vine.blend",
+      "source_sha256": "7c71caf5bc17a53308ad590af8efe868d129de3a43108f2553e54f61c554d0ad",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/vine/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-DAISY",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/daisy/daisy.blend",
+      "source_sha256": "7c6f2f565dc1127b6900c098403241dff0cb6080a795741a16c143efda75af33",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/daisy/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-COSMOS",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/cosmos/cosmos.blend",
+      "source_sha256": "8d45aabce716d0ae302e952f9fd1162d17c590216c7a2b78fe6db97d7e4af195",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/cosmos/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/goldflower/goldflower.blend",
+      "source_sha256": "5b96e7877c1fafb163a50ee84500468180ced47591499aeaf4f13bdf92855d71",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/goldflower/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PALM",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/palm/palm.blend",
+      "source_sha256": "85311261f12575c85a04e015af581755442a6b5eb143dfda9f4d55faa14a7e72",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/palm/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-SAIL-MAST",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/sail_mast/sail_mast.blend",
+      "source_sha256": "4130a7c62405a0ebd3309c6e8f6508353c9c7dbba19f729e97ac16787d62a0dd",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/sail_mast/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-FLOWER-HOUSE",
+      "source": "art_source/scenes/solar_flower_house/v003/solar_flower_house.blend",
+      "source_sha256": "2764a248a82a519747763b8c1d091d4497ec6f7ee80843278494e7cf333f8e4d",
+      "manifest": "art_source/scenes/solar_flower_house/v003/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-PALETTE-COZY-64",
+      "source": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "source_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "manifest": "art_source/shared/palettes/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PILLAR",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pillar/pillar.blend",
+      "source_sha256": "fbed354047c165a9c1da7ad902dce1758577418c5b25b222d6d0be31dcb2cfe9",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pillar/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-BASE",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/base/base.blend",
+      "source_sha256": "8abb84c367aba53a7cc8ecd4a845f6c0614dd07040d5b379e7d8ade1fa815fcc",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/base/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-HOUSE",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/house/house.blend",
+      "source_sha256": "3b32e3713fb5c4c37b39309dec1f42dae6ac09761da0c4ec2aa4fdda47326d6b",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/house/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-TERRACE",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/terrace/terrace.blend",
+      "source_sha256": "c8298fff384781e1d123a2644225db0724cd3d436a97f9a4f51703f8a95af9a1",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/terrace/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-UPPER-ROOM",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_room/upper_room.blend",
+      "source_sha256": "21b69e406c3bd81997e4e6e1dd1ba3fa52ade0cf51ffc870295852b3d8ba15b9",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_room/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-UPPER-ROOF",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_roof/upper_roof.blend",
+      "source_sha256": "6c1bfa804de42d01039143c0b2df1c57a45d22e993bfb8d15f63f7da536be15e",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_roof/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PERGOLA",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pergola/pergola.blend",
+      "source_sha256": "c12e1c6925f257cd444461e5aa0d0056f42e6b618ebc4ac14722a9e276ec5b43",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pergola/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-RAIL",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/rail/rail.blend",
+      "source_sha256": "645217b6a26280617615751cfee4d7a2aab8db410ffda004b638ccb93305c6d7",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/rail/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PORCH-ROOF",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_roof/porch_roof.blend",
+      "source_sha256": "bd0682711aebf4e3d7b2277d40eeee4e609215a52720a633e3bab9dae2a160aa",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_roof/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PORCH-POST",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_post/porch_post.blend",
+      "source_sha256": "744d8f3f93f0e39f03a3cf5ea9be20e45927e553f1885acb8377cf0e986a7c9e",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_post/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-DOCK-POST",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_post/dock_post.blend",
+      "source_sha256": "7c811d8a42204e83fdd62712609bb7507900f351844082c8509421a4e7f1f809",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_post/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-WINDOW",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/window/window.blend",
+      "source_sha256": "07c01386706b375db99fa7cfd6a0ba47f69a9204ceda87f6fe57aa76dfede601",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/window/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-CABINET",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/cabinet/cabinet.blend",
+      "source_sha256": "3c2adc418649986f38aee96ba996313db6a1c6e617ce8b49b7a6b7609f97d62f",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/cabinet/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-SOLAR-ARRAY",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/solar_array/solar_array.blend",
+      "source_sha256": "dac004499cd09b0a204c7cf2c5b21fac89f23a8a8248fdd2cf8e4fd7a840b592",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/solar_array/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-AWNING",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/awning/awning.blend",
+      "source_sha256": "81f7376fb6bcc47ec38cc5b98f05b60606d752e97e041a7e19d4c6a313034f38",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/awning/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PLANTER-BOX",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/planter_box/planter_box.blend",
+      "source_sha256": "ef67946634c40d70258a663b6955951f6118cfd54605e3551ba22420038db434",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/planter_box/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-POT",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pot/pot.blend",
+      "source_sha256": "34f6885645110bb15fe211e229c1ff32d60e3d7f9b377dc283c60e8afa5522e8",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pot/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-CRATE",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/crate/crate.blend",
+      "source_sha256": "974c72495f34f8fd8884c4ab7d6dec1439ee9979575e71b8f70dc8658be3f0c1",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/crate/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-BENCH",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/bench/bench.blend",
+      "source_sha256": "5f1018684cebd744c54b091762e71cadab2574b88074ea114c77db1f5206d8c6",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/bench/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-TIRE",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/tire/tire.blend",
+      "source_sha256": "1946055aa3a767b8410d2ab26ce6be611b4e4d9921a50ce55312cbc93245130e",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/tire/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-LANTERN",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/lantern/lantern.blend",
+      "source_sha256": "8c17adda2e3eece0cf2fa526cf62a14814af7062a2bf8a7a208101e9c7afb918",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/lantern/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-LEAF-CLUSTER",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/leaf_cluster/leaf_cluster.blend",
+      "source_sha256": "73a55f48bfbaff4a7d1e295b4f78828cf6a791b27f0d3680dae0fc145052dc74",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/leaf_cluster/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-VINE",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/vine/vine.blend",
+      "source_sha256": "9fc6e277566f357c8b8a2c1a2b70c6701b285ce936fa23aa9a11471e1ff2f0e6",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/vine/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-FLOWER-CLUSTER",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/flower_cluster/flower_cluster.blend",
+      "source_sha256": "a5e30b74e0c0ba8bfbf9ba7e514ed07c8deff34722fe91f956fe1c63f4bc62d2",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/flower_cluster/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PORCH-FLOOR",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_floor/porch_floor.blend",
+      "source_sha256": "5faa929f69960d75ffcbe194e6a5ae28770cc20b047654b703e2eb5ff96ef60f",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_floor/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PORCH-RAIL",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_rail/porch_rail.blend",
+      "source_sha256": "fa5b9ea2e0f5f194d85dd436a550be575610fb9aca6fdd508fed67628bf4057c",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_rail/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-DOCK-SECTION",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_section/dock_section.blend",
+      "source_sha256": "8bc2e21dc09b3c87bf087238b01ce4c809e1d14dc99542176c727d9685f33f3c",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_section/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-LANDING",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/landing/landing.blend",
+      "source_sha256": "fab9055daedfbed92cfdafe741fd2dd88a8a8e27aa1ee014c4ce074069a0f182",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/landing/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-GOLD-BLOOM",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/gold_bloom/gold_bloom.blend",
+      "source_sha256": "ba89ee529a5732dafd92de1bae3f34ea399f1d3e54900ae0de43ea678575a89f",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/gold_bloom/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-RESIDENT-FIGURE",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/resident_figure/resident_figure.blend",
+      "source_sha256": "fe1abe982e0e8cb12f26c89408396de351d743c14c0a1b2cd5308d01c3a7f9c1",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/resident_figure/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-ASSEMBLY",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/pastel_flower_harbor.blend",
+      "source_sha256": "8fc636e1b9c6c0b307dd6dcb60ee0d17ce72efbc7fbe83d37f30895f72b2a4da",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/asset_manifest.json"
     }
   ]
 }

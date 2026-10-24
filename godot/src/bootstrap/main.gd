@@ -762,6 +762,8 @@ func _setup_water() -> void:
 	# 水面是纯自发光材质，兼容后端对 EMISSION 的解码比 Forward+ 暗一档多。
 	water_mat.set_shader_parameter("emission_gain", RenderFlagsLib.water_emission_gain())
 	_set_shore_uniforms()
+	# 这张距离图要遍历场景几何（本机约 4 秒），是 _ready 里最长的一段；
+	# 期间 HUD 还没建好，_unhandled_input 必须自己挡住输入（见那里的早退）。
 	if water_node.has_method("update_surface"):
 		water_node.wake = get_node_or_null("World/BoatWake")
 
@@ -794,7 +796,8 @@ func _setup_boat() -> void:
 		player.set_rowing(false)
 		if ribbon != null:
 			ribbon.clear()
-		hud.toast("前方靠岸过近，请重新选择航路"))
+		if hud != null:
+			hud.toast("前方靠岸过近，请重新选择航路"))
 	var l := Zones.landing("zone1", "main")
 	boat.place_at(Vector3(l.boatPark[0], WATER_LEVEL, l.boatPark[2]), float(l.boatYaw))
 	boat.arrived.connect(_on_boat_arrived)
@@ -1564,6 +1567,10 @@ func _input(event: InputEvent) -> void:
 		_dragged = _dragged or _press_pos.distance_to(event.position) >= 11.0
 
 func _unhandled_input(event: InputEvent) -> void:
+	# 启动早期（场景/水面还在初始化）输入可能比 HUD 先到：这时没有任何可交互界面，
+	# 直接放行，别把点击/按键丢给一个还不存在的节点。
+	if hud == null or not is_instance_valid(hud):
+		return
 	# 潜水时输入归海底世界（游动 / 环视 / 宝箱），海面这边一律不响应。
 	if dive != null and dive.active:
 		return
@@ -1595,7 +1602,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			else: _cancel_action()
 			get_viewport().set_input_as_handled()
 			return
-	if hud._panel_open or cam_panel.is_open() or grade.visible:
+	if hud._panel_open:
+		return
+	if cam_panel != null and cam_panel.is_open():
+		return
+	if grade != null and grade.visible:
 		return
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton

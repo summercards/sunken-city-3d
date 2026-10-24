@@ -1,0 +1,61 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+  "slug": "rope_span",
+  "name": "下垂绳栏",
+  "category": "building",
+  "component_family": "rope",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-ROPE-SPAN",
+  "root_object": "ROOT_rope_span",
+  "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/rope_span/rope_span.blend",
+  "bounds_size_m": [
+    2.8116531372070312,
+    0.04800000041723251,
+    0.2546490430831909
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.00800000037997961,
+    -0.22755566239356995
+  ],
+  "instance_count": 7,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "9329cd02ac158fc47109affdbdad80e0b0fedaf9c7f10e9ba18c6944a24075b3",
+  "source_sha256": "8652b0faa806e7e05a762c5ca59c28a93c53426130810d11416cfd37a09d6f75",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-ROPE-SPAN",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "rope_span_body"
+  ],
+  "geometry_budget": {
+    "triangles_per_component": 20,
+    "polygons_per_component": 11,
+    "instances": 7,
+    "expanded_triangles": 140
+  },
+  "version": "v002"
+}

@@ -1,0 +1,145 @@
+{
+  "schema": "sea.scene.source_verification",
+  "source_only": true,
+  "checks": {
+    "v001_locked_geometry_components": 31,
+    "assembled_source": true,
+    "standalone_packages_reopened": 36
+  },
+  "metrics": {
+    "components": 36,
+    "instances": 255,
+    "polygons": 139486,
+    "vertices": 139850,
+    "faces_uv_checked": 139486,
+    "expanded_triangles": 1383200,
+    "expanded_polygons": 704880,
+    "triangle_target_status": "style_iteration_on_v001; 3000 optimization deferred"
+  },
+  "errors": [],
+  "passed": true,
+  "expected_faults": [],
+  "not_executed": [
+    "Godot import",
+    "runtime collision/navigation",
+    "game performance",
+    "reference commercial rights review"
+  ],
+  "runtime_status": "pending",
+  "feature_id": "SEA-ASSET",
+  "date": "2026-10-24",
+  "version": "v003",
+  "base_version": "v001",
+  "blender_version": "5.2.2 LTS",
+  "source": "art_source/scenes/solar_flower_house/v003/solar_flower_house.blend",
+  "source_sha256": "2764a248a82a519747763b8c1d091d4497ec6f7ee80843278494e7cf333f8e4d",
+  "previous_sources_hashes_verified": 66,
+  "scope_lock": {
+    "base_version": "v001",
+    "base_sha256": "4348a3dd2af7055a9756f6fe06bd8710a6eb332b0ffa436687687266e8a92109",
+    "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+    "locked_geometry_count": 31,
+    "locked_fingerprints": {
+      "pier": "7d367db1c0ebf4c27df05b6b461502f0c67a29e5ffca10930732033dca17ec5c",
+      "foundation": "d658aa8b7a319e19bb5568b9424475ef1b038373516d1d29be9488f1838a1eef",
+      "deck_plank": "2823dcfba07845ae261fea81b5d38d9c6eb7b539ba7de8f4573b7c9f938d3f0c",
+      "wall_shell": "27e4e03608d2268608534a9bebbfa9729583c56afe0be0682d957114954cdd9b",
+      "roof_terrace": "7ad44a4000aa5b96844fda62c9190010e45512931107a64d8cfd2453d199e660",
+      "parapet": "d5d9291a27f150507848e0e3a2d25d3ce748d9f585569e8dd34ea74151979ddf",
+      "solar_panel": "70cfd73d8525134c2ff2bb2b6f3108deda2f9488400c3a66f7941438ce416848",
+      "roof_beam": "4e2b9641edce71145e686d1424132a4fb199c7e0e70235c05f95183300e5e9e5",
+      "ladder": "d4e1abceee35e46c187c1fd1c754ec2401081e5797a184bc347fcc728636acce",
+      "door_arch": "b2ab3ab1368939a353248219969367eb25e7c033e452b7a61fc30683616ac202",
+      "door_shutter": "56608e56750663c016149a880e6553be7714ad295f8f2957830087dcfad1d998",
+      "porthole": "d82580582d3a10dbb148a4d0c5a9a4fe92c9323803320bfe762b7c4798fa39a6",
+      "awning": "0833696a5ffc303e22c9be6b25b3c81c5a842b826ff7e2e52abf1705ac9a4f37",
+      "shade_sail": "e2abce36a04b18058c3238f1cee818d8a389463ee2455bcdbbed22e38e01df9f",
+      "post": "2658c0ef1c42ef63db4bdecf73462be91419f373cedd8ff259da98dcee86ef4f",
+      "rope_span": "d3d78de4ba4e1929b05066ffc6e98e4904258901823e2544d98486e53ce7639d",
+      "tire": "f5edbde2aba5f6a77816d1407d7f4ac4540f46d1ce0affa97eca5a8eb450aaf9",
+      "lifebuoy": "ac0a651e7d6e8424e8937d3f4bfe8569d5000e5f0ee234120c2452c7c3377a5d",
+      "lantern": "41aa2893774685b2821199fb1b0bf99d80d5b0cb23887f3f8a0d9266ff3cc18a",
+      "bench": "3f49e5bd874b5035354fbf1dc6a272d4adfc558198fc0ecc3698e6df43e2d25d",
+      "shelf": "b63c62fc87ce81c4842a39eda1c64410e3df0716585693f3b66f928ce1c09cd6",
+      "planter_round": "ff586e9995bd5de31dce8d7c88d0a0acdb254f88b33ba39640ff88665a706e2a",
+      "planter_square": "65599ac9901f3ff75170449f7fc504d9f7946baa19da5bcb77f726cd0fbeb48c",
+      "crate": "a8a661c9e2d1708c22cfa64e4f016b1828890ca5d2af305c685d0a01890c84ab",
+      "boiler": "62693943ab4b3ee35b3ee6d201c1a7f657bf4fecfaa79c9f6094a1dd862517f9",
+      "rug": "97c8c4f32630ce4c6868462944707837217e53f1824f01e0a19cc12ec2e0b04a",
+      "gutter": "cffa1d8e878c77fae7ff0024e1062594493cdfc71c5e6c24db21934e6f22c636",
+      "cup": "151d5abd764cfc986ff3f82a41a72992b6fe23d98df4f5f3f902429a83088f8e",
+      "table": "8c9cb1802edb70a99187fa5b3103563001f856a6d542b874d4cd38b30030480d",
+      "palm": "09757f6369e797925ea7b1efdde9100b3ea34f45d725622bcf5c9e5823ca9431",
+      "sail_mast": "98930d9e5a7439fec366ee395246f9f401ba47db4cec55c63e8c7e72ee97a350"
+    },
+    "locked_geometry_errors": [],
+    "locked_placement_errors": [],
+    "passed": true,
+    "editable_geometry": [
+      "leaf_cluster",
+      "vine",
+      "daisy",
+      "cosmos",
+      "goldflower"
+    ]
+  },
+  "visual_review": {
+    "passed": null,
+    "status": "rendering_remaining_views"
+  },
+  "commands": [
+    {
+      "command": "python3 -m py_compile restyle_v003.py finalize_packages.py verify_source.py register_sources.py",
+      "exit_code": 0
+    },
+    {
+      "command": "Blender --background --factory-startup --python-exit-code 1 --python tools/blender/solar_flower_house/restyle_v003.py -- --render",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v003-build.log"
+    },
+    {
+      "command": "Blender --background --factory-startup --python-exit-code 1 --python tools/blender/solar_flower_house/finalize_packages.py -- --version v003",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v003/packages.log"
+    },
+    {
+      "command": "python3 tools/blender/solar_flower_house/register_sources.py --version v003",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/check_feature_contracts.py --sync",
+      "exit_code": 1,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v003/contracts-sync.log"
+    },
+    {
+      "command": "python3 scripts/check_feature_contracts.py",
+      "exit_code": 1,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v003/contracts-check.log"
+    },
+    {
+      "command": "Blender --background --factory-startup --python-exit-code 1 --python tools/blender/solar_flower_house/verify_source.py -- --version v003 --render",
+      "exit_code": 143,
+      "source_checks_passed": true,
+      "result": "Terminated own stalled render after process sampling showed OIDN denoise wait; retried with --no-denoise",
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v003/verify.log"
+    }
+  ],
+  "project_contract_check": {
+    "passed": false,
+    "issues": [
+      "README.md: broken link docs/development/2026-10-24_web_directory_split.md",
+      "runtime hash drift: godot/assets/materials/water.tres"
+    ],
+    "unrelated_to_scene_revision": true,
+    "runtime_hash_not_overwritten": true,
+    "summary_state": "SEA-ASSET remains partial; sync atomic write blocked by unrelated issues"
+  },
+  "unexpected_faults": [
+    {
+      "phase": "supplementary_render",
+      "fault": "OIDN denoiser stalled after saved-source verification passed",
+      "diagnostic": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v003/render-process-sample.txt",
+      "recovery": "disable denoising and use 64 samples for supplementary views"
+    }
+  ]
+}

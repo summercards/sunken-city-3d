@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-RAIL",
+  "slug": "rail",
+  "name": "露台栏杆",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "rail",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-RAIL",
+  "root_object": "ROOT_rail",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/rail/rail.blend",
+  "bounds_size_m": [
+    1.7200000286102295,
+    0.17000000178813934,
+    0.8399999737739563
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 3,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "99d96f5ed2e7589137d29a22ce065ff65abb877a10c4bc1b58ea6e018a4f8e48",
+  "source_sha256": "645217b6a26280617615751cfee4d7a2aab8db410ffda004b638ccb93305c6d7",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-RAIL",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "rail_body"
+  ]
+}

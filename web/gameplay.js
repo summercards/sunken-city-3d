@@ -104,7 +104,7 @@ export function initSeaGameplay({
     const switchBtn = document.createElement('span');
     switchBtn.style.cssText = 'cursor:pointer;color:#ffe57f;margin-left:8px;text-decoration:underline';
     switchBtn.textContent = '[切换参考图 1/4]';
-    const refList = ['./reference.png', './ref_yokohama.png', './ref_overpass.png', './ref_underwater.png'];
+    const refList = ['./refs/reference.png', './refs/ref_yokohama.png', './refs/ref_overpass.png', './refs/ref_underwater.png'];
     let refIdx = 0;
     switchBtn.addEventListener('click', () => {
       refIdx = (refIdx + 1) % refList.length;

@@ -1,0 +1,34 @@
+{
+  "run_dir": "/Users/summercards/WorkBuddy/sea-work/verification/20261023-225424-contact-foam-tight-0d2d02",
+  "results": {
+    "visual-sea-style": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "renderer": "real",
+      "log_sha256": "eb37e266b906a395fe68af19b8ca1216ddb209c83baba89897d741fed2f82e62"
+    },
+    "ocean": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "renderer": "headless",
+      "log_sha256": "4acf9da5a931adf39cac63f790673846003f54c29a62f152df44288f18952449"
+    },
+    "selftest": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [
+        "ERROR: Parse JSON failed. Error at line 0: Expected key"
+      ],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "renderer": "headless",
+      "log_sha256": "f0558336cc5dcafaf4d9514da11e5173803584c2d1d9a3e5ab7166a41631d6b0"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "component_id": "SEA-SCENE-PFH-LANTERN",
+  "slug": "lantern",
+  "name": "薄荷提灯",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "lantern",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-LANTERN",
+  "root_object": "ROOT_lantern",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/lantern/lantern.blend",
+  "bounds_size_m": [
+    0.33754751086235046,
+    0.33754751086235046,
+    0.6100000143051147
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "d123c5985b3698d0411edff71eb3af6fa61bb987ec21cf4d930ddfdf699e3c45",
+  "source_sha256": "8c17adda2e3eece0cf2fa526cf62a14814af7062a2bf8a7a208101e9c7afb918",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-LANTERN",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "lantern_body",
+    "lantern_emissive"
+  ]
+}

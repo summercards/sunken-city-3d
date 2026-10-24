@@ -1,0 +1,105 @@
+{
+  "feature_id": "SEA-ASSET",
+  "date": "2026-10-24",
+  "source_only": true,
+  "source_verification": {
+    "schema": "sea.scene.source_verification",
+    "source_only": true,
+    "main_source_sha256": "8fc636e1b9c6c0b307dd6dcb60ee0d17ce72efbc7fbe83d37f30895f72b2a4da",
+    "checks": {
+      "cabinet_rail_intersections": [],
+      "solar_rail_intersections": [],
+      "assembled_source": true,
+      "standalone_packages_reopened": 30
+    },
+    "metrics": {
+      "components": 30,
+      "instances": 142,
+      "polygons": 17690,
+      "vertices": 17402,
+      "faces_uv_checked": 17690,
+      "expanded_triangles": 269760,
+      "expanded_polygons": 146514,
+      "flora_instances": 67
+    },
+    "errors": [],
+    "passed": true,
+    "expected_faults": [],
+    "not_executed": [
+      "Godot import",
+      "runtime collision/navigation",
+      "game performance",
+      "reference commercial rights review"
+    ],
+    "runtime_status": "pending"
+  },
+  "commands": [
+    {
+      "label": "Blender build source",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/pastel_flower_harbor/build.log"
+    },
+    {
+      "label": "Blender standalone packages",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/pastel_flower_harbor/packages.log"
+    },
+    {
+      "label": "Blender verify_source.py -- --render",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/pastel_flower_harbor/verify.log"
+    },
+    {
+      "label": "python3 scripts/check_feature_contracts.py --sync",
+      "exit_code": 1,
+      "log": "/Users/summercards/WorkBuddy/sea-work/pastel_flower_harbor/contracts_sync.log"
+    },
+    {
+      "label": "python3 scripts/check_feature_contracts.py",
+      "exit_code": 1,
+      "log": "/Users/summercards/WorkBuddy/sea-work/pastel_flower_harbor/contracts_check.log"
+    }
+  ],
+  "render_status": "completed_and_visually_inspected",
+  "expected_faults": [],
+  "not_executed": [
+    "Godot import",
+    "runtime collision/navigation",
+    "game performance",
+    "reference commercial rights review"
+  ],
+  "project_contract_blockers": [
+    "既有任务外 godot/assets/materials/water.tres 运行资源哈希漂移；未接受或改写该哈希。"
+  ],
+  "renders": [
+    {
+      "view": "beauty.png",
+      "path": "/Users/summercards/WorkBuddy/sea-work/pastel_flower_harbor/previews/beauty.png",
+      "sha256": "9527ff6fe0d6ab02fdb0c890451dd57ec9e956fa6b6ed4500b85819d522486a5",
+      "visual_inspection": "completed"
+    },
+    {
+      "view": "detail.png",
+      "path": "/Users/summercards/WorkBuddy/sea-work/pastel_flower_harbor/previews/detail.png",
+      "sha256": "812c51a0cc3d99f52661c1e24d2f2b6341194ed54b7c46ec9e5ac0a599e8f490",
+      "visual_inspection": "completed"
+    },
+    {
+      "view": "top.png",
+      "path": "/Users/summercards/WorkBuddy/sea-work/pastel_flower_harbor/previews/top.png",
+      "sha256": "a3e30507091f4d05a1834d5be4ea98f6b3c75983815a0d0c9397758bb3156013",
+      "visual_inspection": "completed"
+    },
+    {
+      "view": "building_only.png",
+      "path": "/Users/summercards/WorkBuddy/sea-work/pastel_flower_harbor/previews/building_only.png",
+      "sha256": "a50674e24e7879e06fc795ca2c3ecca0e053145786e23c81efe1d13ab4a7a5c1",
+      "visual_inspection": "completed"
+    }
+  ],
+  "visual_review_notes": [
+    "已对照附件检查错层构图、两列码头方向、紫色开放柜、太阳能格子与橙色盖板、花箱和花带分布。",
+    "已检查近景圆润花叶、建筑真实软边及连接；柜体与栏杆、太阳能板与栏杆无相交。",
+    "背面和内部不可见结构为延续制作；没有像素级一致性测试或用户最终美术验收，不声称绝对零偏差。"
+  ]
+}

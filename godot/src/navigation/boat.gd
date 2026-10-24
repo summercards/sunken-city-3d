@@ -105,6 +105,9 @@ func _make_material(tint: bool, unlit: bool, alpha: bool) -> ShaderMaterial:
 	mat.set_shader_parameter("use_texture", false)
 	mat.set_shader_parameter("depth_tint", tint)
 	mat.set_shader_parameter("water_level", WATER_LEVEL)
+	if not unlit:
+		mat.set_shader_parameter("albedo_tint", Vector3(1.12, 1.38, 2.35))
+		mat.set_shader_parameter("ambient_boost", 0.34)
 	_mats.append(mat)
 	return mat
 

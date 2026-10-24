@@ -1,0 +1,680 @@
+{
+  "schema": "sea.scene.component_plan",
+  "version": "v001",
+  "status": "frozen_before_geometry",
+  "frozen_date": "2026-10-24",
+  "feature_id": "SEA-ASSET",
+  "reference": "reference.png",
+  "reference_sha256": "c8f5c9f884954bdb578d778922b0f741e3658cf06a50d48975b591daf83c8df2",
+  "reference_license": "pending_user_reference_rights_review",
+  "dimensions_assumption": {
+    "main_house_m": [
+      4.8,
+      3.6,
+      2.4
+    ],
+    "main_platform_m": [
+      7.35,
+      6.7
+    ],
+    "deck_top_z_m": 1.3,
+    "note": "主房体偏左后，橙色前廊偏右前；两条码头均向前延伸，左前端带横向落脚平台。尺寸由单张附件推定。"
+  },
+  "component_budget": {
+    "limit": 50,
+    "planned": 30
+  },
+  "art_direction": {
+    "style": "按附件奶油白、暖橙前廊、浅木码头、蓝色太阳能与粉白花复原",
+    "flora": "依照附件各花箱、垂藤、顶柱叶簇的位置与轮廓制作，不擅自删减",
+    "no_boat": true,
+    "triangle_budget": "本请求无面数上限；不得为简化牺牲参考轮廓"
+  },
+  "components": [
+    {
+      "component_id": "SEA-SCENE-PFH-PILLAR",
+      "slug": "pillar",
+      "name": "支撑木墩",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "pillar",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-BASE",
+      "slug": "base",
+      "name": "奶油平台底框",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "base",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-HOUSE",
+      "slug": "house",
+      "name": "底层奶油墙壳",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "house",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-TERRACE",
+      "slug": "terrace",
+      "name": "屋顶露台板",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "terrace",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-UPPER-ROOM",
+      "slug": "upper_room",
+      "name": "后排顶层小屋",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "upper_room",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-UPPER-ROOF",
+      "slug": "upper_roof",
+      "name": "小屋平顶",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "upper_roof",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PERGOLA",
+      "slug": "pergola",
+      "name": "后排花架",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "pergola",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-RAIL",
+      "slug": "rail",
+      "name": "露台栏杆",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "rail",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PORCH-ROOF",
+      "slug": "porch_roof",
+      "name": "前廊暖黄平顶",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "porch_roof",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PORCH-POST",
+      "slug": "porch_post",
+      "name": "前廊立柱",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "porch_post",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-DOCK-POST",
+      "slug": "dock_post",
+      "name": "码头白帽木桩",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "dock_post",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-WINDOW",
+      "slug": "window",
+      "name": "蓝玻璃方窗",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "window",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-CABINET",
+      "slug": "cabinet",
+      "name": "紫色开放柜",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "cabinet",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-SOLAR-ARRAY",
+      "slug": "solar_array",
+      "name": "十二格太阳能板",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "solar_array",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-AWNING",
+      "slug": "awning",
+      "name": "黄白条纹棚",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "awning",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PLANTER-BOX",
+      "slug": "planter_box",
+      "name": "长形木花箱",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "planter_box",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-POT",
+      "slug": "pot",
+      "name": "陶土圆花盆",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "pot",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-CRATE",
+      "slug": "crate",
+      "name": "木箱",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "crate",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-BENCH",
+      "slug": "bench",
+      "name": "木长凳",
+      "category": "building",
+      "subcategory": "furnishing",
+      "component_family": "bench",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-TIRE",
+      "slug": "tire",
+      "name": "蓝色轮胎护舷",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "tire",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-LANTERN",
+      "slug": "lantern",
+      "name": "薄荷提灯",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "lantern",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 7000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-LEAF-CLUSTER",
+      "slug": "leaf_cluster",
+      "name": "圆润宽叶簇",
+      "category": "flora",
+      "subcategory": "flora",
+      "component_family": "leaf_cluster",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 5000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-VINE",
+      "slug": "vine",
+      "name": "稀疏圆叶藤",
+      "category": "flora",
+      "subcategory": "flora",
+      "component_family": "vine",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 5000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-FLOWER-CLUSTER",
+      "slug": "flower_cluster",
+      "name": "粉白圆瓣花簇",
+      "category": "flora",
+      "subcategory": "flora",
+      "component_family": "flower_cluster",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 5000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PORCH-FLOOR",
+      "slug": "porch_floor",
+      "name": "暖橙前廊铺板",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "porch_floor",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-PORCH-RAIL",
+      "slug": "porch_rail",
+      "name": "前廊短木栏",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "porch_rail",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-DOCK-SECTION",
+      "slug": "dock_section",
+      "name": "白边木栈桥段",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "dock_section",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-LANDING",
+      "slug": "landing",
+      "name": "码头横向落脚平台",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "landing",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-GOLD-BLOOM",
+      "slug": "gold_bloom",
+      "name": "顶柱黄花",
+      "category": "flora",
+      "subcategory": "flora",
+      "component_family": "gold_bloom",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000
+    },
+    {
+      "component_id": "SEA-SCENE-PFH-RESIDENT-FIGURE",
+      "slug": "resident_figure",
+      "name": "参考图前廊静态人物",
+      "category": "building",
+      "subcategory": "display_figure",
+      "component_family": "resident_figure",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 10000
+    }
+  ],
+  "revision": "reference_fidelity_02",
+  "revision_reason": "用户纠正：完整还原附件，不接受自主简化或布局偏差；船仍排除。",
+  "reference_alignment": {
+    "architecture": "左后主楼+后排高花架+较低顶层小屋+右前橙木前廊",
+    "solar_array": "4列3排蓝板，白网格，中央橙色检修盖，向后倾斜0.45弧度",
+    "docks": "两列沿-Y向前的木码头，左列前端横向平台；白色包边与桩帽",
+    "cabinet": "左侧露台紫色开放柜",
+    "plant_groups": "后花架4顶柱叶簇与2黄花，露台前排3花箱、右侧2花箱，屋檐前后花带及垂藤",
+    "camera": "正交相机，方位基于附件平行边斜率调整",
+    "exclusions": [
+      "boat",
+      "boat passenger"
+    ],
+    "unseen_surfaces": "背面和内侧按可见构造延续，无参考图直接可核验信息"
+  }
+}

@@ -1,0 +1,5115 @@
+{
+  "schema": "sea.scene.component_instances",
+  "source_blend": "solar_flower_house.blend",
+  "coordinate_contract": {
+    "source_space": "blender_scene_local",
+    "plane": "XY",
+    "up": "+Z",
+    "rotation": "Euler XYZ radians; includes solar roof tilt",
+    "godot_mapping": "(x,y,z) -> (x,z,-y)",
+    "deck_top_z_m": 1.7125,
+    "scale_policy": "uniform decorative size variation; never nonuniform architectural correction"
+  },
+  "instances": [
+    {
+      "component_id": "SEA-SCENE-SOLAR-FOUNDATION",
+      "instance_id": "foundation_instance",
+      "position_m": [
+        0.0,
+        0.0,
+        1.2000000476837158
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "foundation_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PIER",
+      "instance_id": "pier_instance",
+      "position_m": [
+        -3.119999885559082,
+        -2.9000000953674316,
+        -0.550000011920929
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "pier_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PIER",
+      "instance_id": "pier_instance.001",
+      "position_m": [
+        -3.119999885559082,
+        2.799999952316284,
+        -0.550000011920929
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "pier_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PIER",
+      "instance_id": "pier_instance.002",
+      "position_m": [
+        0.0,
+        -2.9000000953674316,
+        -0.550000011920929
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "pier_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PIER",
+      "instance_id": "pier_instance.003",
+      "position_m": [
+        0.0,
+        2.799999952316284,
+        -0.550000011920929
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "pier_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PIER",
+      "instance_id": "pier_instance.004",
+      "position_m": [
+        3.119999885559082,
+        -2.9000000953674316,
+        -0.550000011920929
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "pier_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PIER",
+      "instance_id": "pier_instance.005",
+      "position_m": [
+        3.119999885559082,
+        2.799999952316284,
+        -0.550000011920929
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "pier_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance",
+      "position_m": [
+        -3.450000047683716,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.001",
+      "position_m": [
+        -3.450000047683716,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.002",
+      "position_m": [
+        -3.450000047683716,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.003",
+      "position_m": [
+        -3.450000047683716,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.004",
+      "position_m": [
+        -3.1050000190734863,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.005",
+      "position_m": [
+        -3.1050000190734863,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.006",
+      "position_m": [
+        -3.1050000190734863,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.006"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.007",
+      "position_m": [
+        -3.1050000190734863,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.007"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.008",
+      "position_m": [
+        -2.759999990463257,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.008"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.009",
+      "position_m": [
+        -2.759999990463257,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.009"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.010",
+      "position_m": [
+        -2.759999990463257,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.010"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.011",
+      "position_m": [
+        -2.759999990463257,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.011"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.012",
+      "position_m": [
+        -2.4149999618530273,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.012"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.013",
+      "position_m": [
+        -2.4149999618530273,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.013"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.014",
+      "position_m": [
+        -2.4149999618530273,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.014"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.015",
+      "position_m": [
+        -2.4149999618530273,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.015"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.016",
+      "position_m": [
+        -2.069999933242798,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.016"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.017",
+      "position_m": [
+        -2.069999933242798,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.017"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.018",
+      "position_m": [
+        -2.069999933242798,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.018"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.019",
+      "position_m": [
+        -2.069999933242798,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.019"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.020",
+      "position_m": [
+        -1.725000023841858,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.020"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.021",
+      "position_m": [
+        -1.725000023841858,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.021"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.022",
+      "position_m": [
+        -1.725000023841858,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.022"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.023",
+      "position_m": [
+        -1.725000023841858,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.023"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.024",
+      "position_m": [
+        -1.3799999952316284,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.024"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.025",
+      "position_m": [
+        -1.3799999952316284,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.025"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.026",
+      "position_m": [
+        -1.3799999952316284,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.026"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.027",
+      "position_m": [
+        -1.3799999952316284,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.027"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.028",
+      "position_m": [
+        -1.034999966621399,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.028"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.029",
+      "position_m": [
+        -1.034999966621399,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.029"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.030",
+      "position_m": [
+        -1.034999966621399,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.030"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.031",
+      "position_m": [
+        -1.034999966621399,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.031"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.032",
+      "position_m": [
+        -0.6899999976158142,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.032"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.033",
+      "position_m": [
+        -0.6899999976158142,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.033"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.034",
+      "position_m": [
+        -0.6899999976158142,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.034"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.035",
+      "position_m": [
+        -0.6899999976158142,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.035"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.036",
+      "position_m": [
+        -0.3449999988079071,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.036"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.037",
+      "position_m": [
+        -0.3449999988079071,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.037"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.038",
+      "position_m": [
+        -0.3449999988079071,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.038"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.039",
+      "position_m": [
+        -0.3449999988079071,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.039"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.040",
+      "position_m": [
+        -4.440892098500626e-16,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.040"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.041",
+      "position_m": [
+        -4.440892098500626e-16,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.041"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.042",
+      "position_m": [
+        -4.440892098500626e-16,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.042"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.043",
+      "position_m": [
+        -4.440892098500626e-16,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.043"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.044",
+      "position_m": [
+        0.3449999988079071,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.044"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.045",
+      "position_m": [
+        0.3449999988079071,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.045"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.046",
+      "position_m": [
+        0.3449999988079071,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.046"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.047",
+      "position_m": [
+        0.3449999988079071,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.047"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.048",
+      "position_m": [
+        0.6899999976158142,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.048"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.049",
+      "position_m": [
+        0.6899999976158142,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.049"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.050",
+      "position_m": [
+        0.6899999976158142,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.050"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.051",
+      "position_m": [
+        0.6899999976158142,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.051"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.052",
+      "position_m": [
+        1.034999966621399,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.052"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.053",
+      "position_m": [
+        1.034999966621399,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.053"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.054",
+      "position_m": [
+        1.034999966621399,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.054"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.055",
+      "position_m": [
+        1.034999966621399,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.055"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.056",
+      "position_m": [
+        1.3799999952316284,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.056"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.057",
+      "position_m": [
+        1.3799999952316284,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.057"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.058",
+      "position_m": [
+        1.3799999952316284,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.058"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.059",
+      "position_m": [
+        1.3799999952316284,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.059"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.060",
+      "position_m": [
+        1.725000023841858,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.060"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.061",
+      "position_m": [
+        1.725000023841858,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.061"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.062",
+      "position_m": [
+        1.725000023841858,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.062"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.063",
+      "position_m": [
+        1.725000023841858,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.063"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.064",
+      "position_m": [
+        2.069999933242798,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.064"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.065",
+      "position_m": [
+        2.069999933242798,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.065"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.066",
+      "position_m": [
+        2.069999933242798,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.066"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.067",
+      "position_m": [
+        2.069999933242798,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.067"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.068",
+      "position_m": [
+        2.4149999618530273,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.068"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.069",
+      "position_m": [
+        2.4149999618530273,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.069"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.070",
+      "position_m": [
+        2.4149999618530273,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.070"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.071",
+      "position_m": [
+        2.4149999618530273,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.071"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.072",
+      "position_m": [
+        2.759999990463257,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.072"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.073",
+      "position_m": [
+        2.759999990463257,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.073"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.074",
+      "position_m": [
+        2.759999990463257,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.074"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.075",
+      "position_m": [
+        2.759999990463257,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.075"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.076",
+      "position_m": [
+        3.1050000190734863,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.076"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.077",
+      "position_m": [
+        3.1050000190734863,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.077"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.078",
+      "position_m": [
+        3.1050000190734863,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.078"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.079",
+      "position_m": [
+        3.1050000190734863,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.079"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.080",
+      "position_m": [
+        3.450000047683716,
+        -2.359999895095825,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.080"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.081",
+      "position_m": [
+        3.450000047683716,
+        -0.7900000214576721,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.081"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.082",
+      "position_m": [
+        3.450000047683716,
+        0.7799999713897705,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.082"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.083",
+      "position_m": [
+        3.450000047683716,
+        2.3499999046325684,
+        1.5674999952316284
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "deck_plank_instance.083"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-WALL-SHELL",
+      "instance_id": "wall_shell_instance",
+      "position_m": [
+        0.0,
+        0.6380000114440918,
+        1.7000000476837158
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "wall_shell_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-TERRACE",
+      "instance_id": "roof_terrace_instance",
+      "position_m": [
+        0.0,
+        0.6499999761581421,
+        4.359999656677246
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "roof_terrace_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PARAPET",
+      "instance_id": "parapet_instance",
+      "position_m": [
+        -1.659999966621399,
+        -1.190000057220459,
+        4.590000152587891
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "parapet_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PARAPET",
+      "instance_id": "parapet_instance.001",
+      "position_m": [
+        0.0,
+        -1.190000057220459,
+        4.590000152587891
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "parapet_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PARAPET",
+      "instance_id": "parapet_instance.002",
+      "position_m": [
+        1.659999966621399,
+        -1.190000057220459,
+        4.590000152587891
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "parapet_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PARAPET",
+      "instance_id": "parapet_instance.003",
+      "position_m": [
+        -2.430000066757202,
+        -0.3499999940395355,
+        4.590000152587891
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "parapet_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PARAPET",
+      "instance_id": "parapet_instance.004",
+      "position_m": [
+        -2.430000066757202,
+        1.2899999618530273,
+        4.590000152587891
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "parapet_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PARAPET",
+      "instance_id": "parapet_instance.005",
+      "position_m": [
+        2.430000066757202,
+        -0.3499999940395355,
+        4.590000152587891
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "parapet_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PARAPET",
+      "instance_id": "parapet_instance.006",
+      "position_m": [
+        2.430000066757202,
+        1.2899999618530273,
+        4.590000152587891
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "parapet_instance.006"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "instance_id": "solar_panel_instance",
+      "position_m": [
+        -1.5299999713897705,
+        -0.2965225279331207,
+        4.8442840576171875
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "solar_panel_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "instance_id": "solar_panel_instance.001",
+      "position_m": [
+        -1.5299999713897705,
+        1.1634774208068848,
+        5.721540451049805
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "solar_panel_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "instance_id": "solar_panel_instance.002",
+      "position_m": [
+        0.0,
+        -0.2965225279331207,
+        4.8442840576171875
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "solar_panel_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "instance_id": "solar_panel_instance.003",
+      "position_m": [
+        0.0,
+        1.1634774208068848,
+        5.721540451049805
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "solar_panel_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "instance_id": "solar_panel_instance.004",
+      "position_m": [
+        1.5299999713897705,
+        -0.2965225279331207,
+        4.8442840576171875
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "solar_panel_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "instance_id": "solar_panel_instance.005",
+      "position_m": [
+        1.5299999713897705,
+        1.1634774208068848,
+        5.721540451049805
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "solar_panel_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-BEAM",
+      "instance_id": "roof_beam_instance",
+      "position_m": [
+        -2.3299999237060547,
+        0.45150381326675415,
+        5.254283428192139
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "roof_beam_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-BEAM",
+      "instance_id": "roof_beam_instance.001",
+      "position_m": [
+        -0.7699999809265137,
+        0.45150381326675415,
+        5.254283428192139
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "roof_beam_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-BEAM",
+      "instance_id": "roof_beam_instance.002",
+      "position_m": [
+        0.7699999809265137,
+        0.45150381326675415,
+        5.254283428192139
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "roof_beam_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-BEAM",
+      "instance_id": "roof_beam_instance.003",
+      "position_m": [
+        2.3299999237060547,
+        0.45150381326675415,
+        5.254283428192139
+      ],
+      "rotation_euler_xyz_rad": [
+        0.5410520434379578,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "roof_beam_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-BEAM",
+      "instance_id": "roof_beam_instance.004",
+      "position_m": [
+        0.0,
+        2.0199999809265137,
+        6.15500020980835
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.25,
+        1.25,
+        1.25
+      ],
+      "source_object": "roof_beam_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DOOR-ARCH",
+      "instance_id": "door_arch_instance",
+      "position_m": [
+        -2.4774999618530273,
+        0.4421979784965515,
+        1.7400000095367432
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "door_arch_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PORTHOLE",
+      "instance_id": "porthole_instance",
+      "position_m": [
+        -1.1799999475479126,
+        -1.2362499237060547,
+        2.6100001335144043
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "porthole_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DOOR-SHUTTER",
+      "instance_id": "door_shutter_instance",
+      "position_m": [
+        1.773970127105713,
+        -1.4022655487060547,
+        1.7400000095367432
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.4300000071525574
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "door_shutter_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SHELF",
+      "instance_id": "shelf_instance",
+      "position_m": [
+        0.8700000047683716,
+        -0.6700000166893005,
+        1.7699999809265137
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "shelf_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-AWNING",
+      "instance_id": "awning_instance",
+      "position_m": [
+        0.6499999761581421,
+        -1.7262500524520874,
+        3.4250144958496094
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "awning_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LADDER",
+      "instance_id": "ladder_instance",
+      "position_m": [
+        2.309999942779541,
+        -1.3824280500411987,
+        1.721798062324524
+      ],
+      "rotation_euler_xyz_rad": [
+        -0.07999999821186066,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "ladder_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LIFEBUOY",
+      "instance_id": "lifebuoy_instance",
+      "position_m": [
+        -2.440000057220459,
+        -0.75,
+        2.5169999599456787
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "lifebuoy_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-BENCH",
+      "instance_id": "bench_instance",
+      "position_m": [
+        -1.1100000143051147,
+        -1.8474165201187134,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "bench_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-RUG",
+      "instance_id": "rug_instance",
+      "position_m": [
+        0.8700000047683716,
+        -2.259999990463257,
+        1.712499976158142
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rug_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-CRATE",
+      "instance_id": "crate_instance",
+      "position_m": [
+        -2.680000066757202,
+        -1.649999976158142,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "crate_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-TABLE",
+      "instance_id": "table_instance",
+      "position_m": [
+        2.6500000953674316,
+        -1.850000023841858,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "table_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-BOILER",
+      "instance_id": "boiler_instance",
+      "position_m": [
+        2.6500000953674316,
+        -2.700000047683716,
+        1.7400000095367432
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "boiler_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GUTTER",
+      "instance_id": "gutter_instance",
+      "position_m": [
+        1.9861361980438232,
+        -0.7153324484825134,
+        4.949999809265137
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "gutter_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SHADE-SAIL",
+      "instance_id": "shade_sail_instance",
+      "position_m": [
+        2.630000114440918,
+        -2.0799999237060547,
+        3.6706724166870117
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "shade_sail_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SAIL-MAST",
+      "instance_id": "sail_mast_instance",
+      "position_m": [
+        3.4000000953674316,
+        -3.0199999809265137,
+        1.7100000381469727
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "sail_mast_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SAIL-MAST",
+      "instance_id": "sail_mast_instance.001",
+      "position_m": [
+        3.4000000953674316,
+        -1.100000023841858,
+        1.8899999856948853
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "sail_mast_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance",
+      "position_m": [
+        -3.299999952316284,
+        -3.0999999046325684,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance.001",
+      "position_m": [
+        -1.100000023841858,
+        -3.0999999046325684,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance.002",
+      "position_m": [
+        1.100000023841858,
+        -3.0999999046325684,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance.003",
+      "position_m": [
+        3.299999952316284,
+        -3.0999999046325684,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance.004",
+      "position_m": [
+        -3.299999952316284,
+        -0.8999999761581421,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance.005",
+      "position_m": [
+        -3.299999952316284,
+        1.2999999523162842,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance.006",
+      "position_m": [
+        -3.299999952316284,
+        3.0,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance.006"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance.007",
+      "position_m": [
+        3.299999952316284,
+        -0.8999999761581421,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance.007"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance.008",
+      "position_m": [
+        3.299999952316284,
+        1.2999999523162842,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance.008"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "instance_id": "post_instance.009",
+      "position_m": [
+        3.299999952316284,
+        3.0,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "post_instance.009"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "instance_id": "rope_span_instance",
+      "position_m": [
+        -2.200000047683716,
+        -3.100003480911255,
+        2.191943407058716
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rope_span_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "instance_id": "rope_span_instance.001",
+      "position_m": [
+        0.0,
+        -3.100003480911255,
+        2.191943407058716
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rope_span_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "instance_id": "rope_span_instance.002",
+      "position_m": [
+        2.200000047683716,
+        -3.100003480911255,
+        2.191943407058716
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rope_span_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "instance_id": "rope_span_instance.003",
+      "position_m": [
+        -3.2999963760375977,
+        -2.0,
+        2.191943407058716
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rope_span_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "instance_id": "rope_span_instance.004",
+      "position_m": [
+        -3.2999963760375977,
+        0.20000000298023224,
+        2.191943407058716
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rope_span_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "instance_id": "rope_span_instance.005",
+      "position_m": [
+        3.3000035285949707,
+        -2.0,
+        2.191943407058716
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rope_span_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "instance_id": "rope_span_instance.006",
+      "position_m": [
+        3.3000035285949707,
+        0.20000000298023224,
+        2.191943407058716
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rope_span_instance.006"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-TIRE",
+      "instance_id": "tire_instance",
+      "position_m": [
+        -2.235670804977417,
+        -3.4038538932800293,
+        0.6112489700317383
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.07000000029802322,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "tire_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-TIRE",
+      "instance_id": "tire_instance.001",
+      "position_m": [
+        -0.03567085042595863,
+        -3.4038538932800293,
+        0.6112489700317383
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.07000000029802322,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "tire_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-TIRE",
+      "instance_id": "tire_instance.002",
+      "position_m": [
+        2.1643292903900146,
+        -3.4038538932800293,
+        0.6112489700317383
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.07000000029802322,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "tire_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LANTERN",
+      "instance_id": "lantern_instance",
+      "position_m": [
+        -0.05000000074505806,
+        -1.340000033378601,
+        3.075000047683716
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "lantern_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LANTERN",
+      "instance_id": "lantern_instance.001",
+      "position_m": [
+        0.0,
+        2.0999999046325684,
+        6.384999752044678
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "lantern_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "instance_id": "planter_round_instance",
+      "position_m": [
+        -2.8399999141693115,
+        0.20000000298023224,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "planter_round_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance",
+      "position_m": [
+        -2.8315443992614746,
+        0.21987178921699524,
+        2.180000066757202
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.416454315185547
+      ],
+      "scale": [
+        0.699999988079071,
+        0.699999988079071,
+        0.699999988079071
+      ],
+      "source_object": "leaf_cluster_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance",
+      "position_m": [
+        -2.8385376930236816,
+        0.1795501708984375,
+        2.1739704608917236
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "source_object": "goldflower_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-SQUARE",
+      "instance_id": "planter_square_instance",
+      "position_m": [
+        -2.75,
+        -2.5799999237060547,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "planter_square_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.001",
+      "position_m": [
+        -2.748781681060791,
+        -2.6015615463256836,
+        2.3299999237060547
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        6.0167927742004395
+      ],
+      "scale": [
+        0.699999988079071,
+        0.699999988079071,
+        0.699999988079071
+      ],
+      "source_object": "leaf_cluster_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.001",
+      "position_m": [
+        -2.74853777885437,
+        -2.600449800491333,
+        2.323970317840576
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "source_object": "goldflower_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-SQUARE",
+      "instance_id": "planter_square_instance.001",
+      "position_m": [
+        -0.1599999964237213,
+        -1.7000000476837158,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "planter_square_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.002",
+      "position_m": [
+        -0.17452669143676758,
+        -1.6840200424194336,
+        2.3299999237060547
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.556550979614258
+      ],
+      "scale": [
+        0.699999988079071,
+        0.699999988079071,
+        0.699999988079071
+      ],
+      "source_object": "leaf_cluster_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "instance_id": "planter_round_instance.001",
+      "position_m": [
+        1.850000023841858,
+        -2.1500000953674316,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "planter_round_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.003",
+      "position_m": [
+        1.8453214168548584,
+        -2.1710832118988037,
+        2.180000066757202
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        5.741974830627441
+      ],
+      "scale": [
+        0.699999988079071,
+        0.699999988079071,
+        0.699999988079071
+      ],
+      "source_object": "leaf_cluster_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "instance_id": "planter_round_instance.002",
+      "position_m": [
+        -1.9500000476837158,
+        -2.0999999046325684,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "planter_round_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.004",
+      "position_m": [
+        -1.9560142755508423,
+        -2.0792582035064697,
+        2.180000066757202
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.1009762287139893
+      ],
+      "scale": [
+        0.699999988079071,
+        0.699999988079071,
+        0.699999988079071
+      ],
+      "source_object": "leaf_cluster_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "instance_id": "planter_round_instance.003",
+      "position_m": [
+        2.700000047683716,
+        0.30000001192092896,
+        1.7200000286102295
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "planter_round_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.005",
+      "position_m": [
+        2.6826443672180176,
+        0.3128517270088196,
+        2.180000066757202
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.752164602279663
+      ],
+      "scale": [
+        0.699999988079071,
+        0.699999988079071,
+        0.699999988079071
+      ],
+      "source_object": "leaf_cluster_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-CUP",
+      "instance_id": "cup_instance",
+      "position_m": [
+        -2.687999963760376,
+        0.0,
+        2.3499999046325684
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cup_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-CUP",
+      "instance_id": "cup_instance.001",
+      "position_m": [
+        0.6919999718666077,
+        -0.8299999833106995,
+        4.730000019073486
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cup_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "instance_id": "planter_round_instance.004",
+      "position_m": [
+        -0.15000000596046448,
+        -0.75,
+        4.730000019073486
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.6399999856948853,
+        0.6399999856948853,
+        0.6399999856948853
+      ],
+      "source_object": "planter_round_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.006",
+      "position_m": [
+        -0.14461667835712433,
+        -0.7660916447639465,
+        5.019999980926514
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.550000011920929,
+        0.550000011920929,
+        0.550000011920929
+      ],
+      "source_object": "leaf_cluster_instance.006"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "instance_id": "planter_round_instance.005",
+      "position_m": [
+        1.100000023841858,
+        -0.6499999761581421,
+        4.730000019073486
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.6399999856948853,
+        0.6399999856948853,
+        0.6399999856948853
+      ],
+      "source_object": "planter_round_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.007",
+      "position_m": [
+        1.1053833961486816,
+        -0.6660916209220886,
+        5.019999980926514
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.550000011920929,
+        0.550000011920929,
+        0.550000011920929
+      ],
+      "source_object": "leaf_cluster_instance.007"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.008",
+      "position_m": [
+        -2.3518760204315186,
+        -1.1042838096618652,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8299999833106995,
+        0.8299999833106995,
+        0.8299999833106995
+      ],
+      "source_object": "leaf_cluster_instance.008"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance",
+      "position_m": [
+        -2.3583548069000244,
+        -1.10300612449646,
+        5.013239860534668
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "daisy_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.009",
+      "position_m": [
+        -1.8295834064483643,
+        -1.0954551696777344,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.6000000238418579
+      ],
+      "scale": [
+        0.8299999833106995,
+        0.8299999833106995,
+        0.8299999833106995
+      ],
+      "source_object": "leaf_cluster_instance.009"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance",
+      "position_m": [
+        -1.819822907447815,
+        -1.0755820274353027,
+        5.013638496398926
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "cosmos_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.010",
+      "position_m": [
+        -1.314422845840454,
+        -1.0812276601791382,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.2000000476837158
+      ],
+      "scale": [
+        0.8299999833106995,
+        0.8299999833106995,
+        0.8299999833106995
+      ],
+      "source_object": "leaf_cluster_instance.010"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance.001",
+      "position_m": [
+        -1.3197652101516724,
+        -1.0689302682876587,
+        5.013239860534668
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "daisy_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.011",
+      "position_m": [
+        -0.8081970810890198,
+        -1.0665712356567383,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.7999999523162842
+      ],
+      "scale": [
+        0.8299999833106995,
+        0.8299999833106995,
+        0.8299999833106995
+      ],
+      "source_object": "leaf_cluster_instance.011"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.001",
+      "position_m": [
+        -0.8465754389762878,
+        -1.0543986558914185,
+        5.013638496398926
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "cosmos_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.012",
+      "position_m": [
+        -0.3095877468585968,
+        -1.0566059350967407,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.4000000953674316
+      ],
+      "scale": [
+        0.8299999833106995,
+        0.8299999833106995,
+        0.8299999833106995
+      ],
+      "source_object": "leaf_cluster_instance.012"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance.002",
+      "position_m": [
+        -0.33848631381988525,
+        -1.0662072896957397,
+        5.013239860534668
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "daisy_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.013",
+      "position_m": [
+        1.696520209312439,
+        -1.0902175903320312,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        4.800000190734863
+      ],
+      "scale": [
+        0.8299999833106995,
+        0.8299999833106995,
+        0.8299999833106995
+      ],
+      "source_object": "leaf_cluster_instance.013"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance.003",
+      "position_m": [
+        1.74252188205719,
+        -1.0750250816345215,
+        5.013239860534668
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        8.0
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "daisy_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.014",
+      "position_m": [
+        2.216390609741211,
+        -1.101690649986267,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        5.400000095367432
+      ],
+      "scale": [
+        0.8299999833106995,
+        0.8299999833106995,
+        0.8299999833106995
+      ],
+      "source_object": "leaf_cluster_instance.014"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.002",
+      "position_m": [
+        2.221238136291504,
+        -1.0507868528366089,
+        5.013638496398926
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        9.0
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "cosmos_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.015",
+      "position_m": [
+        -2.2816803455352783,
+        -0.82486891746521,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.015"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance.004",
+      "position_m": [
+        -2.288318395614624,
+        -0.8235173225402832,
+        5.013089656829834
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "daisy_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.016",
+      "position_m": [
+        -2.264578342437744,
+        -0.32643595337867737,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.016"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.003",
+      "position_m": [
+        -2.259195327758789,
+        -0.32480159401893616,
+        5.0134968757629395
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.699999988079071
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "cosmos_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.017",
+      "position_m": [
+        -2.2708489894866943,
+        0.17791417241096497,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.017"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.002",
+      "position_m": [
+        -2.2665390968322754,
+        0.15765996277332306,
+        5.013065814971924
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.399999976158142
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "goldflower_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.018",
+      "position_m": [
+        -2.294726848602295,
+        0.6657940745353699,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.018"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance.005",
+      "position_m": [
+        -2.2705485820770264,
+        0.6533241868019104,
+        5.013089656829834
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.0999999046325684
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "daisy_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.019",
+      "position_m": [
+        -2.3142588138580322,
+        1.1299591064453125,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.019"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.004",
+      "position_m": [
+        -2.3014068603515625,
+        1.1490148305892944,
+        5.0134968757629395
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.799999952316284
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "cosmos_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.020",
+      "position_m": [
+        -2.3114874362945557,
+        1.5849677324295044,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        5.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.020"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.003",
+      "position_m": [
+        -2.2998242378234863,
+        1.6214330196380615,
+        5.013065814971924
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.5
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "goldflower_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.021",
+      "position_m": [
+        -2.2889604568481445,
+        2.0537967681884766,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        6.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.021"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance.006",
+      "position_m": [
+        -2.311321496963501,
+        2.0900638103485107,
+        5.013089656829834
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        4.199999809265137
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "daisy_instance.006"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance",
+      "position_m": [
+        -2.4733128547668457,
+        -0.7937932014465332,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.001",
+      "position_m": [
+        -2.4733128547668457,
+        -0.09379316866397858,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.002",
+      "position_m": [
+        -2.4733128547668457,
+        0.6062068343162537,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance.002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.003",
+      "position_m": [
+        -2.4733128547668457,
+        1.3062068223953247,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance.003"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.004",
+      "position_m": [
+        -2.4733128547668457,
+        2.006206750869751,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.022",
+      "position_m": [
+        2.2983195781707764,
+        -0.82486891746521,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.022"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance.007",
+      "position_m": [
+        2.2916815280914307,
+        -0.8235173225402832,
+        5.013089656829834
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "daisy_instance.007"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.023",
+      "position_m": [
+        2.3154215812683105,
+        -0.32643595337867737,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.023"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.005",
+      "position_m": [
+        2.3208045959472656,
+        -0.32480159401893616,
+        5.0134968757629395
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.699999988079071
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "cosmos_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.024",
+      "position_m": [
+        2.3091509342193604,
+        0.17791417241096497,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.024"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.004",
+      "position_m": [
+        2.3134608268737793,
+        0.15765996277332306,
+        5.013065814971924
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.399999976158142
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "goldflower_instance.004"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.025",
+      "position_m": [
+        2.2852730751037598,
+        0.6657940745353699,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.025"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance.008",
+      "position_m": [
+        2.3094513416290283,
+        0.6533241868019104,
+        5.013089656829834
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.0999999046325684
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "daisy_instance.008"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.026",
+      "position_m": [
+        2.2657411098480225,
+        1.1299591064453125,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        4.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.026"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.006",
+      "position_m": [
+        2.278593063354492,
+        1.1490148305892944,
+        5.0134968757629395
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.799999952316284
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "cosmos_instance.006"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.027",
+      "position_m": [
+        2.268512487411499,
+        1.5849677324295044,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        5.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.027"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.005",
+      "position_m": [
+        2.2801756858825684,
+        1.6214330196380615,
+        5.013065814971924
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.5
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "goldflower_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.028",
+      "position_m": [
+        2.29103946685791,
+        2.0537967681884766,
+        4.860000133514404
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        6.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "leaf_cluster_instance.028"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "instance_id": "daisy_instance.009",
+      "position_m": [
+        2.2686784267425537,
+        2.0900638103485107,
+        5.013089656829834
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        4.199999809265137
+      ],
+      "scale": [
+        0.9200000166893005,
+        0.9200000166893005,
+        0.9200000166893005
+      ],
+      "source_object": "daisy_instance.009"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.005",
+      "position_m": [
+        2.4733128547668457,
+        -0.8062068223953247,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance.005"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.006",
+      "position_m": [
+        2.4733128547668457,
+        -0.10620682686567307,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance.006"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.007",
+      "position_m": [
+        2.4733128547668457,
+        0.5937932133674622,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance.007"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.008",
+      "position_m": [
+        2.4733128547668457,
+        1.2937930822372437,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance.008"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.009",
+      "position_m": [
+        2.4733128547668457,
+        1.9937931299209595,
+        3.37337589263916
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "vine_instance.009"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.010",
+      "position_m": [
+        -1.9548925161361694,
+        -1.3141405582427979,
+        3.7566609382629395
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.6700000166893005,
+        0.6700000166893005,
+        0.6700000166893005
+      ],
+      "source_object": "vine_instance.010"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.011",
+      "position_m": [
+        -1.4548925161361694,
+        -1.3141405582427979,
+        3.7566609382629395
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.6700000166893005,
+        0.6700000166893005,
+        0.6700000166893005
+      ],
+      "source_object": "vine_instance.011"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.012",
+      "position_m": [
+        -0.8548924922943115,
+        -1.3141405582427979,
+        3.7566609382629395
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.6700000166893005,
+        0.6700000166893005,
+        0.6700000166893005
+      ],
+      "source_object": "vine_instance.012"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.029",
+      "position_m": [
+        -1.4902122020721436,
+        2.210742473602295,
+        5.0
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "leaf_cluster_instance.029"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.007",
+      "position_m": [
+        -1.477752923965454,
+        2.224437713623047,
+        5.242931842803955
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cosmos_instance.007"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.030",
+      "position_m": [
+        -0.5902121663093567,
+        2.210742473602295,
+        5.0
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "leaf_cluster_instance.030"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.008",
+      "position_m": [
+        -0.5777528882026672,
+        2.224437713623047,
+        5.242931842803955
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cosmos_instance.008"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.031",
+      "position_m": [
+        0.6597878336906433,
+        2.210742473602295,
+        5.0
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "leaf_cluster_instance.031"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.009",
+      "position_m": [
+        0.6722471117973328,
+        2.224437713623047,
+        5.242931842803955
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cosmos_instance.009"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.032",
+      "position_m": [
+        1.609787940979004,
+        2.210742473602295,
+        5.0
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "leaf_cluster_instance.032"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "instance_id": "cosmos_instance.010",
+      "position_m": [
+        1.6222472190856934,
+        2.224437713623047,
+        5.242931842803955
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cosmos_instance.010"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PALM",
+      "instance_id": "palm_instance",
+      "position_m": [
+        -1.4382048845291138,
+        1.992676019668579,
+        5.012448310852051
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.6000000238418579
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "palm_instance"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PALM",
+      "instance_id": "palm_instance.001",
+      "position_m": [
+        -0.33289000391960144,
+        2.513775110244751,
+        5.034109592437744
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.5999999046325684
+      ],
+      "scale": [
+        0.7799999713897705,
+        0.7799999713897705,
+        0.7799999713897705
+      ],
+      "source_object": "palm_instance.001"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.033",
+      "position_m": [
+        -3.397554874420166,
+        -2.7584872245788574,
+        1.7599999904632568
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -2.7799999713897705
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "leaf_cluster_instance.033"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.006",
+      "position_m": [
+        -3.378537893295288,
+        -2.800449848175049,
+        1.9139703512191772
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "source_object": "goldflower_instance.006"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.013",
+      "position_m": [
+        -3.3589580059051514,
+        -2.84743070602417,
+        -0.17563140392303467
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -3.380000114440918
+      ],
+      "scale": [
+        1.100000023841858,
+        1.100000023841858,
+        1.100000023841858
+      ],
+      "source_object": "vine_instance.013"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.034",
+      "position_m": [
+        -3.356358289718628,
+        1.8145612478256226,
+        1.7599999904632568
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.7999999523162842
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "leaf_cluster_instance.034"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.007",
+      "position_m": [
+        -3.378537893295288,
+        1.7795500755310059,
+        1.9139703512191772
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "source_object": "goldflower_instance.007"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.014",
+      "position_m": [
+        -3.3589580059051514,
+        1.7325694561004639,
+        -0.17563140392303467
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -3.380000114440918
+      ],
+      "scale": [
+        1.100000023841858,
+        1.100000023841858,
+        1.100000023841858
+      ],
+      "source_object": "vine_instance.014"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.035",
+      "position_m": [
+        3.3032896518707275,
+        2.7275707721710205,
+        1.7599999904632568
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        2.700000047683716
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "leaf_cluster_instance.035"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.008",
+      "position_m": [
+        3.301462173461914,
+        2.6795501708984375,
+        1.9139703512191772
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "source_object": "goldflower_instance.008"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.015",
+      "position_m": [
+        3.2990899085998535,
+        2.6366169452667236,
+        -0.17563140392303467
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.299999952316284
+      ],
+      "scale": [
+        1.100000023841858,
+        1.100000023841858,
+        1.100000023841858
+      ],
+      "source_object": "vine_instance.015"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.036",
+      "position_m": [
+        -1.1098964214324951,
+        -3.074057102203369,
+        1.7599999904632568
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -3.0999999046325684
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "leaf_cluster_instance.036"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.009",
+      "position_m": [
+        -1.098537802696228,
+        -3.1204497814178467,
+        1.9139703512191772
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "source_object": "goldflower_instance.009"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.016",
+      "position_m": [
+        -1.1535972356796265,
+        -3.2382664680480957,
+        -0.17563140392303467
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -1.100000023841858
+      ],
+      "scale": [
+        1.100000023841858,
+        1.100000023841858,
+        1.100000023841858
+      ],
+      "source_object": "vine_instance.016"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "instance_id": "leaf_cluster_instance.037",
+      "position_m": [
+        3.2924022674560547,
+        -0.6267065405845642,
+        1.7599999904632568
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        -0.6000000238418579
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "source_object": "leaf_cluster_instance.037"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "instance_id": "goldflower_instance.010",
+      "position_m": [
+        3.301462173461914,
+        -0.6204498410224915,
+        1.9139703512191772
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "source_object": "goldflower_instance.010"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "instance_id": "vine_instance.017",
+      "position_m": [
+        3.2990899085998535,
+        -0.6633829474449158,
+        -0.17563140392303467
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        3.299999952316284
+      ],
+      "scale": [
+        1.100000023841858,
+        1.100000023841858,
+        1.100000023841858
+      ],
+      "source_object": "vine_instance.017"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.084",
+      "position_m": [
+        -3.75,
+        -0.5,
+        1.328374981880188
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "deck_plank_instance.084"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.085",
+      "position_m": [
+        -3.75,
+        -0.1599999964237213,
+        1.328374981880188
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "deck_plank_instance.085"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.086",
+      "position_m": [
+        -3.75,
+        0.18000000715255737,
+        1.328374981880188
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "deck_plank_instance.086"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.087",
+      "position_m": [
+        -4.2179999351501465,
+        -0.5,
+        1.0683749914169312
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "deck_plank_instance.087"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.088",
+      "position_m": [
+        -4.2179999351501465,
+        -0.1599999964237213,
+        1.0683749914169312
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "deck_plank_instance.088"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "instance_id": "deck_plank_instance.089",
+      "position_m": [
+        -4.2179999351501465,
+        0.18000000715255737,
+        1.0683749914169312
+      ],
+      "rotation_euler_xyz_rad": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "source_object": "deck_plank_instance.089"
+    }
+  ]
+}

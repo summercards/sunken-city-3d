@@ -24,7 +24,7 @@
 状态/交付所有者：**导出配置 / 发布工具**。正式代码和资源入口：
 
 - [godot/export_presets.cfg](../../../godot/export_presets.cfg)
-- [tools/make_web_dist.py](../../../tools/make_web_dist.py)
+- [godot/tools/make_web_dist.py](../../../godot/tools/make_web_dist.py)
 
 读取上述所有者的公开查询，修改通过其命令或交互入口；事件由拥有该状态的对象发出。具体公开方法、信号和持久化字段见本账本的接口清单。原有稳定 ContentID、场景 ID 和存档键保持不变，重命名须另做迁移。
 

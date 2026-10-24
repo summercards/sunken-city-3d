@@ -52,6 +52,7 @@
 本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
 - 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 核心专项 selftest 本轮均退出 0；测试覆盖范围以[验证摘要](../../development/2026-10-23_verification_summary.json)为准。
+- 2026-10-24 验证：SEA-BOOT-R01 的装配顺序缺陷（`_unhandled_input` 在 HUD 建成前读 `hud._panel_open`）已修；`run_verification.py selftest ocean parity` 三项 exit=0，证据见[启动报错修复记录](../../development/2026-10-24_bootstrap_startup_input_guard.md)。
 
 ## 遗留与下一步
 
@@ -60,3 +61,4 @@ Main 仍含移动、交互与反馈协调；集中编排债务独立登记，不
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+- 2026-10-24：`_unhandled_input` 增加 HUD 存在性早退，`cam_panel` / `grade` / 船靠岸提示的 `hud` 访问补空判断。装配顺序与玩法数值未变。

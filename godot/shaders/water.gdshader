@@ -97,6 +97,7 @@ vec3 noise_grad(vec2 p) {
 	return vec3(value, (k1 + k3 * u.y) * du.x, (k2 + k3 * u.x) * du.y);
 }
 #include "res://shaders/ocean_foam.gdshaderinc"
+#include "res://shaders/contact_foam.gdshaderinc"
 
 // One anisotropic ripple layer: ridges run across `wind`, amplitude in metres.
 void add_ripple(vec2 p, vec2 wind, float along_k, float across_k, float speed, float amp, float fade, inout vec2 slope) {
@@ -215,16 +216,60 @@ void fragment() {
 	float fleck=smoothstep(0.83,0.94,noise(p*1.25+drift*2.0))*smoothstep(0.55,0.74,swell);
 	color+=vec3(0.025,0.055,0.052)*fleck*surface_contrast;
 
-	// ---- painterly foam ---------------------------------------------------
-	float shore_d=shoreline_distance(p);
-	float foam=max(shore_foam(p,shore_d),crest_foam(p,shore_d,view_dist,wave.x));
-	float rim=max(contact_edge(p,thickness,view_dist),shore_rim(p,thickness));
+	// ---- contact foam: the waterline where the sheet meets a solid --------
+	// Ported from the production `stylized_water_prod` package; see
+	// contact_foam.gdshaderinc. It owns its own colour so the contact band can
+	// stay a touch cooler than the boat-wake whites, and it carries its own
+	// lifecycle (birth -> hold -> retreat) instead of a scrolling noise fringe.
+	vec2 shore = shoreline_data(p);
+	float shore_d = shore.x;
+
+	// ---- facility-vicinity water glints (gentle shimmering particles) -----
+	// Restores the web build's luminous motes around structures (1.2 m .. 11.5 m).
+	float glint_zone = smoothstep(0.95, 2.2, shore_d) * (1.0 - smoothstep(6.2, 11.8, shore_d));
+	if (glint_zone > 0.001) {
+		float glint_sum = 0.0;
+		for (int layer = 0; layer < 2; layer++) {
+			float sc = layer == 0 ? 0.62 : 0.88;
+			vec2 gp = p * sc + vec2(float(layer) * 19.7, float(layer) * 31.3);
+			vec2 cell = floor(gp);
+			vec2 f = fract(gp) - 0.5;
+			float h1 = hash(cell);
+			float h2 = hash(cell + vec2(37.2, 17.9));
+			float h3 = hash(cell + vec2(71.3, 53.1));
+			// Sparse distribution: ~24% of cells host a drifting glint
+			if (h1 > 0.76) {
+				float ph = u_time * (0.85 + h2 * 0.75) + h1 * TAU * 3.0;
+				vec2 wander = vec2(sin(ph * 0.55 + h3 * TAU), cos(ph * 0.48 - h2 * TAU)) * 0.16;
+				vec2 center = (vec2(h2, h3) - 0.5) * 0.52 + wander;
+				float d = length(f - center);
+				float tw = pow(max(0.0, sin(ph)), 2.4);
+				float r = (0.042 + 0.022 * h3) * (0.65 + 0.35 * tw);
+				float aa = max(fwidth(d), 0.012);
+				float dot_mask = (1.0 - smoothstep(r - aa, r + aa, d)) * tw;
+				glint_sum = max(glint_sum, dot_mask);
+			}
+		}
+		color = mix(color, vec3(0.88, 0.99, 0.96), clamp(glint_sum * glint_zone * 0.86, 0.0, 0.88));
+	}
+	float contact = 0.0;
+	if (contact_foam_strength > 0.0 && contact_foam_width > 0.0 && contact_foam_color.a > 0.0) {
+		// Large docks get a slightly wider band than a thin post.
+		float contact_width = contact_foam_width * clamp(shore.y, 0.55, 1.25);
+		contact = sample_contact_foam(p, shore_d, contact_width, u_time);
+	}
+	color = mix(color, contact_foam_color.rgb,
+		clamp(contact * contact_foam_strength * contact_foam_color.a, 0.0, 1.0));
+
+	// ---- remaining foam: swell tops, thin solids, boat wake ---------------
+	float foam = max(crest_foam(p, shore_d, view_dist, wave.x),
+		contact_edge(p, thickness, view_dist));
 	vec3 trail=wake_profile(p);
 	trail.x+=(noise(p*1.15+vec2(u_time*0.07,0.0))-0.5)*(0.14+trail.y*0.025);
 	float trail_width=0.035+trail.y*0.006;
 	float trail_line=1.0-smoothstep(trail_width,trail_width+clamp(fwidth(trail.x),0.025,0.09),abs(trail.x));
 	float trail_break=smoothstep(0.17+trail.y*0.045,0.44+trail.y*0.045,noise(p*2.1+u_time*0.07));
-	foam=max(foam,max(rim,trail_line*trail.z*trail_break*foam_grain(p,trail.y/9.0)*0.68));
+	foam=max(foam,trail_line*trail.z*trail_break*foam_grain(p,trail.y/9.0)*0.68);
 	// water.js paints foam as flat near-white (vec3(.96,.985,1.0)).
 	color=mix(color,vec3(0.96,0.985,1.0),clamp(foam,0.0,0.96));
 

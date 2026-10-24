@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-UPPER-ROOF",
+  "slug": "upper_roof",
+  "name": "小屋平顶",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "upper_roof",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-UPPER-ROOF",
+  "root_object": "ROOT_upper_roof",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_roof/upper_roof.blend",
+  "bounds_size_m": [
+    2.880000114440918,
+    1.899999976158142,
+    0.18000000715255737
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "cd76b36f3b1a3b7d9db6a71d70b19e95dfcd5db4a1bfc28843c67556c96a5895",
+  "source_sha256": "6c1bfa804de42d01039143c0b2df1c57a45d22e993bfb8d15f63f7da536be15e",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-UPPER-ROOF",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "upper_roof_body"
+  ]
+}

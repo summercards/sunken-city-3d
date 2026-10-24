@@ -775,6 +775,1818 @@
         "SEA-ASSET"
       ],
       "note": "现有独立源登记；不是 Godot 已接入或美术已验收声明。"
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PIER",
+      "name": "石质墩柱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/pier/pier.blend",
+      "source_sha256": "5b6b48d7a19a6765da55d6b05adf03102985c2a0716cdeaa182d2dcef916ed1a",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/pier/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7d367db1c0ebf4c27df05b6b461502f0c67a29e5ffca10930732033dca17ec5c",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/pier/pier.blend",
+          "source_sha256": "1c60ab44c959559b47b460d6461b271ca01fabc796c373e950f38ed273f8c577",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/pier/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/pier/pier.blend",
+          "source_sha256": "98e95bad7cb1f84ab8b47e7d106c6d2907ccac27d2e412b2099fc2afa4ec8563",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/pier/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-FOUNDATION",
+      "name": "圆角基础框",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/foundation/foundation.blend",
+      "source_sha256": "58a671768895e1adf79d1ce2e8a5fbb1d52ffa6b0a1a5947079fb9dcd3d4552c",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/foundation/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d658aa8b7a319e19bb5568b9424475ef1b038373516d1d29be9488f1838a1eef",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/foundation/foundation.blend",
+          "source_sha256": "c5f0acc94560ea5f23042d2ea68aea14ae3eb48cfb4fea584fae24d1c1258858",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/foundation/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/foundation/foundation.blend",
+          "source_sha256": "86ef0d88643c0447e46620b36c26723026c59e14d25c0a9958202a6a40cd5c2b",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/foundation/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "name": "木平台板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/deck_plank/deck_plank.blend",
+      "source_sha256": "8d696c41ee70130ebac847ebde918a0276a79ef28de21b0f22039c4f2296157d",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/deck_plank/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "2823dcfba07845ae261fea81b5d38d9c6eb7b539ba7de8f4573b7c9f938d3f0c",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/deck_plank/deck_plank.blend",
+          "source_sha256": "a79b90fff74688070ebe5016d2d62f3d7a5e173e606ba4395cda41b3dfc91a0f",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/deck_plank/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/deck_plank/deck_plank.blend",
+          "source_sha256": "37ab1832fa4bcea017a88c85a11852153b543bd4c4e70285506f057d6edf3008",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/deck_plank/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-WALL-SHELL",
+      "name": "奶油墙壳",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/wall_shell/wall_shell.blend",
+      "source_sha256": "1b516d1913fef3a612d7654c238b544fe9a6a61f1278d94ec2593289230d620c",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/wall_shell/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "27e4e03608d2268608534a9bebbfa9729583c56afe0be0682d957114954cdd9b",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/wall_shell/wall_shell.blend",
+          "source_sha256": "5c8a5ec93c2273de45392f64d0c2b8684778d9233c62fafc4c313e4c9c9d42a0",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/wall_shell/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/wall_shell/wall_shell.blend",
+          "source_sha256": "b34af81f8a3ead9f36c090b76983e23a99065d0dc6b260a3ef7b01e93221978b",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/wall_shell/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-ROOF-TERRACE",
+      "name": "屋顶露台",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/roof_terrace/roof_terrace.blend",
+      "source_sha256": "24af729177e711904ca8b600f286706e701135778a6c4282b06ea19764b78329",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/roof_terrace/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7ad44a4000aa5b96844fda62c9190010e45512931107a64d8cfd2453d199e660",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/roof_terrace/roof_terrace.blend",
+          "source_sha256": "8eb782a04eecdc3f844acc76b878fb3639bce301e320db8b7540b49e5c236bcb",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/roof_terrace/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/roof_terrace/roof_terrace.blend",
+          "source_sha256": "92f710aab0172e28dd1f6fbc2dd1b963ff3950280b0d8154116c9f78d86b26fc",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/roof_terrace/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PARAPET",
+      "name": "花台矮墙",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/parapet/parapet.blend",
+      "source_sha256": "7766e6731de7ffc69333adc86b6718383dfc592abf021211247adaf4bb2c02f9",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/parapet/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d5d9291a27f150507848e0e3a2d25d3ce748d9f585569e8dd34ea74151979ddf",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/parapet/parapet.blend",
+          "source_sha256": "a84634420623dfc488a8514d8cc05e232fd8db3a871613fe68e0fbe532749091",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/parapet/asset_manifest.json",
+          "version": "v001"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "name": "太阳能板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/solar_panel/solar_panel.blend",
+      "source_sha256": "e6249a2f83a3b223e57219d1d56e51650d256e0106990184acfb429fa073095c",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/solar_panel/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "70cfd73d8525134c2ff2bb2b6f3108deda2f9488400c3a66f7941438ce416848",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/solar_panel/solar_panel.blend",
+          "source_sha256": "f9512c9618733768dbc34f44c94c804e653cd26e584938caec37e681ad4c6db6",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/solar_panel/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/solar_panel/solar_panel.blend",
+          "source_sha256": "2f28c8b82d58810991b2c005887d9bf12333003cd64cb67cbbac1950c4d73f41",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/solar_panel/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-ROOF-BEAM",
+      "name": "太阳能木梁",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/roof_beam/roof_beam.blend",
+      "source_sha256": "35b613511af53b3e878440230acd5c04e57dc026621c397b75047e76162050b0",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/roof_beam/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "4e2b9641edce71145e686d1424132a4fb199c7e0e70235c05f95183300e5e9e5",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/roof_beam/roof_beam.blend",
+          "source_sha256": "531e29941e5a3f03ffc022befe13b1fa54a48a427e4f046d0594b3fb73f18321",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/roof_beam/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/roof_beam/roof_beam.blend",
+          "source_sha256": "b38742b7eff7b25e92f2c9f7a473ca2f31ea266ec6d39aa3afbef62007ba47c3",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/roof_beam/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-LADDER",
+      "name": "木梯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/ladder/ladder.blend",
+      "source_sha256": "d38ff10c63a967195a8f60a5e4b5800032a5cb5e130a7e109dd42a5686922abd",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/ladder/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d4e1abceee35e46c187c1fd1c754ec2401081e5797a184bc347fcc728636acce",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/ladder/ladder.blend",
+          "source_sha256": "f6b78d32e0cd8b9a288886bb2d23d387a3ceff0b59728fdd076f831aeaf92acb",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/ladder/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/ladder/ladder.blend",
+          "source_sha256": "912fd0b552b73014b41bc44e8c32ec0b2c5ff804c0fa2e241d0b35e60d32bf53",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/ladder/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-DOOR-ARCH",
+      "name": "拱形侧门",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/door_arch/door_arch.blend",
+      "source_sha256": "5349f82cbd713b012ac797367f852c66da6ec5782427aa8e24c5caf2af6282fd",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/door_arch/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "b2ab3ab1368939a353248219969367eb25e7c033e452b7a61fc30683616ac202",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/door_arch/door_arch.blend",
+          "source_sha256": "b749b7cf8e8a9436f010020b368844b1d4c53bb383c12e4c91b82dea8df1e2b7",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/door_arch/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/door_arch/door_arch.blend",
+          "source_sha256": "8f89251d9dcb390ac05199180276144fd8de25b35c6baefb025d6a4614280e13",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/door_arch/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-DOOR-SHUTTER",
+      "name": "青色百叶门",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/door_shutter/door_shutter.blend",
+      "source_sha256": "3482e71cd66ce535238e6931f78db3c97bc598eca896bcde9be3e549feb07558",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/door_shutter/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "56608e56750663c016149a880e6553be7714ad295f8f2957830087dcfad1d998",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/door_shutter/door_shutter.blend",
+          "source_sha256": "8b32b29b6ced5680820e6f0b84b52a268f7ed5ee45035b4e391041281c68dfec",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/door_shutter/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/door_shutter/door_shutter.blend",
+          "source_sha256": "aa50cd0567dec9edac3d818fea73f450d6d91bfb9963dc96bc36596d1b62d61b",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/door_shutter/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PORTHOLE",
+      "name": "黄框圆窗",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/porthole/porthole.blend",
+      "source_sha256": "97d25de03fc2ac34dc6add1e7c229829ff12dff7749e9b6e6d6ede012bc3a80c",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/porthole/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d82580582d3a10dbb148a4d0c5a9a4fe92c9323803320bfe762b7c4798fa39a6",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/porthole/porthole.blend",
+          "source_sha256": "0fa4929aaed17577137cb87232a52c589d9c7f556928992aaeee76af43d533c0",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/porthole/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/porthole/porthole.blend",
+          "source_sha256": "4437d0f9b1e95455adb073a406d02e1e7c98b1422e13936eae316d73e7a40b3b",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/porthole/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-AWNING",
+      "name": "条纹遮阳棚",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/awning/awning.blend",
+      "source_sha256": "7cec8df386fc3918978433e61a0c7fd57ba6626ff30d7fcf746bee721f571680",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/awning/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "0833696a5ffc303e22c9be6b25b3c81c5a842b826ff7e2e52abf1705ac9a4f37",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/awning/awning.blend",
+          "source_sha256": "e8ccb2d67c5ad61857482ba2167f07ceccb4e492f94dd107b0f8f2b9444785f5",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/awning/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/awning/awning.blend",
+          "source_sha256": "0d4067fc66ee91c1683a88b986788bd8380bfcef08e7e961870b5f942f042984",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/awning/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-SHADE-SAIL",
+      "name": "柔软遮阳帆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/shade_sail/shade_sail.blend",
+      "source_sha256": "944678aac5014603be712c2b21062ea25c7e209ead797d71d9844327756246f4",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/shade_sail/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "e2abce36a04b18058c3238f1cee818d8a389463ee2455bcdbbed22e38e01df9f",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/shade_sail/shade_sail.blend",
+          "source_sha256": "f40808d5ffbc43a796c84e6be8789193bb82e57525999d2a8848afe5b2e2499c",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/shade_sail/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/shade_sail/shade_sail.blend",
+          "source_sha256": "383d8f45c27ab477f4b2ecaee47a7d37b38428d0c566b7ebed9bbd32066ab3cd",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/shade_sail/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-POST",
+      "name": "木质绳桩",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/post/post.blend",
+      "source_sha256": "b2de4213cfb4a10c4cc085f53a9ca033a78ea88cc4dfdc1cf3aeb2e35b94768d",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/post/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "2658c0ef1c42ef63db4bdecf73462be91419f373cedd8ff259da98dcee86ef4f",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/post/post.blend",
+          "source_sha256": "f3e9d2da98644e1b9aac44b6ccba11c9e69da244935664ec514baf89de23e45b",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/post/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/post/post.blend",
+          "source_sha256": "035e7619c55b413778496043d40416e48b09f829b04b3ace85e08c12f72c35c0",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/post/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "name": "下垂绳栏",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/rope_span/rope_span.blend",
+      "source_sha256": "d61290ab1fc1d294d76ebd80bbae5c57c76b9d0c290ec7d4c23ece15cff0be04",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/rope_span/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d3d78de4ba4e1929b05066ffc6e98e4904258901823e2544d98486e53ce7639d",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/rope_span/rope_span.blend",
+          "source_sha256": "a293ef2856cb0fe6618d571c33f9115b03af87834f68fb0a92b99eccea700f32",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/rope_span/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/rope_span/rope_span.blend",
+          "source_sha256": "8652b0faa806e7e05a762c5ca59c28a93c53426130810d11416cfd37a09d6f75",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/rope_span/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-TIRE",
+      "name": "轮胎护舷",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/tire/tire.blend",
+      "source_sha256": "1138522fb92660dde314de2d4292f4214d1f38127e08ca72b4890d4a103ff464",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/tire/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "f5edbde2aba5f6a77816d1407d7f4ac4540f46d1ce0affa97eca5a8eb450aaf9",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/tire/tire.blend",
+          "source_sha256": "d14ba8c8a03ab02f3eb840b42e0a54266c9b3e9423ce6e21081573a464075b88",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/tire/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/tire/tire.blend",
+          "source_sha256": "68616bc7e76f2888ddbf1f0d9d9cc5cf6f3713980f924673b30b3c0b0942c60b",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/tire/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-LIFEBUOY",
+      "name": "救生圈",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/lifebuoy/lifebuoy.blend",
+      "source_sha256": "21b4f52e592a74e0271e69a1cfc1f0c1111ba34e4e668b7f3204554abe8bdd5d",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/lifebuoy/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "ac0a651e7d6e8424e8937d3f4bfe8569d5000e5f0ee234120c2452c7c3377a5d",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/lifebuoy/lifebuoy.blend",
+          "source_sha256": "e0e8ea3790909fc92cd4198599b98bb1551d79b4bf586a6877b070c45c8ba137",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/lifebuoy/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/lifebuoy/lifebuoy.blend",
+          "source_sha256": "e8aae92324770f38a5414b0c47e3b4ad70120e953730a30059546e9909595628",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/lifebuoy/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-LANTERN",
+      "name": "暖光提灯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/lantern/lantern.blend",
+      "source_sha256": "4a6d6c24da0668cbd858ccff25ed7604a4c73cd214abcafb1b6252e7c9a5e6eb",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/lantern/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "41aa2893774685b2821199fb1b0bf99d80d5b0cb23887f3f8a0d9266ff3cc18a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/lantern/lantern.blend",
+          "source_sha256": "935652e4dec3a0f04e5252ff5fa662ec0ceccc51379ed38b243e3789c12a7f8e",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/lantern/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/lantern/lantern.blend",
+          "source_sha256": "f80a22d75b583947df4648d4b5bee548009c41646d098bc661043f89ba88250c",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/lantern/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-BENCH",
+      "name": "软垫木椅",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/bench/bench.blend",
+      "source_sha256": "207fa5fccac01744f221f7b95983d2f8e9457f0468ee63ea8413fe1d3f96e8ad",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/bench/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "3f49e5bd874b5035354fbf1dc6a272d4adfc558198fc0ecc3698e6df43e2d25d",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/bench/bench.blend",
+          "source_sha256": "af5e60618417b009a12eb6804a35193a106d0a56c7efa26ce14402d0c0046489",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/bench/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/bench/bench.blend",
+          "source_sha256": "a4a45d9dd0b43d85abda904447e00cb847e6ef7e947f334dffeb75e522b78dfd",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/bench/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-SHELF",
+      "name": "室内木架",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/shelf/shelf.blend",
+      "source_sha256": "5f75d08ca88359095a4e020d11f2c7c91271e973e12017b1b3bb5bd9bbabbd1a",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/shelf/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "b63c62fc87ce81c4842a39eda1c64410e3df0716585693f3b66f928ce1c09cd6",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/shelf/shelf.blend",
+          "source_sha256": "fb0115fe0361213d7cec471fe5bfa3f48034bdfb9080c8abfd41eb985cd1df2e",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/shelf/asset_manifest.json",
+          "version": "v001"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "name": "陶土圆花盆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/planter_round/planter_round.blend",
+      "source_sha256": "9e919b82190d090be4a6edf64725c057b3c31b7318d65e7b0325cbfee4209427",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/planter_round/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "ff586e9995bd5de31dce8d7c88d0a0acdb254f88b33ba39640ff88665a706e2a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/planter_round/planter_round.blend",
+          "source_sha256": "0d02138ced5373581eb8ba82d80b0e44009403934545ae26c3e92c3db3d11c1e",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/planter_round/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/planter_round/planter_round.blend",
+          "source_sha256": "8de3d54f1051f6b486936b568588649e6c7ac146a97eb6ee3d89b356c9ebf22b",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/planter_round/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PLANTER-SQUARE",
+      "name": "方形花盆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/planter_square/planter_square.blend",
+      "source_sha256": "71318ee2980b846da7de1c0bf2d5341642400111efcbee58867a0359d896ad13",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/planter_square/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "65599ac9901f3ff75170449f7fc504d9f7946baa19da5bcb77f726cd0fbeb48c",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/planter_square/planter_square.blend",
+          "source_sha256": "ee8cbf933ffd3c96f5cc94a786a2a665e1cf8564f6126e0744bc19d58ca23bfd",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/planter_square/asset_manifest.json",
+          "version": "v001"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-CRATE",
+      "name": "蓝色木箱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/crate/crate.blend",
+      "source_sha256": "d7be20fc0745846c514f43f9ece4366892e4ad8012cb1a282f606c3d6bb345e1",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/crate/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "a8a661c9e2d1708c22cfa64e4f016b1828890ca5d2af305c685d0a01890c84ab",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/crate/crate.blend",
+          "source_sha256": "e91af0b765944ea2f9bfd1fe7d32df624a3512d08f6ae6d6e9f3148905aab612",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/crate/asset_manifest.json",
+          "version": "v001"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-BOILER",
+      "name": "蓝色小锅炉",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/boiler/boiler.blend",
+      "source_sha256": "2ee4ca52c54f84dfe19078231de0fa0c138706d02757967a47a766f8bfb91b2e",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/boiler/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "62693943ab4b3ee35b3ee6d201c1a7f657bf4fecfaa79c9f6094a1dd862517f9",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/boiler/boiler.blend",
+          "source_sha256": "6de59ec623bb56d091cd446ab8414b78a861b6064622d6295159b39ce9d0fc58",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/boiler/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/boiler/boiler.blend",
+          "source_sha256": "087a06e72677aaec4fbbc9004db90bf5f0552a82ebbfde01d54aba608410c666",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/boiler/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-RUG",
+      "name": "编织地毯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/rug/rug.blend",
+      "source_sha256": "3f8be9f34959d44fc637b380978091a37a745dcbe7f32e1d0154f5f260d49b9b",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/rug/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "97c8c4f32630ce4c6868462944707837217e53f1824f01e0a19cc12ec2e0b04a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/rug/rug.blend",
+          "source_sha256": "c94b0cddb58b57ced541993b244e4a3391bdaec4172cfb07c926a558d8763a62",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/rug/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/rug/rug.blend",
+          "source_sha256": "4c15b8e5b7f18c3a479175436e6cca0c2ad2305076514697875501da2e88c680",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/rug/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-GUTTER",
+      "name": "屋顶排水管",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/gutter/gutter.blend",
+      "source_sha256": "bf50c032cb9f5ca0c46948c9b50ac29b853a40c3eb09fa70926102962745e225",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/gutter/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "cffa1d8e878c77fae7ff0024e1062594493cdfc71c5e6c24db21934e6f22c636",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/gutter/gutter.blend",
+          "source_sha256": "b5278235aa1cfa173fe0c56edae09db99d29a3a2eb9ad8a36d90bef0ee8c1bb2",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/gutter/asset_manifest.json",
+          "version": "v001"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-CUP",
+      "name": "小水杯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/cup/cup.blend",
+      "source_sha256": "c5e0ddfb9ce2447524139f5c18f0bd68aa5fdf4d8ad0a4742f76d4203894cc24",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/cup/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "151d5abd764cfc986ff3f82a41a72992b6fe23d98df4f5f3f902429a83088f8e",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/cup/cup.blend",
+          "source_sha256": "210fe127b809d88e88f4ebb9d9c645a4229c2f5b8b29b8c54d853f89dc36b249",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/cup/asset_manifest.json",
+          "version": "v001"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-TABLE",
+      "name": "小工作台",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/table/table.blend",
+      "source_sha256": "7041b572bd0bcd39b0843ea6dae0e88bc793c3da63c9c2dc5b7d5790238de0d0",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/table/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "8c9cb1802edb70a99187fa5b3103563001f856a6d542b874d4cd38b30030480d",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/table/table.blend",
+          "source_sha256": "3a36f4f59f4e673b6eb6a5681d1a71fc06c69f19e53529f0521f8e8da45276d9",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/table/asset_manifest.json",
+          "version": "v001"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "name": "阔叶绿植",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/leaf_cluster/leaf_cluster.blend",
+      "source_sha256": "29f753cb4cc639dbe939b4177ec2aedbf07aca86c109533a4b11107ecd58c600",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/leaf_cluster/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "f7825a87d7e64ee757b90000d03c40444858286621a3e73e69506346a1ffc245",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/leaf_cluster/leaf_cluster.blend",
+          "source_sha256": "74cc6541a9eb66ee7dccc07c6ebaf251584b4bec118570334693b37f894d1691",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/leaf_cluster/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/leaf_cluster/leaf_cluster.blend",
+          "source_sha256": "d916dee284dec289d4cc1d17a3f90479aac2b041665abbb10ddd1e9830a846bc",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/leaf_cluster/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-VINE",
+      "name": "垂落藤蔓",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/vine/vine.blend",
+      "source_sha256": "7c71caf5bc17a53308ad590af8efe868d129de3a43108f2553e54f61c554d0ad",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/vine/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "268fdd7f7dfb908a1c2e64edfb56a813f0be0e88ee56e680b784c041c82ee670",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/vine/vine.blend",
+          "source_sha256": "eb63af9b8a38db44f92fcd071da796c8955b496812f007081be133f637151ab5",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/vine/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/vine/vine.blend",
+          "source_sha256": "e672369e3c175e57d4fd73bb83a21274ca5626dfece6fd0fbc4ce16a3daf2979",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/vine/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-DAISY",
+      "name": "白色雏菊",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/daisy/daisy.blend",
+      "source_sha256": "7c6f2f565dc1127b6900c098403241dff0cb6080a795741a16c143efda75af33",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/daisy/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "6797c8025470ba05ca2d21fce527c28c8984673a963aea918bba815b949ef9ee",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/daisy/daisy.blend",
+          "source_sha256": "6879bbc852e0252ba4c7a6df315bceaa468189a82320ee665d05fcb4b422cdf5",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/daisy/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/daisy/daisy.blend",
+          "source_sha256": "b82864995d08b0269fcf24a35a268f97f3feb5edf4331ef8b76d5bf8bac278a7",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/daisy/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-COSMOS",
+      "name": "粉色波斯菊",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/cosmos/cosmos.blend",
+      "source_sha256": "8d45aabce716d0ae302e952f9fd1162d17c590216c7a2b78fe6db97d7e4af195",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/cosmos/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "07f227dadefaf7f400e4d0dbf2a99ac870670c9273d20eb339dcb384bdc5c4b7",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/cosmos/cosmos.blend",
+          "source_sha256": "67c9ffed759f40e2290a0ec16baad036baa93c89270fb271a00f61cb1c1573c1",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/cosmos/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/cosmos/cosmos.blend",
+          "source_sha256": "6e9ad4a2efa60ac85de39455253eb946cc57f67aa7a141eb10d802a093512c0b",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/cosmos/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "name": "黄色小花",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/goldflower/goldflower.blend",
+      "source_sha256": "5b96e7877c1fafb163a50ee84500468180ced47591499aeaf4f13bdf92855d71",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/goldflower/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "128eed3f0efa92b7dc40deecc03215dea5a1c8e0bffe05e229e0524c5fb6284e",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/goldflower/goldflower.blend",
+          "source_sha256": "cf9a03a03a700f8e4e85b561dc099e6f8f26d240ed0f114b58198578a95f2028",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/goldflower/asset_manifest.json",
+          "version": "v001"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-PALM",
+      "name": "热带棕榈",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/palm/palm.blend",
+      "source_sha256": "85311261f12575c85a04e015af581755442a6b5eb143dfda9f4d55faa14a7e72",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/palm/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "09757f6369e797925ea7b1efdde9100b3ea34f45d725622bcf5c9e5823ca9431",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/palm/palm.blend",
+          "source_sha256": "593ec17e2e44d2698a4d62ff485a637cdcb67847ecc4fbf5702406f1a0c3dfb1",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/palm/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/palm/palm.blend",
+          "source_sha256": "a7102233d1c21a1a2e9406e503bf850e01c5de0cf97d7aafba567afde0270139",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/palm/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-SAIL-MAST",
+      "name": "遮阳帆细木杆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/component_packages/sail_mast/sail_mast.blend",
+      "source_sha256": "4130a7c62405a0ebd3309c6e8f6508353c9c7dbba19f729e97ac16787d62a0dd",
+      "manifest": "art_source/scenes/solar_flower_house/v003/component_packages/sail_mast/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "98930d9e5a7439fec366ee395246f9f401ba47db4cec55c63e8c7e72ee97a350",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/component_packages/sail_mast/sail_mast.blend",
+          "source_sha256": "b20118c4ad7ac08cf38a080c07aad92baa1cb6007b172dd4fd6a4f14f374da0c",
+          "manifest": "art_source/scenes/solar_flower_house/v001/component_packages/sail_mast/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/component_packages/sail_mast/sail_mast.blend",
+          "source_sha256": "6cb4262a20a84690c1ab4622ff9e5a6be9a37104915faffd5d7faf87a070ee89",
+          "manifest": "art_source/scenes/solar_flower_house/v002/component_packages/sail_mast/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-SOLAR-FLOWER-HOUSE",
+      "name": "太阳能花屋参考装配",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/solar_flower_house/v003/solar_flower_house.blend",
+      "source_sha256": "2764a248a82a519747763b8c1d091d4497ec6f7ee80843278494e7cf333f8e4d",
+      "manifest": "art_source/scenes/solar_flower_house/v003/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": null,
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "scene_assembly",
+      "note": "依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/solar_flower_house/v001/solar_flower_house.blend",
+          "source_sha256": "4348a3dd2af7055a9756f6fe06bd8710a6eb332b0ffa436687687266e8a92109",
+          "manifest": "art_source/scenes/solar_flower_house/v001/asset_manifest.json",
+          "version": "v001"
+        },
+        {
+          "source": "art_source/scenes/solar_flower_house/v002/solar_flower_house.blend",
+          "source_sha256": "bc97c90008abce00fe482c926845b380f609128556ff738786fcea86f959f4f4",
+          "manifest": "art_source/scenes/solar_flower_house/v002/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-PALETTE-COZY-64",
+      "name": "sea 清新治愈 64 色公共色板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "source_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "manifest": "art_source/shared/palettes/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "original_authored_palette",
+      "geometry_fingerprint": null,
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "shared_palette",
+      "note": "源级交付；非正式 Godot 接入。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PILLAR",
+      "name": "支撑木墩",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pillar/pillar.blend",
+      "source_sha256": "fbed354047c165a9c1da7ad902dce1758577418c5b25b222d6d0be31dcb2cfe9",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pillar/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "17411a1810a5b22e9ebecb436eee9f0faba478b71c76f3e1443533b64eaacc44",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-BASE",
+      "name": "奶油平台底框",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/base/base.blend",
+      "source_sha256": "8abb84c367aba53a7cc8ecd4a845f6c0614dd07040d5b379e7d8ade1fa815fcc",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/base/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "3028068ea56433d577368d4cfc4de660892b1af49387606bf7d7475db4eeb986",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-HOUSE",
+      "name": "底层奶油墙壳",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/house/house.blend",
+      "source_sha256": "3b32e3713fb5c4c37b39309dec1f42dae6ac09761da0c4ec2aa4fdda47326d6b",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/house/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "6df03ddaeced75a4cfa97d0df1230371ba9804476a3b19f361ad063129fc7a1a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-TERRACE",
+      "name": "屋顶露台板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/terrace/terrace.blend",
+      "source_sha256": "c8298fff384781e1d123a2644225db0724cd3d436a97f9a4f51703f8a95af9a1",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/terrace/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "58bc1d613024c5deedcc88f99202235b879d6e38ccd99b2f1c916bd8e85f75ce",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-UPPER-ROOM",
+      "name": "后排顶层小屋",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_room/upper_room.blend",
+      "source_sha256": "21b69e406c3bd81997e4e6e1dd1ba3fa52ade0cf51ffc870295852b3d8ba15b9",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_room/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "ef34a92793af79d9e319549547f55e8597dca538985c6996b7108889987810e0",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-UPPER-ROOF",
+      "name": "小屋平顶",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_roof/upper_roof.blend",
+      "source_sha256": "6c1bfa804de42d01039143c0b2df1c57a45d22e993bfb8d15f63f7da536be15e",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/upper_roof/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "cd76b36f3b1a3b7d9db6a71d70b19e95dfcd5db4a1bfc28843c67556c96a5895",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PERGOLA",
+      "name": "后排花架",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pergola/pergola.blend",
+      "source_sha256": "c12e1c6925f257cd444461e5aa0d0056f42e6b618ebc4ac14722a9e276ec5b43",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pergola/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7f08e8806f173668b0245118a78a443604a5bc9bd2b60b4752c6afff4eb8d792",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-RAIL",
+      "name": "露台栏杆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/rail/rail.blend",
+      "source_sha256": "645217b6a26280617615751cfee4d7a2aab8db410ffda004b638ccb93305c6d7",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/rail/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "99d96f5ed2e7589137d29a22ce065ff65abb877a10c4bc1b58ea6e018a4f8e48",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PORCH-ROOF",
+      "name": "前廊暖黄平顶",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_roof/porch_roof.blend",
+      "source_sha256": "bd0682711aebf4e3d7b2277d40eeee4e609215a52720a633e3bab9dae2a160aa",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_roof/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "c60e314126aaa016fea5680e866972280aebb177e51e40991538baa216a662ba",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PORCH-POST",
+      "name": "前廊立柱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_post/porch_post.blend",
+      "source_sha256": "744d8f3f93f0e39f03a3cf5ea9be20e45927e553f1885acb8377cf0e986a7c9e",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_post/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "a5376104cf140ec2f8c89930a27b2a2f9339eec757a7370be9cfed54b82191ed",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-DOCK-POST",
+      "name": "码头白帽木桩",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_post/dock_post.blend",
+      "source_sha256": "7c811d8a42204e83fdd62712609bb7507900f351844082c8509421a4e7f1f809",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_post/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "c03878250c0444c9d686ceb4ca9cba622e2d8b7cd1cda4978ebd1292bb5850c2",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-WINDOW",
+      "name": "蓝玻璃方窗",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/window/window.blend",
+      "source_sha256": "07c01386706b375db99fa7cfd6a0ba47f69a9204ceda87f6fe57aa76dfede601",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/window/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "de9ab24940d4e0521b8de261374f22dc8564abcea15deb68079360e402b96a73",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-CABINET",
+      "name": "紫色开放柜",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/cabinet/cabinet.blend",
+      "source_sha256": "3c2adc418649986f38aee96ba996313db6a1c6e617ce8b49b7a6b7609f97d62f",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/cabinet/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "ec34f39aff8c6630ea64d206dbbfa941e8c0b18717dfe8406c066f8c9e16c0ef",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-SOLAR-ARRAY",
+      "name": "十二格太阳能板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/solar_array/solar_array.blend",
+      "source_sha256": "dac004499cd09b0a204c7cf2c5b21fac89f23a8a8248fdd2cf8e4fd7a840b592",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/solar_array/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "2aea1459c27c2b5fc3de80c53e39731ff5dad41694d9dd809d2e7f91aac03a71",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-AWNING",
+      "name": "黄白条纹棚",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/awning/awning.blend",
+      "source_sha256": "81f7376fb6bcc47ec38cc5b98f05b60606d752e97e041a7e19d4c6a313034f38",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/awning/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "b8cf8734bc4896d4b76df295f093704ae058efdb49ec3381c78a08544ec72156",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PLANTER-BOX",
+      "name": "长形木花箱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/planter_box/planter_box.blend",
+      "source_sha256": "ef67946634c40d70258a663b6955951f6118cfd54605e3551ba22420038db434",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/planter_box/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "5f1db04c2f5223cbc722bf244c724cc197827c0370bf0b1b920097c76483b3ee",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-POT",
+      "name": "陶土圆花盆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pot/pot.blend",
+      "source_sha256": "34f6885645110bb15fe211e229c1ff32d60e3d7f9b377dc283c60e8afa5522e8",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pot/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "0571fb49215c07d78b4be140a8848fc2842918c7c6bbfd607c787514227e756b",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-CRATE",
+      "name": "木箱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/crate/crate.blend",
+      "source_sha256": "974c72495f34f8fd8884c4ab7d6dec1439ee9979575e71b8f70dc8658be3f0c1",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/crate/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "830236a764edd7a09f2cacf36f0b94821d81b33f9cc02a701a657c7dd997ce38",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-BENCH",
+      "name": "木长凳",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/bench/bench.blend",
+      "source_sha256": "5f1018684cebd744c54b091762e71cadab2574b88074ea114c77db1f5206d8c6",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/bench/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "0cba2e16d3347d9c7d5711cdb62fa85a3f80b1cdc77524fa823bccb700dd4e6a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-TIRE",
+      "name": "蓝色轮胎护舷",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/tire/tire.blend",
+      "source_sha256": "1946055aa3a767b8410d2ab26ce6be611b4e4d9921a50ce55312cbc93245130e",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/tire/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d78590216e32b6de4a25852a7d9451b6d82d697ae0ad75da5bae2bb3876ab0c6",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-LANTERN",
+      "name": "薄荷提灯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/lantern/lantern.blend",
+      "source_sha256": "8c17adda2e3eece0cf2fa526cf62a14814af7062a2bf8a7a208101e9c7afb918",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/lantern/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d123c5985b3698d0411edff71eb3af6fa61bb987ec21cf4d930ddfdf699e3c45",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-LEAF-CLUSTER",
+      "name": "圆润宽叶簇",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/leaf_cluster/leaf_cluster.blend",
+      "source_sha256": "73a55f48bfbaff4a7d1e295b4f78828cf6a791b27f0d3680dae0fc145052dc74",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/leaf_cluster/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "a22d3907e78d72d9c8f511ff024b5fe5b70a229c99fa6ac0632df09edac391eb",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-VINE",
+      "name": "稀疏圆叶藤",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/vine/vine.blend",
+      "source_sha256": "9fc6e277566f357c8b8a2c1a2b70c6701b285ce936fa23aa9a11471e1ff2f0e6",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/vine/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "c6617ed28954a3df1cbdb49e98d5ebc58e8269156b3ffb6e4b2fe780307c269d",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-FLOWER-CLUSTER",
+      "name": "粉白圆瓣花簇",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/flower_cluster/flower_cluster.blend",
+      "source_sha256": "a5e30b74e0c0ba8bfbf9ba7e514ed07c8deff34722fe91f956fe1c63f4bc62d2",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/flower_cluster/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "1c8be330fdeb6a6387284eab4dd1652129fd1c640d3e591969c5bd2510790305",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PORCH-FLOOR",
+      "name": "暖橙前廊铺板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_floor/porch_floor.blend",
+      "source_sha256": "5faa929f69960d75ffcbe194e6a5ae28770cc20b047654b703e2eb5ff96ef60f",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_floor/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "b3249caf4542a271660547429794f6066a902f879dd4edf57053bd9cb54a1f28",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-PORCH-RAIL",
+      "name": "前廊短木栏",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_rail/porch_rail.blend",
+      "source_sha256": "fa5b9ea2e0f5f194d85dd436a550be575610fb9aca6fdd508fed67628bf4057c",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/porch_rail/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "2a78b6d0c5d12d51a05909af9a5b6c046ae1a29c3ba11d52d536b6c8cf2765ac",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-DOCK-SECTION",
+      "name": "白边木栈桥段",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_section/dock_section.blend",
+      "source_sha256": "8bc2e21dc09b3c87bf087238b01ce4c809e1d14dc99542176c727d9685f33f3c",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/dock_section/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "57b372c723a85dbb6a15b77d53b3789f46e5568326f26fda6b7f2697adce8178",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-LANDING",
+      "name": "码头横向落脚平台",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/landing/landing.blend",
+      "source_sha256": "fab9055daedfbed92cfdafe741fd2dd88a8a8e27aa1ee014c4ce074069a0f182",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/landing/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "69efbf06eb1393ef59b9b2cabd2b2a157e8951b82808f0e7e2181c983b9c9587",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-GOLD-BLOOM",
+      "name": "顶柱黄花",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/gold_bloom/gold_bloom.blend",
+      "source_sha256": "ba89ee529a5732dafd92de1bae3f34ea399f1d3e54900ae0de43ea678575a89f",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/gold_bloom/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "e50d0649dae2268bb0eafae32105f1a048bd19e281f66ac39a7ca2c0bb7e0a10",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-RESIDENT-FIGURE",
+      "name": "参考图前廊静态人物",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/component_packages/resident_figure/resident_figure.blend",
+      "source_sha256": "fe1abe982e0e8cb12f26c89408396de351d743c14c0a1b2cd5308d01c3a7f9c1",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/component_packages/resident_figure/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "055a287824cc3c9d7131cf97c651fa8699c253722128ab0a7f01efc7ef4ac599",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building",
+      "scope": "scene_local",
+      "note": "参考附件制作的错层花屋码头，30组件；依参考布局制作圆润花叶，无船；源级通过，Godot接入pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-PFH-ASSEMBLY",
+      "name": "清新错层花屋码头",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/pastel_flower_harbor/v001/pastel_flower_harbor.blend",
+      "source_sha256": "8fc636e1b9c6c0b307dd6dcb60ee0d17ce72efbc7fbe83d37f30895f72b2a4da",
+      "manifest": "art_source/scenes/pastel_flower_harbor/v001/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": null,
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "scene_assembly",
+      "scope": "scene_local",
+      "note": "本次附件参考的新套件，保留已有太阳能花屋v001–v003。源级通过，未接入Godot。"
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-GOLD-BLOOM",
+  "slug": "gold_bloom",
+  "name": "顶柱黄花",
+  "category": "flora",
+  "subcategory": "flora",
+  "component_family": "gold_bloom",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 10000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-GOLD-BLOOM",
+  "root_object": "ROOT_gold_bloom",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/gold_bloom/gold_bloom.blend",
+  "bounds_size_m": [
+    0.5642728209495544,
+    0.5811627507209778,
+    0.4168977737426758
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.019579917192459106,
+    -2.9802322387695312e-08,
+    -0.0018977373838424683
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "e50d0649dae2268bb0eafae32105f1a048bd19e281f66ac39a7ca2c0bb7e0a10",
+  "source_sha256": "ba89ee529a5732dafd92de1bae3f34ea399f1d3e54900ae0de43ea678575a89f",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-GOLD-BLOOM",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "gold_bloom_body"
+  ]
+}

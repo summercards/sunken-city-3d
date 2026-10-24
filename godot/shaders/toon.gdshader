@@ -13,10 +13,12 @@ void fragment() {
 	if (use_texture) {
 		base *= texture(albedo_tex, UV);
 	}
-	vec3 albedo = base.rgb;
-	vec3 emit = vec3(0.0);
+	vec3 albedo = base.rgb * albedo_tint;
+	vec3 emit = albedo * ambient_boost;
 	if (depth_tint) {
-		albedo = apply_depth_tint(albedo, wp, emit);
+		vec3 depth_emit = vec3(0.0);
+		albedo = apply_depth_tint(albedo, wp, depth_emit);
+		emit += depth_emit;
 	}
 	ALBEDO = albedo;
 	SPECULAR = 0.04;
@@ -27,10 +29,14 @@ void fragment() {
 
 void light() {
 	float ndl = dot(normalize(NORMAL), normalize(LIGHT));
-	// Soft watercolor shading that preserves clear, readable cast shadows (ATTENUATION)
 	float half_lambert = clamp(ndl * 0.5 + 0.5, 0.0, 1.0);
-	float lit_factor = half_lambert * ATTENUATION;
-	float soft_band = mix(0.26, 0.96, smoothstep(0.14, 0.78, lit_factor));
+	float sub = depth_tint ? smoothstep(0.0, 0.45, water_level - v_world.y) : 0.0;
+	// Above water: preserve crisp cast shadows (ATTENUATION).
+	// Underwater: scattered light softens directional shadow attenuation so facades stay bright pastel teal.
+	float eff_atten = mix(ATTENUATION, mix(0.62, 1.0, ATTENUATION), sub);
+	float lit_factor = half_lambert * eff_atten;
+	float low_floor = mix(0.26, 0.60, sub);
+	float soft_band = mix(low_floor, 0.96, smoothstep(0.14, 0.78, lit_factor));
 	vec3 shadow_tint = mix(vec3(0.68, 0.86, 0.94), vec3(1.0, 0.99, 0.96), smoothstep(0.18, 0.72, lit_factor));
 	DIFFUSE_LIGHT += soft_band * shadow_tint * LIGHT_COLOR / PI;
 }

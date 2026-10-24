@@ -1,0 +1,61 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-PALM",
+  "slug": "palm",
+  "name": "热带棕榈",
+  "category": "flora",
+  "component_family": "palm",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-PALM",
+  "root_object": "ROOT_palm",
+  "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/palm/palm.blend",
+  "bounds_size_m": [
+    1.8994678258895874,
+    1.9972187280654907,
+    0.7799999713897705
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.10026603937149048,
+    0.0,
+    0.05000000074505806
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "20b67281b70afc3e1300fa16f9fe1fa09a3e71e5a3a7bc0e54b3abaeb75476c2",
+  "source_sha256": "a7102233d1c21a1a2e9406e503bf850e01c5de0cf97d7aafba567afde0270139",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PALM",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "palm_body"
+  ],
+  "geometry_budget": {
+    "triangles_per_component": 60,
+    "polygons_per_component": 60,
+    "instances": 1,
+    "expanded_triangles": 60
+  },
+  "version": "v002"
+}

@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-LANDING",
+  "slug": "landing",
+  "name": "码头横向落脚平台",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "landing",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 10000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-LANDING",
+  "root_object": "ROOT_landing",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/landing/landing.blend",
+  "bounds_size_m": [
+    3.3499999046325684,
+    1.899999976158142,
+    0.20499999821186066
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "69efbf06eb1393ef59b9b2cabd2b2a157e8951b82808f0e7e2181c983b9c9587",
+  "source_sha256": "fab9055daedfbed92cfdafe741fd2dd88a8a8e27aa1ee014c4ce074069a0f182",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-LANDING",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "landing_body"
+  ]
+}

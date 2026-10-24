@@ -1,0 +1,1714 @@
+{
+  "schema": "sea.scene.component_catalog",
+  "components": [
+    {
+      "component_id": "SEA-SCENE-SOLAR-PIER",
+      "slug": "pier",
+      "name": "石质墩柱",
+      "category": "building",
+      "component_family": "pier",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-PIER",
+      "root_object": "ROOT_pier",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/pier/pier.blend",
+      "bounds_size_m": [
+        0.7200000286102295,
+        0.7200000286102295,
+        1.600000023841858
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 4,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "9269d3352c3e8c8cff349c1ea1282aa5aecd48b5c807a23e037585503103e601",
+      "source_sha256": "98e95bad7cb1f84ab8b47e7d106c6d2907ccac27d2e412b2099fc2afa4ec8563",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PIER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "pier_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 44,
+        "polygons_per_component": 26,
+        "instances": 4,
+        "expanded_triangles": 176
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-FOUNDATION",
+      "slug": "foundation",
+      "name": "圆角基础框",
+      "category": "building",
+      "component_family": "foundation",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-FOUNDATION",
+      "root_object": "ROOT_foundation",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/foundation/foundation.blend",
+      "bounds_size_m": [
+        8.600000381469727,
+        8.199999809265137,
+        0.25
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.125
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "955e2943e3fe6bf4a55bb69de9f39e3ee9daffe2cf691438b3875c1ccbd1af9c",
+      "source_sha256": "86ef0d88643c0447e46620b36c26723026c59e14d25c0a9958202a6a40cd5c2b",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-FOUNDATION",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "foundation_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 44,
+        "polygons_per_component": 26,
+        "instances": 1,
+        "expanded_triangles": 44
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "slug": "deck_plank",
+      "name": "木平台板",
+      "category": "building",
+      "component_family": "deck_plank",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-DECK-PLANK",
+      "root_object": "ROOT_deck_plank",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/deck_plank/deck_plank.blend",
+      "bounds_size_m": [
+        0.6940000057220459,
+        8.020000457763672,
+        0.0
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 12,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "d938ef7fc0747047873c9703a10356ae1fee9672a7587ea9ef4f45b3d9055f05",
+      "source_sha256": "37ab1832fa4bcea017a88c85a11852153b543bd4c4e70285506f057d6edf3008",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-DECK-PLANK",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "deck_plank_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 2,
+        "polygons_per_component": 1,
+        "instances": 12,
+        "expanded_triangles": 24
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-WALL-SHELL",
+      "slug": "wall_shell",
+      "name": "奶油墙壳",
+      "category": "building",
+      "component_family": "wall_shell",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-WALL-SHELL",
+      "root_object": "ROOT_wall_shell",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/wall_shell/wall_shell.blend",
+      "bounds_size_m": [
+        4.799999713897705,
+        3.619999885559082,
+        2.740000009536743
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.6399999260902405,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "85d1e25eab89b13f00e9b419916ee42a0c0a90028a456c7829ab4c6ce877a136",
+      "source_sha256": "b34af81f8a3ead9f36c090b76983e23a99065d0dc6b260a3ef7b01e93221978b",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-WALL-SHELL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "wall_shell_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 200,
+        "polygons_per_component": 116,
+        "instances": 1,
+        "expanded_triangles": 200
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-TERRACE",
+      "slug": "roof_terrace",
+      "name": "屋顶露台",
+      "category": "building",
+      "component_family": "roof_terrace",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-ROOF-TERRACE",
+      "root_object": "ROOT_roof_terrace",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/roof_terrace/roof_terrace.blend",
+      "bounds_size_m": [
+        4.980000019073486,
+        3.8399999141693115,
+        0.2199999988079071
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.6499999761581421,
+        -0.10999999940395355
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "05a409a54bdfcee9969c986af4f504d2e656787e76d8fecec32dead199d65fc6",
+      "source_sha256": "92f710aab0172e28dd1f6fbc2dd1b963ff3950280b0d8154116c9f78d86b26fc",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-ROOF-TERRACE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "roof_terrace_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 44,
+        "polygons_per_component": 26,
+        "instances": 1,
+        "expanded_triangles": 44
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "slug": "solar_panel",
+      "name": "太阳能板",
+      "category": "building",
+      "component_family": "solar_panel",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "root_object": "ROOT_solar_panel",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/solar_panel/solar_panel.blend",
+      "bounds_size_m": [
+        1.4199999570846558,
+        1.5299999713897705,
+        0.12299999594688416
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.05999999865889549
+      ],
+      "instance_count": 6,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "338ac70a0eddfe52daef72e94cb8d9cf7470f5c9c7fef999a1c864c065ddc532",
+      "source_sha256": "2f28c8b82d58810991b2c005887d9bf12333003cd64cb67cbbac1950c4d73f41",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "solar_panel_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 38,
+        "polygons_per_component": 15,
+        "instances": 6,
+        "expanded_triangles": 228
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-BEAM",
+      "slug": "roof_beam",
+      "name": "太阳能木梁",
+      "category": "building",
+      "component_family": "roof_beam",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-ROOF-BEAM",
+      "root_object": "ROOT_roof_beam",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/roof_beam/roof_beam.blend",
+      "bounds_size_m": [
+        0.1599999964237213,
+        3.799999952316284,
+        0.1599999964237213
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.07999999821186066
+      ],
+      "instance_count": 3,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "69c3986db45570781f21b1f2c3504e5be914675b347d65032d92d3d790aa32dc",
+      "source_sha256": "b38742b7eff7b25e92f2c9f7a473ca2f31ea266ec6d39aa3afbef62007ba47c3",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-ROOF-BEAM",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "roof_beam_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 12,
+        "polygons_per_component": 6,
+        "instances": 3,
+        "expanded_triangles": 36
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LADDER",
+      "slug": "ladder",
+      "name": "木梯",
+      "category": "building",
+      "component_family": "ladder",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-LADDER",
+      "root_object": "ROOT_ladder",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/ladder/ladder.blend",
+      "bounds_size_m": [
+        0.7599999904632568,
+        0.14499999582767487,
+        2.9000000953674316
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.012499997392296791,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "097d35e8c2baa875a1f4f9076cfc6c9a1c4d7e732b9afade0286067d218ea4b8",
+      "source_sha256": "912fd0b552b73014b41bc44e8c32ec0b2c5ff804c0fa2e241d0b35e60d32bf53",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-LADDER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "ladder_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 84,
+        "polygons_per_component": 42,
+        "instances": 1,
+        "expanded_triangles": 84
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DOOR-ARCH",
+      "slug": "door_arch",
+      "name": "拱形侧门",
+      "category": "building",
+      "component_family": "door",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-DOOR-ARCH",
+      "root_object": "ROOT_door_arch",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/door_arch/door_arch.blend",
+      "bounds_size_m": [
+        1.149999976158142,
+        0.10999999940395355,
+        2.015000104904175
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.030000001192092896,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "51ebb94ddf11a13b08535c707fc1cc03638ff04ce223a5d326c5e7e8f543fb00",
+      "source_sha256": "8f89251d9dcb390ac05199180276144fd8de25b35c6baefb025d6a4614280e13",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-DOOR-ARCH",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "door_arch_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 59,
+        "polygons_per_component": 28,
+        "instances": 1,
+        "expanded_triangles": 59
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DOOR-SHUTTER",
+      "slug": "door_shutter",
+      "name": "青色百叶门",
+      "category": "building",
+      "component_family": "door",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-DOOR-SHUTTER",
+      "root_object": "ROOT_door_shutter",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/door_shutter/door_shutter.blend",
+      "bounds_size_m": [
+        0.6299999952316284,
+        0.10000000149011612,
+        1.899999976158142
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "ea827f2ca13895c7d18c82650cebd588862e51788741957ca091754fe045dc6d",
+      "source_sha256": "aa50cd0567dec9edac3d818fea73f450d6d91bfb9963dc96bc36596d1b62d61b",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-DOOR-SHUTTER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "door_shutter_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 44,
+        "polygons_per_component": 26,
+        "instances": 1,
+        "expanded_triangles": 44
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PORTHOLE",
+      "slug": "porthole",
+      "name": "黄框圆窗",
+      "category": "building",
+      "component_family": "window",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-PORTHOLE",
+      "root_object": "ROOT_porthole",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/porthole/porthole.blend",
+      "bounds_size_m": [
+        1.0199999809265137,
+        0.14100000262260437,
+        1.0199999809265137
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.0005000010132789612,
+        -0.5099999904632568
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "5b5f3a777f5066aacd5c9453234e9f4b5f74086ad15bb9b983ade075f5987d04",
+      "source_sha256": "4437d0f9b1e95455adb073a406d02e1e7c98b1422e13936eae316d73e7a40b3b",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PORTHOLE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "porthole_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 74,
+        "polygons_per_component": 35,
+        "instances": 1,
+        "expanded_triangles": 74
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-AWNING",
+      "slug": "awning",
+      "name": "条纹遮阳棚",
+      "category": "building",
+      "component_family": "awning",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-AWNING",
+      "root_object": "ROOT_awning",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/awning/awning.blend",
+      "bounds_size_m": [
+        2.0,
+        0.9399999976158142,
+        0.4399999976158142
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.4699999988079071,
+        -0.4399999976158142
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "e4e2effa5591754f8c4309c5f4d91e928b23dee386c97bbc6d5c030028350482",
+      "source_sha256": "0d4067fc66ee91c1683a88b986788bd8380bfcef08e7e961870b5f942f042984",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-AWNING",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "awning_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 24,
+        "instances": 1,
+        "expanded_triangles": 48
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SHADE-SAIL",
+      "slug": "shade_sail",
+      "name": "柔软遮阳帆",
+      "category": "building",
+      "component_family": "shade_sail",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-SHADE-SAIL",
+      "root_object": "ROOT_shade_sail",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/shade_sail/shade_sail.blend",
+      "bounds_size_m": [
+        1.600000023841858,
+        1.9500000476837158,
+        0.3700000047683716
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.1899999976158142
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "07967fbd92cbbce8f9301af60387f724d02220694d1b63c31f1c7a5a10117819",
+      "source_sha256": "383d8f45c27ab477f4b2ecaee47a7d37b38428d0c566b7ebed9bbd32066ab3cd",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-SHADE-SAIL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "shade_sail_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 8,
+        "polygons_per_component": 4,
+        "instances": 1,
+        "expanded_triangles": 8
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-POST",
+      "slug": "post",
+      "name": "木质绳桩",
+      "category": "building",
+      "component_family": "post",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-POST",
+      "root_object": "ROOT_post",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/post/post.blend",
+      "bounds_size_m": [
+        0.20803695917129517,
+        0.21874301135540009,
+        0.8999999761581421
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        -0.010981522500514984,
+        0.0,
+        0.0
+      ],
+      "instance_count": 8,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "acfb5511cf29c8e0ddc1ae4c85d48c43b2ed6eb3b55234cd8029032cf01c483a",
+      "source_sha256": "035e7619c55b413778496043d40416e48b09f829b04b3ace85e08c12f72c35c0",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-POST",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "post_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 16,
+        "polygons_per_component": 7,
+        "instances": 8,
+        "expanded_triangles": 128
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "slug": "rope_span",
+      "name": "下垂绳栏",
+      "category": "building",
+      "component_family": "rope",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-ROPE-SPAN",
+      "root_object": "ROOT_rope_span",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/rope_span/rope_span.blend",
+      "bounds_size_m": [
+        2.8116531372070312,
+        0.04800000041723251,
+        0.2546490430831909
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.00800000037997961,
+        -0.22755566239356995
+      ],
+      "instance_count": 7,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "9329cd02ac158fc47109affdbdad80e0b0fedaf9c7f10e9ba18c6944a24075b3",
+      "source_sha256": "8652b0faa806e7e05a762c5ca59c28a93c53426130810d11416cfd37a09d6f75",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-ROPE-SPAN",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "rope_span_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 20,
+        "polygons_per_component": 11,
+        "instances": 7,
+        "expanded_triangles": 140
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-TIRE",
+      "slug": "tire",
+      "name": "轮胎护舷",
+      "category": "building",
+      "component_family": "tire",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-TIRE",
+      "root_object": "ROOT_tire",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/tire/tire.blend",
+      "bounds_size_m": [
+        0.9399999976158142,
+        0.28732049465179443,
+        1.1200000047683716
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.013660259544849396,
+        -0.4699999988079071
+      ],
+      "instance_count": 3,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "fa52067ede456e8f7e955313e6fb6e0b0a51db5cfdc0354322c7bd06fb32e19d",
+      "source_sha256": "68616bc7e76f2888ddbf1f0d9d9cc5cf6f3713980f924673b30b3c0b0942c60b",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-TIRE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "tire_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 72,
+        "polygons_per_component": 37,
+        "instances": 3,
+        "expanded_triangles": 216
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LIFEBUOY",
+      "slug": "lifebuoy",
+      "name": "救生圈",
+      "category": "building",
+      "component_family": "lifebuoy",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-LIFEBUOY",
+      "root_object": "ROOT_lifebuoy",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/lifebuoy/lifebuoy.blend",
+      "bounds_size_m": [
+        1.0,
+        0.20000000298023224,
+        1.0
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.5
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "4da8fadc268aa2f5bde1f532fa7a4c9c9d5ab4bc5df47daa10613f8abe8d2f54",
+      "source_sha256": "e8aae92324770f38a5414b0c47e3b4ad70120e953730a30059546e9909595628",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-LIFEBUOY",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "lifebuoy_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 64,
+        "polygons_per_component": 32,
+        "instances": 1,
+        "expanded_triangles": 64
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LANTERN",
+      "slug": "lantern",
+      "name": "暖光提灯",
+      "category": "building",
+      "component_family": "lantern",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-LANTERN",
+      "root_object": "ROOT_lantern",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/lantern/lantern.blend",
+      "bounds_size_m": [
+        0.3799999952316284,
+        0.3799999952316284,
+        0.4099999666213989
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.07000000774860382
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "61ca1f04dbb84d095529300ca4d813d42b938638252187d3ebbb7fa026608f05",
+      "source_sha256": "f80a22d75b583947df4648d4b5bee548009c41646d098bc661043f89ba88250c",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-LANTERN",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "lantern_body",
+        "lantern_emissive"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 24,
+        "polygons_per_component": 12,
+        "instances": 2,
+        "expanded_triangles": 48
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-BENCH",
+      "slug": "bench",
+      "name": "软垫木椅",
+      "category": "building",
+      "component_family": "bench",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-BENCH",
+      "root_object": "ROOT_bench",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/bench/bench.blend",
+      "bounds_size_m": [
+        1.2999999523162842,
+        0.5950000286102295,
+        1.159999966621399
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.017499998211860657,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "413b763b20d0db838981899089d32a9e20923bc39f72452b674ce1dd91e886e3",
+      "source_sha256": "a4a45d9dd0b43d85abda904447e00cb847e6ef7e947f334dffeb75e522b78dfd",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-BENCH",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "bench_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 112,
+        "polygons_per_component": 64,
+        "instances": 1,
+        "expanded_triangles": 112
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "slug": "planter_round",
+      "name": "陶土圆花盆",
+      "category": "building",
+      "component_family": "planter",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "root_object": "ROOT_planter_round",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/planter_round/planter_round.blend",
+      "bounds_size_m": [
+        0.6000000238418579,
+        0.5196152329444885,
+        0.47999998927116394
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "1ee70e6f4058386f7114218ac686e93d5fc3e26c1cd84965ee76e7e7fc6df171",
+      "source_sha256": "8de3d54f1051f6b486936b568588649e6c7ac146a97eb6ee3d89b356c9ebf22b",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "planter_round_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 20,
+        "polygons_per_component": 8,
+        "instances": 2,
+        "expanded_triangles": 40
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-BOILER",
+      "slug": "boiler",
+      "name": "蓝色小锅炉",
+      "category": "building",
+      "component_family": "boiler",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-BOILER",
+      "root_object": "ROOT_boiler",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/boiler/boiler.blend",
+      "bounds_size_m": [
+        0.800000011920929,
+        0.800000011920929,
+        1.5299999713897705
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "0978b84feaa9f39af07d1cf4d4df4764453a70310343892187537bd4bf3ddf3b",
+      "source_sha256": "087a06e72677aaec4fbbc9004db90bf5f0552a82ebbfde01d54aba608410c666",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-BOILER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "boiler_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 72,
+        "polygons_per_component": 27,
+        "instances": 1,
+        "expanded_triangles": 72
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-RUG",
+      "slug": "rug",
+      "name": "编织地毯",
+      "category": "building",
+      "component_family": "rug",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-RUG",
+      "root_object": "ROOT_rug",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/rug/rug.blend",
+      "bounds_size_m": [
+        1.399999976158142,
+        0.8399999737739563,
+        0.0
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "b7dd7a6aa9fee1130c1ab9c306eb7a469c672443bf899f6b0cb36327981212cb",
+      "source_sha256": "4c15b8e5b7f18c3a479175436e6cca0c2ad2305076514697875501da2e88c680",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-RUG",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "rug_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 2,
+        "polygons_per_component": 1,
+        "instances": 1,
+        "expanded_triangles": 2
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "slug": "leaf_cluster",
+      "name": "阔叶绿植",
+      "category": "flora",
+      "component_family": "leaf_cluster",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "root_object": "ROOT_leaf_cluster",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/leaf_cluster/leaf_cluster.blend",
+      "bounds_size_m": [
+        1.0445996522903442,
+        1.0408711433410645,
+        0.75
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0777001827955246,
+        -0.0025099217891693115,
+        0.0
+      ],
+      "instance_count": 8,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "2e340b86a7c5d24b823812c0454823d0acf40d780d25c67e83ecfdc618f8f9d8",
+      "source_sha256": "d916dee284dec289d4cc1d17a3f90479aac2b041665abbb10ddd1e9830a846bc",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "leaf_cluster_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 36,
+        "instances": 8,
+        "expanded_triangles": 384
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "slug": "vine",
+      "name": "垂落藤蔓",
+      "category": "flora",
+      "component_family": "vine",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-VINE",
+      "root_object": "ROOT_vine",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/vine/vine.blend",
+      "bounds_size_m": [
+        0.5400000214576721,
+        0.4550336003303528,
+        1.2699999809265137
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.019199997186660767,
+        -1.2699999809265137
+      ],
+      "instance_count": 5,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "bc70550710b9f320d5145705d90116f8c1c6f55e2b6d69af4c9ca40ad5d3d791",
+      "source_sha256": "e672369e3c175e57d4fd73bb83a21274ca5626dfece6fd0fbc4ce16a3daf2979",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-VINE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "vine_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 48,
+        "instances": 5,
+        "expanded_triangles": 240
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "slug": "daisy",
+      "name": "白色雏菊",
+      "category": "flora",
+      "component_family": "flower_daisy",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-DAISY",
+      "root_object": "ROOT_daisy",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/daisy/daisy.blend",
+      "bounds_size_m": [
+        0.7133592367172241,
+        0.7418240904808044,
+        0.35500001907348633
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.03332038223743439,
+        0.0,
+        -0.02500000037252903
+      ],
+      "instance_count": 4,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "9c2947c8579f93b73a60d5ec92277b1b971ecf427517df9c34bf387e6c859067",
+      "source_sha256": "b82864995d08b0269fcf24a35a268f97f3feb5edf4331ef8b76d5bf8bac278a7",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-DAISY",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "daisy_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 48,
+        "instances": 4,
+        "expanded_triangles": 192
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "slug": "cosmos",
+      "name": "粉色波斯菊",
+      "category": "flora",
+      "component_family": "flower_cosmos",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-COSMOS",
+      "root_object": "ROOT_cosmos",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/cosmos/cosmos.blend",
+      "bounds_size_m": [
+        0.7133592367172241,
+        0.7418240904808044,
+        0.35500001907348633
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.03332038223743439,
+        0.0,
+        -0.02500000037252903
+      ],
+      "instance_count": 4,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "9c2947c8579f93b73a60d5ec92277b1b971ecf427517df9c34bf387e6c859067",
+      "source_sha256": "6e9ad4a2efa60ac85de39455253eb946cc57f67aa7a141eb10d802a093512c0b",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-COSMOS",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "cosmos_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 48,
+        "instances": 4,
+        "expanded_triangles": 192
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PALM",
+      "slug": "palm",
+      "name": "热带棕榈",
+      "category": "flora",
+      "component_family": "palm",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-PALM",
+      "root_object": "ROOT_palm",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/palm/palm.blend",
+      "bounds_size_m": [
+        1.8994678258895874,
+        1.9972187280654907,
+        0.7799999713897705
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.10026603937149048,
+        0.0,
+        0.05000000074505806
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "20b67281b70afc3e1300fa16f9fe1fa09a3e71e5a3a7bc0e54b3abaeb75476c2",
+      "source_sha256": "a7102233d1c21a1a2e9406e503bf850e01c5de0cf97d7aafba567afde0270139",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PALM",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "palm_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 60,
+        "polygons_per_component": 60,
+        "instances": 1,
+        "expanded_triangles": 60
+      },
+      "version": "v002"
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SAIL-MAST",
+      "slug": "sail_mast",
+      "name": "遮阳帆细木杆",
+      "category": "building",
+      "component_family": "sail_mast",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "SEA-SCENE-SOLAR-SAIL-MAST",
+      "root_object": "ROOT_sail_mast",
+      "component_blend": "art_source/scenes/solar_flower_house/v002/component_packages/sail_mast/sail_mast.blend",
+      "bounds_size_m": [
+        0.14000000059604645,
+        0.12124355137348175,
+        2.200000047683716
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal",
+        "SEA_Gloss",
+        "SEA_Emission"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "b1cd2cb9d2fc50ed2b373e99cee92a286b3019a01b030af2b03da2196611a895",
+      "source_sha256": "6cb4262a20a84690c1ab4622ff9e5a6be9a37104915faffd5d7faf87a070ee89",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-SAIL-MAST",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "sail_mast_body"
+      ],
+      "geometry_budget": {
+        "triangles_per_component": 20,
+        "polygons_per_component": 8,
+        "instances": 2,
+        "expanded_triangles": 40
+      },
+      "version": "v002"
+    }
+  ]
+}

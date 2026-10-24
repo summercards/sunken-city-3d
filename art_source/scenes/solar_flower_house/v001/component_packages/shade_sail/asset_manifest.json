@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-SHADE-SAIL",
+  "slug": "shade_sail",
+  "name": "柔软遮阳帆",
+  "category": "building",
+  "component_family": "shade_sail",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-SHADE-SAIL",
+  "root_object": "ROOT_shade_sail",
+  "component_blend": "art_source/scenes/solar_flower_house/v001/component_packages/shade_sail/shade_sail.blend",
+  "bounds_size_m": [
+    1.628000020980835,
+    1.9780000448226929,
+    0.5226424336433411
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    -0.32932764291763306
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "e2abce36a04b18058c3238f1cee818d8a389463ee2455bcdbbed22e38e01df9f",
+  "source_sha256": "f40808d5ffbc43a796c84e6be8789193bb82e57525999d2a8848afe5b2e2499c",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-SHADE-SAIL",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "shade_sail_body"
+  ]
+}

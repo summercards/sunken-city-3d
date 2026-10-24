@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-PFH-POT",
+  "slug": "pot",
+  "name": "陶土圆花盆",
+  "category": "building",
+  "subcategory": "furnishing",
+  "component_family": "pot",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-POT",
+  "root_object": "ROOT_pot",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/pot/pot.blend",
+  "bounds_size_m": [
+    0.6100000143051147,
+    0.6100000143051147,
+    0.4350000023841858
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 5,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "0571fb49215c07d78b4be140a8848fc2842918c7c6bbfd607c787514227e756b",
+  "source_sha256": "34f6885645110bb15fe211e229c1ff32d60e3d7f9b377dc283c60e8afa5522e8",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-POT",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "pot_body"
+  ]
+}

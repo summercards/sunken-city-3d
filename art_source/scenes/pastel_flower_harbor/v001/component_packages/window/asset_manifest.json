@@ -1,0 +1,56 @@
+{
+  "component_id": "SEA-SCENE-PFH-WINDOW",
+  "slug": "window",
+  "name": "蓝玻璃方窗",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "window",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 7000,
+  "version": "v001",
+  "collection": "SEA-SCENE-PFH-WINDOW",
+  "root_object": "ROOT_window",
+  "component_blend": "art_source/scenes/pastel_flower_harbor/v001/component_packages/window/window.blend",
+  "bounds_size_m": [
+    1.100000023841858,
+    0.14750000834465027,
+    1.3599998950958252
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.036249998956918716,
+    -0.06000000238418579
+  ],
+  "instance_count": 4,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "de9ab24940d4e0521b8de261374f22dc8564abcea15deb68079360e402b96a73",
+  "source_sha256": "07c01386706b375db99fa7cfd6a0ba47f69a9204ceda87f6fe57aa76dfede601",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-PFH-WINDOW",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "window_body"
+  ]
+}

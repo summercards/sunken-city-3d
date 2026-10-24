@@ -1,0 +1,287 @@
+{
+  "schema": "sea.scene.source_verification",
+  "source_only": true,
+  "checks": {
+    "front_corridor_obstructions": [],
+    "assembled_source": true,
+    "standalone_packages_reopened": 28
+  },
+  "metrics": {
+    "components": 28,
+    "instances": 84,
+    "polygons": 822,
+    "vertices": 872,
+    "faces_uv_checked": 822,
+    "expanded_triangles": 2999,
+    "expanded_polygons": 1947,
+    "expanded_meshes": 86
+  },
+  "errors": [],
+  "passed": true,
+  "expected_faults": [],
+  "not_executed": [
+    "Godot import",
+    "runtime collision/navigation",
+    "game performance",
+    "reference commercial rights review"
+  ],
+  "runtime_status": "pending",
+  "feature_id": "SEA-ASSET",
+  "date": "2026-10-24",
+  "version": "v002",
+  "blender_version": "5.2.2 LTS",
+  "source": "art_source/scenes/solar_flower_house/v002/solar_flower_house.blend",
+  "source_sha256": "bc97c90008abce00fe482c926845b380f609128556ff738786fcea86f959f4f4",
+  "geometry_budget": {
+    "schema": "sea.scene.geometry_budget",
+    "limit": 3000,
+    "expanded_triangles": 2999,
+    "expanded_polygons": 1947,
+    "components": {
+      "pier": {
+        "triangles_per_component": 44,
+        "polygons_per_component": 26,
+        "instances": 4,
+        "expanded_triangles": 176
+      },
+      "foundation": {
+        "triangles_per_component": 44,
+        "polygons_per_component": 26,
+        "instances": 1,
+        "expanded_triangles": 44
+      },
+      "deck_plank": {
+        "triangles_per_component": 2,
+        "polygons_per_component": 1,
+        "instances": 12,
+        "expanded_triangles": 24
+      },
+      "wall_shell": {
+        "triangles_per_component": 200,
+        "polygons_per_component": 116,
+        "instances": 1,
+        "expanded_triangles": 200
+      },
+      "roof_terrace": {
+        "triangles_per_component": 44,
+        "polygons_per_component": 26,
+        "instances": 1,
+        "expanded_triangles": 44
+      },
+      "solar_panel": {
+        "triangles_per_component": 38,
+        "polygons_per_component": 15,
+        "instances": 6,
+        "expanded_triangles": 228
+      },
+      "roof_beam": {
+        "triangles_per_component": 12,
+        "polygons_per_component": 6,
+        "instances": 3,
+        "expanded_triangles": 36
+      },
+      "ladder": {
+        "triangles_per_component": 84,
+        "polygons_per_component": 42,
+        "instances": 1,
+        "expanded_triangles": 84
+      },
+      "door_arch": {
+        "triangles_per_component": 59,
+        "polygons_per_component": 28,
+        "instances": 1,
+        "expanded_triangles": 59
+      },
+      "door_shutter": {
+        "triangles_per_component": 44,
+        "polygons_per_component": 26,
+        "instances": 1,
+        "expanded_triangles": 44
+      },
+      "porthole": {
+        "triangles_per_component": 74,
+        "polygons_per_component": 35,
+        "instances": 1,
+        "expanded_triangles": 74
+      },
+      "awning": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 24,
+        "instances": 1,
+        "expanded_triangles": 48
+      },
+      "shade_sail": {
+        "triangles_per_component": 8,
+        "polygons_per_component": 4,
+        "instances": 1,
+        "expanded_triangles": 8
+      },
+      "post": {
+        "triangles_per_component": 16,
+        "polygons_per_component": 7,
+        "instances": 8,
+        "expanded_triangles": 128
+      },
+      "rope_span": {
+        "triangles_per_component": 20,
+        "polygons_per_component": 11,
+        "instances": 7,
+        "expanded_triangles": 140
+      },
+      "tire": {
+        "triangles_per_component": 72,
+        "polygons_per_component": 37,
+        "instances": 3,
+        "expanded_triangles": 216
+      },
+      "lifebuoy": {
+        "triangles_per_component": 64,
+        "polygons_per_component": 32,
+        "instances": 1,
+        "expanded_triangles": 64
+      },
+      "lantern": {
+        "triangles_per_component": 24,
+        "polygons_per_component": 12,
+        "instances": 2,
+        "expanded_triangles": 48
+      },
+      "bench": {
+        "triangles_per_component": 112,
+        "polygons_per_component": 64,
+        "instances": 1,
+        "expanded_triangles": 112
+      },
+      "planter_round": {
+        "triangles_per_component": 20,
+        "polygons_per_component": 8,
+        "instances": 2,
+        "expanded_triangles": 40
+      },
+      "boiler": {
+        "triangles_per_component": 72,
+        "polygons_per_component": 27,
+        "instances": 1,
+        "expanded_triangles": 72
+      },
+      "rug": {
+        "triangles_per_component": 2,
+        "polygons_per_component": 1,
+        "instances": 1,
+        "expanded_triangles": 2
+      },
+      "leaf_cluster": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 36,
+        "instances": 8,
+        "expanded_triangles": 384
+      },
+      "vine": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 48,
+        "instances": 5,
+        "expanded_triangles": 240
+      },
+      "daisy": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 48,
+        "instances": 4,
+        "expanded_triangles": 192
+      },
+      "cosmos": {
+        "triangles_per_component": 48,
+        "polygons_per_component": 48,
+        "instances": 4,
+        "expanded_triangles": 192
+      },
+      "palm": {
+        "triangles_per_component": 60,
+        "polygons_per_component": 60,
+        "instances": 1,
+        "expanded_triangles": 60
+      },
+      "sail_mast": {
+        "triangles_per_component": 20,
+        "polygons_per_component": 8,
+        "instances": 2,
+        "expanded_triangles": 40
+      }
+    },
+    "instances": 84,
+    "passed": true,
+    "counting": "mesh evaluated after modifiers, triangulated, multiplied by every visible Collection Instance; library master scene not added twice"
+  },
+  "commands": [
+    {
+      "command": "Blender --background --factory-startup --python-exit-code 1 --python tools/blender/solar_flower_house/build_lowpoly.py -- --replace-generated --render",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v002-build.log"
+    },
+    {
+      "command": "Blender --background --factory-startup --python-exit-code 1 --python tools/blender/solar_flower_house/finalize_packages.py -- --version v002",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v002/packages.log"
+    },
+    {
+      "command": "Blender --background --factory-startup --python-exit-code 1 --python tools/blender/solar_flower_house/verify_source.py -- --version v002 --render",
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v002/verify.log"
+    },
+    {
+      "command": "python3 tools/blender/solar_flower_house/register_sources.py --version v002",
+      "exit_code": 0
+    },
+    {
+      "command": "quick_validate.py .agents/skills/sea-scene-component-authoring",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/check_feature_contracts.py --sync",
+      "exit_code": 1,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v002/contracts-sync.log"
+    },
+    {
+      "command": "python3 scripts/check_feature_contracts.py",
+      "exit_code": 1,
+      "log": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v002/contracts-check.log"
+    }
+  ],
+  "visual_review": {
+    "passed": true,
+    "method": "Direct inspection of four Cycles renders",
+    "images": [
+      {
+        "path": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v002/previews/solar_flower_house_beauty.png",
+        "sha256": "13c20a229292df03ffe322d577d42bfe9a7d739b262b910f1363ed3546f3347e"
+      },
+      {
+        "path": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v002/previews/building_only.png",
+        "sha256": "4ccecee4d3102fd4905858abffd0dd6f3ec2101a23db59030fba57e1c2da42e9"
+      },
+      {
+        "path": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v002/previews/detail.png",
+        "sha256": "5fc003576ade664a53f50685e5523c8be3377fcd728fd86fd13946c81eeb836c"
+      },
+      {
+        "path": "/Users/summercards/WorkBuddy/sea-work/solar_flower_house_v002/previews/top.png",
+        "sha256": "8827cbc68cdaebadf8aefd63582bb312061a765180cf42b5a5d783294a2f4c4c"
+      }
+    ],
+    "notes": [
+      "thick leaves and larger five-lobed flowers",
+      "architectural chamfers at reduced segment count",
+      "expanded front and side wooden floor",
+      "building/flora remain independently hideable"
+    ]
+  },
+  "previous_sources_hashes_verified": 29,
+  "project_contract_check": {
+    "passed": false,
+    "issues": [
+      "runtime hash drift: godot/assets/materials/water.tres"
+    ],
+    "unrelated_to_scene_revision": true,
+    "runtime_hash_not_overwritten": true,
+    "summary_state": "SEA-ASSET remains partial; sync atomic write blocked by unrelated hash drift"
+  }
+}

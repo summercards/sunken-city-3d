@@ -1,0 +1,56 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-PARAPET",
+  "slug": "parapet",
+  "name": "花台矮墙",
+  "category": "building",
+  "component_family": "parapet",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-PARAPET",
+  "root_object": "ROOT_parapet",
+  "component_blend": "art_source/scenes/solar_flower_house/v003/component_packages/parapet/parapet.blend",
+  "bounds_size_m": [
+    1.649999976158142,
+    0.3199999928474426,
+    0.44999998807907104
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 7,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "d5d9291a27f150507848e0e3a2d25d3ce748d9f585569e8dd34ea74151979ddf",
+  "source_sha256": "7766e6731de7ffc69333adc86b6718383dfc592abf021211247adaf4bb2c02f9",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PARAPET",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "parapet_body"
+  ],
+  "version": "v003",
+  "style_base_version": "v001"
+}
