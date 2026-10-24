@@ -134,7 +134,7 @@ set_water_scheme(id)
 | 检查 | 结果 |
 |---|---|
 | `tools/check_water_params.gd` | 两套都 PASS（60 / 37） |
-| `scripts/run_verification.py core` | modules / parity / farming / surface / click / management / camera / ocean / selftest 九项全 PASS（evidence `20261025-001322-water-absorption-958f25`） |
+| `scripts/run_verification.py core` | modules / parity / farming / surface / click / management / camera / ocean / selftest 九项全 PASS。变基到兼容后端口径后重跑过一次（evidence `20261025-003940-water-absorption-postrebase-f9c761`；变基前是 `20261025-001322-water-absorption-958f25`） |
 | Forward+ 真实渲染 | 无 SHADER ERROR；吸收式为青绿系、废墟清楚；原版与改动前一致 |
 | `gl_compatibility` 真实渲染 | 退出 0、0 条 SHADER ERROR、不变黑不发白；两套都能看到水下废墟。同机位平均绝对差 9.0/255（Forward+ 是 7.0/255）——按重拟合后的增益 1.26 复核，见下 |
 | 切换链路 | `capture_water_schemes.gd` 打印 `当前方案=absorption 控件数=37` / `复原后方案=original 控件数=60` |
