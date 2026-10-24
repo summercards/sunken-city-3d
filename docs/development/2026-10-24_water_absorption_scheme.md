@@ -60,6 +60,7 @@ color       = mix(color, 1 - absorption_color, depth_blend * depth_blend);
 | `tools/check_water_params.gd` | 改为双方案核对（两套各查「着色器→清单 / 清单→着色器 / 资源」） |
 | `tools/capture_water_schemes.gd` | 同机位截两套 + 面板放大图 |
 | `tools/probe_absorption_tuning.gd` | 出厂值扫描（两轮，各 4 档） |
+| `tools/diff_images.gd` | 两张 PNG 的差异统计（平均绝对差 / 超阈值占比 / 最大差），回答「这两张看着一样，到底差多少」 |
 
 ## 切换链路
 
@@ -135,11 +136,21 @@ set_water_scheme(id)
 | `tools/check_water_params.gd` | 两套都 PASS（60 / 37） |
 | `scripts/run_verification.py core` | modules / parity / farming / surface / click / management / camera / ocean / selftest 九项全 PASS（evidence `20261025-001322-water-absorption-958f25`） |
 | Forward+ 真实渲染 | 无 SHADER ERROR；吸收式为青绿系、废墟清楚；原版与改动前一致 |
-| `gl_compatibility` 真实渲染 | 退出 0、0 条 SHADER ERROR、不变黑（本机该后端整体过曝是既有环境问题，不做颜色参考） |
+| `gl_compatibility` 真实渲染 | 退出 0、0 条 SHADER ERROR、不变黑不发白；两套都能看到水下废墟。同机位平均绝对差 9.0/255（Forward+ 是 7.0/255）——按重拟合后的增益 1.26 复核，见下 |
 | 切换链路 | `capture_water_schemes.gd` 打印 `当前方案=absorption 控件数=37` / `复原后方案=original 控件数=60` |
-| `scripts/check_feature_contracts.py` | 220 条运行资源哈希无漂移；只剩 `main.gd` 引用 `res://outputs` 这一条历史遗留（HEAD 里就有） |
+| `scripts/check_feature_contracts.py` | 220 条运行资源哈希无漂移；0 issues。那条长期的「`main.gd` 引 `res://outputs` 缺资源」其实取决于本地有没有 `godot/outputs/`（该目录被 `.gitignore`，跑一次 `--capture` 就会生成），本轮跑过抓图后它自己消失了——新克隆上还会再出现，不是本次引入的 |
 
 截图：`sea-work/manual-water-check/schemes/`（Forward+）、`schemes-gl/`（兼容后端）、`tune/`（出厂扫描）。
+
+### 兼容后端：与「水色增益重拟合」那一条的关系
+
+本方案的两套材质都吃 `render_flags.gd` 的 `emission_gain`，而本条分支上另有一条
+`fix(water): 重拟合兼容后端水色增益`（`a002994`）把兼容后端的增益从 `(3.8, 3.8, 2.7)`
+改成 `1.26`。第一次拍兼容后端时还没这条提交，水面整体过曝（那是旧增益的问题，不是本方案的）。
+变基到 `a002994` 之后重拍：退出 0、0 条 SHADER ERROR、两套都不黑不发白、水下废墟都看得见，
+同机位平均绝对差 9.0/255（Forward+ 是 7.0/255，逐像素阈值 >2/255 的占 30.7% 对 25.6%，
+用 `tools/diff_images.gd` 量的）。**Web 导出前要按当时的最新增益再目视一次**——吸收式的
+互补色对自发光增益比原版更敏感。
 
 ## 原版没有被改动的证据
 
@@ -152,5 +163,5 @@ set_water_scheme(id)
 ## 遗留
 
 - `water_absorption.tres` 是新增的登记项，行尾必须是 LF（登记哈希按 LF 算）。本机 `core.autocrlf=true` 且仓库无 `.gitattributes`，**未来一次 checkout 会把它写成 CRLF 并报哈希漂移**——判定法见 [water_restore_verification.md](2026-10-24_water_restore_verification.md)：转 LF 后与 `git show HEAD:<path>` 逐字节比，相同就是幻影，还原行尾而不是重算哈希。
-- 吸收式在 `gl_compatibility` 下同样依赖 `emission_gain` 补偿，Web 导出前需要在该后端单独目视一次（本机过曝，只能看编译与是否变黑）。
+- 吸收式在 `gl_compatibility` 下同样依赖 `emission_gain` 补偿，且比原版更吃这个系数（互补色整体乘在自发光上）。本分支已按 `1.26` 复核过，但**增益以后再改，这里要跟着重拍**。
 - 焦散默认关闭。它在深水几乎不可见、浅滩才有脉络，等有具体浅滩场景再定出厂。
