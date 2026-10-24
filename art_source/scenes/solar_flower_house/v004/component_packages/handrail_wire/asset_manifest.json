@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-HANDRAIL-WIRE",
+  "slug": "handrail_wire",
+  "name": "细钢丝扶手",
+  "category": "building",
+  "component_family": "hardware",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-HANDRAIL-WIRE",
+  "root_object": "ROOT_handrail_wire",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/handrail_wire/handrail_wire.blend",
+  "bounds_size_m": [
+    1.5,
+    0.098,
+    0.1
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.014,
+    -0.08
+  ],
+  "instance_count": 7,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "8e3d7615429d913a5db8e78ead31f98c2cd2b59c8730188b592a1071f3af8157",
+  "source_sha256": "384f50f62453a9cf97521ab07d94ebb3ae0355ff0cc1edad1d5fbde87fd1cc01",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-HANDRAIL-WIRE",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "handrail_wire_body"
+  ]
+}

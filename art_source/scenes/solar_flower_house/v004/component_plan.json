@@ -1,0 +1,930 @@
+{
+  "schema": "sea.scene.component_plan",
+  "version": "v004",
+  "status": "frozen_before_geometry",
+  "frozen_date": "2026-10-24",
+  "feature_id": "SEA-ASSET",
+  "reference": "reference.png",
+  "reference_sha256": "3308948944eab877eb30a4f9cae2319decf1c2241b8822c9dc9e4e2a2d4cc0bd",
+  "reference_license": "pending_user_reference_rights_review",
+  "reference_view": "isometric diorama, orthographic 35.26 deg elevation, front-left azimuth, white backdrop",
+  "dimensions_assumption": {
+    "base_platform_m": [
+      5.65,
+      6.0
+    ],
+    "deck_top_z_m": 0.95,
+    "pier_top_z_m": 0.6,
+    "water_drop_m": 1.6,
+    "house_block_m": [
+      5.0,
+      5.6,
+      4.4
+    ],
+    "roof_room_m": [
+      2.5,
+      2.0,
+      1.5
+    ],
+    "pavilion_m": [
+      2.8,
+      2.3,
+      0.95
+    ],
+    "roof_pitch_deg": 10.5,
+    "note": "参考图无标尺与透视标定；以上为独立美术源米制假设，只服务轮廓与镜头还原，不改变游戏碰撞或正式建筑尺寸。"
+  },
+  "component_budget": {
+    "limit": 50,
+    "planned": 48,
+    "remaining": 2
+  },
+  "palette": {
+    "path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+    "sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+    "uv_layer": "PaletteUV",
+    "roles": [
+      "SEA_Matte",
+      "SEA_Metal",
+      "SEA_Gloss",
+      "SEA_Emission"
+    ],
+    "policy": "复用既有公共方格色板，只重映射逐面 PaletteUV；不修改共享 PNG，不为单个颜色新增材质。"
+  },
+  "revision_note": "依用户 2026-10-24 附件新建 v004：双层白墙小屋＋太阳能门廊＋双列栈桥＋黄色渔船的等距模型。v001-v003 与公共色板保持不变，本版不复用旧版几何。制模中把栏杆族拆成实心女儿墙与通透栏杆两个变体，并按屋面退台重排露台进深。",
+  "base_version": null,
+  "base_source_sha256": null,
+  "structural_decisions": {
+    "railing_family": "屋檐与二层露台分别需要实心板与通透栏杆，用 infill 变体轴拆两件，不共用同一几何。",
+    "level2_terrace": "二层体后退 1.37 米形成连续露台，前排花箱贴栏杆内侧摆，花苞抬高到叶堆之上。",
+    "pier_tiling": "栈桥按 1.5 米物理模数铺板与包边，实例只做整组位移与 90° 旋转，不非等比拉伸。",
+    "composition": "门廊台面前移，使橙色台面与尖旗遮阳棚在等距视角下探出坡屋面。"
+  },
+  "acceptance_focus": "高还原轮廓与配色：三角面预算不作为本版约束，优先还原结构、比例与花叶密度。",
+  "components": [
+    {
+      "component_id": "SEA-SCENE-SOLAR-BASE-SLAB",
+      "slug": "base_slab",
+      "name": "房屋基座平台",
+      "category": "building",
+      "component_family": "platform",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-STILT",
+      "slug": "stilt",
+      "name": "深木桩柱",
+      "category": "building",
+      "component_family": "platform",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-STAGE-BASE",
+      "slug": "stage_base",
+      "name": "门廊台基",
+      "category": "building",
+      "component_family": "platform",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-WALL-GROUND",
+      "slug": "wall_ground",
+      "name": "一层墙壳",
+      "category": "building",
+      "component_family": "wall",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-WALL-UPPER",
+      "slug": "wall_upper",
+      "name": "二层墙壳",
+      "category": "building",
+      "component_family": "wall",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-FLOOR-SLAB",
+      "slug": "floor_slab",
+      "name": "二层楼板",
+      "category": "building",
+      "component_family": "slab",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-TERRACE",
+      "slug": "roof_terrace",
+      "name": "屋顶露台板",
+      "category": "building",
+      "component_family": "slab",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COLUMN-SHORT",
+      "slug": "column_short",
+      "name": "门廊短柱",
+      "category": "building",
+      "component_family": "column",
+      "scope": "scene_local",
+      "variant_axis": "height",
+      "variant_value": "1.50m",
+      "variant_reason": "门廊前后柱高不同以承接倾斜屋面",
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COLUMN-TALL",
+      "slug": "column_tall",
+      "name": "门廊高柱",
+      "category": "building",
+      "component_family": "column",
+      "scope": "scene_local",
+      "variant_axis": "height",
+      "variant_value": "2.00m",
+      "variant_reason": "门廊前后柱高不同以承接倾斜屋面",
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PARAPET",
+      "slug": "parapet",
+      "name": "白框女儿墙单元",
+      "category": "building",
+      "component_family": "railing",
+      "scope": "scene_local",
+      "variant_axis": "infill",
+      "variant_value": "panel",
+      "variant_reason": "屋顶需实心板挡风，二层露台需通透栏杆",
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-RAILING-OPEN",
+      "slug": "railing_open",
+      "name": "通透细栏杆单元",
+      "category": "building",
+      "component_family": "railing",
+      "scope": "scene_local",
+      "variant_axis": "infill",
+      "variant_value": "open",
+      "variant_reason": "屋顶需实心板挡风，二层露台需通透栏杆",
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PARAPET-POST",
+      "slug": "parapet_post",
+      "name": "女儿墙端柱",
+      "category": "building",
+      "component_family": "railing_end",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-HANDRAIL-WIRE",
+      "slug": "handrail_wire",
+      "name": "细钢丝扶手",
+      "category": "building",
+      "component_family": "hardware",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-SLAB",
+      "slug": "roof_slab",
+      "name": "门廊坡屋面",
+      "category": "building",
+      "component_family": "roof",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-ROOF-ROOM",
+      "slug": "roof_room",
+      "name": "屋顶小屋",
+      "category": "building",
+      "component_family": "roof_room",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-HIP-ROOF",
+      "slug": "hip_roof",
+      "name": "小屋四坡顶",
+      "category": "building",
+      "component_family": "roof_room",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-WINDOW-CROSS",
+      "slug": "window_cross",
+      "name": "青色十字格窗",
+      "category": "building",
+      "component_family": "opening",
+      "scope": "scene_local",
+      "variant_axis": "type",
+      "variant_value": "cross",
+      "variant_reason": "同族窗型按格栅区分宽窗与百叶窗",
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-WINDOW-LOUVER",
+      "slug": "window_louver",
+      "name": "青色百叶窗",
+      "category": "building",
+      "component_family": "opening",
+      "scope": "scene_local",
+      "variant_axis": "type",
+      "variant_value": "louver",
+      "variant_reason": "同族窗型按格栅区分宽窗与百叶窗",
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VENT-PANEL",
+      "slug": "vent_panel",
+      "name": "深紫通风面板",
+      "category": "building",
+      "component_family": "fixture",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-CABINET",
+      "slug": "cabinet",
+      "name": "橙红百叶柜",
+      "category": "building",
+      "component_family": "fixture",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-SOLAR-PANEL",
+      "slug": "solar_panel",
+      "name": "太阳能板阵",
+      "category": "building",
+      "component_family": "solar",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PANEL-BOARD",
+      "slug": "panel_board",
+      "name": "板上木垫板",
+      "category": "building",
+      "component_family": "solar",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-AWNING",
+      "slug": "awning",
+      "name": "黄白尖旗遮阳棚",
+      "category": "building",
+      "component_family": "awning",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PORCH-PLANK",
+      "slug": "porch_plank",
+      "name": "橙色门廊板",
+      "category": "building",
+      "component_family": "decking",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PORCH-STEP",
+      "slug": "porch_step",
+      "name": "门廊台阶",
+      "category": "building",
+      "component_family": "decking",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-CLAMP-BLOCK",
+      "slug": "clamp_block",
+      "name": "深木卡块",
+      "category": "building",
+      "component_family": "decking",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-TIRE",
+      "slug": "tire",
+      "name": "蓝色轮胎护舷",
+      "category": "building",
+      "component_family": "fender",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PIER-PLANK",
+      "slug": "pier_plank",
+      "name": "浅木栈桥板",
+      "category": "building",
+      "component_family": "pier",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PIER-RIM",
+      "slug": "pier_rim",
+      "name": "白色栈桥包边",
+      "category": "building",
+      "component_family": "pier",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DOCK-POST",
+      "slug": "dock_post",
+      "name": "橄榄木桩白帽",
+      "category": "building",
+      "component_family": "pier",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-CRATE-GRID",
+      "slug": "crate_grid",
+      "name": "深木格箱",
+      "category": "building",
+      "component_family": "container",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-CRATE-LATTICE",
+      "slug": "crate_lattice",
+      "name": "木格栅箱",
+      "category": "building",
+      "component_family": "container",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-BARREL",
+      "slug": "barrel",
+      "name": "深蓝圆桶",
+      "category": "building",
+      "component_family": "container",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-SQUARE",
+      "slug": "planter_square",
+      "name": "木花箱",
+      "category": "building",
+      "component_family": "planter",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-CREAM",
+      "slug": "planter_cream",
+      "name": "米色花箱",
+      "category": "building",
+      "component_family": "planter",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+      "slug": "planter_round",
+      "name": "陶土圆盆",
+      "category": "building",
+      "component_family": "planter",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-BENCH",
+      "slug": "bench",
+      "name": "白框橙板长凳",
+      "category": "building",
+      "component_family": "seat",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-BOAT",
+      "slug": "boat",
+      "name": "黄色小渔船",
+      "category": "building",
+      "component_family": "boat",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-OUTBOARD",
+      "slug": "outboard",
+      "name": "淡紫船外机",
+      "category": "building",
+      "component_family": "boat",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-OAR",
+      "slug": "oar",
+      "name": "木船桨",
+      "category": "building",
+      "component_family": "boat",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-FISHERMAN",
+      "slug": "fisherman",
+      "name": "草帽渔夫",
+      "category": "building",
+      "component_family": "figure",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-FIGURE-WHITE",
+      "slug": "figure_white",
+      "name": "白瓷小人",
+      "category": "building",
+      "component_family": "figure",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-BUOY-FLOAT",
+      "slug": "buoy_float",
+      "name": "粉青浮球",
+      "category": "building",
+      "component_family": "float",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-LEAF-CLUSTER",
+      "slug": "leaf_cluster",
+      "name": "阔叶绿植簇",
+      "category": "flora",
+      "component_family": "leaf",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-VINE",
+      "slug": "vine",
+      "name": "垂枝藤",
+      "category": "flora",
+      "component_family": "vine",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-COSMOS",
+      "slug": "cosmos",
+      "name": "粉色波斯菊",
+      "category": "flora",
+      "component_family": "bloom",
+      "scope": "scene_local",
+      "variant_axis": "species",
+      "variant_value": "pink",
+      "variant_reason": "同族花按花色区分粉白黄三色",
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-DAISY",
+      "slug": "daisy",
+      "name": "白色雏菊",
+      "category": "flora",
+      "component_family": "bloom",
+      "scope": "scene_local",
+      "variant_axis": "species",
+      "variant_value": "white",
+      "variant_reason": "同族花按花色区分粉白黄三色",
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-SOLAR-GOLDFLOWER",
+      "slug": "goldflower",
+      "name": "黄色花苞",
+      "category": "flora",
+      "component_family": "bloom",
+      "scope": "scene_local",
+      "variant_axis": "species",
+      "variant_value": "yellow",
+      "variant_reason": "同族花按花色区分粉白黄三色",
+      "front_axis": "-Y",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ]
+    }
+  ]
+}

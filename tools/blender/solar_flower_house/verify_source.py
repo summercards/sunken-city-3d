@@ -7,7 +7,7 @@ from pathlib import Path
 from mathutils import Vector,Matrix
 R=Path(__file__).resolve().parents[3]
 version=sys.argv[sys.argv.index('--version')+1] if '--version' in sys.argv else 'v001'
-assert version in ['v001','v002','v003']
+assert version in ['v001','v002','v003','v004']
 D=R/'art_source/scenes/solar_flower_house'/version;W=Path(os.environ.get('SEA_WORK_ROOT',R.parent/'sea-work'))/('solar_flower_house' if version=='v001' else 'solar_flower_house_'+version)
 if R==W or R in W.parents:raise RuntimeError('Output must be outside repository')
 plan=json.loads((D/'component_plan.json').read_text());catalog=json.loads((D/'component_catalog.json').read_text())['components'];instances=json.loads((D/'component_instances.json').read_text())['instances']
@@ -54,7 +54,7 @@ require(len(catalog)==len(plan['components'])<=50,'budget')
 family={}
 for c in plan['components']:family.setdefault(c['component_family'],[]).append(c)
 for f,items in family.items():require(len(items)<=3 or (len(items)<=5 and all(x['variant_axis'] and x['variant_reason'] for x in items)),f+': variants')
-main=bpy.data.scenes['太阳能花屋_参考装配'];bpy.context.window.scene=main
+main=next(x for x in bpy.data.scenes if x.name.startswith('太阳能花屋') and x.name!='组件母版_建筑与花草');bpy.context.window.scene=main
 actual={o.name:o for o in main.objects if o.instance_type=='COLLECTION'}
 require(len(actual)==len(instances),'instance count')
 for entry in instances:
@@ -127,8 +127,11 @@ if '--render' in sys.argv:
  bpy.data.collections['花草_实例'].hide_render=True
  scene.render.filepath=str(W/'previews/building_only.png');bpy.ops.render.render(write_still=True)
  bpy.data.collections['花草_实例'].hide_render=False
- cam.location=(-7,-10,6.8);aim((-.1,-.65,3.3));cam.data.ortho_scale=7.5
+ if version=='v004':
+  cam.location=(-9,-12,7.6);aim((1.4,-2.0,2.2));cam.data.ortho_scale=9.2
+ else:
+  cam.location=(-7,-10,6.8);aim((-.1,-.65,3.3));cam.data.ortho_scale=7.5
  scene.render.filepath=str(W/'previews/detail.png');bpy.ops.render.render(write_still=True)
- cam.location=(0,0,18);aim((0,0,0));cam.data.ortho_scale=11.8 if version=='v002' else 10.6
+ cam.location=(1.2,-1.4,18);cam.rotation_euler=(0,0,0);cam.data.ortho_scale={'v002':11.8,'v004':17.2}.get(version,10.6)
  scene.render.filepath=str(W/'previews/top.png');bpy.ops.render.render(write_still=True)
 print('SEA_SOURCE_QA_COMPLETE',flush=True)

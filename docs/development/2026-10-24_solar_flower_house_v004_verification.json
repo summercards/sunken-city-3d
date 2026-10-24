@@ -1,0 +1,25 @@
+{
+  "schema": "sea.scene.source_verification",
+  "source_only": true,
+  "checks": {
+    "assembled_source": true,
+    "standalone_packages_reopened": 48
+  },
+  "metrics": {
+    "components": 48,
+    "instances": 340,
+    "polygons": 14629,
+    "vertices": 14748,
+    "faces_uv_checked": 14629
+  },
+  "errors": [],
+  "passed": true,
+  "expected_faults": [],
+  "not_executed": [
+    "Godot import",
+    "runtime collision/navigation",
+    "game performance",
+    "reference commercial rights review"
+  ],
+  "runtime_status": "pending"
+}

@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-BARREL",
+  "slug": "barrel",
+  "name": "深蓝圆桶",
+  "category": "building",
+  "component_family": "container",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-BARREL",
+  "root_object": "ROOT_barrel",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/barrel/barrel.blend",
+  "bounds_size_m": [
+    0.33857,
+    0.35929,
+    0.445
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.01036,
+    0.0
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "dabec8fb347506188c312bced679147c59c8b302451f1cb6f7afd25bdccadbe9",
+  "source_sha256": "bd09bb96cb1ed3fbc3193c21cc377291d754b0e7e21652198dc005415f878646",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-BARREL",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "barrel_body"
+  ]
+}

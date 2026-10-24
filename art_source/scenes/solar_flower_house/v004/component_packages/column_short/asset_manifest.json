@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-COLUMN-SHORT",
+  "slug": "column_short",
+  "name": "门廊短柱",
+  "category": "building",
+  "component_family": "column",
+  "scope": "scene_local",
+  "variant_axis": "height",
+  "variant_value": "1.50m",
+  "variant_reason": "门廊前后柱高不同以承接倾斜屋面",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-COLUMN-SHORT",
+  "root_object": "ROOT_column_short",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/column_short/column_short.blend",
+  "bounds_size_m": [
+    0.32,
+    0.32,
+    1.5
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "fd7b0f85581999829fe8d3fdc490f936e7e7b480623c8f4455bb5daafa087ed7",
+  "source_sha256": "cc6eeb1e3d126dbd010d17f27b94cc752276ce1ad8cb712b3b7c9c0b90b22739",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-COLUMN-SHORT",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "column_short_body"
+  ]
+}

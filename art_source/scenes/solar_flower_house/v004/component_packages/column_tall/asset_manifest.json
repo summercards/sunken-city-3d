@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-COLUMN-TALL",
+  "slug": "column_tall",
+  "name": "门廊高柱",
+  "category": "building",
+  "component_family": "column",
+  "scope": "scene_local",
+  "variant_axis": "height",
+  "variant_value": "2.00m",
+  "variant_reason": "门廊前后柱高不同以承接倾斜屋面",
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-COLUMN-TALL",
+  "root_object": "ROOT_column_tall",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/column_tall/column_tall.blend",
+  "bounds_size_m": [
+    0.32,
+    0.32,
+    2.0
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "c399b706128667f631d3b15dfe6d1f31875ec47c0c7cb581c30c6127d906d71d",
+  "source_sha256": "38685f55b8e50330dd204f5af8adf5de57c7816a87413d4c774151e4a3f48889",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-COLUMN-TALL",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "column_tall_body"
+  ]
+}

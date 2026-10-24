@@ -6,7 +6,7 @@ from pathlib import Path
 from mathutils import Vector
 R=Path(__file__).resolve().parents[3]
 version=sys.argv[sys.argv.index('--version')+1] if '--version' in sys.argv else 'v001'
-assert version in ['v001','v002','v003']
+assert version in ['v001','v002','v003','v004']
 D=R/'art_source/scenes/solar_flower_house'/version;main=D/'solar_flower_house.blend'
 cat=json.loads((D/'component_catalog.json').read_text())
 for item in cat['components']:

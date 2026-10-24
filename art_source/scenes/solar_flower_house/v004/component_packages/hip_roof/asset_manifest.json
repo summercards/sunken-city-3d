@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-HIP-ROOF",
+  "slug": "hip_roof",
+  "name": "小屋四坡顶",
+  "category": "building",
+  "component_family": "roof_room",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-HIP-ROOF",
+  "root_object": "ROOT_hip_roof",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/hip_roof/hip_roof.blend",
+  "bounds_size_m": [
+    2.78,
+    3.16,
+    0.37
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "055ef52bd6967a4f0ce0b26024105e6fe93b35faf83664e777d3406f49c8afcf",
+  "source_sha256": "cac14a9539032ff35dbacadfa61942f58fd85a7667610ffce4e81d6e5ae88c70",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-HIP-ROOF",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "hip_roof_body"
+  ]
+}

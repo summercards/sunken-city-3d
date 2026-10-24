@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+  "slug": "planter_round",
+  "name": "陶土圆盆",
+  "category": "building",
+  "component_family": "planter",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-PLANTER-ROUND",
+  "root_object": "ROOT_planter_round",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/planter_round/planter_round.blend",
+  "bounds_size_m": [
+    0.43,
+    0.43,
+    0.36
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 6,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "fb719df89bb68b7cf9daca0d411d7c109fadcc7df532287c0e3bc7560c508b54",
+  "source_sha256": "c4e22ceca794bb094b6cc5f1401dc439d8a3f53c922bfb29e34b5193e7cef7dc",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PLANTER-ROUND",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "planter_round_body"
+  ]
+}

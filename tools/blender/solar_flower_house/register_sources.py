@@ -5,7 +5,7 @@ from pathlib import Path
 import json,hashlib,os,sys
 R=Path(__file__).resolve().parents[3]
 version=sys.argv[sys.argv.index('--version')+1] if '--version' in sys.argv else 'v001'
-assert version in ['v001','v002','v003']
+assert version in ['v001','v002','v003','v004']
 D=R/'art_source/scenes/solar_flower_house'/version;W=Path(os.environ.get('SEA_WORK_ROOT',R.parent/'sea-work'))/('solar_flower_house' if version=='v001' else 'solar_flower_house_'+version)
 qa=json.loads((W/'source_verification.json').read_text());assert qa['passed'], 'source gate must pass'
 route=json.loads((R/'assets/registry/ledger_index.json').read_text())['domains']['scenes'];book_path=R/route['ledger'];book=json.loads(book_path.read_text())
@@ -29,13 +29,16 @@ for a in new:
  if a['asset_id'] in old:
   prior=old[a['asset_id']]
   if prior['source']!=a['source']:
-   assert version in ['v002','v003'] and any('/solar_flower_house/'+v+'/' in prior['source'] for v in ['v001','v002']) and '/solar_flower_house/'+version+'/' in a['source'], 'AssetID source collision'
+   prior_versions=['v001','v002','v003','v004']; prior_versions.remove(version)
+   assert version in ['v002','v003','v004'] and any('/solar_flower_house/'+v+'/' in prior['source'] for v in prior_versions) and '/solar_flower_house/'+version+'/' in a['source'], 'AssetID source collision'
    history=list(prior.get('previous_sources',[]));history.append({k:prior[k] for k in ['source','source_sha256','manifest','version']});a['previous_sources']=history
   elif 'previous_sources' in prior:a['previous_sources']=prior['previous_sources']
   if version=='v002' and a['asset_id'].startswith('SEA-SCENE-SOLAR-'):
    a['note']='v002 简约低面数源；整场景展开后三角面 <=3000；建筑与花草分离，Godot 接入 pending。'
   if version=='v003' and a['asset_id'].startswith('SEA-SCENE-SOLAR-'):
    a['note']='依用户要求基于 v001 调整色调和花朵风格，建筑几何锁定；本轮为风格源，不宣称满足3000面；Godot 接入 pending。'
+  if version=='v004' and a['asset_id'].startswith('SEA-SCENE-SOLAR-'):
+   a['note']='按 2026-10-24 新附件重做的等距双层小屋源；建筑、固定陈设与花草分集合，Godot 接入与参考授权仍 pending。'
 book[route['asset_key']]=[a for a in book[route['asset_key']] if a['asset_id'] not in ids]+new
 save(book_path,book)
 # Rebuild only the derived source path index from all routed ledgers.

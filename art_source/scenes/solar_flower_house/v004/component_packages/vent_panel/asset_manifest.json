@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-VENT-PANEL",
+  "slug": "vent_panel",
+  "name": "深紫通风面板",
+  "category": "building",
+  "component_family": "fixture",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-VENT-PANEL",
+  "root_object": "ROOT_vent_panel",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/vent_panel/vent_panel.blend",
+  "bounds_size_m": [
+    0.8,
+    0.358,
+    1.04
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.029,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "26e7d1c9efbfd19e7899e79126b2db407f2b604a359897a12f368dafb709e399",
+  "source_sha256": "2cc56619edfc6822481d5ea2149429f0a8ba29d69146f59eac21320055dde51e",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-VENT-PANEL",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "vent_panel_body"
+  ]
+}

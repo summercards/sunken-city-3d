@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-PORCH-PLANK",
+  "slug": "porch_plank",
+  "name": "橙色门廊板",
+  "category": "building",
+  "component_family": "decking",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-PORCH-PLANK",
+  "root_object": "ROOT_porch_plank",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/porch_plank/porch_plank.blend",
+  "bounds_size_m": [
+    3.2,
+    0.315,
+    0.05
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 9,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "7a64afa28c7773fcc3a18ea20d6857349da642997711a9bd9c001f1c0319d0ae",
+  "source_sha256": "4208d344bf456e1cd4acebf657a77ff6318f3ecb54122a5d7276557fbac185d8",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-PORCH-PLANK",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "porch_plank_body"
+  ]
+}

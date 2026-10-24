@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-AWNING",
+  "slug": "awning",
+  "name": "黄白尖旗遮阳棚",
+  "category": "building",
+  "component_family": "awning",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-AWNING",
+  "root_object": "ROOT_awning",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/awning/awning.blend",
+  "bounds_size_m": [
+    2.25,
+    0.062,
+    0.4535
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    -0.045,
+    0.0,
+    -0.4
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "02f121f829551261e8e349e3cc0c815d9dedca0cb89ff678b87f7459e0a1defb",
+  "source_sha256": "a2afbab7277cc28711ef2e0de7e99853a1463a2c71a92de3c177a8d19f0bdd2d",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-AWNING",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "awning_body"
+  ]
+}

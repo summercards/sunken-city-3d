@@ -1,0 +1,54 @@
+{
+  "component_id": "SEA-SCENE-SOLAR-WALL-GROUND",
+  "slug": "wall_ground",
+  "name": "一层墙壳",
+  "category": "building",
+  "component_family": "wall",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "SEA-SCENE-SOLAR-WALL-GROUND",
+  "root_object": "ROOT_wall_ground",
+  "component_blend": "art_source/scenes/solar_flower_house/v004/component_packages/wall_ground/wall_ground.blend",
+  "bounds_size_m": [
+    5.12,
+    5.72,
+    2.4
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    -0.01,
+    -0.01,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "03dbb9c8fb594f0cd80f718872c7d0425fd1c285403cd568eb34699740a8541b",
+  "source_sha256": "3c9416f05fc70c07a120b873c6a68507f784c74fc95cd82a88871ecbe0ad8b7d",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SOLAR-WALL-GROUND",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "wall_ground_body"
+  ]
+}
