@@ -11,6 +11,14 @@ extends MeshInstance3D
 ## 出厂波幅。写在默认值上而不是 `main.tscn` 的节点属性里：
 ## 场景覆盖会被编辑器重写丢掉（实测丢过一次），默认值不会。
 @export_range(0.0, 2.0, 0.05) var wave_scale := 1.2
+## 可选的水面方案。`material_override` 始终指向当前生效的那一份，
+## 键是方案 id（`original` / `absorption`），值是各自的运行时材质实例。
+##
+## 两套水共用这一个节点：网格、波场、尾迹、桨环、岸线图全是同一份，
+## 切换只换材质。这样「对比」比的是着色模型，不是两个世界。
+var schemes := {}
+## 当前方案 id。切了以后 `material_override` 跟着变。
+var scheme := "original"
 var shoreline: RefCounted
 var time := 0.0
 var wake: Node3D
@@ -25,9 +33,42 @@ func _ready() -> void:
 	if material_override != null:
 		if not Engine.is_editor_hint():
 			material_override = material_override.duplicate()
+		schemes[scheme] = material_override
 		_sync(material_override)
 	_ripples.resize(8)
 	for i in 8: _ripples[i] = Vector4(0, 0, -100, 0)
+
+
+## 登记一套可选材质。默认复制一份运行时实例，改参数不会写回 `.tres`；
+## 传 `copy = false` 用于已经是从场景复制出来的实例（`material_override`）。
+func register_scheme(id: String, mat: ShaderMaterial, copy := true) -> void:
+	if mat == null:
+		return
+	var live: ShaderMaterial = mat
+	if copy and not Engine.is_editor_hint():
+		live = mat.duplicate() as ShaderMaterial
+	schemes[id] = live
+	_sync(live)
+	# 岸线图是按材质绑定写入的，新材质不绑就只剩没有泡沫的干净水面。
+	if shoreline != null:
+		shoreline.bind(live)
+
+
+## 切换当前方案。返回 false 表示这套没登记过（调用方该报错而不是静默）。
+func use_scheme(id: String) -> bool:
+	if not schemes.has(id):
+		return false
+	scheme = id
+	var live: ShaderMaterial = schemes[id]
+	material_override = live
+	_sync(live)
+	if shoreline != null:
+		shoreline.bind(live)
+	return true
+
+
+func current_material() -> ShaderMaterial:
+	return material_override as ShaderMaterial
 
 func _sync(mat: ShaderMaterial) -> void:
 	mat.set_shader_parameter("ocean_waves", ocean_waves)
@@ -117,5 +158,10 @@ func _make_grid() -> ArrayMesh:
 func rebuild_shoreline(roots: Array, region := Rect2()) -> void:
 	shoreline = preload("res://src/rendering/shore_distance.gd").new()
 	shoreline.rebuild(roots, global_position.y, 1536, region)
-	shoreline.bind(material_override as ShaderMaterial)
+	# 每套已登记的方案都要拿到同一张距线图：只绑当前那套，切过去就没泡沫了。
+	if schemes.is_empty():
+		shoreline.bind(material_override as ShaderMaterial)
+	else:
+		for id in schemes:
+			shoreline.bind(schemes[id])
 	print("[shoreline] geometry segments=", shoreline.segments.size(), " bounds=", shoreline.bounds)

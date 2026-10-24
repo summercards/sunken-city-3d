@@ -289,6 +289,11 @@ func _ready() -> void:
 			# 调试：直接翻到「水面」页，省得每次按 P 再点一下。
 			grade.set_open(true)
 			grade.set_tab("water")
+		if a == "--water-abs" and grade != null:
+			# 调试：起手就切到吸收式那套水，并翻到同一页。
+			grade.set_water_scheme("absorption")
+			grade.set_open(true)
+			grade.set_tab("water")
 		if a.begins_with("--grant="):
 			# 调试：给物品（截图/演示用）。格式 --grant=wood:12,parts:5
 			for pair in a.trim_prefix("--grant=").split(","):
@@ -758,24 +763,49 @@ func _setup_water() -> void:
 		water_mat.shader = load("res://shaders/water.gdshader")
 		water_mat.render_priority = 2
 		water_node.material_override = water_mat
-	# 只有「每帧/每次启动都不同」的参数在这里写；静态外观交给资源文件。
-	water_mat.set_shader_parameter("u_time", 0.0)
-	water_mat.set_shader_parameter("water_level", WATER_LEVEL)
-	# 深度纹理的 NDC 约定随渲染后端不同，Web(gl_compatibility) 必须换算。
-	water_mat.set_shader_parameter("u_reverse_z", RenderFlagsLib.reverse_z())
-	# 水面是纯自发光材质，兼容后端对 EMISSION 的解码比 Forward+ 暗一档多。
-	water_mat.set_shader_parameter("emission_gain", RenderFlagsLib.water_emission_gain())
-	_set_shore_uniforms()
-	# 这张距离图要遍历场景几何（本机约 4 秒），是 _ready 里最长的一段；
-	# 期间 HUD 还没建好，_unhandled_input 必须自己挡住输入（见那里的早退）。
-	if water_node.has_method("update_surface"):
-		water_node.wake = get_node_or_null("World/BoatWake")
-
+	# 两套水都注册到这个节点：`material_override` 永远是当前生效的那份，
+	# P 面板的「方案」和 `--water-abs` 都只调 `use_scheme()`。
 	_ripples.resize(8)
 	for i in 8:
 		_ripples[i] = Vector4(0, 0, -100, 0)
-	water_mat.set_shader_parameter("u_ripples", _ripples)
-	water_mat.set_shader_parameter("u_ripple_count", 0)
+	if water_node.has_method("register_scheme"):
+		water_node.register_scheme("original", water_mat, false)
+		var absorption: ShaderMaterial = load("res://assets/materials/water_absorption.tres") as ShaderMaterial
+		if absorption != null:
+			water_node.register_scheme("absorption", absorption)
+		for id in water_node.schemes:
+			_runtime_water_params(water_node.schemes[id])
+	else:
+		_runtime_water_params(water_mat)
+	# 这张距离图要遍历场景几何（本机约 4 秒），是 _ready 里最长的一段；
+	# 期间 HUD 还没建好，_unhandled_input 必须自己挡住输入（见那里的早退）。
+	_set_shore_uniforms()
+	if water_node.has_method("update_surface"):
+		water_node.wake = get_node_or_null("World/BoatWake")
+
+
+## 「每帧/每次启动都不同」的参数。静态外观交给资源文件，这里只处理运行时量。
+## 两套材质都要写一遍：漏了的那套切过去会是一帧黑水。
+func _runtime_water_params(mat: ShaderMaterial) -> void:
+	if mat == null:
+		return
+	mat.set_shader_parameter("u_time", 0.0)
+	mat.set_shader_parameter("water_level", WATER_LEVEL)
+	# 深度纹理的 NDC 约定随渲染后端不同，Web(gl_compatibility) 必须换算。
+	mat.set_shader_parameter("u_reverse_z", RenderFlagsLib.reverse_z())
+	# 水面是纯自发光材质，兼容后端对 EMISSION 的解码比 Forward+ 暗一档多。
+	mat.set_shader_parameter("emission_gain", RenderFlagsLib.water_emission_gain())
+	mat.set_shader_parameter("u_ripples", _ripples)
+	mat.set_shader_parameter("u_ripple_count", 0)
+
+
+## 当前生效的那份水面材质。切换方案后统一从这里取，别抓着 `water_mat` 不放。
+func _active_water_mat() -> ShaderMaterial:
+	if water_node != null and water_node.has_method("current_material"):
+		var live: ShaderMaterial = water_node.current_material()
+		if live != null:
+			return live
+	return water_mat
 
 
 func _set_shore_uniforms() -> void:
@@ -1850,7 +1880,7 @@ func _process(delta: float) -> void:
 		prompt.update_from(interactor)
 	_update_pointer_ui()
 	_update_camera_feedback(delta)
-	water_mat.set_shader_parameter("u_time", _t)
+	_active_water_mat().set_shader_parameter("u_time", _t)
 	if water_node.has_method("update_surface") and not dive.active:
 		water_node.update_surface(_t, boat, cam.target)
 	if props != null and not dive.active:
@@ -1867,7 +1897,7 @@ func _process(delta: float) -> void:
 			if not got.is_empty():
 				hud.toast("%s · %s" % [got.label, "  ".join(_reward_parts(got.reward))])
 	if boat != null:
-		water_mat.set_shader_parameter("u_boat", boat.wake_uniform())
+		_active_water_mat().set_shader_parameter("u_boat", boat.wake_uniform())
 
 
 ## 调试用：切换静态几何来源（baked / models），用于两条路径的画面比对。

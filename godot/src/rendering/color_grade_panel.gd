@@ -17,17 +17,45 @@ class_name ColorGradePanel
 
 const UiFontLib = preload("res://src/ui/ui_font.gd")
 const ParamsLib = preload("res://src/rendering/water_params.gd")
+const ParamsLibAbs = preload("res://src/rendering/water_params_absorption.gd")
 
 const CFG_PATH := "user://filter.cfg"
 const WATER_CFG_PATH := "user://water.cfg"
 const WATER_MAT_PATH := "res://assets/materials/water.tres"
+const ABSORPTION_MAT_PATH := "res://assets/materials/water_absorption.tres"
+
+## 两套水。各自有独立的参数表、材质资源、存档 section 和收藏，
+## 面板同一时间只显示其中一套 —— 「方案」按哪个，下面的滑杆就是哪套的。
+##
+## 为什么不合并成一张表：两套的身体模型不一样，`absorption` 这个名字在两边
+## 意义不同（旧方案是床面每米吸收多少，吸收式是被吃掉的波长颜色）。合成一张
+## 表，"复位到出厂"就没有唯一答案了。
+const SCHEME_ORIGINAL := "original"
+const SCHEME_ABSORPTION := "absorption"
+const SCHEME_ORDER := [SCHEME_ORIGINAL, SCHEME_ABSORPTION]
+const SCHEME_LABELS := {
+	SCHEME_ORIGINAL: "原版",
+	SCHEME_ABSORPTION: "吸收式",
+}
+const SCHEME_MATS := {
+	SCHEME_ORIGINAL: WATER_MAT_PATH,
+	SCHEME_ABSORPTION: ABSORPTION_MAT_PATH,
+}
+## 每种方案在 `water.cfg` 里的 section。旧存档就在 `water` 这一段，
+## 新方案另起一段，所以升级后原来的参数一个都不会丢。
+const SCHEME_SECTIONS := {
+	SCHEME_ORIGINAL: "water",
+	SCHEME_ABSORPTION: "water_absorption",
+}
+## 收藏里记「这套属于哪个方案」的键。
+const PRESET_SCHEME_KEY := "__scheme"
 
 ## 收藏的参数组合。和 `water.cfg` 分开放：那个记的是「上次调到哪」，
 ## 这个是「我特意存下来的几套」，性质不同。
 const WATER_PRESET_PATH := "user://water_presets.cfg"
 
-## 预设下拉里的第一项，永远指向 water.tres 本身，不可删。
-const PRESET_FACTORY := "出厂（water.tres）"
+## 预设下拉里的第一项，永远指向当前方案的资源文件，不可删。
+const PRESET_FACTORY := "出厂（材质文件）"
 ## `water.cfg` 里记出厂指纹的键。指纹变了说明 water.tres 换了另一套数，
 ## 旧存档立刻作废 —— 否则改了出厂值重启还是被老存档盖住。
 const CFG_SIG_KEY := "__mat_sig"
@@ -62,6 +90,14 @@ var _tab_buttons := {}
 
 ## 参数清单摊平后的副本，省掉每次读盘都重新摊一次。
 var _spec := {}
+## 当前方案 id（`original` / `absorption`）。切换会重建整页控件。
+var _scheme := SCHEME_ORIGINAL
+## 方案 id -> 顶部那两个开关按钮，切换后要同步按下态。
+var _scheme_buttons := {}
+## 底部「写入 xxx.tres」按钮，切方案时要改文案。
+var _save_button: Button
+## 方案 id -> 参数清单脚本，`_ready` 里填。
+var _scheme_params := {}
 ## 生成顺序（schema 的声明顺序，别用字典 key 顺序，那是乱的）。
 var _order: Array[String] = []
 ## key -> 把值推回控件用的 Callable。
@@ -102,10 +138,7 @@ func _ready() -> void:
 	# （它会把分组标题染成珊瑚色、把每个按钮顶到 38 px 高，排版会散）。
 	set_meta("cozy_skip", true)
 	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
-	_spec = ParamsLib.flat()
-	for g in ParamsLib.GROUPS:
-		for row in g.rows:
-			_order.append(row.key)
+	_rebuild_spec()
 	_build()
 	visible = false
 	# 先读盘：读档值要盖回场景默认值，否则每次启动都回到 1.0。
@@ -202,18 +235,68 @@ func _snapshot(env: Environment) -> Dictionary:
 	}
 
 
+# ---- 方案 -------------------------------------------------------------------
+#
+# 两套水的参数表不合并（身体模型不同，同名参数意义不同）。这里用几个小分发
+# 函数把「当前是哪套」收在一处，其它代码只跟 `_spec` / `_order` 打交道。
+
+func _is_abs() -> bool:
+	return _scheme == SCHEME_ABSORPTION
+
+
+func _groups() -> Array:
+	return ParamsLibAbs.GROUPS if _is_abs() else ParamsLib.GROUPS
+
+
+func _flat() -> Dictionary:
+	return ParamsLibAbs.flat() if _is_abs() else ParamsLib.flat()
+
+
+func _builtin(name: String) -> Dictionary:
+	return ParamsLibAbs.builtin(name) if _is_abs() else ParamsLib.builtin(name)
+
+
+func _builtin_names() -> Array:
+	return ParamsLibAbs.builtin_names() if _is_abs() else ParamsLib.builtin_names()
+
+
+func _builtin_presets() -> Array:
+	return ParamsLibAbs.BUILTIN_PRESETS if _is_abs() else ParamsLib.BUILTIN_PRESETS
+
+
+func _mat_path() -> String:
+	return String(SCHEME_MATS.get(_scheme, WATER_MAT_PATH))
+
+
+## 按当前方案重建「扁平清单 + 顺序」。两套水的键集合完全不同，必须成对重建。
+## 顺带把出厂值缓存清掉 —— 否则「复位」会拿回另一套方案在磁盘上的值。
+func _rebuild_spec() -> void:
+	_spec = _flat()
+	_order.clear()
+	for g in _groups():
+		for row in g.rows:
+			_order.append(row.key)
+	_file_defaults.clear()
+	_file_defaults_loaded = false
+
+
 # ---- 水面材质解析 -----------------------------------------------------------
 
 func _ensure_water() -> void:
-	if is_instance_valid(_water_mat) and is_instance_valid(_water_node):
-		return
-	var scene := get_tree().current_scene
-	if scene != null:
-		_water_node = scene.get_node_or_null("World/Water") as MeshInstance3D
-	if _water_node == null:
-		_water_node = _find_water_recursive(get_tree().root)
-	if _water_node == null:
-		return
+	if is_instance_valid(_water_node) and is_instance_valid(_water_mat):
+		# 切换方案时节点上的 `material_override` 换了另一份实例，这里要跟着换，
+		# 否则所有写入还在往旧材质上打，看起来像「调了没反应」。
+		var live: ShaderMaterial = _water_node.material_override as ShaderMaterial
+		if live != null and live == _water_mat:
+			return
+	if not is_instance_valid(_water_node):
+		var scene := get_tree().current_scene
+		if scene != null:
+			_water_node = scene.get_node_or_null("World/Water") as MeshInstance3D
+		if _water_node == null:
+			_water_node = _find_water_recursive(get_tree().root)
+		if _water_node == null:
+			return
 	_water_mat = _water_node.material_override as ShaderMaterial
 	if not _factory_captured:
 		_factory_captured = true
@@ -224,8 +307,11 @@ func _find_water_recursive(node: Node) -> MeshInstance3D:
 	var mi := node as MeshInstance3D
 	if mi != null:
 		var mat := mi.material_override as ShaderMaterial
-		if mat != null and mat.shader != null and String(mat.shader.resource_path).ends_with("water.gdshader"):
-			return mi
+		if mat != null and mat.shader != null:
+			var path := String(mat.shader.resource_path)
+			# 两套着色器都算水面：切到吸收式以后原来的判断会漏掉节点。
+			if path.ends_with("water.gdshader") or path.ends_with("water_absorption.gdshader"):
+				return mi
 	for c in node.get_children():
 		var found := _find_water_recursive(c)
 		if found != null:
@@ -236,7 +322,7 @@ func _find_water_recursive(node: Node) -> MeshInstance3D:
 ## 从资源文件重读一份材质，只用来取「出厂值」和写回时的干净底稿。
 ## `CACHE_MODE_IGNORE` 是关键：不加就会拿到运行时那份改过的实例。
 func _load_water_file() -> ShaderMaterial:
-	var res: Resource = ResourceLoader.load(WATER_MAT_PATH, "", ResourceLoader.CACHE_MODE_IGNORE)
+	var res: Resource = ResourceLoader.load(_mat_path(), "", ResourceLoader.CACHE_MODE_IGNORE)
 	return res as ShaderMaterial
 
 
@@ -406,6 +492,7 @@ func _build_filter() -> void:
 
 
 func _build_water() -> void:
+	_build_scheme_bar()
 	_build_preset_bar()
 
 	_water_scroll = ScrollContainer.new()
@@ -418,7 +505,7 @@ func _build_water() -> void:
 	_water_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_water_scroll.add_child(_water_body)
 
-	for g in ParamsLib.GROUPS:
+	for g in _groups():
 		_add_group(g)
 
 	_water_wrap.add_child(_separator())
@@ -428,7 +515,89 @@ func _build_water() -> void:
 	_water_wrap.add_child(buttons)
 	buttons.add_child(_button("复位", _on_water_reset))
 	buttons.add_child(_button("复制参数", _on_water_copy))
-	buttons.add_child(_button("写入 water.tres", _on_water_save))
+	_save_button = _button("写入 %s" % _mat_file_name(), _on_water_save)
+	buttons.add_child(_save_button)
+
+
+## 顶部一行：两套水之间切换。切换会重建下面整页控件。
+##
+## 两个都是开关按钮而不是下拉：只有两项，下拉要多一次点击，而且看不出
+## 「现在是哪套」之外还有哪套可选。
+func _build_scheme_bar() -> void:
+	var bar := HBoxContainer.new()
+	bar.add_theme_constant_override("separation", 5)
+	_water_wrap.add_child(bar)
+
+	var tag := _label("方案", 10, Color(0.72, 0.93, 1.0, 0.9))
+	tag.custom_minimum_size = Vector2(28, 0)
+	tag.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	tag.tooltip_text = "两套互相独立的水：原版是手绘体色，吸收式按屏幕深度吸收。各自的参数、收藏、存档都分开。"
+	bar.add_child(tag)
+
+	_scheme_buttons.clear()
+	for id in SCHEME_ORDER:
+		var sid := String(id)
+		var b := _button(String(SCHEME_LABELS[sid]), func() -> void: set_water_scheme(sid))
+		b.custom_minimum_size = Vector2(0, 24)
+		b.toggle_mode = true
+		b.tooltip_text = "切到「%s」这套水。" % SCHEME_LABELS[sid]
+		_scheme_buttons[sid] = b
+		bar.add_child(b)
+	_sync_scheme_buttons()
+
+
+func _sync_scheme_buttons() -> void:
+	for id in _scheme_buttons:
+		var b: Button = _scheme_buttons[id]
+		b.button_pressed = id == _scheme
+	# 「写入 xxx.tres」的目标文件跟着方案走，不然会以为写进了另一套。
+	if _save_button != null:
+		_save_button.text = "写入 %s" % _mat_file_name()
+
+
+func _mat_file_name() -> String:
+	return _mat_path().get_file()
+
+
+## 切换方案。节点上换材质 → 重建参数控件 → 套用该方案自己的存档。
+##
+## 顺序不能反：`_rebuild_spec()` 之后控件要重新读值，读的是「当前材质」，
+## 材质没换就会把另一套的值显示出来。
+func set_water_scheme(id: String) -> void:
+	if not SCHEME_ORDER.has(id):
+		return
+	_ensure_water()
+	if is_instance_valid(_water_node) and _water_node.has_method("use_scheme"):
+		if not _water_node.use_scheme(id):
+			_flash("场景里没有注册「%s」这套水" % SCHEME_LABELS.get(id, id))
+			return
+	_scheme = id
+	_rebuild_spec()
+	# 强制 _ensure_water 从节点重取材质，别继续拿着旧的那份。
+	_water_mat = null
+	_ensure_water()
+	_rebuild_water_rows()
+	_sync_water()
+	_water_dirty = false
+	_apply_water_cfg()
+	_sync_water()
+	_refresh_preset_list("")
+	_sync_scheme_buttons()
+	_write_scheme_to_cfg()
+	_flash("已切到「%s」" % SCHEME_LABELS.get(id, id))
+
+
+## 清空参数区重建成另一套。`_water_widgets` 跟着换：两套的键集合没有交集，
+## 留着旧的只会让 `_sync_water` 往上打另一套的值。
+func _rebuild_water_rows() -> void:
+	if _water_body == null:
+		return
+	_water_widgets.clear()
+	for c in _water_body.get_children():
+		_water_body.remove_child(c)
+		c.queue_free()
+	for g in _groups():
+		_add_group(g)
 
 
 ## 顶部一行：收藏下拉 + 存 / 删。
@@ -505,7 +674,9 @@ func _capture_values() -> Dictionary:
 
 ## 文件里各 section 的顺序不保证，所以顺序单独记在 `[meta] names` 里。
 ## 顺手兼容「section 存在但 names 漏了」的手改情况。
-func _preset_order() -> Array[String]:
+## 全量顺序，写文件时用。**不能用过滤后的 `_preset_order()` 写盘**：
+## 那样会把另一套水的收藏名从 `[meta] names` 里抹掉。
+func _preset_order_all() -> Array[String]:
 	var names: Array[String] = []
 	var cfg := ConfigFile.new()
 	if cfg.load(WATER_PRESET_PATH) != OK:
@@ -521,6 +692,24 @@ func _preset_order() -> Array[String]:
 		if not names.has(s):
 			names.append(s)
 	return names
+
+
+## 当前方案的收藏名。两套的键集合没有交集，混在一起只会让人点错。
+func _preset_order() -> Array[String]:
+	var names: Array[String] = []
+	var all := _load_presets()
+	for s in _preset_order_all():
+		if not all.has(s):
+			continue
+		if _preset_scheme_of(all[s]) != _scheme:
+			continue
+		names.append(s)
+	return names
+
+
+## 一套收藏属于哪个方案。加这一列之前的收藏都算原版。
+func _preset_scheme_of(data: Dictionary) -> String:
+	return String(data.get(PRESET_SCHEME_KEY, SCHEME_ORIGINAL))
 
 
 func _load_presets() -> Dictionary:
@@ -557,11 +746,11 @@ func _refresh_preset_list(select_key: String) -> void:
 	_preset_option.clear()
 	_preset_items.clear()
 
-	_add_preset_item({"kind": "factory", "name": PRESET_FACTORY})
+	_add_preset_item({"kind": "factory", "name": "出厂（%s）" % _mat_file_name()})
 
-	if not ParamsLib.BUILTIN_PRESETS.is_empty():
+	if not _builtin_presets().is_empty():
 		_add_separator_item("内置")
-		for p in ParamsLib.BUILTIN_PRESETS:
+		for p in _builtin_presets():
 			_add_preset_item({"kind": "builtin", "name": String(p.name)})
 
 	if not _preset_names.is_empty():
@@ -630,11 +819,11 @@ func _on_preset_selected(index: int) -> void:
 		return
 	if kind == "factory":
 		if _apply_factory_values():
-			_flash("已套用 %s" % PRESET_FACTORY)
+			_flash("已套用 %s" % "出厂（%s）" % _mat_file_name())
 		_update_preset_delete()
 		return
 	if kind == "builtin":
-		var preset := ParamsLib.builtin(String(item.name))
+		var preset := _builtin(String(item.name))
 		if preset.is_empty():
 			_flash("找不到内置预设「%s」" % item.name)
 			return
@@ -714,13 +903,15 @@ func _commit_preset(raw_name: String) -> void:
 	if name == PRESET_FACTORY:
 		_flash("「出厂」是内置项，换个名字")
 		return
-	if ParamsLib.builtin_names().has(name):
+	if _builtin_names().has(name):
 		_flash("「%s」是内置预设名，换个名字" % name)
 		return
 	var all := _load_presets()
-	var names := _preset_order()
+	var names := _preset_order_all()
 	var replaced := all.has(name)
 	all[name] = _capture_values()
+	# 记下这套属于哪个方案，切到另一套时不会被列出来（键集合不兼容）。
+	all[name][PRESET_SCHEME_KEY] = _scheme
 	if not names.has(name):
 		names.append(name)
 	_write_presets(names, all)
@@ -744,7 +935,7 @@ func _do_delete_preset() -> void:
 		return
 	var name := String(item.name)
 	var all := _load_presets()
-	var names := _preset_order()
+	var names := _preset_order_all()
 	all.erase(name)
 	names.erase(name)
 	_write_presets(names, all)
@@ -1240,7 +1431,7 @@ func _on_save_to_scene() -> void:
 
 func _on_water_reset() -> void:
 	if _apply_factory_values():
-		_flash("水面已回到 water.tres 的出厂值")
+		_flash("水面已回到 %s 的出厂值" % _mat_file_name())
 
 
 ## 把整套值退回资源文件里的那份。「复位」按钮和收藏下拉的第一项共用它。
@@ -1249,7 +1440,7 @@ func _apply_factory_values() -> bool:
 	_ensure_water()
 	var fresh := _load_water_file()
 	if fresh == null:
-		_flash("读不到 %s，无法复位" % WATER_MAT_PATH)
+		_flash("读不到 %s，无法复位" % _mat_path())
 		return false
 	for key in _order:
 		var spec: Dictionary = _spec.get(key, {})
@@ -1306,9 +1497,9 @@ func _on_water_save() -> void:
 	if OS.has_feature("template"):
 		_flash("导出版无法写回 res://，请用「复制参数」")
 		return
-	var text := FileAccess.get_file_as_string(WATER_MAT_PATH)
+	var text := FileAccess.get_file_as_string(_mat_path())
 	if text.is_empty():
-		_flash("读不到 %s" % WATER_MAT_PATH)
+		_flash("读不到 %s" % _mat_path())
 		return
 
 	# 仓库在 Windows 上是 CRLF 检出，换行风格照原样还回去，别制造整文件 diff。
@@ -1340,7 +1531,7 @@ func _on_water_save() -> void:
 		written += 1
 
 	var out := eol.join(PackedStringArray(lines))
-	var f := FileAccess.open(WATER_MAT_PATH, FileAccess.WRITE)
+	var f := FileAccess.open(_mat_path(), FileAccess.WRITE)
 	if f == null:
 		_flash("写入失败：%s" % error_string(FileAccess.get_open_error()))
 		return
@@ -1350,9 +1541,9 @@ func _on_water_save() -> void:
 	# 兜底自检：写回来的必须是资源文本，且不能夹带每帧改的运行时参数。
 	# 这两个条件一旦不成立，立刻用写之前的内容覆盖回去 —— 宁可这次没写成，
 	# 也不能让一份坏掉的 water.tres 留在磁盘上（水面会整体失色）。
-	var after := FileAccess.get_file_as_string(WATER_MAT_PATH)
+	var after := FileAccess.get_file_as_string(_mat_path())
 	if not after.contains("[gd_resource") or after.contains("shader_parameter/u_ripples"):
-		var undo := FileAccess.open(WATER_MAT_PATH, FileAccess.WRITE)
+		var undo := FileAccess.open(_mat_path(), FileAccess.WRITE)
 		if undo != null:
 			undo.store_string(text)
 			undo.close()
@@ -1363,7 +1554,7 @@ func _on_water_save() -> void:
 	_file_defaults.clear()
 	_file_defaults_loaded = false
 	_save_water_cfg()
-	_flash("已写入 water.tres 的 %d 项（当场生效，重开也保留）" % written)
+	_flash("已写入 %s 的 %d 项（当场生效，重开也保留）" % [_mat_file_name(), written])
 
 
 func _flash(text: String) -> void:
@@ -1378,8 +1569,31 @@ func _apply_saved_on_start() -> void:
 	_ensure_env()
 	_apply_filter_cfg()
 	_ensure_water()
+	# 上次用哪套水，跟存档一起恢复。切不过去（场景没注册这套）就留在原版，
+	# 不要因为一个存档字段整个面板起不来。
+	var saved := _saved_scheme()
+	if saved != "" and saved != _scheme:
+		set_water_scheme(saved)
 	_apply_water_cfg()
 	_sync_water()
+
+
+## `water.cfg` 的 `[meta] scheme`。老存档没有这一项，返回空串＝沿用原版。
+func _saved_scheme() -> String:
+	var cfg := ConfigFile.new()
+	if cfg.load(WATER_CFG_PATH) != OK:
+		return ""
+	var id := String(cfg.get_value("meta", "scheme", ""))
+	return id if SCHEME_ORDER.has(id) else ""
+
+
+## 单独记一次方案。不走 `_save_water_cfg()`：那个只在真调过滑块时才写，
+## 而「我刚切到吸收式就关掉面板」也应该被记住。
+func _write_scheme_to_cfg() -> void:
+	var cfg := ConfigFile.new()
+	cfg.load(WATER_CFG_PATH)
+	cfg.set_value("meta", "scheme", _scheme)
+	cfg.save(WATER_CFG_PATH)
 
 
 func _apply_filter_cfg() -> void:
@@ -1401,23 +1615,30 @@ func _apply_water_cfg() -> void:
 	var cfg := ConfigFile.new()
 	if cfg.load(WATER_CFG_PATH) != OK:
 		return
-	# 存档只对「当时那份 water.tres」有效。文件换了另一套出厂值（或者这份存档
+	# 两套水各占一段：`water` 还是旧方案那批键，原存档照旧生效；
+	# 吸收式另起一段，互不覆盖。
+	var section := _cfg_section()
+	# 存档只对「当时那份材质文件」有效。文件换了另一套出厂值（或者这份存档
 	# 是加指纹之前留的，读出来是空串），立刻作废 —— 否则新出厂值永远被盖住，
 	# 调好的参数看起来像没生效。
-	if String(cfg.get_value("water", CFG_SIG_KEY, "")) != _mat_signature():
+	if String(cfg.get_value(section, CFG_SIG_KEY, "")) != _mat_signature():
 		return
 	for key in _order:
-		if not cfg.has_section_key("water", key):
+		if not cfg.has_section_key(section, key):
 			continue
-		var v: Variant = cfg.get_value("water", key)
+		var v: Variant = cfg.get_value(section, key)
 		if v == null:
 			continue
 		_water_write(key, v)
 
 
-## `water.tres` 的内容指纹。只用来判断「出厂值有没有换过」，不做完整性校验。
+func _cfg_section() -> String:
+	return String(SCHEME_SECTIONS.get(_scheme, "water"))
+
+
+## 当前方案材质文件的内容指纹。只用来判断「出厂值有没有换过」，不做完整性校验。
 func _mat_signature() -> String:
-	var text := FileAccess.get_file_as_string(WATER_MAT_PATH)
+	var text := FileAccess.get_file_as_string(_mat_path())
 	if text.is_empty():
 		return ""
 	return text.md5_text()
@@ -1444,12 +1665,14 @@ func _save_water_cfg() -> void:
 		return
 	var cfg := ConfigFile.new()
 	cfg.load(WATER_CFG_PATH)
+	var section := _cfg_section()
 	for key in _order:
 		var v: Variant = _water_read(key)
 		if v == null:
 			continue
-		cfg.set_value("water", key, v)
-	cfg.set_value("water", CFG_SIG_KEY, _mat_signature())
+		cfg.set_value(section, key, v)
+	cfg.set_value(section, CFG_SIG_KEY, _mat_signature())
+	cfg.set_value("meta", "scheme", _scheme)
 	cfg.save(WATER_CFG_PATH)
 
 
@@ -1475,6 +1698,14 @@ func _button(text: String, cb: Callable) -> Button:
 		Color(120.0 / 255.0, 200.0 / 255.0, 210.0 / 255.0, 0.28)))
 	b.add_theme_stylebox_override("hover", _btn_style(Color(44.0 / 255.0, 114.0 / 255.0, 192.0 / 255.0, 0.9),
 		Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.7)))
+	# 按下态：开关按钮（方案的「原版 / 吸收式」）靠它显示当前选中哪套，
+	# 只给 normal 会让两个按钮长得一样，看不出现在用的是哪一个。
+	var pressed_style := _btn_style(Color(42.0 / 255.0, 132.0 / 255.0, 138.0 / 255.0, 0.95),
+		Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.85))
+	b.add_theme_stylebox_override("pressed", pressed_style)
+	b.add_theme_stylebox_override("hover_pressed", pressed_style)
+	b.add_theme_color_override("font_pressed_color", Color("#f2fffd"))
+	b.add_theme_color_override("font_hover_pressed_color", Color("#f2fffd"))
 	# 禁用态（比如「删」在选中出厂项时）画得明显灰一点，别让人以为是没反应。
 	b.add_theme_stylebox_override("disabled", _btn_style(Color(18.0 / 255.0, 52.0 / 255.0, 86.0 / 255.0, 0.4),
 		Color(120.0 / 255.0, 200.0 / 255.0, 210.0 / 255.0, 0.12)))
