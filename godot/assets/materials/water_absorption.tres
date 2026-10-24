@@ -1,0 +1,52 @@
+[gd_resource type="ShaderMaterial" format=4]
+
+[ext_resource type="Shader" path="res://shaders/water_absorption.gdshader" id="1_abs"]
+[ext_resource type="Texture2D" path="res://assets/textures/water/large_waves.png" id="2_norm"]
+
+[resource]
+render_priority = 2
+shader = ExtResource("1_abs")
+shader_parameter/water_level = 1.12
+shader_parameter/u_reverse_z = 1.0
+shader_parameter/wave_scale = 1.2
+shader_parameter/absorption_color = Color(1, 0.45, 0.2, 1)
+shader_parameter/depth_distance = 14.0
+shader_parameter/beers_law = 2.2
+shader_parameter/screen_gain = 0.9
+shader_parameter/deep_darkness = 0.65
+shader_parameter/refraction_strength = 22.0
+shader_parameter/fresnel_radius = 6.0
+shader_parameter/fresnel_color = Color(0.28, 0.52, 0.58, 1)
+shader_parameter/fresnel_strength = 0.25
+shader_parameter/normal_map = ExtResource("2_norm")
+shader_parameter/normal_map_strength = 0.45
+shader_parameter/normal_repeat_metres = 15.3
+shader_parameter/normal_lighting = 0.45
+shader_parameter/scroll_speed = 0.3
+shader_parameter/scroll_offset = Vector2(0.1, -0.3)
+shader_parameter/scroll_scale_offset = 1.6
+shader_parameter/sun_direction = Vector3(0.42, 0.51, -0.35)
+shader_parameter/sun_color = Color(0.2420044, 0.5078125, 0.38944483, 1)
+shader_parameter/sun_highlight_strength = 0.06
+shader_parameter/sun_glossiness = 10850.0
+shader_parameter/sun_lobe_gain = 5.0
+shader_parameter/edge_thickness = 0.1
+shader_parameter/edge_speed = 0.35
+shader_parameter/edge_noise_scale = 0.9
+shader_parameter/edge_color = Color(0.95, 0.99, 1, 1)
+shader_parameter/edge_strength = 0.4
+shader_parameter/shore_foam_width = 0.8
+shader_parameter/shore_foam_strength = 0.9
+shader_parameter/shore_foam_color = Color(0.93130374, 0.9921875, 0.97474515, 1)
+shader_parameter/ripple_ring_strength = 0.55
+shader_parameter/ripple_ring_radius = 1.0
+shader_parameter/caustics_enabled = false
+shader_parameter/caustic_size = 2.0
+shader_parameter/caustic_range = 40.0
+shader_parameter/caustic_strength = 0.08
+shader_parameter/exposure_comp = 0.66
+shader_parameter/emission_gain = Vector3(1, 1, 1)
+shader_parameter/dither_strength = 1.0
+shader_parameter/shore_bounds = Vector4(0, 0, 0, 0)
+shader_parameter/shore_texel = 0.0009765625
+shader_parameter/shore_enabled = false
