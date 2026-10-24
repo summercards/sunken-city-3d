@@ -47,7 +47,9 @@ sea 首版使用 `art_source/shared/palettes/sea_cozy_8x8_512.png`，512×512、
 
 更新场景分账本、派生源索引、SEA-ASSET 功能账本和 `docs/development/`。运行 `python3 scripts/check_feature_contracts.py --sync`，再运行不带参数的检查；其他工作的哈希漂移应记录并定位，不能顺手覆盖。
 
-本套件示例位于 `art_source/scenes/solar_flower_house/v001/`，制作与源级验收脚本位于 `tools/blender/solar_flower_house/`。这些是新套件工具，不得用来全量重建已有手改 Godot 场景。
+当前完整示例为 `art_source/scenes/solar_flower_house/v004/`（48 组件、340 实例、48 个独立包、四视图验收齐全）；`v001`–`v003` 作为历史版本原样保留，不复用来顶替新版交付。制作与源级验收脚本位于 `tools/blender/solar_flower_house/`，按 `--version v00N` 指定版本。这些是新套件工具，不得用来全量重建已有手改 Godot 场景。
+
+工程内不放 `resources/palettes/` 副本：公共色板在版本库中的唯一位置是 `art_source/shared/palettes/`，技能安装副本只用于用户级分发与恢复，避免同一份登记资产出现第二个可漂移的拷贝。
 
 ## 用户指定低面数时
 
