@@ -48,6 +48,33 @@ def inspect_log(name, code, text, marker):
             'unexpected_errors': errors, 'completion_marker': bool(re.search(marker, text))}
 
 
+def mount_readonly(target, source):
+    """把只读输入挂进隔离工程，尽量不复制。
+
+    Windows 上 `Path.symlink_to` 在没权限时**不抛异常**，而是留下一个空目录 /
+    空文件。测试于是读不到 `res://assets/...`，全线报错却看着像代码回归
+    （2026-10-24 踩到：ocean 测试挂在 `Cannot call method
+    'get_shader_parameter' on a null value`，其实是 water.tres 根本没加载）。
+    所以目录优先用目录联接（junction，不需要管理员权限），挂上后必须验一下
+    里面有东西，否则退回老实复制。
+    """
+    if not source.is_dir():
+        shutil.copy2(source, target)
+        return
+    if os.name == 'nt':
+        done = subprocess.run(['cmd', '/c', 'mklink', '/J', str(target), str(source)],
+                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if done.returncode == 0 and any(target.iterdir()):
+            return
+        shutil.rmtree(target, ignore_errors=True)
+    else:
+        target.symlink_to(source, target_is_directory=True)
+        if target.is_dir() and any(target.iterdir()):
+            return
+        target.unlink(missing_ok=True)
+    shutil.copytree(source, target)
+
+
 def isolated_project(run_dir):
     project = run_dir / 'project'
     project.mkdir()
@@ -56,13 +83,13 @@ def isolated_project(run_dir):
         if source.exists():
             shutil.copytree(source, project / name, ignore=shutil.ignore_patterns('__pycache__'))
     # Assets and imported binary cache are read-only inputs to test scripts.
-    for name in ['assets', 'icon.svg']:
-        (project / name).symlink_to(GODOT_ROOT / name)
+    mount_readonly(project / 'assets', GODOT_ROOT / 'assets')
+    mount_readonly(project / 'icon.svg', GODOT_ROOT / 'icon.svg')
     cache = project / '.godot'
     cache.mkdir()
     (cache / '.gdignore').touch()
     if (GODOT_ROOT / '.godot/imported').exists():
-        (cache / 'imported').symlink_to(GODOT_ROOT / '.godot/imported')
+        mount_readonly(cache / 'imported', GODOT_ROOT / '.godot/imported')
     classes = GODOT_ROOT / '.godot/global_script_class_cache.cfg'
     if classes.exists():
         shutil.copy2(classes, cache / classes.name)
