@@ -307,7 +307,7 @@ mkdir -p godot/outputs/ocean-absorption/movie/seq
 
 ## 调参面板（P 键「水面」页）
 
-按 P 打开调试面板，两个页签：滤镜 / 水面。水面页列 60 个参数，按着色器的 `group_uniforms` 分 9 组（水体 / 表面细节 / 天空反射 / 太阳高光 / 波纹 / 水面光点 / 泡沫 / 波浪几何 / 输出），每组可折叠。拖动即时生效；颜色用取色器，向量拆成分量滑杆；每行悬停有中文说明。
+按 P 打开调试面板，两个页签：滤镜 / 水面。水面页顶部先选方案（原版 / 吸收式），原版列 60 个参数，按着色器的 `group_uniforms` 分 9 组（水体 / 表面细节 / 天空反射 / 太阳高光 / 波纹 / 水面光点 / 泡沫 / 波浪几何 / 输出），每组可折叠；吸收式方案是另一份 37 项的清单，见文末「第二套水面」。拖动即时生效；颜色用取色器，向量拆成分量滑杆；每行悬停有中文说明。
 
 ### 清单是唯一来源
 
@@ -315,14 +315,15 @@ mkdir -p godot/outputs/ocean-absorption/movie/seq
 
 ```bash
 Godot --headless --path godot --script res://tools/check_water_params.gd
-# [water-params] PASS 60 个参数与着色器一致（另有 20 个豁免）
+# [water-params] PASS 原版 · 60 个参数与着色器一致（另有 21 个豁免）
+# [water-params] PASS 吸收式 · 37 个参数与着色器一致（另有 21 个豁免）
 ```
 
 它还会查资源：每个参数在 `.tres` 里有没有值、`source_color` 的 vec3 是不是存成 `Color`、有没有混进 `u_time` / `u_ripples` 这类每帧改的运行时参数。
 
-### 不进面板的 20 项
+### 不进面板的 21 项
 
-`water_level`、`u_reverse_z`、`emission_gain`、`shore_distance/bounds/texel/enabled`、4 个采样器、4 条波 / 8 圈涟漪 / 32 个尾迹点的数组。前三个与岸线四项都是别的系统每帧或每次启动写的，做了滑杆也会被覆盖。
+`water_level`、`u_reverse_z`、`emission_gain`、`shore_distance/bounds/texel/enabled`、5 个采样器（含 `normal_map`）、4 条波 / 8 圈涟漪 / 32 个尾迹点的数组。前三个与岸线四项都是别的系统每帧或每次启动写的，做了滑杆也会被覆盖；采样器要换只能换图，不是滑杆能表达的量。
 
 ### 写回资源改文本行
 
@@ -404,3 +405,43 @@ Godot --headless --path godot --script res://tools/check_water_params.gd
 环带边界改成半径后，淡入淡出按固定比例 `inner * 0.4318`、`outer * 0.5254` 算 —— 这两个比例就是 `0.95/2.2` 与 `6.2/11.8`，所以默认值与参数化之前逐像素一致。
 
 `glint_density = 0` 等于关掉（`h1 > 1.0` 恒假）；`glint_speed = 0` 把相位钉住，点变成常亮的静止光斑。`shore` / `shore_d` 必须留在开关外面，下面的吃水线泡沫要用。
+
+## 第二套水面：吸收式方案（2026-10-24）
+
+同一篇文章的方法做了另一套水面：`shaders/water_absorption.gdshader` + `assets/materials/water_absorption.tres`。
+它不画体色，取屏幕里已有的颜色按比尔-朗伯定律吃掉一部分波长，深了再补互补色。两套**并存**，
+P 面板水面页顶部一行「方案：原版 / 吸收式」切换，`material_override` 换掉即可，网格、波场、
+尾迹、桨环、岸线图全是同一份——对比的是着色模型，不是两个世界。
+
+```
+depth_blend = 1 - exp(-clamp(depth / depth_distance) * beers_law);
+color       = screen - absorption_color * depth_blend;
+color       = mix(color, 1 - absorption_color, depth_blend ^ 2);
+color      *= mix(1.0, deep_darkness, depth_blend);   // 本工程新增：只靠色相没有纵深
+```
+
+### 三条必须守住的边界
+
+- **垂直水深，不是轴向路径**。参考实现用轴向长度，掠射角下会把整片海变成一块不透明的吸收色，
+  正好挡住沉没城市。轴向长度只留给折射与接触带。
+- **`depth_distance` 按城市调，不按参考的池子调**。出厂 14 m；低于 5 m 时水下的废墟会被整片涂掉
+  （实测第一版 3.5 m 就是这么糊掉的）。`beers_law` 同理，参考的 3 以上会让两米深的浅台变成死色。
+- **波场必须与原方案共享**（`ocean_sample()` / `bow_height()`）。`boat.gd` 用同一对函数算吃水，
+  换波场会让船穿水。
+
+两套都不走 `ALBEDO + unshaded`，理由与前面「两个后端的色调映射不一样」一节一致：兼容后端会合成为纯黑。
+
+### 面板与存档
+
+- 参数清单是 `src/rendering/water_params_absorption.gd`（10 组 37 项），与原版的 `water_params.gd`
+  是两份独立的表。同名不同义的参数（`absorption` 是「每米吸收多少」还是「被吃掉的波长颜色」）
+  决定了它们不能合并，否则「复位到出厂」没有唯一答案。
+- 存档分两段：`[water]` 仍是原版那批键（老存档照旧生效），`[water_absorption]` 是吸收式，各自一行
+  `__mat_sig`；`[meta] scheme` 记住上次用的方案。收藏里多记一列 `__scheme`，下拉按当前方案过滤，
+  写盘用不过滤的完整顺序，否则存一次会抹掉另一套的收藏名。
+- `tools/check_water_params.gd` 两套都核对：
+  `PASS 原版 · 60 个参数` / `PASS 吸收式 · 37 个参数`。
+- `tools/capture_water_schemes.gd` 同机位截两套（走面板的 `set_water_scheme()`，顺带验证切换链路），
+  `tools/probe_absorption_tuning.gd` 是出厂值扫描。
+
+细节、扫描数据与验证记录见 [water_absorption_scheme.md](../docs/development/2026-10-24_water_absorption_scheme.md)。
