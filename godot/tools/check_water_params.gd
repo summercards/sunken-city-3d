@@ -1,21 +1,23 @@
 extends SceneTree
-## 水面参数清单核对：`water_params.gd` ↔ `water.gdshader`（含 4 个 include）。
+## 水面参数清单核对：两套水的「清单 ↔ 着色器 ↔ 材质资源」三方对账。
 ##
 ## 面板是照着清单生成的，所以清单少一项＝玩家永远调不到那个参数。
 ## 这个脚本从着色器反读每个 uniform 的类型和 hint_range，对着清单查三件事：
 ##   1. 着色器有、清单没有，且不在豁免名单里 —— 漏了
 ##   2. 清单有、着色器没有 —— 名字拼错或改过忘了同步
 ##   3. 类型 / 范围 / 步长对不上 —— 面板会给滑块一个错的区间
+## 再查材质资源：参数有没有值、`source_color` 的 vec3 是不是存成 Color、
+## 有没有混进每帧改的运行时参数。
 ##
 ## 用法：Godot --headless --path godot --script res://tools/check_water_params.gd
 ## 退出码：0 全对，1 有差异。
 
 const ParamsLib = preload("res://src/rendering/water_params.gd")
-const SHADER_PATH := "res://shaders/water.gdshader"
-const WATER_MAT_PATH := "res://assets/materials/water.tres"
+const ParamsLibAbs = preload("res://src/rendering/water_params_absorption.gd")
 
 ## 不进面板的参数：要么每帧被别的系统写，要么是采样器/数组。
 ## 值写清理由 —— 想往里塞新名字之前，先确认它真的不该给玩家调。
+## 两套水共用一张表：某个名字只出现在其中一套里也无妨，两边都豁免。
 const EXEMPT := {
 	"water_level": "main.gd 按 WATER_LEVEL 写，还牵着节点 Y 与船吃水",
 	"u_reverse_z": "render_flags.gd 按渲染后端换算",
@@ -32,9 +34,10 @@ const EXEMPT := {
 	"shore_bounds": "岸线图的包围盒，rebuild_shoreline 写",
 	"shore_texel": "岸线图纹素尺寸，rebuild_shoreline 写",
 	"shore_enabled": "有没有岸线图，rebuild_shoreline 写",
-	"large_wave_normals": "法线条带贴图，采样器",
-	"ripple_pattern": "波纹等高线贴图，采样器",
-	"contact_foam_pattern": "吃水线泡沫贴图，采样器",
+	"large_wave_normals": "法线条带贴图，采样器（原版方案）",
+	"ripple_pattern": "波纹等高线贴图，采样器（原版方案）",
+	"contact_foam_pattern": "吃水线泡沫贴图，采样器（原版方案）",
+	"normal_map": "法线条带贴图，采样器（吸收式方案，与原版共用同一张）",
 	"screen_tex": "屏幕纹理",
 	"depth_tex": "深度纹理",
 }
@@ -45,18 +48,46 @@ const TYPE_PACKED_MAX := 38
 
 
 func _init() -> void:
+	var schemes := [
+		{
+			"label": "原版",
+			"params": ParamsLib,
+			"shader": "res://shaders/water.gdshader",
+			"material": "res://assets/materials/water.tres",
+		},
+		{
+			"label": "吸收式",
+			"params": ParamsLibAbs,
+			"shader": "res://shaders/water_absorption.gdshader",
+			"material": "res://assets/materials/water_absorption.tres",
+		},
+	]
+	var failed := 0
+	for scheme in schemes:
+		var problems := _check_scheme(scheme)
+		if problems.is_empty():
+			print("[water-params] PASS %s · %d 个参数与着色器一致（另有 %d 个豁免）"
+				% [scheme.label, scheme.params.flat().size(), EXEMPT.size()])
+			continue
+		failed += 1
+		for p in problems:
+			print("[water-params] FAIL %s · %s" % [scheme.label, p])
+		print("[water-params] %s 有 %d 处差异" % [scheme.label, problems.size()])
+	quit(0 if failed == 0 else 1)
+
+
+func _check_scheme(scheme: Dictionary) -> PackedStringArray:
 	var problems := PackedStringArray()
-	var shader: Shader = load(SHADER_PATH)
+	var shader: Shader = load(String(scheme.shader))
 	if shader == null:
-		print("[water-params] FAIL 读不到 ", SHADER_PATH)
-		quit(1)
-		return
+		problems.append("读不到 " + String(scheme.shader))
+		return problems
 
 	var uniforms := {}
 	for u in shader.get_shader_uniform_list():
 		uniforms[String(u.name)] = u
 
-	var spec := ParamsLib.flat()
+	var spec: Dictionary = scheme.params.flat()
 
 	# ---- 1. 着色器 → 清单 ---------------------------------------------------
 	for name in uniforms.keys():
@@ -104,44 +135,38 @@ func _init() -> void:
 		_check_range(problems, name, "step", step, float(row.step))
 
 	if problems.is_empty():
-		problems.append_array(_check_material(spec))
-
-	if problems.is_empty():
-		print("[water-params] PASS %d 个参数与着色器一致（另有 %d 个豁免）" % [spec.size(), EXEMPT.size()])
-		quit(0)
-		return
-	for p in problems:
-		print("[water-params] FAIL ", p)
-	print("[water-params] %d 处差异" % problems.size())
-	quit(1)
+		problems.append_array(_check_material(spec, String(scheme.material)))
+	return problems
 
 
 ## 资源本身的两类坑：
 ##   1. 参数在 .tres 里没有值 —— 面板会读到 null，滑块停在 0，看着像「参数无效」
 ##   2. `source_color` 的 vec3 存成 Vector3 —— 读出来一模一样，但只要用
 ##      `ResourceSaver` 存一次（编辑器里点保存也算），就会写成 `= null`，值就没了
-func _check_material(spec: Dictionary) -> PackedStringArray:
+func _check_material(spec: Dictionary, mat_path: String) -> PackedStringArray:
 	var problems := PackedStringArray()
-	var mat: ShaderMaterial = ResourceLoader.load(WATER_MAT_PATH, "", ResourceLoader.CACHE_MODE_IGNORE)
+	var mat: ShaderMaterial = ResourceLoader.load(mat_path, "", ResourceLoader.CACHE_MODE_IGNORE)
 	if mat == null:
-		problems.append("读不到 %s" % WATER_MAT_PATH)
+		problems.append("读不到 " + mat_path)
 		return problems
+	var file := mat_path.get_file()
 	for name in spec.keys():
 		var row: Dictionary = spec[name]
 		if String(row.kind) == "node":
 			continue
 		var v: Variant = mat.get_shader_parameter(name)
 		if v == null:
-			problems.append("%s 在 water.tres 里没有值" % name)
+			problems.append("%s 在 %s 里没有值" % [name, file])
 			continue
 		if String(row.kind) == "color" and not (v is Color):
-			problems.append("%s 存成了 %s，必须存 Color，否则一保存就丢" % [name, type_string(typeof(v))])
+			problems.append("%s 存成了 %s，必须存 Color，否则一保存就丢"
+				% [name, type_string(typeof(v))])
 	# 每帧改的临时参数不该被写进资源。
-	var text := FileAccess.get_file_as_string(WATER_MAT_PATH)
+	var text := FileAccess.get_file_as_string(mat_path)
 	for name in ["u_time", "u_ripples", "u_ripple_count", "u_boat", "ocean_waves",
 			"wake_points", "wake_strengths", "wake_count"]:
 		if text.contains("shader_parameter/%s = " % name):
-			problems.append("water.tres 里混进了运行时参数 %s" % name)
+			problems.append("%s 里混进了运行时参数 %s" % [file, name])
 	return problems
 
 
