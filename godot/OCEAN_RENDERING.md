@@ -304,3 +304,103 @@ mkdir -p godot/outputs/ocean-absorption/movie/seq
 - Forward+ 与 gl_compatibility（Web 导出后端）均无 SHADER ERROR，两个后端都能看到交接带。
 - `python3 scripts/run_verification.py visual-sea-style ocean selftest`：全部退出 0。`ocean` 仍覆盖波高、浮力、尾浪、距离场与薄片排除；`selftest` 537 项通过。
 - 近距离（`--zoom=16 --look=1,1.12,3`）确认水线贴合实体、粗细起伏自然、外圈有断裂的侵蚀泡沫，开阔水面不出现乱白点。
+
+## 调参面板（P 键「水面」页）
+
+按 P 打开调试面板，两个页签：滤镜 / 水面。水面页列 60 个参数，按着色器的 `group_uniforms` 分 9 组（水体 / 表面细节 / 天空反射 / 太阳高光 / 波纹 / 水面光点 / 泡沫 / 波浪几何 / 输出），每组可折叠。拖动即时生效；颜色用取色器，向量拆成分量滑杆；每行悬停有中文说明。
+
+### 清单是唯一来源
+
+参数写在 `src/rendering/water_params.gd`，面板照着它生成控件。新增 uniform 必须同时加清单，否则永远调不到 —— `tools/check_water_params.gd` 会从着色器反读类型与 `hint_range` 对一遍：
+
+```bash
+Godot --headless --path godot --script res://tools/check_water_params.gd
+# [water-params] PASS 60 个参数与着色器一致（另有 20 个豁免）
+```
+
+它还会查资源：每个参数在 `.tres` 里有没有值、`source_color` 的 vec3 是不是存成 `Color`、有没有混进 `u_time` / `u_ripples` 这类每帧改的运行时参数。
+
+### 不进面板的 20 项
+
+`water_level`、`u_reverse_z`、`emission_gain`、`shore_distance/bounds/texel/enabled`、4 个采样器、4 条波 / 8 圈涟漪 / 32 个尾迹点的数组。前三个与岸线四项都是别的系统每帧或每次启动写的，做了滑杆也会被覆盖。
+
+### 写回资源改文本行
+
+`ResourceSaver` 会把每帧改的临时值写进文件、给材质里没有的参数写 `= null`、并重排整个文件（format 4 → 3、丢 uid）。所以「写入 water.tres」只逐行替换 `shader_parameter/<key> = ...`，没动的行一个字节不变。
+
+### 两个类型陷阱
+
+- `source_color` 的 vec3 如果存成 `Vector3`，读出来数值一样，但 `ResourceSaver` 按类型不符处理，保存时写成 `= null`，参数就没了。资源里所有 vec3 颜色一律存 `Color`。
+- CozyUI 会给整棵树套奶油底 + 珊瑚色按钮。调试面板在 `_ready` 里打 `set_meta("cozy_skip", true)`，`cozy_ui.gd` 的 `apply()` 要**往上找祖先**才挡得住 —— 面板子控件是运行时逐个 `add_child` 的，只看自己有没有标记不够。
+
+### 截图验收
+
+两个抓图脚本，都靠 `SEA_SHOT_DIR` 指定落盘目录：
+
+- `tools/capture_water_panel.gd` —— 整屏图：水面页顶 / 中段（按组名滚到「水面光点」）/ 底 + 滤镜页。顺带会把水面渲出来，能看参数有没有把水弄坏。
+- `tools/capture_water_compare.gd` —— 面板按 `_panel` 的全局矩形裁下来放大 2 倍（1280 宽下面板里是 8 px 的字，不放大根本认不出滑杆标签），再截同一机位下「出厂 / 内置参考包初版」两张海面对比。
+
+对比图**不经过面板套预设**：面板套用会写 `user://water.cfg`，跑一次就把玩家存档改了。脚本直接照 `WaterParams.builtin()` 的差异项往材质上设，开机时先存一份全量快照，跑完按快照复原，并打印复原差异（应为空）。
+
+## 出厂参数定版
+
+`water.tres` 现在是一轮手工调参后的成品，不再是参考包的移植初始值。方向：
+
+| 项 | 之前 | 现在 | 意图 |
+|---|---|---|---|
+| `body_shallow` | (0.128, 0.618, 0.584) | (0.518, 0.996, 0.996) | 浅滩推到近青白 |
+| `body_deep` | (0.070, 0.399, 0.549) | (0.028, 0.609, 0.723) | 深水更青 |
+| `depth_half_distance` | 7.0 m | 12.25 m | 深色混入更慢，水更通透 |
+| `shallow_tint_strength` | 1.3 | 2.7 | 浅水色染色更重 |
+| `absorption` | (0.088, 0.036, 0.028) | (0.236, 0.091, 0.025) | 红光吸收加大 |
+| `normal_lighting` | 0.45 | 1.0 | 几何坡度全量进法线 |
+| `normal_repeat_metres` | 2.5 m | 1.0 m | 法线细节更密 |
+| `detail_broad/mid/fine` | 0.36/0.44/0.16 | 0.97/0.03/0.49 | 细节堆在低频与高频 |
+| `sky_top_color` | (0.308, 0.949, 0.784) | (0.319, 0.723, 0.496) | 天顶收敛到青绿 |
+| `sky_horizon_color` | (0.610, 0.790, 0.840) | (0.236, 0.424, 0.477) | 地平线压暗 |
+| `sky_curve` / `sky_sun_glow` | 0.35 / 0.35 | 0.57 / 0.02 | 过渡更缓、日晕关掉 |
+| `sun_color` | (1.0, 0.955, 0.8) | (0.304, 0.855, 0.765) | 暖白改冷青 |
+| `sun_highlight_strength` | 0.30 | 0.06 | 高光收小 |
+| `sun_lobe_gain` / `sun_glossiness` | 60 / 7000 | 10 / 8000 | 光斑更小更紧 |
+| `exposure_comp` | 0.66 | 0.45 | 整体压暗 |
+| `dither_strength` | 1.0 | 1.35 | 压暗后色带更明显，抖动加一点 |
+| `wave_scale`（节点） | 1.0 | 1.2 | 浪更高 |
+
+三个滑杆范围同时放宽（着色器 `hint_range` 与清单同步改）：`normal_repeat_metres` 下限 1.0→0.5、`sun_glossiness` 上限 8000→12000、`sun_lobe_gain` 下限 10→5。这套值原本正好压在三根滑杆端点上。
+
+**`wave_scale` 的出厂值写在 `water_surface.gd` 的导出默认值上，不是 `main.tscn` 的节点属性。** 场景覆盖被编辑器重写丢掉过一次（实测），默认值不会。
+
+## 收藏：整套参数切换
+
+面板顶部一行：`收藏 [下拉] [存] [删]`。下拉结构是 `出厂（water.tres）` / `── 内置 ──` / 用户收藏。
+
+- **出厂**：现读 `water.tres`，不可删。
+- **内置**：写在 `water_params.gd` 的 `BUILTIN_PRESETS`，目前只有「参考包初版」（重做后、手工调参前那一版）。只记与当前出厂不同的项，套用时先把其余参数复位到出厂值 —— 不抄全 60 条，以后改出厂值也不会留下半新半旧。
+- **用户收藏**：存 `user://water_presets.cfg`，section 名 `preset:<名字>`，顺序单独记在 `[meta] names`（ConfigFile 的 section 顺序不保证）。值是「面板值」形态（`Color` / `Vector3` / `float`），与 `_water_read()` 同型，套用时原样喂回 `_water_write()`。
+
+名字里的 `[` `]` 会破坏 ConfigFile 的 section 语法，存之前剔掉；不能和出厂/内置重名。分隔项要 `set_item_disabled`，否则会被选中、按钮文字变成「内置」。
+
+## 存档带出厂指纹
+
+`user://water.cfg` 里有一行 `__mat_sig = <water.tres 的 md5>`。启动时指纹对不上就整份作废 —— 否则改完出厂值重启，旧存档会把它整个盖住，看起来像「改了没生效」。改出厂值这件事本身就会让旧存档失效，不需要手动清。
+
+## 水面光点（建筑附近的亮点）
+
+水面上的小白点不是粒子，是片元里按格子哈希撒出来的点，只长在靠岸线距离图划出的环带内（离岸约 0.95~11.8 m），所以只在建筑附近出现。共 10 个参数：
+
+| 参数 | 默认 | 范围 | 原来写死的值 |
+|---|---|---|---|
+| `glints_enabled` | true | — | （无开关） |
+| `glint_color` | (0.88, 0.99, 0.96) | 取色 | `vec3(0.88, 0.99, 0.96)` |
+| `glint_strength` | 1.0 | 0~2 | 末级乘 0.86 |
+| `glint_density` | 0.24 | 0~1 | `h1 > 0.76` |
+| `glint_size` | 1.0 | 0.2~3 | 半径 `0.042 + 0.022*h3` |
+| `glint_speed` | 1.0 | 0~3 | `u_time * (0.85 + h2*0.75)` |
+| `glint_drift` | 1.0 | 0~3 | 漂移半径 0.16 |
+| `glint_twinkle` | 2.4 | 0.5~8 | `pow(sin(ph), 2.4)` 的指数 |
+| `glint_zone_inner` | 2.2 | 0.5~20 m | `smoothstep(0.95, 2.2, d)` |
+| `glint_zone_outer` | 11.8 | 2~40 m | `1 - smoothstep(6.2, 11.8, d)` |
+
+环带边界改成半径后，淡入淡出按固定比例 `inner * 0.4318`、`outer * 0.5254` 算 —— 这两个比例就是 `0.95/2.2` 与 `6.2/11.8`，所以默认值与参数化之前逐像素一致。
+
+`glint_density = 0` 等于关掉（`h1 > 1.0` 恒假）；`glint_speed = 0` 把相位钉住，点变成常亮的静止光斑。`shore` / `shore_d` 必须留在开关外面，下面的吃水线泡沫要用。

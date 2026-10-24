@@ -8,7 +8,9 @@ extends MeshInstance3D
 	Vector4(0.72, -0.69, 0.0325, 4.9),
 	Vector4(-0.85, -0.53, 0.0105, 2.55),
 ])
-@export_range(0.0, 2.0, 0.05) var wave_scale := 1.0
+## 出厂波幅。写在默认值上而不是 `main.tscn` 的节点属性里：
+## 场景覆盖会被编辑器重写丢掉（实测丢过一次），默认值不会。
+@export_range(0.0, 2.0, 0.05) var wave_scale := 1.2
 var shoreline: RefCounted
 var time := 0.0
 var wake: Node3D
