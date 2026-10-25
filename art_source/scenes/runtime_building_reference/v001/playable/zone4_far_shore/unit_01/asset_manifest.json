@@ -1,0 +1,66 @@
+{
+  "key": "zone4_far_shore__unit_01",
+  "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-01",
+  "version": "0.1",
+  "category": "playable_surface",
+  "name": "zone4_far_shore / 远海街町·5m",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone4_far_shore/units/unit_01.glb",
+  "runtime_sha256": "5749c6f300218697a4bb1d586c363574e540d5611e1b4619a9675553a09d97b4",
+  "runtime_scene": "godot/scenes/zones/zone4_far_shore.tscn",
+  "runtime_node": "Models/unit_01",
+  "origin_godot": [
+    37.936,
+    0.0,
+    -45.304
+  ],
+  "relative_blend": "playable/zone4_far_shore/unit_01/zone4_far_shore__unit_01_v0.1.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 3,
+      "vertices": 1032,
+      "triangles": 348
+    }
+  ],
+  "metrics": {
+    "vertices": 1032,
+    "triangles": 348,
+    "min": [
+      -4.977606773376465,
+      -4.418437957763672,
+      -13.079999923706055
+    ],
+    "max": [
+      4.977606773376465,
+      4.418437957763672,
+      6.920000076293945
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v001/playable/zone4_far_shore/unit_01/zone4_far_shore__unit_01_v0.1.blend",
+  "source_sha256": "6f9583ad3b0724448d22dbd5c5e411d7a4433926bd53c96c7f773d8b013dc2d7",
+  "origin_zone_local_godot": [
+    -1.564,
+    0.0,
+    -3.804
+  ],
+  "zone_origin_godot": [
+    39.5,
+    0.0,
+    -41.5
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "zone4_far_shore__unit_01",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE4-FAR-SHORE--UNIT-01",
+  "runtime_triangles_including_degenerates": 348,
+  "importer_removed_repeated_index_degenerates": 0,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 2.0117342103276314e-07,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement"
+}

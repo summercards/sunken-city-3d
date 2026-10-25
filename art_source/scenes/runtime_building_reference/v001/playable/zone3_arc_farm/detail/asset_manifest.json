@@ -1,0 +1,96 @@
+{
+  "key": "zone3_arc_farm__detail",
+  "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--DETAIL",
+  "version": "0.1",
+  "category": "playable_surface",
+  "name": "zone3_arc_farm / 岛心·2m",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone3_arc_farm/units/detail.glb",
+  "runtime_sha256": "19d4ca90b2b1e456bab3f9631a678441ce061be3c3794fc023f7e5eb265ca2c6",
+  "runtime_scene": "godot/scenes/zones/zone3_arc_farm.tscn",
+  "runtime_node": "Models/detail",
+  "origin_godot": [
+    -2.164,
+    0.0,
+    -37.736
+  ],
+  "relative_blend": "playable/zone3_arc_farm/detail/zone3_arc_farm__detail_v0.1.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 7,
+      "vertices": 1257,
+      "triangles": 632
+    },
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": true,
+      "alpha": true,
+      "double_side": false,
+      "instances": 1,
+      "vertices": 133,
+      "triangles": 216
+    },
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 875,
+      "vertices": 144014,
+      "triangles": 49620
+    },
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": true,
+      "instances": 8,
+      "vertices": 64,
+      "triangles": 48
+    }
+  ],
+  "metrics": {
+    "vertices": 145461,
+    "triangles": 50300,
+    "min": [
+      -7.284475803375244,
+      -8.920125007629395,
+      -10.84999942779541
+    ],
+    "max": [
+      7.284475803375244,
+      8.920125007629395,
+      7.91231632232666
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v001/playable/zone3_arc_farm/detail/zone3_arc_farm__detail_v0.1.blend",
+  "source_sha256": "938e70e2829197f4be59cc888370497a5ae578e8785abc1dd9e6a4a08f6fcf9c",
+  "origin_zone_local_godot": [
+    0.086,
+    0.0,
+    -1.736
+  ],
+  "zone_origin_godot": [
+    -2.25,
+    0.0,
+    -36.0
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "zone3_arc_farm__detail",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE3-ARC-FARM--DETAIL",
+  "runtime_triangles_including_degenerates": 50516,
+  "importer_removed_repeated_index_degenerates": 216,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 4.655592675817388e-07,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement"
+}

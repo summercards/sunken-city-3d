@@ -1,0 +1,96 @@
+{
+  "key": "aquaculture_platform_core",
+  "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--UNIT-01",
+  "version": "0.2",
+  "category": "playable_surface",
+  "name": "浅水养殖台-养殖台主体",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone5_aqua_platform/units/unit_01.glb",
+  "runtime_sha256": "70049980c89dc5bac29726f574b55b9dc464a6d8b94fc80a5335340ab1fae01c",
+  "runtime_scene": "godot/scenes/zones/zone5_aqua_platform.tscn",
+  "runtime_node": "Models/unit_01",
+  "origin_godot": [
+    23.639,
+    0.0,
+    16.0
+  ],
+  "relative_blend": "playable/aquaculture_platform/aquaculture_platform_core/aquaculture_platform_core_v0.2.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 25,
+      "vertices": 911,
+      "triangles": 835
+    }
+  ],
+  "metrics": {
+    "vertices": 868,
+    "triangles": 580,
+    "min": [
+      -5.505077362060547,
+      -2.75,
+      -7.0
+    ],
+    "max": [
+      5.505077362060547,
+      2.75,
+      2.81000018119812
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v002/playable/aquaculture_platform/aquaculture_platform_core/aquaculture_platform_core_v0.2.blend",
+  "source_sha256": "04fd3bf38e057f7d69646f17776569ff3a5086760cc13d31e596eab566080acd",
+  "origin_zone_local_godot": [
+    1.639,
+    0.0,
+    0.0
+  ],
+  "zone_origin_godot": [
+    22.0,
+    0.0,
+    16.0
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "浅水养殖台-养殖台主体",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE5-AQUA-PLATFORM--UNIT-01",
+  "runtime_triangles_including_degenerates": 835,
+  "importer_removed_repeated_index_degenerates": 255,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 7.450580596923828e-08,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/playable/zone5_aqua_platform/unit_01/zone5_aqua_platform__unit_01_v0.1.blend",
+  "previous_source_sha256": "3dba50a2ff175c213f7870f524016b22d950c2092ed2e1d21e99de9cf3c95d1c",
+  "facility_key": "aquaculture_platform",
+  "facility_name": "浅水养殖台",
+  "part_name": "养殖台主体",
+  "legacy_key": "zone5_aqua_platform__unit_01",
+  "asset_key": "aquaculture_platform_core",
+  "region_collections": {
+    "海上区域": "浅水养殖台-海上区域",
+    "海下基座": "浅水养殖台-海下基座"
+  },
+  "split_world_height_godot": 1.12,
+  "split_method": "plane_bisect_no_caps_preserve_combined_surface",
+  "organized_metrics": {
+    "area": 233.1992498233168,
+    "triangles": 688,
+    "edges": 1347,
+    "bounds": {
+      "min": [
+        -5.505077362060547,
+        -2.75,
+        -7.0
+      ],
+      "max": [
+        5.505077362060547,
+        2.75,
+        2.81000018119812
+      ]
+    }
+  }
+}

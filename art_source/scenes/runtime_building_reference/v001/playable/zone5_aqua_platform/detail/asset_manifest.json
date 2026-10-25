@@ -1,0 +1,86 @@
+{
+  "key": "zone5_aqua_platform__detail",
+  "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--DETAIL",
+  "version": "0.1",
+  "category": "playable_surface",
+  "name": "zone5_aqua_platform / 岛心·3m",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone5_aqua_platform/units/detail.glb",
+  "runtime_sha256": "3f75e332bf09cebafc829d986450123f574d5af2b3931802f6917d95b82b5175",
+  "runtime_scene": "godot/scenes/zones/zone5_aqua_platform.tscn",
+  "runtime_node": "Models/detail",
+  "origin_godot": [
+    22.012,
+    0.0,
+    13.154
+  ],
+  "relative_blend": "playable/zone5_aqua_platform/detail/zone5_aqua_platform__detail_v0.1.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 14,
+      "vertices": 682,
+      "triangles": 795
+    },
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": true,
+      "alpha": true,
+      "double_side": false,
+      "instances": 3,
+      "vertices": 344,
+      "triangles": 548
+    },
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 13,
+      "vertices": 312,
+      "triangles": 156
+    }
+  ],
+  "metrics": {
+    "vertices": 1183,
+    "triangles": 156,
+    "min": [
+      -9.406508445739746,
+      -4.209312438964844,
+      -18.350000381469727
+    ],
+    "max": [
+      9.406508445739746,
+      4.209312438964844,
+      1.3590461015701294
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v001/playable/zone5_aqua_platform/detail/zone5_aqua_platform__detail_v0.1.blend",
+  "source_sha256": "7ec04b3da00c76ebab60e5644fb27880de57c94f594cba9a1fe34bd704b3621e",
+  "origin_zone_local_godot": [
+    0.012,
+    0.0,
+    -2.846
+  ],
+  "zone_origin_godot": [
+    22.0,
+    0.0,
+    16.0
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "zone5_aqua_platform__detail",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE5-AQUA-PLATFORM--DETAIL",
+  "runtime_triangles_including_degenerates": 1499,
+  "importer_removed_repeated_index_degenerates": 1343,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 3.5762786865234375e-07,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement"
+}

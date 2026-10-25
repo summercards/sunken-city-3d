@@ -1,0 +1,116 @@
+{
+  "key": "arc_rooftop_farm_core",
+  "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--UNIT-01",
+  "version": "0.2",
+  "category": "playable_surface",
+  "name": "圆弧屋顶农场-农场主体",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone3_arc_farm/units/unit_01.glb",
+  "runtime_sha256": "3fd773b849941a6485d742e28195d50291c63b2a3aeca7770cc070fa5078cc92",
+  "runtime_scene": "godot/scenes/zones/zone3_arc_farm.tscn",
+  "runtime_node": "Models/unit_01",
+  "origin_godot": [
+    -2.29,
+    0.0,
+    -35.662
+  ],
+  "relative_blend": "playable/arc_rooftop_farm/arc_rooftop_farm_core/arc_rooftop_farm_core_v0.2.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 21,
+      "vertices": 1927,
+      "triangles": 1044
+    },
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 1025,
+      "vertices": 166536,
+      "triangles": 58188
+    },
+    {
+      "tex": 0,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 1,
+      "vertices": 172,
+      "triangles": 112
+    }
+  ],
+  "metrics": {
+    "vertices": 168633,
+    "triangles": 59344,
+    "min": [
+      -7.330694675445557,
+      -7.016266822814941,
+      -23.5
+    ],
+    "max": [
+      7.330694675445557,
+      7.016266822814941,
+      7.701900005340576
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v002/playable/arc_rooftop_farm/arc_rooftop_farm_core/arc_rooftop_farm_core_v0.2.blend",
+  "source_sha256": "f89e2ad4948c8aa321ba4bf4c2d058ceb54622758cf1700bcedd457a9430a858",
+  "origin_zone_local_godot": [
+    -0.04,
+    0.0,
+    0.338
+  ],
+  "zone_origin_godot": [
+    -2.25,
+    0.0,
+    -36.0
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "圆弧屋顶农场-农场主体",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE3-ARC-FARM--UNIT-01",
+  "runtime_triangles_including_degenerates": 59344,
+  "importer_removed_repeated_index_degenerates": 0,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 1.0858180665707096e-07,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/playable/zone3_arc_farm/unit_01/zone3_arc_farm__unit_01_v0.1.blend",
+  "previous_source_sha256": "6f1395262307626b9ead7c733353c159e13c48cb2be244e3d9ca2ecdfbf2ff33",
+  "facility_key": "arc_rooftop_farm",
+  "facility_name": "圆弧屋顶农场",
+  "part_name": "农场主体",
+  "legacy_key": "zone3_arc_farm__unit_01",
+  "asset_key": "arc_rooftop_farm_core",
+  "region_collections": {
+    "海上区域": "圆弧屋顶农场-海上区域",
+    "海下基座": "圆弧屋顶农场-海下基座"
+  },
+  "split_world_height_godot": 1.12,
+  "split_method": "plane_bisect_no_caps_preserve_combined_surface",
+  "organized_metrics": {
+    "area": 4845.476676306139,
+    "triangles": 60802,
+    "edges": 175922,
+    "bounds": {
+      "min": [
+        -7.330694675445557,
+        -7.016266822814941,
+        -23.5
+      ],
+      "max": [
+        7.330694675445557,
+        7.016266822814941,
+        7.701900005340576
+      ]
+    }
+  }
+}

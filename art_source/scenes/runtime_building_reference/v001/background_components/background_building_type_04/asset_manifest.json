@@ -1,0 +1,43 @@
+{
+  "key": "background_building_type_04",
+  "asset_id": "SEA-REF-01-BG-TYPE-04",
+  "name": "阶梯框架楼",
+  "version": "0.1",
+  "category": "background_building_component",
+  "scope_label": "远景背景·楼体母版",
+  "boundary_status": "recovered_repeated_template_matrix_verified",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_building_type_04/background_building_type_04_v0.1.blend",
+  "source_type": 4,
+  "part_count": 203,
+  "placement_count": 51,
+  "max_replay_matrix_error": 0.001698854701402297,
+  "metrics": {
+    "vertices": 5448,
+    "triangles": 2564,
+    "min": [
+      -2.8439896347721723,
+      -3.9949947449142718,
+      -23.87500071537633
+    ],
+    "max": [
+      2.6000061094240916,
+      2.2430005522442675,
+      6.478635897418862
+    ]
+  },
+  "collection": "background_building_type_04",
+  "source": "art_source/scenes/runtime_building_reference/v001/background_components/background_building_type_04/background_building_type_04_v0.1.blend",
+  "source_sha256": "95d44c72db3a524a5fb9e9c4829efdfbf982ecb6c4c63f0133ca342cc02f5ffb",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-TYPE-04",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement"
+}

@@ -1,0 +1,66 @@
+{
+  "key": "zone5_aqua_platform__unit_01",
+  "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--UNIT-01",
+  "version": "0.1",
+  "category": "playable_surface",
+  "name": "zone5_aqua_platform / 岛心·2m",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone5_aqua_platform/units/unit_01.glb",
+  "runtime_sha256": "70049980c89dc5bac29726f574b55b9dc464a6d8b94fc80a5335340ab1fae01c",
+  "runtime_scene": "godot/scenes/zones/zone5_aqua_platform.tscn",
+  "runtime_node": "Models/unit_01",
+  "origin_godot": [
+    23.639,
+    0.0,
+    16.0
+  ],
+  "relative_blend": "playable/zone5_aqua_platform/unit_01/zone5_aqua_platform__unit_01_v0.1.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 25,
+      "vertices": 911,
+      "triangles": 835
+    }
+  ],
+  "metrics": {
+    "vertices": 868,
+    "triangles": 580,
+    "min": [
+      -5.505077362060547,
+      -2.75,
+      -7.0
+    ],
+    "max": [
+      5.505077362060547,
+      2.75,
+      2.81000018119812
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v001/playable/zone5_aqua_platform/unit_01/zone5_aqua_platform__unit_01_v0.1.blend",
+  "source_sha256": "3dba50a2ff175c213f7870f524016b22d950c2092ed2e1d21e99de9cf3c95d1c",
+  "origin_zone_local_godot": [
+    1.639,
+    0.0,
+    0.0
+  ],
+  "zone_origin_godot": [
+    22.0,
+    0.0,
+    16.0
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "zone5_aqua_platform__unit_01",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE5-AQUA-PLATFORM--UNIT-01",
+  "runtime_triangles_including_degenerates": 835,
+  "importer_removed_repeated_index_degenerates": 255,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 7.450580596923828e-08,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement"
+}

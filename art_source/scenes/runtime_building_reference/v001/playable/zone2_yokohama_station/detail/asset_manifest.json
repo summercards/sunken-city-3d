@@ -1,0 +1,86 @@
+{
+  "key": "zone2_yokohama_station__detail",
+  "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--DETAIL",
+  "version": "0.1",
+  "category": "playable_surface",
+  "name": "zone2_yokohama_station / 岛心·6m",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone2_yokohama_station/units/detail.glb",
+  "runtime_sha256": "1d49c02f0375110a99fd22c3f329f874ceb525834c2332aaffd95882281396e5",
+  "runtime_scene": "godot/scenes/zones/zone2_yokohama_station.tscn",
+  "runtime_node": "Models/detail",
+  "origin_godot": [
+    -26.896,
+    0.0,
+    -13.081
+  ],
+  "relative_blend": "playable/zone2_yokohama_station/detail/zone2_yokohama_station__detail_v0.1.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 20,
+      "vertices": 1272,
+      "triangles": 788
+    },
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": true,
+      "alpha": false,
+      "double_side": false,
+      "instances": 1,
+      "vertices": 121,
+      "triangles": 180
+    },
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 7,
+      "vertices": 931,
+      "triangles": 372
+    }
+  ],
+  "metrics": {
+    "vertices": 2322,
+    "triangles": 1340,
+    "min": [
+      -4.915835380554199,
+      -3.678828477859497,
+      -0.27566075325012207
+    ],
+    "max": [
+      4.915835380554199,
+      3.678828477859497,
+      5.132819175720215
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v001/playable/zone2_yokohama_station/detail/zone2_yokohama_station__detail_v0.1.blend",
+  "source_sha256": "ce038ba8dc76ef12f9972c3ff977ac506fd76937038284dab3cf83ac91a271bb",
+  "origin_zone_local_godot": [
+    3.104,
+    0.0,
+    4.919
+  ],
+  "zone_origin_godot": [
+    -30.0,
+    0.0,
+    -18.0
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "zone2_yokohama_station__detail",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE2-YOKOHAMA-STATION--DETAIL",
+  "runtime_triangles_including_degenerates": 1340,
+  "importer_removed_repeated_index_degenerates": 0,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 1.8965686265914883e-07,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement"
+}

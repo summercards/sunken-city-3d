@@ -1,0 +1,67 @@
+{
+  "key": "background_shared_part_028",
+  "asset_id": "SEA-REF-01-BG-PART-028",
+  "name": "远景公共构件-028",
+  "version": "0.2",
+  "category": "background_detail_component",
+  "scope_label": "远景背景·附属构件",
+  "boundary_status": "exact_geometry_and_material_fingerprint",
+  "geometry_fingerprint": "6afd8715ff447e766d48c209718af360636ef94e247b2ce021202b0964f8bb14",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_shared_parts/background_shared_part_028/background_shared_part_028_v0.2.blend",
+  "placement_count": 1,
+  "instance_color_parameter": true,
+  "geometry_id": 730,
+  "metrics": {
+    "vertices": 24,
+    "triangles": 12,
+    "min": [
+      -0.9480000138282776,
+      -0.1599999964237213,
+      -0.6119999885559082
+    ],
+    "max": [
+      0.9480000138282776,
+      0.1599999964237213,
+      0.6119999885559082
+    ]
+  },
+  "collection": "远景公共构件-028",
+  "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_028/background_shared_part_028_v0.2.blend",
+  "source_sha256": "4880a7fc551dbf4082934a67a4dcbfdfef2d2e8e28fc432fed7c0c402fae2733",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-PART-028",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/background_components/background_part_028/background_part_028_v0.1.blend",
+  "previous_source_sha256": "70bfd17878ab1fe5f47037f903ae2346e3620b150282d151cd4f1a043a804bc9",
+  "facility_key": "background_shared_parts",
+  "facility_name": "远景公共构件",
+  "legacy_key": "background_part_028",
+  "asset_key": "background_shared_part_028",
+  "placement_region_policy": "归属随实例高度变化；公共母版不绑定水面高度",
+  "organized_metrics": {
+    "area": 6.638207833630986,
+    "triangles": 12,
+    "edges": 30,
+    "bounds": {
+      "min": [
+        -0.9480000138282776,
+        -0.1599999964237213,
+        -0.6119999885559082
+      ],
+      "max": [
+        0.9480000138282776,
+        0.1599999964237213,
+        0.6119999885559082
+      ]
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "key": "background_broken_slab_frame",
+  "asset_id": "SEA-REF-01-BG-TYPE-03",
+  "name": "远景-破损楼板楼",
+  "version": "0.2",
+  "category": "background_building_component",
+  "scope_label": "远景背景·楼体母版",
+  "boundary_status": "recovered_repeated_template_matrix_verified",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_broken_slab_frame/background_broken_slab_frame/background_broken_slab_frame_v0.2.blend",
+  "source_type": 3,
+  "part_count": 198,
+  "placement_count": 36,
+  "max_replay_matrix_error": 0.001698854701402297,
+  "metrics": {
+    "vertices": 5292,
+    "triangles": 2496,
+    "min": [
+      -2.8439944157849544,
+      -2.400005153555761,
+      -23.47499918937683
+    ],
+    "max": [
+      2.6000013692390014,
+      2.431005523570334,
+      6.878636481707758
+    ]
+  },
+  "collection": "远景-破损楼板楼",
+  "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_broken_slab_frame/background_broken_slab_frame/background_broken_slab_frame_v0.2.blend",
+  "source_sha256": "6ce373a99db192eecbacb3c4df2173c6585933c37dd031907c895cace46a3c45",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-TYPE-03",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/background_components/background_building_type_03/background_building_type_03_v0.1.blend",
+  "previous_source_sha256": "b85699e951bef8ac07b20e7942dd98afe9e11ed55abea3ad1bcf4ebfde195fb9",
+  "facility_key": "background_broken_slab_frame",
+  "facility_name": "破损楼板楼",
+  "legacy_key": "background_building_type_03",
+  "asset_key": "background_broken_slab_frame",
+  "region_collections": {
+    "海上区域": "破损楼板楼-海上区域",
+    "海下基座": "破损楼板楼-海下基座"
+  },
+  "split_world_height_godot": 1.12,
+  "split_method": "plane_bisect_no_caps_preserve_combined_surface",
+  "organized_metrics": {
+    "area": 1391.3303059585362,
+    "triangles": 2608,
+    "edges": 6586,
+    "bounds": {
+      "min": [
+        -2.843994379043579,
+        -2.4000051021575928,
+        -23.474998474121094
+      ],
+      "max": [
+        2.600001335144043,
+        2.4310054779052734,
+        6.878636360168457
+      ]
+    }
+  }
+}

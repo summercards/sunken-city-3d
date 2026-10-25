@@ -1,0 +1,43 @@
+{
+  "key": "background_part_064",
+  "asset_id": "SEA-REF-01-BG-PART-064",
+  "name": "背景附属构件 064 / geometry 1024",
+  "version": "0.1",
+  "category": "background_detail_component",
+  "scope_label": "远景背景·附属构件",
+  "boundary_status": "exact_geometry_and_material_fingerprint",
+  "geometry_fingerprint": "e76b1972855d22e6de7bea99be14a03064dbfff8c0f85738986fab0690b3765c",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_part_064/background_part_064_v0.1.blend",
+  "placement_count": 1987,
+  "instance_color_parameter": true,
+  "geometry_id": 1024,
+  "metrics": {
+    "vertices": 24,
+    "triangles": 12,
+    "min": [
+      -0.5,
+      -0.5,
+      -0.5
+    ],
+    "max": [
+      0.5,
+      0.5,
+      0.5
+    ]
+  },
+  "collection": "background_part_064",
+  "source": "art_source/scenes/runtime_building_reference/v001/background_components/background_part_064/background_part_064_v0.1.blend",
+  "source_sha256": "69700e866c4ae372fb492d863878e38824190f0611fca6caa07c52629f6c77aa",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-PART-064",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement"
+}

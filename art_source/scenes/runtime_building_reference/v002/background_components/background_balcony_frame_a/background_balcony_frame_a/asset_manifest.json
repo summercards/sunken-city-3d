@@ -1,0 +1,72 @@
+{
+  "key": "background_balcony_frame_a",
+  "asset_id": "SEA-REF-01-BG-TYPE-02",
+  "name": "远景-阳台框架楼甲型",
+  "version": "0.2",
+  "category": "background_building_component",
+  "scope_label": "远景背景·楼体母版",
+  "boundary_status": "recovered_repeated_template_matrix_verified",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_balcony_frame_a/background_balcony_frame_a/background_balcony_frame_a_v0.2.blend",
+  "source_type": 2,
+  "part_count": 199,
+  "placement_count": 49,
+  "max_replay_matrix_error": 0.001698854701402297,
+  "metrics": {
+    "vertices": 5280,
+    "triangles": 2500,
+    "min": [
+      -3.1319952256465,
+      -4.547005847650986,
+      -21.47499918937683
+    ],
+    "max": [
+      3.4219998121466477,
+      2.6190000051275595,
+      8.878636481707758
+    ]
+  },
+  "collection": "远景-阳台框架楼甲型",
+  "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_balcony_frame_a/background_balcony_frame_a/background_balcony_frame_a_v0.2.blend",
+  "source_sha256": "eccccca03dc533d5889b2342b8e693451a4cc0a38a175da19ee32a43cca12b8d",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-TYPE-02",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/background_components/background_building_type_02/background_building_type_02_v0.1.blend",
+  "previous_source_sha256": "3dd3d6b68fe48655d921d0aa9e8aba4c847256ddef852305b985a7d0f5956af6",
+  "facility_key": "background_balcony_frame_a",
+  "facility_name": "阳台框架楼甲型",
+  "legacy_key": "background_building_type_02",
+  "asset_key": "background_balcony_frame_a",
+  "region_collections": {
+    "海上区域": "阳台框架楼甲型-海上区域",
+    "海下基座": "阳台框架楼甲型-海下基座"
+  },
+  "split_world_height_godot": 1.12,
+  "split_method": "plane_bisect_no_caps_preserve_combined_surface",
+  "organized_metrics": {
+    "area": 1537.300650366318,
+    "triangles": 2692,
+    "edges": 6726,
+    "bounds": {
+      "min": [
+        -3.13199520111084,
+        -4.547005653381348,
+        -21.474998474121094
+      ],
+      "max": [
+        3.421999931335449,
+        2.61899995803833,
+        8.878636360168457
+      ]
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "asset_id": "SEA-REF-FACILITY-YOKOHAMA-STATION",
+  "asset_key": "yokohama_station",
+  "key": "yokohama_station",
+  "name": "横滨沉没铁道",
+  "facility_name": "横滨沉没铁道",
+  "facility_key": "yokohama_station",
+  "version": "0.2",
+  "category": "playable_facility_assembly",
+  "scope_label": "海面可玩区·设施总成",
+  "runtime_scene": "godot/scenes/zones/zone2_yokohama_station.tscn",
+  "runtime_source": "godot/scenes/zones/zone2_yokohama_station.tscn",
+  "relative_blend": "facilities/yokohama_station/yokohama_station_v0.2.blend",
+  "collection": "横滨沉没铁道",
+  "region_collections": {
+    "海上区域": "横滨沉没铁道-海上区域",
+    "海下基座": "横滨沉没铁道-海下基座"
+  },
+  "source": "art_source/scenes/runtime_building_reference/v002/facilities/yokohama_station/yokohama_station_v0.2.blend",
+  "source_sha256": "d7983e9adb9877ef9eb6ff53315bb47d001955cc05afad4bf16dc250658e91a9",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-FACILITY-YOKOHAMA-STATION",
+  "stage": "runtime_reference_verified",
+  "runtime_status": "reference_only_no_replacement"
+}

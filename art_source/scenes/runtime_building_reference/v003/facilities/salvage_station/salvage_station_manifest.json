@@ -1,0 +1,50 @@
+{
+  "asset_id": "SEA-REF-FACILITY-SALVAGE-STATION",
+  "asset_key": "salvage_station",
+  "key": "salvage_station",
+  "name": "绞盘打捞台",
+  "facility_key": "salvage_station",
+  "facility_name": "绞盘打捞台",
+  "category": "playable_facility_assembly",
+  "scope_label": "海面可玩区·独立设施",
+  "origin_godot": [
+    -12,
+    0,
+    13
+  ],
+  "runtime_source": "godot/assets/models/zones/zone1_home_harbor/units/detail.glb",
+  "runtime_scene": "godot/scenes/zones/zone1_home_harbor.tscn",
+  "runtime_node": "Models/detail",
+  "runtime_landing_id": "salvage",
+  "boundary_status": "whole_connected_island_partition_from_runtime_unit",
+  "version": "0.3",
+  "source": "art_source/scenes/runtime_building_reference/v003/facilities/salvage_station/salvage_station_v0.3.blend",
+  "collection": "绞盘打捞台",
+  "region_collections": {
+    "海上区域": "绞盘打捞台-海上区域",
+    "海下基座": "绞盘打捞台-海下基座"
+  },
+  "stage": "runtime_reference_verified",
+  "runtime_status": "reference_only_no_replacement",
+  "split_from_asset": "SEA-REF-01-ZONE1-HOME-HARBOR--DETAIL",
+  "organized_metrics": {
+    "area": 402.26838342414004,
+    "triangles": 9378,
+    "bounds": {
+      "min": [
+        -4.908832550048828,
+        -3.8870115280151367,
+        -22.18463134765625
+      ],
+      "max": [
+        4.027112007141113,
+        4.323520660400391,
+        11.894759178161621
+      ]
+    }
+  },
+  "source_sha256": "5470f2b7873356440eeaa3a41f07b9003455243851a903076366770370ea7d80",
+  "manifest": "art_source/scenes/runtime_building_reference/v003/facilities/salvage_station/salvage_station_manifest.json",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-FACILITY-SALVAGE-STATION",
+  "relative_blend": "facilities/salvage_station/salvage_station_v0.3.blend"
+}

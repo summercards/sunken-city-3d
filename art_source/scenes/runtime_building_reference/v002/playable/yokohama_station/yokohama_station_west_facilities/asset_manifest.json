@@ -1,0 +1,116 @@
+{
+  "key": "yokohama_station_west_facilities",
+  "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-03",
+  "version": "0.2",
+  "category": "playable_surface",
+  "name": "横滨沉没铁道-西侧设施",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone2_yokohama_station/units/unit_03.glb",
+  "runtime_sha256": "90448cc9c42dc14c6871c9399a751bf40f24287c597608fa7bc23e77b177e7ef",
+  "runtime_scene": "godot/scenes/zones/zone2_yokohama_station.tscn",
+  "runtime_node": "Models/unit_03",
+  "origin_godot": [
+    -34.8,
+    0.0,
+    -22.107
+  ],
+  "relative_blend": "playable/yokohama_station/yokohama_station_west_facilities/yokohama_station_west_facilities_v0.2.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 5,
+      "vertices": 576,
+      "triangles": 208
+    },
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": true,
+      "instances": 1,
+      "vertices": 21,
+      "triangles": 24
+    },
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 62,
+      "vertices": 14936,
+      "triangles": 5136
+    }
+  ],
+  "metrics": {
+    "vertices": 15533,
+    "triangles": 5368,
+    "min": [
+      -4.640092849731445,
+      -4.173122882843018,
+      -5.630000114440918
+    ],
+    "max": [
+      4.640092849731445,
+      4.173122882843018,
+      5.966150283813477
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v002/playable/yokohama_station/yokohama_station_west_facilities/yokohama_station_west_facilities_v0.2.blend",
+  "source_sha256": "3c8eadc4cae3833adca6984fab30b0a37875cec7215cb7f59841b7b82026f33a",
+  "origin_zone_local_godot": [
+    -4.8,
+    0.0,
+    -4.107
+  ],
+  "zone_origin_godot": [
+    -30.0,
+    0.0,
+    -18.0
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "横滨沉没铁道-西侧设施",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-03",
+  "runtime_triangles_including_degenerates": 5368,
+  "importer_removed_repeated_index_degenerates": 0,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 1.3546260646535302e-07,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/playable/zone2_yokohama_station/unit_03/zone2_yokohama_station__unit_03_v0.1.blend",
+  "previous_source_sha256": "d0a2ae3dde3fe106b0116bbda235a3f176f1dd9adf947fbda14889112b86cbe5",
+  "facility_key": "yokohama_station",
+  "facility_name": "横滨沉没铁道",
+  "part_name": "西侧设施",
+  "legacy_key": "zone2_yokohama_station__unit_03",
+  "asset_key": "yokohama_station_west_facilities",
+  "region_collections": {
+    "海上区域": "横滨沉没铁道-海上区域",
+    "海下基座": "横滨沉没铁道-海下基座"
+  },
+  "split_world_height_godot": 1.12,
+  "split_method": "plane_bisect_no_caps_preserve_combined_surface",
+  "organized_metrics": {
+    "area": 367.1445316795556,
+    "triangles": 5496,
+    "edges": 16048,
+    "bounds": {
+      "min": [
+        -4.640092849731445,
+        -4.173122882843018,
+        -5.630000114440918
+      ],
+      "max": [
+        4.640092849731445,
+        4.173122882843018,
+        5.966150283813477
+      ]
+    }
+  }
+}

@@ -1,0 +1,1129 @@
+{
+  "version": "0.2",
+  "entries": [
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--DETAIL",
+      "legacy_key": "zone1_home_harbor__detail",
+      "asset_key": "solar_cabin_harbor_surroundings",
+      "name": "太阳能木屋-港湾周边",
+      "facility_name": "太阳能木屋",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_harbor_surroundings/solar_cabin_harbor_surroundings_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone1_home_harbor/units/detail.glb",
+      "region_collections": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-01",
+      "legacy_key": "zone1_home_harbor__unit_01",
+      "asset_key": "solar_cabin_front_deck",
+      "name": "太阳能木屋-前侧平台",
+      "facility_name": "太阳能木屋",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_front_deck/solar_cabin_front_deck_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone1_home_harbor/units/unit_01.glb",
+      "region_collections": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-02",
+      "legacy_key": "zone1_home_harbor__unit_02",
+      "asset_key": "solar_cabin_rear_tower",
+      "name": "太阳能木屋-后侧楼体",
+      "facility_name": "太阳能木屋",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_rear_tower/solar_cabin_rear_tower_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone1_home_harbor/units/unit_02.glb",
+      "region_collections": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-03",
+      "legacy_key": "zone1_home_harbor__unit_03",
+      "asset_key": "solar_cabin_core",
+      "name": "太阳能木屋-木屋主体",
+      "facility_name": "太阳能木屋",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_core/solar_cabin_core_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone1_home_harbor/units/unit_03.glb",
+      "region_collections": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--DETAIL",
+      "legacy_key": "zone2_yokohama_station__detail",
+      "asset_key": "yokohama_station_connections",
+      "name": "横滨沉没铁道-周边连接设施",
+      "facility_name": "横滨沉没铁道",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/yokohama_station/yokohama_station_connections/yokohama_station_connections_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone2_yokohama_station/units/detail.glb",
+      "region_collections": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-01",
+      "legacy_key": "zone2_yokohama_station__unit_01",
+      "asset_key": "yokohama_station_platform",
+      "name": "横滨沉没铁道-站台结构",
+      "facility_name": "横滨沉没铁道",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/yokohama_station/yokohama_station_platform/yokohama_station_platform_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone2_yokohama_station/units/unit_01.glb",
+      "region_collections": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-02",
+      "legacy_key": "zone2_yokohama_station__unit_02",
+      "asset_key": "yokohama_station_east_facilities",
+      "name": "横滨沉没铁道-东侧设施",
+      "facility_name": "横滨沉没铁道",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/yokohama_station/yokohama_station_east_facilities/yokohama_station_east_facilities_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone2_yokohama_station/units/unit_02.glb",
+      "region_collections": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-03",
+      "legacy_key": "zone2_yokohama_station__unit_03",
+      "asset_key": "yokohama_station_west_facilities",
+      "name": "横滨沉没铁道-西侧设施",
+      "facility_name": "横滨沉没铁道",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/yokohama_station/yokohama_station_west_facilities/yokohama_station_west_facilities_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone2_yokohama_station/units/unit_03.glb",
+      "region_collections": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--DETAIL",
+      "legacy_key": "zone3_arc_farm__detail",
+      "asset_key": "arc_rooftop_farm_outer_structure",
+      "name": "圆弧屋顶农场-外围结构",
+      "facility_name": "圆弧屋顶农场",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/arc_rooftop_farm/arc_rooftop_farm_outer_structure/arc_rooftop_farm_outer_structure_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone3_arc_farm/units/detail.glb",
+      "region_collections": {
+        "海上区域": "圆弧屋顶农场-海上区域",
+        "海下基座": "圆弧屋顶农场-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--UNIT-01",
+      "legacy_key": "zone3_arc_farm__unit_01",
+      "asset_key": "arc_rooftop_farm_core",
+      "name": "圆弧屋顶农场-农场主体",
+      "facility_name": "圆弧屋顶农场",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/arc_rooftop_farm/arc_rooftop_farm_core/arc_rooftop_farm_core_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone3_arc_farm/units/unit_01.glb",
+      "region_collections": {
+        "海上区域": "圆弧屋顶农场-海上区域",
+        "海下基座": "圆弧屋顶农场-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--DETAIL",
+      "legacy_key": "zone4_far_shore__detail",
+      "asset_key": "far_shore_settlement_water_marker",
+      "name": "远海街町-水面标记",
+      "facility_name": "远海街町",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_water_marker/far_shore_settlement_water_marker_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone4_far_shore/units/detail.glb",
+      "region_collections": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-01",
+      "legacy_key": "zone4_far_shore__unit_01",
+      "asset_key": "far_shore_settlement_main_building",
+      "name": "远海街町-主楼结构",
+      "facility_name": "远海街町",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_main_building/far_shore_settlement_main_building_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone4_far_shore/units/unit_01.glb",
+      "region_collections": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-02",
+      "legacy_key": "zone4_far_shore__unit_02",
+      "asset_key": "far_shore_settlement_annex",
+      "name": "远海街町-附属设施",
+      "facility_name": "远海街町",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_annex/far_shore_settlement_annex_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone4_far_shore/units/unit_02.glb",
+      "region_collections": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-03",
+      "legacy_key": "zone4_far_shore__unit_03",
+      "asset_key": "far_shore_settlement_rooftop_facilities",
+      "name": "远海街町-屋顶设施",
+      "facility_name": "远海街町",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_rooftop_facilities/far_shore_settlement_rooftop_facilities_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone4_far_shore/units/unit_03.glb",
+      "region_collections": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-04",
+      "legacy_key": "zone4_far_shore__unit_04",
+      "asset_key": "far_shore_settlement_side_wall",
+      "name": "远海街町-侧墙结构",
+      "facility_name": "远海街町",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_side_wall/far_shore_settlement_side_wall_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone4_far_shore/units/unit_04.glb",
+      "region_collections": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--DETAIL",
+      "legacy_key": "zone5_aqua_platform__detail",
+      "asset_key": "aquaculture_platform_outer_supports",
+      "name": "浅水养殖台-外围支撑",
+      "facility_name": "浅水养殖台",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/aquaculture_platform/aquaculture_platform_outer_supports/aquaculture_platform_outer_supports_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone5_aqua_platform/units/detail.glb",
+      "region_collections": {
+        "海上区域": "浅水养殖台-海上区域",
+        "海下基座": "浅水养殖台-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--UNIT-01",
+      "legacy_key": "zone5_aqua_platform__unit_01",
+      "asset_key": "aquaculture_platform_core",
+      "name": "浅水养殖台-养殖台主体",
+      "facility_name": "浅水养殖台",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/aquaculture_platform/aquaculture_platform_core/aquaculture_platform_core_v0.2.blend",
+      "runtime_source": "godot/assets/models/zones/zone5_aqua_platform/units/unit_01.glb",
+      "region_collections": {
+        "海上区域": "浅水养殖台-海上区域",
+        "海下基座": "浅水养殖台-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-00",
+      "legacy_key": "background_building_type_00",
+      "asset_key": "background_balcony_residence",
+      "name": "远景-阳台住宅楼",
+      "facility_name": "阳台住宅楼",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_balcony_residence/background_balcony_residence/background_balcony_residence_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": {
+        "海上区域": "阳台住宅楼-海上区域",
+        "海下基座": "阳台住宅楼-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-01",
+      "legacy_key": "background_building_type_01",
+      "asset_key": "background_broken_roof_frame",
+      "name": "远景-破顶围墙楼",
+      "facility_name": "破顶围墙楼",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_broken_roof_frame/background_broken_roof_frame/background_broken_roof_frame_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": {
+        "海上区域": "破顶围墙楼-海上区域",
+        "海下基座": "破顶围墙楼-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-02",
+      "legacy_key": "background_building_type_02",
+      "asset_key": "background_balcony_frame_a",
+      "name": "远景-阳台框架楼甲型",
+      "facility_name": "阳台框架楼甲型",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_balcony_frame_a/background_balcony_frame_a/background_balcony_frame_a_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": {
+        "海上区域": "阳台框架楼甲型-海上区域",
+        "海下基座": "阳台框架楼甲型-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-03",
+      "legacy_key": "background_building_type_03",
+      "asset_key": "background_broken_slab_frame",
+      "name": "远景-破损楼板楼",
+      "facility_name": "破损楼板楼",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_broken_slab_frame/background_broken_slab_frame/background_broken_slab_frame_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": {
+        "海上区域": "破损楼板楼-海上区域",
+        "海下基座": "破损楼板楼-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-04",
+      "legacy_key": "background_building_type_04",
+      "asset_key": "background_stair_frame",
+      "name": "远景-阶梯框架楼",
+      "facility_name": "阶梯框架楼",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_stair_frame/background_stair_frame/background_stair_frame_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": {
+        "海上区域": "阶梯框架楼-海上区域",
+        "海下基座": "阶梯框架楼-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-05",
+      "legacy_key": "background_building_type_05",
+      "asset_key": "background_balcony_frame_b",
+      "name": "远景-阳台框架楼乙型",
+      "facility_name": "阳台框架楼乙型",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_balcony_frame_b/background_balcony_frame_b/background_balcony_frame_b_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": {
+        "海上区域": "阳台框架楼乙型-海上区域",
+        "海下基座": "阳台框架楼乙型-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-000",
+      "legacy_key": "background_part_000",
+      "asset_key": "background_shared_part_000",
+      "name": "远景公共构件-000",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_000/background_shared_part_000_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-001",
+      "legacy_key": "background_part_001",
+      "asset_key": "background_shared_part_001",
+      "name": "远景公共构件-001",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_001/background_shared_part_001_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-002",
+      "legacy_key": "background_part_002",
+      "asset_key": "background_shared_part_002",
+      "name": "远景公共构件-002",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_002/background_shared_part_002_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-003",
+      "legacy_key": "background_part_003",
+      "asset_key": "background_shared_part_003",
+      "name": "远景公共构件-003",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_003/background_shared_part_003_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-004",
+      "legacy_key": "background_part_004",
+      "asset_key": "background_shared_part_004",
+      "name": "远景公共构件-004",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_004/background_shared_part_004_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-005",
+      "legacy_key": "background_part_005",
+      "asset_key": "background_shared_part_005",
+      "name": "远景公共构件-005",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_005/background_shared_part_005_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-006",
+      "legacy_key": "background_part_006",
+      "asset_key": "background_shared_part_006",
+      "name": "远景公共构件-006",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_006/background_shared_part_006_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-007",
+      "legacy_key": "background_part_007",
+      "asset_key": "background_shared_part_007",
+      "name": "远景公共构件-007",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_007/background_shared_part_007_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-008",
+      "legacy_key": "background_part_008",
+      "asset_key": "background_shared_part_008",
+      "name": "远景公共构件-008",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_008/background_shared_part_008_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-009",
+      "legacy_key": "background_part_009",
+      "asset_key": "background_shared_part_009",
+      "name": "远景公共构件-009",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_009/background_shared_part_009_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-010",
+      "legacy_key": "background_part_010",
+      "asset_key": "background_shared_part_010",
+      "name": "远景公共构件-010",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_010/background_shared_part_010_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-011",
+      "legacy_key": "background_part_011",
+      "asset_key": "background_shared_part_011",
+      "name": "远景公共构件-011",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_011/background_shared_part_011_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-012",
+      "legacy_key": "background_part_012",
+      "asset_key": "background_shared_part_012",
+      "name": "远景公共构件-012",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_012/background_shared_part_012_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-013",
+      "legacy_key": "background_part_013",
+      "asset_key": "background_shared_part_013",
+      "name": "远景公共构件-013",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_013/background_shared_part_013_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-014",
+      "legacy_key": "background_part_014",
+      "asset_key": "background_shared_part_014",
+      "name": "远景公共构件-014",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_014/background_shared_part_014_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-015",
+      "legacy_key": "background_part_015",
+      "asset_key": "background_shared_part_015",
+      "name": "远景公共构件-015",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_015/background_shared_part_015_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-016",
+      "legacy_key": "background_part_016",
+      "asset_key": "background_shared_part_016",
+      "name": "远景公共构件-016",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_016/background_shared_part_016_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-017",
+      "legacy_key": "background_part_017",
+      "asset_key": "background_shared_part_017",
+      "name": "远景公共构件-017",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_017/background_shared_part_017_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-018",
+      "legacy_key": "background_part_018",
+      "asset_key": "background_shared_part_018",
+      "name": "远景公共构件-018",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_018/background_shared_part_018_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-019",
+      "legacy_key": "background_part_019",
+      "asset_key": "background_shared_part_019",
+      "name": "远景公共构件-019",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_019/background_shared_part_019_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-020",
+      "legacy_key": "background_part_020",
+      "asset_key": "background_shared_part_020",
+      "name": "远景公共构件-020",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_020/background_shared_part_020_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-021",
+      "legacy_key": "background_part_021",
+      "asset_key": "background_shared_part_021",
+      "name": "远景公共构件-021",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_021/background_shared_part_021_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-022",
+      "legacy_key": "background_part_022",
+      "asset_key": "background_shared_part_022",
+      "name": "远景公共构件-022",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_022/background_shared_part_022_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-023",
+      "legacy_key": "background_part_023",
+      "asset_key": "background_shared_part_023",
+      "name": "远景公共构件-023",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_023/background_shared_part_023_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-024",
+      "legacy_key": "background_part_024",
+      "asset_key": "background_shared_part_024",
+      "name": "远景公共构件-024",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_024/background_shared_part_024_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-025",
+      "legacy_key": "background_part_025",
+      "asset_key": "background_shared_part_025",
+      "name": "远景公共构件-025",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_025/background_shared_part_025_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-026",
+      "legacy_key": "background_part_026",
+      "asset_key": "background_shared_part_026",
+      "name": "远景公共构件-026",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_026/background_shared_part_026_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-027",
+      "legacy_key": "background_part_027",
+      "asset_key": "background_shared_part_027",
+      "name": "远景公共构件-027",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_027/background_shared_part_027_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-028",
+      "legacy_key": "background_part_028",
+      "asset_key": "background_shared_part_028",
+      "name": "远景公共构件-028",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_028/background_shared_part_028_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-029",
+      "legacy_key": "background_part_029",
+      "asset_key": "background_shared_part_029",
+      "name": "远景公共构件-029",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_029/background_shared_part_029_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-030",
+      "legacy_key": "background_part_030",
+      "asset_key": "background_shared_part_030",
+      "name": "远景公共构件-030",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_030/background_shared_part_030_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-031",
+      "legacy_key": "background_part_031",
+      "asset_key": "background_shared_part_031",
+      "name": "远景公共构件-031",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_031/background_shared_part_031_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-032",
+      "legacy_key": "background_part_032",
+      "asset_key": "background_shared_part_032",
+      "name": "远景公共构件-032",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_032/background_shared_part_032_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-033",
+      "legacy_key": "background_part_033",
+      "asset_key": "background_shared_part_033",
+      "name": "远景公共构件-033",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_033/background_shared_part_033_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-034",
+      "legacy_key": "background_part_034",
+      "asset_key": "background_shared_part_034",
+      "name": "远景公共构件-034",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_034/background_shared_part_034_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-035",
+      "legacy_key": "background_part_035",
+      "asset_key": "background_shared_part_035",
+      "name": "远景公共构件-035",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_035/background_shared_part_035_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-036",
+      "legacy_key": "background_part_036",
+      "asset_key": "background_shared_part_036",
+      "name": "远景公共构件-036",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_036/background_shared_part_036_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-037",
+      "legacy_key": "background_part_037",
+      "asset_key": "background_shared_part_037",
+      "name": "远景公共构件-037",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_037/background_shared_part_037_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-038",
+      "legacy_key": "background_part_038",
+      "asset_key": "background_shared_part_038",
+      "name": "远景公共构件-038",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_038/background_shared_part_038_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-039",
+      "legacy_key": "background_part_039",
+      "asset_key": "background_shared_part_039",
+      "name": "远景公共构件-039",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_039/background_shared_part_039_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-040",
+      "legacy_key": "background_part_040",
+      "asset_key": "background_shared_part_040",
+      "name": "远景公共构件-040",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_040/background_shared_part_040_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-041",
+      "legacy_key": "background_part_041",
+      "asset_key": "background_shared_part_041",
+      "name": "远景公共构件-041",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_041/background_shared_part_041_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-042",
+      "legacy_key": "background_part_042",
+      "asset_key": "background_shared_part_042",
+      "name": "远景公共构件-042",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_042/background_shared_part_042_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-043",
+      "legacy_key": "background_part_043",
+      "asset_key": "background_shared_part_043",
+      "name": "远景公共构件-043",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_043/background_shared_part_043_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-044",
+      "legacy_key": "background_part_044",
+      "asset_key": "background_shared_part_044",
+      "name": "远景公共构件-044",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_044/background_shared_part_044_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-045",
+      "legacy_key": "background_part_045",
+      "asset_key": "background_shared_part_045",
+      "name": "远景公共构件-045",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_045/background_shared_part_045_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-046",
+      "legacy_key": "background_part_046",
+      "asset_key": "background_shared_part_046",
+      "name": "远景公共构件-046",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_046/background_shared_part_046_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-047",
+      "legacy_key": "background_part_047",
+      "asset_key": "background_shared_part_047",
+      "name": "远景公共构件-047",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_047/background_shared_part_047_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-048",
+      "legacy_key": "background_part_048",
+      "asset_key": "background_shared_part_048",
+      "name": "远景公共构件-048",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_048/background_shared_part_048_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-049",
+      "legacy_key": "background_part_049",
+      "asset_key": "background_shared_part_049",
+      "name": "远景公共构件-049",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_049/background_shared_part_049_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-050",
+      "legacy_key": "background_part_050",
+      "asset_key": "background_shared_part_050",
+      "name": "远景公共构件-050",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_050/background_shared_part_050_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-051",
+      "legacy_key": "background_part_051",
+      "asset_key": "background_shared_part_051",
+      "name": "远景公共构件-051",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_051/background_shared_part_051_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-052",
+      "legacy_key": "background_part_052",
+      "asset_key": "background_shared_part_052",
+      "name": "远景公共构件-052",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_052/background_shared_part_052_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-053",
+      "legacy_key": "background_part_053",
+      "asset_key": "background_shared_part_053",
+      "name": "远景公共构件-053",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_053/background_shared_part_053_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-054",
+      "legacy_key": "background_part_054",
+      "asset_key": "background_shared_part_054",
+      "name": "远景公共构件-054",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_054/background_shared_part_054_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-055",
+      "legacy_key": "background_part_055",
+      "asset_key": "background_shared_part_055",
+      "name": "远景公共构件-055",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_055/background_shared_part_055_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-056",
+      "legacy_key": "background_part_056",
+      "asset_key": "background_shared_part_056",
+      "name": "远景公共构件-056",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_056/background_shared_part_056_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-057",
+      "legacy_key": "background_part_057",
+      "asset_key": "background_shared_part_057",
+      "name": "远景公共构件-057",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_057/background_shared_part_057_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-058",
+      "legacy_key": "background_part_058",
+      "asset_key": "background_shared_part_058",
+      "name": "远景公共构件-058",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_058/background_shared_part_058_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-059",
+      "legacy_key": "background_part_059",
+      "asset_key": "background_shared_part_059",
+      "name": "远景公共构件-059",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_059/background_shared_part_059_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-060",
+      "legacy_key": "background_part_060",
+      "asset_key": "background_shared_part_060",
+      "name": "远景公共构件-060",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_060/background_shared_part_060_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-061",
+      "legacy_key": "background_part_061",
+      "asset_key": "background_shared_part_061",
+      "name": "远景公共构件-061",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_061/background_shared_part_061_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-062",
+      "legacy_key": "background_part_062",
+      "asset_key": "background_shared_part_062",
+      "name": "远景公共构件-062",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_062/background_shared_part_062_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-063",
+      "legacy_key": "background_part_063",
+      "asset_key": "background_shared_part_063",
+      "name": "远景公共构件-063",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_063/background_shared_part_063_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-064",
+      "legacy_key": "background_part_064",
+      "asset_key": "background_shared_part_064",
+      "name": "远景公共构件-064",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_064/background_shared_part_064_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-065",
+      "legacy_key": "background_part_065",
+      "asset_key": "background_shared_part_065",
+      "name": "远景公共构件-065",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_065/background_shared_part_065_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-066",
+      "legacy_key": "background_part_066",
+      "asset_key": "background_shared_part_066",
+      "name": "远景公共构件-066",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_066/background_shared_part_066_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-067",
+      "legacy_key": "background_part_067",
+      "asset_key": "background_shared_part_067",
+      "name": "远景公共构件-067",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_067/background_shared_part_067_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-068",
+      "legacy_key": "background_part_068",
+      "asset_key": "background_shared_part_068",
+      "name": "远景公共构件-068",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_068/background_shared_part_068_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-069",
+      "legacy_key": "background_part_069",
+      "asset_key": "background_shared_part_069",
+      "name": "远景公共构件-069",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_069/background_shared_part_069_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-070",
+      "legacy_key": "background_part_070",
+      "asset_key": "background_shared_part_070",
+      "name": "远景公共构件-070",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_070/background_shared_part_070_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-071",
+      "legacy_key": "background_part_071",
+      "asset_key": "background_shared_part_071",
+      "name": "远景公共构件-071",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_071/background_shared_part_071_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-072",
+      "legacy_key": "background_part_072",
+      "asset_key": "background_shared_part_072",
+      "name": "远景公共构件-072",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_072/background_shared_part_072_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-073",
+      "legacy_key": "background_part_073",
+      "asset_key": "background_shared_part_073",
+      "name": "远景公共构件-073",
+      "facility_name": "远景公共构件",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_073/background_shared_part_073_v0.2.blend",
+      "runtime_source": "godot/assets/world/environment/bake.json",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "legacy_key": null,
+      "asset_key": "solar_cabin",
+      "name": "太阳能木屋",
+      "facility_name": "太阳能木屋",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/solar_cabin/solar_cabin_v0.2.blend",
+      "runtime_source": "godot/scenes/zones/zone1_home_harbor.tscn",
+      "region_collections": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-YOKOHAMA-STATION",
+      "legacy_key": null,
+      "asset_key": "yokohama_station",
+      "name": "横滨沉没铁道",
+      "facility_name": "横滨沉没铁道",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/yokohama_station/yokohama_station_v0.2.blend",
+      "runtime_source": "godot/scenes/zones/zone2_yokohama_station.tscn",
+      "region_collections": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-ARC-ROOFTOP-FARM",
+      "legacy_key": null,
+      "asset_key": "arc_rooftop_farm",
+      "name": "圆弧屋顶农场",
+      "facility_name": "圆弧屋顶农场",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/arc_rooftop_farm/arc_rooftop_farm_v0.2.blend",
+      "runtime_source": "godot/scenes/zones/zone3_arc_farm.tscn",
+      "region_collections": {
+        "海上区域": "圆弧屋顶农场-海上区域",
+        "海下基座": "圆弧屋顶农场-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-FAR-SHORE-SETTLEMENT",
+      "legacy_key": null,
+      "asset_key": "far_shore_settlement",
+      "name": "远海街町",
+      "facility_name": "远海街町",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/far_shore_settlement/far_shore_settlement_v0.2.blend",
+      "runtime_source": "godot/scenes/zones/zone4_far_shore.tscn",
+      "region_collections": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-AQUACULTURE-PLATFORM",
+      "legacy_key": null,
+      "asset_key": "aquaculture_platform",
+      "name": "浅水养殖台",
+      "facility_name": "浅水养殖台",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/aquaculture_platform/aquaculture_platform_v0.2.blend",
+      "runtime_source": "godot/scenes/zones/zone5_aqua_platform.tscn",
+      "region_collections": {
+        "海上区域": "浅水养殖台-海上区域",
+        "海下基座": "浅水养殖台-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-PLAYABLE-OVERVIEW",
+      "legacy_key": null,
+      "asset_key": "sea_playable_facilities",
+      "name": "海面可玩设施总览",
+      "facility_name": null,
+      "source": "art_source/scenes/runtime_building_reference/v002/sea_playable_facilities_v0.2.blend",
+      "runtime_source": "godot/scenes/main.tscn",
+      "region_collections": null
+    },
+    {
+      "asset_id": "SEA-REF-01-BACKGROUND-BUILDING-LIBRARY",
+      "legacy_key": null,
+      "asset_key": "background_building_components",
+      "name": "远景建筑组件总览",
+      "facility_name": null,
+      "source": "art_source/scenes/runtime_building_reference/v002/background_building_components_v0.2.blend",
+      "runtime_source": "godot/scenes/world/environment.tscn",
+      "region_collections": null
+    }
+  ]
+}

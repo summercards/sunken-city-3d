@@ -1,0 +1,67 @@
+{
+  "key": "background_shared_part_069",
+  "asset_id": "SEA-REF-01-BG-PART-069",
+  "name": "远景公共构件-069",
+  "version": "0.2",
+  "category": "background_detail_component",
+  "scope_label": "远景背景·附属构件",
+  "boundary_status": "exact_geometry_and_material_fingerprint",
+  "geometry_fingerprint": "f17e48accec39f8ff4268c81f345eaecb95279500ac4687931e8fd69e82f1dad",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_shared_parts/background_shared_part_069/background_shared_part_069_v0.2.blend",
+  "placement_count": 1,
+  "instance_color_parameter": true,
+  "geometry_id": 862,
+  "metrics": {
+    "vertices": 24,
+    "triangles": 12,
+    "min": [
+      -1.350000023841858,
+      -0.75,
+      -0.125
+    ],
+    "max": [
+      1.350000023841858,
+      0.75,
+      0.125
+    ]
+  },
+  "collection": "远景公共构件-069",
+  "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_069/background_shared_part_069_v0.2.blend",
+  "source_sha256": "536fdf9eb02830f232a944b00f8360760cfbd3389fcccd7b4804ac2f75f5c6d0",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-PART-069",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/background_components/background_part_069/background_part_069_v0.1.blend",
+  "previous_source_sha256": "49dd19a34985a28904a1151c04c41fbb2fee65e6fc237fce1b90151d974f397b",
+  "facility_key": "background_shared_parts",
+  "facility_name": "远景公共构件",
+  "legacy_key": "background_part_069",
+  "asset_key": "background_shared_part_069",
+  "placement_region_policy": "归属随实例高度变化；公共母版不绑定水面高度",
+  "organized_metrics": {
+    "area": 10.200000549245749,
+    "triangles": 12,
+    "edges": 30,
+    "bounds": {
+      "min": [
+        -1.350000023841858,
+        -0.75,
+        -0.125
+      ],
+      "max": [
+        1.350000023841858,
+        0.75,
+        0.125
+      ]
+    }
+  }
+}

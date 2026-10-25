@@ -1,0 +1,43 @@
+{
+  "key": "background_building_type_03",
+  "asset_id": "SEA-REF-01-BG-TYPE-03",
+  "name": "破损楼板楼",
+  "version": "0.1",
+  "category": "background_building_component",
+  "scope_label": "远景背景·楼体母版",
+  "boundary_status": "recovered_repeated_template_matrix_verified",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_building_type_03/background_building_type_03_v0.1.blend",
+  "source_type": 3,
+  "part_count": 198,
+  "placement_count": 36,
+  "max_replay_matrix_error": 0.001698854701402297,
+  "metrics": {
+    "vertices": 5292,
+    "triangles": 2496,
+    "min": [
+      -2.8439944157849544,
+      -2.400005153555761,
+      -23.47499918937683
+    ],
+    "max": [
+      2.6000013692390014,
+      2.431005523570334,
+      6.878636481707758
+    ]
+  },
+  "collection": "background_building_type_03",
+  "source": "art_source/scenes/runtime_building_reference/v001/background_components/background_building_type_03/background_building_type_03_v0.1.blend",
+  "source_sha256": "b85699e951bef8ac07b20e7942dd98afe9e11ed55abea3ad1bcf4ebfde195fb9",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-TYPE-03",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement"
+}

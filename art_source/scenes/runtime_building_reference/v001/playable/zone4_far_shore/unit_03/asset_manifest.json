@@ -1,0 +1,76 @@
+{
+  "key": "zone4_far_shore__unit_03",
+  "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-03",
+  "version": "0.1",
+  "category": "playable_surface",
+  "name": "zone4_far_shore / 远海街町·2m",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone4_far_shore/units/unit_03.glb",
+  "runtime_sha256": "176f9a830c640aa01a8d3e20cc574cd9d3eeaf456e5c6e274b8ee9bcaf413cb9",
+  "runtime_scene": "godot/scenes/zones/zone4_far_shore.tscn",
+  "runtime_node": "Models/unit_03",
+  "origin_godot": [
+    38.055,
+    0.0,
+    -38.906
+  ],
+  "relative_blend": "playable/zone4_far_shore/unit_03/zone4_far_shore__unit_03_v0.1.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 17,
+      "vertices": 861,
+      "triangles": 1020
+    },
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 2,
+      "vertices": 288,
+      "triangles": 96
+    }
+  ],
+  "metrics": {
+    "vertices": 1147,
+    "triangles": 1116,
+    "min": [
+      -2.9216346740722656,
+      -3.2824254035949707,
+      0.7537347078323364
+    ],
+    "max": [
+      2.9216346740722656,
+      3.2824254035949707,
+      5.541749954223633
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v001/playable/zone4_far_shore/unit_03/zone4_far_shore__unit_03_v0.1.blend",
+  "source_sha256": "7b1b82160b2938d938255435325781823b5c39f623f11f0e71885466a268f714",
+  "origin_zone_local_godot": [
+    -1.445,
+    0.0,
+    2.594
+  ],
+  "zone_origin_godot": [
+    39.5,
+    0.0,
+    -41.5
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "zone4_far_shore__unit_03",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE4-FAR-SHORE--UNIT-03",
+  "runtime_triangles_including_degenerates": 1116,
+  "importer_removed_repeated_index_degenerates": 0,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 1.1771974328667056e-07,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement"
+}

@@ -1,0 +1,106 @@
+{
+  "key": "far_shore_settlement_annex",
+  "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-02",
+  "version": "0.2",
+  "category": "playable_surface",
+  "name": "远海街町-附属设施",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone4_far_shore/units/unit_02.glb",
+  "runtime_sha256": "9637fd3fa18cf8910d4c319723d4ac02946b70317d01117e44bf807b2d84d8c5",
+  "runtime_scene": "godot/scenes/zones/zone4_far_shore.tscn",
+  "runtime_node": "Models/unit_02",
+  "origin_godot": [
+    43.425,
+    0.0,
+    -41.045
+  ],
+  "relative_blend": "playable/far_shore_settlement/far_shore_settlement_annex/far_shore_settlement_annex_v0.2.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 8,
+      "vertices": 192,
+      "triangles": 96
+    },
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 6,
+      "vertices": 1080,
+      "triangles": 360
+    }
+  ],
+  "metrics": {
+    "vertices": 1272,
+    "triangles": 456,
+    "min": [
+      -3.7645645141601562,
+      -3.8044819831848145,
+      -4.679999828338623
+    ],
+    "max": [
+      3.7645645141601562,
+      3.8044819831848145,
+      4.8053412437438965
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_annex/far_shore_settlement_annex_v0.2.blend",
+  "source_sha256": "5e86dfb38c0e7f02d8720609e5eecd22a5c6189473e711898e57c142eb70baab",
+  "origin_zone_local_godot": [
+    3.925,
+    0.0,
+    0.455
+  ],
+  "zone_origin_godot": [
+    39.5,
+    0.0,
+    -41.5
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "远海街町-附属设施",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE4-FAR-SHORE--UNIT-02",
+  "runtime_triangles_including_degenerates": 456,
+  "importer_removed_repeated_index_degenerates": 0,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 1.6599931207395002e-07,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/playable/zone4_far_shore/unit_02/zone4_far_shore__unit_02_v0.1.blend",
+  "previous_source_sha256": "51dfeffb8807a293f8b404b538f4d989a84c8201c5dd58bd7b106e3a98305e44",
+  "facility_key": "far_shore_settlement",
+  "facility_name": "远海街町",
+  "part_name": "附属设施",
+  "legacy_key": "zone4_far_shore__unit_02",
+  "asset_key": "far_shore_settlement_annex",
+  "region_collections": {
+    "海上区域": "远海街町-海上区域",
+    "海下基座": "远海街町-海下基座"
+  },
+  "split_world_height_godot": 1.12,
+  "split_method": "plane_bisect_no_caps_preserve_combined_surface",
+  "organized_metrics": {
+    "area": 152.46383386658476,
+    "triangles": 504,
+    "edges": 1416,
+    "bounds": {
+      "min": [
+        -3.7645645141601562,
+        -3.8044819831848145,
+        -4.679999828338623
+      ],
+      "max": [
+        3.7645645141601562,
+        3.8044819831848145,
+        4.8053412437438965
+      ]
+    }
+  }
+}

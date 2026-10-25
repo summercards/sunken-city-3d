@@ -1,0 +1,96 @@
+{
+  "key": "far_shore_settlement_water_marker",
+  "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--DETAIL",
+  "version": "0.2",
+  "category": "playable_surface",
+  "name": "远海街町-水面标记",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone4_far_shore/units/detail.glb",
+  "runtime_sha256": "ece478096d24b23146fcad91d9cd0c3940744d5fec1e3ba97ffc3016dc7addb3",
+  "runtime_scene": "godot/scenes/zones/zone4_far_shore.tscn",
+  "runtime_node": "Models/detail",
+  "origin_godot": [
+    42.781,
+    0.0,
+    -31.942999999999998
+  ],
+  "relative_blend": "playable/far_shore_settlement/far_shore_settlement_water_marker/far_shore_settlement_water_marker_v0.2.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 3,
+      "vertices": 149,
+      "triangles": 175
+    }
+  ],
+  "metrics": {
+    "vertices": 119,
+    "triangles": 0,
+    "min": [
+      -0.2850618362426758,
+      -0.2698245048522949,
+      1.0798313617706299
+    ],
+    "max": [
+      0.2850618362426758,
+      0.2698245048522949,
+      1.3403297662734985
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_water_marker/far_shore_settlement_water_marker_v0.2.blend",
+  "source_sha256": "343db6b135268c0bfff08318b5edd36ad0e33d0227aa9708e73a9d5333b8b9f7",
+  "origin_zone_local_godot": [
+    3.281,
+    0.0,
+    9.557
+  ],
+  "zone_origin_godot": [
+    39.5,
+    0.0,
+    -41.5
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "远海街町-水面标记",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE4-FAR-SHORE--DETAIL",
+  "runtime_triangles_including_degenerates": 175,
+  "importer_removed_repeated_index_degenerates": 175,
+  "geometry_type": "line_context",
+  "glb_local_bounds_error_m": 5.8770179833800285e-08,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/playable/zone4_far_shore/detail/zone4_far_shore__detail_v0.1.blend",
+  "previous_source_sha256": "7f1d5d7235b65243f71849175ea65085880d1d4cbcb0e9e7983528e998bd77ca",
+  "facility_key": "far_shore_settlement",
+  "facility_name": "远海街町",
+  "part_name": "水面标记",
+  "legacy_key": "zone4_far_shore__detail",
+  "asset_key": "far_shore_settlement_water_marker",
+  "region_collections": {
+    "海上区域": "远海街町-海上区域",
+    "海下基座": "远海街町-海下基座"
+  },
+  "split_world_height_godot": 1.12,
+  "split_method": "plane_bisect_no_caps_preserve_combined_surface",
+  "organized_metrics": {
+    "area": 0,
+    "triangles": 0,
+    "edges": 0,
+    "bounds": {
+      "min": [
+        -0.2850618362426758,
+        -0.2698245048522949,
+        1.0798313617706299
+      ],
+      "max": [
+        0.2850618362426758,
+        0.2698245048522949,
+        1.3403297662734985
+      ]
+    }
+  }
+}

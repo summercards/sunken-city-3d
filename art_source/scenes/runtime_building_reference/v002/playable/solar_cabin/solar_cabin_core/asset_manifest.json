@@ -1,0 +1,126 @@
+{
+  "key": "solar_cabin_core",
+  "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-03",
+  "version": "0.2",
+  "category": "playable_surface",
+  "name": "太阳能木屋-木屋主体",
+  "boundary_status": "existing_runtime_unit_may_contain_multiple_structures",
+  "runtime_source": "godot/assets/models/zones/zone1_home_harbor/units/unit_03.glb",
+  "runtime_sha256": "ddc85c05109c8dd20c038d1b5809c5388af1adb5343d4cfb0c202891b65ce7a6",
+  "runtime_scene": "godot/scenes/zones/zone1_home_harbor.tscn",
+  "runtime_node": "Models/unit_03",
+  "origin_godot": [
+    4.553,
+    0.0,
+    -0.593
+  ],
+  "relative_blend": "playable/solar_cabin/solar_cabin_core/solar_cabin_core_v0.2.blend",
+  "material_slots": [
+    {
+      "tex": -1,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 27,
+      "vertices": 2440,
+      "triangles": 878
+    },
+    {
+      "tex": -1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 423,
+      "vertices": 77449,
+      "triangles": 26860
+    },
+    {
+      "tex": 1,
+      "tint": true,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 4,
+      "vertices": 96,
+      "triangles": 8
+    },
+    {
+      "tex": 2,
+      "tint": false,
+      "unlit": false,
+      "alpha": false,
+      "double_side": false,
+      "instances": 1,
+      "vertices": 24,
+      "triangles": 2
+    }
+  ],
+  "metrics": {
+    "vertices": 79649,
+    "triangles": 27748,
+    "min": [
+      -9.053900718688965,
+      -5.9761762619018555,
+      -14.550000190734863
+    ],
+    "max": [
+      9.053900718688965,
+      5.9761762619018555,
+      8.003241539001465
+    ]
+  },
+  "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_core/solar_cabin_core_v0.2.blend",
+  "source_sha256": "398275c9dcfb5275a074a11d397f47a9af120e92abb661ec179dc940f4b5c00e",
+  "origin_zone_local_godot": [
+    4.553,
+    0.0,
+    -0.593
+  ],
+  "zone_origin_godot": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "scope_label": "海面可玩区",
+  "collection": "太阳能木屋-木屋主体",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-03",
+  "runtime_triangles_including_degenerates": 27748,
+  "importer_removed_repeated_index_degenerates": 0,
+  "geometry_type": "existing_runtime_unit",
+  "glb_local_bounds_error_m": 2.6444774192668774e-07,
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/playable/zone1_home_harbor/unit_03/zone1_home_harbor__unit_03_v0.1.blend",
+  "previous_source_sha256": "cad92f3e935304b55c1cffa4d366a2ebc26ea272994d256cfac7ac04005b8664",
+  "facility_key": "solar_cabin",
+  "facility_name": "太阳能木屋",
+  "part_name": "木屋主体",
+  "legacy_key": "zone1_home_harbor__unit_03",
+  "asset_key": "solar_cabin_core",
+  "region_collections": {
+    "海上区域": "太阳能木屋-海上区域",
+    "海下基座": "太阳能木屋-海下基座"
+  },
+  "split_world_height_godot": 1.12,
+  "split_method": "plane_bisect_no_caps_preserve_combined_surface",
+  "organized_metrics": {
+    "area": 1510.0306773455159,
+    "triangles": 27764,
+    "edges": 81454,
+    "bounds": {
+      "min": [
+        -9.053900718688965,
+        -5.9761762619018555,
+        -14.550000190734863
+      ],
+      "max": [
+        9.053900718688965,
+        5.9761762619018555,
+        8.003241539001465
+      ]
+    }
+  }
+}

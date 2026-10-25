@@ -1,0 +1,67 @@
+{
+  "key": "background_shared_part_072",
+  "asset_id": "SEA-REF-01-BG-PART-072",
+  "name": "远景公共构件-072",
+  "version": "0.2",
+  "category": "background_detail_component",
+  "scope_label": "远景背景·附属构件",
+  "boundary_status": "exact_geometry_and_material_fingerprint",
+  "geometry_fingerprint": "fdf9e49fa681acff037948bb36ddcb3678258244018e8294e9036382bebe355a",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_shared_parts/background_shared_part_072/background_shared_part_072_v0.2.blend",
+  "placement_count": 3,
+  "instance_color_parameter": true,
+  "geometry_id": 852,
+  "metrics": {
+    "vertices": 432,
+    "triangles": 144,
+    "min": [
+      -2.25,
+      -2.0999999046325684,
+      -8.649999618530273
+    ],
+    "max": [
+      2.25,
+      2.0999999046325684,
+      0.05000004917383194
+    ]
+  },
+  "collection": "远景公共构件-072",
+  "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_072/background_shared_part_072_v0.2.blend",
+  "source_sha256": "80b2226b9af2056d08fe9b54fa086c3e6d12d146aaa6bae7900d7120db86650b",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-PART-072",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/background_components/background_part_072/background_part_072_v0.1.blend",
+  "previous_source_sha256": "f9b780b3e37b0b9e8f3b7eb6453d8fae7287fc2c6faa0ba98d3d3100ab9af328",
+  "facility_key": "background_shared_parts",
+  "facility_name": "远景公共构件",
+  "legacy_key": "background_part_072",
+  "asset_key": "background_shared_part_072",
+  "placement_region_policy": "归属随实例高度变化；公共母版不绑定水面高度",
+  "organized_metrics": {
+    "area": 59.51998503508998,
+    "triangles": 144,
+    "edges": 432,
+    "bounds": {
+      "min": [
+        -2.25,
+        -2.0999999046325684,
+        -8.649999618530273
+      ],
+      "max": [
+        2.25,
+        2.0999999046325684,
+        0.05000004917383194
+      ]
+    }
+  }
+}

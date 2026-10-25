@@ -1,0 +1,25 @@
+{
+  "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+  "asset_key": "solar_cabin",
+  "key": "solar_cabin",
+  "name": "太阳能木屋",
+  "facility_name": "太阳能木屋",
+  "facility_key": "solar_cabin",
+  "version": "0.3",
+  "category": "playable_facility_assembly",
+  "scope_label": "海面可玩区·设施总成",
+  "runtime_scene": "godot/scenes/zones/zone1_home_harbor.tscn",
+  "runtime_source": "godot/scenes/zones/zone1_home_harbor.tscn",
+  "relative_blend": "facilities/solar_cabin/solar_cabin_v0.3.blend",
+  "collection": "太阳能木屋",
+  "region_collections": {
+    "海上区域": "太阳能木屋-海上区域",
+    "海下基座": "太阳能木屋-海下基座"
+  },
+  "source": "art_source/scenes/runtime_building_reference/v003/facilities/solar_cabin/solar_cabin_v0.3.blend",
+  "source_sha256": "a7e98f1f7f39201575ce78375a33f87209c57a98657a95336f062d1a1b0ae12e",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-FACILITY-SOLAR-CABIN",
+  "stage": "runtime_reference_verified",
+  "runtime_status": "reference_only_no_replacement",
+  "manifest": "art_source/scenes/runtime_building_reference/v003/facilities/solar_cabin/solar_cabin_manifest.json"
+}

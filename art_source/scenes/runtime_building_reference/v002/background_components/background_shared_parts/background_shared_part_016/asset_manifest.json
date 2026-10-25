@@ -1,0 +1,67 @@
+{
+  "key": "background_shared_part_016",
+  "asset_id": "SEA-REF-01-BG-PART-016",
+  "name": "远景公共构件-016",
+  "version": "0.2",
+  "category": "background_detail_component",
+  "scope_label": "远景背景·附属构件",
+  "boundary_status": "exact_geometry_and_material_fingerprint",
+  "geometry_fingerprint": "4790eb911f46d22c3db15a349fc0b48eb905689da128ca1f00b63145b541c3cb",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_shared_parts/background_shared_part_016/background_shared_part_016_v0.2.blend",
+  "placement_count": 2,
+  "instance_color_parameter": true,
+  "geometry_id": 971,
+  "metrics": {
+    "vertices": 63,
+    "triangles": 80,
+    "min": [
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "max": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "collection": "远景公共构件-016",
+  "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_016/background_shared_part_016_v0.2.blend",
+  "source_sha256": "0dbd22a4f9828e2564456f7910cf0712cc192c58116baeed97efbbbf2ac69244",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-PART-016",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/background_components/background_part_016/background_part_016_v0.1.blend",
+  "previous_source_sha256": "44056ac1625308549647486d195866530e9be36f09c3d7f1bfcd6aeb30955afa",
+  "facility_key": "background_shared_parts",
+  "facility_name": "远景公共构件",
+  "legacy_key": "background_part_016",
+  "asset_key": "background_shared_part_016",
+  "placement_region_policy": "归属随实例高度变化；公共母版不绑定水面高度",
+  "organized_metrics": {
+    "area": 11.525753841905034,
+    "triangles": 80,
+    "edges": 140,
+    "bounds": {
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  }
+}

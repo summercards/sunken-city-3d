@@ -1,0 +1,72 @@
+{
+  "key": "background_stair_frame",
+  "asset_id": "SEA-REF-01-BG-TYPE-04",
+  "name": "远景-阶梯框架楼",
+  "version": "0.2",
+  "category": "background_building_component",
+  "scope_label": "远景背景·楼体母版",
+  "boundary_status": "recovered_repeated_template_matrix_verified",
+  "runtime_source": "godot/assets/world/environment/bake.json",
+  "runtime_scene": "godot/scenes/world/environment.tscn",
+  "runtime_node": "StaticBatch",
+  "origin_godot": [
+    0,
+    0,
+    0
+  ],
+  "relative_blend": "background_components/background_stair_frame/background_stair_frame/background_stair_frame_v0.2.blend",
+  "source_type": 4,
+  "part_count": 203,
+  "placement_count": 51,
+  "max_replay_matrix_error": 0.001698854701402297,
+  "metrics": {
+    "vertices": 5448,
+    "triangles": 2564,
+    "min": [
+      -2.8439896347721723,
+      -3.9949947449142718,
+      -23.87500071537633
+    ],
+    "max": [
+      2.6000061094240916,
+      2.2430005522442675,
+      6.478635897418862
+    ]
+  },
+  "collection": "远景-阶梯框架楼",
+  "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_stair_frame/background_stair_frame/background_stair_frame_v0.2.blend",
+  "source_sha256": "8c60b99a3915bc8592e66e90409226146a898080c6cf9ea8d3e7b45f47b3f634",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-01-BG-TYPE-04",
+  "stage": "runtime_reference_verified",
+  "license": "existing_project_asset_provenance_unchanged",
+  "runtime_status": "reference_only_no_replacement",
+  "previous_source": "art_source/scenes/runtime_building_reference/v001/background_components/background_building_type_04/background_building_type_04_v0.1.blend",
+  "previous_source_sha256": "95d44c72db3a524a5fb9e9c4829efdfbf982ecb6c4c63f0133ca342cc02f5ffb",
+  "facility_key": "background_stair_frame",
+  "facility_name": "阶梯框架楼",
+  "legacy_key": "background_building_type_04",
+  "asset_key": "background_stair_frame",
+  "region_collections": {
+    "海上区域": "阶梯框架楼-海上区域",
+    "海下基座": "阶梯框架楼-海下基座"
+  },
+  "split_world_height_godot": 1.12,
+  "split_method": "plane_bisect_no_caps_preserve_combined_surface",
+  "organized_metrics": {
+    "area": 1321.3879496550096,
+    "triangles": 2744,
+    "edges": 6890,
+    "bounds": {
+      "min": [
+        -2.843989610671997,
+        -3.994994640350342,
+        -23.875
+      ],
+      "max": [
+        2.600006103515625,
+        2.2430005073547363,
+        6.478635787963867
+      ]
+    }
+  }
+}

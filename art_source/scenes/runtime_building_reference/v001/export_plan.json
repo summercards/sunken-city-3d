@@ -1,0 +1,784 @@
+{
+  "version": "0.1",
+  "scope": "five_surface_zones_and_background_components; underwater_regions_excluded",
+  "policy": "User requested legacy reference snapshots and deduplicated background components; not new art authoring.",
+  "items": [
+    {
+      "key": "zone1_home_harbor__detail",
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--DETAIL",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone1_home_harbor/detail/zone1_home_harbor__detail_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone1_home_harbor__unit_01",
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-01",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone1_home_harbor/unit_01/zone1_home_harbor__unit_01_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone1_home_harbor__unit_02",
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-02",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone1_home_harbor/unit_02/zone1_home_harbor__unit_02_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone1_home_harbor__unit_03",
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-03",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone1_home_harbor/unit_03/zone1_home_harbor__unit_03_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone2_yokohama_station__detail",
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--DETAIL",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone2_yokohama_station/detail/zone2_yokohama_station__detail_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone2_yokohama_station__unit_01",
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-01",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone2_yokohama_station/unit_01/zone2_yokohama_station__unit_01_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone2_yokohama_station__unit_02",
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-02",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone2_yokohama_station/unit_02/zone2_yokohama_station__unit_02_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone2_yokohama_station__unit_03",
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-03",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone2_yokohama_station/unit_03/zone2_yokohama_station__unit_03_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone3_arc_farm__detail",
+      "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--DETAIL",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone3_arc_farm/detail/zone3_arc_farm__detail_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone3_arc_farm__unit_01",
+      "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--UNIT-01",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone3_arc_farm/unit_01/zone3_arc_farm__unit_01_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone4_far_shore__detail",
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--DETAIL",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone4_far_shore/detail/zone4_far_shore__detail_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone4_far_shore__unit_01",
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-01",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone4_far_shore/unit_01/zone4_far_shore__unit_01_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone4_far_shore__unit_02",
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-02",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone4_far_shore/unit_02/zone4_far_shore__unit_02_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone4_far_shore__unit_03",
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-03",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone4_far_shore/unit_03/zone4_far_shore__unit_03_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone4_far_shore__unit_04",
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-04",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone4_far_shore/unit_04/zone4_far_shore__unit_04_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone5_aqua_platform__detail",
+      "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--DETAIL",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone5_aqua_platform/detail/zone5_aqua_platform__detail_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "zone5_aqua_platform__unit_01",
+      "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--UNIT-01",
+      "category": "playable_surface",
+      "scope_label": "海面可玩区",
+      "relative_blend": "playable/zone5_aqua_platform/unit_01/zone5_aqua_platform__unit_01_v0.1.blend",
+      "boundary_status": "existing_runtime_unit_may_contain_multiple_structures"
+    },
+    {
+      "key": "background_building_type_00",
+      "asset_id": "SEA-REF-01-BG-TYPE-00",
+      "category": "background_building_component",
+      "scope_label": "远景背景·楼体母版",
+      "relative_blend": "background_components/background_building_type_00/background_building_type_00_v0.1.blend",
+      "boundary_status": "recovered_repeated_template_matrix_verified"
+    },
+    {
+      "key": "background_building_type_01",
+      "asset_id": "SEA-REF-01-BG-TYPE-01",
+      "category": "background_building_component",
+      "scope_label": "远景背景·楼体母版",
+      "relative_blend": "background_components/background_building_type_01/background_building_type_01_v0.1.blend",
+      "boundary_status": "recovered_repeated_template_matrix_verified"
+    },
+    {
+      "key": "background_building_type_02",
+      "asset_id": "SEA-REF-01-BG-TYPE-02",
+      "category": "background_building_component",
+      "scope_label": "远景背景·楼体母版",
+      "relative_blend": "background_components/background_building_type_02/background_building_type_02_v0.1.blend",
+      "boundary_status": "recovered_repeated_template_matrix_verified"
+    },
+    {
+      "key": "background_building_type_03",
+      "asset_id": "SEA-REF-01-BG-TYPE-03",
+      "category": "background_building_component",
+      "scope_label": "远景背景·楼体母版",
+      "relative_blend": "background_components/background_building_type_03/background_building_type_03_v0.1.blend",
+      "boundary_status": "recovered_repeated_template_matrix_verified"
+    },
+    {
+      "key": "background_building_type_04",
+      "asset_id": "SEA-REF-01-BG-TYPE-04",
+      "category": "background_building_component",
+      "scope_label": "远景背景·楼体母版",
+      "relative_blend": "background_components/background_building_type_04/background_building_type_04_v0.1.blend",
+      "boundary_status": "recovered_repeated_template_matrix_verified"
+    },
+    {
+      "key": "background_building_type_05",
+      "asset_id": "SEA-REF-01-BG-TYPE-05",
+      "category": "background_building_component",
+      "scope_label": "远景背景·楼体母版",
+      "relative_blend": "background_components/background_building_type_05/background_building_type_05_v0.1.blend",
+      "boundary_status": "recovered_repeated_template_matrix_verified"
+    },
+    {
+      "key": "background_part_000",
+      "asset_id": "SEA-REF-01-BG-PART-000",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_000/background_part_000_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_001",
+      "asset_id": "SEA-REF-01-BG-PART-001",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_001/background_part_001_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_002",
+      "asset_id": "SEA-REF-01-BG-PART-002",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_002/background_part_002_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_003",
+      "asset_id": "SEA-REF-01-BG-PART-003",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_003/background_part_003_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_004",
+      "asset_id": "SEA-REF-01-BG-PART-004",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_004/background_part_004_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_005",
+      "asset_id": "SEA-REF-01-BG-PART-005",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_005/background_part_005_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_006",
+      "asset_id": "SEA-REF-01-BG-PART-006",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_006/background_part_006_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_007",
+      "asset_id": "SEA-REF-01-BG-PART-007",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_007/background_part_007_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_008",
+      "asset_id": "SEA-REF-01-BG-PART-008",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_008/background_part_008_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_009",
+      "asset_id": "SEA-REF-01-BG-PART-009",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_009/background_part_009_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_010",
+      "asset_id": "SEA-REF-01-BG-PART-010",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_010/background_part_010_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_011",
+      "asset_id": "SEA-REF-01-BG-PART-011",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_011/background_part_011_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_012",
+      "asset_id": "SEA-REF-01-BG-PART-012",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_012/background_part_012_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_013",
+      "asset_id": "SEA-REF-01-BG-PART-013",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_013/background_part_013_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_014",
+      "asset_id": "SEA-REF-01-BG-PART-014",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_014/background_part_014_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_015",
+      "asset_id": "SEA-REF-01-BG-PART-015",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_015/background_part_015_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_016",
+      "asset_id": "SEA-REF-01-BG-PART-016",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_016/background_part_016_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_017",
+      "asset_id": "SEA-REF-01-BG-PART-017",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_017/background_part_017_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_018",
+      "asset_id": "SEA-REF-01-BG-PART-018",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_018/background_part_018_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_019",
+      "asset_id": "SEA-REF-01-BG-PART-019",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_019/background_part_019_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_020",
+      "asset_id": "SEA-REF-01-BG-PART-020",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_020/background_part_020_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_021",
+      "asset_id": "SEA-REF-01-BG-PART-021",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_021/background_part_021_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_022",
+      "asset_id": "SEA-REF-01-BG-PART-022",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_022/background_part_022_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_023",
+      "asset_id": "SEA-REF-01-BG-PART-023",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_023/background_part_023_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_024",
+      "asset_id": "SEA-REF-01-BG-PART-024",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_024/background_part_024_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_025",
+      "asset_id": "SEA-REF-01-BG-PART-025",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_025/background_part_025_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_026",
+      "asset_id": "SEA-REF-01-BG-PART-026",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_026/background_part_026_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_027",
+      "asset_id": "SEA-REF-01-BG-PART-027",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_027/background_part_027_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_028",
+      "asset_id": "SEA-REF-01-BG-PART-028",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_028/background_part_028_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_029",
+      "asset_id": "SEA-REF-01-BG-PART-029",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_029/background_part_029_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_030",
+      "asset_id": "SEA-REF-01-BG-PART-030",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_030/background_part_030_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_031",
+      "asset_id": "SEA-REF-01-BG-PART-031",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_031/background_part_031_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_032",
+      "asset_id": "SEA-REF-01-BG-PART-032",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_032/background_part_032_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_033",
+      "asset_id": "SEA-REF-01-BG-PART-033",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_033/background_part_033_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_034",
+      "asset_id": "SEA-REF-01-BG-PART-034",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_034/background_part_034_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_035",
+      "asset_id": "SEA-REF-01-BG-PART-035",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_035/background_part_035_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_036",
+      "asset_id": "SEA-REF-01-BG-PART-036",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_036/background_part_036_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_037",
+      "asset_id": "SEA-REF-01-BG-PART-037",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_037/background_part_037_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_038",
+      "asset_id": "SEA-REF-01-BG-PART-038",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_038/background_part_038_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_039",
+      "asset_id": "SEA-REF-01-BG-PART-039",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_039/background_part_039_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_040",
+      "asset_id": "SEA-REF-01-BG-PART-040",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_040/background_part_040_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_041",
+      "asset_id": "SEA-REF-01-BG-PART-041",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_041/background_part_041_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_042",
+      "asset_id": "SEA-REF-01-BG-PART-042",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_042/background_part_042_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_043",
+      "asset_id": "SEA-REF-01-BG-PART-043",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_043/background_part_043_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_044",
+      "asset_id": "SEA-REF-01-BG-PART-044",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_044/background_part_044_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_045",
+      "asset_id": "SEA-REF-01-BG-PART-045",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_045/background_part_045_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_046",
+      "asset_id": "SEA-REF-01-BG-PART-046",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_046/background_part_046_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_047",
+      "asset_id": "SEA-REF-01-BG-PART-047",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_047/background_part_047_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_048",
+      "asset_id": "SEA-REF-01-BG-PART-048",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_048/background_part_048_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_049",
+      "asset_id": "SEA-REF-01-BG-PART-049",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_049/background_part_049_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_050",
+      "asset_id": "SEA-REF-01-BG-PART-050",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_050/background_part_050_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_051",
+      "asset_id": "SEA-REF-01-BG-PART-051",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_051/background_part_051_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_052",
+      "asset_id": "SEA-REF-01-BG-PART-052",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_052/background_part_052_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_053",
+      "asset_id": "SEA-REF-01-BG-PART-053",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_053/background_part_053_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_054",
+      "asset_id": "SEA-REF-01-BG-PART-054",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_054/background_part_054_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_055",
+      "asset_id": "SEA-REF-01-BG-PART-055",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_055/background_part_055_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_056",
+      "asset_id": "SEA-REF-01-BG-PART-056",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_056/background_part_056_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_057",
+      "asset_id": "SEA-REF-01-BG-PART-057",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_057/background_part_057_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_058",
+      "asset_id": "SEA-REF-01-BG-PART-058",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_058/background_part_058_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_059",
+      "asset_id": "SEA-REF-01-BG-PART-059",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_059/background_part_059_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_060",
+      "asset_id": "SEA-REF-01-BG-PART-060",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_060/background_part_060_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_061",
+      "asset_id": "SEA-REF-01-BG-PART-061",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_061/background_part_061_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_062",
+      "asset_id": "SEA-REF-01-BG-PART-062",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_062/background_part_062_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_063",
+      "asset_id": "SEA-REF-01-BG-PART-063",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_063/background_part_063_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_064",
+      "asset_id": "SEA-REF-01-BG-PART-064",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_064/background_part_064_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_065",
+      "asset_id": "SEA-REF-01-BG-PART-065",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_065/background_part_065_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_066",
+      "asset_id": "SEA-REF-01-BG-PART-066",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_066/background_part_066_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_067",
+      "asset_id": "SEA-REF-01-BG-PART-067",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_067/background_part_067_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_068",
+      "asset_id": "SEA-REF-01-BG-PART-068",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_068/background_part_068_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_069",
+      "asset_id": "SEA-REF-01-BG-PART-069",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_069/background_part_069_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_070",
+      "asset_id": "SEA-REF-01-BG-PART-070",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_070/background_part_070_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_071",
+      "asset_id": "SEA-REF-01-BG-PART-071",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_071/background_part_071_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_072",
+      "asset_id": "SEA-REF-01-BG-PART-072",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_072/background_part_072_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    },
+    {
+      "key": "background_part_073",
+      "asset_id": "SEA-REF-01-BG-PART-073",
+      "category": "background_detail_component",
+      "scope_label": "远景背景·附属构件",
+      "relative_blend": "background_components/background_part_073/background_part_073_v0.1.blend",
+      "boundary_status": "exact_geometry_and_material_fingerprint"
+    }
+  ],
+  "background_instances": "background_instances.json.gz"
+}
