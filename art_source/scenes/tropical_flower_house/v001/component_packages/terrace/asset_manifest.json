@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-TERRACE",
+  "slug": "terrace",
+  "name": "屋顶露台",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "terrace",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-TERRACE",
+  "root_object": "ROOT_terrace",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/terrace/terrace.blend",
+  "bounds_size_m": [
+    5.449999809265137,
+    3.799999952316284,
+    0.3330000042915344
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "1d1f0143dd952f823e591b225fac28c29b2f86ad261455403497d8a7f31348d7",
+  "source_sha256": "8adb94976c29f59cf3bf421e7a4001071e09681e211724bb8550349d098126bb",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-TERRACE",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "terrace_body"
+  ]
+}

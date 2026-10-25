@@ -1,0 +1,43 @@
+{
+  "key": "vine",
+  "asset_id": "SEA-SCENE-SBR-VINE",
+  "name": "自然交错垂藤",
+  "category": "flora",
+  "family": "vine",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-VINE",
+  "root": "ROOT_vine",
+  "bounds_size": [
+    0.519963264465332,
+    0.18779119849205017,
+    1.3149868249893188
+  ],
+  "bounds_min": [
+    -0.259981632232666,
+    -0.09389559924602509,
+    0
+  ],
+  "source_anchor": [
+    -1.4901161193847656e-08,
+    -0.03000001236796379,
+    -0.06749340891838074
+  ],
+  "instance_count": 13,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/vine/vine.blend",
+  "geometry_fingerprint": "b7bbff657dd7888c9cf6277270929908711d5adb1bf6224145215cddac144c64",
+  "triangles": 6320,
+  "source_sha256": "ae4e278d9f678902cc46f1a3ea73c483b5e606041f8af83db403b684234819df",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-VINE"
+}

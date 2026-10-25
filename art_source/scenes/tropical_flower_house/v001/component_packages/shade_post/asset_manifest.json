@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-SHADE-POST",
+  "slug": "shade_post",
+  "name": "露台遮阳立柱梁架",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "shade_post",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-SHADE-POST",
+  "root_object": "ROOT_shade_post",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/shade_post/shade_post.blend",
+  "bounds_size_m": [
+    3.1000001430511475,
+    0.4750000238418579,
+    2.4000000953674316
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.0325000062584877,
+    0.0
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "5d60617f32c4d401ea224ea3fe0ddaff678e6966f59d62ee03d01c4670ffa47a",
+  "source_sha256": "f72db85eda07dec0a2737b4c5da8b5d9bce328bc2764b9bfa56cf8e7c55c14a0",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-SHADE-POST",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "shade_post_body"
+  ]
+}

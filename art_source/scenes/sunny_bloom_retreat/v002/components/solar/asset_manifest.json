@@ -1,0 +1,43 @@
+{
+  "key": "solar",
+  "asset_id": "SEA-SCENE-SBR-SOLAR",
+  "name": "蓝色光伏板",
+  "category": "fixture",
+  "family": "solar",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-SOLAR",
+  "root": "ROOT_solar",
+  "bounds_size": [
+    1.3300000429153442,
+    1.590000033378601,
+    0.14249999821186066
+  ],
+  "bounds_min": [
+    -0.6650000214576721,
+    -0.7950000166893005,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    -0.05999999865889549
+  ],
+  "instance_count": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/solar/solar.blend",
+  "geometry_fingerprint": "64d408ce792e1c1268cc38dd5e7a0c17324a3fc91dc8543b6d51a70683fc5ec2",
+  "triangles": 520,
+  "source_sha256": "b38d0aa17809675253f1147862ac02c496dcf796acdd4a61aa1196902957d083",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SOLAR"
+}

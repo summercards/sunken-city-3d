@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-LEAF-CLUSTER",
+  "slug": "leaf_cluster",
+  "name": "宽厚圆叶簇",
+  "category": "flora",
+  "subcategory": "vegetation",
+  "component_family": "leaf_cluster",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-LEAF-CLUSTER",
+  "root_object": "ROOT_leaf_cluster",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/leaf_cluster/leaf_cluster.blend",
+  "bounds_size_m": [
+    1.1140952110290527,
+    0.9731130599975586,
+    0.5045421123504639
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.055457890033721924
+  ],
+  "instance_count": 31,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "0efe85d7a927c90565e1ecf209b25d0e704cd5e3c2abb5182974753eea1479b2",
+  "source_sha256": "0a9a046be99dcbbe2dd9f68d54c3c88c4cda60982f585a20ba88f03cadab3825",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-LEAF-CLUSTER",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "leaf_cluster_body"
+  ]
+}

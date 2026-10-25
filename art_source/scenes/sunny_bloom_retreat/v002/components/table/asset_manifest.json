@@ -1,0 +1,43 @@
+{
+  "key": "table",
+  "asset_id": "SEA-SCENE-SBR-TABLE",
+  "name": "户外方桌",
+  "category": "fixture",
+  "family": "table",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-TABLE",
+  "root": "ROOT_table",
+  "bounds_size": [
+    1.0499999523162842,
+    0.8199999928474426,
+    0.75
+  ],
+  "bounds_min": [
+    -0.5249999761581421,
+    -0.4099999964237213,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/table/table.blend",
+  "geometry_fingerprint": "a2aa5199cfa0c80521fc3977033f989edeaa721f5120f0a76010910919ad386a",
+  "triangles": 940,
+  "source_sha256": "5b94f75613a4241d8addc6e263f899bd30f2f9517b1b7e7b4a87632c1dbff246",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-TABLE"
+}

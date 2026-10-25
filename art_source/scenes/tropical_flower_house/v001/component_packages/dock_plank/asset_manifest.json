@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-DOCK-PLANK",
+  "slug": "dock_plank",
+  "name": "双列栈桥木板",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "paving",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-DOCK-PLANK",
+  "root_object": "ROOT_dock_plank",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/dock_plank/dock_plank.blend",
+  "bounds_size_m": [
+    1.159999966621399,
+    0.47999998927116394,
+    0.1899999976158142
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    -0.0949999988079071
+  ],
+  "instance_count": 10,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "dbcbe83c25aa6287341628d25e5a042acde9c5da8ddea45e732b4079729e0818",
+  "source_sha256": "5fb8c277065625b47091612a542b65d036b5e95ccb1178b6b69e8276ceca271e",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-DOCK-PLANK",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "dock_plank_body"
+  ]
+}

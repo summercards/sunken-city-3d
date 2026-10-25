@@ -1,0 +1,43 @@
+{
+  "key": "roof_sofa",
+  "asset_id": "SEA-SCENE-SBR-ROOF-SOFA",
+  "name": "露台单黄抱枕沙发",
+  "category": "fixture",
+  "family": "seating",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-ROOF-SOFA",
+  "root": "ROOT_roof_sofa",
+  "bounds_size": [
+    1.5800000429153442,
+    0.7057899236679077,
+    1.0724852085113525
+  ],
+  "bounds_min": [
+    -0.7900000214576721,
+    -0.35289496183395386,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.012895002961158752,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/roof_sofa/roof_sofa.blend",
+  "geometry_fingerprint": "57ec60d6f833fa1045ccd7cd41654464513dd291307bc5ade4a43ba81a1ccc9c",
+  "triangles": 2068,
+  "source_sha256": "c35beb57fbf3c93ec1773939a8f325e50dd47debbbacc26787344b6ec1d8bfc6",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-ROOF-SOFA",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

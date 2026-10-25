@@ -4,7 +4,15 @@
 
 场景资产主记录通过 [ledger_index.json](../../assets/registry/ledger_index.json) 的 `domains.scenes` 路由到 [场景分账本](../../assets/registry/ledgers/scenes.json)。不另建重复主表；[源索引](../../assets/registry/current_source_index.json)由分账本派生。
 
-## 清新错层花屋码头（本轮参考图套件）
+## 饱满卡通热带花屋（2026-10-24 新附件）
+
+- [完整 Blender 母版](tropical_flower_house/v001/tropical_flower_house.blend)
+- [组件计划](tropical_flower_house/v001/component_plan.json) · [组件目录](tropical_flower_house/v001/component_catalog.json) · [实例清单](tropical_flower_house/v001/component_instances.json)
+- 38 种组件、267 个实例；32 种建筑/陈设，6 种花草。独立包位于 `tropical_flower_house/v001/component_packages/`。
+- 场景 `热带花屋_参考装配` 内可独立隐藏 `建筑_实例` 与 `花草_实例`；所有组件外链同一公共色板。
+- [制作与验收记录](../../docs/development/2026-10-24_tropical_flower_house.md)。工具位于 `tools/blender/tropical_flower_house/`；预览与日志位于工程外 `../sea-work/tropical_flower_house/`。
+
+## 清新错层花屋码头（先前参考图套件）
 
 - [打开 Blender 完整源](pastel_flower_harbor/v001/pastel_flower_harbor.blend)
 - [冻结计划](pastel_flower_harbor/v001/component_plan.json) · [组件目录](pastel_flower_harbor/v001/component_catalog.json) · [实例清单](pastel_flower_harbor/v001/component_instances.json)
@@ -43,3 +51,11 @@ Blender 命令应使用 `--background --python-exit-code 1 --python <脚本>`，
 当前 v003 直接打开 v001 母版，用 `restyle_v003.py` 调整配色和 5 项花叶组件；建筑几何与摆位锁定，详见 `v003/scope_lock.json`。36 个组件、255 个实例，保留第一版细节，不宣称达到 3000 三角面。公共色板 PNG 不变，通过 PaletteUV 改用现有色格。
 
 复现 v003 后，对 finalize_packages.py、verify_source.py、register_sources.py 传 `--version v003`。预览、QA 与日志在 `../sea-work/solar_flower_house_v003/`。前两版不覆盖；v002 的平台扩建和低面数版本可继续独立使用。
+
+## 阳光繁花小屋 · 当前附件独立制作
+
+[当前 v003 源与打开说明](sunny_bloom_retreat/README.md)：49 个独立组件，建筑与花草分离；全宽前平台、偏左双列桥、窗洞和太阳能板修订、花朵朝上错落分布；源级与六视图通过，Godot 接入 pending。
+
+## 繁花建筑下半部分
+
+[独立 v001 源与组件说明](bloom_lower_building/README.md)：七层厚白窗湾、蓝灰柱、青蓝窗和铺砖平屋顶；建筑与花草分离，22 组件、独立包及五视图源级检查完成，Godot pending。

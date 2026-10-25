@@ -1,0 +1,43 @@
+{
+  "key": "deck_tile",
+  "asset_id": "SEA-SCENE-SBR-DECK-TILE",
+  "name": "橙木平台铺板",
+  "category": "structure",
+  "family": "paving",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-DECK-TILE",
+  "root": "ROOT_deck_tile",
+  "bounds_size": [
+    0.5950000286102295,
+    0.39500001072883606,
+    0.12999999523162842
+  ],
+  "bounds_min": [
+    -0.29750001430511475,
+    -0.19750000536441803,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    -0.06499999761581421
+  ],
+  "instance_count": 216,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/deck_tile/deck_tile.blend",
+  "geometry_fingerprint": "d6c50aaf7ebf407c815a994e65a2b8b20ec4c7ab7d164fb32bcfb38816fe3e22",
+  "triangles": 188,
+  "source_sha256": "24df68bd55f2edce5aa188a90b46d6e3fd88b3497cdeb482338a0bc055323f7b",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-DECK-TILE"
+}

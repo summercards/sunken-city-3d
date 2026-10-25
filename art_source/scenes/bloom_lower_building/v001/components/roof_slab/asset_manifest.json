@@ -1,0 +1,43 @@
+{
+  "key": "roof_slab",
+  "name": "厚顶板",
+  "family": "slab",
+  "category": "structure",
+  "asset_id": "SEA-SCENE-BLB-ROOF-SLAB",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 30000,
+  "scope": "scene_local",
+  "collection": "SEA-SCENE-BLB-ROOF-SLAB",
+  "root": "ROOT_roof_slab",
+  "bounds_size": [
+    4.480000019073486,
+    8.279999732971191,
+    0.2800000011920929
+  ],
+  "bounds_min": [
+    -2.240000009536743,
+    -4.139999866485596,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/bloom_lower_building/v001/components/roof_slab/roof_slab.blend",
+  "geometry_fingerprint": "5e41799e810ec457cfff982f82ca4ab442ecc6ac609e2e3f7a46dca2172614d1",
+  "triangles": 188,
+  "source_sha256": "164169a4ed99836aa304e0fad3e5ad81942deaefcbc3750fa584babe875a84f8",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-ROOF-SLAB",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

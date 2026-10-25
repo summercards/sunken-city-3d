@@ -1,0 +1,43 @@
+{
+  "key": "cap",
+  "asset_id": "SEA-SCENE-SBR-CAP",
+  "name": "小屋厚帽檐",
+  "category": "structure",
+  "family": "slab",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-CAP",
+  "root": "ROOT_cap",
+  "bounds_size": [
+    2.5799999237060547,
+    2.25,
+    0.3199999928474426
+  ],
+  "bounds_min": [
+    -1.2899999618530273,
+    -1.125,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/cap/cap.blend",
+  "geometry_fingerprint": "44cbd036599c518d0160049f7cd26ea40f964d40a6e04d3002f31d47bb0a2cfe",
+  "triangles": 188,
+  "source_sha256": "77b701fabb37a2a2c340faef5b9acf3a6339f8f236a53cea8981df3168474d1c",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-CAP",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

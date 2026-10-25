@@ -1,0 +1,43 @@
+{
+  "key": "umbrella",
+  "asset_id": "SEA-SCENE-SBR-UMBRELLA",
+  "name": "黄白圆瓣遮阳伞",
+  "category": "fixture",
+  "family": "umbrella",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-UMBRELLA",
+  "root": "ROOT_umbrella",
+  "bounds_size": [
+    1.8200000524520874,
+    1.8200000524520874,
+    2.445000171661377
+  ],
+  "bounds_min": [
+    -0.9100000262260437,
+    -0.9100000262260437,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/umbrella/umbrella.blend",
+  "geometry_fingerprint": "650a6ef52f9e66ab4db5dbb866de84be8f58442c35d7b10339bcf1d31a9ecd73",
+  "triangles": 4048,
+  "source_sha256": "e3d6258aa60edee75e18f129035f0027ca4082fa5f6b51d40b89282394b57e42",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-UMBRELLA",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

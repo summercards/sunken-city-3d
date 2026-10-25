@@ -1,0 +1,43 @@
+{
+  "key": "pier",
+  "asset_id": "SEA-SCENE-SBR-PIER",
+  "name": "码头墩",
+  "category": "structure",
+  "family": "foundation",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-PIER",
+  "root": "ROOT_pier",
+  "bounds_size": [
+    1.0499999523162842,
+    0.8600000143051147,
+    0.5199999809265137
+  ],
+  "bounds_min": [
+    -0.5249999761581421,
+    -0.4300000071525574,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 6,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/pier/pier.blend",
+  "geometry_fingerprint": "ae6ed801ce654c91f256d8234ae5357b087e4faf23c0b41af415b484231094f6",
+  "triangles": 188,
+  "source_sha256": "d8929bb92b31402b0d0a3ecd92f184e5d35199de158c7ff53a01d1a0d55ce83c",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PIER"
+}

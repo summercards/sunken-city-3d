@@ -1,0 +1,2100 @@
+{
+  "schema": "sea.scene.component_catalog",
+  "components": [
+    {
+      "component_id": "SEA-SCENE-TFH-BASE",
+      "slug": "base",
+      "name": "平台灰色基座",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "foundation",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-BASE",
+      "root_object": "ROOT_base",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/base/base.blend",
+      "bounds_size_m": [
+        7.579999923706055,
+        6.859999656677246,
+        0.6200000047683716
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.030000001192092896
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "b235415444b746533edc10cdd006a0ef7d6fb9968f595873a07d095bc6e620e6",
+      "source_sha256": "0b3938b19744fda59149cfa8d6835a08f7b2ac509cd9996389b4fdf7565cda5a",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-BASE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "base_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-DOCK-SUPPORT",
+      "slug": "dock_support",
+      "name": "栈桥灰石基座",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "foundation",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-DOCK-SUPPORT",
+      "root_object": "ROOT_dock_support",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/dock_support/dock_support.blend",
+      "bounds_size_m": [
+        1.159999966621399,
+        2.5,
+        0.5
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "01e21f7eeb7502a097ac40259502fcd81db2268525e89f97ee8367f0941bcbaa",
+      "source_sha256": "f1572916071b9a5a530ff274be187cab8df2a7a18d15d571e631bce1c52cdd9e",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-DOCK-SUPPORT",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "dock_support_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-AC-ROOF",
+      "slug": "ac_roof",
+      "name": "屋顶扁宽空调",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "air_conditioner",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-AC-ROOF",
+      "root_object": "ROOT_ac_roof",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/ac_roof/ac_roof.blend",
+      "bounds_size_m": [
+        1.0199999809265137,
+        0.8824999332427979,
+        0.6674999594688416
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.02124999463558197,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "afbd3d58baa6d242769e93d5d5b7edc3e2d48a6087889fe92572e56639df7537",
+      "source_sha256": "d215d55a54cd1d21f23d819b31deec814826e5d3563990c792a1f8b6dbb6ec05",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-AC-ROOF",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "ac_roof_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-PAVING",
+      "slug": "paving",
+      "name": "暖橙铺板",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "paving",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-PAVING",
+      "root_object": "ROOT_paving",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/paving/paving.blend",
+      "bounds_size_m": [
+        0.6000000238418579,
+        0.6000000238418579,
+        0.11999999731779099
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.05999999865889549
+      ],
+      "instance_count": 132,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "5a17e743d3b62770bd6a2fa6784653e79bcd0438e8cafe4fdd62474e837b58e2",
+      "source_sha256": "487e652701bea4c22bb01f1bd3bb7b3a55a629f92834087851a2c2d2c0a287b0",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-PAVING",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "paving_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-HOUSE",
+      "slug": "house",
+      "name": "下层真实开窗墙壳",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "house",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-HOUSE",
+      "root_object": "ROOT_house",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/house/house.blend",
+      "bounds_size_m": [
+        5.199999809265137,
+        3.5,
+        2.8499999046325684
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "7ee6791a8371763fd340e530dc8cd4b5366f9162376ed9c598abeaf3367ad8b4",
+      "source_sha256": "d48630d64742d502739f635c17b7789819c07cb065e3605848caeadf8cc6af66",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-HOUSE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "house_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-TERRACE",
+      "slug": "terrace",
+      "name": "屋顶露台",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "terrace",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-TERRACE",
+      "root_object": "ROOT_terrace",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/terrace/terrace.blend",
+      "bounds_size_m": [
+        5.449999809265137,
+        3.799999952316284,
+        0.3330000042915344
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "1d1f0143dd952f823e591b225fac28c29b2f86ad261455403497d8a7f31348d7",
+      "source_sha256": "8adb94976c29f59cf3bf421e7a4001071e09681e211724bb8550349d098126bb",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-TERRACE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "terrace_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-UPPER-ROOM",
+      "slug": "upper_room",
+      "name": "屋顶蓝门小屋",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "house",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-UPPER-ROOM",
+      "root_object": "ROOT_upper_room",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/upper_room/upper_room.blend",
+      "bounds_size_m": [
+        2.3499999046325684,
+        1.899999976158142,
+        2.0
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "c334dc6a8adbd4712e19613f917e9919fcfb8fe4e56d43ef4b6665c10c8edf08",
+      "source_sha256": "55274a687ce61b75a09e21220a73339d34f846704500d1601a56892e693d18e2",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-UPPER-ROOM",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "upper_room_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-ROOF-CAP",
+      "slug": "roof_cap",
+      "name": "厚圆角屋顶",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "roof_cap",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-ROOF-CAP",
+      "root_object": "ROOT_roof_cap",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/roof_cap/roof_cap.blend",
+      "bounds_size_m": [
+        2.6600000858306885,
+        2.180000066757202,
+        0.3199999928474426
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "3d15019927c7cad8f4041e91ceee8b710c2b6550e110d7f77cb19999f6b2fa2c",
+      "source_sha256": "29582376bbca9d8f85c7e5d3a0f5c879460e825d8dd3efead632c10fa0ac4f77",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-ROOF-CAP",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "roof_cap_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-PARAPET",
+      "slug": "parapet",
+      "name": "低矮白色花台墙",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "parapet",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-PARAPET",
+      "root_object": "ROOT_parapet",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/parapet/parapet.blend",
+      "bounds_size_m": [
+        1.2400000095367432,
+        0.2800000011920929,
+        0.4399999976158142
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 8,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "96ffa88af087a81774df9323a049078e69742e912a25265f25787ad2fbedce3e",
+      "source_sha256": "a4477c932cb2ba80aee064cb50458fdd3ad80d99e29eac9a5fc355e986e942d2",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-PARAPET",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "parapet_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-PORCH-ROOF",
+      "slug": "porch_roof",
+      "name": "太阳能单坡屋顶",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "porch_roof",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-PORCH-ROOF",
+      "root_object": "ROOT_porch_roof",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/porch_roof/porch_roof.blend",
+      "bounds_size_m": [
+        3.4800000190734863,
+        1.800842046737671,
+        0.8348710536956787
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.03957894444465637,
+        -0.41743552684783936
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "1341e3775903489cf62df0b5881db439f47da173e4756bed18d8316db3de67f2",
+      "source_sha256": "71eaade3c147be4f37469c6db5a39293f6fd7b7190e4020a042fbf8a8082eb28",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-PORCH-ROOF",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "porch_roof_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-DOCK-PLANK",
+      "slug": "dock_plank",
+      "name": "双列栈桥木板",
+      "category": "building",
+      "subcategory": "structure",
+      "component_family": "paving",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-DOCK-PLANK",
+      "root_object": "ROOT_dock_plank",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/dock_plank/dock_plank.blend",
+      "bounds_size_m": [
+        1.159999966621399,
+        0.47999998927116394,
+        0.1899999976158142
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.0949999988079071
+      ],
+      "instance_count": 10,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "dbcbe83c25aa6287341628d25e5a042acde9c5da8ddea45e732b4079729e0818",
+      "source_sha256": "5fb8c277065625b47091612a542b65d036b5e95ccb1178b6b69e8276ceca271e",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-DOCK-PLANK",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "dock_plank_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-POST",
+      "slug": "post",
+      "name": "橙色系绳矮柱",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "post",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-POST",
+      "root_object": "ROOT_post",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/post/post.blend",
+      "bounds_size_m": [
+        0.5300000309944153,
+        0.5300000309944153,
+        0.8399999737739563
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 6,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "f492718e2441d569b2b064d3ecf29ad3081fdcb1d211fb9a87c85a17141d2287",
+      "source_sha256": "1a2e6b43a14f8aaa2027c41e162460be7c8a97e089af7799b25829bd51c940df",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-POST",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "post_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-SHADE-POST",
+      "slug": "shade_post",
+      "name": "露台遮阳立柱梁架",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "shade_post",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-SHADE-POST",
+      "root_object": "ROOT_shade_post",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/shade_post/shade_post.blend",
+      "bounds_size_m": [
+        3.1000001430511475,
+        0.4750000238418579,
+        2.4000000953674316
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.0325000062584877,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "5d60617f32c4d401ea224ea3fe0ddaff678e6966f59d62ee03d01c4670ffa47a",
+      "source_sha256": "f72db85eda07dec0a2737b4c5da8b5d9bce328bc2764b9bfa56cf8e7c55c14a0",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-SHADE-POST",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "shade_post_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-SHADE-SAIL",
+      "slug": "shade_sail",
+      "name": "下垂奶白布棚",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "shade_sail",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-SHADE-SAIL",
+      "root_object": "ROOT_shade_sail",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/shade_sail/shade_sail.blend",
+      "bounds_size_m": [
+        2.747612714767456,
+        1.6534134149551392,
+        0.41499999165534973
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.41499999165534973
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "83374a37d1d80d993555e268d3082b868e6dd181183b1ad7d66ffb52209fa42e",
+      "source_sha256": "11d0e57204a214e4a36cd8fd11ddb6267a418c356362ac149ae3cc914cc6c7ba",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-SHADE-SAIL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "shade_sail_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-WINDOW",
+      "slug": "window",
+      "name": "蓝色推拉窗",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "window",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-WINDOW",
+      "root_object": "ROOT_window",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/window/window.blend",
+      "bounds_size_m": [
+        1.2049999237060547,
+        0.14499999582767487,
+        1.8799998760223389
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.04249999672174454,
+        -0.04000002145767212
+      ],
+      "instance_count": 4,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "f4438a9ced48d98c499c945efedc392ef83d9dbb5b4bdbf4d326495b24a2c8c5",
+      "source_sha256": "dffb6bdec8092356df8243c5f3e6149c05205c6f814705eb3695b7af5eba81a3",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-WINDOW",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "window_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-DOOR",
+      "slug": "door",
+      "name": "屋顶青蓝门",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "door",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-DOOR",
+      "root_object": "ROOT_door",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/door/door.blend",
+      "bounds_size_m": [
+        1.059999942779541,
+        0.25,
+        1.934999942779541
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.034999996423721313,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "06052a892ef7d3b8c29a772f968bd8bed53e9bc7a333cbd347798cf31e2f04d0",
+      "source_sha256": "26a318024bdeadc3e57330a81cd1bda22838956c8ca3e717450ce53f5d846f64",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-DOOR",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "door_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-GLASS-ENTRY",
+      "slug": "glass_entry",
+      "name": "前廊玻璃入口",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "glass_entry",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-GLASS-ENTRY",
+      "root_object": "ROOT_glass_entry",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/glass_entry/glass_entry.blend",
+      "bounds_size_m": [
+        2.5999999046325684,
+        0.1925000101327896,
+        2.1999998092651367
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.07875000685453415,
+        -0.040000081062316895
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "9535995204a1033cc213e85a5d31c3c00e77b7dee6a3254123381348903c0c00",
+      "source_sha256": "918a882a2a94c53719b9415992ca186cf980c92345f1a714ef73d112b2fc7147",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-GLASS-ENTRY",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "glass_entry_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-SOLAR-PANEL",
+      "slug": "solar_panel",
+      "name": "蓝色太阳能板",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "solar_panel",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-SOLAR-PANEL",
+      "root_object": "ROOT_solar_panel",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/solar_panel/solar_panel.blend",
+      "bounds_size_m": [
+        1.4199999570846558,
+        1.4299999475479126,
+        0.1445000022649765
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        -0.05999999865889549
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "64fc7486b5243edfdb95d254b54d3d2c91327d30981f5168105e18e6d1bbe7d9",
+      "source_sha256": "4b5d5501df508ce5d30dfe5a09c37a5218ce6327f93796f72405685cd16b24f6",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-SOLAR-PANEL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "solar_panel_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-AWNING",
+      "slug": "awning",
+      "name": "黄白条纹软棚",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "awning",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-AWNING",
+      "root_object": "ROOT_awning",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/awning/awning.blend",
+      "bounds_size_m": [
+        3.360999822616577,
+        0.9464684724807739,
+        0.43877112865448
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.02776576578617096,
+        -0.30000001192092896
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "9c4071a26bc96a4449257e1421f172b7eb5d42f3ce7133c5891eda278a41b117",
+      "source_sha256": "b198a403af8fe2ca065fb1a8ad204412244524ff0272a429331ff3f9564b44e6",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-AWNING",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "awning_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-LADDER",
+      "slug": "ladder",
+      "name": "墙侧圆角木梯",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "ladder",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-LADDER",
+      "root_object": "ROOT_ladder",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/ladder/ladder.blend",
+      "bounds_size_m": [
+        0.8100000023841858,
+        0.1899999976158142,
+        2.859999895095825
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.015000000596046448,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "47421c1de6bbc5435e7ccd6c64b19dc01cf0908c8f07c2905f96ded777d1014a",
+      "source_sha256": "5314860fd4b49b54c539e64db6a695b443523140eeb03c5dd2b4e3a2f71b107a",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-LADDER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "ladder_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-AC-LARGE",
+      "slug": "ac_large",
+      "name": "侧墙大空调箱",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "air_conditioner",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-AC-LARGE",
+      "root_object": "ROOT_ac_large",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/ac_large/ac_large.blend",
+      "bounds_size_m": [
+        0.9200000166893005,
+        0.5625,
+        1.2575000524520874
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.02124999463558197,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "b73f82695df79a9e14753ceb08faa5f7c3ceb6f33c91701b9eb072408286ad8c",
+      "source_sha256": "83863a603fdb42e92b15d1763d0f3ce08443f8e03d09f1d319f0910852e56d9e",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-AC-LARGE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "ac_large_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-AC-SMALL",
+      "slug": "ac_small",
+      "name": "屋顶小空调箱",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "air_conditioner",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-AC-SMALL",
+      "root_object": "ROOT_ac_small",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/ac_small/ac_small.blend",
+      "bounds_size_m": [
+        0.6700000166893005,
+        0.492499977350235,
+        0.8075000047683716
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.02124999463558197,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "66d9d6c54af5ea9c55fc8742892a64106983a10c124d5ddf86acf7426cc5104e",
+      "source_sha256": "9e6c0865e5dfa7a416709bfe9c4169dc92dfa20398779de052ddf7527d8884ef",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-AC-SMALL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "ac_small_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-VENT",
+      "slug": "vent",
+      "name": "屋顶圆角通风柱",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "vent",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-VENT",
+      "root_object": "ROOT_vent",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/vent/vent.blend",
+      "bounds_size_m": [
+        0.2549999952316284,
+        0.27000001072883606,
+        1.1399999856948853
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.007500004023313522,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "1228cf217abc261c4bf322cd190727bb023a9fe0191af75503bb87079fdbb36a",
+      "source_sha256": "4ec3e5a46e5f32dc734b5e7642f2d151b8a690e687f045d66f3ed00dff604899",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-VENT",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "vent_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-LANTERN",
+      "slug": "lantern",
+      "name": "暖黄壁灯",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "lantern",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-LANTERN",
+      "root_object": "ROOT_lantern",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/lantern/lantern.blend",
+      "bounds_size_m": [
+        0.28999999165534973,
+        0.36500000953674316,
+        0.6224998235702515
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.04249999672174454,
+        0.01249999925494194
+      ],
+      "instance_count": 3,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "dea934a1aabfc8556be494cfb020179a34dd691e6d227d2377ed9edc669e110a",
+      "source_sha256": "76e3ed92c64da35bdbe395525124f54f82ead3003dcf27636fcbaedfdb7ce27b",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-LANTERN",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "lantern_body",
+        "lantern_emissive"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-BENCH",
+      "slug": "bench",
+      "name": "奶白木沙发",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "bench",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-BENCH",
+      "root_object": "ROOT_bench",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/bench/bench.blend",
+      "bounds_size_m": [
+        1.6100000143051147,
+        0.7286103963851929,
+        1.1450570821762085
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.004305168986320496,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "dd8fb12bd811470e91eeba1357fccec8bc8f7a3a7371dc8a6d5b23ea3d92f16e",
+      "source_sha256": "ce4aeaec5d6ce94576db2ba8b9e7d03252f070c49260d9fb6d740fb3f05ca767",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-BENCH",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "bench_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-TABLE",
+      "slug": "table",
+      "name": "圆角木桌",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "table",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-TABLE",
+      "root_object": "ROOT_table",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/table/table.blend",
+      "bounds_size_m": [
+        1.1799999475479126,
+        0.8799999952316284,
+        0.75
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "aa5ba62ec8090c9660949ddf1c0a85ce55e71e2885edcb70c4dd9b14026c7cad",
+      "source_sha256": "26594b235684e21baf692940b96be78c4972339a0d0cdbce416107a2f37058bf",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-TABLE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "table_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-STOOL",
+      "slug": "stool",
+      "name": "木凳",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "stool",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-STOOL",
+      "root_object": "ROOT_stool",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/stool/stool.blend",
+      "bounds_size_m": [
+        0.47999998927116394,
+        0.47999998927116394,
+        0.44999998807907104
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "760dbf76d72091a2b77358970fb97d7b7c673844ab2b2456e30d087c1c09ff55",
+      "source_sha256": "7dd924bfdbb1e8a812954ef4419a7552057e10eee3db4fd4f882b3e975e85367",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-STOOL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "stool_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-PARASOL",
+      "slug": "parasol",
+      "name": "黄白遮阳伞",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "parasol",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-PARASOL",
+      "root_object": "ROOT_parasol",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/parasol/parasol.blend",
+      "bounds_size_m": [
+        1.8799999952316284,
+        1.8799999952316284,
+        2.5799999237060547
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "1844af5bad2d5a3565306d263b40387f989ca613068c5824b11eed0cb384ae01",
+      "source_sha256": "82c37cb13b99a3c9e19cb529b6adc2611d8179e16605d2bc9c335c2b377fecd9",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-PARASOL",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "parasol_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-COOLER",
+      "slug": "cooler",
+      "name": "蓝色白盖冷藏箱",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "cooler",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-COOLER",
+      "root_object": "ROOT_cooler",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/cooler/cooler.blend",
+      "bounds_size_m": [
+        0.8999999761581421,
+        0.6924999952316284,
+        0.6899999976158142
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.016249999403953552,
+        0.0
+      ],
+      "instance_count": 2,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "5f0b74fffc0dc99b26daf6b964e80ca4f4200d858b6bae76271aebb6bddc5d0f",
+      "source_sha256": "05b2469009a2f69e9c8048571d05c4282f0bf16dd8e3a3bba13e0c5cc1d57bed",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-COOLER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "cooler_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-POT",
+      "slug": "pot",
+      "name": "奶陶花盆",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "pot",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-POT",
+      "root_object": "ROOT_pot",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/pot/pot.blend",
+      "bounds_size_m": [
+        0.6499999761581421,
+        0.6499999761581421,
+        0.4903109073638916
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 6,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "c9ac981c59380f6b132521c88c106699e9985673033b77f6a78c39e795bd62f7",
+      "source_sha256": "289913cf832a0351911deb82553026b4a29028a66a79a2753e2350c2d1a7ead3",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-POT",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "pot_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-CUP",
+      "slug": "cup",
+      "name": "红色水壶",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "cup",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-CUP",
+      "root_object": "ROOT_cup",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/cup/cup.blend",
+      "bounds_size_m": [
+        0.19605807960033417,
+        0.19605807960033417,
+        0.375
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "c385bf4a55f57bc9839dbdac6b38ff1690ddb9cdaefab2791d38756dc472d264",
+      "source_sha256": "e7b432df96cf98631dc311417549458bcf665191ef338d076e095a7444a13797",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-CUP",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "cup_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-RUG",
+      "slug": "rug",
+      "name": "薄荷太阳图案地垫",
+      "category": "building",
+      "subcategory": "fixture",
+      "component_family": "rug",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-RUG",
+      "root_object": "ROOT_rug",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/rug/rug.blend",
+      "bounds_size_m": [
+        0.949999988079071,
+        0.699999988079071,
+        0.03399999812245369
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "bc0ebb474f7ff84620f1a9f401dbf3db29284007b083de3f2927329fe544c01b",
+      "source_sha256": "5ea13ada646de05f257adf28ea6ffeec20ec3e8e6b394515c01d7dc98e5870d4",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-RUG",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "rug_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-LEAF-CLUSTER",
+      "slug": "leaf_cluster",
+      "name": "宽厚圆叶簇",
+      "category": "flora",
+      "subcategory": "vegetation",
+      "component_family": "leaf_cluster",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-LEAF-CLUSTER",
+      "root_object": "ROOT_leaf_cluster",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/leaf_cluster/leaf_cluster.blend",
+      "bounds_size_m": [
+        1.1140952110290527,
+        0.9731130599975586,
+        0.5045421123504639
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        0.0,
+        0.055457890033721924
+      ],
+      "instance_count": 31,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "0efe85d7a927c90565e1ecf209b25d0e704cd5e3c2abb5182974753eea1479b2",
+      "source_sha256": "0a9a046be99dcbbe2dd9f68d54c3c88c4cda60982f585a20ba88f03cadab3825",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-LEAF-CLUSTER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "leaf_cluster_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-VINE",
+      "slug": "vine",
+      "name": "短茎垂叶藤",
+      "category": "flora",
+      "subcategory": "vegetation",
+      "component_family": "vine",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-VINE",
+      "root_object": "ROOT_vine",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/vine/vine.blend",
+      "bounds_size_m": [
+        0.5539372563362122,
+        0.21721339225769043,
+        1.325338363647461
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.040000006556510925,
+        -0.06706885248422623
+      ],
+      "instance_count": 10,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "42f08d42b5840fc51ef7cf93a3bdcb83381047117c9283eb2417cfe4f65561c0",
+      "source_sha256": "81103c497e96f240ce31c1d1f337a334f30c929d4267f812095e82a61b6e5516",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-VINE",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "vine_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-PALM",
+      "slug": "palm",
+      "name": "肥厚裂叶棕榈",
+      "category": "flora",
+      "subcategory": "vegetation",
+      "component_family": "palm",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-PALM",
+      "root_object": "ROOT_palm",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/palm/palm.blend",
+      "bounds_size_m": [
+        1.9900000095367432,
+        1.8865870237350464,
+        0.6369174718856812
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.054999977350234985,
+        0.04871392250061035,
+        0.20666614174842834
+      ],
+      "instance_count": 6,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "eb049e3b62abb38282e7939594eaec012fcee565c0b3c542bb8014f371cd54ea",
+      "source_sha256": "01ca4aac20df52778e8b400038fa9577304102a454b92aa28e720217fcd92e84",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-PALM",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "palm_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-FLOWER",
+      "slug": "flower",
+      "name": "饱满五瓣粉花",
+      "category": "flora",
+      "subcategory": "vegetation",
+      "component_family": "flower",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-FLOWER",
+      "root_object": "ROOT_flower",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/flower/flower.blend",
+      "bounds_size_m": [
+        1.0017478466033936,
+        0.3100000023841858,
+        1.0300891399383545
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.03912600874900818,
+        -0.07499999552965164,
+        -0.11504457890987396
+      ],
+      "instance_count": 6,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "2f2a52fc841e2c2424f5344dfcc70e876c07895d412ac699f4d3980c2bfd297c",
+      "source_sha256": "0115d11360177c1eb0f5835c1b5d22a1a56c7517e2562fb1e0940a1618fe2eef",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-FLOWER",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "flower_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-DAISY",
+      "slug": "daisy",
+      "name": "六瓣白色雏菊",
+      "category": "flora",
+      "subcategory": "vegetation",
+      "component_family": "flower",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-DAISY",
+      "root_object": "ROOT_daisy",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/daisy/daisy.blend",
+      "bounds_size_m": [
+        1.0799999237060547,
+        0.3100000023841858,
+        0.9697823524475098
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.0,
+        -0.07499999552965164,
+        -0.08489120006561279
+      ],
+      "instance_count": 6,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "3f0134fc3b09bd41684d3ac5fac789038c029d6cabb2ac3b4f63e9a6d4f68e6f",
+      "source_sha256": "f2d3674c3ed83a26ea188219d05c97fa73e6a2e25f2be77ae928bf9c6df3e370",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-DAISY",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "daisy_body"
+      ]
+    },
+    {
+      "component_id": "SEA-SCENE-TFH-SPROUT",
+      "slug": "sprout",
+      "name": "盆栽宽叶芽",
+      "category": "flora",
+      "subcategory": "vegetation",
+      "component_family": "sprout",
+      "scope": "scene_local",
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": null,
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "allowed_rotations_z_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 6000,
+      "version": "v001",
+      "collection": "SEA-SCENE-TFH-SPROUT",
+      "root_object": "ROOT_sprout",
+      "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/sprout/sprout.blend",
+      "bounds_size_m": [
+        0.5882270336151123,
+        0.6116697788238525,
+        0.360592246055603
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "source_anchor_shift_m": [
+        0.027460336685180664,
+        0.0,
+        0.0
+      ],
+      "instance_count": 6,
+      "palette_uv_layer": "PaletteUV",
+      "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "godot_wrapper_pending",
+      "geometry_fingerprint": "e65fe4abe000dbecf04ef7e65788fdef4d4a95516121d6470c73a4f9c4e62a13",
+      "source_sha256": "dc05076af6e5d3b859c7345ae03c8c459b42d920d69f2cd4059c02b70ce1dfd1",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-SPROUT",
+      "license": "pending_user_reference_rights_review",
+      "runtime_status": "not_integrated",
+      "source_package_meshes": [
+        "sprout_body"
+      ]
+    }
+  ]
+}

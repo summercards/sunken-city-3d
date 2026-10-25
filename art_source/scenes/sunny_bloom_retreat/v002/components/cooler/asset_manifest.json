@@ -1,0 +1,43 @@
+{
+  "key": "cooler",
+  "asset_id": "SEA-SCENE-SBR-COOLER",
+  "name": "白盖蓝冷藏箱",
+  "category": "fixture",
+  "family": "cooler",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-COOLER",
+  "root": "ROOT_cooler",
+  "bounds_size": [
+    0.9100000262260437,
+    0.6875,
+    0.6800000071525574
+  ],
+  "bounds_min": [
+    -0.45500001311302185,
+    -0.34375,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.013750001788139343,
+    0.0
+  ],
+  "instance_count": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/cooler/cooler.blend",
+  "geometry_fingerprint": "3fb9f19de783493443d9f6402f9fcaa3dd73087f22ee4e9e41675c45ee1f3997",
+  "triangles": 752,
+  "source_sha256": "c7f7527a3243d6d8b5d31048805b9b1318ad829945c08152c50abf5ad28193ea",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-COOLER"
+}

@@ -1,0 +1,43 @@
+{
+  "key": "dock_board",
+  "asset_id": "SEA-SCENE-SBR-DOCK-BOARD",
+  "name": "双列码头木板",
+  "category": "structure",
+  "family": "paving",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-DOCK-BOARD",
+  "root": "ROOT_dock_board",
+  "bounds_size": [
+    1.0800000429153442,
+    0.4399999976158142,
+    0.23000000417232513
+  ],
+  "bounds_min": [
+    -0.5400000214576721,
+    -0.2199999988079071,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    -0.11500000208616257
+  ],
+  "instance_count": 12,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/dock_board/dock_board.blend",
+  "geometry_fingerprint": "855e0dfd95d29291600a575413f97e84b13613bd2f0c73fd6184e8bcf299362c",
+  "triangles": 188,
+  "source_sha256": "708a61dcc2f1bc59b8359f5951ab10b47dd632489f8c52f0b285a5988c5ee35d",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-DOCK-BOARD",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

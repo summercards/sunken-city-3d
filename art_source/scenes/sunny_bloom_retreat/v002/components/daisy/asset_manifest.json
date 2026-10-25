@@ -1,0 +1,43 @@
+{
+  "key": "daisy",
+  "asset_id": "SEA-SCENE-SBR-DAISY",
+  "name": "六瓣白色小花",
+  "category": "flora",
+  "family": "flower",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-DAISY",
+  "root": "ROOT_daisy",
+  "bounds_size": [
+    1.0399999618530273,
+    0.3450000286102295,
+    0.9310237765312195
+  ],
+  "bounds_min": [
+    -0.5199999809265137,
+    -0.17250001430511475,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.05750000849366188,
+    -0.035511910915374756
+  ],
+  "instance_count": 9,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/daisy/daisy.blend",
+  "geometry_fingerprint": "2c97b4618d35f206e1da008b241976e2d329faa21ce3c357c0bce0262952e405",
+  "triangles": 3080,
+  "source_sha256": "0b4cdd5a38e5d132c0ec0d3961e37c0ef35e3ec74d32cd55bce4f7ae3ba56c42",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-DAISY"
+}

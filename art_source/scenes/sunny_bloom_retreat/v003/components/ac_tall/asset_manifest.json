@@ -1,0 +1,43 @@
+{
+  "key": "ac_tall",
+  "asset_id": "SEA-SCENE-SBR-AC-TALL",
+  "name": "侧墙高设备箱",
+  "category": "fixture",
+  "family": "aircon",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-AC-TALL",
+  "root": "ROOT_ac_tall",
+  "bounds_size": [
+    0.9200000166893005,
+    0.5850000381469727,
+    1.3420000076293945
+  ],
+  "bounds_min": [
+    -0.46000000834465027,
+    -0.29250001907348633,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.022499993443489075,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/ac_tall/ac_tall.blend",
+  "geometry_fingerprint": "e9c6cd41200e6b7565554902b582cd926f6802a93211f06792f30118934dcc15",
+  "triangles": 1128,
+  "source_sha256": "10c7e2bb22ca175634dbcae43756c2210ccc2247f008b520fab8b4ae538a4ab5",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-AC-TALL",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

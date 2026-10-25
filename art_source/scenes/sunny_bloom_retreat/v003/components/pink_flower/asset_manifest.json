@@ -1,0 +1,43 @@
+{
+  "key": "pink_flower",
+  "asset_id": "SEA-SCENE-SBR-PINK-FLOWER",
+  "name": "五瓣饱满粉花",
+  "category": "flora",
+  "family": "flower",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-PINK-FLOWER",
+  "root": "ROOT_pink_flower",
+  "bounds_size": [
+    0.9637829065322876,
+    0.42500001192092896,
+    1.0000678300857544
+  ],
+  "bounds_min": [
+    -0.4818914532661438,
+    -0.21250000596046448,
+    0
+  ],
+  "source_anchor": [
+    0.03810852766036987,
+    -0.06750001758337021,
+    -0.07003389298915863
+  ],
+  "instance_count": 7,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/pink_flower/pink_flower.blend",
+  "geometry_fingerprint": "e4bc2398fe1431458454f6944ac76e726c238e026f3460aa17402e2d220bf5e1",
+  "triangles": 2640,
+  "source_sha256": "355acd9c52e3545608b8a548a776a3629404c61051c374214b194d0c9782959e",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PINK-FLOWER",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

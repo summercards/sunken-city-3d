@@ -1,0 +1,43 @@
+{
+  "key": "vase",
+  "asset_id": "SEA-SCENE-SBR-VASE",
+  "name": "黄陶圆腹小花瓶",
+  "category": "fixture",
+  "family": "planter",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 6000,
+  "collection": "SEA-SCENE-SBR-VASE",
+  "root": "ROOT_vase",
+  "bounds_size": [
+    0.24000006914138794,
+    0.24000002443790436,
+    0.37300002574920654
+  ],
+  "bounds_min": [
+    -0.12000003457069397,
+    -0.12000001221895218,
+    0
+  ],
+  "source_anchor": [
+    -2.2351741790771484e-08,
+    -1.4901161193847656e-08,
+    0.009999990463256836
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/vase/vase.blend",
+  "geometry_fingerprint": "ffd8274de85a4b728cf223a208819949b45137d2fe65e4eb87edf6038b222022",
+  "triangles": 1332,
+  "source_sha256": "f56425ed2a05ee14f89d2484cb4ea3c2a74fe7bd7f9bfda7d4eaa7269f900447",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-VASE",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

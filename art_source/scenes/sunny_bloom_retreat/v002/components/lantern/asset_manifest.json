@@ -1,0 +1,44 @@
+{
+  "key": "lantern",
+  "asset_id": "SEA-SCENE-SBR-LANTERN",
+  "name": "暖光壁灯",
+  "category": "fixture",
+  "family": "lamp",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-LANTERN",
+  "root": "ROOT_lantern",
+  "bounds_size": [
+    0.27000001072883606,
+    0.3451026976108551,
+    0.5912250876426697
+  ],
+  "bounds_min": [
+    -0.13500000536441803,
+    -0.17255134880542755,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.05244864895939827,
+    0.02250000089406967
+  ],
+  "instance_count": 3,
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/lantern/lantern.blend",
+  "geometry_fingerprint": "8a162b26dcd8c77be9375ea840397ed56aa8713efe5be776a68ddc492ca36ff9",
+  "triangles": 1528,
+  "source_sha256": "76e6ffb84f20e036dc81366264f5db93e5ff179be48b61d627e78be9ac8498f2",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-LANTERN"
+}

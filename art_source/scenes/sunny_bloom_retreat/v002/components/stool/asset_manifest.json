@@ -1,0 +1,43 @@
+{
+  "key": "stool",
+  "asset_id": "SEA-SCENE-SBR-STOOL",
+  "name": "方木凳",
+  "category": "fixture",
+  "family": "seating",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-STOOL",
+  "root": "ROOT_stool",
+  "bounds_size": [
+    0.4300000071525574,
+    0.4300000071525574,
+    0.46000000834465027
+  ],
+  "bounds_min": [
+    -0.2150000035762787,
+    -0.2150000035762787,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/stool/stool.blend",
+  "geometry_fingerprint": "80d9b428429e8657f953493f2202bb7f0d6afcdb74b34ff5d5affc171637e40c",
+  "triangles": 940,
+  "source_sha256": "b438721a74ad628b3f3265068d44a6c7d40d57cbcfe0a42b19c82412df6c8bbe",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-STOOL"
+}

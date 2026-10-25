@@ -1,0 +1,43 @@
+{
+  "key": "sofa",
+  "asset_id": "SEA-SCENE-SBR-SOFA",
+  "name": "白垫双人木沙发",
+  "category": "fixture",
+  "family": "seating",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-SOFA",
+  "root": "ROOT_sofa",
+  "bounds_size": [
+    1.5800000429153442,
+    0.7057899236679077,
+    1.0724852085113525
+  ],
+  "bounds_min": [
+    -0.7900000214576721,
+    -0.35289496183395386,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.012895002961158752,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/sofa/sofa.blend",
+  "geometry_fingerprint": "08d2910a02259fcf22be8badad4bb67bc70503ac7c16548a3e23b0aefe6e5f19",
+  "triangles": 2256,
+  "source_sha256": "3afca653a5101b88e8c209256dc68ae4a00c7940507b2afef2ebdf40820014f7",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SOFA",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

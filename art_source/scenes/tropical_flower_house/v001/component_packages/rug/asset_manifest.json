@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-RUG",
+  "slug": "rug",
+  "name": "薄荷太阳图案地垫",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "rug",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-RUG",
+  "root_object": "ROOT_rug",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/rug/rug.blend",
+  "bounds_size_m": [
+    0.949999988079071,
+    0.699999988079071,
+    0.03399999812245369
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "bc0ebb474f7ff84620f1a9f401dbf3db29284007b083de3f2927329fe544c01b",
+  "source_sha256": "5ea13ada646de05f257adf28ea6ffeec20ec3e8e6b394515c01d7dc98e5870d4",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-RUG",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "rug_body"
+  ]
+}

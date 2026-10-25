@@ -1,0 +1,43 @@
+{
+  "key": "door",
+  "asset_id": "SEA-SCENE-SBR-DOOR",
+  "name": "青蓝门",
+  "category": "fixture",
+  "family": "door",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-DOOR",
+  "root": "ROOT_door",
+  "bounds_size": [
+    1.059999942779541,
+    0.2750000059604645,
+    1.934999942779541
+  ],
+  "bounds_min": [
+    -0.5299999713897705,
+    -0.13750000298023224,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.002499997615814209,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/door/door.blend",
+  "geometry_fingerprint": "a67e4ff5418d9546f576a2549b64e38f99f21ec484f2fc772fde61186ee7cb80",
+  "triangles": 1320,
+  "source_sha256": "d74ed64fa81248ada3d3c60ca9b9c882b98aa2990be6dfaf1166fb1d49ea94a4",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-DOOR"
+}

@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-COOLER",
+  "slug": "cooler",
+  "name": "蓝色白盖冷藏箱",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "cooler",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-COOLER",
+  "root_object": "ROOT_cooler",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/cooler/cooler.blend",
+  "bounds_size_m": [
+    0.8999999761581421,
+    0.6924999952316284,
+    0.6899999976158142
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.016249999403953552,
+    0.0
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "5f0b74fffc0dc99b26daf6b964e80ca4f4200d858b6bae76271aebb6bddc5d0f",
+  "source_sha256": "05b2469009a2f69e9c8048571d05c4282f0bf16dd8e3a3bba13e0c5cc1d57bed",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-COOLER",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "cooler_body"
+  ]
+}

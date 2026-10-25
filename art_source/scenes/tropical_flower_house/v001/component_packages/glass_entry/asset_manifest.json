@@ -1,0 +1,56 @@
+{
+  "component_id": "SEA-SCENE-TFH-GLASS-ENTRY",
+  "slug": "glass_entry",
+  "name": "前廊玻璃入口",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "glass_entry",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-GLASS-ENTRY",
+  "root_object": "ROOT_glass_entry",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/glass_entry/glass_entry.blend",
+  "bounds_size_m": [
+    2.5999999046325684,
+    0.1925000101327896,
+    2.1999998092651367
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.07875000685453415,
+    -0.040000081062316895
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "9535995204a1033cc213e85a5d31c3c00e77b7dee6a3254123381348903c0c00",
+  "source_sha256": "918a882a2a94c53719b9415992ca186cf980c92345f1a714ef73d112b2fc7147",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-GLASS-ENTRY",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "glass_entry_body"
+  ]
+}

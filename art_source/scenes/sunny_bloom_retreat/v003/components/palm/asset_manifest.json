@@ -1,0 +1,43 @@
+{
+  "key": "palm",
+  "asset_id": "SEA-SCENE-SBR-PALM",
+  "name": "厚裂叶热带棕榈",
+  "category": "flora",
+  "family": "palm",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 24000,
+  "collection": "SEA-SCENE-SBR-PALM",
+  "root": "ROOT_palm",
+  "bounds_size": [
+    1.611448049545288,
+    2.0289604663848877,
+    1.5099126100540161
+  ],
+  "bounds_min": [
+    -0.805724024772644,
+    -1.0144802331924438,
+    0
+  ],
+  "source_anchor": [
+    -0.20140671730041504,
+    0.08277133107185364,
+    -0.016153890639543533
+  ],
+  "instance_count": 7,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/palm/palm.blend",
+  "geometry_fingerprint": "b5ea131407e10a3d3ff3aa3dd8fbaa4a72113ffa4bc916926476e98760da1250",
+  "triangles": 9268,
+  "source_sha256": "bd48de8f6fbe9ee3c541d4c637fd5b8a46a4348f7c09aabfb49becd583f7bc5f",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PALM",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

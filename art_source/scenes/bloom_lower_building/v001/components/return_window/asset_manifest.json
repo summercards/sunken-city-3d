@@ -1,0 +1,43 @@
+{
+  "key": "return_window",
+  "name": "转角单扇小窗",
+  "family": "window",
+  "category": "fixture",
+  "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 30000,
+  "scope": "scene_local",
+  "collection": "SEA-SCENE-BLB-RETURN-WINDOW",
+  "root": "ROOT_return_window",
+  "bounds_size": [
+    0.35500001907348633,
+    0.1574999988079071,
+    1.1750000715255737
+  ],
+  "bounds_min": [
+    -0.17750000953674316,
+    -0.07874999940395355,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.04625000059604645,
+    -0.03750000149011612
+  ],
+  "instance_count": 14,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/bloom_lower_building/v001/components/return_window/return_window.blend",
+  "geometry_fingerprint": "15cdad6938c9acb441eb4b0f1ec950bac209d087fc16ea24e1c4065acb4ba122",
+  "triangles": 940,
+  "source_sha256": "907c41464bcc485c22c3cb4670edca7e3a85385f51eaa2dce14a45fff99119ec",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-RETURN-WINDOW",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

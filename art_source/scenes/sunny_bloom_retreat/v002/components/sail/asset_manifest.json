@@ -1,0 +1,43 @@
+{
+  "key": "sail",
+  "asset_id": "SEA-SCENE-SBR-SAIL",
+  "name": "下垂奶白布棚",
+  "category": "fixture",
+  "family": "canopy",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-SAIL",
+  "root": "ROOT_sail",
+  "bounds_size": [
+    2.3867287635803223,
+    1.8249207735061646,
+    0.5210402011871338
+  ],
+  "bounds_min": [
+    -1.1933643817901611,
+    -0.9124603867530823,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.005539596080780029,
+    -0.5049999952316284
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/sail/sail.blend",
+  "geometry_fingerprint": "b307c73aed7f282dd87188471a651a09c160830e640331a066a869c6cf51ede7",
+  "triangles": 1888,
+  "source_sha256": "e45944bae1393288dec13e29e6067d12eb30bddb2f421df8267c8b3a233b992a",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SAIL"
+}

@@ -1,0 +1,43 @@
+{
+  "key": "ac_roof",
+  "asset_id": "SEA-SCENE-SBR-AC-ROOF",
+  "name": "屋顶卧式空调",
+  "category": "fixture",
+  "family": "aircon",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-AC-ROOF",
+  "root": "ROOT_ac_roof",
+  "bounds_size": [
+    1.0,
+    0.7955000400543213,
+    0.6420000195503235
+  ],
+  "bounds_min": [
+    -0.5,
+    -0.39775002002716064,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.02275000512599945,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/ac_roof/ac_roof.blend",
+  "geometry_fingerprint": "3c29d8b8cf43179ec4d79169b4488d1a471e7e2df68650745c3eec6c16cb49e0",
+  "triangles": 1260,
+  "source_sha256": "3e7aa522a811401809ffcc3dd7b8fac9c906140ace48dc8236c043289ffa9018",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-AC-ROOF"
+}

@@ -1,0 +1,56 @@
+{
+  "component_id": "SEA-SCENE-TFH-SOLAR-PANEL",
+  "slug": "solar_panel",
+  "name": "蓝色太阳能板",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "solar_panel",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-SOLAR-PANEL",
+  "root_object": "ROOT_solar_panel",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/solar_panel/solar_panel.blend",
+  "bounds_size_m": [
+    1.4199999570846558,
+    1.4299999475479126,
+    0.1445000022649765
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    -0.05999999865889549
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "64fc7486b5243edfdb95d254b54d3d2c91327d30981f5168105e18e6d1bbe7d9",
+  "source_sha256": "4b5d5501df508ce5d30dfe5a09c37a5218ce6327f93796f72405685cd16b24f6",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-SOLAR-PANEL",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "solar_panel_body"
+  ]
+}

@@ -1,0 +1,744 @@
+{
+  "schema": "sea.scene.component_plan",
+  "version": "v003",
+  "feature_id": "SEA-ASSET",
+  "status": "frozen_before_geometry",
+  "reference_sha256": "5256abd23999c8a6b8c34cbfd425ccce2f72c74ecfc53a39d8606beb0d1f3545",
+  "reference_license": "pending",
+  "reference": "reference.png",
+  "source_policy": "Fresh geometry and layout from the current attached image only; no previous kit or model reused.",
+  "components": [
+    {
+      "key": "foundation",
+      "asset_id": "SEA-SCENE-SBR-FOUNDATION",
+      "name": "石砌平台块",
+      "category": "structure",
+      "family": "foundation",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "deck_tile",
+      "asset_id": "SEA-SCENE-SBR-DECK-TILE",
+      "name": "橙木平台铺板",
+      "category": "structure",
+      "family": "paving",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "dock_board",
+      "asset_id": "SEA-SCENE-SBR-DOCK-BOARD",
+      "name": "双列码头木板",
+      "category": "structure",
+      "family": "paving",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "pier",
+      "asset_id": "SEA-SCENE-SBR-PIER",
+      "name": "码头墩",
+      "category": "structure",
+      "family": "foundation",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "house",
+      "asset_id": "SEA-SCENE-SBR-HOUSE",
+      "name": "开窗下层墙壳",
+      "category": "structure",
+      "family": "wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "terrace",
+      "asset_id": "SEA-SCENE-SBR-TERRACE",
+      "name": "厚露台楼板",
+      "category": "structure",
+      "family": "slab",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "upper_room",
+      "asset_id": "SEA-SCENE-SBR-UPPER-ROOM",
+      "name": "屋顶小屋墙壳",
+      "category": "structure",
+      "family": "wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "cap",
+      "asset_id": "SEA-SCENE-SBR-CAP",
+      "name": "小屋厚帽檐",
+      "category": "structure",
+      "family": "slab",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-SBR-PARAPET",
+      "name": "白花台矮墙",
+      "category": "structure",
+      "family": "parapet",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "slope",
+      "asset_id": "SEA-SCENE-SBR-SLOPE",
+      "name": "单坡门廊屋面",
+      "category": "structure",
+      "family": "roof",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "bollard",
+      "asset_id": "SEA-SCENE-SBR-BOLLARD",
+      "name": "双绳圈木柱",
+      "category": "fixture",
+      "family": "post",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "tall_window",
+      "asset_id": "SEA-SCENE-SBR-TALL-WINDOW",
+      "name": "左侧双扇宽窗",
+      "category": "fixture",
+      "family": "window",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "small_window",
+      "asset_id": "SEA-SCENE-SBR-SMALL-WINDOW",
+      "name": "上层小窗",
+      "category": "fixture",
+      "family": "window",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "door",
+      "asset_id": "SEA-SCENE-SBR-DOOR",
+      "name": "青蓝门",
+      "category": "fixture",
+      "family": "door",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "entry",
+      "asset_id": "SEA-SCENE-SBR-ENTRY",
+      "name": "玻璃入口框扇",
+      "category": "fixture",
+      "family": "door",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "solar",
+      "asset_id": "SEA-SCENE-SBR-SOLAR",
+      "name": "蓝色光伏板",
+      "category": "fixture",
+      "family": "solar",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "awning",
+      "asset_id": "SEA-SCENE-SBR-AWNING",
+      "name": "黄白条纹圆边遮阳篷",
+      "category": "fixture",
+      "family": "awning",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "canopy_post",
+      "asset_id": "SEA-SCENE-SBR-CANOPY-POST",
+      "name": "遮阳棚橙木立柱",
+      "category": "fixture",
+      "family": "canopy_frame",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "canopy_beam",
+      "asset_id": "SEA-SCENE-SBR-CANOPY-BEAM",
+      "name": "遮阳棚横梁",
+      "category": "fixture",
+      "family": "canopy_frame",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "sail",
+      "asset_id": "SEA-SCENE-SBR-SAIL",
+      "name": "下垂奶白布棚",
+      "category": "fixture",
+      "family": "canopy_fabric",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "ladder",
+      "asset_id": "SEA-SCENE-SBR-LADDER",
+      "name": "橙木圆角爬梯",
+      "category": "fixture",
+      "family": "ladder",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "ac_tall",
+      "asset_id": "SEA-SCENE-SBR-AC-TALL",
+      "name": "侧墙高设备箱",
+      "category": "fixture",
+      "family": "aircon",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "ac_box",
+      "asset_id": "SEA-SCENE-SBR-AC-BOX",
+      "name": "小立式空调",
+      "category": "fixture",
+      "family": "aircon",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "ac_roof",
+      "asset_id": "SEA-SCENE-SBR-AC-ROOF",
+      "name": "屋顶卧式空调",
+      "category": "fixture",
+      "family": "aircon",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "chimney",
+      "asset_id": "SEA-SCENE-SBR-CHIMNEY",
+      "name": "屋顶通风立柱",
+      "category": "fixture",
+      "family": "vent",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "lantern",
+      "asset_id": "SEA-SCENE-SBR-LANTERN",
+      "name": "暖光壁灯",
+      "category": "fixture",
+      "family": "lamp",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "sofa",
+      "asset_id": "SEA-SCENE-SBR-SOFA",
+      "name": "白垫双人木沙发",
+      "category": "fixture",
+      "family": "seating",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "coffee_table",
+      "asset_id": "SEA-SCENE-SBR-COFFEE-TABLE",
+      "name": "低木茶几",
+      "category": "fixture",
+      "family": "table",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "table",
+      "asset_id": "SEA-SCENE-SBR-TABLE",
+      "name": "户外方桌",
+      "category": "fixture",
+      "family": "table",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "stool",
+      "asset_id": "SEA-SCENE-SBR-STOOL",
+      "name": "方木凳",
+      "category": "fixture",
+      "family": "seating",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "umbrella",
+      "asset_id": "SEA-SCENE-SBR-UMBRELLA",
+      "name": "黄白圆瓣遮阳伞",
+      "category": "fixture",
+      "family": "umbrella",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "cooler",
+      "asset_id": "SEA-SCENE-SBR-COOLER",
+      "name": "白盖蓝冷藏箱",
+      "category": "fixture",
+      "family": "cooler",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "pot",
+      "asset_id": "SEA-SCENE-SBR-POT",
+      "name": "圆陶花盆",
+      "category": "fixture",
+      "family": "planter",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "square_pot",
+      "asset_id": "SEA-SCENE-SBR-SQUARE-POT",
+      "name": "方白花盆",
+      "category": "fixture",
+      "family": "planter",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-SBR-BOTTLE",
+      "name": "红色水瓶",
+      "category": "fixture",
+      "family": "bottle",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "mat",
+      "asset_id": "SEA-SCENE-SBR-MAT",
+      "name": "太阳纹薄荷地垫",
+      "category": "fixture",
+      "family": "mat",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "foliage",
+      "asset_id": "SEA-SCENE-SBR-FOLIAGE",
+      "name": "错落厚叶簇",
+      "category": "flora",
+      "family": "leaf",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "vine",
+      "asset_id": "SEA-SCENE-SBR-VINE",
+      "name": "自然交错垂藤",
+      "category": "flora",
+      "family": "vine",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "palm",
+      "asset_id": "SEA-SCENE-SBR-PALM",
+      "name": "厚裂叶热带棕榈",
+      "category": "flora",
+      "family": "palm",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 24000
+    },
+    {
+      "key": "pink_flower",
+      "asset_id": "SEA-SCENE-SBR-PINK-FLOWER",
+      "name": "五瓣饱满粉花",
+      "category": "flora",
+      "family": "flower",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "daisy",
+      "asset_id": "SEA-SCENE-SBR-DAISY",
+      "name": "六瓣白色小花",
+      "category": "flora",
+      "family": "flower",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "sprout",
+      "asset_id": "SEA-SCENE-SBR-SPROUT",
+      "name": "盆栽嫩叶",
+      "category": "flora",
+      "family": "sprout",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "porch_side",
+      "asset_id": "SEA-SCENE-SBR-PORCH-SIDE",
+      "name": "门廊厚侧墙与玻璃窗",
+      "category": "structure",
+      "family": "wall",
+      "origin": "bottom_center",
+      "front_axis": "-X",
+      "allowed_rotation": "Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "wall_pier",
+      "asset_id": "SEA-SCENE-SBR-WALL-PIER",
+      "name": "白色墙角与后侧承重柱",
+      "category": "structure",
+      "family": "structural_column",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Z yaw; nonuniform height instances",
+      "scope": "scene_local",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "porch_return",
+      "asset_id": "SEA-SCENE-SBR-PORCH-RETURN",
+      "name": "门廊后侧封墙",
+      "category": "structure",
+      "family": "infill_wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Z yaw; nonuniform height instances",
+      "scope": "scene_local",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "narrow_window",
+      "asset_id": "SEA-SCENE-SBR-NARROW-WINDOW",
+      "name": "正面单扇窄高窗",
+      "category": "fixture",
+      "family": "window",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "scope": "scene_local",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "vase",
+      "asset_id": "SEA-SCENE-SBR-VASE",
+      "name": "黄陶圆腹小花瓶",
+      "category": "fixture",
+      "family": "planter",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "scope": "scene_local",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "roof_sofa",
+      "asset_id": "SEA-SCENE-SBR-ROOF-SOFA",
+      "name": "露台单黄抱枕沙发",
+      "category": "fixture",
+      "family": "seating",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "scope": "scene_local",
+      "triangle_budget": 16000
+    },
+    {
+      "key": "canopy_hook",
+      "asset_id": "SEA-SCENE-SBR-CANOPY-HOOK",
+      "name": "墙侧布棚支撑挂杆",
+      "category": "fixture",
+      "family": "canopy_mount",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "scope": "scene_local",
+      "triangle_budget": 6000
+    }
+  ],
+  "component_limit": 50,
+  "dimensions_assumption": {
+    "platform_m": [
+      7.5,
+      9.2
+    ],
+    "main_house_m": [
+      5.0,
+      3.5,
+      2.85
+    ],
+    "upper_room_m": [
+      2.25,
+      1.95,
+      1.95
+    ],
+    "deck_top_z": 0.68,
+    "front": "-Y",
+    "note": "Single-image proportions, not measured real-world dimensions"
+  },
+  "visual_priorities": [
+    "reference silhouette and stepped volumes",
+    "plump smooth leaves and petals",
+    "physical rounded edges",
+    "thick white plaster and warm orange timber",
+    "dense roof-edge flowers and trailing greenery",
+    "two parallel dock strips"
+  ],
+  "scene_triangle_limit": null,
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "revision_note": "2026-10-25 reference fidelity correction: restore front courtyard, correct wall openings and equipment placement, thin elongated separate PV panels, fabric without incorrect front crossbeam, asymmetrical upright palm blades. User annotated correction: continuous full-width forecourt, left-side twin dock; individually varied upward flower normals.",
+  "layout_revision": {
+    "platform_main_bounds": [
+      -3.6,
+      3.6,
+      -4,
+      3.2
+    ],
+    "front_extension_bounds": [
+      -3.6,
+      3.6,
+      -6,
+      -4
+    ],
+    "front_added_area_m2": 14.4,
+    "left_equipment_ledge_bounds": [
+      -3.9,
+      -3.6,
+      -4,
+      3.2
+    ],
+    "entrance_y": -2.55,
+    "unobstructed_front_zone": {
+      "min": [
+        0.2,
+        -5.75,
+        0.69
+      ],
+      "max": [
+        2.9,
+        -5.2,
+        1.6
+      ]
+    },
+    "window_contract": {
+      "left_wide_count": 1,
+      "front_narrow_count": 1,
+      "upper_small_count": 1
+    },
+    "solar_dimensions_m": [
+      1.38,
+      1.85,
+      0.14
+    ],
+    "solar_inner_border_m": 0.07,
+    "bridge_columns_x": [
+      -2.05,
+      -0.82
+    ],
+    "bridge_first_row_y": -6.23,
+    "bridge_rows": 6,
+    "visual_reference": "reference.png",
+    "additional_crop_references": [
+      "reference_front.png",
+      "reference_windows_current.png",
+      "reference_panels.png"
+    ],
+    "left_window_size": [
+      1.6,
+      1.6
+    ],
+    "front_narrow_window_size": [
+      0.35,
+      1.8
+    ],
+    "front_narrow_window_x": -2.05,
+    "flower_orientation": {
+      "normal": "upward / obliquely upward",
+      "seed": 814,
+      "pitch_radians": [
+        -1.42,
+        -0.64
+      ],
+      "yaw_radians": [
+        -1.1,
+        1.1
+      ],
+      "roll_radians": [
+        -0.55,
+        0.55
+      ]
+    },
+    "user_layout_annotation": {
+      "path": "reference_layout_annotation.png",
+      "sha256": "0052a245838998393188244a9d6e08dac31008c68d823f52330a8339e862cf01"
+    },
+    "volume_review": {
+      "solar_frame": 0.14,
+      "deck_plank": 0.17,
+      "dock_plank": 0.23,
+      "roof_panel": 0.2,
+      "window_frame": [
+        0.08,
+        0.14
+      ],
+      "canopy_post": [
+        0.32,
+        0.34
+      ],
+      "table_top": 0.18,
+      "sofa_cushion": 0.26,
+      "flower_petal_depth": 0.29,
+      "flower_palette": "pink #F97FAE",
+      "unchanged_material_sensitive_elements": [
+        "glass",
+        "sail",
+        "solar grid",
+        "mat"
+      ],
+      "reason": "User requested fuller rounded volume, previous PV frame too thin and flowers too magenta.",
+      "solar_swatch_hue_offset": 0.02,
+      "palette_policy": "Unmodified shared PNG. Solar cell only has UV-cell-selected hue correction in the four shared material roles."
+    }
+  }
+}

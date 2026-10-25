@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-PAVING",
+  "slug": "paving",
+  "name": "暖橙铺板",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "paving",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-PAVING",
+  "root_object": "ROOT_paving",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/paving/paving.blend",
+  "bounds_size_m": [
+    0.6000000238418579,
+    0.6000000238418579,
+    0.11999999731779099
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    -0.05999999865889549
+  ],
+  "instance_count": 132,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "5a17e743d3b62770bd6a2fa6784653e79bcd0438e8cafe4fdd62474e837b58e2",
+  "source_sha256": "487e652701bea4c22bb01f1bd3bb7b3a55a629f92834087851a2c2d2c0a287b0",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-PAVING",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "paving_body"
+  ]
+}

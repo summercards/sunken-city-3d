@@ -1,0 +1,43 @@
+{
+  "key": "foliage",
+  "asset_id": "SEA-SCENE-SBR-FOLIAGE",
+  "name": "错落厚叶簇",
+  "category": "flora",
+  "family": "leaf",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-FOLIAGE",
+  "root": "ROOT_foliage",
+  "bounds_size": [
+    0.9908310174942017,
+    0.9362170100212097,
+    0.5602587461471558
+  ],
+  "bounds_min": [
+    -0.49541550874710083,
+    -0.46810850501060486,
+    0
+  ],
+  "source_anchor": [
+    0.027377590537071228,
+    -0.08008727431297302,
+    0.029741212725639343
+  ],
+  "instance_count": 55,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/foliage/foliage.blend",
+  "geometry_fingerprint": "1ff885eb82fb2ffcb478eea4a46444586b2c4e6e5d34cd8ba730322d498444f6",
+  "triangles": 5280,
+  "source_sha256": "fd66fe06af20f187f324c394e7025174915e91973a417591fe6fa1d589ad2226",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-FOLIAGE"
+}

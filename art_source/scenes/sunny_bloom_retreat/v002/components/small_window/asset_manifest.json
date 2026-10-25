@@ -1,0 +1,44 @@
+{
+  "key": "small_window",
+  "asset_id": "SEA-SCENE-SBR-SMALL-WINDOW",
+  "name": "上层小窗",
+  "category": "fixture",
+  "family": "window",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-SMALL-WINDOW",
+  "root": "ROOT_small_window",
+  "bounds_size": [
+    0.699999988079071,
+    0.23000000417232513,
+    0.8199999928474426
+  ],
+  "bounds_min": [
+    -0.3499999940395355,
+    -0.11500000208616257,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.02499999850988388,
+    -0.12999999523162842
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/small_window/small_window.blend",
+  "geometry_fingerprint": "40a9aa388314bfcc3febd4a57d14809bd23c38526d61d0cb6db2f33f50bb7bcc",
+  "triangles": 1504,
+  "source_sha256": "560dfabdf0108702acceee47be79198be0ff7f1c4e5e77951ad8dd29a513fc8c",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SMALL-WINDOW"
+}

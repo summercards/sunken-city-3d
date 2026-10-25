@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-SHADE-SAIL",
+  "slug": "shade_sail",
+  "name": "下垂奶白布棚",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "shade_sail",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-SHADE-SAIL",
+  "root_object": "ROOT_shade_sail",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/shade_sail/shade_sail.blend",
+  "bounds_size_m": [
+    2.747612714767456,
+    1.6534134149551392,
+    0.41499999165534973
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    -0.41499999165534973
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "83374a37d1d80d993555e268d3082b868e6dd181183b1ad7d66ffb52209fa42e",
+  "source_sha256": "11d0e57204a214e4a36cd8fd11ddb6267a418c356362ac149ae3cc914cc6c7ba",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-SHADE-SAIL",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "shade_sail_body"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-CUP",
+  "slug": "cup",
+  "name": "红色水壶",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "cup",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-CUP",
+  "root_object": "ROOT_cup",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/cup/cup.blend",
+  "bounds_size_m": [
+    0.19605807960033417,
+    0.19605807960033417,
+    0.375
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "c385bf4a55f57bc9839dbdac6b38ff1690ddb9cdaefab2791d38756dc472d264",
+  "source_sha256": "e7b432df96cf98631dc311417549458bcf665191ef338d076e095a7444a13797",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-CUP",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "cup_body"
+  ]
+}

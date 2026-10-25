@@ -1,0 +1,43 @@
+{
+  "key": "slope",
+  "asset_id": "SEA-SCENE-SBR-SLOPE",
+  "name": "单坡门廊屋面",
+  "category": "structure",
+  "family": "roof",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-SLOPE",
+  "root": "ROOT_slope",
+  "bounds_size": [
+    3.25,
+    1.9237744808197021,
+    0.9245343208312988
+  ],
+  "bounds_min": [
+    -1.625,
+    -0.9618872404098511,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.04311278462409973,
+    -0.4429726302623749
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/slope/slope.blend",
+  "geometry_fingerprint": "875b79f8f541d684d1d514866c2010ce9894b5c29ea6be531f557bdabbbc2b22",
+  "triangles": 752,
+  "source_sha256": "2ae320af057d8f5b0c250a0d9a7f501f03c43dd2dbc2bad627c61c34bc4f3620",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SLOPE"
+}

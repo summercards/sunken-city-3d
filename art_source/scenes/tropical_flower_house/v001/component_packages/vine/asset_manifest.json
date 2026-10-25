@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-VINE",
+  "slug": "vine",
+  "name": "短茎垂叶藤",
+  "category": "flora",
+  "subcategory": "vegetation",
+  "component_family": "vine",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-VINE",
+  "root_object": "ROOT_vine",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/vine/vine.blend",
+  "bounds_size_m": [
+    0.5539372563362122,
+    0.21721339225769043,
+    1.325338363647461
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.040000006556510925,
+    -0.06706885248422623
+  ],
+  "instance_count": 10,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "42f08d42b5840fc51ef7cf93a3bdcb83381047117c9283eb2417cfe4f65561c0",
+  "source_sha256": "81103c497e96f240ce31c1d1f337a334f30c929d4267f812095e82a61b6e5516",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-VINE",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "vine_body"
+  ]
+}

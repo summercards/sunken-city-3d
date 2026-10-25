@@ -1,0 +1,43 @@
+{
+  "key": "awning",
+  "asset_id": "SEA-SCENE-SBR-AWNING",
+  "name": "黄白条纹圆边遮阳篷",
+  "category": "fixture",
+  "family": "awning",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-AWNING",
+  "root": "ROOT_awning",
+  "bounds_size": [
+    3.121999979019165,
+    0.9071678519248962,
+    0.46299365162849426
+  ],
+  "bounds_min": [
+    -1.5609999895095825,
+    -0.4535839259624481,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.028416067361831665,
+    -0.3100000023841858
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/awning/awning.blend",
+  "geometry_fingerprint": "13e403ed7f829e49e0c8245a65eaba620420a5c9319d0bc8ff7221e380e6f7ef",
+  "triangles": 7536,
+  "source_sha256": "815b6b2f4052b24edbc94a53289c20ab024a98b0b87d29ae67551551ecdfd7ee",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-AWNING"
+}

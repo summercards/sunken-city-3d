@@ -1,0 +1,43 @@
+{
+  "key": "return_bay",
+  "name": "转角窄窗墙",
+  "family": "wall_bay",
+  "category": "structure",
+  "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 30000,
+  "scope": "scene_local",
+  "collection": "SEA-SCENE-BLB-RETURN-BAY",
+  "root": "ROOT_return_bay",
+  "bounds_size": [
+    0.6000000238418579,
+    0.33000001311302185,
+    1.7200000286102295
+  ],
+  "bounds_min": [
+    -0.30000001192092896,
+    -0.16500000655651093,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.034999996423721313,
+    0.0
+  ],
+  "instance_count": 14,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/bloom_lower_building/v001/components/return_bay/return_bay.blend",
+  "geometry_fingerprint": "8fd4fd18710c2640256fe458b36abf1493dfd94d82b59c0df1797899414c71c5",
+  "triangles": 752,
+  "source_sha256": "ff2b4fbeb561e5131a3fd64751fa4e2627085ccadd150245623a953cc9077d8a",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-RETURN-BAY",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

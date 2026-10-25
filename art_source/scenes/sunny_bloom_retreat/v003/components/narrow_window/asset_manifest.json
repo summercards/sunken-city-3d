@@ -1,0 +1,44 @@
+{
+  "key": "narrow_window",
+  "asset_id": "SEA-SCENE-SBR-NARROW-WINDOW",
+  "name": "正面单扇窄高窗",
+  "category": "fixture",
+  "family": "window",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 6000,
+  "collection": "SEA-SCENE-SBR-NARROW-WINDOW",
+  "root": "ROOT_narrow_window",
+  "bounds_size": [
+    0.5099999904632568,
+    0.20000000298023224,
+    1.934999942779541
+  ],
+  "bounds_min": [
+    -0.2549999952316284,
+    -0.10000000149011612,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.009999997913837433,
+    -0.0949999988079071
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/narrow_window/narrow_window.blend",
+  "geometry_fingerprint": "4e0b220c173b4ce5116476d807c857d45c87e0885a7f177da239e378616bc298",
+  "triangles": 1316,
+  "source_sha256": "9ddaaf9be163fcfd9a8dd005c174956947cdbc00991a54e030e6a4778e6c8a01",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-NARROW-WINDOW",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-HOUSE",
+  "slug": "house",
+  "name": "下层真实开窗墙壳",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "house",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-HOUSE",
+  "root_object": "ROOT_house",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/house/house.blend",
+  "bounds_size_m": [
+    5.199999809265137,
+    3.5,
+    2.8499999046325684
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "7ee6791a8371763fd340e530dc8cd4b5366f9162376ed9c598abeaf3367ad8b4",
+  "source_sha256": "d48630d64742d502739f635c17b7789819c07cb065e3605848caeadf8cc6af66",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-HOUSE",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "house_body"
+  ]
+}

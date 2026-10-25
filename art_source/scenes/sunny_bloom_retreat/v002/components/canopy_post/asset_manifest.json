@@ -1,0 +1,43 @@
+{
+  "key": "canopy_post",
+  "asset_id": "SEA-SCENE-SBR-CANOPY-POST",
+  "name": "遮阳棚橙木立柱",
+  "category": "fixture",
+  "family": "canopy",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-CANOPY-POST",
+  "root": "ROOT_canopy_post",
+  "bounds_size": [
+    0.38999998569488525,
+    0.48000001907348633,
+    2.1600000858306885
+  ],
+  "bounds_min": [
+    -0.19499999284744263,
+    -0.24000000953674316,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.03500000387430191,
+    0.0
+  ],
+  "instance_count": 4,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/canopy_post/canopy_post.blend",
+  "geometry_fingerprint": "0cb677455e04e3fffe8be4c81014666dd3db54aaf13e59944211aa929f7c6fb8",
+  "triangles": 756,
+  "source_sha256": "dde7b384c20d2ce98eeb0ca2f28cca172e4bc48bc9e2be0c14fea047adb75873",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-CANOPY-POST"
+}

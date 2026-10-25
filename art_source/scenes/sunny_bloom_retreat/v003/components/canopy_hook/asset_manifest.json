@@ -1,0 +1,43 @@
+{
+  "key": "canopy_hook",
+  "asset_id": "SEA-SCENE-SBR-CANOPY-HOOK",
+  "name": "墙侧布棚支撑挂杆",
+  "category": "fixture",
+  "family": "canopy_mount",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 6000,
+  "collection": "SEA-SCENE-SBR-CANOPY-HOOK",
+  "root": "ROOT_canopy_hook",
+  "bounds_size": [
+    0.17000004649162292,
+    0.25802183151245117,
+    0.98499995470047
+  ],
+  "bounds_min": [
+    -0.08500002324581146,
+    -0.12901091575622559,
+    0
+  ],
+  "source_anchor": [
+    -1.4901161193847656e-08,
+    -0.035989098250865936,
+    -0.8999999761581421
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/canopy_hook/canopy_hook.blend",
+  "geometry_fingerprint": "4d51bb834813e1c511ada174ad60b2df25f34f13bfbd6a621515af14cfe4a542",
+  "triangles": 840,
+  "source_sha256": "86b78a5932341ddd4611c429109528ea461f39bb71981ac5d02122b9b875b719",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-CANOPY-HOOK",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

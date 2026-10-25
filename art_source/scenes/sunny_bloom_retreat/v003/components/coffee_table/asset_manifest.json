@@ -1,0 +1,43 @@
+{
+  "key": "coffee_table",
+  "asset_id": "SEA-SCENE-SBR-COFFEE-TABLE",
+  "name": "低木茶几",
+  "category": "fixture",
+  "family": "table",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-COFFEE-TABLE",
+  "root": "ROOT_coffee_table",
+  "bounds_size": [
+    1.2000000476837158,
+    0.6499999761581421,
+    0.42000001668930054
+  ],
+  "bounds_min": [
+    -0.6000000238418579,
+    -0.32499998807907104,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/coffee_table/coffee_table.blend",
+  "geometry_fingerprint": "9b02188204c45fbddb31a2ad36510708db8dff589471510cd4365a82f6fc2f8c",
+  "triangles": 940,
+  "source_sha256": "d8d1d3de99b8c58b59fb9fb6453ec7170e1702227ab2e5c3cfba7606c659cec9",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-COFFEE-TABLE",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

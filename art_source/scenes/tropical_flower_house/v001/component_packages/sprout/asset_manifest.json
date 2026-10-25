@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-SPROUT",
+  "slug": "sprout",
+  "name": "盆栽宽叶芽",
+  "category": "flora",
+  "subcategory": "vegetation",
+  "component_family": "sprout",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-SPROUT",
+  "root_object": "ROOT_sprout",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/sprout/sprout.blend",
+  "bounds_size_m": [
+    0.5882270336151123,
+    0.6116697788238525,
+    0.360592246055603
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.027460336685180664,
+    0.0,
+    0.0
+  ],
+  "instance_count": 6,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "e65fe4abe000dbecf04ef7e65788fdef4d4a95516121d6470c73a4f9c4e62a13",
+  "source_sha256": "dc05076af6e5d3b859c7345ae03c8c459b42d920d69f2cd4059c02b70ce1dfd1",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-SPROUT",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "sprout_body"
+  ]
+}

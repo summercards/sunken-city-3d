@@ -1,0 +1,44 @@
+{
+  "key": "entry",
+  "asset_id": "SEA-SCENE-SBR-ENTRY",
+  "name": "玻璃入口框扇",
+  "category": "fixture",
+  "family": "door",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-ENTRY",
+  "root": "ROOT_entry",
+  "bounds_size": [
+    2.419999837875366,
+    1.2574999332427979,
+    2.1999998092651367
+  ],
+  "bounds_min": [
+    -1.209999918937683,
+    -0.6287499666213989,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.5012500286102295,
+    -0.05000000074505806
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/entry/entry.blend",
+  "geometry_fingerprint": "f81a4eb46a2365cec192b55be0235a93bd315340ee5759e2187e19259397a94c",
+  "triangles": 3384,
+  "source_sha256": "0fd9a7722912284260e76b8b5da0b6a3d594de16d778f78e679a690f8b7a36a6",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-ENTRY",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

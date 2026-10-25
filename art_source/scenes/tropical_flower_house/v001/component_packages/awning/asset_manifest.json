@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-AWNING",
+  "slug": "awning",
+  "name": "黄白条纹软棚",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "awning",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-AWNING",
+  "root_object": "ROOT_awning",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/awning/awning.blend",
+  "bounds_size_m": [
+    3.360999822616577,
+    0.9464684724807739,
+    0.43877112865448
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.02776576578617096,
+    -0.30000001192092896
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "9c4071a26bc96a4449257e1421f172b7eb5d42f3ce7133c5891eda278a41b117",
+  "source_sha256": "b198a403af8fe2ca065fb1a8ad204412244524ff0272a429331ff3f9564b44e6",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-AWNING",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "awning_body"
+  ]
+}

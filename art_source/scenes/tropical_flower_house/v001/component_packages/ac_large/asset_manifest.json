@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-AC-LARGE",
+  "slug": "ac_large",
+  "name": "侧墙大空调箱",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "air_conditioner",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-AC-LARGE",
+  "root_object": "ROOT_ac_large",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/ac_large/ac_large.blend",
+  "bounds_size_m": [
+    0.9200000166893005,
+    0.5625,
+    1.2575000524520874
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.02124999463558197,
+    0.0
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "b73f82695df79a9e14753ceb08faa5f7c3ceb6f33c91701b9eb072408286ad8c",
+  "source_sha256": "83863a603fdb42e92b15d1763d0f3ce08443f8e03d09f1d319f0910852e56d9e",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-AC-LARGE",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "ac_large_body"
+  ]
+}

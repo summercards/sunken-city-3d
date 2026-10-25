@@ -1,0 +1,57 @@
+{
+  "component_id": "SEA-SCENE-TFH-LANTERN",
+  "slug": "lantern",
+  "name": "暖黄壁灯",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "lantern",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-LANTERN",
+  "root_object": "ROOT_lantern",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/lantern/lantern.blend",
+  "bounds_size_m": [
+    0.28999999165534973,
+    0.36500000953674316,
+    0.6224998235702515
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.04249999672174454,
+    0.01249999925494194
+  ],
+  "instance_count": 3,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "dea934a1aabfc8556be494cfb020179a34dd691e6d227d2377ed9edc669e110a",
+  "source_sha256": "76e3ed92c64da35bdbe395525124f54f82ead3003dcf27636fcbaedfdb7ce27b",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-LANTERN",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "lantern_body",
+    "lantern_emissive"
+  ]
+}

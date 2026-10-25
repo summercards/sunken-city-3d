@@ -1,0 +1,43 @@
+{
+  "key": "square_pot",
+  "asset_id": "SEA-SCENE-SBR-SQUARE-POT",
+  "name": "方白花盆",
+  "category": "fixture",
+  "family": "planter",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-SQUARE-POT",
+  "root": "ROOT_square_pot",
+  "bounds_size": [
+    0.47999998927116394,
+    0.47999998927116394,
+    0.48499998450279236
+  ],
+  "bounds_min": [
+    -0.23999999463558197,
+    -0.23999999463558197,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/square_pot/square_pot.blend",
+  "geometry_fingerprint": "dde339c8883c0c9f4c781949913de7e09c776b3a4bb577f53e9c35a3a71b1ac2",
+  "triangles": 376,
+  "source_sha256": "22950989aa152b613bffc62c216cd6cbae1e91a052a8ede1e9b66eb6674746e2",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SQUARE-POT"
+}

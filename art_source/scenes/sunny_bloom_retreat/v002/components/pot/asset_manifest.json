@@ -1,0 +1,43 @@
+{
+  "key": "pot",
+  "asset_id": "SEA-SCENE-SBR-POT",
+  "name": "圆陶花盆",
+  "category": "fixture",
+  "family": "planter",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-POT",
+  "root": "ROOT_pot",
+  "bounds_size": [
+    0.6140000224113464,
+    0.6140000224113464,
+    0.4819999933242798
+  ],
+  "bounds_min": [
+    -0.3070000112056732,
+    -0.3070000112056732,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 11,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/pot/pot.blend",
+  "geometry_fingerprint": "5577f8477cd40d009239c587f87077d6ac718a0c34634171605c281c96d1f5dc",
+  "triangles": 1272,
+  "source_sha256": "67eb9917efc22c1215e8b71471ae3beec41625b951f8c1e0ba8717a9648cc3dd",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-POT"
+}

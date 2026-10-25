@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-DOCK-SUPPORT",
+  "slug": "dock_support",
+  "name": "栈桥灰石基座",
+  "category": "building",
+  "subcategory": "fixture",
+  "component_family": "foundation",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-DOCK-SUPPORT",
+  "root_object": "ROOT_dock_support",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/dock_support/dock_support.blend",
+  "bounds_size_m": [
+    1.159999966621399,
+    2.5,
+    0.5
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 2,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "01e21f7eeb7502a097ac40259502fcd81db2268525e89f97ee8367f0941bcbaa",
+  "source_sha256": "f1572916071b9a5a530ff274be187cab8df2a7a18d15d571e631bce1c52cdd9e",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-DOCK-SUPPORT",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "dock_support_body"
+  ]
+}

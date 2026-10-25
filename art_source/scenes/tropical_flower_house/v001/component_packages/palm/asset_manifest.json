@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-PALM",
+  "slug": "palm",
+  "name": "肥厚裂叶棕榈",
+  "category": "flora",
+  "subcategory": "vegetation",
+  "component_family": "palm",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-PALM",
+  "root_object": "ROOT_palm",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/palm/palm.blend",
+  "bounds_size_m": [
+    1.9900000095367432,
+    1.8865870237350464,
+    0.6369174718856812
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.054999977350234985,
+    0.04871392250061035,
+    0.20666614174842834
+  ],
+  "instance_count": 6,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "eb049e3b62abb38282e7939594eaec012fcee565c0b3c542bb8014f371cd54ea",
+  "source_sha256": "01ca4aac20df52778e8b400038fa9577304102a454b92aa28e720217fcd92e84",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-PALM",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "palm_body"
+  ]
+}

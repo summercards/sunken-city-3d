@@ -1,0 +1,43 @@
+{
+  "key": "upper_room",
+  "asset_id": "SEA-SCENE-SBR-UPPER-ROOM",
+  "name": "屋顶小屋墙壳",
+  "category": "structure",
+  "family": "wall",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-UPPER-ROOM",
+  "root": "ROOT_upper_room",
+  "bounds_size": [
+    2.25,
+    1.9500000476837158,
+    1.9500000476837158
+  ],
+  "bounds_min": [
+    -1.125,
+    -0.9750000238418579,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/upper_room/upper_room.blend",
+  "geometry_fingerprint": "ea243279b3227e24ffbd2a1d9110d80b9bca525e682925f54bc700f1e1923359",
+  "triangles": 188,
+  "source_sha256": "05604f73698abf34335361e9a523247346cf78a08640d7be4c253c75d36e8311",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-UPPER-ROOM",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

@@ -1,0 +1,14 @@
+{
+  "metric": "evaluated visible scene instances; hidden masters excluded",
+  "baseline_expanded_triangles": 141076,
+  "final_expanded_triangles": 108572,
+  "final_expanded_polygons": 58966,
+  "triangle_reduction_percent": 23.04,
+  "hard_triangle_limit": null,
+  "notes": [
+    "Repeated paving uses one real bevel segment",
+    "Small leaves use 10 by 6 sphere tessellation; broad petals retain 12 by 8",
+    "Continuous lower wall removes box seams and redundant faces",
+    "No subdivision modifier; no hidden master double-count"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "key": "bottle",
+  "asset_id": "SEA-SCENE-SBR-BOTTLE",
+  "name": "红色水瓶",
+  "category": "fixture",
+  "family": "bottle",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-BOTTLE",
+  "root": "ROOT_bottle",
+  "bounds_size": [
+    0.18000000715255737,
+    0.18000000715255737,
+    0.4050000011920929
+  ],
+  "bounds_min": [
+    -0.09000000357627869,
+    -0.09000000357627869,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/bottle/bottle.blend",
+  "geometry_fingerprint": "80854fd34107efd667d12220abe2e20194e5c6e3fce2c894274f39b9102dea1f",
+  "triangles": 1140,
+  "source_sha256": "a96a49c9664219e7d13f0622e27605a639e55dff1e88c05aaa9c683dc84b688a",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-BOTTLE",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

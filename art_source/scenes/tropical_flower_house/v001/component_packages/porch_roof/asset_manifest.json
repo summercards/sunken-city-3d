@@ -1,0 +1,55 @@
+{
+  "component_id": "SEA-SCENE-TFH-PORCH-ROOF",
+  "slug": "porch_roof",
+  "name": "太阳能单坡屋顶",
+  "category": "building",
+  "subcategory": "structure",
+  "component_family": "porch_roof",
+  "scope": "scene_local",
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": null,
+  "front_axis": "-Y",
+  "origin": "bottom_center",
+  "allowed_rotations_z_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "budget_triangles": 6000,
+  "version": "v001",
+  "collection": "SEA-SCENE-TFH-PORCH-ROOF",
+  "root_object": "ROOT_porch_roof",
+  "component_blend": "art_source/scenes/tropical_flower_house/v001/component_packages/porch_roof/porch_roof.blend",
+  "bounds_size_m": [
+    3.4800000190734863,
+    1.800842046737671,
+    0.8348710536956787
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "source_anchor_shift_m": [
+    0.0,
+    -0.03957894444465637,
+    -0.41743552684783936
+  ],
+  "instance_count": 1,
+  "palette_uv_layer": "PaletteUV",
+  "palette_path": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "godot_wrapper_pending",
+  "geometry_fingerprint": "1341e3775903489cf62df0b5881db439f47da173e4756bed18d8316db3de67f2",
+  "source_sha256": "71eaade3c147be4f37469c6db5a39293f6fd7b7190e4020a042fbf8a8082eb28",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-TFH-PORCH-ROOF",
+  "license": "pending_user_reference_rights_review",
+  "runtime_status": "not_integrated",
+  "source_package_meshes": [
+    "porch_roof_body"
+  ]
+}

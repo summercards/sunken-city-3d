@@ -1,0 +1,44 @@
+{
+  "key": "porch_side",
+  "asset_id": "SEA-SCENE-SBR-PORCH-SIDE",
+  "name": "门廊厚侧墙与玻璃窗",
+  "category": "structure",
+  "family": "wall",
+  "origin": "bottom_center",
+  "front_axis": "-X",
+  "allowed_rotation": "Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-PORCH-SIDE",
+  "root": "ROOT_porch_side",
+  "bounds_size": [
+    0.28999999165534973,
+    2.2200000286102295,
+    3.069999933242798
+  ],
+  "bounds_min": [
+    -0.14499999582767487,
+    -1.1100000143051147,
+    0
+  ],
+  "source_anchor": [
+    -0.015000000596046448,
+    0.0,
+    -0.020000003278255463
+  ],
+  "instance_count": 2,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/porch_side/porch_side.blend",
+  "geometry_fingerprint": "75de650f03db8fce1be275d5f9de269cf6578bd8a278f76b4482916af889c7c3",
+  "triangles": 1812,
+  "source_sha256": "efd36d4254ffb64c9f805e5fbbabe512cc03ea232739327c211725bc4c63ffb7",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PORCH-SIDE",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

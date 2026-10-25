@@ -1,0 +1,43 @@
+{
+  "key": "mat",
+  "asset_id": "SEA-SCENE-SBR-MAT",
+  "name": "太阳纹薄荷地垫",
+  "category": "fixture",
+  "family": "mat",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-MAT",
+  "root": "ROOT_mat",
+  "bounds_size": [
+    0.9200000166893005,
+    0.6600000262260437,
+    0.036000002175569534
+  ],
+  "bounds_min": [
+    -0.46000000834465027,
+    -0.33000001311302185,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/mat/mat.blend",
+  "geometry_fingerprint": "876baeb2e1ffc5331bfad71ff0a0c498347c07add85e7b3409a3aa21b38d70f8",
+  "triangles": 712,
+  "source_sha256": "355dea4c123b85f32765c629574dd4fa06fe28fb645e639d5ab7edbf9488c190",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-MAT",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

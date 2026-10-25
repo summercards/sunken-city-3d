@@ -1,0 +1,43 @@
+{
+  "key": "parapet",
+  "asset_id": "SEA-SCENE-SBR-PARAPET",
+  "name": "白花台矮墙",
+  "category": "structure",
+  "family": "parapet",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-PARAPET",
+  "root": "ROOT_parapet",
+  "bounds_size": [
+    1.149999976158142,
+    0.30000001192092896,
+    0.47999998927116394
+  ],
+  "bounds_min": [
+    -0.574999988079071,
+    -0.15000000596046448,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 12,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/parapet/parapet.blend",
+  "geometry_fingerprint": "351f9acf67d1c99fffb301822a2bb28b75e6400d1e62eb3f0893f08542c82797",
+  "triangles": 188,
+  "source_sha256": "732f2db1c89dc902e6e60a1912467e5ea7b5c7bd021e49a6eb848851dd83d18c",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PARAPET"
+}

@@ -1,0 +1,43 @@
+{
+  "key": "terrace",
+  "asset_id": "SEA-SCENE-SBR-TERRACE",
+  "name": "厚露台楼板",
+  "category": "structure",
+  "family": "slab",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-TERRACE",
+  "root": "ROOT_terrace",
+  "bounds_size": [
+    5.199999809265137,
+    3.7300000190734863,
+    0.35499998927116394
+  ],
+  "bounds_min": [
+    -2.5999999046325684,
+    -1.8650000095367432,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/terrace/terrace.blend",
+  "geometry_fingerprint": "5e9814599addfaf5118057ac428616177daca2955178feb4867d85bffa685b45",
+  "triangles": 532,
+  "source_sha256": "46857b19144130bf67d21f767a248a1b504051f20edbadc0313a9870b3cb5aeb",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-TERRACE",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

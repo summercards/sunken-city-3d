@@ -1,0 +1,43 @@
+{
+  "key": "floor_slab",
+  "name": "内楼板",
+  "family": "slab",
+  "category": "structure",
+  "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 30000,
+  "scope": "scene_local",
+  "collection": "SEA-SCENE-BLB-FLOOR-SLAB",
+  "root": "ROOT_floor_slab",
+  "bounds_size": [
+    3.700000047683716,
+    7.699999809265137,
+    0.1599999964237213
+  ],
+  "bounds_min": [
+    -1.850000023841858,
+    -3.8499999046325684,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 7,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/bloom_lower_building/v001/components/floor_slab/floor_slab.blend",
+  "geometry_fingerprint": "b88c6fb353447cc15a698e8268dc4aefe078550295f99e7adc6ee5d3b2dda826",
+  "triangles": 188,
+  "source_sha256": "a0a33804a5e55922350667dacb7c4051ccecca8eff731176f65442460bfa5906",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-FLOOR-SLAB",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

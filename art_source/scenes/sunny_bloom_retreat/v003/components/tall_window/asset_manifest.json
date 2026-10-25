@@ -1,0 +1,44 @@
+{
+  "key": "tall_window",
+  "asset_id": "SEA-SCENE-SBR-TALL-WINDOW",
+  "name": "左侧双扇宽窗",
+  "category": "fixture",
+  "family": "window",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-TALL-WINDOW",
+  "root": "ROOT_tall_window",
+  "bounds_size": [
+    1.7599999904632568,
+    0.20000000298023224,
+    1.7350000143051147
+  ],
+  "bounds_min": [
+    -0.8799999952316284,
+    -0.10000000149011612,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -0.009999997913837433,
+    -0.0949999988079071
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/tall_window/tall_window.blend",
+  "geometry_fingerprint": "e4e3b76192b93e45a5547361f49097c2e2e469fa296af5635401fe09959b8619",
+  "triangles": 1504,
+  "source_sha256": "188f7f5edf0d6e4258e3a6ab138bef623726887aba07988a11b71a9fefed86b4",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-TALL-WINDOW",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

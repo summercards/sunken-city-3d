@@ -1,0 +1,43 @@
+{
+  "key": "sprout",
+  "asset_id": "SEA-SCENE-SBR-SPROUT",
+  "name": "盆栽嫩叶",
+  "category": "flora",
+  "family": "sprout",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-SPROUT",
+  "root": "ROOT_sprout",
+  "bounds_size": [
+    0.7390909194946289,
+    0.6523722410202026,
+    0.4060816466808319
+  ],
+  "bounds_min": [
+    -0.36954545974731445,
+    -0.3261861205101013,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    -1.4901161193847656e-08,
+    0.0
+  ],
+  "instance_count": 11,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/sprout/sprout.blend",
+  "geometry_fingerprint": "7efe691b7b7ffa7f56d2608dca5bf4ab010078b7dfc6595fe7e1789163687f39",
+  "triangles": 2956,
+  "source_sha256": "ba3e3693ee69c2a2f2c8762f18301bc293bf8f3b705455f1067a9fe472cdbb6c",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SPROUT"
+}

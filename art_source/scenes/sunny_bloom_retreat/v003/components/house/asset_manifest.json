@@ -1,0 +1,43 @@
+{
+  "key": "house",
+  "asset_id": "SEA-SCENE-SBR-HOUSE",
+  "name": "开窗下层墙壳",
+  "category": "structure",
+  "family": "wall",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-HOUSE",
+  "root": "ROOT_house",
+  "bounds_size": [
+    5.0,
+    3.5,
+    2.8499999046325684
+  ],
+  "bounds_min": [
+    -2.5,
+    -1.75,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/house/house.blend",
+  "geometry_fingerprint": "94bb061fcb5d521ddf04944e0e019857ee4bd20aab960c7e28bb3479bd86de66",
+  "triangles": 1060,
+  "source_sha256": "f2d95de45f71d97d0af711d564f2b9cfcdafec3d2ea096e0ba339d456e834efd",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-HOUSE",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

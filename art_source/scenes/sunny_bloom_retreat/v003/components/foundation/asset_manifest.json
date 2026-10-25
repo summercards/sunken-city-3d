@@ -1,0 +1,43 @@
+{
+  "key": "foundation",
+  "asset_id": "SEA-SCENE-SBR-FOUNDATION",
+  "name": "石砌平台块",
+  "category": "structure",
+  "family": "foundation",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-FOUNDATION",
+  "root": "ROOT_foundation",
+  "bounds_size": [
+    0.8999999761581421,
+    0.800000011920929,
+    0.5400000214576721
+  ],
+  "bounds_min": [
+    -0.44999998807907104,
+    -0.4000000059604645,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 105,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/foundation/foundation.blend",
+  "geometry_fingerprint": "ebfaeafc1efde27f9e9667eaccb14448a1428ce311b58b177186beb04f19cfa5",
+  "triangles": 188,
+  "source_sha256": "31885abb449b0b1697e50dd493b6757ea13da5c8e219c4da21d785bb640c3393",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-FOUNDATION",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

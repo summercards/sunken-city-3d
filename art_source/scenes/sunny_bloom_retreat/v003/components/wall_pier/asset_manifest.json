@@ -1,0 +1,43 @@
+{
+  "key": "wall_pier",
+  "asset_id": "SEA-SCENE-SBR-WALL-PIER",
+  "name": "白色墙角与后侧承重柱",
+  "category": "structure",
+  "family": "structural_column",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "Z yaw; nonuniform height instances",
+  "scope": "scene_local",
+  "triangle_budget": 6000,
+  "collection": "SEA-SCENE-SBR-WALL-PIER",
+  "root": "ROOT_wall_pier",
+  "bounds_size": [
+    0.30000001192092896,
+    0.30000001192092896,
+    2.8499999046325684
+  ],
+  "bounds_min": [
+    -0.15000000596046448,
+    -0.15000000596046448,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 7,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v003/components/wall_pier/wall_pier.blend",
+  "geometry_fingerprint": "c74f5bcfe67db2221a8b1fdde14f3bc586b971bbbd323f94b0702bb6c37007f4",
+  "triangles": 188,
+  "source_sha256": "d0c4d72820859380c5491c3631f964f42b1eae5a5491c266f4a3dd3708a0f482",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-WALL-PIER",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review"
+}

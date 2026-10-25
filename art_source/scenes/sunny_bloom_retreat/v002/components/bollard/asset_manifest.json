@@ -1,0 +1,43 @@
+{
+  "key": "bollard",
+  "asset_id": "SEA-SCENE-SBR-BOLLARD",
+  "name": "双绳圈木柱",
+  "category": "fixture",
+  "family": "post",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ; normally Z yaw",
+  "scope": "scene_local",
+  "triangle_budget": 16000,
+  "collection": "SEA-SCENE-SBR-BOLLARD",
+  "root": "ROOT_bollard",
+  "bounds_size": [
+    0.5299999713897705,
+    0.5299999713897705,
+    0.8199999928474426
+  ],
+  "bounds_min": [
+    -0.26499998569488525,
+    -0.26499998569488525,
+    0
+  ],
+  "source_anchor": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "instance_count": 6,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "collision_owner": "Godot wrapper pending",
+  "component_source": "art_source/scenes/sunny_bloom_retreat/v002/components/bollard/bollard.blend",
+  "geometry_fingerprint": "21c9878559d85bb023cb8e9773b61b5c7b98ef09dd148f8bec3a2c3ca6fd24ad",
+  "triangles": 1400,
+  "source_sha256": "35df14ec0d79a18042157c448c888c6bab130c9a1d564906d785635e61aba8d5",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-BOLLARD"
+}
