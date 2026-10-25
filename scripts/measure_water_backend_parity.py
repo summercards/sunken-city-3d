@@ -70,19 +70,23 @@ def main(argv):
         target.round(1), mask.sum(), mask.sum() / mask.size * 100))
 
     rows = []
-    for path in sorted(cand_dir.glob("gain-*.png"), key=lambda p: float(p.stem[5:])):
-        gain = float(path.stem[5:])
+    for path in sorted(cand_dir.glob("gain-*.png")):
+        label = path.stem[5:]
         measured = mean_of(load(path), mask)
         err = float(np.abs(measured - target).mean())
-        rows.append((err, gain, measured))
-        print("  gl gain=%-5s %s  误差=%.2f" % (gain, measured.round(1), err))
+        rows.append((err, label, measured))
+        print("  gl gain=%-14s %s  误差=%.2f" % (label, measured.round(1), err))
 
     if not rows:
         sys.exit("候选目录里没有 gain-*.png: %s" % cand_dir)
     err, gain, measured = min(rows)
+    parts = gain.split("_")
+    if len(parts) == 3:
+        vec = "Vector3(%s, %s, %s)" % tuple(parts)
+    else:
+        vec = "Vector3(%s, %s, %s)" % (gain, gain, gain)
     print("\n最接近: gain=%s 水色=%s 误差=%.2f" % (gain, measured.round(1), err))
-    print("即 RenderFlagsLib.water_emission_gain() 在 gl_compatibility 上返回 Vector3(%s, %s, %s)"
-          % (gain, gain, gain))
+    print("即 RenderFlagsLib.water_emission_gain() 在 gl_compatibility 上返回 %s" % vec)
     return 0
 
 

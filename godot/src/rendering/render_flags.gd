@@ -27,8 +27,15 @@ static func reverse_z() -> float:
 ## 按 gain 0.3~3.8 逐档实测、取开阔水面像素均值拟合，1.26 处误差最小：
 ## 兼容后端 10/102/146 对 Forward+ 1/105/147（蓝绿误差 ≤3；红通道有约 +9 的
 ## 色调映射地板，任何增益都压不到 0，故三个分量取同一值）。
-static func water_emission_gain() -> Vector3:
+##
+## 2026-10-25 吸收式水面加入后，系数按方案分开：那套在 Forward+ 上的发光量级
+## 比原版亮一档多（水色 24/185/196 对 1/105/147），共用一个系数必然顾此失彼
+## （用 1.26 时吸收式只有 11/75/123）。逐通道拟合得 (2.5, 2.8, 2.0)，误差 2.4；
+## 绿要比蓝抬得更高，所以这里不能再取同值。
+static func water_emission_gain(scheme := "original") -> Vector3:
 	var method: String = RenderingServer.get_current_rendering_method()
 	if method.begins_with("gl_compatibility"):
+		if scheme == "absorption":
+			return Vector3(2.5, 2.8, 2.0)
 		return Vector3(1.26, 1.26, 1.26)
 	return Vector3.ONE

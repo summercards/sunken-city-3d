@@ -28,7 +28,7 @@
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-OCEAN-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-OCEAN-R02 | 本机双后端实测通过，目标设备未覆盖 | 后端差异集中在 `src/rendering/render_flags.gd`；2026-10-24 按重做后的着色器重测 `water_emission_gain()`，开阔水面像素均值 Forward+ `1/105/147` 对 gl_compatibility `10/103/147`（平均绝对误差 4.0，旧系数下为 140.7）。真实渲染图像比对，非无头逻辑测试。 [测量记录](../../development/2026-10-24_water_backend_parity.md) |
+| SEA-OCEAN-R02 | 本机双后端实测通过，两套水各自拟合，目标设备未覆盖 | 后端差异集中在 `src/rendering/render_flags.gd`；2026-10-24 按重做后的着色器重测 `water_emission_gain()`，原版开阔水面 Forward+ `1/105/147` 对 gl_compatibility `10/102/146`（误差 4.21，旧系数下为 140.7）。2026-10-25 吸收式水面加入后系数按方案分开，吸收式 `24/185/196` 对 `20/184/194`（误差 2.75，共用 1.26 时为 65.4）。均为真实渲染图像比对，非无头逻辑测试。 [测量记录](../../development/2026-10-24_water_backend_parity.md) / [方案分开](../../development/2026-10-25_water_scheme_gain.md) |
 | SEA-OCEAN-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-OCEAN-R04 | 本轮表现与专项通过 | 岸线双环开放波纹弧线与3层动态外扩涟漪、柔和半兰伯特光影与清晰投射阴影标定完成；Metal Forward+ 实机目视验证与 ocean 回归通过。 [交付记录](../../development/2026-10-23_sea_visual_style.md) |
 | SEA-OCEAN-R05 | 本轮表现与专项通过 | 交接带改由 `shaders/contact_foam.gdshaderinc` 承担（移植 stylized_water_prod 的 ContactFoam），旧的 `shore_rim`/`shore_foam` 已移除；Forward+ 与 gl_compatibility 双后端实机目视通过，条纹纹理授权待补。 [交付记录](../../development/2026-10-23_water_contact_foam_port.md) |
@@ -90,3 +90,5 @@
 - 2026-10-24 双后端水色重新对齐：水面重做后 `gl_compatibility` 的水被旧增益 (3.8, 3.8, 2.7) 推到接近削顶（开阔水面 170/241/236，Forward+ 是 1/103/147），本机 GL 端整片水面发白、海底连带被冲淡。按 gain 0.3~3.8 逐档真实渲染 + 开阔水面像素均值拟合，`water_emission_gain()` 改为 1.26，误差 140.7 → 4.0；红通道有约 +9 的色调映射地板，任何增益都压不到 0。新增可复跑工具 `tools/capture_water_gain_probe.gd` 与 `scripts/measure_water_backend_parity.py`。 [测量记录](../../development/2026-10-24_water_backend_parity.md)。
 
 - 2026-10-24 第二套水面（吸收式）：照 Absorption Based Stylized Water 新增 `shaders/water_absorption.gdshader` 与 `assets/materials/water_absorption.tres`，与原方案并存；P 面板水面页顶部加「原版 / 吸收式」方案开关，切换只换 `material_override`（网格、波场、尾迹、桨环、岸线图共用），两套各有独立参数清单（37 / 60）与独立存档段（`[water]` / `[water_absorption]`）。坚持用垂直水深、`depth_distance` 出厂 14 m，是为了保住掠射角下沉没城市的可读性——参考实现的池子尺度会把水下的废墟整片涂掉。原版着色器、材质与场景零改动，core 九项与双后端验证通过。 [交付记录](../../development/2026-10-24_water_absorption_scheme.md)。
+
+- 2026-10-25 两套水面的发光增益分开：吸收式的发光量级比原版亮一档多（Forward+ 水色 `24/185/196` 对 `1/105/147`），共用 `water_emission_gain()` 的 1.26 会让它在 `gl_compatibility` 下掉到 `11/75/123`（误差 65.4）。改为按方案返回：吸收式 `(2.5, 2.8, 2.0)` 逐通道，原版维持 1.26；`main.gd` 注册方案时把 id 传进 `_runtime_water_params()`。端到端误差 原版 4.21 / 吸收式 2.75。 [交付记录](../../development/2026-10-25_water_scheme_gain.md)。

@@ -774,7 +774,7 @@ func _setup_water() -> void:
 		if absorption != null:
 			water_node.register_scheme("absorption", absorption)
 		for id in water_node.schemes:
-			_runtime_water_params(water_node.schemes[id])
+			_runtime_water_params(water_node.schemes[id], String(id))
 	else:
 		_runtime_water_params(water_mat)
 	# 这张距离图要遍历场景几何（本机约 4 秒），是 _ready 里最长的一段；
@@ -786,7 +786,8 @@ func _setup_water() -> void:
 
 ## 「每帧/每次启动都不同」的参数。静态外观交给资源文件，这里只处理运行时量。
 ## 两套材质都要写一遍：漏了的那套切过去会是一帧黑水。
-func _runtime_water_params(mat: ShaderMaterial) -> void:
+## `scheme` 只影响兼容后端的发光补偿：两套水的发光量级不同，系数各拟合各的。
+func _runtime_water_params(mat: ShaderMaterial, scheme := "original") -> void:
 	if mat == null:
 		return
 	mat.set_shader_parameter("u_time", 0.0)
@@ -794,7 +795,7 @@ func _runtime_water_params(mat: ShaderMaterial) -> void:
 	# 深度纹理的 NDC 约定随渲染后端不同，Web(gl_compatibility) 必须换算。
 	mat.set_shader_parameter("u_reverse_z", RenderFlagsLib.reverse_z())
 	# 水面是纯自发光材质，兼容后端对 EMISSION 的解码比 Forward+ 暗一档多。
-	mat.set_shader_parameter("emission_gain", RenderFlagsLib.water_emission_gain())
+	mat.set_shader_parameter("emission_gain", RenderFlagsLib.water_emission_gain(scheme))
 	mat.set_shader_parameter("u_ripples", _ripples)
 	mat.set_shader_parameter("u_ripple_count", 0)
 
