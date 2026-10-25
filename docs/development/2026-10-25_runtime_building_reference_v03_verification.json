@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "changed_assets_reopened": 4,
+  "assets": [
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--DETAIL",
+      "source": "art_source/scenes/runtime_building_reference/v003/playable/solar_cabin/solar_cabin_harbor_surroundings/solar_cabin_harbor_surroundings_v0.3.blend",
+      "source_sha256": "13ec31f1ef84107c2007563fd0f473fbc96024af0d87fad96d21ab1999ba758c"
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-SALVAGE-STATION",
+      "source": "art_source/scenes/runtime_building_reference/v003/facilities/salvage_station/salvage_station_v0.3.blend",
+      "source_sha256": "5470f2b7873356440eeaa3a41f07b9003455243851a903076366770370ea7d80"
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "source": "art_source/scenes/runtime_building_reference/v003/facilities/solar_cabin/solar_cabin_v0.3.blend",
+      "source_sha256": "a7e98f1f7f39201575ce78375a33f87209c57a98657a95336f062d1a1b0ae12e"
+    },
+    {
+      "asset_id": "SEA-REF-01-PLAYABLE-OVERVIEW",
+      "source": "art_source/scenes/runtime_building_reference/v003/sea_playable_facilities_v0.3.blend",
+      "source_sha256": "ebc73506b04d404c0229e0335e3e0ed1a7011e7f6c74f78276fb30441e4b3126"
+    }
+  ],
+  "hierarchy": {
+    "太阳能木屋": [
+      "太阳能木屋-海上区域",
+      "太阳能木屋-海下基座"
+    ],
+    "横滨沉没铁道": [
+      "横滨沉没铁道-海上区域",
+      "横滨沉没铁道-海下基座"
+    ],
+    "圆弧屋顶农场": [
+      "圆弧屋顶农场-海上区域",
+      "圆弧屋顶农场-海下基座"
+    ],
+    "远海街町": [
+      "远海街町-海上区域",
+      "远海街町-海下基座"
+    ],
+    "浅水养殖台": [
+      "浅水养殖台-海上区域",
+      "浅水养殖台-海下基座"
+    ],
+    "绞盘打捞台": [
+      "绞盘打捞台-海上区域",
+      "绞盘打捞台-海下基座"
+    ]
+  },
+  "partition_geometry_area_relative_error": 1.1483720543796516e-10,
+  "triangles_before": 13704,
+  "triangles_after": 13704,
+  "old_sources_unchanged": true,
+  "runtime_inputs_unchanged": true,
+  "game_runtime": "not_run_reference_facility_partition_only",
+  "process_exit_code": 0,
+  "combined_bounds_error_m": 0.0,
+  "visual_review": "Full-height platform and surface closeup inspected; winch, deck, supports and decoration form the independent facility.",
+  "contract_sync_exit_code": 0,
+  "contract_check_exit_code": 0,
+  "contract_summary": "31 features, 364 source assets, 220 runtime hashes; 0 issues"
+}

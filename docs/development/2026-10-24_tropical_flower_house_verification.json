@@ -1,0 +1,143 @@
+{
+  "schema": "sea.scene.source_verification",
+  "source_only": true,
+  "main_source_sha256": "42177dc720e79b8ea639467c1f804963acd8ed37b68560cb2a412e3be243a19d",
+  "checks": {
+    "assembled_source": true,
+    "standalone_packages_reopened": 38
+  },
+  "metrics": {
+    "components": 38,
+    "instances": 267,
+    "polygons": 14964,
+    "vertices": 15034,
+    "faces_uv_checked": 14964,
+    "expanded_triangles": 108572,
+    "expanded_polygons": 58966,
+    "flora_instances": 65
+  },
+  "errors": [],
+  "passed": true,
+  "expected_faults": [],
+  "not_executed": [
+    "Godot import",
+    "runtime collision/navigation",
+    "game performance",
+    "reference commercial rights review"
+  ],
+  "runtime_status": "pending",
+  "feature_id": "SEA-ASSET",
+  "date": "2026-10-24",
+  "execution": {
+    "build_source": {
+      "command": [
+        "/Users/summercards/Applications/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "/Users/summercards/WorkBuddy/sea/tools/blender/tropical_flower_house/build_source.py",
+        "--",
+        "--replace-generated"
+      ],
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/tropical_flower_house/build_source.log",
+      "seconds": 2.36
+    },
+    "finalize_packages": {
+      "command": [
+        "/Users/summercards/Applications/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "/Users/summercards/WorkBuddy/sea/tools/blender/tropical_flower_house/finalize_packages.py",
+        "--"
+      ],
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/tropical_flower_house/finalize_packages.log",
+      "seconds": 3.85
+    },
+    "verify_source": {
+      "command": [
+        "/Users/summercards/Applications/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "/Users/summercards/WorkBuddy/sea/tools/blender/tropical_flower_house/verify_source.py",
+        "--",
+        "--render"
+      ],
+      "exit_code": 0,
+      "log": "/Users/summercards/WorkBuddy/sea-work/tropical_flower_house/verify_source.log",
+      "seconds": 86.86
+    }
+  },
+  "visual_review": {
+    "performed": true,
+    "method": "Direct inspection of saved-source Blender renders; not pixel equivalence",
+    "views": {
+      "beauty": {
+        "path": "/Users/summercards/WorkBuddy/sea-work/tropical_flower_house/previews/beauty.png",
+        "sha256": "e54e0c4865aca0354b36b7caadf517618e5f55f4f0e157b9d7dc95e317553e4d"
+      },
+      "building_only": {
+        "path": "/Users/summercards/WorkBuddy/sea-work/tropical_flower_house/previews/building_only.png",
+        "sha256": "d8bcf8d1ea48a11b28641bb4f02718f12b74a59027bd6f18a308fcffe54e6e31"
+      },
+      "detail": {
+        "path": "/Users/summercards/WorkBuddy/sea-work/tropical_flower_house/previews/detail.png",
+        "sha256": "7768ff70b16912c3d5a6d0d478e241b2cdc7c7d5cd433cb1317313ebd839d3f3"
+      },
+      "top": {
+        "path": "/Users/summercards/WorkBuddy/sea-work/tropical_flower_house/previews/top.png",
+        "sha256": "dc387a044b1bffe8d63b56429b3466625ae3885c92277c05c74713d279cb3b9e"
+      }
+    },
+    "user_art_acceptance": "pending"
+  },
+  "prior_failure": {
+    "step": "initial verify_source.py",
+    "error": "KeyError: old scene name; no passed report produced",
+    "resolved": "Verifier uses the new kit scene name; final commands use --python-exit-code 1"
+  },
+  "optimization": {
+    "metric": "evaluated visible scene instances; hidden masters excluded",
+    "baseline_expanded_triangles": 141076,
+    "final_expanded_triangles": 108572,
+    "final_expanded_polygons": 58966,
+    "triangle_reduction_percent": 23.04,
+    "hard_triangle_limit": null,
+    "notes": [
+      "Repeated paving uses one real bevel segment",
+      "Small leaves use 10 by 6 sphere tessellation; broad petals retain 12 by 8",
+      "Continuous lower wall removes box seams and redundant faces",
+      "No subdivision modifier; no hidden master double-count"
+    ]
+  },
+  "contracts": {
+    "sync": {
+      "command": [
+        "python3",
+        "scripts/check_feature_contracts.py",
+        "--sync"
+      ],
+      "exit_code": 0,
+      "output": "PASS: 31 features, 186 source assets, 219 runtime resource hashes; 0 issues\n",
+      "log": "/Users/summercards/WorkBuddy/sea-work/tropical_flower_house/contracts_sync.log"
+    },
+    "check": {
+      "command": [
+        "python3",
+        "scripts/check_feature_contracts.py"
+      ],
+      "exit_code": 0,
+      "output": "PASS: 31 features, 186 source assets, 219 runtime resource hashes; 0 issues\n",
+      "log": "/Users/summercards/WorkBuddy/sea-work/tropical_flower_house/contracts_check.log"
+    }
+  }
+}

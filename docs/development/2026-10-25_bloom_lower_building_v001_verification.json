@@ -1,0 +1,161 @@
+{
+  "schema": "sea.scene.source_verification",
+  "passed": true,
+  "errors": [],
+  "source_sha256": "f1b03ebea32579498a9478da69714d2d05579a0e1a06c7a391395e48f5d28071",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "reference_sha256": "9e24e4ce2484836b6dc6edc3759e602818c0ac6b6a559c1180a314fddec6f15a",
+  "metrics": {
+    "components": 22,
+    "instances": 414,
+    "flora_instances": 129,
+    "uv_faces_checked": 26416,
+    "expanded_polygons": 526306,
+    "expanded_triangles": 976564
+  },
+  "standalone_packages_reopened": 22,
+  "source_only": true,
+  "expected_faults": [],
+  "not_executed": [
+    "Godot import/runtime/collision/navigation",
+    "reference commercial rights verification"
+  ],
+  "views": [
+    {
+      "name": "beauty",
+      "path": "/Users/summercards/WorkBuddy/sea-work/bloom_lower_building_v001/previews/beauty.png"
+    },
+    {
+      "name": "building_only",
+      "path": "/Users/summercards/WorkBuddy/sea-work/bloom_lower_building_v001/previews/building_only.png"
+    },
+    {
+      "name": "detail",
+      "path": "/Users/summercards/WorkBuddy/sea-work/bloom_lower_building_v001/previews/detail.png"
+    },
+    {
+      "name": "top",
+      "path": "/Users/summercards/WorkBuddy/sea-work/bloom_lower_building_v001/previews/top.png"
+    },
+    {
+      "name": "rear_structure",
+      "path": "/Users/summercards/WorkBuddy/sea-work/bloom_lower_building_v001/previews/rear_structure.png"
+    }
+  ],
+  "layout_checks": {
+    "floors": 7,
+    "floor_height_m": 1.72,
+    "long_wall_bays": 42,
+    "end_wall_bays": 14,
+    "roof_tiles": 32,
+    "blue_column_segments": 28,
+    "roof_clear_rectangle": {
+      "min": [
+        -1.12,
+        -2.5,
+        12.46
+      ],
+      "max": [
+        0.95,
+        2.5,
+        13.96
+      ]
+    },
+    "roof_clear_obstructions": [],
+    "flower_normals": [
+      [
+        -0.4914258122444153,
+        -0.27374204993247986,
+        0.8267804980278015
+      ],
+      [
+        -0.33754581212997437,
+        -0.4017227292060852,
+        0.8512823581695557
+      ],
+      [
+        -0.2569085359573364,
+        -0.24344918131828308,
+        0.9352703094482422
+      ],
+      [
+        -0.43634021282196045,
+        -0.289959579706192,
+        0.851780891418457
+      ],
+      [
+        -0.4962739944458008,
+        -0.05750946328043938,
+        0.8662590980529785
+      ],
+      [
+        -0.35639244318008423,
+        -0.3336310386657715,
+        0.8727397918701172
+      ],
+      [
+        -0.4999651610851288,
+        -0.18735800683498383,
+        0.8455364108085632
+      ],
+      [
+        0.07984238117933273,
+        -0.493928998708725,
+        0.8658286929130554
+      ],
+      [
+        -0.2838195860385895,
+        -0.35777294635772705,
+        0.8896319270133972
+      ],
+      [
+        -0.02225474826991558,
+        -0.39342862367630005,
+        0.9190857410430908
+      ],
+      [
+        -0.416345477104187,
+        -0.3480178713798523,
+        0.8399642705917358
+      ],
+      [
+        -0.21217088401317596,
+        -0.2589375674724579,
+        0.942302942276001
+      ],
+      [
+        -0.344536155462265,
+        -0.4259302020072937,
+        0.8365873098373413
+      ],
+      [
+        -0.4471099078655243,
+        -0.20166373252868652,
+        0.8714496493339539
+      ]
+    ],
+    "independent_lower_building": true,
+    "unseen_faces": "consistent inferred continuation, not measured from reference"
+  },
+  "execution": {
+    "build_exit_code": 0,
+    "source_verification_exit_code": 0,
+    "registration_exit_code": 0,
+    "render_engine": "Blender Cycles",
+    "rendered_views": 5,
+    "visual_review": "Current beauty, structure-only, detail, top and rear inspected; user art acceptance pending.",
+    "expected_faults": [],
+    "unexpected_errors": [],
+    "resolved_authoring_errors": [
+      "One intermediate build failed because a shader math-node variable shadowed the material variable. Renamed the node variable and rebuilt successfully; obsolete verification was cancelled."
+    ],
+    "warnings": [
+      "Blender 5.2.2 reports use_nodes deprecation."
+    ],
+    "feature_contracts": {
+      "sync_exit_code": 0,
+      "check_exit_code": 0,
+      "result": "PASS: 31 features, 259 source assets, 220 runtime resource hashes; 0 issues"
+    }
+  }
+}

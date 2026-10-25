@@ -1,0 +1,69 @@
+{
+  "schema": "sea.scene.source_verification",
+  "passed": true,
+  "errors": [],
+  "source_sha256": "7f9702f17ccf3b849655d85e7c76b62b01828a4c45d55c7d32dde2df31f2f633",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "reference_sha256": "5256abd23999c8a6b8c34cbfd425ccce2f72c74ecfc53a39d8606beb0d1f3545",
+  "metrics": {
+    "components": 45,
+    "instances": 490,
+    "flora_instances": 103,
+    "uv_faces_checked": 40211,
+    "expanded_polygons": 352554,
+    "expanded_triangles": 662504
+  },
+  "standalone_packages_reopened": 45,
+  "source_only": true,
+  "expected_faults": [],
+  "not_executed": [
+    "Godot import/runtime/collision/navigation",
+    "reference commercial rights verification"
+  ],
+  "views": [
+    {
+      "name": "beauty",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v002/previews/beauty.png"
+    },
+    {
+      "name": "building_only",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v002/previews/building_only.png"
+    },
+    {
+      "name": "detail",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v002/previews/detail.png"
+    },
+    {
+      "name": "top",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v002/previews/top.png"
+    },
+    {
+      "name": "rear_structure",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v002/previews/rear_structure.png"
+    }
+  ],
+  "layout_checks": {
+    "rear_main_wall_piers": 3,
+    "canopy_posts": 4,
+    "canopy_wall_overlaps": [],
+    "deck_planks": 216,
+    "bridge_boards": 12,
+    "bridge_platform_gap_m": 0.0125,
+    "cooler_approach_clear": true
+  },
+  "execution": {
+    "build_exit_code": 0,
+    "source_verification_exit_code": 0,
+    "registration_exit_code": 0,
+    "render_engine": "Blender Cycles",
+    "rendered_views": 5,
+    "visual_review": "All five views inspected; user final art approval pending.",
+    "expected_faults": [],
+    "unexpected_errors": [],
+    "warnings": [
+      "Blender 6.0 API deprecation warnings under Blender 5.2.2."
+    ],
+    "contracts_sync_exit_code": 0,
+    "contracts_check_exit_code": 0
+  }
+}

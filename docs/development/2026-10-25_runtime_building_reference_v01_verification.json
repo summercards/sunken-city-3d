@@ -1,0 +1,833 @@
+{
+  "passed": true,
+  "reopened": 97,
+  "checks": [
+    {
+      "key": "zone1_home_harbor__detail",
+      "vertices": 28947,
+      "triangles": 13328,
+      "edges": 33914,
+      "bounds_error_m": 0.0,
+      "source_sha256": "f50aa8b3df101821de01678bc5015ecafbab7884156ed57ca37086fb4d03ec70"
+    },
+    {
+      "key": "zone1_home_harbor__unit_01",
+      "vertices": 56864,
+      "triangles": 22836,
+      "edges": 62097,
+      "bounds_error_m": 0.0,
+      "source_sha256": "ce4723a21414bf50d1274243a4cf58e72a316cfcd36b8a201dbc35c50d9c86f8"
+    },
+    {
+      "key": "zone1_home_harbor__unit_02",
+      "vertices": 83700,
+      "triangles": 29488,
+      "edges": 85866,
+      "bounds_error_m": 0.0,
+      "source_sha256": "28a265862ce66a3c4153a601a06c5977f536786b8ea1da9369befb14c1127ee9"
+    },
+    {
+      "key": "zone1_home_harbor__unit_03",
+      "vertices": 79649,
+      "triangles": 27748,
+      "edges": 81426,
+      "bounds_error_m": 0.0,
+      "source_sha256": "cad92f3e935304b55c1cffa4d366a2ebc26ea272994d256cfac7ac04005b8664"
+    },
+    {
+      "key": "zone2_yokohama_station__detail",
+      "vertices": 2322,
+      "triangles": 1340,
+      "edges": 3335,
+      "bounds_error_m": 0.0,
+      "source_sha256": "ce038ba8dc76ef12f9972c3ff977ac506fd76937038284dab3cf83ac91a271bb"
+    },
+    {
+      "key": "zone2_yokohama_station__unit_01",
+      "vertices": 3776,
+      "triangles": 2060,
+      "edges": 4958,
+      "bounds_error_m": 0.0,
+      "source_sha256": "bdb4868298b6d09af907a0643a397718d69b1b30b416b05a446b12e7d0e18c56"
+    },
+    {
+      "key": "zone2_yokohama_station__unit_02",
+      "vertices": 16396,
+      "triangles": 5748,
+      "edges": 16911,
+      "bounds_error_m": 0.0,
+      "source_sha256": "1099fab922546c421005b02dec7e1a0dd47ffe24524545ef98033917d5be32bc"
+    },
+    {
+      "key": "zone2_yokohama_station__unit_03",
+      "vertices": 15533,
+      "triangles": 5368,
+      "edges": 15838,
+      "bounds_error_m": 0.0,
+      "source_sha256": "d0a2ae3dde3fe106b0116bbda235a3f176f1dd9adf947fbda14889112b86cbe5"
+    },
+    {
+      "key": "zone3_arc_farm__detail",
+      "vertices": 145461,
+      "triangles": 50300,
+      "edges": 148108,
+      "bounds_error_m": 0.0,
+      "source_sha256": "938e70e2829197f4be59cc888370497a5ae578e8785abc1dd9e6a4a08f6fcf9c"
+    },
+    {
+      "key": "zone3_arc_farm__unit_01",
+      "vertices": 168633,
+      "triangles": 59344,
+      "edges": 173249,
+      "bounds_error_m": 0.0,
+      "source_sha256": "6f1395262307626b9ead7c733353c159e13c48cb2be244e3d9ca2ecdfbf2ff33"
+    },
+    {
+      "key": "zone4_far_shore__detail",
+      "vertices": 119,
+      "triangles": 0,
+      "edges": 0,
+      "bounds_error_m": 0.0,
+      "source_sha256": "7f1d5d7235b65243f71849175ea65085880d1d4cbcb0e9e7983528e998bd77ca"
+    },
+    {
+      "key": "zone4_far_shore__unit_01",
+      "vertices": 1032,
+      "triangles": 348,
+      "edges": 1038,
+      "bounds_error_m": 0.0,
+      "source_sha256": "6f9583ad3b0724448d22dbd5c5e411d7a4433926bd53c96c7f773d8b013dc2d7"
+    },
+    {
+      "key": "zone4_far_shore__unit_02",
+      "vertices": 1272,
+      "triangles": 456,
+      "edges": 1320,
+      "bounds_error_m": 0.0,
+      "source_sha256": "51dfeffb8807a293f8b404b538f4d989a84c8201c5dd58bd7b106e3a98305e44"
+    },
+    {
+      "key": "zone4_far_shore__unit_03",
+      "vertices": 1147,
+      "triangles": 1116,
+      "edges": 2088,
+      "bounds_error_m": 0.0,
+      "source_sha256": "7b1b82160b2938d938255435325781823b5c39f623f11f0e71885466a268f714"
+    },
+    {
+      "key": "zone4_far_shore__unit_04",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "efb366228a65eaae9d8df2573fc37fa1d8a759dc500deb7a2b30998c7a096421"
+    },
+    {
+      "key": "zone5_aqua_platform__detail",
+      "vertices": 1183,
+      "triangles": 156,
+      "edges": 390,
+      "bounds_error_m": 0.0,
+      "source_sha256": "7ec04b3da00c76ebab60e5644fb27880de57c94f594cba9a1fe34bd704b3621e"
+    },
+    {
+      "key": "zone5_aqua_platform__unit_01",
+      "vertices": 868,
+      "triangles": 580,
+      "edges": 1164,
+      "bounds_error_m": 0.0,
+      "source_sha256": "3dba50a2ff175c213f7870f524016b22d950c2092ed2e1d21e99de9cf3c95d1c"
+    },
+    {
+      "key": "background_building_type_00",
+      "vertices": 13224,
+      "triangles": 5272,
+      "edges": 14520,
+      "bounds_error_m": 0.0,
+      "source_sha256": "75549b8aed7186f2f872c7da255bbff2e1445d1b1e4e5089bbd55c7dc1c61e9c"
+    },
+    {
+      "key": "background_building_type_01",
+      "vertices": 5172,
+      "triangles": 2456,
+      "edges": 6270,
+      "bounds_error_m": 0.0,
+      "source_sha256": "fdf7d8d9a59cbf7bde22e26a339de4dd0df47ae405aa74377ccda3311489e9b9"
+    },
+    {
+      "key": "background_building_type_02",
+      "vertices": 5280,
+      "triangles": 2500,
+      "edges": 6390,
+      "bounds_error_m": 0.0,
+      "source_sha256": "3dd3d6b68fe48655d921d0aa9e8aba4c847256ddef852305b985a7d0f5956af6"
+    },
+    {
+      "key": "background_building_type_03",
+      "vertices": 5292,
+      "triangles": 2496,
+      "edges": 6390,
+      "bounds_error_m": 0.0,
+      "source_sha256": "b85699e951bef8ac07b20e7942dd98afe9e11ed55abea3ad1bcf4ebfde195fb9"
+    },
+    {
+      "key": "background_building_type_04",
+      "vertices": 5448,
+      "triangles": 2564,
+      "edges": 6570,
+      "bounds_error_m": 0.0,
+      "source_sha256": "95d44c72db3a524a5fb9e9c4829efdfbf982ecb6c4c63f0133ca342cc02f5ffb"
+    },
+    {
+      "key": "background_building_type_05",
+      "vertices": 5268,
+      "triangles": 2484,
+      "edges": 6360,
+      "bounds_error_m": 0.0,
+      "source_sha256": "42d5230b9241aad34ee1cb66438a443c038f66d59ddaa9deccf865cbced70435"
+    },
+    {
+      "key": "background_part_000",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "5ba4fba2665b3bdcfe98da87f33e8a2271b4621c46c09bac2beaadacf5aa3dee"
+    },
+    {
+      "key": "background_part_001",
+      "vertices": 180,
+      "triangles": 60,
+      "edges": 180,
+      "bounds_error_m": 0.0,
+      "source_sha256": "2909a8b398a926a018109d6249e37dd61ed986630d52dd1a81de115d50af4529"
+    },
+    {
+      "key": "background_part_002",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "99dd3dda0849af5e0e9864760adf478d2173ff9df635abee93c20e03a3aaa0ec"
+    },
+    {
+      "key": "background_part_003",
+      "vertices": 133,
+      "triangles": 216,
+      "edges": 348,
+      "bounds_error_m": 0.0,
+      "source_sha256": "fd4b6e32f14f4d52a958b1926905440fb517d47398c9fc434775a8f193f964ec"
+    },
+    {
+      "key": "background_part_004",
+      "vertices": 252,
+      "triangles": 84,
+      "edges": 252,
+      "bounds_error_m": 0.0,
+      "source_sha256": "96761025d4bdcd06840dd62730c3be501780a29b6680eb7aae372b394f0ad598"
+    },
+    {
+      "key": "background_part_005",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "b04fc4dbc9599e02cf7172d5035f4e3c6ce376865ee5f3363a2529d0278ba257"
+    },
+    {
+      "key": "background_part_006",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "9fab37c82c043d7b4df417e622da16263313d15eef2a019e3c1b5aa63228d2e7"
+    },
+    {
+      "key": "background_part_007",
+      "vertices": 108,
+      "triangles": 36,
+      "edges": 108,
+      "bounds_error_m": 0.0,
+      "source_sha256": "6b36377bd4ccbd19d26c882b72b39aad785dab389d2877cf46fd09e6d5b75fa4"
+    },
+    {
+      "key": "background_part_008",
+      "vertices": 108,
+      "triangles": 36,
+      "edges": 108,
+      "bounds_error_m": 0.0,
+      "source_sha256": "eec3e970bf3d1e1a78c82b05528b6ce0a2115df85f92562f6ab86f95cefb8918"
+    },
+    {
+      "key": "background_part_009",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "6d0465b115abe94ac9856bc9a463eb4f644d96b916e9129344d6a054db504b74"
+    },
+    {
+      "key": "background_part_010",
+      "vertices": 58,
+      "triangles": 36,
+      "edges": 91,
+      "bounds_error_m": 0.0,
+      "source_sha256": "1d74cd2da23bf844aa26f2966f5c1a39302de60dac8299faf81d1f2638646166"
+    },
+    {
+      "key": "background_part_011",
+      "vertices": 216,
+      "triangles": 72,
+      "edges": 216,
+      "bounds_error_m": 0.0,
+      "source_sha256": "2400ae18b6ea6bbaa4305aa45eb9999a6043e906509b0f6840a5db0d352352ff"
+    },
+    {
+      "key": "background_part_012",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "bcca95361bbb600cdfe16ed106d0f54ab1a36d649076e1882af5404f82aee504"
+    },
+    {
+      "key": "background_part_013",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "c1a5a441b6477757a5e9a21c9b80957e2e1cc993848eb1a4f3905c9d29f90616"
+    },
+    {
+      "key": "background_part_014",
+      "vertices": 60,
+      "triangles": 20,
+      "edges": 60,
+      "bounds_error_m": 0.0,
+      "source_sha256": "3696929a8cd27d75aad55f7d4c049fe919088546f16556419dff6f1903a86541"
+    },
+    {
+      "key": "background_part_015",
+      "vertices": 60,
+      "triangles": 20,
+      "edges": 60,
+      "bounds_error_m": 0.0,
+      "source_sha256": "c06615e46a2908ae7e6defa0885f0cda83ddf4fa9de503b25546c474daf8265d"
+    },
+    {
+      "key": "background_part_016",
+      "vertices": 63,
+      "triangles": 80,
+      "edges": 140,
+      "bounds_error_m": 0.0,
+      "source_sha256": "44056ac1625308549647486d195866530e9be36f09c3d7f1bfcd6aeb30955afa"
+    },
+    {
+      "key": "background_part_017",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "605804bab0e273f8cb03d30ba85c1551b093a11c97de5c119c77c59d0af280f9"
+    },
+    {
+      "key": "background_part_018",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "0ad1fd5cff08a5dea031b0edae15ed2cce669f1486fac1e2126221fa3daf8c45"
+    },
+    {
+      "key": "background_part_019",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "d2f7d8070146606be6bda1252453ce766b1359c4f94b0c4b5c9308085a841963"
+    },
+    {
+      "key": "background_part_020",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "89d781c8027474a37bb11eee56cb8729bf6e913502a2b136cddcd284fafbebf5"
+    },
+    {
+      "key": "background_part_021",
+      "vertices": 108,
+      "triangles": 36,
+      "edges": 108,
+      "bounds_error_m": 0.0,
+      "source_sha256": "8b6c00d62d48ff7b880b0f3ffe7e42a085cb3a21a64c2c4ee6c40c143a701595"
+    },
+    {
+      "key": "background_part_022",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "2eb4ff323f688817ff4808dca0045b962a6e2f31d029191ccedea48a1eed0b4e"
+    },
+    {
+      "key": "background_part_023",
+      "vertices": 196,
+      "triangles": 128,
+      "edges": 321,
+      "bounds_error_m": 0.0,
+      "source_sha256": "c9e7f8b3219281b17fb74847c6e64852c6847c200b05a0f8bd721ab29f849787"
+    },
+    {
+      "key": "background_part_024",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "9c2c727c7d8a4e74dd3f3a8e38040fea205ab1231f72eeee4a358513a13db804"
+    },
+    {
+      "key": "background_part_025",
+      "vertices": 240,
+      "triangles": 80,
+      "edges": 240,
+      "bounds_error_m": 0.0,
+      "source_sha256": "f09ffc1ad7b0c6173d6899364d9c91823a65f18504fa86a201cf3ac234ef2968"
+    },
+    {
+      "key": "background_part_026",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "4677319817567679d36d17a286db4f53ea6f5fdb644c36d5aaa7626a3ce27762"
+    },
+    {
+      "key": "background_part_027",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "c6b935a838992e2df9338778475029390d44758fbb62a0367611bfabe59424f0"
+    },
+    {
+      "key": "background_part_028",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "70bfd17878ab1fe5f47037f903ae2346e3620b150282d151cd4f1a043a804bc9"
+    },
+    {
+      "key": "background_part_029",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "710532bd749700b1a2fb2a7cc392f93ead4345e5f597559958f9a71fff31803a"
+    },
+    {
+      "key": "background_part_030",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "2765b04006900389693c7e458ff3f366c96e2b104793ba3169e2d61d6060b370"
+    },
+    {
+      "key": "background_part_031",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "aadf2cd7e657851ff0b210f15c696ba323479e21d558b7288c77662c8d67043c"
+    },
+    {
+      "key": "background_part_032",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "4001fe5c66ebe86e7c782ce7b75566c11a5c469ce7ac587983851940582eea03"
+    },
+    {
+      "key": "background_part_033",
+      "vertices": 52,
+      "triangles": 32,
+      "edges": 81,
+      "bounds_error_m": 0.0,
+      "source_sha256": "b57374e1eca6e2e9a0ef9e88037fbea2e6242254512b5a2703c0f76fb91f0040"
+    },
+    {
+      "key": "background_part_034",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "0972598be43f95f2289333d0f48e95d3f37662db9f43a99082e5866b36b6800a"
+    },
+    {
+      "key": "background_part_035",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "fc41c9d5495a56d563b73bf99f26bc885464d7f92ab31f92d3b997f6bb58ddfa"
+    },
+    {
+      "key": "background_part_036",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "dcece0ca3b226bfa618dc97e90b9c82fd2237dc2832cc8871efb04bfb86a99f1"
+    },
+    {
+      "key": "background_part_037",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "082d0ae9fdadd37630a6fdc5cb9ccce27d7d3c8c72e454d2ac950643df95383d"
+    },
+    {
+      "key": "background_part_038",
+      "vertices": 180,
+      "triangles": 60,
+      "edges": 180,
+      "bounds_error_m": 0.0,
+      "source_sha256": "b24d57cb831cdd6759a6dcb5ff47f72aefefb21bc42af995091ba5110f0dba91"
+    },
+    {
+      "key": "background_part_039",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "749fbe8b5e28a7837a776d6992185f9540c1b630da6a0a54c78e37b8a6d05dce"
+    },
+    {
+      "key": "background_part_040",
+      "vertices": 108,
+      "triangles": 36,
+      "edges": 108,
+      "bounds_error_m": 0.0,
+      "source_sha256": "419524370aacdd3385c2d6a4b2908083102ce5937f594ea5d0f6ff179860b470"
+    },
+    {
+      "key": "background_part_041",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "4fb0921aec6a78bdf25dab2774780d7f2e4594fc75b067f561bdaec69b1d150b"
+    },
+    {
+      "key": "background_part_042",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "19d55042ead375bf43e554da04632a2ed4ea58936a057306f1b16e01eeeab969"
+    },
+    {
+      "key": "background_part_043",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "4213c74265fbb776f9957375ef336b33a26d3de2bdd03a5cfae34ba39dff95db"
+    },
+    {
+      "key": "background_part_044",
+      "vertices": 26,
+      "triangles": 24,
+      "edges": 49,
+      "bounds_error_m": 0.0,
+      "source_sha256": "4e733929dbe82e6c43b0a6d41738516472945ef2945dbb65aec0de5a7d4622d1"
+    },
+    {
+      "key": "background_part_045",
+      "vertices": 432,
+      "triangles": 144,
+      "edges": 432,
+      "bounds_error_m": 0.0,
+      "source_sha256": "47a9b93d8ccdd88d5231c3fd47ab659685b74a4f8fe5c52fed2335ad45015d36"
+    },
+    {
+      "key": "background_part_046",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "20397d737e123412eb026abdbf6167053a83ef3bd9e29108efdfbd5468d6f7a4"
+    },
+    {
+      "key": "background_part_047",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "9fac8da70421096fe182dabc33fe8a02cfe4714915c336647089589f6412e144"
+    },
+    {
+      "key": "background_part_048",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "02abc36727feb787fb6bcfc67d61b4bf0697973f8cab52ab29172d10e23bea86"
+    },
+    {
+      "key": "background_part_049",
+      "vertices": 35,
+      "triangles": 24,
+      "edges": 57,
+      "bounds_error_m": 0.0,
+      "source_sha256": "2ae972e4489f069becf86b1d0dea315e7b12d2b723e60c9df65d1e332eb950f3"
+    },
+    {
+      "key": "background_part_050",
+      "vertices": 1200,
+      "triangles": 400,
+      "edges": 1200,
+      "bounds_error_m": 0.0,
+      "source_sha256": "eb081faf06b54dc8ae6753384b828d5585bc78084eaa9784516b16dddc0fe32a"
+    },
+    {
+      "key": "background_part_051",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "22fc4f042a26bc0bf398ed1762f108f9e5d6dc06cc1314be0d91a4ce5bdddc7e"
+    },
+    {
+      "key": "background_part_052",
+      "vertices": 108,
+      "triangles": 36,
+      "edges": 108,
+      "bounds_error_m": 0.0,
+      "source_sha256": "ce4aa50d5c989afda53f5f4693ef626437ad8dd461c7d76839f2f05d4c5d5551"
+    },
+    {
+      "key": "background_part_053",
+      "vertices": 120,
+      "triangles": 40,
+      "edges": 120,
+      "bounds_error_m": 0.0,
+      "source_sha256": "571e0190d9ccead2b2c1977c2623490a5b9088e3aff2daf75b98810c220e3533"
+    },
+    {
+      "key": "background_part_054",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "3a900dc9a37f0dc2f030dcccc58dcd5104278382448d6a68fdd15616580f6e6d"
+    },
+    {
+      "key": "background_part_055",
+      "vertices": 108,
+      "triangles": 36,
+      "edges": 108,
+      "bounds_error_m": 0.0,
+      "source_sha256": "97a42ab4841db914872ff9d7d04718bd35105a0fdeacbc962c82bf33b3f5387c"
+    },
+    {
+      "key": "background_part_056",
+      "vertices": 180,
+      "triangles": 60,
+      "edges": 180,
+      "bounds_error_m": 0.0,
+      "source_sha256": "b73d56c332537d993a47da7a63b78a18a41b41aa802eb87526a1b3b8b1ba89f0"
+    },
+    {
+      "key": "background_part_057",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "3ab2432e445251cc2af118c57b2b803fcef845d30af03469742267c760238f57"
+    },
+    {
+      "key": "background_part_058",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "bc923bb36b2cf351917127dd3c3c26d7b9ee66130354c10d952bd5800ee9a133"
+    },
+    {
+      "key": "background_part_059",
+      "vertices": 108,
+      "triangles": 36,
+      "edges": 108,
+      "bounds_error_m": 0.0,
+      "source_sha256": "dcafcd8b9b0650aa468a2fa64d97fd8db543a7574a0ac25c47d63c2864b04c49"
+    },
+    {
+      "key": "background_part_060",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "307acce8b3672cbd3ec5067857cd01c71bccf2d5d17186e18baadaa37e79894f"
+    },
+    {
+      "key": "background_part_061",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "80fc850fd143a21563c62cb73a3b585370018bd31ebb56890cd49a6e91e5410e"
+    },
+    {
+      "key": "background_part_062",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "53acba2d19a94a00002d846f39c6050ef6ec8a5be2b48622cf518aa8b7709a07"
+    },
+    {
+      "key": "background_part_063",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "1bde3d98723112f94ccf7fe61e19411816cf70818c41db54754c2dc9963f2473"
+    },
+    {
+      "key": "background_part_064",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "69700e866c4ae372fb492d863878e38824190f0611fca6caa07c52629f6c77aa"
+    },
+    {
+      "key": "background_part_065",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "0ae504595b0589f08911a29434c46b3587ae0ead30627c8840020c8e6153bd84"
+    },
+    {
+      "key": "background_part_066",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "53c9023fcde45bbc5e363c0e3014a46f521571b84dba2c578d9797cf590d1b19"
+    },
+    {
+      "key": "background_part_067",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "047e95f1e8471d77fe48f0dbb621ddd452f76bef7366bf32cab351a53800aa6e"
+    },
+    {
+      "key": "background_part_068",
+      "vertices": 108,
+      "triangles": 36,
+      "edges": 108,
+      "bounds_error_m": 0.0,
+      "source_sha256": "96be825097428766be66ce6dcd6b06a59449efe57def7c0dce89b1be87f8e9f1"
+    },
+    {
+      "key": "background_part_069",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "49dd19a34985a28904a1151c04c41fbb2fee65e6fc237fce1b90151d974f397b"
+    },
+    {
+      "key": "background_part_070",
+      "vertices": 24,
+      "triangles": 12,
+      "edges": 30,
+      "bounds_error_m": 0.0,
+      "source_sha256": "9abc919c91267073be7a914abdd1c5791b422640205894b76f7b9b58a0880a24"
+    },
+    {
+      "key": "background_part_071",
+      "vertices": 252,
+      "triangles": 84,
+      "edges": 252,
+      "bounds_error_m": 0.0,
+      "source_sha256": "47554f58e9d276065bb278d7f9d0bf8934e9a5c3d5a09ff7ccd9aeda6e45fb43"
+    },
+    {
+      "key": "background_part_072",
+      "vertices": 432,
+      "triangles": 144,
+      "edges": 432,
+      "bounds_error_m": 0.0,
+      "source_sha256": "f9b780b3e37b0b9e8f3b7eb6453d8fae7287fc2c6faa0ba98d3d3100ab9af328"
+    },
+    {
+      "key": "background_part_073",
+      "vertices": 480,
+      "triangles": 160,
+      "edges": 480,
+      "bounds_error_m": 0.0,
+      "source_sha256": "c438e1bd3181a02686062f2b300464ad4f609bea5451d66c59d3b00bf1c6f593"
+    }
+  ],
+  "input_hashes_unchanged": {
+    "godot/scenes/zones/zone1_home_harbor.tscn": true,
+    "godot/assets/models/zones/zone1_home_harbor/manifest.json": true,
+    "godot/assets/models/zones/zone1_home_harbor/units/detail.glb": true,
+    "godot/assets/models/zones/zone1_home_harbor/units/unit_01.glb": true,
+    "godot/assets/models/zones/zone1_home_harbor/units/unit_02.glb": true,
+    "godot/assets/models/zones/zone1_home_harbor/units/unit_03.glb": true,
+    "godot/scenes/zones/zone2_yokohama_station.tscn": true,
+    "godot/assets/models/zones/zone2_yokohama_station/manifest.json": true,
+    "godot/assets/models/zones/zone2_yokohama_station/units/detail.glb": true,
+    "godot/assets/models/zones/zone2_yokohama_station/units/unit_01.glb": true,
+    "godot/assets/models/zones/zone2_yokohama_station/units/unit_02.glb": true,
+    "godot/assets/models/zones/zone2_yokohama_station/units/unit_03.glb": true,
+    "godot/scenes/zones/zone3_arc_farm.tscn": true,
+    "godot/assets/models/zones/zone3_arc_farm/manifest.json": true,
+    "godot/assets/models/zones/zone3_arc_farm/units/detail.glb": true,
+    "godot/assets/models/zones/zone3_arc_farm/units/unit_01.glb": true,
+    "godot/scenes/zones/zone4_far_shore.tscn": true,
+    "godot/assets/models/zones/zone4_far_shore/manifest.json": true,
+    "godot/assets/models/zones/zone4_far_shore/units/detail.glb": true,
+    "godot/assets/models/zones/zone4_far_shore/units/unit_01.glb": true,
+    "godot/assets/models/zones/zone4_far_shore/units/unit_02.glb": true,
+    "godot/assets/models/zones/zone4_far_shore/units/unit_03.glb": true,
+    "godot/assets/models/zones/zone4_far_shore/units/unit_04.glb": true,
+    "godot/scenes/zones/zone5_aqua_platform.tscn": true,
+    "godot/assets/models/zones/zone5_aqua_platform/manifest.json": true,
+    "godot/assets/models/zones/zone5_aqua_platform/units/detail.glb": true,
+    "godot/assets/models/zones/zone5_aqua_platform/units/unit_01.glb": true,
+    "godot/assets/world/environment/bake.json": true,
+    "godot/assets/world/environment/instances.bin": true,
+    "godot/assets/baked/scene.json": true,
+    "godot/assets/baked/geoms.bin": true,
+    "godot/assets/baked/geoms_idx.bin": true,
+    "godot/scenes/world/environment.tscn": true
+  },
+  "background_instances": 249052,
+  "duplicate_instance_ids": 0,
+  "unassigned_instance_ids": 0,
+  "max_exact_replay_matrix_error": 8.526512829121202e-14,
+  "game_runtime_test": "not_run_reference_export_only",
+  "godot_shader_pixel_parity": "not_claimed",
+  "assemblies_reopened": 2,
+  "process_exit_code": 0,
+  "contract_sync_exit_code": 0,
+  "contract_check_exit_code": 0,
+  "contract_summary": "31 features, 358 source assets, 220 runtime resource hashes; 0 issues",
+  "preview_views": [
+    "/Users/summercards/WorkBuddy/sea-work/runtime_building_reference_v0.1/background_building_library.png",
+    "/Users/summercards/WorkBuddy/sea-work/runtime_building_reference_v0.1/playable_overview.png"
+  ],
+  "preview_visual_review": "Both views inspected; six background silhouettes distinct and complete; playable static context preserved; Blender shading is not game shader parity."
+}

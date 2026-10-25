@@ -1,0 +1,4766 @@
+{
+  "passed": true,
+  "reopened": 104,
+  "assets": [
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--DETAIL",
+      "asset_key": "solar_cabin_harbor_surroundings",
+      "name": "太阳能木屋-港湾周边",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_harbor_surroundings/solar_cabin_harbor_surroundings_v0.2.blend",
+      "source_sha256": "260e335ab213508d33e036c5f1c97738dcb4861f70c78ad22ae0f1208aa6d9f7",
+      "regions": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-01",
+      "asset_key": "solar_cabin_front_deck",
+      "name": "太阳能木屋-前侧平台",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_front_deck/solar_cabin_front_deck_v0.2.blend",
+      "source_sha256": "c73e9405070348d36ce8d000e6cf742cca9765fcd71f99b815c4d0778d0a6ee3",
+      "regions": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-02",
+      "asset_key": "solar_cabin_rear_tower",
+      "name": "太阳能木屋-后侧楼体",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_rear_tower/solar_cabin_rear_tower_v0.2.blend",
+      "source_sha256": "77ccff68dcaadbf1686d4ad72cc79e2557e2284dcbc3fa6ba625b2a32efad39c",
+      "regions": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-03",
+      "asset_key": "solar_cabin_core",
+      "name": "太阳能木屋-木屋主体",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_core/solar_cabin_core_v0.2.blend",
+      "source_sha256": "398275c9dcfb5275a074a11d397f47a9af120e92abb661ec179dc940f4b5c00e",
+      "regions": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--DETAIL",
+      "asset_key": "yokohama_station_connections",
+      "name": "横滨沉没铁道-周边连接设施",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/yokohama_station/yokohama_station_connections/yokohama_station_connections_v0.2.blend",
+      "source_sha256": "85bc09c59b01e2b160764d467632c0e8de089fc90d82e006ac90ded41808207d",
+      "regions": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-01",
+      "asset_key": "yokohama_station_platform",
+      "name": "横滨沉没铁道-站台结构",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/yokohama_station/yokohama_station_platform/yokohama_station_platform_v0.2.blend",
+      "source_sha256": "6f6d2654e03fda73806c39b113733f4754f64995430f55943c38a1d87b611695",
+      "regions": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-02",
+      "asset_key": "yokohama_station_east_facilities",
+      "name": "横滨沉没铁道-东侧设施",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/yokohama_station/yokohama_station_east_facilities/yokohama_station_east_facilities_v0.2.blend",
+      "source_sha256": "ebdf5bc4311513125f38158947e035656879898253b04d62ae19c9d9989418e4",
+      "regions": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-03",
+      "asset_key": "yokohama_station_west_facilities",
+      "name": "横滨沉没铁道-西侧设施",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/yokohama_station/yokohama_station_west_facilities/yokohama_station_west_facilities_v0.2.blend",
+      "source_sha256": "3c8eadc4cae3833adca6984fab30b0a37875cec7215cb7f59841b7b82026f33a",
+      "regions": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--DETAIL",
+      "asset_key": "arc_rooftop_farm_outer_structure",
+      "name": "圆弧屋顶农场-外围结构",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/arc_rooftop_farm/arc_rooftop_farm_outer_structure/arc_rooftop_farm_outer_structure_v0.2.blend",
+      "source_sha256": "de6d9ec333fd104176c927fed2579f9a5de84098b6a32bedd32eb97ad4dc049c",
+      "regions": {
+        "海上区域": "圆弧屋顶农场-海上区域",
+        "海下基座": "圆弧屋顶农场-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--UNIT-01",
+      "asset_key": "arc_rooftop_farm_core",
+      "name": "圆弧屋顶农场-农场主体",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/arc_rooftop_farm/arc_rooftop_farm_core/arc_rooftop_farm_core_v0.2.blend",
+      "source_sha256": "f89e2ad4948c8aa321ba4bf4c2d058ceb54622758cf1700bcedd457a9430a858",
+      "regions": {
+        "海上区域": "圆弧屋顶农场-海上区域",
+        "海下基座": "圆弧屋顶农场-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--DETAIL",
+      "asset_key": "far_shore_settlement_water_marker",
+      "name": "远海街町-水面标记",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_water_marker/far_shore_settlement_water_marker_v0.2.blend",
+      "source_sha256": "343db6b135268c0bfff08318b5edd36ad0e33d0227aa9708e73a9d5333b8b9f7",
+      "regions": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-01",
+      "asset_key": "far_shore_settlement_main_building",
+      "name": "远海街町-主楼结构",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_main_building/far_shore_settlement_main_building_v0.2.blend",
+      "source_sha256": "244643588bbbc9ee01e276ed0980efa2ef6f971fbb5232d9e0eac550bb1583cd",
+      "regions": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-02",
+      "asset_key": "far_shore_settlement_annex",
+      "name": "远海街町-附属设施",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_annex/far_shore_settlement_annex_v0.2.blend",
+      "source_sha256": "5e86dfb38c0e7f02d8720609e5eecd22a5c6189473e711898e57c142eb70baab",
+      "regions": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-03",
+      "asset_key": "far_shore_settlement_rooftop_facilities",
+      "name": "远海街町-屋顶设施",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_rooftop_facilities/far_shore_settlement_rooftop_facilities_v0.2.blend",
+      "source_sha256": "3c9e710754ac40afa4c3cc8ee77c6eda867e44d2797b3304de4610cf41de2e1c",
+      "regions": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-04",
+      "asset_key": "far_shore_settlement_side_wall",
+      "name": "远海街町-侧墙结构",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/far_shore_settlement/far_shore_settlement_side_wall/far_shore_settlement_side_wall_v0.2.blend",
+      "source_sha256": "babf6876f7aa8f34d1177a62d3188d6220aa2ec6eb83979850d1a9cd5444dabe",
+      "regions": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--DETAIL",
+      "asset_key": "aquaculture_platform_outer_supports",
+      "name": "浅水养殖台-外围支撑",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/aquaculture_platform/aquaculture_platform_outer_supports/aquaculture_platform_outer_supports_v0.2.blend",
+      "source_sha256": "54d72e0bbcc47816bcb4305f69c294f173932a741619a4fbb634cbf57c698f0c",
+      "regions": {
+        "海上区域": "浅水养殖台-海上区域",
+        "海下基座": "浅水养殖台-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--UNIT-01",
+      "asset_key": "aquaculture_platform_core",
+      "name": "浅水养殖台-养殖台主体",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/aquaculture_platform/aquaculture_platform_core/aquaculture_platform_core_v0.2.blend",
+      "source_sha256": "04fd3bf38e057f7d69646f17776569ff3a5086760cc13d31e596eab566080acd",
+      "regions": {
+        "海上区域": "浅水养殖台-海上区域",
+        "海下基座": "浅水养殖台-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-00",
+      "asset_key": "background_balcony_residence",
+      "name": "远景-阳台住宅楼",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_balcony_residence/background_balcony_residence/background_balcony_residence_v0.2.blend",
+      "source_sha256": "569c84ac0eb38d513ba2d2e8e0b040497762434f196b0c65e664f02dd3f6d357",
+      "regions": {
+        "海上区域": "阳台住宅楼-海上区域",
+        "海下基座": "阳台住宅楼-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-01",
+      "asset_key": "background_broken_roof_frame",
+      "name": "远景-破顶围墙楼",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_broken_roof_frame/background_broken_roof_frame/background_broken_roof_frame_v0.2.blend",
+      "source_sha256": "f52331da7f86bfc487072f51c98cd4d153409588d034f62a234c160988030fdd",
+      "regions": {
+        "海上区域": "破顶围墙楼-海上区域",
+        "海下基座": "破顶围墙楼-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-02",
+      "asset_key": "background_balcony_frame_a",
+      "name": "远景-阳台框架楼甲型",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_balcony_frame_a/background_balcony_frame_a/background_balcony_frame_a_v0.2.blend",
+      "source_sha256": "eccccca03dc533d5889b2342b8e693451a4cc0a38a175da19ee32a43cca12b8d",
+      "regions": {
+        "海上区域": "阳台框架楼甲型-海上区域",
+        "海下基座": "阳台框架楼甲型-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-03",
+      "asset_key": "background_broken_slab_frame",
+      "name": "远景-破损楼板楼",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_broken_slab_frame/background_broken_slab_frame/background_broken_slab_frame_v0.2.blend",
+      "source_sha256": "6ce373a99db192eecbacb3c4df2173c6585933c37dd031907c895cace46a3c45",
+      "regions": {
+        "海上区域": "破损楼板楼-海上区域",
+        "海下基座": "破损楼板楼-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-04",
+      "asset_key": "background_stair_frame",
+      "name": "远景-阶梯框架楼",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_stair_frame/background_stair_frame/background_stair_frame_v0.2.blend",
+      "source_sha256": "8c60b99a3915bc8592e66e90409226146a898080c6cf9ea8d3e7b45f47b3f634",
+      "regions": {
+        "海上区域": "阶梯框架楼-海上区域",
+        "海下基座": "阶梯框架楼-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-05",
+      "asset_key": "background_balcony_frame_b",
+      "name": "远景-阳台框架楼乙型",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_balcony_frame_b/background_balcony_frame_b/background_balcony_frame_b_v0.2.blend",
+      "source_sha256": "c40dd247291240d67bd3e447dbebe61dd435921480686fdffe87b4e300c4ddca",
+      "regions": {
+        "海上区域": "阳台框架楼乙型-海上区域",
+        "海下基座": "阳台框架楼乙型-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-000",
+      "asset_key": "background_shared_part_000",
+      "name": "远景公共构件-000",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_000/background_shared_part_000_v0.2.blend",
+      "source_sha256": "290eff9417b9870d2fe72d337bc4d6405622e42a71ff1453ecfa1c36c7246572",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-001",
+      "asset_key": "background_shared_part_001",
+      "name": "远景公共构件-001",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_001/background_shared_part_001_v0.2.blend",
+      "source_sha256": "8ef00e112d9ae03d44ae748b8bb7771f9d21bac41ccbce6ea8c266fc55de4e2c",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-002",
+      "asset_key": "background_shared_part_002",
+      "name": "远景公共构件-002",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_002/background_shared_part_002_v0.2.blend",
+      "source_sha256": "8bf8eff8fc80b126a0cffc18343bc9816d8b3a05c5f6fc277f47a377dba2f372",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-003",
+      "asset_key": "background_shared_part_003",
+      "name": "远景公共构件-003",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_003/background_shared_part_003_v0.2.blend",
+      "source_sha256": "c085a57423f8bdd0df0983035bad88bb019fbb8f8b3dc7b6b8e4ea68ebc97733",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-004",
+      "asset_key": "background_shared_part_004",
+      "name": "远景公共构件-004",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_004/background_shared_part_004_v0.2.blend",
+      "source_sha256": "3fd1dd7f7377a1f2b98a958634695b96860011d5d3b6a33beae5eef82a35d5db",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-005",
+      "asset_key": "background_shared_part_005",
+      "name": "远景公共构件-005",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_005/background_shared_part_005_v0.2.blend",
+      "source_sha256": "db03138f3ee649916d01ab9bc71f47b41d217770fc55ea901d90295c132cd6f8",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-006",
+      "asset_key": "background_shared_part_006",
+      "name": "远景公共构件-006",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_006/background_shared_part_006_v0.2.blend",
+      "source_sha256": "aebc4297bac58d46c5ecddad8bd17b91c720d0610eea934e4cd3a6bfc26e7941",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-007",
+      "asset_key": "background_shared_part_007",
+      "name": "远景公共构件-007",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_007/background_shared_part_007_v0.2.blend",
+      "source_sha256": "efe26e19d1ae1c76253cac6b9a55131815380adb4438d5c0ed39eae9dbd0eede",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-008",
+      "asset_key": "background_shared_part_008",
+      "name": "远景公共构件-008",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_008/background_shared_part_008_v0.2.blend",
+      "source_sha256": "04e6f0fb6c6f4deb5c325c6b130accf07b9a9e047f865a3a5f6d4ed2137746dc",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-009",
+      "asset_key": "background_shared_part_009",
+      "name": "远景公共构件-009",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_009/background_shared_part_009_v0.2.blend",
+      "source_sha256": "381dfed0020fd2f87ace858fd9a4308c52523e5f4861cec097d59093127e3bdb",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-010",
+      "asset_key": "background_shared_part_010",
+      "name": "远景公共构件-010",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_010/background_shared_part_010_v0.2.blend",
+      "source_sha256": "0c59bc4bb94504566bdf309b4c7f05b9eec192141b539566fb5cd8aab5d40109",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-011",
+      "asset_key": "background_shared_part_011",
+      "name": "远景公共构件-011",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_011/background_shared_part_011_v0.2.blend",
+      "source_sha256": "b02fd2a4f7c28ecee65802ab5e5e8405f1a08526c930ecc59e9ba748b4c5b6ec",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-012",
+      "asset_key": "background_shared_part_012",
+      "name": "远景公共构件-012",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_012/background_shared_part_012_v0.2.blend",
+      "source_sha256": "80060145528e4cca08677b04e5123d2df33378cfe7782dde3084254529d9eecc",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-013",
+      "asset_key": "background_shared_part_013",
+      "name": "远景公共构件-013",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_013/background_shared_part_013_v0.2.blend",
+      "source_sha256": "3266eda02c1f71224f0f5227b1a19156ed9f67a2eaa0f4fa2f9ffb43ce424c5d",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-014",
+      "asset_key": "background_shared_part_014",
+      "name": "远景公共构件-014",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_014/background_shared_part_014_v0.2.blend",
+      "source_sha256": "7468dcad8e9356be4cfcaf8a617eb2c8ad13d3eb416fcb70f40193ad3e2e0d3c",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-015",
+      "asset_key": "background_shared_part_015",
+      "name": "远景公共构件-015",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_015/background_shared_part_015_v0.2.blend",
+      "source_sha256": "db3431e9d47b903ab56556420b4899e0103f8da49aa2be8e1df08295c82ca672",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-016",
+      "asset_key": "background_shared_part_016",
+      "name": "远景公共构件-016",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_016/background_shared_part_016_v0.2.blend",
+      "source_sha256": "0dbd22a4f9828e2564456f7910cf0712cc192c58116baeed97efbbbf2ac69244",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-017",
+      "asset_key": "background_shared_part_017",
+      "name": "远景公共构件-017",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_017/background_shared_part_017_v0.2.blend",
+      "source_sha256": "6c06b65d8950793e74e3c1e337e4655589306a7b0527f0a4f041a1a701ed69c8",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-018",
+      "asset_key": "background_shared_part_018",
+      "name": "远景公共构件-018",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_018/background_shared_part_018_v0.2.blend",
+      "source_sha256": "def3c860f16c49269becb63c51ad3826104a2c3ded4625716a6c203552e8b949",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-019",
+      "asset_key": "background_shared_part_019",
+      "name": "远景公共构件-019",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_019/background_shared_part_019_v0.2.blend",
+      "source_sha256": "4b791e9421bb337c8ea940d5f0770545af3f3cbae30c83100a1e3ee75e25fe41",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-020",
+      "asset_key": "background_shared_part_020",
+      "name": "远景公共构件-020",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_020/background_shared_part_020_v0.2.blend",
+      "source_sha256": "5c5b388aa15a45cbf45f186ae64df51c5edf65adced24225efd0eddde4a83c2f",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-021",
+      "asset_key": "background_shared_part_021",
+      "name": "远景公共构件-021",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_021/background_shared_part_021_v0.2.blend",
+      "source_sha256": "bf2fb251b40765a50459aec9299a13d2103a21167baf0df56c6302ef481a2755",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-022",
+      "asset_key": "background_shared_part_022",
+      "name": "远景公共构件-022",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_022/background_shared_part_022_v0.2.blend",
+      "source_sha256": "eed9e6952b000da930bc4be0c13005a3a37900796ba395c1eeba6446de70b470",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-023",
+      "asset_key": "background_shared_part_023",
+      "name": "远景公共构件-023",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_023/background_shared_part_023_v0.2.blend",
+      "source_sha256": "32b108b096c1f6973c881c8fa9d96c3cb5e86af50f11ff7dc2e12445939f90df",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-024",
+      "asset_key": "background_shared_part_024",
+      "name": "远景公共构件-024",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_024/background_shared_part_024_v0.2.blend",
+      "source_sha256": "fe6b23204fcc0ad42cdfa524325054ac2657dc3a550a9a58f5b5586aa5077733",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-025",
+      "asset_key": "background_shared_part_025",
+      "name": "远景公共构件-025",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_025/background_shared_part_025_v0.2.blend",
+      "source_sha256": "8b8f6e8cc43e522075066c4d191bddb47e41e8d1d5234318d5f0c74cc6bc3903",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-026",
+      "asset_key": "background_shared_part_026",
+      "name": "远景公共构件-026",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_026/background_shared_part_026_v0.2.blend",
+      "source_sha256": "26be4ca190b6cb2b8cb414d975ac3e88ba25a19b0780a6b93adfddd6ed8b083f",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-027",
+      "asset_key": "background_shared_part_027",
+      "name": "远景公共构件-027",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_027/background_shared_part_027_v0.2.blend",
+      "source_sha256": "5b218354ead52581b0a234086babb232423e13a4a791453509573cc626a59292",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-028",
+      "asset_key": "background_shared_part_028",
+      "name": "远景公共构件-028",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_028/background_shared_part_028_v0.2.blend",
+      "source_sha256": "4880a7fc551dbf4082934a67a4dcbfdfef2d2e8e28fc432fed7c0c402fae2733",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-029",
+      "asset_key": "background_shared_part_029",
+      "name": "远景公共构件-029",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_029/background_shared_part_029_v0.2.blend",
+      "source_sha256": "7a3742eb7ef67915063fe62f698d80866d0cefce44abb94eb144b7a09c745353",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-030",
+      "asset_key": "background_shared_part_030",
+      "name": "远景公共构件-030",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_030/background_shared_part_030_v0.2.blend",
+      "source_sha256": "4530ab23e2c3704e7b780216b0c71a3143895fcb9dfb0ca5b5bda3499d40d2b8",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-031",
+      "asset_key": "background_shared_part_031",
+      "name": "远景公共构件-031",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_031/background_shared_part_031_v0.2.blend",
+      "source_sha256": "74ce0acd1c39c9f106d27081c8b599699a0e9293d6549bca05452ec8a7c6ee07",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-032",
+      "asset_key": "background_shared_part_032",
+      "name": "远景公共构件-032",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_032/background_shared_part_032_v0.2.blend",
+      "source_sha256": "1dfa0b6374cadfd1912dd65a10df4381fdce7d58efd9157948423dd81c31ec3a",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-033",
+      "asset_key": "background_shared_part_033",
+      "name": "远景公共构件-033",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_033/background_shared_part_033_v0.2.blend",
+      "source_sha256": "f3918704d381cc2abd4ca2a240c44db48868f488d8a65bddc40e448bd3ca3114",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-034",
+      "asset_key": "background_shared_part_034",
+      "name": "远景公共构件-034",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_034/background_shared_part_034_v0.2.blend",
+      "source_sha256": "355e8c18eaa5a324a965fbcd1f2bd4c37113da7dbd040c368cbc7141bf4136b4",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-035",
+      "asset_key": "background_shared_part_035",
+      "name": "远景公共构件-035",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_035/background_shared_part_035_v0.2.blend",
+      "source_sha256": "48ad5b6936e7e2cc95a156411d2a5c18fd5ce572fd8b3236942f0d1a4a607f7c",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-036",
+      "asset_key": "background_shared_part_036",
+      "name": "远景公共构件-036",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_036/background_shared_part_036_v0.2.blend",
+      "source_sha256": "e7d9a7580e1d7eccf6b8d0d1ccfef911c681c8ee1f9fcdd0525d6326a564cfad",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-037",
+      "asset_key": "background_shared_part_037",
+      "name": "远景公共构件-037",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_037/background_shared_part_037_v0.2.blend",
+      "source_sha256": "3f51f153d9b4f7b9c83a1d1e97c29c3dd547fe163a4fdcd5678b2dcf61e53c5c",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-038",
+      "asset_key": "background_shared_part_038",
+      "name": "远景公共构件-038",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_038/background_shared_part_038_v0.2.blend",
+      "source_sha256": "d247819f77c8822532771e7dcb7773644ea3fd7e4cd995b0f85b27a201987382",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-039",
+      "asset_key": "background_shared_part_039",
+      "name": "远景公共构件-039",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_039/background_shared_part_039_v0.2.blend",
+      "source_sha256": "9a383e0eba5b43169d03ba2e53b07c36df576d1d935dad5e68aa7ae791099d76",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-040",
+      "asset_key": "background_shared_part_040",
+      "name": "远景公共构件-040",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_040/background_shared_part_040_v0.2.blend",
+      "source_sha256": "2bc4700e99bff17ad65060e790d09ff03c26153e4ec72f6eb279b47f670d301e",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-041",
+      "asset_key": "background_shared_part_041",
+      "name": "远景公共构件-041",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_041/background_shared_part_041_v0.2.blend",
+      "source_sha256": "7f1f807bed027c4bbe1a008ce0eba75292920e8e16636822d05d035ddae5fc44",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-042",
+      "asset_key": "background_shared_part_042",
+      "name": "远景公共构件-042",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_042/background_shared_part_042_v0.2.blend",
+      "source_sha256": "29a7176d35867b168ffab0c9c41fdefff10ede9bbbeb45510bd252518283e65e",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-043",
+      "asset_key": "background_shared_part_043",
+      "name": "远景公共构件-043",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_043/background_shared_part_043_v0.2.blend",
+      "source_sha256": "ea4e364beadc912df52ded75df0ae9a302c129cece2e51d7c39af51d6f95c066",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-044",
+      "asset_key": "background_shared_part_044",
+      "name": "远景公共构件-044",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_044/background_shared_part_044_v0.2.blend",
+      "source_sha256": "90dab4e9405ee3f6fc51cc82353530ee60848256611a2942d446d2fb2aec29fa",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-045",
+      "asset_key": "background_shared_part_045",
+      "name": "远景公共构件-045",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_045/background_shared_part_045_v0.2.blend",
+      "source_sha256": "654989de858a05abd7efc66b5b303dc9107a2e812fb78c70025acf84a99a2481",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-046",
+      "asset_key": "background_shared_part_046",
+      "name": "远景公共构件-046",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_046/background_shared_part_046_v0.2.blend",
+      "source_sha256": "099e3ffd0e724b9cbdc949f29372a65ad946602247567536bbdd949b36236be8",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-047",
+      "asset_key": "background_shared_part_047",
+      "name": "远景公共构件-047",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_047/background_shared_part_047_v0.2.blend",
+      "source_sha256": "0f77201d2f108a27fbf48b31817f8504f2d691523dae925a66c35bca0bf5cbcb",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-048",
+      "asset_key": "background_shared_part_048",
+      "name": "远景公共构件-048",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_048/background_shared_part_048_v0.2.blend",
+      "source_sha256": "2c3f4f1402d16ba65cce0fd58f93692b9cf458b4022139d1b37f3d280c515fa8",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-049",
+      "asset_key": "background_shared_part_049",
+      "name": "远景公共构件-049",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_049/background_shared_part_049_v0.2.blend",
+      "source_sha256": "73b989dc517daf7508007e5e2e1c4e5042fb3944a8625926f5f78a15d9ebaa38",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-050",
+      "asset_key": "background_shared_part_050",
+      "name": "远景公共构件-050",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_050/background_shared_part_050_v0.2.blend",
+      "source_sha256": "114023033516fcf6f86adfc1ffc2e4caa93b58fc6cabd247fa8809cfa0045c23",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-051",
+      "asset_key": "background_shared_part_051",
+      "name": "远景公共构件-051",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_051/background_shared_part_051_v0.2.blend",
+      "source_sha256": "93e1b47169206247df66921c200a1f71068f15039ddde961cb21164125e27a25",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-052",
+      "asset_key": "background_shared_part_052",
+      "name": "远景公共构件-052",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_052/background_shared_part_052_v0.2.blend",
+      "source_sha256": "d5444c7338256e4f3e233da059146160f64e9b8652aecb0623bdc784e6443806",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-053",
+      "asset_key": "background_shared_part_053",
+      "name": "远景公共构件-053",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_053/background_shared_part_053_v0.2.blend",
+      "source_sha256": "0d66ea438e78b2a06fc071cce566558c5f067f74f035cf02be11970fceb778e2",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-054",
+      "asset_key": "background_shared_part_054",
+      "name": "远景公共构件-054",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_054/background_shared_part_054_v0.2.blend",
+      "source_sha256": "7c6c8992b6460735a50ee49db664b424fcda18c85a4dbedd0864e4a3f73f1ab4",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-055",
+      "asset_key": "background_shared_part_055",
+      "name": "远景公共构件-055",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_055/background_shared_part_055_v0.2.blend",
+      "source_sha256": "06b1f39f52945e1912bded28fc8f5ef66cda86c589bc887029bb19c0fcda02b6",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-056",
+      "asset_key": "background_shared_part_056",
+      "name": "远景公共构件-056",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_056/background_shared_part_056_v0.2.blend",
+      "source_sha256": "098d7b0b1cd0c5f48df0827bb603f144688bce45f549d74ce4b4fc8134d6662b",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-057",
+      "asset_key": "background_shared_part_057",
+      "name": "远景公共构件-057",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_057/background_shared_part_057_v0.2.blend",
+      "source_sha256": "e8d6a3c4403c3f08a82b70383f45a63d3c6819e849d08f077c8eae8d0dabca45",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-058",
+      "asset_key": "background_shared_part_058",
+      "name": "远景公共构件-058",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_058/background_shared_part_058_v0.2.blend",
+      "source_sha256": "0c94c56b0fc300ed1d648632198538ae60e6e8afd6c0837631b45f33b4ec8a1a",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-059",
+      "asset_key": "background_shared_part_059",
+      "name": "远景公共构件-059",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_059/background_shared_part_059_v0.2.blend",
+      "source_sha256": "4ca22b279a887acb728867e2d07d5dd7002938891132ba801fb8e0c7eac27679",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-060",
+      "asset_key": "background_shared_part_060",
+      "name": "远景公共构件-060",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_060/background_shared_part_060_v0.2.blend",
+      "source_sha256": "939c17826e7ba5760a2218e12ba78260c75772b3feb23e5e4cd8ed889b4032fd",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-061",
+      "asset_key": "background_shared_part_061",
+      "name": "远景公共构件-061",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_061/background_shared_part_061_v0.2.blend",
+      "source_sha256": "751e69ae78ebedb8fc118a4e28be583a02d6fad6b037e803046a452396a831bb",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-062",
+      "asset_key": "background_shared_part_062",
+      "name": "远景公共构件-062",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_062/background_shared_part_062_v0.2.blend",
+      "source_sha256": "53d4e956ed6cb7d5de811710acc1a4e90b6c521c36fddfc76b78dc1d8a0adfe0",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-063",
+      "asset_key": "background_shared_part_063",
+      "name": "远景公共构件-063",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_063/background_shared_part_063_v0.2.blend",
+      "source_sha256": "3c5c38b4d24a4dbffcb05ec8c6e783933d806af3640e429430bc55a2531bc593",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-064",
+      "asset_key": "background_shared_part_064",
+      "name": "远景公共构件-064",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_064/background_shared_part_064_v0.2.blend",
+      "source_sha256": "169e5f4ce11f0bceaee0be09f4b8338c385ac7e0948039172356ab63064537b3",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-065",
+      "asset_key": "background_shared_part_065",
+      "name": "远景公共构件-065",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_065/background_shared_part_065_v0.2.blend",
+      "source_sha256": "e476bddf48acfbd8b095bcbec00039cdd477bcf7e6d931627eae82077d9808c9",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-066",
+      "asset_key": "background_shared_part_066",
+      "name": "远景公共构件-066",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_066/background_shared_part_066_v0.2.blend",
+      "source_sha256": "90000358d8102ca8687f34bd4929b4e2c54d41ed82a6f43329ee7b68f0995d10",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-067",
+      "asset_key": "background_shared_part_067",
+      "name": "远景公共构件-067",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_067/background_shared_part_067_v0.2.blend",
+      "source_sha256": "02981bbe2b4161a62f37e616948adc25792a4d0d82a1ce50155c152280f61f82",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-068",
+      "asset_key": "background_shared_part_068",
+      "name": "远景公共构件-068",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_068/background_shared_part_068_v0.2.blend",
+      "source_sha256": "00f6ed72f176c2ab4f4ac68588e551b81e8f22c6b98129468d3d7504f69bf61f",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-069",
+      "asset_key": "background_shared_part_069",
+      "name": "远景公共构件-069",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_069/background_shared_part_069_v0.2.blend",
+      "source_sha256": "536fdf9eb02830f232a944b00f8360760cfbd3389fcccd7b4804ac2f75f5c6d0",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-070",
+      "asset_key": "background_shared_part_070",
+      "name": "远景公共构件-070",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_070/background_shared_part_070_v0.2.blend",
+      "source_sha256": "dc73afbe05dbcfc2c92329f69f2f9dc6b6823e18565262cb4117eec13fb88b52",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-071",
+      "asset_key": "background_shared_part_071",
+      "name": "远景公共构件-071",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_071/background_shared_part_071_v0.2.blend",
+      "source_sha256": "0f225c57da691f80468ae1a6b539f2381e001debf3dadcd7e23099264c214ba6",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-072",
+      "asset_key": "background_shared_part_072",
+      "name": "远景公共构件-072",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_072/background_shared_part_072_v0.2.blend",
+      "source_sha256": "80b2226b9af2056d08fe9b54fa086c3e6d12d146aaa6bae7900d7120db86650b",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-073",
+      "asset_key": "background_shared_part_073",
+      "name": "远景公共构件-073",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_components/background_shared_parts/background_shared_part_073/background_shared_part_073_v0.2.blend",
+      "source_sha256": "e41ca5a64140c2e53df9c3d93786fc0ea7718f321585f520740f5c423af6a87b",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "asset_key": "solar_cabin",
+      "name": "太阳能木屋",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/solar_cabin/solar_cabin_v0.2.blend",
+      "source_sha256": "f7a839c9e6bc5bc0a775132447cc66825a7db605daa2b7f3dc587fc9aa8d22cc",
+      "regions": {
+        "海上区域": "太阳能木屋-海上区域",
+        "海下基座": "太阳能木屋-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-YOKOHAMA-STATION",
+      "asset_key": "yokohama_station",
+      "name": "横滨沉没铁道",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/yokohama_station/yokohama_station_v0.2.blend",
+      "source_sha256": "d7983e9adb9877ef9eb6ff53315bb47d001955cc05afad4bf16dc250658e91a9",
+      "regions": {
+        "海上区域": "横滨沉没铁道-海上区域",
+        "海下基座": "横滨沉没铁道-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-ARC-ROOFTOP-FARM",
+      "asset_key": "arc_rooftop_farm",
+      "name": "圆弧屋顶农场",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/arc_rooftop_farm/arc_rooftop_farm_v0.2.blend",
+      "source_sha256": "0a87c4ba9b70de4a404f298945dd348d7372356fd247185e6938716d3058874f",
+      "regions": {
+        "海上区域": "圆弧屋顶农场-海上区域",
+        "海下基座": "圆弧屋顶农场-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-FAR-SHORE-SETTLEMENT",
+      "asset_key": "far_shore_settlement",
+      "name": "远海街町",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/far_shore_settlement/far_shore_settlement_v0.2.blend",
+      "source_sha256": "98fe7954908309607516a0b2213d2e9f0c7c44bb094d5881f71ed9995c86c841",
+      "regions": {
+        "海上区域": "远海街町-海上区域",
+        "海下基座": "远海街町-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-FACILITY-AQUACULTURE-PLATFORM",
+      "asset_key": "aquaculture_platform",
+      "name": "浅水养殖台",
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/aquaculture_platform/aquaculture_platform_v0.2.blend",
+      "source_sha256": "c230f3300097597f3da3e93eb8288034156587a3a5074c169c2198939238d4b1",
+      "regions": {
+        "海上区域": "浅水养殖台-海上区域",
+        "海下基座": "浅水养殖台-海下基座"
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-PLAYABLE-OVERVIEW",
+      "asset_key": "sea_playable_facilities",
+      "name": "海面可玩设施总览",
+      "source": "art_source/scenes/runtime_building_reference/v002/sea_playable_facilities_v0.2.blend",
+      "source_sha256": "ddef0ee291d5c34699b42a713a659a22ccb8fce0e61893c32d2c22ee7c805a7a",
+      "regions": {}
+    },
+    {
+      "asset_id": "SEA-REF-01-BACKGROUND-BUILDING-LIBRARY",
+      "asset_key": "background_building_components",
+      "name": "远景建筑组件总览",
+      "source": "art_source/scenes/runtime_building_reference/v002/background_building_components_v0.2.blend",
+      "source_sha256": "17dfa1b5d7289698f6eee8d25fd93cfda4bd7597b273d3cde0cb9a738dd3b3d5",
+      "regions": {}
+    }
+  ],
+  "hierarchy": {
+    "sea_playable_facilities": {
+      "太阳能木屋": [
+        "太阳能木屋-海上区域",
+        "太阳能木屋-海下基座"
+      ],
+      "横滨沉没铁道": [
+        "横滨沉没铁道-海上区域",
+        "横滨沉没铁道-海下基座"
+      ],
+      "圆弧屋顶农场": [
+        "圆弧屋顶农场-海上区域",
+        "圆弧屋顶农场-海下基座"
+      ],
+      "远海街町": [
+        "远海街町-海上区域",
+        "远海街町-海下基座"
+      ],
+      "浅水养殖台": [
+        "浅水养殖台-海上区域",
+        "浅水养殖台-海下基座"
+      ]
+    },
+    "background_building_components": {
+      "远景-阳台住宅楼": [
+        "阳台住宅楼-海上区域",
+        "阳台住宅楼-海下基座"
+      ],
+      "远景-破顶围墙楼": [
+        "破顶围墙楼-海上区域",
+        "破顶围墙楼-海下基座"
+      ],
+      "远景-阳台框架楼甲型": [
+        "阳台框架楼甲型-海上区域",
+        "阳台框架楼甲型-海下基座"
+      ],
+      "远景-破损楼板楼": [
+        "破损楼板楼-海上区域",
+        "破损楼板楼-海下基座"
+      ],
+      "远景-阶梯框架楼": [
+        "阶梯框架楼-海上区域",
+        "阶梯框架楼-海下基座"
+      ],
+      "远景-阳台框架楼乙型": [
+        "阳台框架楼乙型-海上区域",
+        "阳台框架楼乙型-海下基座"
+      ]
+    }
+  },
+  "geometry_checks": [
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--DETAIL",
+      "asset_key": "solar_cabin_harbor_surroundings",
+      "area_relative_error": 6.079916933831507e-09,
+      "before": {
+        "area": 1791.2349457202763,
+        "triangles": 13328,
+        "edges": 33914,
+        "bounds": {
+          "min": [
+            -19.28172492980957,
+            -17.788284301757812,
+            -22.18463134765625
+          ],
+          "max": [
+            19.28172492980957,
+            17.788284301757812,
+            11.894759178161621
+          ]
+        }
+      },
+      "after": {
+        "area": 1791.234956610836,
+        "triangles": 13704,
+        "edges": 34627,
+        "bounds": {
+          "min": [
+            -19.28172492980957,
+            -17.788284301757812,
+            -22.18463134765625
+          ],
+          "max": [
+            19.28172492980957,
+            17.788284301757812,
+            11.894759178161621
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-01",
+      "asset_key": "solar_cabin_front_deck",
+      "area_relative_error": 2.7375276837104392e-11,
+      "before": {
+        "area": 3121.686483091847,
+        "triangles": 22836,
+        "edges": 62097,
+        "bounds": {
+          "min": [
+            -7.818234443664551,
+            -8.066352844238281,
+            -30.799999237060547
+          ],
+          "max": [
+            7.818234443664551,
+            8.066352844238281,
+            6.03000020980835
+          ]
+        }
+      },
+      "after": {
+        "area": 3121.686483177304,
+        "triangles": 22986,
+        "edges": 62384,
+        "bounds": {
+          "min": [
+            -7.818234443664551,
+            -8.066352844238281,
+            -30.799999237060547
+          ],
+          "max": [
+            7.818234443664551,
+            8.066352844238281,
+            6.03000020980835
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-02",
+      "asset_key": "solar_cabin_rear_tower",
+      "area_relative_error": 3.9145562844315055e-08,
+      "before": {
+        "area": 2237.22539189021,
+        "triangles": 29488,
+        "edges": 85866,
+        "bounds": {
+          "min": [
+            -7.294802665710449,
+            -5.970829010009766,
+            -22.700000762939453
+          ],
+          "max": [
+            7.294802665710449,
+            5.970829010009766,
+            9.341451644897461
+          ]
+        }
+      },
+      "after": {
+        "area": 2237.2254794676574,
+        "triangles": 29504,
+        "edges": 85894,
+        "bounds": {
+          "min": [
+            -7.294802665710449,
+            -5.970829010009766,
+            -22.700000762939453
+          ],
+          "max": [
+            7.294802665710449,
+            5.970829010009766,
+            9.341451644897461
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE1-HOME-HARBOR--UNIT-03",
+      "asset_key": "solar_cabin_core",
+      "area_relative_error": 4.973753039390613e-09,
+      "before": {
+        "area": 1510.0306848560356,
+        "triangles": 27748,
+        "edges": 81426,
+        "bounds": {
+          "min": [
+            -9.053900718688965,
+            -5.9761762619018555,
+            -14.550000190734863
+          ],
+          "max": [
+            9.053900718688965,
+            5.9761762619018555,
+            8.003241539001465
+          ]
+        }
+      },
+      "after": {
+        "area": 1510.0306773455159,
+        "triangles": 27764,
+        "edges": 81454,
+        "bounds": {
+          "min": [
+            -9.053900718688965,
+            -5.9761762619018555,
+            -14.550000190734863
+          ],
+          "max": [
+            9.053900718688965,
+            5.9761762619018555,
+            8.003241539001465
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--DETAIL",
+      "asset_key": "yokohama_station_connections",
+      "area_relative_error": 1.9399645231365223e-09,
+      "before": {
+        "area": 86.64272635196495,
+        "triangles": 1340,
+        "edges": 3335,
+        "bounds": {
+          "min": [
+            -4.915835380554199,
+            -3.678828477859497,
+            -0.27566075325012207
+          ],
+          "max": [
+            4.915835380554199,
+            3.678828477859497,
+            5.132819175720215
+          ]
+        }
+      },
+      "after": {
+        "area": 86.64272618388114,
+        "triangles": 1396,
+        "edges": 3424,
+        "bounds": {
+          "min": [
+            -4.915835380554199,
+            -3.678828477859497,
+            -0.27566075325012207
+          ],
+          "max": [
+            4.915835380554199,
+            3.678828477859497,
+            5.132819175720215
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-01",
+      "asset_key": "yokohama_station_platform",
+      "area_relative_error": 4.0900739124705116e-10,
+      "before": {
+        "area": 1188.7175573679701,
+        "triangles": 2060,
+        "edges": 4958,
+        "bounds": {
+          "min": [
+            -10.384952545166016,
+            -9.490240097045898,
+            -11.430000305175781
+          ],
+          "max": [
+            10.384952545166016,
+            9.490240097045898,
+            3.8399999141693115
+          ]
+        }
+      },
+      "after": {
+        "area": 1188.7175568817759,
+        "triangles": 2336,
+        "edges": 5398,
+        "bounds": {
+          "min": [
+            -10.384952545166016,
+            -9.490240097045898,
+            -11.430000305175781
+          ],
+          "max": [
+            10.384952545166016,
+            9.490240097045898,
+            3.8399999141693115
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-02",
+      "asset_key": "yokohama_station_east_facilities",
+      "area_relative_error": 3.748329577309411e-09,
+      "before": {
+        "area": 398.4073790786462,
+        "triangles": 5748,
+        "edges": 16911,
+        "bounds": {
+          "min": [
+            -7.192013263702393,
+            -4.065993785858154,
+            0.6200000047683716
+          ],
+          "max": [
+            7.192013263702393,
+            4.065993785858154,
+            5.818214416503906
+          ]
+        }
+      },
+      "after": {
+        "area": 398.40737758528405,
+        "triangles": 5762,
+        "edges": 16936,
+        "bounds": {
+          "min": [
+            -7.192013263702393,
+            -4.065993785858154,
+            0.6200000047683716
+          ],
+          "max": [
+            7.192013263702393,
+            4.065993785858154,
+            5.818214416503906
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-03",
+      "asset_key": "yokohama_station_west_facilities",
+      "area_relative_error": 1.8536601490997037e-09,
+      "before": {
+        "area": 367.1445309989944,
+        "triangles": 5368,
+        "edges": 15838,
+        "bounds": {
+          "min": [
+            -4.640092849731445,
+            -4.173122882843018,
+            -5.630000114440918
+          ],
+          "max": [
+            4.640092849731445,
+            4.173122882843018,
+            5.966150283813477
+          ]
+        }
+      },
+      "after": {
+        "area": 367.1445316795556,
+        "triangles": 5496,
+        "edges": 16048,
+        "bounds": {
+          "min": [
+            -4.640092849731445,
+            -4.173122882843018,
+            -5.630000114440918
+          ],
+          "max": [
+            4.640092849731445,
+            4.173122882843018,
+            5.966150283813477
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--DETAIL",
+      "asset_key": "arc_rooftop_farm_outer_structure",
+      "area_relative_error": 1.0490683223211395e-09,
+      "before": {
+        "area": 1033.521176971473,
+        "triangles": 50300,
+        "edges": 148108,
+        "bounds": {
+          "min": [
+            -7.284475803375244,
+            -8.920125007629395,
+            -10.84999942779541
+          ],
+          "max": [
+            7.284475803375244,
+            8.920125007629395,
+            7.91231632232666
+          ]
+        }
+      },
+      "after": {
+        "area": 1033.5211758872388,
+        "triangles": 51214,
+        "edges": 149760,
+        "bounds": {
+          "min": [
+            -7.284475803375244,
+            -8.920125007629395,
+            -10.84999942779541
+          ],
+          "max": [
+            7.284475803375244,
+            8.920125007629395,
+            7.91231632232666
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE3-ARC-FARM--UNIT-01",
+      "asset_key": "arc_rooftop_farm_core",
+      "area_relative_error": 8.722792240310562e-09,
+      "before": {
+        "area": 4845.476634040053,
+        "triangles": 59344,
+        "edges": 173249,
+        "bounds": {
+          "min": [
+            -7.330694675445557,
+            -7.016266822814941,
+            -23.5
+          ],
+          "max": [
+            7.330694675445557,
+            7.016266822814941,
+            7.701900005340576
+          ]
+        }
+      },
+      "after": {
+        "area": 4845.476676306139,
+        "triangles": 60802,
+        "edges": 175922,
+        "bounds": {
+          "min": [
+            -7.330694675445557,
+            -7.016266822814941,
+            -23.5
+          ],
+          "max": [
+            7.330694675445557,
+            7.016266822814941,
+            7.701900005340576
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--DETAIL",
+      "asset_key": "far_shore_settlement_water_marker",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0,
+        "triangles": 0,
+        "edges": 0,
+        "bounds": {
+          "min": [
+            -0.2850618362426758,
+            -0.2698245048522949,
+            1.0798313617706299
+          ],
+          "max": [
+            0.2850618362426758,
+            0.2698245048522949,
+            1.3403297662734985
+          ]
+        }
+      },
+      "after": {
+        "area": 0,
+        "triangles": 0,
+        "edges": 0,
+        "bounds": {
+          "min": [
+            -0.2850618362426758,
+            -0.2698245048522949,
+            1.0798313617706299
+          ],
+          "max": [
+            0.2850618362426758,
+            0.2698245048522949,
+            1.3403297662734985
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-01",
+      "asset_key": "far_shore_settlement_main_building",
+      "area_relative_error": 1.754907785133499e-08,
+      "before": {
+        "area": 856.9968043068651,
+        "triangles": 348,
+        "edges": 1038,
+        "bounds": {
+          "min": [
+            -4.977606773376465,
+            -4.418437957763672,
+            -13.079999923706055
+          ],
+          "max": [
+            4.977606773376465,
+            4.418437957763672,
+            6.920000076293945
+          ]
+        }
+      },
+      "after": {
+        "area": 856.9968193463687,
+        "triangles": 460,
+        "edges": 1258,
+        "bounds": {
+          "min": [
+            -4.977606773376465,
+            -4.418437957763672,
+            -13.079999923706055
+          ],
+          "max": [
+            4.977606773376465,
+            4.418437957763672,
+            6.920000076293945
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-02",
+      "asset_key": "far_shore_settlement_annex",
+      "area_relative_error": 4.031618938150353e-09,
+      "before": {
+        "area": 152.46383448126085,
+        "triangles": 456,
+        "edges": 1320,
+        "bounds": {
+          "min": [
+            -3.7645645141601562,
+            -3.8044819831848145,
+            -4.679999828338623
+          ],
+          "max": [
+            3.7645645141601562,
+            3.8044819831848145,
+            4.8053412437438965
+          ]
+        }
+      },
+      "after": {
+        "area": 152.46383386658476,
+        "triangles": 504,
+        "edges": 1416,
+        "bounds": {
+          "min": [
+            -3.7645645141601562,
+            -3.8044819831848145,
+            -4.679999828338623
+          ],
+          "max": [
+            3.7645645141601562,
+            3.8044819831848145,
+            4.8053412437438965
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-03",
+      "asset_key": "far_shore_settlement_rooftop_facilities",
+      "area_relative_error": 3.5050819461725607e-09,
+      "before": {
+        "area": 81.16428499952843,
+        "triangles": 1116,
+        "edges": 2088,
+        "bounds": {
+          "min": [
+            -2.9216346740722656,
+            -3.2824254035949707,
+            0.7537347078323364
+          ],
+          "max": [
+            2.9216346740722656,
+            3.2824254035949707,
+            5.541749954223633
+          ]
+        }
+      },
+      "after": {
+        "area": 81.1642852840159,
+        "triangles": 1178,
+        "edges": 2188,
+        "bounds": {
+          "min": [
+            -2.9216346740722656,
+            -3.2824254035949707,
+            0.7537347078323364
+          ],
+          "max": [
+            2.9216346740722656,
+            3.2824254035949707,
+            5.541749954223633
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-04",
+      "asset_key": "far_shore_settlement_side_wall",
+      "area_relative_error": 4.672276628885399e-08,
+      "before": {
+        "area": 17.471998017666934,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.798693299293518,
+            -0.7554060220718384,
+            -0.10951751470565796
+          ],
+          "max": [
+            1.798693299293518,
+            0.7554060220718384,
+            3.64951753616333
+          ]
+        }
+      },
+      "after": {
+        "area": 17.471998834007014,
+        "triangles": 26,
+        "edges": 55,
+        "bounds": {
+          "min": [
+            -1.798693299293518,
+            -0.7554060220718384,
+            -0.10951751470565796
+          ],
+          "max": [
+            1.798693299293518,
+            0.7554060220718384,
+            3.64951753616333
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--DETAIL",
+      "asset_key": "aquaculture_platform_outer_supports",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 45.74520298847015,
+        "triangles": 156,
+        "edges": 390,
+        "bounds": {
+          "min": [
+            -9.406508445739746,
+            -4.209312438964844,
+            -18.350000381469727
+          ],
+          "max": [
+            9.406508445739746,
+            4.209312438964844,
+            1.3590461015701294
+          ]
+        }
+      },
+      "after": {
+        "area": 45.74520298847015,
+        "triangles": 156,
+        "edges": 390,
+        "bounds": {
+          "min": [
+            -9.406508445739746,
+            -4.209312438964844,
+            -18.350000381469727
+          ],
+          "max": [
+            9.406508445739746,
+            4.209312438964844,
+            1.3590461015701294
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-ZONE5-AQUA-PLATFORM--UNIT-01",
+      "asset_key": "aquaculture_platform_core",
+      "area_relative_error": 1.697281083766377e-09,
+      "before": {
+        "area": 233.19925021912147,
+        "triangles": 580,
+        "edges": 1164,
+        "bounds": {
+          "min": [
+            -5.505077362060547,
+            -2.75,
+            -7.0
+          ],
+          "max": [
+            5.505077362060547,
+            2.75,
+            2.81000018119812
+          ]
+        }
+      },
+      "after": {
+        "area": 233.1992498233168,
+        "triangles": 688,
+        "edges": 1347,
+        "bounds": {
+          "min": [
+            -5.505077362060547,
+            -2.75,
+            -7.0
+          ],
+          "max": [
+            5.505077362060547,
+            2.75,
+            2.81000018119812
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-00",
+      "asset_key": "background_balcony_residence",
+      "area_relative_error": 1.379282371998602e-09,
+      "before": {
+        "area": 3100.6777160064453,
+        "triangles": 5272,
+        "edges": 14520,
+        "bounds": {
+          "min": [
+            -3.7999982833862305,
+            -4.400002479553223,
+            -18.0
+          ],
+          "max": [
+            3.799996852874756,
+            3.0999956130981445,
+            12.425000190734863
+          ]
+        }
+      },
+      "after": {
+        "area": 3100.6777202831554,
+        "triangles": 5544,
+        "edges": 14996,
+        "bounds": {
+          "min": [
+            -3.7999982833862305,
+            -4.400002479553223,
+            -18.0
+          ],
+          "max": [
+            3.799996852874756,
+            3.0999956130981445,
+            12.425000190734863
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-01",
+      "asset_key": "background_broken_roof_frame",
+      "area_relative_error": 5.957362948835769e-10,
+      "before": {
+        "area": 1612.8433326575641,
+        "triangles": 2456,
+        "edges": 6270,
+        "bounds": {
+          "min": [
+            -3.389674186706543,
+            -2.50000262260437,
+            -22.474998474121094
+          ],
+          "max": [
+            3.2000014781951904,
+            2.5250051021575928,
+            7.878636837005615
+          ]
+        }
+      },
+      "after": {
+        "area": 1612.8433316967348,
+        "triangles": 2552,
+        "edges": 6438,
+        "bounds": {
+          "min": [
+            -3.389674186706543,
+            -2.50000262260437,
+            -22.474998474121094
+          ],
+          "max": [
+            3.2000014781951904,
+            2.5250051021575928,
+            7.878636837005615
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-02",
+      "asset_key": "background_balcony_frame_a",
+      "area_relative_error": 1.5470218520876275e-09,
+      "before": {
+        "area": 1537.3006479880803,
+        "triangles": 2500,
+        "edges": 6390,
+        "bounds": {
+          "min": [
+            -3.13199520111084,
+            -4.547005653381348,
+            -21.474998474121094
+          ],
+          "max": [
+            3.421999931335449,
+            2.61899995803833,
+            8.878636360168457
+          ]
+        }
+      },
+      "after": {
+        "area": 1537.300650366318,
+        "triangles": 2692,
+        "edges": 6726,
+        "bounds": {
+          "min": [
+            -3.13199520111084,
+            -4.547005653381348,
+            -21.474998474121094
+          ],
+          "max": [
+            3.421999931335449,
+            2.61899995803833,
+            8.878636360168457
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-03",
+      "asset_key": "background_broken_slab_frame",
+      "area_relative_error": 4.620605387580295e-10,
+      "before": {
+        "area": 1391.330306601415,
+        "triangles": 2496,
+        "edges": 6390,
+        "bounds": {
+          "min": [
+            -2.843994379043579,
+            -2.4000051021575928,
+            -23.474998474121094
+          ],
+          "max": [
+            2.600001335144043,
+            2.4310054779052734,
+            6.878636360168457
+          ]
+        }
+      },
+      "after": {
+        "area": 1391.3303059585362,
+        "triangles": 2608,
+        "edges": 6586,
+        "bounds": {
+          "min": [
+            -2.843994379043579,
+            -2.4000051021575928,
+            -23.474998474121094
+          ],
+          "max": [
+            2.600001335144043,
+            2.4310054779052734,
+            6.878636360168457
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-04",
+      "asset_key": "background_stair_frame",
+      "area_relative_error": 1.0654222924812264e-09,
+      "before": {
+        "area": 1321.3879510628458,
+        "triangles": 2564,
+        "edges": 6570,
+        "bounds": {
+          "min": [
+            -2.843989610671997,
+            -3.994994640350342,
+            -23.875
+          ],
+          "max": [
+            2.600006103515625,
+            2.2430005073547363,
+            6.478635787963867
+          ]
+        }
+      },
+      "after": {
+        "area": 1321.3879496550096,
+        "triangles": 2744,
+        "edges": 6890,
+        "bounds": {
+          "min": [
+            -2.843989610671997,
+            -3.994994640350342,
+            -23.875
+          ],
+          "max": [
+            2.600006103515625,
+            2.2430005073547363,
+            6.478635787963867
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-TYPE-05",
+      "asset_key": "background_balcony_frame_b",
+      "area_relative_error": 2.321536644927884e-09,
+      "before": {
+        "area": 1358.8031065677962,
+        "triangles": 2484,
+        "edges": 6360,
+        "bounds": {
+          "min": [
+            -2.987993001937866,
+            -3.9449968338012695,
+            -24.375
+          ],
+          "max": [
+            3.244999885559082,
+            2.2900021076202393,
+            5.819999694824219
+          ]
+        }
+      },
+      "after": {
+        "area": 1358.803103413285,
+        "triangles": 2644,
+        "edges": 6644,
+        "bounds": {
+          "min": [
+            -2.987993001937866,
+            -3.9449968338012695,
+            -24.375
+          ],
+          "max": [
+            3.244999885559082,
+            2.2900021076202393,
+            5.819999694824219
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-000",
+      "asset_key": "background_shared_part_000",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.2896276885721183,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.5705755352973938,
+            -0.6059901118278503,
+            0.1058843806385994
+          ],
+          "max": [
+            0.5705755352973938,
+            0.6166173219680786,
+            0.6671344637870789
+          ]
+        }
+      },
+      "after": {
+        "area": 2.2896276885721183,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.5705755352973938,
+            -0.6059901118278503,
+            0.1058843806385994
+          ],
+          "max": [
+            0.5705755352973938,
+            0.6166173219680786,
+            0.6671344637870789
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-001",
+      "asset_key": "background_shared_part_001",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0.8182136670030957,
+        "triangles": 60,
+        "edges": 180,
+        "bounds": {
+          "min": [
+            -0.03266269713640213,
+            -0.1144319474697113,
+            -1.8988639116287231
+          ],
+          "max": [
+            0.3926627039909363,
+            0.03443194553256035,
+            -0.20113611221313477
+          ]
+        }
+      },
+      "after": {
+        "area": 0.8182136670030957,
+        "triangles": 60,
+        "edges": 180,
+        "bounds": {
+          "min": [
+            -0.03266269713640213,
+            -0.1144319474697113,
+            -1.8988639116287231
+          ],
+          "max": [
+            0.3926627039909363,
+            0.03443194553256035,
+            -0.20113611221313477
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-002",
+      "asset_key": "background_shared_part_002",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 5.284799975698584,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.7999999523162842,
+            -0.17000000178813934,
+            -0.18000000715255737
+          ],
+          "max": [
+            1.7999999523162842,
+            0.17000000178813934,
+            0.18000000715255737
+          ]
+        }
+      },
+      "after": {
+        "area": 5.284799975698584,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.7999999523162842,
+            -0.17000000178813934,
+            -0.18000000715255737
+          ],
+          "max": [
+            1.7999999523162842,
+            0.17000000178813934,
+            0.18000000715255737
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-003",
+      "asset_key": "background_shared_part_003",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.9778906756992485,
+        "triangles": 216,
+        "edges": 348,
+        "bounds": {
+          "min": [
+            -1.0800000429153442,
+            -0.06928203254938126,
+            -1.0635923147201538
+          ],
+          "max": [
+            1.0800000429153442,
+            0.06928203254938126,
+            1.0635923147201538
+          ]
+        }
+      },
+      "after": {
+        "area": 2.9778906756992485,
+        "triangles": 216,
+        "edges": 348,
+        "bounds": {
+          "min": [
+            -1.0800000429153442,
+            -0.06928203254938126,
+            -1.0635923147201538
+          ],
+          "max": [
+            1.0800000429153442,
+            0.06928203254938126,
+            1.0635923147201538
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-004",
+      "asset_key": "background_shared_part_004",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0.6891499856123469,
+        "triangles": 84,
+        "edges": 252,
+        "bounds": {
+          "min": [
+            -0.1470397561788559,
+            -0.027499999850988388,
+            -2.309999942779541
+          ],
+          "max": [
+            0.1474488377571106,
+            0.027499999850988388,
+            0.20999999344348907
+          ]
+        }
+      },
+      "after": {
+        "area": 0.6891499856123469,
+        "triangles": 84,
+        "edges": 252,
+        "bounds": {
+          "min": [
+            -0.1470397561788559,
+            -0.027499999850988388,
+            -2.309999942779541
+          ],
+          "max": [
+            0.1474488377571106,
+            0.027499999850988388,
+            0.20999999344348907
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-005",
+      "asset_key": "background_shared_part_005",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.2896276601047156,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.7183449864387512,
+            -0.43371066451072693,
+            0.2606845498085022
+          ],
+          "max": [
+            0.7183449864387512,
+            0.4636009633541107,
+            0.7828729748725891
+          ]
+        }
+      },
+      "after": {
+        "area": 2.2896276601047156,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.7183449864387512,
+            -0.43371066451072693,
+            0.2606845498085022
+          ],
+          "max": [
+            0.7183449864387512,
+            0.4636009633541107,
+            0.7828729748725891
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-006",
+      "asset_key": "background_shared_part_006",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.289627712460017,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.31362131237983704,
+            -0.7685804963111877,
+            0.19028817117214203
+          ],
+          "max": [
+            0.31362131237983704,
+            0.7685804963111877,
+            0.7897118330001831
+          ]
+        }
+      },
+      "after": {
+        "area": 2.289627712460017,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.31362131237983704,
+            -0.7685804963111877,
+            0.19028817117214203
+          ],
+          "max": [
+            0.31362131237983704,
+            0.7685804963111877,
+            0.7897118330001831
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-007",
+      "asset_key": "background_shared_part_007",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 30.180005383218102,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            1.774999976158142,
+            -7.5
+          ],
+          "max": [
+            2.299999952316284,
+            2.0250000953674316,
+            -0.8999999761581421
+          ]
+        }
+      },
+      "after": {
+        "area": 30.180005383218102,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            1.774999976158142,
+            -7.5
+          ],
+          "max": [
+            2.299999952316284,
+            2.0250000953674316,
+            -0.8999999761581421
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-008",
+      "asset_key": "background_shared_part_008",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 4.503000056808088,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -1.690000057220459,
+            -1.5178977251052856,
+            0.125
+          ],
+          "max": [
+            1.663934588432312,
+            -0.18602526187896729,
+            0.4749999940395355
+          ]
+        }
+      },
+      "after": {
+        "area": 4.503000056808088,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -1.690000057220459,
+            -1.5178977251052856,
+            0.125
+          ],
+          "max": [
+            1.663934588432312,
+            -0.18602526187896729,
+            0.4749999940395355
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-009",
+      "asset_key": "background_shared_part_009",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 251.88000493763133,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.9000000953674316,
+            -2.1500000953674316,
+            -5.0
+          ],
+          "max": [
+            2.9000000953674316,
+            2.1500000953674316,
+            5.0
+          ]
+        }
+      },
+      "after": {
+        "area": 251.88000493763133,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.9000000953674316,
+            -2.1500000953674316,
+            -5.0
+          ],
+          "max": [
+            2.9000000953674316,
+            2.1500000953674316,
+            5.0
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-010",
+      "asset_key": "background_shared_part_010",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 11.941450962416695,
+        "triangles": 36,
+        "edges": 91,
+        "bounds": {
+          "min": [
+            -0.9848077297210693,
+            -1.0,
+            -0.5
+          ],
+          "max": [
+            0.9848077297210693,
+            0.9396926164627075,
+            0.5
+          ]
+        }
+      },
+      "after": {
+        "area": 11.941450962416695,
+        "triangles": 36,
+        "edges": 91,
+        "bounds": {
+          "min": [
+            -0.9848077297210693,
+            -1.0,
+            -0.5
+          ],
+          "max": [
+            0.9848077297210693,
+            0.9396926164627075,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-011",
+      "asset_key": "background_shared_part_011",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0.5906999958448438,
+        "triangles": 72,
+        "edges": 216,
+        "bounds": {
+          "min": [
+            -0.11831630021333694,
+            -0.027499999850988388,
+            -1.9600000381469727
+          ],
+          "max": [
+            0.1474488377571106,
+            0.027499999850988388,
+            0.20999999344348907
+          ]
+        }
+      },
+      "after": {
+        "area": 0.5906999958448438,
+        "triangles": 72,
+        "edges": 216,
+        "bounds": {
+          "min": [
+            -0.11831630021333694,
+            -0.027499999850988388,
+            -1.9600000381469727
+          ],
+          "max": [
+            0.1474488377571106,
+            0.027499999850988388,
+            0.20999999344348907
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-012",
+      "asset_key": "background_shared_part_012",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 8.74784023759326,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.9480000138282776,
+            -0.1599999964237213,
+            -0.8500000238418579
+          ],
+          "max": [
+            0.9480000138282776,
+            0.1599999964237213,
+            0.8500000238418579
+          ]
+        }
+      },
+      "after": {
+        "area": 8.74784023759326,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.9480000138282776,
+            -0.1599999964237213,
+            -0.8500000238418579
+          ],
+          "max": [
+            0.9480000138282776,
+            0.1599999964237213,
+            0.8500000238418579
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-013",
+      "asset_key": "background_shared_part_013",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 1.2711999585164475,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4560000002384186,
+            -0.17000000178813934,
+            -0.12999999523162842
+          ],
+          "max": [
+            0.4560000002384186,
+            0.17000000178813934,
+            0.12999999523162842
+          ]
+        }
+      },
+      "after": {
+        "area": 1.2711999585164475,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4560000002384186,
+            -0.17000000178813934,
+            -0.12999999523162842
+          ],
+          "max": [
+            0.4560000002384186,
+            0.17000000178813934,
+            0.12999999523162842
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-014",
+      "asset_key": "background_shared_part_014",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 9.574540640603848,
+        "triangles": 20,
+        "edges": 60,
+        "bounds": {
+          "min": [
+            -0.8506507873535156,
+            -0.8506507873535156,
+            -0.8506507873535156
+          ],
+          "max": [
+            0.8506507873535156,
+            0.8506507873535156,
+            0.8506507873535156
+          ]
+        }
+      },
+      "after": {
+        "area": 9.574540640603848,
+        "triangles": 20,
+        "edges": 60,
+        "bounds": {
+          "min": [
+            -0.8506507873535156,
+            -0.8506507873535156,
+            -0.8506507873535156
+          ],
+          "max": [
+            0.8506507873535156,
+            0.8506507873535156,
+            0.8506507873535156
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-015",
+      "asset_key": "background_shared_part_015",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0.10555931834847912,
+        "triangles": 20,
+        "edges": 60,
+        "bounds": {
+          "min": [
+            -0.08931833505630493,
+            -0.08931833505630493,
+            -0.08931833505630493
+          ],
+          "max": [
+            0.08931833505630493,
+            0.08931833505630493,
+            0.08931833505630493
+          ]
+        }
+      },
+      "after": {
+        "area": 0.10555931834847912,
+        "triangles": 20,
+        "edges": 60,
+        "bounds": {
+          "min": [
+            -0.08931833505630493,
+            -0.08931833505630493,
+            -0.08931833505630493
+          ],
+          "max": [
+            0.08931833505630493,
+            0.08931833505630493,
+            0.08931833505630493
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-016",
+      "asset_key": "background_shared_part_016",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 11.525753841905034,
+        "triangles": 80,
+        "edges": 140,
+        "bounds": {
+          "min": [
+            -1.0,
+            -1.0,
+            -1.0
+          ],
+          "max": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "after": {
+        "area": 11.525753841905034,
+        "triangles": 80,
+        "edges": 140,
+        "bounds": {
+          "min": [
+            -1.0,
+            -1.0,
+            -1.0
+          ],
+          "max": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-017",
+      "asset_key": "background_shared_part_017",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.0,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5,
+            -0.5,
+            -0.5
+          ],
+          "max": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "after": {
+        "area": 6.0,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5,
+            -0.5,
+            -0.5
+          ],
+          "max": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-018",
+      "asset_key": "background_shared_part_018",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 3.95443210500726,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4560000002384186,
+            -0.1599999964237213,
+            -0.6840000152587891
+          ],
+          "max": [
+            0.4560000002384186,
+            0.1599999964237213,
+            0.6840000152587891
+          ]
+        }
+      },
+      "after": {
+        "area": 3.95443210500726,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4560000002384186,
+            -0.1599999964237213,
+            -0.6840000152587891
+          ],
+          "max": [
+            0.4560000002384186,
+            0.1599999964237213,
+            0.6840000152587891
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-019",
+      "asset_key": "background_shared_part_019",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 217.56000066157418,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            -2.1500000953674316,
+            -5.0
+          ],
+          "max": [
+            2.299999952316284,
+            2.1500000953674316,
+            5.0
+          ]
+        }
+      },
+      "after": {
+        "area": 217.56000066157418,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            -2.1500000953674316,
+            -5.0
+          ],
+          "max": [
+            2.299999952316284,
+            2.1500000953674316,
+            5.0
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-020",
+      "asset_key": "background_shared_part_020",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 5.12399986777371,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.7999999523162842,
+            -0.1899999976158142,
+            -0.15000000596046448
+          ],
+          "max": [
+            1.7999999523162842,
+            0.1899999976158142,
+            0.15000000596046448
+          ]
+        }
+      },
+      "after": {
+        "area": 5.12399986777371,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.7999999523162842,
+            -0.1899999976158142,
+            -0.15000000596046448
+          ],
+          "max": [
+            1.7999999523162842,
+            0.1899999976158142,
+            0.15000000596046448
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-021",
+      "asset_key": "background_shared_part_021",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 165.39601013275706,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.9000000953674316,
+            -2.1500000953674316,
+            -5.929999828338623
+          ],
+          "max": [
+            2.9000000953674316,
+            2.1500000953674316,
+            0.12999999523162842
+          ]
+        }
+      },
+      "after": {
+        "area": 165.39601013275706,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.9000000953674316,
+            -2.1500000953674316,
+            -5.929999828338623
+          ],
+          "max": [
+            2.9000000953674316,
+            2.1500000953674316,
+            0.12999999523162842
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-022",
+      "asset_key": "background_shared_part_022",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 42.16000020470067,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.7000000476837158,
+            -2.299999952316284,
+            -0.3400000035762787
+          ],
+          "max": [
+            1.7000000476837158,
+            2.299999952316284,
+            0.3400000035762787
+          ]
+        }
+      },
+      "after": {
+        "area": 42.16000020470067,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.7000000476837158,
+            -2.299999952316284,
+            -0.3400000035762787
+          ],
+          "max": [
+            1.7000000476837158,
+            2.299999952316284,
+            0.3400000035762787
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-023",
+      "asset_key": "background_shared_part_023",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 12.51598675768889,
+        "triangles": 128,
+        "edges": 321,
+        "bounds": {
+          "min": [
+            -1.0,
+            -1.0,
+            -0.5
+          ],
+          "max": [
+            1.0,
+            1.0,
+            0.5
+          ]
+        }
+      },
+      "after": {
+        "area": 12.51598675768889,
+        "triangles": 128,
+        "edges": 321,
+        "bounds": {
+          "min": [
+            -1.0,
+            -1.0,
+            -0.5
+          ],
+          "max": [
+            1.0,
+            1.0,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-024",
+      "asset_key": "background_shared_part_024",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 11.304800623608457,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -3.950000047683716,
+            -0.17000000178813934,
+            -0.18000000715255737
+          ],
+          "max": [
+            3.950000047683716,
+            0.17000000178813934,
+            0.18000000715255737
+          ]
+        }
+      },
+      "after": {
+        "area": 11.304800623608457,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -3.950000047683716,
+            -0.17000000178813934,
+            -0.18000000715255737
+          ],
+          "max": [
+            3.950000047683716,
+            0.17000000178813934,
+            0.18000000715255737
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-025",
+      "asset_key": "background_shared_part_025",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 1.0909515733837274,
+        "triangles": 80,
+        "edges": 240,
+        "bounds": {
+          "min": [
+            -0.3726626932621002,
+            -0.1144319474697113,
+            -2.248863935470581
+          ],
+          "max": [
+            0.052662696689367294,
+            0.03443194553256035,
+            0.14886388182640076
+          ]
+        }
+      },
+      "after": {
+        "area": 1.0909515733837274,
+        "triangles": 80,
+        "edges": 240,
+        "bounds": {
+          "min": [
+            -0.3726626932621002,
+            -0.1144319474697113,
+            -2.248863935470581
+          ],
+          "max": [
+            0.052662696689367294,
+            0.03443194553256035,
+            0.14886388182640076
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-026",
+      "asset_key": "background_shared_part_026",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.289627676189303,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.6244888305664062,
+            -0.5627439618110657,
+            0.19628793001174927
+          ],
+          "max": [
+            0.6244888305664062,
+            0.5532122850418091,
+            0.7410456538200378
+          ]
+        }
+      },
+      "after": {
+        "area": 2.289627676189303,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.6244888305664062,
+            -0.5627439618110657,
+            0.19628793001174927
+          ],
+          "max": [
+            0.6244888305664062,
+            0.5532122850418091,
+            0.7410456538200378
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-027",
+      "asset_key": "background_shared_part_027",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 1.2136000111926188,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4320000112056732,
+            -0.17000000178813934,
+            -0.12999999523162842
+          ],
+          "max": [
+            0.4320000112056732,
+            0.17000000178813934,
+            0.12999999523162842
+          ]
+        }
+      },
+      "after": {
+        "area": 1.2136000111926188,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4320000112056732,
+            -0.17000000178813934,
+            -0.12999999523162842
+          ],
+          "max": [
+            0.4320000112056732,
+            0.17000000178813934,
+            0.12999999523162842
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-028",
+      "asset_key": "background_shared_part_028",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.638207833630986,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.9480000138282776,
+            -0.1599999964237213,
+            -0.6119999885559082
+          ],
+          "max": [
+            0.9480000138282776,
+            0.1599999964237213,
+            0.6119999885559082
+          ]
+        }
+      },
+      "after": {
+        "area": 6.638207833630986,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.9480000138282776,
+            -0.1599999964237213,
+            -0.6119999885559082
+          ],
+          "max": [
+            0.9480000138282776,
+            0.1599999964237213,
+            0.6119999885559082
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-029",
+      "asset_key": "background_shared_part_029",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 1.5015999604915389,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5519999861717224,
+            -0.17000000178813934,
+            -0.12999999523162842
+          ],
+          "max": [
+            0.5519999861717224,
+            0.17000000178813934,
+            0.12999999523162842
+          ]
+        }
+      },
+      "after": {
+        "area": 1.5015999604915389,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5519999861717224,
+            -0.17000000178813934,
+            -0.12999999523162842
+          ],
+          "max": [
+            0.5519999861717224,
+            0.17000000178813934,
+            0.12999999523162842
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-030",
+      "asset_key": "background_shared_part_030",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.4519999869809266,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.9480000138282776,
+            -0.17000000178813934,
+            -0.12999999523162842
+          ],
+          "max": [
+            0.9480000138282776,
+            0.17000000178813934,
+            0.12999999523162842
+          ]
+        }
+      },
+      "after": {
+        "area": 2.4519999869809266,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.9480000138282776,
+            -0.17000000178813934,
+            -0.12999999523162842
+          ],
+          "max": [
+            0.9480000138282776,
+            0.17000000178813934,
+            0.12999999523162842
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-031",
+      "asset_key": "background_shared_part_031",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 8.680959463145049,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5519999861717224,
+            -0.1599999964237213,
+            -1.399999976158142
+          ],
+          "max": [
+            0.5519999861717224,
+            0.1599999964237213,
+            1.399999976158142
+          ]
+        }
+      },
+      "after": {
+        "area": 8.680959463145049,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5519999861717224,
+            -0.1599999964237213,
+            -1.399999976158142
+          ],
+          "max": [
+            0.5519999861717224,
+            0.1599999964237213,
+            1.399999976158142
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-032",
+      "asset_key": "background_shared_part_032",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 10.972000473349414,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -3.950000047683716,
+            -0.1899999976158142,
+            -0.15000000596046448
+          ],
+          "max": [
+            3.950000047683716,
+            0.1899999976158142,
+            0.15000000596046448
+          ]
+        }
+      },
+      "after": {
+        "area": 10.972000473349414,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -3.950000047683716,
+            -0.1899999976158142,
+            -0.15000000596046448
+          ],
+          "max": [
+            3.950000047683716,
+            0.1899999976158142,
+            0.15000000596046448
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-033",
+      "asset_key": "background_shared_part_033",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 11.779788891606955,
+        "triangles": 32,
+        "edges": 81,
+        "bounds": {
+          "min": [
+            -1.0,
+            -1.0,
+            -0.5
+          ],
+          "max": [
+            1.0,
+            1.0,
+            0.5
+          ]
+        }
+      },
+      "after": {
+        "area": 11.779788891606955,
+        "triangles": 32,
+        "edges": 81,
+        "bounds": {
+          "min": [
+            -1.0,
+            -1.0,
+            -0.5
+          ],
+          "max": [
+            1.0,
+            1.0,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-034",
+      "asset_key": "background_shared_part_034",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0.1889999982846416,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.03500000014901161,
+            -0.03500000014901161,
+            -0.3199999928474426
+          ],
+          "max": [
+            0.03500000014901161,
+            0.03500000014901161,
+            0.3199999928474426
+          ]
+        }
+      },
+      "after": {
+        "area": 0.1889999982846416,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.03500000014901161,
+            -0.03500000014901161,
+            -0.3199999928474426
+          ],
+          "max": [
+            0.03500000014901161,
+            0.03500000014901161,
+            0.3199999928474426
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-035",
+      "asset_key": "background_shared_part_035",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 5.5648002233185485,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.899999976158142,
+            -0.17000000178813934,
+            -0.18000000715255737
+          ],
+          "max": [
+            1.899999976158142,
+            0.17000000178813934,
+            0.18000000715255737
+          ]
+        }
+      },
+      "after": {
+        "area": 5.5648002233185485,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.899999976158142,
+            -0.17000000178813934,
+            -0.18000000715255737
+          ],
+          "max": [
+            1.899999976158142,
+            0.17000000178813934,
+            0.18000000715255737
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-036",
+      "asset_key": "background_shared_part_036",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.2896276152479973,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.7820940613746643,
+            -0.3498290181159973,
+            0.1591021716594696
+          ],
+          "max": [
+            0.7820940613746643,
+            0.31469082832336426,
+            0.6554139852523804
+          ]
+        }
+      },
+      "after": {
+        "area": 2.2896276152479973,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.7820940613746643,
+            -0.3498290181159973,
+            0.1591021716594696
+          ],
+          "max": [
+            0.7820940613746643,
+            0.31469082832336426,
+            0.6554139852523804
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-037",
+      "asset_key": "background_shared_part_037",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.4071999674156004,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.8100000023841858,
+            -0.05999999865889549,
+            -0.28999999165534973
+          ],
+          "max": [
+            0.8100000023841858,
+            0.05999999865889549,
+            0.28999999165534973
+          ]
+        }
+      },
+      "after": {
+        "area": 2.4071999674156004,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.8100000023841858,
+            -0.05999999865889549,
+            -0.28999999165534973
+          ],
+          "max": [
+            0.8100000023841858,
+            0.05999999865889549,
+            0.28999999165534973
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-038",
+      "asset_key": "background_shared_part_038",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0.8182136503336772,
+        "triangles": 60,
+        "edges": 180,
+        "bounds": {
+          "min": [
+            -0.3726626932621002,
+            -0.1144319474697113,
+            -1.5488638877868652
+          ],
+          "max": [
+            0.052662696689367294,
+            0.03443194553256035,
+            0.14886388182640076
+          ]
+        }
+      },
+      "after": {
+        "area": 0.8182136503336772,
+        "triangles": 60,
+        "edges": 180,
+        "bounds": {
+          "min": [
+            -0.3726626932621002,
+            -0.1144319474697113,
+            -1.5488638877868652
+          ],
+          "max": [
+            0.052662696689367294,
+            0.03443194553256035,
+            0.14886388182640076
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-039",
+      "asset_key": "background_shared_part_039",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.289627651135818,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.34435153007507324,
+            -0.760888934135437,
+            0.19706547260284424
+          ],
+          "max": [
+            0.34435153007507324,
+            0.760888934135437,
+            0.7943812608718872
+          ]
+        }
+      },
+      "after": {
+        "area": 2.289627651135818,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.34435153007507324,
+            -0.760888934135437,
+            0.19706547260284424
+          ],
+          "max": [
+            0.34435153007507324,
+            0.760888934135437,
+            0.7943812608718872
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-040",
+      "asset_key": "background_shared_part_040",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 146.88240612468005,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.9000000953674316,
+            -2.1500000953674316,
+            -5.929999828338623
+          ],
+          "max": [
+            2.9000000953674316,
+            2.1500000953674316,
+            0.12999999523162842
+          ]
+        }
+      },
+      "after": {
+        "area": 146.88240612468005,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.9000000953674316,
+            -2.1500000953674316,
+            -5.929999828338623
+          ],
+          "max": [
+            2.9000000953674316,
+            2.1500000953674316,
+            0.12999999523162842
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-041",
+      "asset_key": "background_shared_part_041",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 8.247999435326124,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.319999933242798,
+            -0.22499999403953552,
+            -0.20000000298023224
+          ],
+          "max": [
+            2.319999933242798,
+            0.22499999403953552,
+            0.20000000298023224
+          ]
+        }
+      },
+      "after": {
+        "area": 8.247999435326124,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.319999933242798,
+            -0.22499999403953552,
+            -0.20000000298023224
+          ],
+          "max": [
+            2.319999933242798,
+            0.22499999403953552,
+            0.20000000298023224
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-042",
+      "asset_key": "background_shared_part_042",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.179328101922403,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4320000112056732,
+            -0.1599999964237213,
+            -1.187999963760376
+          ],
+          "max": [
+            0.4320000112056732,
+            0.1599999964237213,
+            1.187999963760376
+          ]
+        }
+      },
+      "after": {
+        "area": 6.179328101922403,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4320000112056732,
+            -0.1599999964237213,
+            -1.187999963760376
+          ],
+          "max": [
+            0.4320000112056732,
+            0.1599999964237213,
+            1.187999963760376
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-043",
+      "asset_key": "background_shared_part_043",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 24.809998722307892,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.0499999523162842,
+            -1.7999999523162842,
+            -0.42500001192092896
+          ],
+          "max": [
+            1.0499999523162842,
+            1.7999999523162842,
+            0.42500001192092896
+          ]
+        }
+      },
+      "after": {
+        "area": 24.809998722307892,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.0499999523162842,
+            -1.7999999523162842,
+            -0.42500001192092896
+          ],
+          "max": [
+            1.0499999523162842,
+            1.7999999523162842,
+            0.42500001192092896
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-044",
+      "asset_key": "background_shared_part_044",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 1.4361350897993104,
+        "triangles": 24,
+        "edges": 49,
+        "bounds": {
+          "min": [
+            -0.6800000071525574,
+            0.0,
+            -0.6800000071525574
+          ],
+          "max": [
+            0.6800000071525574,
+            0.0,
+            0.6800000071525574
+          ]
+        }
+      },
+      "after": {
+        "area": 1.4361350897993104,
+        "triangles": 24,
+        "edges": 49,
+        "bounds": {
+          "min": [
+            -0.6800000071525574,
+            0.0,
+            -0.6800000071525574
+          ],
+          "max": [
+            0.6800000071525574,
+            0.0,
+            0.6800000071525574
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-045",
+      "asset_key": "background_shared_part_045",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 59.519976246935315,
+        "triangles": 144,
+        "edges": 432,
+        "bounds": {
+          "min": [
+            -2.8499999046325684,
+            -2.0999999046325684,
+            -8.649999618530273
+          ],
+          "max": [
+            2.8499999046325684,
+            2.0999999046325684,
+            0.05000004917383194
+          ]
+        }
+      },
+      "after": {
+        "area": 59.519976246935315,
+        "triangles": 144,
+        "edges": 432,
+        "bounds": {
+          "min": [
+            -2.8499999046325684,
+            -2.0999999046325684,
+            -8.649999618530273
+          ],
+          "max": [
+            2.8499999046325684,
+            2.0999999046325684,
+            0.05000004917383194
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-046",
+      "asset_key": "background_shared_part_046",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.483999770644661,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            -0.1899999976158142,
+            -0.15000000596046448
+          ],
+          "max": [
+            2.299999952316284,
+            0.1899999976158142,
+            0.15000000596046448
+          ]
+        }
+      },
+      "after": {
+        "area": 6.483999770644661,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            -0.1899999976158142,
+            -0.15000000596046448
+          ],
+          "max": [
+            2.299999952316284,
+            0.1899999976158142,
+            0.15000000596046448
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-047",
+      "asset_key": "background_shared_part_047",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.448127827380363,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5519999861717224,
+            -0.1599999964237213,
+            -1.0080000162124634
+          ],
+          "max": [
+            0.5519999861717224,
+            0.1599999964237213,
+            1.0080000162124634
+          ]
+        }
+      },
+      "after": {
+        "area": 6.448127827380363,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5519999861717224,
+            -0.1599999964237213,
+            -1.0080000162124634
+          ],
+          "max": [
+            0.5519999861717224,
+            0.1599999964237213,
+            1.0080000162124634
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-048",
+      "asset_key": "background_shared_part_048",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 8.367360225776736,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4320000112056732,
+            -0.1599999964237213,
+            -1.649999976158142
+          ],
+          "max": [
+            0.4320000112056732,
+            0.1599999964237213,
+            1.649999976158142
+          ]
+        }
+      },
+      "after": {
+        "area": 8.367360225776736,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4320000112056732,
+            -0.1599999964237213,
+            -1.649999976158142
+          ],
+          "max": [
+            0.4320000112056732,
+            0.1599999964237213,
+            1.649999976158142
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-049",
+      "asset_key": "background_shared_part_049",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.99647001014334,
+        "triangles": 24,
+        "edges": 57,
+        "bounds": {
+          "min": [
+            -1.0,
+            -1.0,
+            -0.5
+          ],
+          "max": [
+            1.0,
+            1.0,
+            0.5
+          ]
+        }
+      },
+      "after": {
+        "area": 6.99647001014334,
+        "triangles": 24,
+        "edges": 57,
+        "bounds": {
+          "min": [
+            -1.0,
+            -1.0,
+            -0.5
+          ],
+          "max": [
+            1.0,
+            1.0,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-050",
+      "asset_key": "background_shared_part_050",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 1.030592582322352,
+        "triangles": 400,
+        "edges": 1200,
+        "bounds": {
+          "min": [
+            -0.28951093554496765,
+            -0.31218698620796204,
+            0.9200000166893005
+          ],
+          "max": [
+            0.3199999928474426,
+            0.31209710240364075,
+            1.0800000429153442
+          ]
+        }
+      },
+      "after": {
+        "area": 1.030592582322352,
+        "triangles": 400,
+        "edges": 1200,
+        "bounds": {
+          "min": [
+            -0.28951093554496765,
+            -0.31218698620796204,
+            0.9200000166893005
+          ],
+          "max": [
+            0.3199999928474426,
+            0.31209710240364075,
+            1.0800000429153442
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-051",
+      "asset_key": "background_shared_part_051",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 5.3959999627921444,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.899999976158142,
+            -0.1899999976158142,
+            -0.15000000596046448
+          ],
+          "max": [
+            1.899999976158142,
+            0.1899999976158142,
+            0.15000000596046448
+          ]
+        }
+      },
+      "after": {
+        "area": 5.3959999627921444,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.899999976158142,
+            -0.1899999976158142,
+            -0.15000000596046448
+          ],
+          "max": [
+            1.899999976158142,
+            0.1899999976158142,
+            0.15000000596046448
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-052",
+      "asset_key": "background_shared_part_052",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 4.503000165298492,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.049999952316284,
+            -1.5178977251052856,
+            0.125
+          ],
+          "max": [
+            2.0239346027374268,
+            -0.18602526187896729,
+            0.4749999940395355
+          ]
+        }
+      },
+      "after": {
+        "area": 4.503000165298492,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.049999952316284,
+            -1.5178977251052856,
+            0.125
+          ],
+          "max": [
+            2.0239346027374268,
+            -0.18602526187896729,
+            0.4749999940395355
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-053",
+      "asset_key": "background_shared_part_053",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0.5454757445883376,
+        "triangles": 40,
+        "edges": 120,
+        "bounds": {
+          "min": [
+            -0.03266269713640213,
+            -0.1144319474697113,
+            -1.1988638639450073
+          ],
+          "max": [
+            0.3926627039909363,
+            0.03443194553256035,
+            -0.20113611221313477
+          ]
+        }
+      },
+      "after": {
+        "area": 0.5454757445883376,
+        "triangles": 40,
+        "edges": 120,
+        "bounds": {
+          "min": [
+            -0.03266269713640213,
+            -0.1144319474697113,
+            -1.1988638639450073
+          ],
+          "max": [
+            0.3926627039909363,
+            0.03443194553256035,
+            -0.20113611221313477
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-054",
+      "asset_key": "background_shared_part_054",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 5.26527997040295,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4560000002384186,
+            -0.1599999964237213,
+            -0.949999988079071
+          ],
+          "max": [
+            0.4560000002384186,
+            0.1599999964237213,
+            0.949999988079071
+          ]
+        }
+      },
+      "after": {
+        "area": 5.26527997040295,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.4560000002384186,
+            -0.1599999964237213,
+            -0.949999988079071
+          ],
+          "max": [
+            0.4560000002384186,
+            0.1599999964237213,
+            0.949999988079071
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-055",
+      "asset_key": "background_shared_part_055",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 37.74000798793536,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.9000000953674316,
+            1.774999976158142,
+            -7.5
+          ],
+          "max": [
+            2.9000000953674316,
+            2.0250000953674316,
+            -0.8999999761581421
+          ]
+        }
+      },
+      "after": {
+        "area": 37.74000798793536,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.9000000953674316,
+            1.774999976158142,
+            -7.5
+          ],
+          "max": [
+            2.9000000953674316,
+            2.0250000953674316,
+            -0.8999999761581421
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-056",
+      "asset_key": "background_shared_part_056",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0.4922499808792198,
+        "triangles": 60,
+        "edges": 180,
+        "bounds": {
+          "min": [
+            -0.03450489789247513,
+            -0.027499999850988388,
+            -1.6100000143051147
+          ],
+          "max": [
+            0.1474488377571106,
+            0.027499999850988388,
+            0.20999999344348907
+          ]
+        }
+      },
+      "after": {
+        "area": 0.4922499808792198,
+        "triangles": 60,
+        "edges": 180,
+        "bounds": {
+          "min": [
+            -0.03450489789247513,
+            -0.027499999850988388,
+            -1.6100000143051147
+          ],
+          "max": [
+            0.1474488377571106,
+            0.027499999850988388,
+            0.20999999344348907
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-057",
+      "asset_key": "background_shared_part_057",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.2896276401830016,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.5103915929794312,
+            -0.6467381715774536,
+            0.06719275563955307
+          ],
+          "max": [
+            0.5103915929794312,
+            0.6566655039787292,
+            0.6447684168815613
+          ]
+        }
+      },
+      "after": {
+        "area": 2.2896276401830016,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.5103915929794312,
+            -0.6467381715774536,
+            0.06719275563955307
+          ],
+          "max": [
+            0.5103915929794312,
+            0.6566655039787292,
+            0.6447684168815613
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-058",
+      "asset_key": "background_shared_part_058",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 1.9367999481698506,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.09000000357627869,
+            -0.09000000357627869,
+            -1.2999999523162842
+          ],
+          "max": [
+            0.09000000357627869,
+            0.09000000357627869,
+            1.2999999523162842
+          ]
+        }
+      },
+      "after": {
+        "area": 1.9367999481698506,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.09000000357627869,
+            -0.09000000357627869,
+            -1.2999999523162842
+          ],
+          "max": [
+            0.09000000357627869,
+            0.09000000357627869,
+            1.2999999523162842
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-059",
+      "asset_key": "background_shared_part_059",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 16.33499879134379,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.5450000762939453,
+            1.475000023841858,
+            2.3841858265427618e-08
+          ],
+          "max": [
+            2.5450000762939453,
+            1.9249999523162842,
+            2.799999952316284
+          ]
+        }
+      },
+      "after": {
+        "area": 16.33499879134379,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.5450000762939453,
+            1.475000023841858,
+            2.3841858265427618e-08
+          ],
+          "max": [
+            2.5450000762939453,
+            1.9249999523162842,
+            2.799999952316284
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-060",
+      "asset_key": "background_shared_part_060",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 0.13005000302361555,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.02250000089406967,
+            -0.02250000089406967,
+            -0.3499999940395355
+          ],
+          "max": [
+            0.02250000089406967,
+            0.02250000089406967,
+            0.3499999940395355
+          ]
+        }
+      },
+      "after": {
+        "area": 0.13005000302361555,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.02250000089406967,
+            -0.02250000089406967,
+            -0.3499999940395355
+          ],
+          "max": [
+            0.02250000089406967,
+            0.02250000089406967,
+            0.3499999940395355
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-061",
+      "asset_key": "background_shared_part_061",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.289627630805859,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.6647620797157288,
+            -0.5105097889900208,
+            0.25333675742149353
+          ],
+          "max": [
+            0.6647620797157288,
+            0.49075159430503845,
+            0.7841161489486694
+          ]
+        }
+      },
+      "after": {
+        "area": 2.289627630805859,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.6647620797157288,
+            -0.5105097889900208,
+            0.25333675742149353
+          ],
+          "max": [
+            0.6647620797157288,
+            0.49075159430503845,
+            0.7841161489486694
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-062",
+      "asset_key": "background_shared_part_062",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.0,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5,
+            -0.5,
+            -0.5
+          ],
+          "max": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "after": {
+        "area": 6.0,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5,
+            -0.5,
+            -0.5
+          ],
+          "max": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-063",
+      "asset_key": "background_shared_part_063",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.2896276982138066,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.7900000214576721,
+            -0.3189765512943268,
+            0.09053732454776764
+          ],
+          "max": [
+            0.7900000214576721,
+            0.3189765512943268,
+            0.5797581076622009
+          ]
+        }
+      },
+      "after": {
+        "area": 2.2896276982138066,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.7900000214576721,
+            -0.3189765512943268,
+            0.09053732454776764
+          ],
+          "max": [
+            0.7900000214576721,
+            0.3189765512943268,
+            0.5797581076622009
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-064",
+      "asset_key": "background_shared_part_064",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.0,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5,
+            -0.5,
+            -0.5
+          ],
+          "max": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      },
+      "after": {
+        "area": 6.0,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.5,
+            -0.5,
+            -0.5
+          ],
+          "max": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-065",
+      "asset_key": "background_shared_part_065",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.684799997708133,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            -0.17000000178813934,
+            -0.18000000715255737
+          ],
+          "max": [
+            2.299999952316284,
+            0.17000000178813934,
+            0.18000000715255737
+          ]
+        }
+      },
+      "after": {
+        "area": 6.684799997708133,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            -0.17000000178813934,
+            -0.18000000715255737
+          ],
+          "max": [
+            2.299999952316284,
+            0.17000000178813934,
+            0.18000000715255737
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-066",
+      "asset_key": "background_shared_part_066",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 1.3607999910774973,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.09000000357627869,
+            -0.09000000357627869,
+            -0.8999999761581421
+          ],
+          "max": [
+            0.09000000357627869,
+            0.09000000357627869,
+            0.8999999761581421
+          ]
+        }
+      },
+      "after": {
+        "area": 1.3607999910774973,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.09000000357627869,
+            -0.09000000357627869,
+            -0.8999999761581421
+          ],
+          "max": [
+            0.09000000357627869,
+            0.09000000357627869,
+            0.8999999761581421
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-067",
+      "asset_key": "background_shared_part_067",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 6.4800000840425485,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.30000001192092896,
+            -0.30000001192092896,
+            -1.2000000476837158
+          ],
+          "max": [
+            0.30000001192092896,
+            0.30000001192092896,
+            1.2000000476837158
+          ]
+        }
+      },
+      "after": {
+        "area": 6.4800000840425485,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.30000001192092896,
+            -0.30000001192092896,
+            -1.2000000476837158
+          ],
+          "max": [
+            0.30000001192092896,
+            0.30000001192092896,
+            1.2000000476837158
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-068",
+      "asset_key": "background_shared_part_068",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 132.56399760071923,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            -2.1500000953674316,
+            -5.929999828338623
+          ],
+          "max": [
+            2.299999952316284,
+            2.1500000953674316,
+            0.12999999523162842
+          ]
+        }
+      },
+      "after": {
+        "area": 132.56399760071923,
+        "triangles": 36,
+        "edges": 108,
+        "bounds": {
+          "min": [
+            -2.299999952316284,
+            -2.1500000953674316,
+            -5.929999828338623
+          ],
+          "max": [
+            2.299999952316284,
+            2.1500000953674316,
+            0.12999999523162842
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-069",
+      "asset_key": "background_shared_part_069",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 10.200000549245749,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.350000023841858,
+            -0.75,
+            -0.125
+          ],
+          "max": [
+            1.350000023841858,
+            0.75,
+            0.125
+          ]
+        }
+      },
+      "after": {
+        "area": 10.200000549245749,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -1.350000023841858,
+            -0.75,
+            -0.125
+          ],
+          "max": [
+            1.350000023841858,
+            0.75,
+            0.125
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-070",
+      "asset_key": "background_shared_part_070",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 13.499199715102154,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.9100000262260437,
+            -1.024999976158142,
+            -0.38999998569488525
+          ],
+          "max": [
+            0.9100000262260437,
+            1.024999976158142,
+            0.38999998569488525
+          ]
+        }
+      },
+      "after": {
+        "area": 13.499199715102154,
+        "triangles": 12,
+        "edges": 30,
+        "bounds": {
+          "min": [
+            -0.9100000262260437,
+            -1.024999976158142,
+            -0.38999998569488525
+          ],
+          "max": [
+            0.9100000262260437,
+            1.024999976158142,
+            0.38999998569488525
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-071",
+      "asset_key": "background_shared_part_071",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 19.298999623830063,
+        "triangles": 84,
+        "edges": 252,
+        "bounds": {
+          "min": [
+            -2.819999933242798,
+            -4.195000171661377,
+            -1.875
+          ],
+          "max": [
+            -1.3200000524520874,
+            -1.4249999523162842,
+            0.13500000536441803
+          ]
+        }
+      },
+      "after": {
+        "area": 19.298999623830063,
+        "triangles": 84,
+        "edges": 252,
+        "bounds": {
+          "min": [
+            -2.819999933242798,
+            -4.195000171661377,
+            -1.875
+          ],
+          "max": [
+            -1.3200000524520874,
+            -1.4249999523162842,
+            0.13500000536441803
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-072",
+      "asset_key": "background_shared_part_072",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 59.51998503508998,
+        "triangles": 144,
+        "edges": 432,
+        "bounds": {
+          "min": [
+            -2.25,
+            -2.0999999046325684,
+            -8.649999618530273
+          ],
+          "max": [
+            2.25,
+            2.0999999046325684,
+            0.05000004917383194
+          ]
+        }
+      },
+      "after": {
+        "area": 59.51998503508998,
+        "triangles": 144,
+        "edges": 432,
+        "bounds": {
+          "min": [
+            -2.25,
+            -2.0999999046325684,
+            -8.649999618530273
+          ],
+          "max": [
+            2.25,
+            2.0999999046325684,
+            0.05000004917383194
+          ]
+        }
+      }
+    },
+    {
+      "asset_id": "SEA-REF-01-BG-PART-073",
+      "asset_key": "background_shared_part_073",
+      "area_relative_error": 0.0,
+      "before": {
+        "area": 2.2896276800084476,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.4627893567085266,
+            -0.6988682746887207,
+            0.0867844894528389
+          ],
+          "max": [
+            0.4627893567085266,
+            0.6988682746887207,
+            0.6759569048881531
+          ]
+        }
+      },
+      "after": {
+        "area": 2.2896276800084476,
+        "triangles": 160,
+        "edges": 480,
+        "bounds": {
+          "min": [
+            -0.4627893567085266,
+            -0.6988682746887207,
+            0.0867844894528389
+          ],
+          "max": [
+            0.4627893567085266,
+            0.6988682746887207,
+            0.6759569048881531
+          ]
+        }
+      }
+    }
+  ],
+  "old_sources_preserved": true,
+  "runtime_inputs_unchanged": true,
+  "split_height_godot": 1.12,
+  "game_runtime": "not_run_reference_organization_only",
+  "process_exit_code": 0,
+  "registry_name_file_mapping_checked": 104,
+  "contract_sync_exit_code": 0,
+  "first_contract_failure": "Two root-level assembly manifests shared a path; fixed with unique manifest filenames.",
+  "preview_visual_review": "Playable overview inspected; geometry arrangement matches v0.1."
+}

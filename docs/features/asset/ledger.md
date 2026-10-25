@@ -37,6 +37,12 @@
 | SEA-ASSET-R09 | v003 风格源已制作，验证证据见修订记录 | 基于 v001 实际文件派生；31 项几何与摆位锁定，重做 5 项花叶组件；公共 PNG 与原版源哈希不变 |
 | SEA-ASSET-R10 | 本批源级验证通过；Godot pending | 30 组件、142 Collection Instance；30 独立包重开，17690 母版面 UV 核验；见本轮制作记录 |
 | SEA-ASSET-R11 | v004 源级验证通过；Godot 与商业授权 pending | 48 组件、340 Collection Instance；48 独立包重开，14629 母版面 UV 核验；整场景 208140 三角面；见 v004 制作记录 |
+| SEA-ASSET-R12 | 本批源级完成；Godot 接入 pending | 38 组件、267 实例、38 独立包；14964 母版面 UV 核验；整场景 58966 多边形 / 108572 三角面；见热带花屋制作记录 |
+| SEA-ASSET-R13 | v003 源级与六视图验证通过；Godot 与用户美术验收 pending | 49 组件、592 实例；49 独立包重开，46275 母版面 PaletteUV 核验；前平台、左侧双列桥、窗洞、太阳能板尺寸和花朵朝向检查通过；见 v003 制作记录 |
+| SEA-ASSET-R14 | v001 源级与五视图通过；Godot 和用户美术验收 pending | 22 组件、414 实例；22 独立包重开，26416 母版面 UV 核验；七层窗湾、蓝灰立柱、屋顶净空、花朵朝向通过；见 bloom_lower_building 制作记录 |
+| SEA-ASSET-R15 | v0.1 参照导出与几何回放验证通过；未执行游戏替换 | 17 个海面单元、6 类远景楼体、74 类附属构件；97 独立文件重开；249052 背景实例唯一归属、精确矩阵回放；源运行文件哈希不变；见本轮参照库记录 |
+| SEA-ASSET-R16 | v0.2 中文设施归类与命名统一完成，源级验证通过 | 97 部件、5 设施总成、2 总览重开；中文 name、英文 asset_key/文件名逐条核对；海上/海下几何面积和包围盒验证；既有源和运行输入哈希保持；见本轮归类记录 |
+| SEA-ASSET-R17 | v0.3 源级拆分完成并验证，未改游戏运行资源 | 绞盘打捞台新增独立设施 AssetID；木屋港湾部件/木屋总成/六设施总览更新，4 源重开与集合检查；拆分几何覆盖保持，见本轮拆分记录 |
 
 ## 资源与调用入口
 
@@ -119,3 +125,54 @@
 - [v004 母版](../../../art_source/scenes/solar_flower_house/v004/solar_flower_house.blend)；[冻结组件计划](../../../art_source/scenes/solar_flower_house/v004/component_plan.json)（48 项组件、23 族、栏杆族以 `infill` 变体轴拆实心女儿墙与通透栏杆）；[制作记录](../../development/2026-10-24_solar_flower_house_v004.md)与[验证证据](../../development/2026-10-24_solar_flower_house_v004_verification.json)。
 - 源级实测：48 组件、340 实例、母版 14629 面，全部逐面 PaletteUV 有面积且落在单格安全区；48 个独立包全部重开通过；整场景展开 116541 多边形 / 208140 三角面。本轮按用户要求以高还原为目标，不设面数上限。
 - 未接入 Godot，没有替换游戏建筑、碰撞、导航或正式 TSCN。参考图商业授权与四视图目视美术验收仍 pending；花朵密度、屋檐花带、渔船尺度与栈桩密度与参考图仍有差距，继续打磨项。
+
+## 饱满卡通热带花屋（2026-10-24）
+
+- 按当前附件独立制作 [tropical_flower_house/v001](../../../art_source/scenes/tropical_flower_house/v001/tropical_flower_house.blend)，旧花屋套件与公共色板保持原样。
+- 建筑与设施 32 种、花草 6 种，267 个 Collection Instance；38 个独立包全部保存重开，原点、集合偏移、材质与每面 PaletteUV 检查通过。共用 `SEA-PALETTE-COZY-64`，无植物焊接入建筑。
+- 保留实体倒角、宽厚叶片、圆瓣花和主要比例；重复铺板降为单段实体倒角，小叶使用较少分段。完整求值场景由中间版本 141076 三角面减少至 108572（约 23.0%），不以母版面数代替场景规模。
+- [制作记录](../../development/2026-10-24_tropical_flower_house.md)与[结构化验证](../../development/2026-10-24_tropical_flower_house_verification.json)。全景、近景、俯视及建筑分离图为真实 Blender 渲染；用户最终美术验收未代签。
+- 通过总索引登记 `SEA-SCENE-TFH-` 38 组件及 1 条装配记录。Godot 接入、运行性能、碰撞/导航与参考图商业授权 pending。
+
+- 热带花屋最终验证：Blender 三个步骤均退出 0；工程契约同步及检查均退出 0，0 问题。没有用历史测试结果替代当前实测。
+
+## 阳光繁花小屋独立制作与比例修订（2026-10-25）
+
+- SEA-ASSET-R13：[v002 Blender 源](../../../art_source/scenes/sunny_bloom_retreat/v002/sunny_bloom_retreat.blend)，[组件与打开说明](../../../art_source/scenes/sunny_bloom_retreat/README.md)。本次附件独立从零制作，v001 是本任务自身的早期候选，保留不覆盖。
+- 用户要求两处后柱都补：完成后侧白墙柱与棚架后柱；建筑竖向收紧 8%，调整前廊侧墙和斜顶封墙、窄木铺板、双列栈桥与入口陈设。
+- 45 组件、490 实例；45 独立包重开与 40211 母版面 PaletteUV 校验通过；全景、建筑单独、近景、俯视、后侧结构五视图已渲染并目视核对。实例展开为 352554 多边形 / 662504 三角面，未声明低面数验收通过。
+- [制作记录](../../development/2026-10-25_sunny_bloom_retreat.md)与[结构化证据](../../development/2026-10-25_sunny_bloom_retreat_verification.json)。46 条本套 AssetID 记录通过总索引路由登记；其他资产和公共色板哈希不重算。
+- Blender 构建、源级验证与登记退出码均为 0；Godot 接入、碰撞、导航、运行性能、商业授权及用户最终美术验收仍 pending。
+
+## 阳光繁花小屋 v003 参考图修订（2026-10-25）
+
+- SEA-ASSET-R13：当前 [v003 源](../../../art_source/scenes/sunny_bloom_retreat/v003/sunny_bloom_retreat.blend)，v001/v002 保留。仅沿本任务自身版本修改。
+- 按用户标线补齐全宽前平台：前增补面积 14.4 平方米，双列栈桥 X=-2.05/-0.82，右侧保留活动区；家具留在房前和右侧。后墙柱及棚柱保留，棚架采用三根立柱加墙面锚点。
+- 一扇侧面宽窗、一扇正面窄窗和一扇上层小窗；窗洞与实际墙壳射线复核。两块太阳能板白框为 1.38×1.85×0.14 米。14 朵花面朝上或斜上方，倾角和花瓣转角分别变化。
+- 49 组件 / 592 实例，374100 多边形 / 703920 三角面；49 独立包及 46275 母版面 UV 检查通过。全景、建筑单独、近景、俯视、后侧结构、前庭六视图完成。
+- [制作记录](../../development/2026-10-25_sunny_bloom_retreat_v003.md) / [验证证据](../../development/2026-10-25_sunny_bloom_retreat_v003_verification.json)。构建、源验证、登记退出码 0；Godot 接入、碰撞、导航、性能、参考图商业授权及用户美术验收 pending。
+
+## 独立下半建筑 bloom_lower_building（2026-10-25）
+
+- SEA-ASSET-R14：[v001 独立模型](../../../art_source/scenes/bloom_lower_building/v001/bloom_lower_building.blend)。按本轮新附件独立制作，未改动或拼接上半小屋。
+- 七层楼体，长立面三组凹凸窗湾，蓝灰柱与天蓝柱箍，厚白楼层边沿，32 块浅杏屋顶砖；花草独立集合，中央屋顶留空。未展示的背面按同一结构规律补全，属于推定设计。
+- 22 组件 / 414 实例，526306 多边形 / 976564 三角面；22 独立包重开和五视图检查完成。
+- [制作记录](../../development/2026-10-25_bloom_lower_building_v001.md) / [验证证据](../../development/2026-10-25_bloom_lower_building_v001_verification.json)。构建、源级验证、登记退出码 0；运行接入、碰撞、性能、参考图商业授权和用户美术验收 pending。
+
+## 游戏现状建筑 v0.1 替换参照（2026-10-25）
+
+- [参照库索引](../../../art_source/scenes/runtime_building_reference/v001/README.md)，[制作与验证记录](../../development/2026-10-25_runtime_building_reference_v01.md)。
+- 账本逐行标注 `playable_surface`、`background_building_component`、`background_detail_component`；重复远景不按每处摆放生成新母版。
+- 原始 GLB、TSCN、环境烘焙文件保持不变；这是运行现状反向转存，材质/合并边界仍以旧资产为准，未宣称恢复历史参数化源或通过 Godot 视觉替换验收。
+
+## 建筑参照库中文归类 v0.2（2026-10-25）
+
+- [中文资产账本](../../../art_source/scenes/runtime_building_reference/v002/资产账本.md)；[打开入口](../../../art_source/scenes/runtime_building_reference/v002/README.md)。
+- 五设施分别以“设施名字-海上区域 / 设施名字-海下基座”显示；英文资产名与文件名一致，中文名称与分账本一致。原运行资源路径保持来源追溯，v0.1 仍保留。
+- [验证记录](../../development/2026-10-25_runtime_building_reference_v02.md)。
+
+## 绞盘打捞台独立设施 v0.3（2026-10-25）
+
+- [本版入口](../../../art_source/scenes/runtime_building_reference/v003/README.md)；[中文资产账本](../../../art_source/scenes/runtime_building_reference/v003/资产账本.md)。
+- 太阳能木屋和绞盘打捞台分别为两个设施，绞盘平台已从木屋港湾部件移除；各自包含海上区域/海下基座。
+- [拆分与验证记录](../../development/2026-10-25_runtime_building_reference_v03.md)。

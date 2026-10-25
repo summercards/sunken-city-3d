@@ -1,0 +1,640 @@
+{
+  "schema": "sea.scene.source_verification",
+  "passed": true,
+  "errors": [],
+  "source_sha256": "1d90c3eb7734e9e811ee01131c48ab4509f83027a4ae8e095c6a5d33d08a1798",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "reference_sha256": "5256abd23999c8a6b8c34cbfd425ccce2f72c74ecfc53a39d8606beb0d1f3545",
+  "metrics": {
+    "components": 49,
+    "instances": 592,
+    "flora_instances": 93,
+    "uv_faces_checked": 46275,
+    "expanded_polygons": 374100,
+    "expanded_triangles": 703920
+  },
+  "standalone_packages_reopened": 49,
+  "source_only": true,
+  "expected_faults": [],
+  "not_executed": [
+    "Godot import/runtime/collision/navigation",
+    "reference commercial rights verification"
+  ],
+  "views": [
+    {
+      "name": "beauty",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v003/previews/beauty.png"
+    },
+    {
+      "name": "building_only",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v003/previews/building_only.png"
+    },
+    {
+      "name": "detail",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v003/previews/detail.png"
+    },
+    {
+      "name": "top",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v003/previews/top.png"
+    },
+    {
+      "name": "rear_structure",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v003/previews/rear_structure.png"
+    },
+    {
+      "name": "front_court",
+      "path": "/Users/summercards/WorkBuddy/sea-work/sunny_bloom_retreat_v003/previews/front_court.png"
+    }
+  ],
+  "layout_checks": {
+    "rear_main_wall_piers": 3,
+    "canopy_posts": 3,
+    "canopy_wall_overlaps": [],
+    "deck_planks": 294,
+    "bridge_boards": 12,
+    "bridge_platform_gap_m": 0.0125,
+    "cooler_approach_clear": true,
+    "windows": {
+      "left_wide": 1,
+      "front_narrow": 1,
+      "upper_small": 1
+    },
+    "window_shell_rays_pass": true,
+    "solar_frame_m": [
+      1.3799999952316284,
+      1.850000023841858,
+      0.13999999314546585
+    ],
+    "front_extension_area_m2": 14.4,
+    "front_clear_rectangle": {
+      "min": [
+        0.2,
+        -5.75,
+        0.69
+      ],
+      "max": [
+        2.9,
+        -5.2,
+        1.6
+      ]
+    },
+    "front_clear_obstructions": [],
+    "flower_upward_normals": [
+      [
+        0.21036522090435028,
+        -0.5862417817115784,
+        0.7823471426963806
+      ],
+      [
+        0.05515030398964882,
+        -0.17186494171619415,
+        0.9835755825042725
+      ],
+      [
+        -0.4587254226207733,
+        -0.28098633885383606,
+        0.8429813981056213
+      ],
+      [
+        0.6697579622268677,
+        -0.4955032169818878,
+        0.5530830025672913
+      ],
+      [
+        0.1900606006383896,
+        -0.784111738204956,
+        0.590800940990448
+      ],
+      [
+        0.11501460522413254,
+        -0.7872819900512695,
+        0.6057711839675903
+      ],
+      [
+        -0.20630843937397003,
+        -0.7612525820732117,
+        0.614761233329773
+      ],
+      [
+        -0.6527085304260254,
+        -0.0981985330581665,
+        0.7512180805206299
+      ],
+      [
+        0.1868467926979065,
+        -0.7753913998603821,
+        0.6032052040100098
+      ],
+      [
+        0.29586029052734375,
+        -0.7049029469490051,
+        0.6446537971496582
+      ],
+      [
+        0.20873357355594635,
+        -0.686572253704071,
+        0.6964544653892517
+      ],
+      [
+        0.1602947860956192,
+        -0.4849613308906555,
+        0.8597197532653809
+      ],
+      [
+        -0.21893735229969025,
+        -0.31534117460250854,
+        0.9233776926994324
+      ],
+      [
+        -0.3126874268054962,
+        -0.5918190479278564,
+        0.7429513931274414
+      ]
+    ],
+    "thickness_review": {
+      "schema": "sea.scene.thickness_review",
+      "source_sha256": "1d90c3eb7734e9e811ee01131c48ab4509f83027a4ae8e095c6a5d33d08a1798",
+      "entries": [
+        {
+          "key": "foundation",
+          "bounds_m": [
+            0.8999999761581421,
+            0.800000011920929,
+            0.5400000214576721
+          ],
+          "review": "0.54 m solid rounded foundation retained"
+        },
+        {
+          "key": "deck_tile",
+          "bounds_m": [
+            0.5950000286102295,
+            0.39500001072883606,
+            0.17000000178813934
+          ],
+          "review": "Increased slab from 0.13 to 0.17 m, top remains aligned"
+        },
+        {
+          "key": "dock_board",
+          "bounds_m": [
+            1.0800000429153442,
+            0.4399999976158142,
+            0.23000000417232513
+          ],
+          "review": "Increased board from 0.18 to 0.23 m, rounded end radius 0.065"
+        },
+        {
+          "key": "pier",
+          "bounds_m": [
+            1.0499999523162842,
+            0.8600000143051147,
+            0.5199999809265137
+          ],
+          "review": "0.52 m solid pier retained"
+        },
+        {
+          "key": "house",
+          "bounds_m": [
+            5.0,
+            3.5,
+            2.8499999046325684
+          ],
+          "review": "0.21 m actual shell thickness, rounded openings retained"
+        },
+        {
+          "key": "terrace",
+          "bounds_m": [
+            5.199999809265137,
+            3.7300000190734863,
+            0.35499998927116394
+          ],
+          "review": "0.28 m white fascia retained"
+        },
+        {
+          "key": "upper_room",
+          "bounds_m": [
+            2.25,
+            1.9500000476837158,
+            1.9500000476837158
+          ],
+          "review": "Solid wall volume with 0.08 m edge bevel retained"
+        },
+        {
+          "key": "cap",
+          "bounds_m": [
+            2.5799999237060547,
+            2.25,
+            0.3199999928474426
+          ],
+          "review": "0.32 m roof cap retained"
+        },
+        {
+          "key": "parapet",
+          "bounds_m": [
+            1.149999976158142,
+            0.30000001192092896,
+            0.47999998927116394
+          ],
+          "review": "0.30 m wide white blocks retained"
+        },
+        {
+          "key": "slope",
+          "bounds_m": [
+            3.299999952316284,
+            2.083484172821045,
+            1.0592948198318481
+          ],
+          "review": "Increased roof slab to 0.20 m and orange fascia to 0.20 m"
+        },
+        {
+          "key": "bollard",
+          "bounds_m": [
+            0.5299999713897705,
+            0.5299999713897705,
+            0.8199999928474426
+          ],
+          "review": "0.34 m square solid timber with thick foot retained"
+        },
+        {
+          "key": "tall_window",
+          "bounds_m": [
+            1.7599999904632568,
+            0.20000000298023224,
+            1.7350000143051147
+          ],
+          "review": "Frame 0.08 m wide and 0.14 m deep, glass remains thin"
+        },
+        {
+          "key": "narrow_window",
+          "bounds_m": [
+            0.5099999904632568,
+            0.20000000298023224,
+            1.934999942779541
+          ],
+          "review": "Frame 0.08 m wide and 0.14 m deep, glass remains thin"
+        },
+        {
+          "key": "small_window",
+          "bounds_m": [
+            0.6399999856948853,
+            0.20000000298023224,
+            0.7150000333786011
+          ],
+          "review": "Frame 0.08 m wide and 0.14 m deep"
+        },
+        {
+          "key": "door",
+          "bounds_m": [
+            1.059999942779541,
+            0.2750000059604645,
+            1.934999942779541
+          ],
+          "review": "0.10 m door with 0.23 m deep surrounds retained"
+        },
+        {
+          "key": "entry",
+          "bounds_m": [
+            2.419999837875366,
+            1.2574999332427979,
+            2.1999998092651367
+          ],
+          "review": "Frame widened to 0.10 m and depth 0.18 m"
+        },
+        {
+          "key": "solar",
+          "bounds_m": [
+            1.3799999952316284,
+            1.850000023841858,
+            0.22100001573562622
+          ],
+          "review": "Visible rounded frame 0.14 m, inset 0.026 m, border 0.07 m"
+        },
+        {
+          "key": "awning",
+          "bounds_m": [
+            3.121999979019165,
+            0.9071678519248962,
+            0.46299365162849426
+          ],
+          "review": "0.055 m canvas and plump scalloped edge retained"
+        },
+        {
+          "key": "canopy_post",
+          "bounds_m": [
+            0.38999998569488525,
+            0.48000001907348633,
+            2.1600000858306885
+          ],
+          "review": "Post widened to 0.32 x 0.34 m; radius 0.075 m"
+        },
+        {
+          "key": "canopy_beam",
+          "bounds_m": [
+            2.5999999046325684,
+            0.25999999046325684,
+            0.30000001192092896
+          ],
+          "review": "Beam section increased to 0.26 x 0.30 m"
+        },
+        {
+          "key": "sail",
+          "bounds_m": [
+            2.5752604007720947,
+            1.9784893989562988,
+            0.5211858749389648
+          ],
+          "review": "Material-specific thin cloth 0.025 m, piped border retained"
+        },
+        {
+          "key": "ladder",
+          "bounds_m": [
+            0.7600000500679016,
+            0.4483221471309662,
+            2.8755340576171875
+          ],
+          "review": "0.13 x 0.17 m rails, 0.11 m treads retained"
+        },
+        {
+          "key": "ac_tall",
+          "bounds_m": [
+            0.9200000166893005,
+            0.5850000381469727,
+            1.3420000076293945
+          ],
+          "review": "Full 0.54 m depth housing with rounded corners retained"
+        },
+        {
+          "key": "ac_box",
+          "bounds_m": [
+            0.7599999904632568,
+            0.5755000114440918,
+            0.9120000004768372
+          ],
+          "review": "Full 0.53 m depth housing retained, louvers remain thin"
+        },
+        {
+          "key": "ac_roof",
+          "bounds_m": [
+            1.0,
+            0.7955000400543213,
+            0.6420000195503235
+          ],
+          "review": "Full 0.75 m depth housing retained"
+        },
+        {
+          "key": "chimney",
+          "bounds_m": [
+            0.23399999737739563,
+            0.25999999046325684,
+            1.1200000047683716
+          ],
+          "review": "0.22 x 0.26 m solid shaft retained"
+        },
+        {
+          "key": "lantern",
+          "bounds_m": [
+            0.27000001072883606,
+            0.3451026976108551,
+            0.5912250876426697
+          ],
+          "review": "0.25 m deep frame and luminous core retained"
+        },
+        {
+          "key": "sofa",
+          "bounds_m": [
+            1.5800000429153442,
+            0.7057899236679077,
+            1.0724852085113525
+          ],
+          "review": "Cushions increased to 0.26 m; deep rounded back retained"
+        },
+        {
+          "key": "roof_sofa",
+          "bounds_m": [
+            1.5800000429153442,
+            0.7057899236679077,
+            1.0724852085113525
+          ],
+          "review": "Cushions increased to 0.26 m"
+        },
+        {
+          "key": "coffee_table",
+          "bounds_m": [
+            1.2000000476837158,
+            0.6499999761581421,
+            0.42000001668930054
+          ],
+          "review": "Tabletop increased to 0.18 m"
+        },
+        {
+          "key": "table",
+          "bounds_m": [
+            1.0499999523162842,
+            0.8199999928474426,
+            0.7699999809265137
+          ],
+          "review": "Tabletop increased to 0.18 m"
+        },
+        {
+          "key": "stool",
+          "bounds_m": [
+            0.4300000071525574,
+            0.4300000071525574,
+            0.48000001907348633
+          ],
+          "review": "Seat increased to 0.16 m"
+        },
+        {
+          "key": "umbrella",
+          "bounds_m": [
+            1.8200000524520874,
+            1.8200000524520874,
+            2.445000171661377
+          ],
+          "review": "Canopy edge increased to 0.045 m; domed profile retained"
+        },
+        {
+          "key": "cooler",
+          "bounds_m": [
+            0.9100000262260437,
+            0.6875,
+            0.6800000071525574
+          ],
+          "review": "0.61 m deep solid housing; 0.16 m lid retained"
+        },
+        {
+          "key": "pot",
+          "bounds_m": [
+            0.6140000224113464,
+            0.6140000224113464,
+            0.4819999933242798
+          ],
+          "review": "Thick lip and tapered pot silhouette retained"
+        },
+        {
+          "key": "square_pot",
+          "bounds_m": [
+            0.47999998927116394,
+            0.47999998927116394,
+            0.48499998450279236
+          ],
+          "review": "0.48 m rounded solid pot retained"
+        },
+        {
+          "key": "vase",
+          "bounds_m": [
+            0.24000006914138794,
+            0.24000002443790436,
+            0.37300002574920654
+          ],
+          "review": "0.24 m diameter round belly retained"
+        },
+        {
+          "key": "canopy_hook",
+          "bounds_m": [
+            0.17000004649162292,
+            0.25802183151245117,
+            0.98499995470047
+          ],
+          "review": "0.12 m diameter rounded wall-mounted rod retained"
+        },
+        {
+          "key": "bottle",
+          "bounds_m": [
+            0.18000000715255737,
+            0.18000000715255737,
+            0.4050000011920929
+          ],
+          "review": "0.18 m body diameter retained"
+        },
+        {
+          "key": "mat",
+          "bounds_m": [
+            0.9200000166893005,
+            0.6600000262260437,
+            0.036000002175569534
+          ],
+          "review": "Material-specific flat 0.028 m mat retained"
+        },
+        {
+          "key": "porch_side",
+          "bounds_m": [
+            0.28999999165534973,
+            2.2200000286102295,
+            3.069999933242798
+          ],
+          "review": "White posts increased to 0.26 x 0.22 m, sills to 0.28 m"
+        },
+        {
+          "key": "wall_pier",
+          "bounds_m": [
+            0.30000001192092896,
+            0.30000001192092896,
+            2.8499999046325684
+          ],
+          "review": "0.30 x 0.30 m rounded white posts retained"
+        },
+        {
+          "key": "porch_return",
+          "bounds_m": [
+            0.6600000262260437,
+            0.18000000715255737,
+            2.359999895095825
+          ],
+          "review": "0.18 m actual white side wall retained"
+        },
+        {
+          "key": "foliage",
+          "bounds_m": [
+            0.9908310174942017,
+            0.9362170100212097,
+            0.5602587461471558
+          ],
+          "review": "Ellipsoid leaf depth 0.23 m retained"
+        },
+        {
+          "key": "vine",
+          "bounds_m": [
+            0.7326231002807617,
+            0.2583569884300232,
+            1.4252569675445557
+          ],
+          "review": "Rounded ellipsoid leaves, 0.16-0.18 m depth retained"
+        },
+        {
+          "key": "palm",
+          "bounds_m": [
+            1.611448049545288,
+            2.0289604663848877,
+            1.5099126100540161
+          ],
+          "review": "Blade cross-section maintains up to 0.21 m thickness along curved spine"
+        },
+        {
+          "key": "pink_flower",
+          "bounds_m": [
+            0.9637829065322876,
+            0.42500001192092896,
+            1.0000678300857544
+          ],
+          "review": "Petal depth increased to 0.29 m, pink palette cell"
+        },
+        {
+          "key": "daisy",
+          "bounds_m": [
+            1.0399999618530273,
+            0.42500001192092896,
+            0.9310237765312195
+          ],
+          "review": "Petal depth increased to 0.29 m, white palette cell"
+        },
+        {
+          "key": "sprout",
+          "bounds_m": [
+            0.7390909194946289,
+            0.6523722410202026,
+            0.4060816466808319
+          ],
+          "review": "Small succulent leaf thickness 0.15 m retained"
+        }
+      ],
+      "actual_solar_frame_m": [
+        1.3799999952316284,
+        1.850000023841858,
+        0.13999999314546585
+      ],
+      "actual_pink_petal_depth_m": 0.2900000140070915,
+      "pink_palette_cells": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "palette_changed": false
+    }
+  },
+  "execution": {
+    "build_exit_code": 0,
+    "source_verification_exit_code": 0,
+    "registration_exit_code": 0,
+    "render_engine": "Blender Cycles",
+    "rendered_views": 6,
+    "refinement_history": [
+      "Superseded intermediate palette render verification was intentionally terminated before final source rebuild; final evidence below is for current source only."
+    ],
+    "visual_review": "Six current views inspected. User final art acceptance remains pending.",
+    "expected_faults": [],
+    "unexpected_errors": [],
+    "warnings": [
+      "Blender 5.2.2 reports deprecated use_nodes API, expected removal in 6.0."
+    ],
+    "feature_contracts": {
+      "sync_exit_code": 0,
+      "check_exit_code": 0,
+      "result": "PASS: 31 features, 236 source assets, 219 runtime resource hashes; 0 issues"
+    }
+  }
+}
