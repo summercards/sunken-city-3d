@@ -12,11 +12,10 @@ signal facility_build_requested(id: String)
 signal ship_upgrade_requested
 const UiFontLib = preload("res://src/ui/ui_font.gd")
 const ItemDBLib = preload("res://src/inventory/item_db.gd")
-const BackpackGridLib = preload("res://src/inventory/backpack_grid.gd")
 const Card = preload("res://src/ui/ac_card.gd")
 const Cozy = preload("res://src/ui/cozy_ui.gd")
-const INK := Color("#3B3026")
-const DIM := Color("#8A7A66")
+const INK := Cozy.INK
+const DIM := Cozy.DIM
 const OXYGEN_FEEDBACK_ENABLED := true
 const TAB_BAG := "bag"
 const TAB_BUILD := "build"
@@ -42,6 +41,7 @@ var _found := 0
 var _found_total := 0
 var _dive_btn: Button
 var _dive_controls: HBoxContainer
+var _dive_status: Label
 var _toast: Label
 var _toast_box: PanelContainer
 var _toast_left := 0.0
@@ -53,9 +53,21 @@ var _base_position := Vector2(160,190)
 var _counts := {}
 var _initialized_counts := false
 var _layout_size := Vector2.ZERO
+var menu: CanvasLayer
+var _external_modal := false
+var _launch: HBoxContainer
+var _world_actions: HBoxContainer
+var _history: Array[String] = []
+var _toast_elapsed := 0.0
+var _zoom: Label
+var _zoom_left := 0.0
+var _toast_tag: Label
 
 func _ready() -> void:
 	layer = 60
+	# Canvas antialiasing only: leave the project and 3D renderer unchanged.
+	get_viewport().msaa_2d = Viewport.MSAA_4X
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB","PingFang SC","Microsoft YaHei"]))
 	_root = Control.new();_root.set_meta("cozy_skip",true)
 	_root.set_anchors_preset(Control.PRESET_FULL_RECT);_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -70,36 +82,60 @@ func _ready() -> void:
 	_panel.activated.connect(_activate)
 	_panel.page_changed.connect(func(_page): _tab = "bag")
 	for id in ["plant","build","save","load","camera","grade"]: command_buttons[id] = _panel.tiles[id]
-	var launch := HBoxContainer.new();launch.position = Vector2(32,30);launch.add_theme_constant_override("separation",10)
+	var launch := HBoxContainer.new();_launch=launch;launch.position = Vector2(40,32);launch.add_theme_constant_override("separation",12)
 	_root.add_child(launch)
-	var bag := _plain_button("▤  随身手册",true);launch.add_child(bag)
+	var bag := _plain_button("▤  手册 B",true);bag.tooltip_text="随身手册 · B";launch.add_child(bag)
 	bag.pressed.connect(func():
 		if _panel_open: _toggle_panel()
 		else: command_requested.emit("bag"))
 	command_buttons.bag = bag
+	var system := _plain_button("☰  Esc",true);system.tooltip_text="暂停与设置 · Esc";launch.add_child(system)
+	system.pressed.connect(func(): menu.show_menu())
+	command_buttons.system = system
 	_dive_btn = _plain_button("潜水",true);launch.add_child(_dive_btn)
 	_dive_btn.pressed.connect(func(): dive_pressed.emit())
-	for entry in [["follow","跟随"],["cancel","停止"]]:
-		var button := _command_button(entry[1],entry[0],true);launch.add_child(button)
+	_world_actions=HBoxContainer.new();_world_actions.add_theme_constant_override("separation",10);_root.add_child(_world_actions)
+	for entry in [["follow","回到角色"],["cancel","停止行动"]]:
+		var button := _command_button(entry[1],entry[0],true);_world_actions.add_child(button)
 	_res_label = _label("",15,Color.WHITE);_res_label.position = Vector2(34,931);_root.add_child(_res_label)
+	_res_label.add_theme_color_override("font_shadow_color",Color(0.15,0.22,0.23,0.9))
+	_res_label.add_theme_constant_override("shadow_offset_x",1);_res_label.add_theme_constant_override("shadow_offset_y",2)
 	_dive_controls = HBoxContainer.new();_dive_controls.position = Vector2(32,88);_dive_controls.add_theme_constant_override("separation",8)
 	_root.add_child(_dive_controls)
 	for entry in [["rise","↑ 上游"],["descend","↓ 下游"],["lamp","头灯"]]: _dive_controls.add_child(_command_button(entry[1],entry[0],true))
+	_dive_status = _label("",14,Color.WHITE)
+	_dive_status.position = Vector2(34,143);_root.add_child(_dive_status);_dive_status.hide()
 	_dive_controls.hide()
 	_hints = HBoxContainer.new();_hints.add_theme_constant_override("separation",12);_root.add_child(_hints)
-	var close := _plain_button("Ⓑ  收起  Esc",true);close.pressed.connect(func():
-		if _panel_open: _toggle_panel())
+	var close := _plain_button("Ⓑ  返回   Esc",true);close.pressed.connect(func():
+		if menu: menu.back()
+		else: back())
 	command_buttons.close = close;_hints.add_child(close)
 	var select := _plain_button("Ⓐ  选择  Enter",true);select.pressed.connect(_activate_selection);_hints.add_child(select);_hints.hide()
 	_toast_box = PanelContainer.new();_toast_box.add_theme_stylebox_override("panel",_pill(true));_toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_root.add_child(_toast_box);_toast_box.hide();_toast = _label("",15,Color.WHITE);_toast_box.add_child(_toast)
+	_root.add_child(_toast_box);_toast_box.hide();_toast = _label("",30,INK);_toast_box.add_child(_toast)
+	_toast.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;_toast.custom_minimum_size.x=600
+	_toast_box.custom_minimum_size.x=680
+	Cozy.paper(_toast_box,Cozy.GOLD,true)
+	_toast_box.custom_minimum_size.y=130
+	_toast.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
+	_toast_tag=_label("  海上的消息  ",22,Cozy.CREAM)
+	_toast_tag.add_theme_stylebox_override("normal",Cozy.surface(Cozy.INK,18))
+	_toast_tag.rotation=-0.035;_root.add_child(_toast_tag);_toast_tag.hide()
+	_zoom=_label("",16,Cozy.CREAM)
+	_zoom.add_theme_stylebox_override("normal",_pill(true));_root.add_child(_zoom);_zoom.hide()
+	menu = preload("res://src/ui/island_menu.gd").new();add_child(menu)
+	menu.command_requested.connect(func(command): command_requested.emit(command))
+	menu.oxygen_feedback_changed.connect(func(on): _panel.feedback_enabled=on)
 	Economy.sites_changed.connect(_refresh_panel)
 	Economy.resources_changed.connect(_refresh)
 	_refresh();_layout()
+	_panel.update_context(false,-1,-1)
+	_attach_presenters.call_deferred()
 
 func _label(text: String, pixels: int, color := INK) -> Label:
 	var label := Label.new();label.text = text
-	label.add_theme_font_override("font",_font);label.add_theme_font_size_override("font_size",pixels)
+	label.add_theme_font_override("font",_font);label.add_theme_font_size_override("font_size",maxi(22,pixels))
 	label.add_theme_color_override("font_color",color);label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return label
 
@@ -110,11 +146,16 @@ func _pill(dark := false) -> StyleBoxFlat:
 	return style
 
 func _plain_button(text: String, dark := false) -> Button:
-	var button := Button.new();button.text = text;button.custom_minimum_size.y = 40
-	button.add_theme_font_override("font",_font);button.add_theme_font_size_override("font_size",14)
-	for state in ["normal","hover","pressed","disabled"]: button.add_theme_stylebox_override(state,_pill(dark))
-	for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]: button.add_theme_color_override(state,Color.WHITE if dark else INK)
-	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	var button := Button.new();button.text=text
+	button.add_theme_font_override("font",_font)
+	Cozy.style_tree(button)
+	if dark:
+		for state in ["normal","hover","pressed"]:
+			var style := Cozy.surface(Cozy.CREAM if state == "normal" else Cozy.GOLD,24)
+			style.shadow_size=0
+			button.add_theme_stylebox_override(state,style)
+		for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]: button.add_theme_color_override(state,Cozy.INK)
+	button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
 	return button
 
 func _command_button(title: String, command: String, dark := false) -> Button:
@@ -125,24 +166,68 @@ func _command_button(title: String, command: String, dark := false) -> Button:
 
 func _layout() -> void:
 	_layout_size = _root.size
-	var fit := minf(1.0,minf((_root.size.y-120)/620,(_root.size.x-64)/420))
-	_base_position = Vector2(maxf(32,_root.size.x*0.10),maxf(88,(_root.size.y-620*fit)/2))
-	_panel.position = _base_position;_panel.scale = Vector2.ONE*fit
-	_hints.position = Vector2(_root.size.x-370,_root.size.y-76)
-	_res_label.position = Vector2(34,_root.size.y-63)
-	_toast_box.position = Vector2(_root.size.x/2-160,_root.size.y-135)
+	_world_actions.position=Vector2(40,_root.size.y-78)
+	var extent: Vector2 = _panel.size
+	var fit := minf(1.0,minf((_root.size.y-160)/extent.y,(_root.size.x-100)/extent.x))
+	_base_position = Vector2((_root.size.x-extent.x)/2 if _panel.detail.visible else maxf(48,_root.size.x*0.13),(_root.size.y-extent.y)/2)
+	_panel.position = _base_position;_panel.scale=Vector2.ONE*fit
+	_hints.position=Vector2(_root.size.x-_hints.get_combined_minimum_size().x-40,_root.size.y-78)
+	_res_label.position=Vector2(40,_root.size.y-126)
+	_toast_box.size=Vector2(680,0)
+	_layout_notice()
+	_zoom.position=Vector2((_root.size.x-140)/2,_root.size.y-80)
+
+func _layout_notice() -> void:
+	_toast_box.position=Vector2((_root.size.x-680)/2,42 if _panel_open or _external_modal else _root.size.y-225)
+	_toast_tag.position=_toast_box.position+Vector2(24,-22)
+
+func _attach_presenters() -> void:
+	var adapter := preload("res://src/ui/island_presenters.gd").new()
+	add_child(adapter);adapter.attach(self)
+
+func bind_presenters(views: Dictionary) -> void:
+	menu.bind(self,views)
+
+func set_external_modal(on: bool) -> void:
+	if _external_modal == on: return
+	_external_modal=on
+	_backdrop.visible=on or _panel_open
+	if on: _backdrop.material.set_shader_parameter("strength",1.0)
+	_hints.visible=on or _panel_open
+	_launch.visible=not on and not _panel_open
+	_world_actions.visible=not on and not _panel_open
+
+func close_card() -> void:
+	if _panel_open: _toggle_panel()
+
+func back() -> void:
+	if not _panel_open: return
+	if not _history.is_empty():
+		_tab=_history.pop_back();_refresh_panel();_layout()
+	elif _panel.detail.visible:
+		_tab="bag";_panel.show_grid(1);_layout()
+	else: close_card()
 
 func open_tab(tab: String) -> void:
-	_tab = tab
+	if _panel_open and tab != _tab and tab != "bag": _history.append(_tab)
+	if tab == "bag": _history.clear();_panel.show_grid(0)
+	_tab=tab
 	if not _panel_open: _toggle_panel()
-	else: _refresh_panel()
+	else: _refresh_panel();_layout()
 
 func _toggle_panel() -> void:
 	_panel_open = not _panel_open
 	if _open_tween: _open_tween.kill()
 	_panel.visible = _panel_open;_backdrop.visible = _panel_open;_hints.visible = _panel_open
-	if not _panel_open: return
+	_launch.visible=not _panel_open;_world_actions.visible=not _panel_open
+	if not _panel_open:
+		_history.clear()
+		return
 	_refresh_panel();_layout()
+	_panel.flush_arrivals()
+	if not Cozy.motion_enabled:
+		_backdrop.material.set_shader_parameter("strength",1.0)
+		return
 	var target_scale := _panel.scale
 	_panel.position.y += 64;_panel.scale = target_scale*0.92
 	_backdrop.material.set_shader_parameter("strength",0.0)
@@ -154,50 +239,60 @@ func _toggle_panel() -> void:
 func _refresh_panel() -> void:
 	if _tab_body == null: return
 	if _tab == "bag":
-		_panel.show_grid(0)
+		if _panel.detail.visible: _panel.show_grid(_panel.page)
 		return
 	for node in _tab_body.get_children():
 		_tab_body.remove_child(node);node.queue_free()
 	_build_rows.clear();_plant_rows.clear()
+	_tab_body.add_theme_constant_override("separation",6 if _tab == "storage" else 12)
 	match _tab:
 		"plant": _panel.show_detail("种植日记");_refresh_plant()
 		"build": _panel.show_detail("建造计划");_refresh_build()
 		"storage": _panel.show_detail("背包与仓储");_refresh_storage()
 		"map":
-			_panel.show_detail("航海图")
+			_panel.show_detail("海风带你去哪里？")
+			var atlas := preload("res://src/ui/island_atlas.gd").new();atlas.font=_font;_tab_body.add_child(atlas)
+			_tab_body.add_child(_label("圆环是你的位置 · 选择一处泊位，准备出发。",16,DIM))
 			for entry in DESTINATIONS:
-				var button := _plain_button(entry.name);_tab_body.add_child(button)
+				var unlocked: bool=Zones.is_unlocked(entry.id)
+				var button := _plain_button(entry.name + ("   ·   已在这里" if entry.id == GameState.current_zone else "   →") if unlocked else entry.name+"   ·   需要升级小船")
+				button.disabled=not unlocked or _diving;_tab_body.add_child(button)
 				button.pressed.connect(func(): _toggle_panel();destination_pressed.emit(entry.id))
 		_:
 			_panel.show_detail(ItemDBLib.label(_tab))
+			var art := _item_tile(_tab,Economy.count(_tab));art.mouse_filter=Control.MOUSE_FILTER_IGNORE;art.size_flags_horizontal=Control.SIZE_SHRINK_CENTER;_tab_body.add_child(art)
 			var info := _label(str(ItemDBLib.get_item(_tab).get("desc","")),16)
-			info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;info.custom_minimum_size.x = 310;_tab_body.add_child(info)
+			info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;info.custom_minimum_size.x = 560;_tab_body.add_child(info)
 			_tab_body.add_child(_label("持有 ×%d · 单价 %d 海贝" % [Economy.count(_tab),ItemDBLib.sell_price(_tab)],15))
-			if ItemDBLib.get_item(_tab).get("category") == "produce":
+			if _crop_sale_ids().has(_tab):
 				var sell := _plain_button("出售全部农产品")
 				sell.disabled = Economy.count(_tab) == 0
 				sell.pressed.connect(func(): _farm_action(Economy.farm.sell_produce));_tab_body.add_child(sell)
-				var note := _label("会同时出售背包中的鱼、蔬菜、番茄和南瓜，
+				var note := _label("会同时出售背包中的蔬菜、番茄和南瓜，
 包含订单用料。",13,DIM);_tab_body.add_child(note)
-			else: _tab_body.add_child(_label("可用于码头交易订单",14,DIM))
+			else:
+				var trade := _plain_button("前往码头交易")
+				trade.pressed.connect(func(): _toggle_panel();destination_pressed.emit("zone1"))
+				_tab_body.add_child(trade)
+				_tab_body.add_child(_label("在码头订单中交付，换取海贝。",14,DIM))
 	_style_details(_tab_body)
+	_layout()
+
+func _crop_sale_ids() -> Array:
+	var ids: Array = []
+	if Economy.farm != null:
+		for crop in Economy.farm.crops.values():
+			for id in crop.get("yield",{}):
+				if not ids.has(id): ids.append(id)
+	return ids
 
 func _style_details(node: Node) -> void:
-	if node is Label:
-		node.add_theme_color_override("font_color",INK)
-		node.add_theme_font_size_override("font_size",14)
-	elif node is Button:
-		node.add_theme_font_override("font",_font)
-		node.add_theme_font_size_override("font_size",14)
-		node.add_theme_stylebox_override("normal",_pill())
-		for state in ["font_color","font_hover_color","font_pressed_color"]: node.add_theme_color_override(state,INK)
-	elif node is PanelContainer:
-		node.add_theme_stylebox_override("panel",_pill())
-	for child in node.get_children(): _style_details(child)
+	Cozy.style_tree(node)
 
 func _activate(id: String) -> void:
 	match id:
-		"plant","build","save","load","camera","grade": command_requested.emit(id)
+		"load": menu.show_menu("load")
+		"plant","build","save","camera","grade": command_requested.emit(id)
 		"water": command_requested.emit("plant")
 		"hook": toast("打捞钩已随身携带 · 前往绞盘打捞站使用")
 		"lamp","dive":
@@ -206,35 +301,56 @@ func _activate(id: String) -> void:
 		_: open_tab(id)
 
 func _activate_selection() -> void:
-	if _panel.detail.visible: return
+	if _external_modal:
+		var focus:=get_viewport().gui_get_focus_owner()
+		if focus is Button and focus.is_visible_in_tree() and not focus.disabled and not _hints.is_ancestor_of(focus):
+			focus.pressed.emit()
+		return
+	if _panel.detail.visible or _panel.turning: return
 	for tile in _panel.tiles.values():
 		if tile.selected and tile.is_visible_in_tree():
 			tile.pressed.emit();return
 
 func _input(event: InputEvent) -> void:
+	if menu and menu.active: return
 	if not event is InputEventKey or not event.pressed or event.echo: return
 	var key: int = event.physical_keycode if event.physical_keycode else event.keycode
 	if _panel_open:
-		if key in [KEY_ESCAPE,KEY_B,KEY_TAB]: _toggle_panel()
-		elif key in [KEY_LEFT,KEY_RIGHT]: _panel.flip(1-_panel.page)
-		elif key in [KEY_ENTER,KEY_SPACE]: _activate_selection()
+		if key == KEY_ESCAPE: return
+		if key in [KEY_B,KEY_TAB]: _toggle_panel()
+		elif key in [KEY_LEFT,KEY_RIGHT] and not _panel.detail.visible: _panel.flip(1-_panel.page)
+		elif key == KEY_UP and not _panel.detail.visible: _panel.move_selection(-1)
+		elif key == KEY_DOWN and not _panel.detail.visible: _panel.move_selection(1)
+		elif key in [KEY_ENTER,KEY_SPACE] and not _panel.detail.visible: _activate_selection()
+		elif key in [KEY_C,KEY_P]:
+			command_requested.emit("camera" if key == KEY_C else "grade")
+		elif key in [KEY_F5,KEY_F9]:
+			if key == KEY_F5: command_requested.emit("save")
+			else: menu.show_menu("load")
 		else: return
 		get_viewport().set_input_as_handled()
-	elif _diving and key in [KEY_B,KEY_TAB]:
-		open_tab("bag");get_viewport().set_input_as_handled()
+	elif key in [KEY_B,KEY_TAB]:
+		command_requested.emit("bag");get_viewport().set_input_as_handled()
 
 func toast(text: String, seconds := 2.4) -> void:
-	_toast.text = text;_toast_left = maxf(seconds,3.2)
+	if menu and menu.active:
+		menu.note(text)
+		return
+	_toast.text = text;_toast_left = maxf(seconds,3.2 + text.length()/55.0);_toast_elapsed=0
+	_toast.visible_characters=0 if Cozy.motion_enabled else -1
+	_toast_box.reset_size();_layout_notice()
 	_toast_box.visible = text != "";_toast_box.modulate.a = 1
 
 func set_diving(on: bool) -> void:
-	_diving = on;_dive_controls.visible = on;_dive_btn.text = "上浮" if on else "潜水"
+	_diving = on;_dive_controls.visible = on;_dive_status.visible = on;_dive_btn.text = "上浮" if on else "潜水"
 	if not on: _dive_zone = "";_depth = -1;_air_ratio = -1
 	_panel.update_context(_diving,_air_ratio,_depth)
 
 func set_dive_air(ratio: float, lamp_on: bool, found: int, total: int) -> void:
 	_air_ratio = clampf(ratio,0,1);_lamp_on = lamp_on;_found = found;_found_total = total
 	_panel.update_context(_diving,_air_ratio,_depth)
+	_dive_status.text = "氧气 %d%% · 水深 %s · 头灯%s · 发现 %d/%d" % [roundi(_air_ratio*100),"%.0fm" % _depth if _depth >= 0 else "—","开" if lamp_on else "关",found,total]
+	_dive_status.add_theme_color_override("font_color",air_color(_air_ratio) if _air_ratio <= 0.30 else Color.WHITE)
 
 static func air_color(ratio: float) -> Color:
 	if ratio <= 0.15: return Color("#D4573F")
@@ -249,7 +365,9 @@ func set_dive_depth(depth: float) -> void:
 	_panel.update_context(_diving,_air_ratio,_depth)
 
 func note_zoom(ratio: float) -> void:
-	if not _diving: toast("缩放 %d%%" % roundi(ratio*100),1.2)
+	if not _diving:
+		_zoom.text="  视野 %d%%  " % roundi(ratio*100)
+		_zoom_left=1.2
 
 ## Read-only presentation snapshot for diagnostics; never exposes mutable owner state.
 func presentation_snapshot() -> Dictionary:
@@ -270,19 +388,54 @@ func _refresh() -> void:
 func _process(delta: float) -> void:
 	if _root.size != _layout_size: _layout()
 	if _toast_left > 0:
+		_toast_elapsed += delta
+		_toast.visible_characters = int(_toast_elapsed*55) if Cozy.motion_enabled else -1
 		_toast_left -= delta;_toast_box.modulate.a = clampf(_toast_left/0.9,0,1)
 		if _toast_left <= 0: _toast_box.hide()
+	_toast_tag.visible=_toast_box.visible and not menu.active
+	_toast_tag.modulate=_toast_box.modulate
+	_zoom_left=maxf(0,_zoom_left-delta)
+	_zoom.visible=_zoom_left>0 and not _panel_open and not _external_modal and not menu.active
 	_tick_build_rows();_tick_plant_rows()
 
+func _item_tile(id: String, count: int) -> Button:
+	var tile := preload("res://src/ui/ac_icon.gd").new()
+	tile.font=_font;tile.kind=id;tile.caption=ItemDBLib.label(id)
+	tile.tint=ItemDBLib.color(id).lerp(Cozy.CREAM,0.38)
+	tile.amount=count;tile.shown_amount=count
+	return tile
+
 func _refresh_storage() -> void:
-	var grid := BackpackGridLib.new()
+	_tab_body.add_child(_label("口袋里的宝贝   ·   %d / %d 格" % [Economy.inventory.slots_used(),Economy.inventory.capacity()],21))
+	var selected_name := _label("选择一件随身物品",22,Cozy.CREAM)
+	selected_name.set_meta("island_label",true)
+	selected_name.size_flags_horizontal=Control.SIZE_SHRINK_CENTER
+	var tag_style:=Cozy.surface(Cozy.TEAL,22);tag_style.content_margin_top=5;tag_style.content_margin_bottom=5
+	selected_name.add_theme_stylebox_override("normal",tag_style)
+	_tab_body.add_child(selected_name)
+	var grid := GridContainer.new();grid.name="PocketSlots";grid.columns=8
+	grid.add_theme_constant_override("h_separation",10);grid.add_theme_constant_override("v_separation",10)
 	_tab_body.add_child(grid)
-	grid.setup(_font, Economy.inventory)
+	for id in ItemDBLib.all_ids():
+		if ItemDBLib.is_currency(id) or Economy.count(id) <= 0: continue
+		var remaining: int=Economy.count(id)
+		while remaining > 0:
+			var count_in_slot:=mini(remaining,ItemDBLib.stack_limit(id))
+			var item := _item_tile(id,count_in_slot);item.pocket=true;grid.add_child(item)
+			item.tooltip_text=ItemDBLib.label(id)
+			item.mouse_entered.connect(func(): selected_name.text=ItemDBLib.label(id))
+			item.focus_entered.connect(func(): selected_name.text=ItemDBLib.label(id))
+			item.pressed.connect(func(): open_tab(id))
+			remaining-=count_in_slot
+	for slot in maxi(0,Economy.inventory.capacity()-grid.get_child_count()):
+		var empty:=preload("res://src/ui/ac_icon.gd").new()
+		empty.pocket=true;empty.empty_slot=true;empty.disabled=true;empty.focus_mode=Control.FOCUS_NONE
+		empty.mouse_filter=Control.MOUSE_FILTER_IGNORE;grid.add_child(empty)
 
 	# 货币单独一行：它不占格，但需要随时可见。
-	var purse := _label("🪙 海贝 ×%d" % Economy.coins, 12, INK)
+	var purse := _label("海贝  %d" % Economy.coins, 12, INK)
 	_tab_body.add_child(purse)
-	var tip := _label("点击物件即可前往采集；建设材料可以存入仓库。", 10, DIM)
+	var tip := _label("点击物件查看用途；建设材料可以存入仓库。", 10, DIM)
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tip.custom_minimum_size = Vector2(300, 0)
 	_tab_body.add_child(tip)
@@ -314,27 +467,25 @@ func _refresh_plant() -> void:
 	var refill := _row("岸上补给 · 免费淡水", "补满水壶", true)
 	refill.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.refill()))
 	_tab_body.add_child(refill.box)
+	var crops := HBoxContainer.new();crops.add_theme_constant_override("separation",16);_tab_body.add_child(crops)
 	for crop_id in farm.crops:
-		var crop: Dictionary = farm.crops[crop_id]
+		var crop: Dictionary=farm.crops[crop_id]
 		var chosen := str(crop_id)
-		var row := VBoxContainer.new()
-		var select := Button.new()
-		select.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		select.text = ("✓ " if farm.selected_crop == chosen else "") + str(crop.name) + " · 种子 %d" % Economy.count(str(crop.seed))
-		select.add_theme_font_override("font", _font)
-		select.add_theme_font_size_override("font_size", 12)
-		select.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		select.pressed.connect(func() -> void:
-			farm.select_crop(chosen)
-			_refresh_panel())
+		var panel := PanelContainer.new();panel.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		var style := Cozy.surface(Color("#edf0d9"),24);style.shadow_size=0
+		panel.add_theme_stylebox_override("panel",style);crops.add_child(panel)
+		var row := VBoxContainer.new();row.add_theme_constant_override("separation",12);panel.add_child(row)
+		var yield_id: String=str(crop.get("yield",{}).keys()[0])
+		var select := _item_tile(yield_id,0);select.size_flags_horizontal=Control.SIZE_SHRINK_CENTER
+		select.caption=str(crop.name);select.selected=farm.selected_crop==chosen
+		select.pressed.connect(func(): farm.select_crop(chosen);_refresh_panel())
 		row.add_child(select)
-		var buy := Button.new()
-		buy.add_theme_font_override("font", _font)
-		buy.add_theme_font_size_override("font_size", 12)
-		buy.text = "买 1 包 · %d 贝" % int(crop.seed_price)
-		buy.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.buy_seed(chosen)))
+		var days := _label("%d 个浇水日" % int(crop.get("grow_days",0)),16);days.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;row.add_child(days)
+		var seeds := _label("种子 ×%d" % Economy.count(str(crop.seed)),15,DIM);seeds.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;row.add_child(seeds)
+		var buy := _plain_button("购买 · %d贝" % int(crop.seed_price))
+		buy.tooltip_text="购买"+str(crop.name)+"种子"
+		buy.pressed.connect(func(): _farm_action(func() -> Dictionary: return farm.buy_seed(chosen)))
 		row.add_child(buy)
-		_tab_body.add_child(row)
 	var sell := _row("出售背包内全部农产品（订单用料也会卖出）", "出售农产品", true)
 	sell.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.sell_produce()))
 	_tab_body.add_child(sell.box)
@@ -382,7 +533,7 @@ func _refresh_build() -> void:
 	_tab_body.add_child(heading)
 	var progress := _label(Economy.construction_progress(goal.cost), 12)
 	progress.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	progress.custom_minimum_size.x = 310
+	progress.custom_minimum_size.x = 560
 	_tab_body.add_child(progress)
 	_tab_body.add_child(_label("数量合计背包与仓库；建好后自动推荐下一目标。", 11))
 	var source := _label("木料／缆绳：sea采集 · 零件／玻璃：横滨铁道\n海贝：农产品出售或码头交单；打捞也能补充木料与零件。", 11)
@@ -441,16 +592,17 @@ func _cost_text(cost: Dictionary) -> String:
 
 
 func _row(text: String, action: String, enabled: bool) -> Dictionary:
-	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation",6)
-	var info := _label(text,14,INK)
-	info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	info.custom_minimum_size.x = 310
+	var panel := PanelContainer.new()
+	var style := Cozy.surface(Color("#f1ecd9"),22);style.shadow_size=0
+	style.content_margin_left=20;style.content_margin_right=20;style.content_margin_top=16;style.content_margin_bottom=16
+	panel.add_theme_stylebox_override("panel",style)
+	var box := HBoxContainer.new();box.add_theme_constant_override("separation",18);panel.add_child(box)
+	var info := _label(text,17,INK);info.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	info.custom_minimum_size.x=330;info.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	box.add_child(info)
-	var button := _plain_button(action)
-	button.disabled = not enabled
-	box.add_child(button)
-	return {"box":box,"button":button,"label":info}
+	var button := _plain_button(action);button.custom_minimum_size.x=156;button.size_flags_vertical=Control.SIZE_SHRINK_CENTER
+	button.disabled=not enabled;box.add_child(button)
+	return {"box":panel,"button":button,"label":info}
 
 
 ## 种植页：只改文案，不重建（重建会丢按钮焦点、作物选择也会跳）。

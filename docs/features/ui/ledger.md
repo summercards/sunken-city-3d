@@ -25,9 +25,20 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-UI-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-UI-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-UI-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-UI-R01 | 本轮单卡反馈、拒绝出售、背景点击隔离与详情返回通过；旧专项边界保留 | 2026-10-26 原生真实鼠标/键盘专项与 click/management；见单卡交付记录 |
+| SEA-UI-R02 | 本轮仅 UI 显示状态与既有业务命令；旧直接读取字段待进一步接口治理 | 正式源修改限于 ui，未修改业务状态键/资产ID；原生出售与水下事件链实测 |
+| SEA-UI-R03 | 部分实现；1600×1000、1280×800、1920×1080桌面布局覆盖 | 原生viewport截图及不越界断言；触控/手柄未验 |
+| SEA-UI-R04 | 已实现；全界面扩展 | 海面渔具箱/水下日志420×620、3×3两页；680×680经营详情、卡外提示；全界面截图08—14 |
+| SEA-UI-R05 | 已实现；缺数据明确「—」，不新增即时出售规则 | 只读Label、真实氧气/水深事件、库存角标零值隐藏、装备锁；截图01/03/06 |
+| SEA-UI-R06 | 已实现并原生验证 | 开卡端点、背景强度、翻页中间态/结束态、连按不堆叠；截图02 |
+| SEA-UI-R07 | 已实现并原生验证 | hover、数量中间态/上浮、飞入节点、到达高亮与衰减、选中恢复；`verify_ac_ui.gd` |
+| SEA-UI-R08 | 已实现并原生验证 | 真实氧气25%橙/12%红、±2抖动、关闭反馈归零、卡外提示固定；截图03/06 |
+| SEA-UI-R09 | 已实现，当前证据见交付记录 | `island_paper/island_presenters/island_atlas`；所有改动局限UI目录，外部presenter保留原控制与信号 |
+| SEA-UI-R10 | 已实现，当前证据见交付记录 | `island_menu`；分层返回、详情历史、系统暂停、读档/退出取消优先 |
+| SEA-UI-R11 | 已实现，当前证据见交付记录 | 独立 `user://island_ui.cfg`；动画/氧气反馈/音量偏好、全屏、帮助、原保存命令 |
+| SEA-UI-R12 | 已实现桌面覆盖，设备项待验 | 原生截图、三分辨率、订单等待、打捞成功/失败、气泡淡出同步、收藏弹窗；触控/手柄未验 |
+| SEA-UI-R13 | 已实现，最终证据见交付记录 | 统一字体工厂、UI层全树与动态节点字体绑定、字体资产授权/哈希登记；真实窗口逐页字体引用核对与字号排版检查 |
+| SEA-UI-R14 | 已实现，最终证据见交付记录 | 手机/口袋/选项/对话分形态；背包按stack_limit展示真实堆叠、24格含空位，真实点击打开详情及Esc返回 |
 
 ## 资源与调用入口
 
@@ -44,6 +55,11 @@
 - `godot/src/ui/cozy_ui.gd`：命令/查询 `surface(color: Color, radius: int = 22), button_color(text: String), animate(control: Control, scale_to: float), reveal(control: Control), apply(control: Control), apply_tree(root: Node), apply_instance(instance_id: int)`；事件 `无`。
 - `godot/src/ui/ui_font.gd`：命令/查询 `embedded(), make(font_names: PackedStringArray)`；事件 `无`。
 
+- `hud.gd::presentation_snapshot()`：只读新字典，open/page/diving/depth/oxygen/clock/tide/turning；不暴露业务可变对象。
+- `ac_card.gd`：UI内部 `flip/show_grid/show_detail/update_context/fly_in/flush_arrivals/move_selection`；事件 `activated/page_changed`，只操作表现。
+- `ac_icon.gd`：UI内部 `set_amount/highlight`；数量与高亮不写回库存。
+- 本轮未新增业务只读接口；状态来源详见下方交付记录。
+
 ## 验证记录
 
 入口：`python3 scripts/run_verification.py click management`。
@@ -54,10 +70,40 @@
 
 - 2026-10-23 真实事件补充：visual-click 退出 1，第二地格点击目标断言失败；拆分前基线同样失败，完整根因待定位。不得以核心 click 通过覆盖此失败。详见[交付记录](../../development/2026-10-23_feature_split.md)。
 
+### 2026-10-26 单卡专项
+
+交付与全部日志路径见 [单卡交付记录](../../development/2026-10-26_ui_ac_single_card.md)。真实截图：工程外 `sea-work/ui_shots_ac/01_card_open.png`、`02_page_flip.png`、`03_low_oxygen.png`，另有第二页、仓储与橙色警示三张。
+
+- Godot 4.7.2 隔离导入退出0；SCRIPT ERROR / Parse Error / 非预期 ERROR 为0。
+- `core` 已完整运行：8项通过；selftest 536 passed / 1 failed（退出1），失败是旧 `_tab_body` 必须直接包含 BackpackGrid 的结构断言。恢复 HEAD 的隔离基线同样失败，不能记为全绿；坏 JSON 注入另列为预期错误。
+- 原生专项经现有 runner 注册执行，验证真正鼠标/键盘输入、模态隔离、同卡详情、数量/飞入/翻页中间态、真实出售与水下低氧。最终71项/0失败、退出0，`verification/20261026-100900-ui-ac-delivery-8b809e/report.json`；源码与实际运行副本逐字节一致。
+- 第一次原生低氧场景准备的固定耗氧时间未到阈值，断言失败已保留；改用真实模型速率计算推进量后通过。未以合成HUD数值替代真实事件。
+- 未执行：触控/手柄、其他分辨率、旧 visual-click/visual-management（旧布局假设）；历史地格失败保留。
+
 ## 遗留与下一步
 
-部分 UI 仍直接读取业务字段；功能级面板分别由所属功能代码目录管理。
+部分 UI 仍直接读取业务字段；功能级面板分别由所属功能代码目录管理。时钟/潮汐缺查询显示「—」；非作物即时出售无既有命令，走码头交易。旧 BackpackGrid 结构断言需要在允许修改测试的任务中更新为新UI契约；本次不越过代码边界，也不挂隐藏旧容器凑通过。当前全界面补充证据以交付记录最新章节为准，早期截图及71项结果保留为历史。
 
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+
+- 2026-10-26：完成单卡交互、程序化图标动画、真实低氧反馈与原生截图验收；新增R04—R08承接，整体仍partial，保留旧断言/设备覆盖缺口。
+
+### 2026-10-26 全界面扩展
+
+按用户补充参考图，完成当前所有正式UI入口与系统菜单；开发记录见[最新交付](../../development/2026-10-26_ui_ac_single_card.md)。新增UI内装饰器，不修改任何非UI业务源码。新只读接口仍只有 `presentation_snapshot()`；`bind_presenters()` 仅连接UI所有者，`back()/close_card()/set_external_modal()` 仅改变表现。
+
+原生当前测试、运行失败及修复过程、核心结果和未执行项统一列于最新交付记录，不以早期通过替代最终代码实测。
+
+### 接续交付：参考复核、抗锯齿与圆体字号
+
+接续原对话最后补充的抗锯齿、整体参考风格和本对话的圆润饱满大字号要求。新增UI字体分账本（从总索引路由），`UI-FONT-LXGW975YUAN-SC-700` 使用上游完整未修改字体，OFL与版权随文件保存。只新增此资源哈希，不更改历史资产基线。
+
+真实窗口中发现并修复早期hover发生在footer创建前的空引用、口袋图标局部变换未恢复导致的数量位置异常。输入测试将一次按下/释放作为同次Viewport事件序列提交，避免测试两个事件之间被原生鼠标更新插入；仍走真实GUI命中与按钮命令，不直接调用业务结果。最终日志与过程失败见开发记录。
+
+
+接续最终实测：`20261026-161255-ui-rounded-native-capture-de770f` 原生120项/0失败，逐页字体引用一致、1280×800/1600×1000/1920×1080布局通过；最新隔离导入 `20261026-161339-ui-ac-import` 退出0。核心完整 `20261026-161546-ui-rounded-delivery-core-464e90` 八专项通过，selftest536/1保留旧BackpackGrid断言失败。截图等待自动绘制信号曾导致超时，改为主动绘制真实Viewport后取图；过程失败及取图方法见开发记录，未用历史通过覆盖最终代码。
+
+
+最终单卡专项 `20261026-161646-ui-rounded-single-card-delivery-31a2d0` 71项/0失败、退出0；要求的六张1600×1000原生截图已刷新。两组共42张截图及源码副本一致性清单位于工程外 `ui_shots_ac/verification.json` 与 `ui_full_island/verification.json`。最终结构同步与无参数检查均0问题。

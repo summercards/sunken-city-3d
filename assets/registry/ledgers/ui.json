@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "domain": "ui",
+  "assets": [
+    {
+      "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
+      "name": "霞鹜975圆体SC 700W · 游戏统一圆体",
+      "domain": "ui",
+      "stage": "runtime_integrated_verified",
+      "source": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
+      "source_sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",
+      "manifest": "godot/src/ui/fonts/provenance.json",
+      "version": "37b753f408b25d3ab3d25cbddb5dd9dacca0289a",
+      "runtime_path": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
+      "license": "SIL-OFL-1.1",
+      "license_file": "godot/src/ui/fonts/OFL.txt",
+      "consumer_features": [
+        "SEA-UI"
+      ],
+      "note": "上游未修改完整字体，含版权与OFL；只新增本资源基线，不重算既有资产。",
+      "verification": "docs/development/2026-10-26_ui_ac_single_card.md"
+    }
+  ]
+}
