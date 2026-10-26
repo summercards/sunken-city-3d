@@ -1,0 +1,62 @@
+{
+  "asset_id": "SEA-SCENE-SBR-SOLAR",
+  "name": "蓝色光伏板",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v007/components/solar/solar.blend",
+  "source_sha256": "f030d0cbee57536b40bb96ebf414e1501887ae5e5725fd9e0528d739bee4d529",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v007/components/solar/asset_manifest.json",
+  "version": "v007",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/solar/solar.glb",
+  "prefab": "godot/scenes/components/solar_cabin/solar.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "14cab81977d54cef14a16eafe9d6a112a27c33bbd51e28b1ac860c88cd20fb70",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/solar/solar.blend",
+      "source_sha256": "b38d0aa17809675253f1147862ac02c496dcf796acdd4a61aa1196902957d083",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/solar/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/solar/solar.blend",
+      "source_sha256": "23c9fd722860f353199a5f1eecdce549773ad0ee73ce47612d651a7528324579",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/solar/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/solar/solar.blend",
+      "source_sha256": "8649c3546f7eca054dbbc9daee133f2dc7b8cb97995365c4ba7c96b770d2ee90",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/solar/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/solar/solar.blend",
+      "source_sha256": "6f2a15f89b4e3a634fd45cb7ec5cc38e448ed54d4940bd7df09bf2937dd2b72d",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/solar/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/components/solar/solar.blend",
+      "source_sha256": "513412345384c66c8e3fbabf59acbc88d35b7c2a72938c1c40a1039698408107",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/solar/asset_manifest.json",
+      "version": "v006"
+    }
+  ],
+  "runtime_version": "1.4",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "b519642a7ad126fe009889b4d8dafbaadbd910342f0954f84faac249a8c2a9d0",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "solar",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SOLAR"
+}

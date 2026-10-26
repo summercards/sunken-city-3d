@@ -1,0 +1,62 @@
+{
+  "asset_id": "SEA-SCENE-SBR-AWNING",
+  "name": "黄白条纹圆边遮阳篷",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v007/components/awning/awning.blend",
+  "source_sha256": "ce120d689641eab2224632b069f1776cf343d7c638d458f68dcc31a683016550",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v007/components/awning/asset_manifest.json",
+  "version": "v007",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/awning/awning.glb",
+  "prefab": "godot/scenes/components/solar_cabin/awning.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "f47a73634a5c6f4ae1862195e869e6879928a5c3b95f7570fa18a1e51e1594e2",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/awning/awning.blend",
+      "source_sha256": "815b6b2f4052b24edbc94a53289c20ab024a98b0b87d29ae67551551ecdfd7ee",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/awning/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/awning/awning.blend",
+      "source_sha256": "f19aaa94d8dcdf8dc4c182f632c372dcf4eb7cd7abdd46852ee3afe1fa1b4596",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/awning/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/awning/awning.blend",
+      "source_sha256": "3b0e3f91c45e1a21c76f875b8e57e384c6d7f6e463e5ed5319d08d5d14d20873",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/awning/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/awning/awning.blend",
+      "source_sha256": "1e311b1d1cc4cac3859bce9e4524383a54737acb9cafce08940cfc9d91f01ad3",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/awning/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/components/awning/awning.blend",
+      "source_sha256": "482c3f5e3cb07341ee2e2a4322d035364114c92a150e4628972225ccdf3016e6",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/awning/asset_manifest.json",
+      "version": "v006"
+    }
+  ],
+  "runtime_version": "1.4",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "b519642a7ad126fe009889b4d8dafbaadbd910342f0954f84faac249a8c2a9d0",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "awning",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-AWNING"
+}

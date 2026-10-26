@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SBR-ASSEMBLY",
+  "name": "太阳能木屋-海上区域",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v007/sunny_bloom_retreat.blend",
+  "source_sha256": "de61cfbae4165b49654bc2ea1edfb44b335c0aa9a6cd2caada89972fc37e1b46",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v007/asset_manifest.json",
+  "version": "v007",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/instances.json",
+  "prefab": "godot/scenes/facilities/solar_cabin_surface.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": null,
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "scene_assembly",
+  "scope": "scene_local",
+  "note": "楼顶露台和地坪改暖木整板，移除帆布与挂钩；伞区移至右前角避开遮阳板，花缩至75%；既有厚底板和绳胎桥保留。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/sunny_bloom_retreat.blend",
+      "source_sha256": "7f9702f17ccf3b849655d85e7c76b62b01828a4c45d55c7d32dde2df31f2f633",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/sunny_bloom_retreat.blend",
+      "source_sha256": "1d90c3eb7734e9e811ee01131c48ab4509f83027a4ae8e095c6a5d33d08a1798",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/sunny_bloom_retreat.blend",
+      "source_sha256": "a761ca7e188d0edd6333cf9c024f593b9b28d2d6d37798fac3552be09b2c00d5",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/sunny_bloom_retreat.blend",
+      "source_sha256": "71dbc5d0f41171e4410376fee3c285c6ecabe9b6c54fba4b9dae3086da00cb2e",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/sunny_bloom_retreat.blend",
+      "source_sha256": "37d0a7d352e9e865d0d3c1d3e32d58507919f8c965e5c3e46abdac067d328a78",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/asset_manifest.json",
+      "version": "v006",
+      "user_edited_input_sha256": "2369c730321bb2bf85ea2e640eed7ca27cd47642265fce6e56dfb77fa72c4620",
+      "input_snapshot": "D:\\projects\\sea-work\\solar_cabin_revision_v007\\user_input.blend",
+      "reason": "User explicitly supplied saved edits as the new input; original registered hash retained here."
+    }
+  ],
+  "runtime_version": "1.4",
+  "runtime_scope": "四分区：后部建筑、太阳能房、可行动平台、桥",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "b519642a7ad126fe009889b4d8dafbaadbd910342f0954f84faac249a8c2a9d0",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "sunny_bloom_retreat",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-ASSEMBLY"
+}

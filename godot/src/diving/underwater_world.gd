@@ -651,16 +651,13 @@ func _build_markers() -> void:
 	_marker_layer.layer = 6
 	_marker_layer.visible = false
 	add_child(_marker_layer)
-	var font := ThemeDB.fallback_font
+	var font := preload("res://src/ui/cozy_ui.gd").ui_font()
 	for chest in _chests:
 		var label := Label.new()
 		label.text = "◇ " + chest.name
 		label.add_theme_font_override("font", font)
-		label.add_theme_font_size_override("font_size", 12)
-		label.add_theme_color_override("font_color", Color("#e8fdf4"))
-		label.add_theme_color_override("font_shadow_color", Color(0, 0.15, 0.2, 0.65))
-		label.add_theme_constant_override("shadow_offset_x", 1)
-		label.add_theme_constant_override("shadow_offset_y", 1)
+		# 世界浮层字统一走 Cozy.world_text：大号、圆润、不勾边。
+		preload("res://src/ui/cozy_ui.gd").world_text(label, 0.65, Color("#e8fdf4"))
 		label.mouse_filter = Control.MOUSE_FILTER_STOP
 		label.gui_input.connect(_on_marker_input.bind(chest))
 		_marker_layer.add_child(label)

@@ -1,0 +1,36 @@
+{
+  "asset_id": "SEA-SCENE-BLB-OPTIMIZED",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": null,
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "version": "v002",
+  "runtime_version": "1.4",
+  "runtime_verified": true,
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "scope": "scene_local",
+  "optimized_source": "art_source/scenes/bloom_lower_building/v002/export/v001/bloom_lower_building_optimized_v001.blend",
+  "optimized_sha256": "267390826786b8fd3eba5b3ac6b5540c49c456be3676d5c2eba7a7c40900ed8f",
+  "export_manifest": "art_source/scenes/bloom_lower_building/v002/export/v001/export_manifest.json",
+  "name": "太阳能木屋-独立优化源-bloom_lower_building",
+  "source": "art_source/scenes/bloom_lower_building/v002/export/v001/bloom_lower_building_optimized_v001.blend",
+  "source_sha256": "267390826786b8fd3eba5b3ac6b5540c49c456be3676d5c2eba7a7c40900ed8f",
+  "manifest": "art_source/scenes/bloom_lower_building/v002/export/v001/optimized_asset_manifest.json",
+  "category": "optimized_export_source",
+  "runtime_path": null,
+  "prefab": null,
+  "note": "22个下半建筑组件独立优化，保存重开再逐个导出；原源及共享色板不变。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/bloom_lower_building/v001/export/v001/bloom_lower_building_optimized_v001.blend",
+      "source_sha256": "c6ff150bb42cb16fe119a7153c997a930e4c97fd01c91ff78020519c3d3fa3d7",
+      "manifest": "art_source/scenes/bloom_lower_building/v001/export/v001/optimized_asset_manifest.json",
+      "version": "v001"
+    }
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-OPTIMIZED"
+}

@@ -1,0 +1,2059 @@
+{
+  "components": [
+    {
+      "key": "ac_box",
+      "asset_id": "SEA-SCENE-SBR-AC-BOX",
+      "name": "小立式空调",
+      "category": "fixture",
+      "family": "aircon",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-AC-BOX",
+      "root": "ROOT_ac_box",
+      "bounds_size": [
+        0.7599999904632568,
+        0.5755000114440918,
+        0.9120000004768372
+      ],
+      "bounds_min": [
+        -0.3799999952316284,
+        -0.2877500057220459,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.022750020027160645,
+        0.0
+      ],
+      "instance_count": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/ac_box/ac_box.blend",
+      "geometry_fingerprint": "2bed32055e424006db35cbee5bfef61fe1ebac4af589eed1e94716592ee972d0",
+      "triangles": 1260,
+      "source_sha256": "760be08317625b4eb84181e2e22a0fc1a7f2e78d738f5021fdedbe59cf4520d8",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-AC-BOX",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "ac_roof",
+      "asset_id": "SEA-SCENE-SBR-AC-ROOF",
+      "name": "屋顶卧式空调",
+      "category": "fixture",
+      "family": "aircon",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-AC-ROOF",
+      "root": "ROOT_ac_roof",
+      "bounds_size": [
+        1.0,
+        0.7955000400543213,
+        0.6420000195503235
+      ],
+      "bounds_min": [
+        -0.5,
+        -0.39775002002716064,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.02275000512599945,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/ac_roof/ac_roof.blend",
+      "geometry_fingerprint": "d4ba8eee48a926d389d37576856ad2d695b0555b1f16e8d37521d1dbc0a5ada9",
+      "triangles": 1260,
+      "source_sha256": "6a0519d93acd76580f1060b8dcc744588a5f43bc286a4894fd0df0d7deb6d678",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-AC-ROOF",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "ac_tall",
+      "asset_id": "SEA-SCENE-SBR-AC-TALL",
+      "name": "侧墙高设备箱",
+      "category": "fixture",
+      "family": "aircon",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-AC-TALL",
+      "root": "ROOT_ac_tall",
+      "bounds_size": [
+        0.9200000166893005,
+        0.5850000381469727,
+        1.3420000076293945
+      ],
+      "bounds_min": [
+        -0.46000000834465027,
+        -0.29250001907348633,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.022499993443489075,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/ac_tall/ac_tall.blend",
+      "geometry_fingerprint": "3b8b5d4aaa0f24966e7353bff208aea7f97329154308a0f2787a4c6c625e00ba",
+      "triangles": 1128,
+      "source_sha256": "79fa9233346d92367e841009c56a35a6ca8fb0b527d9249b7580a192c653438d",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-AC-TALL",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "awning",
+      "asset_id": "SEA-SCENE-SBR-AWNING",
+      "name": "黄白条纹圆边遮阳篷",
+      "category": "fixture",
+      "family": "awning",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-AWNING",
+      "root": "ROOT_awning",
+      "bounds_size": [
+        3.121999979019165,
+        0.9071678519248962,
+        0.46299365162849426
+      ],
+      "bounds_min": [
+        -1.5609999895095825,
+        -0.4535839259624481,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.028416067361831665,
+        -0.3100000023841858
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/awning/awning.blend",
+      "geometry_fingerprint": "f47a73634a5c6f4ae1862195e869e6879928a5c3b95f7570fa18a1e51e1594e2",
+      "triangles": 7536,
+      "source_sha256": "ce120d689641eab2224632b069f1776cf343d7c638d458f68dcc31a683016550",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-AWNING",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "bollard",
+      "asset_id": "SEA-SCENE-SBR-BOLLARD",
+      "name": "双绳圈木柱",
+      "category": "fixture",
+      "family": "post",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-BOLLARD",
+      "root": "ROOT_bollard",
+      "bounds_size": [
+        0.5299999713897705,
+        0.5299999713897705,
+        0.8199999928474426
+      ],
+      "bounds_min": [
+        -0.26499998569488525,
+        -0.26499998569488525,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/bollard/bollard.blend",
+      "geometry_fingerprint": "a88f54d3c6baf70eec803a67ed373600aba24a4fc0f6161ffb024928b03a21f9",
+      "triangles": 1400,
+      "source_sha256": "36f366207711f2594f857d2d5469e774917034c3f0647d8879cd5bc471d28e19",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-BOLLARD",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-SBR-BOTTLE",
+      "name": "红色水瓶",
+      "category": "fixture",
+      "family": "bottle",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-BOTTLE",
+      "root": "ROOT_bottle",
+      "bounds_size": [
+        0.18000000715255737,
+        0.18000000715255737,
+        0.4050000011920929
+      ],
+      "bounds_min": [
+        -0.09000000357627869,
+        -0.09000000357627869,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/bottle/bottle.blend",
+      "geometry_fingerprint": "92f7069e2f23ff1096abc9f58390ce1ad50c86213d49b2e6ad97ae7a2b21a193",
+      "triangles": 1140,
+      "source_sha256": "118207a527a3a48a49e6b64ed798df5a3af877b7fc533aeef44877a17c22859b",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-BOTTLE",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "bridge_rope",
+      "name": "栈桥-两端系结垂绳",
+      "asset_id": "SEA-SCENE-SBR-BRIDGE-ROPE",
+      "category": "fixture",
+      "family": "bridge_rope",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-BRIDGE-ROPE",
+      "root": "ROOT_bridge_rope",
+      "source_anchor": [
+        0.0,
+        0.0,
+        -0.042797550559043884
+      ],
+      "bounds_min": [
+        -2.9524998664855957,
+        -0.3199999928474426,
+        0.0
+      ],
+      "bounds_size": [
+        5.904999732971191,
+        0.6399999856948853,
+        0.5077975392341614
+      ],
+      "instance_count": 2,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/bridge_rope/bridge_rope.blend",
+      "geometry_fingerprint": "1cb2de6c038e3e4c20b57072ffc7120a8e9ee34b4f4a824e60275b55b037f64f",
+      "triangles": 2880,
+      "source_sha256": "08dd4a904113fb47a5a6795a60856b30e7f7006d3f7c204a413b0a81e4e693b0",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "canopy_post",
+      "asset_id": "SEA-SCENE-SBR-CANOPY-POST",
+      "name": "遮阳棚橙木立柱",
+      "category": "fixture",
+      "family": "canopy_frame",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-CANOPY-POST",
+      "root": "ROOT_canopy_post",
+      "source_anchor": [
+        0,
+        0,
+        0
+      ],
+      "bounds_min": [
+        -0.15000000596046448,
+        -0.15000000596046448,
+        0.0
+      ],
+      "bounds_size": [
+        0.30000001192092896,
+        0.30000001192092896,
+        2.2259600162506104
+      ],
+      "instance_count": 3,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/canopy_post/canopy_post.blend",
+      "geometry_fingerprint": "8deda6ae9a992467cee36df8d9ab19b9f848db7695c26dfbcb687950c93cf626",
+      "triangles": 188,
+      "source_sha256": "1378ca6ab8240e7e3dc7ce7c859f2fa511fbec77508380865aaa7cbc2e732b34",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "cap",
+      "asset_id": "SEA-SCENE-SBR-CAP",
+      "name": "小屋厚帽檐",
+      "category": "structure",
+      "family": "slab",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-CAP",
+      "root": "ROOT_cap",
+      "bounds_size": [
+        2.5799999237060547,
+        2.25,
+        0.3199999928474426
+      ],
+      "bounds_min": [
+        -1.2899999618530273,
+        -1.125,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/cap/cap.blend",
+      "geometry_fingerprint": "be6df165f7696001d83eb7c3efdea06a786d2d9823b193d0e19cb7fdbbeb8d6e",
+      "triangles": 188,
+      "source_sha256": "1efc3976f0c5bcd9d470028cc5f43715e6e650ecf83b2cfa1716565dfcc3039b",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-CAP",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "chimney",
+      "asset_id": "SEA-SCENE-SBR-CHIMNEY",
+      "name": "屋顶通风立柱",
+      "category": "fixture",
+      "family": "vent",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-CHIMNEY",
+      "root": "ROOT_chimney",
+      "bounds_size": [
+        0.23399999737739563,
+        0.25999999046325684,
+        1.1200000047683716
+      ],
+      "bounds_min": [
+        -0.11699999868869781,
+        -0.12999999523162842,
+        0.0
+      ],
+      "source_anchor": [
+        0.006999999284744263,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/chimney/chimney.blend",
+      "geometry_fingerprint": "fd45800e2414083cd8f06388edb33b7e4f13a3e88a00e8089f02b00e10cf4469",
+      "triangles": 376,
+      "source_sha256": "4c1cbb351a4de37ae485927e5fe4f8f364cfc26990395562a270040c10d2a146",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-CHIMNEY",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "coffee_table",
+      "asset_id": "SEA-SCENE-SBR-COFFEE-TABLE",
+      "name": "低木茶几",
+      "category": "fixture",
+      "family": "table",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-COFFEE-TABLE",
+      "root": "ROOT_coffee_table",
+      "bounds_size": [
+        1.2000000476837158,
+        0.6499999761581421,
+        0.42000001668930054
+      ],
+      "bounds_min": [
+        -0.6000000238418579,
+        -0.32499998807907104,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/coffee_table/coffee_table.blend",
+      "geometry_fingerprint": "64929699bc0acdd6a1d979f5f1264cc4a48a8787a7e79f215ae14210dd5f7de6",
+      "triangles": 940,
+      "source_sha256": "3f1aa9995d4a1dc2286a729fdacd59c120d07f7cfabe4fc3590e8be74e0ea82f",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-COFFEE-TABLE",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "concrete_slab",
+      "name": "后部建筑-暖木整板地坪",
+      "asset_id": "SEA-SCENE-SBR-CONCRETE-SLAB",
+      "category": "structure",
+      "family": "concrete_slab",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-CONCRETE-SLAB",
+      "root": "ROOT_concrete_slab",
+      "source_anchor": [
+        0,
+        0,
+        0
+      ],
+      "bounds_min": [
+        -3.834186315536499,
+        -3.0929999351501465,
+        2.9802322387695312e-08
+      ],
+      "bounds_size": [
+        7.638243913650513,
+        6.185999870300293,
+        0.4000000059604645
+      ],
+      "instance_count": 2,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/concrete_slab/concrete_slab.blend",
+      "geometry_fingerprint": "28dc5e40b85b7207b2eed356b1b5b9c9a3c248d20acb5cda0dd2ee3bda0f0988",
+      "triangles": 2256,
+      "source_sha256": "411d6ecca4736e50af576fbdeeda34fba0db486285734246a881c327d4557908",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "cooler",
+      "asset_id": "SEA-SCENE-SBR-COOLER",
+      "name": "白盖蓝冷藏箱",
+      "category": "fixture",
+      "family": "cooler",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-COOLER",
+      "root": "ROOT_cooler",
+      "bounds_size": [
+        0.9100000262260437,
+        0.6875,
+        0.6800000071525574
+      ],
+      "bounds_min": [
+        -0.45500001311302185,
+        -0.34375,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.013750001788139343,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/cooler/cooler.blend",
+      "geometry_fingerprint": "a86afbccaa7154fd76771cb1444b1ebe73079c7306beb88354014846b8eddf1f",
+      "triangles": 752,
+      "source_sha256": "0a34aa4d0ec6aa9744649b3e263865e0c0577213ce5a8813c69c9d28a2eb9fe1",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-COOLER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "daisy",
+      "asset_id": "SEA-SCENE-SBR-DAISY",
+      "name": "六瓣白色小花",
+      "category": "flora",
+      "family": "flower",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-DAISY",
+      "root": "ROOT_daisy",
+      "bounds_size": [
+        1.0399999618530273,
+        0.42500001192092896,
+        0.9310237765312195
+      ],
+      "bounds_min": [
+        -0.5199999809265137,
+        -0.21250000596046448,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.06750001758337021,
+        -0.035511910915374756
+      ],
+      "instance_count": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/daisy/daisy.blend",
+      "geometry_fingerprint": "7edf4371750beb40dbf8a161d188085fe5be4a86e81753c1b315146e11ea2b6a",
+      "triangles": 3080,
+      "source_sha256": "6623b2d49d3688a7855675506f46b3da56c4f9bdb3422f7c0bd4b8f8757f59c6",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-DAISY",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "dock_board",
+      "asset_id": "SEA-SCENE-SBR-DOCK-BOARD",
+      "name": "栈桥-暖木横向整板",
+      "category": "structure",
+      "family": "paving",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-DOCK-BOARD",
+      "root": "ROOT_dock_board",
+      "source_anchor": [
+        0,
+        0,
+        0
+      ],
+      "bounds_min": [
+        -1.6027030944824219,
+        -0.2175000011920929,
+        0.0
+      ],
+      "bounds_size": [
+        3.212464213371277,
+        0.4350000023841858,
+        0.4000000059604645
+      ],
+      "instance_count": 4,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/dock_board/dock_board.blend",
+      "geometry_fingerprint": "e9d6426ba1c1f87ff734df3637da7bde8c309f2ca5afc3233e96a7656990feed",
+      "triangles": 188,
+      "source_sha256": "15982d26e1fd6b8ea0eb071d6d1e2bfe9aa775925a5bb0fc11a2463da3c9db68",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "door",
+      "asset_id": "SEA-SCENE-SBR-DOOR",
+      "name": "青蓝门",
+      "category": "fixture",
+      "family": "door",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-DOOR",
+      "root": "ROOT_door",
+      "bounds_size": [
+        1.059999942779541,
+        0.2750000059604645,
+        1.934999942779541
+      ],
+      "bounds_min": [
+        -0.5299999713897705,
+        -0.13750000298023224,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.002499997615814209,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/door/door.blend",
+      "geometry_fingerprint": "dce4f300f550a44064373781ec2bdf9c4ed3bbfa4d291d4bc71d61b61968a6c1",
+      "triangles": 1320,
+      "source_sha256": "14871d8d09f89d26eeb90d89205d5572b00eb6ada3ed5b46869d7cba4a41d8d9",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-DOOR",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "entry",
+      "asset_id": "SEA-SCENE-SBR-ENTRY",
+      "name": "玻璃入口框扇",
+      "category": "fixture",
+      "family": "door",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-ENTRY",
+      "root": "ROOT_entry",
+      "bounds_size": [
+        2.419999837875366,
+        1.2574999928474426,
+        2.1999998092651367
+      ],
+      "bounds_min": [
+        -1.209999918937683,
+        -0.6287500262260437,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.5012500286102295,
+        -0.05000000074505806
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/entry/entry.blend",
+      "geometry_fingerprint": "75f5791e5612d241d3278ab27323c2018d00fcc1b6ec4373d50b866c541cdb53",
+      "triangles": 3384,
+      "source_sha256": "2cc6d7337db46fdde9684a020ce0e34469b4a0e8db655fd1a30057073b6dc612",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-ENTRY",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "foliage",
+      "asset_id": "SEA-SCENE-SBR-FOLIAGE",
+      "name": "错落厚叶簇",
+      "category": "flora",
+      "family": "leaf",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-FOLIAGE",
+      "root": "ROOT_foliage",
+      "bounds_size": [
+        0.9908310174942017,
+        0.9362170100212097,
+        0.5602587461471558
+      ],
+      "bounds_min": [
+        -0.49541550874710083,
+        -0.46810850501060486,
+        0.0
+      ],
+      "source_anchor": [
+        0.027377590537071228,
+        -0.08008727431297302,
+        0.029741212725639343
+      ],
+      "instance_count": 36,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/foliage/foliage.blend",
+      "geometry_fingerprint": "c5d38c5881a0cd072d64d88b6ec01f5dc1ced276ce7d10d055698706f97f4cd2",
+      "triangles": 5280,
+      "source_sha256": "ef9d5dff45695f74ccaa8269bb6f844984a5e8433b359c0dbeb9689a6ec690dc",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-FOLIAGE",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "hanging_tire",
+      "name": "栈桥-悬挂轮胎与吊绳",
+      "asset_id": "SEA-SCENE-SBR-HANGING-TIRE",
+      "category": "fixture",
+      "family": "hanging_tire",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-HANGING-TIRE",
+      "root": "ROOT_hanging_tire",
+      "source_anchor": [
+        0.0,
+        -0.08633429557085037,
+        0.004999995231628418
+      ],
+      "bounds_min": [
+        -0.5450000166893005,
+        -0.5732905864715576,
+        0.0
+      ],
+      "bounds_size": [
+        1.090000033378601,
+        0.8156729340553284,
+        1.4796888828277588
+      ],
+      "instance_count": 4,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/hanging_tire/hanging_tire.blend",
+      "geometry_fingerprint": "958c1524e3b835dbfe050f8d785cee94489eb3c8d12493bb13ced1e754ddabea",
+      "triangles": 4080,
+      "source_sha256": "2df1e28e653872d11ca60ec8e68895cbe7f1dc2db928c22a0ab079c129e70668",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "house",
+      "asset_id": "SEA-SCENE-SBR-HOUSE",
+      "name": "开窗下层墙壳",
+      "category": "structure",
+      "family": "wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-HOUSE",
+      "root": "ROOT_house",
+      "bounds_size": [
+        5.0,
+        3.5,
+        2.8499999046325684
+      ],
+      "bounds_min": [
+        -2.5,
+        -1.75,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/house/house.blend",
+      "geometry_fingerprint": "3ae7fbfbf1612896fe2834d8acb0ea79f06b09ac7b8312baf6d77e16524f1c35",
+      "triangles": 1104,
+      "source_sha256": "661a0e7a4cb43f5dddcdf5ad8c29d9c452d5621d7e91d4003cf7c8e1209d552c",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-HOUSE",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "ladder",
+      "asset_id": "SEA-SCENE-SBR-LADDER",
+      "name": "橙木圆角爬梯",
+      "category": "fixture",
+      "family": "ladder",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-LADDER",
+      "root": "ROOT_ladder",
+      "bounds_size": [
+        0.7600000500679016,
+        0.4483221471309662,
+        2.8755340576171875
+      ],
+      "bounds_min": [
+        -0.3800000250339508,
+        -0.2241610735654831,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.12818719446659088,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/ladder/ladder.blend",
+      "geometry_fingerprint": "9933e6fd457f27fa5210b02c818e031c132092b6198edcc1a50173e3c429a88e",
+      "triangles": 2892,
+      "source_sha256": "389bbd8aa8dcc80290d364e45daa9444a231b54be774bb3627b1659beb1af3c0",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-LADDER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "lantern",
+      "asset_id": "SEA-SCENE-SBR-LANTERN",
+      "name": "暖光壁灯",
+      "category": "fixture",
+      "family": "lamp",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-LANTERN",
+      "root": "ROOT_lantern",
+      "bounds_size": [
+        0.27000001072883606,
+        0.3451026976108551,
+        0.5912250876426697
+      ],
+      "bounds_min": [
+        -0.13500000536441803,
+        -0.17255134880542755,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.05244864895939827,
+        0.02250000089406967
+      ],
+      "instance_count": 3,
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/lantern/lantern.blend",
+      "geometry_fingerprint": "3b72de0500ea4fe308365bbfdd43fa581df9ee493cdf0270d75a2d73812f2f0a",
+      "triangles": 1528,
+      "source_sha256": "54d0ff2654eb5932fb9f6dd29815eacb2673dfc05f96d7725cadf4ecd9afc78c",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-LANTERN",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "mat",
+      "asset_id": "SEA-SCENE-SBR-MAT",
+      "name": "太阳纹薄荷地垫",
+      "category": "fixture",
+      "family": "mat",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-MAT",
+      "root": "ROOT_mat",
+      "bounds_size": [
+        0.9200000166893005,
+        0.6600000262260437,
+        0.036000002175569534
+      ],
+      "bounds_min": [
+        -0.46000000834465027,
+        -0.33000001311302185,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/mat/mat.blend",
+      "geometry_fingerprint": "d977009696982c2b9c2b4526279fd3627210e97af81f06c3bf7e283e8d4d3eab",
+      "triangles": 712,
+      "source_sha256": "04c876e5d5a504609f12a5f105cbf7fe4e3f21b0352174a9b34ef8bfa720b808",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-MAT",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "narrow_window",
+      "asset_id": "SEA-SCENE-SBR-NARROW-WINDOW",
+      "name": "后部建筑-加宽前窗",
+      "category": "fixture",
+      "family": "window",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-NARROW-WINDOW",
+      "root": "ROOT_narrow_window",
+      "bounds_size": [
+        1.100000023841858,
+        0.20000000298023224,
+        1.934999942779541
+      ],
+      "bounds_min": [
+        -0.550000011920929,
+        -0.10000000149011612,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.009999997913837433,
+        -0.0949999988079071
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/narrow_window/narrow_window.blend",
+      "geometry_fingerprint": "45d411fa9c6a36a9fa9b2a34d98ae5e4fd861bbeba7717195b30ee916f7fb616",
+      "triangles": 1316,
+      "source_sha256": "8c1c3e316e9dc81d611e9a23b0c0e07daf08c0af3114086cd37be63fe1e34ae9",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-NARROW-WINDOW",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-SBR-PARAPET",
+      "name": "白花台矮墙",
+      "category": "structure",
+      "family": "parapet",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-PARAPET",
+      "root": "ROOT_parapet",
+      "bounds_size": [
+        1.149999976158142,
+        0.30000001192092896,
+        0.47999998927116394
+      ],
+      "bounds_min": [
+        -0.574999988079071,
+        -0.15000000596046448,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 16,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/parapet/parapet.blend",
+      "geometry_fingerprint": "0139df07dd944d28f80471eb84b3d80e4e38ca77850692850e12285bac5a67f7",
+      "triangles": 188,
+      "source_sha256": "72a9d31ccea83d25b40cef29b1ae124711ff761d8b744a9bae980bde84dfc94d",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PARAPET",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "pink_flower",
+      "asset_id": "SEA-SCENE-SBR-PINK-FLOWER",
+      "name": "五瓣饱满粉花",
+      "category": "flora",
+      "family": "flower",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-PINK-FLOWER",
+      "root": "ROOT_pink_flower",
+      "bounds_size": [
+        0.9637829065322876,
+        0.42500001192092896,
+        1.0000678300857544
+      ],
+      "bounds_min": [
+        -0.4818914532661438,
+        -0.21250000596046448,
+        0.0
+      ],
+      "source_anchor": [
+        0.03810852766036987,
+        -0.06750001758337021,
+        -0.07003389298915863
+      ],
+      "instance_count": 3,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/pink_flower/pink_flower.blend",
+      "geometry_fingerprint": "b8a9d84b13ab306c7f4e207cd21b05b25caed6388ee56c95d5f0a50cd796cb77",
+      "triangles": 2640,
+      "source_sha256": "1097fc525b1308ba77fe7bb90e73c1190a1c484235f0ace1a8f376ec890b83c8",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PINK-FLOWER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "platform_board",
+      "name": "前方平台-酒红横向整板",
+      "asset_id": "SEA-SCENE-SBR-PLATFORM-BOARD",
+      "category": "structure",
+      "family": "platform_board",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-PLATFORM-BOARD",
+      "root": "ROOT_platform_board",
+      "source_anchor": [
+        0,
+        0,
+        0
+      ],
+      "bounds_min": [
+        -3.75,
+        -0.2590000033378601,
+        0.0
+      ],
+      "bounds_size": [
+        7.5,
+        0.5180000066757202,
+        0.4000000059604645
+      ],
+      "instance_count": 2,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/platform_board/platform_board.blend",
+      "geometry_fingerprint": "c4693a507220dd3fa24a893ab3ac4c20e406ff056eef9574d273e4e255d9846b",
+      "triangles": 188,
+      "source_sha256": "39a897ac75c661e14de9558985de05b53279249967ba9c1a1a092a3c50682b32",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "porch_return",
+      "asset_id": "SEA-SCENE-SBR-PORCH-RETURN",
+      "name": "门廊后侧封墙",
+      "category": "structure",
+      "family": "infill_wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Z yaw; nonuniform height instances",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-PORCH-RETURN",
+      "root": "ROOT_porch_return",
+      "bounds_size": [
+        0.6600000262260437,
+        0.18000000715255737,
+        2.359999895095825
+      ],
+      "bounds_min": [
+        -0.33000001311302185,
+        -0.09000000357627869,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/porch_return/porch_return.blend",
+      "geometry_fingerprint": "9e07b1588cbd50cdd78dfca0de8294d2320f2be5f555fcff97e81f06711692cd",
+      "triangles": 188,
+      "source_sha256": "7d10faab9107514add79aadd5a4024cd2208b1db503cbc5ef5cb418330f147fb",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PORCH-RETURN",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "porch_side",
+      "asset_id": "SEA-SCENE-SBR-PORCH-SIDE",
+      "name": "门廊厚侧墙与玻璃窗",
+      "category": "structure",
+      "family": "wall",
+      "origin": "bottom_center",
+      "front_axis": "-X",
+      "allowed_rotation": "Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-PORCH-SIDE",
+      "root": "ROOT_porch_side",
+      "bounds_size": [
+        0.28999999165534973,
+        2.2200000286102295,
+        3.069999933242798
+      ],
+      "bounds_min": [
+        -0.14499999582767487,
+        -1.1100000143051147,
+        0.0
+      ],
+      "source_anchor": [
+        -0.015000000596046448,
+        0.0,
+        -0.020000003278255463
+      ],
+      "instance_count": 2,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/porch_side/porch_side.blend",
+      "geometry_fingerprint": "c1558b9457fe1f5b7d56506fc4d2956d169a2da34a3759dd119a40235ec1c318",
+      "triangles": 1812,
+      "source_sha256": "842f5fa75fa4fb76119001fa293ffc9b4f5fba0a233ff2bb17c7570cba9be7f0",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PORCH-SIDE",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "pot",
+      "asset_id": "SEA-SCENE-SBR-POT",
+      "name": "圆陶花盆",
+      "category": "fixture",
+      "family": "planter",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-POT",
+      "root": "ROOT_pot",
+      "bounds_size": [
+        0.6140000224113464,
+        0.6140000224113464,
+        0.4819999933242798
+      ],
+      "bounds_min": [
+        -0.3070000112056732,
+        -0.3070000112056732,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 9,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/pot/pot.blend",
+      "geometry_fingerprint": "edf3cd32b32cf1ec49632ce8df66cb00ba83116dd7ddeee714535e60048d6c88",
+      "triangles": 1272,
+      "source_sha256": "413424a096bd9d45333fd7537014ed4cee91202fc981c232751b1ebce8ebf607",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-POT",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "roof_sofa",
+      "asset_id": "SEA-SCENE-SBR-ROOF-SOFA",
+      "name": "露台单黄抱枕沙发",
+      "category": "fixture",
+      "family": "seating",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-ROOF-SOFA",
+      "root": "ROOT_roof_sofa",
+      "bounds_size": [
+        1.5800000429153442,
+        0.7057899236679077,
+        1.0724852085113525
+      ],
+      "bounds_min": [
+        -0.7900000214576721,
+        -0.35289496183395386,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.012895002961158752,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/roof_sofa/roof_sofa.blend",
+      "geometry_fingerprint": "5903992e2fe912d9e05bbb2c1f172885ab41efd44d5898d472faa53edad9e371",
+      "triangles": 2068,
+      "source_sha256": "6cf772bc67495165bea4a58a11ba90576af58b9df3dad20bc7a919553112e406",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-ROOF-SOFA",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "slope",
+      "asset_id": "SEA-SCENE-SBR-SLOPE",
+      "name": "单坡门廊屋面",
+      "category": "structure",
+      "family": "roof",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-SLOPE",
+      "root": "ROOT_slope",
+      "bounds_size": [
+        3.299999952316284,
+        2.083484172821045,
+        1.0592948198318481
+      ],
+      "bounds_min": [
+        -1.649999976158142,
+        -1.0417420864105225,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.048257917165756226,
+        -0.512652575969696
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/slope/slope.blend",
+      "geometry_fingerprint": "feaf34b1197ca2e28b116a9fc2f9f54be634315303c0f9c80f34c22d3c08ffdb",
+      "triangles": 752,
+      "source_sha256": "443fe289d570b4db926072fca45a77cda04029d6336fe7afbf38b98c1ac7477a",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SLOPE",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "small_window",
+      "asset_id": "SEA-SCENE-SBR-SMALL-WINDOW",
+      "name": "上层小窗",
+      "category": "fixture",
+      "family": "window",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-SMALL-WINDOW",
+      "root": "ROOT_small_window",
+      "bounds_size": [
+        0.6399999856948853,
+        0.20000000298023224,
+        0.7150000333786011
+      ],
+      "bounds_min": [
+        -0.3199999928474426,
+        -0.10000000149011612,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.009999997913837433,
+        -0.0949999988079071
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/small_window/small_window.blend",
+      "geometry_fingerprint": "0f6cc9689b457667954230e64569de8bf9f7f1b71ac2ec098b7fdfbd6e1d8fca",
+      "triangles": 1316,
+      "source_sha256": "b03da9336bc5b0c2241659b7ed44e347f53c76de89c5f1a8e8a354f482ef77fa",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SMALL-WINDOW",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "sofa",
+      "asset_id": "SEA-SCENE-SBR-SOFA",
+      "name": "白垫双人木沙发",
+      "category": "fixture",
+      "family": "seating",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-SOFA",
+      "root": "ROOT_sofa",
+      "bounds_size": [
+        1.5800000429153442,
+        0.7057899236679077,
+        1.0724852085113525
+      ],
+      "bounds_min": [
+        -0.7900000214576721,
+        -0.35289496183395386,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.012895002961158752,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/sofa/sofa.blend",
+      "geometry_fingerprint": "292623adbfcaa41f4a37350a8dcb08e2c0b13a2d4b7e8726c23b30c1aba4bc45",
+      "triangles": 2256,
+      "source_sha256": "6d4eddf6c3c66ba34c21f181ef775824182bf7664b49697baf69062f62499fdf",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SOFA",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "solar",
+      "asset_id": "SEA-SCENE-SBR-SOLAR",
+      "name": "蓝色光伏板",
+      "category": "fixture",
+      "family": "solar",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-SOLAR",
+      "root": "ROOT_solar",
+      "bounds_size": [
+        1.3799999952316284,
+        1.850000023841858,
+        0.22100001573562622
+      ],
+      "bounds_min": [
+        -0.6899999976158142,
+        -0.925000011920929,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        -0.1340000033378601
+      ],
+      "instance_count": 2,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/solar/solar.blend",
+      "geometry_fingerprint": "14cab81977d54cef14a16eafe9d6a112a27c33bbd51e28b1ac860c88cd20fb70",
+      "triangles": 896,
+      "source_sha256": "f030d0cbee57536b40bb96ebf414e1501887ae5e5725fd9e0528d739bee4d529",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SOLAR",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "sprout",
+      "asset_id": "SEA-SCENE-SBR-SPROUT",
+      "name": "盆栽嫩叶",
+      "category": "flora",
+      "family": "sprout",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-SPROUT",
+      "root": "ROOT_sprout",
+      "bounds_size": [
+        0.7390909194946289,
+        0.6523722112178802,
+        0.4060816466808319
+      ],
+      "bounds_min": [
+        -0.36954545974731445,
+        -0.3261861205101013,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -1.4901161193847656e-08,
+        0.0
+      ],
+      "instance_count": 11,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/sprout/sprout.blend",
+      "geometry_fingerprint": "cbf71cebd3c799341491cde58bb84e636010d5b4c3a15e224c04d05b5ef5341b",
+      "triangles": 2956,
+      "source_sha256": "599c8ede3be306e74c1e7ebdf72f64c062b7d5be1f2ec16bcdd9e3e3f7b70958",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SPROUT",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "square_pot",
+      "asset_id": "SEA-SCENE-SBR-SQUARE-POT",
+      "name": "方白花盆",
+      "category": "fixture",
+      "family": "planter",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-SQUARE-POT",
+      "root": "ROOT_square_pot",
+      "bounds_size": [
+        0.47999998927116394,
+        0.47999998927116394,
+        0.48499998450279236
+      ],
+      "bounds_min": [
+        -0.23999999463558197,
+        -0.23999999463558197,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/square_pot/square_pot.blend",
+      "geometry_fingerprint": "a5d9db4aff47da2ef5c0d7d7d50caa41ac63f3a9c26bc91d326f8d4d220e7789",
+      "triangles": 376,
+      "source_sha256": "a022d3ea2a4680d7755f527d138bf211a2afbf92faefe0cf8bde9762b5ed41d3",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SQUARE-POT",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "stool",
+      "asset_id": "SEA-SCENE-SBR-STOOL",
+      "name": "方木凳",
+      "category": "fixture",
+      "family": "seating",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-STOOL",
+      "root": "ROOT_stool",
+      "bounds_size": [
+        0.4300000071525574,
+        0.4300000071525574,
+        0.48000001907348633
+      ],
+      "bounds_min": [
+        -0.2150000035762787,
+        -0.2150000035762787,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/stool/stool.blend",
+      "geometry_fingerprint": "284aed2dd5964cb09f292ecf1002d1cc22d0ba138d46f8399ce856e038746f3e",
+      "triangles": 940,
+      "source_sha256": "3688959437ae0e37a064223446f015070ebb6187d12140b8b7dd6df9a4c362e3",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-STOOL",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "table",
+      "asset_id": "SEA-SCENE-SBR-TABLE",
+      "name": "户外方桌",
+      "category": "fixture",
+      "family": "table",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-TABLE",
+      "root": "ROOT_table",
+      "bounds_size": [
+        1.0499999523162842,
+        0.8199999928474426,
+        0.7699999809265137
+      ],
+      "bounds_min": [
+        -0.5249999761581421,
+        -0.4099999964237213,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/table/table.blend",
+      "geometry_fingerprint": "23f5f4738078dae6691bd16aa35a5904cb7dffa1b5c3d79432d08e6c7198c36d",
+      "triangles": 940,
+      "source_sha256": "db9ac9a7aff8d300445bf0aa93fe2f7dbe9f90c82f6ef5bbf5196f7b46590802",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-TABLE",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "tall_window",
+      "asset_id": "SEA-SCENE-SBR-TALL-WINDOW",
+      "name": "左侧双扇宽窗",
+      "category": "fixture",
+      "family": "window",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-TALL-WINDOW",
+      "root": "ROOT_tall_window",
+      "bounds_size": [
+        1.7599999904632568,
+        0.20000000298023224,
+        1.7350000143051147
+      ],
+      "bounds_min": [
+        -0.8799999952316284,
+        -0.10000000149011612,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.009999997913837433,
+        -0.0949999988079071
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/tall_window/tall_window.blend",
+      "geometry_fingerprint": "3051871f91b925b3ca1fd2b1a8d57e3e92367eedfa0ce6776454ead50d2ab6a2",
+      "triangles": 1504,
+      "source_sha256": "013086156778fca99000be022fe6af423422d2cf4abba207fd628a2a48f6dbd4",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-TALL-WINDOW",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "terrace",
+      "asset_id": "SEA-SCENE-SBR-TERRACE",
+      "name": "顶楼露台-暖木整板",
+      "category": "structure",
+      "family": "slab",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-TERRACE",
+      "root": "ROOT_terrace",
+      "source_anchor": [
+        0,
+        0,
+        0
+      ],
+      "bounds_min": [
+        -2.6698806285858154,
+        -1.8580000400543213,
+        -1.4901161193847656e-08
+      ],
+      "bounds_size": [
+        5.34488844871521,
+        3.7160000801086426,
+        0.35499997437000275
+      ],
+      "instance_count": 1,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/terrace/terrace.blend",
+      "geometry_fingerprint": "ddbfa15239bcdb4a019cfa3e780f14c2fadfffc9b796de739b36bd2cdf377922",
+      "triangles": 1504,
+      "source_sha256": "d3a2d3872bf023b9808ba8c0e3cd661978919e76c9b62c2579db65160123b0fd",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "umbrella",
+      "asset_id": "SEA-SCENE-SBR-UMBRELLA",
+      "name": "黄白圆瓣遮阳伞",
+      "category": "fixture",
+      "family": "umbrella",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-UMBRELLA",
+      "root": "ROOT_umbrella",
+      "bounds_size": [
+        1.8200000524520874,
+        1.8200000524520874,
+        2.445000171661377
+      ],
+      "bounds_min": [
+        -0.9100000262260437,
+        -0.9100000262260437,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/umbrella/umbrella.blend",
+      "geometry_fingerprint": "d7b20c1f8e0726f2db194715216706610d67fb3e38fef21434ac9cfe889f642b",
+      "triangles": 4048,
+      "source_sha256": "21643f221ed25434e07b9b28d8f2316bc659917224c6ce28dfa5e9949d3d8e45",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-UMBRELLA",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "upper_room",
+      "asset_id": "SEA-SCENE-SBR-UPPER-ROOM",
+      "name": "屋顶小屋墙壳",
+      "category": "structure",
+      "family": "wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-UPPER-ROOM",
+      "root": "ROOT_upper_room",
+      "bounds_size": [
+        2.25,
+        1.9500000476837158,
+        1.9500000476837158
+      ],
+      "bounds_min": [
+        -1.125,
+        -0.9750000238418579,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/upper_room/upper_room.blend",
+      "geometry_fingerprint": "3ada7894902614b6b4f1e1f451434a1e7ef2d49e85afeb58a5c35ede7d77acfc",
+      "triangles": 188,
+      "source_sha256": "b132f101874e6af16eedcd81836e2b9e649075402b77c286e42ab48dd8693e7f",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-UPPER-ROOM",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "vase",
+      "asset_id": "SEA-SCENE-SBR-VASE",
+      "name": "黄陶圆腹小花瓶",
+      "category": "fixture",
+      "family": "planter",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Euler XYZ",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-VASE",
+      "root": "ROOT_vase",
+      "bounds_size": [
+        0.24000006914138794,
+        0.24000002443790436,
+        0.37300002574920654
+      ],
+      "bounds_min": [
+        -0.12000003457069397,
+        -0.12000001221895218,
+        0.0
+      ],
+      "source_anchor": [
+        -2.2351741790771484e-08,
+        -1.4901161193847656e-08,
+        0.009999990463256836
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/vase/vase.blend",
+      "geometry_fingerprint": "667104c2c4e83f87faa6428ddaf1761c89ddac3457a474b9c8da8c055718815a",
+      "triangles": 1332,
+      "source_sha256": "d78dbb8ff25be7ee722764716f67d2bbae9ba41394b5545c4a2668289b77ed4a",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-VASE",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "wall_pier",
+      "asset_id": "SEA-SCENE-SBR-WALL-PIER",
+      "name": "白色墙角与后侧承重柱",
+      "category": "structure",
+      "family": "structural_column",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "Z yaw; nonuniform height instances",
+      "scope": "scene_local",
+      "triangle_budget": 10000,
+      "collection": "SEA-SCENE-SBR-WALL-PIER",
+      "root": "ROOT_wall_pier",
+      "bounds_size": [
+        0.30000001192092896,
+        0.30000001192092896,
+        2.8499999046325684
+      ],
+      "bounds_min": [
+        -0.15000000596046448,
+        -0.15000000596046448,
+        0.0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 10,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot authored walk rectangles",
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/wall_pier/wall_pier.blend",
+      "geometry_fingerprint": "e343c86937a903e7f946a2d14561a991b2058ce9d6f762a74fd06e93e2a1966f",
+      "triangles": 188,
+      "source_sha256": "b41776dbd59c09ddee56c2cfaca2ec9ea7ea34e809c9c4c822f0d1c2e1f54c5a",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v007",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-WALL-PIER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "platform_board_coral",
+      "name": "前方平台-酒红横向整板-coral",
+      "asset_id": "SEA-SCENE-SBR-PLATFORM-BOARD-CORAL",
+      "category": "structure",
+      "family": "platform_board",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 500,
+      "collection": "SEA-SCENE-SBR-PLATFORM-BOARD-CORAL",
+      "root": "ROOT_platform_board_coral",
+      "source_anchor": [
+        0,
+        0,
+        0
+      ],
+      "bounds_min": [
+        -3.75,
+        -0.2590000033378601,
+        0.0
+      ],
+      "bounds_size": [
+        7.5,
+        0.5180000066757202,
+        0.4000000059604645
+      ],
+      "instance_count": 3,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/platform_board_coral/platform_board_coral.blend",
+      "geometry_fingerprint": "c4693a507220dd3fa24a893ab3ac4c20e406ff056eef9574d273e4e255d9846b",
+      "triangles": 188,
+      "source_sha256": "85505d649f340dc53e6857b4dc0bb05b77657b9d02c5a33c5840f1e7a6daac15",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review",
+      "variant_of": "platform_board",
+      "palette_color": "coral"
+    },
+    {
+      "key": "platform_board_ochre",
+      "name": "前方平台-酒红横向整板-ochre",
+      "asset_id": "SEA-SCENE-SBR-PLATFORM-BOARD-OCHRE",
+      "category": "structure",
+      "family": "platform_board",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 500,
+      "collection": "SEA-SCENE-SBR-PLATFORM-BOARD-OCHRE",
+      "root": "ROOT_platform_board_ochre",
+      "source_anchor": [
+        0,
+        0,
+        0
+      ],
+      "bounds_min": [
+        -3.75,
+        -0.2590000033378601,
+        0.0
+      ],
+      "bounds_size": [
+        7.5,
+        0.5180000066757202,
+        0.4000000059604645
+      ],
+      "instance_count": 1,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/platform_board_ochre/platform_board_ochre.blend",
+      "geometry_fingerprint": "c4693a507220dd3fa24a893ab3ac4c20e406ff056eef9574d273e4e255d9846b",
+      "triangles": 188,
+      "source_sha256": "0ca0475f1ee237eecf831cc49b8339c179d48118ee3e2344b7f277d345b5a3f2",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review",
+      "variant_of": "platform_board",
+      "palette_color": "ochre"
+    },
+    {
+      "key": "dock_board_sand",
+      "asset_id": "SEA-SCENE-SBR-DOCK-BOARD-SAND",
+      "name": "栈桥-暖木横向整板-sand",
+      "category": "structure",
+      "family": "paving",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000,
+      "collection": "SEA-SCENE-SBR-DOCK-BOARD-SAND",
+      "root": "ROOT_dock_board_sand",
+      "source_anchor": [
+        0,
+        0,
+        0
+      ],
+      "bounds_min": [
+        -1.6027030944824219,
+        -0.2175000011920929,
+        0.0
+      ],
+      "bounds_size": [
+        3.212464213371277,
+        0.4350000023841858,
+        0.4000000059604645
+      ],
+      "instance_count": 3,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/dock_board_sand/dock_board_sand.blend",
+      "geometry_fingerprint": "e9d6426ba1c1f87ff734df3637da7bde8c309f2ca5afc3233e96a7656990feed",
+      "triangles": 188,
+      "source_sha256": "dc7d9c739cae3abdec3d5ff87c68dc974634af3c8ac52818da62a949e29e9278",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review",
+      "variant_of": "dock_board",
+      "palette_color": "honey"
+    },
+    {
+      "key": "dock_board_shade",
+      "asset_id": "SEA-SCENE-SBR-DOCK-BOARD-SHADE",
+      "name": "栈桥-暖木横向整板-shade",
+      "category": "structure",
+      "family": "paving",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ; normally Z yaw",
+      "scope": "scene_local",
+      "triangle_budget": 16000,
+      "collection": "SEA-SCENE-SBR-DOCK-BOARD-SHADE",
+      "root": "ROOT_dock_board_shade",
+      "source_anchor": [
+        0,
+        0,
+        0
+      ],
+      "bounds_min": [
+        -1.6027030944824219,
+        -0.2175000011920929,
+        0.0
+      ],
+      "bounds_size": [
+        3.212464213371277,
+        0.4350000023841858,
+        0.4000000059604645
+      ],
+      "instance_count": 1,
+      "component_source": "art_source/scenes/sunny_bloom_retreat/v007/components/dock_board_shade/dock_board_shade.blend",
+      "geometry_fingerprint": "e9d6426ba1c1f87ff734df3637da7bde8c309f2ca5afc3233e96a7656990feed",
+      "triangles": 188,
+      "source_sha256": "d14796578a2fab235ee21e468a9483a80ba764b768cf18dfe0474161a17d965b",
+      "version": "v007",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review",
+      "variant_of": "dock_board",
+      "palette_color": "wood"
+    }
+  ]
+}

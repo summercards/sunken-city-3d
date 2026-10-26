@@ -1,0 +1,50 @@
+{
+  "asset_id": "SEA-SCENE-SBR-PLATFORM-BOARD",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "c4693a507220dd3fa24a893ab3ac4c20e406ff056eef9574d273e4e255d9846b",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "version": "v007",
+  "runtime_version": "1.4",
+  "runtime_verified": true,
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "scope": "scene_local",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "b519642a7ad126fe009889b4d8dafbaadbd910342f0954f84faac249a8c2a9d0",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/export_manifest.json",
+  "name": "前方平台-酒红横向整板",
+  "source": "art_source/scenes/sunny_bloom_retreat/v007/components/platform_board/platform_board.blend",
+  "source_sha256": "39a897ac75c661e14de9558985de05b53279249967ba9c1a1a092a3c50682b32",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v007/components/platform_board/asset_manifest.json",
+  "category": "structure",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/platform_board/platform_board.glb",
+  "prefab": "godot/scenes/components/solar_cabin/platform_board.tscn",
+  "asset_key": "platform_board",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/platform_board/platform_board.blend",
+      "source_sha256": "d3c37c2d940f74fdb0df7238e919b28c6ba0d449a8884cc8a5223fe696382a63",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/platform_board/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/platform_board/platform_board.blend",
+      "source_sha256": "2776b9a9178cc0d1c1fdc2ee9d0d3b4bd2a92a4ee9e51e2ba75f341e683b2cdc",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/platform_board/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/components/platform_board/platform_board.blend",
+      "source_sha256": "6652c14fc0a2e63020a5953b05d5d035f3b347b64b6fb993d5a76f5bdb6a3af6",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/platform_board/asset_manifest.json",
+      "version": "v006"
+    }
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PLATFORM-BOARD"
+}

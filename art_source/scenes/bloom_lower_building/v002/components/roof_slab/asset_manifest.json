@@ -1,0 +1,39 @@
+{
+  "asset_id": "SEA-SCENE-BLB-ROOF-SLAB",
+  "name": "厚顶板",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/bloom_lower_building/v002/components/roof_slab/roof_slab.blend",
+  "source_sha256": "2bf35da911935e7e684420c247a56f897ed54247fdb746b9956afe69122da506",
+  "manifest": "art_source/scenes/bloom_lower_building/v002/components/roof_slab/asset_manifest.json",
+  "version": "v002",
+  "runtime_path": "godot/assets/models/facilities/bloom_lower_building/components/roof_slab/roof_slab.glb",
+  "prefab": "godot/scenes/components/bloom_lower_building/roof_slab.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "5e41799e810ec457cfff982f82ca4ab442ecc6ac609e2e3f7a46dca2172614d1",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "structure",
+  "scope": "scene_local",
+  "note": "七层新楼体组件；接口重叠的原屋顶砖/顶边/顶层花草不实例化，原制作源不改。",
+  "runtime_version": "1.4",
+  "runtime_verified": true,
+  "optimized_source": "art_source/scenes/bloom_lower_building/v002/export/v001/bloom_lower_building_optimized_v001.blend",
+  "optimized_sha256": "267390826786b8fd3eba5b3ac6b5540c49c456be3676d5c2eba7a7c40900ed8f",
+  "export_manifest": "art_source/scenes/bloom_lower_building/v002/export/v001/export_manifest.json",
+  "asset_key": "roof_slab",
+  "runtime_scope": "太阳能木屋-海下基座组件",
+  "runtime_active": true,
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/bloom_lower_building/v001/components/roof_slab/roof_slab.blend",
+      "source_sha256": "164169a4ed99836aa304e0fad3e5ad81942deaefcbc3750fa584babe875a84f8",
+      "manifest": "art_source/scenes/bloom_lower_building/v001/components/roof_slab/asset_manifest.json",
+      "version": "v001"
+    }
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-ROOF-SLAB"
+}

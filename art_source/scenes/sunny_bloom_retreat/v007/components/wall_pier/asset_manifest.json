@@ -1,0 +1,62 @@
+{
+  "asset_id": "SEA-SCENE-SBR-WALL-PIER",
+  "name": "白色墙角与后侧承重柱",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v007/components/wall_pier/wall_pier.blend",
+  "source_sha256": "b41776dbd59c09ddee56c2cfaca2ec9ea7ea34e809c9c4c822f0d1c2e1f54c5a",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v007/components/wall_pier/asset_manifest.json",
+  "version": "v007",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/wall_pier/wall_pier.glb",
+  "prefab": "godot/scenes/components/solar_cabin/wall_pier.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "e343c86937a903e7f946a2d14561a991b2058ce9d6f762a74fd06e93e2a1966f",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "structure",
+  "scope": "scene_local",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/wall_pier/wall_pier.blend",
+      "source_sha256": "32c8048ea792474ca6c25fbea22f6033cdcb71eeb137f13aa75274351cc9167f",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/wall_pier/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/wall_pier/wall_pier.blend",
+      "source_sha256": "d0c4d72820859380c5491c3631f964f42b1eae5a5491c266f4a3dd3708a0f482",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/wall_pier/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/wall_pier/wall_pier.blend",
+      "source_sha256": "5c4daa6b8ba18fe48f9f740c5f9d83d9111cd97050bd9c8af6bab488a14505af",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/wall_pier/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/wall_pier/wall_pier.blend",
+      "source_sha256": "9478692244f14aca05ecf85a876624f3c582fd3cbe5d2e0664a7356b1bc5368e",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/wall_pier/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/components/wall_pier/wall_pier.blend",
+      "source_sha256": "83d7e0e89e9fb7161df5b33c9a34a969a0765b787059a5a304006681295a5060",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/wall_pier/asset_manifest.json",
+      "version": "v006"
+    }
+  ],
+  "runtime_version": "1.4",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "b519642a7ad126fe009889b4d8dafbaadbd910342f0954f84faac249a8c2a9d0",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "wall_pier",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-WALL-PIER"
+}

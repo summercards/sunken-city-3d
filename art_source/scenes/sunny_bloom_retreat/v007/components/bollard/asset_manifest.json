@@ -1,0 +1,62 @@
+{
+  "asset_id": "SEA-SCENE-SBR-BOLLARD",
+  "name": "双绳圈木柱",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v007/components/bollard/bollard.blend",
+  "source_sha256": "36f366207711f2594f857d2d5469e774917034c3f0647d8879cd5bc471d28e19",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v007/components/bollard/asset_manifest.json",
+  "version": "v007",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/bollard/bollard.glb",
+  "prefab": "godot/scenes/components/solar_cabin/bollard.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "a88f54d3c6baf70eec803a67ed373600aba24a4fc0f6161ffb024928b03a21f9",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/bollard/bollard.blend",
+      "source_sha256": "35df14ec0d79a18042157c448c888c6bab130c9a1d564906d785635e61aba8d5",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/bollard/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/bollard/bollard.blend",
+      "source_sha256": "2e701a826572453fbbd100f5547362417f5b3a724fb523516a75662ed4c79374",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/bollard/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/bollard/bollard.blend",
+      "source_sha256": "ab9e1d9872782b94b787041d9a078bd87b27c1bc79e9ed25ea52451b4754ea42",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/bollard/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/bollard/bollard.blend",
+      "source_sha256": "d421a5a19a5041908cf311196985f2df39af09f26a104f071f37a4865b98b01c",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/bollard/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/components/bollard/bollard.blend",
+      "source_sha256": "b97ff6880c0cd2d274bfd8621008a320b4d689194b1df3a2f44ce254b1c36c71",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/bollard/asset_manifest.json",
+      "version": "v006"
+    }
+  ],
+  "runtime_version": "1.4",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "b519642a7ad126fe009889b4d8dafbaadbd910342f0954f84faac249a8c2a9d0",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "bollard",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-BOLLARD"
+}

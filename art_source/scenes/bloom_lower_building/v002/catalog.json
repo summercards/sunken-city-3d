@@ -1,0 +1,950 @@
+{
+  "components": [
+    {
+      "key": "facade_bay",
+      "name": "长面厚白窗湾",
+      "family": "wall_bay",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-FACADE-BAY",
+      "root": "ROOT_facade_bay",
+      "bounds_size": [
+        2.200000047683716,
+        0.5899999737739563,
+        1.7200000286102295
+      ],
+      "bounds_min": [
+        -1.100000023841858,
+        -0.29499998688697815,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.034999996423721313,
+        0.0
+      ],
+      "instance_count": 42,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/facade_bay/facade_bay.blend",
+      "geometry_fingerprint": "3fb41dc7db24934b73ad0cc4647eef9f4a4f3fbf9042f098d9bacab7a8465985",
+      "triangles": 752,
+      "source_sha256": "041d235255f1293cb0a916e306599870083d8f89d9632c8ec1878109a864574f",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-FACADE-BAY",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "end_bay",
+      "name": "短面厚白窗湾",
+      "family": "wall_bay",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-END-BAY",
+      "root": "ROOT_end_bay",
+      "bounds_size": [
+        3.880000114440918,
+        0.6299999952316284,
+        1.7200000286102295
+      ],
+      "bounds_min": [
+        -1.940000057220459,
+        -0.3149999976158142,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.034999996423721313,
+        0.0
+      ],
+      "instance_count": 14,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/end_bay/end_bay.blend",
+      "geometry_fingerprint": "0ab1de19df2df314d95cb31cc40fb5c706720ac130ab6d6ffdaf005bb8fb2812",
+      "triangles": 752,
+      "source_sha256": "1007c900f3e4d5835cf15d9025e345b5ccaf19815f75e9401a822c628dcf0048",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-END-BAY",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "return_bay",
+      "name": "转角窄窗墙",
+      "family": "wall_bay",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-RETURN-BAY",
+      "root": "ROOT_return_bay",
+      "bounds_size": [
+        0.6000000238418579,
+        0.33000001311302185,
+        1.7200000286102295
+      ],
+      "bounds_min": [
+        -0.30000001192092896,
+        -0.16500000655651093,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.034999996423721313,
+        0.0
+      ],
+      "instance_count": 14,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/return_bay/return_bay.blend",
+      "geometry_fingerprint": "8fd4fd18710c2640256fe458b36abf1493dfd94d82b59c0df1797899414c71c5",
+      "triangles": 752,
+      "source_sha256": "3c8840d6643950c35d49e9b2de8130d6e64a6b9fdd0bc7a04b22eb14ffa754ce",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-RETURN-BAY",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "floor_slab",
+      "name": "内楼板",
+      "family": "slab",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "root": "ROOT_floor_slab",
+      "bounds_size": [
+        3.700000047683716,
+        7.699999809265137,
+        0.1599999964237213
+      ],
+      "bounds_min": [
+        -1.850000023841858,
+        -3.8499999046325684,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 7,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/floor_slab/floor_slab.blend",
+      "geometry_fingerprint": "b88c6fb353447cc15a698e8268dc4aefe078550295f99e7adc6ee5d3b2dda826",
+      "triangles": 188,
+      "source_sha256": "3b1a1d1bff8ca17b48339de28fc4df189e06bfc2f94f7ed2cf69c777fac11f92",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-FLOOR-SLAB",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "roof_slab",
+      "name": "厚顶板",
+      "family": "slab",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-ROOF-SLAB",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-ROOF-SLAB",
+      "root": "ROOT_roof_slab",
+      "bounds_size": [
+        4.480000019073486,
+        8.279999732971191,
+        0.2800000011920929
+      ],
+      "bounds_min": [
+        -2.240000009536743,
+        -4.139999866485596,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/roof_slab/roof_slab.blend",
+      "geometry_fingerprint": "5e41799e810ec457cfff982f82ca4ab442ecc6ac609e2e3f7a46dca2172614d1",
+      "triangles": 188,
+      "source_sha256": "2bf35da911935e7e684420c247a56f897ed54247fdb746b9956afe69122da506",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-ROOF-SLAB",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "roof_tile",
+      "name": "浅杏屋顶砖",
+      "family": "tile",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-ROOF-TILE",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-ROOF-TILE",
+      "root": "ROOT_roof_tile",
+      "bounds_size": [
+        1.0140000581741333,
+        0.9940000176429749,
+        0.07000000029802322
+      ],
+      "bounds_min": [
+        -0.5070000290870667,
+        -0.4970000088214874,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 32,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/roof_tile/roof_tile.blend",
+      "geometry_fingerprint": "fe3d54a102acef012bce85aa499474676bf5863d362ee41993ea68cc16f77a32",
+      "triangles": 188,
+      "source_sha256": "335c9691e6d48cf7c2455dc48a811520d23630357bcd9a17f018cb8fd5b1b23b",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-ROOF-TILE",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "roof_rim",
+      "name": "奶白屋顶边条",
+      "family": "rim",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-ROOF-RIM",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-ROOF-RIM",
+      "root": "ROOT_roof_rim",
+      "bounds_size": [
+        1.5800000429153442,
+        0.23000000417232513,
+        0.2199999988079071
+      ],
+      "bounds_min": [
+        -0.7900000214576721,
+        -0.11500000208616257,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 14,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/roof_rim/roof_rim.blend",
+      "geometry_fingerprint": "ab57d87de7424fa2d0f0750289bbe6e2f2fb7ab12ae73de3c08208063431c1ac",
+      "triangles": 188,
+      "source_sha256": "adbf1bc72374a1d331ad3078807c1300adc90dd1666268c5e1e5fb61ce9b2b51",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-ROOF-RIM",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "foundation",
+      "name": "落地厚柱脚",
+      "family": "foot",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-FOUNDATION",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-FOUNDATION",
+      "root": "ROOT_foundation",
+      "bounds_size": [
+        0.5699999928474426,
+        0.550000011920929,
+        0.7599999904632568
+      ],
+      "bounds_min": [
+        -0.2849999964237213,
+        -0.2750000059604645,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/foundation/foundation.blend",
+      "geometry_fingerprint": "7ce81f2853a2d9fb311d97eda94bd9d100b0b11444a36f1a616e216b509a534d",
+      "triangles": 188,
+      "source_sha256": "23b66e0ad2d0170be524e30f4d5e2bdbd1ada0adbbeed979f1d64a8cc1600142",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-FOUNDATION",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "wall_pier",
+      "name": "厚白墙柱",
+      "family": "pier",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-WALL-PIER",
+      "root": "ROOT_wall_pier",
+      "bounds_size": [
+        0.3400000035762787,
+        0.36000001430511475,
+        1.7200000286102295
+      ],
+      "bounds_min": [
+        -0.17000000178813934,
+        -0.18000000715255737,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 28,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/wall_pier/wall_pier.blend",
+      "geometry_fingerprint": "ef1221c289d03a9bbc8433c6dfc8560e2ac0b6dc8f443178ccbfa6b32556b297",
+      "triangles": 188,
+      "source_sha256": "0e323ae21892c11305a86b6cd8eb03d1b70832b9f190bb810af4690ca3b972f9",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-WALL-PIER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "blue_column",
+      "name": "蓝灰凹槽立柱",
+      "family": "column",
+      "category": "structure",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "root": "ROOT_blue_column",
+      "bounds_size": [
+        0.30000001192092896,
+        0.3605000078678131,
+        1.559999942779541
+      ],
+      "bounds_min": [
+        -0.15000000596046448,
+        -0.18025000393390656,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.010250002145767212,
+        0.0
+      ],
+      "instance_count": 28,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/blue_column/blue_column.blend",
+      "geometry_fingerprint": "71c528dd3deec8bdb7c4407264e545e2dc60c8ced56a4536c9e933d37b02a2be",
+      "triangles": 376,
+      "source_sha256": "1ded56cbedf0bf066e420aadb2115f7cfbbc2fadcaf4df0816a26db34c10339f",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-BLUE-COLUMN",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "blue_collar",
+      "name": "天蓝柱箍",
+      "family": "collar",
+      "category": "fixture",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "root": "ROOT_blue_collar",
+      "bounds_size": [
+        0.4000000059604645,
+        0.4399999976158142,
+        0.1899999976158142
+      ],
+      "bounds_min": [
+        -0.20000000298023224,
+        -0.2199999988079071,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "instance_count": 28,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/blue_collar/blue_collar.blend",
+      "geometry_fingerprint": "9333bec63923bd1beba4881f096adbb72226c26ca217903ef2d673cf6aa12533",
+      "triangles": 376,
+      "source_sha256": "275a20db350f9c4d974d5140efb894e071c58436aff64a16ee260bceddba43da",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-BLUE-COLLAR",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "wide_window",
+      "name": "青蓝双扇窗",
+      "family": "window",
+      "category": "fixture",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "root": "ROOT_wide_window",
+      "bounds_size": [
+        1.2549999952316284,
+        0.1574999988079071,
+        1.1750000715255737
+      ],
+      "bounds_min": [
+        -0.6274999976158142,
+        -0.07874999940395355,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.04625000059604645,
+        -0.03750000149011612
+      ],
+      "instance_count": 42,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/wide_window/wide_window.blend",
+      "geometry_fingerprint": "2acd741860cd6ae4d03c4a4ee6771864b1f5e509b3579037ea8a7e9b45d6c36a",
+      "triangles": 1504,
+      "source_sha256": "692322a0c799acd151ea2b9df65a2acd53d94c8c9057a5218875b6056bac3764",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-WIDE-WINDOW",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "end_window",
+      "name": "端面宽双扇窗",
+      "family": "window",
+      "category": "fixture",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-END-WINDOW",
+      "root": "ROOT_end_window",
+      "bounds_size": [
+        2.255000114440918,
+        0.1574999988079071,
+        1.1750000715255737
+      ],
+      "bounds_min": [
+        -1.127500057220459,
+        -0.07874999940395355,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.04625000059604645,
+        -0.03750000149011612
+      ],
+      "instance_count": 14,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/end_window/end_window.blend",
+      "geometry_fingerprint": "3b8cd177323f3b92caaff465206e23dee959cd8cd9211b3ab827747c2249dbe1",
+      "triangles": 1504,
+      "source_sha256": "26e4f9eef1965907466cd227ed9341a754c0eca345ccf919e937e31d33e26b56",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-END-WINDOW",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "return_window",
+      "name": "转角单扇小窗",
+      "family": "window",
+      "category": "fixture",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "root": "ROOT_return_window",
+      "bounds_size": [
+        0.35500001907348633,
+        0.1574999988079071,
+        1.1750000715255737
+      ],
+      "bounds_min": [
+        -0.17750000953674316,
+        -0.07874999940395355,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.04625000059604645,
+        -0.03750000149011612
+      ],
+      "instance_count": 14,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/return_window/return_window.blend",
+      "geometry_fingerprint": "15cdad6938c9acb441eb4b0f1ec950bac209d087fc16ea24e1c4065acb4ba122",
+      "triangles": 940,
+      "source_sha256": "6855fe716323651c297871ecabbaea27b5ab423ac3de57fae1cac94fb49bde4e",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-RETURN-WINDOW",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "air_conditioner",
+      "name": "白色外挂机",
+      "family": "equipment",
+      "category": "fixture",
+      "asset_id": "SEA-SCENE-BLB-AIR-CONDITIONER",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-AIR-CONDITIONER",
+      "root": "ROOT_air_conditioner",
+      "bounds_size": [
+        0.7739999890327454,
+        0.4675000011920929,
+        0.7099999785423279
+      ],
+      "bounds_min": [
+        -0.3869999945163727,
+        -0.23375000059604645,
+        0
+      ],
+      "source_anchor": [
+        0.006999999284744263,
+        -0.013750001788139343,
+        0.0
+      ],
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/air_conditioner/air_conditioner.blend",
+      "geometry_fingerprint": "b0028bc03c95f2be352f43266212f99d00b09e3f734308ed132a412e1ebe79b2",
+      "triangles": 2700,
+      "source_sha256": "26db2607ffee56f78f6691ceacaeed1ed115e7a86ad8f1e1e4099937477ded43",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-AIR-CONDITIONER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "leaf_cluster",
+      "name": "饱满放射叶簇",
+      "family": "foliage",
+      "category": "flora",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "root": "ROOT_leaf_cluster",
+      "bounds_size": [
+        0.9464104175567627,
+        0.9229633808135986,
+        0.49309083819389343
+      ],
+      "bounds_min": [
+        -0.47320520877838135,
+        -0.4614816904067993,
+        0
+      ],
+      "source_anchor": [
+        0.011648222804069519,
+        -0.10454678535461426,
+        0.0034804046154022217
+      ],
+      "instance_count": 48,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/leaf_cluster/leaf_cluster.blend",
+      "geometry_fingerprint": "7a0d30e5c6e899ae8abf6c89a29125cc8637bee5c459167c01512cff925d13d4",
+      "triangles": 4840,
+      "source_sha256": "85a13cd0a951077aa933ae49328914172ead01bbb4af397f7ee28b54bc4d31f4",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-LEAF-CLUSTER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "edge_cluster",
+      "name": "横向花台叶簇",
+      "family": "foliage",
+      "category": "flora",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "root": "ROOT_edge_cluster",
+      "bounds_size": [
+        1.2788524627685547,
+        1.1031447649002075,
+        0.49309083819389343
+      ],
+      "bounds_min": [
+        -0.6394262313842773,
+        -0.5515723824501038,
+        0
+      ],
+      "source_anchor": [
+        0.05970335006713867,
+        -0.014456093311309814,
+        0.0034804046154022217
+      ],
+      "instance_count": 30,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/edge_cluster/edge_cluster.blend",
+      "geometry_fingerprint": "411e7290301425973d8222a44ee182f872a21384477d9435d1b7f2663537f168",
+      "triangles": 7040,
+      "source_sha256": "e241da3813caf9c0e0635e37dbb8de2a0a1e21998bd78147a263287fbcfe83e0",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-EDGE-CLUSTER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "vine_long",
+      "name": "长垂藤",
+      "family": "vine",
+      "category": "flora",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-VINE-LONG",
+      "root": "ROOT_vine_long",
+      "bounds_size": [
+        0.624476432800293,
+        0.23833028972148895,
+        2.2161507606506348
+      ],
+      "bounds_min": [
+        -0.3122382164001465,
+        -0.11916514486074448,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.05250001698732376,
+        -0.09807536005973816
+      ],
+      "instance_count": 21,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/vine_long/vine_long.blend",
+      "geometry_fingerprint": "06dd91786b565833359563513df42b0e577293de9c7b74edb3a03cac0b109740",
+      "triangles": 11520,
+      "source_sha256": "042c443b93cfdcf851c7af8619fb68da6af3166b185f60ac196616528d83a49a",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-VINE-LONG",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "vine_short",
+      "name": "短垂藤",
+      "family": "vine",
+      "category": "flora",
+      "asset_id": "SEA-SCENE-BLB-VINE-SHORT",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-VINE-SHORT",
+      "root": "ROOT_vine_short",
+      "bounds_size": [
+        0.624476432800293,
+        0.23833028972148895,
+        1.2461507320404053
+      ],
+      "bounds_min": [
+        -0.3122382164001465,
+        -0.11916514486074448,
+        0
+      ],
+      "source_anchor": [
+        0.0,
+        -0.05250001698732376,
+        -0.09807536005973816
+      ],
+      "instance_count": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/vine_short/vine_short.blend",
+      "geometry_fingerprint": "29459579ed187cac07991a55b9b11a88df88849c31271d1cf82453971d076074",
+      "triangles": 8440,
+      "source_sha256": "d5e93c5e6f4755677f1a30e53ab8d77df29b8761da77719a0911cf68431f6a78",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-VINE-SHORT",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "pink_flower",
+      "name": "五瓣亮粉花",
+      "family": "flower",
+      "category": "flora",
+      "asset_id": "SEA-SCENE-BLB-PINK-FLOWER",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-PINK-FLOWER",
+      "root": "ROOT_pink_flower",
+      "bounds_size": [
+        0.8459522724151611,
+        0.8771976232528687,
+        0.34614431858062744
+      ],
+      "bounds_min": [
+        -0.42297613620758057,
+        -0.4385988116264343,
+        0
+      ],
+      "source_anchor": [
+        0.03582489490509033,
+        0.0,
+        0.008855655789375305
+      ],
+      "instance_count": 8,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/pink_flower/pink_flower.blend",
+      "geometry_fingerprint": "908ade3c2f8ca45da1b7393b4ba960e1a5efe3f56ed459b0cdca2d22a91364eb",
+      "triangles": 2640,
+      "source_sha256": "06be08e591d45346a4ed25832f9f96d35e5d57cf39875b4031694247e9679ca9",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-PINK-FLOWER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "white_flower",
+      "name": "五瓣白花",
+      "family": "flower",
+      "category": "flora",
+      "asset_id": "SEA-SCENE-BLB-WHITE-FLOWER",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-WHITE-FLOWER",
+      "root": "ROOT_white_flower",
+      "bounds_size": [
+        0.8459522724151611,
+        0.8771976232528687,
+        0.34614431858062744
+      ],
+      "bounds_min": [
+        -0.42297613620758057,
+        -0.4385988116264343,
+        0
+      ],
+      "source_anchor": [
+        0.03582489490509033,
+        0.0,
+        0.008855655789375305
+      ],
+      "instance_count": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/white_flower/white_flower.blend",
+      "geometry_fingerprint": "8ab785a1f009ca1c7675b5008a8294c089ac27bae73d8b548737456c4621d525",
+      "triangles": 2640,
+      "source_sha256": "fc2e4f5253354a6fc1dcf21086eac85d7bfc5bb0ad25a8072e15420fc0b19e3e",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-WHITE-FLOWER",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    },
+    {
+      "key": "yellow_buds",
+      "name": "小黄花苞",
+      "family": "flower",
+      "category": "flora",
+      "asset_id": "SEA-SCENE-BLB-YELLOW-BUDS",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 30000,
+      "scope": "scene_local",
+      "collection": "SEA-SCENE-BLB-YELLOW-BUDS",
+      "root": "ROOT_yellow_buds",
+      "bounds_size": [
+        0.2950000464916229,
+        0.26500001549720764,
+        0.21625001728534698
+      ],
+      "bounds_min": [
+        -0.14750002324581146,
+        -0.13250000774860382,
+        0
+      ],
+      "source_anchor": [
+        -0.007500007748603821,
+        0.007499992847442627,
+        0.051249995827674866
+      ],
+      "instance_count": 10,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "collision_owner": "Godot wrapper pending",
+      "component_source": "art_source/scenes/bloom_lower_building/v002/components/yellow_buds/yellow_buds.blend",
+      "geometry_fingerprint": "2bd18a42b93478b457a5cf93d58bfd18a7aeaf50caf23f16e56c5cb725a67d94",
+      "triangles": 1320,
+      "source_sha256": "cddd75f009be78372102ed5d42db5c41be198d68ce06ef8edfc2c50b162db96a",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-YELLOW-BUDS",
+      "stage": "source_verified_runtime_pending",
+      "license": "pending_user_reference_rights_review"
+    }
+  ]
+}

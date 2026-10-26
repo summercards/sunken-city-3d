@@ -1,0 +1,62 @@
+{
+  "asset_id": "SEA-SCENE-SBR-UPPER-ROOM",
+  "name": "屋顶小屋墙壳",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v007/components/upper_room/upper_room.blend",
+  "source_sha256": "b132f101874e6af16eedcd81836e2b9e649075402b77c286e42ab48dd8693e7f",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v007/components/upper_room/asset_manifest.json",
+  "version": "v007",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/upper_room/upper_room.glb",
+  "prefab": "godot/scenes/components/solar_cabin/upper_room.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "3ada7894902614b6b4f1e1f451434a1e7ef2d49e85afeb58a5c35ede7d77acfc",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "structure",
+  "scope": "scene_local",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/upper_room/upper_room.blend",
+      "source_sha256": "825162a1256e4d22b67e4cad7afeee5c75a84b561bd58ea9ef543285f4b36338",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/upper_room/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/upper_room/upper_room.blend",
+      "source_sha256": "05604f73698abf34335361e9a523247346cf78a08640d7be4c253c75d36e8311",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/upper_room/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/upper_room/upper_room.blend",
+      "source_sha256": "faaac80c83b5a7e3d2bde4610a6c9b83778632c43c880d86769a1a2e2be3b36c",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/upper_room/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/upper_room/upper_room.blend",
+      "source_sha256": "4fce4dce087b2e7563be5c1051d091ab7008e6ce11a4fcbff2525242bb4b03b0",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/upper_room/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/components/upper_room/upper_room.blend",
+      "source_sha256": "ea94c774d3c3351b3e309d63a0b76d872481cea8d42841ceb47258550fbbfcfc",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/upper_room/asset_manifest.json",
+      "version": "v006"
+    }
+  ],
+  "runtime_version": "1.4",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "b519642a7ad126fe009889b4d8dafbaadbd910342f0954f84faac249a8c2a9d0",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "upper_room",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-UPPER-ROOM"
+}

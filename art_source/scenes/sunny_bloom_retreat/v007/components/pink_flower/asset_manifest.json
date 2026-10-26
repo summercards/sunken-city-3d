@@ -1,0 +1,62 @@
+{
+  "asset_id": "SEA-SCENE-SBR-PINK-FLOWER",
+  "name": "五瓣饱满粉花",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v007/components/pink_flower/pink_flower.blend",
+  "source_sha256": "1097fc525b1308ba77fe7bb90e73c1190a1c484235f0ace1a8f376ec890b83c8",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v007/components/pink_flower/asset_manifest.json",
+  "version": "v007",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/pink_flower/pink_flower.glb",
+  "prefab": "godot/scenes/components/solar_cabin/pink_flower.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "b8a9d84b13ab306c7f4e207cd21b05b25caed6388ee56c95d5f0a50cd796cb77",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "flora",
+  "scope": "scene_local",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/pink_flower/pink_flower.blend",
+      "source_sha256": "02ea7cc222b0ca0eb992a1acf13ba11ed6fca9dd684db1dde8a0477b6cfeecfd",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/pink_flower/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/pink_flower/pink_flower.blend",
+      "source_sha256": "355acd9c52e3545608b8a548a776a3629404c61051c374214b194d0c9782959e",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/pink_flower/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/pink_flower/pink_flower.blend",
+      "source_sha256": "4c2ae88338f1b3d9ee111af3bb053227380d36164d038a52a6e8173151514a63",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/pink_flower/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/pink_flower/pink_flower.blend",
+      "source_sha256": "08a2c49ab1001b837a4dc9da133b878c5bccdc306a9ad03222261ce13f82f142",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/pink_flower/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/components/pink_flower/pink_flower.blend",
+      "source_sha256": "f0f8041f42ae82389689cdc1a9ec9a0c5dae884f9e2cf61d3c094e5e201545ff",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/pink_flower/asset_manifest.json",
+      "version": "v006"
+    }
+  ],
+  "runtime_version": "1.4",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "b519642a7ad126fe009889b4d8dafbaadbd910342f0954f84faac249a8c2a9d0",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "pink_flower",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PINK-FLOWER"
+}

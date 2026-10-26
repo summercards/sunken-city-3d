@@ -46,13 +46,13 @@ func run() -> void:
 			var box: AABB=mm.get_instance_transform(i)*mm.mesh.get_aabb()
 			bounds=box if first else bounds.merge(box);first=false
 			if key=="house": check(absf(box.size.x-8.625)<.001,"original main wall enlarged exactly 50 percent")
-			if key in ["platform_board","dock_board"]:check(absf(box.end.y-2.15)<.002,"main deck height 2.15m")
+			if key.begins_with("platform_board") or key.begins_with("dock_board"):check(absf(box.end.y-2.15)<.002,"main deck height 2.15m")
 			if key in ["foundation","pier"]:check(absf(box.position.y-1.12)<.002,"foundation touches preserved waterline base")
 			if key=="entry":check(box.get_center().z>3.0,"entry faces game +Z")
 		for s in mm.mesh.get_surface_count():
 			var mat: ShaderMaterial=mm.mesh.surface_get_material(s)
-			check(mat!=null and mat.get_shader_parameter("palette").resource_path=="res://assets/textures/shared/sea_cozy_8x8_512.png","single shared palette binding")
-	check(component_ids.size()==45,"45 active source components loaded")
+			check(mat!=null and mat.get_shader_parameter("palette").resource_path=="res://assets/textures/shared/sea_cabin_muted_8x8_512.png","single shared palette binding")
+	check(component_ids.size()==49,"49 active source components loaded")
 	for key in ["foundation","pier","vine","palm","deck_tile","sail","canopy_hook"]:check(not component_ids.has(key),"retired clutter/gray base: "+key)
 	for key in ["umbrella","sofa","cooler","table","pot"]:check(component_ids.has(key),"right lounge retained: "+key)
 	var manifest: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/facilities/solar_cabin/revision_metrics.json"))
@@ -75,7 +75,7 @@ func run() -> void:
 			if key=="roof_slab":check(absf(box.end.y-1.46)<.002,"new base roof meets wood deck underside")
 		for si in mm.mesh.get_surface_count():
 			var mat: ShaderMaterial=mm.mesh.surface_get_material(si)
-			check(mat!=null and mat.get_shader_parameter("palette").resource_path=="res://assets/textures/shared/sea_cozy_8x8_512.png","new base shared palette")
+			check(mat!=null and mat.get_shader_parameter("palette").resource_path=="res://assets/textures/shared/sea_cabin_muted_8x8_512.png","new base shared palette")
 	check(slabs==7,"seven storeys in new submerged base")
 	check(lower_instances==lower_data.instances.size(),"new base instance manifest matches")
 	check(lower_triangles==int(lower_metrics.expanded_triangles_after),"new base triangle count matches optimized export")

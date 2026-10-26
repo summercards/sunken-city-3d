@@ -1,0 +1,39 @@
+{
+  "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+  "name": "蓝灰凹槽立柱",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/bloom_lower_building/v002/components/blue_column/blue_column.blend",
+  "source_sha256": "1ded56cbedf0bf066e420aadb2115f7cfbbc2fadcaf4df0816a26db34c10339f",
+  "manifest": "art_source/scenes/bloom_lower_building/v002/components/blue_column/asset_manifest.json",
+  "version": "v002",
+  "runtime_path": "godot/assets/models/facilities/bloom_lower_building/components/blue_column/blue_column.glb",
+  "prefab": "godot/scenes/components/bloom_lower_building/blue_column.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "71c528dd3deec8bdb7c4407264e545e2dc60c8ced56a4536c9e933d37b02a2be",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "structure",
+  "scope": "scene_local",
+  "note": "七层新楼体组件；接口重叠的原屋顶砖/顶边/顶层花草不实例化，原制作源不改。",
+  "runtime_version": "1.4",
+  "runtime_verified": true,
+  "optimized_source": "art_source/scenes/bloom_lower_building/v002/export/v001/bloom_lower_building_optimized_v001.blend",
+  "optimized_sha256": "267390826786b8fd3eba5b3ac6b5540c49c456be3676d5c2eba7a7c40900ed8f",
+  "export_manifest": "art_source/scenes/bloom_lower_building/v002/export/v001/export_manifest.json",
+  "asset_key": "blue_column",
+  "runtime_scope": "太阳能木屋-海下基座组件",
+  "runtime_active": true,
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/bloom_lower_building/v001/components/blue_column/blue_column.blend",
+      "source_sha256": "09814f9a25cec83370f1851db59ec347ef6c887d52232c449bcd3b3110c38147",
+      "manifest": "art_source/scenes/bloom_lower_building/v001/components/blue_column/asset_manifest.json",
+      "version": "v001"
+    }
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-BLUE-COLUMN"
+}

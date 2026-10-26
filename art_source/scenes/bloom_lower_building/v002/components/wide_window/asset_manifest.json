@@ -1,0 +1,39 @@
+{
+  "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+  "name": "青蓝双扇窗",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/bloom_lower_building/v002/components/wide_window/wide_window.blend",
+  "source_sha256": "692322a0c799acd151ea2b9df65a2acd53d94c8c9057a5218875b6056bac3764",
+  "manifest": "art_source/scenes/bloom_lower_building/v002/components/wide_window/asset_manifest.json",
+  "version": "v002",
+  "runtime_path": "godot/assets/models/facilities/bloom_lower_building/components/wide_window/wide_window.glb",
+  "prefab": "godot/scenes/components/bloom_lower_building/wide_window.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "2acd741860cd6ae4d03c4a4ee6771864b1f5e509b3579037ea8a7e9b45d6c36a",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "七层新楼体组件；接口重叠的原屋顶砖/顶边/顶层花草不实例化，原制作源不改。",
+  "runtime_version": "1.4",
+  "runtime_verified": true,
+  "optimized_source": "art_source/scenes/bloom_lower_building/v002/export/v001/bloom_lower_building_optimized_v001.blend",
+  "optimized_sha256": "267390826786b8fd3eba5b3ac6b5540c49c456be3676d5c2eba7a7c40900ed8f",
+  "export_manifest": "art_source/scenes/bloom_lower_building/v002/export/v001/export_manifest.json",
+  "asset_key": "wide_window",
+  "runtime_scope": "太阳能木屋-海下基座组件",
+  "runtime_active": true,
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/bloom_lower_building/v001/components/wide_window/wide_window.blend",
+      "source_sha256": "278be58767e81ae01fd2d6acfdc15729aa8c848a713fd03abf29e541470aef87",
+      "manifest": "art_source/scenes/bloom_lower_building/v001/components/wide_window/asset_manifest.json",
+      "version": "v001"
+    }
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-WIDE-WINDOW"
+}

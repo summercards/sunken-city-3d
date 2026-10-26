@@ -1,0 +1,62 @@
+{
+  "asset_id": "SEA-SCENE-SBR-SQUARE-POT",
+  "name": "方白花盆",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v007/components/square_pot/square_pot.blend",
+  "source_sha256": "a022d3ea2a4680d7755f527d138bf211a2afbf92faefe0cf8bde9762b5ed41d3",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v007/components/square_pot/asset_manifest.json",
+  "version": "v007",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/square_pot/square_pot.glb",
+  "prefab": "godot/scenes/components/solar_cabin/square_pot.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "a5d9db4aff47da2ef5c0d7d7d50caa41ac63f3a9c26bc91d326f8d4d220e7789",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/square_pot/square_pot.blend",
+      "source_sha256": "22950989aa152b613bffc62c216cd6cbae1e91a052a8ede1e9b66eb6674746e2",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/square_pot/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/square_pot/square_pot.blend",
+      "source_sha256": "ee32846baaed767048ee7b21a27c447710daa1a3520e601bef26de390f4498b7",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/square_pot/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/square_pot/square_pot.blend",
+      "source_sha256": "a8a0b00397520dddb00c2a55b14e53145e3ac62694ccc4059bcb4ffe0dfbd44e",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/square_pot/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/square_pot/square_pot.blend",
+      "source_sha256": "d55cb80099acf6b9d215ced98b1cdd3276b4026d87c6578170e66b5bdffb9d16",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/square_pot/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/components/square_pot/square_pot.blend",
+      "source_sha256": "f5840bf12a55a1a9513a682baa19f66f03f7a3c90b580fd7775f8c33a491a5dd",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/square_pot/asset_manifest.json",
+      "version": "v006"
+    }
+  ],
+  "runtime_version": "1.4",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "b519642a7ad126fe009889b4d8dafbaadbd910342f0954f84faac249a8c2a9d0",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v007/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "square_pot",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SQUARE-POT"
+}

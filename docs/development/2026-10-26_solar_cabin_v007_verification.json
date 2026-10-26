@@ -1,0 +1,464 @@
+{
+  "source": {
+    "passed": true,
+    "components": 49,
+    "instances": 160,
+    "uv_faces_checked": 38658,
+    "packages_reopened": 49,
+    "modules_reopened": 4,
+    "protected_sources_unchanged": true
+  },
+  "edits": {
+    "preserved_instance_transforms": 158,
+    "recovered_user_meshes": [
+      {
+        "name": "platform_board_mesh.001",
+        "matrix": [
+          [
+            1.5,
+            0.0,
+            0.0,
+            0.41966909170150757
+          ],
+          [
+            0.0,
+            1.5,
+            0.0,
+            -9.079999923706055
+          ],
+          [
+            0.0,
+            0.0,
+            1.5,
+            0.07999999821186066
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      },
+      {
+        "name": "dock_board_mesh.001",
+        "matrix": [
+          [
+            1.5,
+            0.0,
+            0.0,
+            -1.925334095954895
+          ],
+          [
+            0.0,
+            1.5,
+            0.0,
+            -9.824999809265137
+          ],
+          [
+            0.0,
+            0.0,
+            1.5,
+            0.07999999821186066
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ]
+      }
+    ],
+    "stagger": [
+      {
+        "mesh": "concrete_slab_mesh",
+        "local_offset_x": 0.04254635986947547,
+        "color": "wood_light"
+      },
+      {
+        "mesh": "concrete_slab_mesh.001",
+        "local_offset_x": -0.08418640340732698,
+        "color": "honey"
+      },
+      {
+        "mesh": "concrete_slab_mesh.002",
+        "local_offset_x": 0.027093278722601005,
+        "color": "honey"
+      },
+      {
+        "mesh": "concrete_slab_mesh.003",
+        "local_offset_x": -0.06928587884713824,
+        "color": "wood_light"
+      },
+      {
+        "mesh": "concrete_slab_mesh.004",
+        "local_offset_x": -0.08114194129273467,
+        "color": "wood"
+      },
+      {
+        "mesh": "concrete_slab_mesh.005",
+        "local_offset_x": -0.06993329512498067,
+        "color": "wood_light"
+      },
+      {
+        "mesh": "concrete_slab_mesh.006",
+        "local_offset_x": -0.017912549629643046,
+        "color": "wood_light"
+      },
+      {
+        "mesh": "concrete_slab_mesh.007",
+        "local_offset_x": 0.05405764081906303,
+        "color": "honey"
+      },
+      {
+        "mesh": "concrete_slab_mesh.008",
+        "local_offset_x": -0.06395371195101747,
+        "color": "wood"
+      },
+      {
+        "mesh": "concrete_slab_mesh.009",
+        "local_offset_x": -0.037236736997721925,
+        "color": "honey"
+      },
+      {
+        "mesh": "concrete_slab_mesh.010",
+        "local_offset_x": -0.07519544272367959,
+        "color": "wood_light"
+      },
+      {
+        "mesh": "concrete_slab_mesh.011",
+        "local_offset_x": 0.013086638865518793,
+        "color": "honey"
+      },
+      {
+        "mesh": "terrace_mesh",
+        "local_offset_x": -0.028724326527691954,
+        "color": "wood_light"
+      },
+      {
+        "mesh": "terrace_mesh.001",
+        "local_offset_x": 0.07500780469255741,
+        "color": "honey"
+      },
+      {
+        "mesh": "terrace_mesh.002",
+        "local_offset_x": -0.0013023833185669825,
+        "color": "honey"
+      },
+      {
+        "mesh": "terrace_mesh.003",
+        "local_offset_x": 0.044982283641976734,
+        "color": "wood_light"
+      },
+      {
+        "mesh": "terrace_mesh.004",
+        "local_offset_x": 0.008819132232710622,
+        "color": "wood"
+      },
+      {
+        "mesh": "terrace_mesh.005",
+        "local_offset_x": -0.06988067278059543,
+        "color": "wood_light"
+      },
+      {
+        "mesh": "terrace_mesh.006",
+        "local_offset_x": 0.05469038713544186,
+        "color": "wood_light"
+      },
+      {
+        "mesh": "terrace_mesh.007",
+        "local_offset_x": 0.03670195001962731,
+        "color": "honey"
+      }
+    ],
+    "board_colors": [
+      {
+        "instance": "平台横向长板_01",
+        "component": "platform_board_coral"
+      },
+      {
+        "instance": "平台横向长板_02",
+        "component": "platform_board"
+      },
+      {
+        "instance": "平台横向长板_03",
+        "component": "platform_board"
+      },
+      {
+        "instance": "平台横向长板_04",
+        "component": "platform_board_ochre"
+      },
+      {
+        "instance": "平台横向长板_05",
+        "component": "platform_board_coral"
+      },
+      {
+        "instance": "用户调整_platform_board",
+        "component": "platform_board_coral"
+      },
+      {
+        "instance": "用户调整_dock_board",
+        "component": "dock_board_sand"
+      },
+      {
+        "instance": "桥横向长板_02",
+        "component": "dock_board"
+      },
+      {
+        "instance": "桥横向长板_03",
+        "component": "dock_board"
+      },
+      {
+        "instance": "桥横向长板_04",
+        "component": "dock_board_shade"
+      },
+      {
+        "instance": "桥横向长板_05",
+        "component": "dock_board"
+      },
+      {
+        "instance": "桥横向长板_06",
+        "component": "dock_board_sand"
+      },
+      {
+        "instance": "桥横向长板_07",
+        "component": "dock_board_sand"
+      },
+      {
+        "instance": "桥横向长板_08",
+        "component": "dock_board"
+      }
+    ],
+    "rope_terminal_surface_distances": [
+      0.02726006567849871,
+      0.01798483042673481,
+      0.018187049795361253,
+      0.027048099125885825
+    ],
+    "rope_delta": [
+      8.164594333948116e-08,
+      -0.33090823888778687,
+      0.02785491943359375
+    ],
+    "input_sha256": "2369c730321bb2bf85ea2e640eed7ca27cd47642265fce6e56dfb77fa72c4620"
+  },
+  "protected_sources": {
+    "art_source\\scenes\\sunny_bloom_retreat\\v006\\sunny_bloom_retreat.blend": "2369c730321bb2bf85ea2e640eed7ca27cd47642265fce6e56dfb77fa72c4620",
+    "art_source\\shared\\palettes\\sea_cozy_8x8_512.png": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+    "art_source\\scenes\\bloom_lower_building\\v001\\bloom_lower_building.blend": "f1b03ebea32579498a9478da69714d2d05579a0e1a06c7a391395e48f5d28071"
+  },
+  "runtime": {
+    "bounds_min": [
+      -1.57054793834686,
+      1.14375007152557,
+      -4.59692430496216
+    ],
+    "bounds_size": [
+      15.4404621124268,
+      11.4645795822144,
+      22.5940494537354
+    ],
+    "checks": 472,
+    "component_count": 49,
+    "deck_y": 2.15,
+    "expanded_triangles": 357590,
+    "failures": 0,
+    "front_godot": [
+      0,
+      0,
+      1
+    ],
+    "lower_bounds_min": [
+      -2.35137438774109,
+      -17.0200004577637,
+      -4.82000017166138
+    ],
+    "lower_bounds_size": [
+      13.9212112426758,
+      18.4799995422363,
+      14.0080547332764
+    ],
+    "lower_components": 19,
+    "lower_instances": 298,
+    "lower_triangles": 584048,
+    "revision_scale": 1.5,
+    "total_scale_over_v003": 1.725,
+    "uniform_source_scale": 1.15,
+    "yaw_degrees": 0
+  },
+  "runtime_results": {
+    "solar-components": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261026-200229-solar-cabin-v007-final-tabs-16ca8e\\solar-components.log",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261026-200229-solar-cabin-v007-final-tabs-16ca8e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_solar_components.gd"
+      ]
+    },
+    "visual-solar-cabin": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261026-200229-solar-cabin-v007-final-tabs-16ca8e\\visual-solar-cabin.log",
+      "renderer": "real",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261026-200229-solar-cabin-v007-final-tabs-16ca8e\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_solar_cabin_asset.gd"
+      ]
+    },
+    "surface": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261026-200229-solar-cabin-v007-final-tabs-16ca8e\\surface.log",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261026-200229-solar-cabin-v007-final-tabs-16ca8e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_surface_movement.gd"
+      ]
+    }
+  },
+  "component_check": {
+    "exit_code": 0,
+    "passed": true,
+    "expected_errors": [],
+    "unexpected_errors": [],
+    "completion_marker": true,
+    "log": "D:\\projects\\sea-work\\verification\\20261026-200229-solar-cabin-v007-final-tabs-16ca8e\\solar-components.log",
+    "renderer": "headless",
+    "command": [
+      "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "D:\\projects\\sea-work\\verification\\20261026-200229-solar-cabin-v007-final-tabs-16ca8e\\project",
+      "--headless",
+      "--script",
+      "res://tests/test_solar_components.gd"
+    ]
+  },
+  "optimization": {
+    "before": 359380,
+    "after": 357590,
+    "four_view_rgb_comparison": {
+      "front": {
+        "bbox": [
+          87,
+          157,
+          508,
+          554
+        ],
+        "mean_absolute_rgb_error_255": [
+          0.18793061224489796,
+          0.1907938775510204,
+          0.19134897959183672
+        ]
+      },
+      "back": {
+        "bbox": [
+          193,
+          255,
+          617,
+          524
+        ],
+        "mean_absolute_rgb_error_255": [
+          0.022787755102040817,
+          0.02293673469387755,
+          0.023077551020408163
+        ]
+      },
+      "side": {
+        "bbox": [
+          121,
+          189,
+          659,
+          522
+        ],
+        "mean_absolute_rgb_error_255": [
+          0.045226530612244895,
+          0.04562448979591837,
+          0.04590816326530612
+        ]
+      },
+      "top": {
+        "bbox": [
+          187,
+          140,
+          521,
+          658
+        ],
+        "mean_absolute_rgb_error_255": [
+          0.016277551020408162,
+          0.016446938775510202,
+          0.01643469387755102
+        ]
+      }
+    }
+  },
+  "blender_exit_notes": [
+    "Blender 4.5 reports compatibility warning for historical 5.2 files; saved/reopened meshes verified.",
+    "Lower/placement background processes exited 0 with Blender orphan memory warnings; no Godot resource leak reported."
+  ],
+  "not_run": [
+    "long duration performance benchmark",
+    "reference commercial rights review"
+  ],
+  "evidence_directory": "D:\\projects\\sea-work\\solar_cabin_revision_v007",
+  "lower_geometry_reuse": {
+    "unchanged": true,
+    "before": {
+      "hash": "6a13afe3d6ebca404207af38de107a85dc7b395ddc4f42f984d5dfe6dfa5aac0",
+      "mesh_count": 22
+    },
+    "after": {
+      "hash": "6a13afe3d6ebca404207af38de107a85dc7b395ddc4f42f984d5dfe6dfa5aac0",
+      "mesh_count": 22
+    }
+  },
+  "selftest": {
+    "exit_code": 1,
+    "passed": false,
+    "expected_errors": [
+      "ERROR: Parse JSON failed. Error at line 0: Expected key"
+    ],
+    "unexpected_errors": [
+      "  FAIL  背包页有格子容器  ",
+      "  FAIL  zone1 每张面都有共享材质  18/24 缺材质"
+    ],
+    "completion_marker": false,
+    "log": "D:\\projects\\sea-work\\verification\\20261026-195513-solar-cabin-v007-fixed-af7c54\\selftest.log",
+    "renderer": "headless",
+    "command": [
+      "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+      "--path",
+      "D:\\projects\\sea-work\\verification\\20261026-195513-solar-cabin-v007-fixed-af7c54\\project",
+      "--headless",
+      "--",
+      "--selftest",
+      "--nosave"
+    ]
+  }
+}
