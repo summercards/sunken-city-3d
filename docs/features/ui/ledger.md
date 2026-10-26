@@ -39,6 +39,8 @@
 | SEA-UI-R12 | 已实现桌面覆盖，设备项待验 | 原生截图、三分辨率、订单等待、打捞成功/失败、气泡淡出同步、收藏弹窗；触控/手柄未验 |
 | SEA-UI-R13 | 已实现，最终证据见交付记录 | 统一字体工厂、UI层全树与动态节点字体绑定、字体资产授权/哈希登记；真实窗口逐页字体引用核对与字号排版检查 |
 | SEA-UI-R14 | 已实现，最终证据见交付记录 | 手机/口袋/选项/对话分形态；背包按stack_limit展示真实堆叠、24格含空位，真实点击打开详情及Esc返回 |
+| SEA-UI-R15 | 已实现，`visual-paper-fit` 三分辨率通过 | 圆角由内容边距反推上限、纸外扩24px、面板控件与字号不动；11块纸背板逐字四角+四边中点内点判定0越界 |
+| SEA-UI-R16 | 已实现，`visual-world-text` 通过（24 checks / 0 failures） | 字号下限26px、合成加粗 embolden=1.0、零勾边；回退倍率后闸门7项红，证明断言会失败 |
 
 ## 资源与调用入口
 
@@ -62,13 +64,36 @@
 
 ## 验证记录
 
-入口：`python3 scripts/run_verification.py click management`。
+入口：`python3 scripts/run_verification.py click management`；纸背板装配见 `python3 scripts/run_verification.py visual-paper-fit`；世界浮层纯文字见 `python3 scripts/run_verification.py visual-world-text`。
 
 本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
 - 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 核心专项 click、management 本轮均退出 0；测试覆盖范围以[验证摘要](../../development/2026-10-23_verification_summary.json)为准。
 
 - 2026-10-23 真实事件补充：visual-click 退出 1，第二地格点击目标断言失败；拆分前基线同样失败，完整根因待定位。不得以核心 click 通过覆盖此失败。详见[交付记录](../../development/2026-10-23_feature_split.md)。
+
+### 2026-10-26 世界浮层大字
+
+交付与档位对照见 [浮层字交付记录](../../development/2026-10-26_world_text_scale.md)。
+
+- 问题：主界面左下「海贝 80 · 背包 1/24」笔画细、边缘发沟；上岸点名称用 `ThemeDB.fallback_font` + 11px + 4px `draw_string_outline`，既不是打包字体又被描边糊掉。
+- 字号（基准1600×1000）：资源行 22→44、潜水状态 20→40、视野提示 17→33、上岸点 11→26、水下宝箱 12→29。下限 26px 由 `WORLD_TEXT_FLOOR` 独立锁定。
+- 字重：霞鹜975圆体的拉丁数字在同一文件里偏细，44px 下与汉字两种粗细；用 `FontVariation.variation_embolden=1.0` 合成加粗补齐。档位实测 0.0 偏细、1.5 以上粘连，取 1.0。
+- 去勾边：移除 `draw_string_outline` 与 Label 的 `font_shadow` 轮廓，只保留右下固定偏移的柔和投影（`shadow_outline_size=0`），保证白字在白色建筑上仍可辨。
+- 修掉一处静默覆盖：`island_presenters._font_tree()` 把整树字体刷回 `hud._font`，会让加粗失效；世界浮层字打 `cozy_world_text` 标记后豁免。
+- 闸门 `tools/check_world_text.gd`（注册名 `visual-world-text`）：24 项，查字号下限、字体家族（沿 `FontVariation.base_font` 回溯）、零勾边、`_font_tree` 后仍加粗、上岸点不再调用 `draw_string_outline`。**反向验证过**：把 `WORLD_TEXT_SCALE` 调回 1.0 时 7 项红。
+- 回归：`click`、`management`、`camera`、`visual-paper-fit` 退出0；`verify_island_ui` 120项/0失败（字体断言改为沿 `base_font` 比较家族，不再要求同一对象）。
+
+### 2026-10-26 纸背板装配
+
+交付与截图见 [纸背板交付记录](../../development/2026-10-26_ui_paper_fit.md)。
+
+- 根因：`island_paper` 的圆角按面板宽高百分比取（横向约0.10W、纵向约0.10H），而内容边距固定32px。面板越宽圆角越大，980px宽的订单板圆角横吃98px，「码头来信」直接落在被吃掉的区域。既有 `inside(panel)` 断言只比面板矩形、不比纸轮廓，所以全过。
+- 实测越界（改前）：orders 22.5px、grade/water 13.5px、salvage 4.3px；camera/grade-filter/toast/menu 四页与 prompt 为0。改后全部0。
+- 修法：圆角半径 = clamp(面板宽高×0.10, 内容边距+纸外扩−8px)，纸四边各外扩24px。面板、控件、字号一律未动。
+- 附带修：世界提示气泡的背板原先「有弹窗就 hide()、无任何恢复路径」，开过一次背包后永久变成裸字；改为每帧按状态对齐。`hud._toast_tag` 骑纸边的装饰同步外扩24px。
+- 新增闸门 `tools/check_paper_fit.gd`（注册为 `visual-paper-fit`）：11块纸背板、逐 Label 四角+四边中点做纸多边形内点判定，容差1.5px；并检查纸不越出视口、面板真的显示（防空跑）。1600×1000 / 1280×800 / 1920×1080 均 11 checks / 0 failures、退出0。
+- `click`、`management`、`camera` 复跑退出0。`visual-management` 仍有2项失败（找不到按钮「材料一键入库」），已用临时还原基线对照：改前同样失败，与本次无关。
 
 ### 2026-10-26 单卡专项
 

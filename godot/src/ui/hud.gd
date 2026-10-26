@@ -97,14 +97,16 @@ func _ready() -> void:
 	_world_actions=HBoxContainer.new();_world_actions.add_theme_constant_override("separation",10);_root.add_child(_world_actions)
 	for entry in [["follow","回到角色"],["cancel","停止行动"]]:
 		var button := _command_button(entry[1],entry[0],true);_world_actions.add_child(button)
-	_res_label = _label("",15,Color.WHITE);_res_label.position = Vector2(34,931);_root.add_child(_res_label)
-	_res_label.add_theme_color_override("font_shadow_color",Color(0.15,0.22,0.23,0.9))
-	_res_label.add_theme_constant_override("shadow_offset_x",1);_res_label.add_theme_constant_override("shadow_offset_y",2)
+	_res_label = _label("",15,Color.WHITE);_root.add_child(_res_label)
+	# 世界浮层字：大号、圆润、不勾边。旧的 22px + 1~2px 硬阴影正是截图里
+	# 「字很细、边缘发沟」的来源，见 Cozy.world_text 的两条规则。
+	Cozy.world_text(_res_label,Cozy.WORLD_TEXT_RESOURCES,Color.WHITE)
 	_dive_controls = HBoxContainer.new();_dive_controls.position = Vector2(32,88);_dive_controls.add_theme_constant_override("separation",8)
 	_root.add_child(_dive_controls)
 	for entry in [["rise","↑ 上游"],["descend","↓ 下游"],["lamp","头灯"]]: _dive_controls.add_child(_command_button(entry[1],entry[0],true))
 	_dive_status = _label("",14,Color.WHITE)
-	_dive_status.position = Vector2(34,143);_root.add_child(_dive_status);_dive_status.hide()
+	_root.add_child(_dive_status);_dive_status.hide()
+	Cozy.world_text(_dive_status,Cozy.WORLD_TEXT_DIVE,Color.WHITE)
 	_dive_controls.hide()
 	_hints = HBoxContainer.new();_hints.add_theme_constant_override("separation",12);_root.add_child(_hints)
 	var close := _plain_button("Ⓑ  返回   Esc",true);close.pressed.connect(func():
@@ -124,6 +126,7 @@ func _ready() -> void:
 	_toast_tag.rotation=-0.035;_root.add_child(_toast_tag);_toast_tag.hide()
 	_zoom=_label("",16,Cozy.CREAM)
 	_zoom.add_theme_stylebox_override("normal",_pill(true));_root.add_child(_zoom);_zoom.hide()
+	Cozy.world_text(_zoom,Cozy.WORLD_TEXT_ZOOM,Cozy.CREAM)
 	menu = preload("res://src/ui/island_menu.gd").new();add_child(menu)
 	menu.command_requested.connect(func(command): command_requested.emit(command))
 	menu.oxygen_feedback_changed.connect(func(on): _panel.feedback_enabled=on)
@@ -172,14 +175,23 @@ func _layout() -> void:
 	_base_position = Vector2((_root.size.x-extent.x)/2 if _panel.detail.visible else maxf(48,_root.size.x*0.13),(_root.size.y-extent.y)/2)
 	_panel.position = _base_position;_panel.scale=Vector2.ONE*fit
 	_hints.position=Vector2(_root.size.x-_hints.get_combined_minimum_size().x-40,_root.size.y-78)
-	_res_label.position=Vector2(40,_root.size.y-126)
+	# 资源行放大了 2 倍，位置必须跟着字高走，否则会压到底部的「跟随/停止行动」。
+	# 行高按 1.35em 估（圆体中文字面 + 上下留白），底边压在动作条上方 12px。
+	var res_h: float = _res_label.get_theme_font_size("font_size")*1.35
+	_res_label.position=Vector2(40,maxf(24,_root.size.y-90-res_h))
+	# 潜水状态在潜水按钮排（y=88，高 52）下面一行。
+	var dive_h: float = _dive_status.get_theme_font_size("font_size")*1.35
+	_dive_status.position=Vector2(34,140+maxf(12,dive_h*0.2))
 	_toast_box.size=Vector2(680,0)
 	_layout_notice()
-	_zoom.position=Vector2((_root.size.x-140)/2,_root.size.y-80)
+	_zoom.position=Vector2((_root.size.x-_zoom.get_combined_minimum_size().x)/2,_root.size.y-80)
 
 func _layout_notice() -> void:
 	_toast_box.position=Vector2((_root.size.x-680)/2,42 if _panel_open or _external_modal else _root.size.y-225)
-	_toast_tag.position=_toast_box.position+Vector2(24,-22)
+	# 「海上的消息」这枚标签是骑在纸左上角上的（上半出纸、下半压纸）。
+	# 纸比 `_toast_box` 外扩了 `Cozy.PAPER_OUTSET`，标签得跟着往外挪同样的量，
+	# 否则它会整个漂到纸外面去 —— 纸放大了，骑边的装饰也得跟着纸走。
+	_toast_tag.position=_toast_box.position+Vector2(24,-22)-Vector2(Cozy.PAPER_OUTSET,Cozy.PAPER_OUTSET)
 
 func _attach_presenters() -> void:
 	var adapter := preload("res://src/ui/island_presenters.gd").new()

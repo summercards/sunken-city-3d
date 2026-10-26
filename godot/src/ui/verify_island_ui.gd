@@ -38,9 +38,18 @@ func click(control: Control) -> void:
 		root.push_input(e,true)
 	await frames(2)
 	await settle(0.25)
+## 世界浮层字（`Cozy.world_text`）用的是 `FontVariation`：基字体仍是同一份打包圆体，
+## 只是叠了合成加粗补拉丁数字的字重差。所以判等要落到 base_font 上 ——
+## 断言的本意是「同一套字体家族」，不是「同一个对象引用」。
+func same_family(font: Font) -> bool:
+	var f: Font = font
+	while f is FontVariation and (f as FontVariation).base_font != null:
+		f = (f as FontVariation).base_font
+	return f == hud._font
+
 func inspect_fonts(node: Node) -> void:
 	if (node is Label or node is Button or node is LineEdit) and node.is_visible_in_tree():
-		if node.get_theme_font("font") != hud._font: font_mismatches[str(node.get_path())]=true
+		if not same_family(node.get_theme_font("font")): font_mismatches[str(node.get_path())]=true
 	for child in node.get_children(true): inspect_fonts(child)
 
 func screenshot(tag: String) -> void:

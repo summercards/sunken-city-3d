@@ -123,7 +123,89 @@ static func apply_instance(instance_id: int) -> void:
 		apply(control)
 
 
+## --- 世界浮层纯文字 -------------------------------------------------------
+##
+## 浮在 3D 画面上、没有背板托着的那几行字（资源行、潜水状态、上岸点名称、
+## 水下宝箱名牌、视野提示），统一走这里。
+##
+## 两条硬规则：
+##   1. **不勾边。** `Label` 的 `font_shadow_*` 和 `draw_string_outline` 都会沿
+##      圆体笔画外侧勾一圈硬边，笔画之间的空隙被填掉，字看着又细又"沟"——
+##      正是"饱满圆润"的反面。可读性靠字号和字重解决，不靠描边。
+##      唯一的例外是 `WORLD_TEXT_DROP`：只在右下偏移不带扩散的柔和投影，
+##      用来把白字从白色建筑上分出来，不贴笔画轮廓，所以不会糊字。
+##   2. **字号按基准放大，不按面板自适应。** 基准视口 1600×1000（project.godot），
+##      基准正文 22px。浮层字 = 22 × `WORLD_TEXT_SCALE` × 各自倍数：
+##        资源常驻行 1.00 → 44px   潜水状态 0.90 → 40px
+##        视野提示   0.75 → 33px   上岸点名称 0.60 → 26px（原 11px）
+##        水下宝箱名 0.65 → 29px（原 12px）
+const WORLD_TEXT_BASE := 22
+const WORLD_TEXT_SCALE := 2.0
+const WORLD_TEXT_RESOURCES := 1.00
+const WORLD_TEXT_DIVE := 0.90
+const WORLD_TEXT_ZOOM := 0.75
+const WORLD_TEXT_LANDING := 0.60
+const WORLD_TEXT_CHEST := 0.65
+## 偏移阴影而非描边：offset 固定、outline 为 0，字周围不贴边。
+const WORLD_TEXT_DROP := Color(0.04, 0.13, 0.14, 0.55)
+const WORLD_TEXT_DROP_OFFSET := 3
+## 绝对下限（px）。与上面的倍数解耦：倍数再怎么调，浮层字也不许掉回小字。
+## 26 = 最小的两处（上岸点名称原 11px、宝箱名牌原 12px）放大一倍半以上。
+const WORLD_TEXT_FLOOR := 26
+
+static func world_text_size(step: float) -> int:
+	return roundi(WORLD_TEXT_BASE * WORLD_TEXT_SCALE * step)
+
+## 打包的圆体。自绘文字（`draw_string`）拿不到主题字体，必须显式取这一份，
+## 否则会掉回 `ThemeDB.fallback_font`，跟其它界面不是一个字体。
+static func ui_font() -> Font:
+	return preload("res://src/ui/ui_font.gd").embedded()
+
+## 世界浮层字号专用的一份加粗字体。
+##
+## 霞鹜 975 圆体的汉字是 700W，但**拉丁数字是同一文件里另一套偏细的笔画**：
+## 44px 下「海贝」厚、`80` 和 `4 / 24` 薄，一行字两种粗细，看着不饱满。
+## 目录里没有 800W/900W 的授权文件，所以用 `FontVariation.variation_embolden`
+## 做合成加粗，只补这一层差额。
+##
+## 1.0 是按实测挑的：0.0 明显偏细、1.5 以上笔画开始粘连（那就是又变回"沟"）。
+## 见 `docs/development/2026-10-26_world_text_scale.md` 的档位对照。
+const WORLD_TEXT_EMBOLDEN := 1.0
+static var _world_font: Font = null
+
+static func world_font() -> Font:
+	if _world_font == null:
+		var fv := FontVariation.new()
+		fv.base_font = ui_font()
+		fv.variation_embolden = WORLD_TEXT_EMBOLDEN
+		_world_font = fv
+	return _world_font
+
+## 把任意 Label 变成世界浮层字：大号、圆润、无描边。
+## 传入前 Label 可能已从主题继承了 shadow / outline，这里必须逐项清掉，
+## 否则"不勾边"只是嘴上说说。
+##
+## 打 `cozy_world_text` 标记：`island_presenters._font_tree()` 会把整棵界面树的
+## 字体统一刷成 `hud._font`（没有合成加粗的那一份），不打标记的话这里设的字体
+## 会在 attach 时被悄悄覆盖回去 —— 表现就是字号变了、数字却还是细的。
+static func world_text(label: Label, step := 1.0, color := INK) -> void:
+	label.set_meta("cozy_world_text", step)
+	label.add_theme_font_override("font", world_font())
+	label.add_theme_font_size_override("font_size", world_text_size(step))
+	label.add_theme_color_override("font_color", color)
+	# 偏移投影，不是描边：`shadow_outline_size` 保持 0，影子不会包住笔画。
+	label.add_theme_color_override("font_shadow_color", WORLD_TEXT_DROP)
+	label.add_theme_constant_override("shadow_offset_x", WORLD_TEXT_DROP_OFFSET)
+	label.add_theme_constant_override("shadow_offset_y", WORLD_TEXT_DROP_OFFSET)
+	label.add_theme_constant_override("shadow_outline_size", 0)
+	label.add_theme_constant_override("outline_size", 0)
+
 ## Decorate a presenter-owned outer container without moving business controls.
+##
+## `PAPER_OUTSET` 是「把纸放大、不碰排版」的唯一旋钮：纸在四边各外扩这么多像素，
+## 面板与其中的控件一个都不动。字要离纸边更远时调这里，不要去加 content margin
+## （那会挤压内容宽度，滑杆、数值列会跟着缩）。
+const PAPER_OUTSET := 24.0
 static func paper(panel: PanelContainer, accent := TEAL, dialogue := false) -> void:
 	if panel.has_meta("island_paper"): return
 	panel.set_meta("island_paper",true)
@@ -136,14 +218,16 @@ static func paper(panel: PanelContainer, accent := TEAL, dialogue := false) -> v
 	panel.add_theme_stylebox_override("panel",empty)
 	var drawing := preload("res://src/ui/island_paper.gd").new()
 	drawing.accent = accent;drawing.dialogue = dialogue;drawing.stitched = false
+	drawing.outset = PAPER_OUTSET
 	# Top-level decorative sibling follows the panel so PanelContainer won't lay it out.
 	panel.get_parent().add_child(drawing)
 	panel.get_parent().move_child(drawing,panel.get_index())
 	drawing.set_meta("paper_owner",panel)
 	var sync := func():
 		if is_instance_valid(panel):
-			drawing.position = panel.position;drawing.size = panel.size
-			drawing.scale = panel.scale;drawing.pivot_offset = panel.pivot_offset
+			var grow := Vector2(drawing.outset,drawing.outset)
+			drawing.position = panel.position - grow;drawing.size = panel.size + grow*2
+			drawing.scale = panel.scale;drawing.pivot_offset = panel.pivot_offset + grow
 			drawing.visible = panel.visible;drawing.modulate = panel.modulate
 	panel.resized.connect(sync)
 	panel.item_rect_changed.connect(sync)

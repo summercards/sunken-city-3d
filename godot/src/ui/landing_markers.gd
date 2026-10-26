@@ -4,10 +4,16 @@ extends CanvasLayer
 ## 网页版把图标做成 DOM 元素，每帧用相机投影算屏幕坐标；这里用一个 Control
 ## 自绘全部图标，保证永远画在最上层，也不会被建筑挡住。
 
+const Cozy = preload("res://src/ui/cozy_ui.gd")
+
 const WATER_LEVEL := 1.12
 const ICON_MIN := 30.0
 const ICON_MAX := 44.0
 const VISIBLE_RANGE := 190.0
+## 名称字号走 `Cozy.world_text_size`，跟其它世界浮层字同一套倍数。
+## 原来是 ThemeDB.fallback_font + 11px + 4px 描边：字体不是打包的那一份圆体，
+## 描边又把笔画之间啃掉，于是又小又"沟"。现在换成打包圆体、放大、不描边。
+const NAME_STEP := Cozy.WORLD_TEXT_LANDING
 
 var items: Array = []
 var camera: Camera3D
@@ -20,7 +26,7 @@ var _canvas: Control
 func build(cam: Camera3D) -> void:
 	camera = cam
 	layer = 8
-	_font = ThemeDB.fallback_font
+	_font = Cozy.world_font()
 	_tex = _make_icon()
 	_canvas = Control.new()
 	_canvas.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -115,13 +121,13 @@ func _on_draw() -> void:
 		_canvas.draw_texture_rect(_tex, rect, false, col)
 		if active:
 			var text: String = it.name
-			var font_size := 11
+			var font_size := Cozy.world_text_size(NAME_STEP)
 			var w: float = _font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
-			var pos := Vector2(it.screen.x - w * 0.5, it.screen.y + s * 0.5 + 11.0)
-			_canvas.draw_string_outline(_font, pos, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, 4,
-				Color(0.02, 0.14, 0.28, 0.8))
+			var pos := Vector2(it.screen.x - w * 0.5, it.screen.y + s * 0.5 + font_size)
+			# 不描边：`draw_string_outline` 会在圆体笔画外侧勾一圈硬边，
+			# 把字之间的小空隙糊掉，看起来又细又沟。可读性交给字号。
 			_canvas.draw_string(_font, pos, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size,
-				Color(1, 1, 1, 0.95))
+				Color(1, 1, 1, 0.98))
 
 
 ## 屏幕命中：图标中心 26px 半径。
