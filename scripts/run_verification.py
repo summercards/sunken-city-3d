@@ -25,6 +25,8 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'solar-components': ('tests/test_solar_components.gd', r'\[solar-components\].*failures=0'),
+    'visual-solar-cabin': ('tests/test_solar_cabin_asset.gd', r'\[solar-cabin\].*failures=0'),
     'visual-sea-style': ('tools/capture_sea_style.gd', r'\[sea-style\] complete'),
     'visual-farming': ('tools/capture_farm_cycle.gd', r'\[farm-ui\] failures=0'),
     'visual-management': ('tools/capture_management_loop.gd', r'\[management-ui\].*0 failed'),

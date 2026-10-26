@@ -1,43 +1,30 @@
 {
-  "key": "air_conditioner",
-  "name": "白色外挂机",
-  "family": "equipment",
-  "category": "fixture",
   "asset_id": "SEA-SCENE-BLB-AIR-CONDITIONER",
-  "origin": "bottom_center",
-  "front_axis": "-Y",
-  "allowed_rotation": "full Euler XYZ",
-  "triangle_budget": 30000,
-  "scope": "scene_local",
-  "collection": "SEA-SCENE-BLB-AIR-CONDITIONER",
-  "root": "ROOT_air_conditioner",
-  "bounds_size": [
-    0.7739999890327454,
-    0.4675000011920929,
-    0.7099999785423279
-  ],
-  "bounds_min": [
-    -0.3869999945163727,
-    -0.23375000059604645,
-    0
-  ],
-  "source_anchor": [
-    0.006999999284744263,
-    -0.013750001788139343,
-    0.0
-  ],
-  "instance_count": 1,
-  "material_roles": [
-    "SEA_Matte"
-  ],
-  "collision_owner": "Godot wrapper pending",
-  "component_source": "art_source/scenes/bloom_lower_building/v001/components/air_conditioner/air_conditioner.blend",
-  "geometry_fingerprint": "b0028bc03c95f2be352f43266212f99d00b09e3f734308ed132a412e1ebe79b2",
-  "triangles": 2700,
+  "name": "白色外挂机",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/bloom_lower_building/v001/components/air_conditioner/air_conditioner.blend",
   "source_sha256": "8162b6735c6120b86742213a73962e4970cd0d85cdefd1b92ee17ea57d1d4fa9",
-  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "manifest": "art_source/scenes/bloom_lower_building/v001/components/air_conditioner/asset_manifest.json",
   "version": "v001",
-  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-AIR-CONDITIONER",
-  "stage": "source_verified_runtime_pending",
-  "license": "pending_user_reference_rights_review"
+  "runtime_path": "godot/assets/models/facilities/bloom_lower_building/components/air_conditioner/air_conditioner.glb",
+  "prefab": "godot/scenes/components/bloom_lower_building/air_conditioner.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "b0028bc03c95f2be352f43266212f99d00b09e3f734308ed132a412e1ebe79b2",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "七层新楼体组件；接口重叠的原屋顶砖/顶边/顶层花草不实例化，原制作源不改。",
+  "runtime_version": "1.0",
+  "runtime_verified": true,
+  "optimized_source": "art_source/scenes/bloom_lower_building/v001/export/v001/bloom_lower_building_optimized_v001.blend",
+  "optimized_sha256": "c6ff150bb42cb16fe119a7153c997a930e4c97fd01c91ff78020519c3d3fa3d7",
+  "export_manifest": "art_source/scenes/bloom_lower_building/v001/export/v001/export_manifest.json",
+  "asset_key": "air_conditioner",
+  "runtime_scope": "太阳能木屋-海下基座组件",
+  "runtime_active": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-AIR-CONDITIONER"
 }

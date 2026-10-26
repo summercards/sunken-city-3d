@@ -1,0 +1,49 @@
+{
+  "asset_id": "SEA-SCENE-SBR-CANOPY-POST",
+  "name": "遮阳棚橙木立柱",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v005/components/canopy_post/canopy_post.blend",
+  "source_sha256": "91c4f675ff30513186e2441a6fbd0203778d16fe9976c85287c60b7a54351d6d",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/canopy_post/asset_manifest.json",
+  "version": "v005",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/canopy_post/canopy_post.glb",
+  "prefab": "godot/scenes/components/solar_cabin/canopy_post.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "a3d5a011ce5497dd70680763bd75f708f3bd4fbcf0a17c5b4b24672fb1d2a058",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v005：承重轴续柱、阳光房右移、底板加厚、桥延长和桥边绳/挂胎；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/canopy_post/canopy_post.blend",
+      "source_sha256": "dde7b384c20d2ce98eeb0ca2f28cca172e4bc48bc9e2be0c14fea047adb75873",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/canopy_post/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/canopy_post/canopy_post.blend",
+      "source_sha256": "29e8c6f31e2d7ab4eea7636782af5f9cc84f1925852cf3c7edd4fefcdccdce3e",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/canopy_post/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/canopy_post/canopy_post.blend",
+      "source_sha256": "dcdf83e95cc2a6c5c187d517bef30969312d6dc429aedd124d728be6af5e7218",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/canopy_post/asset_manifest.json",
+      "version": "v004"
+    }
+  ],
+  "runtime_version": "1.2",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "8c9bbf0f6992730a9416c33422e9b57d7c0fb6bcb7799cee522cd72586f4fdf9",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "canopy_post",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-CANOPY-POST"
+}

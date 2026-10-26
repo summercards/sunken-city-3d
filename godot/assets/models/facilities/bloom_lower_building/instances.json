@@ -1,0 +1,8349 @@
+{
+  "version": "1.0",
+  "source_version": "v001",
+  "source": "art_source/scenes/bloom_lower_building/v001/bloom_lower_building.blend",
+  "fit_scale_blender": [
+    2.5,
+    1.5,
+    1.5
+  ],
+  "anchor_godot": [
+    5.533,
+    -17.02,
+    1.6
+  ],
+  "roof_contact_y": 1.46,
+  "storeys": 7,
+  "instances": [
+    {
+      "component": "floor_slab",
+      "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.626251220703125
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.626251220703125
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          1.1954998970031738
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.5298748016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.626251220703125
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.626251220703125
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.626251220703125
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.626251220703125
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.472500324249268
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.626251220703125
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.901875019073486
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.272500514984131
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.626251220703125
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.70187520980835
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.4325000047683716
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.716251373291016
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.24312496185302734
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.632500171661377
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.716251373291016
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.443125009536743
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.899999618530273
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.33462488651275635
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.989999771118164
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.34999990463256836
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.899999618530273
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.5653748512268066
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.989999771118164
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.549999952316284
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.899999618530273
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.219624996185303
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.989999771118164
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.235000133514404
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.899999618530273
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.450375080108643
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -16.989999771118164
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.434999942779541
+        ]
+      ]
+    },
+    {
+      "component": "floor_slab",
+      "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.046250343322754
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.046250343322754
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          1.0704998970031738
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.404874324798584
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.046250343322754
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.046250343322754
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.046250343322754
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.046250343322754
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.472500324249268
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.046250343322754
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.901875019073486
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.272500514984131
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.046250343322754
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.70187520980835
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.4325000047683716
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.136250495910645
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.24312496185302734
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.632500171661377
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.136250495910645
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.443125009536743
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.320000648498535
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.33462488651275635
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.40999984741211
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.34999990463256836
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.320000648498535
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.5653748512268066
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.40999984741211
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.549999952316284
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.320000648498535
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.219624996185303
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.40999984741211
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.235000133514404
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.320000648498535
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.450375080108643
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.40999984741211
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.434999942779541
+        ]
+      ]
+    },
+    {
+      "component": "floor_slab",
+      "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.4662504196167
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.4662504196167
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          1.1954998970031738
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.5298748016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.4662504196167
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.4662504196167
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.4662504196167
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.4662504196167
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.472500324249268
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.4662504196167
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.901875019073486
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.272500514984131
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.4662504196167
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.70187520980835
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.4325000047683716
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.556249618530273
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.24312496185302734
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.632500171661377
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.556249618530273
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.443125009536743
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.74000072479248
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.33462488651275635
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.829999923706055
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.34999990463256836
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.74000072479248
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.5653748512268066
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.829999923706055
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.549999952316284
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.74000072479248
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.219624996185303
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.829999923706055
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.235000133514404
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.74000072479248
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.450375080108643
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.829999923706055
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.434999942779541
+        ]
+      ]
+    },
+    {
+      "component": "floor_slab",
+      "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.886250495910645
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.886250495910645
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          1.1954998970031738
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.5298748016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.886250495910645
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.886250495910645
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.886250495910645
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.886250495910645
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.472500324249268
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.886250495910645
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.901875019073486
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.272500514984131
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.886250495910645
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.70187520980835
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.4325000047683716
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.976249694824219
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.24312496185302734
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.632500171661377
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -8.976249694824219
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.443125009536743
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.160000801086426
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.33462488651275635
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.250000953674316
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.34999990463256836
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.160000801086426
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.5653748512268066
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.250000953674316
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.549999952316284
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.160000801086426
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.219624996185303
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.250000953674316
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.235000133514404
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.160000801086426
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.450375080108643
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.250000953674316
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.434999942779541
+        ]
+      ]
+    },
+    {
+      "component": "floor_slab",
+      "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.30625057220459
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.30625057220459
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          1.1954998970031738
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.5298748016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.30625057220459
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.30625057220459
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.30625057220459
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.30625057220459
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.472500324249268
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.30625057220459
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.901875019073486
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.272500514984131
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.30625057220459
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.70187520980835
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.4325000047683716
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.3962507247924805
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.24312496185302734
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.632500171661377
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.3962507247924805
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.443125009536743
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.579999923706055
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.33462488651275635
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.670000076293945
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.34999990463256836
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.579999923706055
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.5653748512268066
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.670000076293945
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.549999952316284
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.579999923706055
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.219624996185303
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.670000076293945
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.235000133514404
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.579999923706055
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.450375080108643
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.670000076293945
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.434999942779541
+        ]
+      ]
+    },
+    {
+      "component": "floor_slab",
+      "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.7262516021728516
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.7262516021728516
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          1.1954998970031738
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.5298748016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.7262516021728516
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.7262516021728516
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.7262516021728516
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.7262516021728516
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.472500324249268
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.7262516021728516
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.901875019073486
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.272500514984131
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.7262516021728516
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.70187520980835
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.4325000047683716
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.816250801086426
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.24312496185302734
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.632500171661377
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.816250801086426
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.443125009536743
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.33462488651275635
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.090000152587891
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.34999990463256836
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.5653748512268066
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.090000152587891
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.549999952316284
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.219624996185303
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.090000152587891
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.235000133514404
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.450375080108643
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.090000152587891
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.434999942779541
+        ]
+      ]
+    },
+    {
+      "component": "floor_slab",
+      "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.1462516784667969
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.1462516784667969
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          -2.299999713897705
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          1.1954998970031738
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.5298748016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.1462516784667969
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.1462516784667969
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          0.27050018310546875
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3951253890991211
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.1462516784667969
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "facade_bay",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.320499420166016
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "wide_window",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          2.5,
+          10.986124992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.1462516784667969
+        ],
+        [
+          -1.5,
+          0.0,
+          -6.556707887739321e-08,
+          5.5
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.472500324249268
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.1462516784667969
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.901875019073486
+        ]
+      ]
+    },
+    {
+      "component": "end_bay",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.272500514984131
+        ]
+      ]
+    },
+    {
+      "component": "end_window",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          5.5329999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.1462516784667969
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          -4.70187520980835
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.4325000047683716
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.2362499237060547
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.24312496185302734
+        ]
+      ]
+    },
+    {
+      "component": "return_bay",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.632500171661377
+        ]
+      ]
+    },
+    {
+      "component": "return_window",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.5,
+          0.0,
+          -2.18556948539117e-07,
+          1.2329998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.2362499237060547
+        ],
+        [
+          1.3113415775478643e-07,
+          0.0,
+          -1.5,
+          3.443125009536743
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.4200010299682617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.33462488651275635
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.510000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.34999990463256836
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.4200010299682617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.5653748512268066
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.08299970626831055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.510000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.549999952316284
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.4200010299682617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.219624996185303
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.510000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.235000133514404
+        ]
+      ]
+    },
+    {
+      "component": "blue_column",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.4200010299682617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.450375080108643
+        ]
+      ]
+    },
+    {
+      "component": "blue_collar",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.407999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.510000228881836
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.434999942779541
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "foundation",
+      "asset_id": "SEA-SCENE-BLB-FOUNDATION",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "foundation",
+      "asset_id": "SEA-SCENE-BLB-FOUNDATION",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.7829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "foundation",
+      "asset_id": "SEA-SCENE-BLB-FOUNDATION",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -4.144999980926514
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -14.440000534057617
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -11.860000610351562
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -9.280000686645508
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -6.700000762939453
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -4.119999885559082
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "wall_pier",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -1.5400009155273438
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "foundation",
+      "asset_id": "SEA-SCENE-BLB-FOUNDATION",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          10.282999992370605
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          7.34499979019165
+        ]
+      ]
+    },
+    {
+      "component": "foundation",
+      "asset_id": "SEA-SCENE-BLB-FOUNDATION",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.8579998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          -0.34999990463256836
+        ]
+      ]
+    },
+    {
+      "component": "foundation",
+      "asset_id": "SEA-SCENE-BLB-FOUNDATION",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          0.8579998016357422
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -17.020000457763672
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          3.549999952316284
+        ]
+      ]
+    },
+    {
+      "component": "roof_slab",
+      "asset_id": "SEA-SCENE-BLB-ROOF-SLAB",
+      "category": "structure",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.5,
+          0.0,
+          0.0,
+          5.2829999923706055
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          1.039999008178711
+        ],
+        [
+          0.0,
+          0.0,
+          1.5,
+          1.600000023841858
+        ]
+      ]
+    },
+    {
+      "component": "air_conditioner",
+      "asset_id": "SEA-SCENE-BLB-AIR-CONDITIONER",
+      "category": "fixture",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.092784742695585e-07,
+          0.0,
+          -2.5,
+          -0.3013749122619629
+        ],
+        [
+          0.0,
+          1.5,
+          0.0,
+          -3.309999465942383
+        ],
+        [
+          1.5,
+          0.0,
+          -6.556707887739321e-08,
+          2.5855000019073486
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.7901920080184937,
+          0.0,
+          0.5404748320579529,
+          -0.5896425247192383
+        ],
+        [
+          0.0,
+          1.121999979019165,
+          0.0,
+          -1.5060949325561523
+        ],
+        [
+          -0.3242849111557007,
+          0.0,
+          1.0741151571273804,
+          -2.716482162475586
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.4539473056793213,
+          0.0,
+          -0.11640998721122742,
+          -0.43187761306762695
+        ],
+        [
+          0.0,
+          0.8751599788665771,
+          0.0,
+          -1.4769554138183594
+        ],
+        [
+          0.06984598934650421,
+          0.0,
+          0.872368335723877,
+          -3.1382193565368652
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.873528242111206,
+          0.0,
+          1.303724765777588,
+          -0.4588766098022461
+        ],
+        [
+          0.0,
+          1.369499921798706,
+          0.0,
+          -4.085233688354492
+        ],
+        [
+          -0.7822349071502686,
+          0.0,
+          1.1241168975830078,
+          -0.8415888547897339
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.7473257780075073,
+          0.0,
+          0.34131920337677,
+          -0.5663871765136719
+        ],
+        [
+          0.0,
+          1.0682100057601929,
+          0.0,
+          -4.056282043457031
+        ],
+        [
+          -0.20479153096675873,
+          0.0,
+          -1.0483955144882202,
+          -1.3073824644088745
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.3062912225723267,
+          0.0,
+          1.052430272102356,
+          -0.41675567626953125
+        ],
+        [
+          0.0,
+          1.006500005722046,
+          0.0,
+          -4.071496963500977
+        ],
+        [
+          -0.6314581632614136,
+          0.0,
+          0.783774733543396,
+          -2.765414237976074
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.13251793384552,
+          0.0,
+          -0.6553202271461487,
+          -0.469088077545166
+        ],
+        [
+          0.0,
+          0.7850699424743652,
+          0.0,
+          -4.042268753051758
+        ],
+        [
+          0.3931921124458313,
+          0.0,
+          -0.6795107126235962,
+          -3.156348705291748
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.6480754017829895,
+          0.0,
+          1.6658793687820435,
+          -0.13528823852539062
+        ],
+        [
+          0.0,
+          1.0724999904632568,
+          0.0,
+          -1.5212688446044922
+        ],
+        [
+          -0.9995275735855103,
+          0.0,
+          0.3888452649116516,
+          1.704009771347046
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.0011135295499116182,
+          0.0,
+          1.394249439239502,
+          -0.14677810668945312
+        ],
+        [
+          0.0,
+          0.8365499973297119,
+          0.0,
+          -1.4920883178710938
+        ],
+        [
+          -0.836549699306488,
+          0.0,
+          0.0006681177183054388,
+          1.295064926147461
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.5437633991241455,
+          0.0,
+          1.1499648094177246,
+          -0.20379257202148438
+        ],
+        [
+          0.0,
+          1.1549999713897705,
+          0.0,
+          -4.100980758666992
+        ],
+        [
+          -0.689978837966919,
+          0.0,
+          0.9262580871582031,
+          2.4088003635406494
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.0364733934402466,
+          0.0,
+          -1.0863816738128662,
+          -0.26958560943603516
+        ],
+        [
+          0.0,
+          0.9009000062942505,
+          0.0,
+          -4.071865081787109
+        ],
+        [
+          0.6518290042877197,
+          0.0,
+          -0.6218840479850769,
+          2.0199263095855713
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -2.018632173538208,
+          0.0,
+          -0.8747135996818542,
+          -0.5319623947143555
+        ],
+        [
+          0.0,
+          1.3199999332427979,
+          0.0,
+          -6.68040657043457
+        ],
+        [
+          0.5248281359672546,
+          0.0,
+          -1.211179256439209,
+          -0.20051157474517822
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.7136378288269043,
+          0.0,
+          0.09000803530216217,
+          -0.3680086135864258
+        ],
+        [
+          0.0,
+          1.0296000242233276,
+          0.0,
+          -6.651416778564453
+        ],
+        [
+          -0.054004818201065063,
+          0.0,
+          -1.0281827449798584,
+          -0.42808783054351807
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.2374382019042969,
+          0.0,
+          1.0494060516357422,
+          -0.47170162200927734
+        ],
+        [
+          0.0,
+          0.9735000133514404,
+          0.0,
+          -6.681612014770508
+        ],
+        [
+          -0.6296436190605164,
+          0.0,
+          -0.7424629330635071,
+          4.365043640136719
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -0.8215633034706116,
+          0.0,
+          0.9626268148422241,
+          -0.4521350860595703
+        ],
+        [
+          0.0,
+          0.7593299746513367,
+          0.0,
+          -6.652358055114746
+        ],
+        [
+          -0.5775760412216187,
+          0.0,
+          -0.49293798208236694,
+          4.078390598297119
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.8109280467033386,
+          0.0,
+          1.5620484352111816,
+          -0.4192476272583008
+        ],
+        [
+          0.0,
+          1.055999994277954,
+          0.0,
+          -8.676325798034668
+        ],
+        [
+          -0.9372290968894958,
+          0.0,
+          0.4865568280220032,
+          6.049951076507568
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.1168673038482666,
+          0.0,
+          0.7982401847839355,
+          -0.36378002166748047
+        ],
+        [
+          0.0,
+          0.82368004322052,
+          0.0,
+          -8.647133827209473
+        ],
+        [
+          -0.4789440929889679,
+          0.0,
+          0.670120358467102,
+          5.661092758178711
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.3912917375564575,
+          0.0,
+          0.5932652354240417,
+          1.9862298965454102
+        ],
+        [
+          0.0,
+          0.9075000286102295,
+          0.0,
+          -1.5068416595458984
+        ],
+        [
+          -0.35595911741256714,
+          0.0,
+          0.8347750902175903,
+          8.26812744140625
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.0636152029037476,
+          0.0,
+          0.510424017906189,
+          2.128880023956299
+        ],
+        [
+          0.0,
+          0.7078499794006348,
+          0.0,
+          -1.4775371551513672
+        ],
+        [
+          -0.30625441670417786,
+          0.0,
+          0.6381691098213196,
+          7.845941066741943
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.3745357990264893,
+          0.0,
+          -1.267892599105835,
+          9.134435653686523
+        ],
+        [
+          0.0,
+          1.121999979019165,
+          0.0,
+          -1.5060949325561523
+        ],
+        [
+          0.7607355117797852,
+          0.0,
+          -0.8247215151786804,
+          8.122639656066895
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.17387044429779053,
+          0.0,
+          -1.448199987411499,
+          9.422445297241211
+        ],
+        [
+          0.0,
+          0.8751599788665771,
+          0.0,
+          -1.4769554138183594
+        ],
+        [
+          0.8689200282096863,
+          0.0,
+          0.10432226210832596,
+          7.923385143280029
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.6712117195129395,
+          0.0,
+          -0.9553409814834595,
+          9.177589416503906
+        ],
+        [
+          0.0,
+          1.1549999713897705,
+          0.0,
+          -4.085981369018555
+        ],
+        [
+          0.5732046365737915,
+          0.0,
+          1.0027270317077637,
+          8.311509132385254
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.17558881640434265,
+          0.0,
+          1.4911978244781494,
+          9.440040588378906
+        ],
+        [
+          0.0,
+          0.9009000062942505,
+          0.0,
+          -4.056863784790039
+        ],
+        [
+          -0.8947186470031738,
+          0.0,
+          0.10535329580307007,
+          7.818105220794678
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.637502908706665,
+          0.0,
+          1.2800352573394775,
+          9.499249458312988
+        ],
+        [
+          0.0,
+          0.8580000400543213,
+          0.0,
+          -6.682014465332031
+        ],
+        [
+          -0.7680211067199707,
+          0.0,
+          0.3825017213821411,
+          8.216043472290039
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -0.3258788585662842,
+          0.0,
+          1.0667333602905273,
+          9.503965377807617
+        ],
+        [
+          0.0,
+          0.6692399978637695,
+          0.0,
+          -6.652671813964844
+        ],
+        [
+          -0.6400399804115295,
+          0.0,
+          -0.1955273151397705,
+          7.813960552215576
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -7.868050033721374e-08,
+          0.0,
+          -1.8000000715255737,
+          -0.5865001678466797
+        ],
+        [
+          0.0,
+          0.9449999928474426,
+          0.0,
+          -3.0876808166503906
+        ],
+        [
+          1.0800000429153442,
+          0.0,
+          -4.720830304449919e-08,
+          -2.9749999046325684
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -7.977327953767599e-08,
+          0.0,
+          -1.8250000476837158,
+          -0.5378131866455078
+        ],
+        [
+          0.0,
+          0.9964500665664673,
+          0.0,
+          -5.820627212524414
+        ],
+        [
+          1.0950000286102295,
+          0.0,
+          -4.786397056477654e-08,
+          -0.8749998807907104
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -8.523720396169665e-08,
+          0.0,
+          -1.9499999284744263,
+          -0.16937541961669922
+        ],
+        [
+          0.0,
+          1.2402000427246094,
+          0.0,
+          -3.782033920288086
+        ],
+        [
+          1.1699999570846558,
+          0.0,
+          -5.114232237701799e-08,
+          1.540000081062317
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -9.070112838571731e-08,
+          0.0,
+          -2.075000047683716,
+          -0.37593746185302734
+        ],
+        [
+          0.0,
+          1.49399995803833,
+          0.0,
+          -6.864524841308594
+        ],
+        [
+          1.2450000047683716,
+          0.0,
+          -5.4420674189259444e-08,
+          2.319999933242798
+        ]
+      ]
+    },
+    {
+      "component": "vine_short",
+      "asset_id": "SEA-SCENE-BLB-VINE-SHORT",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -8.195884504402784e-08,
+          0.0,
+          -1.875,
+          -0.36543750762939453
+        ],
+        [
+          0.0,
+          1.2014563083648682,
+          0.0,
+          -7.725334167480469
+        ],
+        [
+          1.125,
+          0.0,
+          -4.917530915804491e-08,
+          -0.05000007152557373
+        ]
+      ]
+    },
+    {
+      "component": "vine_short",
+      "asset_id": "SEA-SCENE-BLB-VINE-SHORT",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -7.649492772543454e-08,
+          0.0,
+          -1.75,
+          -0.4588747024536133
+        ],
+        [
+          0.0,
+          0.6626213788986206,
+          0.0,
+          -9.05248737335205
+        ],
+        [
+          1.0499999523162842,
+          0.0,
+          -4.589695379308978e-08,
+          6.009999752044678
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          2.0,
+          0.0,
+          0.0,
+          9.532999992370605
+        ],
+        [
+          0.0,
+          1.0800000429153442,
+          0.0,
+          -3.3859214782714844
+        ],
+        [
+          0.0,
+          0.0,
+          1.2000000476837158,
+          7.947999477386475
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.975000023841858,
+          0.0,
+          0.0,
+          9.583000183105469
+        ],
+        [
+          0.0,
+          0.8591249585151672,
+          0.0,
+          -5.532509803771973
+        ],
+        [
+          0.0,
+          0.0,
+          1.1850000619888306,
+          7.947212219238281
+        ]
+      ]
+    },
+    {
+      "component": "vine_short",
+      "asset_id": "SEA-SCENE-BLB-VINE-SHORT",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.8000000715255737,
+          0.0,
+          0.0,
+          9.657999992370605
+        ],
+        [
+          0.0,
+          1.153398036956787,
+          0.0,
+          -7.671119689941406
+        ],
+        [
+          0.0,
+          0.0,
+          1.0800000429153442,
+          7.941699504852295
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -0.411813884973526,
+          0.0,
+          1.340677261352539,
+          -0.5316338539123535
+        ],
+        [
+          0.0,
+          0.8414999842643738,
+          0.0,
+          -3.907072067260742
+        ],
+        [
+          -0.8044064044952393,
+          0.0,
+          -0.24708834290504456,
+          -1.165202260017395
+        ]
+      ]
+    },
+    {
+      "component": "pink_flower",
+      "asset_id": "SEA-SCENE-BLB-PINK-FLOWER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.0504381656646729,
+          -0.40094152092933655,
+          -0.03809025511145592,
+          -0.621558666229248
+        ],
+        [
+          0.2158237248659134,
+          0.5890994071960449,
+          -0.24901217222213745,
+          -3.6227359771728516
+        ],
+        [
+          0.10869179666042328,
+          0.22520098090171814,
+          0.6269733905792236,
+          -1.1221493482589722
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.7270533442497253,
+          0.0,
+          0.6940242648124695,
+          -0.585972785949707
+        ],
+        [
+          0.0,
+          0.6030749678611755,
+          0.0,
+          -1.3879013061523438
+        ],
+        [
+          -0.4164145588874817,
+          0.0,
+          0.4362320303916931,
+          -2.87424373626709
+        ]
+      ]
+    },
+    {
+      "component": "pink_flower",
+      "asset_id": "SEA-SCENE-BLB-PINK-FLOWER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.6791988611221313,
+          -0.4030969440937042,
+          -0.16199025511741638,
+          -0.6393165588378906
+        ],
+        [
+          0.20540925860404968,
+          0.40902823209762573,
+          -0.15657904744148254,
+          -1.1053581237792969
+        ],
+        [
+          0.16046525537967682,
+          0.09063444286584854,
+          0.44726988673210144,
+          -2.9062647819519043
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.6756260395050049,
+          0.0,
+          0.806207537651062,
+          -0.3748435974121094
+        ],
+        [
+          0.0,
+          0.6311249732971191,
+          0.0,
+          -3.937803268432617
+        ],
+        [
+          -0.4837245047092438,
+          0.0,
+          0.405375599861145,
+          2.311746120452881
+        ]
+      ]
+    },
+    {
+      "component": "white_flower",
+      "asset_id": "SEA-SCENE-BLB-WHITE-FLOWER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.744849681854248,
+          -0.29070234298706055,
+          0.2694534361362457,
+          -0.43485355377197266
+        ],
+        [
+          0.22430163621902466,
+          0.42352232336997986,
+          -0.16311554610729218,
+          -3.654287338256836
+        ],
+        [
+          -0.0790536031126976,
+          0.21562716364860535,
+          0.4511590600013733,
+          2.2737698554992676
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.7286691665649414,
+          0.0,
+          0.3306104242801666,
+          -0.48729991912841797
+        ],
+        [
+          0.0,
+          1.055999994277954,
+          0.0,
+          -9.096324920654297
+        ],
+        [
+          -0.19836625456809998,
+          0.0,
+          1.0372014045715332,
+          -2.4038748741149902
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.2273350954055786,
+          0.0,
+          1.2995400428771973,
+          -0.3704338073730469
+        ],
+        [
+          0.0,
+          1.0724999904632568,
+          0.0,
+          -9.096267700195312
+        ],
+        [
+          -0.7797240614891052,
+          0.0,
+          -0.7364010810852051,
+          0.2689293622970581
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.9848505258560181,
+          0.0,
+          1.8745334148406982,
+          -0.3345522880554199
+        ],
+        [
+          0.0,
+          1.2704999446868896,
+          0.0,
+          -9.09557819366455
+        ],
+        [
+          -1.1247200965881348,
+          0.0,
+          0.5909103155136108,
+          5.893676280975342
+        ]
+      ]
+    },
+    {
+      "component": "leaf_cluster",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.3816356658935547,
+          0.0,
+          1.1341248750686646,
+          10.392662048339844
+        ],
+        [
+          0.0,
+          1.0724999904632568,
+          0.0,
+          -9.096267700195312
+        ],
+        [
+          -0.6804748773574829,
+          0.0,
+          0.8289813995361328,
+          7.82874059677124
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.504939317703247,
+          0.0,
+          1.6047297716140747,
+          -0.5039520263671875
+        ],
+        [
+          0.0,
+          1.3199999332427979,
+          0.0,
+          -11.795406341552734
+        ],
+        [
+          -0.962837815284729,
+          0.0,
+          0.9029636383056641,
+          -2.3444314002990723
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.4140090942382812,
+          0.0,
+          1.0010669231414795,
+          -0.5181074142456055
+        ],
+        [
+          0.0,
+          1.0394999980926514,
+          0.0,
+          -11.796382904052734
+        ],
+        [
+          -0.6006401181221008,
+          0.0,
+          0.8484054207801819,
+          4.0514044761657715
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.379774570465088,
+          0.0,
+          -1.4958100318908691,
+          -0.431246280670166
+        ],
+        [
+          0.0,
+          1.2209999561309814,
+          0.0,
+          -14.375751495361328
+        ],
+        [
+          0.8974859714508057,
+          0.0,
+          0.8278647065162659,
+          1.2455506324768066
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.26418837904930115,
+          0.0,
+          1.906785011291504,
+          -0.5736627578735352
+        ],
+        [
+          0.0,
+          1.1549999713897705,
+          0.0,
+          -14.375980377197266
+        ],
+        [
+          -1.144071102142334,
+          0.0,
+          0.15851303935050964,
+          5.883986473083496
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -0.7687408924102783,
+          0.0,
+          -1.7648406028747559,
+          9.211590766906738
+        ],
+        [
+          0.0,
+          1.1549999713897705,
+          0.0,
+          -11.795980453491211
+        ],
+        [
+          1.0589044094085693,
+          0.0,
+          -0.4612445533275604,
+          8.256552696228027
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -1.3989698886871338,
+          0.0,
+          -0.5749258399009705,
+          9.191165924072266
+        ],
+        [
+          0.0,
+          0.9075000286102295,
+          0.0,
+          -14.376842498779297
+        ],
+        [
+          0.3449555039405823,
+          0.0,
+          -0.8393819332122803,
+          8.208460807800293
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.3035879135131836,
+          0.0,
+          1.4903216361999512,
+          -0.567626953125
+        ],
+        [
+          0.0,
+          1.187999963760376,
+          0.0,
+          -16.89586639404297
+        ],
+        [
+          -0.8941929340362549,
+          0.0,
+          0.7821527123451233,
+          -0.16707932949066162
+        ]
+      ]
+    },
+    {
+      "component": "edge_cluster",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.5993715524673462,
+          0.0,
+          1.2582670450210571,
+          -0.47832298278808594
+        ],
+        [
+          0.0,
+          1.2209999561309814,
+          0.0,
+          -16.895750045776367
+        ],
+        [
+          -0.7549601793289185,
+          0.0,
+          0.9596229791641235,
+          5.768798351287842
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -8.30516384553448e-08,
+          0.0,
+          -1.899999976158142,
+          -0.9917497634887695
+        ],
+        [
+          0.0,
+          1.1399999856948853,
+          0.0,
+          -13.81680679321289
+        ],
+        [
+          1.1399999856948853,
+          0.0,
+          -4.983098023103594e-08,
+          -2.375
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -7.540214852497229e-08,
+          0.0,
+          -1.725000023841858,
+          -0.9575624465942383
+        ],
+        [
+          0.0,
+          0.6986250281333923,
+          0.0,
+          -12.890768051147461
+        ],
+        [
+          1.034999966621399,
+          0.0,
+          -4.524128627281243e-08,
+          4.150000095367432
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -7.868050033721374e-08,
+          0.0,
+          -1.8000000715255737,
+          -0.9864997863769531
+        ],
+        [
+          0.0,
+          0.972000002861023,
+          0.0,
+          -16.044330596923828
+        ],
+        [
+          1.0800000429153442,
+          0.0,
+          -4.720830304449919e-08,
+          1.149999976158142
+        ]
+      ]
+    },
+    {
+      "component": "vine_short",
+      "asset_id": "SEA-SCENE-BLB-VINE-SHORT",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          -7.868050033721374e-08,
+          0.0,
+          -1.8000000715255737,
+          -0.9864997863769531
+        ],
+        [
+          0.0,
+          1.3631067276000977,
+          0.0,
+          -15.54268741607666
+        ],
+        [
+          1.0800000429153442,
+          0.0,
+          -4.720830304449919e-08,
+          5.874999523162842
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.8000000715255737,
+          0.0,
+          0.0,
+          9.657999992370605
+        ],
+        [
+          0.0,
+          0.9179999828338623,
+          0.0,
+          -13.351034164428711
+        ],
+        [
+          0.0,
+          0.0,
+          1.0800000429153442,
+          8.031700134277344
+        ]
+      ]
+    },
+    {
+      "component": "vine_long",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          1.75,
+          0.0,
+          0.0,
+          9.657999992370605
+        ],
+        [
+          0.0,
+          0.7874999642372131,
+          0.0,
+          -15.657235145568848
+        ],
+        [
+          0.0,
+          0.0,
+          1.0499999523162842,
+          8.03012466430664
+        ]
+      ]
+    },
+    {
+      "component": "pink_flower",
+      "asset_id": "SEA-SCENE-BLB-PINK-FLOWER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.6913593411445618,
+          0.08233746886253357,
+          0.7607361674308777,
+          -0.6330041885375977
+        ],
+        [
+          0.19803611934185028,
+          0.5357314944267273,
+          -0.23796012997627258,
+          -11.274215698242188
+        ],
+        [
+          -0.4141996502876282,
+          0.3056185841560364,
+          0.34334754943847656,
+          -2.316175937652588
+        ]
+      ]
+    },
+    {
+      "component": "white_flower",
+      "asset_id": "SEA-SCENE-BLB-WHITE-FLOWER",
+      "category": "flora",
+      "module": "submerged_base",
+      "transform": [
+        [
+          0.6841183304786682,
+          -0.43593212962150574,
+          -0.5408975481987,
+          -0.46446943283081055
+        ],
+        [
+          0.11809344589710236,
+          0.509797990322113,
+          -0.2615050673484802,
+          -13.8583402633667
+        ],
+        [
+          0.3997405171394348,
+          0.11797327548265457,
+          0.4105055630207062,
+          1.2004872560501099
+        ]
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "name": "roof_tile",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.001",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.002",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.003",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.004",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.005",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.006",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.007",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.008",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.009",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.010",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.011",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.012",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.013",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.014",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.015",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.016",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.017",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.018",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.019",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.020",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.021",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.022",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.023",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.024",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.025",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.026",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.027",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.028",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.029",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.030",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_tile.031",
+      "component": "roof_tile",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.001",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.002",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.003",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.004",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.005",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.006",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.007",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.008",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.009",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.010",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.011",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.012",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "roof_rim.013",
+      "component": "roof_rim",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.001",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster.001",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.002",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.003",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds.001",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster.002",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.004",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.005",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds.002",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster.003",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.006",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.007",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds.003",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster.004",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.008",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.009",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds.004",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster.005",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.010",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.011",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds.005",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster.006",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.012",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.013",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds.006",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster.007",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.014",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.015",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds.007",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster.008",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.016",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.017",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds.008",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "edge_cluster.009",
+      "component": "edge_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.018",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.019",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "yellow_buds.009",
+      "component": "yellow_buds",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.020",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "pink_flower",
+      "component": "pink_flower",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.021",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "white_flower",
+      "component": "white_flower",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.022",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "white_flower.001",
+      "component": "white_flower",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.023",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "pink_flower.001",
+      "component": "pink_flower",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.024",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "pink_flower.002",
+      "component": "pink_flower",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.025",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "white_flower.002",
+      "component": "white_flower",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.026",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "pink_flower.003",
+      "component": "pink_flower",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.027",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "white_flower.003",
+      "component": "white_flower",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "leaf_cluster.028",
+      "component": "leaf_cluster",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "pink_flower.004",
+      "component": "pink_flower",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long.001",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long.002",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_short",
+      "component": "vine_short",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long.003",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_short.001",
+      "component": "vine_short",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long.004",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long.005",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long.006",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long.007",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long.008",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    },
+    {
+      "name": "vine_long.009",
+      "component": "vine_long",
+      "reason": "roof interface covered by upper building; avoid penetrating top floor"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-SMALL-WINDOW",
+  "name": "上层小窗",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/components/small_window/small_window.blend",
+  "source_sha256": "c61c39e8c97b2a1ef9750f431b1d8aeff03831f56f95a0ebe9826952bc6c4504",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/small_window/asset_manifest.json",
+  "version": "v004",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/small_window/small_window.glb",
+  "prefab": "godot/scenes/components/solar_cabin/small_window.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "2d37c406b52f2f0e92b6c0a487800fb30ca6c1ae2281b065849aa88fc0709bc7",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v004：整体1.5倍修订，按实际可见实例复用；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/small_window/small_window.blend",
+      "source_sha256": "560dfabdf0108702acceee47be79198be0ff7f1c4e5e77951ad8dd29a513fc8c",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/small_window/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/small_window/small_window.blend",
+      "source_sha256": "6e8632843eb3d8eaca74674b4bf82b9823b98670a15dcc03988c36045a8032b7",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/small_window/asset_manifest.json",
+      "version": "v003"
+    }
+  ],
+  "runtime_version": "1.1",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "small_window",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SMALL-WINDOW"
+}

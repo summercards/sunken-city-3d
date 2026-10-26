@@ -1,0 +1,62 @@
+{
+  "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+  "name": "太阳能木屋",
+  "asset_key": "solar_cabin",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/placement/solar_cabin/solar_cabin_v1.2.blend",
+  "source_sha256": "9ab9c0011062770e5f2a1493682dca9cb4f1245dadae385decfb0ec4d8155b27",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/placement/solar_cabin/asset_manifest.json",
+  "version": "v005",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/instances.json",
+  "prefab": "godot/scenes/facilities/solar_cabin.tscn",
+  "license": "existing_project_asset_provenance_unchanged",
+  "geometry_fingerprint": null,
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "facility_assembly",
+  "scope_label": "海面可玩区·设施总成",
+  "facility_name": "太阳能木屋",
+  "facility_key": "solar_cabin",
+  "region_collections": {
+    "海上区域": "太阳能木屋-海上区域",
+    "海下基座": "太阳能木屋-海下基座"
+  },
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/runtime_building_reference/v002/facilities/solar_cabin/solar_cabin_v0.2.blend",
+      "source_sha256": "f7a839c9e6bc5bc0a775132447cc66825a7db605daa2b7f3dc587fc9aa8d22cc",
+      "manifest": "art_source/scenes/runtime_building_reference/v002/facilities/solar_cabin/asset_manifest.json",
+      "version": "0.2"
+    },
+    {
+      "source": "art_source/scenes/runtime_building_reference/v003/facilities/solar_cabin/solar_cabin_v0.3.blend",
+      "source_sha256": "a7e98f1f7f39201575ce78375a33f87209c57a98657a95336f062d1a1b0ae12e",
+      "manifest": "art_source/scenes/runtime_building_reference/v003/facilities/solar_cabin/solar_cabin_manifest.json",
+      "version": "0.3"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/placement/solar_cabin/solar_cabin_v1.0.blend",
+      "source_sha256": "1ed34e0762af824077a1e88111ace6105c7574035ef8d6655418409ac6eacc10",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/placement/solar_cabin/asset_manifest.json",
+      "version": "1.0"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/placement/solar_cabin/solar_cabin_v1.1.blend",
+      "source_sha256": "bf1c785974d27ea4390592959c452c60fef9d108fcafa598ec9f39936c4d2b44",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/placement/solar_cabin/asset_manifest.json",
+      "version": "v004"
+    }
+  ],
+  "note": "当前可编辑装配1.2；海上四分区，绞盘打捞台保持独立；0.1备份与上一版均保留。",
+  "runtime_version": "1.2",
+  "runtime_verified": true,
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/solar_cabin_optimized_v001.blend",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/export_manifest.json",
+  "runtime_scope": "v005海上区域 + 原海下基座",
+  "scope": "scene_local",
+  "optimized_sha256": "8c9bbf0f6992730a9416c33422e9b57d7c0fb6bcb7799cee522cd72586f4fdf9",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-FACILITY-SOLAR-CABIN"
+}

@@ -1,0 +1,41 @@
+{
+  "asset_id": "SEA-SCENE-SBR-OPTIMIZED",
+  "name": "太阳能木屋-独立优化导出源",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/solar_cabin_optimized_v001.blend",
+  "source_sha256": "8c9bbf0f6992730a9416c33422e9b57d7c0fb6bcb7799cee522cd72586f4fdf9",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/optimized_asset_manifest.json",
+  "version": "v005",
+  "runtime_path": null,
+  "prefab": null,
+  "license": "existing_project_asset_provenance_unchanged",
+  "geometry_fingerprint": null,
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "optimized_export_source",
+  "scope": "scene_local",
+  "note": "47组件独立优化，原源/公共色板哈希保护；源与优化固定四视图核对。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/solar_cabin_optimized_v001.blend",
+      "source_sha256": "602c56138bdd9960de16f28292db88363f812db3c0907cc081bfa6018b2a816b",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/optimized_asset_manifest.json",
+      "version": "v001"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+      "source_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/optimized_asset_manifest.json",
+      "version": "v004"
+    }
+  ],
+  "runtime_version": "1.2",
+  "runtime_verified": true,
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "8c9bbf0f6992730a9416c33422e9b57d7c0fb6bcb7799cee522cd72586f4fdf9",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/export_manifest.json",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-OPTIMIZED"
+}

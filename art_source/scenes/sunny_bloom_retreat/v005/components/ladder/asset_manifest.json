@@ -1,0 +1,49 @@
+{
+  "asset_id": "SEA-SCENE-SBR-LADDER",
+  "name": "橙木圆角爬梯",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v005/components/ladder/ladder.blend",
+  "source_sha256": "31707e9d031bc7af420bda3182e7c4ca139adba7a5b30ea0bb8158511b9a2b2d",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/ladder/asset_manifest.json",
+  "version": "v005",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/ladder/ladder.glb",
+  "prefab": "godot/scenes/components/solar_cabin/ladder.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "c427f4375fb04c042c2bbb374ee2678b7a9fa1e52b4257d44f00ed5cb276fed1",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v005：承重轴续柱、阳光房右移、底板加厚、桥延长和桥边绳/挂胎；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/ladder/ladder.blend",
+      "source_sha256": "6dee3287e81813edb6263ea9335b8dbf61a5197de589abb7132abf553cdd8500",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/ladder/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/ladder/ladder.blend",
+      "source_sha256": "3f939d0d1f7abc1632bffbd45e8203a9e32efbc97faa21b83613be6b1024606f",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/ladder/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/ladder/ladder.blend",
+      "source_sha256": "9d137be30df7a4d6affe6b54961061aeb2a0c8566838c9c1a1f4aa387c64a95a",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/ladder/asset_manifest.json",
+      "version": "v004"
+    }
+  ],
+  "runtime_version": "1.2",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "8c9bbf0f6992730a9416c33422e9b57d7c0fb6bcb7799cee522cd72586f4fdf9",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "ladder",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-LADDER"
+}

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://src/world/sunny_bloom_visual.gd" id="1"]
+[node name="太阳能木屋-后部方形建筑" type="Node3D"]
+script = ExtResource("1")
+module_key = "rear_building"
+metadata/module = "rear_building"
+metadata/deck_height = 2.15

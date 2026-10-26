@@ -24,8 +24,8 @@
     "海上区域": "绞盘打捞台-海上区域",
     "海下基座": "绞盘打捞台-海下基座"
   },
-  "stage": "runtime_reference_verified",
-  "runtime_status": "reference_only_no_replacement",
+  "stage": "runtime_integrated_verified",
+  "runtime_status": "integrated_verified",
   "split_from_asset": "SEA-REF-01-ZONE1-HOME-HARBOR--DETAIL",
   "organized_metrics": {
     "area": 402.26838342414004,
@@ -46,5 +46,10 @@
   "source_sha256": "5470f2b7873356440eeaa3a41f07b9003455243851a903076366770370ea7d80",
   "manifest": "art_source/scenes/runtime_building_reference/v003/facilities/salvage_station/salvage_station_manifest.json",
   "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-REF-FACILITY-SALVAGE-STATION",
-  "relative_blend": "facilities/salvage_station/salvage_station_v0.3.blend"
+  "relative_blend": "facilities/salvage_station/salvage_station_v0.3.blend",
+  "runtime_path": "godot/assets/models/facilities/legacy_home/salvage_station.glb",
+  "prefab": "godot/scenes/facilities/salvage_station.tscn",
+  "runtime_scope": "完整独立绞盘打捞台",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/solar_cabin_optimized_v001.blend",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/export_manifest.json"
 }

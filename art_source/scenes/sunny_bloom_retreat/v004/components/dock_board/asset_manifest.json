@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-DOCK-BOARD",
+  "name": "栈桥-暖木横向整板",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/components/dock_board/dock_board.blend",
+  "source_sha256": "38591db495c42aecc26695f7a5404ce11cfc2b26f126920fb4897561b55126ae",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/dock_board/asset_manifest.json",
+  "version": "v004",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/dock_board/dock_board.glb",
+  "prefab": "godot/scenes/components/solar_cabin/dock_board.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "e91a93ad2ff49ddc4a144053e3b5134aed9e6d7ea394634ad95c5185f86cc85c",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "structure",
+  "scope": "scene_local",
+  "note": "v004：整体1.5倍修订，按实际可见实例复用；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/dock_board/dock_board.blend",
+      "source_sha256": "a3b3df5327385b0d45066eb0aba238571f4fa0f774e1b07d0b1f0d0176ef190b",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/dock_board/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/dock_board/dock_board.blend",
+      "source_sha256": "708a61dcc2f1bc59b8359f5951ab10b47dd632489f8c52f0b285a5988c5ee35d",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/dock_board/asset_manifest.json",
+      "version": "v003"
+    }
+  ],
+  "runtime_version": "1.1",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "dock_board",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-DOCK-BOARD"
+}

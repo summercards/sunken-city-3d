@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-CANOPY-BEAM",
+  "name": "遮阳棚横梁",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/components/canopy_beam/canopy_beam.blend",
+  "source_sha256": "0ca5ad2678eac66c5bce1568a45875e7c607f5376e8f5180c58e264ed5ab2383",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/canopy_beam/asset_manifest.json",
+  "version": "v004",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/canopy_beam/canopy_beam.glb",
+  "prefab": "godot/scenes/components/solar_cabin/canopy_beam.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "c182d850d22bb98ef9eafb8021c32a82e6fe4c6c17b78ff1c225ccba63f55426",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v004：整体1.5倍修订，按实际可见实例复用；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/canopy_beam/canopy_beam.blend",
+      "source_sha256": "d17a9e4f648ac42ced67f3a4e451476f5e46d56250ac6f2eb06904abc2823c59",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/canopy_beam/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/canopy_beam/canopy_beam.blend",
+      "source_sha256": "93a1d8895f0c2b9bc084c46248944f1fd1b88a44e3b472707864e57cf117dec4",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/canopy_beam/asset_manifest.json",
+      "version": "v003"
+    }
+  ],
+  "runtime_version": "1.1",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "canopy_beam",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-CANOPY-BEAM"
+}

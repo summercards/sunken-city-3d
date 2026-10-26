@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-ENTRY",
+  "name": "玻璃入口框扇",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/components/entry/entry.blend",
+  "source_sha256": "f7c845bb52d69f02ad8be250076734d3c90a5576d6bfc3f05bcb9c49107e4c8d",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/entry/asset_manifest.json",
+  "version": "v004",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/entry/entry.glb",
+  "prefab": "godot/scenes/components/solar_cabin/entry.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "699a7bbbde535e0d99838679d4234db3270d94bed0756adbb3d4b4a54c3b9e48",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v004：整体1.5倍修订，按实际可见实例复用；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/entry/entry.blend",
+      "source_sha256": "0f1914fc8a990859ad0699e53e62ef658718d33aca5bd0a63627f6459c2987f6",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/entry/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/entry/entry.blend",
+      "source_sha256": "0fd9a7722912284260e76b8b5da0b6a3d594de16d778f78e679a690f8b7a36a6",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/entry/asset_manifest.json",
+      "version": "v003"
+    }
+  ],
+  "runtime_version": "1.1",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "entry",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-ENTRY"
+}

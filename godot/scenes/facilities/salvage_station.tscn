@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/world/legacy_facility_materials.gd" id="bind"]
+[ext_resource type="PackedScene" path="res://assets/models/facilities/legacy_home/salvage_station.glb" id="g0"]
+[node name="绞盘打捞台" type="Node3D"]
+script = ExtResource("bind")
+[node name="salvage_station" parent="." instance=ExtResource("g0")]
+position = Vector3(0, 0, 0)

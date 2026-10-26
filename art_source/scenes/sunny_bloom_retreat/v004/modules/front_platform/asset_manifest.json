@@ -1,0 +1,30 @@
+{
+  "asset_id": "SEA-SCENE-SBR-MODULE-FRONT-PLATFORM",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": null,
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "version": "v004",
+  "runtime_version": "1.1",
+  "runtime_verified": true,
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "scope": "scene_local",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "name": "太阳能木屋-前方可行动平台-酒红",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/modules/front_platform/front_platform.blend",
+  "source_sha256": "0aafacaf9bab9687e38d34fc3d7cd7be84cccaa65f3e6e011420d0127a3562eb",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/modules/front_platform/asset_manifest.json",
+  "category": "scene_module",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/instances.json",
+  "prefab": "godot/scenes/facilities/solar_cabin_front_platform.tscn",
+  "asset_key": "front_platform",
+  "runtime_scope": "front_platform",
+  "instance_count": 34,
+  "note": "独立可打开的 linked assembly；组件母版唯一，平台与桥不同色且分别管理。",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-MODULE-FRONT-PLATFORM"
+}

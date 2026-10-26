@@ -1,0 +1,38 @@
+{
+  "asset_id": "SEA-SCENE-SBR-MODULE-SOLAR-ROOM",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": null,
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "version": "v005",
+  "runtime_version": "1.2",
+  "runtime_verified": true,
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "scope": "scene_local",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "8c9bbf0f6992730a9416c33422e9b57d7c0fb6bcb7799cee522cd72586f4fdf9",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/export_manifest.json",
+  "name": "太阳能木屋-前部倾斜太阳能房",
+  "source": "art_source/scenes/sunny_bloom_retreat/v005/modules/solar_room/solar_room.blend",
+  "source_sha256": "01ee84c1cfee357b865b8e7f2ca3f5fa40f698d20945d5b8b95be7d23f14f38d",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v005/modules/solar_room/asset_manifest.json",
+  "category": "scene_module",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/instances.json",
+  "prefab": "godot/scenes/facilities/solar_cabin_solar_room.tscn",
+  "asset_key": "solar_room",
+  "runtime_scope": "solar_room",
+  "instance_count": 22,
+  "note": "独立可打开的 linked assembly；组件母版唯一，平台与桥不同色且分别管理。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/modules/solar_room/solar_room.blend",
+      "source_sha256": "b130299bc55c3664429d968827e55caacdd72e01dab628e9d9454f864e0fcae5",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/modules/solar_room/asset_manifest.json",
+      "version": "v004"
+    }
+  ],
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-MODULE-SOLAR-ROOM"
+}

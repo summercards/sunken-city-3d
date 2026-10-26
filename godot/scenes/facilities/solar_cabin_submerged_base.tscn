@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://src/world/sunny_bloom_visual.gd" id="visual"]
+[node name="太阳能木屋-海下基座" type="Node3D"]
+script = ExtResource("visual")
+instance_data_path = "res://assets/models/facilities/bloom_lower_building/instances.json"
+component_directory = "res://scenes/components/bloom_lower_building"
+module_key = "submerged_base"
+metadata/asset_id = "SEA-SCENE-BLB-ASSEMBLY"
+metadata/asset_version = "1.0"

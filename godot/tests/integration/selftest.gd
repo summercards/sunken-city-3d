@@ -870,6 +870,9 @@ func _test_gather() -> void:
 	_ok("冷却结束可再采", shell.available)
 
 	# 走动打断：按住时挪动位置，进度必须清零。
+	# 新平台交互物更密集：先走公开 update 消耗上一轮相邻目标的拒绝冷却。
+	main.interactor.debug_focus(shell)
+	main.interactor.update(0.7, true)
 	main.interactor.debug_focus(shell)
 	main.interactor.update(0.1, true)
 	var held: float = main.interactor.hold

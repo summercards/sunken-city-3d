@@ -1,0 +1,195 @@
+{
+  "backup": "/Users/summercards/WorkBuddy/sea-work/backups/solar_cabin_replacement/v0.1",
+  "backup_version": "0.1",
+  "backup_files": 597,
+  "backup_hashes_verified": true,
+  "source": "art_source/scenes/sunny_bloom_retreat/v003/sunny_bloom_retreat.blend",
+  "source_unchanged": true,
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/solar_cabin_optimized_v001.blend",
+  "placement_source": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/placement/solar_cabin/solar_cabin_v1.0.blend",
+  "geometry_optimization": {
+    "triangles_before": 703920,
+    "triangles_after": 688342,
+    "reduction_ratio": 0.0221303557222412
+  },
+  "fidelity_views_reviewed": [
+    "front",
+    "back",
+    "side",
+    "top"
+  ],
+  "runtime": {
+    "bounds_min": [
+      -0.0226916670799255,
+      1.12000000476837,
+      -3.00972461700439
+    ],
+    "bounds_size": [
+      10.5904445648193,
+      8.00222015380859,
+      13.8164758682251
+    ],
+    "checks": 529,
+    "component_count": 49,
+    "deck_y": 2.15,
+    "expanded_triangles": 688342,
+    "failures": 0,
+    "front_godot": [
+      0,
+      0,
+      1
+    ],
+    "uniform_source_scale": 1.15,
+    "yaw_degrees": 0
+  },
+  "verification_runs": {
+    "visual": "20261025-212135-solar-cabin-delivery-1d307b",
+    "functional": "20261025-211335-solar-cabin-final-functional-319d4b",
+    "other": "20261025-211038-solar-cabin-integration-7f3fbb",
+    "before": "20261025-205808-solar-cabin-before-5063d8"
+  },
+  "results": {
+    "visual": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-212135-solar-cabin-delivery-1d307b/visual-solar-cabin.log",
+      "renderer": "real",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-212135-solar-cabin-delivery-1d307b/project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_solar_cabin_asset.gd"
+      ]
+    },
+    "surface": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-211335-solar-cabin-final-functional-319d4b/surface.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-211335-solar-cabin-final-functional-319d4b/project",
+        "--headless",
+        "--script",
+        "res://tests/test_surface_movement.gd"
+      ]
+    },
+    "selftest": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [
+        "ERROR: Parse JSON failed. Error at line 0: Expected key"
+      ],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-211335-solar-cabin-final-functional-319d4b/selftest.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-211335-solar-cabin-final-functional-319d4b/project",
+        "--headless",
+        "--",
+        "--selftest",
+        "--nosave"
+      ]
+    },
+    "click": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-211038-solar-cabin-integration-7f3fbb/click.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-211038-solar-cabin-integration-7f3fbb/project",
+        "--headless",
+        "--script",
+        "res://tests/test_click_controls.gd"
+      ]
+    },
+    "management": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-211038-solar-cabin-integration-7f3fbb/management.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-211038-solar-cabin-integration-7f3fbb/project",
+        "--headless",
+        "--script",
+        "res://tests/test_management_loop.gd"
+      ]
+    },
+    "components": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-212809-solar-cabin-components-16ddaf/solar-components.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-212809-solar-cabin-components-16ddaf/project",
+        "--headless",
+        "--script",
+        "res://tests/test_solar_components.gd"
+      ]
+    }
+  },
+  "runtime_hash_updates": [
+    "godot/assets/baked/shore.json",
+    "godot/assets/data/build_sites.json",
+    "godot/assets/data/gather_spots.json",
+    "godot/assets/data/plants_zone1_home_harbor.json",
+    "godot/assets/data/zones.json"
+  ],
+  "not_run": [
+    "完整长期游玩性能基准",
+    "参考图商业授权审核"
+  ],
+  "resolved_failures": [
+    "Headless dummy renderer returns identity MultiMesh transforms; geometry probe now explicitly requires real renderer, 529 checks pass.",
+    "Two farm cells were outside narrow walkway; planter moved 0.345m inward, all 6 cells reachable.",
+    "Selftest held-interaction case inherited adjacent target rejection cooldown; drain through public update before unchanged move-cancellation assertion."
+  ],
+  "component_prefabs_independently_loaded": 49,
+  "component_checks": 259,
+  "palette_import_contract": "49 GLBs no embedded images; handling=0; runtime atlas lossless/no mipmaps and nearest shader sampling",
+  "process_exit_codes": {
+    "export": 0,
+    "source_placement": 0,
+    "import": 0,
+    "visual": 0,
+    "surface": 0,
+    "selftest": 0,
+    "click": 0,
+    "management": 0,
+    "components": 0
+  },
+  "feature_contract_sync_exit_code": 0,
+  "feature_contract_check_exit_code": 0,
+  "feature_contract_summary": "31 features, 365 source assets, 281 runtime hashes; 0 issues",
+  "final_visual_review": "Native front/back/top/context inspected; source fixed-camera front/back/side/top compared against optimized version."
+}

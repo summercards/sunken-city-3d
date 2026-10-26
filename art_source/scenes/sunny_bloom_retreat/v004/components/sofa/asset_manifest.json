@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-SOFA",
+  "name": "白垫双人木沙发",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/components/sofa/sofa.blend",
+  "source_sha256": "18a7cb3f57f0e7341b1bd43771283f04435862c4a119924c2f4d0e25eec19415",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/sofa/asset_manifest.json",
+  "version": "v004",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/sofa/sofa.glb",
+  "prefab": "godot/scenes/components/solar_cabin/sofa.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "d834a1375775f8c9d8a46ce58086f8743ee64dec046c4271b28afe51698cbf05",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v004：整体1.5倍修订，按实际可见实例复用；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/sofa/sofa.blend",
+      "source_sha256": "78c5985c428919db8f74f2137559c9bcf98160ca86b6638d866e776e1f6c71ac",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/sofa/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/sofa/sofa.blend",
+      "source_sha256": "3afca653a5101b88e8c209256dc68ae4a00c7940507b2afef2ebdf40820014f7",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/sofa/asset_manifest.json",
+      "version": "v003"
+    }
+  ],
+  "runtime_version": "1.1",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "sofa",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-SOFA"
+}

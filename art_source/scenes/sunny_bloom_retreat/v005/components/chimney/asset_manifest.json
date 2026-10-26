@@ -1,0 +1,49 @@
+{
+  "asset_id": "SEA-SCENE-SBR-CHIMNEY",
+  "name": "屋顶通风立柱",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v005/components/chimney/chimney.blend",
+  "source_sha256": "139858b7b54805732bb1ebc9c4f48d8a5166817fddecebf17b414e8360f8dc06",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/chimney/asset_manifest.json",
+  "version": "v005",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/chimney/chimney.glb",
+  "prefab": "godot/scenes/components/solar_cabin/chimney.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "59555a63da387767fde3e1b2d41488c053eaa727c5f3c3cb9394f6162e07d521",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v005：承重轴续柱、阳光房右移、底板加厚、桥延长和桥边绳/挂胎；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/chimney/chimney.blend",
+      "source_sha256": "6f333f0be77cd1f3544cf82c08a1953434bf9a8f865fea1499795d92ec159c5d",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/chimney/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/chimney/chimney.blend",
+      "source_sha256": "e9b104494cefa74e8c85b6a1049aa99f34d907c21099dd85c53c3c6b4f6fc5d9",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/chimney/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/chimney/chimney.blend",
+      "source_sha256": "40055ca21695275495ce036c0e0778702ff7c52bba9a52176fac3ecc4936d0d1",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/chimney/asset_manifest.json",
+      "version": "v004"
+    }
+  ],
+  "runtime_version": "1.2",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "8c9bbf0f6992730a9416c33422e9b57d7c0fb6bcb7799cee522cd72586f4fdf9",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "chimney",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-CHIMNEY"
+}

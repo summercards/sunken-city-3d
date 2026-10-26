@@ -59,3 +59,15 @@
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+
+## 太阳能木屋接入影响验证（2026-10-25）
+
+SEA-NAV：main 泊位随新栈桥移动，打捞台泊位保留；新增平台岸线范围，30 条跨泊位航路通过。 验证入口：`python3 scripts/run_verification.py surface click management selftest visual-solar-cabin`；[证据](../../development/2026-10-25_solar_cabin_integration.md)。
+
+## 太阳能木屋 v004（2026-10-25）
+
+SEA-NAV：同步新桥泊位及扩展岸线，30条航路本轮通过；未改变独立绞盘台泊位。 [当前证据](../../development/2026-10-25_solar_cabin_v004.md)。
+
+## 太阳能木屋 v005（2026-10-25）
+
+SEA-NAV：主桥泊位、登岸点及岸线随桥端向+Z延伸1.587米；30条跨区路线本轮通过，其他泊位不变。 [当前证据](../../development/2026-10-25_solar_cabin_v005.md)。

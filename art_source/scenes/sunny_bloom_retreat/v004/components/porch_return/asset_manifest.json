@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-PORCH-RETURN",
+  "name": "门廊后侧封墙",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/components/porch_return/porch_return.blend",
+  "source_sha256": "a34911f1abb614d8073fa0beb71b5214f084ce5155d71966399f8af7a76d0c71",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/porch_return/asset_manifest.json",
+  "version": "v004",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/porch_return/porch_return.glb",
+  "prefab": "godot/scenes/components/solar_cabin/porch_return.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "8e83ee0a29b1377bbe4ec70f774978d81eeb86fd1997960ac7caa8d046d3f38d",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "structure",
+  "scope": "scene_local",
+  "note": "v004：整体1.5倍修订，按实际可见实例复用；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/porch_return/porch_return.blend",
+      "source_sha256": "e23181e6287d17f666288845c2c60fe01b50f100275271fefc6a03c6167f5a35",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/porch_return/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/porch_return/porch_return.blend",
+      "source_sha256": "80fc0ec977b3639c388cd482d5ce7138d9bb356a4f254592bc76fdcb1406b48e",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/porch_return/asset_manifest.json",
+      "version": "v003"
+    }
+  ],
+  "runtime_version": "1.1",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "porch_return",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-PORCH-RETURN"
+}

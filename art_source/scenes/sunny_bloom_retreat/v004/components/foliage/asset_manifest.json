@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-FOLIAGE",
+  "name": "错落厚叶簇",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/components/foliage/foliage.blend",
+  "source_sha256": "9bc7f12a4ec2fb0b200fed05f4d278cd4153bafba431f83fc3c38e8cdb843776",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/foliage/asset_manifest.json",
+  "version": "v004",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/foliage/foliage.glb",
+  "prefab": "godot/scenes/components/solar_cabin/foliage.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "d51918c1eaafe0025eda0fc7c59cc4c717fe8b0789bc2c22f10e1e7b015f873d",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "flora",
+  "scope": "scene_local",
+  "note": "v004：整体1.5倍修订，按实际可见实例复用；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/foliage/foliage.blend",
+      "source_sha256": "fd66fe06af20f187f324c394e7025174915e91973a417591fe6fa1d589ad2226",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/foliage/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/foliage/foliage.blend",
+      "source_sha256": "088d16c18ba38182a683bddb0f0905d9d880aae6fa2c471619be53893bf75f3f",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/foliage/asset_manifest.json",
+      "version": "v003"
+    }
+  ],
+  "runtime_version": "1.1",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "foliage",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-FOLIAGE"
+}

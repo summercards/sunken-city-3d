@@ -67,10 +67,12 @@
     },
     {
       "path": "godot/assets/baked/shore.json",
-      "bytes": 2175,
-      "sha256": "965246146891da0e578515bcd1422b4d433fee3401780e8a2846b63ee0d7e8bf",
+      "bytes": 3013,
+      "sha256": "797a1ad47ce9db1793ee798a039c9de39d74a4e816482458e9415118552afc90",
       "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+      "status": "legacy_runtime_path_recorded_asset_registration_pending",
+      "previous_sha256": "c46d4fe299540465d3e426438debba9ee7c9bc2f373cdf6b660aea2a56b630de",
+      "note": "v005模型/行走/泊位已审阅变更"
     },
     {
       "path": "godot/assets/baked/textures/tex_0.png",
@@ -144,10 +146,12 @@
     },
     {
       "path": "godot/assets/data/build_sites.json",
-      "bytes": 628,
-      "sha256": "14057c1a32e8d07adb228a6c8d2edb4138a2b8a5d502ece488a1d088fc4b6693",
+      "bytes": 755,
+      "sha256": "04c841251402e249fce0ee02deb78a8a6bbd40fc2ce7b378137ff124c0a71dfb",
       "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+      "status": "legacy_runtime_path_recorded_asset_registration_pending",
+      "previous_sha256": "03da3ebbfb1eec9846e651c30b7f6f427cec4886df689c496658058d4c69de03",
+      "note": "v004模型/行走/泊位已审阅变更"
     },
     {
       "path": "godot/assets/data/crops.json",
@@ -158,10 +162,12 @@
     },
     {
       "path": "godot/assets/data/gather_spots.json",
-      "bytes": 1501,
-      "sha256": "0a2ecee9c8a58460a13c1fd5559b7108dc53f62ab917c6299c0951d8bc953d58",
+      "bytes": 1795,
+      "sha256": "e9ff6f9e71f0239cf816ba57eb5ac4dce5e742b2f322bd9229687c4c6473475a",
       "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+      "status": "legacy_runtime_path_recorded_asset_registration_pending",
+      "previous_sha256": "7934cbc35edff34cf40bf15bdfd3138132c35ac4fd844ba7aac9b68d99ca11be",
+      "note": "v004模型/行走/泊位已审阅变更"
     },
     {
       "path": "godot/assets/data/items.json",
@@ -186,10 +192,12 @@
     },
     {
       "path": "godot/assets/data/plants_zone1_home_harbor.json",
-      "bytes": 6869,
-      "sha256": "b53113bd6eb88e3c7396075839cb185bcb13941f7c6ae5e139cda0d782befdfe",
+      "bytes": 1783,
+      "sha256": "dd304524937b175cf411c2ae87ae407d7851ef763d71d3d39aacb64c0f8a146b",
       "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+      "status": "legacy_runtime_path_recorded_asset_registration_pending",
+      "previous_sha256": "b53113bd6eb88e3c7396075839cb185bcb13941f7c6ae5e139cda0d782befdfe",
+      "note": "本轮太阳能木屋接入的已审阅数据变更"
     },
     {
       "path": "godot/assets/data/plants_zone2_yokohama_station.json",
@@ -235,10 +243,12 @@
     },
     {
       "path": "godot/assets/data/zones.json",
-      "bytes": 7896,
-      "sha256": "7ffc9f0b1c4860646f5cf012ea81582d5ebb56940c02577a7558a2afb86b9416",
+      "bytes": 7972,
+      "sha256": "42726b30bfbc8ef6776b1e721aff8f688603bf012117d1f5afa2f41c70d66674",
       "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+      "status": "legacy_runtime_path_recorded_asset_registration_pending",
+      "previous_sha256": "e582a05b1aeccc991de30a6a831db92798c7fd0d58b070f9a7b1268de62601d2",
+      "note": "v005模型/行走/泊位已审阅变更"
     },
     {
       "path": "godot/assets/fonts/NotoSansSC-Regular.otf",
@@ -1551,6 +1561,726 @@
       "sha256": "89efb2e57f9f4c00b12bd614482d78060019b8351632e0930618634f9b695892",
       "asset_id": null,
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/legacy_home/material_bindings.json",
+      "bytes": 456,
+      "sha256": "1fca13139cf62907a381f3419e722df0230c0a5c9d05ee2a930b6203cfb1ac73",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/legacy_home/base_solar_cabin_harbor_surroundings.glb",
+      "bytes": 366500,
+      "sha256": "aaed49e41692f2f167fdcdca68004d0e1176a0735452a4afb46013f38cc4d8de",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/legacy_home/base_solar_cabin_rear_tower.glb",
+      "bytes": 41608,
+      "sha256": "0edefa356a9b47e8268094ffb182a400f471781c816d13f87ec0418c250bd53b",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/legacy_home/salvage_station.glb",
+      "bytes": 892424,
+      "sha256": "1beb8eaf207f44ff11890cc688fa3a7fd5843bb2ddc22d308cc8a48f85b42f6a",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/legacy_home/base_solar_cabin_core.glb",
+      "bytes": 43868,
+      "sha256": "8a2f728dfefe08dbafe271d8887aae659bd0248e3ecb645002ffaf1aa880fcbb",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/legacy_home/base_solar_cabin_front_deck.glb",
+      "bytes": 232712,
+      "sha256": "fae4cc0474d632e3c8d40a1052eb378a3224dd6308db4c69f87af7ba4092813b",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/instances.json",
+      "bytes": 84318,
+      "sha256": "c1ed326405d824de541070bae70b0593a551490c5ad378a0f438c7252f5328e9",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "ca4dae50158b09f392a30e409c1ff904b85bb96030651d514caf4f552c9d9408",
+      "note": "v006模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/solar/solar.glb",
+      "bytes": 51628,
+      "sha256": "07f4eb136e995bcb1457d58008f41954d9b194b7a92bd3d122c2b4c7952bc4e9",
+      "asset_id": "SEA-SCENE-SBR-SOLAR",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "a29a76160ad5a3fa18bb0bb4b2b20e878dd73a7b4f7533f5dcc803ee3fe28bf9",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/slope/slope.glb",
+      "bytes": 42264,
+      "sha256": "03e40c0c8ab42c46fe4800ed33a1cd485db433fe89839388f6e9bebee972683b",
+      "asset_id": "SEA-SCENE-SBR-SLOPE",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "216c0042702e4ab5c70f9f9eb246e76637cbeda2f991f42bab9644b7c84dcadb",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/mat/mat.glb",
+      "bytes": 40272,
+      "sha256": "179a18fe1af4f257055ff193429276da3ec8eea1611858403e444cbd42868695",
+      "asset_id": "SEA-SCENE-SBR-MAT",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "3e67c23f1d03e8d8315e1905dc433ee9869dae4d0598cf3ddd07ae0d8cc36079",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/canopy_hook/canopy_hook.glb",
+      "bytes": 60304,
+      "sha256": "db4e54eed0077664639fb451bdb92fa193e61a45b7fd7d608335c45704d2904d",
+      "asset_id": "SEA-SCENE-SBR-CANOPY-HOOK",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "c1e95890d12494ed50b65eb15d5dc4f99f339b987abfb9504750ad65a9bc0b69",
+      "note": "v004模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/ac_roof/ac_roof.glb",
+      "bytes": 63148,
+      "sha256": "c20342e909b1a38b2a1894ae68e90fd33d202ffcba3d312442f77ad8bd51d64b",
+      "asset_id": "SEA-SCENE-SBR-AC-ROOF",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "7caf0efd7cae5280f5c247def0c8327d828f68ca3962f8da1131f7b122b67cfd",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/daisy/daisy.glb",
+      "bytes": 217460,
+      "sha256": "6179367093a871262fce27cf67e8c00326da7767941aaf58ddd63072d6139189",
+      "asset_id": "SEA-SCENE-SBR-DAISY",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "0e170b1e1c26ee75f5843fa2a91e1abc127a6fa67e4d466ecdbdda509e046a93",
+      "note": "v004模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/canopy_beam/canopy_beam.glb",
+      "bytes": 11620,
+      "sha256": "13aa1381170e01eb908e63630a75d1c9d0c667767a368747254971ced441cff1",
+      "asset_id": "SEA-SCENE-SBR-CANOPY-BEAM",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "47e432ffc8dbb61fcbe0a0b8ac3605abe95201a252b9c0174986f643c5437b66",
+      "note": "v004模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/pink_flower/pink_flower.glb",
+      "bytes": 186604,
+      "sha256": "774aed03d8cd801cbb464f7f165b1a9b53cedca015b4b2c8e34cc8fa8df394b9",
+      "asset_id": "SEA-SCENE-SBR-PINK-FLOWER",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/terrace/terrace.glb",
+      "bytes": 80156,
+      "sha256": "596c674a3efe2b13cd49f36af7cb3b3b55d6c70bca68df6a77b93366865fe010",
+      "asset_id": "SEA-SCENE-SBR-TERRACE",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "4e8ffa0d29c7c808405ea58f8ac5a7e9db9f20648c0ef5c800452498fab848ae",
+      "note": "v006模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/vine/vine.glb",
+      "bytes": 861468,
+      "sha256": "a443c86dd95413b0d6190ae766200e16cffa7dfb22617bdd8caa5c30f206e188",
+      "asset_id": "SEA-SCENE-SBR-VINE",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/wall_pier/wall_pier.glb",
+      "bytes": 11620,
+      "sha256": "d47dcece3cc5198a041c70da2b7bbec0705773d815648f7954ad05d629c2daf9",
+      "asset_id": "SEA-SCENE-SBR-WALL-PIER",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "61034b5d94cc79dbe431b11e6b47904f2b9559848889a0a890fcd08b8d97f45c",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/entry/entry.glb",
+      "bytes": 186264,
+      "sha256": "5a0723cfe680a9cf5d6e5ece052523bf7cfdcf9558fbb384feff07ed3a9c14a3",
+      "asset_id": "SEA-SCENE-SBR-ENTRY",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "f146ec18e6c54652ac154b91492643e81befc67dd3073b02f95e83ee8b17739d",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/stool/stool.glb",
+      "bytes": 52484,
+      "sha256": "90a602c52b7161b8c376a83cc2e24a5550a8006841fce7574f24656db112133d",
+      "asset_id": "SEA-SCENE-SBR-STOOL",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "93ee2b47cf232cd8c1210faf66bf2093f505a8e9cde453d2c2b5fd1372aab361",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/coffee_table/coffee_table.glb",
+      "bytes": 52496,
+      "sha256": "eaef039241432268c179e58ec9806b9ad5b5fd2b017c9d064dc75e6fcce95f08",
+      "asset_id": "SEA-SCENE-SBR-COFFEE-TABLE",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "aecc2434d3aaec39b056c68b2dc9c7e64f97f4926397f6002b359ebb99cfc682",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/sprout/sprout.glb",
+      "bytes": 204848,
+      "sha256": "bfab128d71f1e8057edacbba66a168e6cccd5eb0ced8662c6213e1f1b44fa8ef",
+      "asset_id": "SEA-SCENE-SBR-SPROUT",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "6ec4a0399f270c1fcce3c87d1359e1dca455e8b7ccd4097a90ac60911181d63a",
+      "note": "v004模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/lantern/lantern.glb",
+      "bytes": 91896,
+      "sha256": "85865a35b266b0dcf332674d60defc609059311fdb1cad2eda3dc629f0048018",
+      "asset_id": "SEA-SCENE-SBR-LANTERN",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "817b5ff9aa167d5fb52e473161804b1a71f945265b43babc66e2f99c343626ea",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/ac_tall/ac_tall.glb",
+      "bytes": 57524,
+      "sha256": "9045a0dbfec345579844a975d6240cee4d92d32ed2940d29a50b1f6e7d85f8f5",
+      "asset_id": "SEA-SCENE-SBR-AC-TALL",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "cd160b4653d305749cf3cccc4d09f00707d042f9c99dd60accd31d4a3c72091b",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/foundation/foundation.glb",
+      "bytes": 11616,
+      "sha256": "ba7f7cd265b66d9213639861ded414487d0ef807a971f5a2be02344bb047d52e",
+      "asset_id": "SEA-SCENE-SBR-FOUNDATION",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/ladder/ladder.glb",
+      "bytes": 177352,
+      "sha256": "91941abac0a5ef05181b0592152e22e46aa8f2503e41425a7bf605777617d6ec",
+      "asset_id": "SEA-SCENE-SBR-LADDER",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "64257b14c44005d8530c68e25bfa6753aefa811261ed577be5f8d85c210238bd",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/tall_window/tall_window.glb",
+      "bytes": 82344,
+      "sha256": "1a1417941bc3d4597b09caa3bf168448bf2b0badfab885e8a88d63d48f895ee9",
+      "asset_id": "SEA-SCENE-SBR-TALL-WINDOW",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "5a7813b5b1134374219f43b95aaf3f8a1444aa9fb429fb9b027d504048bc9777",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/vase/vase.glb",
+      "bytes": 91772,
+      "sha256": "6ef2a37a49a38f065201900cfb77bd22f1f2ff5bf66b942fef812e823f736f17",
+      "asset_id": "SEA-SCENE-SBR-VASE",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "a10e423fe22effc2b4971387f074b75dfed39da58a25e38b5b0ee1b32494c988",
+      "note": "v004模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/sail/sail.glb",
+      "bytes": 73372,
+      "sha256": "1ba75c9fe19a3914aff98ca757eb54497c80712a84e634afc24420555ab972f4",
+      "asset_id": "SEA-SCENE-SBR-SAIL",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "4638ea65081825ece852ac929f2b896d8d0a5d2d703974caa0de127a1cc0a951",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/porch_side/porch_side.glb",
+      "bytes": 102688,
+      "sha256": "e7b9e445f54d38fc1b8abe8ff86bf01b303c24d1e55902cb0089e1b934ea18c1",
+      "asset_id": "SEA-SCENE-SBR-PORCH-SIDE",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "a296128faa68d5b428529f50668a069252e297a5cb639b61515f22d0bba67ced",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/cap/cap.glb",
+      "bytes": 11584,
+      "sha256": "7cc63f16b80b5e57bb003fdae4f52abc95fab22dea7f74b9d7ade971812fbc75",
+      "asset_id": "SEA-SCENE-SBR-CAP",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "f20f755ece9a346a9815bd7a0bc66437eb806532838bf1f249d0d5ee99a9bd5e",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/ac_box/ac_box.glb",
+      "bytes": 63172,
+      "sha256": "45b34cd179a1969e801bf693d7e3870201b06b425e9a13f9b64010a14930c653",
+      "asset_id": "SEA-SCENE-SBR-AC-BOX",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "c71518e6e260bea9a22c8ef921afbd25d91968347e45970b7b21d7ed74c114df",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/pot/pot.glb",
+      "bytes": 81196,
+      "sha256": "4eed37e2ede964cdea0ebd8f790c99801fc2f984ace0e4d34866868f060c9d45",
+      "asset_id": "SEA-SCENE-SBR-POT",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/parapet/parapet.glb",
+      "bytes": 11612,
+      "sha256": "a24437b7d665362729d5101dec02266eed14ea26f53b0f0019d9c353ec74255b",
+      "asset_id": "SEA-SCENE-SBR-PARAPET",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "3730018a3f0f9bac04033e991813219bc7ab9aba1e3d12f150341accaf78d7da",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/sofa/sofa.glb",
+      "bytes": 124052,
+      "sha256": "7d8ed4b183725f8b63f4de9a0477ac783c1fc9cffa096ba3f2cc5a9d09a3ff5c",
+      "asset_id": "SEA-SCENE-SBR-SOFA",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "d4a646176bd59bc8c01b78d8c42ba1d9c73f9a63cf5c0c0778eb5f226063ae39",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/cooler/cooler.glb",
+      "bytes": 42248,
+      "sha256": "cb008ed08e732c09eeae79742819553bc28df0cb863e6cf48fa1ef32de5e1440",
+      "asset_id": "SEA-SCENE-SBR-COOLER",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "e63faaae42124db7b1de9e48998e725235f371df064a643424d617c00d7dc6e9",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/narrow_window/narrow_window.glb",
+      "bytes": 72132,
+      "sha256": "c233d961283be58716af612293ab7921d6afc3aab15d93611ed1a0df18db7bbf",
+      "asset_id": "SEA-SCENE-SBR-NARROW-WINDOW",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "fc8c2fd6e36fa8d02ca259b8445bd972fc21167414f86c2d1f9b1b8394f3bcfb",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/table/table.glb",
+      "bytes": 52484,
+      "sha256": "7ddb1cead89aef51e270789ec85c60c5dd512dad1d2ef6f61e674405f10517ae",
+      "asset_id": "SEA-SCENE-SBR-TABLE",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "ca5f942d48772a8cd500c235b8e458e8203a0a03cfe146592a50aa1807e0c06b",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/chimney/chimney.glb",
+      "bytes": 20044,
+      "sha256": "d8b53505ac98fd959ccdc7e0a6da98acee8b10d144107f8c2dc3132e5a7e92f2",
+      "asset_id": "SEA-SCENE-SBR-CHIMNEY",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "952ff40e695777fccbb9e7adf2d48d1758b4ca85e221782f2b9a97e4e0ff8cab",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/awning/awning.glb",
+      "bytes": 494380,
+      "sha256": "ac951466e672702ad4505c5184ffcc0cde9190ec6d55284bb935b1085417c8ad",
+      "asset_id": "SEA-SCENE-SBR-AWNING",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "32d8ff7c6714c178b3067a5c42efa2dbcc21206ad908afed8ab357130e97521e",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/upper_room/upper_room.glb",
+      "bytes": 11588,
+      "sha256": "f0f0912cb2bf736e135526db559b285598a5b7e76d8da252405d8b9b0cfa68d0",
+      "asset_id": "SEA-SCENE-SBR-UPPER-ROOM",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "0ea1fe8c50a20b9af8c7c01eeb2b9dd180716d4df69ca81208f203bb691857d2",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/foliage/foliage.glb",
+      "bytes": 371792,
+      "sha256": "cb37a7fb12e93a009eae7d027da465cde501cde195dd56266aea9c67c1841120",
+      "asset_id": "SEA-SCENE-SBR-FOLIAGE",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/umbrella/umbrella.glb",
+      "bytes": 260004,
+      "sha256": "69a004bf8a12ebdaa08a947a568684a8b1f70c7e95df6aedebe9636aa5946cc3",
+      "asset_id": "SEA-SCENE-SBR-UMBRELLA",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "d34f0fa318dfb120c8b45e7b8d4d4bfc5f545d62565dcb4cdfb0f02aeedd955f",
+      "note": "v004模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/house/house.glb",
+      "bytes": 62508,
+      "sha256": "b9561aee3d68459ef2a81cafcefc42a3d3ce8f5530c3b48d24504f8ba4d456ce",
+      "asset_id": "SEA-SCENE-SBR-HOUSE",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "54476babd3da22da02207b71ff0c788a752ce5323c109fde746d8db649aecb70",
+      "note": "v006模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/porch_return/porch_return.glb",
+      "bytes": 11620,
+      "sha256": "a8df453c7f8dec9f8f2aabc1052a346a042ddb442cb7850e29ea57bfea0daa83",
+      "asset_id": "SEA-SCENE-SBR-PORCH-RETURN",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "06331f3a2212a02013b87be1296470bb55aafea939604032a0ed8513a68520db",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/deck_tile/deck_tile.glb",
+      "bytes": 11620,
+      "sha256": "62384cce1be31bc942f34bad18106f3ba859955284d026fd27ce1899847ccf82",
+      "asset_id": "SEA-SCENE-SBR-DECK-TILE",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/canopy_post/canopy_post.glb",
+      "bytes": 11636,
+      "sha256": "c32c4021e1263cc3d30acd37e800607d96338cb1aba13f160ca0354ed80560ff",
+      "asset_id": "SEA-SCENE-SBR-CANOPY-POST",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "2715fcdd5f019028e2b7720ff211d2c1007e9e604db85475ca7d5e23158f4ecc",
+      "note": "v006模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/bollard/bollard.glb",
+      "bytes": 93524,
+      "sha256": "db51d0927e88cf3ba147f8832495670b7a207339e9b786e86a20f9849dfc51ed",
+      "asset_id": "SEA-SCENE-SBR-BOLLARD",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "8ef59efb159ebfc9a81e3efc2780f8f33175090c3810ea9fb36ab50da7dbbf4e",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/bottle/bottle.glb",
+      "bytes": 72376,
+      "sha256": "df88a20d0a539ae82afb43faafde113f6e907b3998afe2df546a01b7838e4299",
+      "asset_id": "SEA-SCENE-SBR-BOTTLE",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "029b1b9fb288f0e7df8f8948b57cedaa14a77b781808ec726ac1496f58abed02",
+      "note": "v004模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/pier/pier.glb",
+      "bytes": 11608,
+      "sha256": "75c204d715087e0daf1ccdbddda1d55bb8018e2f091032bd198c653e4b357772",
+      "asset_id": "SEA-SCENE-SBR-PIER",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/small_window/small_window.glb",
+      "bytes": 72132,
+      "sha256": "e4f45758970f1881a273cfc6b971bc39c1db69c45289cab96006c17bb12a8230",
+      "asset_id": "SEA-SCENE-SBR-SMALL-WINDOW",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "a53994bbe49fdcf6a25e873c603769e0b079ddaeda9e5b25d1e8a466aaeaf6f6",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/dock_board/dock_board.glb",
+      "bytes": 11628,
+      "sha256": "3f68b16be82a81318145d86f6ea814102e43f1cd8cd82cb2a1ec047eee319de5",
+      "asset_id": "SEA-SCENE-SBR-DOCK-BOARD",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "788cfc70f4a172ffb81193db9618d090dcc5f2e33d008710ee0d89bad58f3ec5",
+      "note": "v006模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/palm/palm.glb",
+      "bytes": 503348,
+      "sha256": "1b8285c8b56a3b30176458cc3cd9eb0a06f079ab88507b9943eea7056232bb57",
+      "asset_id": "SEA-SCENE-SBR-PALM",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/square_pot/square_pot.glb",
+      "bytes": 20112,
+      "sha256": "3a39651205ce80458db8d46bbc51e39719078cd442303999975f1e0532cdf4e3",
+      "asset_id": "SEA-SCENE-SBR-SQUARE-POT",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "dcb79073efd2a45e3019a481d6b82dc227472bad0a1a34d2461e47ea7c357670",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/door/door.glb",
+      "bytes": 76140,
+      "sha256": "647703905f7b76a7ab1cc7816f227ab291ffabca686dc040d6e322efe1808ce9",
+      "asset_id": "SEA-SCENE-SBR-DOOR",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "4c557a3d9f556eb75da899e416681703822680558ac5636d47e2bbcc72553bd1",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/roof_sofa/roof_sofa.glb",
+      "bytes": 113840,
+      "sha256": "f648312786616b77f249791b0e3906f0c8567dbee162b1243350ccbb13fd59ab",
+      "asset_id": "SEA-SCENE-SBR-ROOF-SOFA",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "e939d7a1e4bf6e9d4e4bee896eef3fa60dc05282b93df391e7d72d9baa31158f",
+      "note": "v005模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/materials/solar_cabin/sunny_emission.tres",
+      "bytes": 493,
+      "sha256": "9faf536291e60d5455416d27054630f8016408a52e246f7addb23e6e7c8d111e",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/materials/solar_cabin/sunny_matte.tres",
+      "bytes": 490,
+      "sha256": "e501c37249277339d678fd23ec0d0c02b7394e843b88fc33f5a9c6100741f9ec",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/materials/solar_cabin/sunny_gloss.tres",
+      "bytes": 496,
+      "sha256": "e7d6492279a4e6e8a467e16488a3d252194a94285f75c87c2cc60ec9cd9fc7d2",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/materials/solar_cabin/sunny_metal.tres",
+      "bytes": 492,
+      "sha256": "d91d7e8c3bf7cf7c8be83d7a0a5c1ca3071d7ab686dc367f33cbb9a1fc1eefca",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/textures/shared/sea_cozy_8x8_512.png",
+      "bytes": 5695,
+      "sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/concrete_slab/concrete_slab.glb",
+      "bytes": 119036,
+      "sha256": "cf8ebd2fa6ddc0e67fd75de60a26b9239831dabf855a9a6626a83a745acf4049",
+      "asset_id": "SEA-SCENE-SBR-CONCRETE-SLAB",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "871ad58aee565375e3927fc4ce2aa542358fc7bd639da22bf13538354d2bf259",
+      "note": "v006模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/platform_board/platform_board.glb",
+      "bytes": 11604,
+      "sha256": "d48d0e34cee9c9d87d7bbb417617629585c593685b104857bf7ecb787d0fabd7",
+      "asset_id": "SEA-SCENE-SBR-PLATFORM-BOARD",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "db1c25d5b2cf0dabad1a999aff98f7858e4968fa62e95dbb5c3c600fe9360797",
+      "note": "v006模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/revision_metrics.json",
+      "bytes": 41,
+      "sha256": "d355cc48ad621cbece83af4f7c45270a44775cdbf51434434432d2d33320ae14",
+      "asset_id": "SEA-SCENE-SBR-ASSEMBLY",
+      "status": "runtime_integrated_verified",
+      "previous_sha256": "c95ca5eae15045f4ac62ba44c23d7fac22274bc3ae68737c697674b9c0d57c3f",
+      "note": "v006模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/bridge_rope/bridge_rope.glb",
+      "bytes": 186296,
+      "sha256": "0be3de1da2192723a6614011b82881a4fe199d317063ad482062174d6c306975",
+      "asset_id": "SEA-SCENE-SBR-BRIDGE-ROPE",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/solar_cabin/components/hanging_tire/hanging_tire.glb",
+      "bytes": 275460,
+      "sha256": "e2325564fdac8156746b64f918e8791c8629b9ccc8b1a9254351a677fff5348c",
+      "asset_id": "SEA-SCENE-SBR-HANGING-TIRE",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/facade_bay/facade_bay.glb",
+      "bytes": 42296,
+      "sha256": "d1fa6d5cffcc61f1fac90f3836999a9dac6752eb4d37a6e18d500000b13d1969",
+      "asset_id": "SEA-SCENE-BLB-FACADE-BAY",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/end_bay/end_bay.glb",
+      "bytes": 42292,
+      "sha256": "cf62d16ade5f86fca4f9ded5b8ea9830f24c667ac16989924f1acdb8c061f024",
+      "asset_id": "SEA-SCENE-BLB-END-BAY",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/return_bay/return_bay.glb",
+      "bytes": 42300,
+      "sha256": "d5e995a74ce3d837caaa978462d99c8e2d7cd6930cb700b50f299de933a07841",
+      "asset_id": "SEA-SCENE-BLB-RETURN-BAY",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/floor_slab/floor_slab.glb",
+      "bytes": 11640,
+      "sha256": "394b8b5fc0b7b5a17c1e9ece8e3ebeea517b77c4c6d72cdd668ee54e3bab5b9e",
+      "asset_id": "SEA-SCENE-BLB-FLOOR-SLAB",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/roof_slab/roof_slab.glb",
+      "bytes": 11636,
+      "sha256": "730672ba7720c76fa15f6c0380cbebcb9a3454ea26f8ac7ae16d6533d5625823",
+      "asset_id": "SEA-SCENE-BLB-ROOF-SLAB",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/roof_tile/roof_tile.glb",
+      "bytes": 11640,
+      "sha256": "9e2300d0d638ec174fa81c0c2cbd5fda6442073dd461e744430e42bbb3062a92",
+      "asset_id": "SEA-SCENE-BLB-ROOF-TILE",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/roof_rim/roof_rim.glb",
+      "bytes": 11640,
+      "sha256": "911fd5a16631e3dea39edf7a5371e93c4642ac50ea23e0a3285077d9af125202",
+      "asset_id": "SEA-SCENE-BLB-ROOF-RIM",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/foundation/foundation.glb",
+      "bytes": 11640,
+      "sha256": "298621fb68ced88c0bf5b705c531b137eb250f5be8bf8458aa53852c38c5eb1c",
+      "asset_id": "SEA-SCENE-BLB-FOUNDATION",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/wall_pier/wall_pier.glb",
+      "bytes": 11644,
+      "sha256": "bb3e7b52a343e248640d42d2e1aed299da8bdad5d3101b2b13369a088bcda225",
+      "asset_id": "SEA-SCENE-BLB-WALL-PIER",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/blue_column/blue_column.glb",
+      "bytes": 21864,
+      "sha256": "d30a120ef9eb9f2ed711413922a5d7c9641dc3beead4ffbdaa19bfdd547085d2",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLUMN",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/blue_collar/blue_collar.glb",
+      "bytes": 21864,
+      "sha256": "9cb6f2ea59979911d3361022b1c35b9bc55e8fe5232f2a235bfe720e1f53aa0d",
+      "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/wide_window/wide_window.glb",
+      "bytes": 79580,
+      "sha256": "f66199c223a8f9ac63b2459f07fe237c13c540324edcc77dc379f76267e829da",
+      "asset_id": "SEA-SCENE-BLB-WIDE-WINDOW",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/end_window/end_window.glb",
+      "bytes": 79580,
+      "sha256": "7310ea7832682a05bed9d5bf58a33d06aa00c5a793845f1807eb399af4d80ffa",
+      "asset_id": "SEA-SCENE-BLB-END-WINDOW",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/return_window/return_window.glb",
+      "bytes": 52520,
+      "sha256": "f23b5b46cf1092dd7601706021065797fcf48f6913ee829d62162d72502f42e0",
+      "asset_id": "SEA-SCENE-BLB-RETURN-WINDOW",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/air_conditioner/air_conditioner.glb",
+      "bytes": 153196,
+      "sha256": "c12492eb234194b1f203bf446a6874b7b85f80cbd4b2257c6996a6ff7a5637b8",
+      "asset_id": "SEA-SCENE-BLB-AIR-CONDITIONER",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/leaf_cluster/leaf_cluster.glb",
+      "bytes": 340952,
+      "sha256": "aaadad69748d0e5cd64e938b549b98076b760786cf43064631288e669d96f9c2",
+      "asset_id": "SEA-SCENE-BLB-LEAF-CLUSTER",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/edge_cluster/edge_cluster.glb",
+      "bytes": 495276,
+      "sha256": "b5c2deff752d4b66e6225226ff1bd018cf65efac698c231180df0f8983e30754",
+      "asset_id": "SEA-SCENE-BLB-EDGE-CLUSTER",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/vine_long/vine_long.glb",
+      "bytes": 803956,
+      "sha256": "e0bccf0a95fd195d8f9a7efabbd09c77bf37761fd098e31593c672bd72ca0add",
+      "asset_id": "SEA-SCENE-BLB-VINE-LONG",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/vine_short/vine_short.glb",
+      "bytes": 591308,
+      "sha256": "87924b34776b987ed0358962041e21f24c274f3b85a9a6da202e824c8e52ffc5",
+      "asset_id": "SEA-SCENE-BLB-VINE-SHORT",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/pink_flower/pink_flower.glb",
+      "bytes": 186628,
+      "sha256": "2ea3e706bab80317cddc60b76300f41106844746df99f4701da0b0ad6fd8b8fb",
+      "asset_id": "SEA-SCENE-BLB-PINK-FLOWER",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/white_flower/white_flower.glb",
+      "bytes": 186628,
+      "sha256": "23dc3275ff66b5d61d1bbf7d841c4521e08ca0e96bca3555367dc7b4e112cc1b",
+      "asset_id": "SEA-SCENE-BLB-WHITE-FLOWER",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/components/yellow_buds/yellow_buds.glb",
+      "bytes": 94036,
+      "sha256": "3eb9c0356f5600e4e589d5d34225d01b594a1aad8360ba43797a100bff03016f",
+      "asset_id": "SEA-SCENE-BLB-YELLOW-BUDS",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/instances.json",
+      "bytes": 168257,
+      "sha256": "efe694cb7b9026c1be58b6a5863cc73c54cf9dfb33e772aa7c81500736749e2a",
+      "asset_id": "SEA-SCENE-BLB-ASSEMBLY",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/bloom_lower_building/revision_metrics.json",
+      "bytes": 41,
+      "sha256": "44cd8ae905d0d18ca588af405848a0cc0f7ba2af105bc7a1d69c43762b478379",
+      "asset_id": "SEA-SCENE-BLB-ASSEMBLY",
+      "status": "runtime_integrated_verified"
     }
   ]
 }

@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-TALL-WINDOW",
+  "name": "左侧双扇宽窗",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/components/tall_window/tall_window.blend",
+  "source_sha256": "8cb53c96e6cf5da41500481b69055a62339b6b8de7128a885a07440b59648bfe",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/tall_window/asset_manifest.json",
+  "version": "v004",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/tall_window/tall_window.glb",
+  "prefab": "godot/scenes/components/solar_cabin/tall_window.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "17e55789bbc18291905f8a1733286f32ec1065360b00838c7d3d3eea89a6cbf3",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v004：整体1.5倍修订，按实际可见实例复用；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/tall_window/tall_window.blend",
+      "source_sha256": "6258f26db3c164b2306728457ebf6207e2631e3425b80a909ba87d5af9518926",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/tall_window/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/tall_window/tall_window.blend",
+      "source_sha256": "188f7f5edf0d6e4258e3a6ab138bef623726887aba07988a11b71a9fefed86b4",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/tall_window/asset_manifest.json",
+      "version": "v003"
+    }
+  ],
+  "runtime_version": "1.1",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "tall_window",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-TALL-WINDOW"
+}

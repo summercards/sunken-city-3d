@@ -1,0 +1,55 @@
+{
+  "asset_id": "SEA-SCENE-SBR-COFFEE-TABLE",
+  "name": "低木茶几",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v006/components/coffee_table/coffee_table.blend",
+  "source_sha256": "d6769dfea97ee1972b0fc06a6b91958d7e9b4ab15f14df42b9a3cb4b68849ff2",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/coffee_table/asset_manifest.json",
+  "version": "v006",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/coffee_table/coffee_table.glb",
+  "prefab": "godot/scenes/components/solar_cabin/coffee_table.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "4188dec3dd2e0c79ea384c599f87db98943b9a6fcca5598296e916ce914a0fde",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/coffee_table/coffee_table.blend",
+      "source_sha256": "0931145ffdc45b2c98d236aa4030eb7742be70c2f81f83503e482e1a03412658",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/coffee_table/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/coffee_table/coffee_table.blend",
+      "source_sha256": "d8d1d3de99b8c58b59fb9fb6453ec7170e1702227ab2e5c3cfba7606c659cec9",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/coffee_table/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/coffee_table/coffee_table.blend",
+      "source_sha256": "f05ff0efae3026fd24210bd007b7235ba3257c8aeaf67db06a49a49b6fb14f16",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/coffee_table/asset_manifest.json",
+      "version": "v004"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/coffee_table/coffee_table.blend",
+      "source_sha256": "8b814cfa89df69bff34b0b422b921917ce8025c20bd62cda666d635a37b2fa2a",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/coffee_table/asset_manifest.json",
+      "version": "v005"
+    }
+  ],
+  "runtime_version": "1.3",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v006/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "2059759555c0bef709ebf13b417df8305514112b89d214eb5e225a04795e9e73",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v006/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "coffee_table",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-COFFEE-TABLE"
+}

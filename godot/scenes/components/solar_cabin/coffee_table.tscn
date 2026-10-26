@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/world/sunny_palette_binding.gd" id="bind"]
+[ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/coffee_table/coffee_table.glb" id="visual"]
+[node name="低木茶几" type="Node3D"]
+script = ExtResource("bind")
+metadata/asset_id = "SEA-SCENE-SBR-COFFEE-TABLE"
+[node name="Visual" parent="." instance=ExtResource("visual")]

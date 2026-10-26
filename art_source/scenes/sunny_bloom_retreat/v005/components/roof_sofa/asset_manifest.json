@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-ROOF-SOFA",
+  "name": "露台单黄抱枕沙发",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v005/components/roof_sofa/roof_sofa.blend",
+  "source_sha256": "e65e7e4335795deb2cb6a3b319b04751000ae7188bacf9b0c5e72e963446bed6",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/roof_sofa/asset_manifest.json",
+  "version": "v005",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/roof_sofa/roof_sofa.glb",
+  "prefab": "godot/scenes/components/solar_cabin/roof_sofa.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "72c246ea9b7a2a10ddf167fb4e18af3ff73a06418d605b00b44fcd4828a8770a",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v005：承重轴续柱、阳光房右移、底板加厚、桥延长和桥边绳/挂胎；建筑与花草分离。",
+  "runtime_version": "1.2",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "8c9bbf0f6992730a9416c33422e9b57d7c0fb6bcb7799cee522cd72586f4fdf9",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/roof_sofa/roof_sofa.blend",
+      "source_sha256": "c35beb57fbf3c93ec1773939a8f325e50dd47debbbacc26787344b6ec1d8bfc6",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/roof_sofa/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/roof_sofa/roof_sofa.blend",
+      "source_sha256": "145873d79f83c5d2c21e839a0472336596a9faf58ba369abc52f855927c8800b",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/roof_sofa/asset_manifest.json",
+      "version": "v004"
+    }
+  ],
+  "asset_key": "roof_sofa",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-ROOF-SOFA"
+}

@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-NARROW-WINDOW",
+  "name": "后部建筑-加宽前窗",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v005/components/narrow_window/narrow_window.blend",
+  "source_sha256": "6cf276d1a51003269b310b453f4305d2809e4c640ec098c0c3619de9dee4c6b6",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/narrow_window/asset_manifest.json",
+  "version": "v005",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/narrow_window/narrow_window.glb",
+  "prefab": "godot/scenes/components/solar_cabin/narrow_window.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "97ab521eb4c1b9b88191cf76651e0db54f4557fb84071b1da1d2322d15955291",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v005：承重轴续柱、阳光房右移、底板加厚、桥延长和桥边绳/挂胎；建筑与花草分离。",
+  "runtime_version": "1.2",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "8c9bbf0f6992730a9416c33422e9b57d7c0fb6bcb7799cee522cd72586f4fdf9",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v005/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/narrow_window/narrow_window.blend",
+      "source_sha256": "9ddaaf9be163fcfd9a8dd005c174956947cdbc00991a54e030e6a4778e6c8a01",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/narrow_window/asset_manifest.json",
+      "version": "v003"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v004/components/narrow_window/narrow_window.blend",
+      "source_sha256": "e351c4b0b195656f4627d63cde9d6a12f11a30a270e854d67299fa963217bece",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/narrow_window/asset_manifest.json",
+      "version": "v004"
+    }
+  ],
+  "asset_key": "narrow_window",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-NARROW-WINDOW"
+}

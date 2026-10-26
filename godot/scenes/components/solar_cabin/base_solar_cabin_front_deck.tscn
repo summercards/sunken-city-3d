@@ -1,0 +1,6 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/world/legacy_facility_materials.gd" id="bind"]
+[ext_resource type="PackedScene" path="res://assets/models/facilities/legacy_home/base_solar_cabin_front_deck.glb" id="visual"]
+[node name="base_solar_cabin_front_deck" type="Node3D"]
+script = ExtResource("bind")
+[node name="Visual" parent="." instance=ExtResource("visual")]

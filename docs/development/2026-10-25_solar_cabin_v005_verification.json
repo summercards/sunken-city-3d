@@ -1,0 +1,189 @@
+{
+  "version": "v005",
+  "runtime_version": "1.2",
+  "source": {
+    "passed": true,
+    "errors": [],
+    "components": 47,
+    "instances": 163,
+    "uv_faces_checked": 37486,
+    "packages_reopened": 47,
+    "modules_reopened": 4,
+    "source_sha256": "71dbc5d0f41171e4410376fee3c285c6ecabe9b6c54fba4b9dae3086da00cb2e",
+    "source_only": true
+  },
+  "protected_sources": {
+    "art_source/scenes/sunny_bloom_retreat/v004/sunny_bloom_retreat.blend": "a761ca7e188d0edd6333cf9c024f593b9b28d2d6d37798fac3552be09b2c00d5",
+    "art_source/shared/palettes/sea_cozy_8x8_512.png": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1"
+  },
+  "before_backup": "/Users/summercards/WorkBuddy/sea-work/solar_cabin_revision_v005/before",
+  "before_backup_files": 187,
+  "runtime": {
+    "bounds_min": [
+      -1.57054793834686,
+      1.14375007152557,
+      -4.60899925231934
+    ],
+    "bounds_size": [
+      15.9534177780151,
+      11.4645795822144,
+      22.6061248779297
+    ],
+    "checks": 112,
+    "component_count": 47,
+    "deck_y": 2.15,
+    "expanded_triangles": 355102,
+    "failures": 0,
+    "front_godot": [
+      0,
+      0,
+      1
+    ],
+    "revision_scale": 1.5,
+    "total_scale_over_v003": 1.725,
+    "uniform_source_scale": 1.15,
+    "yaw_degrees": 0
+  },
+  "runtime_results": {
+    "visual-solar-cabin": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-225130-solar-cabin-v005-3d6e6c/visual-solar-cabin.log",
+      "renderer": "real",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-225130-solar-cabin-v005-3d6e6c/project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_solar_cabin_asset.gd"
+      ]
+    },
+    "solar-components": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-225130-solar-cabin-v005-3d6e6c/solar-components.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-225130-solar-cabin-v005-3d6e6c/project",
+        "--headless",
+        "--script",
+        "res://tests/test_solar_components.gd"
+      ]
+    },
+    "surface": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-225130-solar-cabin-v005-3d6e6c/surface.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-225130-solar-cabin-v005-3d6e6c/project",
+        "--headless",
+        "--script",
+        "res://tests/test_surface_movement.gd"
+      ]
+    },
+    "selftest": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [
+        "ERROR: Parse JSON failed. Error at line 0: Expected key"
+      ],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-225130-solar-cabin-v005-3d6e6c/selftest.log",
+      "renderer": "headless",
+      "command": [
+        "/Users/summercards/Applications/Godot.app/Contents/MacOS/Godot",
+        "--path",
+        "/Users/summercards/WorkBuddy/sea-work/verification/20261025-225130-solar-cabin-v005-3d6e6c/project",
+        "--headless",
+        "--",
+        "--selftest",
+        "--nosave"
+      ]
+    }
+  },
+  "run_dir": "/Users/summercards/WorkBuddy/sea-work/verification/20261025-225130-solar-cabin-v005-3d6e6c",
+  "optimization": {
+    "before": 357116,
+    "after": 355102,
+    "reduction_ratio": 0.005639624099732288
+  },
+  "fidelity_views_reviewed": [
+    "front",
+    "back",
+    "side",
+    "top"
+  ],
+  "runtime_hash_updates": [
+    "godot/assets/baked/shore.json",
+    "godot/assets/data/zones.json",
+    "godot/assets/models/facilities/solar_cabin/instances.json",
+    "godot/assets/models/facilities/solar_cabin/components/solar/solar.glb",
+    "godot/assets/models/facilities/solar_cabin/components/slope/slope.glb",
+    "godot/assets/models/facilities/solar_cabin/components/mat/mat.glb",
+    "godot/assets/models/facilities/solar_cabin/components/ac_roof/ac_roof.glb",
+    "godot/assets/models/facilities/solar_cabin/components/terrace/terrace.glb",
+    "godot/assets/models/facilities/solar_cabin/components/wall_pier/wall_pier.glb",
+    "godot/assets/models/facilities/solar_cabin/components/entry/entry.glb",
+    "godot/assets/models/facilities/solar_cabin/components/stool/stool.glb",
+    "godot/assets/models/facilities/solar_cabin/components/coffee_table/coffee_table.glb",
+    "godot/assets/models/facilities/solar_cabin/components/lantern/lantern.glb",
+    "godot/assets/models/facilities/solar_cabin/components/ac_tall/ac_tall.glb",
+    "godot/assets/models/facilities/solar_cabin/components/ladder/ladder.glb",
+    "godot/assets/models/facilities/solar_cabin/components/tall_window/tall_window.glb",
+    "godot/assets/models/facilities/solar_cabin/components/sail/sail.glb",
+    "godot/assets/models/facilities/solar_cabin/components/porch_side/porch_side.glb",
+    "godot/assets/models/facilities/solar_cabin/components/cap/cap.glb",
+    "godot/assets/models/facilities/solar_cabin/components/ac_box/ac_box.glb",
+    "godot/assets/models/facilities/solar_cabin/components/parapet/parapet.glb",
+    "godot/assets/models/facilities/solar_cabin/components/sofa/sofa.glb",
+    "godot/assets/models/facilities/solar_cabin/components/cooler/cooler.glb",
+    "godot/assets/models/facilities/solar_cabin/components/narrow_window/narrow_window.glb",
+    "godot/assets/models/facilities/solar_cabin/components/table/table.glb",
+    "godot/assets/models/facilities/solar_cabin/components/chimney/chimney.glb",
+    "godot/assets/models/facilities/solar_cabin/components/awning/awning.glb",
+    "godot/assets/models/facilities/solar_cabin/components/upper_room/upper_room.glb",
+    "godot/assets/models/facilities/solar_cabin/components/house/house.glb",
+    "godot/assets/models/facilities/solar_cabin/components/porch_return/porch_return.glb",
+    "godot/assets/models/facilities/solar_cabin/components/canopy_post/canopy_post.glb",
+    "godot/assets/models/facilities/solar_cabin/components/bollard/bollard.glb",
+    "godot/assets/models/facilities/solar_cabin/components/small_window/small_window.glb",
+    "godot/assets/models/facilities/solar_cabin/components/dock_board/dock_board.glb",
+    "godot/assets/models/facilities/solar_cabin/components/square_pot/square_pot.glb",
+    "godot/assets/models/facilities/solar_cabin/components/door/door.glb",
+    "godot/assets/models/facilities/solar_cabin/components/roof_sofa/roof_sofa.glb",
+    "godot/assets/models/facilities/solar_cabin/components/concrete_slab/concrete_slab.glb",
+    "godot/assets/models/facilities/solar_cabin/components/platform_board/platform_board.glb",
+    "godot/assets/models/facilities/solar_cabin/revision_metrics.json"
+  ],
+  "not_run": [
+    "长时间性能测试",
+    "参考图商业授权审核"
+  ],
+  "feature_contracts": {
+    "sync_passed": true,
+    "check_passed": true,
+    "features": 31,
+    "source_assets": 373,
+    "runtime_resource_hashes": 286,
+    "issues": 0
+  }
+}

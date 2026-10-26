@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-SCENE-SBR-LANTERN",
+  "name": "暖光壁灯",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/sunny_bloom_retreat/v004/components/lantern/lantern.blend",
+  "source_sha256": "2aabfeb40778d0e254d43770ccf19ef46767ed4cc188ce2f630423cd9bf82d01",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v004/components/lantern/asset_manifest.json",
+  "version": "v004",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/lantern/lantern.glb",
+  "prefab": "godot/scenes/components/solar_cabin/lantern.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "71a677d2f6bc0074dbdbede62ad76a719e718c618f1a557f23c74e5858798788",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "v004：整体1.5倍修订，按实际可见实例复用；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v002/components/lantern/lantern.blend",
+      "source_sha256": "76e6ffb84f20e036dc81366264f5db93e5ff179be48b61d627e78be9ac8498f2",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v002/components/lantern/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v003/components/lantern/lantern.blend",
+      "source_sha256": "dc33ec0ee693d76571a51db12848b6110f7ce9c2c44db335ce3f72c58db105b7",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v003/components/lantern/asset_manifest.json",
+      "version": "v003"
+    }
+  ],
+  "runtime_version": "1.1",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "7ccd4de4f99a55cf8bb23d343cd4d020614064a4900b708489c6390208e9490e",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v004/export/v001/export_manifest.json",
+  "runtime_verified": true,
+  "asset_key": "lantern",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-LANTERN"
+}

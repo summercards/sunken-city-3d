@@ -1,10 +1,5 @@
-# 游戏建筑参照源
+# 游戏建筑参照与当前装配
 
-当前版本：[v0.3 独立绞盘打捞台](v003/README.md)。
+太阳能木屋已正式替换：[当前 Blender 装配](../sunny_bloom_retreat/v006/export/v001/placement/solar_cabin/solar_cabin_v1.3.blend)；[接入说明](../sunny_bloom_retreat/v006/README.md)。
 
-- [海面六设施总览](v003/sea_playable_facilities_v0.3.blend)
-- [太阳能木屋](v003/facilities/solar_cabin/solar_cabin_v0.3.blend)
-- [绞盘打捞台](v003/facilities/salvage_station/salvage_station_v0.3.blend)
-- [中文资产账本](v003/资产账本.md)
-
-历史：[v0.2 中文归类版](v002/README.md)；[v0.1 原始快照](v001/README.md)。
+此前六设施参照保留：[v0.3 拆分版](v003/README.md)。替换前 0.1 快照位于工程外 sea-work/backups/solar_cabin_replacement/v0.1。

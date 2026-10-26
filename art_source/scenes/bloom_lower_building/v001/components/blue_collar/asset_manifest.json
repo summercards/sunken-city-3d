@@ -1,43 +1,30 @@
 {
-  "key": "blue_collar",
-  "name": "天蓝柱箍",
-  "family": "collar",
-  "category": "fixture",
   "asset_id": "SEA-SCENE-BLB-BLUE-COLLAR",
-  "origin": "bottom_center",
-  "front_axis": "-Y",
-  "allowed_rotation": "full Euler XYZ",
-  "triangle_budget": 30000,
-  "scope": "scene_local",
-  "collection": "SEA-SCENE-BLB-BLUE-COLLAR",
-  "root": "ROOT_blue_collar",
-  "bounds_size": [
-    0.4000000059604645,
-    0.4399999976158142,
-    0.1899999976158142
-  ],
-  "bounds_min": [
-    -0.20000000298023224,
-    -0.2199999988079071,
-    0
-  ],
-  "source_anchor": [
-    0.0,
-    0.0,
-    0.0
-  ],
-  "instance_count": 28,
-  "material_roles": [
-    "SEA_Matte"
-  ],
-  "collision_owner": "Godot wrapper pending",
-  "component_source": "art_source/scenes/bloom_lower_building/v001/components/blue_collar/blue_collar.blend",
-  "geometry_fingerprint": "9333bec63923bd1beba4881f096adbb72226c26ca217903ef2d673cf6aa12533",
-  "triangles": 376,
+  "name": "天蓝柱箍",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/bloom_lower_building/v001/components/blue_collar/blue_collar.blend",
   "source_sha256": "db42b8ff82eccc84e61d1801541c6de22cc2024cda9571670ea4986cea46b9a8",
-  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "manifest": "art_source/scenes/bloom_lower_building/v001/components/blue_collar/asset_manifest.json",
   "version": "v001",
-  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-BLUE-COLLAR",
-  "stage": "source_verified_runtime_pending",
-  "license": "pending_user_reference_rights_review"
+  "runtime_path": "godot/assets/models/facilities/bloom_lower_building/components/blue_collar/blue_collar.glb",
+  "prefab": "godot/scenes/components/bloom_lower_building/blue_collar.tscn",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "9333bec63923bd1beba4881f096adbb72226c26ca217903ef2d673cf6aa12533",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "category": "fixture",
+  "scope": "scene_local",
+  "note": "七层新楼体组件；接口重叠的原屋顶砖/顶边/顶层花草不实例化，原制作源不改。",
+  "runtime_version": "1.0",
+  "runtime_verified": true,
+  "optimized_source": "art_source/scenes/bloom_lower_building/v001/export/v001/bloom_lower_building_optimized_v001.blend",
+  "optimized_sha256": "c6ff150bb42cb16fe119a7153c997a930e4c97fd01c91ff78020519c3d3fa3d7",
+  "export_manifest": "art_source/scenes/bloom_lower_building/v001/export/v001/export_manifest.json",
+  "asset_key": "blue_collar",
+  "runtime_scope": "太阳能木屋-海下基座组件",
+  "runtime_active": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-BLB-BLUE-COLLAR"
 }

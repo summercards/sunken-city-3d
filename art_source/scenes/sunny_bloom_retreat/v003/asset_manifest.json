@@ -8,8 +8,8 @@
   "component_plan": "component_plan.json",
   "component_instances": "component_instances.json",
   "palette_asset_id": "SEA-PALETTE-COZY-64",
-  "stage": "source_verified_runtime_pending",
-  "runtime_status": "pending",
+  "stage": "runtime_integrated_verified",
+  "runtime_status": "integrated_verified",
   "license": "pending_user_reference_rights_review",
   "reference_sha256": "5256abd23999c8a6b8c34cbfd425ccce2f72c74ecfc53a39d8606beb0d1f3545",
   "metrics": {
@@ -22,5 +22,10 @@
   },
   "source_policy": "Fresh original construction from current reference only; no prior kit reused.",
   "verification": "docs/development/2026-10-25_sunny_bloom_retreat_v003_verification.json",
-  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-ASSEMBLY"
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-ASSEMBLY",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/instances.json",
+  "prefab": "godot/scenes/facilities/solar_cabin_surface.tscn",
+  "runtime_scope": "太阳能木屋-海上区域",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/solar_cabin_optimized_v001.blend",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/export_manifest.json"
 }

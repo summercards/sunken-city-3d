@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_surface.tscn" id="surface"]
+[ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_submerged_base.tscn" id="base"]
+[node name="太阳能木屋" type="Node3D"]
+metadata/asset_id = "SEA-REF-FACILITY-SOLAR-CABIN"
+[node name="太阳能木屋-海上区域" parent="." instance=ExtResource("surface")]
+[node name="太阳能木屋-海下基座" parent="." instance=ExtResource("base")]
