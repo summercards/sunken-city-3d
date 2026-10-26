@@ -44,3 +44,6 @@
 # Python 字节码
 __pycache__/
 *.pyc
+
+# Godot 原子保存的中间文件（<场景>.<pid>.tmp），崩溃或中断后残留
+*.tmp
