@@ -12,6 +12,22 @@ STATUS = {'planned': '规划中', 'partial': '部分实现', 'implemented': '已
           'verified': '已验收', 'blocked': '受阻'}
 
 
+def hash_matches(path, expected):
+    """Compare a file against a recorded hash, tolerating CRLF checkout.
+
+    Recorded hashes describe repository content (always LF). A Windows checkout
+    with core.autocrlf=true rewrites text files to CRLF on disk, so the raw byte
+    hash differs while the content is identical. Raw match is tried first, then
+    the LF-normalised form; binary files simply fail both and are reported.
+    """
+    data = path.read_bytes()
+    if hashlib.sha256(data).hexdigest() == expected:
+        return True
+    if b'\r\n' in data:
+        return hashlib.sha256(data.replace(b'\r\n', b'\n')).hexdigest() == expected
+    return False
+
+
 def ledger_meta(text):
     match = re.search(r'```json\n(.*?)\n```', text, re.S)
     if not match:
@@ -127,7 +143,7 @@ def check(sync=False):
     for p in list((ROOT / 'godot/src').rglob('*.gd')) + list((ROOT / 'godot/scenes').rglob('*.tscn')) + [ROOT / 'godot/project.godot']:
         for ref in re.findall(r'["\'](?:\*)?res://([^"\']+)["\']', p.read_text()):
             if '%' in ref or '{' in ref or ref.endswith('/'): continue
-            if ref.startswith('outputs/'): continue
+            if ref == 'outputs' or ref.startswith('outputs/'): continue
             require((ROOT / 'godot' / ref).exists(), str(p.relative_to(ROOT)) + ': missing resource ' + ref)
     index = json.loads((ROOT / 'assets/registry/ledger_index.json').read_text())
     asset_ids, source_rows = set(), []
@@ -139,7 +155,7 @@ def check(sync=False):
             require(asset['domain'] == domain, aid + ': wrong domain')
             source = ROOT / asset['source']
             require(source.is_file(), aid + ': missing source')
-            if source.is_file(): require(hashlib.sha256(source.read_bytes()).hexdigest() == asset['source_sha256'], aid + ': source hash drift')
+            if source.is_file(): require(hash_matches(source, asset['source_sha256']), aid + ': source hash drift')
             manifest = json.loads((ROOT / asset['manifest']).read_text())
             require(manifest['asset_ledger'] == route['ledger'] + '#' + aid, aid + ': manifest ledger link')
             source_rows.append({k:asset[k] for k in ['asset_id','source','source_sha256','manifest']})
@@ -149,7 +165,7 @@ def check(sync=False):
     for resource in runtime:
         p = ROOT / resource['path']
         require(p.is_file(), 'missing runtime resource ' + resource['path'])
-        if p.is_file(): require(hashlib.sha256(p.read_bytes()).hexdigest() == resource['sha256'], 'runtime hash drift: ' + resource['path'])
+        if p.is_file(): require(hash_matches(p, resource['sha256']), 'runtime hash drift: ' + resource['path'])
     for table in json.loads((ROOT / index['content_index']).read_text())['tables']:
         data = json.loads((ROOT / table['path']).read_text())
         values = data[table['collection_key']] if table['collection_key'] else data
