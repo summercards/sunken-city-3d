@@ -19,10 +19,12 @@
 | SEA-ORDER-R02 | 只扣背包货物，先模拟扣货后奖励容量，容量不足不扣货、不消耗订单。 |
 | SEA-ORDER-R03 | 成功订单不可重复领取；档位通过进度查询端口获得，存档保留补位剩余时间。 |
 | SEA-ORDER-R04 | 旧文档的到期换单设计保留历史身份，2026-10-22 经营循环说明为当前实现依据。 |
+| SEA-ORDER-R05 | 订单节点和面板不访问全局 Economy；支付、奖励和库存检查通过公开端口完成。 |
+| SEA-ORDER-R06 | 面板和订单牌通过 offers/offer_at 查询副本；不得取得内部槽位和奖励字典的写引用。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**OrderBoard**。正式代码和资源入口：
+状态/交付所有者：**OrderBoard / 注入式交易展示**。正式代码和资源入口：
 
 - [godot/src/orders](../../../godot/src/orders)
 - [godot/assets/data/orders.json](../../../godot/assets/data/orders.json)
@@ -34,9 +36,11 @@
 
 ## 当前实现与待完成边界
 
-原始规划与后续实现来源均保留；额外交易品类和商人实体尚未扩展。
+订单规则保持纯端口注入；TradeBoard 注入 Orders，OrderPanel 注入 Inventory。额外交易品类和商人实体尚未扩展。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：configure / fulfill / reroll / tick / to_dict / from_dict；changed、fulfilled；orders.slots 保留订单和补位剩余时间。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 
@@ -48,3 +52,9 @@
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
 - [godot/MANAGEMENT_LOOP.md](../../../godot/MANAGEMENT_LOOP.md)
+
+## 2026-10-27 查询与恢复边界补强
+
+交易牌、面板与样式适配器已接查询；modules 验证返回副本和越界。
+
+[本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。

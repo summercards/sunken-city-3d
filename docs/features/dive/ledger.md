@@ -10,14 +10,15 @@
 {
   "feature_id": "SEA-DIVE",
   "status": "partial",
-  "owner": "UnderwaterWorld / DiveAir",
+  "owner": "UnderwaterWorld / DiveAir / 阶段状态机",
   "code_paths": [
     "godot/src/diving",
     "godot/scenes/underwater"
   ],
   "verification": [
     "selftest",
-    "modules"
+    "modules",
+    "framework-integration"
   ]
 }
 ```
@@ -26,9 +27,10 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-DIVE-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-DIVE-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-DIVE-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-DIVE-R01 | DiveAir纯模块与自检通过；真实深度画面另计 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-DIVE-R02 | 搜索独立动作，奖励通过give_resource；selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-DIVE-R03 | 快照由模块全量恢复，读档稳定海面；存档与自检通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-DIVE-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
 
 ## 资源与调用入口
 
@@ -39,26 +41,30 @@
 
 ## 当前接口清单
 
-以下是拆分时的代码事实快照，便于定位公开命令、查询和事件；不等于允许直接访问所有内部字段。变更接口时同步本页与功能文档。
+dive / surface / swim_to / cancel_navigation / to_dict / from_dict；phase_machine；exited、air_changed；give_resource 注入。
 
-- `godot/src/diving/underwater_region.gd`：命令/查询 `build(), world_bounds()`；事件 `无`。
-- `godot/src/diving/uw_materials.gd`：命令/查询 `get_material(slot: Dictionary), set_lamp(on: bool, pos: Vector3, dir: Vector3), set_depth(depth: float), freeze_time(t: float), set_facing_debug(root: Node, on: bool), clear_cache(), from_color(color: Color, options: Dictionary = {}), apply_to_standard_meshes(root: Node)`；事件 `无`。
-- `godot/src/diving/underwater_world.gd`：命令/查询 `setup(surface_nodes: Array, world_env: WorldEnvironment), dive(_boat_pos: Vector3, zone_label := ""), surface(), trench_floor_at(x: float, z: float), blocked(p: Vector3, margin := 0.35), cancel_navigation(), swim_to(destination: Vector3), swim_to_screen(screen: Vector2), debug_teleport(p: Vector3), freeze_time(t: float), set_facing_debug(on: bool), region_node(id: String), discovered_count(), to_dict(), from_dict(data: Dictionary), chest_count(), opened_chests(), debug_discover(index: int), region_nodes(), search_state()`；事件 `depth_changed(depth: float), zone_changed(name: String), exited, message(text: String), air_changed(ratio: float, lamp_on: bool, found: int, total: int)`。
-- `godot/src/diving/uw_deco.gd`：命令/查询 `setup(fish_specs: Array), hide_kind(kind: String), update(dt: float, t: float, diver: Vector3, cam: Camera3D)`；事件 `无`。
-- `godot/src/diving/dive_air.gd`：命令/查询 `reset(), ratio(), drain_rate(depth: float, moving: bool, sprint: bool), seconds_left(depth: float, moving: bool, sprint: bool), update(delta: float, depth: float, moving: bool, sprint: bool), refill(), can_dive(), summary()`；事件 `无`。
+[模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
 ## 验证记录
 
-入口：`python3 scripts/run_verification.py selftest modules`。
+当前入口：`python3 scripts/run_verification.py selftest modules framework-integration`。
 
-本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
+2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
 - 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 核心专项 selftest、modules 本轮均退出 0；测试覆盖范围以[验证摘要](../../development/2026-10-23_verification_summary.json)为准。
 
 ## 遗留与下一步
 
-海底根仍合并移动、相机和宝箱协调；真实深度与透明渲染需独立 GPU 验收。
+潜水已拆为 surface/enter/swim/exit 状态及7个独立动作；UnderwaterWorld 保留几何与内容装配，奖励回调注入。真实深度、透明渲染和设备性能仍需专项 GPU 验收。
 
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+
+## 2026-10-27 模块框架落地
+
+潜水已拆为 surface/enter/swim/exit 状态及7个独立动作；UnderwaterWorld 保留几何与内容装配，奖励回调注入。真实深度、透明渲染和设备性能仍需专项 GPU 验收。
+
+新增条款 SEA-DIVE-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+2026-10-27 接口收口：公开头灯与诊断入口：toggle_lamp / uses_underwater_environment。

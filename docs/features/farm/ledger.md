@@ -10,7 +10,7 @@
 {
   "feature_id": "SEA-FARM",
   "status": "partial",
-  "owner": "FarmModel",
+  "owner": "Farm / FarmField 场景适配",
   "code_paths": [
     "godot/src/farming",
     "godot/assets/data/crops.json",
@@ -20,7 +20,8 @@
   "verification": [
     "farming",
     "management",
-    "modules"
+    "modules",
+    "framework-integration"
   ]
 }
 ```
@@ -29,11 +30,13 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-FARM-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-FARM-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-FARM-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-FARM-R04 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-FARM-R05 | 注入边界已实现并专项验证 | modules 无 Autoload/无 Main 通过；farming 与真实渲染种植闭环通过；地格表现层仍经 Economy 入口 |
+| SEA-FARM-R01 | 18格经营规则保留；farming31项与selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-FARM-R02 | 休息推进；自然世界日历不暗中推进，集成专项通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-FARM-R03 | 容量、余额及多茬逻辑；farming/management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-FARM-R04 | farm v2与旧秒制迁移；farming/selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-FARM-R05 | 无Autoload modules通过；场景显式注入Farm | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-FARM-R06 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
+| SEA-FARM-R07 | 已实现并专项核验 | [边界补强记录](../../development/2026-10-27_framework_boundary_hardening.md) |
 
 ## 资源与调用入口
 
@@ -46,26 +49,34 @@
 
 ## 当前接口清单
 
-以下是拆分时的代码事实快照，便于定位公开命令、查询和事件；不等于允许直接访问所有内部字段。变更接口时同步本页与功能文档。
+configure；plant / water / harvest / advance_day / access_reason；register_plot / clear_plot_specs；plots_changed；farm v2 to_dict/from_dict。
 
-- `godot/src/farming/farm_field.gd`：命令/查询 `build(), find(plot_id: String)`；事件 `acted(plot_id: String, event: String, payload: Dictionary)`。
-- `godot/src/farming/farm_plot.gd`：命令/查询 `setup(data: Dictionary), focus_text(), blocked_reason(), interact(_actor: Node3D)`；事件 `acted(plot_id: String, event: String, payload: Dictionary)`。
-- `godot/src/farming/farm.gd`：命令/查询 `configure(boundary: RefCounted), select_crop(crop_id: String), spec(plot_id: String), crop_def(crop_id: String), state(plot_id: String), crop_of(plot_id: String), is_empty(plot_id: String), phase(plot_id: String), is_dry(plot_id: String), progress(plot_id: String), grow_days(crop_id: String), yield_of(crop_id: String), crop_name(crop_id: String), action_label(plot_id: String), blocked_reason(plot_id: String), status_text(plot_id: String), interact(plot_id: String, crop_id: String = ""), plant(plot_id: String, crop_id: String), water(plot_id: String), harvest(plot_id: String), tick(_delta: float), advance_day(), refill(), buy_seed(crop_id: String), exchange_seed(), sell_produce(), to_dict(), from_dict(data: Dictionary)`；事件 `planted(plot_id: String, crop_id: String), watered(plot_id: String), harvested(plot_id: String, rewards: Dictionary), became_ready(plot_id: String, crop_id: String), plots_changed, day_changed(day: int)`。
-
-`farming_ports.gd` 在入树前注入 inventory、pay、give、has_greenhouse、access_reason；设施/解锁由宿主适配，作物状态由 FarmModel 持有。
+[模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
 ## 验证记录
 
-入口：`python3 scripts/run_verification.py farming management modules`。
+当前入口：`python3 scripts/run_verification.py farming management modules framework-integration`。
 
-本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
+2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
 - 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 核心专项 farming、management、modules 本轮均退出 0；测试覆盖范围以[验证摘要](../../development/2026-10-23_verification_summary.json)为准。
 
 ## 遗留与下一步
 
-地格表现仍经 Economy.farm 兼容入口；土地开垦、工具升级、品质和季节为规划。
+Farm 的规则端口保留；FarmField/FarmPlot 显式注入 Farm，不再访问全局 Economy。开垦、工具升级、品质和季节仍为规划。
 
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+
+## 2026-10-27 模块框架落地
+
+Farm 的规则端口保留；FarmField/FarmPlot 显式注入 Farm，不再访问全局 Economy。开垦、工具升级、品质和季节仍为规划。
+
+新增条款 SEA-FARM-R06 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+## 2026-10-27 查询与恢复边界补强
+
+state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅截图调试使用；modules31项覆盖。
+
+[本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。

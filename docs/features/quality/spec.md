@@ -18,10 +18,12 @@
 | SEA-QUALITY-R01 | 检查保留真实退出码、完整日志、精确预期故障和未执行项。 |
 | SEA-QUALITY-R02 | 旧 parity 测试仅作为历史逻辑对照，必须另测正式实现。 |
 | SEA-QUALITY-R03 | 性能、跨平台和视觉分别记录证据，逻辑通过不提升为整项目验收完成。 |
+| SEA-QUALITY-R04 | 静态检查阻止业务回读全局或测试代码；每项运行在 Autoload 前隔离，存档跨进程用明确配对，日志与真实渲染证据独立保存。 |
+| SEA-QUALITY-R05 | 查询接口与恢复事务必须有防绕过检查；退出0但出现引擎错误仍判失败，保留失败日志。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**验证 runner / 功能专项测试**。正式代码和资源入口：
+状态/交付所有者：**隔离验证 runner / 静态架构门禁**。正式代码和资源入口：
 
 - [scripts](../../../scripts)
 - [godot/tests](../../../godot/tests)
@@ -33,9 +35,11 @@
 
 ## 当前实现与待完成边界
 
-旧测试部分依赖完整主场景；逐功能替身覆盖逐步扩展。
+增加无 Autoload 框架测试、跨进程恢复、坏档保护及真实天气截图。每项用独立用户目录，仅 seed/对应恢复专项有意共享；目标设备/发行测试仍单列。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：scripts/check_architecture.py；scripts/check_feature_contracts.py --sync 后无参数检查；run_verification.py 的 framework-modules/framework-integration/save-protection/visual-weather。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 
@@ -46,3 +50,9 @@
 - [拆分前完整主文档](../../archive/pre_split_20261023/GDD_V1.0.md)
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
+
+## 2026-10-27 查询与恢复边界补强
+
+门禁新增种植/订单内部状态与Main私有调用检查；超长随机数用例首次退出0仍判失败，修复后复测。
+
+[本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。

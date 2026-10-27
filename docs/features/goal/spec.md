@@ -18,12 +18,13 @@
 | SEA-GOAL-R01 | 玩家可追踪一个建设目标，界面显示已有/所需材料及来源。 |
 | SEA-GOAL-R02 | 完成目标后推荐下一项未完成目标，追踪选择持久化。 |
 | SEA-GOAL-R03 | GDD 首个 20 分钟目标包含第一次种植、建造、船升级与远海到达；完整新手教学另需验收。 |
+| SEA-GOAL-R04 | 目标服务通过查询端口判断完成与推荐，唯一保存 tracked_goal，不写建筑或库存状态。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**Economy 目标追踪 / HUD**。正式代码和资源入口：
+状态/交付所有者：**GoalService / HUD 展示**。正式代码和资源入口：
 
-- [godot/src/economy/economy.gd](../../../godot/src/economy/economy.gd)
+- [godot/src/goals/goal_service.gd](../../../godot/src/goals/goal_service.gd)
 - [godot/src/ui/hud.gd](../../../godot/src/ui/hud.gd)
 
 读取上述所有者的公开查询，修改通过其命令或交互入口；事件由拥有该状态的对象发出。具体公开方法、信号和持久化字段见本账本的接口清单。原有稳定 ContentID、场景 ID 和存档键保持不变，重命名须另做迁移。
@@ -32,9 +33,11 @@
 
 ## 当前实现与待完成边界
 
-已有小目标不是完整首局教学；分步引导与真人节奏验收待做。
+目标规则已移入 GoalService，查询建筑、设施与船级端口；已有小目标仍不等于完整首局教学。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：track_goal / goal_info / goal_complete / to_dict / from_dict；resources_changed。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

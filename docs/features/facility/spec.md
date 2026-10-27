@@ -18,12 +18,13 @@
 | SEA-FACILITY-R01 | 设施由稳定 ID、建筑前置和成本决定是否可建，重复建造不重复扣料。 |
 | SEA-FACILITY-R02 | 温室给予首次生长日和产量加成，回收台保留主动收取零件规则。 |
 | SEA-FACILITY-R03 | 设施能力对外提供查询，消费模块不读取内部设施字典。 |
+| SEA-FACILITY-R04 | 设施状态独立拥有；支付与建筑前置由端口注入，恢复包括仓库解锁标志。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**Economy 设施状态**。正式代码和资源入口：
+状态/交付所有者：**FacilityService**。正式代码和资源入口：
 
-- [godot/src/economy/economy.gd](../../../godot/src/economy/economy.gd)
+- [godot/src/facilities/facility_service.gd](../../../godot/src/facilities/facility_service.gd)
 
 读取上述所有者的公开查询，修改通过其命令或交互入口；事件由拥有该状态的对象发出。具体公开方法、信号和持久化字段见本账本的接口清单。原有稳定 ContentID、场景 ID 和存档键保持不变，重命名须另做迁移。
 
@@ -31,9 +32,11 @@
 
 ## 当前实现与待完成边界
 
-温室查询已可经端口注入；设施服务自身仍在 Economy。
+设施由独立 FacilityService 拥有，温室/仓库等消费者通过 facility_unlocked 查询。后续设施内容依原设计单独补齐。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：configure / build_facility / facility_unlocked / to_dict / from_dict；sites_changed；facilities 字段。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

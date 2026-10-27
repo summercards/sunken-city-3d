@@ -32,6 +32,8 @@
 | SEA-UI-R14 | 按原始参考区分形态：九格应用保持圆角彩色底；背包为无底物品格、真实堆叠、空位圆点及选中名称胶囊；选项轻薄无厚投影；对话为柔和气泡和姓名标签；保留原有命令与返回链。 |
 | SEA-UI-R15 | 纸背板的圆角不得吃进内容框：圆角半径由该面板的内容边距反推得上限（内容边距 + 纸外扩 − 8px），与面板被拉多宽多高无关；纸在四边各外扩24px，面板内控件位置与字号一律不动。任何浮在纸边的装饰标签须同步外扩，纸连同装饰不得越出视口。 |
 | SEA-UI-R16 | 浮在3D画面上、无背板托着的纯文字（资源常驻行、潜水状态、视野提示、上岸点名称、水下宝箱名牌）一律：字号不小于26px（基准1600×1000下资源行44px、潜水40px、视野33px、上岸点26px、宝箱29px，均至少为原值的1.5倍）；使用打包圆体并叠加合成加粗以补齐拉丁数字与汉字的字重差；**不得勾边** —— 不用 `font_shadow` 轮廓、不用 `draw_string_outline`，只允许固定偏移的柔和投影。这些判据由 `visual-world-text` 闸门固化。 |
+| SEA-UI-R17 | 「被调画的对象」不得被调画界面自身改动：滤镜/水面面板（P 键）打开时仍算模态（世界浮层收起、点击拦住），但不铺 R06 那层去饱和 18% / 压暗 12% 的屏幕遮罩。理由是可测的 —— 该遮罩会把面板下方每一个像素整体改色，取色器读到的不是场景真实像素。遮罩开关集中在一处（`HUD._sync_backdrop`），背包 / 相机 / 订单 / 打捞的遮罩行为保持 R06 不变。 |
+| SEA-UI-R18 | HUD 与面板仅通过注入的命令/查询模型调用业务；样式适配器接收明确的面板引用，不沿父节点查找 Main。 |
 
 ## 所有者、接口与数据
 
@@ -64,3 +66,11 @@ HUD 已使用程序化单卡与两页九格，经营详情在同一卡内；具�
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
 - [godot/COZY_UI_DESIGN.md](../../../godot/COZY_UI_DESIGN.md)
 - [godot/CLICK_CONTROLS.md](../../../godot/CLICK_CONTROLS.md)
+
+## 2026-10-27 模块边界
+
+HUD 接收 economy / zones / game_state；presenter_sources 由 Main 装配，IslandPresenters.attach(hud,sources) 只拥有表现。日历显示读取 time/weather 查询，潜水或模态时隐藏。
+
+[模块接口约定](../../architecture/module_contracts.md) · [本轮证据](../../development/2026-10-27_modular_framework.md)。
+
+2026-10-27 接口收口：公开入口：is_panel_open / is_modal / toggle_panel / open_tab / refresh_view / toast_snapshot，Main 不再读面板和提示框私有字段。

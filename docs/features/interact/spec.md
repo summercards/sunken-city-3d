@@ -18,10 +18,11 @@
 | SEA-INTERACT-R01 | 交互查询返回可用性、提示和所需时长；缺资源或不满足条件必须解释。 |
 | SEA-INTERACT-R02 | 松手、离开范围、切换目标或取消时中止当前进度，不发放完成奖励。 |
 | SEA-INTERACT-R03 | 菜单与世界点击隔离，密集地格操作锁定玩家选中的目标。 |
+| SEA-INTERACT-R04 | 交互完成/拒绝只通知控制器结束一次；取消清除 hold、preferred 和自动输入，模态阻断自动按住。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**Interactor / Interactable**。正式代码和资源入口：
+状态/交付所有者：**Interactor / Interactable / ActorController**。正式代码和资源入口：
 
 - [godot/src/interaction](../../../godot/src/interaction)
 
@@ -31,9 +32,11 @@
 
 ## 当前实现与待完成边界
 
-Main 仍负责部分输入路由；公共交互类型不能直接拥有种植或订单规则。
+Main 保留输入路由；接近、自动按住及完成释放由 ActorController 状态管理，交互类型不拥有种植或订单规则。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：Interactor.cancel / update；completed、blocked；ActorController.approach / complete_interaction / cancel。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

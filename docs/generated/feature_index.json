@@ -9,14 +9,16 @@
       "spec": "docs/features/boot/spec.md",
       "ledger": "docs/features/boot/ledger.md",
       "status": "partial",
-      "owner": "GameState / Main 装配层",
+      "owner": "Main 装配 / ActorController 模式 / GameState 投影",
       "code_paths": [
         "godot/src/bootstrap",
         "godot/project.godot",
         "godot/scenes/main.tscn"
       ],
       "verification": [
-        "selftest"
+        "selftest",
+        "framework-integration",
+        "save-protection"
       ]
     },
     {
@@ -39,7 +41,8 @@
       "verification": [
         "selftest",
         "surface",
-        "visual-sea-style"
+        "visual-sea-style",
+        "visual-blockers"
       ]
     },
     {
@@ -52,7 +55,7 @@
       "spec": "docs/features/move/spec.md",
       "ledger": "docs/features/move/ledger.md",
       "status": "partial",
-      "owner": "角色 / 行走协调器（当前 Main）",
+      "owner": "ActorController / Character 表现",
       "code_paths": [
         "godot/src/player",
         "godot/src/navigation/walk_area.gd",
@@ -61,7 +64,9 @@
       ],
       "verification": [
         "surface",
-        "click"
+        "click",
+        "framework-modules",
+        "framework-integration"
       ]
     },
     {
@@ -75,14 +80,17 @@
       "spec": "docs/features/nav/spec.md",
       "ledger": "docs/features/nav/ledger.md",
       "status": "partial",
-      "owner": "Boat / 航行协调器",
+      "owner": "WaterNavigation / Boat",
       "code_paths": [
+        "godot/src/navigation/water_navigation.gd",
+        "godot/src/navigation/sail_nav.gd",
         "godot/src/navigation/boat.gd",
         "godot/src/navigation/route_ribbon.gd"
       ],
       "verification": [
         "surface",
-        "selftest"
+        "selftest",
+        "framework-modules"
       ]
     },
     {
@@ -95,13 +103,14 @@
       "spec": "docs/features/camera/spec.md",
       "ledger": "docs/features/camera/ledger.md",
       "status": "partial",
-      "owner": "OrbitCamera",
+      "owner": "OrbitCam / follow、manual 状态",
       "code_paths": [
         "godot/src/camera"
       ],
       "verification": [
         "camera",
-        "click"
+        "click",
+        "framework-modules"
       ]
     },
     {
@@ -114,13 +123,14 @@
       "spec": "docs/features/interact/spec.md",
       "ledger": "docs/features/interact/ledger.md",
       "status": "partial",
-      "owner": "Interactor / Interactable",
+      "owner": "Interactor / Interactable / ActorController",
       "code_paths": [
         "godot/src/interaction"
       ],
       "verification": [
         "click",
-        "surface"
+        "surface",
+        "framework-integration"
       ]
     },
     {
@@ -134,13 +144,14 @@
       "spec": "docs/features/gather/spec.md",
       "ledger": "docs/features/gather/ledger.md",
       "status": "partial",
-      "owner": "GatherSpot / GatherField",
+      "owner": "GatherField / GatherSpot",
       "code_paths": [
         "godot/src/gathering",
         "godot/assets/data/gather_spots.json"
       ],
       "verification": [
-        "selftest"
+        "selftest",
+        "framework-integration"
       ]
     },
     {
@@ -172,12 +183,13 @@
       "spec": "docs/features/warehouse/spec.md",
       "ledger": "docs/features/warehouse/ledger.md",
       "status": "partial",
-      "owner": "Economy.warehouse / Inventory",
+      "owner": "WarehouseService / 独立 Inventory",
       "code_paths": [
-        "godot/src/economy/economy.gd"
+        "godot/src/warehouse/warehouse_service.gd"
       ],
       "verification": [
-        "management"
+        "management",
+        "framework-integration"
       ]
     },
     {
@@ -191,13 +203,14 @@
       "spec": "docs/features/build/spec.md",
       "ledger": "docs/features/build/ledger.md",
       "status": "partial",
-      "owner": "Economy 建造状态 / BuildSite",
+      "owner": "ConstructionService / BuildSite",
       "code_paths": [
         "godot/src/construction"
       ],
       "verification": [
         "selftest",
-        "management"
+        "management",
+        "framework-modules"
       ]
     },
     {
@@ -211,13 +224,14 @@
       "spec": "docs/features/facility/spec.md",
       "ledger": "docs/features/facility/ledger.md",
       "status": "partial",
-      "owner": "Economy 设施状态",
+      "owner": "FacilityService",
       "code_paths": [
-        "godot/src/economy/economy.gd"
+        "godot/src/facilities/facility_service.gd"
       ],
       "verification": [
         "management",
-        "selftest"
+        "selftest",
+        "framework-modules"
       ]
     },
     {
@@ -231,14 +245,15 @@
       "spec": "docs/features/ship/spec.md",
       "ledger": "docs/features/ship/ledger.md",
       "status": "partial",
-      "owner": "Economy 船等级 / GameState 区域资格",
+      "owner": "ShipService / 航速与区域资格适配",
       "code_paths": [
-        "godot/src/economy/economy.gd",
+        "godot/src/ship/ship_service.gd",
         "godot/src/navigation/boat.gd"
       ],
       "verification": [
         "management",
-        "surface"
+        "surface",
+        "framework-modules"
       ]
     },
     {
@@ -253,7 +268,7 @@
       "spec": "docs/features/farm/spec.md",
       "ledger": "docs/features/farm/ledger.md",
       "status": "partial",
-      "owner": "FarmModel",
+      "owner": "Farm / FarmField 场景适配",
       "code_paths": [
         "godot/src/farming",
         "godot/assets/data/crops.json",
@@ -263,7 +278,8 @@
       "verification": [
         "farming",
         "management",
-        "modules"
+        "modules",
+        "framework-integration"
       ]
     },
     {
@@ -277,14 +293,15 @@
       "spec": "docs/features/salvage/spec.md",
       "ledger": "docs/features/salvage/ledger.md",
       "status": "partial",
-      "owner": "SalvageModel / 结算冷却协调",
+      "owner": "SalvageModel / SalvageRewards",
       "code_paths": [
         "godot/src/salvage"
       ],
       "verification": [
         "selftest",
         "management",
-        "modules"
+        "modules",
+        "framework-integration"
       ]
     },
     {
@@ -298,14 +315,15 @@
       "spec": "docs/features/dive/spec.md",
       "ledger": "docs/features/dive/ledger.md",
       "status": "partial",
-      "owner": "UnderwaterWorld / DiveAir",
+      "owner": "UnderwaterWorld / DiveAir / 阶段状态机",
       "code_paths": [
         "godot/src/diving",
         "godot/scenes/underwater"
       ],
       "verification": [
         "selftest",
-        "modules"
+        "modules",
+        "framework-integration"
       ]
     },
     {
@@ -319,13 +337,14 @@
       "spec": "docs/features/pickup/spec.md",
       "ledger": "docs/features/pickup/ledger.md",
       "status": "partial",
-      "owner": "SeaProps",
+      "owner": "SeaProps / 独立目标快照",
       "code_paths": [
         "godot/src/pickups"
       ],
       "verification": [
         "selftest",
-        "visual-sea-style"
+        "visual-sea-style",
+        "framework-integration"
       ]
     },
     {
@@ -340,7 +359,7 @@
       "spec": "docs/features/order/spec.md",
       "ledger": "docs/features/order/ledger.md",
       "status": "partial",
-      "owner": "OrderBoard",
+      "owner": "OrderBoard / 注入式交易展示",
       "code_paths": [
         "godot/src/orders",
         "godot/assets/data/orders.json",
@@ -349,7 +368,8 @@
       "verification": [
         "management",
         "selftest",
-        "modules"
+        "modules",
+        "framework-integration"
       ]
     },
     {
@@ -363,13 +383,14 @@
       "spec": "docs/features/goal/spec.md",
       "ledger": "docs/features/goal/ledger.md",
       "status": "partial",
-      "owner": "Economy 目标追踪 / HUD",
+      "owner": "GoalService / HUD 展示",
       "code_paths": [
-        "godot/src/economy/economy.gd",
+        "godot/src/goals/goal_service.gd",
         "godot/src/ui/hud.gd"
       ],
       "verification": [
-        "management"
+        "management",
+        "framework-integration"
       ]
     },
     {
@@ -389,17 +410,46 @@
     },
     {
       "feature_id": "SEA-TIME",
-      "name": "天气与世界时间",
+      "name": "世界时间",
       "group": "生活",
       "dependencies": [
         "SEA-WORLD"
       ],
       "spec": "docs/features/time/spec.md",
       "ledger": "docs/features/time/ledger.md",
-      "status": "planned",
-      "owner": "规划：WorldClock / WeatherService",
-      "code_paths": [],
-      "verification": []
+      "status": "implemented",
+      "owner": "WorldClock",
+      "code_paths": [
+        "godot/src/time/world_clock.gd",
+        "godot/assets/data/world_time.json"
+      ],
+      "verification": [
+        "framework-modules",
+        "framework-integration",
+        "visual-weather"
+      ]
+    },
+    {
+      "feature_id": "SEA-WEATHER",
+      "name": "天气",
+      "group": "生活",
+      "dependencies": [
+        "SEA-TIME",
+        "SEA-WORLD"
+      ],
+      "spec": "docs/features/weather/spec.md",
+      "ledger": "docs/features/weather/ledger.md",
+      "status": "implemented",
+      "owner": "WeatherService / WeatherPresenter",
+      "code_paths": [
+        "godot/src/weather",
+        "godot/assets/data/weather.json"
+      ],
+      "verification": [
+        "framework-modules",
+        "framework-integration",
+        "visual-weather"
+      ]
     },
     {
       "feature_id": "SEA-AQUA",
@@ -469,7 +519,9 @@
       ],
       "verification": [
         "ocean",
-        "visual-sea-style"
+        "visual-sea-style",
+        "lighting-params",
+        "lighting-panel"
       ]
     },
     {
@@ -502,13 +554,16 @@
       "spec": "docs/features/save/spec.md",
       "ledger": "docs/features/save/ledger.md",
       "status": "partial",
-      "owner": "SaveGame 协调 / 各功能状态所有者",
+      "owner": "SaveGame / SnapshotRegistry / 各模块快照",
       "code_paths": [
         "godot/src/save"
       ],
       "verification": [
         "selftest",
-        "management"
+        "management",
+        "framework-modules",
+        "framework-integration",
+        "save-protection"
       ]
     },
     {
@@ -568,14 +623,18 @@
       "spec": "docs/features/quality/spec.md",
       "ledger": "docs/features/quality/ledger.md",
       "status": "partial",
-      "owner": "验证 runner / 功能专项测试",
+      "owner": "隔离验证 runner / 静态架构门禁",
       "code_paths": [
         "scripts",
         "godot/tests",
         "tests"
       ],
       "verification": [
-        "structure"
+        "structure",
+        "framework-modules",
+        "framework-integration",
+        "save-protection",
+        "visual-weather"
       ]
     },
     {

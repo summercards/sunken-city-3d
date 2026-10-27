@@ -18,12 +18,13 @@
 | SEA-WAREHOUSE-R01 | 仓库提供 48 格，仅接受 material 类；货币、种子和作物留在背包。 |
 | SEA-WAREHOUSE-R02 | 存取不丢数量：仓满留在背包，包满留在仓库。 |
 | SEA-WAREHOUSE-R03 | 建设先使用背包再使用仓库，订单不能自动消费仓库；旧档缺仓库时补空仓。 |
+| SEA-WAREHOUSE-R04 | 仓库只经注入的资源和设施端口交换数据，持久化唯一归属 WarehouseService。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**Economy.warehouse / Inventory**。正式代码和资源入口：
+状态/交付所有者：**WarehouseService / 独立 Inventory**。正式代码和资源入口：
 
-- [godot/src/economy/economy.gd](../../../godot/src/economy/economy.gd)
+- [godot/src/warehouse/warehouse_service.gd](../../../godot/src/warehouse/warehouse_service.gd)
 
 读取上述所有者的公开查询，修改通过其命令或交互入口；事件由拥有该状态的对象发出。具体公开方法、信号和持久化字段见本账本的接口清单。原有稳定 ContentID、场景 ID 和存档键保持不变，重命名须另做迁移。
 
@@ -31,9 +32,11 @@
 
 ## 当前实现与待完成边界
 
-仓库服务仍在 Economy；暂无独立仓库建筑模型。
+仓储规则已独立到 WarehouseService，通过设施资格端口及注入的背包实例存取；暂无独立仓库建筑模型。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：deposit_materials / withdraw_material / construction_pay / construction_count / construction_has；resources_changed；to_dict/from_dict 保存 capacity、counts。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

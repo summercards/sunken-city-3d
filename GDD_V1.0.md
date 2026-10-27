@@ -19,7 +19,7 @@
 - 第一版按完整行为闭环划分功能。例如种植含播种、浇水、生长、收获，各步骤有独立设计条款；后续若升级为独立功能，先在本页拆 FeatureID，再拆文件。
 - 目标设计与当前实现分别保留；已有代码不能自动取代用户目标，旧完成度百分比不代表当前状态。
 
-[功能导航](#feature-control) · [工程约定](docs/standards/工程管理规范.md) · [本次拆分记录](docs/development/2026-10-23_feature_split.md) · [拆分前完整主文档](docs/archive/pre_split_20261023/GDD_V1.0.md)
+[功能导航](#feature-control) · [模块接口与状态机](docs/architecture/module_contracts.md) · [工程约定](docs/standards/工程管理规范.md) · [本次拆分记录](docs/development/2026-10-23_feature_split.md) · [拆分前完整主文档](docs/archive/pre_split_20261023/GDD_V1.0.md)
 
 ---
 
@@ -269,7 +269,8 @@
 | <a id="sea-order"></a>SEA-ORDER | 交易与订单 | 经营 | SEA-INVENTORY, SEA-BUILD, SEA-SHIP | [文档](docs/features/order/spec.md) | [账本](docs/features/order/ledger.md) | 部分实现 |
 | <a id="sea-goal"></a>SEA-GOAL | 小目标追踪与引导 | 成长 | SEA-BUILD, SEA-SHIP | [文档](docs/features/goal/spec.md) | [账本](docs/features/goal/ledger.md) | 部分实现 |
 | <a id="sea-resident"></a>SEA-RESIDENT | 居民与生活行为 | 生活 | SEA-WORLD, SEA-BUILD | [文档](docs/features/resident/spec.md) | [账本](docs/features/resident/ledger.md) | 规划中 |
-| <a id="sea-time"></a>SEA-TIME | 天气与世界时间 | 生活 | SEA-WORLD | [文档](docs/features/time/spec.md) | [账本](docs/features/time/ledger.md) | 规划中 |
+| <a id="sea-time"></a>SEA-TIME | 世界时间 | 生活 | SEA-WORLD | [文档](docs/features/time/spec.md) | [账本](docs/features/time/ledger.md) | 已实现待完整验收 |
+| <a id="sea-weather"></a>SEA-WEATHER | 天气 | 生活 | SEA-TIME、SEA-WORLD | [文档](docs/features/weather/spec.md) | [账本](docs/features/weather/ledger.md) | 已实现待完整验收 |
 | <a id="sea-aqua"></a>SEA-AQUA | 浅水养殖 | 经营 | SEA-WORLD, SEA-INVENTORY | [文档](docs/features/aqua/spec.md) | [账本](docs/features/aqua/ledger.md) | 规划中 |
 | <a id="sea-quest"></a>SEA-QUEST | 任务成就与区域复兴 | 成长 | SEA-GOAL, SEA-WORLD | [文档](docs/features/quest/spec.md) | [账本](docs/features/quest/ledger.md) | 规划中 |
 | <a id="sea-ui"></a>SEA-UI | HUD 与菜单反馈 | 表现 | SEA-INTERACT, SEA-INVENTORY | [文档](docs/features/ui/spec.md) | [账本](docs/features/ui/ledger.md) | 部分实现 |

@@ -10,7 +10,7 @@
 {
   "feature_id": "SEA-MOVE",
   "status": "partial",
-  "owner": "角色 / 行走协调器（当前 Main）",
+  "owner": "ActorController / Character 表现",
   "code_paths": [
     "godot/src/player",
     "godot/src/navigation/walk_area.gd",
@@ -19,7 +19,9 @@
   ],
   "verification": [
     "surface",
-    "click"
+    "click",
+    "framework-modules",
+    "framework-integration"
   ]
 }
 ```
@@ -28,9 +30,10 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-MOVE-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-MOVE-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-MOVE-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-MOVE-R01 | 合法地面求路及步进复核；surface503项，非全地图穷举 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-MOVE-R02 | 独立上下船动作与状态转换；surface/selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-MOVE-R03 | 自动接近、模态阻断、完成一次、取消回调；framework-integration通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-MOVE-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
 
 ## 资源与调用入口
 
@@ -43,24 +46,21 @@
 
 ## 当前接口清单
 
-以下是拆分时的代码事实快照，便于定位公开命令、查询和事件；不等于允许直接访问所有内部字段。变更接口时同步本页与功能文档。
+start_walk / approach / depart / cancel / request_mode / restore_pose / state_id / snapshot；state_changed、mode_changed；状态/动作目录见模块约定。
 
-- `godot/src/player/character.gd`：命令/查询 `play_farm_action(_event: String), build(), set_walking(on: bool), set_rowing(on: bool), set_diving(on: bool)`；事件 `无`。
-- `godot/src/navigation/walk_area.gd`：命令/查询 `outlines(), path_between(start: Vector3, goal: Vector3), contains_local(x: float, z: float), contains_world(x: float, z: float), pick(origin: Vector3, dir: Vector3), center_world(), clamp_point(x: float, z: float), area_span()`；事件 `无`。
-- `godot/src/navigation/ground_path.gd`：命令/查询 `contains(polygons: Array, p: Vector2), clear_segment(polygons: Array, a: Vector2, b: Vector2), route(polygons: Array, start: Vector2, goal: Vector2)`；事件 `无`。
-- `godot/src/navigation/landing_point.gd`：命令/查询 `ground(), stand_position(), data()`；事件 `无`。
+[模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
 ## 验证记录
 
-入口：`python3 scripts/run_verification.py surface click`。
+当前入口：`python3 scripts/run_verification.py surface click framework-modules framework-integration`。
 
-本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
+2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
 - 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 核心专项 surface、click 本轮均退出 0；测试覆盖范围以[验证摘要](../../development/2026-10-23_verification_summary.json)为准。
 
 ## 遗留与下一步
 
-行走状态仍在 Main，后续可单独抽取控制器；本轮保持运行行为。
+角色控制已由 Main 拆到 ActorController；8 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
 
 ## 变更记录
 
@@ -77,3 +77,15 @@ SEA-MOVE：同步放大后的桥与平台可走矩形、main 登岸点、种植�
 ## 太阳能木屋 v005（2026-10-25）
 
 SEA-MOVE：桥长增加1.587米，更新主桥可走矩形和登岸点；顶面Y=2.15不变，30航路503检查及537自检通过。 [当前证据](../../development/2026-10-25_solar_cabin_v005.md)。
+
+## 2026-10-26 功能与健康审计
+
+SEA-MOVE-R01/R02/R03：正式surface 30航路503检查及click 30检查通过；Main仍持有行走状态。selftest订单板可行走区域等失败、真实第二地格点击失败仍待按当前场景核对；不宣称全部移动交互验收完成。
+
+[本轮审计与证据](../../development/2026-10-26_feature_architecture_save_3c_audit.md)。本轮只审计和登记，未修改玩法实现。
+
+## 2026-10-27 模块框架落地
+
+角色控制已由 Main 拆到 ActorController；8 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
+
+新增条款 SEA-MOVE-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。

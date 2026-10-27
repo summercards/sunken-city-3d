@@ -38,9 +38,11 @@
 | SEA-UI-R11 | 已实现，当前证据见交付记录 | 独立 `user://island_ui.cfg`；动画/氧气反馈/音量偏好、全屏、帮助、原保存命令 |
 | SEA-UI-R12 | 已实现桌面覆盖，设备项待验 | 原生截图、三分辨率、订单等待、打捞成功/失败、气泡淡出同步、收藏弹窗；触控/手柄未验 |
 | SEA-UI-R13 | 已实现，最终证据见交付记录 | 统一字体工厂、UI层全树与动态节点字体绑定、字体资产授权/哈希登记；真实窗口逐页字体引用核对与字号排版检查 |
+| SEA-UI-R17 | 已实现并真实渲染实测 | 遮罩开关收敛到 `HUD._sync_backdrop`，`island_menu._dim_wanted()` 按面板过滤。`tools/probe_panel_dim.gd` 同机位四块开阔水面：P 面板开 `0/105/152`（与关闭态一致），背包开 `13/90/124`（对照，遮罩照旧生效）；背板 `visible=false strength=0` 而 `external_modal=true`，模态语义未丢 |
 | SEA-UI-R14 | 已实现，最终证据见交付记录 | 手机/口袋/选项/对话分形态；背包按stack_limit展示真实堆叠、24格含空位，真实点击打开详情及Esc返回 |
 | SEA-UI-R15 | 已实现，`visual-paper-fit` 三分辨率通过 | 圆角由内容边距反推上限、纸外扩24px、面板控件与字号不动；11块纸背板逐字四角+四边中点内点判定0越界 |
 | SEA-UI-R16 | 已实现，`visual-world-text` 通过（24 checks / 0 failures） | 字号下限26px、合成加粗 embolden=1.0、零勾边；回退倍率后闸门7项红，证明断言会失败 |
+| SEA-UI-R18 | 已实现；详见本轮框架专项 | [交付记录](../../development/2026-10-27_modular_framework.md) |
 
 ## 资源与调用入口
 
@@ -132,3 +134,11 @@
 
 
 最终单卡专项 `20261026-161646-ui-rounded-single-card-delivery-31a2d0` 71项/0失败、退出0；要求的六张1600×1000原生截图已刷新。两组共42张截图及源码副本一致性清单位于工程外 `ui_shots_ac/verification.json` 与 `ui_full_island/verification.json`。最终结构同步与无参数检查均0问题。
+
+## 2026-10-27 模块边界
+
+HUD 接收 economy / zones / game_state；presenter_sources 由 Main 装配，IslandPresenters.attach(hud,sources) 只拥有表现。日历显示读取 time/weather 查询，潜水或模态时隐藏。
+
+[模块接口约定](../../architecture/module_contracts.md) · [本轮证据](../../development/2026-10-27_modular_framework.md)。
+
+2026-10-27 接口收口：公开入口：is_panel_open / is_modal / toggle_panel / open_tab / refresh_view / toast_snapshot，Main 不再读面板和提示框私有字段。

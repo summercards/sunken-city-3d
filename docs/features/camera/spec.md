@@ -18,10 +18,11 @@
 | SEA-CAMERA-R01 | 自动跟随角色，手动观察时尊重玩家控制意图，允许恢复跟随。 |
 | SEA-CAMERA-R02 | 缩放和距离预设有边界，交互 UI 不应误触世界导航。 |
 | SEA-CAMERA-R03 | 海面与潜水切换后只由对应相机控制视口。 |
+| SEA-CAMERA-R04 | 镜头状态和动作分别维护，通过输入端口判断模态；读档、上下船及潜水结束不得遗留拖拽状态。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**OrbitCamera**。正式代码和资源入口：
+状态/交付所有者：**OrbitCam / follow、manual 状态**。正式代码和资源入口：
 
 - [godot/src/camera](../../../godot/src/camera)
 
@@ -31,9 +32,11 @@
 
 ## 当前实现与待完成边界
 
-仍需跨分辨率与完整实机手感验收。
+镜头拆为 follow/manual 状态和 pan/orbit/zoom 动作，UI 阻断经 input_blocked 回调注入，读档恢复跟随。跨分辨率与目标设备手感仍需验收。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：resume_follow / suspend_follow / restore_follow / setup / set_distance；状态见 camera/states，动作见 camera/actions。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 
@@ -45,3 +48,5 @@
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
 - [godot/CAMERA_FOLLOW.md](../../../godot/CAMERA_FOLLOW.md)
+
+2026-10-27 接口收口：公开姿态入口：apply_pose / orbit；Main 不再调用镜头私有姿态方法。

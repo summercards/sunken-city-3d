@@ -18,11 +18,14 @@
 | SEA-NAV-R01 | 路线避开岸线和障碍；航线展示与实际航行目标一致。 |
 | SEA-NAV-R02 | 船具有加减速、转向限速和靠泊制动，不能通过传送替代正常航行。 |
 | SEA-NAV-R03 | 手动输入和新目标能够接管旧航线，30 条有向路线保留回归。 |
+| SEA-NAV-R04 | 行动范围先判合法水域，路线解决绕障，真实位移逐段复核；场景形状由 shape_query 注入，几何变更必须 invalidate。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**Boat / 航行协调器**。正式代码和资源入口：
+状态/交付所有者：**WaterNavigation / Boat**。正式代码和资源入口：
 
+- [godot/src/navigation/water_navigation.gd](../../../godot/src/navigation/water_navigation.gd)
+- [godot/src/navigation/sail_nav.gd](../../../godot/src/navigation/sail_nav.gd)
 - [godot/src/navigation/boat.gd](../../../godot/src/navigation/boat.gd)
 - [godot/src/navigation/route_ribbon.gd](../../../godot/src/navigation/route_ribbon.gd)
 
@@ -32,9 +35,11 @@
 
 ## 当前实现与待完成边界
 
-航路求解和调用仍部分在 Main；旧 parity 算法不是正式运行唯一来源。
+正式航路算法位于 src/navigation；WaterNavigation 拥有水域判断、网格和路线验证，Boat 逐步调用 segment_clear。30条路线回归只是样本，不代表全海域穷举。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：is_open_water / plan_route_to / valid_route / segment_clear / invalidate；shape_query；Boat.sail_to / sail_to_point / remaining_route；segment_clear、speed_multiplier 注入；arrived、navigation_blocked。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

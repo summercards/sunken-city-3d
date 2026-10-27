@@ -1,18 +1,23 @@
-# SEA-TIME · 天气与世界时间 · 独立账本
+# SEA-TIME · 世界时间 · 独立账本
 
 [主文档中控](../../../GDD_V1.0.md#sea-time) · [功能文档](spec.md)
 
 ## 登记头
 
-以下为本功能状态的唯一编辑源；主文档状态摘要与机器索引由工具读取本页汇总。`partial` 不代表失败，`planned` 不代表已有实现。
-
 ```json
 {
   "feature_id": "SEA-TIME",
-  "status": "planned",
-  "owner": "规划：WorldClock / WeatherService",
-  "code_paths": [],
-  "verification": []
+  "status": "implemented",
+  "owner": "WorldClock",
+  "code_paths": [
+    "godot/src/time/world_clock.gd",
+    "godot/assets/data/world_time.json"
+  ],
+  "verification": [
+    "framework-modules",
+    "framework-integration",
+    "visual-weather"
+  ]
 }
 ```
 
@@ -20,34 +25,26 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-TIME-R01 | 规划待实现 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-TIME-R02 | 规划待实现 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-TIME-R03 | 规划待实现 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-
-## 资源与调用入口
-
-- 尚无正式实现；不创建空实现冒充完成。
-
-资产记录见 [资产总入口](../../../assets/registry/README.md)。共用资产按 AssetID 引用；未取得生产 AssetID 的旧运行资源通过路径定位并标注补登，不自动认定正式资产验收完成。
+| SEA-TIME-R01 | 已实现基础昼夜；生产加成未启用 | [本轮专项记录](../../development/2026-10-27_modular_framework.md) |
+| SEA-TIME-R02 | 已实现并核验 | [本轮专项记录](../../development/2026-10-27_modular_framework.md) |
+| SEA-TIME-R03 | 已实现并核验 | [本轮专项记录](../../development/2026-10-27_modular_framework.md) |
+| SEA-TIME-R04 | 已实现并模块核验 | [本轮专项记录](../../development/2026-10-27_modular_framework.md) |
 
 ## 当前接口清单
 
-以下是拆分时的代码事实快照，便于定位公开命令、查询和事件；不等于允许直接访问所有内部字段。变更接口时同步本页与功能文档。
+`configure(config)` 设置 day_length_seconds（默认1200秒）；`tick(delta)` 推进；`paused` 由会话暂停管理；`rest_to_morning()` 到次日08:00；`query()` 返回 day/hour/text/daylight；`changed(snapshot)` 与 `day_changed(day)` 通知订阅者。
 
-规划功能尚无正式接口实现。
+快照 `time` 包含 day（>=1）、seconds（0≤值<86400）、day_length（60–86400）。显示层读取查询；种植保持原有 rest_only 策略，日历自然过一天只改变氛围，不自动 advance_day。
 
-## 验证记录
+## 资源归属
 
-入口：尚无专项实现；先完成设计和测试入口，再进入实现阶段。。
-
-本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
-
-- 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 尚无本功能独立运行验收，不将结构通过视为玩法完成。
+本次使用程序绘制氛围，未新增或虚构美术 AssetID。后续天气贴图、声音从[资产总入口](../../../assets/registry/README.md)登记相应分账本。
 
 ## 遗留与下一步
 
-当前没有统一世界日历；天气、季节与跨系统时间合并未实现。
+基础日历已落地；季节、日期事件、离线收益与时间加速产品界面未实现。本功能基础框架状态为 implemented，仍需目标设备及完整产品体验验收。
 
 ## 变更记录
 
-- 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+- 2026-10-27：从时间/天气规划拆分独立所有者、配置、快照和验证入口；原时间 R01–R03 保持条款承接；新增天气 FeatureID。
+- 2026-10-27：模块测试、跨进程存档和真实渲染证据见[交付记录](../../development/2026-10-27_modular_framework.md)。

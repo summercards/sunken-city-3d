@@ -18,10 +18,11 @@
 | SEA-BUILD-R01 | 建造费用和前置条件检查通过后才扣料开工，走开或关闭面板不停止施工。 |
 | SEA-BUILD-R02 | 等级只在工期结束时增加；满级、材料不足、已施工时拒绝重复开工。 |
 | SEA-BUILD-R03 | 升级必须有可见场景反馈，保留 GDD 对木屋、农场、绞盘站成长的目标。 |
+| SEA-BUILD-R04 | 施工服务不读取全局或场景树；重复开工不能重复扣费，剩余工期由本模块快照恢复。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**Economy 建造状态 / BuildSite**。正式代码和资源入口：
+状态/交付所有者：**ConstructionService / BuildSite**。正式代码和资源入口：
 
 - [godot/src/construction](../../../godot/src/construction)
 
@@ -31,9 +32,11 @@
 
 ## 当前实现与待完成边界
 
-建造状态和常量仍在 Economy；绞盘站三级成长等原设计尚未全部接入。
+施工状态和费用规则已移入 ConstructionService；BuildSite/BuildField 注入该服务。绞盘站三级成长等原设计内容仍待接入。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：begin_site_upgrade / tick_sites / site_level / site_next_cost；sites_changed、site_work_started、site_work_finished；to_dict/from_dict 包含 site_levels、site_work。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

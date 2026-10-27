@@ -19,6 +19,8 @@
 | SEA-WORLD-R02 | 跨区块复用的组件与区块专属实例分开管理，正式场景可以手工编辑。 |
 | SEA-WORLD-R03 | 正式场景更新不得由旧烘焙脚本静默覆盖；初始化或候选生成有独立出口。 |
 | SEA-WORLD-R04 | 已由动态功能接管的历史烘焙对象，使用场景内显式几何排除清单退役；不得重生成覆盖整份正式场景或让旧对象重复参与岸线。 |
+| SEA-WORLD-R05 | 水面阻挡归属组件：每个区块组件自带 BlockerSet，由自身可见几何派生（只取水线到船高这一段的三角形），替换/移动模型即同步替换阻挡。禁止用一份与场景脱钩的离线岸线表充当正式阻挡，也禁止用隐藏单元或临时排除清单绕开空阻挡。远景水街区（只有烘焙几何、没有组件场景）单独登记在 `assets/baked/shore_environment.json`。 |
+| SEA-WORLD-R06 | 区域资格经 far_sea_query 注入；导航障碍形状由装配接口提供，区域服务不访问全局 GameState。 |
 
 ## 所有者、接口与数据
 
@@ -50,3 +52,9 @@
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
 - [docs/资产与命名规范.md](../../../docs/资产与命名规范.md)
 - [godot/SURFACE_WORLD.md](../../../godot/SURFACE_WORLD.md)
+
+## 2026-10-27 模块边界
+
+Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 WaterNavigation.shape_query，几何调整后 invalidate。
+
+[模块接口约定](../../architecture/module_contracts.md) · [本轮证据](../../development/2026-10-27_modular_framework.md)。

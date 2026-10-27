@@ -29,6 +29,7 @@
 | SEA-INVENTORY-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-INVENTORY-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-INVENTORY-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-INVENTORY-R04 | 已实现；详见本轮框架专项 | [交付记录](../../development/2026-10-27_modular_framework.md) |
 
 ## 资源与调用入口
 
@@ -60,3 +61,9 @@ Economy 兼容属性仍存在；功能账本不重复保存玩家库存。
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+
+## 2026-10-27 模块边界
+
+Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；Economy 为兼容门面，具体数量仍由 Inventory 唯一写入。
+
+[模块接口约定](../../architecture/module_contracts.md) · [本轮证据](../../development/2026-10-27_modular_framework.md)。

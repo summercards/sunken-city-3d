@@ -19,10 +19,12 @@
 | SEA-PICKUP-R02 | 完成收取后进入对应冷却或移除，重复点击不能重复结算。 |
 | SEA-PICKUP-R03 | 收取反馈与库存变化一致，航行取消时旧目标不再执行。 |
 | SEA-PICKUP-R04 | 鱼群采用缩小精巧比例（约原尺寸60%）、6色鲜亮彩色配色、3–6 条小群和带S型摆尾/冲刺/侧倾/跃动的生动游动；以网页版已烘焙位置为首批参考，仅在可航行且距可行走地面至少 2.6 米的水域刷新。鱼群涟漪为双圈开环与动态外扩脉冲弧线，随真实水波起伏。 |
+| SEA-PICKUP-R05 | 被收取目标不允许重复结算；存档保留实体、随机流及相对计时，恢复清空旧计时与目标，不遗留 SceneTree 定时回调。 |
+| SEA-PICKUP-R06 | 快照实体ID唯一，next_id大于已有ID，随机流字符串可无错误解析；旧版缺失用显式reset命令迁移，当前空记录拒绝。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**SeaProps**。正式代码和资源入口：
+状态/交付所有者：**SeaProps / 独立目标快照**。正式代码和资源入口：
 
 - [godot/src/pickups](../../../godot/src/pickups)
 
@@ -32,9 +34,11 @@
 
 ## 当前实现与待完成边界
 
-目标管理与部分动态几何同处 SeaProps，完整生态与养殖不是本功能。
+SeaProps 注入区域查询和 give_resource，拥有目标ID、随机流与相对补货计时；表现仍在本模块内部维护，完整生态与养殖不是本功能。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：collect_crate / collect_fish / nearest_crate / nearest_school / to_dict / from_dict；collected、fish_collected；pickups 快照见存档协议。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 
@@ -45,3 +49,9 @@
 - [拆分前完整主文档](../../archive/pre_split_20261023/GDD_V1.0.md)
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
+
+## 2026-10-27 查询与恢复边界补强
+
+save_schema语义检查；SeaProps接受旧版显式reset；坏档不会重新生成已收物资。
+
+[本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。

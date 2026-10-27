@@ -20,10 +20,12 @@
 | SEA-FARM-R03 | 买种先检查容量与余额，收获满包保留作物，番茄三茬后清空。 |
 | SEA-FARM-R04 | 地格/作物 ID 稳定；保留 farm v2 快照与旧秒制存档迁移，旧已种作物可继续照料。 |
 | SEA-FARM-R05 | 规则通过注入端口查询库存、设施和解锁资格，可在无 Main、无 Economy Autoload 的测试中执行。 |
+| SEA-FARM-R06 | 场景层使用 register_plot / clear_plot_specs 注册地块；世界日历自然跨日不暗中重复推进作物，休息仍显式调用 advance_day。 |
+| SEA-FARM-R07 | 查询返回独立副本且无副作用；修改须走模块命令，调试生长调整也使用明确命令入口。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**FarmModel**。正式代码和资源入口：
+状态/交付所有者：**Farm / FarmField 场景适配**。正式代码和资源入口：
 
 - [godot/src/farming](../../../godot/src/farming)
 - [godot/assets/data/crops.json](../../../godot/assets/data/crops.json)
@@ -36,9 +38,11 @@
 
 ## 当前实现与待完成边界
 
-地格表现仍经 Economy.farm 兼容入口；土地开垦、工具升级、品质和季节为规划。
+Farm 的规则端口保留；FarmField/FarmPlot 显式注入 Farm，不再访问全局 Economy。开垦、工具升级、品质和季节仍为规划。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：configure；plant / water / harvest / advance_day / access_reason；register_plot / clear_plot_specs；plots_changed；farm v2 to_dict/from_dict。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 
@@ -51,3 +55,9 @@
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
 - [godot/FARMING_DESIGN.md](../../../godot/FARMING_DESIGN.md)
 - [godot/MANAGEMENT_LOOP.md](../../../godot/MANAGEMENT_LOOP.md)
+
+## 2026-10-27 查询与恢复边界补强
+
+state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅截图调试使用；modules31项覆盖。
+
+[本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。

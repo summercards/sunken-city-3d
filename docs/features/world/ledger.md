@@ -20,7 +20,8 @@
   "verification": [
     "selftest",
     "surface",
-    "visual-sea-style"
+    "visual-sea-style",
+    "visual-blockers"
   ]
 }
 ```
@@ -32,7 +33,9 @@
 | SEA-WORLD-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-WORLD-R05 | 部分实现：zone1 已由组件派生并清理空阻挡；其余区块已接入同一机制，但 zone2/zone3 的行走矩形仍为旧手工数据 | `visual-blockers` 空阻挡 0、漏阻挡 zone1 0.2%；zone4 接缝 12.9% 待区块重做。 [交付记录](../../development/2026-10-26_sea_scene_blockers.md) |
 | SEA-WORLD-R04 | 本轮表现与专项通过 | 环境静态鱼、尾鳍、圆环和点击圆盘退役；漂流物旧透明环退役，桶身金属环保留；源烘焙文件未修改，9 个区块 GLB 仅退役匹配的旧装饰三角索引。 [交付记录](../../development/2026-10-23_sea_visual_style.md) |
+| SEA-WORLD-R06 | 已实现；详见本轮框架专项 | [交付记录](../../development/2026-10-27_modular_framework.md) |
 
 ## 资源与调用入口
 
@@ -66,6 +69,12 @@
 
 新区域仍需完整的内容配置、边界和到达验证。
 
+## 海上场景阻挡整理（2026-10-26）
+
+SEA-WORLD-R05 首次落地。根因是阻挡有三份互不相干的来源（`shore.json` 烘焙岸线、场景 `WalkAreas`、组件 prefab 零阻挡），替换模型只改最后一份。
+本轮新增 `BlockerSet`（组件级、几何派生）与 `verify_blockers` 门禁；zone1 修掉 1 条完全空阻挡与 3 条部分空，打捞台节点归位抵消 GLB 顶点偏移，行走甲板覆盖 0.03/0.00 → 0.81/0.85。
+验证：`python3 scripts/run_verification.py visual-blockers surface selftest click management camera visual-sea-style` 全部退出 0；selftest 535 passed / 2 failed（背包格容器、zone1 共享材质，均为本轮之前的既有项）。`python3 scripts/check_feature_contracts.py` 0 issues。 [交付记录](../../development/2026-10-26_sea_scene_blockers.md)。
+
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
@@ -91,3 +100,9 @@ SEA-WORLD：太阳能木屋四分区稳定包装接入v005；新增绳索与轮�
 ## 太阳能木屋v007（2026-10-26）
 
 SEA-WORLD-R02/R03：稳定组件更新及49组件160实例；保留当前太阳能木屋、区块TSCN与用户海下基座偏移。修复装配脚本既有混合缩进，472实景与30航路503检查通过。[记录](../../development/2026-10-26_solar_cabin_v007.md)。
+
+## 2026-10-27 模块边界
+
+Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 WaterNavigation.shape_query，几何调整后 invalidate。
+
+[模块接口约定](../../architecture/module_contracts.md) · [本轮证据](../../development/2026-10-27_modular_framework.md)。

@@ -10,7 +10,7 @@
 {
   "feature_id": "SEA-ORDER",
   "status": "partial",
-  "owner": "OrderBoard",
+  "owner": "OrderBoard / 注入式交易展示",
   "code_paths": [
     "godot/src/orders",
     "godot/assets/data/orders.json",
@@ -19,7 +19,8 @@
   "verification": [
     "management",
     "selftest",
-    "modules"
+    "modules",
+    "framework-integration"
   ]
 }
 ```
@@ -28,10 +29,12 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-ORDER-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-ORDER-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-ORDER-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-ORDER-R04 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-ORDER-R01 | 保持当前三槽长期订单配置；management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-ORDER-R02 | 背包整笔扣货及奖励试装规则保留；modules/management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-ORDER-R03 | 单次交付与补位快照；selftest/management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-ORDER-R04 | 保留原规划历史身份；本次未改订单玩法数值 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-ORDER-R05 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
+| SEA-ORDER-R06 | 已实现并专项核验 | [边界补强记录](../../development/2026-10-27_framework_boundary_hardening.md) |
 
 ## 资源与调用入口
 
@@ -43,26 +46,34 @@
 
 ## 当前接口清单
 
-以下是拆分时的代码事实快照，便于定位公开命令、查询和事件；不等于允许直接访问所有内部字段。变更接口时同步本页与功能文档。
+configure / fulfill / reroll / tick / to_dict / from_dict；changed、fulfilled；orders.slots 保留订单和补位剩余时间。
 
-- `godot/src/orders/trade_board.gd`：命令/查询 `setup(data: Dictionary), focus_text(), interact(_actor: Node3D)`；事件 `opened(board: Node3D)`。
-- `godot/src/orders/orders.gd`：命令/查询 `load_table(path := TABLE), slot_count(), refresh_seconds(), reroll_cost(), max_tier(), can_fulfill(order: Dictionary), blocked_reason(order: Dictionary), time_left(order: Dictionary), reset(), tick(delta: float), fulfill(uid: String), reroll(), to_dict(), from_dict(data: Dictionary), set_seed(seed_value: int)`；事件 `changed, fulfilled(order: Dictionary, reward: Dictionary), expired(order: Dictionary), offered(order: Dictionary)`。
-- `godot/src/orders/order_panel.gd`：命令/查询 `set_open(on: bool), is_open(), note(text: String, seconds := 2.4), refresh()`；事件 `fulfill_requested(uid: String), reroll_requested, closed`。
-
-`order_ports.gd` 在入树前注入 inventory、give、max_tier；订单槽位由 OrderBoard 持有，进度档位由宿主查询。
+[模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
 ## 验证记录
 
-入口：`python3 scripts/run_verification.py management selftest modules`。
+当前入口：`python3 scripts/run_verification.py management selftest modules framework-integration`。
 
-本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
+2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
 - 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 核心专项 management、selftest、modules 本轮均退出 0；测试覆盖范围以[验证摘要](../../development/2026-10-23_verification_summary.json)为准。
 
 ## 遗留与下一步
 
-原始规划与后续实现来源均保留；额外交易品类和商人实体尚未扩展。
+订单规则保持纯端口注入；TradeBoard 注入 Orders，OrderPanel 注入 Inventory。额外交易品类和商人实体尚未扩展。
 
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+
+## 2026-10-27 模块框架落地
+
+订单规则保持纯端口注入；TradeBoard 注入 Orders，OrderPanel 注入 Inventory。额外交易品类和商人实体尚未扩展。
+
+新增条款 SEA-ORDER-R05 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+## 2026-10-27 查询与恢复边界补强
+
+交易牌、面板与样式适配器已接查询；modules 验证返回副本和越界。
+
+[本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。

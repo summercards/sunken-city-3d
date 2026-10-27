@@ -10,13 +10,14 @@
 {
   "feature_id": "SEA-CAMERA",
   "status": "partial",
-  "owner": "OrbitCamera",
+  "owner": "OrbitCam / follow、manual 状态",
   "code_paths": [
     "godot/src/camera"
   ],
   "verification": [
     "camera",
-    "click"
+    "click",
+    "framework-modules"
   ]
 }
 ```
@@ -25,9 +26,10 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-CAMERA-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-CAMERA-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-CAMERA-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-CAMERA-R01 | follow/manual状态独立；camera8项通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-CAMERA-R02 | pan/orbit/zoom动作独立，阻断端口；click/camera通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-CAMERA-R03 | 潜水阶段切换及退出回海面；selftest与framework-integration通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-CAMERA-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
 
 ## 资源与调用入口
 
@@ -37,23 +39,36 @@
 
 ## 当前接口清单
 
-以下是拆分时的代码事实快照，便于定位公开命令、查询和事件；不等于允许直接访问所有内部字段。变更接口时同步本页与功能文档。
+resume_follow / suspend_follow / restore_follow / setup / set_distance；状态见 camera/states，动作见 camera/actions。
 
-- `godot/src/camera/camera_panel.gd`：命令/查询 `bind_camera(c: OrbitCam), is_open(), set_open(open: bool), snap_to(kind: String), set_distance_m(d: float), distance_m()`；事件 `distance_changed(distance: float)`。
-- `godot/src/camera/orbit_camera.gd`：命令/查询 `resume_follow(), suspend_follow(), refresh(), setup(cam_pos: Vector3, cam_target: Vector3), set_distance(d: float), focus_zone(zone: Dictionary), velocity_cancel(), zoom_ratio()`；事件 `无`。
+[模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
 ## 验证记录
 
-入口：`python3 scripts/run_verification.py camera click`。
+当前入口：`python3 scripts/run_verification.py camera click framework-modules`。
 
-本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
+2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
 - 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 核心专项 camera、click 本轮均退出 0；测试覆盖范围以[验证摘要](../../development/2026-10-23_verification_summary.json)为准。
 
 ## 遗留与下一步
 
-仍需跨分辨率与完整实机手感验收。
+镜头拆为 follow/manual 状态和 pan/orbit/zoom 动作，UI 阻断经 input_blocked 回调注入，读档恢复跟随。跨分辨率与目标设备手感仍需验收。
 
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+
+## 2026-10-26 功能与健康审计
+
+SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、恢复与30/60/120FPS阻尼。visual-click打开视角面板失败；完整设备、遮挡与人工手感未验，保持partial。
+
+[本轮审计与证据](../../development/2026-10-26_feature_architecture_save_3c_audit.md)。本轮只审计和登记，未修改玩法实现。
+
+## 2026-10-27 模块框架落地
+
+镜头拆为 follow/manual 状态和 pan/orbit/zoom 动作，UI 阻断经 input_blocked 回调注入，读档恢复跟随。跨分辨率与目标设备手感仍需验收。
+
+新增条款 SEA-CAMERA-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+2026-10-27 接口收口：公开姿态入口：apply_pose / orbit；Main 不再调用镜头私有姿态方法。

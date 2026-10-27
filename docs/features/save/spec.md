@@ -19,10 +19,12 @@
 | SEA-SAVE-R02 | 冷却保存相对剩余时间；模块恢复应全量复位，未知内容 ID 容错。 |
 | SEA-SAVE-R03 | 潜水或收线中拒绝不完整快照；测试在 Autoload 前隔离存档目录。 |
 | SEA-SAVE-R04 | 恢复不能长期依赖 UI 或主场景的私有字段，应通过各功能恢复接口交接。 |
+| SEA-SAVE-R05 | 版本2缺少模块或必填字段拒绝；旧版仅经明确迁移补默认值。写入与恢复先校验结构和世界位置；失败不改变状态，不覆盖有效备份。 |
+| SEA-SAVE-R06 | 完整校验嵌套记录和直接恢复版本；恢复期间屏蔽中间事件及写盘，完成后发布统一通知；仅有未来版本备份也受保护。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**SaveGame 协调 / 各功能状态所有者**。正式代码和资源入口：
+状态/交付所有者：**SaveGame / SnapshotRegistry / 各模块快照**。正式代码和资源入口：
 
 - [godot/src/save](../../../godot/src/save)
 
@@ -32,9 +34,11 @@
 
 ## 当前实现与待完成边界
 
-当前 SaveGame 仍访问 Main/HUD 内部状态；该条明确为待解耦，现有格式不变。
+SaveGame 仅依赖 host.save_registry；版本2全模块先验证后恢复，启动读默认档，损坏回退上个有效备份，未来版本保护不覆盖。真实断电、磁盘故障及发行平台文件系统尚未实测。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：encode / write / read / decode / restore；SnapshotRegistry.register / capture / validate / restore / clear；restored；ok/reason/recovered/future 结果。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 
@@ -45,3 +49,9 @@
 - [拆分前完整主文档](../../archive/pre_split_20261023/GDD_V1.0.md)
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
+
+## 2026-10-27 查询与恢复边界补强
+
+SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档、未来备份、事件观察一致性与重入存盘专项通过。
+
+[本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。

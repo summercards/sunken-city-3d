@@ -18,10 +18,11 @@
 | SEA-DIVE-R01 | 氧气随深度、运动与头灯消耗，归零强制上浮并恢复冷却，不扣已有资源。 |
 | SEA-DIVE-R02 | 宝箱先发现再交互，未发现不显示可点击目标；搜索完成才给奖励。 |
 | SEA-DIVE-R03 | 存档记录宝箱发现/开启状态，恢复采用全量复位；读档回到海面而非恢复中途潜水。 |
+| SEA-DIVE-R04 | 潜入、游泳、上浮使用公共状态机生命周期；搜索、移动、镜头、姿态各自独立动作，不直接访问经济全局。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**UnderwaterWorld / DiveAir**。正式代码和资源入口：
+状态/交付所有者：**UnderwaterWorld / DiveAir / 阶段状态机**。正式代码和资源入口：
 
 - [godot/src/diving](../../../godot/src/diving)
 - [godot/scenes/underwater](../../../godot/scenes/underwater)
@@ -32,9 +33,11 @@
 
 ## 当前实现与待完成边界
 
-海底根仍合并移动、相机和宝箱协调；真实深度与透明渲染需独立 GPU 验收。
+潜水已拆为 surface/enter/swim/exit 状态及7个独立动作；UnderwaterWorld 保留几何与内容装配，奖励回调注入。真实深度、透明渲染和设备性能仍需专项 GPU 验收。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：dive / surface / swim_to / cancel_navigation / to_dict / from_dict；phase_machine；exited、air_changed；give_resource 注入。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 
@@ -46,3 +49,5 @@
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
 - [godot/UNDERWATER_RENDERING.md](../../../godot/UNDERWATER_RENDERING.md)
+
+2026-10-27 接口收口：公开头灯与诊断入口：toggle_lamp / uses_underwater_environment。

@@ -18,6 +18,7 @@
 | SEA-INVENTORY-R01 | 物品定义由 items.json 唯一拥有，货币不占背包格，其余物品按堆叠上限占格。 |
 | SEA-INVENTORY-R02 | 不足资源时整笔扣除失败且数量不变，增加时明确返回溢出。 |
 | SEA-INVENTORY-R03 | 背包数量由 Inventory 唯一写入；物品 ID、容量和数量有存档契约。 |
+| SEA-INVENTORY-R04 | 存储数据必须含容量和计数字典，负容量/负数量/错误类型在进入 Inventory 前拒绝；背包与仓库分别拥有实例。 |
 
 ## 所有者、接口与数据
 
@@ -89,3 +90,9 @@ Economy 兼容属性仍存在；功能账本不重复保存玩家库存。
 - 数值最终应服务于场景变化和探索解锁，而不是无限增长。
 
 ---
+
+## 2026-10-27 模块边界
+
+Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；Economy 为兼容门面，具体数量仍由 Inventory 唯一写入。
+
+[模块接口约定](../../architecture/module_contracts.md) · [本轮证据](../../development/2026-10-27_modular_framework.md)。

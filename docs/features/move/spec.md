@@ -18,10 +18,11 @@
 | SEA-MOVE-R01 | 角色仅沿合法地面行走，目标不可达时拒绝，不穿越水域或建筑。 |
 | SEA-MOVE-R02 | 上下船使用所属泊位，完成后角色父节点、朝向、模式和动画一致。 |
 | SEA-MOVE-R03 | 自动接近只完成一次目标操作，取消后不得继续行走或触发旧目标。 |
+| SEA-MOVE-R04 | 采用 enter/exit/tick 生命周期及显式转换表，取消/目标失效/读档清除路径和回调，动画只消费状态不结算业务。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**角色 / 行走协调器（当前 Main）**。正式代码和资源入口：
+状态/交付所有者：**ActorController / Character 表现**。正式代码和资源入口：
 
 - [godot/src/player](../../../godot/src/player)
 - [godot/src/navigation/walk_area.gd](../../../godot/src/navigation/walk_area.gd)
@@ -34,9 +35,11 @@
 
 ## 当前实现与待完成边界
 
-行走状态仍在 Main，后续可单独抽取控制器；本轮保持运行行为。
+角色控制已由 Main 拆到 ActorController；8 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：start_walk / approach / depart / cancel / request_mode / restore_pose / state_id / snapshot；state_changed、mode_changed；状态/动作目录见模块约定。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

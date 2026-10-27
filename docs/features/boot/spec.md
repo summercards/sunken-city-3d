@@ -18,10 +18,11 @@
 | SEA-BOOT-R01 | 正式入口装配海面世界、玩家、船、相机、交互与 HUD；场景负责内容，装配层负责生命周期。 |
 | SEA-BOOT-R02 | 船上、岸上和潜水模式由会话状态统一切换，切换后输入与相机不得留在上一模式。 |
 | SEA-BOOT-R03 | 调试、自检和截图入口必须可定位，自动测试使用隔离用户数据目录。 |
+| SEA-BOOT-R04 | 装配层显式注入端口；启动先恢复默认槽位，失败保护原档；生命周期结束释放注册表与回调。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**GameState / Main 装配层**。正式代码和资源入口：
+状态/交付所有者：**Main 装配 / ActorController 模式 / GameState 投影**。正式代码和资源入口：
 
 - [godot/src/bootstrap](../../../godot/src/bootstrap)
 - [godot/project.godot](../../../godot/project.godot)
@@ -33,9 +34,11 @@
 
 ## 当前实现与待完成边界
 
-Main 仍含移动、交互与反馈协调；集中编排债务独立登记，不以移动文件宣称完全解耦。
+Main 保留场景装配、输入路由、跨功能流程及兼容转发；行走、航路、奖励、状态机和存储规则由独立服务拥有。GameState.mode 仅作兼容投影，正式模式由 ActorController 驱动。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：Main._setup_save_registry 装配模块快照；capture_world_state / restore_world_state / validate_world_state 为世界适配接口。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

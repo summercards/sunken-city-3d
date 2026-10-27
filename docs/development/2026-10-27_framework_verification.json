@@ -1,0 +1,399 @@
+{
+  "date": "2026-10-27",
+  "policy": "All runtime commands used scripts/run_verification.py with pre-Autoload isolation; latest applicable result per check below. Historical failures retained separately.",
+  "results": {
+    "framework-modules": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\framework-modules.log",
+      "user_data_name": "sea-verification/20261027-112038-framework-boundary-final-adfef1/framework-modules",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_framework_modules.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\report.json"
+    },
+    "save-seed": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\save-seed.log",
+      "user_data_name": "sea-verification/20261027-112038-framework-boundary-final-adfef1/restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_seed.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\report.json"
+    },
+    "framework-integration": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\framework-integration.log",
+      "user_data_name": "sea-verification/20261027-112038-framework-boundary-final-adfef1/restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_framework_integration.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\report.json"
+    },
+    "selftest": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\selftest.log",
+      "user_data_name": "sea-verification/20261027-112038-framework-boundary-final-adfef1/selftest",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\project",
+        "--headless",
+        "--",
+        "--selftest",
+        "--nosave"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\report.json"
+    },
+    "click": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-102022-framework-public-api-final-29d01d\\click.log",
+      "user_data_name": "sea-verification/20261027-102022-framework-public-api-final-29d01d/click",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-102022-framework-public-api-final-29d01d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_click_controls.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-102022-framework-public-api-final-29d01d\\report.json"
+    },
+    "surface": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-101836-framework-interfaces-final-63d46f\\surface.log",
+      "user_data_name": "sea-verification/20261027-101836-framework-interfaces-final-63d46f/surface",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-101836-framework-interfaces-final-63d46f\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_surface_movement.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-101836-framework-interfaces-final-63d46f\\report.json"
+    },
+    "save-corrupt-seed": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\save-corrupt-seed.log",
+      "user_data_name": "sea-verification/20261027-111822-framework-boundary-hardening-c4d465/protection",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_corrupt_seed.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\report.json"
+    },
+    "save-protection": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\save-protection.log",
+      "user_data_name": "sea-verification/20261027-111822-framework-boundary-hardening-c4d465/protection",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_protection.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\report.json"
+    },
+    "visual-weather": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-101422-framework-weather-final-163ede\\visual-weather.log",
+      "user_data_name": "sea-verification/20261027-101422-framework-weather-final-163ede/visual-weather",
+      "renderer": "real",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-101422-framework-weather-final-163ede\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tools/capture_world_weather.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-101422-framework-weather-final-163ede\\report.json"
+    },
+    "management": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\management.log",
+      "user_data_name": "sea-verification/20261027-112038-framework-boundary-final-adfef1/management",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_management_loop.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\report.json"
+    },
+    "camera": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-102022-framework-public-api-final-29d01d\\camera.log",
+      "user_data_name": "sea-verification/20261027-102022-framework-public-api-final-29d01d/camera",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-102022-framework-public-api-final-29d01d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_camera_follow.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-102022-framework-public-api-final-29d01d\\report.json"
+    },
+    "modules": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\modules.log",
+      "user_data_name": "sea-verification/20261027-111822-framework-boundary-hardening-c4d465/modules",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_feature_modules.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\report.json"
+    },
+    "farming": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\farming.log",
+      "user_data_name": "sea-verification/20261027-112038-framework-boundary-final-adfef1/farming",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_farming.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-112038-framework-boundary-final-adfef1\\report.json"
+    }
+  },
+  "historical_failures": [
+    {
+      "check": "framework-integration",
+      "exit_code": 124,
+      "passed": false,
+      "expected_errors": [],
+      "unexpected_errors": [
+        "SCRIPT ERROR: Invalid access to property or key 'sea_props' on a base object of type 'Node3D (main.gd)'."
+      ],
+      "completion_marker": false,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-100712-framework-delivery-7ecb4d\\framework-integration.log",
+      "user_data_name": "sea-verification/20261027-100712-framework-delivery-7ecb4d/restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-100712-framework-delivery-7ecb4d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_framework_integration.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-100712-framework-delivery-7ecb4d\\report.json"
+    },
+    {
+      "check": "framework-integration",
+      "exit_code": 0,
+      "passed": false,
+      "expected_errors": [],
+      "unexpected_errors": [
+        "ERROR: Cannot represent 9999999999999999999999999999999999999 as a 64-bit signed integer, since the value is too large."
+      ],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\framework-integration.log",
+      "user_data_name": "sea-verification/20261027-111822-framework-boundary-hardening-c4d465/restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_framework_integration.gd"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261027-111822-framework-boundary-hardening-c4d465\\report.json"
+    }
+  ],
+  "source_hashes": {
+    "godot/src/construction/build_field.gd": "daee7813704898090dac797f4c816c5d17c3fef10192bd0b01303618d13db552",
+    "godot/src/construction/build_site.gd": "2a899bcb1684545b013631c9bf02f345b453be4aa5ae7a2d0f22160c5a22d29f",
+    "godot/src/construction/construction_service.gd": "bb006ec4b84d42dc127f31f98729d0ff0f694005860045e30687184f2be2a747",
+    "godot/src/facilities/facility_service.gd": "5f148c7f6e695ac81be8cca4054f80c037da75250076f98074f69ec3c129ab43",
+    "godot/src/ship/ship_service.gd": "eb95de924aeb34f968d367886720fc10c6b13c2a4bd9a4f400b3c3caf86f87d9",
+    "godot/src/warehouse/warehouse_service.gd": "260290bc8d299a83f319a927d4a0817838f92399bfb43ee8fa323341232dda59",
+    "godot/src/goals/goal_service.gd": "cb2abbfc944110811d5658779fe2b14eeddf48903a12b2cb708b9d9d5be5a401",
+    "godot/src/salvage/salvage.gd": "633ee73c460882e8d0379b7fa39ad539c40ba4f9952d587579bac410fd8fe6b2",
+    "godot/src/salvage/salvage_panel.gd": "7233510b060cc4d1f604f1c29b6be9b9ed7b6d3930ec81db2b35b532d3276af1",
+    "godot/src/salvage/salvage_rewards.gd": "8c73e91beb7c440a95b2aa65007c698f6238c28f6433238379a61a5db652ea8f",
+    "godot/src/salvage/salvage_winch.gd": "e9e6d3747c13e986315f29e5f4222f73478f5bedcf0d16436d68077eb5018604",
+    "godot/src/player/actor_controller.gd": "94473b016d37fabf5e85b1ee1beab3c8ba48a40eb083d05b38611c1f7226ce70",
+    "godot/src/player/character.gd": "baca3b19d3f93db475b95a29b882a238a02697c2fccdd4937c6726817b46e1f8",
+    "godot/src/player/actions/approach_action.gd": "5dbea993573448191b5ffe1c6babdb65fcd2bf1547d0e4719f2c90e5c0cbcc3a",
+    "godot/src/player/actions/board_action.gd": "2aaa02ac6a10f14f06433036e26f0c294a049e44d78f3caed4d7b70f6fcf9644",
+    "godot/src/player/actions/disembark_action.gd": "a7514a46236177008fedafc929c64f27b75b56dcc5de009a64bb82706eb5dc2e",
+    "godot/src/player/actions/walk_action.gd": "9ba142c9f23608fe760db84e323fa3980716438401ac73a5cd25a70bd5a55a96",
+    "godot/src/player/animation/harvesting_action.gd": "7cd7f4ea4c688852881d2392e84e152491f3cb186ee1710a20887aebdc663134",
+    "godot/src/player/animation/idle_action.gd": "20de91dec0ff1fa88767d60b6bebb2174a877d6b1bb10e8eb6b4e7ddcb76e1a9",
+    "godot/src/player/animation/planting_action.gd": "0341a6dc5876032112d6dc9a5197110dacbf7089dff4047f5008d8de74fba909",
+    "godot/src/player/animation/rowing_action.gd": "de4c51548227cafdee8a77576a2a5ec07f2e09aee1e748017e9a7c700fbf0228",
+    "godot/src/player/animation/swimming_action.gd": "8f150ecb12715a4f80468aff8a477a556561b8fad2696e836444e004aae3b8a2",
+    "godot/src/player/animation/walking_action.gd": "0619940ba7c2eb5172f2b4786942a29e037d1d435095e00e5c4b236f873e8aa9",
+    "godot/src/player/animation/watering_action.gd": "6a9954137dd9e292d16e396f779565b5e9c475e6f6cfadb04f8c01f85c975c72",
+    "godot/src/player/states/approaching.gd": "b0c6f2552c3d31776d074b58a392dda838dad8ca11d6e702da55d4d617b663e6",
+    "godot/src/player/states/ashore_idle.gd": "d9504925ca4953439400b1beb8522f50894c1956fc1c09b7892128c9b14cefec",
+    "godot/src/player/states/boarding.gd": "71919e340244568addac67e22446b575a26171741ec15f6a0c493cbd2d07bf8b",
+    "godot/src/player/states/boat_idle.gd": "d9504925ca4953439400b1beb8522f50894c1956fc1c09b7892128c9b14cefec",
+    "godot/src/player/states/diving.gd": "a0226ae9daf070f1eea0a429ad3b6ed465f789a52495aea1434639908624e6e8",
+    "godot/src/player/states/interacting.gd": "fb313dde5bee11bab55da8259b44f6a190c4ba18277af6ad007cefc2ce3eb042",
+    "godot/src/player/states/sailing.gd": "13424f8b1920d9f668dc91d06a76f9d8e7b7ded18e7cf5bc00baca6afa1b362f",
+    "godot/src/player/states/walking.gd": "d6ba106a1ae2cdf25c60d67ca4facac35ed4f3e9f1d8e9a0860edfa8182c87fd",
+    "godot/src/camera/camera_panel.gd": "c1cb51f0ae5c8495170db18882cbe6280dad90e42a77fda1bbad4502cbfa69a4",
+    "godot/src/camera/orbit_camera.gd": "16588740679e8ce18cb971cf71295dd0fb71a96f1f0a4511903a50438d519af1",
+    "godot/src/camera/actions/orbit_action.gd": "dc15b26e246b9878c5393dc2361a8be5bf63e090bb026d622228b5e2d4f9ccc1",
+    "godot/src/camera/actions/pan_action.gd": "0b33778a777c5f373967f7674913cbe6310408b0b8894a6e02b9d645553e1998",
+    "godot/src/camera/actions/zoom_action.gd": "2a1734a5c7939b2e9199a4bdf2f5991856a82436b8d574048d004103412ab0e8",
+    "godot/src/camera/states/follow.gd": "337cfe541d78fce1093c69ed63dac5eb389f6763734255fa7476755e268b90e2",
+    "godot/src/camera/states/manual.gd": "0be3971f378ca0aa7ee75cab6c446341f3903a7485f317169e90326adbaf7595",
+    "godot/src/diving/dive_air.gd": "ca3741a084565ebce071f0f064b925456253610581539ca19d1d40cd75ad7a56",
+    "godot/src/diving/underwater_region.gd": "4e9058f00f628be9e019ff3c3f1ec6007174ab03106a7ae244fc7d880e876e9f",
+    "godot/src/diving/underwater_world.gd": "8394245e046a9743557fefd8a5eb8e9a73d02072be7f3920b42cf0357c1264d1",
+    "godot/src/diving/uw_deco.gd": "3b90768d8a0e6b8baaccad6495596a7fcf64c95ad588e99202cded64ea83ff13",
+    "godot/src/diving/uw_materials.gd": "5d6e2233a9736a7ed96b1513e80096121d0c7e17f02022c19532b4205df0889e",
+    "godot/src/diving/actions/camera_action.gd": "63454f7525bb5c649f8667a2eb6aed7c23d3d23eb5f315c00b4e3fa45c1f2c47",
+    "godot/src/diving/actions/diver_pose_action.gd": "f2ca0cc695648bfc21d9e92f73b34db9c34a808ded42a6852305b80770a34efd",
+    "godot/src/diving/actions/enter_action.gd": "89fb7ab4306f4b2c33bbd15c414f6ba669503acca9577c25015c0336e0bb4682",
+    "godot/src/diving/actions/finish_exit_action.gd": "ebcab2f45da0427bf92920256cd936238a5f2ed6e1a45f698cd26e79bfde745c",
+    "godot/src/diving/actions/search_action.gd": "9301f2ffcf5d98e3e70f751bc090f5aa6bb5ce3239dedc6a841cde7d6cc46416",
+    "godot/src/diving/actions/surface_action.gd": "ffdfec8e348e40cba595513d8e0230fe82053367f5bd22acd8e912b2f8da4c2b",
+    "godot/src/diving/actions/swim_action.gd": "45c32546c5c9ef257f4b2718419e1345b385258749da2803ec480ab9a8582455",
+    "godot/src/diving/states/enter.gd": "4f7c1b208e845952303d676894341cc54911f03755c5f036d63bf3e0d0c7d5fc",
+    "godot/src/diving/states/exit.gd": "fe0bac4629d5d0045e7ff6da253433c10f9dcace852dffa23e8dd75652c81746",
+    "godot/src/diving/states/surface.gd": "afd72af0cef2a4094f903d88536f5292a6bc1cf9e9710b33793e360b135d9d50",
+    "godot/src/diving/states/swim.gd": "4efa3a8cf41d806c8be6b64c6ee7d41ee8ae67ced1ffd50b98a525cd3a487ac4",
+    "godot/src/save/save_game.gd": "c9346f62c94d3b499da4b57af79acd33130650abdf4253e8e2baf2c31f9edab6",
+    "godot/src/save/save_schema.gd": "de9f9149c78ee490ef6bbfe5b5b1757f15343319b24fe3e3a909b60641615491",
+    "godot/src/save/snapshot_registry.gd": "482bbbb6a28eb1b484697141018c524eb766c530e2fba774007949b31acae91d",
+    "godot/src/core/record_contract.gd": "0370815ceb43a459f8fa8676a90e80d2baec06bbb425b6a8007b7003082362cb",
+    "godot/src/core/state.gd": "d6ffd89e87c68a7da1b032add991bf5a7c2b51717f66853162d0fa0ccda189f5",
+    "godot/src/core/state_machine.gd": "6ec596474f92bd3598139e29453eefc491a5b9802de753b131ecbc18fac43cd9",
+    "godot/src/time/world_clock.gd": "1497b968adc5d3d7fc84aaa21123b26e6a21a0ab27f26c7fd39f2adc5ab84bfd",
+    "godot/src/weather/weather_presenter.gd": "2ea4ec09abb551851720fecab35185a1fe3224794e57ca2ea4e1ad2ef95ebf7e",
+    "godot/src/weather/weather_service.gd": "12cac7cfea655c0856689e57baba64cce9d9a9c937149dd3b05f3e454bbeb681",
+    "godot/src/navigation/boat.gd": "accf2c58f6f70349644537cdfe08879034af03d852c3d38a1d0d1c6b680e87b8",
+    "godot/src/navigation/ground_path.gd": "0e807e7aebe47539c3e056a78196bd50a38fc13c08c65e4f5e9960faef4bd267",
+    "godot/src/navigation/landing_point.gd": "4d15854213c752532bb922e0a08dfd72932b64b7f994a33a9a7c50f369ef48cc",
+    "godot/src/navigation/route_ribbon.gd": "58fd64b5b9e11340c944ef50d92b0c24b4b011c4a9814b98f88b137766454530",
+    "godot/src/navigation/sail_nav.gd": "82f717edf561e5508599058e7180b63bbc7190f26b38dc810726e5366b06699e",
+    "godot/src/navigation/walk_area.gd": "bdfd0507c347f66b2bcee08178e009a406a12005c00ecd8eabc5d18c80697512",
+    "godot/src/navigation/water_navigation.gd": "a721edf4d7cb8d3e68846c2d4270df8ef9ef34bcb825c21f0c3fc1d54ea97d79",
+    "godot/src/farming/farm.gd": "8d7e672d1a72a7e2d432dcebe1f0392f87de074ef563f77d1b0b142ab6d4946a",
+    "godot/src/orders/orders.gd": "7e71309900def3fcf59ebcb30e0691dd7b70587dc33931b1d41d5df79fc18e28",
+    "godot/src/bootstrap/main.gd": "ed67f8812b72a3a698a30c7f23784faed00b2356915bd1b905783d807385a9e8",
+    "godot/src/economy/economy.gd": "8a94335d13ac6f9aad864c28a39ad61f5e307b1c42ceb4e12148bcc22ab07a82",
+    "godot/src/pickups/sea_props.gd": "2a03584aa0138c74eb637241f5604de4155bd67b67bda8e60d09ac217ad1d65d"
+  },
+  "static_checks": {
+    "feature-sync": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\framework-20261027\\boundary-final-checks\\feature-sync.log",
+      "output": "FAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: 32 features, 380 source assets, 317 runtime resource hashes; 1 issues"
+    },
+    "feature-contracts": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\framework-20261027\\boundary-final-checks\\feature-contracts.log",
+      "output": "FAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: 32 features, 380 source assets, 317 runtime resource hashes; 1 issues"
+    },
+    "architecture": {
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\framework-20261027\\boundary-final-checks\\architecture.log",
+      "output": "PASS: architecture boundaries; 13 independent rule/storage services; 0 issues"
+    }
+  },
+  "latest_boundary_run": "20261027-112038-framework-boundary-final-adfef1"
+}

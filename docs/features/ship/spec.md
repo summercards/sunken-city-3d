@@ -18,12 +18,13 @@
 | SEA-SHIP-R01 | 升级消耗海贝与材料，满级或不足时不扣资源、不改变等级。 |
 | SEA-SHIP-R02 | 二级船开放远海及平台空地播种资格，三级船保留巡航速度提升规则。 |
 | SEA-SHIP-R03 | 升级的可见船体变化和更远探索能力属于原设计目标，不能用等级数字代替全部成长表现。 |
+| SEA-SHIP-R04 | 升级规则独立且不得写全局 GameState；装配层消费 upgraded 事件，航速通过查询端口读取。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**Economy 船等级 / GameState 区域资格**。正式代码和资源入口：
+状态/交付所有者：**ShipService / 航速与区域资格适配**。正式代码和资源入口：
 
-- [godot/src/economy/economy.gd](../../../godot/src/economy/economy.gd)
+- [godot/src/ship/ship_service.gd](../../../godot/src/ship/ship_service.gd)
 - [godot/src/navigation/boat.gd](../../../godot/src/navigation/boat.gd)
 
 读取上述所有者的公开查询，修改通过其命令或交互入口；事件由拥有该状态的对象发出。具体公开方法、信号和持久化字段见本账本的接口清单。原有稳定 ContentID、场景 ID 和存档键保持不变，重命名须另做迁移。
@@ -32,9 +33,11 @@
 
 ## 当前实现与待完成边界
 
-可见船型升级、运输和更深探索仍需后续内容；当前等级状态仍在 Economy。
+船级由 ShipService 唯一拥有，升级事件由装配层投影远海资格，Boat 注入航速查询。船型变化、运输和更深探索仍待内容制作。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：upgrade_ship / ship_cost / to_dict / from_dict；upgraded、resources_changed；ship_level。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

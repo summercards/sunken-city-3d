@@ -10,12 +10,13 @@
 {
   "feature_id": "SEA-WAREHOUSE",
   "status": "partial",
-  "owner": "Economy.warehouse / Inventory",
+  "owner": "WarehouseService / 独立 Inventory",
   "code_paths": [
-    "godot/src/economy/economy.gd"
+    "godot/src/warehouse/warehouse_service.gd"
   ],
   "verification": [
-    "management"
+    "management",
+    "framework-integration"
   ]
 }
 ```
@@ -24,34 +25,41 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-WAREHOUSE-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-WAREHOUSE-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-WAREHOUSE-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-WAREHOUSE-R01 | 独立48格Inventory与材料过滤；management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-WAREHOUSE-R02 | 存取边界保持；management与selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-WAREHOUSE-R03 | 建设支付独立端口；旧档明确补空仓，迁移专项通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-WAREHOUSE-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
 
 ## 资源与调用入口
 
-- [godot/src/economy/economy.gd](../../../godot/src/economy/economy.gd)
+- [godot/src/warehouse/warehouse_service.gd](../../../godot/src/warehouse/warehouse_service.gd)
 
 资产记录见 [资产总入口](../../../assets/registry/README.md)。共用资产按 AssetID 引用；未取得生产 AssetID 的旧运行资源通过路径定位并标注补登，不自动认定正式资产验收完成。
 
 ## 当前接口清单
 
-以下是拆分时的代码事实快照，便于定位公开命令、查询和事件；不等于允许直接访问所有内部字段。变更接口时同步本页与功能文档。
+deposit_materials / withdraw_material / construction_pay / construction_count / construction_has；resources_changed；to_dict/from_dict 保存 capacity、counts。
 
-- `godot/src/economy/economy.gd`：命令/查询 `can_salvage(now: float), salvage_cooldown_left(now: float), commit_salvage(now: float, haul: Dictionary), do_salvage(now: float), give(rewards: Dictionary), add_resource(key: String, amount: int), count(id: String), has(cost: Dictionary), missing(cost: Dictionary), pay(cost: Dictionary), missing_text(cost: Dictionary), cost_text(cost: Dictionary), site_level(id: String), site_next_cost(id: String), site_maxed(id: String), site_build_seconds(id: String), is_building(id: String), site_work_left(id: String), site_work_progress(id: String), begin_site_upgrade(id: String), tick_sites(delta: float), facility_unlocked(id: String), facility_requirement_text(id: String), can_build_facility(id: String), build_facility(id: String), can_upgrade_ship(), upgrade_ship(), to_dict(), from_dict(data: Dictionary), construction_count(id: String), construction_has(cost: Dictionary), construction_pay(cost: Dictionary), construction_missing_text(cost: Dictionary), construction_progress(cost: Dictionary), deposit_materials(), withdraw_material(id: String), ship_cost(), goal_complete(id: String), goal_info(), track_goal(id: String)`；事件 `resources_changed, sites_changed, site_work_started(id: String, seconds: float), site_work_finished(id: String, level: int), salvage_ready, overflow(id: String, amount: int), item_gained(id: String, amount: int)`。
+[模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
 ## 验证记录
 
-入口：`python3 scripts/run_verification.py management`。
+当前入口：`python3 scripts/run_verification.py management framework-integration`。
 
-本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
+2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
 - 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 核心专项 management 本轮均退出 0；测试覆盖范围以[验证摘要](../../development/2026-10-23_verification_summary.json)为准。
 
 ## 遗留与下一步
 
-仓库服务仍在 Economy；暂无独立仓库建筑模型。
+仓储规则已独立到 WarehouseService，通过设施资格端口及注入的背包实例存取；暂无独立仓库建筑模型。
 
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+
+## 2026-10-27 模块框架落地
+
+仓储规则已独立到 WarehouseService，通过设施资格端口及注入的背包实例存取；暂无独立仓库建筑模型。
+
+新增条款 SEA-WAREHOUSE-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。

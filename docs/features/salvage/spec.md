@@ -18,10 +18,11 @@
 | SEA-SALVAGE-R01 | 下钩深度、收线张力和准确度决定结果；断线和主动取消有明确结束语义。 |
 | SEA-SALVAGE-R02 | 奖励与冷却只在结算点提交，反复触发不能领取多次。 |
 | SEA-SALVAGE-R03 | 没有种子和海贝时仍可用打捞获取基础建设材料。 |
+| SEA-SALVAGE-R04 | 结算冷却由独立服务拥有；恢复相对剩余时间，不在表现层重复发奖。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**SalvageModel / 结算冷却协调**。正式代码和资源入口：
+状态/交付所有者：**SalvageModel / SalvageRewards**。正式代码和资源入口：
 
 - [godot/src/salvage](../../../godot/src/salvage)
 
@@ -31,9 +32,11 @@
 
 ## 当前实现与待完成边界
 
-冷却与奖励提交仍在 Economy；规则模型已独立。
+玩法模型与结算服务独立；SalvageRewards 拥有冷却与奖励提交，通过 give 端口入账，绞盘注入该服务。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：commit_salvage / can_salvage / salvage_cooldown_left / to_dict / from_dict；salvage_ready；快照 salvage.left。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

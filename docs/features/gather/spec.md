@@ -18,10 +18,11 @@
 | SEA-GATHER-R01 | 采集点使用稳定 ID，前置建筑等级、资源、数量和冷却来自配置。 |
 | SEA-GATHER-R02 | 完成采集后进入冷却，读档恢复相对剩余时间及枯竭表现。 |
 | SEA-GATHER-R03 | 背包容量不足有明确反馈，不能无提示丢失奖励。 |
+| SEA-GATHER-R04 | 采集前置通过注入的建造服务查询；快照由 GatherField 捕获和恢复，不由 SaveGame 遍历私有节点。 |
 
 ## 所有者、接口与数据
 
-状态/交付所有者：**GatherSpot / GatherField**。正式代码和资源入口：
+状态/交付所有者：**GatherField / GatherSpot**。正式代码和资源入口：
 
 - [godot/src/gathering](../../../godot/src/gathering)
 - [godot/assets/data/gather_spots.json](../../../godot/assets/data/gather_spots.json)
@@ -32,9 +33,11 @@
 
 ## 当前实现与待完成边界
 
-规则和程序造型仍在同一节点，需要表现替换时继续拆分。
+采集节点注入 ConstructionService 查询等级，GatherField 独立保存相对冷却。节点内的规则与程序造型可继续按美术需求拆分。
 
-现有规则继续运行；独立文档、账本和目录归位不代表所有行为已经独立测试，也不代表全部原始目标已实现。阶段事实以本功能账本为准。
+2026-10-27 接口：GatherField.to_dict / from_dict；GatherSpot.interact / seconds_left；collected；建设前置 construction 注入。
+
+详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
 ## 验收入口
 

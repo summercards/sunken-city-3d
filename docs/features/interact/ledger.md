@@ -10,13 +10,14 @@
 {
   "feature_id": "SEA-INTERACT",
   "status": "partial",
-  "owner": "Interactor / Interactable",
+  "owner": "Interactor / Interactable / ActorController",
   "code_paths": [
     "godot/src/interaction"
   ],
   "verification": [
     "click",
-    "surface"
+    "surface",
+    "framework-integration"
   ]
 }
 ```
@@ -25,9 +26,10 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-INTERACT-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-INTERACT-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-INTERACT-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
+| SEA-INTERACT-R01 | 现有交互查询与拒绝反馈；click/selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-INTERACT-R02 | cancel清除进度、锁定和自动输入；取消回调集成通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-INTERACT-R03 | 模态阻断auto_hold，精确目标接近；click与集成通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-INTERACT-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
 
 ## 资源与调用入口
 
@@ -37,19 +39,15 @@
 
 ## 当前接口清单
 
-以下是拆分时的代码事实快照，便于定位公开命令、查询和事件；不等于允许直接访问所有内部字段。变更接口时同步本页与功能文档。
+Interactor.cancel / update；completed、blocked；ActorController.approach / complete_interaction / cancel。
 
-- `godot/src/interaction/interact_prompt.gd`：命令/查询 `celebrate(), update_from(actor: Node), flash_blocked(reason: String)`；事件 `action_requested`。
-- `godot/src/interaction/interactor.gd`：命令/查询 `ensure_input_map(), update(delta: float, holding: bool), progress(), debug_focus(spot: Node3D)`；事件 `action_started(spot: Node3D), target_changed(spot: Node3D), progress_changed(ratio: float), completed(spot: Node3D, reward: Dictionary), blocked(reason: String)`。
-- `godot/src/interaction/hover_card.gd`：命令/查询 `update_hover(screen: Vector2), clear()`；事件 `无`。
-- `godot/src/interaction/click_reticle.gd`：命令/查询 `show_at(point: Vector3, sailing := false)`；事件 `无`。
-- `godot/src/interaction/interactable.gd`：命令/查询 `focus_text(), can_interact(), interact(_actor: Node3D), focus_enter(), focus_exit()`；事件 `focus_changed(focused: bool)`。
+[模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
 ## 验证记录
 
-入口：`python3 scripts/run_verification.py click surface`。
+当前入口：`python3 scripts/run_verification.py click surface framework-integration`。
 
-本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
+2026-10-23 历史实测结果见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
 
 - 2026-10-23 验证：主文档、条款承接、路径与资产结构检查通过。 核心专项 click、surface 本轮均退出 0；测试覆盖范围以[验证摘要](../../development/2026-10-23_verification_summary.json)为准。
 
@@ -57,8 +55,20 @@
 
 ## 遗留与下一步
 
-Main 仍负责部分输入路由；公共交互类型不能直接拥有种植或订单规则。
+Main 保留输入路由；接近、自动按住及完成释放由 ActorController 状态管理，交互类型不拥有种植或订单规则。
 
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+
+## 2026-10-26 功能与健康审计
+
+SEA-INTERACT-R01/R02/R03：click 30项通过；真实visual-click有5项失败（种植入口、视角面板、保存按钮、第二地格命中、退出打捞），需区分旧UI测试假设与实际输入问题，保持partial。
+
+[本轮审计与证据](../../development/2026-10-26_feature_architecture_save_3c_audit.md)。本轮只审计和登记，未修改玩法实现。
+
+## 2026-10-27 模块框架落地
+
+Main 保留输入路由；接近、自动按住及完成释放由 ActorController 状态管理，交互类型不拥有种植或订单规则。
+
+新增条款 SEA-INTERACT-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
