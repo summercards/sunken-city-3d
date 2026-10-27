@@ -1,5 +1,7 @@
 @tool
 extends "res://src/interaction/interactable.gd"
+const RewardsDependency = preload("res://src/salvage/salvage_rewards.gd")
+var rewards: RewardsDependency
 ## 世界里的绞盘打捞台。
 ##
 ## 旧版打捞是「点到上岸桩就进账 + 40 秒冷却」，世界里除了一个图标什么都没有。
@@ -59,13 +61,13 @@ func can_interact() -> bool:
 
 
 func blocked_reason() -> String:
-	if not Economy.can_salvage(_now()):
-		return "绞盘冷却中 · %.0f 秒" % Economy.salvage_cooldown_left(_now())
+	if rewards == null or not rewards.can_salvage(_now()):
+		return "绞盘冷却中 · %.0f 秒" % rewards.salvage_cooldown_left(_now())
 	return ""
 
 
 func focus_text() -> String:
-	var left := Economy.salvage_cooldown_left(_now())
+	var left := rewards.salvage_cooldown_left(_now())
 	if left > 0.0:
 		return "%s · 冷却 %.0f 秒" % [verb, left]
 	return "%s · %s（按 E 下钩）" % [verb, label]
@@ -227,7 +229,7 @@ func _on_tick(delta: float) -> void:
 		_rope.rotation.z = sin(_idle * 0.9) * 0.05
 		_rope.rotation.x = cos(_idle * 0.7) * 0.035
 	if _lamp_mat != null:
-		var ready := Economy.can_salvage(_now())
+		var ready := rewards != null and rewards.can_salvage(_now())
 		_lamp_mat.emission_energy_multiplier = 0.9 if ready else 0.22
 
 

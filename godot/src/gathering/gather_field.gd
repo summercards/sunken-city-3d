@@ -12,7 +12,18 @@ signal blocked(reason: String)
 const GatherSpotLib = preload("res://src/gathering/gather_spot.gd")
 const TABLE := "res://assets/data/gather_spots.json"
 
+const ConstructionDependency = preload("res://src/construction/construction_service.gd")
+var construction: ConstructionDependency
 var spots: Array = []
+
+func to_dict() -> Dictionary:
+	var result := {}
+	for spot in spots:
+		if spot.seconds_left()>0.0: result[str(spot.id)]=spot.seconds_left()
+	return result
+
+func from_dict(data: Dictionary) -> void:
+	for spot in spots: spot.restore_cooldown(float(data.get(str(spot.id),0.0)))
 
 
 func _ready() -> void:
@@ -38,6 +49,7 @@ func build(path := TABLE) -> void:
 			continue
 		var spot: Node3D = GatherSpotLib.new()
 		spot.name = "Spot_%s" % str(row.get("id", "unnamed"))
+		spot.construction = construction
 		spot.setup(row)
 		spot.set_meta("zone", str(row.get("zone", "")))
 		add_child(spot)

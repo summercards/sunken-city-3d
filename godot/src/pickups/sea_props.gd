@@ -1,5 +1,7 @@
 extends Node3D
 class_name SeaProps
+var give_resource: Callable
+var zones: Node
 ## 海面可交互物件：漂流物资 + 鱼群（对齐网页版 drift-crates.js / fish-schools.js）。
 ##
 ## 两者都只有「船/人靠得够近」或「点击目标」才结算，
@@ -24,7 +26,9 @@ const FISH_NEAR := 7.0
 
 var crates: Array = []
 var schools: Array = []
-var _pending := {}
+var _pending: Array = []
+var _pending_fish: Array = []
+var _next_id := 1
 var _t := 0.0
 var _rng := RandomNumberGenerator.new()
 const FishVisual = preload("res://src/pickups/fish_school_visual.gd")
@@ -60,6 +64,7 @@ func _spawn_crate() -> void:
 	root.get_node("Ring").material_override.set_shader_parameter("phase", p.x * 0.7 + p.y * 0.3)
 	add_child(root)
 	crates.append({
+		"id":_next_id,
 		"kind": kind,
 		"root": root,
 		"base": Vector3(p.x, WATER_LEVEL, p.y),
@@ -67,6 +72,7 @@ func _spawn_crate() -> void:
 		"yaw": _rng.randf() * TAU,
 		"ring": root.get_node_or_null("Ring"),
 	})
+	_next_id += 1
 
 
 func _build_crate_mesh(kind: String) -> Node3D:
@@ -160,12 +166,14 @@ func _spawn_school() -> void:
 	add_child(root)
 	var phase := _fish_rng.randf() * TAU
 	root.build(_fish_rng, _fish_rng.randi_range(3, 6), phase)
-	schools.append({"root": root, "base": root.position, "phase": phase, "fish": root.fish})
+	schools.append({"id":_next_id,"root": root, "base": root.position, "phase": phase, "fish": root.fish})
+
+	_next_id += 1
 
 func _school_bounds() -> Rect2:
 	var lo := Vector2(INF, INF)
 	var hi := Vector2(-INF, -INF)
-	for zone in Zones.list:
+	for zone in zones.list:
 		# Browser derives the region from each zone's primary landing, plus 12 m.
 		for key in ["boatPark", "dockEdge", "landStand"]:
 			var p: Array = zone.landings[0][key]
@@ -176,7 +184,7 @@ func _school_bounds() -> Rect2:
 func _school_water(p: Vector2) -> bool:
 	if not _fish_bounds.has_point(p): return false
 	if water_point_clear.is_valid() and not water_point_clear.call(p): return false
-	for zone in Zones.list:
+	for zone in zones.list:
 		for walk in zone.get("walk", []):
 			for r in walk.rects:
 				var nearest := Vector2(clampf(p.x, r[0], r[1]), clampf(p.y, r[2], r[3]))
@@ -234,7 +242,7 @@ func _random_water_point() -> Vector2:
 
 
 func _is_land(x: float, z: float) -> bool:
-	for zone in Zones.list:
+	for zone in zones.list:
 		for w in zone.get("walk", []):
 			for r in w.rects:
 				if x >= r[0] - 1.0 and x <= r[1] + 1.0 and z >= r[2] - 1.0 and z <= r[3] + 1.0:
@@ -272,12 +280,15 @@ func _process(delta: float) -> void:
 		root.position = s.base
 		root.animate(_t, water_surface)
 
-	# 补货
-	var now := Time.get_ticks_msec() / 1000.0
-	for key in _pending.keys():
-		if now >= float(key):
-			_spawn_crate()
-			_pending.erase(key)
+	# Relative timers freeze while paused/offline and cannot outlive a restored snapshot.
+	for schedule in [_pending,_pending_fish]:
+		for i in range(schedule.size()-1,-1,-1):
+			schedule[i]=maxf(0.0,float(schedule[i])-delta)
+			if schedule[i]<=0.0:
+				schedule.remove_at(i)
+				if is_same(schedule,_pending): _spawn_crate()
+				else: _spawn_school()
+
 
 
 ## 船停着 / 正在开往目标 / 人走到旁边才结算。
@@ -292,25 +303,27 @@ func try_pickup(boat_pos: Vector3, boat_stopped: bool) -> Dictionary:
 
 
 func collect_crate(crate: Dictionary) -> Dictionary:
+	if not crates.has(crate): return {}
 	var spec: Dictionary = CRATE_KINDS.get(crate.kind, CRATE_KINDS.crate)
 	crates.erase(crate)
 	var root: Node3D = crate.root
 	root.queue_free()
-	_pending[Time.get_ticks_msec() / 1000.0 + _rng.randf_range(4.0, 9.0)] = true
+	_pending.append(_rng.randf_range(4.0,9.0))
 	for key in spec.reward.keys():
-		Economy.add_resource(key, int(spec.reward[key]))
+		give_resource.call(key, int(spec.reward[key]))
 	collected.emit(crate.kind, spec.label, spec.reward)
 	return {"label": spec.label, "reward": spec.reward}
 
 
 func collect_fish(school: Dictionary) -> bool:
+	if not schools.has(school): return false
 	var root: Node3D = school.root
 	schools.erase(school)
 	root.queue_free()
-	Economy.add_resource("fish", 1)
+	give_resource.call("fish", 1)
 	fish_collected.emit("鱼群")
 	# 鱼群换个地方重聚
-	get_tree().create_timer(_rng.randf_range(14.0, 30.0)).timeout.connect(_spawn_school)
+	_pending_fish.append(_rng.randf_range(14.0,30.0))
 	return true
 
 
@@ -361,3 +374,37 @@ func nearest_school(pos: Vector3, radius := 12.0) -> Dictionary:
 			best_d = d
 			best = s
 	return best
+
+func to_dict() -> Dictionary:
+	var cargo: Array=[]
+	var fish: Array=[]
+	for c in crates: cargo.append({"id":c.id,"kind":c.kind,"base":[c.base.x,c.base.y,c.base.z],"phase":c.phase,"yaw":c.yaw})
+	for c in schools: fish.append({"id":c.id,"base":[c.base.x,c.base.y,c.base.z],"phase":c.phase,"count":c.fish.size()})
+	return {"crates":cargo,"schools":fish,"pending":_pending.duplicate(),"pending_fish":_pending_fish.duplicate(),"rng":str(_rng.state),"fish_rng":str(_fish_rng.state),"next_id":_next_id,"anchor":_anchor_index,"elapsed":_t}
+
+func from_dict(data: Dictionary) -> void:
+	for c in crates: c.root.queue_free()
+	for c in schools: c.root.queue_free()
+	crates.clear();schools.clear();_pending.clear();_pending_fish.clear()
+	if data.is_empty() or data.get("reset",false):
+		_anchor_index=0
+		_next_id=1
+		build()
+		return
+	for c in data.get("crates",[]):
+		var mesh := _build_crate_mesh(str(c.kind))
+		var base := Vector3(c.base[0],c.base[1],c.base[2])
+		mesh.position=base
+		add_child(mesh)
+		crates.append({"id":int(c.id),"kind":str(c.kind),"base":base,"phase":float(c.phase),"yaw":float(c.yaw),"root":mesh,"ring":mesh.get_node_or_null("Ring")})
+	for c in data.get("schools",[]):
+		var mesh := FishVisual.new()
+		mesh.name="FishSchool"
+		var base := Vector3(c.base[0],c.base[1],c.base[2])
+		mesh.position=base
+		add_child(mesh)
+		mesh.build(_fish_rng,int(c.count),float(c.phase))
+		schools.append({"id":int(c.id),"root":mesh,"base":base,"phase":float(c.phase),"fish":mesh.fish})
+	_pending.assign(data.get("pending",[]));_pending_fish.assign(data.get("pending_fish",[]))
+	_rng.state=int(data.rng);_fish_rng.state=int(data.fish_rng)
+	_next_id=int(data.next_id);_anchor_index=int(data.anchor);_t=float(data.elapsed)

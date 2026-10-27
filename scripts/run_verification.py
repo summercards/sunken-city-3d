@@ -25,6 +25,12 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'save-corrupt-seed': ('tests/test_save_corrupt_seed.gd', r'\[save-corrupt-seed\] complete'),
+    'save-protection': ('tests/test_save_protection.gd', r'\[save-protection\] ok=true'),
+    'visual-weather': ('tools/capture_world_weather.gd', r'\[visual-weather\] complete'),
+    'framework-modules': ('tests/test_framework_modules.gd', r'\[framework-modules\].*0 failures'),
+    'save-seed': ('tests/test_save_seed.gd', r'\[save-seed\] ok=true'),
+    'framework-integration': ('tests/test_framework_integration.gd', r'\[framework-integration\].*0 failures'),
     'solar-components': ('tests/test_solar_components.gd', r'\[solar-components\].*failures=0'),
     'visual-solar-cabin': ('tests/test_solar_cabin_asset.gd', r'\[solar-cabin\].*failures=0'),
     'visual-sea-style': ('tools/capture_sea_style.gd', r'\[sea-style\] complete'),
@@ -35,6 +41,11 @@ TESTS.update({
     'visual-underwater-capture': ('tools/capture_underwater_suite.gd', r'\[uw-suite\] surface_environment_restored=true'),
     'visual-paper-fit': ('tools/check_paper_fit.gd', r'\[paper-fit\] \d+ checks, 0 failures'),
     'visual-world-text': ('tools/check_world_text.gd', r'\[world-text\] \d+ checks, 0 failures'),
+    'visual-blockers': ('tools/verify_blockers.gd', r'\[blockers-check\] OK failures=0'),
+    # P 面板「光照」页：清单对账（属性名/范围）与端到端写入探针。
+    # 两项都不进 core，跟其它参数工具一起按需跑。
+    'lighting-params': ('tools/check_light_params.gd', r'\[lighting-params\] \d+ checks, 0 failures'),
+    'lighting-panel': ('tools/probe_light_panel.gd', r'\[light-probe\] \d+ checks, 0 failures'),
 })
 EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
 
@@ -123,6 +134,12 @@ def main():
     parser.add_argument('--visual', action='store_true')
     args = parser.parse_args()
     checks = CORE if args.checks == ['core'] else args.checks
+    if 'framework-integration' in checks and 'save-seed' not in checks:
+        checks = list(checks)
+        checks.insert(checks.index('framework-integration'), 'save-seed')
+    if 'save-protection' in checks and 'save-corrupt-seed' not in checks:
+        checks = list(checks)
+        checks.insert(checks.index('save-protection'), 'save-corrupt-seed')
     unknown = set(checks) - set(TESTS)
     if unknown:
         parser.error('unknown checks: ' + ', '.join(sorted(unknown)))
@@ -143,7 +160,13 @@ def main():
               'renderer': 'per check; visual-* always use real renderer', 'results': {}}
     print('Evidence:', run_dir, flush=True)
     for name in checks:
-        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name == 'modules' else full_config
+        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules'] else full_config
+        # Only intentional cross-process cases share a slot. Every other check starts fresh.
+        group = ('restart' if name in ['save-seed', 'framework-integration'] else
+                 'protection' if name in ['save-corrupt-seed', 'save-protection'] else name)
+        check_user_name = user_name + '/' + group
+        config = re.sub(r'^config/custom_user_dir_name=.*$',
+                        'config/custom_user_dir_name="' + check_user_name + '"', config, flags=re.M)
         (project / 'project.godot').write_text(config)
         script, marker = TESTS[name]
         cmd = [exe, '--path', str(project)]
@@ -165,6 +188,7 @@ def main():
         text = log.read_text(errors='replace')
         result = inspect_log(name, code, text, marker)
         result['log'] = str(log)
+        result['user_data_name'] = check_user_name
         result['renderer'] = 'real' if is_visual else 'headless'
         result['command'] = cmd
         report['results'][name] = result

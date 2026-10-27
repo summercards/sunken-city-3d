@@ -13,7 +13,6 @@ var mode: int = Mode.ON_BOAT
 var current_zone: String = "zone1"
 var landing_id: String = "main"
 var far_sea_unlocked: bool = false
-var ship_level: int = 1
 var dive_depth: float = 0.0
 
 

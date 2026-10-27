@@ -1,0 +1,63 @@
+{
+ "waterLevel": 1.12,
+ "source": "environment bake (assets/world/environment), no component scene",
+ "note": "远景水街区：只有烘焙几何，没有组件场景。区块内阻挡由各组件的 BlockerSet 提供，不写在这里。",
+ "shapes": [
+  {
+   "x": -19.0,
+   "z": -51.0,
+   "hx": 3.476,
+   "hz": 2.865,
+   "round": false,
+   "label": "沉没塔 A"
+  },
+  {
+   "x": 31.0,
+   "z": -22.0,
+   "hx": 3.19,
+   "hz": 2.928,
+   "round": false,
+   "label": "沉没塔 B"
+  },
+  {
+   "x": 38.998,
+   "z": 11.996,
+   "hx": 2.864,
+   "hz": 2.687,
+   "round": false,
+   "label": "沉没塔 C"
+  },
+  {
+   "x": -39.996,
+   "z": 21.696,
+   "hx": 2.838,
+   "hz": 3.18,
+   "round": false,
+   "label": "沉没塔 D"
+  },
+  {
+   "x": 19.951,
+   "z": 42.996,
+   "hx": 3.037,
+   "hz": 2.556,
+   "round": false,
+   "label": "沉没塔 E"
+  },
+  {
+   "x": -54.0,
+   "z": 12.0,
+   "hx": 5.5,
+   "hz": 4.7,
+   "round": true,
+   "label": "圆弧玻璃大厦"
+  },
+  {
+   "x": -30.0,
+   "z": 40.0,
+   "hx": 3.7,
+   "hz": 3.1,
+   "round": false,
+   "label": "阳台住宅"
+  }
+ ]
+}

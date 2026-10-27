@@ -1,9 +1,11 @@
 @tool
-extends Node3D
 class_name BuildField
+extends Node3D
+const ConstructionDependency = preload("res://src/construction/construction_service.gd")
+var construction: ConstructionDependency
 ## 世界里的建造牌容器：从 `assets/data/build_sites.json` 生成。
 ##
-## 表里只有「牌子立在哪」，费用与施工时长在 `Economy.SITES` 里——
+## 表里只有「牌子立在哪」，费用与施工时长在 `construction.SITES` 里——
 ## 一个管位置（资产），一个管规则（玩法），两边都不重复写。
 ##
 ## 旧实现没有这个节点：建造是面板里的一个按钮，世界里看不到任何东西。
@@ -39,14 +41,15 @@ func build(path := TABLE) -> void:
 		if not (row is Dictionary):
 			continue
 		var node: Node3D = BuildSiteLib.new()
+		node.construction = construction
 		node.setup(row)
 		add_child(node)
 		node.work_started.connect(_on_work_started)
 		sites.append(node)
 	if Engine.is_editor_hint():
 		return
-	if not Economy.site_work_finished.is_connected(_on_finished):
-		Economy.site_work_finished.connect(_on_finished)
+	if not construction.site_work_finished.is_connected(_on_finished):
+		construction.site_work_finished.connect(_on_finished)
 
 
 func _on_work_started(id: String, name: String, seconds: float) -> void:

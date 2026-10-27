@@ -1,4 +1,5 @@
 extends Node3D
+var give_resource: Callable
 ## 海底世界（独立地图）。
 ##
 ## 与海面世界的关系：不是把相机压到水面下，而是切到一张独立的地图。
@@ -54,7 +55,17 @@ const DiveAirLib = preload("res://src/diving/dive_air.gd")
 @onready var chests_root: Node3D = $Chests
 
 var active := false
-var phase := "surface"          # surface / enter / swim / exit
+var phase_machine = preload("res://src/core/state_machine.gd").new()
+var phase: String:
+	get: return phase_machine.current if phase_machine.current != "" else "surface"
+	set(value): phase_machine.change(value)
+var swim_action = preload("res://src/diving/actions/swim_action.gd").new()
+var search_action = preload("res://src/diving/actions/search_action.gd").new()
+var camera_action = preload("res://src/diving/actions/camera_action.gd").new()
+var diver_pose_action = preload("res://src/diving/actions/diver_pose_action.gd").new()
+var enter_action = preload("res://src/diving/actions/enter_action.gd").new()
+var surface_action = preload("res://src/diving/actions/surface_action.gd").new()
+var finish_exit_action = preload("res://src/diving/actions/finish_exit_action.gd").new()
 var diver_pos := Vector3.ZERO
 var depth := 0.0
 
@@ -93,6 +104,7 @@ var _air_emit_t := 0.0
 
 
 func setup(surface_nodes: Array, world_env: WorldEnvironment) -> void:
+	phase_machine.configure(self,{"surface":preload("res://src/diving/states/surface.gd").new(),"enter":preload("res://src/diving/states/enter.gd").new(),"swim":preload("res://src/diving/states/swim.gd").new(),"exit":preload("res://src/diving/states/exit.gd").new()},{"surface":["enter"],"enter":["swim","exit"],"swim":["exit"],"exit":["surface"]},"surface")
 	_surface_nodes = surface_nodes
 	_world_env = world_env
 	_saved_env = world_env.environment
@@ -116,62 +128,15 @@ func dive(_boat_pos: Vector3, zone_label := "") -> void:
 	if not air.can_dive():
 		message.emit("刚上浮，先喘口气（%.0f 秒）" % ceil(air.recover))
 		return
-	air.refill()
-	_surface_zone = zone_label
-	active = true
-	phase = "enter"
-	_enter_t = 0.0
-	diver_pos = Vector3(0, WATER_LEVEL, 12)
-	_yaw = 0.0
-	_pitch = 1.21
-	_distance = 10.0
-	_velocity = Vector3.ZERO
-	_route.clear()
-	_search = {}
-	_refresh_chest_visibility()
-
-	visible = true
-	_set_surface_visible(false)
-	_world_env.environment = _uw_env
-	camera.fov = 55.0
-	camera.near = 0.12
-	camera.current = true
-	deco.visible = true
-	chests_root.visible = true
-	if _marker_layer != null:
-		_marker_layer.visible = true
-	_update_camera(0.0, true)
-	_update_lamp()
-	depth_changed.emit(0.0)
-	_emit_air()
+	phase_machine.change("enter",{"zone":zone_label})
 
 
 func surface() -> void:
-	if not active or phase == "exit":
-		return
-	phase = "exit"
-	_enter_t = 0.0
-	_exit_y = diver_pos.y
-	_route.clear()
-	_search = {}
-	if _marker_layer != null:
-		_marker_layer.visible = false
+	if active: phase_machine.change("exit")
 
 
 func _finish_exit() -> void:
-	active = false
-	phase = "surface"
-	# 灯必须关掉：海面材质与水下材质不是一套，但 uniform 会留在同一个
-	# ShaderMaterial 缓存里，下次进水前如果没重设就会「灯没开却亮着」。
-	MaterialLib.set_lamp(false, Vector3.ZERO, Vector3(0, 0, -1))
-	visible = false
-	_set_surface_visible(true)
-	_world_env.environment = _saved_env
-	camera.current = false
-	deco.visible = false
-	chests_root.visible = false
-	depth = 0.0
-	exited.emit()
+	phase_machine.change("surface")
 
 
 func _set_surface_visible(on: bool) -> void:
@@ -375,22 +340,8 @@ func _process(delta: float) -> void:
 	_t += delta
 	var dt := minf(delta, 0.05)
 
-	match phase:
-		"enter":
-			_enter_t += dt
-			var blend := smoothstep(0.0, 1.0, minf(_enter_t / ENTER_TIME, 1.0))
-			diver_pos.y = lerpf(WATER_LEVEL, ENTER_DEPTH, blend)
-			if blend >= 1.0:
-				phase = "swim"
-		"exit":
-			_enter_t += dt
-			var blend := smoothstep(0.0, 1.0, minf(_enter_t / ENTER_TIME, 1.0))
-			diver_pos.y = lerpf(_exit_y, WATER_LEVEL, blend)
-			if blend >= 1.0:
-				_finish_exit()
-				return
-		"swim":
-			_update_swim(dt)
+	phase_machine.tick(dt)
+	if not active: return
 
 	depth = maxf(0.0, WATER_LEVEL - diver_pos.y)
 	_update_camera(dt, phase == "enter" or phase == "exit")
@@ -405,93 +356,11 @@ func _process(delta: float) -> void:
 
 
 func _update_swim(dt: float) -> void:
-	var axis := func(a: int, b: int, c: int, d: int) -> float:
-		var pos := 0.0
-		if Input.is_physical_key_pressed(a) or Input.is_physical_key_pressed(b):
-			pos += 1.0
-		if Input.is_physical_key_pressed(c) or Input.is_physical_key_pressed(d):
-			pos -= 1.0
-		return pos
-
-	var x: float = axis.call(KEY_D, KEY_RIGHT, KEY_A, KEY_LEFT)
-	var z: float = axis.call(KEY_S, KEY_DOWN, KEY_W, KEY_UP)
-	var y: float = axis.call(KEY_E, KEY_SPACE, KEY_Q, KEY_Q)
-	var desired := Vector3(x, y * 0.7, z)
-	if desired.length() > 1.0:
-		desired = desired.normalized()
-	# Shift 加速：省时间，但氧气消耗乘 1.9（见 dive_air.gd）。
-	var sprint := Input.is_physical_key_pressed(KEY_SHIFT)
-	desired = desired.rotated(Vector3.UP, _yaw) * (SPRINT_SPEED if sprint else SWIM_SPEED)
-	if absf(x) + absf(y) + absf(z) > 0.01:
-		cancel_navigation()
-
-	if not _route.is_empty():
-		var target: Vector3 = _route[0]
-		var delta_v := target - diver_pos
-		var length := delta_v.length()
-		if length < 0.25:
-			_route.pop_front()
-			if _route.is_empty() and not _search.is_empty():
-				_search_t = 0.0
-		else:
-			desired = delta_v.normalized() * minf(4.5, length * 3.0)
-
-	_velocity = _velocity.lerp(desired, 1.0 - exp(-dt * 7.0))
-	var next := diver_pos + _velocity * dt
-	next.y = clampf(next.y, MOVE_MIN_Y, MOVE_MAX_Y)
-	next.x = clampf(next.x, -50.0, 50.0)
-	next.z = clampf(next.z, -170.5, 48.0)
-
-	if not blocked(next):
-		diver_pos = next
-	else:
-		# 逐轴回退：贴着台地边缘能滑过去，但不会穿下去。
-		# 逐轴回退（Vector3 不支持按名字索引，只能逐个写）。
-		var probe_y := Vector3(diver_pos.x, next.y, diver_pos.z)
-		if not blocked(probe_y):
-			diver_pos.y = next.y
-		else:
-			_velocity.y = 0.0
-		var probe_x := Vector3(next.x, diver_pos.y, diver_pos.z)
-		if not blocked(probe_x):
-			diver_pos.x = next.x
-		else:
-			_velocity.x = 0.0
-		var probe_z := Vector3(diver_pos.x, diver_pos.y, next.z)
-		if not blocked(probe_z):
-			diver_pos.z = next.z
-		else:
-			_velocity.z = 0.0
-
-	# 搜索进度
-	if not _search.is_empty():
-		var chest: Dictionary = _search
-		if not _route.is_empty():
-			_search_t = 0.0
-		elif diver_pos.distance_to(chest.pos) > SEARCH_RADIUS:
-			_search = {}
-			_search_t = 0.0
-			message.emit("离宝箱太远了")
-		else:
-			_search_t += dt
-			if _search_t >= SEARCH_TIME:
-				_open_chest(chest)
+	swim_action.execute(self,dt)
 
 
 func _update_camera(dt: float, snap: bool) -> void:
-	var forward := Vector3(-sin(_yaw), 0, -cos(_yaw))
-	var target := diver_pos + Vector3(0, 0.5, 0) + forward * 1.6
-	var cam := diver_pos + forward * (-_distance) + Vector3(0, _distance * _pitch, 0)
-	cam.y = minf(cam.y, WATER_LEVEL - 0.4)
-	for i in 24:
-		if not blocked(cam, 0.15):
-			break
-		cam = cam.lerp(diver_pos, 0.2)
-	if snap:
-		camera.global_position = cam
-	else:
-		camera.global_position = camera.global_position.lerp(cam, 1.0 - exp(-dt * 6.0))
-	camera.look_at(target, Vector3.UP)
+	camera_action.execute(self,dt, snap)
 
 
 ## 氧气推进。归零不是扣资源，而是强制上浮 —— 失败有代价，但不清空背包。
@@ -534,18 +403,12 @@ func _toggle_lamp() -> void:
 
 
 func _update_diver(dt: float) -> void:
-	if _diver == null:
-		return
-	_diver.position = diver_pos
-	var flat := Vector2(_velocity.x, _velocity.z)
-	if flat.length() > 0.15:
-		_heading = atan2(-flat.y, flat.x)
-	_diver.rotation.y = lerp_angle(_diver.rotation.y, _heading, minf(1.0, dt * 7.0))
+	diver_pose_action.execute(self,dt)
 
 
 ## 调试用：把潜点瞬间挪到某处（回归截图用）。
 func debug_teleport(p: Vector3) -> void:
-	phase = "swim"
+	phase_machine.change("swim",{},true)
 	diver_pos = p
 	_velocity = Vector3.ZERO
 	_update_camera(0.0, true)
@@ -858,7 +721,7 @@ func _open_chest(chest: Dictionary) -> void:
 	_route.clear()
 	var reward: Dictionary = chest.reward
 	for key in reward.keys():
-		Economy.add_resource(str(key), int(reward[key]))
+		give_resource.call(str(key), int(reward[key]))
 	chest.opened = true
 	chest.discovered = true
 	if chest.marker != null:
@@ -972,3 +835,7 @@ func _build_fog_pass() -> void:
 	quad.extra_cull_margin = 16384.0
 	camera.add_child(quad)
 	quad.position.z = -1.0
+
+func toggle_lamp() -> void: _toggle_lamp()
+func uses_underwater_environment() -> bool:
+	return _world_env != null and _world_env.environment == _uw_env

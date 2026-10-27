@@ -465,5 +465,7 @@ func _make_mesh(g: Dictionary, verts: PackedFloat32Array, indices: PackedInt32Ar
 
 
 func cruise_speed() -> float:
-	var economy: Node = get_node_or_null("/root/Economy") if is_inside_tree() else null
-	return SPEED * (1.15 if economy != null and int(economy.ship_level) >= 3 else 1.0)
+	return SPEED * (float(speed_multiplier.call()) if speed_multiplier.is_valid() else 1.0)
+
+
+var speed_multiplier: Callable

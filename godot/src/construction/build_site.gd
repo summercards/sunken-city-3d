@@ -1,5 +1,7 @@
 @tool
 extends "res://src/interaction/interactable.gd"
+const ConstructionDependency = preload("res://src/construction/construction_service.gd")
+var construction: ConstructionDependency
 ## 世界里的建造牌。
 ##
 ## 旧实现是「面板里点一下 → 等级 +1」，材料够就瞬间完成，等级只是个数字。
@@ -9,7 +11,7 @@ extends "res://src/interaction/interactable.gd"
 ##     → 交付：一次扣齐材料，脚手架立起来，开始真实倒计时
 ##     → 竣工：等级 +1，脚手架收起，牌子换成新等级
 ##
-## 计时归 `Economy.site_work` 管（关界面、走开、切区块都照走），
+## 计时归 `construction.site_work` 管（关界面、走开、切区块都照走），
 ## 这个节点只负责造型、焦点文案和把进度画出来——规则和表现分开，headless 才能断言。
 
 ## 交付材料成功时发出：上层用它播提示与音效。
@@ -52,10 +54,10 @@ func _on_ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	_refresh_state()
-	if not Economy.site_work_finished.is_connected(_on_finished):
-		Economy.site_work_finished.connect(_on_finished)
-	if not Economy.sites_changed.is_connected(_refresh_state):
-		Economy.sites_changed.connect(_refresh_state)
+	if not construction.site_work_finished.is_connected(_on_finished):
+		construction.site_work_finished.connect(_on_finished)
+	if not construction.sites_changed.is_connected(_refresh_state):
+		construction.sites_changed.connect(_refresh_state)
 
 
 func _on_tick(delta: float) -> void:
@@ -64,7 +66,7 @@ func _on_tick(delta: float) -> void:
 		_pop = maxf(0.0, _pop - delta * 1.6)
 		var s := 1.0 + sin(_pop * PI) * 0.16
 		scale = Vector3(s, s, s)
-	if Economy.is_building(site_id):
+	if construction.is_building(site_id):
 		# 施工中的节奏感：材料堆轻微起伏，灯在呼吸。
 		if _scaffold != null:
 			_scaffold.position.y = sin(_pulse * 2.4) * 0.02
@@ -73,11 +75,11 @@ func _on_tick(delta: float) -> void:
 
 
 func focus_text() -> String:
-	var lvl := Economy.site_level(site_id)
-	if Economy.site_maxed(site_id):
+	var lvl := construction.site_level(site_id)
+	if construction.site_maxed(site_id):
 		return "%s · Lv.%d（满级）" % [site_name, lvl]
-	if Economy.is_building(site_id):
-		return "%s · 施工中 %d%%" % [site_name, int(Economy.site_work_progress(site_id) * 100.0)]
+	if construction.is_building(site_id):
+		return "%s · 施工中 %d%%" % [site_name, int(construction.site_work_progress(site_id) * 100.0)]
 	return "%s · Lv.%d → Lv.%d" % [site_name, lvl, lvl + 1]
 
 
@@ -91,20 +93,20 @@ func hold_time_for() -> float:
 
 
 func blocked_reason() -> String:
-	if Economy.site_maxed(site_id): return "%s 已经是最高等级" % site_name
-	if Economy.is_building(site_id): return "还在施工，剩 %d 秒" % int(ceil(Economy.site_work_left(site_id)))
-	var cost := Economy.site_next_cost(site_id)
-	return "材料不够：%s" % Economy.construction_missing_text(cost) if not Economy.construction_has(cost) else ""
+	if construction.site_maxed(site_id): return "%s 已经是最高等级" % site_name
+	if construction.is_building(site_id): return "还在施工，剩 %d 秒" % int(ceil(construction.site_work_left(site_id)))
+	var cost := construction.site_next_cost(site_id)
+	return "材料不够：%s" % construction.construction_missing_text(cost) if not construction.construction_has(cost) else ""
 
 func interact(_actor: Node3D) -> Dictionary:
-	if Economy.site_maxed(site_id):
+	if construction.site_maxed(site_id):
 		return {"blocked": "%s 已经是最高等级" % site_name}
-	if Economy.is_building(site_id):
-		return {"blocked": "还在施工，剩 %d 秒" % int(ceil(Economy.site_work_left(site_id)))}
-	var cost := Economy.site_next_cost(site_id)
-	if not Economy.construction_has(cost):
-		return {"blocked": "材料不够：%s" % Economy.construction_missing_text(cost)}
-	var r: Dictionary = Economy.begin_site_upgrade(site_id)
+	if construction.is_building(site_id):
+		return {"blocked": "还在施工，剩 %d 秒" % int(ceil(construction.site_work_left(site_id)))}
+	var cost := construction.site_next_cost(site_id)
+	if not construction.construction_has(cost):
+		return {"blocked": "材料不够：%s" % construction.construction_missing_text(cost)}
+	var r: Dictionary = construction.begin_site_upgrade(site_id)
 	if not r.get("ok", false):
 		return {"blocked": str(r.get("reason", "现在不能施工"))}
 	work_started.emit(site_id, site_name, float(r.get("seconds", 20.0)))
@@ -118,7 +120,7 @@ func interact(_actor: Node3D) -> Dictionary:
 
 
 func _can_deliver() -> bool:
-	return not Economy.site_maxed(site_id) and not Economy.is_building(site_id)
+	return not construction.site_maxed(site_id) and not construction.is_building(site_id)
 
 
 func _on_finished(id: String, level: int) -> void:
@@ -137,8 +139,8 @@ func _on_finished(id: String, level: int) -> void:
 
 
 func _refresh_state() -> void:
-	var building := Economy.is_building(site_id)
-	var maxed := Economy.site_maxed(site_id)
+	var building := construction.is_building(site_id)
+	var maxed := construction.site_maxed(site_id)
 	if _scaffold != null:
 		_scaffold.visible = building
 	if _board != null:
@@ -146,7 +148,7 @@ func _refresh_state() -> void:
 		_board_mat.albedo_color = c
 		_board_mat.emission = c
 		_board_mat.emission_energy_multiplier = 0.45 if building else 0.18
-	label = "%s Lv.%d" % [site_name, Economy.site_level(site_id)]
+	label = "%s Lv.%d" % [site_name, construction.site_level(site_id)]
 	verb = "查看进度" if building else ("查看" if maxed else "交付材料")
 	hold_time = hold_time_for()
 

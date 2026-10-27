@@ -277,3 +277,8 @@ func _uid() -> String:
 ## 测试用：固定随机源，让「抽到哪张」可复现。
 func set_seed(seed_value: int) -> void:
 	rng.seed = seed_value
+
+## Detached query results keep UI/readers from editing live offers and nested rewards.
+func offers() -> Array: return slots.duplicate(true)
+func offer_at(index: int) -> Dictionary:
+	return slots[index].duplicate(true) if index >= 0 and index < slots.size() else {}

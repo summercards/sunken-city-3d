@@ -1,6 +1,8 @@
 @tool
 extends "res://src/interaction/interactable.gd"
 class_name FarmPlot
+const Farm_modelDependency = preload("res://src/farming/farm.gd")
+var farm_model: Farm_modelDependency
 ## 世界里的菜箱。
 ##
 ## 一物四态：空地 / 生长 / 缺水 / 可收。状态不靠 UI 说，直接长在箱子上：
@@ -9,7 +11,7 @@ class_name FarmPlot
 ##   - 缺水时叶片发黄下垂，但不会枯死；
 ##   - 成熟时果实微微发光，远处也能看见。
 ##
-## 规则全在 `Economy.farm`（FarmModel），这里只负责造型、焦点文案与把 E 转给它。
+## 规则全在 `farm_model`（FarmModel），这里只负责造型、焦点文案与把 E 转给它。
 
 signal acted(plot_id: String, event: String, payload: Dictionary)
 
@@ -66,18 +68,18 @@ func _on_tick(delta: float) -> void:
 
 ## 焦点文案：动作 + 菜箱名 + 当前状态。
 func focus_text() -> String:
-	var farm = Economy.farm
+	var farm = farm_model
 	if farm == null:
 		return "%s · %s" % [verb, plot_name]
 	return "%s · %s（%s）" % [verb, plot_name, farm.status_text(plot_id)]
 
 
 func blocked_reason() -> String:
-	return Economy.farm.blocked_reason(plot_id) if Economy.farm != null else "种植系统未就绪"
+	return farm_model.blocked_reason(plot_id) if farm_model != null else "种植系统未就绪"
 
 
 func interact(_actor: Node3D) -> Dictionary:
-	var farm = Economy.farm
+	var farm = farm_model
 	if farm == null:
 		return {"blocked": "种植系统未就绪"}
 	var result: Dictionary = farm.interact(plot_id, farm.selected_crop)
@@ -238,7 +240,7 @@ func _build_stage_meshes(stage: int, offset: Vector3, s: float) -> void:
 # ---- 状态同步 ---------------------------------------------------------------
 
 func _sync(_delta: float) -> void:
-	var farm = Economy.farm
+	var farm = farm_model
 	if farm == null:
 		return
 	var phase: String = farm.phase(plot_id)

@@ -53,6 +53,16 @@ func run() -> void:
 	check(farm.plant(id, "lettuce").has("blocked") and bag.count("lettuce_seed") == 1, "locked plot does not consume seed")
 	access = ""
 	check(farm.plant(id, "lettuce").get("event") == "planted", "plant succeeds without Economy")
+	var exposed: Dictionary = farm.state(id)
+	exposed.remaining=0.0
+	var definitions: Dictionary=farm.crop_definitions()
+	definitions.lettuce.seed_price=0
+	var plots: Array=farm.plot_specs()
+	plots.clear()
+	check(farm.phase(id)=="growing" and farm.crop_def("lettuce").seed_price==4 and not farm.plot_specs().is_empty(),"farm queries cannot mutate owned state or definitions")
+	var state_count: int=farm.states.size()
+	farm.state("unknown-query")
+	check(farm.states.size()==state_count,"unknown plot query is side-effect free")
 	farm.advance_day()
 	check(farm.state(id).remaining == 3, "dry day does not grow")
 	farm.water(id)
@@ -91,6 +101,11 @@ func run() -> void:
 	orders.rng.seed = 42
 	orders.reset()
 	check(orders.slots.size() == 3, "three offers")
+	var offers: Array=orders.offers()
+	offers[0].pay=0
+	var first_offer: Dictionary=orders.offer_at(0)
+	first_offer.amount=999999
+	check(orders.offer_at(0).pay>0 and orders.offer_at(0).amount!=999999 and orders.offer_at(-1).is_empty(),"order queries cannot mutate live offers")
 	var offer: Dictionary = orders.slots[0].duplicate(true)
 	check(not orders.fulfill(str(offer.uid)).ok, "no goods rejects order")
 	bag.set_count(str(offer.item), int(offer.amount))

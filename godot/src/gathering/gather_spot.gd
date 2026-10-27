@@ -1,6 +1,8 @@
 @tool
-extends "res://src/interaction/interactable.gd"
 class_name GatherSpot
+extends "res://src/interaction/interactable.gd"
+const ConstructionDependency = preload("res://src/construction/construction_service.gd")
+var construction: ConstructionDependency
 ## 采集点：世界里的实体资源。
 ##
 ## 与旧实现的差别：
@@ -131,8 +133,8 @@ func can_interact() -> bool:
 func blocked_reason() -> String:
 	if not available:
 		return "还要 %.0f 秒才能再采" % maxf(cooldown_left, 0.0)
-	if requires_site != "" and Economy.site_level(requires_site) < requires_level:
-		return "需要 %s 升到 %d 级" % [str(Economy.SITES.get(requires_site, {}).get("name", requires_site)), requires_level]
+	if requires_site != "" and construction.site_level(requires_site) < requires_level:
+		return "需要 %s 升到 %d 级" % [str(construction.SITES.get(requires_site, {}).get("name", requires_site)), requires_level]
 	return ""
 
 

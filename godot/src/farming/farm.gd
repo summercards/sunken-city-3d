@@ -46,15 +46,31 @@ func _empty_state() -> Dictionary:
 
 func spec(plot_id: String) -> Dictionary:
 	for row in specs:
-		if str(row.id) == plot_id: return row
+		if str(row.id) == plot_id: return row.duplicate(true)
 	return {}
 
 func crop_def(crop_id: String) -> Dictionary:
-	return crops.get(crop_id, {})
+	return crops.get(crop_id, {}).duplicate(true)
 
 func state(plot_id: String) -> Dictionary:
+	# Queries never expose a writable reference or create an unknown plot.
+	return states.get(plot_id,_empty_state()).duplicate(true)
+
+func plot_specs() -> Array: return specs.duplicate(true)
+func crop_definitions() -> Dictionary: return crops.duplicate(true)
+
+func _state(plot_id: String) -> Dictionary:
 	if not states.has(plot_id): states[plot_id] = _empty_state()
 	return states[plot_id]
+
+## Explicit preview command for --farm fixtures; ordinary gameplay uses plant/water.
+func debug_set_growth(plot_id: String, ratio: float, wet: bool) -> bool:
+	if not states.has(plot_id) or is_empty(plot_id) or not is_finite(ratio): return false
+	var st := _state(plot_id)
+	st.remaining = float(st.total)*clampf(ratio,0.0,1.0)
+	st.water = 1.0 if wet else 0.0
+	plots_changed.emit()
+	return true
 
 func crop_of(plot_id: String) -> String:
 	return str(state(plot_id).crop)
@@ -144,7 +160,7 @@ func water(plot_id: String) -> Dictionary:
 	if not is_dry(plot_id): return {"blocked":"今天已经浇过，不会重复消耗水"}
 	if watering_can <= 0: return {"blocked":"水壶空了，在种植页补水"}
 	watering_can -= 1
-	state(plot_id).water = 1.0
+	_state(plot_id).water = 1.0
 	watered.emit(plot_id)
 	plots_changed.emit()
 	return {"event":"watered","name":crop_name(crop_of(plot_id))}
@@ -158,7 +174,7 @@ func harvest(plot_id: String) -> Dictionary:
 	reason = _inventory_full(reward)
 	if reason != "": return {"blocked":reason}
 	ports.give.call(reward)
-	var st := state(plot_id)
+	var st := _state(plot_id)
 	st.harvests = int(st.get("harvests",0)) + 1
 	var c := crop_def(crop_id)
 	var regrow := int(st.harvests) < int(c.get("harvests",1))
@@ -261,3 +277,13 @@ func from_dict(data: Dictionary) -> void:
 	selected_crop = str(data.get("selected_crop","lettuce"))
 	if not crops.has(selected_crop): selected_crop = "lettuce"
 	plots_changed.emit()
+
+func clear_plot_specs() -> void:
+	specs.clear()
+
+func register_plot(row: Dictionary) -> void:
+	assert(not row.get("id","").is_empty())
+	specs.append(row.duplicate(true))
+
+func access_reason(id: String) -> String:
+	return _access_reason(id)

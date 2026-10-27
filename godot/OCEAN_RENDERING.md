@@ -561,11 +561,12 @@ color      *= mix(1.0, deep_darkness, depth_blend);   // 本工程新增：只�
 | 参数 | 原版 | 吸收式 |
 |---|---|---|
 | `caustics_enabled` | true | true |
-| `caustics_strength` / `caustic_strength` | 0.16 | **0.35** |
+| `caustics_strength` / `caustic_strength` | **0.35** | **0.35** |
 | `caustics_scale` / `caustic_size` | 1.0 | 2.0 |
 | `caustics_speed` | 1.0 | —（并入 `u_time`） |
 | `caustics_detail` / `caustic_detail` | 0.35 | 0.45 |
 | 浅端起始 | `caustics_depth_near` 0.25 m | `caustic_near` 0.25 m |
+| 浅端渐变带宽 | 0.25→0.14 m（短） | 0.25→0.60 m（短） |
 | 深端淡出 | `caustics_depth_far` 15 m | `caustic_range` 40 m |
 
 近景 16 m 水下墙面的绿通道增量（相对关闭态）：

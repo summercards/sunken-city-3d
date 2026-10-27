@@ -32,8 +32,9 @@ var _t := 0.0
 var _rowing := false
 var _farm_action_left := 0.0
 
-func play_farm_action(_event: String) -> void:
-	_farm_action_left = 1.1
+func play_farm_action(event: String) -> void:
+	_farm_action_left=1.1
+	_action="watering" if event in ["watered","浇水"] else ("harvesting" if event in ["harvested","收获"] else "planting")
 
 var _walking := false
 
@@ -237,70 +238,49 @@ func _knee(parent: Node3D, name: String) -> Node3D:
 
 
 func set_walking(on: bool) -> void:
-	_walking = on
-
+	_walking=on
+	if on:
+		_base_action="walking"
+		_farm_action_left=0.0
+	elif _base_action=="walking": _base_action="idle"
 
 func set_rowing(on: bool) -> void:
-	_rowing = on
-
+	_rowing=on
+	if on:
+		_base_action="rowing"
+		_farm_action_left=0.0
+	elif _base_action=="rowing": _base_action="idle"
 
 func set_diving(on: bool) -> void:
+	_base_action = "swimming" if on else "idle"
+	_farm_action_left = 0.0
 	if gear:
 		gear.visible = on
 	if mask:
 		mask.visible = on
 
 
+var rowing_query: Callable
+var _action := "idle"
+var _base_action := "idle"
+var _last_action := ""
+var _actions := {
+	"swimming":preload("res://src/player/animation/swimming_action.gd").new(),
+	"idle":preload("res://src/player/animation/idle_action.gd").new(),
+	"walking":preload("res://src/player/animation/walking_action.gd").new(),
+	"rowing":preload("res://src/player/animation/rowing_action.gd").new(),
+	"planting":preload("res://src/player/animation/planting_action.gd").new(),
+	"watering":preload("res://src/player/animation/watering_action.gd").new(),
+	"harvesting":preload("res://src/player/animation/harvesting_action.gd").new()}
 func _process(delta: float) -> void:
 	_t += delta
-	var rowing := Vector2(_t * 3.4, 1.0)
-	if get_parent().has_method("rowing_state"):
-		rowing = get_parent().rowing_state()
-		_rowing = rowing.y > 0.01
-	if _farm_action_left > 0.0:
-		_farm_action_left = maxf(0.0,_farm_action_left-delta)
-		var bend := sin((1.0-_farm_action_left/1.1)*PI)
-		body_pivot.rotation.x = bend*0.3
-		left_arm.rotation.x = -bend*0.8
-		right_arm.rotation.x = -bend*1.1
-		return
-	if _rowing:
-		# 双桨同相划动，人物、船桨和船体使用同一相位及出力。
-		var s := sin(rowing.x)
-		var blend := 1.0 - exp(-9.0 * delta)
-		var arm := lerpf(0.05, -0.95 + s * 0.42, rowing.y)
-		var elbow := lerpf(-0.22, -0.35 + s * 0.22, rowing.y)
-		left_arm.rotation.x = lerpf(left_arm.rotation.x, arm, blend)
-		right_arm.rotation.x = lerpf(right_arm.rotation.x, arm, blend)
-		left_elbow.rotation.x = lerpf(left_elbow.rotation.x, elbow, blend)
-		right_elbow.rotation.x = lerpf(right_elbow.rotation.x, elbow, blend)
-		left_leg.rotation.x = lerpf(left_leg.rotation.x, 0.12 * rowing.y, blend)
-		right_leg.rotation.x = lerpf(right_leg.rotation.x, 0.12 * rowing.y, blend)
-		body_pivot.rotation.x = lerpf(body_pivot.rotation.x, (0.10 + s * 0.03) * rowing.y, blend)
-		body_pivot.position.y = sin(rowing.x) * 0.012 * rowing.y
-	elif _walking:
-		var s := sin(_t * 6.4)
-		left_arm.rotation.x = s * 0.7
-		right_arm.rotation.x = -s * 0.7
-		left_leg.rotation.x = -s * 0.55
-		right_leg.rotation.x = s * 0.55
-		left_knee.rotation.x = max(0.0, -s) * 0.5
-		right_knee.rotation.x = max(0.0, s) * 0.5
-		left_elbow.rotation.x = -0.18
-		right_elbow.rotation.x = -0.18
-		body_pivot.rotation.x = 0.04
-		body_pivot.position.y = abs(sin(_t * 6.4)) * 0.022
-	else:
-		# 待机：轻微呼吸与左右看
-		var breath := sin(_t * 1.5) * 0.012
-		left_arm.rotation.x = lerp(left_arm.rotation.x, 0.05, clamp(delta * 4.0, 0.0, 1.0))
-		right_arm.rotation.x = lerp(right_arm.rotation.x, -0.05, clamp(delta * 4.0, 0.0, 1.0))
-		left_elbow.rotation.x = lerp(left_elbow.rotation.x, -0.22, clamp(delta * 4.0, 0.0, 1.0))
-		right_elbow.rotation.x = lerp(right_elbow.rotation.x, -0.22, clamp(delta * 4.0, 0.0, 1.0))
-		left_leg.rotation.x = lerp(left_leg.rotation.x, 0.0, clamp(delta * 4.0, 0.0, 1.0))
-		right_leg.rotation.x = lerp(right_leg.rotation.x, 0.0, clamp(delta * 4.0, 0.0, 1.0))
-		left_knee.rotation.x = lerp(left_knee.rotation.x, 0.0, clamp(delta * 4.0, 0.0, 1.0))
-		right_knee.rotation.x = lerp(right_knee.rotation.x, 0.0, clamp(delta * 4.0, 0.0, 1.0))
-		body_pivot.rotation.x = lerp(body_pivot.rotation.x, 0.0, clamp(delta * 4.0, 0.0, 1.0))
-		body_pivot.position.y = breath
-		head_pivot.rotation.y = sin(_t * 0.55) * 0.28
+	if body_pivot==null: return
+	if _farm_action_left<=0: _action=_base_action
+	if _last_action != _action:
+		for joint in [body_pivot,head_pivot,left_arm,right_arm,left_elbow,right_elbow,left_leg,right_leg,left_knee,right_knee]:
+			joint.rotation = Vector3.ZERO
+		body_pivot.position.y = 0.0
+		_last_action = _action
+	_actions[_action].sample(self,delta)
+
+func animation_state() -> String: return _action

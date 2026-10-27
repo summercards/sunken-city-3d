@@ -1,8 +1,8 @@
 extends Node
-## 经济状态机。
+## 经营服务兼容适配器：只装配接口、转发事件与旧接口；规则分别由功能服务拥有。
 ##
-## 资源账本已经搬进 `Inventory`（唯一真源），这里只负责「规则」：
-## 建造点等级、设施解锁、打捞冷却、船只等级，以及把成本/产出翻译成背包操作。
+## 资源数量由 Inventory 拥有；本门面只转发建造、设施、打捞、船级等服务，
+## 并在装配时把支付、奖励与进度查询接到公开端口。
 ##
 ## 兼容层：`Economy.wood` 这类属性仍然可以读，也可以赋值，内部走 Inventory，
 ## 于是旧代码与旧测试不用一次性改完。新代码应该直接用 `Inventory.count(id)`。
@@ -27,45 +27,23 @@ const OrderBoardLib = preload("res://src/orders/orders.gd")
 var COLLECTIONS := {}
 
 # 建造点：等级越高费用越高；第 3 级解锁对应设施的前置。
-const SITES := {
-	"home_cabin": {"name": "太阳能木屋", "zone": "zone1", "max_level": 3, "costs": [
-		{"coins": 20, "wood": 4, "parts": 2},
-		{"coins": 45, "wood": 9, "parts": 5},
-	], "seconds": [18.0, 30.0]},
-	"rooftop_planter": {"name": "圆弧屋顶农场", "zone": "zone3", "max_level": 3, "costs": [
-		{"coins": 25, "wood": 5, "parts": 3},
-		{"coins": 55, "wood": 11, "parts": 6},
-	], "seconds": [20.0, 34.0]},
-	"yokohama_station": {"name": "横滨沉没铁道", "zone": "zone2", "max_level": 2, "costs": [
-		{"coins": 30, "wood": 6, "parts": 4},
-	], "seconds": [22.0]},
-}
+const SITES = preload("res://src/construction/construction_service.gd").SITES
 
-const FACILITIES := {
-	"warehouse": {
-		"name": "材料仓库",
-		"description": "48 格材料专用仓库；建设自动使用仓库材料。",
-		"cost": {"coins": 12, "wood": 4},
-		"requires": {"home_cabin": 1},
-	},
-	"greenhouse": {
-		"name": "屋顶温室",
-		"description": "新种作物首茬少长 1 天，每茬多收 1 份。",
-		"cost": {"coins": 15, "wood": 5, "parts": 3, "glass": 2},
-		"requires": {"home_cabin": 2, "rooftop_planter": 1},
-	},
-	"recycler": {
-		"name": "太阳能回收台",
-		"description": "每 30 秒分拣 2 个旧零件，需主动收取。",
-		"cost": {"coins": 15, "wood": 4, "parts": 4},
-		"requires": {"home_cabin": 2, "yokohama_station": 1},
-	},
-}
+const FACILITIES = preload("res://src/facilities/facility_service.gd").FACILITIES
 
-const SHIP_RECIPE := {"coins": 25, "wood": 6, "parts": 4, "rope": 2}
+const SHIP_RECIPE = preload("res://src/ship/ship_service.gd").SHIP_RECIPE
 
-var warehouse = InventoryLib.new(48)
-var tracked_goal := ""
+var construction = preload("res://src/construction/construction_service.gd").new()
+var facility = preload("res://src/facilities/facility_service.gd").new()
+var ship = preload("res://src/ship/ship_service.gd").new()
+var goals = preload("res://src/goals/goal_service.gd").new()
+var storage = preload("res://src/warehouse/warehouse_service.gd").new()
+var salvage = preload("res://src/salvage/salvage_rewards.gd").new()
+var warehouse: RefCounted:
+	get: return storage.warehouse
+var tracked_goal: String:
+	get: return goals.tracked_goal
+	set(value): goals.tracked_goal = value
 var inventory: RefCounted
 ## 种植规则与状态（Node 子节点，天然跟场景树同生共死）。
 ## 故意不加静态类型：FarmModel 的方法（plant/tick/to_dict）在 Node 基类上不存在，
@@ -73,18 +51,28 @@ var inventory: RefCounted
 var farm = null
 ## 码头订单板（规则层）：三张待交的单子、换单、档位解锁。同样不加静态类型。
 var orders = null
-var ship_level: int = 1
+var ship_level: int:
+	get: return ship.ship_level
+	set(value): ship.ship_level = value
 
-var site_levels := {"home_cabin": 1, "rooftop_planter": 1, "yokohama_station": 1}
+var site_levels: Dictionary:
+	get: return construction.site_levels
+	set(value): construction.site_levels = value
 ## 正在施工的建造点：id → {"left": 剩余秒, "total": 总秒}。
 ## 计时放在规则层而不是节点里：关掉界面/走开/切区块都照样推进，也方便 headless 断言。
-var site_work := {}
+var site_work: Dictionary:
+	get: return construction.site_work
+	set(value): construction.site_work = value
 ## 测试可以把自动推进关掉，自己按固定步长调 tick_sites()。
 var ticking := true
-var facilities := {"greenhouse": false, "recycler": false}
+var facilities: Dictionary:
+	get: return facility.facilities
+	set(value): facility.facilities = value
 
 const SALVAGE_COOLDOWN := 16.0
-var salvage_ready_at: float = 0.0
+var salvage_ready_at: float:
+	get: return salvage.salvage_ready_at
+	set(value): salvage.salvage_ready_at = value
 
 
 ## ---- 资源读写兼容层 ---------------------------------------------------------
@@ -131,6 +119,7 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	inventory = InventoryLib.new()
+	_configure_services()
 	inventory.changed.connect(_on_inventory_changed)
 	inventory.capacity_changed.connect(func(_u: int, _c: int) -> void: resources_changed.emit())
 	_build_collections()
@@ -186,29 +175,21 @@ func _on_inventory_changed(id: String, delta: int) -> void:
 ## ---- 打捞 -------------------------------------------------------------------
 
 func can_salvage(now: float) -> bool:
-	return now >= salvage_ready_at
+	return salvage.can_salvage(now)
 
 
 func salvage_cooldown_left(now: float) -> float:
-	return maxf(salvage_ready_at - now, 0.0)
+	return salvage.salvage_cooldown_left(now)
 
 
 ## 绞盘小游戏结算：产出由 `SalvageModel.haul()` 决定，这里只负责进冷却 + 入包。
 func commit_salvage(now: float, haul: Dictionary) -> Dictionary:
-	if haul.is_empty():
-		return {}
-	salvage_ready_at = now + SALVAGE_COOLDOWN
-	salvage_ready.emit()
-	return give(haul)
+	return salvage.commit_salvage(now, haul)
 
 
 ## 旧接口（一次性产出 3 木 2 零件），保留给自检与老调用；新流程走 commit_salvage。
 func do_salvage(now: float) -> Dictionary:
-	if not can_salvage(now):
-		return {}
-	salvage_ready_at = now + SALVAGE_COOLDOWN
-	var gain := give({"wood": 3, "parts": 2})
-	return gain
+	return salvage.do_salvage(now)
 
 
 ## ---- 物品进出 ---------------------------------------------------------------
@@ -275,265 +256,132 @@ func cost_text(cost: Dictionary) -> String:
 ## ---- 建造点与设施 -----------------------------------------------------------
 
 func site_level(id: String) -> int:
-	return int(site_levels.get(id, 1))
+	return construction.site_level(id)
 
 
 func site_next_cost(id: String) -> Dictionary:
-	var spec: Dictionary = SITES.get(id, {})
-	var level := site_level(id)
-	var costs: Array = spec.get("costs", [])
-	if level - 1 >= costs.size():
-		return {}
-	return costs[level - 1]
+	return construction.site_next_cost(id)
 
 
 func site_maxed(id: String) -> bool:
-	var spec: Dictionary = SITES.get(id, {})
-	return site_level(id) >= int(spec.get("max_level", 1))
+	return construction.site_maxed(id)
 
 
 ## 施工时长：跟着「下一级」取，没配就按 20 秒。
 func site_build_seconds(id: String) -> float:
-	var spec: Dictionary = SITES.get(id, {})
-	var table: Array = spec.get("seconds", [])
-	var idx := site_level(id) - 1
-	if idx >= 0 and idx < table.size():
-		return float(table[idx])
-	return 20.0
+	return construction.site_build_seconds(id)
 
 
 func is_building(id: String) -> bool:
-	return site_work.has(id)
+	return construction.is_building(id)
 
 
 func site_work_left(id: String) -> float:
-	if not site_work.has(id):
-		return 0.0
-	return float(site_work[id].left)
+	return construction.site_work_left(id)
 
 
 func site_work_progress(id: String) -> float:
-	if not site_work.has(id):
-		return 0.0
-	var w: Dictionary = site_work[id]
-	return clampf(1.0 - float(w.left) / maxf(float(w.total), 0.001), 0.0, 1.0)
+	return construction.site_work_progress(id)
 
 
 ## 第一阶段：交付材料并开工。等级此时**不变**，要等施工结束。
 func begin_site_upgrade(id: String) -> Dictionary:
-	if not SITES.has(id):
-		return {"ok": false, "reason": "未知建造点"}
-	if is_building(id):
-		return {"ok": false, "reason": "正在施工中"}
-	if site_maxed(id):
-		return {"ok": false, "reason": "已经是最高等级"}
-	var cost := site_next_cost(id)
-	if cost.is_empty():
-		return {"ok": false, "reason": "没有更多等级"}
-	if not construction_pay(cost):
-		return {"ok": false, "reason": construction_missing_text(cost)}
-	var seconds := site_build_seconds(id)
-	site_work[id] = {"left": seconds, "total": seconds}
-	site_work_started.emit(id, seconds)
-	sites_changed.emit()
-	return {"ok": true, "seconds": seconds, "cost": cost, "name": SITES[id].name}
+	return construction.begin_site_upgrade(id)
 
 
 ## 第二阶段：倒计时走完才算建成。返回已完成的 id 列表，方便测试与批量刷新。
 func tick_sites(delta: float) -> Array:
-	var done: Array = []
-	for id in site_work.keys():
-		var w: Dictionary = site_work[id]
-		w.left = float(w.left) - delta
-		if w.left > 0.0:
-			continue
-		site_work.erase(id)
-		site_levels[id] = site_level(id) + 1
-		done.append(id)
-		site_work_finished.emit(id, site_level(id))
-	if not done.is_empty():
-		sites_changed.emit()
-	return done
+	return construction.tick_sites(delta)
 
 
 func facility_unlocked(id: String) -> bool:
-	return bool(facilities.get(id, false))
+	return facility.facility_unlocked(id)
 
 
 func facility_requirement_text(id: String) -> String:
-	var spec: Dictionary = FACILITIES.get(id, {})
-	for req in spec.get("requires", {}).keys():
-		var need := int(spec.requires[req])
-		if site_level(req) < need:
-			var name := str(SITES.get(req, {}).get("name", req))
-			return "需要先把 %s 升到 %d 级" % [name, need]
-	return ""
+	return facility.facility_requirement_text(id)
 
 
 func can_build_facility(id: String) -> bool:
-	var spec: Dictionary = FACILITIES.get(id, {})
-	if spec.is_empty() or facility_unlocked(id):
-		return false
-	if facility_requirement_text(id) != "":
-		return false
-	return construction_has(spec.cost)
+	return facility.can_build_facility(id)
 
 
 func build_facility(id: String) -> Dictionary:
-	var spec: Dictionary = FACILITIES.get(id, {})
-	if spec.is_empty():
-		return {"ok": false, "reason": "未知设施"}
-	if facility_unlocked(id):
-		return {"ok": false, "reason": "已经建好"}
-	var req_text := facility_requirement_text(id)
-	if req_text != "":
-		return {"ok": false, "reason": req_text}
-	if not construction_pay(spec.cost):
-		return {"ok": false, "reason": construction_missing_text(spec.cost)}
-	facilities[id] = true
-	sites_changed.emit()
-	return {"ok": true, "name": spec.name}
+	return facility.build_facility(id)
 
 
 func can_upgrade_ship() -> bool:
-	return ship_level < 3 and construction_has(ship_cost())
+	return ship.can_upgrade_ship()
 
 
 func upgrade_ship() -> Dictionary:
-	if ship_level >= 3:
-		return {"ok": false, "reason": "船已经满级"}
-	if not construction_pay(ship_cost()):
-		return {"ok": false, "reason": construction_missing_text(ship_cost())}
-	ship_level += 1
-	GameState.far_sea_unlocked = true
-	resources_changed.emit()
-	return {"ok": true, "level": ship_level}
+	return ship.upgrade_ship()
 
 
 ## ---- 存档 -------------------------------------------------------------------
 
 func to_dict() -> Dictionary:
-	return {
-		"inventory": inventory.to_dict(),
-		"warehouse": warehouse.to_dict(),
-		"tracked_goal": tracked_goal,
-		"ship_level": ship_level,
-		"site_levels": site_levels.duplicate(),
-		"facilities": facilities.duplicate(),
-		"salvage_ready_at": salvage_ready_at,
-		"site_work": site_work.duplicate(true),
-		"farm": farm.to_dict() if farm != null else {},
-		"orders": orders.to_dict() if orders != null else {},
-	}
+	var data := {"inventory":inventory.to_dict(),"warehouse":storage.to_dict(),"farm":farm.to_dict(),"orders":orders.to_dict()}
+	for owner in [construction,facility,ship,goals]: data.merge(owner.to_dict())
+	return data
 
+func snapshot_event_sources() -> Array:
+	return [self,inventory,storage,storage.warehouse,construction,facility,ship,goals,farm,orders]
+
+func publish_restored() -> void:
+	# State is already complete across every feature; these are refreshes, not rewards.
+	construction.sites_changed.emit()
+	facility.sites_changed.emit()
+	farm.plots_changed.emit()
+	orders.changed.emit()
+	inventory.changed.emit("",0)
+	storage.warehouse.changed.emit("",0)
+	resources_changed.emit()
+	sites_changed.emit()
 
 func from_dict(data: Dictionary) -> void:
-	inventory.from_dict(data.get("inventory", {}))
-	warehouse.from_dict(data.get("warehouse", {"capacity":48}))
-	tracked_goal = str(data.get("tracked_goal", ""))
-	ship_level = int(data.get("ship_level", 1))
-	site_levels = {"home_cabin": 1, "rooftop_planter": 1, "yokohama_station": 1}
-	for id in data.get("site_levels", {}).keys():
-		site_levels[str(id)] = int(data.site_levels[id])
-	facilities = {"greenhouse": false, "recycler": false}
-	for id in data.get("facilities", {}).keys():
-		facilities[str(id)] = bool(data.facilities[id])
-	salvage_ready_at = float(data.get("salvage_ready_at", 0.0))
-	site_work = {}
-	for id in data.get("site_work", {}).keys():
-		var w: Dictionary = data.site_work[id]
-		site_work[str(id)] = {
-			"left": float(w.get("left", 0.0)),
-			"total": float(w.get("total", 1.0)),
-		}
-	if farm != null:
-		farm.from_dict(data.get("farm", {}))
-	if orders != null:
-		orders.from_dict(data.get("orders", {}))
+	inventory.from_dict(data.get("inventory",{}))
+	storage.from_dict(data.get("warehouse",{"capacity":48}))
+	for owner in [construction,facility,ship,goals]: owner.from_dict(data)
+	farm.from_dict(data.get("farm",{}))
+	orders.from_dict(data.get("orders",{}))
 	resources_changed.emit()
 	sites_changed.emit()
 
 
 ## 材料留在仓库，不参与出售或订单；建设先用背包，再用仓库。
 func construction_count(id: String) -> int:
-	return count(id) + warehouse.count(id)
+	return storage.construction_count(id)
 
 func construction_has(cost: Dictionary) -> bool:
-	for id in cost:
-		if construction_count(id) < int(cost[id]): return false
-	return true
+	return storage.construction_has(cost)
 
 func construction_pay(cost: Dictionary) -> bool:
-	if not construction_has(cost): return false
-	for id in cost:
-		var carried := mini(count(id), int(cost[id]))
-		inventory.remove(id, carried)
-		warehouse.remove(id, int(cost[id]) - carried)
-	resources_changed.emit()
-	return true
+	return storage.construction_pay(cost)
 
 func construction_missing_text(cost: Dictionary) -> String:
-	var bits: Array[String] = []
-	for id in cost:
-		var lack := int(cost[id]) - construction_count(id)
-		if lack > 0: bits.append("%s×%d" % [ItemDBLib.label(id), lack])
-	return "还差 " + "、".join(bits) if not bits.is_empty() else ""
+	return storage.construction_missing_text(cost)
 
 func construction_progress(cost: Dictionary) -> String:
-	var bits: Array[String] = []
-	for id in cost:
-		bits.append("%s %d/%d" % [ItemDBLib.label(id), construction_count(id), int(cost[id])])
-	return " · ".join(bits)
+	return storage.construction_progress(cost)
 
 func deposit_materials() -> Dictionary:
-	if not facility_unlocked("warehouse"): return {"blocked":"先在建设页建好材料仓库"}
-	var moved := 0
-	var remaining := 0
-	for id in inventory.all():
-		if str(ItemDBLib.get_item(id).get("category", "")) != "material": continue
-		var amount := mini(count(id), warehouse.room_for(id))
-		inventory.remove(id, amount)
-		warehouse.add(id, amount)
-		moved += amount
-		remaining += count(id)
-	resources_changed.emit()
-	return {"message":"已存入 %d 份材料%s" % [moved, "，其余留在背包（仓库已满）" if remaining > 0 else ""], "moved":moved}
+	return storage.deposit_materials()
 
 func withdraw_material(id: String) -> Dictionary:
-	if not facility_unlocked("warehouse"): return {"blocked":"仓库尚未建成"}
-	var amount := mini(warehouse.count(id), inventory.room_for(id))
-	if amount <= 0: return {"blocked":"背包已满或没有库存"}
-	warehouse.remove(id, amount)
-	inventory.add(id, amount)
-	resources_changed.emit()
-	return {"message":"已取出 %s ×%d" % [ItemDBLib.label(id), amount]}
+	return storage.withdraw_material(id)
 
 func ship_cost() -> Dictionary:
-	return SHIP_RECIPE if ship_level == 1 else {"coins":60, "wood":10, "parts":8, "rope":4}
+	return ship.ship_cost()
 
 func goal_complete(id: String) -> bool:
-	if FACILITIES.has(id): return facility_unlocked(id)
-	if id == "ship": return ship_level >= 2
-	if id == "ship3": return ship_level >= 3
-	if SITES.has(id): return site_level(id) >= 2
-	return true
+	return goals.goal_complete(id)
 
 func goal_info() -> Dictionary:
-	var id := tracked_goal
-	if id == "" or goal_complete(id):
-		id = ""
-		for candidate in ["warehouse", "rooftop_planter", "home_cabin", "ship", "greenhouse", "recycler", "ship3"]:
-			if not goal_complete(candidate):
-				id = candidate
-				break
-	if id == "": return {"id":"", "name":"第一阶段建设已完成，享受种植与探索吧", "cost":{}}
-	if FACILITIES.has(id): return {"id":id, "name":FACILITIES[id].name, "cost":FACILITIES[id].cost}
-	if id.begins_with("ship"): return {"id":id, "name":"小船升到 %d 级" % (2 if id == "ship" else 3), "cost":ship_cost()}
-	return {"id":id, "name":SITES[id].name + "升到 2 级", "cost":site_next_cost(id)}
+	return goals.goal_info()
 
 func track_goal(id: String) -> void:
-	tracked_goal = id
-	resources_changed.emit()
+	goals.track_goal(id)
 
 
 ## Progression adapters: feature rules query these ports, never global state fields.
@@ -553,3 +401,30 @@ func _order_tier() -> int:
 	if ship_level >= 2 or best_site >= 2: tier += 1
 	if ship_level >= 2 and best_site >= 3: tier += 1
 	return mini(tier, 3)
+
+
+func _configure_services() -> void:
+	storage.inventory = inventory
+	storage.configure({"facility_unlocked": facility.facility_unlocked})
+	var payments := {"construction_pay": storage.construction_pay, "construction_has": storage.construction_has, "construction_missing_text": storage.construction_missing_text}
+	construction.configure(payments)
+	var facilities_ports := payments.duplicate()
+	facilities_ports.site_level = construction.site_level
+	facility.configure(facilities_ports)
+	facility.site_names = SITES.duplicate(true)
+	ship.configure(payments)
+	goals.configure({"facility_unlocked":facility.facility_unlocked, "site_level":construction.site_level, "ship_cost":ship.ship_cost, "site_next_cost":construction.site_next_cost, "ship_level":func() -> int: return ship.ship_level})
+	goals.SITES = SITES.duplicate(true)
+	goals.FACILITIES = FACILITIES.duplicate(true)
+	salvage.configure({"give":give})
+	construction.sites_changed.connect(func(): sites_changed.emit())
+	facility.sites_changed.connect(func(): sites_changed.emit())
+	construction.site_work_started.connect(func(id, seconds): site_work_started.emit(id, seconds))
+	construction.site_work_finished.connect(func(id, level): site_work_finished.emit(id, level))
+	for service in [storage, ship, goals]:
+		service.resources_changed.connect(func(): resources_changed.emit())
+	salvage.salvage_ready.connect(func(): salvage_ready.emit())
+
+func _exit_tree() -> void:
+	for service in [storage,construction,facility,ship,goals,salvage]:
+		service.ports.clear()

@@ -1,5 +1,7 @@
 @tool
 extends "res://src/interaction/interactable.gd"
+const Order_modelDependency = preload("res://src/orders/orders.gd")
+var order_model: Order_modelDependency
 ## 世界里的码头订单板：一块立起来的木牌，钉着三张还没被领走的单子。
 ##
 ## 只负责「长得像回事 + 按 E 打开面板」；规则在 `src/orders/orders.gd`，
@@ -44,11 +46,11 @@ func _on_ready() -> void:
 
 
 func focus_text() -> String:
-	var board = Economy.orders
+	var board = order_model
 	if board == null:
 		return "%s · %s" % [verb, label]
 	var live := 0
-	for s in board.slots:
+	for s in board.offers():
 		if s is Dictionary and not s.is_empty() and not s.has("refill"):
 			live += 1
 	if live == 0:

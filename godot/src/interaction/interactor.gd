@@ -184,3 +184,9 @@ func debug_focus(spot: Node3D) -> void:
 	if target != null:
 		target.focus_enter()
 	target_changed.emit(target)
+
+func cancel() -> void:
+	auto_hold=false
+	preferred_target=null
+	_holding_last=false
+	_release()

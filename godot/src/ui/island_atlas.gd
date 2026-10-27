@@ -1,4 +1,6 @@
 extends Control
+var zones: Node
+var game_state: Node
 ## Read-only drawn map from registered footprints. It never invents unlocks or routes.
 const Cozy = preload("res://src/ui/cozy_ui.gd")
 var font: Font
@@ -8,7 +10,7 @@ var footprints := {}
 func _ready() -> void:
 	custom_minimum_size=Vector2(560,235)
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
-	for zone in Zones.list: footprints[zone.id]=Zones.footprint(zone.id)
+	for zone in zones.list: footprints[zone.id]=zones.footprint(zone.id)
 	resized.connect(queue_redraw)
 
 func project(point: Vector2) -> Vector2:
@@ -24,11 +26,11 @@ func _draw() -> void:
 		var rect: Rect2=footprints[id]
 		if not rect.has_area(): continue
 		var p := project(rect.get_center())
-		var unlocked: bool=Zones.is_unlocked(id)
+		var unlocked: bool=zones.is_unlocked(id)
 		var extent := Vector2(maxf(28,rect.size.x*1.5),maxf(15,rect.size.y*0.65))
 		var land := Cozy.surface(Cozy.CREAM if unlocked else Color("#a3bdb2"),14);land.shadow_size=0
 		draw_style_box(land,Rect2(p-extent/2,extent))
 		draw_circle(p,5,Cozy.TEAL if unlocked else Cozy.DIM)
-		if font: draw_string(font,p+Vector2(10,-8),Zones.label(id),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Cozy.INK)
-		if id == GameState.current_zone:
+		if font: draw_string(font,p+Vector2(10,-8),zones.label(id),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Cozy.INK)
+		if id == game_state.current_zone:
 			draw_arc(p,11,0,TAU,24,Color("#dc9970"),3,true)

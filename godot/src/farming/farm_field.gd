@@ -1,7 +1,9 @@
 @tool
 extends Node3D
 class_name FarmField
-## 菜箱登记器：实体独立摆在区块 Objects 下；规则仍归 Economy.farm。
+const Farm_modelDependency = preload("res://src/farming/farm.gd")
+var farm_model: Farm_modelDependency
+## 菜箱登记器：实体独立摆在区块 Objects 下；规则仍归 farm_model。
 ##
 ## 位置是资产，状态与规则在 FarmModel；这里不重复读表，避免两处走偏。
 
@@ -13,17 +15,18 @@ var plots: Array = []
 func build() -> void:
 	# 种植箱由区块实例化，本节点只登记与转发事件，不生成/移动美术物件。
 	plots.clear()
-	if Economy.farm != null:
-		Economy.farm.specs.clear()
+	if farm_model != null:
+		farm_model.clear_plot_specs()
 	var seen := {}
 	for node in get_tree().get_nodes_in_group("farm_plots"):
 		if node.plot_id.is_empty() or seen.has(node.plot_id):
 			push_error("菜箱必须使用唯一 plot_id：" + str(node.get_path()))
 			continue
 		seen[node.plot_id] = true
+		node.farm_model = farm_model
 		plots.append(node)
-		if Economy.farm != null:
-			Economy.farm.specs.append({"id": node.plot_id, "zone": node.zone_id,
+		if farm_model != null:
+			farm_model.register_plot({"id": node.plot_id, "zone": node.zone_id,
 				"name": node.plot_name, "requires_site": node.requires_site,
 				"requires_level": node.requires_level})
 		if not node.acted.is_connected(_on_acted):

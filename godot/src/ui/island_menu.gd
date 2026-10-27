@@ -82,9 +82,20 @@ func external_open() -> bool:
 		if node.visible: return true
 	return false
 
+## 不需要压暗画面的面板。调色室和水面这两块的全部作用是「看画面」，
+## 盖上那层会去色 18%、压暗 12% 的屏幕遮罩，取色器读到的就不是真实像素了。
+## 它们仍然算打开状态（世界浮层照样收起），只是不铺遮罩。
+const NO_DIM_PANELS := ["grade"]
+
+func _dim_wanted() -> bool:
+	for id in presenters:
+		if not presenters[id].visible: continue
+		if not NO_DIM_PANELS.has(id): return true
+	return false
+
 func _sync_backdrop() -> void:
 	# Under all independent panels, above world annotations. The HUD owns this screen layer.
-	if hud: hud.set_external_modal(external_open())
+	if hud: hud.set_external_modal(external_open(), _dim_wanted())
 
 func _process(_delta: float) -> void:
 	_sync_backdrop()

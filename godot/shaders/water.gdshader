@@ -68,7 +68,7 @@ group_uniforms caustics;
 // waterline and stick to the camera.
 uniform bool caustics_enabled = true;
 uniform vec3 caustics_color : source_color = vec3(0.55, 1.0, 0.92);
-uniform float caustics_strength : hint_range(0.0, 1.0, 0.005) = 0.42;
+uniform float caustics_strength : hint_range(0.0, 1.0, 0.005) = 0.35;
 // Cell size. Above 1 the cells get smaller and denser; it multiplies the whole
 // pattern frequency, so 2 gives four times the cells.
 uniform float caustics_scale : hint_range(0.2, 4.0, 0.01) = 1.0;
@@ -504,12 +504,22 @@ void fragment() {
 		// big patches are, the fine one frays their edges so they do not look like
 		// blobs of paint.
 		vec2 drift = vec2(u_time * 0.055, -u_time * 0.041) * caustics_speed;
-		vec2 p1 = bed_world.xz * (0.42 * caustics_scale) + drift;
+		// 投影坐标必须三个轴都参与，否则会退化。
+		//
+		// 只用 `bed_world.xz` 时，一面竖直的墙 x/z 是常量、只有 y 在变，二维采样
+		// 于是退化成一条线 —— 墙上会出现整片竖向拉丝，像划痕而不是阳光。把 y 按
+		// 互质比例混进两个轴，任何朝向的面都还是「二维的」：地板靠 x/z，竖墙靠 y，
+		// 斜面两者都有。（吸收式那套是同一条修正，两边必须一起改，否则两套水在
+		// 同一个机位下的观感对不上。）
+		vec2 wp2 = vec2(
+			bed_world.x + bed_world.z * 0.37 + bed_world.y * 0.61,
+			bed_world.z + bed_world.x * 0.23 + bed_world.y * 0.89);
+		vec2 p1 = wp2 * (0.42 * caustics_scale) + drift;
 		float patch = noise(p1);
 		// Narrow-ish top band: light lands where the field peaks, not everywhere.
 		float caustic = smoothstep(0.46, 0.74, patch);
 		if (caustics_detail > 0.0) {
-			vec2 p2 = bed_world.xz * (1.35 * caustics_scale) - drift * 1.7;
+			vec2 p2 = wp2 * (1.35 * caustics_scale) - drift * 1.7;
 			float fray = noise(p2 + noise(p1 * 1.8) * 0.9);
 			// Multiply rather than add: the fine octave should carve the coarse
 			// patches into lobes, not sprinkle extra light of its own.
@@ -533,7 +543,9 @@ void fragment() {
 		// Depth band. Near the surface the light has not had room to focus; deep
 		// down it has scattered too much. Both ends are soft so the pattern never
 		// terminates on a visible contour.
-		float depth_band = smoothstep(caustics_depth_near * 0.25, caustics_depth_near, bed_depth)
+		// 浅端只留一小段渐变。这里的墙多在 1~3 m 水下，渐变带宽拉太大会把整面墙
+		// 压到半强度以下，看起来像「这个效果没生效」——吸收式那边踩过同一个坑。
+		float depth_band = smoothstep(caustics_depth_near * 0.25, caustics_depth_near * 0.55, bed_depth)
 			* (1.0 - smoothstep(caustics_depth_far * 0.20, caustics_depth_far, bed_depth));
 		// Parked in its own variable, applied after the body composite below.
 		// Adding it into `submerged` looked right and did nothing: at 3 m the body

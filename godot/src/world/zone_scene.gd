@@ -14,6 +14,7 @@ extends Node3D
 const ZoneBatch = preload("res://src/world/zone_batch.gd")
 const WalkArea = preload("res://src/navigation/walk_area.gd")
 const PlantField = preload("res://src/ambient/plant_field.gd")
+const BlockerSet = preload("res://src/world/blocker_set.gd")
 
 @export var zone_id := ""
 @export var zone_label := ""
@@ -26,6 +27,7 @@ var walk_areas: Array = []
 var batch: Node3D = null
 var models: Node3D = null
 var plants: Node3D = null
+var water_block_rects: Array[Rect2] = []
 var _timed: Array = []
 
 
@@ -42,7 +44,55 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	_register()
+	_ensure_blockers()
 	_collect_timed()
+
+
+## 阻挡归属组件：Models 下每个可见的组件根自己带一份 BlockerSet。
+## 这里只在缺的时候补一个，不覆盖场景里手工声明的。
+## 退休的 unit（visible=false）不加 —— 它们已经不参与画面，也不该继续挡船。
+func _ensure_blockers() -> void:
+	# 阻挡是运行时派生数据，不写回场景：编辑器里自动加节点会把 TSCN 标记成已修改。
+	if Engine.is_editor_hint() or models == null:
+		return
+	for child in models.get_children():
+		if not (child is Node3D):
+			continue
+		var root := child as Node3D
+		if not root.is_visible_in_tree():
+			continue
+		if _has_blocker(root):
+			continue
+		var blocker := BlockerSet.new()
+		blocker.name = "Blockers"
+		blocker.mode = "auto"
+		root.add_child(blocker)
+
+
+func _has_blocker(node: Node) -> bool:
+	var stack: Array = [node]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		if n.get_script() == BlockerSet:
+			return true
+		stack.append_array(n.get_children())
+	return false
+
+
+## 重新派生本区块的水面阻挡（main 在水面参数就绪后调用一次）。
+func rebuild_blockers(water_y: float, height := 1.6) -> void:
+	water_block_rects.clear()
+	if models == null:
+		return
+	var stack: Array = [models]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		if n.get_script() == BlockerSet:
+			var blocker := n as Node3D
+			blocker.rebuild(water_y, height)
+			for r in blocker.rects_world:
+				water_block_rects.append(r)
+		stack.append_array(n.get_children())
 
 
 func _register() -> void:

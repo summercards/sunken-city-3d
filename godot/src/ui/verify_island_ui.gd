@@ -189,7 +189,8 @@ func run() -> void:
 	check(main.grade._delete_dialog.visible,"delete confirmation opens")
 	main.grade._delete_dialog.get_cancel_button().pressed.emit()
 	check(main.grade._preset_names.has("海风验收"),"delete cancellation preserves preset")
-	var picker: ColorPickerButton=main.grade._panel.find_children("*","ColorPickerButton",true,false)[0]
+	# 只在水面页里找：滤镜/光照页也有取色器，整面板搜会拿到一个隐藏的。
+	var picker: ColorPickerButton=main.grade._water_body.find_children("*","ColorPickerButton",true,false)[0]
 	await click(picker)
 	await screenshot("30_color_picker")
 	check(picker.get_popup().visible,"color popup opens")
@@ -201,6 +202,18 @@ func run() -> void:
 	check(inside(main.grade._panel),"alternate water scheme fits")
 	await key(KEY_ESCAPE)
 	check(not main.grade.visible,"Esc water closes")
+	# 光照页：环境 + 太阳两组都要生成控件，且真拖一行会落到引擎对象上。
+	await key(KEY_P)
+	await click(main.grade._tab_buttons[main.grade.TAB_LIGHT]);await screenshot("33_light")
+	check(inside(main.grade._panel),"light fits")
+	check(main.grade._light_widgets.has("sun_energy") and main.grade._light_widgets.has("ambient_energy"),"light page builds env+sun rows")
+	var sun: DirectionalLight3D=main.get_node("World/Lights/Sun")
+	var energy_before:=sun.light_energy
+	main.grade._light_write("sun_energy",energy_before+0.05)
+	check(absf(sun.light_energy-(energy_before+0.05))<0.001,"light row writes the real Sun node")
+	main.grade._light_write("sun_energy",energy_before)
+	await key(KEY_ESCAPE)
+	check(not main.grade.visible,"Esc light closes")
 	main.order_panel.set_open(true);await screenshot("18_orders")
 	check(inside(main.order_panel._card),"orders fit")
 	var slot: Dictionary=main.order_panel.model.slots[0].duplicate(true)

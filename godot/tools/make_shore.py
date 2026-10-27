@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""生成水面岸线轮廓 assets/baked/shore.json（离线兜底）。
+"""生成水面岸线轮廓 assets/baked/shore.json（仅为离线兜底，不是正式阻挡源）。
+
+正式阻挡已改为「每个组件自带的 BlockerSet」（见 src/world/blocker_set.gd，
+校验 godot/tools/verify_blockers.gd）。本脚本生成的文件只在场景没有实例化时兜底，
+不要再往里加新形状 —— 那正是 2026-10-26 修掉的那类空阻挡。
 
 正式数据请用 `tools/capture_shore.cjs` 从网页版直接抓 —— 网页版用的是 zone.regions，
 和 zones.json 的 walk.rects 不是同一份数据（圆楼那块差得最多），本脚本只能近似。

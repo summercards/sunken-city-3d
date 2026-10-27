@@ -1,4 +1,5 @@
 extends Node
+var far_sea_query: Callable
 ## 区块注册表。
 ##
 ## 数值来源：网页版 zones.js（tools 里用脚本导出的 zones.json）。
@@ -49,7 +50,7 @@ func is_unlocked(zone_id: String) -> bool:
 	if zone.is_empty():
 		return false
 	if zone.get("unlock", null) == "farSea":
-		return GameState.far_sea_unlocked
+		return bool(far_sea_query.call()) if far_sea_query.is_valid() else false
 	return true
 
 

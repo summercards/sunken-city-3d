@@ -25,7 +25,12 @@ var dir := Vector3(-0.5, 0.7, 0.5).normalized()
 ## 当前是否在拖拽（供主场景区分「点击」和「拖镜头」）。
 var panning := false
 var rotating := false
-var follow_enabled := true
+var camera_machine = preload("res://src/core/state_machine.gd").new()
+var input_blocked: Callable
+var follow_enabled: bool:
+	get: return camera_machine.current in ["", "follow"]
+	set(value):
+		if not camera_machine.states.is_empty(): camera_machine.change("follow" if value else "manual")
 var follow_subject: Node3D
 var _pan_pressed := false
 var _pan_origin := Vector2.ZERO
@@ -56,10 +61,17 @@ func resume_follow() -> void:
 	_end_drag()
 	velocity_cancel()
 
+func restore_follow(subject: Node3D) -> void:
+	follow_subject = subject
+	resume_follow()
+	target = subject.global_position + Vector3.UP*0.7
+	_apply()
+
 func suspend_follow() -> void:
 	follow_enabled = false
 
 func _ready() -> void:
+	camera_machine.configure(self,{"follow":preload("res://src/camera/states/follow.gd").new(),"manual":preload("res://src/camera/states/manual.gd").new()},{"follow":["manual"],"manual":["follow"]},"follow")
 	_cur_target = target
 	_cur_distance = clampf(distance, zoom_min, zoom_max)
 	refresh()
@@ -119,15 +131,7 @@ func _update_pose() -> void:
 
 func _process(delta: float) -> void:
 	if not _ui_blocked(): _keyboard(delta)
-	if follow_enabled and is_instance_valid(follow_subject) and current:
-		target = follow_subject.global_position + Vector3.UP*0.7
-
-	# 兼容外部速度输入；日常拖动通过 target 剩余位移缓动。
-	if not follow_enabled and not panning and _velocity.length() > 0.01:
-		target += Vector3(_velocity.x, 0.0, _velocity.y) * delta
-		_velocity *= exp(-INERTIA_DAMP * delta)
-		if _velocity.length() < 0.02:
-			_velocity = Vector2.ZERO
+	if current: camera_machine.tick(delta)
 
 	_clamp_target()
 	target.y = clampf(target.y, 0.0, 10.0)
@@ -226,22 +230,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## 面板打开时镜头不该动：HUD / 打捞面板 / 滤镜面板。
 func _ui_blocked() -> bool:
-	var host := get_parent()
-	if host == null:
-		return false
-	var hud = host.get("hud")
-	if hud != null and hud.get("_panel_open") == true:
-		return true
-	var sp = host.get("salvage_panel")
-	if sp != null and sp.has_method("is_open") and sp.is_open():
-		return true
-	for key in ["order_panel","cam_panel"]:
-		var panel = host.get(key)
-		if panel != null and panel.is_open(): return true
-	var grade = host.get("grade")
-	if grade != null and grade.visible: return true
-	return false
-
+	return not current or (input_blocked.is_valid() and bool(input_blocked.call()))
 
 ## ---- 平移 -------------------------------------------------------------------
 
@@ -259,10 +248,7 @@ func _begin_pan(screen: Vector2) -> void:
 
 
 func _drag_pan(screen: Vector2) -> void:
-	# 每次输入只累计像素增量；由指数阻尼消化余量，与网页 OrbitControls 一致。
-	target += _screen_delta_to_world(screen-_drag_last)
-	_drag_last = screen
-	_clamp_target()
+	pan_action.execute(self,screen)
 
 
 func _end_drag() -> void:
@@ -315,42 +301,13 @@ func _zoom_at(closer: bool, screen: Vector2) -> void:
 
 ## 朝光标缩放：缩放前后，指针下的那块地保持在同一个屏幕位置。
 func _zoom_factor(factor: float, screen: Vector2) -> void:
-	if follow_enabled:
-		distance = clampf(distance*factor,zoom_min,zoom_max)
-		return
-	var before := _ray_plane(screen)
-	var want := clampf(distance * factor, zoom_min, zoom_max)
-	if is_equal_approx(want, distance):
-		return
-	distance = want
-	# 算「缩放后」指针落在哪：临时按新距离摆一次算完立刻还原，
-	# 这样距离本身仍然由 _process 平滑过去（不然滚轮会「啪」地跳一档）。
-	var old_dist := _cur_distance
-	_cur_distance = clampf(distance, zoom_min, zoom_max)
-	_update_pose()
-	var after := _ray_plane(screen)
-	_cur_distance = old_dist
-	_update_pose()
-	if before != Vector3.INF and after != Vector3.INF:
-		var shift := before - after
-		shift.y = 0.0
-		# 目标修正也平滑收敛，避免缩放时瞬间侧跳。
-		target += shift
-		_clamp_target()
-		_update_pose()
+	zoom_action.execute(self,factor,screen)
 
 
 ## ---- 旋转 -------------------------------------------------------------------
 
 func _orbit(dyaw: float, dpitch: float) -> void:
-	var radius := Vector2(dir.x, dir.z).length()
-	var pitch := atan2(dir.y, maxf(radius, 0.0001))
-	var yaw := atan2(dir.x, dir.z)
-	yaw += dyaw
-	pitch = clampf(pitch + dpitch, deg_to_rad(pitch_min_deg), deg_to_rad(pitch_max_deg))
-	dir = Vector3(sin(yaw) * cos(pitch), sin(pitch), cos(yaw) * cos(pitch)).normalized()
-	orbit_dir = dir
-	_update_pose()
+	orbit_action.execute(self,dyaw,dpitch)
 
 
 func _keep_pitch_valid() -> void:
@@ -368,3 +325,13 @@ func _keep_pitch_valid() -> void:
 ## 给 UI 显示当前缩放百分比（滚轮改变时 HUD 可以闪一下）。
 func zoom_ratio() -> float:
 	return clampf((_cur_distance - zoom_min) / maxf(zoom_max - zoom_min, 0.001), 0.0, 1.0)
+
+var orbit_action = preload("res://src/camera/actions/orbit_action.gd").new()
+
+var zoom_action = preload("res://src/camera/actions/zoom_action.gd").new()
+
+var pan_action = preload("res://src/camera/actions/pan_action.gd").new()
+
+## Public pose commands; underscored versions remain local/legacy test adapters.
+func apply_pose() -> void: _apply()
+func orbit(dyaw: float, dpitch: float) -> void: _orbit(dyaw,dpitch)

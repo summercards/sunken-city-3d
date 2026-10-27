@@ -1,5 +1,9 @@
-extends CanvasLayer
 class_name GameHUD
+extends CanvasLayer
+const EconomyDependency = preload("res://src/economy/economy.gd")
+var economy: EconomyDependency
+var zones: Node
+var game_state: Node
 ## SEA-UI: one physical card; gameplay mutations only through existing commands.
 signal destination_pressed(zone_id: String)
 signal dive_pressed
@@ -54,7 +58,10 @@ var _counts := {}
 var _initialized_counts := false
 var _layout_size := Vector2.ZERO
 var menu: CanvasLayer
+var presenter_sources: Dictionary = {}
 var _external_modal := false
+## 外部面板打开时是否铺压暗遮罩。调色 / 取景面板会把它关掉，见 `set_external_modal`。
+var _external_dim := true
 var _launch: HBoxContainer
 var _world_actions: HBoxContainer
 var _history: Array[String] = []
@@ -130,9 +137,8 @@ func _ready() -> void:
 	menu = preload("res://src/ui/island_menu.gd").new();add_child(menu)
 	menu.command_requested.connect(func(command): command_requested.emit(command))
 	menu.oxygen_feedback_changed.connect(func(on): _panel.feedback_enabled=on)
-	Economy.sites_changed.connect(_refresh_panel)
-	Economy.resources_changed.connect(_refresh)
-	_refresh();_layout()
+	if economy != null: bind_models()
+	_layout()
 	_panel.update_context(false,-1,-1)
 	_attach_presenters.call_deferred()
 
@@ -195,19 +201,34 @@ func _layout_notice() -> void:
 
 func _attach_presenters() -> void:
 	var adapter := preload("res://src/ui/island_presenters.gd").new()
-	add_child(adapter);adapter.attach(self)
+	add_child(adapter);adapter.attach(self,presenter_sources)
 
 func bind_presenters(views: Dictionary) -> void:
 	menu.bind(self,views)
 
-func set_external_modal(on: bool) -> void:
-	if _external_modal == on: return
+## `dim` 为 false 时仍然算「有面板挡着」（提示气泡、底部按钮照旧收起），
+## 但不铺那层压暗 + 去色的屏幕遮罩。
+##
+## 单独一个开关是必须的：调色面板和取景面板的全部意义就是让人看清画面本身，
+## 任何盖在 3D 上的半透明层都会改它下面每一个像素的色相与亮度 —— 在那上面
+## 调出来的数值，一关面板就不成立。
+func set_external_modal(on: bool, dim := true) -> void:
+	if _external_modal == on and _external_dim == dim: return
 	_external_modal=on
-	_backdrop.visible=on or _panel_open
-	if on: _backdrop.material.set_shader_parameter("strength",1.0)
+	_external_dim=dim
+	_sync_backdrop()
 	_hints.visible=on or _panel_open
 	_launch.visible=not on and not _panel_open
 	_world_actions.visible=not on and not _panel_open
+
+
+## 遮罩的唯一开关点。`_toggle_panel` 也要走这里，否则两条路径各自改一次
+## `visible`，谁最后写谁生效，P 面板关掉后代币卡片的遮罩会跟着消失。
+func _sync_backdrop() -> void:
+	var dim_external := _external_modal and _external_dim
+	_backdrop.visible = dim_external or _panel_open
+	if _backdrop.material != null:
+		_backdrop.material.set_shader_parameter("strength", 1.0 if _backdrop.visible else 0.0)
 
 func close_card() -> void:
 	if _panel_open: _toggle_panel()
@@ -230,13 +251,18 @@ func open_tab(tab: String) -> void:
 func _toggle_panel() -> void:
 	_panel_open = not _panel_open
 	if _open_tween: _open_tween.kill()
-	_panel.visible = _panel_open;_backdrop.visible = _panel_open;_hints.visible = _panel_open
-	_launch.visible=not _panel_open;_world_actions.visible=not _panel_open
+	_panel.visible = _panel_open
+	_sync_backdrop()
+	_hints.visible = _panel_open or _external_modal
+	_launch.visible=not _panel_open and not _external_modal
+	_world_actions.visible=_launch.visible
 	if not _panel_open:
 		_history.clear()
 		return
 	_refresh_panel();_layout()
 	_panel.flush_arrivals()
+	if not _backdrop.visible:
+		return
 	if not Cozy.motion_enabled:
 		_backdrop.material.set_shader_parameter("strength",1.0)
 		return
@@ -263,23 +289,23 @@ func _refresh_panel() -> void:
 		"storage": _panel.show_detail("背包与仓储");_refresh_storage()
 		"map":
 			_panel.show_detail("海风带你去哪里？")
-			var atlas := preload("res://src/ui/island_atlas.gd").new();atlas.font=_font;_tab_body.add_child(atlas)
+			var atlas := preload("res://src/ui/island_atlas.gd").new();atlas.font=_font;atlas.zones=zones;atlas.game_state=game_state;_tab_body.add_child(atlas)
 			_tab_body.add_child(_label("圆环是你的位置 · 选择一处泊位，准备出发。",16,DIM))
 			for entry in DESTINATIONS:
-				var unlocked: bool=Zones.is_unlocked(entry.id)
-				var button := _plain_button(entry.name + ("   ·   已在这里" if entry.id == GameState.current_zone else "   →") if unlocked else entry.name+"   ·   需要升级小船")
+				var unlocked: bool=zones.is_unlocked(entry.id)
+				var button := _plain_button(entry.name + ("   ·   已在这里" if entry.id == game_state.current_zone else "   →") if unlocked else entry.name+"   ·   需要升级小船")
 				button.disabled=not unlocked or _diving;_tab_body.add_child(button)
 				button.pressed.connect(func(): _toggle_panel();destination_pressed.emit(entry.id))
 		_:
 			_panel.show_detail(ItemDBLib.label(_tab))
-			var art := _item_tile(_tab,Economy.count(_tab));art.mouse_filter=Control.MOUSE_FILTER_IGNORE;art.size_flags_horizontal=Control.SIZE_SHRINK_CENTER;_tab_body.add_child(art)
+			var art := _item_tile(_tab,economy.count(_tab));art.mouse_filter=Control.MOUSE_FILTER_IGNORE;art.size_flags_horizontal=Control.SIZE_SHRINK_CENTER;_tab_body.add_child(art)
 			var info := _label(str(ItemDBLib.get_item(_tab).get("desc","")),16)
 			info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;info.custom_minimum_size.x = 560;_tab_body.add_child(info)
-			_tab_body.add_child(_label("持有 ×%d · 单价 %d 海贝" % [Economy.count(_tab),ItemDBLib.sell_price(_tab)],15))
+			_tab_body.add_child(_label("持有 ×%d · 单价 %d 海贝" % [economy.count(_tab),ItemDBLib.sell_price(_tab)],15))
 			if _crop_sale_ids().has(_tab):
 				var sell := _plain_button("出售全部农产品")
-				sell.disabled = Economy.count(_tab) == 0
-				sell.pressed.connect(func(): _farm_action(Economy.farm.sell_produce));_tab_body.add_child(sell)
+				sell.disabled = economy.count(_tab) == 0
+				sell.pressed.connect(func(): _farm_action(economy.farm.sell_produce));_tab_body.add_child(sell)
 				var note := _label("会同时出售背包中的蔬菜、番茄和南瓜，
 包含订单用料。",13,DIM);_tab_body.add_child(note)
 			else:
@@ -292,8 +318,8 @@ func _refresh_panel() -> void:
 
 func _crop_sale_ids() -> Array:
 	var ids: Array = []
-	if Economy.farm != null:
-		for crop in Economy.farm.crops.values():
+	if economy.farm != null:
+		for crop in economy.farm.crop_definitions().values():
 			for id in crop.get("yield",{}):
 				if not ids.has(id): ids.append(id)
 	return ids
@@ -387,10 +413,10 @@ func presentation_snapshot() -> Dictionary:
 
 func _refresh() -> void:
 	if _res_label == null: return
-	_res_label.text = "海贝 %d  ·  背包 %d / %d" % [Economy.count("coins"),Economy.inventory.slots_used(),Economy.inventory.capacity()]
+	_res_label.text = "海贝 %d  ·  背包 %d / %d" % [economy.count("coins"),economy.inventory.slots_used(),economy.inventory.capacity()]
 	for entry in _panel.harvest_specs:
 		var id: String = entry[0]
-		var count: int = Economy.count(id)
+		var count: int = economy.count(id)
 		_panel.tiles[id].set_amount(count,_initialized_counts)
 		if _initialized_counts and count > int(_counts.get(id,0)): _panel.fly_in(id)
 		_counts[id] = count
@@ -418,7 +444,7 @@ func _item_tile(id: String, count: int) -> Button:
 	return tile
 
 func _refresh_storage() -> void:
-	_tab_body.add_child(_label("口袋里的宝贝   ·   %d / %d 格" % [Economy.inventory.slots_used(),Economy.inventory.capacity()],21))
+	_tab_body.add_child(_label("口袋里的宝贝   ·   %d / %d 格" % [economy.inventory.slots_used(),economy.inventory.capacity()],21))
 	var selected_name := _label("选择一件随身物品",22,Cozy.CREAM)
 	selected_name.set_meta("island_label",true)
 	selected_name.size_flags_horizontal=Control.SIZE_SHRINK_CENTER
@@ -429,8 +455,8 @@ func _refresh_storage() -> void:
 	grid.add_theme_constant_override("h_separation",10);grid.add_theme_constant_override("v_separation",10)
 	_tab_body.add_child(grid)
 	for id in ItemDBLib.all_ids():
-		if ItemDBLib.is_currency(id) or Economy.count(id) <= 0: continue
-		var remaining: int=Economy.count(id)
+		if ItemDBLib.is_currency(id) or economy.count(id) <= 0: continue
+		var remaining: int=economy.count(id)
 		while remaining > 0:
 			var count_in_slot:=mini(remaining,ItemDBLib.stack_limit(id))
 			var item := _item_tile(id,count_in_slot);item.pocket=true;grid.add_child(item)
@@ -439,27 +465,27 @@ func _refresh_storage() -> void:
 			item.focus_entered.connect(func(): selected_name.text=ItemDBLib.label(id))
 			item.pressed.connect(func(): open_tab(id))
 			remaining-=count_in_slot
-	for slot in maxi(0,Economy.inventory.capacity()-grid.get_child_count()):
+	for slot in maxi(0,economy.inventory.capacity()-grid.get_child_count()):
 		var empty:=preload("res://src/ui/ac_icon.gd").new()
 		empty.pocket=true;empty.empty_slot=true;empty.disabled=true;empty.focus_mode=Control.FOCUS_NONE
 		empty.mouse_filter=Control.MOUSE_FILTER_IGNORE;grid.add_child(empty)
 
 	# 货币单独一行：它不占格，但需要随时可见。
-	var purse := _label("海贝  %d" % Economy.coins, 12, INK)
+	var purse := _label("海贝  %d" % economy.coins, 12, INK)
 	_tab_body.add_child(purse)
 	var tip := _label("点击物件查看用途；建设材料可以存入仓库。", 10, DIM)
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tip.custom_minimum_size = Vector2(300, 0)
 	_tab_body.add_child(tip)
 
-	if Economy.facility_unlocked("warehouse"):
-		var deposit := _row("材料仓库 %d/48 格 · 建设自动取料" % Economy.warehouse.slots_used(), "材料一键入库", true)
-		deposit.button.pressed.connect(func() -> void: _farm_action(Economy.deposit_materials))
+	if economy.facility_unlocked("warehouse"):
+		var deposit := _row("材料仓库 %d/48 格 · 建设自动取料" % economy.warehouse.slots_used(), "材料一键入库", true)
+		deposit.button.pressed.connect(func() -> void: _farm_action(economy.deposit_materials))
 		_tab_body.add_child(deposit.box)
-		for item in Economy.warehouse.all():
+		for item in economy.warehouse.all():
 			var id := str(item)
-			var row := _row("%s ×%d" % [ItemDBLib.label(id), Economy.warehouse.count(id)], "取回背包", true)
-			row.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return Economy.withdraw_material(id)))
+			var row := _row("%s ×%d" % [ItemDBLib.label(id), economy.warehouse.count(id)], "取回背包", true)
+			row.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return economy.withdraw_material(id)))
 			_tab_body.add_child(row.box)
 	else:
 		var storage := _row("建造材料仓库，腾出背包空间", "前往建设", true)
@@ -470,9 +496,9 @@ func _refresh_storage() -> void:
 ## 种植页：选作物 + 每块地的实时状态。
 func _refresh_plant() -> void:
 	_plant_rows.clear()
-	if Economy.farm == null: return
-	var farm = Economy.farm
-	_tab_body.add_child(_label("第 %d 天 · 水壶 %d/%d · 海贝 %d" % [farm.day, farm.watering_can, farm.WATER_CAPACITY, Economy.coins], 12, INK))
+	if economy.farm == null: return
+	var farm = economy.farm
+	_tab_body.add_child(_label("第 %d 天 · 水壶 %d/%d · 海贝 %d" % [farm.day, farm.watering_can, farm.WATER_CAPACITY, economy.coins], 12, INK))
 	var rest := _row("浇水后的地格在休息时生长一天", "休息到明天", true)
 	rest.button.pressed.connect(func() -> void: rest_requested.emit())
 	_tab_body.add_child(rest.box)
@@ -480,8 +506,8 @@ func _refresh_plant() -> void:
 	refill.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.refill()))
 	_tab_body.add_child(refill.box)
 	var crops := HBoxContainer.new();crops.add_theme_constant_override("separation",16);_tab_body.add_child(crops)
-	for crop_id in farm.crops:
-		var crop: Dictionary=farm.crops[crop_id]
+	for crop_id in farm.crop_definitions():
+		var crop: Dictionary=farm.crop_def(crop_id)
 		var chosen := str(crop_id)
 		var panel := PanelContainer.new();panel.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		var style := Cozy.surface(Color("#edf0d9"),24);style.shadow_size=0
@@ -493,7 +519,7 @@ func _refresh_plant() -> void:
 		select.pressed.connect(func(): farm.select_crop(chosen);_refresh_panel())
 		row.add_child(select)
 		var days := _label("%d 个浇水日" % int(crop.get("grow_days",0)),16);days.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;row.add_child(days)
-		var seeds := _label("种子 ×%d" % Economy.count(str(crop.seed)),15,DIM);seeds.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;row.add_child(seeds)
+		var seeds := _label("种子 ×%d" % economy.count(str(crop.seed)),15,DIM);seeds.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;row.add_child(seeds)
 		var buy := _plain_button("购买 · %d贝" % int(crop.seed_price))
 		buy.tooltip_text="购买"+str(crop.name)+"种子"
 		buy.pressed.connect(func(): _farm_action(func() -> Dictionary: return farm.buy_seed(chosen)))
@@ -501,12 +527,12 @@ func _refresh_plant() -> void:
 	var sell := _row("出售背包内全部农产品（订单用料也会卖出）", "出售农产品", true)
 	sell.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.sell_produce()))
 	_tab_body.add_child(sell.box)
-	if Economy.count("seed") > 0:
-		var exchange := _row("旧种子 ×%d" % Economy.count("seed"), "换生菜种子", true)
+	if economy.count("seed") > 0:
+		var exchange := _row("旧种子 ×%d" % economy.count("seed"), "换生菜种子", true)
 		exchange.button.pressed.connect(func() -> void: _farm_action(func() -> Dictionary: return farm.exchange_seed()))
 		_tab_body.add_child(exchange.box)
 	_tab_body.add_child(_label("选择种子后点地格操作；每天浇一次，缺水只停长。", 10, INK))
-	for spec_row in farm.specs:
+	for spec_row in farm.plot_specs():
 		var id := str(spec_row.id)
 		var line := _row(_plot_line(id), "前往操作", true)
 		line.button.pressed.connect(func() -> void:
@@ -516,7 +542,7 @@ func _refresh_plant() -> void:
 		_plant_rows[id] = {"info":line.label,"button":line.button}
 
 func _farm_action(action: Callable) -> void:
-	if GameState.mode != GameState.Mode.ASHORE:
+	if game_state.mode != game_state.Mode.ASHORE:
 		toast("请先上岸使用补给服务")
 		return
 	var result: Dictionary = action.call()
@@ -526,24 +552,24 @@ func _farm_action(action: Callable) -> void:
 
 ## 种植页一行：菜箱名 + 状态（未解锁时说明前置）。
 func _plot_line(id: String) -> String:
-	var row: Dictionary = Economy.farm.spec(id)
+	var row: Dictionary = economy.farm.spec(id)
 	var name := str(row.get("name", id))
-	var reason: String = Economy.farm._access_reason(id)
+	var reason: String = economy.farm.access_reason(id)
 	if reason != "": return "%s · %s" % [name, reason]
-	return "%s  %s" % [name, Economy.farm.status_text(id)]
+	return "%s  %s" % [name, economy.farm.status_text(id)]
 
 
 func _site_name(id: String) -> String:
-	var spec: Dictionary = Economy.SITES.get(id, {})
+	var spec: Dictionary = economy.SITES.get(id, {})
 	return str(spec.get("name", id))
 
 
 func _refresh_build() -> void:
 	_build_rows.clear()
-	var goal: Dictionary = Economy.goal_info()
+	var goal: Dictionary = economy.goal_info()
 	var heading := _label("小目标 · " + str(goal.name), 14)
 	_tab_body.add_child(heading)
-	var progress := _label(Economy.construction_progress(goal.cost), 12)
+	var progress := _label(economy.construction_progress(goal.cost), 12)
 	progress.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	progress.custom_minimum_size.x = 560
 	_tab_body.add_child(progress)
@@ -551,7 +577,7 @@ func _refresh_build() -> void:
 	var source := _label("木料／缆绳：sea采集 · 零件／玻璃：横滨铁道\n海贝：农产品出售或码头交单；打捞也能补充木料与零件。", 11)
 	source.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_tab_body.add_child(source)
-	for id in Economy.SITES.keys():
+	for id in economy.SITES.keys():
 		var row := _row(_site_line(id), "前往", true)
 		row.button.pressed.connect(func():
 			_toggle_panel()
@@ -565,42 +591,42 @@ func _refresh_build() -> void:
 	tip.custom_minimum_size = Vector2(300, 0)
 	_tab_body.add_child(tip)
 
-	for id in Economy.FACILITIES.keys():
-		var f: Dictionary = Economy.FACILITIES[id]
-		var built := Economy.facility_unlocked(id)
-		var requirement: String = Economy.facility_requirement_text(id)
-		var text := "%s  %s" % [f.name, "已建成" if built else Economy.construction_progress(f.cost)]
+	for id in economy.FACILITIES.keys():
+		var f: Dictionary = economy.FACILITIES[id]
+		var built := economy.facility_unlocked(id)
+		var requirement: String = economy.facility_requirement_text(id)
+		var text := "%s  %s" % [f.name, "已建成" if built else economy.construction_progress(f.cost)]
 		if requirement != "": text += "\n" + requirement
 		text += "\n" + str(f.description)
-		var row2 := _row(text, "建造" if not built else "—", not built and Economy.can_build_facility(id))
+		var row2 := _row(text, "建造" if not built else "—", not built and economy.can_build_facility(id))
 		row2.button.pressed.connect(func(): facility_build_requested.emit(id))
 		_tab_body.add_child(row2.box)
 		_add_goal_button(str(id))
 
-	var ship_text := "小船 Lv.%d · %s\n2 级开放远海与平台种植床；3 级航速提高 15%%" % [Economy.ship_level, Economy.construction_progress(Economy.ship_cost()) if Economy.ship_level < 3 else "满级"]
-	var row3 := _row(ship_text, "升级", Economy.can_upgrade_ship())
+	var ship_text := "小船 Lv.%d · %s\n2 级开放远海与平台种植床；3 级航速提高 15%%" % [economy.ship_level, economy.construction_progress(economy.ship_cost()) if economy.ship_level < 3 else "满级"]
+	var row3 := _row(ship_text, "升级", economy.can_upgrade_ship())
 	row3.button.pressed.connect(func(): ship_upgrade_requested.emit())
 	_tab_body.add_child(row3.box)
-	_add_goal_button("ship" if Economy.ship_level < 2 else "ship3")
+	_add_goal_button("ship" if economy.ship_level < 2 else "ship3")
 
 
 ## 建造页一行：等级 / 下一级费用 / 施工进度。
 func _site_line(id: String) -> String:
-	var spec: Dictionary = Economy.SITES[id]
-	var level := Economy.site_level(id)
-	if Economy.is_building(id):
+	var spec: Dictionary = economy.SITES[id]
+	var level := economy.site_level(id)
+	if economy.is_building(id):
 		return "%s  Lv.%d → 施工中 %d%%（剩 %ds）" % [
 			spec.name, level,
-			int(Economy.site_work_progress(id) * 100.0),
-			int(ceil(Economy.site_work_left(id)))]
-	if Economy.site_maxed(id):
+			int(economy.site_work_progress(id) * 100.0),
+			int(ceil(economy.site_work_left(id)))]
+	if economy.site_maxed(id):
 		return "%s  Lv.%d（满级）" % [spec.name, level]
 	return "%s  Lv.%d → Lv.%d  %s" % [
-		spec.name, level, level + 1, Economy.construction_progress(Economy.site_next_cost(id))]
+		spec.name, level, level + 1, economy.construction_progress(economy.site_next_cost(id))]
 
 
 func _cost_text(cost: Dictionary) -> String:
-	return Economy.cost_text(cost)
+	return economy.cost_text(cost)
 
 
 func _row(text: String, action: String, enabled: bool) -> Dictionary:
@@ -638,13 +664,35 @@ func _tick_build_rows() -> void:
 		if ref.info.text != text:
 			ref.info.text = text
 			var b: Button = ref.button
-			b.text = "查看" if Economy.is_building(id) else "前往"
+			b.text = "查看" if economy.is_building(id) else "前往"
 
 
 func _add_goal_button(id: String) -> void:
-	if Economy.goal_complete(id): return
+	if economy.goal_complete(id): return
 	var button := Button.new()
-	button.text = "正在追踪" if str(Economy.goal_info().id) == id else "设为小目标"
-	button.disabled = str(Economy.goal_info().id) == id
-	button.pressed.connect(func() -> void: Economy.track_goal(id))
+	button.text = "正在追踪" if str(economy.goal_info().id) == id else "设为小目标"
+	button.disabled = str(economy.goal_info().id) == id
+	button.pressed.connect(func() -> void: economy.track_goal(id))
 	_tab_body.add_child(button)
+
+func is_modal() -> bool:
+	return _panel_open or _external_modal or (menu != null and menu.visible and get_tree().paused)
+
+func refresh_after_restore() -> void:
+	refresh_view()
+
+func bind_models() -> void:
+	if not economy.sites_changed.is_connected(_refresh_panel): economy.sites_changed.connect(_refresh_panel)
+	if not economy.resources_changed.is_connected(_refresh): economy.resources_changed.connect(_refresh)
+	_refresh()
+
+## Public command/query boundary for scene composition and input routing.
+func is_panel_open() -> bool: return _panel_open
+func toggle_panel() -> void: _toggle_panel()
+func refresh_view() -> void:
+	_refresh()
+	if _panel_open: _refresh_panel()
+func toast_snapshot() -> Dictionary:
+	return {"text":_toast.text if _toast != null else "none",
+		"rect":_toast_box.get_global_rect() if _toast_box != null else Rect2(),
+		"alpha":_toast_box.modulate.a if _toast_box != null else 0.0}

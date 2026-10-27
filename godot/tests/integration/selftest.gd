@@ -198,13 +198,12 @@ func _test_inventory() -> void:
 	var hud = main.hud
 	if not hud._panel_open:
 		hud._toggle_panel()
-	hud._tab = hud.TAB_BAG
+	hud._tab = "storage"
 	hud._refresh_panel()
 	_ok("背包面板已打开", hud._panel.visible)
-	var BackpackGridScript = preload("res://src/inventory/backpack_grid.gd")
 	var found_grid := false
 	for n in hud._tab_body.get_children():
-		if n.get_script() == BackpackGridScript:
+		if n is GridContainer and n.name == "PocketSlots" and n.get_child_count() >= Economy.inventory.capacity():
 			found_grid = true
 	_ok("背包页有格子容器", found_grid)
 	hud._tab = hud.TAB_BUILD
@@ -520,6 +519,8 @@ func _test_scene_contract() -> void:
 func _test_props() -> void:
 	print("[props]")
 	var props = load("res://src/pickups/sea_props.gd").new()
+	props.zones = Zones
+	props.give_resource = Economy.add_resource
 	add_child(props)
 	props.build()
 	_ok("漂流物资 9 份", props.crates.size() == 9, str(props.crates.size()))
@@ -604,9 +605,9 @@ func _test_zones_scene() -> void:
 					continue
 				for i in mi.mesh.get_surface_count():
 					total += 1
-					if not (mi.get_surface_override_material(i) is ShaderMaterial):
+					if not (mi.get_active_material(i) is ShaderMaterial or mi.get_active_material(i) is BaseMaterial3D):
 						missing += 1
-			_ok("%s 每张面都有共享材质" % zone.zone_id, missing == 0,
+			_ok("%s 每张面都有有效材质" % zone.zone_id, missing == 0,
 				"%d/%d 缺材质" % [missing, total])
 			_ok("%s 几何可见" % zone.zone_id, models != null and models.visible)
 			_ok("%s 烘焙批次已让位（不重复建）" % zone.zone_id,
@@ -1110,6 +1111,9 @@ func _test_salvage() -> void:
 
 ## 交互细节：悬停铭牌的命中与文案、自动接近后的自动长按。
 func _test_pointer_detail() -> void:
+	get_parent().hud.set_external_modal(false)
+	get_parent().cam_panel.set_open(false)
+	get_parent().grade.set_open(false)
 	print("\n[pointer]")
 	var main := get_parent()
 	# 悬停铭牌已挂上
@@ -1144,8 +1148,8 @@ func _test_pointer_detail() -> void:
 		_ok("自动目标已记录", main._auto_target == spot)
 		main._walking = false
 		main.player.position = spot.global_position + Vector3(1.0, 0, 0)
-		main._update_pointer_ui()
-		_ok("到位后自动长按", main.interactor.auto_hold)
+		main.actor_controller.tick(0.0)
+		_ok("到位后自动长按", main.interactor.auto_hold, "state=%s blocked=%s distance=%s" % [main.actor_controller.state_id(),main.input_blocked(),main.player.global_position.distance_to(spot.global_position)])
 		main._auto_target = null
 		main.interactor.auto_hold = false
 

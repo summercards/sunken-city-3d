@@ -12,13 +12,12 @@ var _pending := false
 var world_hover: Node
 var world_prompt: Node
 
-func attach(owner_hud: CanvasLayer) -> void:
+func attach(owner_hud: CanvasLayer, sources: Dictionary) -> void:
 	hud=owner_hud
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	process_priority=100
-	var scene:=hud.get_parent()
 	for entry in [["camera","CameraPanel"],["grade","ColorGrade"],["orders","OrderPanel"],["salvage","SalvagePanel"]]:
-		var view:=scene.get_node_or_null(entry[1])
+		var view: Node=sources.get(entry[0])
 		if view==null: continue
 		views[entry[0]]=view
 		view.layer=70
@@ -40,7 +39,7 @@ func attach(owner_hud: CanvasLayer) -> void:
 		_title(views.salvage._title,"海底的小惊喜",28)
 		cards.salvage.get_child(0).add_theme_constant_override("separation",18)
 		views.salvage._tension.custom_minimum_size.y=32
-	var prompt:=scene.get_node_or_null("InteractPrompt")
+	var prompt: Node=sources.get("prompt")
 	world_prompt=prompt
 	if prompt:
 		prompt.set_meta("cozy_skip",true)
@@ -51,14 +50,16 @@ func attach(owner_hud: CanvasLayer) -> void:
 		prompt._text.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 		prompt._text.custom_minimum_size.x=470
 		Cozy.paper(prompt._panel,Cozy.GOLD,true)
-	var hover:=scene.get_node_or_null("HoverCard")
+	var hover: Node=sources.get("hover")
 	world_hover=hover
 	if hover:
 		Cozy.style_tree(hover._card)
 		hover._card.add_theme_stylebox_override("panel",Cozy.surface(Cozy.CREAM,22))
 	hud.bind_presenters(views)
 	get_tree().node_added.connect(_added)
-	_font_tree(scene)
+	_font_tree(hud)
+	for view in sources.values():
+		if is_instance_valid(view): _font_tree(view)
 	_restyle()
 
 func _title(label: Label, text: String, pixels: int) -> void:
@@ -107,8 +108,11 @@ func _opened(id: String) -> void:
 			button.grab_focus.call_deferred();break
 
 func _place(id: String) -> void:
-	if id=="grade" and views.grade._water_scroll!=null:
-		views.grade._water_scroll.custom_minimum_size.y=minf(360,hud.get_viewport().get_visible_rect().size.y-470)
+	if id=="grade":
+		# 水面与光照两页的列表都按窗口高矮收口；滤镜页只有四行，不需要滚动。
+		var scroll_h:=minf(360,hud.get_viewport().get_visible_rect().size.y-470)
+		if views.grade._water_scroll!=null: views.grade._water_scroll.custom_minimum_size.y=scroll_h
+		if views.grade._light_scroll!=null: views.grade._light_scroll.custom_minimum_size.y=scroll_h
 	Cozy.place(cards[id],{"camera":480,"grade":700,"orders":980,"salvage":700}[id],id in ["camera","grade"])
 
 func _process(_delta: float) -> void:
@@ -128,7 +132,7 @@ func _process(_delta: float) -> void:
 		view._wallet.text=view._wallet.text.replace("🪙","海贝")
 		for i in order_icons.size():
 			var ref: Dictionary=view._rows[i]
-			var slot: Dictionary=view.model.slots[i] if view.model and i<view.model.slots.size() else {}
+			var slot: Dictionary=view.model.offer_at(i) if view.model else {}
 			var item:=str(slot.get("item","clock"))
 			order_icons[i].kind=item
 			order_icons[i].caption="等待来信" if item=="clock" else Items.label(item)

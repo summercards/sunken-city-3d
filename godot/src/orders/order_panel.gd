@@ -1,4 +1,6 @@
 extends CanvasLayer
+const InventoryDependency = preload("res://src/inventory/inventory.gd")
+var inventory: InventoryDependency
 ## 码头订单板面板：三张单子 + 「换一批」。
 ##
 ## 规则与数值全在 `src/orders/orders.gd` / `assets/data/orders.json`，
@@ -202,14 +204,14 @@ func note(text: String, seconds := 2.4) -> void:
 func refresh() -> void:
 	if model == null:
 		return
-	_wallet.text = "🪙 %d" % Economy.count("coins")
+	_wallet.text = "🪙 %d" % inventory.count("coins")
 	var cost: int = model.reroll_cost()
 	_reroll.text = "免费换一批"
-	_reroll.disabled = Economy.count("coins") < cost
+	_reroll.disabled = inventory.count("coins") < cost
 	var live := 0
 	for i in _rows.size():
 		var ref: Dictionary = _rows[i]
-		var slot: Dictionary = model.slots[i] if i < model.slots.size() else {}
+		var slot: Dictionary = model.offer_at(i)
 		if slot.is_empty() or slot.has("refill"):
 			ref.panel.visible = true
 			ref.uid = ""
@@ -229,12 +231,12 @@ func refresh() -> void:
 
 
 func _refresh_dynamic() -> void:
-	_wallet.text = "🪙 %d" % Economy.count("coins")
-	_reroll.disabled = Economy.count("coins") < model.reroll_cost()
+	_wallet.text = "🪙 %d" % inventory.count("coins")
+	_reroll.disabled = inventory.count("coins") < model.reroll_cost()
 	var live := 0
 	for i in _rows.size():
 		var ref: Dictionary = _rows[i]
-		var slot: Dictionary = model.slots[i] if i < model.slots.size() else {}
+		var slot: Dictionary = model.offer_at(i)
 		if slot.is_empty() or slot.has("refill"):
 			if ref.uid != "":
 				ref.uid = ""
@@ -243,7 +245,7 @@ func _refresh_dynamic() -> void:
 			continue
 		live += 1
 		_refresh_row(ref, slot, false)
-	_reroll.disabled = Economy.count("coins") < model.reroll_cost()
+	_reroll.disabled = inventory.count("coins") < model.reroll_cost()
 
 
 func _refresh_row(ref: Dictionary, slot: Dictionary, full: bool) -> void:
@@ -252,7 +254,7 @@ func _refresh_row(ref: Dictionary, slot: Dictionary, full: bool) -> void:
 	ref.uid = uid
 	var item := str(slot.get("item", ""))
 	var need := int(slot.get("amount", 0))
-	var have := Economy.count(item)
+	var have := inventory.count(item)
 	var info := ItemDB.get_item(item)
 	if full or changed:
 		ref.icon.text = str(info.get("icon", "•"))

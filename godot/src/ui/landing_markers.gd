@@ -1,4 +1,5 @@
 extends CanvasLayer
+var zones: Node
 ## 每个上岸点的锚标（对齐网页版 gameplay.js 里的 .landing-marker）。
 ##
 ## 网页版把图标做成 DOM 元素，每帧用相机投影算屏幕坐标；这里用一个 Control
@@ -34,7 +35,7 @@ func build(cam: Camera3D) -> void:
 	_canvas.draw.connect(_on_draw)
 	add_child(_canvas)
 
-	for z in Zones.list:
+	for z in zones.list:
 		for l in z.get("landings", []):
 			var p: Array = l.dockEdge
 			items.append({
