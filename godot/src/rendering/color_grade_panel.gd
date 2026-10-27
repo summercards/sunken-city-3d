@@ -1,28 +1,39 @@
 extends CanvasLayer
 class_name ColorGradePanel
-## 运行期调试面板（P 键开关），两页：
+## 运行期调试面板（P 键开关），三页：
 ##
 ##   滤镜 —— 整幅画面的最终调色，改的是 `WorldEnvironment` 上那个 Environment：
 ##           曝光 → tonemap_exposure，亮度/对比度/饱和度 → adjustment_*。
+##   光照 —— 环境与太阳。环境是同一个 Environment 的天空/环境光/泛光/遮蔽/雾，
+##           太阳是 `World/Lights/Sun` 这盏平行光（强度、色温、朝向、阴影）。
+##           清单在 `light_params.gd`，这里只负责生成控件。
 ##   水面 —— `assets/materials/water.tres` 上所有还能改的参数，按着色器的
 ##           group 分成水体 / 表面细节 / 天空反射 / 太阳高光 / 波纹 / 泡沫 /
 ##           波浪几何 / 输出。清单在 `water_params.gd`，这里只负责生成控件。
 ##
-## 两页都遵守同一套约定：拖动即时生效、可一键复位、可复制、可写回资源文件、
+## 三页都遵守同一套约定：拖动即时生效、可一键复位、可复制、可写回资源文件、
 ## 数值记在 `user://` 下（`filter.cfg` / `water.cfg`），下次启动还是你调好的样子 ——
 ## 不然每次重启都要重调一遍。
 ##
 ## 场景里的默认值来自资源文件本身，所以「复位」回到的是那份文件的值，
 ## 不是硬编码的数字。
+##
+## 「滤镜」与「光照」改的是同一批引擎对象，但**不是同一批属性**：滤镜只有 4 个
+## 最终调色项，光照是环境与太阳的整套参数。合成一页会变成三十多行的长列表，
+## 把曝光埋到看不见的地方 —— 那正是最常调的一项。
 
 const UiFontLib = preload("res://src/ui/ui_font.gd")
 const ParamsLib = preload("res://src/rendering/water_params.gd")
 const ParamsLibAbs = preload("res://src/rendering/water_params_absorption.gd")
+const LightParamsLib = preload("res://src/rendering/light_params.gd")
 
 const CFG_PATH := "user://filter.cfg"
 const WATER_CFG_PATH := "user://water.cfg"
 const WATER_MAT_PATH := "res://assets/materials/water.tres"
 const ABSORPTION_MAT_PATH := "res://assets/materials/water_absorption.tres"
+const ENV_MAT_PATH := "res://assets/materials/world_env.tres"
+const MAIN_SCENE_PATH := "res://scenes/main.tscn"
+const SUN_NODE_PATH := "World/Lights/Sun"
 
 ## 两套水。各自有独立的参数表、材质资源、存档 section 和收藏，
 ## 面板同一时间只显示其中一套 —— 「方案」按哪个，下面的滑杆就是哪套的。
@@ -61,6 +72,7 @@ const PRESET_FACTORY := "出厂（材质文件）"
 const CFG_SIG_KEY := "__mat_sig"
 
 const TAB_FILTER := "filter"
+const TAB_LIGHT := "light"
 const TAB_WATER := "water"
 
 const EXPOSURE_MIN := 0.4
@@ -77,10 +89,26 @@ var _env: Environment
 var _defaults := {}
 var _rows := {}
 
+## 太阳光节点。可能找不到（别的场景没按约定摆放灯光），所有写入都先判空。
+var _sun: DirectionalLight3D
+## 光照页的出厂值快照：`env` / `sun` 两份属性字典 + `sun_dir` 两个角度。
+## 在第一次 `_ensure_env` / `_ensure_sun` 时抓，那一刻还没套过存档。
+var _light_defaults := {}
+var _light_spec := {}
+var _light_widgets := {}
+var _light_dirty := false
+## 存档是否已经套过。启动时 `_apply_saved_on_start` 会套一次，但那时场景可能
+## 还没装好（环境 / 太阳都没解析到），所以打开面板时补一次，补过就不再补 ——
+## 否则用户手改的值会被存档反复盖回去。
+var _light_cfg_loaded := false
+
 var _font: Font
 var _panel: PanelContainer
 var _body: VBoxContainer
 var _filter_body: VBoxContainer
+var _light_wrap: VBoxContainer
+var _light_body: VBoxContainer
+var _light_scroll: ScrollContainer
 var _water_wrap: VBoxContainer
 var _water_body: VBoxContainer
 var _water_scroll: ScrollContainer
@@ -139,6 +167,7 @@ func _ready() -> void:
 	set_meta("cozy_skip", true)
 	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
 	_rebuild_spec()
+	_light_spec = LightParamsLib.flat()
 	_build()
 	visible = false
 	# 先读盘：读档值要盖回场景默认值，否则每次启动都回到 1.0。
@@ -162,10 +191,16 @@ func set_open(open: bool) -> void:
 		_ensure_env()
 		_sync_from_env()
 		_refresh_labels()
+		_ensure_sun()
+		# 启动那次套存档可能没赶上（场景还没装完），这里补一次。
+		if not _light_cfg_loaded:
+			_apply_light_cfg()
+		_sync_light()
 		_ensure_water()
 		_sync_water()
 	else:
 		_save_cfg()
+		_save_light_cfg()
 		_save_water_cfg()
 
 
@@ -184,11 +219,17 @@ func set_values(exposure: float, brightness: float, contrast: float, saturation:
 
 
 ## `--water` 直接从「水面」页打开，方便截图和交接时直接指到那一页。
+## `--light` 同理，指到光照页。
 func set_tab(id: String) -> void:
 	_set_tab(id)
-	if visible:
+	if not visible:
+		return
+	if _tab == TAB_WATER:
 		_ensure_water()
 		_sync_water()
+	elif _tab == TAB_LIGHT:
+		_ensure_sun()
+		_sync_light()
 
 
 # ---- 环境解析 ---------------------------------------------------------------
@@ -214,6 +255,57 @@ func _ensure_env() -> void:
 	if we != null and we.environment != null:
 		_env = we.environment
 		_defaults = _snapshot(_env)
+		_capture_light_defaults()
+
+
+## 太阳光的出厂快照。和环境的快照分开记：两者的来源不一样
+## （环境来自 `world_env.tres`，太阳来自 `scenes/main.tscn` 的节点属性），
+## 混在一个字典里，复位时就得靠属性名去猜它属于谁。
+func _capture_light_defaults() -> void:
+	var env := {}
+	for key in LightParamsLib.keys():
+		var spec: Dictionary = _light_spec.get(key, {})
+		if spec.is_empty() or String(spec.target) != LightParamsLib.TARGET_ENV:
+			continue
+		var v: Variant = _light_read(key)
+		if v != null:
+			env[key] = v
+	_light_defaults["env"] = env
+	if is_instance_valid(_sun):
+		var sun := {}
+		for key in LightParamsLib.keys():
+			var spec2: Dictionary = _light_spec.get(key, {})
+			if spec2.is_empty() or String(spec2.target) != LightParamsLib.TARGET_SUN:
+				continue
+			var v2: Variant = _light_read(key)
+			if v2 != null:
+				sun[key] = v2
+		_light_defaults["sun"] = sun
+		_light_defaults["sun_dir"] = _sun_angles()
+
+
+func _ensure_sun() -> void:
+	if is_instance_valid(_sun):
+		return
+	var scene := get_tree().current_scene
+	if scene != null:
+		_sun = scene.get_node_or_null(SUN_NODE_PATH) as DirectionalLight3D
+	if _sun == null:
+		_sun = _find_sun_recursive(get_tree().root)
+	if _sun != null:
+		_capture_light_defaults()
+
+
+func _find_sun_recursive(node: Node) -> DirectionalLight3D:
+	var l := node as DirectionalLight3D
+	# 只认名字：场景里还有三盏补光，随便挑一盏会让「太阳强度」改的是补光。
+	if l != null and String(l.name) == "Sun":
+		return l
+	for c in node.get_children():
+		var found := _find_sun_recursive(c)
+		if found != null:
+			return found
+	return null
 
 
 func _find_env_recursive(node: Node) -> WorldEnvironment:
@@ -233,6 +325,323 @@ func _snapshot(env: Environment) -> Dictionary:
 		"contrast": env.adjustment_contrast,
 		"saturation": env.adjustment_saturation,
 	}
+
+
+# ---- 光照：环境 + 太阳 --------------------------------------------------------
+#
+# 这一层和「水面」那层的区别：水面读写的是一份 `ShaderMaterial` 的 uniform，
+# 光照读写的是引擎对象的属性。写法统一在 `_light_read` / `_light_write` 两个口，
+# 面板控件只跟 key 打交道 —— 这样加一个参数只改清单，不用碰 UI。
+
+## 面板键 → 真正接鼠标的那个对象。找不到就返回 null，调用方自己判空。
+func _light_target(target: String) -> Object:
+	if target == LightParamsLib.TARGET_ENV:
+		_ensure_env()
+		return _env
+	_ensure_sun()
+	return _sun
+
+
+func _light_read(key: String) -> Variant:
+	var spec: Dictionary = _light_spec.get(key, {})
+	if spec.is_empty():
+		return null
+	var prop := String(spec.prop)
+	if prop.begins_with("dir:"):
+		# 朝向的两个虚拟轴没有同名属性，只能从基算出来。
+		if not is_instance_valid(_sun):
+			return null
+		var angles := _sun_angles()
+		return angles.x if prop == "dir:elevation" else angles.y
+	var obj := _light_target(String(spec.target))
+	if obj == null:
+		return null
+	return obj.get_indexed(NodePath(prop))
+
+
+func _light_write(key: String, value: Variant) -> void:
+	var spec: Dictionary = _light_spec.get(key, {})
+	if spec.is_empty():
+		return
+	var prop := String(spec.prop)
+	var target := String(spec.target)
+	if target == LightParamsLib.TARGET_SUN and prop.begins_with("dir:"):
+		if not is_instance_valid(_sun):
+			return
+		# 两个虚拟轴各自只改自己那一维：另一维读当前朝向，
+		# 这样先拖高度角再拖方位角不会互相抹掉。
+		var angles := _sun_angles()
+		if prop == "dir:elevation":
+			_set_sun_angles(float(value), angles.y)
+		else:
+			_set_sun_angles(angles.x, float(value))
+		_light_dirty = true
+		return
+	var obj := _light_target(target)
+	if obj == null:
+		return
+	obj.set_indexed(NodePath(prop), _coerce_light(spec, value))
+	_light_dirty = true
+
+
+func _coerce_light(spec: Dictionary, value: Variant) -> Variant:
+	match String(spec.kind):
+		"float":
+			return float(value)
+		"bool":
+			return bool(value)
+		"color":
+			return _as_color3(value)
+	return value
+
+
+## 太阳的朝向，用「相对海平面」的语义给出：高度角（正数朝上）与方位角（0 = +Z）。
+## 不直接暴露 `rotation_degrees.x/y`：那是欧拉角，跟「太阳多高」隔着一层，
+## 调参时脑子要换算一次，而且和场景里 look_at 出来的基不直观对应。
+## 调用前先确认 `_sun` 有效 —— 没有太阳时这里的返回值没有意义。
+func _sun_angles() -> Vector2:
+	if not is_instance_valid(_sun):
+		return Vector2.ZERO
+	var d := -_sun.global_transform.basis.z
+	var elevation := rad_to_deg(asin(clampf(-d.y, -1.0, 1.0)))
+	var azimuth := rad_to_deg(atan2(d.x, d.z))
+	return Vector2(elevation, azimuth)
+
+
+func _set_sun_angles(elevation: float, azimuth: float) -> void:
+	if not is_instance_valid(_sun):
+		return
+	# 高度角贴到 0 或 90 时 look_at 的 up 会退化，夹在 1..89 最稳。
+	var el := deg_to_rad(clampf(elevation, 1.0, 89.0))
+	var az := deg_to_rad(azimuth)
+	var dir := Vector3(sin(az) * cos(el), -sin(el), cos(az) * cos(el))
+	var origin := _sun.global_position
+	_sun.look_at_from_position(origin, origin + dir, Vector3.UP)
+
+
+func _sync_light() -> void:
+	if _light_widgets.is_empty():
+		return
+	_syncing = true
+	for key in _light_widgets.keys():
+		var v: Variant = _light_read(key)
+		if v == null:
+			continue
+		(_light_widgets[key] as Callable).call(v)
+	_syncing = false
+
+
+func _on_light_reset() -> void:
+	var env: Dictionary = _light_defaults.get("env", {})
+	var sun: Dictionary = _light_defaults.get("sun", {})
+	if env.is_empty() and sun.is_empty():
+		_flash("没抓到出厂值，无法复位（场景里找不到环境或太阳）")
+		return
+	_syncing = true
+	for key in env.keys():
+		_light_write(key, env[key])
+	# 太阳先复位朝向再复位其余属性：`_light_write` 改朝向会重算基，
+	# 但不会动 light_energy 之类，所以顺序不影响结果，只是读起来顺。
+	if not sun.is_empty() and is_instance_valid(_sun):
+		var dir: Vector2 = _light_defaults.get("sun_dir", Vector2.ZERO)
+		_set_sun_angles(dir.x, dir.y)
+	for key2 in sun.keys():
+		_light_write(key2, sun[key2])
+	_syncing = false
+	_sync_light()
+	_light_dirty = true
+	_save_light_cfg()
+	_flash("光照已回到场景默认值")
+
+
+## 复制成能直接对账的文本。太阳朝向给的是两个角度，不是欧拉角 ——
+## 抄进场景时用 `look_at` 那一套更不容易出错。
+func _on_light_copy() -> void:
+	var lines := PackedStringArray()
+	for g in LightParamsLib.GROUPS:
+		for row in g.rows:
+			var key := String(row.key)
+			var v: Variant = _light_read(key)
+			if v == null:
+				continue
+			var target := String(row.target)
+			if String(row.prop) == "dir:elevation" or String(row.prop) == "dir:azimuth":
+				lines.append("# sun.%s = %s（虚拟轴，写回场景时会转成朝向）" % [key, var_to_str(v)])
+				continue
+			lines.append("%s/%s = %s" % ["environment" if target == LightParamsLib.TARGET_ENV else "sun",
+				String(row.prop), var_to_str(v)])
+	var text := "\n".join(lines)
+	DisplayServer.clipboard_set(text)
+	_flash("已复制 %d 行光照参数" % lines.size())
+
+
+func _on_light_save() -> void:
+	if OS.has_feature("template"):
+		_flash("导出版无法写回 res://，请用「复制参数」")
+		return
+	var notes := PackedStringArray()
+	var ok := 0
+	_ensure_env()
+	if _env != null:
+		# `ResourceSaver` 一律用 LF 落盘，而仓库在 Windows 上是 CRLF 检出。
+		# 不还原的话整份文件在 diff 里全变 —— 账本里记过一次「CRLF 行尾幻影」，
+		# 就是这里踩的。改前记下原风格，存完照原样写回去。
+		var before := FileAccess.get_file_as_string(ENV_MAT_PATH)
+		var crlf := before.contains("\r\n")
+		var err := ResourceSaver.save(_env, ENV_MAT_PATH)
+		if err == OK:
+			if crlf:
+				_restore_crlf(ENV_MAT_PATH)
+			ok += 1
+			notes.append("world_env.tres")
+		else:
+			_flash("环境写入失败：%s" % error_string(err))
+			return
+	if is_instance_valid(_sun):
+		var problem := _write_sun_to_scene()
+		if problem == "":
+			ok += 1
+			notes.append("main.tscn 的 Sun")
+		else:
+			_flash("太阳写入失败：%s" % problem)
+			return
+	if ok == 0:
+		_flash("既没找到环境也没找到太阳，无可写入")
+		return
+	_light_dirty = false
+	_save_light_cfg()
+	_flash("已写入 %s（重开游戏生效）" % "、".join(notes))
+
+
+## 把一份刚被 `ResourceSaver` 写成 LF 的文件改回 CRLF。
+## 只做换行替换，不碰内容 —— 所以它只会消掉 diff 里那些「整文件都变」的假改动。
+func _restore_crlf(path: String) -> void:
+	var text := FileAccess.get_file_as_string(path)
+	if text.is_empty() or text.contains("\r\n"):
+		return
+	var f := FileAccess.open(path, FileAccess.WRITE)
+	if f == null:
+		return
+	f.store_string(text.replace("\n", "\r\n"))
+	f.close()
+
+
+## 把太阳的属性写回 `scenes/main.tscn`。
+##
+## 为什么不整份重存：那会把场景里所有手工调过的节点、unique_id、资源引用
+## 重新排一遍，diff 变成几千行，谁也不敢再提交。这里只改 Sun 这个节点块里
+## 的几行属性，其余字节不动。
+##
+## 返回空串表示成功，否则是要报给用户的原因。
+func _write_sun_to_scene() -> String:
+	var text := FileAccess.get_file_as_string(MAIN_SCENE_PATH)
+	if text.is_empty():
+		return "读不到 %s" % MAIN_SCENE_PATH
+	var eol := "\r\n" if text.contains("\r\n") else "\n"
+	var lines := text.replace("\r\n", "\n").split("\n")
+
+	var start := -1
+	for i in lines.size():
+		if String(lines[i]).begins_with("[node name=\"Sun\""):
+			start = i
+			break
+	if start < 0:
+		return "main.tscn 里找不到 Sun 节点"
+
+	var stop := lines.size()
+	for i in range(start + 1, lines.size()):
+		if String(lines[i]).begins_with("["):
+			stop = i
+			break
+
+	var values := {
+		"transform": var_to_str(_sun.transform),
+		"light_color": var_to_str(_sun.light_color),
+		"light_energy": var_to_str(_sun.light_energy),
+		"light_angular_distance": var_to_str(_sun.light_angular_distance),
+		"shadow_enabled": var_to_str(_sun.shadow_enabled),
+		"shadow_opacity": var_to_str(_sun.shadow_opacity),
+		"shadow_blur": var_to_str(_sun.shadow_blur),
+		"shadow_bias": var_to_str(_sun.shadow_bias),
+		"shadow_normal_bias": var_to_str(_sun.shadow_normal_bias),
+		"directional_shadow_max_distance": var_to_str(_sun.directional_shadow_max_distance),
+	}
+
+	for key in values.keys():
+		var line := "%s = %s" % [key, values[key]]
+		var prefix := "%s = " % key
+		var found := false
+		for i in range(start + 1, stop):
+			if String(lines[i]).begins_with(prefix):
+				lines[i] = line
+				found = true
+				break
+		if not found:
+			# 缺这一项就补在块末尾（`stop` 之前），以后 stop 要跟着后移一行，
+			# 否则第二项补进来时会插到第一项前面。
+			lines.insert(stop, line)
+			stop += 1
+
+	var out := eol.join(PackedStringArray(lines))
+	var f := FileAccess.open(MAIN_SCENE_PATH, FileAccess.WRITE)
+	if f == null:
+		return "写入失败：%s" % error_string(FileAccess.get_open_error())
+	f.store_string(out)
+	f.close()
+
+	# 兜底自检：还必须是场景文本，Sun 节点还在，节点数没变。
+	# 任何一条不成立就整份还原 —— 坏掉的 main.tscn 会把整个世界弄没。
+	var after := FileAccess.get_file_as_string(MAIN_SCENE_PATH)
+	var nodes_before := text.count("[node name=")
+	var nodes_after := after.count("[node name=")
+	if not after.contains("[gd_scene") or not after.contains("[node name=\"Sun\"") or nodes_before != nodes_after:
+		var undo := FileAccess.open(MAIN_SCENE_PATH, FileAccess.WRITE)
+		if undo != null:
+			undo.store_string(text)
+			undo.close()
+		return "写回结果不像场景文本，已还原原文件"
+	return ""
+
+
+func _apply_light_cfg() -> void:
+	var cfg := ConfigFile.new()
+	if cfg.load(CFG_PATH) != OK:
+		# 没有存档 = 从没调过，保持场景出厂值。不标记「已套过」也无所谓，
+		# 每次打开重读一个不存在的文件几乎不要钱。
+		return
+	_light_cfg_loaded = true
+	_syncing = true
+	for g in LightParamsLib.GROUPS:
+		var section := String(g.id)
+		for row in g.rows:
+			var key := String(row.key)
+			if not cfg.has_section_key(section, key):
+				continue
+			var v: Variant = cfg.get_value(section, key)
+			if v == null:
+				continue
+			_light_write(key, v)
+	_syncing = false
+	_light_dirty = false
+
+
+func _save_light_cfg() -> void:
+	# 和 `water.cfg` 同一个原则：没真动过就不写，否则「开面板看一眼」
+	# 会把当时的值固化成存档，之后改 world_env.tres 的出厂值永远被它盖住。
+	if not _light_dirty:
+		return
+	var cfg := ConfigFile.new()
+	cfg.load(CFG_PATH)
+	for g in LightParamsLib.GROUPS:
+		var section := String(g.id)
+		for row in g.rows:
+			var key := String(row.key)
+			var v: Variant = _light_read(key)
+			if v == null:
+				continue
+			cfg.set_value(section, key, v)
+	cfg.save(CFG_PATH)
+
 
 
 # ---- 方案 -------------------------------------------------------------------
@@ -448,6 +857,7 @@ func _build() -> void:
 	tabs.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	head.add_child(tabs)
 	_tab_buttons[TAB_FILTER] = _tab_button("滤镜", TAB_FILTER, tabs)
+	_tab_buttons[TAB_LIGHT] = _tab_button("光照", TAB_LIGHT, tabs)
 	_tab_buttons[TAB_WATER] = _tab_button("水面", TAB_WATER, tabs)
 	var close := _button("关闭", func() -> void: set_open(false))
 	close.custom_minimum_size = Vector2(46, 24)
@@ -460,6 +870,12 @@ func _build() -> void:
 	_filter_body.add_theme_constant_override("separation", 7)
 	_body.add_child(_filter_body)
 	_build_filter()
+
+	_light_wrap = VBoxContainer.new()
+	_light_wrap.add_theme_constant_override("separation", 6)
+	_light_wrap.visible = false
+	_body.add_child(_light_wrap)
+	_build_light()
 
 	_water_wrap = VBoxContainer.new()
 	_water_wrap.add_theme_constant_override("separation", 6)
@@ -489,6 +905,46 @@ func _build_filter() -> void:
 	buttons.add_child(_button("复位", _on_reset))
 	buttons.add_child(_button("复制参数", _on_copy))
 	buttons.add_child(_button("写入场景", _on_save_to_scene))
+
+
+## 光照页：环境 + 太阳两组，参数比滤镜多一个量级，所以自带滚动区。
+##
+## 这一页的按钮是「复位 / 复制参数 / 写入场景」，语义和滤镜页一致，但写回目标
+## 有两个：环境写 `world_env.tres`，太阳写 `main.tscn` 的 Sun 节点。
+func _build_light() -> void:
+	_light_scroll = ScrollContainer.new()
+	_light_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_light_scroll.custom_minimum_size = Vector2(0, _scroll_height())
+	_light_wrap.add_child(_light_scroll)
+
+	_light_body = VBoxContainer.new()
+	_light_body.add_theme_constant_override("separation", 4)
+	_light_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_light_scroll.add_child(_light_body)
+
+	for g in LightParamsLib.GROUPS:
+		_add_folder(_light_body, g, _add_light_row)
+
+	_light_wrap.add_child(_separator())
+
+	var buttons := HBoxContainer.new()
+	buttons.add_theme_constant_override("separation", 5)
+	_light_wrap.add_child(buttons)
+	buttons.add_child(_button("复位", _on_light_reset))
+	buttons.add_child(_button("复制参数", _on_light_copy))
+	buttons.add_child(_button("写入场景", _on_light_save))
+
+
+## 光照页的一行。类型只有 float / bool / color 三种 —— 没有 vec2/vec3，
+## 所以不用 `_add_vector_row`；朝向那两行在清单里就是两个 float。
+func _add_light_row(parent: VBoxContainer, spec: Dictionary) -> void:
+	match String(spec.kind):
+		"bool":
+			_add_bool_row(parent, spec, _light_write, _light_widgets, _save_light_cfg)
+		"color":
+			_add_color_row(parent, spec, false, _light_write, _light_widgets, _save_light_cfg)
+		_:
+			_add_scalar_row(parent, spec, _light_write, _light_widgets, _save_light_cfg)
 
 
 func _build_water() -> void:
@@ -984,6 +1440,13 @@ func _scroll_height() -> float:
 
 
 func _add_group(g: Dictionary) -> void:
+	_add_folder(_water_body, g, _add_water_row)
+
+
+## 折叠分组。水面页和光照页共用：两页长得一样、行为一样，没理由写两份。
+## `builder(parent, row)` 决定这一行怎么造，这样同一套外壳能装着色器参数
+## （水面）和引擎对象属性（光照）。
+func _add_folder(host: VBoxContainer, g: Dictionary, builder: Callable) -> void:
 	var head := Button.new()
 	head.text = "▾  " + String(g.label)
 	head.alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -996,11 +1459,11 @@ func _add_group(g: Dictionary) -> void:
 		Color(124.0 / 255.0, 248.0 / 255.0, 228.0 / 255.0, 0.55)))
 	head.custom_minimum_size = Vector2(0, 20)
 	head.focus_mode = Control.FOCUS_NONE
-	_water_body.add_child(head)
+	host.add_child(head)
 
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 4)
-	_water_body.add_child(box)
+	host.add_child(box)
 
 	var note := String(g.get("note", ""))
 	if note != "":
@@ -1010,7 +1473,7 @@ func _add_group(g: Dictionary) -> void:
 		box.add_child(tip)
 
 	for row in g.rows:
-		_add_water_row(box, row)
+		builder.call(box, row)
 
 	head.pressed.connect(func() -> void:
 		box.visible = not box.visible
@@ -1045,7 +1508,17 @@ func _tip(c: Control, spec: Dictionary) -> void:
 		c.tooltip_text = hint
 
 
-func _add_scalar_row(parent: VBoxContainer, spec: Dictionary) -> void:
+## 下面四个行构建器都带三个可选口子：`write(key, value)` 写值、`widgets` 收
+## 「回填控件」的 Callable、`commit()` 在拖动结束时落盘。
+##
+## 不传就接水面那套（着色器参数 + `water.cfg`），传了就接光照那套（引擎对象
+## 属性 + `filter.cfg`）。这样一份控件代码同时服务两页，不会出现「水面页修了
+## 一个排版 bug，光照页还是老样子」。
+func _add_scalar_row(parent: VBoxContainer, spec: Dictionary,
+		write := Callable(), widgets := {}, commit := Callable()) -> void:
+	var sink: Callable = write if write.is_valid() else Callable(self, "_water_write")
+	var bag: Dictionary = widgets if write.is_valid() else _water_widgets
+	var done: Callable = commit if commit.is_valid() else Callable(self, "_save_water_cfg")
 	var holder := _row_shell(parent, spec)
 	var spec_key := String(spec.key)
 
@@ -1068,20 +1541,24 @@ func _add_scalar_row(parent: VBoxContainer, spec: Dictionary) -> void:
 		value.text = fmt % v + unit
 		if _syncing:
 			return
-		_water_write(spec_key, v))
+		sink.call(spec_key, v))
 	slider.drag_ended.connect(func(_changed: bool) -> void:
 		if not _syncing:
-			_save_water_cfg())
+			done.call())
 	# 滚轮交给 ScrollContainer：否则在列表里滚动会把参数一路改掉。
 	slider.scrollable = false
 	value.text = fmt % slider.value + unit
 
-	_water_widgets[spec_key] = func(v: Variant) -> void:
+	bag[spec_key] = func(v: Variant) -> void:
 		slider.set_value_no_signal(float(v))
 		value.text = fmt % float(v) + unit
 
 
-func _add_bool_row(parent: VBoxContainer, spec: Dictionary) -> void:
+func _add_bool_row(parent: VBoxContainer, spec: Dictionary,
+		write := Callable(), widgets := {}, commit := Callable()) -> void:
+	var sink: Callable = write if write.is_valid() else Callable(self, "_water_write")
+	var bag: Dictionary = widgets if write.is_valid() else _water_widgets
+	var done: Callable = commit if commit.is_valid() else Callable(self, "_save_water_cfg")
 	var spec_key := String(spec.key)
 	var holder := _row_shell(parent, spec)
 	var line := HBoxContainer.new()
@@ -1098,15 +1575,19 @@ func _add_bool_row(parent: VBoxContainer, spec: Dictionary) -> void:
 	check.toggled.connect(func(on: bool) -> void:
 		if _syncing:
 			return
-		_water_write(spec_key, on)
-		_save_water_cfg())
+		sink.call(spec_key, on)
+		done.call())
 	line.add_child(check)
 
-	_water_widgets[spec_key] = func(v: Variant) -> void:
+	bag[spec_key] = func(v: Variant) -> void:
 		check.set_pressed_no_signal(bool(v))
 
 
-func _add_color_row(parent: VBoxContainer, spec: Dictionary, with_alpha: bool) -> void:
+func _add_color_row(parent: VBoxContainer, spec: Dictionary, with_alpha: bool,
+		write := Callable(), widgets := {}, commit := Callable()) -> void:
+	var sink: Callable = write if write.is_valid() else Callable(self, "_water_write")
+	var bag: Dictionary = widgets if write.is_valid() else _water_widgets
+	var done: Callable = commit if commit.is_valid() else Callable(self, "_save_water_cfg")
 	var spec_key := String(spec.key)
 	var holder := _row_shell(parent, spec)
 	var line := HBoxContainer.new()
@@ -1135,16 +1616,20 @@ func _add_color_row(parent: VBoxContainer, spec: Dictionary, with_alpha: bool) -
 		hex.text = c.to_html(false).trim_prefix("#")
 		if _syncing:
 			return
-		_water_write(spec_key, c)
-		_save_water_cfg())
+		sink.call(spec_key, c)
+		done.call())
 
-	_water_widgets[spec_key] = func(v: Variant) -> void:
+	bag[spec_key] = func(v: Variant) -> void:
 		var c := _as_color4(v) if with_alpha else _as_color3(v)
 		picker.color = c
 		hex.text = c.to_html(false).trim_prefix("#")
 
 
-func _add_vector_row(parent: VBoxContainer, spec: Dictionary) -> void:
+func _add_vector_row(parent: VBoxContainer, spec: Dictionary,
+		write := Callable(), widgets := {}, commit := Callable()) -> void:
+	var sink: Callable = write if write.is_valid() else Callable(self, "_water_write")
+	var bag: Dictionary = widgets if write.is_valid() else _water_widgets
+	var done: Callable = commit if commit.is_valid() else Callable(self, "_save_water_cfg")
 	var spec_key := String(spec.key)
 	var holder := _row_shell(parent, spec)
 
@@ -1189,9 +1674,9 @@ func _add_vector_row(parent: VBoxContainer, spec: Dictionary) -> void:
 		if _syncing:
 			return
 		if sliders.size() >= 3:
-			_water_write(spec_key, Vector3(sliders[0].value, sliders[1].value, sliders[2].value))
+			sink.call(spec_key, Vector3(sliders[0].value, sliders[1].value, sliders[2].value))
 		else:
-			_water_write(spec_key, Vector2(sliders[0].value, sliders[1].value))
+			sink.call(spec_key, Vector2(sliders[0].value, sliders[1].value))
 
 	for i in sliders.size():
 		sliders[i].value_changed.connect(func(v: float) -> void:
@@ -1199,9 +1684,9 @@ func _add_vector_row(parent: VBoxContainer, spec: Dictionary) -> void:
 			push.call())
 		sliders[i].drag_ended.connect(func(_changed: bool) -> void:
 			if not _syncing:
-				_save_water_cfg())
+				done.call())
 
-	_water_widgets[spec_key] = func(v: Variant) -> void:
+	bag[spec_key] = func(v: Variant) -> void:
 		var comps: Array[float] = []
 		if v is Vector3:
 			var t := v as Vector3
@@ -1275,6 +1760,8 @@ func _set_tab(id: String) -> void:
 				else Color(110.0 / 255.0, 190.0 / 255.0, 200.0 / 255.0, 0.22)))
 	if _filter_body != null:
 		_filter_body.visible = id == TAB_FILTER
+	if _light_wrap != null:
+		_light_wrap.visible = id == TAB_LIGHT
 	if _water_wrap != null:
 		_water_wrap.visible = id == TAB_WATER
 	_refresh_status()
@@ -1285,6 +1772,8 @@ func _refresh_status() -> void:
 		return
 	if _tab == TAB_WATER:
 		_status.text = "水面参数 · 收藏可整套切换 · 滚轮翻列表，右列是当前值"
+	elif _tab == TAB_LIGHT:
+		_status.text = "环境与太阳 · 拖动即时生效 · 滚轮翻列表，右列是当前值"
 	else:
 		_status.text = "P 开关 · 拖动即时生效，数值会记住"
 
@@ -1568,6 +2057,10 @@ func _flash(text: String) -> void:
 func _apply_saved_on_start() -> void:
 	_ensure_env()
 	_apply_filter_cfg()
+	# 太阳先解析：`_apply_light_cfg` 里既有环境键也有太阳键，
+	# 少了这一步太阳那几项会被静默跳过（看起来像存档没生效）。
+	_ensure_sun()
+	_apply_light_cfg()
 	_ensure_water()
 	# 上次用哪套水，跟存档一起恢复。切不过去（场景没注册这套）就留在原版，
 	# 不要因为一个存档字段整个面板起不来。
@@ -1648,7 +2141,11 @@ func _save_cfg() -> void:
 	_ensure_env()
 	if _env == null:
 		return
+	# 必须先 load：`filter.cfg` 现在同时住着 `[filter]`（这一页）和
+	# `[environment]` / `[sun]`（光照页）。新建一份再 save 会把那两段抹掉 ——
+	# 表现为「调完光照去拖一下曝光，光照设置全丢」。
 	var cfg := ConfigFile.new()
+	cfg.load(CFG_PATH)
 	cfg.set_value("filter", "exposure", _env.tonemap_exposure)
 	cfg.set_value("filter", "brightness", _env.adjustment_brightness)
 	cfg.set_value("filter", "contrast", _env.adjustment_contrast)

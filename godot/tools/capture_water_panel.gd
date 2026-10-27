@@ -54,6 +54,17 @@ func run() -> void:
 		await process_frame
 	await _shot("filter-panel.png")
 
+	# 光照页：顶部（环境光/泛光）与底部（雾/太阳），确认两个分组都装得下。
+	main.grade.set_tab("light")
+	for i in 6:
+		await process_frame
+	main.grade._light_scroll.scroll_vertical = 0
+	await _shot("light-panel-top.png")
+	main.grade._light_scroll.scroll_vertical = 100000
+	for i in 6:
+		await process_frame
+	await _shot("light-panel-bottom.png")
+
 	print("[panel-shot] done out_dir=", out_dir)
 	main.queue_free()
 	await process_frame

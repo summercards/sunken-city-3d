@@ -60,6 +60,32 @@ uniform vec3 absorption = vec3(0.088, 0.036, 0.028);
 uniform float refraction_strength : hint_range(0.0, 80.0, 0.5) = 22.0;
 group_uniforms;
 
+group_uniforms caustics;
+// Sunlight that has already passed through the surface, landing on the seabed and
+// on the drowned walls. Sampled at the submerged geometry's own world position, so
+// the web of light belongs to the geometry and stays put while the water moves
+// over it — painting it on the water plane instead would make it slide over the
+// waterline and stick to the camera.
+uniform bool caustics_enabled = true;
+uniform vec3 caustics_color : source_color = vec3(0.55, 1.0, 0.92);
+uniform float caustics_strength : hint_range(0.0, 1.0, 0.005) = 0.42;
+// Cell size. Above 1 the cells get smaller and denser; it multiplies the whole
+// pattern frequency, so 2 gives four times the cells.
+uniform float caustics_scale : hint_range(0.2, 4.0, 0.01) = 1.0;
+// How fast the pattern crawls. 0 freezes it, which is useful when tuning.
+uniform float caustics_speed : hint_range(0.0, 3.0, 0.01) = 1.0;
+// Weight of the second, finer octave. It breaks the single lattice up so the
+// cells do not read as a printed grid; 0 leaves the bare sin*cos web.
+uniform float caustics_detail : hint_range(0.0, 1.0, 0.01) = 0.35;
+// Caustics fade in over the first quarter of this distance and are at full
+// strength by it. Below the range nothing shows: that close to the surface the
+// light has not had room to focus yet.
+uniform float caustics_depth_near : hint_range(0.05, 4.0, 0.01) = 1.2;
+// Fade-out distance. Past this the pattern is gone: it would alias into noise
+// long before, and physically the light is too diffuse to focus that deep.
+uniform float caustics_depth_far : hint_range(2.0, 40.0, 0.1) = 15.0;
+group_uniforms;
+
 group_uniforms surface;
 // How much of the geometric slope reaches the optical normal. The swell carries
 // the silhouette, the normal map carries the detail; both are needed.
@@ -71,6 +97,31 @@ uniform float normal_repeat_metres : hint_range(0.5, 20.0, 0.1) = 2.5;
 uniform float detail_broad : hint_range(0.0, 1.0, 0.01) = 0.40;
 uniform float detail_mid : hint_range(0.0, 1.0, 0.01) = 0.58;
 uniform float detail_fine : hint_range(0.0, 1.0, 0.01) = 0.24;
+group_uniforms;
+
+group_uniforms relief;
+// The sheet does not take light: `ALBEDO` stays zero and the whole colour is
+// composed here. That is what keeps the backends matching, but it also means a
+// top-down camera sees no shading at all — every facet of a swell resolves to
+// the same pixel, and the sea reads as a printed blue plane. This layer puts
+// the relief back as pure colour modulation. It never touches geometry, the
+// shared wave field, the boat's draft or the shoreline atlas.
+uniform bool relief_enabled = true;
+// Contrast on the relief field. 1.0 is calibrated against the reference frame's
+// measured spread; higher pushes the patches toward cloud shadow.
+uniform float relief_gain : hint_range(0.2, 3.0, 0.01) = 1.0;
+// How far a lit patch lifts. Additive on purpose: the red channel is pinned at
+// zero in the body colour, and a multiply could never bring it back.
+// The range runs past 1.0 because the octaves are summed, not averaged: their
+// individual peaks rarely align, so the field lands well inside ±1 and needs the
+// extra headroom to reach the calibrated spread.
+uniform float relief_light : hint_range(0.0, 3.0, 0.01) = 0.34;
+// How far a shaded patch is pulled toward the deep colour. Mixing rather than
+// multiplying: a multiply drains the green channel and reads as soot.
+uniform float relief_shade : hint_range(0.0, 3.0, 0.01) = 0.42;
+// Tint lifted into the lit patches, so a crest reads as thin translucent water
+// rather than as grey paint.
+uniform vec3 relief_color : source_color = vec3(0.62, 0.95, 1.0);
 group_uniforms;
 
 group_uniforms sky;
@@ -214,9 +265,18 @@ void add_ripple(vec2 p, vec2 wind, float along_k, float across_k, float speed, f
 	slope += (wind * (g.y * along_k) + across * (g.z * across_k)) * (amp * fade);
 }
 
-// Analytic sky, sampled by the reflected direction. Built from the same three
-// colours as ocean_sky.tres: a hard horizon, a fast rise to the zenith, and a
-// darker ground so the undersides of waves are not lit like the sky.
+// Height for the relief pass only — deliberately NOT added to `slope`.
+//
+// Same three anisotropic octaves as `add_ripple`, but the noise *value* instead
+// of its gradient. The relief layer needs a field that is low-frequency in both
+// axes, bounded, and non-repeating; the analytic wave sum cannot give that
+// (four sines at 12/7.6/4.9/2.55 m stack into a fixed interference lattice, which
+// at this camera reads as parallel bands), and a single sine is worse still.
+void add_relief(vec2 p, vec2 wind, float along_k, float across_k, float speed, float amp, float fade, inout float h) {
+	vec2 across = vec2(-wind.y, wind.x);
+	vec2 q = vec2(dot(p, wind) * along_k, dot(p, across) * across_k) + wind * (u_time * speed);
+	h += (noise_grad(q).x - 0.5) * 2.0 * amp * fade;
+}
 vec3 sky_at(vec3 d) {
 	float up = d.y;
 	vec3 colour = mix(sky_horizon_color, sky_top_color, pow(clamp(up, 0.0, 1.0), sky_curve));
@@ -327,6 +387,13 @@ void fragment() {
 	add_ripple(p, normalize(vec2(0.94, 0.34)), 0.52, 0.26, 0.08, detail_broad * 0.30, 1.0, slope);
 	add_ripple(p, normalize(vec2(0.80, 0.60)), 1.30, 0.79, 0.30, detail_mid * 0.051, fade_mid, slope);
 	add_ripple(p, normalize(vec2(0.99, 0.10)), 5.00, 3.50, 0.85, detail_fine * 0.0165, fade_fine, slope);
+	// Relief field: the same octaves at the same spatial frequencies, read as
+	// height. Because it is noise rather than a wave sum there is no lattice to
+	// alias into banding at any camera angle.
+	float relief_h = 0.0;
+	add_relief(p, normalize(vec2(0.94, 0.34)), 0.52, 0.26, 0.08, detail_broad * 0.30, 1.0, relief_h);
+	add_relief(p, normalize(vec2(0.80, 0.60)), 1.30, 0.79, 0.30, detail_mid * 0.051, fade_mid, relief_h);
+	add_relief(p, normalize(vec2(0.99, 0.10)), 5.00, 3.50, 0.85, detail_fine * 0.0165, fade_fine, relief_h);
 	slope += vec2(bow_height(p + vec2(0.08, 0.0)) - bow_height(p - vec2(0.08, 0.0)),
 		bow_height(p + vec2(0.0, 0.08)) - bow_height(p - vec2(0.0, 0.08))) / 0.16;
 	for (int i = 0; i < 8; i++) {
@@ -384,9 +451,23 @@ void fragment() {
 	// across it — which would hide the drowned city this game is about. Vertical
 	// depth keeps a shallow shelf readable from any angle, which is the project's
 	// established look; the axial length still drives absorption and refraction.
-	float vertical_depth = max(0.0, v_world.y - bed_world.y);
-	// No bottom in view (open sea): treat it as bottomless.
-	if (thickness > 44.0) vertical_depth = 60.0;
+	// True vertical depth of the geometry under this pixel. Kept separately
+	// because `vertical_depth` below gets inflated for open sea, and the caustics
+	// fade must use the real depth or it would light up the empty ocean floor.
+	float bed_depth = max(0.0, v_world.y - bed_world.y);
+	float vertical_depth = bed_depth;
+	// No bottom in view (open sea): treat it as bottomless — but ease into it.
+	//
+	// This used to be a hard `if (thickness > 44.0) vertical_depth = 60.0;`, and
+	// that single step was visible as a straight seam across open water. The
+	// reason it reads as a *cut* rather than as water: `thickness` is an axial
+	// path length, so its 44 m contour is a plane in world space. An isometric
+	// camera projects a plane to a straight line, and the body colour on either
+	// side of it differs by the whole shallow-to-deep range. Easing the same
+	// transition over 26~44 m keeps both ends and removes the edge: the contour
+	// is still there, it just no longer has a step across it.
+	float open_sea = smoothstep(26.0, 44.0, thickness);
+	vertical_depth = mix(vertical_depth, 60.0, open_sea);
 	float depth_amount = vertical_depth / max(depth_half_distance, 0.001);
 	float depth_blend = 1.0 - exp2(-depth_amount);
 	float body_opacity = clamp(depth_amount, 0.0, 1.0);
@@ -395,10 +476,95 @@ void fragment() {
 	float bottom_visibility = (1.0 - body_opacity) * clear_view;
 	float transmission = 1.0 - bottom_visibility;
 	vec3 shallow_tint = body_shallow * shallow_tint_strength;
+	float caustic_term = 0.0;
+
+	// ---- caustics on the submerged geometry --------------------------------
+	// The web build paints these onto the refracted scene sample, and that is the
+	// right place for them: caustics are light that has ALREADY passed through the
+	// surface, so they belong on the seabed and on the drowned walls, not on the
+	// water plane. Adding them after the bed is sampled means they also inherit
+	// the refraction wobble and the absorption falloff for free, which is what
+	// makes them read as light in water rather than as a decal.
+	//
+	// The pattern is the zero set of sin(x)·cos(y). |sin·cos| is dark everywhere
+	// except along the lines where either term crosses zero, so inverting a
+	// narrow band around 0 gives the thin bright cell walls caustics actually
+	// look like. Everything is sampled at `bed_world.xz`, so the web of light is
+	// welded to the geometry: it stays put while the water moves over it. That is
+	// also why it must not use `v_world` — the surface scrolls and snaps, the
+	// seabed does not.
+	if (caustics_enabled && caustics_strength > 0.0) {
+		// Broad soft patches, not a lattice. The first version used the classic
+		// `1 - smoothstep(a, b, |sin x · cos y|)` web; even widened it read as a
+		// regular grid of scratches, because a lattice is a lattice. What the
+		// reference frame actually shows is irregular light patches with softly
+		// scalloped edges, which is what low-frequency noise gives for free.
+		//
+		// Two octaves at very different scales: the coarse one decides where the
+		// big patches are, the fine one frays their edges so they do not look like
+		// blobs of paint.
+		vec2 drift = vec2(u_time * 0.055, -u_time * 0.041) * caustics_speed;
+		vec2 p1 = bed_world.xz * (0.42 * caustics_scale) + drift;
+		float patch = noise(p1);
+		// Narrow-ish top band: light lands where the field peaks, not everywhere.
+		float caustic = smoothstep(0.46, 0.74, patch);
+		if (caustics_detail > 0.0) {
+			vec2 p2 = bed_world.xz * (1.35 * caustics_scale) - drift * 1.7;
+			float fray = noise(p2 + noise(p1 * 1.8) * 0.9);
+			// Multiply rather than add: the fine octave should carve the coarse
+			// patches into lobes, not sprinkle extra light of its own.
+			caustic *= mix(1.0, smoothstep(0.30, 0.70, fray) * 1.35, caustics_detail);
+		}
+		// Screen-space fade. Past a few metres the patches shrink below a pixel and
+		// would shimmer into noise; `fwidth` measures exactly that footprint.
+		float resolved = 1.0 - smoothstep(0.35, 1.40, length(fwidth(p1)));
+		// Only where there is actually something down there. Open water has no bed
+		// for the light to land on, and without this guard the pattern spreads
+		// across the whole sea as floating stains.
+		//
+		// Sign depends on the depth convention, and getting it backwards silently
+		// masks out exactly the geometry that should be lit — that cost one full
+		// round of "the effect does nothing" here. Under Reverse-Z the far plane
+		// reads 0 and solid geometry reads near 1, so `raw` must be *high* to count
+		// as geometry; the normal convention is the other way round.
+		float on_geometry = u_reverse_z > 0.5
+			? smoothstep(0.0, 0.0005, raw)
+			: 1.0 - smoothstep(0.9975, 1.0, raw);
+		// Depth band. Near the surface the light has not had room to focus; deep
+		// down it has scattered too much. Both ends are soft so the pattern never
+		// terminates on a visible contour.
+		float depth_band = smoothstep(caustics_depth_near * 0.25, caustics_depth_near, bed_depth)
+			* (1.0 - smoothstep(caustics_depth_far * 0.20, caustics_depth_far, bed_depth));
+		// Parked in its own variable, applied after the body composite below.
+		// Adding it into `submerged` looked right and did nothing: at 3 m the body
+		// is already ~97% opaque, so `bottom_visibility` scales the bed — and every
+		// caustic in it — down to 3%. Measured at strength 2.5 the pattern was
+		// still invisible. Caustics are light on a surface the eye can see, so they
+		// belong at the end of the chain, guarded by `on_geometry` instead.
+		caustic_term = caustic * caustics_strength * depth_band * resolved * on_geometry;
+	}
+
 	vec3 bed = submerged * exp(-vertical_depth * absorption);
 	vec3 color = bed * (bottom_visibility + shallow_tint * transmission * shallow_visibility)
 		+ body_deep * (transmission * (1.0 - shallow_visibility));
 	color = clamp(color, vec3(0.0), vec3(1.0));
+
+	// Caustics land on whatever the light reaches under the surface. Applied here,
+	// after the body composite, so the depth-based body opacity cannot swallow
+	// them (see the note where `caustic_term` is computed).
+	//
+	// The pattern darkens the gaps instead of brightening the peaks, and that is
+	// not a stylistic choice — it is the only thing that works on this scene. The
+	// drowned walls are near-white (0.9+), so any additive term is clamped away:
+	// measured at strength 2.5 the additive version was completely invisible.
+	// Physically it is also the right reading: caustics are focused light *with
+	// dimmer surroundings*, so the walls between the bright folds genuinely are
+	// darker than ambient. Keeping the peaks at full brightness and pulling the
+	// gaps down makes the web visible on a white wall and on a dark window alike.
+	if (caustic_term > 0.0) {
+		color *= 1.0 - caustic_term;
+		color = clamp(color, vec3(0.0), vec3(1.0));
+	}
 
 	// ---- sky and sun, screen-blended so they cannot wash the body out -------
 	vec3 reflected_surface = sky_at(reflect(-to_eye, normal))
@@ -407,6 +573,40 @@ void fragment() {
 		reflected_surface += sun_color * sun_lobe(normal, to_eye, normal_view) * sun_highlight_strength;
 	}
 	color += (vec3(1.0) - color) * clamp(reflected_surface, vec3(0.0), vec3(1.0));
+
+	// ---- swell relief ------------------------------------------------------
+	// The sheet takes no light: `ALBEDO` stays zero and the whole colour is
+	// composed here. That is what keeps the two backends matching, but it also
+	// means a top-down camera sees the sea as a printed flat colour — no swell,
+	// no chop, nothing that says the surface is water. This layer puts that
+	// reading back as colour only. It never touches geometry, the shared wave
+	// field, the boat's draft or the shoreline atlas.
+	//
+	// The field is noise, not the analytic wave sum, and that distinction is the
+	// whole point. Four sines at fixed wavelengths and directions interfere into
+	// a lattice: from above it renders as evenly spaced parallel bands — the
+	// "条条" the players reported. Two earlier versions tried exactly that
+	// (banding on `wave.x`, then banding on one 4.9 m wave) and both produced
+	// visible stripes; the second was worse, because a single sine is a perfect
+	// grating. Anisotropic noise has no period, so it cannot band at any angle.
+	//
+	// Amplitude is set so the result lands on the reference frame's measured
+	// spread — open-water green channel std 5.0 at 8 bit. Below ~4 the sea reads
+	// as flat paper, above ~7 the patches start reading as cloud shadow. This is
+	// measured, not guessed: `tools/probe_water_stats.gd` reports it on clean
+	// all-water cells only (a whole-frame average includes buildings and foam and
+	// overstates the spread by roughly 2x).
+	if (relief_enabled) {
+		// At grazing angles the reflection term already does this job, and adding
+		// to it reads as film grain over the horizon.
+		float relief_fade = 1.0 - smoothstep(60.0, 170.0, view_dist);
+		float h = clamp(relief_h / 0.55 * relief_gain, -1.0, 1.0);
+		float lit = smoothstep(0.02, 0.90, h);
+		float trough = smoothstep(0.02, 0.90, -h);
+		color += relief_color * (lit * relief_light * 0.10 * relief_fade);
+		color = mix(color, body_deep * 0.94, trough * relief_shade * 0.16 * relief_fade);
+		color = clamp(color, vec3(0.0), vec3(1.0));
+	}
 
 	// ---- ripple network ----------------------------------------------------
 	if (ripples_enabled && ripple_coverage > 0.0 && ripple_width_multiplier > 0.0

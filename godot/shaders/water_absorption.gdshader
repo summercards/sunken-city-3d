@@ -135,11 +135,18 @@ uniform float ripple_ring_radius : hint_range(0.2, 3.0, 0.01) = 1.0;
 group_uniforms;
 
 group_uniforms caustics;
-uniform bool caustics_enabled = false;
+uniform bool caustics_enabled = true;
+uniform vec3 caustic_color : source_color = vec3(0.62, 1.0, 0.95);
 uniform float caustic_size : hint_range(0.0, 8.0, 0.01) = 2.0;
 // Depth over which the caustic net fades out.
 uniform float caustic_range : hint_range(1.0, 256.0, 0.1) = 40.0;
-uniform float caustic_strength : hint_range(0.0, 1.0, 0.01) = 0.08;
+uniform float caustic_strength : hint_range(0.0, 1.0, 0.01) = 0.35;
+// Near fade: right under the surface the light has not had room to focus yet, so
+// the pattern must not sit on the waterline. Metres of vertical depth.
+uniform float caustic_near : hint_range(0.0, 4.0, 0.01) = 0.25;
+// Second, finer octave mixed into the net. 0 leaves the coarse blobs alone; the
+// reference shows lobes with frayed edges rather than clean cells.
+uniform float caustic_detail : hint_range(0.0, 1.0, 0.01) = 0.45;
 group_uniforms;
 
 group_uniforms output;
@@ -195,17 +202,29 @@ float sun_lobe(vec3 n, vec3 view_dir, float normal_view) {
 	return clamp(lobe * inverse_width * sun_lobe_gain, 0.0, 1.0);
 }
 
-// Cheap caustic web: three noise octaves warped into each other, thresholded
-// into thin bright veins. The reference uses a BCC lattice noise with analytic
-// derivatives; that is ~40 lines and several texture-free fetches per pixel, and
-// this project only needs the veins to move convincingly at knee depth.
+// Caustic web. This is light that has already passed through the surface, so it
+// must be sampled at the submerged geometry's own world position and gated on
+// there being geometry at all — see the call site.
+//
+// Two octaves, warped into each other. A single octave thresholded gives clean
+// cells, which reads as a printed lattice; the reference frame shows lobes with
+// frayed, scalloped edges, so the fine octave is mixed in as a multiplier that
+// carves the coarse blobs rather than sprinkling extra light of its own.
 float caustic_net(vec2 p, float t) {
 	vec2 q = p * max(caustic_size, 0.01) * 0.6;
 	float a = noise(q + vec2(t * 0.11, t * 0.07));
 	float b = noise(q * 1.7 - vec2(t * 0.09, t * 0.13) + a * 1.2);
 	float c = noise(q * 2.9 + vec2(b * 1.6 - t * 0.05, a * 0.7));
-	float v = abs(c - 0.5) * 4.0;
-	return pow(clamp(1.0 - v, 0.0, 1.0), 6.0);
+	// Coarse: broad lobes. The power is what turns the field into bright islands
+	// on a dark base instead of a uniform haze.
+	float lobes = pow(clamp(1.0 - abs(c - 0.5) * 3.0, 0.0, 1.0), 3.0);
+	if (caustic_detail <= 0.0) {
+		return lobes;
+	}
+	float d = noise(q * 4.3 + vec2(t * 0.07, b * 1.1));
+	float fray = clamp(1.0 - abs(d - 0.5) * 3.4, 0.0, 1.0);
+	// Multiply, not add: the fine octave should notch the lobes' outlines.
+	return lobes * mix(1.0, fray, caustic_detail);
 }
 
 void vertex() {
@@ -300,11 +319,55 @@ void fragment() {
 		color += sun_color * sun_lobe(normal, to_eye, normal_view) * sun_highlight_strength;
 	}
 
-	// ---- caustics, only where the water is shallow -------------------------
+	// ---- caustics on the submerged geometry --------------------------------
+	// Sampled at `bed_world.xz`, the world position of whatever the water is
+	// covering, NOT at `p` (the water plane). That single change is what makes
+	// this read as light in water: the pattern is welded to the sunken walls and
+	// the seabed, so it stays put while the surface scrolls past above it. Sampled
+	// at `p` it is a film of light glued to the water plane, which is what the
+	// first version looked like — a floating web across the whole sea.
+	//
+	// Gated three ways: there must be geometry under the pixel at all, it must be
+	// within the depth band, and it must not be right at the waterline.
 	if (caustics_enabled && caustic_strength > 0.0 && caustic_range > 0.0) {
-		float range_mod = 1.0 - smoothstep(caustic_range * 0.5, caustic_range, vertical_depth);
-		if (range_mod > 0.001) {
-			color += caustic_net(p, u_time) * caustic_strength * (1.0 - depth_blend) * range_mod;
+		// 只有水下真的有东西时才有光斑可以落。开阔水的深度缓冲是远平面（Reverse-Z
+		// 下 raw=0），不拦住的话光网会铺满整片海。
+		//
+		// 方向很容易写反：Reverse-Z 里「有几何体」是 raw 接近 1、远平面是 0，
+		// 所以这里要 raw 越大越算有物体。写成 `1.0 - smoothstep(...)` 就正好把
+		// 该亮的墙面全挡掉、只留开阔水 —— 实测表现是「怎么调都一点变化都没有」。
+		float on_geometry = u_reverse_z > 0.5
+			? smoothstep(0.0, 0.0005, raw)
+			: 1.0 - smoothstep(0.9975, 1.0, raw);
+		// Depth band. Shallow end: no room to focus yet, so it fades in over a
+		// short ramp. Deep end: the light has scattered, so it fades out.
+		//
+		// The ramp must be short. The drowned walls here sit only 1-3 m under the
+		// surface, and an earlier version eased over 1.2 m on top of a 0.25 m start
+		// — that put every wall below half strength, which then read as "the effect
+		// does nothing".
+		float band = smoothstep(caustic_near, caustic_near + 0.35, vertical_depth)
+			* (1.0 - smoothstep(caustic_range * 0.45, caustic_range, vertical_depth));
+		// 投影坐标必须三个轴都参与，否则会退化。
+		//
+		// 只用 `bed_world.xz` 时，一面竖直的墙 x/z 是常量、只有 y 在变，二维采样
+		// 于是退化成一条线 —— 实测表现就是墙面上出现整片竖向条纹，像拉丝而不是
+		// 阳光。这里把 y 按互质的比例混进两个轴，任何朝向的面都还是「二维的」：
+		// 地板靠 x/z 变化，竖墙靠 y 变化，斜面两者都有。
+		vec2 cp = vec2(
+			bed_world.x + bed_world.z * 0.37 + bed_world.y * 0.61,
+			bed_world.z + bed_world.x * 0.23 + bed_world.y * 0.89);
+		// Screen-space fade: past a few metres the lobes shrink below a pixel and
+		// would shimmer. `fwidth` measures exactly that footprint.
+		float resolved = 1.0 - smoothstep(0.35, 1.40, length(fwidth(cp * caustic_size)));
+		float web = caustic_net(cp, u_time) * band * resolved * on_geometry;
+		if (web > 0.0) {
+			// Modulated, not added. The drowned walls are near-white, so an additive
+			// term is clamped away and shows nothing; multiplying also matches what
+			// caustics are — focused light with genuinely darker gaps between the
+			// bright folds.
+			color *= 1.0 - web * caustic_strength;
+			color += caustic_color * web * caustic_strength * 0.35;
 		}
 	}
 
