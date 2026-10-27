@@ -396,12 +396,12 @@
     },
     {
       "path": "godot/assets/materials/water.tres",
-      "bytes": 4401,
-      "sha256": "9e43dc55abdc6f1b78fbf7a1f95d3e6baf2dd4c4a5bc270c3c6e1ef845108122",
+      "bytes": 4546,
+      "sha256": "77dcf5ce61526f8af56e52c4c154407b05764ec800ce3229e6db1b140f565a5a",
       "asset_id": null,
       "status": "legacy_runtime_path_recorded_asset_registration_pending",
-      "previous_sha256": "37c165840ee18404d16a1019049f18f1bd7883f21952aa2c113202aaa7a06b1e",
-      "note": "工作区既有水面观感调整（body_shallow/吸收/折射等参数）；本次只登记不验收，观感验收归 SEA-OCEAN"
+      "previous_sha256": "5dd552bacc4a2d5b41d9fbbba1bb92d6a417fcd518ea160fce9720a9ea9742b7",
+      "note": "2026-10-27 水面材质再保存：body_deep 转 float 精度、caustics_strength 0.42→0.35；只登记哈希不验收，观感验收归 SEA-OCEAN"
     },
     {
       "path": "godot/assets/materials/water_absorption.tres",
@@ -412,8 +412,8 @@
     },
     {
       "path": "godot/assets/materials/world_env.tres",
-      "bytes": 911,
-      "sha256": "a484669726883be3189017dfc5b3b0bf777f98c42b2e38f19b6433855bb7c1cf",
+      "bytes": 849,
+      "sha256": "bc5673bd1f6568d474ee8e5ee3d8baa7180e4b511a7786452aad7894936486e8",
       "asset_id": null,
       "status": "legacy_runtime_path_recorded_asset_registration_pending",
       "baseline_note": "2026-10-23: pre-existing working-tree exposure 1.41 / contrast 0.78 / saturation 1.15 retained unchanged; inspected diff documented in docs/development/2026-10-23_sea_visual_style.md"

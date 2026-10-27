@@ -18,3 +18,17 @@
 2026-10-24：太阳能花屋低面数装配 v002，引用 28 个低面数组件，共 84 个实例；展开后 2999 三角面。组件沿用原 AssetID，旧源进入各行 previous_sources；未被 v002 使用的 8 个 v001 组件仍保留，资产主记录总数不变。
 
 2026-10-24：按用户最新指示，当前风格源为从 v001 派生的 v003，36 组件、255 实例，调整色调与花叶样式，保留建筑几何。沿用 AssetID 并登记前两版历史；本版不满足 3000 三角面，v002 低面数版本仍保留。公共色板不变，Godot 接入 pending。
+
+## 类型分账本（2026-10-27）
+
+| 域 | 独立账本 | 登记边界 |
+|---|---|---|
+| scenes | [scenes](ledgers/scenes.json) | 已有源记录，逐行维护验证阶段 |
+| ui | [ui](ledgers/ui.json) | 已有源记录，逐行维护验证阶段 |
+| characters | [characters](ledgers/characters.json) | pending；分类空账本，不代表该类资产已制作/授权/接入 |
+| items | [items](ledgers/items.json) | pending；分类空账本，不代表该类资产已制作/授权/接入 |
+| vfx | [vfx](ledgers/vfx.json) | pending；分类空账本，不代表该类资产已制作/授权/接入 |
+| music | [music](ledgers/music.json) | pending；分类空账本，不代表该类资产已制作/授权/接入 |
+| sfx | [sfx](ledgers/sfx.json) | pending；分类空账本，不代表该类资产已制作/授权/接入 |
+
+总索引先定位域，再按 AssetID 查询唯一主记录。新增域须同步独立账本；新增记录须同步来源索引和授权/接入证据。未重新核验的运行资源不批量刷新哈希。
