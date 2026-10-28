@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://src/ambient/decorative_fish_school.gd" id="1"]
+[node name="fish_school" type="Node3D"]
+script = ExtResource("1")
+component_kind = "decoration"
+subcategory = "animals"
+metadata/visual_only = true

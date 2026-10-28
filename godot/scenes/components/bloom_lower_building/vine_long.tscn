@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/bloom_lower_building/components/vine_long/vine_long.glb" id="visual"]
 [node name="长垂藤" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-BLB-VINE-LONG"
+component_kind = "upgrade_attachment"
+subcategory = "plants"
+movable = false
 metadata/asset_id = "SEA-SCENE-BLB-VINE-LONG"
 [node name="Visual" parent="." instance=ExtResource("visual")]

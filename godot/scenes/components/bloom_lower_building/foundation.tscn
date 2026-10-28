@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/bloom_lower_building/components/foundation/foundation.glb" id="visual"]
 [node name="落地厚柱脚" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-BLB-FOUNDATION"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-BLB-FOUNDATION"
 [node name="Visual" parent="." instance=ExtResource("visual")]

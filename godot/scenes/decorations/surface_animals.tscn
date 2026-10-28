@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="PackedScene" path="res://scenes/decorations/animals/fish_school.tscn" id="fish"]
+[ext_resource type="PackedScene" path="res://scenes/decorations/animals/whale.tscn" id="whale"]
+[node name="SurfaceAnimals" type="Node3D"]
+metadata/visual_only = true
+[node name="HomeSchool" parent="." instance=ExtResource("fish")]
+position = Vector3(-3, 1.12, 18)
+instance_id = "surface/fish/home"
+palette = "surface"
+profile = "flat"
+palette_index = 0
+orbit_radius = Vector2(1.45, 1.0)
+spread_radius = 1.45
+swim_speed = 0.26
+ride_water = true
+submerge_min = 0.55
+submerge_max = 1.35
+size_scale = 0.5
+count = 10
+seed_value = 71
+[node name="EastSchool" parent="." instance=ExtResource("fish")]
+position = Vector3(18, 1.12, 14)
+instance_id = "surface/fish/east"
+palette = "surface"
+profile = "flat"
+palette_index = 1
+orbit_radius = Vector2(1.6, 1.15)
+spread_radius = 1.68
+swim_speed = 0.24
+ride_water = true
+submerge_min = 0.6
+submerge_max = 1.5
+size_scale = 0.5
+count = 10
+phase = 2.0
+seed_value = 72
+[node name="WestSchool" parent="." instance=ExtResource("fish")]
+position = Vector3(-19, 1.12, 3)
+instance_id = "surface/fish/west"
+palette = "surface"
+profile = "flat"
+palette_index = 2
+orbit_radius = Vector2(1.5, 1.02)
+spread_radius = 1.55
+swim_speed = 0.28
+ride_water = true
+submerge_min = 0.5
+submerge_max = 1.45
+size_scale = 0.5
+count = 10
+phase = 4.0
+seed_value = 73
+[node name="Whale" parent="." instance=ExtResource("whale")]
+position = Vector3(-3, -11.86, 28)
+dive_sway = 1.3
+instance_id = "surface/whale/01"

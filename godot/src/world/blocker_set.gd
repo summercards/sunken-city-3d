@@ -71,6 +71,7 @@ func rebuild(water_y: float, height := 1.6) -> void:
 
 
 func _scan(node: Node, lo: float, hi: float, cells: Dictionary) -> void:
+	if node.get_meta("visual_only", false): return
 	if node is MultiMeshInstance3D:
 		var mmi := node as MultiMeshInstance3D
 		if mmi.is_visible_in_tree() and mmi.multimesh != null and mmi.multimesh.mesh != null:

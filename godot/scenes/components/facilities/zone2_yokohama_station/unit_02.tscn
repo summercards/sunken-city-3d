@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="PackedScene" path="res://assets/models/zones/zone2_yokohama_station/units/unit_02.glb" id="visual"]
+[ext_resource type="Script" path="res://src/ambient/scene_component.gd" id="contract"]
+[node name="unit_02" instance=ExtResource("visual")]
+script = ExtResource("contract")
+asset_id = "SEA-REF-01-ZONE2-YOKOHAMA-STATION--UNIT-02"
+instance_id = "zone2_yokohama_station/unit_02"
+facility_id = "zone2_yokohama_station"
+component_kind = "building"
+subcategory = "legacy_structure"

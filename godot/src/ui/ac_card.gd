@@ -160,16 +160,16 @@ func show_grid(target := 0) -> void:
 	for dot in dots: dot.show()
 	flight_layer.show();flush_arrivals();page_changed.emit(page)
 
-func show_detail(heading: String) -> void:
+func show_detail(heading: String, compact := false) -> void:
 	if turn_tween: turn_tween.kill()
 	turning = false
-	_set_extent(true)
+	_set_extent(true,compact)
 	clip.hide();subtitle.hide();harvest_heading.hide();detail.show();detail.scroll_vertical = 0
 	title.text = heading;footer.text = "Esc 返回上一页 · 滚轮查看更多"
 	for dot in dots: dot.hide()
 
-func _set_extent(wide: bool) -> void:
-	size=Vector2(680,680) if wide else Vector2(420,620)
+func _set_extent(wide: bool, compact := false) -> void:
+	size=Vector2(680,500 if compact else 680) if wide else Vector2(420,620)
 	pivot_offset=size/2;motion.size=size;paper.size=size
 	paper.phone=not wide;paper.queue_redraw()
 	title.horizontal_alignment=HORIZONTAL_ALIGNMENT_LEFT if wide else HORIZONTAL_ALIGNMENT_CENTER

@@ -18,6 +18,8 @@ signal overflow(id: String, amount: int)
 ## 任何物品增减，UI 用它做增量动画。
 signal item_gained(id: String, amount: int)
 
+const Scope = preload("res://src/core/play_scope.gd")
+var daily = preload("res://src/orders/daily_shipping.gd").new()
 const ItemDBLib = preload("res://src/inventory/item_db.gd")
 const InventoryLib = preload("res://src/inventory/inventory.gd")
 const FarmLib = preload("res://src/farming/farm.gd")
@@ -109,7 +111,7 @@ var seed: int:
 
 
 func _process(delta: float) -> void:
-	if ticking:
+	if ticking and not Scope.minimal():
 		tick_sites(delta)
 		if farm != null:
 			farm.tick(delta)
@@ -130,9 +132,13 @@ func _ready() -> void:
 	farm_ports.inventory = inventory
 	farm_ports.pay = pay
 	farm_ports.give = give
-	farm_ports.has_greenhouse = func() -> bool: return facility_unlocked("greenhouse")
+	farm_ports.has_greenhouse = func() -> bool: return not Scope.minimal() and facility_unlocked("greenhouse")
 	farm_ports.access_reason = _farm_access_reason
 	farm.configure(farm_ports)
+	daily.inventory = inventory
+	daily.grow = func() -> Dictionary: return farm.advance_day(true)
+	daily.sync_day = farm.sync_calendar_day
+	daily.changed.connect(func(): resources_changed.emit())
 	farm.name = "Farm"
 	add_child(farm)
 	orders = OrderBoardLib.new()
@@ -321,12 +327,12 @@ func upgrade_ship() -> Dictionary:
 ## ---- 存档 -------------------------------------------------------------------
 
 func to_dict() -> Dictionary:
-	var data := {"inventory":inventory.to_dict(),"warehouse":storage.to_dict(),"farm":farm.to_dict(),"orders":orders.to_dict()}
+	var data := {"inventory":inventory.to_dict(),"warehouse":storage.to_dict(),"farm":farm.to_dict(),"orders":orders.to_dict(),"daily_loop":daily.to_dict()}
 	for owner in [construction,facility,ship,goals]: data.merge(owner.to_dict())
 	return data
 
 func snapshot_event_sources() -> Array:
-	return [self,inventory,storage,storage.warehouse,construction,facility,ship,goals,farm,orders]
+	return [self,inventory,daily,daily.cargo,storage,storage.warehouse,construction,facility,ship,goals,farm,orders]
 
 func publish_restored() -> void:
 	# State is already complete across every feature; these are refreshes, not rewards.
@@ -345,6 +351,7 @@ func from_dict(data: Dictionary) -> void:
 	for owner in [construction,facility,ship,goals]: owner.from_dict(data)
 	farm.from_dict(data.get("farm",{}))
 	orders.from_dict(data.get("orders",{}))
+	daily.from_dict(data.get("daily_loop",{}))
 	resources_changed.emit()
 	sites_changed.emit()
 
@@ -386,6 +393,8 @@ func track_goal(id: String) -> void:
 
 ## Progression adapters: feature rules query these ports, never global state fields.
 func _farm_access_reason(row: Dictionary) -> String:
+	if Scope.minimal():
+		return "" if Scope.zone_enabled(str(row.get("zone",""))) else "当前只开放家园与浅水平台"
 	if str(row.get("zone", "")) == "zone5" and ship_level < 2:
 		return "小船升到 2 级后开放平台种植床"
 	var need := str(row.get("requires_site", ""))
@@ -405,7 +414,7 @@ func _order_tier() -> int:
 
 func _configure_services() -> void:
 	storage.inventory = inventory
-	storage.configure({"facility_unlocked": facility.facility_unlocked})
+	storage.configure({"facility_unlocked": func(id: String) -> bool: return Scope.minimal() or facility.facility_unlocked(id)})
 	var payments := {"construction_pay": storage.construction_pay, "construction_has": storage.construction_has, "construction_missing_text": storage.construction_missing_text}
 	construction.configure(payments)
 	var facilities_ports := payments.duplicate()
@@ -426,5 +435,7 @@ func _configure_services() -> void:
 	salvage.salvage_ready.connect(func(): salvage_ready.emit())
 
 func _exit_tree() -> void:
+	daily.grow = Callable()
+	daily.sync_day = Callable()
 	for service in [storage,construction,facility,ship,goals,salvage]:
 		service.ports.clear()

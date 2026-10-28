@@ -44,6 +44,8 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	_register()
+	if not Engine.is_editor_hint():
+		preload("res://src/ambient/lily_migration.gd").install(self,get_node_or_null("Models"))
 	_ensure_blockers()
 	_collect_timed()
 
@@ -181,6 +183,12 @@ func floor_height_at(x: float, z: float) -> float:
 func set_zone_level(level: int, instant := false) -> void:
 	if plants != null and plants.has_method("set_zone_level"):
 		plants.set_zone_level(level, instant)
+	if models != null:
+		var stack: Array = [models]
+		while not stack.is_empty():
+			var node: Node = stack.pop_back()
+			if node.has_method("set_upgrade_level"): node.set_upgrade_level(level)
+			stack.append_array(node.get_children())
 
 
 func update_time(t: float) -> void:

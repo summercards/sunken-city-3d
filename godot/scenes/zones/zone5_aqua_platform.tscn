@@ -1,17 +1,19 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://src/world/zone_scene.gd" id="1_zone"]
 [ext_resource type="Script" path="res://src/world/zone_batch.gd" id="2_batch"]
 [ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="3_walk"]
 [ext_resource type="Script" path="res://src/ambient/plant_field.gd" id="4_plants"]
-[ext_resource type="PackedScene" path="res://assets/models/zones/zone5_aqua_platform/units/detail.glb" id="unit_detail"]
-[ext_resource type="PackedScene" path="res://assets/models/zones/zone5_aqua_platform/units/unit_01.glb" id="unit_unit_01"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/zone5_aqua_platform/detail.tscn" id="unit_detail"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/zone5_aqua_platform/unit_01.tscn" id="unit_unit_01"]
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_0000.tres" id="mat_tn_0000"]
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_0110.tres" id="mat_tn_0110"]
 [ext_resource type="ShaderMaterial" path="res://assets/materials/models/baked_tn_1000.tres" id="mat_tn_1000"]
 
 [ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing_script"]
 [ext_resource type="PackedScene" path="res://scenes/props/farm_plot.tscn" id="farm_prefab"]
+
+[ext_resource type="PackedScene" path="res://scenes/props/cultivation_deck.tscn" id="cultivation_deck"]
 
 [node name="Zone5AquaPlatform" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.000, 0, 16.000)
@@ -55,7 +57,7 @@ gi_mode = 0
 script = ExtResource("3_walk")
 area_id = "zone5_aqua"
 zone_id = "zone5"
-surface_y = 1.250
+surface_y = 1.480
 span_min = 1.000
 span_max = 1.550
 rects = [Rect2(-3.200, -2.800, 6.500, 5.500)]
@@ -68,13 +70,13 @@ zone_id = "zone5"
 placement_path = "res://assets/data/plants_zone5_aqua_platform.json"
 
 [node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_zone5_aqua"]
-position = Vector3(-1, 1.25, 0)
+position = Vector3(-1, 1.48, 0)
 script = ExtResource("landing_script")
 landing_id = "main"
 landing_label = "浅水养殖台"
 
 [node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_zone5_aqua/Landing_main"]
-position = Vector3(-4.23, -0.1299999999999999, -0.08000000000000007)
+position = Vector3(-4.23, -0.36, -0.08000000000000007)
 rotation = Vector3(0, 0, 0)
 
 [node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_zone5_aqua/Landing_main"]
@@ -83,10 +85,39 @@ position = Vector3(-1.8000000000000007, 0.10000000000000009, -0.5999999999999996
 [node name="Objects" type="Node3D" parent="."]
 
 [node name="platform_plot" parent="Objects" instance=ExtResource("farm_prefab")]
-position = Vector3(1.9499999999999993, 1.25, -0.09999999999999964)
+position = Vector3(0, 1.48, 0)
 rotation = Vector3(0, 0.0, 0)
 plot_id = "platform_plot"
 zone_id = "zone5"
-plot_name = "浮台菜箱"
+plot_name = "培养土种植格"
 requires_site = ""
 requires_level = 0
+
+[node name="WoodenCultivationDeck" parent="Objects" instance=ExtResource("cultivation_deck")]
+position = Vector3(0, 1.43, 0)
+
+[node name="Cell1" parent="Objects/platform_plot" index="0"]
+position = Vector3(-2.0, 0, -1.45)
+scale = Vector3(1.38, 0.65, 1.75)
+
+[node name="Cell2" parent="Objects/platform_plot" index="1"]
+position = Vector3(0.0, 0, -1.45)
+scale = Vector3(1.38, 0.65, 1.75)
+
+[node name="Cell3" parent="Objects/platform_plot" index="2"]
+position = Vector3(2.0, 0, -1.45)
+scale = Vector3(1.38, 0.65, 1.75)
+
+[node name="Cell4" parent="Objects/platform_plot" index="3"]
+position = Vector3(-2.0, 0, 1.45)
+scale = Vector3(1.38, 0.65, 1.75)
+
+[node name="Cell5" parent="Objects/platform_plot" index="4"]
+position = Vector3(0.0, 0, 1.45)
+scale = Vector3(1.38, 0.65, 1.75)
+
+[node name="Cell6" parent="Objects/platform_plot" index="5"]
+position = Vector3(2.0, 0, 1.45)
+scale = Vector3(1.38, 0.65, 1.75)
+
+[editable path="Objects/platform_plot"]

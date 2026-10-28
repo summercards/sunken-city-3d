@@ -1,5 +1,5 @@
 @tool
-extends Node3D
+extends "res://src/ambient/scene_component.gd"
 const MATERIALS = {
  "Matte": preload("res://assets/materials/solar_cabin/sunny_matte.tres"),
  "Metal": preload("res://assets/materials/solar_cabin/sunny_metal.tres"),

@@ -12,6 +12,15 @@ func run() -> void:
 	root.add_child(main)
 	main.set_process(false)
 	main._autosave_on=false
+	# 启动默认停在标题画面，而 `_process` 在 `_title_active` 时直接 return ——
+	# 本测试要手动驱动 `_process` 验证天气与昼夜光照，所以必须先真正进入游戏。
+	# 标题自身的接线由 `title-screen` 专项负责，这里只是把它走完。
+	if main._title_active:
+		main._enter_game()
+		for i in 180:
+			if not main._title_active: break
+			await process_frame
+	check(not main._title_active,"integration runs in world, not on the title screen")
 	var economy=root.get_node("Economy")
 	economy.set_process(false)
 	check(economy.coins==98765,"default startup restores prior process")
@@ -115,7 +124,15 @@ func run() -> void:
 	check(main.interactor.auto_hold,"unblocked target begins hold")
 	main.interactor.active=true
 	main.interactor.update(5.0,true)
-	check(economy.count("lettuce_seed")==seeds-1 and main.actor_controller.state_id()=="ashore_idle","interaction finishes once")
+	check(economy.count("lettuce_seed")==seeds and main.actor_controller.state_id()=="ashore_idle" and main.hud.world_actions.active,"interaction opens action bubbles without planting")
+	main.hud.world_actions.close(true)
+	main._queue_plot_action(plot,"plant","lettuce")
+	for i in 1200:
+		main.actor_controller.tick(1.0/60.0)
+		main.interactor.active=not main.actor_controller.walking()
+		main.interactor.update(1.0/60.0,main.interactor.auto_hold)
+		if i>5 and main.actor_controller.auto_target==null: break
+	check(economy.farm.crop_of("home_plot")=="lettuce" and economy.count("lettuce_seed")==seeds-1,"selected seed plants exactly once")
 	main.actor_controller.tick(1.0)
 	check(not main.interactor.auto_hold,"completion releases automatic input")
 	var invoked: Array=[]
@@ -126,9 +143,22 @@ func run() -> void:
 	check(invoked.is_empty() and main.actor_controller.walk_path.is_empty(),"cancel removes old route and callback")
 	check(storage.restore(main,good).ok,"restore clears active control state")
 	main.weather_service.set_weather("rain")
-	main.world_clock.seconds=0.0
+	# 用 21:00 而不是 00:00：午夜会触发 `sleep_cycle` 的自动就寝，`_process` 在
+	# `sleep_cycle.busy` 时提前 return，天气与光照都不会更新 —— 那测的是就寝流程，
+	# 不是本段要验的「查询驱动表现」。21:00 是预设表里太阳已经归零的夜晚关键帧。
+	main.world_clock.seconds=75600.0
 	main._process(0.0)
 	check(main.weather_view.rain==1.0 and main.weather_view.daylight==0.0,"weather presentation consumes queries")
+	# 同一份时钟查询必须同时驱动真实光照：夜晚 sun=0、09:00 等于美术基准。
+	# 屏幕层不再绘制夜色矩形，时差由 `DaylightRig` 写灯光与水面的天空反射承担。
+	# 基准时刻是 09:00（32400 秒），不是正午 —— 12:00 在预设表里比基准亮 12%。
+	var sun_node: DirectionalLight3D = main.get_node("World/Lights/Sun")
+	var anchor_energy: float = float(main.daylight_rig.base_of("sun","light_energy"))
+	check(main.daylight_rig!=null and sun_node.light_energy<=0.001,"night removes sunlight")
+	main.world_clock.seconds=32400.0
+	main._process(0.0)
+	check(absf(sun_node.light_energy-anchor_energy)<=0.001,"09:00 restores authored sunlight")
+
 	check(economy.farm.day==int(good.economy.farm.day),"world clock does not grow crops implicitly")
 	main.queue_free()
 	await process_frame

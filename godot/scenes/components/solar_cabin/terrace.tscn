@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/terrace/terrace.glb" id="visual"]
 [node name="顶楼露台-暖木整板" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-TERRACE"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-TERRACE"
 [node name="Visual" parent="." instance=ExtResource("visual")]

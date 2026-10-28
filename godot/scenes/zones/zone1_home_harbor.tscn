@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://27upxbx3espf" path="res://src/world/zone_batch.gd" id="2_batch"]
 [ext_resource type="Script" uid="uid://ccxkxo7n0ye11" path="res://src/navigation/walk_area.gd" id="3_walk"]
 [ext_resource type="Script" uid="uid://b151fysgrdciy" path="res://src/ambient/plant_field.gd" id="4_plants"]
-[ext_resource type="PackedScene" path="res://scenes/props/farm_plot.tscn" id="farm_prefab"]
+[ext_resource type="PackedScene" path="res://scenes/props/farm_plot_single.tscn" id="farm_prefab"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/salvage_station.tscn" id="independent_salvage"]
 [ext_resource type="Script" uid="uid://bgt2ik1wbg2yi" path="res://src/navigation/landing_point.gd" id="landing_script"]
 [ext_resource type="PackedScene" uid="uid://boyqyowbitbxp" path="res://scenes/facilities/solar_cabin.tscn" id="sunny_surface"]
@@ -12,6 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://cboek4wgwh4sm" path="res://assets/models/zones/zone1_home_harbor/units/unit_01.glb" id="unit_unit_01"]
 [ext_resource type="PackedScene" uid="uid://nmkpgyf8hb2" path="res://assets/models/zones/zone1_home_harbor/units/unit_02.glb" id="unit_unit_02"]
 [ext_resource type="PackedScene" uid="uid://ggmtkvl0vp85" path="res://assets/models/zones/zone1_home_harbor/units/unit_03.glb" id="unit_unit_03"]
+
+[ext_resource type="Script" path="res://src/orders/shipping_box.gd" id="shipping_script"]
+[ext_resource type="PackedScene" path="res://scenes/components/solar_cabin/cooler.tscn" id="shipping_visual"]
+[ext_resource type="Script" path="res://src/time/sleep_checkpoint.gd" id="sleep_script"]
 
 [node name="Zone1HomeHarbor" type="Node3D" unique_id=1223767158]
 script = ExtResource("1_zone")
@@ -22,7 +26,7 @@ zone_label = "sea"
 script = ExtResource("2_batch")
 bake_dir = "res://assets/zones/zone1_home_harbor"
 enabled = false
-retired_geometries = PackedInt32Array(749, 750, 751, 752, 753, 754, 755, 756, 757, 758)
+retired_geometries = PackedInt32Array(749, 750, 751, 752, 753, 754, 755, 756, 757, 758, 694, 695, 696, 697, 698, 699, 700, 701, 702)
 retired_alpha_geometries = PackedInt32Array(747)
 
 [node name="Models" type="Node3D" parent="." unique_id=524893469]
@@ -54,15 +58,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0, 0, 4.15)
 script = ExtResource("3_walk")
 area_id = "zone1_home_dock"
 zone_id = "zone1"
+surface_y = 1.38
+span_min = 1.0
+span_max = 1.68
 rects = [Rect2(-1, 5, 5.5, 6.5), Rect2(4.5, 7.5, 5, 4), Rect2(0, 11.5, 6.5, 6.5)]
 
 [node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_zone1_home_dock" unique_id=19521460]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.066625, 2.15, 16.8845)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.066625, 1.38, 16.8845)
 script = ExtResource("landing_script")
 landing_label = "sea"
 
 [node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_zone1_home_dock/Landing_main" unique_id=488012576]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -1.03, 3.65225)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.26, 3.65225)
 
 [node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_zone1_home_dock/Landing_main" unique_id=618562334]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.05225)
@@ -96,9 +103,22 @@ placement_path = "res://assets/data/plants_zone1_home_harbor.json"
 [node name="Objects" type="Node3D" parent="." unique_id=1087731124]
 
 [node name="home_plot" parent="Objects" unique_id=1307769645 instance=ExtResource("farm_prefab")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28075, 2.15, 7.03475)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.52, 1.38, 8.35)
 plot_id = "home_plot"
 zone_id = "zone1"
 plot_name = "木屋菜箱"
 requires_site = "home_cabin"
 requires_level = 1
+
+[node name="ShippingBox" type="Node3D" parent="Objects"]
+position = Vector3(3.0, 1.38, 14.6)
+script = ExtResource("shipping_script")
+
+[node name="Visual" parent="Objects/ShippingBox" instance=ExtResource("shipping_visual")]
+scale = Vector3(1.725, 1.587, 1.725)
+instance_id = "solar_cabin/shipping_box"
+facility_id = "solar_cabin"
+
+[node name="SleepCheckpoint" type="Node3D" parent="Objects"]
+position = Vector3(8.35, 1.38, 8.75)
+script = ExtResource("sleep_script")

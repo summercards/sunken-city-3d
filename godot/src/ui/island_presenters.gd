@@ -52,9 +52,6 @@ func attach(owner_hud: CanvasLayer, sources: Dictionary) -> void:
 		Cozy.paper(prompt._panel,Cozy.GOLD,true)
 	var hover: Node=sources.get("hover")
 	world_hover=hover
-	if hover:
-		Cozy.style_tree(hover._card)
-		hover._card.add_theme_stylebox_override("panel",Cozy.surface(Cozy.CREAM,22))
 	hud.bind_presenters(views)
 	get_tree().node_added.connect(_added)
 	_font_tree(hud)
@@ -69,7 +66,7 @@ func _letters() -> void:
 	var view: Node=views.orders
 	var box: VBoxContainer=cards.orders.get_child(0)
 	_title(box.get_child(0).get_child(0),"码头来信",30)
-	box.get_child(1).text="给邻居们准备一些小礼物吧。交付后，海贝会马上到账。"
+	box.get_child(1).text="给邻居们准备一些小礼物吧。交付后，瓶盖会马上到账。"
 	var letters:=HBoxContainer.new();letters.add_theme_constant_override("separation",18)
 	box.add_child(letters);box.move_child(letters,2)
 	for ref in view._rows:
@@ -121,24 +118,27 @@ func _process(_delta: float) -> void:
 	# 只藏不恢复 = 背板永久消失。以前写成「有弹窗就 hide()」，却没有任何一处
 	# 把它 show 回来，于是玩家开过一次背包后，交互提示就变成一行没有底的裸字。
 	# 这里每帧按当前状态对齐，跟气泡自己的 `visible` 一起决定。
-	if is_instance_valid(world_hover):
-		world_hover._card.visible = not blocked
+	if is_instance_valid(world_hover) and blocked: world_hover.clear()
 	if is_instance_valid(world_prompt):
 		world_prompt._panel.visible = world_prompt.visible and not blocked
 	for id in views:
 		if views[id].visible: _place(id)
 	if views.has("orders") and views.orders.visible:
 		var view: Node=views.orders
-		view._wallet.text=view._wallet.text.replace("🪙","海贝")
+		view._wallet.text=view._wallet.text.replace("🪙","瓶盖")
 		for i in order_icons.size():
 			var ref: Dictionary=view._rows[i]
 			var slot: Dictionary=view.model.offer_at(i) if view.model else {}
 			var item:=str(slot.get("item","clock"))
 			order_icons[i].kind=item
 			order_icons[i].caption="等待来信" if item=="clock" else Items.label(item)
-			ref.pay.text=ref.pay.text.replace("🪙","报酬 / 海贝")
+			ref.pay.text=ref.pay.text.replace("🪙","报酬 / 瓶盖")
 
 func _font_tree(node: Node) -> void:
+	var ancestor: Node = node
+	while ancestor != null:
+		if ancestor.has_meta("preserve_font"): return
+		ancestor = ancestor.get_parent()
 	# 世界浮层字自带加粗字体（`Cozy.world_text`），这里不许刷回普通字体：
 	# 一旦覆盖，字号还是大的，拉丁数字却掉回细笔画，一行字两种粗细。
 	if node.has_meta("cozy_world_text"):

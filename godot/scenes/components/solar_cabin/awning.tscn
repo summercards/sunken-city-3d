@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/awning/awning.glb" id="visual"]
 [node name="黄白条纹圆边遮阳篷" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-AWNING"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-AWNING"
 [node name="Visual" parent="." instance=ExtResource("visual")]

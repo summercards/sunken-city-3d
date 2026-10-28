@@ -1,5 +1,5 @@
 @tool
-extends Node3D
+extends "res://src/ambient/scene_component.gd"
 ## 一株植物。
 ##
 ## 生长：网页版是按建造等级把整组 `scale` 从 0 放到 1，这里保留同一手法，

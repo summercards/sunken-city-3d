@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/roof_sofa/roof_sofa.glb" id="visual"]
 [node name="露台单黄抱枕沙发" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-ROOF-SOFA"
+component_kind = "furnishing"
+subcategory = "movable"
+movable = true
 metadata/asset_id = "SEA-SCENE-SBR-ROOF-SOFA"
 [node name="Visual" parent="." instance=ExtResource("visual")]

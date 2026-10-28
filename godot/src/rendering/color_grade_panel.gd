@@ -26,6 +26,7 @@ const UiFontLib = preload("res://src/ui/ui_font.gd")
 const ParamsLib = preload("res://src/rendering/water_params.gd")
 const ParamsLibAbs = preload("res://src/rendering/water_params_absorption.gd")
 const LightParamsLib = preload("res://src/rendering/light_params.gd")
+const SlotsLib = preload("res://src/rendering/daylight_slots.gd")
 
 const CFG_PATH := "user://filter.cfg"
 const WATER_CFG_PATH := "user://water.cfg"
@@ -81,11 +82,20 @@ const ADJ_MIN := 0.0
 const ADJ_MAX := 2.0
 
 const PANEL_WIDTH := 352
+## 左侧「季节 → 天气 → 时间段」选择栏的宽度。只在光照页出现：
+## 滤镜是整幅画面的最终调色、水面是材质本身，两者都不分时段。
+const SIDE_W := 108
+## 侧栏与主面板之间的缝。主面板外面套着一层纸张装饰，它会往外扩
+## `Cozy.PAPER_OUTSET`（24 px），所以这里要算上那 24，否则侧栏右缘会被纸压住。
+const SIDE_GAP := 34
 ## 名字列 / 数值列的宽度。窄一点才能给滑杆留出可拖的长度。
 const NAME_W := 92
 const VALUE_W := 48
 
 var _env: Environment
+## 天空盒材质（`Environment.sky.sky_material`）。天空盒六项不在 `_env` 的属性上，
+## 而在这一层，所以单独解析一份。
+var _sky: ProceduralSkyMaterial
 var _defaults := {}
 var _rows := {}
 
@@ -97,10 +107,24 @@ var _light_defaults := {}
 var _light_spec := {}
 var _light_widgets := {}
 var _light_dirty := false
-## 存档是否已经套过。启动时 `_apply_saved_on_start` 会套一次，但那时场景可能
-## 还没装好（环境 / 太阳都没解析到），所以打开面板时补一次，补过就不再补 ——
-## 否则用户手改的值会被存档反复盖回去。
-var _light_cfg_loaded := false
+## 光照页不再有独立的存档套用开关：偏移由昼夜装置在 `_ready` / `_reload_light_cfg`
+## 里自己加载，面板打开时补读一次即可。
+
+## 光照页当前选中的「季节 / 天气 / 时间段」。`_light_write` 写的是这一套的偏移，
+## 不是全局基准 —— 这是这次改造的全部要点：调夜里不影响白天。
+##
+## 打开面板期间这三个还同时是**渲染上下文**（经 `DaylightRig.set_preview`）：
+## 点「多云」，画面就真的按多云那一套偏移渲染，不用等游戏里的天气变过去。
+var _slot_season := SlotsLib.DEFAULT_SEASON
+var _slot_weather := SlotsLib.DEFAULT_WEATHER
+var _slot := "morning"
+## 侧栏容器与各组按钮，切换时只改按下态，不重建控件。
+var _side: PanelContainer
+var _sync_side: Callable
+var _slot_buttons := {}
+var _slot_labels := {}
+## 打开面板时是否把画面锁在选中时段。关面板要放掉，否则游戏时间不动了。
+var _preview_held := false
 
 var _font: Font
 var _panel: PanelContainer
@@ -192,16 +216,45 @@ func set_open(open: bool) -> void:
 		_sync_from_env()
 		_refresh_labels()
 		_ensure_sun()
-		# 启动那次套存档可能没赶上（场景还没装完），这里补一次。
-		if not _light_cfg_loaded:
-			_apply_light_cfg()
+		# 启动那次读存档可能没赶上（场景还没装完），这里补一次。
+		_reload_light_cfg()
+		# 打开时先站到「当前时刻」对应的时间段，再把画面锁过去。
+		var snap := _current_scene_context()
+		_slot_season = String(snap.season)
+		_slot_weather = String(snap.weather)
+		_slot = String(snap.slot)
+		_preview_held = true
+		_hold_preview()
+		_refresh_slot_buttons()
 		_sync_light()
 		_ensure_water()
 		_sync_water()
 	else:
+		# 关面板：放掉预览，让主循环按真实游戏时刻继续走。
+		_preview_held = false
+		var rig = _daylight()
+		if rig != null:
+			rig.clear_preview()
 		_save_cfg()
 		_save_light_cfg()
 		_save_water_cfg()
+
+
+## 当前游戏处在哪个 (季节, 天气, 时段)。面板打开时以它为默认选中项 ——
+## 打开就站在「你现在看到的那一段」，不用先猜要改哪一段。
+func _current_scene_context() -> Dictionary:
+	var rig = _daylight()
+	if rig != null:
+		return {
+			"season": rig.season(),
+			"weather": rig.weather(),
+			"slot": SlotsLib.slot_at(rig.hour()),
+		}
+	return {
+		"season": SlotsLib.DEFAULT_SEASON,
+		"weather": SlotsLib.DEFAULT_WEATHER,
+		"slot": "morning",
+	}
 
 
 ## 供调试参数调用：`--grade` 启动就打开，`--grade=1.1,1.06,1.03` 直接套一组数。
@@ -338,8 +391,36 @@ func _light_target(target: String) -> Object:
 	if target == LightParamsLib.TARGET_ENV:
 		_ensure_env()
 		return _env
+	if target == LightParamsLib.TARGET_SKY:
+		_ensure_sky()
+		return _sky
 	_ensure_sun()
 	return _sun
+
+
+## 天空盒在 `Environment.sky.sky_material` 上。换过天空着色器（ShaderMaterial）
+## 时不猜属性名，宁可这七行静默无效，也不要往不认识的材质上写。
+func _ensure_sky() -> void:
+	if _sky != null:
+		return
+	_ensure_env()
+	if _env == null or _env.sky == null:
+		return
+	var material := _env.sky.sky_material
+	if material is ProceduralSkyMaterial:
+		_sky = material as ProceduralSkyMaterial
+
+
+
+## 昼夜装置。它是这批光照属性的**唯一写入者** —— 面板若直接写场景对象，
+## 下一帧就被时变乘一遍覆盖掉，滑块看着动了、画面没动。
+##
+## 所以面板读写的是它的基准值：`base_of` 取「白天基准」，`adopt` 改基准。
+## 这样 12:00 看到的永远是用户调出来的那个数，深夜也不会把基准改小。
+func _daylight():
+	for node in get_tree().get_nodes_in_group("daylight_rig"):
+		return node
+	return null
 
 
 func _light_read(key: String) -> Variant:
@@ -347,6 +428,11 @@ func _light_read(key: String) -> Variant:
 	if spec.is_empty():
 		return null
 	var prop := String(spec.prop)
+	# 归昼夜装置管的那几项从基准读：读场景对象会拿到当前时刻乘过系数的值，
+	# 面板一开在夜里，滑块就自己缩水了。
+	var rig = _daylight()
+	if rig != null and rig.owns(String(spec.target), prop):
+		return rig.base_of(String(spec.target), prop)
 	if prop.begins_with("dir:"):
 		# 朝向的两个虚拟轴没有同名属性，只能从基算出来。
 		if not is_instance_valid(_sun):
@@ -359,17 +445,96 @@ func _light_read(key: String) -> Variant:
 	return obj.get_indexed(NodePath(prop))
 
 
+## 滑杆要显示的值：**选中那个时间段实际渲染出来的数**。
+##
+## 和 `_light_read` 的区别是这一份不绕开时变：选「夕阳」就显示夕阳该有的亮度。
+## 分时段调参的前提就是这个 —— 用户拖的是「这一段长什么样」，不是「09:00 的基准」。
+func _light_scene_read(key: String) -> Variant:
+	var spec: Dictionary = _light_spec.get(key, {})
+	if spec.is_empty():
+		return null
+	var prop := String(spec.prop)
+	if prop.begins_with("dir:"):
+		if not is_instance_valid(_sun):
+			return null
+		var angles := _sun_angles()
+		return angles.x if prop == "dir:elevation" else angles.y
+	var obj := _light_target(String(spec.target))
+	if obj == null:
+		return null
+	var raw: Variant = obj.get_indexed(NodePath(prop))
+	match String(spec.kind):
+		"color":
+			return _as_color3(raw)
+	return raw
+
+
+## 面板 key → 昼夜装置里的全名（`sun/light_energy`）。两者同源，都从清单来。
+func _full_key(key: String) -> String:
+	var spec: Dictionary = _light_spec.get(key, {})
+	if spec.is_empty():
+		return ""
+	return "%s/%s" % [String(spec.target), String(spec.prop)]
+
+
+## 滑杆 → 当前选中组合的偏移。这是本次改造的核心：写的不再是场景，是差值。
+##
+## 差值 = 新值 − 这一段的原始值。原始值由昼夜装置给出（`natural_of`），
+## 没偏移时它就是场景当前值。同一个数在不同时段存下来的差值天然不同，
+## 这正是「只改这一段」的实现方式。
 func _light_write(key: String, value: Variant) -> void:
+	var spec: Dictionary = _light_spec.get(key, {})
+	if spec.is_empty():
+		return
+	var rig = _daylight()
+	if rig == null:
+		# 没有昼夜装置的独立场景（验证工程）退回直接写，别让面板整个失灵。
+		_light_apply_direct(key, value)
+		return
+	var full := _full_key(key)
+	if full == "":
+		return
+	var coerced: Variant = _coerce_light(spec, value)
+	if coerced is bool:
+		# 开关没有「差半个」，存绝对值；和「没有偏移时该是什么」一致就等于没调。
+		var natural_b: Variant = rig.natural_of(full)
+		if natural_b == null:
+			natural_b = _light_scene_read(key)
+		if natural_b != null and bool(natural_b) == bool(coerced):
+			rig.erase_offset(_slot_season, _slot_weather, _slot, full)
+		else:
+			rig.set_offset(_slot_season, _slot_weather, _slot, full, bool(coerced))
+		_light_dirty = true
+		return
+	var natural: Variant = rig.natural_of(full)
+	if natural == null:
+		natural = _light_scene_read(key)
+	if natural == null:
+		return
+	rig.set_offset(_slot_season, _slot_weather, _slot, full, _delta_of(coerced, natural))
+	_light_dirty = true
+
+
+## 两个值相减，得到要存的差值。颜色按分量各减，透明度不参与。
+func _delta_of(value: Variant, base: Variant) -> Variant:
+	if value is Color and base is Color:
+		var a := value as Color
+		var b := base as Color
+		return Color(a.r - b.r, a.g - b.g, a.b - b.b, 1.0)
+	return float(value) - float(base)
+
+
+## 直接把值写进引擎对象，绕过偏移层。
+## 只有一处用它：没有昼夜装置时的兜底（独立场景 / 只装面板的验证工程）。
+func _light_apply_direct(key: String, value: Variant) -> void:
 	var spec: Dictionary = _light_spec.get(key, {})
 	if spec.is_empty():
 		return
 	var prop := String(spec.prop)
 	var target := String(spec.target)
-	if target == LightParamsLib.TARGET_SUN and prop.begins_with("dir:"):
+	if prop.begins_with("dir:"):
 		if not is_instance_valid(_sun):
 			return
-		# 两个虚拟轴各自只改自己那一维：另一维读当前朝向，
-		# 这样先拖高度角再拖方位角不会互相抹掉。
 		var angles := _sun_angles()
 		if prop == "dir:elevation":
 			_set_sun_angles(float(value), angles.y)
@@ -382,6 +547,7 @@ func _light_write(key: String, value: Variant) -> void:
 		return
 	obj.set_indexed(NodePath(prop), _coerce_light(spec, value))
 	_light_dirty = true
+
 
 
 func _coerce_light(spec: Dictionary, value: Variant) -> Variant:
@@ -424,44 +590,65 @@ func _sync_light() -> void:
 		return
 	_syncing = true
 	for key in _light_widgets.keys():
-		var v: Variant = _light_read(key)
+		# 读场景而不是读基准：面板上要显示的是「选中这一段长什么样」，
+		# 基准只在「复位到出厂」时才需要。
+		var v: Variant = _light_scene_read(key)
 		if v == null:
 			continue
 		(_light_widgets[key] as Callable).call(v)
 	_syncing = false
 
 
+## 复位 = 清空**当前这一段**的偏移，不动其它时段，也不动资源文件里的出厂值。
+## 清完 `erase_slot` 会重跑一次 `apply`，画面自然回到曲线原本的样子。
 func _on_light_reset() -> void:
-	var env: Dictionary = _light_defaults.get("env", {})
-	var sun: Dictionary = _light_defaults.get("sun", {})
-	if env.is_empty() and sun.is_empty():
-		_flash("没抓到出厂值，无法复位（场景里找不到环境或太阳）")
+	var rig = _daylight()
+	if rig == null:
+		# 没有昼夜装置时退回旧语义：把出厂快照直接铺回场景。
+		var env: Dictionary = _light_defaults.get("env", {})
+		var sun: Dictionary = _light_defaults.get("sun", {})
+		if env.is_empty() and sun.is_empty():
+			_flash("没抓到出厂值，也无法复位")
+			return
+		_syncing = true
+		for key in env.keys():
+			_light_apply_direct(key, env[key])
+		if not sun.is_empty() and is_instance_valid(_sun):
+			var dir: Vector2 = _light_defaults.get("sun_dir", Vector2.ZERO)
+			_set_sun_angles(dir.x, dir.y)
+		for key2 in sun.keys():
+			_light_apply_direct(key2, sun[key2])
+		_syncing = false
+		_sync_light()
+		_flash("光照已回到场景默认值")
 		return
-	_syncing = true
-	for key in env.keys():
-		_light_write(key, env[key])
-	# 太阳先复位朝向再复位其余属性：`_light_write` 改朝向会重算基，
-	# 但不会动 light_energy 之类，所以顺序不影响结果，只是读起来顺。
-	if not sun.is_empty() and is_instance_valid(_sun):
-		var dir: Vector2 = _light_defaults.get("sun_dir", Vector2.ZERO)
-		_set_sun_angles(dir.x, dir.y)
-	for key2 in sun.keys():
-		_light_write(key2, sun[key2])
-	_syncing = false
+	rig.erase_slot(_slot_season, _slot_weather, _slot)
 	_sync_light()
+	_refresh_slot_buttons()
 	_light_dirty = true
 	_save_light_cfg()
-	_flash("光照已回到场景默认值")
+	_flash("已清空「%s / %s / %s」的调整" % [
+		String(SlotsLib.SEASON_LABELS.get(_slot_season, _slot_season)),
+		String(SlotsLib.WEATHER_LABELS.get(_slot_weather, _slot_weather)),
+		SlotsLib.slot_label(_slot)])
+
 
 
 ## 复制成能直接对账的文本。太阳朝向给的是两个角度，不是欧拉角 ——
 ## 抄进场景时用 `look_at` 那一套更不容易出错。
+##
+## 复制的是**当前选中时段**的数（含这一段的偏移），不是 09:00 的基准：
+## 面板上看到什么就复制什么，抄进文档对账时不会差一截。
 func _on_light_copy() -> void:
 	var lines := PackedStringArray()
+	lines.append("# %s / %s / %s" % [
+		String(SlotsLib.SEASON_LABELS.get(_slot_season, _slot_season)),
+		String(SlotsLib.WEATHER_LABELS.get(_slot_weather, _slot_weather)),
+		SlotsLib.slot_label(_slot)])
 	for g in LightParamsLib.GROUPS:
 		for row in g.rows:
 			var key := String(row.key)
-			var v: Variant = _light_read(key)
+			var v: Variant = _light_scene_read(key)
 			if v == null:
 				continue
 			var target := String(row.target)
@@ -481,6 +668,30 @@ func _on_light_save() -> void:
 		return
 	var notes := PackedStringArray()
 	var ok := 0
+	# 写盘期间要让昼夜装置把基准值铺回场景：`ResourceSaver` 和场景写回都是直接
+	# 抄对象属性，此刻若是夜里，抄下去的就是被时变乘暗的值 —— 一存就把夜晚烧进
+	# 资源文件，第二天中午也回不来。写完立刻 `resume`，画面无缝接着走。
+	# 所有分支（含失败）都要走到 `resume`，所以这里不用 early return。
+	var rig = _daylight()
+	if rig != null:
+		rig.suspend()
+	var outcome := _write_light_files(notes)
+	if rig != null:
+		rig.resume()
+	if outcome != "":
+		_flash(outcome)
+		return
+	# 写回资源的是**基准**（`suspend` 时铺回去的），这一段的偏移仍然留在 cfg 里 ——
+	# 两件事分开：资源管「这一天长什么样」，cfg 管「这一段要不要偏一点」。
+	_save_light_cfg()
+	_flash("已写入 %s（重开游戏生效）" % "、".join(notes))
+
+
+## 真正落盘的几步。返回空串表示成功，否则是要显示给用户的原因。
+## 抽出来只为一件事：调用方要在前后各做一次 `suspend` / `resume`，
+## 中间失败不能把装置永久停在暂停态。
+func _write_light_files(notes: PackedStringArray) -> String:
+	var ok := 0
 	_ensure_env()
 	if _env != null:
 		# `ResourceSaver` 一律用 LF 落盘，而仓库在 Windows 上是 CRLF 检出。
@@ -489,28 +700,21 @@ func _on_light_save() -> void:
 		var before := FileAccess.get_file_as_string(ENV_MAT_PATH)
 		var crlf := before.contains("\r\n")
 		var err := ResourceSaver.save(_env, ENV_MAT_PATH)
-		if err == OK:
-			if crlf:
-				_restore_crlf(ENV_MAT_PATH)
-			ok += 1
-			notes.append("world_env.tres")
-		else:
-			_flash("环境写入失败：%s" % error_string(err))
-			return
+		if err != OK:
+			return "环境写入失败：%s" % error_string(err)
+		if crlf:
+			_restore_crlf(ENV_MAT_PATH)
+		ok += 1
+		notes.append("world_env.tres")
 	if is_instance_valid(_sun):
 		var problem := _write_sun_to_scene()
-		if problem == "":
-			ok += 1
-			notes.append("main.tscn 的 Sun")
-		else:
-			_flash("太阳写入失败：%s" % problem)
-			return
+		if problem != "":
+			return "太阳写入失败：%s" % problem
+		ok += 1
+		notes.append("main.tscn 的 Sun")
 	if ok == 0:
-		_flash("既没找到环境也没找到太阳，无可写入")
-		return
-	_light_dirty = false
-	_save_light_cfg()
-	_flash("已写入 %s（重开游戏生效）" % "、".join(notes))
+		return "既没找到环境也没找到太阳，无可写入"
+	return ""
 
 
 ## 把一份刚被 `ResourceSaver` 写成 LF 的文件改回 CRLF。
@@ -603,44 +807,29 @@ func _write_sun_to_scene() -> String:
 	return ""
 
 
-func _apply_light_cfg() -> void:
-	var cfg := ConfigFile.new()
-	if cfg.load(CFG_PATH) != OK:
-		# 没有存档 = 从没调过，保持场景出厂值。不标记「已套过」也无所谓，
-		# 每次打开重读一个不存在的文件几乎不要钱。
-		return
-	_light_cfg_loaded = true
-	_syncing = true
-	for g in LightParamsLib.GROUPS:
-		var section := String(g.id)
-		for row in g.rows:
-			var key := String(row.key)
-			if not cfg.has_section_key(section, key):
-				continue
-			var v: Variant = cfg.get_value(section, key)
-			if v == null:
-				continue
-			_light_write(key, v)
-	_syncing = false
-	_light_dirty = false
+## 光照页的存档入口。真正的读写在昼夜装置那边（`light_slots.cfg`）——
+## 面板只是个调用方：偏移要每帧参与渲染，存档的所有权必须在装置手上，
+## 否则「没开面板时那些偏移就不生效」。
+##
+## 旧的 `filter.cfg` 里那两段（environment / sun）不再读也不再写：
+## 它们记的是「全局基准」，而分时段之后那个概念已经由偏移取代。
+## 旧文件留在磁盘上不动，用户自己的数不会被我这边删掉。
+func _reload_light_cfg() -> void:
+	var rig = _daylight()
+	if rig != null:
+		rig.load_offset_cfg()
 
 
 func _save_light_cfg() -> void:
-	# 和 `water.cfg` 同一个原则：没真动过就不写，否则「开面板看一眼」
-	# 会把当时的值固化成存档，之后改 world_env.tres 的出厂值永远被它盖住。
 	if not _light_dirty:
 		return
-	var cfg := ConfigFile.new()
-	cfg.load(CFG_PATH)
-	for g in LightParamsLib.GROUPS:
-		var section := String(g.id)
-		for row in g.rows:
-			var key := String(row.key)
-			var v: Variant = _light_read(key)
-			if v == null:
-				continue
-			cfg.set_value(section, key, v)
-	cfg.save(CFG_PATH)
+	var rig = _daylight()
+	if rig != null:
+		rig.save_offset_cfg()
+	_light_dirty = false
+	# 刚落盘就把侧栏的「调过」点补上：拖完第一下就该看见那个 `·`，
+	# 否则要等下一次点选才出现，人会以为没存进去。
+	_refresh_slot_buttons()
 
 
 
@@ -744,7 +933,11 @@ func _water_read(key: String) -> Variant:
 			return _water_node.get("wave_scale")
 		return float(spec.get("default", 1.0))
 	var raw: Variant = null
-	if is_instance_valid(_water_mat):
+	var rig = _daylight()
+	if rig != null and rig.owns("water", key):
+		# 天空反射与太阳高光归昼夜装置管：读基准，别读被时变乘过的当前值。
+		raw = rig.base_of("water", key)
+	elif is_instance_valid(_water_mat):
 		raw = _water_mat.get_shader_parameter(key)
 	if raw == null:
 		# 材质上没这一项（资源文件漏写）时退回文件里的值，别让控件停在 0。
@@ -773,6 +966,28 @@ func _water_default(key: String) -> Variant:
 	return _file_defaults.get(key)
 
 
+## 水面页的「这一段实际值」。和 `_water_read` 的区别：这一份不绕开时变。
+## 海水色、反射色、太阳高光这些每一项都被昼夜装置按时段乘过，
+## 面板上要显示的就是乘完的结果 —— 不然你调夕阳，看见的却是 09:00 的数。
+func _water_scene_read(key: String) -> Variant:
+	var spec: Dictionary = _spec.get(key, {})
+	if spec.is_empty():
+		return null
+	if spec.kind == "node":
+		return _water_read(key)
+	if not is_instance_valid(_water_mat):
+		return null
+	var raw: Variant = _water_mat.get_shader_parameter(key)
+	if raw == null:
+		return null
+	match String(spec.kind):
+		"color":
+			return _as_color3(raw)
+		"color4":
+			return _as_color4(raw)
+	return raw
+
+
 func _water_write(key: String, value: Variant) -> void:
 	var spec: Dictionary = _spec.get(key, {})
 	if spec.is_empty():
@@ -783,6 +998,26 @@ func _water_write(key: String, value: Variant) -> void:
 			# 所以这里改节点就够了，别绕过去直接写材质（会被覆盖）。
 			_water_node.set("wave_scale", float(value))
 			_water_dirty = true
+		return
+	var rig = _daylight()
+	if rig != null and rig.owns("water", key):
+		# 归昼夜装置管的水面项（海水色、反射、太阳高光）走分时段偏移。
+		#
+		# 以前这里是 `rig.adopt(...)`：改的是 09:00 基准，所以「把夕阳的海调金」
+		# 会把白天正午深夜一起改掉 —— 和光照页那个毛病同源，只是藏在水面页。
+		#
+		# `sun_direction` 是向量、且每帧由太阳弧算出来，加偏移没有意义，
+		# 这里跳过它（`set_offset` 也会拒收）。
+		if key == "sun_direction":
+			return
+		var coerced: Variant = _to_shader_value(spec, value)
+		var natural: Variant = rig.natural_of("water/" + key)
+		if natural == null:
+			natural = _water_scene_read(key)
+		if natural == null:
+			return
+		rig.set_offset(_slot_season, _slot_weather, _slot, "water/" + key, _delta_of(coerced, natural))
+		_water_dirty = true
 		return
 	if not is_instance_valid(_water_mat):
 		return
@@ -888,7 +1123,224 @@ func _build() -> void:
 	_status.custom_minimum_size = Vector2(PANEL_WIDTH - 24, 0)
 	_body.add_child(_status)
 
+	# 季节/天气/时间段侧栏挂在面板**左缘之外**（主人指定「在边上」）。
+	#
+	# 为什么不并进 `_panel` 里做一个横排：`island_presenters` 会调
+	# `Cozy.place(cards.grade, 700, right=true)` 直接把主面板定位到屏幕右侧，
+	# 容器里的横排会被这次定位撕开（实测侧栏被留在屏幕最左、主面板跑到最右，
+	# 中间隔了半屏）。所以侧栏独立挂在 root 上，位置由主面板的 `resized`
+	# 一路跟过去 —— 主面板怎么动，它就怎么贴。
+	_side = _build_side()
+	_side.visible = false
+	root.add_child(_side)
+	_sync_side = func() -> void:
+		if not is_instance_valid(_panel) or not is_instance_valid(_side):
+			return
+		_side.position = Vector2(_panel.position.x - SIDE_W - SIDE_GAP, _panel.position.y)
+
+
+## 侧栏每帧贴住主面板。
+##
+## 只连 `resized` / `item_rect_changed` 不够：`Cozy.place()` 是直接改 `position`
+## 的，而且是在面板打开后由 presenter 的 `_process` 里调的，信号不一定覆盖那条
+## 路径（实测侧栏停在旧位置，压在主面板左缘上）。一帧一次赋值的代价可以忽略，
+## 换来的是「主面板怎么动，侧栏就怎么贴」这条硬保证。
+func _process(_delta: float) -> void:
+	if visible and _side != null and _side.visible and _sync_side.is_valid():
+		_sync_side.call()
+
 	_set_tab(_tab)
+	# 面板一开始是隐藏的，但按钮必须先有样子：否则第一次开面板会看到一排
+	# 没有底色的裸字，闪一下才变成药丸。
+	_refresh_slot_buttons()
+
+
+## 左侧选择栏：季节 / 天气 / 时间段。
+##
+## 层级是「季节 → 天气 → 时间段」，竖着排下来正好从粗到细，不做下钻二级菜单 ——
+## 调参时要来回对比两个时段，下钻反而慢。
+##
+## 皮肤必须跟着奶油色走，不能沿用面板其余部分的深色调试皮肤：主面板会被
+## `Cozy.style_tree(grade, true)` 刷成奶油 + 深墨字，深色侧栏贴上去是一条黑边，
+## 而它里面的字也会被同一个函数染成深墨 —— 深墨压深底，等于看不见。
+##
+## 但密度又不能听它的：`style_tree` 会把每个按钮顶到 44 px 高，十五个按钮
+## 就是 660 px，800 高的窗口装不下。所以整条侧栏打 `island_label` 标记让
+## `style_tree` 整棵子树跳过（它见到这个 meta 就直接 return），字号行高自己定。
+const COZY_CREAM := Color("#fff9e8")
+const COZY_PILL := Color("#eee9d5")
+const COZY_INK := Color("#625744")
+const COZY_DIM := Color("#9a8e76")
+const COZY_GOLD := Color("#f7d879")
+const COZY_TEAL := Color("#5baa96")
+## 侧栏一行的最小高度。十五行 × 23 + 三个组标题 ≈ 400 px，能塞进主面板旁边。
+const SIDE_ROW_H := 23
+## 侧栏内容左右内边距。和 `_side` 那个 StyleBoxFlat 的 content_margin 一致 ——
+## 两处对不上时列宽会算多，最后一列被挤出边框。
+const SIDE_PAD := 8
+const SIDE_GAP_CELL := 3
+
+
+func _build_side() -> PanelContainer:
+	_side = PanelContainer.new()
+	_side.custom_minimum_size = Vector2(SIDE_W, 0)
+	_side.mouse_filter = Control.MOUSE_FILTER_STOP
+	# 让 `Cozy.style_tree` 跳过整棵子树：见上面的注释。
+	_side.set_meta("island_label", true)
+	var box := StyleBoxFlat.new()
+	box.bg_color = COZY_CREAM
+	box.set_corner_radius_all(22)
+	box.corner_detail = 16
+	box.anti_aliasing = true
+	box.content_margin_left = SIDE_PAD
+	box.content_margin_right = SIDE_PAD
+	box.content_margin_top = 10
+	box.content_margin_bottom = 10
+	_side.add_theme_stylebox_override("panel", box)
+
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 2)
+	_side.add_child(col)
+
+	# 季节与天气各自成组、按两列排，省下高度给时间段。
+	# 天气不用三列：侧栏内宽 76 px，三列时每格只有 23 px，「多云」两个字放不下，
+	# 会被挤成一行小字。两列每格 38 px，10 号字刚好。
+	_side_group(col, "季节", "season", SlotsLib.SEASON_ORDER, SlotsLib.SEASON_LABELS, 2)
+	_side_group(col, "天气", "weather", SlotsLib.WEATHER_ORDER, SlotsLib.WEATHER_LABELS, 2)
+	var slot_labels := {}
+	for s in SlotsLib.SLOTS:
+		slot_labels[String(s.id)] = String(s.label)
+	_side_group(col, "时间段", "slot", SlotsLib.slot_ids(), slot_labels, 1)
+	return _side
+
+
+## 一组单选。`columns` 只影响排版，不影响语义（同一组永远互斥）。
+func _side_group(host: VBoxContainer, title: String, kind: String,
+		ids: Array, labels: Dictionary, columns: int) -> void:
+	var head := Label.new()
+	head.text = title
+	head.add_theme_font_override("font", _font)
+	head.add_theme_font_size_override("font_size", 10)
+	head.add_theme_color_override("font_color", COZY_DIM)
+	host.add_child(head)
+
+	var grid := GridContainer.new()
+	grid.columns = columns
+	grid.add_theme_constant_override("h_separation", SIDE_GAP_CELL)
+	grid.add_theme_constant_override("v_separation", 2)
+	host.add_child(grid)
+
+	# 按钮宽度必须显式给：`SIZE_EXPAND_FILL` 只影响分配，不参与最小尺寸计算。
+	# 只写 `custom_minimum_size = (0, h)` 的话 GridContainer 算出来的列宽是 0，
+	# 于是每个按钮被压成一条窄条，「春节」竖着排下来（第一版就是这样）。
+	var cell_w := (SIDE_W - SIDE_PAD * 2 - SIDE_GAP_CELL * (columns - 1)) / float(columns)
+	_slot_buttons[kind] = {}
+	for id in ids:
+		var sid := String(id)
+		var b := Button.new()
+		b.text = String(labels.get(sid, sid))
+		b.add_theme_font_override("font", _font)
+		b.add_theme_font_size_override("font_size", 11)
+		b.focus_mode = Control.FOCUS_NONE
+		b.custom_minimum_size = Vector2(cell_w, SIDE_ROW_H)
+		b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		b.pressed.connect(func() -> void: _pick_slot(kind, sid))
+		grid.add_child(b)
+		_slot_buttons[kind][sid] = b
+		_slot_labels[sid] = String(labels.get(sid, sid))
+
+
+## 侧栏按钮的三种样子：选中（金）、调过（淡薄荷）、普通（奶油药丸）。
+## 顺手给调过的时段加一个点 —— 十五个按钮里看不出哪几段被动过，
+## 翻回去对比时很难找。
+func _style_side_button(b: Button, active: bool, touched: bool) -> void:
+	var bg := COZY_PILL
+	if active:
+		bg = COZY_GOLD
+	elif touched:
+		bg = COZY_TEAL.lightened(0.62)
+	var normal := StyleBoxFlat.new()
+	normal.bg_color = bg
+	normal.set_corner_radius_all(11)
+	normal.content_margin_left = 4
+	normal.content_margin_right = 4
+	b.add_theme_stylebox_override("normal", normal)
+	var hover := normal.duplicate() as StyleBoxFlat
+	hover.bg_color = COZY_GOLD.lightened(0.18) if not active else COZY_GOLD
+	b.add_theme_stylebox_override("hover", hover)
+	var pressed := normal.duplicate() as StyleBoxFlat
+	pressed.bg_color = COZY_GOLD.darkened(0.06)
+	b.add_theme_stylebox_override("pressed", pressed)
+	for key in ["font_color", "font_hover_color", "font_pressed_color", "font_focus_color"]:
+		b.add_theme_color_override(key, COZY_INK)
+
+
+## 换了季节 / 天气 / 时间段：先把画面锁到新组合，再回填滑杆。
+## 回填顺序不能颠倒 —— `_sync_light` 读的是引擎对象当前值，画面还没切过去
+## 就读，读到的是上一个组合的数。
+##
+## 季节和天气也会触发重绘：它们决定读哪一组偏移，只换分类不换画面的话，
+## 点了「多云」滑杆纹丝不动，人会以为功能没生效。
+func _pick_slot(kind: String, id: String) -> void:
+	match kind:
+		"season":
+			_slot_season = id
+		"weather":
+			_slot_weather = id
+		"slot":
+			_slot = id
+	_hold_preview()
+	_refresh_slot_buttons()
+	_sync_light()
+	if _tab == TAB_WATER:
+		_sync_water()
+	_refresh_status()
+	if _sync_side.is_valid():
+		_sync_side.call()
+
+
+## 让画面停在「选中组合」。只有面板开着时才锁 —— 关掉必须放掉，
+## 否则游戏时间会跟着面板停住、天气也会停在面板最后点的那个上。
+##
+## 三样一起锁：时刻、季节、天气。只锁时刻是不够的 —— 偏移按三键存，
+## 游戏里是晴的时候点「多云」，写进去的是 `spring|cloudy|*`，
+## 而画面还在读 `spring|clear|*`，滑杆看起来就是死的。
+func _hold_preview() -> void:
+	if not _preview_held:
+		return
+	var rig = _daylight()
+	if rig != null:
+		rig.set_preview(SlotsLib.slot_hour(_slot), _slot_season, _slot_weather)
+
+
+## 侧栏按钮的选中/调过状态。
+func _refresh_slot_buttons() -> void:
+	var current := {"season": _slot_season, "weather": _slot_weather, "slot": _slot}
+	var rig = _daylight()
+	for kind in _slot_buttons.keys():
+		var group: Dictionary = _slot_buttons[kind]
+		for id in group.keys():
+			var sid := String(id)
+			var b: Button = group[id]
+			var active := sid == String(current[kind])
+			var touched := _touched(String(kind), sid, rig)
+			b.text = ("· " if touched else "") + String(_slot_labels.get(sid, sid))
+			_style_side_button(b, active, touched)
+
+
+## 这一项有没有存过偏移。三个维度都要能看出来：
+## 只给时间段打点的话，切到「多云」发现画面没变化时，人不知道是
+## 「这套还没调过」还是「面板坏了」。
+func _touched(kind: String, id: String, rig) -> bool:
+	if rig == null:
+		return false
+	match kind:
+		"season":
+			return int(rig.season_offset_count(id)) > 0
+		"weather":
+			# 天气是挂在季节下面的，只看当前选中的那个季节。
+			return int(rig.weather_offset_count(_slot_season, id)) > 0
+	return int(rig.offset_count(_slot_season, _slot_weather, id)) > 0
 
 
 func _build_filter() -> void:
@@ -1118,10 +1570,13 @@ func _mini_button(text: String, cb: Callable, tip: String = "") -> Button:
 ## 当前这一整套值，按「面板值」的形态抓一份：颜色是 Color、向量是 Vector3、
 ## 节点属性是 float。跟 `_water_read` 的输出保持同一套类型，
 ## 套用的时候原样喂回 `_water_write` 就行，不用再猜格式。
+## 收藏取的是「当前选中这一段实际显示的那一套」。
+## 用 `_water_scene_read` 而不是 `_water_read`：后者对时段驱动的项返回 09:00 基准，
+## 收藏下来再套用会在别的时段凭空多出一截偏移。
 func _capture_values() -> Dictionary:
 	var out := {}
 	for key in _order:
-		var v: Variant = _water_read(key)
+		var v: Variant = _water_scene_read(key)
 		if v == null:
 			continue
 		out[key] = v
@@ -1308,17 +1763,26 @@ func _apply_values(values: Dictionary, fill_from_factory := false) -> void:
 		_flash("找不到水面材质，无法套用")
 		return
 	var fresh: ShaderMaterial = _load_water_file() if fill_from_factory else null
+	var rig = _daylight()
 	for key in _order:
 		var spec: Dictionary = _spec.get(key, {})
 		if spec.is_empty():
 			continue
 		if values.has(key):
+			# 收藏里存的是「当时看到的那一套」，套用时按分时段写：
+			# 归昼夜装置管的那几项存成偏移，所以套到别的时段就是「让这一段
+			# 看起来像收藏的那一段」；材质参数照原样直接写。
 			_water_write(key, values[key])
 			continue
 		if not fill_from_factory:
 			continue
 		if spec.kind == "node":
 			_water_write(key, _factory_wave_scale)
+			continue
+		if rig != null and rig.owns("water", key):
+			# 「出厂」对时段驱动的项 = 清掉这一段自己加的偏移，回到曲线本身。
+			# 写成「把曲线值当目标值」的话会存出一个非零差值，看着像被动过。
+			rig.erase_offset(_slot_season, _slot_weather, _slot, "water/" + key)
 			continue
 		if fresh != null:
 			var v: Variant = fresh.get_shader_parameter(key)
@@ -1764,18 +2228,50 @@ func _set_tab(id: String) -> void:
 		_light_wrap.visible = id == TAB_LIGHT
 	if _water_wrap != null:
 		_water_wrap.visible = id == TAB_WATER
+	# 侧栏三页都显示：它标的是「当前选中的时段」，而这个面板里随时段走的东西
+	# 不止光照页 —— 滤镜页的对比度、水面页的海水色与反射都归昼夜装置管。
+	# 只在一页显示的话，另外两页的滑杆看起来是全局的，实际却被时变覆盖。
+	if _side != null:
+		_side.visible = true
+		if _sync_side.is_valid():
+			# 面板刚变可见时 rect 还没结算，等一帧再贴上去。
+			_sync_side.call_deferred()
 	_refresh_status()
 
 
 func _refresh_status() -> void:
 	if _status == null:
 		return
+	var where := "%s / %s / %s" % [
+		String(SlotsLib.SEASON_LABELS.get(_slot_season, _slot_season)),
+		String(SlotsLib.WEATHER_LABELS.get(_slot_weather, _slot_weather)),
+		SlotsLib.slot_label(_slot)]
+	var extra := _preview_note()
 	if _tab == TAB_WATER:
-		_status.text = "水面参数 · 收藏可整套切换 · 滚轮翻列表，右列是当前值"
+		_status.text = "%s · 海水色与反射只改这一段，波形泡沫仍是全局%s" % [where, extra]
 	elif _tab == TAB_LIGHT:
-		_status.text = "环境与太阳 · 拖动即时生效 · 滚轮翻列表，右列是当前值"
+		_status.text = "%s · 只改这一段，关闭面板回到实际时刻%s" % [where, extra]
 	else:
-		_status.text = "P 开关 · 拖动即时生效，数值会记住"
+		_status.text = "%s · 对比度只改这一段，曝光/亮度/饱和度全局%s" % [where, extra]
+
+
+## 状态栏尾注。两件事都在这里说清楚，因为两件都会让人以为「面板坏了」：
+##   1. 正在预览别的天气 —— 点名游戏实际是哪一套，关面板就回去；
+##   2. 这套组合一条偏移都没有 —— 切过去画面不变是正常的，不是没写进去。
+func _preview_note() -> String:
+	var rig = _daylight()
+	if rig == null:
+		return ""
+	var notes := PackedStringArray()
+	if String(rig.weather()) != _slot_weather or String(rig.season()) != _slot_season:
+		notes.append("预览中，游戏实际 %s / %s" % [
+			String(SlotsLib.SEASON_LABELS.get(rig.season(), rig.season())),
+			String(SlotsLib.WEATHER_LABELS.get(rig.weather(), rig.weather()))])
+	if int(rig.offset_count(_slot_season, _slot_weather, _slot)) == 0:
+		notes.append("这套还没调过")
+	if notes.is_empty():
+		return ""
+	return "（%s）" % "；".join(notes)
 
 
 func _add_row(key: String, title: String, lo: float, hi: float, step: float) -> void:
@@ -1805,7 +2301,10 @@ func _add_row(key: String, title: String, lo: float, hi: float, step: float) -> 
 	slider.value_changed.connect(func(v: float) -> void:
 		_write(key, v)
 		value.text = "%.2f" % v)
-	slider.drag_ended.connect(func(_changed: bool) -> void: _save_cfg())
+	slider.drag_ended.connect(func(_changed: bool) -> void:
+		_save_cfg()
+		# 对比度走的是分时段偏移，得另存一份；其余三项在 `filter.cfg` 里。
+		_save_light_cfg())
 	_rows[key] = {"slider": slider, "value": value}
 
 
@@ -1821,7 +2320,20 @@ func _write(key: String, v: float) -> void:
 			_env.adjustment_brightness = v
 		"contrast":
 			_env.adjustment_enabled = true
-			_env.adjustment_contrast = v
+			# 对比度归昼夜装置管：`_apply_env` 每帧都会把它按 night 权重重算
+			# （`lerpf(base, 1.0, night)`），所以直接写 `_env` 只能闪一帧，
+			# 下一帧就被盖回去 —— 表现就是「拖了没反应」。
+			# 和光照页一样改走偏移，才留得住，也才只影响当前这一段。
+			var rig = _daylight()
+			if rig != null and rig.owns("env", "adjustment_contrast"):
+				var natural: Variant = rig.natural_of("env/adjustment_contrast")
+				if natural == null:
+					natural = _env.adjustment_contrast
+				rig.set_offset(_slot_season, _slot_weather, _slot,
+					"env/adjustment_contrast", v - float(natural))
+				_light_dirty = true
+			else:
+				_env.adjustment_contrast = v
 		"saturation":
 			_env.adjustment_enabled = true
 			_env.adjustment_saturation = v
@@ -1863,7 +2375,7 @@ func _sync_water() -> void:
 		var setter: Variant = _water_widgets.get(key)
 		if setter == null:
 			continue
-		var v: Variant = _water_read(key)
+		var v: Variant = _water_scene_read(key)
 		if v == null:
 			continue
 		(setter as Callable).call(v)
@@ -1908,7 +2420,13 @@ func _on_save_to_scene() -> void:
 	if OS.has_feature("template"):
 		_flash("导出版无法写回 res://，请用「复制参数」")
 		return
+	# 同上：写盘那一刻必须是基准值，不能是把夜里的暗值存进去。
+	var rig = _daylight()
+	if rig != null:
+		rig.suspend()
 	var err := ResourceSaver.save(_env, path)
+	if rig != null:
+		rig.resume()
 	if err == OK:
 		_save_cfg()
 		_flash("已写入 %s（重开游戏生效）" % path)
@@ -2057,10 +2575,10 @@ func _flash(text: String) -> void:
 func _apply_saved_on_start() -> void:
 	_ensure_env()
 	_apply_filter_cfg()
-	# 太阳先解析：`_apply_light_cfg` 里既有环境键也有太阳键，
+	# 太阳先解析：分时段偏移里既有环境键也有太阳键，
 	# 少了这一步太阳那几项会被静默跳过（看起来像存档没生效）。
 	_ensure_sun()
-	_apply_light_cfg()
+	_reload_light_cfg()
 	_ensure_water()
 	# 上次用哪套水，跟存档一起恢复。切不过去（场景没注册这套）就留在原版，
 	# 不要因为一个存档字段整个面板起不来。

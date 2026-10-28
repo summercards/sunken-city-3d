@@ -13,6 +13,9 @@ var farm_model: Farm_modelDependency
 ##
 ## 规则全在 `farm_model`（FarmModel），这里只负责造型、焦点文案与把 E 转给它。
 
+signal interaction_requested(plot_id: String)
+var use_action_menu := false
+
 signal acted(plot_id: String, event: String, payload: Dictionary)
 
 @export var plot_id := ""
@@ -75,14 +78,28 @@ func focus_text() -> String:
 
 
 func blocked_reason() -> String:
-	return farm_model.blocked_reason(plot_id) if farm_model != null else "种植系统未就绪"
+	if farm_model == null: return "种植系统未就绪"
+	if use_action_menu and farm_model.phase(plot_id) != "ready": return farm_model.access_reason(plot_id)
+	return farm_model.blocked_reason(plot_id)
 
 
 func interact(_actor: Node3D) -> Dictionary:
 	var farm = farm_model
 	if farm == null:
 		return {"blocked": "种植系统未就绪"}
-	var result: Dictionary = farm.interact(plot_id, farm.selected_crop)
+	if use_action_menu and farm.phase(plot_id) != "ready":
+		interaction_requested.emit(plot_id)
+		return {"event":"options"}
+	return perform("harvest" if farm.phase(plot_id)=="ready" else ("plant" if farm.is_empty(plot_id) else "water"),farm.selected_crop)
+
+func perform(action: String, crop_id := "") -> Dictionary:
+	var result: Dictionary
+	match action:
+		"plant": result = farm_model.plant(plot_id,crop_id)
+		"water": result = farm_model.water(plot_id)
+		"harvest": result = farm_model.harvest(plot_id)
+		"refill": return farm_model.refill()
+		_: return {"blocked":"未知操作"}
 	if result.has("blocked"):
 		return result
 	_pop()
@@ -187,7 +204,7 @@ func _build_stage_meshes(stage: int, offset: Vector3, s: float) -> void:
 			bm.radial_segments = 8
 			bm.rings = 4
 			bump.mesh = bm
-			bump.position = Vector3((i - 1) * 0.06, 0.02, 0)
+			bump.position = Vector3((i - 1) * 0.06, 0.34, 0)
 			bump.material_override = _soil_mat
 			base.add_child(bump)
 		return
@@ -251,7 +268,7 @@ func _sync(_delta: float) -> void:
 	if phase == "ready":
 		stage = 3
 	elif phase == "growing":
-		stage = 1 if p < 0.45 else (2 if p < 0.92 else 3)
+		stage = 0 if p < 0.01 else (1 if p < 0.5 else 2)
 
 	for i in _stage_roots.size():
 		var node: Node3D = _stage_roots[i]
@@ -287,7 +304,7 @@ func _sync(_delta: float) -> void:
 		_fruit_mat.emission_energy_multiplier = 0.45 if phase == "ready" else 0.0
 
 	# 焦点文案与按住时长跟着动作走：浇水比收获慢一点，播种最快。
-	verb = farm.action_label(plot_id)
+	verb = "选择种子" if use_action_menu and phase == "empty" else ("照料" if use_action_menu and phase == "growing" else farm.action_label(plot_id))
 	hold_time = 0.95 if verb == "播种" else (1.25 if verb == "浇水" else (1.1 if verb == "收获" else 0.35))
 	if phase == "ready":
 		accent = Color("#ffd27a")

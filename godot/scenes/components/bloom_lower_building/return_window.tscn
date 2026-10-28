@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/bloom_lower_building/components/return_window/return_window.glb" id="visual"]
 [node name="转角单扇小窗" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-BLB-RETURN-WINDOW"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-BLB-RETURN-WINDOW"
 [node name="Visual" parent="." instance=ExtResource("visual")]

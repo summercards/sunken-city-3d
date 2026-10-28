@@ -26,12 +26,13 @@ static func schemas() -> Dictionary:
 	boat.sizes = [0,4]
 	return {
 		"economy":object({
+			"daily_loop":object({"version":integer(1,1),"cargo":inventory(),"last_morning":integer(-1),"receipt":object({"day":integer(1),"income":integer(),"items":map(integer())})},["version","cargo","last_morning","receipt"]),
 			"inventory":inventory(),"warehouse":inventory(),"ship_level":integer(1,3),
 			"tracked_goal":string,"site_levels":map(integer(1,3)),"facilities":map(boolean),
 			"site_work":map(object({"left":number(),"total":number(0.001)},["left","total"])),
 			"farm":object({"version":integer(1,2),"day":integer(1),"watering_can":integer(0,12),"selected_crop":string,
 				"plots":map(object({"crop":string,"remaining":number(),"total":number(),"water":number(0,1),"harvests":integer()},["crop","remaining","total","water","harvests"]))},["version","day","watering_can","selected_crop","plots"]),
-			"orders":object({"slots":list_of(object({"uid":string,"order":string,"left":number(),"refill":number()}),3)},["slots"])},["inventory","warehouse","ship_level","tracked_goal","site_levels","facilities","site_work","farm","orders"]),
+			"orders":object({"slots":list_of(object({"uid":string,"order":string,"left":number(),"refill":number()}),3)},["slots"])},["inventory","warehouse","ship_level","tracked_goal","site_levels","facilities","site_work","farm","orders","daily_loop"]),
 		"game":object({"zone":string,"landing":string,"mode":integer(0,3),"far_sea":boolean,"boat":boat,"player":vector},["zone","landing","mode","far_sea","boat","player"]),
 		"pickups":object({"reset":boolean,"crates":list_of(object({"id":integer(1),"kind":{"type":"string","enum":["crate","planks","barrel"]},"base":{"type":"array","sizes":[3],"items":number(-1000,1000)},"phase":number(),"yaw":number()},["id","kind","base","phase","yaw"]),32),
 			"schools":list_of(object({"id":integer(1),"base":{"type":"array","sizes":[3],"items":number(-1000,1000)},"phase":number(),"count":integer(1,12)},["id","base","phase","count"]),32),
@@ -42,7 +43,7 @@ static func schemas() -> Dictionary:
 		"weather":object({"kind":{"type":"string","enum":["clear","cloudy","rain"]},"remaining":number(),"seed":integer(1,2147483646),"duration":number(10,86400)},["kind","remaining","seed","duration"])
 	}
 static func validate(data: Dictionary) -> String:
-	var version_error: String = preload("res://src/core/record_contract.gd").check(data.get("version"),integer(2,2),"version")
+	var version_error: String = preload("res://src/core/record_contract.gd").check(data.get("version"),integer(3,3),"version")
 	if version_error != "": return version_error
 	var rules := schemas()
 	for id in rules:
@@ -67,6 +68,15 @@ static func validate(data: Dictionary) -> String:
 	for plot in data.economy.farm.plots.values():
 		if plot.remaining > plot.total: return "Invalid crop timer"
 		if plot.crop != "" and plot.total <= 0.0: return "Planted crop requires positive duration"
+	if data.economy.has("daily_loop"):
+		var loop: Dictionary = data.economy.daily_loop
+		var morning := int(data.time.day) if float(data.time.seconds)>=preload("res://src/time/day_schedule.gd").MORNING_SECONDS else int(data.time.day)-1
+		if int(loop.last_morning)>morning: return "Future shipping watermark"
+		for id in loop.cargo.counts:
+			if id not in ["fish","vegetable","tomato","pumpkin"]: return "Invalid shipment item"
+		if not loop.receipt.is_empty():
+			for key in ["day","income","items"]:
+				if not loop.receipt.has(key): return "Incomplete shipping receipt"
 	var offer_ids := {}
 	for offer in data.economy.orders.slots:
 		if offer.is_empty(): continue

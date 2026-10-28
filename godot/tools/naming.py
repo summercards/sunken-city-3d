@@ -17,8 +17,11 @@ ZONES = {
 ZONE_ORDER = ["zone1", "zone2", "zone3", "zone4", "zone5"]
 
 # 区块级植物效果的配置：写进区块专用植物场景
+# effect=None 表示该区块不发粒子，但仍保留 sway / wind（叶片摆动与粒子是两件事）。
+# zone1：2026-10-28 按主人截图反馈撤掉「花瓣飘落」——粒子飘在太阳能木屋上层平台中间，
+#        挡视线且读不出内容。要恢复只需把 effect 写回 "petals"。
 ZONE_PLANT_EFFECTS = {
-    "zone1": {"effect": "petals", "sway": 0.028, "wind": 0.9},
+    "zone1": {"effect": None, "sway": 0.028, "wind": 0.9},
     "zone2": {"effect": "pollen", "sway": 0.020, "wind": 0.7},
     "zone3": {"effect": "wind", "sway": 0.042, "wind": 1.5},
     "zone4": {"effect": "sea_breeze", "sway": 0.032, "wind": 1.2},

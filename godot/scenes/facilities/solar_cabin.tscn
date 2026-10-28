@@ -3,10 +3,17 @@
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_submerged_base.tscn" id="base"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_surface.tscn" id="surface"]
 
+[ext_resource type="Script" path="res://src/ambient/scene_component.gd" id="contract"]
+
 [node name="太阳能木屋" type="Node3D" unique_id=839374598]
+script = ExtResource("contract")
+instance_id = "facility/solar_cabin"
+facility_id = "solar_cabin"
+asset_id = "SEA-REF-FACILITY-SOLAR-CABIN"
 metadata/asset_id = "SEA-REF-FACILITY-SOLAR-CABIN"
 
 [node name="太阳能木屋-海上区域" parent="." unique_id=1369370690 instance=ExtResource("surface")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.77, 0)
 
 [node name="太阳能木屋-海下基座" parent="." unique_id=679986593 instance=ExtResource("base")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9533882, -0.4024248, 0.6883211)
+transform = Transform3D(1.4501, 0, 0, 0, 1, 0, 0, 0, 1.4308, -1.5113, -0.3, 1.5988)

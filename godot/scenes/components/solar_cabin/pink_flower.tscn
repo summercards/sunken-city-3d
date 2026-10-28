@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/pink_flower/pink_flower.glb" id="visual"]
 [node name="五瓣饱满粉花" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-PINK-FLOWER"
+component_kind = "upgrade_attachment"
+subcategory = "plants"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-PINK-FLOWER"
 [node name="Visual" parent="." instance=ExtResource("visual")]

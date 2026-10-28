@@ -237,7 +237,9 @@ def write_plant_scene(path, pid, scope, shared, effect, meta):
     lines.append('mesh_path = "res://assets/plants/%s/%s/mesh.bin"' % (scope, pid))
     lines.append('shared = %s' % ("true" if shared else "false"))
     if effect is not None:
-        lines.append('effect = "%s"' % effect["effect"])
+        # effect 为空 = 本区块不发粒子；摆动参数照写，别让撤粒子顺手把摆动也撤了。
+        if effect.get("effect"):
+            lines.append('effect = "%s"' % effect["effect"])
         lines.append('sway_amplitude = %.4f' % effect["sway"])
         lines.append('wind_strength = %.2f' % effect["wind"])
     lines.append("")

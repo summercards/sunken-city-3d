@@ -3,5 +3,8 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/legacy_home/salvage_station.glb" id="g0"]
 [node name="绞盘打捞台" type="Node3D"]
 script = ExtResource("bind")
+instance_id = "facility/salvage_station"
+facility_id = "salvage_station"
+asset_id = "SEA-REF-FACILITY-SALVAGE-STATION"
 [node name="salvage_station" parent="." instance=ExtResource("g0")]
 position = Vector3(0, 0, 0)

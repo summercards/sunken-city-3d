@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/narrow_window/narrow_window.glb" id="visual"]
 [node name="后部建筑-加宽前窗" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-NARROW-WINDOW"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-NARROW-WINDOW"
 [node name="Visual" parent="." instance=ExtResource("visual")]

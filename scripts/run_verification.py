@@ -25,15 +25,42 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'title-clock-seed': ('tests/seed_title_clock.gd', r'\[title-clock-seed\] ok=true'),
+    'visual-title-screen-day': ('tests/test_title_saved_time.gd', r'\[title-saved\] \d+ checks, 0 failures'),
+    'visual-title-screen-night': ('tests/test_title_saved_time.gd', r'\[title-saved\] \d+ checks, 0 failures'),
+    'visual-title-screen-dawn': ('tests/test_title_saved_time.gd', r'\[title-saved\] \d+ checks, 0 failures'),
+    'visual-boat-lamp': ('tests/test_boat_navigation_lamp.gd', r'\[boat-navigation-lamp\] \d+ checks, 0 failures'),
+    'visual-atmosphere': ('tests/test_atmosphere.gd', r'\[atmosphere\] \d+ checks, 0 failures'),
+    'water-params': ('tools/check_water_params.gd', r'\[water-params\] PASS 吸收式'),
+    'visual-home-lighting': ('tests/test_home_lighting.gd', r'\[home-lighting\] \d+ checks, 0 failures'),
+    'pocket-services': ('tests/test_pocket_services.gd', r'\[pocket-services\].*0 failures'),
+    'visual-pocket-services': ('tests/test_pocket_services.gd', r'\[pocket-services\].*0 failures'),
+    'visual-cabin-dayparts': ('tests/test_cabin_dayparts.gd', r'\[cabin-dayparts\] \d+ checks, 0 failures'),
+    'pocket-bubbles': ('tests/test_pocket_bubbles.gd', r'\[pocket-bubbles\].*0 failures'),
+    'visual-pocket-bubbles': ('tests/test_pocket_bubbles.gd', r'\[pocket-bubbles\].*0 failures'),
+    'sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
+    'visual-sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
+    'visual-plot-shipping': ('tests/test_plot_shipping_loop.gd', r'\[plot-shipping\].*0 failures'),
+    'title-screen': ('tests/test_title_screen.gd', r'\[title-screen\].*0 failures'),
+    'visual-title-screen': ('tests/test_title_screen.gd', r'\[title-screen\].*0 failures'),
+    'minimum-loop': ('tests/test_minimum_loop.gd', r'\[minimum-loop\].*0 failures'),
+    'visual-minimum-loop': ('tests/test_minimum_loop.gd', r'\[minimum-loop\].*0 failures'),
+    'decorations': ('tests/test_scene_decorations.gd', r'\[decorations\].*failures=0'),
+    'visual-decorations': ('tests/test_scene_decorations.gd', r'\[decorations\].*failures=0'),
     'save-corrupt-seed': ('tests/test_save_corrupt_seed.gd', r'\[save-corrupt-seed\] complete'),
     'save-protection': ('tests/test_save_protection.gd', r'\[save-protection\] ok=true'),
     'visual-weather': ('tools/capture_world_weather.gd', r'\[visual-weather\] complete'),
+    # 昼夜光照：真实光照替代屏幕蒙版。断言正午等于基准、夜里太阳落、
+    # 水面的天空反射与太阳高光跟着走，且屏幕层不再出现全屏填充。
+    'daylight': ('tests/test_daylight_rig.gd', r'\[daylight\] \d+ checks, 0 failures'),
     'framework-modules': ('tests/test_framework_modules.gd', r'\[framework-modules\].*0 failures'),
     'save-seed': ('tests/test_save_seed.gd', r'\[save-seed\] ok=true'),
     'framework-integration': ('tests/test_framework_integration.gd', r'\[framework-integration\].*0 failures'),
     'solar-components': ('tests/test_solar_components.gd', r'\[solar-components\].*failures=0'),
     'visual-solar-cabin': ('tests/test_solar_cabin_asset.gd', r'\[solar-cabin\].*failures=0'),
     'visual-sea-style': ('tools/capture_sea_style.gd', r'\[sea-style\] complete'),
+    # 鱼群专项：模型/动画/配色/单群散布 + 近景渲染证据。
+    'visual-fish-schools': ('tools/capture_fish_schools.gd', r'\[fish-schools\] \d+ checks, failures=0'),
     'visual-farming': ('tools/capture_farm_cycle.gd', r'\[farm-ui\] failures=0'),
     'visual-management': ('tools/capture_management_loop.gd', r'\[management-ui\].*0 failed'),
     'visual-click': ('tools/capture_click_controls.gd', r'\[click-ui\] failures=0'),
@@ -46,6 +73,9 @@ TESTS.update({
     # 两项都不进 core，跟其它参数工具一起按需跑。
     'lighting-params': ('tools/check_light_params.gd', r'\[lighting-params\] \d+ checks, 0 failures'),
     'lighting-panel': ('tools/probe_light_panel.gd', r'\[light-probe\] \d+ checks, 0 failures'),
+    'visual-plot-menu': ('tools/capture_plot_menu.gd', r'\[visual-plot-menu\] complete'),
+    'visual-salvage': ('tools/capture_salvage.gd', r'\[visual-salvage\] complete'),
+    'dock-seed': ('tests/test_dock_and_seed.gd', r'\[dock-seed\] \d+ checks, 0 failures'),
 })
 EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
 
@@ -132,8 +162,15 @@ def main():
     parser.add_argument('--label', default='verification')
     parser.add_argument('--timeout', type=int, default=180)
     parser.add_argument('--visual', action='store_true')
+    parser.add_argument('--lighting-profile', type=Path, help='Stage only lighting cfg fixtures for visual atmosphere captures')
+    parser.add_argument('--import-assets', action='store_true', help='Import new art in the isolated project before checks')
+    parser.add_argument('--full-world', action='store_true', help='Explicit legacy/development scope; default is the minimum playable loop')
     args = parser.parse_args()
     checks = CORE if args.checks == ['core'] else args.checks
+    title_cases = ['visual-title-screen-day', 'visual-title-screen-night', 'visual-title-screen-dawn']
+    if any(name in checks for name in title_cases) and 'title-clock-seed' not in checks:
+        checks = list(checks)
+        checks.insert(next(i for i, name in enumerate(checks) if name in title_cases), 'title-clock-seed')
     if 'framework-integration' in checks and 'save-seed' not in checks:
         checks = list(checks)
         checks.insert(checks.index('framework-integration'), 'save-seed')
@@ -159,10 +196,27 @@ def main():
               'working_tree': subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True),
               'renderer': 'per check; visual-* always use real renderer', 'results': {}}
     print('Evidence:', run_dir, flush=True)
+    if args.import_assets:
+        import_log = run_dir / 'asset-import.log'
+        import_cmd = [exe, '--headless', '--editor', '--path', str(project), '--import']
+        with import_log.open('w', encoding='utf-8') as output:
+            try:
+                import_code = subprocess.run(import_cmd, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout).returncode
+            except subprocess.TimeoutExpired:
+                import_code = 124
+        import_text = import_log.read_text(encoding='utf-8', errors='replace')
+        import_errors = [line for line in import_text.splitlines() if re.search(r'SCRIPT ERROR|SHADER ERROR|ERROR:', line)]
+        report['asset_import'] = {'exit_code': import_code, 'log': str(import_log), 'unexpected_errors': import_errors}
+        print('asset-import', 'PASS' if import_code == 0 and not import_errors else 'FAIL', 'exit=' + str(import_code), flush=True)
+        if import_code != 0 or import_errors:
+            (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+            print('\n'.join(import_text.splitlines()[-20:]), flush=True)
+            return 1
     for name in checks:
         config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules'] else full_config
         # Only intentional cross-process cases share a slot. Every other check starts fresh.
-        group = ('restart' if name in ['save-seed', 'framework-integration'] else
+        group = ('title-clock' if name == 'title-clock-seed' or name in title_cases else
+                 'restart' if name in ['save-seed', 'framework-integration'] else
                  'protection' if name in ['save-corrupt-seed', 'save-protection'] else name)
         check_user_name = user_name + '/' + group
         config = re.sub(r'^config/custom_user_dir_name=.*$',
@@ -179,10 +233,22 @@ def main():
             cmd += ['--script', 'res://' + script]
         else:
             cmd += ['--', '--selftest', '--nosave']
+        if 'title-screen' not in name:
+            if '--' not in cmd: cmd.append('--')
+            cmd.append('--skip-title')
+        if name in title_cases:
+            if '--' not in cmd: cmd.append('--')
+            cmd.append('--title-fixture=' + name.rsplit('-', 1)[-1])
+        if args.full_world:
+            if '--' not in cmd: cmd.append('--')
+            cmd.append('--full-world')
         log = run_dir / (name + '.log')
         with log.open('w') as output:
             try:
-                code = subprocess.run(cmd, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout).returncode
+                check_env = os.environ.copy()
+                if args.lighting_profile:
+                    check_env['SEA_CAPTURE_LIGHTING_PROFILE'] = str(args.lighting_profile.resolve())
+                code = subprocess.run(cmd, stdout=output, stderr=subprocess.STDOUT, timeout=args.timeout, env=check_env).returncode
             except subprocess.TimeoutExpired:
                 code = 124
         text = log.read_text(errors='replace')

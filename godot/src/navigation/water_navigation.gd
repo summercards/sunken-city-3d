@@ -6,6 +6,7 @@ var _nav_grid: Dictionary = {}
 var _block_index: Dictionary = {}
 var _safe_nav: Dictionary = {}
 var shape_query: Callable
+var allowed_area := Rect2()
 func _water_shapes() -> Array: return shape_query.call()
 func invalidate() -> void:
 	_nav_grid.clear()
@@ -13,6 +14,10 @@ func invalidate() -> void:
 	_safe_nav.clear()
 
 func is_open_water(x: float, z: float) -> bool:
+	if allowed_area.has_area() and not allowed_area.has_point(Vector2(x,z)): return false
+	return is_geometric_water(x,z)
+
+func is_geometric_water(x: float, z: float) -> bool:
 	if x < -68.0 or x > 76.0 or z < -78.0 or z > 58.0:
 		return false
 	if _block_index.is_empty():
@@ -82,7 +87,7 @@ func nav_grid() -> Dictionary:
 	# 四周各留 14m：泊位常常就在岸边，网格边缘不能正好卡在泊位上。
 	min_p -= Vector2(14.0, 14.0)
 	max_p += Vector2(14.0, 14.0)
-	var bounds := Rect2(min_p, max_p - min_p)
+	var bounds := allowed_area if allowed_area.has_area() else Rect2(min_p, max_p - min_p)
 	var clearance := 2.3
 	var grid: Dictionary = SailNavLib.create_nav_grid(rects, bounds, 0.5, clearance)
 

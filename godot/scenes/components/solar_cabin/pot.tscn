@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/pot/pot.glb" id="visual"]
 [node name="圆陶花盆" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-POT"
+component_kind = "furnishing"
+subcategory = "movable"
+movable = true
 metadata/asset_id = "SEA-SCENE-SBR-POT"
 [node name="Visual" parent="." instance=ExtResource("visual")]

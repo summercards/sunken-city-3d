@@ -4,7 +4,7 @@ class_name InteractPrompt
 ##
 ## 旧做法是把每个可点目标都投影到屏幕上（DOM 图标墙），屏幕越挤越难看清。
 ## 现在世界里只有物件本身，焦点由 Interactor 决定，这里只负责把它说清楚：
-##   [E]  采集 · 海贝        ▓▓▓▓░░░░
+##   [E]  采集 · 瓶盖        ▓▓▓▓░░░░
 
 const UiFontLib = preload("res://src/ui/ui_font.gd")
 const HINT_COLOR := Color("#354c57")
@@ -12,6 +12,7 @@ const BLOCK_COLOR := Color("#995d3d")
 const KEY_BG := Color(0.06, 0.30, 0.36, 0.92)
 const PANEL_BG := Color(0.03, 0.12, 0.20, 0.74)
 
+var enabled := true
 signal action_requested
 var _panel: PanelContainer
 var _key_label: Button
@@ -24,6 +25,7 @@ var _last_text := ""
 var _finish_left := 0.0
 
 func celebrate() -> void:
+	if not enabled: return
 	_finish_left = 1.4
 	visible = true
 	_bar.value = 1.0
@@ -112,6 +114,9 @@ func _process(delta: float) -> void:
 
 ## 每帧从 Interactor 同步显示状态。
 func update_from(actor: Node) -> void:
+	if not enabled:
+		visible = false
+		return
 	if _finish_left > 0.0: return
 	_fill.bg_color = Color("#8edbb3")
 	if actor == null or not actor.active or actor.target == null:
@@ -133,6 +138,7 @@ func update_from(actor: Node) -> void:
 
 ## 被规则挡住时短暂改色显示原因。
 func flash_blocked(reason: String) -> void:
+	if not enabled: return
 	if _text == null:
 		return
 	visible = true

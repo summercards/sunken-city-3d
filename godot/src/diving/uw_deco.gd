@@ -46,66 +46,20 @@ func setup(fish_specs: Array) -> void:
 
 
 func _build_fish(specs: Array) -> void:
-	var colors := ["#ffc55c", "#f19c4a", "#66dcf2", "#cd8fea"]
+	var scene: PackedScene=preload("res://scenes/decorations/animals/fish_school.tscn")
 	for i in specs.size():
-		var spec: Dictionary = specs[i]
-		var color := Color(colors[i % colors.size()])
-		var mesh := _fish_mesh(color)
-		var mm := MultiMesh.new()
-		mm.transform_format = MultiMesh.TRANSFORM_3D
-		mm.mesh = mesh
-		mm.instance_count = FISH_COUNT
-		var mmi := MultiMeshInstance3D.new()
-		mmi.name = "FishSchool%d" % i
-		mmi.multimesh = mm
-		mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		mmi.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
-		add_child(mmi)
-
-		var center_arr: Array = spec.get("center", [0, -13, 0])
-		var members: Array = []
-		for k in FISH_COUNT:
-			members.append({
-				"offset": Vector3(
-					_rng.randf_range(-2.5, 2.5),
-					_rng.randf_range(-1.0, 1.0),
-					_rng.randf_range(-2.0, 2.0)),
-				"phase": _rng.randf() * TAU,
-				"scale": _rng.randf_range(0.65, 1.4),
-			})
-		_fish.append({
-			"mmi": mmi,
-			"center": Vector3(float(center_arr[0]), float(center_arr[1]), float(center_arr[2])),
-			"phase": float(spec.get("phase", 0.0)),
-			"members": members,
-		})
-
-
-## 一条小鱼：椭球身体 + 三角尾鳍，颜色随鱼群。
-func _fish_mesh(color: Color) -> ArrayMesh:
-	var st := SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-
-	var body := SphereMesh.new()
-	body.radius = 0.5
-	body.height = 1.0
-	body.radial_segments = 9
-	body.rings = 6
-	st.append_from(body, 0, Transform3D(Basis().scaled(Vector3(0.56, 0.26, 0.18)), Vector3.ZERO))
-
-	var tail := PrismMesh.new()
-	tail.size = Vector3(0.32, 0.36, 0.06)
-	var tail_basis := Basis(Vector3(0, 0, 1), PI * 0.5)
-	st.append_from(tail, 0, Transform3D(tail_basis.scaled(Vector3(0.7, 1.0, 1.0)),
-		Vector3(-0.33, 0, 0)))
-
-	var linear := color.srgb_to_linear()
-	var mat := MaterialLib.from_color(color, {
-		"emissive": [linear.r, linear.g, linear.b],
-		"emissive_strength": 0.35 if color in [Color("#ffc55c"), Color("#f19c4a")] else 0.0,
-	})
-	st.set_material(mat)
-	return st.commit()
+		var spec: Dictionary=specs[i]
+		var school=scene.instantiate()
+		school.name="FishSchool%d" % i;school.instance_id="dive/fish/%02d" % i
+		school.autonomous=false;school.orbit_radius=Vector2(6,3);school.spread_radius=6.2
+		school.seed_value=71+i
+		# 配色按网页版 underwater-art.js 轮换；材质由水下材质库注入，保留深度雾与头灯。
+		school.palette="dive";school.palette_index=i
+		school.phase=float(spec.get("phase",0))
+		var center: Array=spec.get("center",[0,-13,0])
+		school.position=Vector3(center[0],center[1],center[2]);add_child(school)
+		school.apply_underwater_materials(MaterialLib)
+		_fish.append({"mmi":school,"component":school})
 
 
 func _build_bubbles() -> void:
@@ -268,21 +222,7 @@ func update(dt: float, t: float, diver: Vector3, cam: Camera3D) -> void:
 
 
 func _update_fish(t: float) -> void:
-	for school in _fish:
-		var mmi: MultiMeshInstance3D = school.mmi
-		var center: Vector3 = school.center
-		var phase: float = school.phase
-		var a: float = t * 0.13 + phase
-		var members: Array = school.members
-		for i in members.size():
-			var m: Dictionary = members[i]
-			var p: float = m.phase
-			var offset: Vector3 = m.offset
-			var pos: Vector3 = center + offset + Vector3(cos(a) * 6.0, sin(t * 0.7 + p) * 0.2, sin(a) * 3.0)
-			# 朝向取椭圆切线
-			var heading := atan2(-sin(a) * 6.0, cos(a) * 3.0)
-			var basis := Basis(Vector3.UP, heading).scaled(Vector3.ONE * float(m.scale))
-			mmi.multimesh.set_instance_transform(i, Transform3D(basis, pos))
+	for school in _fish: school.component.sample(t)
 
 
 func _update_bubbles(t: float) -> void:

@@ -1,5 +1,6 @@
 extends Node
 var far_sea_query: Callable
+var zone_enabled_query: Callable
 ## 区块注册表。
 ##
 ## 数值来源：网页版 zones.js（tools 里用脚本导出的 zones.json）。
@@ -27,7 +28,7 @@ func get_zone(id: String) -> Dictionary:
 
 
 func label(id: String) -> String:
-	return get_zone(id).get("name", id)
+	return "太阳房" if id == "zone1" else get_zone(id).get("name", id)
 
 
 func landing(zone_id: String, landing_id: String = "main") -> Dictionary:
@@ -46,6 +47,7 @@ func landings_of(zone_id: String) -> Array:
 
 
 func is_unlocked(zone_id: String) -> bool:
+	if zone_enabled_query.is_valid() and not zone_enabled_query.call(zone_id): return false
 	var zone := get_zone(zone_id)
 	if zone.is_empty():
 		return false

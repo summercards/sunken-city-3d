@@ -22,6 +22,7 @@ class_name WaterParamsAbsorption
 
 ## kind 取值同 `water_params.gd`：float / bool / color / color4 / vec3 / vec2 / node。
 const GROUPS := [
+ preload("res://src/rendering/night_water_params.gd").GROUP,
 	{
 		"name": "absorb",
 		"label": "吸收",

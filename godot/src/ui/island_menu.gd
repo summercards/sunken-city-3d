@@ -107,7 +107,7 @@ func show_menu(target := "pause") -> void:
 		get_tree().paused = true
 		active = true;visible = true;history.clear()
 		if hud: hud._toast_box.hide();hud._launch.hide();hud._world_actions.hide()
-		if hud and hud._panel_open: hud._panel.hide();hud._hints.hide();hud._backdrop.hide()
+		if hud and hud._panel_open: hud._panel.hide();hud.pockets.hide();hud.services.hide();hud._hints.hide();hud._backdrop.hide()
 		page = target
 		_render()
 		Cozy.reveal(_paper)
@@ -125,7 +125,7 @@ func close_menu() -> void:
 	if hud:
 		hud._launch.visible=not hud._panel_open and not external_open()
 		hud._world_actions.visible=hud._launch.visible
-	if hud and hud._panel_open: hud._panel.show();hud._hints.show();hud._backdrop.show()
+	if hud and hud._panel_open: hud._refresh_panel();hud._hints.show();hud._backdrop.show()
 	if is_instance_valid(_focus) and _focus.is_visible_in_tree(): _focus.grab_focus()
 
 func _close_popup(node: Node) -> bool:
@@ -138,6 +138,7 @@ func _close_popup(node: Node) -> bool:
 	return false
 
 func back() -> void:
+	if hud and hud.world_actions.is_open(): hud.world_actions.close();return
 	for presenter in presenters.values():
 		if presenter.visible and _close_popup(presenter): return
 	if active:
@@ -211,7 +212,7 @@ func _render() -> void:
 			button("return","返回",back)
 		"help":
 			_title.text="海上的生活指南";_subtitle.text="用鼠标慢慢探索，也可以试试这些按键。"
-			for line in ["点击目的地  ·  走过去或划船前往","靠近物件按住 E  ·  采集与操作","B / Tab  ·  打开或收起随身手册","Esc  ·  返回上层；世界中打开暂停菜单","左右键翻页 / 上下键选图标 / Enter 确认","右键拖拽 / 滚轮  ·  观察与缩放","潜水时 F 开关头灯；点击上浮回到海面","F5 保存 / F9 读取确认"]: _body.add_child(label(line,17))
+			for line in ["点击目的地  ·  走过去或划船前往","靠近物件按住 E  ·  采集与操作","B / Tab  ·  打开或收起随身手册","Esc  ·  返回上层；世界中打开暂停菜单","左右键翻页 / 上下键选图标 / Enter 确认","右键拖拽 / 滚轮  ·  观察与缩放","当前开放种植与捕鱼；出货箱每天 07:00 结算","F5 保存 / F9 读取确认"]: _body.add_child(label(line,17))
 			button("return","记住啦",back,Cozy.GOLD)
 	_place.call_deferred()
 	if not buttons.is_empty(): buttons.values()[0].grab_focus.call_deferred()

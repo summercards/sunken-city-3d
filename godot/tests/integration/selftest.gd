@@ -198,11 +198,10 @@ func _test_inventory() -> void:
 	var hud = main.hud
 	if not hud._panel_open:
 		hud._toggle_panel()
-	hud._tab = "storage"
-	hud._refresh_panel()
-	_ok("背包面板已打开", hud._panel.visible)
+	hud.open_tab("bag")
+	_ok("背包面板已打开", hud.pockets.visible and not hud._panel.visible)
 	var found_grid := false
-	for n in hud._tab_body.get_children():
+	for n in hud.pockets.get_children():
 		if n is GridContainer and n.name == "PocketSlots" and n.get_child_count() >= Economy.inventory.capacity():
 			found_grid = true
 	_ok("背包页有格子容器", found_grid)
@@ -478,8 +477,18 @@ func _test_scene_contract() -> void:
 	if we != null and we.environment != null:
 		_ok("Environment 来自资源文件", we.environment.resource_path != "",
 			we.environment.resource_path)
-		_ok("环境亮度是标定值", absf(we.environment.ambient_light_energy - 0.36) < 0.001,
-			"%.2f" % we.environment.ambient_light_energy)
+		# 环境亮度不再等同于资源里的静态值：日照装置（`daylight_rig.gd`）每帧把它写成
+		# `基准 × 当前时段系数`，所以直接对比 0.36 会在任何非 09:00 的时段失败。
+		# 这里分两步验：基准仍是标定的 0.36，且运行时值确实等于 基准 × 时段系数。
+		var rig = main.get("daylight_rig")
+		var ambient_base: float = float(rig.base_of("env", "ambient_light_energy")) if rig != null else -1.0
+		_ok("环境亮度基准是标定值 0.36", absf(ambient_base - 0.36) < 0.001,
+			"%.2f" % ambient_base)
+		var hour: float = float(main.world_clock.query().hour)
+		var factor: float = float(rig.phase(hour).get("ambient_energy", 1.0)) if rig != null else 1.0
+		_ok("环境亮度 = 基准 × 时段系数",
+			absf(we.environment.ambient_light_energy - ambient_base * factor) < 0.002,
+			"%.2f @%.1fh 系数%.2f" % [we.environment.ambient_light_energy, hour, factor])
 
 	# 水面材质同样要可编辑，且运行时只补动态参数。
 	var water: MeshInstance3D = main.get_node_or_null("World/Water")
@@ -1730,9 +1739,15 @@ func _test_water_click() -> void:
 
 	# 划船时桨要动（俯视镜头下这是「在划船」的主要视觉信号）
 	boat.sail_to_point(Vector3(-10.0, WATER_LEVEL, 26.0), main.plan_route_to(-10.0, 26.0))
+	# Turning in place has no forward stroke; first wait for actual forward motion.
+	for frame in 600:
+		boat._process(1.0/60.0)
+		if boat.rowing_state().y > 0.5: break
 	var a0: float = boat._oar_l.rotation.y
-	for i in 12:
+	var excursion := 0.0
+	# Observe a stroke, not two endpoints that can coincide at a different sailing speed.
+	for i in 60:
 		boat._process(1.0 / 60.0)
-	_ok("划船时桨在动", absf(boat._oar_l.rotation.y - a0) > 0.01,
-		"%.3f -> %.3f" % [a0, boat._oar_l.rotation.y])
+		excursion = maxf(excursion,absf(boat._oar_l.rotation.y-a0))
+	_ok("划船时桨在动",excursion>0.05,"stroke excursion %.3f" % excursion)
 	boat.place_at(Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2])), float(l.boatYaw))

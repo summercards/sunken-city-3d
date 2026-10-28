@@ -5,6 +5,7 @@ const INK := Cozy.INK
 const BLUE := Color("#4E9FC4")
 var kind := "fish"
 var pocket := false
+var managed_selection := false
 var empty_slot := false
 var caption := ""
 var tint := Cozy.SKY
@@ -30,7 +31,7 @@ func _ready() -> void:
 	for state in ["normal","hover","pressed","focus","disabled"]:
 		add_theme_stylebox_override(state, StyleBoxEmpty.new())
 	mouse_entered.connect(func(): _hover(1.06))
-	if pocket:
+	if pocket and not managed_selection:
 		mouse_entered.connect(func(): selected=true)
 		mouse_exited.connect(func(): selected=false)
 		focus_entered.connect(func(): selected=true)
@@ -101,15 +102,19 @@ func _draw() -> void:
 		draw_arc(Vector2(81.5,8),4,PI,TAU,12,INK,2,true)
 	elif amount > 0 and font:
 		var badge_size := 22 if pocket else 18
-		var txt := "×%d" % maxi(1,roundi(shown_amount))
+		var txt := ("%d" if pocket else "×%d") % maxi(1,roundi(shown_amount))
 		var w := font.get_string_size(txt,HORIZONTAL_ALIGNMENT_LEFT,-1,badge_size).x+12
-		_box(Rect2(98-w,66+amount_offset if pocket else 87+amount_offset,w,23),Color("#fff7e7"),11)
+		if not pocket: _box(Rect2(98-w,87+amount_offset,w,23),Color("#fff7e7"),11)
 		draw_string(font,Vector2(104-w,82+amount_offset if pocket else 103+amount_offset),txt,HORIZONTAL_ALIGNMENT_LEFT,-1,badge_size,INK)
 
 	if selected:
-		preload("res://src/ui/island_pointer.gd").paint(self,Vector2(66,59)*(size.x/96.0),0.55*(size.x/96.0))
+		preload("res://src/ui/island_pointer.gd").paint(self,Vector2(66,28 if pocket else 59)*(size.x/96.0),(0.85 if pocket else 0.55)*(size.x/96.0))
 
 func _draw_symbol(id: String, p: Vector2) -> void:
+	var art: Texture2D = preload("res://src/ui/illustrated_icons.gd").texture(id)
+	if art:
+		draw_texture_rect(art,Rect2(p-Vector2(36,36),Vector2(72,72)),false)
+		return
 	var cream := Cozy.CREAM
 	match id:
 		"wood":

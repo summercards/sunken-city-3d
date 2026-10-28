@@ -4,6 +4,9 @@
 
 [node name="plant_02_3l" type="Node3D"]
 script = ExtResource("1_plant")
+asset_id = "SEA-PLANT-COMMON-PLANT_02_3L"
+component_kind = "upgrade_attachment"
+subcategory = "plants"
 plant_id = "plant_02_3l"
 mesh_path = "res://assets/plants/common/plant_02_3l/mesh.bin"
 shared = true

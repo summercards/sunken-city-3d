@@ -10,7 +10,10 @@ var footprints := {}
 func _ready() -> void:
 	custom_minimum_size=Vector2(560,235)
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
-	for zone in zones.list: footprints[zone.id]=zones.footprint(zone.id)
+	for zone in zones.list:
+		if zones.zone_enabled_query.is_valid() and not zones.zone_enabled_query.call(str(zone.id)): continue
+		footprints[zone.id]=zones.footprint(zone.id)
+	if footprints.size()<=2: bounds=Rect2(-18,-12,55,48)
 	resized.connect(queue_redraw)
 
 func project(point: Vector2) -> Vector2:

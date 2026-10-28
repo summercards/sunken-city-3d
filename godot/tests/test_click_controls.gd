@@ -28,7 +28,11 @@ func run() -> void:
 	check(not main._walking and main._auto_target==null and not main.interactor.auto_hold and not main._after_walk.is_valid(),"取消同时清理移动和动作")
 	var economy: Node = root.get_node("Economy")
 	economy.inventory.clear()
-	check(not main._approach(cell) and not main._walking,"无种子立即反馈，不走空路")
+	main._open_spot_bubbles(cell)
+	check(not main.hud.world_actions.buttons[0].available and not main._walking,"无种子时播种气泡不可用，不走空路")
+	main.hud.world_actions.activate(0)
+	check(not main._walking,"点击不可用的播种只给轻提示")
+	main.hud.world_actions.close(true)
 	main.hud.open_tab("bag")
 	var press := InputEventMouseButton.new()
 	press.button_index = MOUSE_BUTTON_LEFT

@@ -18,7 +18,7 @@ const BASE := "res://assets/baked/"
 ## index.html, not hull parts. Keep the source bake intact; retire only these overlays.
 const LEGACY_FOAM_GEOMETRIES := [34, 35, 36, 37, 38, 39, 40]
 ## 巡航速度。网页版 `sailDuration = 曲线长度 / 3.6`，这里取同一量级。
-const SPEED := 3.4
+const SPEED := 2.6
 
 var model: Node3D
 var _mats: Array[ShaderMaterial] = []
@@ -35,7 +35,7 @@ const ACCEL := 2.2
 const BRAKE := 3.0
 ## 最大转向角速度（rad/s）。划桨船不是快艇：0.95 约等于「一秒转 55°」，
 ## 转弯半径 ~3.6m，配合降速才有「船在慢慢摆头」的感觉。
-const TURN_RATE := 0.95
+const TURN_RATE := 1.8
 var _yaw_from := 0.0
 var _yaw_to := 0.0
 ## 靠妥后还剩多少弧度要转正（按 TURN_RATE 慢慢拧）。
@@ -92,12 +92,57 @@ func build() -> void:
 		mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
 		model.add_child(mmi)
 	_build_oars()
+	# A short timber post lifts the lantern clear of the gunwale. The existing
+	# wall bracket fixes to its outside face; this fitting shares the boat motion.
+	var lamp_post := MeshInstance3D.new()
+	lamp_post.name = "NavigationLampPost"
+	var post_mesh := BoxMesh.new()
+	post_mesh.size = Vector3(0.10,1.20,0.10)
+	lamp_post.mesh = post_mesh
+	lamp_post.position = Vector3(-0.90,0.95,-1.35)
+	lamp_post.material_override = _flat(Color("#715334"))
+	model.add_child(lamp_post)
+	# Hang the reused lantern outside the port bow. Its wall bracket faces the
+	# gunwale, while the glass and real light face open water instead of the chest.
+	var lantern := preload("res://scenes/components/solar_cabin/lantern.tscn").instantiate()
+	lantern.name = "BowLantern"
+	# 复用组件也要有稳定实例 ID：场景装饰检查按 describe().instance_id 判唯一，
+	# 留空会直接判失败（`empty instance_id`），而且以后摆放/存档没有稳定键可用。
+	lantern.instance_id = "boat/furnishing/bow_lantern"
+	lantern.position = Vector3(-1.08,0.95,-1.35)
+	lantern.rotation.y = -PI*0.5
+	model.add_child(lantern)
+	# The opaque baked glass must not shadow the light inside its own housing.
+	for visual in lantern.find_children("*","MeshInstance3D",true,false):
+		visual.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		for surface in visual.mesh.get_surface_count():
+			var material: ShaderMaterial = visual.get_active_material(surface) as ShaderMaterial
+			var emission: Variant = material.get_shader_parameter("emission_value") if material != null else null
+			if emission != null and float(emission) > 0.0:
+				material=material.duplicate()
+				material.set_shader_parameter("emission_value",0.65)
+				visual.set_surface_override_material(surface,material)
+	var lamp := SpotLight3D.new()
+	lamp.name = "BoatLamp"
+	lamp.position = Vector3(-1.13,1.17,-1.35)
+	lamp.light_color = Color(1.0,0.65,0.28)
+	# The hooded beam clears the gunwale instead of overexposing the near plank.
+	lamp.basis = Basis.looking_at(Vector3(-0.55,-0.83,-0.08).normalized(),Vector3.UP)
+	lamp.light_energy = 8.0
+	lamp.spot_range = 9.0
+	lamp.spot_attenuation = 1.0
+	lamp.spot_angle = 60.0
+	lamp.spot_angle_attenuation = 0.7
+	lamp.light_specular = 0.35
+	lamp.shadow_enabled = true
+	lamp.add_to_group("boat_lamps")
+	model.add_child(lamp)
 
 
-func _make_material(tint: bool, unlit: bool, alpha: bool) -> ShaderMaterial:
-	var path := "res://shaders/unlit.gdshader"
-	if not unlit:
-		path = "res://shaders/toon.gdshader"
+func _make_material(tint: bool, _unlit: bool, alpha: bool) -> ShaderMaterial:
+	# Baked unlit flags belong to the old web presentation. All boat surfaces,
+	# including the net and trim, receive the same real lights as the house.
+	var path := "res://shaders/toon.gdshader"
 	if alpha:
 		path = path.replace(".gdshader", "_alpha.gdshader")
 	var mat := ShaderMaterial.new()
@@ -105,9 +150,8 @@ func _make_material(tint: bool, unlit: bool, alpha: bool) -> ShaderMaterial:
 	mat.set_shader_parameter("use_texture", false)
 	mat.set_shader_parameter("depth_tint", tint)
 	mat.set_shader_parameter("water_level", WATER_LEVEL)
-	if not unlit:
-		mat.set_shader_parameter("albedo_tint", Vector3(1.12, 1.38, 2.35))
-		mat.set_shader_parameter("ambient_boost", 0.34)
+	mat.set_shader_parameter("albedo_tint", Vector3.ONE)
+	mat.set_shader_parameter("ambient_boost", 0.0)
 	_mats.append(mat)
 	return mat
 

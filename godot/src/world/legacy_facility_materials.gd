@@ -1,5 +1,5 @@
 @tool
-extends Node3D
+extends "res://src/ambient/scene_component.gd"
 func _ready() -> void:
  var bindings: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://assets/models/facilities/legacy_home/material_bindings.json"))
  apply(self,bindings)

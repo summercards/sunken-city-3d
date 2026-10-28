@@ -1,8 +1,9 @@
 extends RefCounted
+const Schedule = preload("res://src/time/day_schedule.gd")
 signal changed(snapshot: Dictionary)
 signal day_changed(day: int)
 var day := 1
-var seconds := 28800.0
+var seconds := Schedule.MORNING_SECONDS
 var day_length := 1200.0
 var paused := false
 
@@ -20,8 +21,17 @@ func tick(delta: float) -> void:
 	changed.emit(query())
 
 func rest_to_morning() -> void:
-	day += 1
-	seconds = 28800.0
+	# After midnight, the next morning belongs to the current calendar day.
+	if seconds >= Schedule.MORNING_SECONDS: day += 1
+	seconds = Schedule.MORNING_SECONDS
+	day_changed.emit(day)
+	changed.emit(query())
+
+func wake_to_morning() -> void:
+	# Midnight-to-dawn saves wake on the same calendar day; all other sleep advances one day.
+	var wake_seconds := Schedule.WAKE_HOUR*3600.0
+	if seconds >= wake_seconds: day += 1
+	seconds = wake_seconds
 	day_changed.emit(day)
 	changed.emit(query())
 
@@ -32,6 +42,6 @@ func query() -> Dictionary:
 func to_dict() -> Dictionary: return {"day":day,"seconds":seconds,"day_length":day_length}
 func from_dict(data: Dictionary) -> void:
 	day = int(data.get("day",1))
-	seconds = float(data.get("seconds",28800.0))
+	seconds = float(data.get("seconds",Schedule.MORNING_SECONDS))
 	day_length = float(data.get("day_length",1200.0))
 	changed.emit(query())

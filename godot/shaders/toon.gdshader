@@ -24,7 +24,7 @@ void fragment() {
 	SPECULAR = 0.04;
 	ROUGHNESS = 0.96;
 	METALLIC = 0.0;
-	EMISSION += emit;
+	EMISSION += emit * world_daylight;
 }
 
 void light() {
@@ -38,5 +38,8 @@ void light() {
 	float low_floor = mix(0.26, 0.60, sub);
 	float soft_band = mix(low_floor, 0.96, smoothstep(0.14, 0.78, lit_factor));
 	vec3 shadow_tint = mix(vec3(0.68, 0.86, 0.94), vec3(1.0, 0.99, 0.96), smoothstep(0.18, 0.72, lit_factor));
-	DIFFUSE_LIGHT += soft_band * shadow_tint * LIGHT_COLOR / PI;
+	// Keep the authored directional shadow floor, but local lamps must go dark
+	// beyond their range and behind occluders, including the low toon band.
+	float local_atten = LIGHT_IS_DIRECTIONAL ? 1.0 : ATTENUATION;
+	DIFFUSE_LIGHT += soft_band * shadow_tint * LIGHT_COLOR * local_atten / PI;
 }

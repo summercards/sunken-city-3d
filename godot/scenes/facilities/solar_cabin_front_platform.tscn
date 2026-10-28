@@ -3,5 +3,6 @@
 [node name="太阳能木屋-前方可行动平台-酒红" type="Node3D"]
 script = ExtResource("1")
 module_key = "front_platform"
+excluded_components = PackedStringArray("cooler")
 metadata/module = "front_platform"
 metadata/deck_height = 2.15

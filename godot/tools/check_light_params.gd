@@ -14,9 +14,15 @@ extends SceneTree
 ## 退出码：0 全对，1 有差异。
 
 const Params = preload("res://src/rendering/light_params.gd")
+const Slots = preload("res://src/rendering/daylight_slots.gd")
 const PanelScript = preload("res://src/rendering/color_grade_panel.gd")
+## 天气 id 表分散在三处：`weather_service.KINDS`（规则）、`daylight_slots.gd`
+## 的 `WEATHER_ORDER`（偏移分组）、面板按钮（显示）。三份一 drift，面板就会
+## 存出一段谁也读不到的偏移 —— 静默失败，只能靠这条断言盯着。
+const WeatherService = preload("res://src/weather/weather_service.gd")
 
 const ENV_PATH := "res://assets/materials/world_env.tres"
+const SKY_PATH := "res://assets/materials/ocean_sky.tres"
 const SCENE_PATH := "res://scenes/main.tscn"
 
 const KINDS := ["float", "bool", "color"]
@@ -40,20 +46,56 @@ func check(ok: bool, text: String) -> void:
 
 func run() -> void:
 	var spec := Params.flat()
+
+	# ---- 0. 时段表 ↔ 预设表 --------------------------------------------------
+	# 改了 `daylight_presets.gd` 的 label 却没同步 `daylight_slots.gd`，
+	# 面板会把某一段的偏移写到相邻段上去 —— 这种错一声不响，只能静态查。
+	for p in Slots.verify():
+		check(false, p)
+	# 每段都要能算出一个代表时刻，否则切过去预览的是 0:00。
+	for id in Slots.slot_ids():
+		var h: float = Slots.slot_hour(id)
+		check(Slots.slot_at(h) == id, "时段「%s」的代表时刻 %.1f 反查不回自己" % [Slots.slot_label(id), h])
+	# 存档段名必须能原样解回来，改天手改 cfg 也不能把面板读哑。
+	var sec := Slots.section_of("spring", "clear", "morning")
+	var back := Slots.split_section(sec)
+	check(String(back.get("season", "")) == "spring" and String(back.get("slot", "")) == "morning",
+		"存档段名「%s」解不回来" % sec)
+
+	# ---- 0b. 天气 id ↔ WeatherService --------------------------------------
+	var weather_service = WeatherService.new()
+	var slots_weather: Array = Slots.WEATHER_ORDER
+	var service_weather: Array = weather_service.KINDS
+	check(slots_weather == service_weather,
+		"偏移分组的天气表 %s 与 weather_service.KINDS %s 不一致：面板会存出读不到的偏移" % [
+			str(slots_weather), str(service_weather)])
+	for id in Slots.WEATHER_ORDER:
+		var want := String(weather_service.LABELS.get(id, ""))
+		check(String(Slots.WEATHER_LABELS.get(id, "")) == want,
+			"天气「%s」的面板名与 weather_service.LABELS 不一致（%s / %s）" % [
+				id, String(Slots.WEATHER_LABELS.get(id, "")), want])
+
 	var env: Environment = load(ENV_PATH)
 	if env == null:
 		check(false, "读不到 " + ENV_PATH)
 		env = Environment.new()
 	var sun := _scene_sun_values()
+	var sky := _scene_sky_values()
+	# 天空盒要一个 ProceduralSkyMaterial 实例来查属性表。它是 **RefCounted**，
+	# 不用也不能 `free()` —— 出作用域自己回收。太阳那个 `DirectionalLight3D`
+	# 是 Node，才必须手工 free，否则退出时会打 RID 泄漏。
+	var probe_sky := ProceduralSkyMaterial.new()
 
 	var seen := {}
 	for g in Params.GROUPS:
 		var group_id := String(g.id)
-		check(group_id == Params.section_of(Params.TARGET_ENV) or group_id == Params.section_of(Params.TARGET_SUN),
-			"分组 %s 不是合法的存档段名（必须是 environment / sun）" % group_id)
+		check(group_id == Params.section_of(Params.TARGET_ENV)
+			or group_id == Params.section_of(Params.TARGET_SUN)
+			or group_id == Params.section_of(Params.TARGET_SKY),
+			"分组 %s 不是合法的存档段名（必须是 environment / sun / sky）" % group_id)
 		check(not String(g.get("label", "")).is_empty(), "分组 %s 没有中文名" % group_id)
 		for row in g.rows:
-			_check_row(row, env, sun, seen)
+			_check_row(row, env, sun, sky, probe_sky, seen)
 
 	# 控件覆盖：清单里有、面板上没有 = 玩家永远调不到。
 	var panel = PanelScript.new()
@@ -73,8 +115,9 @@ func run() -> void:
 	await process_frame
 
 	if failures == 0:
-		print("[lighting-params] PASS %d 个参数（环境 %d + 太阳 %d）" % [
-			spec.size(), _count(Params.TARGET_ENV), _count(Params.TARGET_SUN)])
+		print("[lighting-params] PASS %d 个参数（环境 %d + 太阳 %d + 天空 %d）" % [
+			spec.size(), _count(Params.TARGET_ENV), _count(Params.TARGET_SUN),
+			_count(Params.TARGET_SKY)])
 	else:
 		for p in problems:
 			print("[lighting-params] FAIL ", p)
@@ -91,7 +134,8 @@ func _count(target: String) -> int:
 	return n
 
 
-func _check_row(row: Dictionary, env: Environment, sun: Dictionary, seen: Dictionary) -> void:
+func _check_row(row: Dictionary, env: Environment, sun: Dictionary, sky: Dictionary,
+		probe_sky: ProceduralSkyMaterial, seen: Dictionary) -> void:
 	var key := String(row.key)
 	var label := String(row.label)
 	var target := String(row.target)
@@ -102,7 +146,7 @@ func _check_row(row: Dictionary, env: Environment, sun: Dictionary, seen: Dictio
 	seen[key] = true
 	check(not label.is_empty(), "%s 没有中文名" % key)
 	check(KINDS.has(kind), "%s 的 kind「%s」不认识" % [key, kind])
-	check(target == Params.TARGET_ENV or target == Params.TARGET_SUN,
+	check(target == Params.TARGET_ENV or target == Params.TARGET_SUN or target == Params.TARGET_SKY,
 		"%s 的 target「%s」不认识" % [key, target])
 
 	# ---- 1. 属性存在 --------------------------------------------------------
@@ -111,7 +155,11 @@ func _check_row(row: Dictionary, env: Environment, sun: Dictionary, seen: Dictio
 	var probe_light: DirectionalLight3D = null
 	if target == Params.TARGET_SUN:
 		probe_light = DirectionalLight3D.new()
-	var obj: Object = env if target == Params.TARGET_ENV else probe_light
+	var obj: Object = env
+	if target == Params.TARGET_SUN:
+		obj = probe_light
+	elif target == Params.TARGET_SKY:
+		obj = probe_sky
 	if prop.begins_with("dir:"):
 		check(prop == "dir:elevation" or prop == "dir:azimuth",
 			"%s 的虚拟轴「%s」不认识" % [key, prop])
@@ -135,14 +183,38 @@ func _check_row(row: Dictionary, env: Environment, sun: Dictionary, seen: Dictio
 	var value: Variant = null
 	if target == Params.TARGET_ENV:
 		value = env.get_indexed(NodePath(prop))
+	elif target == Params.TARGET_SKY:
+		value = sky.get(prop)
 	else:
 		value = sun.get(prop)
 	if value == null:
-		check(false, "%s 在出厂值里找不到（%s）" % [key, ENV_PATH if target == Params.TARGET_ENV else "main.tscn Sun 节点"])
+		var where := ENV_PATH if target == Params.TARGET_ENV else (
+			SKY_PATH if target == Params.TARGET_SKY else "main.tscn Sun 节点")
+		check(false, "%s 在出厂值里找不到（%s）" % [key, where])
 		return
 	var v := float(value)
 	check(v >= lo and v <= hi, "%s 的出厂值 %.3f 不在 [%.2f, %.2f] 里，滑块会贴在端点" % [key, v, lo, hi])
 	check(float(row.step) > 0.0, "%s 的 step 必须大于 0" % key)
+
+
+## 天空盒的出厂值直接从 `ocean_sky.tres` 读。
+## 用 `load` 而不是文本解析：这份资源的属性名就是引擎属性名，实例化读出来
+## 和运行期拿到的完全一致，不会因为手改缩进或类型写错而读偏。
+func _scene_sky_values() -> Dictionary:
+	var out := {}
+	var sky_res: Sky = load(SKY_PATH)
+	if sky_res == null:
+		return out
+	var material := sky_res.sky_material
+	if not (material is ProceduralSkyMaterial):
+		return out
+	var mat := material as ProceduralSkyMaterial
+	for row in Params.GROUPS:
+		if String(row.id) != Params.section_of(Params.TARGET_SKY):
+			continue
+		for r in row.rows:
+			out[String(r.prop)] = mat.get(String(r.prop))
+	return out
 
 
 func _has_property(obj: Object, prop: String) -> bool:

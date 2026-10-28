@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/platform_board_coral/platform_board_coral.glb" id="visual"]
 [node name="前方平台-酒红横向整板-coral" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-PLATFORM-BOARD-CORAL"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-PLATFORM-BOARD-CORAL"
 [node name="Visual" parent="." instance=ExtResource("visual")]

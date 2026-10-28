@@ -165,7 +165,7 @@ func fulfill(uid: String) -> Dictionary:
 func reroll() -> Dictionary:
 	var cost := reroll_cost()
 	if ports.inventory.count("coins") < cost:
-		return {"ok": false, "reason": "换一批要 %d 海贝" % cost}
+		return {"ok": false, "reason": "换一批要 %d 瓶盖" % cost}
 	ports.inventory.remove("coins", cost)
 	for i in slots.size():
 		slots[i] = _roll()

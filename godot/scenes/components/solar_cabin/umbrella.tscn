@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/umbrella/umbrella.glb" id="visual"]
 [node name="黄白圆瓣遮阳伞" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-UMBRELLA"
+component_kind = "furnishing"
+subcategory = "movable"
+movable = true
 metadata/asset_id = "SEA-SCENE-SBR-UMBRELLA"
 [node name="Visual" parent="." instance=ExtResource("visual")]

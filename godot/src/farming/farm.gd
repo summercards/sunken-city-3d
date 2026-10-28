@@ -124,7 +124,9 @@ func blocked_reason(plot_id: String) -> String:
 			if ports.inventory.count(str(c.seed)) < 1: return "缺少" + crop_name(selected_crop) + "种子，可在种植页购买"
 		"growing":
 			if not is_dry(plot_id): return "今天已浇水，休息后生长"
-			if watering_can <= 0: return "水壶空了，在种植页补水"
+			# 水壶空了不算拒绝：界面会把这一格换成「补水并浇水」，
+			# 这里若返回拦截，角色连走过去都不肯，按钮就永远按不动。
+			if watering_can <= 0: return ""
 		"ready": return _inventory_full(yield_of(crop_of(plot_id)))
 	return ""
 
@@ -158,7 +160,9 @@ func water(plot_id: String) -> Dictionary:
 	if reason != "": return {"blocked":reason}
 	if phase(plot_id) != "growing": return {"blocked":"这格不需要浇水"}
 	if not is_dry(plot_id): return {"blocked":"今天已经浇过，不会重复消耗水"}
-	if watering_can <= 0: return {"blocked":"水壶空了，在种植页补水"}
+	# 水壶见底不是死路：`hint` 让界面把这一格换成「补水并浇水」，
+	# 否则三颗气泡全灰，玩家站在一格缺水作物前什么都做不了。
+	if watering_can <= 0: return {"blocked":"水壶空了，先补水","hint":"refill"}
 	watering_can -= 1
 	_state(plot_id).water = 1.0
 	watered.emit(plot_id)
@@ -192,10 +196,11 @@ func harvest(plot_id: String) -> Dictionary:
 func tick(_delta: float) -> void:
 	pass
 
-func advance_day() -> Dictionary:
+func advance_day(accessible_only := false) -> Dictionary:
 	var grew := 0
 	var ready := 0
 	for id in states.keys():
+		if accessible_only and str(ports.access_reason.call(spec(id))) != "": continue
 		var st: Dictionary = states[id]
 		if phase(id) == "growing" and float(st.water) > 0:
 			st.remaining = maxf(0.0,float(st.remaining)-1.0)
@@ -219,7 +224,7 @@ func buy_seed(crop_id: String) -> Dictionary:
 	if c.is_empty(): return {"blocked":"没有这种种子"}
 	var price := int(c.seed_price)
 	if not ports.inventory.can_add(str(c.seed),1): return {"blocked":"背包已满，无法购买"}
-	if not ports.pay.call({"coins":price}): return {"blocked":"海贝不足"}
+	if not ports.pay.call({"coins":price}): return {"blocked":"瓶盖不足"}
 	ports.give.call({str(c.seed):1})
 	return {"message":"买到 1 包"+crop_name(crop_id)+"种子"}
 
@@ -243,7 +248,7 @@ func sell_produce() -> Dictionary:
 	if income == 0: return {"blocked":"没有可出售的农产品"}
 	ports.pay.call(sold)
 	ports.give.call({"coins":income})
-	return {"message":"出售农产品 · 海贝 +%d" % income,"income":income}
+	return {"message":"出售农产品 · 瓶盖 +%d" % income,"income":income}
 
 func _inventory_full(reward: Dictionary) -> String:
 	# 使用整笔奖励的背包副本试装，避免多个产物各自检查通过却合起来放不下。
@@ -274,9 +279,45 @@ func from_dict(data: Dictionary) -> void:
 			total = float(grow_days(crop_id))
 			remaining = ceil(ratio*total)
 		states[str(id)] = {"crop":crop_id,"total":maxf(total,1.0),"remaining":clampf(remaining,0.0,maxf(total,1.0)),"water":1.0 if float(st.get("water",0))>0 else 0.0,"harvests":clampi(int(st.get("harvests",0)),0,int(crops[crop_id].get("harvests",1))-1)}
+	_absorb_removed_cells(saved, int(data.get("version",1)))
 	selected_crop = str(data.get("selected_crop","lettuce"))
 	if not crops.has(selected_crop): selected_crop = "lettuce"
 	plots_changed.emit()
+
+## 2026-10-28：太阳房菜箱由 6 格并为 1 格。
+##
+## 旧档里 `home_plot:1..5` 可能还有正在长的作物，直接丢弃等于没收玩家的收成。
+## 这里把「最接近成熟」的那一格搬进保留下来的 `home_plot`（仅当它是空地），
+## 其余被删格的状态随本次读档一起丢弃；种子不退还，因为作物本身已经搬过去了。
+## 只处理同一基座被删掉的兄弟格，不影响其它区块。
+func _absorb_removed_cells(saved: Dictionary, version: int) -> void:
+	for base in states.keys():
+		var base_state: Dictionary = states[base]
+		if str(base_state.crop) != "": continue
+		var best: Dictionary = {}
+		var best_remaining := INF
+		for id in saved.keys():
+			var key := str(id)
+			if not key.begins_with(str(base) + ":"): continue
+			if states.has(key): continue
+			var st: Dictionary = saved[id]
+			var crop_id := str(st.get("crop",""))
+			if not crops.has(crop_id): continue
+			var total := float(st.get("total",1.0))
+			var remaining := float(st.get("remaining",total))
+			if version < 2:
+				var ratio := clampf(remaining / maxf(total,1.0),0.0,1.0)
+				total = float(grow_days(crop_id))
+				remaining = ceil(ratio*total)
+			if remaining < best_remaining:
+				best_remaining = remaining
+				best = {"crop":crop_id,"total":maxf(total,1.0),
+					"remaining":clampf(remaining,0.0,maxf(total,1.0)),
+					"water":1.0 if float(st.get("water",0))>0 else 0.0,
+					"harvests":clampi(int(st.get("harvests",0)),0,int(crops[crop_id].get("harvests",1))-1)}
+		if not best.is_empty():
+			states[base] = best
+			print("[farm-migration] %s 收纳了被删除子格的作物 %s（剩 %d 天）" % [base, str(best.crop), int(best.remaining)])
 
 func clear_plot_specs() -> void:
 	specs.clear()
@@ -287,3 +328,7 @@ func register_plot(row: Dictionary) -> void:
 
 func access_reason(id: String) -> String:
 	return _access_reason(id)
+
+func sync_calendar_day(value: int) -> void:
+	day = maxi(1,value)
+	plots_changed.emit()

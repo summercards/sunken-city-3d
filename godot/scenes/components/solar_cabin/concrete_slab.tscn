@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/concrete_slab/concrete_slab.glb" id="visual"]
 [node name="后部建筑-暖木整板地坪" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-CONCRETE-SLAB"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-CONCRETE-SLAB"
 [node name="Visual" parent="." instance=ExtResource("visual")]

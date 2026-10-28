@@ -4,10 +4,12 @@
 
 [node name="plant_41_5l" type="Node3D"]
 script = ExtResource("1_plant")
+asset_id = "SEA-PLANT-ZONES-ZONE1_HOME_HARBOR-PLANT_41_5L"
+component_kind = "upgrade_attachment"
+subcategory = "plants"
 plant_id = "plant_41_5l"
 mesh_path = "res://assets/plants/zones/zone1_home_harbor/plant_41_5l/mesh.bin"
 shared = false
-effect = "petals"
 sway_amplitude = 0.0280
 wind_strength = 0.90
 

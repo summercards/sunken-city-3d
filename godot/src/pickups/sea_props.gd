@@ -1,6 +1,11 @@
 extends Node3D
 class_name SeaProps
 var give_resource: Callable
+var can_receive: Callable
+var spawn_area := Rect2()
+var crate_count := 9
+var school_count := 7
+signal blocked(reason: String)
 var zones: Node
 ## 海面可交互物件：漂流物资 + 鱼群（对齐网页版 drift-crates.js / fish-schools.js）。
 ##
@@ -45,9 +50,9 @@ func build() -> void:
 	_rng.seed = 20261019
 	_fish_rng.seed = 20261023
 	_fish_bounds = _school_bounds()
-	for i in 9:
+	for i in crate_count:
 		_spawn_crate()
-	for i in 7:
+	for i in school_count:
 		_spawn_school()
 
 
@@ -171,6 +176,7 @@ func _spawn_school() -> void:
 	_next_id += 1
 
 func _school_bounds() -> Rect2:
+	if spawn_area.has_area(): return spawn_area
 	var lo := Vector2(INF, INF)
 	var hi := Vector2(-INF, -INF)
 	for zone in zones.list:
@@ -317,6 +323,9 @@ func collect_crate(crate: Dictionary) -> Dictionary:
 
 func collect_fish(school: Dictionary) -> bool:
 	if not schools.has(school): return false
+	if can_receive.is_valid() and not can_receive.call("fish",1):
+		blocked.emit("背包已满，先把物品存入仓库")
+		return false
 	var root: Node3D = school.root
 	schools.erase(school)
 	root.queue_free()
@@ -344,7 +353,9 @@ func pick(screen_pos: Vector2, cam: Camera3D, radius := 26.0) -> Dictionary:
 		var root: Node3D = s.root
 		if cam.is_position_behind(root.global_position):
 			continue
-		var sp2: Vector2 = cam.unproject_position(root.global_position + Vector3.UP * 0.3)
+		# 鱼群整条沉在浪面之下（fish_school_visual.SUBMERGE + 半高 ≈ 0.5 m），
+		# 点击锚点跟着挪到鱼身上；仍按水面位置取锚点会偏出小半米。
+		var sp2: Vector2 = cam.unproject_position(root.global_position - Vector3.UP * 0.45)
 		var d2: float = sp2.distance_to(screen_pos)
 		if d2 < best_d:
 			best_d = d2
@@ -408,3 +419,18 @@ func from_dict(data: Dictionary) -> void:
 	_pending.assign(data.get("pending",[]));_pending_fish.assign(data.get("pending_fish",[]))
 	_rng.state=int(data.rng);_fish_rng.state=int(data.fish_rng)
 	_next_id=int(data.next_id);_anchor_index=int(data.anchor);_t=float(data.elapsed)
+	apply_population_scope()
+
+func apply_population_scope() -> void:
+	if not spawn_area.has_area(): return
+	if crate_count == 0:
+		for c in crates: c.root.queue_free()
+		crates.clear()
+		_pending.clear()
+	var relocated := 0
+	for c in schools.duplicate():
+		if not _school_water(Vector2(c.base.x,c.base.z)):
+			c.root.queue_free()
+			schools.erase(c)
+			relocated += 1
+	for i in mini(relocated,maxi(0,school_count-schools.size()-_pending_fish.size())): _spawn_school()

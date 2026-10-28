@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/mat/mat.glb" id="visual"]
 [node name="太阳纹薄荷地垫" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-MAT"
+component_kind = "furnishing"
+subcategory = "movable"
+movable = true
 metadata/asset_id = "SEA-SCENE-SBR-MAT"
 [node name="Visual" parent="." instance=ExtResource("visual")]

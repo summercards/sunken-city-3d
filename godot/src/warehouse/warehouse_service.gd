@@ -71,3 +71,17 @@ func withdraw_material(id: String) -> Dictionary:
 
 func to_dict() -> Dictionary: return warehouse.to_dict()
 func from_dict(data: Dictionary) -> void: warehouse.from_dict(data)
+
+## General storage is separate from the shipping box; it never sells itself.
+func deposit(id: String, amount: int) -> Dictionary:
+	if not facility_unlocked("warehouse"): return {"blocked":"仓库尚未开放"}
+	if ItemDBLib.is_currency(id): return {"blocked":"瓶盖不需要入库"}
+	var result := preload("res://src/inventory/inventory_transfer.gd").move(inventory,warehouse,id,amount)
+	resources_changed.emit()
+	return result
+
+func withdraw(id: String, amount: int) -> Dictionary:
+	if not facility_unlocked("warehouse"): return {"blocked":"仓库尚未开放"}
+	var result := preload("res://src/inventory/inventory_transfer.gd").move(warehouse,inventory,id,amount)
+	resources_changed.emit()
+	return result

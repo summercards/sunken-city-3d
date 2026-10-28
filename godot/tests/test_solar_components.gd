@@ -32,7 +32,7 @@ func run() -> void:
 			for i in n.mesh.get_surface_count():
 				var m: Material=n.get_surface_override_material(i)
 				check(m is ShaderMaterial,"standalone palette shader "+key)
-				if m is ShaderMaterial:check(m.get_shader_parameter("palette").resource_path=="res://assets/textures/shared/sea_cabin_muted_8x8_512.png","standalone shared palette "+key)
+				if m is ShaderMaterial:check(m.get_shader_parameter("palette").resource_path=="res://assets/textures/shared/sea_cabin_timber_8x8_512.png","standalone shared palette "+key)
 		check(mesh_count>0,"non-empty component "+key);ob.queue_free()
 	await process_frame
 	print("[solar-components] components=",keys.size()," checks=",checks," failures=",failures)

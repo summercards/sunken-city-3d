@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/vine/vine.glb" id="visual"]
 [node name="vine" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-VINE"
+component_kind = "upgrade_attachment"
+subcategory = "plants"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-VINE"
 [node name="Visual" parent="." instance=ExtResource("visual")]

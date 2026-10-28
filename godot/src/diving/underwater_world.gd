@@ -738,7 +738,7 @@ func _material_name(key: String) -> String:
 		"wood": return "木料"
 		"parts": return "旧零件"
 		"pearl": return "珍珠"
-		"coins": return "海贝"
+		"coins": return "瓶盖"
 		"fish": return "鱼"
 		_: return key
 

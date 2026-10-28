@@ -26,6 +26,9 @@ var active := false
 var auto_hold := false
 ## 点击选择的地格优先，避免相邻六格被最近距离抢走。
 var preferred_target: Node3D
+## One selected command, consumed at the normal hold completion boundary.
+var command_target: Node3D
+var selected_command: Callable
 var target: Node3D = null
 var hold := 0.0
 var last_blocked := ""
@@ -115,7 +118,12 @@ func update(delta: float, holding: bool) -> void:
 	hold = 0.0
 	_holding_last = false
 	progress_changed.emit(0.0)
-	var reward: Dictionary = target.interact(self)
+	var reward: Dictionary
+	if target == command_target and selected_command.is_valid():
+		var command := selected_command
+		selected_command=Callable();command_target=null
+		reward = command.call()
+	else: reward = target.interact(self)
 	if reward.has("blocked"):
 		last_blocked = str(reward.blocked)
 		_blocked_cooldown = 0.6
@@ -186,7 +194,11 @@ func debug_focus(spot: Node3D) -> void:
 	target_changed.emit(target)
 
 func cancel() -> void:
+	selected_command=Callable();command_target=null
 	auto_hold=false
 	preferred_target=null
 	_holding_last=false
 	_release()
+
+func queue_command(spot: Node3D, command: Callable) -> void:
+	command_target=spot;selected_command=command

@@ -1,0 +1,3003 @@
+{
+  "source": "art_source/scenes/sunny_bloom_retreat/v008/sunny_bloom_retreat.blend",
+  "source_sha256": "db7208f814cfde6caaff6e6b168ed97bb86e08501a941d659a483b0a82e52d2b",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v008/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "55c9788ddef159c3b8aad8494ba01d8b7c791cb506dc756adea3a1c0b6abc19c",
+  "palette_source": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "protected_legacy": {
+    "art_source/scenes/runtime_building_reference/v003/playable/solar_cabin/solar_cabin_harbor_surroundings/solar_cabin_harbor_surroundings_v0.3.blend": "13ec31f1ef84107c2007563fd0f473fbc96024af0d87fad96d21ab1999ba758c",
+    "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_front_deck/solar_cabin_front_deck_v0.2.blend": "c73e9405070348d36ce8d000e6cf742cca9765fcd71f99b815c4d0778d0a6ee3",
+    "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_rear_tower/solar_cabin_rear_tower_v0.2.blend": "77ccff68dcaadbf1686d4ad72cc79e2557e2284dcbc3fa6ba625b2a32efad39c",
+    "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_core/solar_cabin_core_v0.2.blend": "398275c9dcfb5275a074a11d397f47a9af120e92abb661ec179dc940f4b5c00e",
+    "art_source/scenes/runtime_building_reference/v003/facilities/salvage_station/salvage_station_v0.3.blend": "5470f2b7873356440eeaa3a41f07b9003455243851a903076366770370ea7d80"
+  },
+  "components": [
+    {
+      "key": "ac_box",
+      "asset_id": "SEA-SCENE-SBR-AC-BOX",
+      "name": "小立式空调",
+      "category": "fixture",
+      "collection": "EXPORT_ac_box",
+      "bounds": {
+        "min": [
+          -0.3799999952316284,
+          -0.2877500057220459,
+          0.0
+        ],
+        "max": [
+          0.3799999952316284,
+          0.2877500057220459,
+          0.9120000004768372
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1260,
+          "triangles_after": 1100,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 80,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/ac_box/ac_box.glb",
+      "glb_sha256": "8c84919a86160150a0c9eb22c4249be67e453d0101a931f1fe332f0a12f81351",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1100,
+      "prefab": "godot/scenes/components/solar_cabin/ac_box.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1260,
+      "triangles_after": 1100
+    },
+    {
+      "key": "ac_roof",
+      "asset_id": "SEA-SCENE-SBR-AC-ROOF",
+      "name": "屋顶卧式空调",
+      "category": "fixture",
+      "collection": "EXPORT_ac_roof",
+      "bounds": {
+        "min": [
+          -0.5,
+          -0.39775002002716064,
+          0.0
+        ],
+        "max": [
+          0.5,
+          0.39775002002716064,
+          0.6420000195503235
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1260,
+          "triangles_after": 1100,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 80,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/ac_roof/ac_roof.glb",
+      "glb_sha256": "86352eac7758155dd962e97c28c27f5b0cad8411bcfab1e4b698d57002d65e87",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1100,
+      "prefab": "godot/scenes/components/solar_cabin/ac_roof.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1260,
+      "triangles_after": 1100
+    },
+    {
+      "key": "ac_tall",
+      "asset_id": "SEA-SCENE-SBR-AC-TALL",
+      "name": "侧墙高设备箱",
+      "category": "fixture",
+      "collection": "EXPORT_ac_tall",
+      "bounds": {
+        "min": [
+          -0.46000000834465027,
+          -0.29250001907348633,
+          0.0
+        ],
+        "max": [
+          0.46000000834465027,
+          0.29250001907348633,
+          1.3420000076293945
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1128,
+          "triangles_after": 1032,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 48,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/ac_tall/ac_tall.glb",
+      "glb_sha256": "9b1b4257072b2ea4d19325894d419599c33f3dfff0bc46f134b0d669c7bc618c",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1032,
+      "prefab": "godot/scenes/components/solar_cabin/ac_tall.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1128,
+      "triangles_after": 1032
+    },
+    {
+      "key": "awning",
+      "asset_id": "SEA-SCENE-SBR-AWNING",
+      "name": "黄白条纹圆边遮阳篷",
+      "category": "fixture",
+      "collection": "EXPORT_awning",
+      "bounds": {
+        "min": [
+          -1.5609999895095825,
+          -0.4535839259624481,
+          0.0
+        ],
+        "max": [
+          1.5609999895095825,
+          0.4535839259624481,
+          0.46299365162849426
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 7536,
+          "triangles_after": 7536,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/awning/awning.glb",
+      "glb_sha256": "849c2b1cad39404d5f1d154a2182d654390a4d2b7166e112a1339d9f9fda9310",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 7536,
+      "prefab": "godot/scenes/components/solar_cabin/awning.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 7536,
+      "triangles_after": 7536
+    },
+    {
+      "key": "bollard",
+      "asset_id": "SEA-SCENE-SBR-BOLLARD",
+      "name": "双绳圈木柱",
+      "category": "fixture",
+      "collection": "EXPORT_bollard",
+      "bounds": {
+        "min": [
+          -0.26499998569488525,
+          -0.26499998569488525,
+          0.0
+        ],
+        "max": [
+          0.26499998569488525,
+          0.26499998569488525,
+          0.8199999928474426
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1400,
+          "triangles_after": 1400,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/bollard/bollard.glb",
+      "glb_sha256": "95111936a6c73f43a83d3025eda55c04add6d86d48ecb6c7dfe02ddb54dc9bfa",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1400,
+      "prefab": "godot/scenes/components/solar_cabin/bollard.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1400,
+      "triangles_after": 1400
+    },
+    {
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-SBR-BOTTLE",
+      "name": "红色水瓶",
+      "category": "fixture",
+      "collection": "EXPORT_bottle",
+      "bounds": {
+        "min": [
+          -0.09000000357627869,
+          -0.09000000357627869,
+          0.0
+        ],
+        "max": [
+          0.09000000357627869,
+          0.09000000357627869,
+          0.4050000011920929
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1140,
+          "triangles_after": 1140,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/bottle/bottle.glb",
+      "glb_sha256": "ce79c4208c4fcd80fa42c7f56d46966d58a899328fc4d9b977ab5947df883ed9",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1140,
+      "prefab": "godot/scenes/components/solar_cabin/bottle.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1140,
+      "triangles_after": 1140
+    },
+    {
+      "key": "bridge_rope",
+      "asset_id": "SEA-SCENE-SBR-BRIDGE-ROPE",
+      "name": "栈桥-两端系结垂绳",
+      "category": "fixture",
+      "collection": "EXPORT_bridge_rope",
+      "bounds": {
+        "min": [
+          -2.9524998664855957,
+          -0.3199999928474426,
+          0.0
+        ],
+        "max": [
+          2.9524998664855957,
+          0.3199999928474426,
+          0.5077975392341614
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 960,
+          "triangles_after": 800,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 80,
+          "coplanar_faces_dissolved": 100,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 960,
+          "triangles_after": 960,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 960,
+          "triangles_after": 960,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/bridge_rope/bridge_rope.glb",
+      "glb_sha256": "a0edf7eba6ded4c33b1713b67f16c73b1729a753a86033ba4c2c5526c0f7f90d",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 2720,
+      "prefab": "godot/scenes/components/solar_cabin/bridge_rope.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 2880,
+      "triangles_after": 2720
+    },
+    {
+      "key": "canopy_post",
+      "asset_id": "SEA-SCENE-SBR-CANOPY-POST",
+      "name": "遮阳棚橙木立柱",
+      "category": "fixture",
+      "collection": "EXPORT_canopy_post",
+      "bounds": {
+        "min": [
+          -0.15000000596046448,
+          -0.15000000596046448,
+          0.0
+        ],
+        "max": [
+          0.15000000596046448,
+          0.15000000596046448,
+          2.2259600162506104
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/canopy_post/canopy_post.glb",
+      "glb_sha256": "1d4b1a08ed804111bea022db8b7430675479e37d49c16d0087d008bd7ae3eec6",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/canopy_post.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "cap",
+      "asset_id": "SEA-SCENE-SBR-CAP",
+      "name": "小屋厚帽檐",
+      "category": "structure",
+      "collection": "EXPORT_cap",
+      "bounds": {
+        "min": [
+          -1.2899999618530273,
+          -1.125,
+          0.0
+        ],
+        "max": [
+          1.2899999618530273,
+          1.125,
+          0.3199999928474426
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/cap/cap.glb",
+      "glb_sha256": "afaa19d7ef48d4c8db55ea7b38211a112385f440088be0bcda22e8957c8a499e",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/cap.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "chimney",
+      "asset_id": "SEA-SCENE-SBR-CHIMNEY",
+      "name": "屋顶通风立柱",
+      "category": "fixture",
+      "collection": "EXPORT_chimney",
+      "bounds": {
+        "min": [
+          -0.11699999868869781,
+          -0.12999999523162842,
+          0.0
+        ],
+        "max": [
+          0.11699999868869781,
+          0.12999999523162842,
+          1.1200000047683716
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 376,
+          "triangles_after": 344,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 16,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/chimney/chimney.glb",
+      "glb_sha256": "6728556981d63cb4d4f10ebc4c1484559bb980dde059da2e477d1f58ef077410",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 344,
+      "prefab": "godot/scenes/components/solar_cabin/chimney.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 376,
+      "triangles_after": 344
+    },
+    {
+      "key": "coffee_table",
+      "asset_id": "SEA-SCENE-SBR-COFFEE-TABLE",
+      "name": "低木茶几",
+      "category": "fixture",
+      "collection": "EXPORT_coffee_table",
+      "bounds": {
+        "min": [
+          -0.6000000238418579,
+          -0.32499998807907104,
+          0.0
+        ],
+        "max": [
+          0.6000000238418579,
+          0.32499998807907104,
+          0.42000001668930054
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 940,
+          "triangles_after": 940,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/coffee_table/coffee_table.glb",
+      "glb_sha256": "73d44a6bf68c64f3df73631d88a6fad98ba8f249afe26f5afd6599874c28917c",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 940,
+      "prefab": "godot/scenes/components/solar_cabin/coffee_table.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 940,
+      "triangles_after": 940
+    },
+    {
+      "key": "concrete_slab",
+      "asset_id": "SEA-SCENE-SBR-CONCRETE-SLAB",
+      "name": "后部建筑-暖木整板地坪",
+      "category": "structure",
+      "collection": "EXPORT_concrete_slab",
+      "bounds": {
+        "min": [
+          -3.819121837615967,
+          -3.0929999351501465,
+          0.0
+        ],
+        "max": [
+          3.819121837615967,
+          3.0929999351501465,
+          0.12753623723983765
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/concrete_slab/concrete_slab.glb",
+      "glb_sha256": "2a61ca080389fbc7cd0febcad0aef374fbeabb8facb4197146dd3bcca4ef19d7",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 2256,
+      "prefab": "godot/scenes/components/solar_cabin/concrete_slab.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 2256,
+      "triangles_after": 2256
+    },
+    {
+      "key": "cooler",
+      "asset_id": "SEA-SCENE-SBR-COOLER",
+      "name": "白盖蓝冷藏箱",
+      "category": "fixture",
+      "collection": "EXPORT_cooler",
+      "bounds": {
+        "min": [
+          -0.45500001311302185,
+          -0.34375,
+          0.0
+        ],
+        "max": [
+          0.45500001311302185,
+          0.34375,
+          0.6800000071525574
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 752,
+          "triangles_after": 752,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/cooler/cooler.glb",
+      "glb_sha256": "d4fd0d54952108a1dbed8e51f767c423e3fc0ad0a7d10ce92eb131feea93d69f",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 752,
+      "prefab": "godot/scenes/components/solar_cabin/cooler.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 752,
+      "triangles_after": 752
+    },
+    {
+      "key": "daisy",
+      "asset_id": "SEA-SCENE-SBR-DAISY",
+      "name": "六瓣白色小花",
+      "category": "flora",
+      "collection": "EXPORT_daisy",
+      "bounds": {
+        "min": [
+          -0.5199999809265137,
+          -0.21250000596046448,
+          0.0
+        ],
+        "max": [
+          0.5199999809265137,
+          0.21250000596046448,
+          0.9310237765312195
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 3080,
+          "triangles_after": 3080,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/daisy/daisy.glb",
+      "glb_sha256": "8d9d4c497954b9765a5ec969f76799632bb5b211f944ce16ac8c933c601cbd4d",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 3080,
+      "prefab": "godot/scenes/components/solar_cabin/daisy.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 3080,
+      "triangles_after": 3080
+    },
+    {
+      "key": "dock_board",
+      "asset_id": "SEA-SCENE-SBR-DOCK-BOARD",
+      "name": "栈桥-暖木横向整板",
+      "category": "structure",
+      "collection": "EXPORT_dock_board",
+      "bounds": {
+        "min": [
+          -1.6062321662902832,
+          -0.2175000011920929,
+          0.0
+        ],
+        "max": [
+          1.6062321662902832,
+          0.2175000011920929,
+          0.12753623723983765
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/dock_board/dock_board.glb",
+      "glb_sha256": "515856787f416a48b832636e96216809eb252f56df335c6266ea0d55542cf6bc",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/dock_board.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "door",
+      "asset_id": "SEA-SCENE-SBR-DOOR",
+      "name": "青蓝门",
+      "category": "fixture",
+      "collection": "EXPORT_door",
+      "bounds": {
+        "min": [
+          -0.5299999713897705,
+          -0.13750000298023224,
+          0.0
+        ],
+        "max": [
+          0.5299999713897705,
+          0.13750000298023224,
+          1.934999942779541
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1320,
+          "triangles_after": 1320,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/door/door.glb",
+      "glb_sha256": "a68b58c3b8d5a9266b25d9135e608f5a864dff31e03d7ec774e75ac588e74e17",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1320,
+      "prefab": "godot/scenes/components/solar_cabin/door.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1320,
+      "triangles_after": 1320
+    },
+    {
+      "key": "entry",
+      "asset_id": "SEA-SCENE-SBR-ENTRY",
+      "name": "玻璃入口框扇",
+      "category": "fixture",
+      "collection": "EXPORT_entry",
+      "bounds": {
+        "min": [
+          -1.209999918937683,
+          -0.6287500262260437,
+          0.0
+        ],
+        "max": [
+          1.209999918937683,
+          0.6287499666213989,
+          2.1999998092651367
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 3384,
+          "triangles_after": 3384,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/entry/entry.glb",
+      "glb_sha256": "850716b983b825c65164fef329bb9694ae985d4963b1178032b55412718696ca",
+      "material_names": [
+        "SEA_Matte",
+        "SEA_Gloss"
+      ],
+      "exported_triangles": 3384,
+      "prefab": "godot/scenes/components/solar_cabin/entry.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 3384,
+      "triangles_after": 3384
+    },
+    {
+      "key": "foliage",
+      "asset_id": "SEA-SCENE-SBR-FOLIAGE",
+      "name": "错落厚叶簇",
+      "category": "flora",
+      "collection": "EXPORT_foliage",
+      "bounds": {
+        "min": [
+          -0.49541550874710083,
+          -0.46810850501060486,
+          0.0
+        ],
+        "max": [
+          0.49541550874710083,
+          0.46810850501060486,
+          0.5602587461471558
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 5280,
+          "triangles_after": 5280,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/foliage/foliage.glb",
+      "glb_sha256": "5ecefae784df0950cf0e3013050c3f55977d57468d49f4d2b07bc747f3fee379",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 5280,
+      "prefab": "godot/scenes/components/solar_cabin/foliage.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 5280,
+      "triangles_after": 5280
+    },
+    {
+      "key": "hanging_tire",
+      "asset_id": "SEA-SCENE-SBR-HANGING-TIRE",
+      "name": "栈桥-悬挂轮胎与吊绳",
+      "category": "fixture",
+      "collection": "EXPORT_hanging_tire",
+      "bounds": {
+        "min": [
+          -0.5450000166893005,
+          -0.5732905864715576,
+          0.0
+        ],
+        "max": [
+          0.5450000166893005,
+          0.24238234758377075,
+          1.4796888828277588
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 960,
+          "triangles_after": 960,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 960,
+          "triangles_after": 960,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 960,
+          "triangles_after": 960,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 1200,
+          "triangles_after": 1172,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 14,
+          "coplanar_faces_dissolved": 30,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/hanging_tire/hanging_tire.glb",
+      "glb_sha256": "4e8a67cb272c61454189d97869d08e27764364b560e344a3caf3ecebd1599925",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 4052,
+      "prefab": "godot/scenes/components/solar_cabin/hanging_tire.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 4080,
+      "triangles_after": 4052
+    },
+    {
+      "key": "house",
+      "asset_id": "SEA-SCENE-SBR-HOUSE",
+      "name": "开窗下层墙壳",
+      "category": "structure",
+      "collection": "EXPORT_house",
+      "bounds": {
+        "min": [
+          -2.5,
+          -1.75,
+          0.0
+        ],
+        "max": [
+          2.5,
+          1.75,
+          3.066373586654663
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1104,
+          "triangles_after": 1100,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 2,
+          "coplanar_faces_dissolved": 5,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/house/house.glb",
+      "glb_sha256": "f4e185d5fe0e1fd8a4e41e70718a74114e2d5d5edabc75b259620db2bfd0cc6f",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1100,
+      "prefab": "godot/scenes/components/solar_cabin/house.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1104,
+      "triangles_after": 1100
+    },
+    {
+      "key": "ladder",
+      "asset_id": "SEA-SCENE-SBR-LADDER",
+      "name": "橙木圆角爬梯",
+      "category": "fixture",
+      "collection": "EXPORT_ladder",
+      "bounds": {
+        "min": [
+          -0.3800000250339508,
+          -0.2241610735654831,
+          0.0
+        ],
+        "max": [
+          0.3800000250339508,
+          0.2241610735654831,
+          2.8755340576171875
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 2892,
+          "triangles_after": 2892,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/ladder/ladder.glb",
+      "glb_sha256": "efe9e51709ed7317a966addb6d324f8c3bcc4280d9debc4eeca982e54cbdb8d9",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 2892,
+      "prefab": "godot/scenes/components/solar_cabin/ladder.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 2892,
+      "triangles_after": 2892
+    },
+    {
+      "key": "lantern",
+      "asset_id": "SEA-SCENE-SBR-LANTERN",
+      "name": "暖光壁灯",
+      "category": "fixture",
+      "collection": "EXPORT_lantern",
+      "bounds": {
+        "min": [
+          -0.13500000536441803,
+          -0.17255134880542755,
+          0.0
+        ],
+        "max": [
+          0.13500000536441803,
+          0.17255134880542755,
+          0.5912250876426697
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1340,
+          "triangles_after": 1340,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/lantern/lantern.glb",
+      "glb_sha256": "33a5c298cda798752cc095fd649c581bb7256f9bc7701a46ed17cf57e9f0364d",
+      "material_names": [
+        "SEA_Matte",
+        "SEA_Emission"
+      ],
+      "exported_triangles": 1528,
+      "prefab": "godot/scenes/components/solar_cabin/lantern.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1528,
+      "triangles_after": 1528
+    },
+    {
+      "key": "mat",
+      "asset_id": "SEA-SCENE-SBR-MAT",
+      "name": "太阳纹薄荷地垫",
+      "category": "fixture",
+      "collection": "EXPORT_mat",
+      "bounds": {
+        "min": [
+          -0.46000000834465027,
+          -0.33000001311302185,
+          0.0
+        ],
+        "max": [
+          0.46000000834465027,
+          0.33000001311302185,
+          0.036000002175569534
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 712,
+          "triangles_after": 632,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 40,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/mat/mat.glb",
+      "glb_sha256": "c7d73c294a54deb57de78690c6e1847acd225c40b3787ebeee9a23c7ca79e396",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 632,
+      "prefab": "godot/scenes/components/solar_cabin/mat.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 712,
+      "triangles_after": 632
+    },
+    {
+      "key": "narrow_window",
+      "asset_id": "SEA-SCENE-SBR-NARROW-WINDOW",
+      "name": "后部建筑-加宽前窗",
+      "category": "fixture",
+      "collection": "EXPORT_narrow_window",
+      "bounds": {
+        "min": [
+          -0.550000011920929,
+          -0.10000000149011612,
+          0.0
+        ],
+        "max": [
+          0.550000011920929,
+          0.10000000149011612,
+          1.934999942779541
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1316,
+          "triangles_after": 1284,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 16,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/narrow_window/narrow_window.glb",
+      "glb_sha256": "abda0936373f3cc09273b1497e923fe00474c0e23cb9003eab2500a3491936de",
+      "material_names": [
+        "SEA_Matte",
+        "SEA_Gloss"
+      ],
+      "exported_triangles": 1284,
+      "prefab": "godot/scenes/components/solar_cabin/narrow_window.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1316,
+      "triangles_after": 1284
+    },
+    {
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-SBR-PARAPET",
+      "name": "白花台矮墙",
+      "category": "structure",
+      "collection": "EXPORT_parapet",
+      "bounds": {
+        "min": [
+          -0.574999988079071,
+          -0.15000000596046448,
+          0.0
+        ],
+        "max": [
+          0.574999988079071,
+          0.15000000596046448,
+          0.47999998927116394
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/parapet/parapet.glb",
+      "glb_sha256": "61d29fd3798b8ff353e638791fd92602a467edef05e11a8af74b290b7b6b8055",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/parapet.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "pink_flower",
+      "asset_id": "SEA-SCENE-SBR-PINK-FLOWER",
+      "name": "五瓣饱满粉花",
+      "category": "flora",
+      "collection": "EXPORT_pink_flower",
+      "bounds": {
+        "min": [
+          -0.4818914532661438,
+          -0.21250000596046448,
+          0.0
+        ],
+        "max": [
+          0.4818914532661438,
+          0.21250000596046448,
+          1.0000678300857544
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 2640,
+          "triangles_after": 2640,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/pink_flower/pink_flower.glb",
+      "glb_sha256": "9e57de8c8b5cd943183a92e67575ba7f5e94f6db8e7cd582f08cc5105341cc88",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 2640,
+      "prefab": "godot/scenes/components/solar_cabin/pink_flower.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 2640,
+      "triangles_after": 2640
+    },
+    {
+      "key": "platform_board",
+      "asset_id": "SEA-SCENE-SBR-PLATFORM-BOARD",
+      "name": "前方平台-酒红横向整板",
+      "category": "structure",
+      "collection": "EXPORT_platform_board",
+      "bounds": {
+        "min": [
+          -3.75,
+          -0.2590000033378601,
+          0.0
+        ],
+        "max": [
+          3.75,
+          0.2590000033378601,
+          0.12753623723983765
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/platform_board/platform_board.glb",
+      "glb_sha256": "e19c1be186b5c0bd7c4f23ea21e0714c57e14ef26f1ceb57f8e22846f2d0f7a3",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/platform_board.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "porch_return",
+      "asset_id": "SEA-SCENE-SBR-PORCH-RETURN",
+      "name": "门廊后侧封墙",
+      "category": "structure",
+      "collection": "EXPORT_porch_return",
+      "bounds": {
+        "min": [
+          -0.33000001311302185,
+          -0.09000000357627869,
+          0.0
+        ],
+        "max": [
+          0.33000001311302185,
+          0.09000000357627869,
+          2.359999895095825
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/porch_return/porch_return.glb",
+      "glb_sha256": "6ca5e54c855a3a55a88c61e2a8d9d386d7091212ed65238d5fc3dd4b312e9f55",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/porch_return.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "porch_side",
+      "asset_id": "SEA-SCENE-SBR-PORCH-SIDE",
+      "name": "门廊厚侧墙与玻璃窗",
+      "category": "structure",
+      "collection": "EXPORT_porch_side",
+      "bounds": {
+        "min": [
+          -0.14499999582767487,
+          -1.1100000143051147,
+          0.0
+        ],
+        "max": [
+          0.14499999582767487,
+          1.1100000143051147,
+          3.069999933242798
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1812,
+          "triangles_after": 1812,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/porch_side/porch_side.glb",
+      "glb_sha256": "126bc63c9ee4d250df7333fcc244416d5466087965799b6a52080d4c7eb55e04",
+      "material_names": [
+        "SEA_Matte",
+        "SEA_Gloss"
+      ],
+      "exported_triangles": 1812,
+      "prefab": "godot/scenes/components/solar_cabin/porch_side.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1812,
+      "triangles_after": 1812
+    },
+    {
+      "key": "pot",
+      "asset_id": "SEA-SCENE-SBR-POT",
+      "name": "圆陶花盆",
+      "category": "fixture",
+      "collection": "EXPORT_pot",
+      "bounds": {
+        "min": [
+          -0.3070000112056732,
+          -0.3070000112056732,
+          0.0
+        ],
+        "max": [
+          0.3070000112056732,
+          0.3070000112056732,
+          0.4819999933242798
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1272,
+          "triangles_after": 1224,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 24,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/pot/pot.glb",
+      "glb_sha256": "59c962c2b7701dc6df6da15441f6b440f8c6d59abc01f3719393efea092fb3cb",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1224,
+      "prefab": "godot/scenes/components/solar_cabin/pot.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1272,
+      "triangles_after": 1224
+    },
+    {
+      "key": "roof_sofa",
+      "asset_id": "SEA-SCENE-SBR-ROOF-SOFA",
+      "name": "露台单黄抱枕沙发",
+      "category": "fixture",
+      "collection": "EXPORT_roof_sofa",
+      "bounds": {
+        "min": [
+          -0.7900000214576721,
+          -0.35289496183395386,
+          0.0
+        ],
+        "max": [
+          0.7900000214576721,
+          0.35289496183395386,
+          1.0724852085113525
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 2068,
+          "triangles_after": 2066,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 4,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/roof_sofa/roof_sofa.glb",
+      "glb_sha256": "4b7f694e843c7a01c8e369aa2a216b7731b5d2471bbd4b23ac195208a2b1c0af",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 2066,
+      "prefab": "godot/scenes/components/solar_cabin/roof_sofa.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 2068,
+      "triangles_after": 2066
+    },
+    {
+      "key": "slope",
+      "asset_id": "SEA-SCENE-SBR-SLOPE",
+      "name": "单坡门廊屋面",
+      "category": "structure",
+      "collection": "EXPORT_slope",
+      "bounds": {
+        "min": [
+          -1.649999976158142,
+          -1.0417420864105225,
+          0.0
+        ],
+        "max": [
+          1.649999976158142,
+          1.0417420864105225,
+          1.0592948198318481
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 752,
+          "triangles_after": 752,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/slope/slope.glb",
+      "glb_sha256": "7d5690d284a6af64af838f8551805985847508e2e7f2c21dfb005f04ba969d9d",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 752,
+      "prefab": "godot/scenes/components/solar_cabin/slope.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 752,
+      "triangles_after": 752
+    },
+    {
+      "key": "small_window",
+      "asset_id": "SEA-SCENE-SBR-SMALL-WINDOW",
+      "name": "上层小窗",
+      "category": "fixture",
+      "collection": "EXPORT_small_window",
+      "bounds": {
+        "min": [
+          -0.3199999928474426,
+          -0.10000000149011612,
+          0.0
+        ],
+        "max": [
+          0.3199999928474426,
+          0.10000000149011612,
+          0.7150000333786011
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1316,
+          "triangles_after": 1284,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 16,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/small_window/small_window.glb",
+      "glb_sha256": "0e4548c8dab5fa17960fc51f055fc1753a1a728b9c5269928a45d58ba34cca92",
+      "material_names": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1284,
+      "prefab": "godot/scenes/components/solar_cabin/small_window.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1316,
+      "triangles_after": 1284
+    },
+    {
+      "key": "sofa",
+      "asset_id": "SEA-SCENE-SBR-SOFA",
+      "name": "白垫双人木沙发",
+      "category": "fixture",
+      "collection": "EXPORT_sofa",
+      "bounds": {
+        "min": [
+          -0.7900000214576721,
+          -0.35289496183395386,
+          0.0
+        ],
+        "max": [
+          0.7900000214576721,
+          0.35289496183395386,
+          1.0724852085113525
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 2256,
+          "triangles_after": 2254,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 4,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/sofa/sofa.glb",
+      "glb_sha256": "3bcdba8c0187972adce702edca604a74b193ba1de52703f6eaadd80b9342af23",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 2254,
+      "prefab": "godot/scenes/components/solar_cabin/sofa.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 2256,
+      "triangles_after": 2254
+    },
+    {
+      "key": "solar",
+      "asset_id": "SEA-SCENE-SBR-SOLAR",
+      "name": "蓝色光伏板",
+      "category": "fixture",
+      "collection": "EXPORT_solar",
+      "bounds": {
+        "min": [
+          -0.6899999976158142,
+          -0.925000011920929,
+          0.0
+        ],
+        "max": [
+          0.6899999976158142,
+          0.925000011920929,
+          0.22100001573562622
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 896,
+          "triangles_after": 864,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 16,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/solar/solar.glb",
+      "glb_sha256": "c02b9331bd0b7c6340b58c4992b15441302ff3ba8352d4cf0d9829cd4053ed33",
+      "material_names": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "exported_triangles": 864,
+      "prefab": "godot/scenes/components/solar_cabin/solar.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 896,
+      "triangles_after": 864
+    },
+    {
+      "key": "sprout",
+      "asset_id": "SEA-SCENE-SBR-SPROUT",
+      "name": "盆栽嫩叶",
+      "category": "flora",
+      "collection": "EXPORT_sprout",
+      "bounds": {
+        "min": [
+          -0.36954545974731445,
+          -0.3261861205101013,
+          0.0
+        ],
+        "max": [
+          0.36954545974731445,
+          0.32618609070777893,
+          0.4060816466808319
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 2956,
+          "triangles_after": 2956,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/sprout/sprout.glb",
+      "glb_sha256": "4a8a7387665fec08f7b51bc92075db1d5754b7f350d23f2b3220b88893de2ab1",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 2956,
+      "prefab": "godot/scenes/components/solar_cabin/sprout.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 2956,
+      "triangles_after": 2956
+    },
+    {
+      "key": "square_pot",
+      "asset_id": "SEA-SCENE-SBR-SQUARE-POT",
+      "name": "方白花盆",
+      "category": "fixture",
+      "collection": "EXPORT_square_pot",
+      "bounds": {
+        "min": [
+          -0.23999999463558197,
+          -0.23999999463558197,
+          0.0
+        ],
+        "max": [
+          0.23999999463558197,
+          0.23999999463558197,
+          0.48499998450279236
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 376,
+          "triangles_after": 344,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 16,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/square_pot/square_pot.glb",
+      "glb_sha256": "73b469888036544697f821d4fa88263d2f24ce20abf4173804d7096773df588d",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 344,
+      "prefab": "godot/scenes/components/solar_cabin/square_pot.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 376,
+      "triangles_after": 344
+    },
+    {
+      "key": "stool",
+      "asset_id": "SEA-SCENE-SBR-STOOL",
+      "name": "方木凳",
+      "category": "fixture",
+      "collection": "EXPORT_stool",
+      "bounds": {
+        "min": [
+          -0.2150000035762787,
+          -0.2150000035762787,
+          0.0
+        ],
+        "max": [
+          0.2150000035762787,
+          0.2150000035762787,
+          0.48000001907348633
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 940,
+          "triangles_after": 940,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/stool/stool.glb",
+      "glb_sha256": "dbac5cb0a20923ed1f047ff7005584a8948f8485900d50e21ec8e9f05bcc4271",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 940,
+      "prefab": "godot/scenes/components/solar_cabin/stool.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 940,
+      "triangles_after": 940
+    },
+    {
+      "key": "table",
+      "asset_id": "SEA-SCENE-SBR-TABLE",
+      "name": "户外方桌",
+      "category": "fixture",
+      "collection": "EXPORT_table",
+      "bounds": {
+        "min": [
+          -0.5249999761581421,
+          -0.4099999964237213,
+          0.0
+        ],
+        "max": [
+          0.5249999761581421,
+          0.4099999964237213,
+          0.7699999809265137
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 940,
+          "triangles_after": 940,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/table/table.glb",
+      "glb_sha256": "f30998bc37082174dd4ea20c64d07d1f8c1e7b65739d29e7895aca7234b33aa8",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 940,
+      "prefab": "godot/scenes/components/solar_cabin/table.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 940,
+      "triangles_after": 940
+    },
+    {
+      "key": "tall_window",
+      "asset_id": "SEA-SCENE-SBR-TALL-WINDOW",
+      "name": "左侧双扇宽窗",
+      "category": "fixture",
+      "collection": "EXPORT_tall_window",
+      "bounds": {
+        "min": [
+          -0.8799999952316284,
+          -0.10000000149011612,
+          0.0
+        ],
+        "max": [
+          0.8799999952316284,
+          0.10000000149011612,
+          1.7350000143051147
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1504,
+          "triangles_after": 1472,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 16,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/tall_window/tall_window.glb",
+      "glb_sha256": "e199fc39996a9c2b5baf3c268f12e3ffc776c61a272e85713ce6e651ff8296fd",
+      "material_names": [
+        "SEA_Matte",
+        "SEA_Gloss"
+      ],
+      "exported_triangles": 1472,
+      "prefab": "godot/scenes/components/solar_cabin/tall_window.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1504,
+      "triangles_after": 1472
+    },
+    {
+      "key": "terrace",
+      "asset_id": "SEA-SCENE-SBR-TERRACE",
+      "name": "顶楼露台-暖木整板",
+      "category": "structure",
+      "collection": "EXPORT_terrace",
+      "bounds": {
+        "min": [
+          -2.6724443435668945,
+          -1.8580000400543213,
+          0.0
+        ],
+        "max": [
+          2.6724443435668945,
+          1.8580000400543213,
+          0.1386263370513916
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        },
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/terrace/terrace.glb",
+      "glb_sha256": "0fa3a054ce0141432884a1ee444796f228c4b064b449a130b00b017539467916",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1504,
+      "prefab": "godot/scenes/components/solar_cabin/terrace.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1504,
+      "triangles_after": 1504
+    },
+    {
+      "key": "umbrella",
+      "asset_id": "SEA-SCENE-SBR-UMBRELLA",
+      "name": "黄白圆瓣遮阳伞",
+      "category": "fixture",
+      "collection": "EXPORT_umbrella",
+      "bounds": {
+        "min": [
+          -0.9100000262260437,
+          -0.9100000262260437,
+          0.0
+        ],
+        "max": [
+          0.9100000262260437,
+          0.9100000262260437,
+          2.445000171661377
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 4048,
+          "triangles_after": 4010,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 107,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/umbrella/umbrella.glb",
+      "glb_sha256": "12b385abd447200cfff77118ee0e52e3bd74b84f1ea249b6152846d3935f5631",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 4010,
+      "prefab": "godot/scenes/components/solar_cabin/umbrella.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 4048,
+      "triangles_after": 4010
+    },
+    {
+      "key": "upper_room",
+      "asset_id": "SEA-SCENE-SBR-UPPER-ROOM",
+      "name": "屋顶小屋墙壳",
+      "category": "structure",
+      "collection": "EXPORT_upper_room",
+      "bounds": {
+        "min": [
+          -1.125,
+          -0.9750000238418579,
+          0.0
+        ],
+        "max": [
+          1.125,
+          0.9750000238418579,
+          1.9500000476837158
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/upper_room/upper_room.glb",
+      "glb_sha256": "ed9d495cbbe2be99b78bea530ed9075a5bfbb1b3ac79c1cfb306c4bae045caa3",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/upper_room.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "vase",
+      "asset_id": "SEA-SCENE-SBR-VASE",
+      "name": "黄陶圆腹小花瓶",
+      "category": "fixture",
+      "collection": "EXPORT_vase",
+      "bounds": {
+        "min": [
+          -0.12000003457069397,
+          -0.12000001221895218,
+          0.0
+        ],
+        "max": [
+          0.12000003457069397,
+          0.12000001221895218,
+          0.37300002574920654
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 1332,
+          "triangles_after": 1332,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/vase/vase.glb",
+      "glb_sha256": "8f7d9903390766dc2551aed82d16c3d8bf7d50cbb4f977e0ca84209a4f7856a3",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 1332,
+      "prefab": "godot/scenes/components/solar_cabin/vase.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 1332,
+      "triangles_after": 1332
+    },
+    {
+      "key": "wall_pier",
+      "asset_id": "SEA-SCENE-SBR-WALL-PIER",
+      "name": "白色墙角与后侧承重柱",
+      "category": "structure",
+      "collection": "EXPORT_wall_pier",
+      "bounds": {
+        "min": [
+          -0.15000000596046448,
+          -0.15000000596046448,
+          0.0
+        ],
+        "max": [
+          0.15000000596046448,
+          0.15000000596046448,
+          2.8499999046325684
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/wall_pier/wall_pier.glb",
+      "glb_sha256": "e5bce3608eae0752291480d808278b8655d77ebc144de216fba1cad55deed8f7",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/wall_pier.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "platform_board_coral",
+      "asset_id": "SEA-SCENE-SBR-PLATFORM-BOARD-CORAL",
+      "name": "前方平台-酒红横向整板-coral",
+      "category": "structure",
+      "collection": "EXPORT_platform_board_coral",
+      "bounds": {
+        "min": [
+          -3.75,
+          -0.2590000033378601,
+          0.0
+        ],
+        "max": [
+          3.75,
+          0.2590000033378601,
+          0.12753623723983765
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/platform_board_coral/platform_board_coral.glb",
+      "glb_sha256": "2d36286a4b56e86f8faf36d1b65ae5b3fc9b02c87a5d194ada0ab4681a6efc42",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/platform_board_coral.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "platform_board_ochre",
+      "asset_id": "SEA-SCENE-SBR-PLATFORM-BOARD-OCHRE",
+      "name": "前方平台-酒红横向整板-ochre",
+      "category": "structure",
+      "collection": "EXPORT_platform_board_ochre",
+      "bounds": {
+        "min": [
+          -3.75,
+          -0.2590000033378601,
+          0.0
+        ],
+        "max": [
+          3.75,
+          0.2590000033378601,
+          0.12753623723983765
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/platform_board_ochre/platform_board_ochre.glb",
+      "glb_sha256": "a5e014b41489793b2cc8bd3df76296917c0aadc222fbc715af86754a028f70fa",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/platform_board_ochre.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "dock_board_sand",
+      "asset_id": "SEA-SCENE-SBR-DOCK-BOARD-SAND",
+      "name": "栈桥-暖木横向整板-sand",
+      "category": "structure",
+      "collection": "EXPORT_dock_board_sand",
+      "bounds": {
+        "min": [
+          -1.6062321662902832,
+          -0.2175000011920929,
+          0.0
+        ],
+        "max": [
+          1.6062321662902832,
+          0.2175000011920929,
+          0.12753623723983765
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/dock_board_sand/dock_board_sand.glb",
+      "glb_sha256": "b02d44ff9827bbcdcbfbb55030c919d8a3a0aca5ba41ccc80702059168f46f38",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/dock_board_sand.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    },
+    {
+      "key": "dock_board_shade",
+      "asset_id": "SEA-SCENE-SBR-DOCK-BOARD-SHADE",
+      "name": "栈桥-暖木横向整板-shade",
+      "category": "structure",
+      "collection": "EXPORT_dock_board_shade",
+      "bounds": {
+        "min": [
+          -1.6062321662902832,
+          -0.2175000011920929,
+          0.0
+        ],
+        "max": [
+          1.6062321662902832,
+          0.2175000011920929,
+          0.12753623723983765
+        ]
+      },
+      "optimization": [
+        {
+          "triangles_before": 188,
+          "triangles_after": 188,
+          "zero_area_faces_removed": 0,
+          "duplicate_faces_removed": 0,
+          "vertices_merged_or_removed": 0,
+          "coplanar_faces_dissolved": 0,
+          "operations": [
+            "merge coincident geometry 1e-7m, preserve per-loop UV/color seams",
+            "remove zero-area and duplicate faces",
+            "dissolve coplanar subdivisions <=0.003 rad with color/material seams locked",
+            "remove unused vertices/edges",
+            "rebuild nonzero PaletteUV islands in original swatches"
+          ],
+          "budget": null,
+          "budget_reason": "User prioritizes style/fidelity; no numeric game triangle cap specified."
+        }
+      ],
+      "glb": "godot/assets/models/facilities/solar_cabin/components/dock_board_shade/dock_board_shade.glb",
+      "glb_sha256": "2723357b3a2d122a86ed462dcb32550b473252d04f01a81ff5f9551c2f86489a",
+      "material_names": [
+        "SEA_Matte"
+      ],
+      "exported_triangles": 188,
+      "prefab": "godot/scenes/components/solar_cabin/dock_board_shade.tscn",
+      "source_version": "v008",
+      "runtime_verified": true,
+      "triangles_before": 188,
+      "triangles_after": 188
+    }
+  ],
+  "legacy": [
+    {
+      "key": "base_solar_cabin_harbor_surroundings",
+      "collection": "EXPORT_base_solar_cabin_harbor_surroundings",
+      "source": "art_source/scenes/runtime_building_reference/v003/playable/solar_cabin/solar_cabin_harbor_surroundings/solar_cabin_harbor_surroundings_v0.3.blend",
+      "source_sha256": "13ec31f1ef84107c2007563fd0f473fbc96024af0d87fad96d21ab1999ba758c",
+      "origin_godot": [
+        -3.986,
+        0.0,
+        4.404
+      ],
+      "runtime_original": "godot/assets/models/zones/zone1_home_harbor/units/detail.glb",
+      "optimization": [
+        {
+          "triangles_before": 3193,
+          "triangles_after": 3193,
+          "zero_area_faces_removed": 0,
+          "isolated_points_removed": 121
+        }
+      ],
+      "glb": "godot/assets/models/facilities/legacy_home/base_solar_cabin_harbor_surroundings.glb",
+      "glb_sha256": "aaed49e41692f2f167fdcdca68004d0e1176a0735452a4afb46013f38cc4d8de",
+      "material_names": [
+        "detail_0",
+        "detail_4"
+      ],
+      "exported_triangles": 3193,
+      "prefab": "godot/scenes/components/solar_cabin/base_solar_cabin_harbor_surroundings.tscn"
+    },
+    {
+      "key": "base_solar_cabin_front_deck",
+      "collection": "EXPORT_base_solar_cabin_front_deck",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_front_deck/solar_cabin_front_deck_v0.2.blend",
+      "source_sha256": "c73e9405070348d36ce8d000e6cf742cca9765fcd71f99b815c4d0778d0a6ee3",
+      "origin_godot": [
+        5.811,
+        0.0,
+        3.104
+      ],
+      "runtime_original": "godot/assets/models/zones/zone1_home_harbor/units/unit_01.glb",
+      "optimization": [
+        {
+          "triangles_before": 1269,
+          "triangles_after": 1269,
+          "zero_area_faces_removed": 0,
+          "isolated_points_removed": 0
+        }
+      ],
+      "glb": "godot/assets/models/facilities/legacy_home/base_solar_cabin_front_deck.glb",
+      "glb_sha256": "fae4cc0474d632e3c8d40a1052eb378a3224dd6308db4c69f87af7ba4092813b",
+      "material_names": [
+        "unit_01_0",
+        "unit_01_3",
+        "unit_01_4",
+        "unit_01_5"
+      ],
+      "exported_triangles": 1269,
+      "prefab": "godot/scenes/components/solar_cabin/base_solar_cabin_front_deck.tscn"
+    },
+    {
+      "key": "base_solar_cabin_rear_tower",
+      "collection": "EXPORT_base_solar_cabin_rear_tower",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_rear_tower/solar_cabin_rear_tower_v0.2.blend",
+      "source_sha256": "77ccff68dcaadbf1686d4ad72cc79e2557e2284dcbc3fa6ba625b2a32efad39c",
+      "origin_godot": [
+        2.771,
+        0.0,
+        -6.541
+      ],
+      "runtime_original": "godot/assets/models/zones/zone1_home_harbor/units/unit_02.glb",
+      "optimization": [
+        {
+          "triangles_before": 14,
+          "triangles_after": 14,
+          "zero_area_faces_removed": 0,
+          "isolated_points_removed": 0
+        }
+      ],
+      "glb": "godot/assets/models/facilities/legacy_home/base_solar_cabin_rear_tower.glb",
+      "glb_sha256": "0edefa356a9b47e8268094ffb182a400f471781c816d13f87ec0418c250bd53b",
+      "material_names": [
+        "unit_02_1",
+        "unit_02_2"
+      ],
+      "exported_triangles": 14,
+      "prefab": "godot/scenes/components/solar_cabin/base_solar_cabin_rear_tower.tscn"
+    },
+    {
+      "key": "base_solar_cabin_core",
+      "collection": "EXPORT_base_solar_cabin_core",
+      "source": "art_source/scenes/runtime_building_reference/v002/playable/solar_cabin/solar_cabin_core/solar_cabin_core_v0.2.blend",
+      "source_sha256": "398275c9dcfb5275a074a11d397f47a9af120e92abb661ec179dc940f4b5c00e",
+      "origin_godot": [
+        4.553,
+        0.0,
+        -0.593
+      ],
+      "runtime_original": "godot/assets/models/zones/zone1_home_harbor/units/unit_03.glb",
+      "optimization": [
+        {
+          "triangles_before": 38,
+          "triangles_after": 38,
+          "zero_area_faces_removed": 0,
+          "isolated_points_removed": 0
+        }
+      ],
+      "glb": "godot/assets/models/facilities/legacy_home/base_solar_cabin_core.glb",
+      "glb_sha256": "8a2f728dfefe08dbafe271d8887aae659bd0248e3ecb645002ffaf1aa880fcbb",
+      "material_names": [
+        "unit_03_1",
+        "unit_03_2"
+      ],
+      "exported_triangles": 38,
+      "prefab": "godot/scenes/components/solar_cabin/base_solar_cabin_core.tscn"
+    },
+    {
+      "key": "salvage_station",
+      "collection": "EXPORT_salvage_station",
+      "source": "art_source/scenes/runtime_building_reference/v003/facilities/salvage_station/salvage_station_v0.3.blend",
+      "source_sha256": "5470f2b7873356440eeaa3a41f07b9003455243851a903076366770370ea7d80",
+      "origin_godot": [
+        -12,
+        0,
+        13
+      ],
+      "runtime_original": "godot/assets/models/zones/zone1_home_harbor/units/detail.glb",
+      "optimization": [
+        {
+          "triangles_before": 9241,
+          "triangles_after": 9241,
+          "zero_area_faces_removed": 0,
+          "isolated_points_removed": 0
+        },
+        {
+          "triangles_before": 137,
+          "triangles_after": 137,
+          "zero_area_faces_removed": 0,
+          "isolated_points_removed": 0
+        }
+      ],
+      "glb": "godot/assets/models/facilities/legacy_home/salvage_station.glb",
+      "glb_sha256": "1beb8eaf207f44ff11890cc688fa3a7fd5843bb2ddc22d308cc8a48f85b42f6a",
+      "material_names": [
+        "detail_0.001",
+        "detail_2.001",
+        "detail_3.001",
+        "detail_4.001"
+      ],
+      "exported_triangles": 9378,
+      "prefab": "godot/scenes/facilities/salvage_station.tscn"
+    }
+  ],
+  "fit": {
+    "uniform_scale": 1.15,
+    "yaw_degrees": 0,
+    "anchor_godot": [
+      5.128,
+      1.368,
+      0.704
+    ],
+    "source_front": "-Y",
+    "godot_front": "+Z",
+    "wall_width_m": 8.625,
+    "revision_scale": 1.5,
+    "total_scale_over_v003": 1.725,
+    "deck_height_m": 2.15,
+    "foundation_contact_y": 1.12
+  },
+  "expanded_triangles_before": 359380,
+  "expanded_triangles_after": 357590
+}

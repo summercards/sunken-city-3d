@@ -93,6 +93,7 @@ func distance_at(p: Vector2) -> float:
 	return _field[y * n + x]
 
 func _visit(node: Node) -> void:
+	if node.get_meta("visual_only", false): return
 	if node is Node3D and not node.is_visible_in_tree(): return
 	if node is MeshInstance3D and node.mesh != null:
 		_slice(node.mesh, node.global_transform)

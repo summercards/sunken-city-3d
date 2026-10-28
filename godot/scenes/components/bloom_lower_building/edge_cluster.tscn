@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/bloom_lower_building/components/edge_cluster/edge_cluster.glb" id="visual"]
 [node name="横向花台叶簇" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-BLB-EDGE-CLUSTER"
+component_kind = "upgrade_attachment"
+subcategory = "plants"
+movable = false
 metadata/asset_id = "SEA-SCENE-BLB-EDGE-CLUSTER"
 [node name="Visual" parent="." instance=ExtResource("visual")]

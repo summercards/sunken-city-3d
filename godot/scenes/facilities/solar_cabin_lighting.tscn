@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[node name="家园夜灯" type="Node3D"]
+
+[node name="屋顶门灯" type="OmniLight3D" parent="." groups=["home_lamps"]]
+position = Vector3(5.25, 9.7, 1.65)
+light_color = Color(1, 0.65, 0.30, 1)
+light_energy = 0.65
+light_specular = 0.15
+omni_range = 8.0
+omni_attenuation = 0.8
+shadow_enabled = true
+
+[node name="太阳房门灯" type="OmniLight3D" parent="." groups=["home_lamps"]]
+position = Vector3(6.6, 5.3, 6.35)
+light_color = Color(1, 0.68, 0.34, 1)
+light_energy = 1.05
+light_specular = 0.15
+omni_range = 12.0
+omni_attenuation = 0.8
+shadow_enabled = true
+
+[node name="露台门灯" type="OmniLight3D" parent="." groups=["home_lamps"]]
+position = Vector3(11.6, 4.5, 8.1)
+light_color = Color(1, 0.65, 0.30, 1)
+light_energy = 0.85
+light_specular = 0.15
+omni_range = 10.0
+omni_attenuation = 0.8
+shadow_enabled = true

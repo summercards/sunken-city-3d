@@ -1,7 +1,7 @@
 extends RefCounted
 class_name SaveGame
 ## Storage consumes registered snapshots, never global state or actor/UI internals.
-const VERSION := 2
+const VERSION := 3
 const SLOT_PATH := "user://save_slot_0.json"
 const Schema = preload("res://src/save/save_schema.gd")
 const MAX_BYTES := 8 * 1024 * 1024
@@ -16,7 +16,7 @@ static func encode(host: Node) -> Dictionary:
 	return data
 
 static func write(path: String, host: Node) -> Dictionary:
-	if host.save_registry.is_restoring(): return {"ok":false,"reason":"恢复期间不能写入中间快照"}
+	if host.save_registry.is_busy(): return {"ok":false,"reason":"恢复或结算期间不能写入中间快照"}
 	var snapshot := encode(host)
 	var error := Schema.validate(snapshot)
 	if error != "": return {"ok":false,"reason":error}
@@ -99,6 +99,8 @@ static func decode(text: String) -> Dictionary:
 		doc.salvage = {"left":doc.get("salvage_left",0.0)}
 		doc.time = {"day":1,"seconds":28800.0,"day_length":1200.0}
 		doc.weather = {"kind":"clear","remaining":240.0,"seed":3701,"duration":240.0}
+	if version<3 and doc.get("economy") is Dictionary and not doc.economy.has("daily_loop"):
+		doc.economy.daily_loop = {"version":1,"cargo":{"capacity":48,"counts":{}},"last_morning":-1,"receipt":{}}
 	doc.version=VERSION
 	var error := Schema.validate(doc)
 	if error!="": return {"ok":false,"reason":error}

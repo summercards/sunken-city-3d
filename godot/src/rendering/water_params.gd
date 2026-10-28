@@ -28,6 +28,7 @@ class_name WaterParams
 ##   vec2             两个浮点分量
 ##   node             写在 Water 节点上、每帧由 water_surface.gd 同步进材质
 const GROUPS := [
+ preload("res://src/rendering/night_water_params.gd").GROUP,
 	{
 		"name": "body",
 		"label": "水体",

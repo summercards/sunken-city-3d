@@ -29,6 +29,14 @@ extends RefCounted
 
 const TARGET_ENV := "env"
 const TARGET_SUN := "sun"
+## 天空盒。属性在 `Environment.sky.sky_material` 上（`ocean_sky.tres` 里的
+## `ProceduralSkyMaterial`），既不是 `Environment` 的属性也不是灯光属性，
+## 所以必须单列一个目标 —— 混进 env 会 `set_indexed` 打空。
+##
+## 为什么这六项要给玩家调：玩家抬头看到的就是这片天。环境亮度和雾色能压暗画面，
+## 但压不出「黄昏的天是橙的」—— 那是 `sky_horizon_color` 的事。以前面板里
+## 没有这一组，等于最显眼的一层完全没法调。
+const TARGET_SKY := "sky"
 
 const GROUPS := [
 	{
@@ -165,7 +173,39 @@ const GROUPS := [
 				"hint": "阴影覆盖到多远。相机在 108 m 外，小于 150 会让远处建筑掉出阴影框。"},
 		],
 	},
+	{
+		"id": "sky",
+		"label": "天空盒",
+		"note": "抬头看到的那片天。环境亮度只能压暗整体，天的颜色要在这里改 —— 黄昏的橙红、深夜的墨蓝都在这一组。",
+		"rows": [
+			{"key": "sky_top", "label": "天顶色", "target": TARGET_SKY,
+				"prop": "sky_top_color", "kind": "color",
+				"hint": "正头顶的颜色。黄昏变紫蓝、深夜变墨蓝，主要靠它。"},
+			{"key": "sky_horizon", "label": "地平线色", "target": TARGET_SKY,
+				"prop": "sky_horizon_color", "kind": "color",
+				"hint": "贴近海平线那一圈。夕阳的橙红就在这一项上，是黄昏最显眼的颜色。"},
+			{"key": "sky_ground_bottom", "label": "地面底色", "target": TARGET_SKY,
+				"prop": "ground_bottom_color", "kind": "color",
+				"hint": "地平线以下（水面反射用）的底端颜色。通常比地面地平线色更暗。"},
+			{"key": "sky_ground_horizon", "label": "地面地平线", "target": TARGET_SKY,
+				"prop": "ground_horizon_color", "kind": "color",
+				"hint": "地平线以下那一圈。调它会让海天交界处的过渡变软或变硬。"},
+			{"key": "sky_curve", "label": "天空曲率", "target": TARGET_SKY,
+				"prop": "sky_curve", "kind": "float",
+				"min": 0.0, "max": 1.0, "step": 0.01, "fmt": "%.2f",
+				"hint": "天顶到地平线的过渡陡缓。越小越早开始渐变，0.18 是出厂值。"},
+			{"key": "sky_sun_curve", "label": "日晕锐度", "target": TARGET_SKY,
+				"prop": "sun_curve", "kind": "float",
+				"min": 0.0, "max": 1.0, "step": 0.01, "fmt": "%.2f",
+				"hint": "太阳周围光晕的扩散程度。0.12 是出厂值，黄昏会被时变推到 0.62。"},
+			{"key": "sky_sun_angle", "label": "日晕角径", "target": TARGET_SKY,
+				"prop": "sun_angle_max", "kind": "float",
+				"min": 0.0, "max": 90.0, "step": 0.5, "fmt": "%.1f", "unit": "°",
+				"hint": "光晕的最大角度。5° 是出厂值，黄昏会被推到 27°，光晕铺得更开。"},
+		],
+	},
 ]
+
 
 
 ## 摊平成 key → row。面板按 key 找行，避免每次遍历分组。
@@ -188,4 +228,9 @@ static func keys() -> Array[String]:
 
 ## 某一页的存档段名。写进 `user://filter.cfg`。
 static func section_of(target: String) -> String:
-	return "environment" if target == TARGET_ENV else "sun"
+	match target:
+		TARGET_ENV:
+			return "environment"
+		TARGET_SKY:
+			return "sky"
+	return "sun"

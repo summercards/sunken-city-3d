@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/bloom_lower_building/components/end_bay/end_bay.glb" id="visual"]
 [node name="短面厚白窗湾" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-BLB-END-BAY"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-BLB-END-BAY"
 [node name="Visual" parent="." instance=ExtResource("visual")]

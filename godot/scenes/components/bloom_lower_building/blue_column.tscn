@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/bloom_lower_building/components/blue_column/blue_column.glb" id="visual"]
 [node name="蓝灰凹槽立柱" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-BLB-BLUE-COLUMN"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-BLB-BLUE-COLUMN"
 [node name="Visual" parent="." instance=ExtResource("visual")]

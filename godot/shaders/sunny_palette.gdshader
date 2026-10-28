@@ -5,6 +5,12 @@ uniform float roughness_value = 0.62;
 uniform float metallic_value = 0.0;
 uniform float emission_value = 0.0;
 uniform bool grid_role = false;
+uniform bool home_window = false;
+uniform bool home_window_recessed = false;
+varying vec3 home_local;
+void vertex() { home_local = VERTEX; }
+uniform int home_window_column = 3;
+global uniform float world_home_lights;
 vec3 rgb2hsv(vec3 c) {
  vec4 K=vec4(0.0,-1.0/3.0,2.0/3.0,-1.0);
  vec4 p=mix(vec4(c.bg,K.wz),vec4(c.gb,K.xy),step(c.b,c.g));
@@ -21,7 +27,8 @@ void fragment() {
  vec3 hsv=rgb2hsv(base);
  bool solar=ivec2(floor(UV*8.0))==ivec2(5,2);
  hsv.x=fract(hsv.x+(solar?0.02:0.0));
- hsv.y=clamp(hsv.y*(solar?0.94:1.12),0.0,1.0);
+ bool timber=int(floor(UV.y*8.0))==6;
+ hsv.y=clamp(hsv.y*(solar?0.94:(timber?1.0:1.12)),0.0,1.0);
  hsv.z*=solar&&grid_role?1.30:1.0;
  ALBEDO=hsv2rgb(hsv);
  if (ivec2(floor(UV*8.0))==ivec2(5,5)) {
@@ -29,6 +36,11 @@ void fragment() {
   ALBEDO=hsv2rgb(wine);
  }
  ROUGHNESS=roughness_value;METALLIC=metallic_value;SPECULAR=0.25;
- EMISSION=base*emission_value;
+ EMISSION=mix(base,vec3(0.55,0.24,0.055),world_home_lights)*emission_value;
+ if (home_window && ivec2(floor(UV*8.0))==ivec2(home_window_column,2)
+  && (!home_window_recessed || (home_local.z < -0.006 && home_local.z > -0.043))) {
+  ALBEDO=mix(ALBEDO,vec3(1.0,0.58,0.19),world_home_lights);
+  EMISSION+=vec3(0.42,0.16,0.025)*world_home_lights;
+ }
  
 }

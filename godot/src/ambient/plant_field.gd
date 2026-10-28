@@ -93,6 +93,13 @@ func spawn(arch: String, scope: String, position: Vector3) -> Node3D:
 			return null
 		_scene_cache[path] = packed
 	var node: Node3D = (_scene_cache[path] as PackedScene).instantiate()
+	node.instance_id = "%s/plant/%03d" % [zone_id,plants.size()]
+	node.facility_id = zone_id
+	node.attachment_slot = "plants"
+	node.asset_id = "SEA-PLANT-"+scope.replace("/","-").to_upper()+"-"+arch.to_upper()
+	node.component_kind = "upgrade_attachment"
+	node.subcategory = "plants"
+	node.set_meta("visual_only",true)
 	node.position = position
 	add_child(node)
 	plants.append(node)

@@ -37,3 +37,20 @@ theme/custom_font="res://assets/fonts/NotoSansSC-Regular.otf"
 lights_and_shadows/directional_shadow/size=8192
 anti_aliasing/quality/msaa_3d=2
 environment/defaults/default_clear_color=Color(0.09, 0.427, 0.604, 1)
+
+[shader_globals]
+
+world_daylight={
+"type": "float",
+"value": 1.0
+}
+
+world_home_lights={
+"type": "float",
+"value": 0.0
+}
+
+world_night={
+"type": "float",
+"value": 0.0
+}

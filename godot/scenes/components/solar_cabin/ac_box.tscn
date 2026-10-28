@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/ac_box/ac_box.glb" id="visual"]
 [node name="小立式空调" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-AC-BOX"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-AC-BOX"
 [node name="Visual" parent="." instance=ExtResource("visual")]

@@ -24,7 +24,7 @@
 //   * the boat wake and the oar-ring normals;
 //   * the vertical water column for depth (not the axial one), so a shallow
 //     shelf stays readable at grazing angles instead of turning opaque;
-//   * EMISSION output with zero albedo — gl_compatibility composites
+//   * Daytime EMISSION output with zero albedo — gl_compatibility composites
 //     ALBEDO + `unshaded` as pure black (see `render_flags.gd`).
 //
 // Deliberately dropped from the reference implementation:
@@ -36,6 +36,8 @@
 //     edge foam is procedural, so this scheme adds no texture slots beyond the
 //     normal strip it shares with the other one.
 shader_type spatial;
+global uniform float world_daylight;
+#include "res://shaders/ocean_night.gdshaderinc"
 render_mode blend_mix, depth_draw_never, cull_disabled;
 
 uniform sampler2D screen_tex : hint_screen_texture, filter_linear_mipmap;
@@ -398,16 +400,18 @@ void fragment() {
 
 	color = mix(color, edge_color, clamp(ring * ripple_ring_strength, 0.0, 1.0));
 
-	// Albedo stays zero so no light can reach the surface: the absorbed screen
-	// colour is the whole shading model. Emission carries it.
-	ALBEDO = vec3(0.0);
+	// Preserve the approved absorption composition by day; at night use
+	// the same real light response as the other water scheme.
+	float night_depth = 1.0 - exp(-vertical_depth / max(night_depth_distance, 0.01));
+	ALBEDO = mix(night_albedo, night_deep_albedo, night_depth) * world_night;
+	NORMAL = normalize((VIEW_MATRIX * vec4(normal, 0.0)).xyz);
 	vec3 emission = color * exposure_comp * emission_gain;
 	// Static interleaved gradient noise: an animated dither boils in motion.
 	float ign = fract(52.9829189 * fract(dot(FRAGCOORD.xy, vec2(0.06711056, 0.00583715))));
 	emission += (ign - 0.5) * 0.0045 * dither_strength;
-	EMISSION = emission;
-	SPECULAR = 0.0;
-	ROUGHNESS = 1.0;
+	EMISSION = emission * world_daylight * (1.0 - world_night);
+	SPECULAR = 0.5 * world_night;
+	ROUGHNESS = mix(1.0, night_roughness, world_night);
 	METALLIC = 0.0;
-	ALPHA = 1.0;
+	ALPHA = mix(1.0, mix(night_shallow_opacity, 0.98, night_depth), world_night);
 }

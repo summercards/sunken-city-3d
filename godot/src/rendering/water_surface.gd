@@ -71,6 +71,7 @@ func current_material() -> ShaderMaterial:
 	return material_override as ShaderMaterial
 
 func _sync(mat: ShaderMaterial) -> void:
+	preload("res://src/rendering/night_water_params.gd").ensure_defaults(mat)
 	mat.set_shader_parameter("ocean_waves", ocean_waves)
 	mat.set_shader_parameter("wave_scale", wave_scale)
 	mat.set_shader_parameter("u_time", time)

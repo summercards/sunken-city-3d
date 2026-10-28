@@ -119,6 +119,10 @@ var _press_pos := Vector2.ZERO
 var _world_press := false
 var _dragged := false
 var _pending_pick := {}
+## 点登陆标记时的意图：靠妥这一趟之后是否直接上岸。
+## 玩家点「浅水养殖台」想要的是「过去并站上去」，不是「开过去还坐在船里」。
+## 中途取消/改道必须清掉，否则下一条航线会莫名把人送下船。
+var _ashore_on_arrival := false
 ## 存档：当前槽位路径、自动存档倒计时、是否允许自动存档（截图/自检时关掉）。
 var _save_path := SaveGameLib.SLOT_PATH
 var _autosave_left := AUTOSAVE_SECONDS
@@ -128,6 +132,15 @@ var save_registry = preload("res://src/save/snapshot_registry.gd").new()
 var world_clock = preload("res://src/time/world_clock.gd").new()
 var weather_service = preload("res://src/weather/weather_service.gd").new()
 var weather_view: Node2D
+## 昼夜光照。时段不再靠屏幕叠加伪造，而是真的去动太阳、环境光、天空与水面反射；
+## 资源里的值是它的09:00基准，见 `src/rendering/daylight_rig.gd`。
+## 不写 `DaylightRig` 类型注解：新脚本首次导入前全局类名还没注册，
+## 带注解会让整个主场景在这一帧解析失败。
+var daylight_rig
+var sleep_cycle: Node
+var sleep_curtain: CanvasLayer
+var _sleep_ui_layers: Array = []
+var _sleep_calendar_visible := false
 var _calendar_label: Label
 
 
@@ -138,11 +151,21 @@ func _cozy_node_added(node: Node) -> void:
 func _apply_cozy_ui() -> void:
 	CozyUI.apply_tree(self)
 
+var start_screen: CanvasLayer
+var title_camera = preload("res://src/camera/title_camera.gd").new()
+var _title_active := false
+var _title_layers: Array = []
+var _title_props: Dictionary = {}
+var _title_economy_ticking := true
+const Scope = preload("res://src/core/play_scope.gd")
+
 func _ready() -> void:
 	# 水面是接近纯色的大渐变，8 位输出会出现一圈圈可见色阶（网页版有轻微噪声盖住）。
 	# 开启去色带比往 shader 里掺噪点干净，也不会让静态截图变脏。
 	get_viewport().use_debanding = true
 	navigation.shape_query = _water_shapes
+	Zones.zone_enabled_query = Scope.zone_enabled
+	if Scope.minimal(): navigation.allowed_area = Scope.HOME_WATER
 	Zones.far_sea_query = func() -> bool: return GameState.far_sea_unlocked
 	_setup_environment()
 	_setup_lights()
@@ -163,15 +186,18 @@ func _ready() -> void:
 	_setup_props()
 	_setup_dive()
 	_setup_hud()
+	_setup_shipping_box()
 	_setup_prompt()
 	_setup_grade()
 	_setup_salvage()
 	_setup_trade()
 	_setup_hover()
 	_setup_ribbon()
+	_apply_play_scope()
 	hud.presenter_sources = {"camera":cam_panel,"grade":grade,"orders":order_panel,"salvage":salvage_panel,"prompt":prompt,"hover":hover}
 	_setup_actor_controller()
 	_setup_calendar()
+	_setup_sleep()
 	_setup_save_registry()
 	# 水面阻挡要遍历所有组件的三角形（五个区块合计约 0.5s）。放到一帧后再算，
 	# 免得第一次点水面时忽然卡一下；算完 _shore_shapes 就固定，运行期只做查询。
@@ -373,6 +399,9 @@ func _ready() -> void:
 				actor_controller.reconcile_mode(GameState.Mode.ASHORE)
 				_walking = false
 
+	if not args.has("--skip-title") and not args.has("--capture"):
+		_begin_title()
+
 
 func _setup_environment() -> void:
 	# 场景里有就照用，运行时一个数都不改 —— 否则在编辑器里调的灯光/环境会被代码覆盖。
@@ -459,6 +488,10 @@ func load_game(path := "") -> Dictionary:
 		return res
 	_save_protected = false
 	_autosave_left = AUTOSAVE_SECONDS
+	# 读档后如果人已经在岸上，同样按「岸上免费补满」给满水壶。
+	# 存档里可能存着 0 滴水 —— 那是旧版本卡死局留下的，不该让它继续卡住。
+	if actor_controller != null and actor_controller.mode() == 0 and Economy.farm != null:
+		Economy.farm.refill()
 	hud.toast("已读档 · %s" % str(doc.get("snapshot", {}).get("saved_at", "上次进度")))
 	print("[save] load %s ok (v%d%s)" % [target, int(doc.get("version", 0)),
 		", migrated" if doc.get("migrated", false) else ""])
@@ -627,6 +660,7 @@ func _try_sail_to(screen: Vector2) -> bool:
 		hud.toast("这里没有可通行航路")
 		return true
 	_pending_pick.clear()
+	_ashore_on_arrival = false
 	return _depart(func() -> void:
 		actor_controller.request_mode(GameState.Mode.SAILING)
 		boat.sail_to_point(p, path)
@@ -778,7 +812,8 @@ func _active_water_mat() -> ShaderMaterial:
 func _set_shore_uniforms() -> void:
 	# Slice actual visible scene geometry at sea level; no hand-authored shore boxes.
 	var shore_region: Rect2 = get_node("Camera").pan_bounds.grow(24.0)
-	water_node.rebuild_shoreline([get_node("World/Environment"), get_node("World/Zones")], shore_region)
+	var shore_roots: Array = [_zone_nodes["zone1"],_zone_nodes["zone5"]] if Scope.minimal() else [get_node("World/Environment"),get_node("World/Zones")]
+	water_node.rebuild_shoreline(shore_roots,shore_region)
 
 
 func _setup_boat() -> void:
@@ -791,8 +826,16 @@ func _setup_boat() -> void:
 	boat.segment_clear = _water_segment_clear
 	if water_node.has_method("sample_surface"):
 		boat.water_surface = water_node
+		# 水面装饰鱼群与船、漂流物共用同一套波浪采样：鱼要跟着浪面走，
+		# 沉深才是相对浪面的恒定值（否则浪峰浪谷会把鱼顶出水面或压得太深）。
+		var animals := get_node_or_null("World/Environment/Animals")
+		if animals != null:
+			for school in animals.get_children():
+				if school.has_method("set_water"):
+					school.set_water(water_node)
 	boat.navigation_blocked.connect(func() -> void:
 		_pending_pick.clear()
+		_ashore_on_arrival = false
 		actor_controller.request_mode(GameState.Mode.ON_BOAT)
 		player.set_rowing(false)
 		if ribbon != null:
@@ -897,6 +940,9 @@ func _setup_farm() -> void:
 	farm_field.farm_model = Economy.farm
 	farm_field.build()
 	farm_field.acted.connect(_on_farm_acted)
+	for plot in farm_field.plots:
+		plot.use_action_menu = true
+		plot.interaction_requested.connect(_open_plot_options)
 	if Economy.farm != null and not Economy.farm.became_ready.is_connected(_on_crop_ready):
 		Economy.farm.became_ready.connect(_on_crop_ready)
 
@@ -948,11 +994,12 @@ func _setup_prompt() -> void:
 		prompt = PromptScript.new()
 		prompt.name = "InteractPrompt"
 		add_child(prompt)
+	prompt.enabled = false
 	prompt.action_requested.connect(func() -> void:
 		if interactor.target != null: _approach(interactor.target))
 	if interactor != null:
 		interactor.action_started.connect(func(spot: Node3D) -> void:
-			if spot.is_in_group("farm_plots"): player.play_farm_action(spot.verb))
+			if spot.is_in_group("farm_plots") and spot.verb == "收获": player.play_farm_action(spot.verb))
 		interactor.blocked.connect(func(reason: String) -> void:
 			_auto_target = null
 			interactor.auto_hold = false
@@ -1040,6 +1087,9 @@ func _setup_trade() -> void:
 
 
 func _open_orders(_board: Node3D) -> void:
+	if Scope.minimal():
+		hud.open_tab("shop")
+		return
 	if order_panel == null or order_panel.is_open():
 		return
 	order_panel.set_open(true)
@@ -1049,6 +1099,7 @@ func _open_orders(_board: Node3D) -> void:
 
 
 func _on_order_fulfill(uid: String) -> void:
+	if Scope.minimal(): return
 	if Economy.orders == null:
 		return
 	var res: Dictionary = Economy.orders.fulfill(uid)
@@ -1059,6 +1110,7 @@ func _on_order_fulfill(uid: String) -> void:
 
 
 func _on_order_reroll() -> void:
+	if Scope.minimal(): return
 	if Economy.orders == null:
 		return
 	var res: Dictionary = Economy.orders.reroll()
@@ -1086,6 +1138,7 @@ func _load_json(path: String) -> Dictionary:
 
 
 func _open_salvage(_winch: Node3D) -> void:
+	if Scope.minimal(): return
 	if salvage_panel == null or salvage_panel.is_open():
 		return
 	salvage_panel.begin()
@@ -1150,7 +1203,8 @@ func _water_segment_clear(a: Vector2, b: Vector2) -> bool:
 
 
 ## 出航统一入口：规划 → 交给船 → 铺航线预览。
-func _sail_to_landing(l: Dictionary, zone_id: String, landing_id: String) -> bool:
+## `then_ashore` 让「点登陆标记」这条链路一次走完：航行 → 靠妥 → 上岸。
+func _sail_to_landing(l: Dictionary, zone_id: String, landing_id: String, then_ashore := false) -> bool:
 	if l.is_empty():
 		return false
 	var goal := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
@@ -1159,6 +1213,7 @@ func _sail_to_landing(l: Dictionary, zone_id: String, landing_id: String) -> boo
 		hud.toast("无法到达该泊位")
 		return false
 	_pending_pick.clear()
+	_ashore_on_arrival = then_ashore
 	return _depart(func() -> void:
 		boat.sail_to(goal, float(l.boatYaw), zone_id, landing_id, path)
 		actor_controller.request_mode(GameState.Mode.SAILING)
@@ -1190,7 +1245,9 @@ func _setup_hover() -> void:
 func _update_pointer_ui() -> void:
 	if hover == null:
 		return
+	if markers != null: markers.visible = not hud.is_panel_open() and not hud.menu.active and not hud.menu.external_open()
 	var panel_open: bool = (hud != null and hud.is_panel_open()) \
+		or (hud != null and hud.world_actions.is_open()) \
 		or (salvage_panel != null and salvage_panel.is_open()) \
 		or (order_panel != null and order_panel.is_open()) \
 		or (cam_panel != null and cam_panel.is_open()) \
@@ -1281,7 +1338,7 @@ func _approach(node: Node3D) -> bool:
 func _activate_hover(hit: Dictionary) -> bool:
 	match str(hit.get("type", "")):
 		"spot":
-			_approach(hit.node)
+			_open_spot_bubbles(hit.node)
 			return true
 		"landing":
 			_select_landing(hit.hit)
@@ -1321,6 +1378,12 @@ func _setup_props() -> void:
 	props.water_point_clear = func(p: Vector2) -> bool: return SailNavLib.is_free(nav_grid(), p.x, p.y)
 	props.zones = Zones
 	props.give_resource = Economy.add_resource
+	props.can_receive = Economy.inventory.can_add
+	props.blocked.connect(func(reason: String): hud.toast(reason))
+	if Scope.minimal():
+		props.spawn_area = Scope.HOME_WATER.grow(-3)
+		props.crate_count = 0
+		props.school_count = 4
 	props.build()
 	props.collected.connect(_on_crate_collected)
 	props.fish_collected.connect(_on_fish_collected)
@@ -1373,13 +1436,17 @@ func _setup_hud() -> void:
 
 ## 所有按钮和快捷键共享命令入口，取消不留下待执行动作。
 func _cancel_action() -> void:
+	if hud != null: hud.world_actions.close(true)
 	actor_controller.cancel()
 	_pending_pick.clear()
+	_ashore_on_arrival = false
 	if dive.active: dive.cancel_navigation()
 	if ribbon != null: ribbon.clear()
 	hud.toast("已停止，可点击新的目标")
 
 func _on_click_command(command: String) -> void:
+	if _title_active or (sleep_cycle != null and sleep_cycle.busy): return
+	if not Scope.command_enabled(command): return
 	if command != "cancel" and (salvage_panel.is_open() or order_panel.is_open()):
 		hud.toast("请先关闭当前操作面板")
 		return
@@ -1389,7 +1456,7 @@ func _on_click_command(command: String) -> void:
 			hud.toast("镜头跟随角色")
 		"close":
 			if hud.is_panel_open(): hud.toggle_panel()
-		"bag", "plant", "build":
+		"bag", "plant", "build", "storage", "shop", "shipping":
 			_auto_target = null
 			interactor.auto_hold = false
 			cam_panel.set_open(false)
@@ -1417,6 +1484,7 @@ func _on_click_command(command: String) -> void:
 
 
 func _on_destination(zone_id: String) -> void:
+	if _title_active: return
 	if dive.active:
 		hud.toast("请先上浮再选择航行目的地")
 		return
@@ -1434,14 +1502,22 @@ func _on_boat_arrived(zone_id: String, landing_id: String) -> void:
 	if zone_id == "":
 		player.set_rowing(false)
 		actor_controller.request_mode(GameState.Mode.ON_BOAT)
-		hud.toast("已停船")
+		_ashore_on_arrival = false
+		if not Scope.minimal(): hud.toast("已停船")
 		return
 	GameState.landing_id = landing_id
 	GameState.enter_zone(zone_id)
 	actor_controller.request_mode(GameState.Mode.ON_BOAT)
-	hud.toast("抵达 · " + Zones.label(zone_id))
 	markers.set_highlight(zone_id)
 	player.set_rowing(false)
+	var ashore := _ashore_on_arrival
+	_ashore_on_arrival = false
+	if ashore:
+		# 玩家点的是登陆标记，不是泊位锚点：靠妥即上岸。
+		if _step_ashore():
+			hud.toast("靠岸 · " + Zones.label(zone_id))
+			return
+	if not Scope.minimal(): hud.toast("抵达 · " + Zones.label(zone_id))
 
 
 ## 按下必须发生在世界里；拖出去再拖回来也仍是拖动。
@@ -1453,6 +1529,7 @@ func _input(event: InputEvent) -> void:
 		_dragged = _dragged or _press_pos.distance_to(event.position) >= 11.0
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _title_active: return
 	# 启动早期（场景/水面还在初始化）输入可能比 HUD 先到：这时没有任何可交互界面，
 	# 直接放行，别把点击/按键丢给一个还不存在的节点。
 	if hud == null or not is_instance_valid(hud):
@@ -1525,31 +1602,55 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 
 
+## 点登陆标记：在船与岸之间来回。
+##
+## 一个标记承担两个方向，用「角色现在在哪」决定，而不是再分两个按钮：
+##   · 已经在岸上 → 走回泊位、上船（"坐在船上"）；
+##   · 已经在船上且就在这个泊位 → 上岸；
+##   · 船还没停到这个泊位（含别的区块）→ 开过去，**靠妥后自动上岸**。
+## 第三种是本次改动的重点：以前开到就跑完了，玩家还得再点一次标记。
 func _select_landing(hit: Dictionary) -> void:
 	var zone_id: String = hit.zone
 	var landing_id: String = hit.landing
 	var selected: Dictionary = Zones.landing(zone_id,landing_id)
 	if selected.is_empty(): return
 	var park := Vector3(float(selected.boatPark[0]),WATER_LEVEL,float(selected.boatPark[2]))
-	if zone_id == GameState.current_zone and landing_id == GameState.landing_id and not boat.starts_sailing() and boat.position.distance_to(park)<1.0:
+	# 显式写 bool：boat 声明为 Node3D，starts_sailing() 不在基类上，
+	# 这里一旦用 `:=`，整条表达式就是 Variant，Godot 推不出类型会直接报解析错误，
+	# 而 main.gd 解析失败会让整个游戏加载不了。2026-10-28 改鲸的场景后重导入时踩到过。
+	var docked: bool = zone_id == GameState.current_zone and landing_id == GameState.landing_id \
+		and not boat.starts_sailing() and boat.position.distance_to(park) < 1.0
+	if docked:
 		if GameState.mode == GameState.Mode.ASHORE:
-			_depart(func() -> void: pass)
+			_ashore_on_arrival = false
+			_depart(func() -> void: hud.toast("上船了 · 点水面或远方的登陆点出发"))
 		else:
-			var landing := _current_landing()
-			if landing != null:
-				_start_walk(landing.ground(), landing.stand_position())
+			_ashore_on_arrival = false
+			_step_ashore()
 		return
 	if not Zones.is_unlocked(zone_id):
 		hud.toast("远海街町需要先升级船只")
 		return
 	var l := Zones.landing(zone_id, landing_id)
-	if not _sail_to_landing(l, zone_id, landing_id):
+	if not _sail_to_landing(l, zone_id, landing_id, true):
 		return
 	if reticle != null:
 		reticle.show_at(Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2])), true)
 
 
+## 靠泊后上岸的唯一入口：站在泊位上走过去，到位即 ashore_idle。
+func _step_ashore() -> bool:
+	var landing := _current_landing()
+	if landing == null: return false
+	if not _start_walk(landing.ground(), landing.stand_position()):
+		hud.toast("这里上不了岸，请换个登陆点")
+		return false
+	if reticle != null: reticle.show_at(landing.stand_position())
+	return true
+
+
 func _handle_prop_click(prop: Dictionary) -> void:
+	_ashore_on_arrival = false
 	if GameState.mode == GameState.Mode.ASHORE:
 		_depart(func() -> void: _handle_prop_click(prop))
 		return
@@ -1558,6 +1659,10 @@ func _handle_prop_click(prop: Dictionary) -> void:
 		var target: Vector3 = school.base
 		var goal := target + Vector3(2.1, 0, 0)
 		var path := plan_route_to(goal.x, goal.z)
+		if path.is_empty():
+			# Shore-adjacent fish may have no room on their right; their own water point remains legal.
+			goal = target
+			path = plan_route_to(goal.x,goal.z)
 		if path.is_empty():
 			hud.toast("无法到达鱼群")
 			return
@@ -1622,6 +1727,7 @@ func _on_dive_exited() -> void:
 
 ## 调试入口（`--salvage`）：忽略距离，直接开面板。
 func _try_salvage() -> void:
+	if Scope.minimal(): return
 	var now := Time.get_ticks_msec() / 1000.0
 	if not Economy.can_salvage(now):
 		hud.toast("绞盘还在收线 · %.0f 秒" % Economy.salvage_cooldown_left(now))
@@ -1630,6 +1736,8 @@ func _try_salvage() -> void:
 
 
 func _on_dive() -> void:
+	if _title_active: return
+	if Scope.minimal(): return
 	if boat.starts_sailing():
 		hud.toast("先靠岸或停船再潜水")
 		return
@@ -1654,6 +1762,7 @@ func _on_dive() -> void:
 
 ## 建造页直接进入前往和自动交付流程。
 func _on_focus_site(id: String) -> void:
+	if Scope.minimal(): return
 	if build_field == null:
 		return
 	var node: Node3D = build_field.find(id)
@@ -1667,6 +1776,7 @@ func _on_focus_site(id: String) -> void:
 
 
 func _on_build_facility(id: String) -> void:
+	if Scope.minimal(): return
 	var r: Dictionary = Economy.build_facility(id)
 	if r.ok:
 		hud.toast("建成 · %s" % r.name)
@@ -1689,20 +1799,15 @@ func _on_focus_plot(plot_id: String) -> void:
 
 
 func _rest_for_day() -> void:
+	if _title_active or sleep_cycle.busy: return
 	if dive.active or boat.starts_sailing() or _walking or GameState.mode != GameState.Mode.ASHORE:
 		hud.toast("请在岸上站定后休息")
 		return
-	_auto_target = null
-	interactor.auto_hold = false
-	world_clock.rest_to_morning()
-	var result: Dictionary = Economy.farm.advance_day()
-	hud.toast("第 %d 天 · %d 格生长，%d 格成熟" % [result.day,result.grew,result.ready])
-	if hud.is_panel_open(): hud.refresh_view()
-	if _autosave_on: save_game("",true)
-
+	sleep_cycle.request()
 
 
 func _on_upgrade_ship() -> void:
+	if Scope.minimal(): return
 	var r: Dictionary = Economy.upgrade_ship()
 	if r.ok:
 		hud.toast("小船升到 Lv.%d" % int(r.level))
@@ -1712,10 +1817,18 @@ func _on_upgrade_ship() -> void:
 
 func _process(delta: float) -> void:
 	_t += delta
-	world_clock.tick(delta)
+	if _title_active:
+		_active_water_mat().set_shader_parameter("u_time",_t)
+		if water_node.has_method("update_surface"): water_node.update_surface(_t,boat,cam.target)
+		return
+	sleep_cycle.advance(delta)
+	if sleep_cycle.busy: return
 	weather_service.tick(delta)
 	if weather_view != null:
 		weather_view.present(world_clock.query(),weather_service.query(),dive.active)
+		# 同一份时钟查询驱动真实光照；屏幕层只负责雨线。
+		if daylight_rig != null:
+			daylight_rig.apply(world_clock.query().hour)
 		_calendar_label.text = world_clock.query().text + " · " + weather_service.query().label
 		_calendar_label.visible = not dive.active and not hud.is_modal()
 	if _autosave_on:
@@ -1840,7 +1953,7 @@ func _probe_flicker(first: Image, dir: String) -> void:
 	print("[flicker] captured a/b %s" % str(second.get_size()))
 
 func input_blocked() -> bool:
-	return (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
+	return _title_active or (sleep_cycle != null and sleep_cycle.busy) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
 
 func _setup_actor_controller() -> void:
 	actor_controller.mode_changed.connect(GameState.set_mode)
@@ -1852,10 +1965,26 @@ func _setup_actor_controller() -> void:
 	Economy.ship.upgraded.connect(func(_level): GameState.far_sea_unlocked=true)
 	interactor.completed.connect(func(_spot,_reward): actor_controller.complete_interaction())
 	interactor.blocked.connect(func(_reason): actor_controller.complete_interaction())
+	# SEA-FARM-R02「水壶12份，岸上免费补满」：上岸那一刻补满。
+	#
+	# 这条以前只有文字没有实现，水壶见底后所有种下的格子都变成死局：
+	# 浇水被拒、种植被拒、收获被拒，而界面上没有任何补水按钮。
+	# 只认「非岸上 → 岸上」这一次跃迁：浇水后回到待机也是 mode 0，
+	# 若按 mode==0 补，等于每浇一次就回满，水壶变成无限。
+	var _last_mode := {"value": -1}
+	actor_controller.mode_changed.connect(func(mode: int) -> void:
+		var was: int = int(_last_mode.value)
+		_last_mode.value = mode
+		if mode == 0 and was != 0 and Economy.farm != null: Economy.farm.refill())
 
 func _setup_calendar() -> void:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/world_time.json"))
 	world_clock.configure(config.get("clock",{}))
+	if Scope.minimal():
+		Economy.daily.observe(world_clock.query())
+		world_clock.changed.connect(Economy.daily.observe)
+		hud.calendar_query = world_clock.query
+		Economy.daily.settled.connect(func(receipt: Dictionary): hud.toast("收货员已收走货物 · 瓶盖 +%d" % receipt.income if receipt.income>0 else "第 %d 天 · 新的一天，记得照料作物" % receipt.day,4.0))
 	weather_service.configure(_load_json("res://assets/data/weather.json"))
 	var layer := CanvasLayer.new()
 	layer.name = "WorldWeather"
@@ -1874,8 +2003,29 @@ func _setup_calendar() -> void:
 	_calendar_label.add_theme_constant_override("shadow_offset_x",1)
 	_calendar_label.add_theme_constant_override("shadow_offset_y",2)
 	layer.add_child(_calendar_label)
+	_calendar_label.text = world_clock.query().text + " · " + weather_service.query().label
+	_setup_daylight()
+
+
+## 昼夜光照装置。必须在 `_setup_water` 之后建 —— 它要把水面材质的天空反射
+## 与太阳高光一起抄成基准，水面还没建就抄了个空。
+##
+## 抄完按存档时刻输出；开始画面与正式入场共用恢复后的同一世界时刻。
+func _setup_daylight() -> void:
+	daylight_rig = preload("res://src/rendering/daylight_rig.gd").new()
+	daylight_rig.name = "DaylightRig"
+	add_child(daylight_rig)
+	# 水面会换方案，所以给的是查询而不是材质本身；换过之后装置自己重抄基准。
+	daylight_rig.capture(self, _active_water_mat)
+	# 分时段偏移按「季节 + 天气」分组：天气一变就换一套偏移，不用等面板开着。
+	daylight_rig.set_scene_context(daylight_rig.season(), weather_service.kind)
+	weather_service.changed.connect(func(_snapshot: Dictionary) -> void:
+		if daylight_rig != null:
+			daylight_rig.set_scene_context(daylight_rig.season(), weather_service.kind))
+	daylight_rig.apply(world_clock.query().hour)
 
 func _setup_save_registry() -> void:
+	save_registry.busy_query = func(): return Economy.daily.is_settling() or sleep_cycle.busy
 	var schemas: Dictionary = preload("res://src/save/save_schema.gd").schemas()
 	var owners := {"economy":Economy,"gather":gather,"pickups":props,"dive":dive,"salvage":Economy.salvage,"time":world_clock,"weather":weather_service}
 	for id in owners:
@@ -1891,7 +2041,12 @@ func capture_world_state() -> Dictionary:
 	return {"zone":GameState.current_zone,"landing":GameState.landing_id,"mode":actor_controller.mode(),"far_sea":GameState.far_sea_unlocked,"boat":[b.x,b.y,b.z,boat.rotation.y],"player":[p.x,p.y,p.z] if actor_controller.mode()==0 else []}
 
 func restore_world_state(data: Dictionary) -> void:
+	data = data.duplicate(true)
+	var old_pose: Array = data.get("boat",[])
+	if Scope.minimal() and (not Scope.zone_enabled(str(data.get("zone","zone1"))) or (old_pose.size()==4 and not Scope.HOME_WATER.has_point(Vector2(old_pose[0],old_pose[2])))):
+		data.merge({"zone":"zone1","landing":"main","mode":1,"boat":[],"player":[]},true)
 	_pending_pick.clear()
+	_ashore_on_arrival = false
 	actor_controller.cancel()
 	GameState.far_sea_unlocked = bool(data.get("far_sea",false))
 	var zone_id := str(data.get("zone","zone1"))
@@ -1902,10 +2057,15 @@ func restore_world_state(data: Dictionary) -> void:
 	else:
 		var landing: Dictionary = Zones.landing(zone_id,"main")
 		boat.place_at(Vector3(landing.boatPark[0],WATER_LEVEL,landing.boatPark[2]),landing.boatYaw)
+	var saved_player: Array = data.get("player",[])
+	if int(data.get("mode",1)) == GameState.Mode.ASHORE and saved_player.size()==3:
+		var ground = _zone_nodes[zone_id].area_containing(float(saved_player[0]),float(saved_player[2]))
+		if ground != null: data.player = [saved_player[0],ground.surface_y,saved_player[2]]
 	actor_controller.restore_pose(data)
 	GameState.enter_zone(zone_id)
 
 func _after_restore() -> void:
+	if Scope.minimal(): Economy.daily.observe(world_clock.query())
 	Economy.publish_restored()
 	_sync_zone_levels()
 	cam.restore_follow(player)
@@ -1926,5 +2086,235 @@ func validate_world_state(data: Dictionary) -> String:
 		var area = _zone_nodes[zone_id].area_containing(float(pos[0]),float(pos[2]))
 		if area==null or absf(area.surface_y-float(pos[1]))>0.5: return "Saved player is outside walkable ground"
 	var pose: Array = data.get("boat",[])
-	if pose.size()==4 and not _is_open_water(float(pose[0]),float(pose[2])): return "Saved boat is outside navigable water"
+	if pose.size()==4 and not navigation.is_geometric_water(float(pose[0]),float(pose[2])): return "Saved boat is outside navigable water"
 	return ""
+
+func _apply_play_scope() -> void:
+	if not Scope.minimal(): return
+	for id in _zone_nodes:
+		if not Scope.zone_enabled(id):
+			_zone_nodes[id].hide()
+			_zone_nodes[id].process_mode = Node.PROCESS_MODE_DISABLED
+	var distant := environment.get_node_or_null("StaticBatch")
+	if distant: distant.hide()
+	for field in [gather,build_field,salvage_winch]:
+		field.hide()
+		field.process_mode = Node.PROCESS_MODE_DISABLED
+	for node in get_tree().get_nodes_in_group("interactable"):
+		if not node.is_visible_in_tree(): node.remove_from_group("interactable")
+	trade_board.order_model = null
+	var supply_landing = _zone_nodes["zone1"].landing_point("salvage")
+	trade_board.position = supply_landing.stand_position()+Vector3(-1.6,0,-1.2)
+	trade_board.label = "家园补给站 · 商店 / 仓库 / 出货箱"
+	trade_board.verb = "打开"
+	# Camera remains locked; P is an available lighting/debug tool in this scope.
+	cam_panel.process_mode = Node.PROCESS_MODE_DISABLED
+
+func _begin_title() -> void:
+	_title_active = true
+	daylight_rig.apply(world_clock.query().hour)
+	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").hide()
+	_title_economy_ticking = Economy.ticking
+	Economy.ticking = false
+	interactor.active = false
+	for node in find_children("*","CanvasLayer",true,false):
+		_title_layers.append({"node":node,"visible":node.visible,"process_mode":node.process_mode})
+		node.hide()
+		node.process_mode = Node.PROCESS_MODE_DISABLED
+	_title_props = {"visible":props.visible,"process_mode":props.process_mode}
+	props.hide()
+	props.process_mode = Node.PROCESS_MODE_DISABLED
+	title_camera.begin(cam)
+	start_screen = preload("res://src/ui/start_screen.gd").new()
+	start_screen.name = "StartScreen"
+	add_child(start_screen)
+	start_screen.start_requested.connect(_enter_game)
+
+func _enter_game() -> void:
+	if not _title_active: return
+	var transition := create_tween()
+	transition.tween_method(func(value: float): title_camera.blend(cam,value),0.0,1.0,1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	transition.tween_callback(func():
+		title_camera.finish(cam)
+		for entry in _title_layers:
+			entry.node.visible = entry.visible
+			entry.node.process_mode = entry.process_mode
+		_title_layers.clear()
+		props.visible = _title_props.visible
+		props.process_mode = _title_props.process_mode
+		_title_props.clear()
+		_title_active = false
+		_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").show()
+		daylight_rig.apply(world_clock.query().hour)
+		Economy.ticking = _title_economy_ticking
+		start_screen.queue_free()
+		start_screen = null)
+
+
+func _open_plot_options(plot_id: String) -> void:
+	var plot: Node3D = farm_field.find(plot_id)
+	if plot == null or _title_active: return
+	_open_spot_bubbles(plot)
+
+func _bubble_anchor(spot: Node3D) -> Callable:
+	return func() -> Variant:
+		if not is_instance_valid(spot) or not spot.is_visible_in_tree(): return null
+		var world: Vector3 = spot.global_position+Vector3.UP*0.45
+		if cam.is_position_behind(world): return null
+		var screen: Vector2=cam.unproject_position(world)
+		if not get_viewport().get_visible_rect().grow(24).has_point(screen): return null
+		return screen
+
+func _open_spot_bubbles(spot: Node3D) -> void:
+	if not is_instance_valid(spot): return
+	actor_controller.cancel()
+	var options: Array = []
+	if spot.is_in_group("farm_plots"):
+		var id := str(spot.plot_id)
+		var phase: String = Economy.farm.phase(id)
+		var access: String = Economy.farm.access_reason(id)
+		if phase == "empty":
+			var owned: Array = _owned_seeds()
+			# 背包里有种子就一定弹二级：选哪一包、还剩几包，必须由玩家确认。
+			# 以前「只有一种就直接种」会让手里拿着三包生菜的人点一下就没得选，
+			# 也看不出刚才种掉的是哪一包。
+			options.append({"id":"plant","icon":"plant","label":"种植","blocked":access if access!="" else ("背包里没有种子，可到商店购买" if owned.is_empty() else ""),"command":func(): _open_seed_bubbles(spot)})
+			# 空地才摆出「浇水 / 收获」两颗灰项，说明这格还能做什么。
+			options.append({"id":"water","icon":"water","label":"浇水","blocked":access if access!="" else "种下种子后再浇水"})
+			options.append({"id":"harvest","icon":"harvest","label":"收获","blocked":access if access!="" else "还没有成熟的作物"})
+		elif phase == "ready":
+			options.append({"id":"harvest","icon":"harvest","label":"收获","blocked":Economy.farm.blocked_reason(id),"command":func(): _queue_plot_action(spot,"harvest","")})
+		else:
+			# 已种植的格子只给「这一格现在该做的事」。
+			# 从前这里也摆「种植」，灰着但排在第一个，玩家明明想浇水却先读到「种植」，
+			# 会以为这格是空的、还要再种一次。
+			var reason := access
+			if reason=="" and not Economy.farm.is_dry(id): reason="今天已经浇过水了"
+			if reason=="" and Economy.farm.watering_can<=0:
+				# 水壶见底：这一格直接换成「补水并浇水」，一步到位，不再让玩家去翻页面。
+				options.append({"id":"water","icon":"water","label":"补水并浇水","blocked":"",
+					"command":func(): _queue_refill_and_water(spot)})
+			else:
+				options.append({"id":"water","icon":"water","label":"浇水","blocked":reason,"command":func(): _queue_plot_action(spot,"water","")})
+	elif spot == trade_board and Scope.minimal():
+		for service in [["shop","shop","商店"],["storage","bag","仓库"],["shipping","shipping","出货箱"]]:
+			var tab := str(service[0])
+			options.append({"id":tab,"icon":str(service[1]),"label":str(service[2]),"command":func(): _approach_command(spot,func() -> Dictionary:
+				hud.open_tab(tab);return {"event":"service_opened"})})
+	else:
+		var icon := "hand"
+		if spot.is_in_group("shipping_boxes"): icon="shipping"
+		elif str(spot.id)=="home_sleep": icon="sleep"
+		elif str(spot.verb).contains("采"): icon="harvest"
+		elif str(spot.verb).contains("挖"): icon="dig"
+		var blocked := str(spot.blocked_reason()) if spot.has_method("blocked_reason") else ""
+		options.append({"id":"interact","icon":icon,"label":str(spot.verb),"blocked":blocked,"command":func(): _approach(spot)})
+	hud.open_world_actions(_bubble_anchor(spot),options)
+
+func _owned_seeds() -> Array:
+	var result: Array=[]
+	for id in Economy.farm.crop_definitions():
+		if Economy.inventory.count(str(Economy.farm.crop_def(id).seed))>0: result.append(id)
+	return result
+
+## 二级：选种子。每个气泡下面挂「生菜 ×3」这样的胶囊，
+## 免得三个种子只剩图标 —— 生菜/番茄/南瓜的种子图标在小尺寸下几乎分不出。
+func _open_seed_bubbles(plot: Node3D) -> void:
+	var options: Array=[]
+	for raw in _owned_seeds():
+		var crop := str(raw)
+		var definition: Dictionary=Economy.farm.crop_def(crop)
+		var count: int = Economy.inventory.count(str(definition.seed))
+		options.append({"id":"seed:"+crop,"icon":"plant","item_icon":str(definition.seed),
+			"label":str(definition.name),"caption":"%s ×%d" % [str(definition.name),count],
+			"command":func(): _queue_plot_action(plot,"plant",crop)})
+	hud.open_world_actions(_bubble_anchor(plot),options,"选择种子")
+
+func _approach_command(spot: Node3D, command: Callable) -> void:
+	if _approach(spot): interactor.queue_command(spot,command)
+
+func _queue_plot_action(plot: Node3D, action: String, crop: String) -> void:
+	_approach_command(plot,func() -> Dictionary:
+		if not is_instance_valid(plot): return {"blocked":"种植格已不可用"}
+		var result: Dictionary=plot.perform(action,crop)
+		if not result.has("blocked"):
+			player.play_farm_action({"plant":"播种","water":"浇水","harvest":"收获"}.get(action,"查看"))
+		return result)
+
+## 水壶见底时的一步操作：补满淡水 → 立刻浇这一格。
+##
+## 拆分会有两种情况出问题：只补水不浇水，玩家还以为点失败了；先浇水再补水，
+## 中间会弹一次「水壶空了」。合成一条命令，走完只掉一块水。
+func _queue_refill_and_water(plot: Node3D) -> void:
+	_approach_command(plot,func() -> Dictionary:
+		if not is_instance_valid(plot): return {"blocked":"种植格已不可用"}
+		Economy.farm.refill()
+		var result: Dictionary=plot.perform("water","")
+		if not result.has("blocked"):
+			player.play_farm_action("浇水")
+		return result)
+
+func _setup_shipping_box() -> void:
+	var box = _zone_nodes.zone1.get_node("Objects/ShippingBox")
+	box.opened.connect(func(): hud.open_tab("shipping"))
+
+
+func _setup_sleep() -> void:
+	sleep_curtain = preload("res://src/ui/sleep_curtain.gd").new()
+	sleep_curtain.name = "SleepCurtain"
+	add_child(sleep_curtain)
+	sleep_curtain.focus_query = func(): return cam.unproject_position(player.global_position+Vector3.UP*0.7)
+	sleep_cycle = preload("res://src/time/sleep_cycle.gd").new()
+	sleep_cycle.name = "SleepCycle"
+	add_child(sleep_cycle)
+	sleep_cycle.clock = world_clock
+	sleep_cycle.curtain = sleep_curtain
+	sleep_cycle.prepare = _prepare_sleep
+	sleep_cycle.return_home = _wake_at_home
+	sleep_cycle.woke.connect(func(_snapshot):
+		_restore_sleep_ui()
+		hud.toast("早上好 · 07:00 作物生长、出货箱收货",4.0)
+		if _autosave_on: save_game("",true))
+	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").sleep_requested.connect(_rest_for_day)
+
+func _prepare_sleep() -> void:
+	actor_controller.cancel()
+	_pending_pick.clear()
+	if ribbon != null: ribbon.clear()
+	interactor.active = false
+	hud.menu.close_menu()
+	hud.close_card()
+	for presenter in [order_panel,cam_panel,grade]:
+		presenter.set_open(false)
+	salvage_panel.cancel()
+	# Development/full-world saves may be underwater. Finish through the dive state machine.
+	if dive.active: dive.phase_machine.change("surface",{},true)
+	actor_controller.begin_sleep()
+	# Keep rain/world rendering alive; hide gameplay UI until the iris is fully open.
+	_sleep_ui_layers.clear()
+	for layer in find_children("*","CanvasLayer",true,false):
+		if layer==sleep_curtain or layer.name=="WorldWeather": continue
+		_sleep_ui_layers.append({"node":layer,"visible":layer.visible})
+		layer.hide()
+	_sleep_calendar_visible = _calendar_label.visible
+	_calendar_label.hide()
+	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").hide()
+
+func _restore_sleep_ui() -> void:
+	for entry in _sleep_ui_layers:
+		if is_instance_valid(entry.node): entry.node.visible=entry.visible
+	_sleep_ui_layers.clear()
+	_calendar_label.visible = _sleep_calendar_visible
+	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").show()
+
+func _wake_at_home() -> void:
+	var checkpoint: Node3D = _zone_nodes.zone1.get_node("Objects/SleepCheckpoint")
+	var pos := checkpoint.global_position+Vector3(0,0,0.8)
+	restore_world_state({"zone":"zone1","landing":"main","mode":0,"player":[pos.x,pos.y,pos.z],"far_sea":GameState.far_sea_unlocked})
+	cam.restore_follow(player)
+	cam.target = player.global_position+Vector3.UP*0.7
+	cam.apply_pose()
+	markers.set_highlight("zone1")
+	daylight_rig.apply(world_clock.query().hour)
+	_calendar_label.text = world_clock.query().text + " · " + weather_service.query().label
+	if not Scope.minimal(): Economy.farm.advance_day()

@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/deck_tile/deck_tile.glb" id="visual"]
 [node name="deck_tile" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-DECK-TILE"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-DECK-TILE"
 [node name="Visual" parent="." instance=ExtResource("visual")]

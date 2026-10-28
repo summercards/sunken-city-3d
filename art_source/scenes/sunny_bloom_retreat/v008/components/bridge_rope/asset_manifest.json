@@ -1,0 +1,52 @@
+{
+  "asset_id": "SEA-SCENE-SBR-BRIDGE-ROPE",
+  "license": "pending_user_reference_rights_review",
+  "geometry_fingerprint": "1cb2de6c038e3e4c20b57072ffc7120a8e9ee34b4f4a824e60275b55b037f64f",
+  "domain": "scenes",
+  "stage": "runtime_integrated_verified",
+  "version": "v008",
+  "runtime_version": "1.5",
+  "runtime_verified": true,
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "scope": "scene_local",
+  "optimized_source": "art_source/scenes/sunny_bloom_retreat/v008/export/v001/solar_cabin_optimized_v001.blend",
+  "optimized_sha256": "55c9788ddef159c3b8aad8494ba01d8b7c791cb506dc756adea3a1c0b6abc19c",
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v008/export/v001/export_manifest.json",
+  "name": "栈桥-两端系结垂绳",
+  "source": "art_source/scenes/sunny_bloom_retreat/v008/components/bridge_rope/bridge_rope.blend",
+  "source_sha256": "c6e02dd2e0232b2230b6b00c79ffc7fc2803d4001edcf0e2b0497c87e49d42a0",
+  "manifest": "art_source/scenes/sunny_bloom_retreat/v008/components/bridge_rope/asset_manifest.json",
+  "category": "fixture",
+  "runtime_path": "godot/assets/models/facilities/solar_cabin/components/bridge_rope/bridge_rope.glb",
+  "prefab": "godot/scenes/components/solar_cabin/bridge_rope.tscn",
+  "asset_key": "bridge_rope",
+  "runtime_scope": "太阳能木屋-海上区域组件",
+  "note": "v006：全地面木铺板、去帆布和挂钩、伞桌移至右前角、花缩至75%；建筑与花草分离。",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v005/components/bridge_rope/bridge_rope.blend",
+      "source_sha256": "fa45b1d6b9018f7c2a4e6396b3d51ec68c72cb3fb8ed0ce9e8ab1177c7f12c5f",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v005/components/bridge_rope/asset_manifest.json",
+      "version": "v005"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v006/components/bridge_rope/bridge_rope.blend",
+      "source_sha256": "129f6b025ccfd21d5ff6f19cfc64b9a3fdec0d5fba7f9c30e56e3d9686585240",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v006/components/bridge_rope/asset_manifest.json",
+      "version": "v006"
+    },
+    {
+      "source": "art_source/scenes/sunny_bloom_retreat/v007/components/bridge_rope/bridge_rope.blend",
+      "source_sha256": "08dd4a904113fb47a5a6795a60856b30e7f7006d3f7c204a413b0a81e4e693b0",
+      "manifest": "art_source/scenes/sunny_bloom_retreat/v007/components/bridge_rope/asset_manifest.json",
+      "version": "v007"
+    }
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "component_contract": "godot/src/ambient/scene_component.gd",
+  "instance_manifest": "godot/assets/models/facilities/solar_cabin/instances.json",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBR-BRIDGE-ROPE"
+}

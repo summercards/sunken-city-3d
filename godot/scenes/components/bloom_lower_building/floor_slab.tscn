@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/bloom_lower_building/components/floor_slab/floor_slab.glb" id="visual"]
 [node name="内楼板" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-BLB-FLOOR-SLAB"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-BLB-FLOOR-SLAB"
 [node name="Visual" parent="." instance=ExtResource("visual")]

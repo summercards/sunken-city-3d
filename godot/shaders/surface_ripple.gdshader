@@ -3,6 +3,14 @@ render_mode unshaded, cull_disabled, depth_draw_never, shadows_disabled;
 #include "res://shaders/ocean_waves.gdshaderinc"
 uniform float phase = 0.0;
 uniform float opacity = 0.56;
+// 亮色也做成可传参：光降 alpha 不够 —— 圈色是近白高亮，在 ACES 之后
+// 「20% 的白」叠在深蓝水面上仍然读成一道亮白环。想让它退成水面上的一丝痕迹，
+// 必须同时把圈自身的亮度压下去。默认值 = 旧观感，漂流物资不受影响。
+uniform vec3 ring_tint = vec3(0.76, 0.98, 0.95);
+// 圈数控制。默认值 = 旧行为（双圈开环 + 两道错相扩散波），
+// 调用点可以按需要调少，不影响共用这片着色器的其他目标（漂流物资的圈）。
+uniform float ring_count = 2.0;
+uniform float wave_count = 2.0;
 
 // Clean, smooth circular ring (with a gentle water-wave breathe so it feels organic)
 float smooth_ring(vec2 p, float radius, float half_width) {
@@ -29,11 +37,17 @@ void fragment() {
 	float r_out = 0.72 - breath * 0.014;
 	float inner_ring = smooth_ring(p, r_in, 0.017) * (0.64 + 0.14 * breath);
 	float outer_ring = smooth_ring(p, r_out, 0.013) * (0.42 - 0.10 * breath);
-	float base_rings = max(inner_ring, outer_ring);
+	float base_rings = inner_ring;
+	if (ring_count > 1.5) {
+		base_rings = max(base_rings, outer_ring);
+	}
 
 	// Gently expanding translucent concentric waves (two staggered phases)
 	float expand = 0.0;
 	for (int i = 0; i < 2; i++) {
+		if (float(i) >= wave_count) {
+			break;
+		}
 		float age = fract(u_time * 0.24 + phase * 0.159 + float(i) * 0.5);
 		float r_wave = mix(0.46, 0.95, age);
 		float w_wave = mix(0.016, 0.009, age);
@@ -41,6 +55,6 @@ void fragment() {
 		expand = max(expand, smooth_ring(p, r_wave, w_wave) * env * 0.58);
 	}
 
-	ALBEDO = vec3(0.76, 0.98, 0.95);
+	ALBEDO = ring_tint;
 	ALPHA = max(base_rings, expand) * opacity;
 }

@@ -14,9 +14,12 @@ func register(id: String, capture: Callable, apply: Callable, schema: Dictionary
 		sources.append(weakref(source))
 	_entries[id] = {"capture":capture, "apply":apply, "schema":schema.duplicate(true), "defaults":defaults.duplicate(true), "validator":validator,"event_sources":sources}
 
+var busy_query: Callable
+func is_busy() -> bool: return _restoring or (busy_query.is_valid() and busy_query.call())
 func is_restoring() -> bool: return _restoring
 
 func capture() -> Dictionary:
+	if is_busy(): return {}
 	var data := {}
 	for id in _entries: data[id] = _entries[id].capture.call().duplicate(true)
 	return data
@@ -37,7 +40,7 @@ func validate(data: Dictionary) -> String:
 	return ""
 
 func restore(data: Dictionary) -> Dictionary:
-	if _restoring: return {"ok":false,"reason":"正在恢复"}
+	if is_busy(): return {"ok":false,"reason":"正在恢复或结算"}
 	var error := validate(data)
 	if error != "": return {"ok":false,"reason":error}
 	_restoring = true
@@ -59,4 +62,5 @@ func restore(data: Dictionary) -> Dictionary:
 	return {"ok":true,"reason":""}
 
 func clear() -> void:
+	busy_query = Callable()
 	_entries.clear()

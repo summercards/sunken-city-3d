@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/coffee_table/coffee_table.glb" id="visual"]
 [node name="低木茶几" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-COFFEE-TABLE"
+component_kind = "furnishing"
+subcategory = "movable"
+movable = true
 metadata/asset_id = "SEA-SCENE-SBR-COFFEE-TABLE"
 [node name="Visual" parent="." instance=ExtResource("visual")]

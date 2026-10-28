@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/upper_room/upper_room.glb" id="visual"]
 [node name="屋顶小屋墙壳" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-UPPER-ROOM"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-UPPER-ROOM"
 [node name="Visual" parent="." instance=ExtResource("visual")]

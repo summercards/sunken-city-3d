@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/bloom_lower_building/components/roof_rim/roof_rim.glb" id="visual"]
 [node name="奶白屋顶边条" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-BLB-ROOF-RIM"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-BLB-ROOF-RIM"
 [node name="Visual" parent="." instance=ExtResource("visual")]

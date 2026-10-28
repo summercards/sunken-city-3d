@@ -36,12 +36,13 @@ func build(cam: Camera3D) -> void:
 	add_child(_canvas)
 
 	for z in zones.list:
+		if zones.zone_enabled_query.is_valid() and not zones.zone_enabled_query.call(str(z.id)): continue
 		for l in z.get("landings", []):
 			var p: Array = l.dockEdge
 			items.append({
 				"zone": z.id,
 				"landing": l.id,
-				"name": str(l.get("name", z.name)),
+				"name": ("太阳房" if z.id == "zone1" and l.id == "main" else ("家园补给站" if z.id == "zone1" and l.id == "salvage" else str(l.get("name",z.name)))),
 				"world": Vector3(p[0], float(p[1]) + 0.55, p[2]),
 				"screen": Vector2.ZERO,
 				"size": ICON_MAX,

@@ -1,29 +1,10 @@
 extends CanvasLayer
-## 鼠标悬停铭牌：把网页版那张 hover card 搬到世界坐标上。
-##
-## 网页版的做法是「DOM 卡片 + 工程投影」，好处是鼠标一移上去就知道
-## 「这是什么、几级、点了会发生什么」。Godot 版之前只有走近才出提示条，
-## 远处的目标完全靠猜。这里补上三件事：
-##
-##   1. 悬停到可交互物 / 上岸桩 / 漂流物 / 鱼群时，在它上方浮出名字与动作；
-##   2. 鼠标指针变成手型（可点的地方一眼能看出来）；
-##   3. 悬停的目标同时亮一下焦点环（如果能亮），点击即执行。
-##
-## 判定全部按**屏幕投影**做，不做物理射线：建筑没有碰撞体，
-## 而真正需要悬停的东西（采集点 / 施工牌 / 菜箱 / 锚标 / 漂流物）本来就有世界坐标，
-## 投影 + 距离阈值更便宜，也不会被水面挡住。
+## 屏幕投影只负责命中与小操作图标；动态操作气泡由HUD拥有。
+## 不显示物体名、状态文案或原先的悬停说明卡。
 
-const UiFontLib = preload("res://src/ui/ui_font.gd")
 const PropsScript = preload("res://src/pickups/sea_props.gd")
 
 const HOVER_RADIUS := 30.0
-const CARD_BG := Color(0.030, 0.098, 0.165, 0.90)
-const C_BORDER := Color(0.42, 0.88, 0.82, 0.36)
-const C_TITLE := Color("#354c57")
-const C_SUB := Color("#52676b")
-const C_WARN := Color("#95602f")
-const C_GOOD := Color("#32785d")
-
 var camera: Camera3D
 var markers: CanvasLayer
 var props: Node3D
@@ -35,40 +16,34 @@ var current_zone := "zone1"
 var target: Dictionary = {}
 
 var _card: PanelContainer
-var _title: Label
-var _sub: Label
-var _font: Font
 var _canvas: Control
 var _shown := false
-var _hover_world := Vector3.ZERO
 
 
 func _ready() -> void:
+	set_meta("cozy_skip",true)
 	layer = 12
-
-	_font = UiFontLib.make(PackedStringArray(["Hiragino Sans GB", "PingFang SC", "Heiti SC", "Microsoft YaHei", "Helvetica Neue"]))
-
 	_canvas = Control.new()
 	_canvas.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_canvas.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_canvas)
-
 	_card = PanelContainer.new()
 	_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_card.add_theme_stylebox_override("panel", _panel_style())
+	_card.custom_minimum_size = Vector2(38,38)
+	var style := StyleBoxFlat.new()
+	style.bg_color=Color("#438f83");style.set_corner_radius_all(19)
+	style.border_color=Color("#fff9e7");style.set_border_width_all(2)
+	style.content_margin_left=8;style.content_margin_right=8
+	style.content_margin_top=8;style.content_margin_bottom=8
+	_card.add_theme_stylebox_override("panel",style)
 	_canvas.add_child(_card)
-
-	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 1)
-	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_card.add_child(box)
-
-	_title = _label(13, C_TITLE)
-	box.add_child(_title)
-	_sub = _label(11, C_SUB)
-	box.add_child(_sub)
-
-	_card.visible = false
+	var icon := TextureRect.new()
+	icon.texture=preload("res://src/ui/illustrated_icons.gd").texture("hand",true)
+	icon.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	_card.add_child(icon)
+	_card.hide()
 
 
 ## 每帧由 main 驱动。`screen` 是鼠标在视口里的位置。
@@ -161,9 +136,6 @@ func _pick(screen: Vector2) -> Dictionary:
 
 
 func _show(hit: Dictionary, screen: Vector2) -> void:
-	_title.text = str(hit.title)
-	_sub.text = str(hit.sub)
-	_sub.add_theme_color_override("font_color", C_WARN if bool(hit.warn) else C_GOOD)
 	_card.visible = true
 	_shown = true
 
@@ -192,27 +164,3 @@ func _clear_cursor() -> void:
 
 func _item_label(id: String) -> String:
 	return ItemDB.label(id)
-
-
-func _label(size: int, color: Color) -> Label:
-	var l := Label.new()
-	l.add_theme_font_override("font", _font)
-	l.add_theme_font_size_override("font_size", size)
-	l.add_theme_color_override("font_color", color)
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	return l
-
-
-func _panel_style() -> StyleBoxFlat:
-	var s := StyleBoxFlat.new()
-	s.bg_color = CARD_BG
-	s.border_color = C_BORDER
-	s.set_border_width_all(1)
-	s.set_corner_radius_all(8)
-	s.content_margin_left = 11
-	s.content_margin_right = 11
-	s.content_margin_top = 6
-	s.content_margin_bottom = 6
-	s.shadow_color = Color(0.0, 0.05, 0.10, 0.32)
-	s.shadow_size = 6
-	return s

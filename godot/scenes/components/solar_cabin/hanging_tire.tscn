@@ -3,5 +3,9 @@
 [ext_resource type="PackedScene" path="res://assets/models/facilities/solar_cabin/components/hanging_tire/hanging_tire.glb" id="visual"]
 [node name="栈桥-悬挂轮胎与吊绳" type="Node3D"]
 script = ExtResource("bind")
+asset_id = "SEA-SCENE-SBR-HANGING-TIRE"
+component_kind = "building"
+subcategory = "structure"
+movable = false
 metadata/asset_id = "SEA-SCENE-SBR-HANGING-TIRE"
 [node name="Visual" parent="." instance=ExtResource("visual")]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="PackedScene" path="res://assets/models/zones/zone4_far_shore/units/unit_04.glb" id="visual"]
+[ext_resource type="Script" path="res://src/ambient/scene_component.gd" id="contract"]
+[node name="unit_04" instance=ExtResource("visual")]
+script = ExtResource("contract")
+asset_id = "SEA-REF-01-ZONE4-FAR-SHORE--UNIT-04"
+instance_id = "zone4_far_shore/unit_04"
+facility_id = "zone4_far_shore"
+component_kind = "building"
+subcategory = "legacy_structure"

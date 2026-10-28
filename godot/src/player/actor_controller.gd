@@ -26,6 +26,7 @@ func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boun
 	interactor = interaction
 	ports = boundary
 	var nodes := {
+		"sleeping":preload("res://src/player/states/sleeping.gd").new(),
 		"ashore_idle":preload("res://src/player/states/ashore_idle.gd").new(),
 		"walking":preload("res://src/player/states/walking.gd").new(),
 		"approaching":preload("res://src/player/states/approaching.gd").new(),
@@ -35,6 +36,7 @@ func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boun
 		"sailing":preload("res://src/player/states/sailing.gd").new(),
 		"diving":preload("res://src/player/states/diving.gd").new()}
 	var edges := {
+		"sleeping":["ashore_idle"],
 		"ashore_idle":["walking","approaching","boarding","diving","interacting"],
 		"walking":["ashore_idle","walking","approaching","boarding"],
 		"approaching":["ashore_idle","walking","approaching","interacting","boarding"],
@@ -111,6 +113,10 @@ func request_mode(value: int) -> bool:
 func complete_interaction() -> void:
 	clear_interaction()
 	if machine.current == "interacting": machine.change("ashore_idle")
+
+func begin_sleep() -> void:
+	cancel()
+	machine.change("sleeping",{},true)
 
 func snapshot() -> Dictionary:
 	return {"state":state_id(),"mode":mode(),"walking":walking(),"target":walk_target,"path":walk_path.duplicate()}

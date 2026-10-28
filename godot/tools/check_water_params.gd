@@ -150,6 +150,9 @@ func _check_material(spec: Dictionary, mat_path: String) -> PackedStringArray:
 		problems.append("读不到 " + mat_path)
 		return problems
 	var file := mat_path.get_file()
+	# New night controls have an explicit migration default for existing user
+	# materials. This is the same in-memory initialization as WaterSurface.
+	preload("res://src/rendering/night_water_params.gd").ensure_defaults(mat)
 	for name in spec.keys():
 		var row: Dictionary = spec[name]
 		if String(row.kind) == "node":
