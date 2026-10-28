@@ -1,0 +1,30 @@
+{
+  "asset_id": "SEA-CROP-TOMATO",
+  "asset_ledger": "assets/registry/ledgers/crops.json#SEA-CROP-TOMATO",
+  "source": "art_source/crops/tomato/v001/tomato_v001.blend",
+  "prefab": "godot/scenes/crops/tomato.tscn",
+  "stages": [
+    {
+      "key": "seed",
+      "node": "Stage0Seed",
+      "model": "godot/assets/models/crops/tomato/stage_0_seed.glb"
+    },
+    {
+      "key": "sprout",
+      "node": "Stage1Sprout",
+      "model": "godot/assets/models/crops/tomato/stage_1_sprout.glb"
+    },
+    {
+      "key": "leaf",
+      "node": "Stage2Leaf",
+      "model": "godot/assets/models/crops/tomato/stage_2_leaf.glb"
+    },
+    {
+      "key": "harvest",
+      "node": "Stage3Harvest",
+      "model": "godot/assets/models/crops/tomato/stage_3_harvest.glb"
+    }
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "note": "四阶段独立几何；切换只改可见性。数值与经济归 SEA-FARM，品种定义归 SEA-CROP。"
+}

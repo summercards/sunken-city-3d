@@ -12,9 +12,11 @@
 
 [ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/rear_slab.tscn" id="rear_slab"]
 
-[node name="水下景观街区" type="Node3D"]
+[node name="水下景观街区（仅参考·正式摆放见 main.tscn）" type="Node3D"]
 
-metadata/placement_owner = "formal Godot TSCN"
+metadata/status = "reference_only_not_instanced"
+
+metadata/placement_owner = "godot/scenes/main.tscn 的 World/UnderwaterScenery"
 
 [node name="terraced_tower" parent="." instance=ExtResource("terraced_tower")]
 

@@ -1,7 +1,7 @@
 extends RefCounted
 class_name SaveGame
 ## Storage consumes registered snapshots, never global state or actor/UI internals.
-const VERSION := 3
+const VERSION := 4
 const SLOT_PATH := "user://save_slot_0.json"
 const Schema = preload("res://src/save/save_schema.gd")
 const MAX_BYTES := 8 * 1024 * 1024
@@ -101,6 +101,7 @@ static func decode(text: String) -> Dictionary:
 		doc.weather = {"kind":"clear","remaining":240.0,"seed":3701,"duration":240.0}
 	if version<3 and doc.get("economy") is Dictionary and not doc.economy.has("daily_loop"):
 		doc.economy.daily_loop = {"version":1,"cargo":{"capacity":48,"counts":{}},"last_morning":-1,"receipt":{}}
+	if version<4: doc.building=preload("res://src/building/building_service.gd").empty_snapshot()
 	doc.version=VERSION
 	var error := Schema.validate(doc)
 	if error!="": return {"ok":false,"reason":error}

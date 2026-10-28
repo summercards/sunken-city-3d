@@ -1,0 +1,765 @@
+{
+  "asset_id": "SEA-VFX-WATER-CROSS-RIPPLE-001",
+  "feature_ids": [
+    "SEA-OCEAN",
+    "SEA-ASSET"
+  ],
+  "requirement": "SEA-OCEAN-R21",
+  "final_verification": "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\report.json",
+  "runtime_results": {
+    "visual-submerged-water-light": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\visual-submerged-water-light.log",
+      "user_data_name": "sea-verification/20261029-000722-cartoon-cross-final-b79b8d/visual-submerged-water-light",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_submerged_water_light.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-atmosphere": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\visual-atmosphere.log",
+      "user_data_name": "sea-verification/20261029-000722-cartoon-cross-final-b79b8d/visual-atmosphere",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_atmosphere.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "ocean": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\ocean.log",
+      "user_data_name": "sea-verification/20261029-000722-cartoon-cross-final-b79b8d/ocean",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_ocean.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "water-params": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\water-params.log",
+      "user_data_name": "sea-verification/20261029-000722-cartoon-cross-final-b79b8d/water-params",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\project",
+        "--headless",
+        "--script",
+        "res://tools/check_water_params.gd",
+        "--",
+        "--skip-title"
+      ]
+    }
+  },
+  "geometry_change": false,
+  "layout_change": false,
+  "source": "art_source/vfx/water_cross_ripple/v001/cartoon_cross_ripple.svg",
+  "source_sha256": "5b5e0454da4edcf65b755bad34fc632a32198c2a0c042d8b9058619efb214404",
+  "raster_source": "art_source/vfx/water_cross_ripple/v001/T_VFX_Water_CartoonCross_001_TILE.png",
+  "raster_source_sha256": "5aead44d4f458f31a3626d96a75425d9ccaf74b417ceafd5a6865455748c55f1",
+  "runtime_texture": "godot/assets/textures/water/cartoon_cross_ripple.png",
+  "runtime_sha256": "28d1f75a10e8fbed53d0f9b1b769cdcdb4d6bebaea3f57984dbc92fb5a22adfd",
+  "signal_coverage": 0.0213165283203125,
+  "import_settings": {
+    "path": "godot/assets/textures/water/cartoon_cross_ripple.png.import",
+    "sha256": "4a90998f9f127e21cacfadd925a0df8a488b801a12fbbccb2dc02877ee142371",
+    "compression": "lossless",
+    "mipmaps": true,
+    "color_space": "linear data"
+  },
+  "license": "project_original_vector_authored",
+  "time_slots": [
+    {
+      "hour": 0.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.000256599189015105,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.000140263873618096,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.000103112717624754,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "signal": {
+        "peak": 0.0168078448623419,
+        "positive_fraction": 3.51123595505618e-05
+      },
+      "slot": "deep_night"
+    },
+    {
+      "hour": 5.5,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "signal": {
+        "peak": 0.0028047040104866,
+        "positive_fraction": 0.0
+      },
+      "slot": "pre_dawn"
+    },
+    {
+      "hour": 6.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": -0.00147929246304557,
+            "minimum": -0.00392159819602966,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": -0.000309191993437707,
+            "minimum": -0.0030878484249115,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": -0.000292723067104816,
+            "minimum": -0.00280472636222839,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "signal": {
+        "peak": 0.0524415820837021,
+        "positive_fraction": 0.00397940074906367
+      },
+      "slot": "dawn"
+    },
+    {
+      "hour": 7.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": -0.0007017538882792,
+            "minimum": -0.00308787822723389,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": -0.000442284508608282,
+            "minimum": -0.0030878484249115,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": -0.000342467217706144,
+            "minimum": -0.0030878484249115,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "signal": {
+        "peak": 0.0383301973342896,
+        "positive_fraction": 0.00347612359550562
+      },
+      "slot": "morning"
+    },
+    {
+      "hour": 12.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": -0.000490688718855381,
+            "minimum": -0.00392156839370728,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": -0.000262147979810834,
+            "minimum": -0.00308787822723389,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": -0.000163544551469386,
+            "minimum": -0.0030878484249115,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "signal": {
+        "peak": 0.0416086316108704,
+        "positive_fraction": 0.00318352059925094
+      },
+      "slot": "noon"
+    },
+    {
+      "hour": 14.2,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.000591271324083209,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.000272101140581071,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.000149271567352116,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "signal": {
+        "peak": 0.0422517955303192,
+        "positive_fraction": 0.00368679775280899
+      },
+      "slot": "afternoon"
+    },
+    {
+      "hour": 17.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.00132091523846611,
+            "minimum": -0.000550597906112671,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.000295217265374959,
+            "minimum": -0.00083373486995697,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.000160245748702437,
+            "minimum": -0.00083373486995697,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "signal": {
+        "peak": 0.0597341507673264,
+        "positive_fraction": 0.00585205992509363
+      },
+      "slot": "sunset"
+    },
+    {
+      "hour": 19.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.000141063152113929,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 5.47427916899323e-05,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 5.45404618605971e-05,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "signal": {
+        "peak": 0.00922745279967785,
+        "positive_fraction": 2.92602996254682e-05
+      },
+      "slot": "night"
+    },
+    {
+      "hour": 0.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "signal": {
+        "peak": 0.0,
+        "positive_fraction": 0.0
+      },
+      "slot": "deep_night"
+    },
+    {
+      "hour": 5.5,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "signal": {
+        "peak": 0.0,
+        "positive_fraction": 0.0
+      },
+      "slot": "pre_dawn"
+    },
+    {
+      "hour": 6.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": -0.00166691059712321,
+            "minimum": -0.0030878484249115,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": -0.000672565074637532,
+            "minimum": -0.0030878484249115,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": -0.000138834584504366,
+            "minimum": -0.0030878484249115,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "signal": {
+        "peak": 0.0366988480091095,
+        "positive_fraction": 0.00490402621722846
+      },
+      "slot": "dawn"
+    },
+    {
+      "hour": 7.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": -0.000911211827769876,
+            "minimum": -0.00308787822723389,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": -0.000687043531797826,
+            "minimum": -0.00308787822723389,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": -0.000535670551471412,
+            "minimum": -0.00308787822723389,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "signal": {
+        "peak": 0.0450777411460876,
+        "positive_fraction": 0.00488061797752809
+      },
+      "slot": "morning"
+    },
+    {
+      "hour": 12.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": -0.000371024943888187,
+            "minimum": -0.00308787822723389,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": -0.000234998296946287,
+            "minimum": -0.00308793783187866,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": -0.000196333741769195,
+            "minimum": -0.00363838672637939,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "signal": {
+        "peak": 0.0464981198310852,
+        "positive_fraction": 0.00484550561797753
+      },
+      "slot": "noon"
+    },
+    {
+      "hour": 14.2,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.000487420475110412,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.000333516858518124,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.000351004302501678,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "signal": {
+        "peak": 0.0473317503929138,
+        "positive_fraction": 0.00504447565543071
+      },
+      "slot": "afternoon"
+    },
+    {
+      "hour": 17.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.00196834118105471,
+            "minimum": 0.000283122062683105,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.000221789930947125,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 9.17986035346985e-05,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "signal": {
+        "peak": 0.0464980602264404,
+        "positive_fraction": 0.00663623595505618
+      },
+      "slot": "sunset"
+    },
+    {
+      "hour": 19.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 9.1611931566149e-05,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 4.6982429921627e-05,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 9.04871267266572e-05,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "signal": {
+        "peak": 0.00894431583583355,
+        "positive_fraction": 3.51123595505618e-05
+      },
+      "slot": "night"
+    }
+  ],
+  "max_changed_fraction": 0.00663623595505618,
+  "max_luminance_delta": 0.0597341507673264,
+  "schemes": [
+    "absorption",
+    "original"
+  ],
+  "slot_count": 8,
+  "review_images": [
+    "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\project\\outputs\\submerged-light-cross-close-9.png",
+    "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\project\\outputs\\submerged-light-cross-close-17.png",
+    "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\project\\outputs\\submerged-light-cross-close-19.png"
+  ],
+  "global_contracts": {
+    "sync": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\projects\\sea\\scripts\\check_feature_contracts.py",
+        "--sync"
+      ],
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\cartoon_cross_ripple_v001\\final-feature-contracts-sync.log",
+      "output": "FAIL: docs\\features\\building\\spec.md: broken link ../../development/2026-10-28_building_delivery.md\nFAIL: docs\\features\\building\\ledger.md: broken link ../../development/2026-10-28_building_delivery.md\nFAIL: UI-HUD-CORNERS-001: source hash drift\nFAIL: runtime hash drift: godot/assets/data/items.json\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/assets/materials/world_env.tres\nFAIL: content ID drift/duplicate godot/assets/data/items.json\nFAIL: 34 features, 455 source assets, 367 runtime resource hashes; 7 issues\n"
+    },
+    "check": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\projects\\sea\\scripts\\check_feature_contracts.py"
+      ],
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\cartoon_cross_ripple_v001\\final-feature-contracts-check.log",
+      "output": "FAIL: docs\\features\\building\\ledger.md: broken link ../../development/2026-10-28_building_delivery.md\nFAIL: docs\\features\\building\\spec.md: broken link ../../development/2026-10-28_building_delivery.md\nFAIL: UI-HUD-CORNERS-001: source hash drift\nFAIL: runtime hash drift: godot/assets/data/items.json\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/assets/materials/world_env.tres\nFAIL: content ID drift/duplicate godot/assets/data/items.json\nFAIL: derived feature index stale; use --sync\nFAIL: 34 features, 455 source assets, 367 runtime resource hashes; 8 issues\n"
+    }
+  },
+  "not_executed": [
+    "mobile/Web device validation",
+    "user final art approval"
+  ]
+}

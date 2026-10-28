@@ -50,6 +50,7 @@
 | 条款 ID | 目标规则 / 应验证的行为 |
 |---|---|
 | SEA-ASSET-R29 | 依据2026-10-28水下参考图制作六栋独立纯景观建筑：错层檐线楼、弧角窗廊楼、窄身竖窗楼、L形矮楼、窄顶附楼和后排板楼。每栋包括全部附着细节的实际导出三角面不超过1000；公共色板、PaletteUV、独立母版包与独立另存优化文件，逐栋稳定GLB/PackedScene。登记为 decoration/underwater_buildings，源级和真实游戏渲染分别验证，参考图商业授权 pending。 |
+| SEA-ASSET-R30 | 作物（crops）为独立资产域，主记录写入 `assets/registry/ledgers/crops.json`；每品种一行，四阶段模型列在 `stage_models`，运行 GLB 同步登记 `runtime_resource_inventory.json`。作物不得记入 `scenes.json`，也不得在功能代码里内联构造几何。 |
 
 状态/交付所有者：**制作源负责人 / 各域资产账本**。正式代码和资源入口：
 

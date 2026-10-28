@@ -141,8 +141,8 @@ func run() -> void:
 	for day in 3:
 		clock.rest_to_morning()
 		plot._sync(0.0)
-		for stage in 4:
-			if plot._stage_roots[stage].visible: stages.append(stage)
+		# 阶段由 SEA-CROP 的 CropView 负责；资产四阶段为 seed/sprout/leaf/harvest。
+		stages.append(plot.current_stage())
 		await snapshot("plot-day-%d" % (day+1))
 		if day<2:
 			await interact_world(plot)

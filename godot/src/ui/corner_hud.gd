@@ -38,7 +38,7 @@ func _ready() -> void:
 	popup=PanelContainer.new();popup.position=Vector2(0,88);popup.size.x=164;toolbar.add_child(popup)
 	popup.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
 	var grid:=GridContainer.new();grid.columns=2;grid.add_theme_constant_override("h_separation",20);grid.add_theme_constant_override("v_separation",16);popup.add_child(grid)
-	var entries: Array=[["bag","背包 B"],["notes","笔记"],["shop","商店"],["storage","仓库"],["shipping","出货箱"],["map","航海图"],["system","设置 Esc"]]
+	var entries: Array=[["bag","背包 B"],["notes","笔记"],["shop","商店"],["storage","仓库"],["shipping","出货箱"],["map","航海图"],["system","设置 Esc"],["craft","建造手册"]]
 	if not Scope.minimal(): entries.append_array([["dive","潜水"],["build","建造"]])
 	for entry in entries:
 		var button:=_launcher(entry[0],entry[1]);grid.add_child(button)

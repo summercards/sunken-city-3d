@@ -1,0 +1,61 @@
+{
+  "asset_id": "SEA-VFX-WATER-CROSS-RIPPLE-001",
+  "asset_ledger": "assets/registry/ledgers/vfx.json#SEA-VFX-WATER-CROSS-RIPPLE-001",
+  "version": "v001",
+  "source": "art_source/vfx/water_cross_ripple/v001/cartoon_cross_ripple.svg",
+  "source_sha256": "5b5e0454da4edcf65b755bad34fc632a32198c2a0c042d8b9058619efb214404",
+  "runtime_path": "godot/assets/textures/water/cartoon_cross_ripple.png",
+  "runtime_sha256": "28d1f75a10e8fbed53d0f9b1b769cdcdb4d6bebaea3f57984dbc92fb5a22adfd",
+  "category": "water_surface_texture",
+  "intended_use": "linear R8 grayscale light mask, sparse cartoon four-point cross ripples on submerged geometry",
+  "resolution": [
+    512,
+    512
+  ],
+  "raster_source": "art_source/vfx/water_cross_ripple/v001/T_VFX_Water_CartoonCross_001_TILE.png",
+  "raster_source_resolution": [
+    2048,
+    2048
+  ],
+  "raster_source_sha256": "5aead44d4f458f31a3626d96a75425d9ccaf74b417ceafd5a6865455748c55f1",
+  "marks": 12,
+  "channel": "R=coverage; grayscale 8-bit; no alpha; black=0 contribution",
+  "tileable": true,
+  "signal_coverage": 0.0213165283203125,
+  "edge": "clean quadratic tapered silhouette, antialiased narrow edge, zero haze",
+  "license": "project_original_vector_authored",
+  "generator": "tools/art/build_cartoon_cross_ripple.py",
+  "stage": "source_runtime_verified_original_authored",
+  "source_note": "User explicitly requests simple cartoon crosses; editable SVG source with deterministic raster export, no image generation or borrowed texture.",
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\report.json"
+  ],
+  "shader": "godot/shaders/submerged_caustic_light.gdshaderinc",
+  "material_consumers": [
+    "godot/assets/materials/water.tres",
+    "godot/assets/materials/water_absorption.tres"
+  ],
+  "import_settings": {
+    "path": "godot/assets/textures/water/cartoon_cross_ripple.png.import",
+    "sha256": "4a90998f9f127e21cacfadd925a0df8a488b801a12fbbccb2dc02877ee142371",
+    "compression": "lossless",
+    "mipmaps": true,
+    "color_space": "linear data"
+  },
+  "material_binding_changes": [
+    {
+      "path": "godot/assets/materials/water.tres",
+      "before_sha256": "da61719a2885257bc6e358262a7040b79af5bd9701441cb472d74dce0e19b3e6",
+      "after_sha256": "724bddd12acea820f471deb24ff8017cbb7a6edcd6b140955f7debfe4618e172",
+      "preexisting_baseline_matched": false,
+      "action": "existing baseline drift preserved; only sampler addition reviewed"
+    },
+    {
+      "path": "godot/assets/materials/water_absorption.tres",
+      "before_sha256": "c22b2c32a96d8e005b97e4152b70398ce43feada75e60b3a0b2cb74f88410bc5",
+      "after_sha256": "949a6f189637fdb92a9bcd2b9c66be189dccb4c35fcce40d1abdfb45743ce3fc",
+      "preexisting_baseline_matched": true,
+      "action": "accepted own sampler binding change"
+    }
+  ]
+}

@@ -51,7 +51,7 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-WORLD-R10 | 六栋纯景观建筑独立接入zone1；当前实景专项核验 | [制作与验收](../../development/2026-10-28_submerged_neighborhood.md)；正式TSCN持有摆位，MultiMesh基座真实包围盒避让、楼间水道、全屋顶淹没、无互动/碰撞/船阻挡/岸线泡沫 |
+| SEA-WORLD-R10 | 六栋纯景观建筑各自独立实例挂在`main.tscn`的`World/UnderwaterScenery`；实景专项95项通过 | [制作与验收](../../development/2026-10-28_submerged_neighborhood.md)、[摆放所有者为main](../../development/2026-10-29_submerged_buildings_main_placement.md)；摆放唯一所有者是main.tscn，`neighborhood.tscn`降级为仅参考不再实例化；zone1不再自带第二份；材质写在每栋PackedScene的`surface_material_override`；MultiMesh基座真实包围盒避让、楼间水道、全屋顶淹没、无互动/碰撞/船阻挡/岸线泡沫 |
 
 - [godot/src/world](../../../godot/src/world)
 - [godot/scenes/zones](../../../godot/scenes/zones)
@@ -148,3 +148,9 @@ SEA-WORLD-R02/R03：海上根Y=-0.77，板底1.16、上岸/行走/出货/睡觉�
 SEA-WORLD-R09：箱子直接挂到Objects/ShippingBox，(1.05,1.38,15.15)；实测底面1.38米，旧房屋cooler排除，点击命中与行走面均通过。
 
 [交付记录](../../development/2026-10-28_home_lighting_recovery.md)。
+
+## 2026-10-29 家园建造接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-WORLD-R11 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |

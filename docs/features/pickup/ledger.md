@@ -106,3 +106,9 @@ save_schema语义检查；SeaProps接受旧版显式reset；坏档不会重新�
 `visual-fish-schools` 本轮 135 项 0 失败，新增 12 条：可捕捞群每条鱼的沉深上下限、群内纵深差、涟漪透明度/圈数/波数/亮度、涟漪只有一层（`build()` 叠两层时参数怎么调都调不淡）、漂流物资圈未被牵连。
 
 见[本轮交付与验证记录](../../development/2026-10-28_fish_catch_submerge_and_ripple.md)。
+
+## 2026-10-29 家园建造接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-PICKUP-R08 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |

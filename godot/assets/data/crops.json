@@ -1,11 +1,19 @@
 {
-  "_note": "日制种植定义：grow_days / regrow_days / harvests / seed_price。每格每天浇一次水，休息结算一天。grow/thirst 保留用于旧存档迁移。",
+  "_note": "日制种植定义，SEA-CROP 的唯一品种源。grow_days / regrow_days / harvests / seed_price 为正式数值；produce 指向物品表产物，model 指向四阶段场景。grow / thirst 仅为旧存档兼容保留，新逻辑不再读取。",
+  "schema": "sea.crops",
+  "stage_keys": [
+    "seed",
+    "sprout",
+    "leaf",
+    "harvest"
+  ],
   "crops": [
     {
       "id": "lettuce",
       "name": "生菜",
       "icon": "🥬",
       "seed": "lettuce_seed",
+      "produce": "vegetable",
       "grow": 30.0,
       "thirst": 16.0,
       "yield": {
@@ -16,13 +24,44 @@
       "grow_days": 3,
       "seed_price": 4,
       "harvests": 1,
-      "regrow_days": 0
+      "regrow_days": 0,
+      "stages": [
+        {
+          "key": "seed",
+          "label": "播种",
+          "shape": "土面浅痕与三撮翻土、可见种子粒"
+        },
+        {
+          "key": "sprout",
+          "label": "发芽",
+          "shape": "两片子叶破土外展"
+        },
+        {
+          "key": "leaf",
+          "label": "二次发芽",
+          "shape": "六片本叶贴地放射展开"
+        },
+        {
+          "key": "harvest",
+          "label": "收成",
+          "shape": "外叶包成莲座、浅色菜心"
+        }
+      ],
+      "stage_labels": [
+        "播种",
+        "发芽",
+        "二次发芽",
+        "收成"
+      ],
+      "model": "res://scenes/crops/lettuce.tscn",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png"
     },
     {
       "id": "tomato",
       "name": "番茄",
       "icon": "🍅",
       "seed": "tomato_seed",
+      "produce": "tomato",
       "grow": 46.0,
       "thirst": 18.0,
       "yield": {
@@ -33,13 +72,44 @@
       "grow_days": 3,
       "seed_price": 10,
       "harvests": 3,
-      "regrow_days": 2
+      "regrow_days": 2,
+      "stages": [
+        {
+          "key": "seed",
+          "label": "播种",
+          "shape": "土面三撮翻土、赭褐种子粒"
+        },
+        {
+          "key": "sprout",
+          "label": "发芽",
+          "shape": "细幼茎与两片子叶"
+        },
+        {
+          "key": "leaf",
+          "label": "二次发芽",
+          "shape": "直立主茎分层复叶，轮廓向上收"
+        },
+        {
+          "key": "harvest",
+          "label": "收成",
+          "shape": "主茎分层叶挂两颗红果"
+        }
+      ],
+      "stage_labels": [
+        "播种",
+        "发芽",
+        "二次发芽",
+        "收成"
+      ],
+      "model": "res://scenes/crops/tomato.tscn",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png"
     },
     {
       "id": "pumpkin",
       "name": "南瓜",
       "icon": "🎃",
       "seed": "pumpkin_seed",
+      "produce": "pumpkin",
       "grow": 74.0,
       "thirst": 24.0,
       "yield": {
@@ -50,7 +120,37 @@
       "grow_days": 3,
       "seed_price": 12,
       "harvests": 1,
-      "regrow_days": 0
+      "regrow_days": 0,
+      "stages": [
+        {
+          "key": "seed",
+          "label": "播种",
+          "shape": "土面三撮翻土、奶白扁平种子"
+        },
+        {
+          "key": "sprout",
+          "label": "发芽",
+          "shape": "两片圆钝子叶贴地"
+        },
+        {
+          "key": "leaf",
+          "label": "二次发芽",
+          "shape": "匍匐藤蔓沿土面铺开、四片大叶"
+        },
+        {
+          "key": "harvest",
+          "label": "收成",
+          "shape": "藤蔓大叶与一颗带沟槽的橙南瓜"
+        }
+      ],
+      "stage_labels": [
+        "播种",
+        "发芽",
+        "二次发芽",
+        "收成"
+      ],
+      "model": "res://scenes/crops/pumpkin.tscn",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png"
     }
   ]
 }

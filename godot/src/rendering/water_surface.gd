@@ -22,7 +22,7 @@ var scheme := "original"
 var shoreline: RefCounted
 var time := 0.0
 var wake: Node3D
-var _last_stroke := 0.0
+var boat_contact := preload("res://src/rendering/boat_water_contact.gd").new()
 var _was_moving := false
 var _ripples := PackedVector4Array()
 var _ripple_index := 0
@@ -106,16 +106,10 @@ func update_surface(t: float, boat: Node3D, focus: Vector3) -> void:
 	var mat := material_override as ShaderMaterial
 	_sync(mat)
 	mat.set_shader_parameter("u_boat", boat.wake_uniform())
-	var rowing: Vector2 = boat.rowing_state()
 	var moving: bool = boat.starts_sailing()
-	if moving and rowing.y > 0.15 and rowing.x < _last_stroke:
-		var side := Vector2(cos(boat.rotation.y), -sin(boat.rotation.y))
-		for sign_value in [-1.0, 1.0]:
-			var p: Vector2 = Vector2(boat.position.x, boat.position.z) + side * float(sign_value) * 2.6
-			emit_ripple(p, 0.65)
+	boat_contact.update(t,boat,self)
 	if _was_moving and not moving:
 		emit_ripple(Vector2(boat.position.x, boat.position.z), 0.5)
-	_last_stroke = rowing.x
 	_was_moving = moving
 	mat.set_shader_parameter("u_ripples", _ripples)
 	mat.set_shader_parameter("u_ripple_count", 8)

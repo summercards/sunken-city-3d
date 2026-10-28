@@ -27,7 +27,7 @@
 
 本阶段优先于后文长期规划：范围缩小到太阳房、旁边家园补给站、浅水种植平台及附近水域。新游戏80瓶盖、3包生菜种子。捕鱼或种植收获 → 保管仓库存取 → 显式放进出货箱 → 次日07:00自动卖出 → 商店购买种子。新播生菜、番茄、南瓜首熟均需3个浇水日，缺水停长；岸上可补水；太阳房入口点击睡觉，23:00自动回家睡觉，06:00醒来，07:00生长与收货。保管仓库不卖货；出货箱可在结算前取回。
 
-只保留上述生活玩法及存读档、基础设置、航海图；潜水、建设、远海、订单、打捞和取景入口锁定。P键滤镜/光照/水面调试面板按2026-10-28要求恢复开放。隐藏的进度、场景与资产不删除。代码规则入口为 `godot/src/core/play_scope.gd`，显式 `--full-world` 仅供后续功能开发回归。
+只保留上述生活玩法及存读档、基础设置、航海图；潜水、固定建筑升级、远海、订单、打捞和取景入口锁定；本轮开放独立的家园拼接建造与海面浮木收集。P键滤镜/光照/水面调试面板按2026-10-28要求恢复开放。隐藏的进度、场景与资产不删除。代码规则入口为 `godot/src/core/play_scope.gd`，显式 `--full-world` 仅供后续功能开发回归。
 
 默认先显示实景开始画面，只有倾斜的奶白SEA标题和“开始游戏”按钮，文字柔和显现。开始前日历与经营暂停，点击后镜头平滑回到角色才显示玩法UI。系统信息使用轻提示，底部对话只用于角色发言。当前功能关联：SEA-UI / SEA-WORLD / SEA-NAV / SEA-PICKUP / SEA-FARM / SEA-WAREHOUSE / SEA-ORDER / SEA-TIME / SEA-SAVE。
 
@@ -73,7 +73,13 @@
 
 左下日期改为几月几日，基于存档累计天数从1月1日换算（固定365日循环），瓶盖缩小为与背包相同的28px；保留原白色加粗圆体与无背板。回到角色改为右下圆形人物定位图标，点击锁定角色视角、颜色同步跟随状态；停止行动按钮移除。关联SEA-UI / SEA-TIME / SEA-CAMERA。[交付与实景](docs/development/2026-10-28_hud_date_camera_lock.md)。
 
+## 2026-10-29 家园拼接建造与浮木
+
+右上菜单设置右侧新增建造手册。海面维持6束随机位置浮木，靠近收取每束获得3木板；商店4瓶盖购买1土壤。角色登上六格种植平台后，可沿原木面周围拼接木板（6木板、3秒），再在新木板上自由选位置建单格培养土（3木板+2土壤、4秒）；虚影点击开始施工，进度结束后开放行走或种植。初阶仅限此平台陆地施工，海上施工策略接口保留。新功能SEA-BUILDING独立于SEA-BUILD固定建筑升级，布局独立存档，作物仍归SEA-FARM。关联SEA-PICKUP / SEA-INVENTORY / SEA-UI / SEA-MOVE / SEA-NAV / SEA-SAVE / SEA-ASSET。[交付与实测](docs/development/2026-10-28_building_delivery.md)。
+
 ## 1. 核心幻想与产品定位
+
+2026-10-28水下光纹最新修订：建筑上的大块斑驳改为稀疏、淡的卡通十字波纹贴图；屋顶/立面独立投射，共用两套水面及昼夜权重。关联SEA-OCEAN-R21；[贴图与实景验证](docs/development/2026-10-28_cartoon_cross_ripple.md)。
 
 2026-10-28：按水下参考图新增阳光房周围六栋独立纯景观建筑，每栋实际导出三角面不超过1000，归入装饰/水下建筑。布局按左侧弧楼、退后的高楼与窄楼、前方不同距离的低屋顶形成疏密和斜向水道；正式TSCN持有摆放。水下光斑改为柔和浅色聚光，双水面8时段实测，消除压黑屋顶的人工斑块。原阳光房海下基座独立维护，水下景观无互动、资源产出、碰撞或船只阻挡。关联SEA-ASSET-R29/SEA-WORLD-R10/SEA-OCEAN-R21；[制作与验证](docs/development/2026-10-28_submerged_neighborhood.md)。
 
@@ -314,9 +320,11 @@
 | <a id="sea-inventory"></a>SEA-INVENTORY | 资源与背包 | 经营 | — | [文档](docs/features/inventory/spec.md) | [账本](docs/features/inventory/ledger.md) | 部分实现 |
 | <a id="sea-warehouse"></a>SEA-WAREHOUSE | 材料仓储 | 经营 | SEA-INVENTORY, SEA-FACILITY | [文档](docs/features/warehouse/spec.md) | [账本](docs/features/warehouse/ledger.md) | 部分实现 |
 | <a id="sea-build"></a>SEA-BUILD | 建筑修缮与升级 | 经营 | SEA-INVENTORY, SEA-INTERACT | [文档](docs/features/build/spec.md) | [账本](docs/features/build/ledger.md) | 部分实现 |
+| <a id="sea-building"></a>SEA-BUILDING | 家园拼接建造 | 经营 | SEA-INVENTORY, SEA-INTERACT, SEA-WORLD | [文档](docs/features/building/spec.md) | [账本](docs/features/building/ledger.md) | 已实现待完整验收 |
 | <a id="sea-facility"></a>SEA-FACILITY | 设施解锁与生产 | 经营 | SEA-BUILD, SEA-INVENTORY | [文档](docs/features/facility/spec.md) | [账本](docs/features/facility/ledger.md) | 部分实现 |
 | <a id="sea-ship"></a>SEA-SHIP | 船只升级与区域解锁 | 成长 | SEA-INVENTORY, SEA-BUILD | [文档](docs/features/ship/spec.md) | [账本](docs/features/ship/ledger.md) | 部分实现 |
-| <a id="sea-farm"></a>SEA-FARM | 种植与日常照料 | 经营 | SEA-INVENTORY, SEA-FACILITY, SEA-WORLD | [文档](docs/features/farm/spec.md) | [账本](docs/features/farm/ledger.md) | 部分实现 |
+| <a id="sea-crop"></a>SEA-CROP | 作物品种与四阶段形态 | 经营 | SEA-ASSET | [文档](docs/features/crop/spec.md) | [账本](docs/features/crop/ledger.md) | 已实现待完整验收 |
+| <a id="sea-farm"></a>SEA-FARM | 种植与日常照料 | 经营 | SEA-INVENTORY, SEA-FACILITY, SEA-WORLD, SEA-CROP | [文档](docs/features/farm/spec.md) | [账本](docs/features/farm/ledger.md) | 部分实现 |
 | <a id="sea-salvage"></a>SEA-SALVAGE | 绞盘打捞 | 探索 | SEA-INTERACT, SEA-INVENTORY | [文档](docs/features/salvage/spec.md) | [账本](docs/features/salvage/ledger.md) | 部分实现 |
 | <a id="sea-dive"></a>SEA-DIVE | 潜水探索与宝箱 | 探索 | SEA-WORLD, SEA-INVENTORY | [文档](docs/features/dive/spec.md) | [账本](docs/features/dive/ledger.md) | 部分实现 |
 | <a id="sea-pickup"></a>SEA-PICKUP | 海面漂流物与鱼群收取 | 探索 | SEA-NAV, SEA-INVENTORY | [文档](docs/features/pickup/spec.md) | [账本](docs/features/pickup/ledger.md) | 部分实现 |

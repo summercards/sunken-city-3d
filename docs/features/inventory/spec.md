@@ -120,3 +120,11 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 左下显示真实瓶盖、已用格/容量，使用原白色圆体且无背板。背包仍由B/Tab或右上图标进入；背包内“生活手册”改名“海岛笔记”。笔记物产卡读取背包/仓库数量，不复制或写回Inventory。
 
 对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。
+
+## 2026-10-29 家园建造接入
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-INVENTORY-R08 | 木料显示名改为木板，wood稳定ID、旧库存和堆叠40保留；新增soil（土壤），每格堆叠40，用于建造，购买与拾取须检查容量。 |
+
+[交付与实测](../../development/2026-10-28_building_delivery.md)。

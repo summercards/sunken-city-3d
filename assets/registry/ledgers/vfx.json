@@ -3,5 +3,32 @@
   "domain": "vfx",
   "status": "pending",
   "note": "分类入口已建立；旧运行资源尚未逐项核对源、授权和正式接入，不虚构生产AssetID。实际资源路径见runtime_resource_inventory.json。",
-  "assets": []
+  "assets": [
+    {
+      "asset_id": "SEA-VFX-WATER-CROSS-RIPPLE-001",
+      "name": "水下卡通十字波纹灰度贴图",
+      "domain": "vfx",
+      "stage": "source_runtime_verified_original_authored",
+      "version": "v001",
+      "source": "art_source/vfx/water_cross_ripple/v001/cartoon_cross_ripple.svg",
+      "source_sha256": "5b5e0454da4edcf65b755bad34fc632a32198c2a0c042d8b9058619efb214404",
+      "manifest": "art_source/vfx/water_cross_ripple/v001/asset_manifest.json",
+      "runtime_path": "godot/assets/textures/water/cartoon_cross_ripple.png",
+      "runtime_sha256": "28d1f75a10e8fbed53d0f9b1b769cdcdb4d6bebaea3f57984dbc92fb5a22adfd",
+      "category": "water_surface_texture",
+      "classification": {
+        "category": "vfx",
+        "subcategory": "water_light_mask"
+      },
+      "license": "project_original_vector_authored",
+      "consumer_features": [
+        "SEA-OCEAN",
+        "SEA-ASSET"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261029-000722-cartoon-cross-final-b79b8d\\report.json"
+      ],
+      "note": "12 sparse vector-authored four-point crosses. 2048px master, 512px linear R8 runtime mask, repeat in both axes, no haze. Replaces broad noise caustics; all dayparts and two water schemes verified."
+    }
+  ]
 }

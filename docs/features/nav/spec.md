@@ -107,3 +107,11 @@
 | SEA-NAV-R09 | Boat通过稳定reference_skiff.tscn加载12类独立组件，船体包围盒和水线沿用旧船；两支正式木桨挂在Model下，沿用单一划桨相位、转向差异与平滑收桨，随船体起伏。既有灯笼实例ID、外舷SpotLight和DaylightRig写入权保留；不改航速、导航、泊位、角色登船锚和存档字段，不把基础船外观替换标成船只升级外观完成。 |
 
 [源、实景与新旧船对照](../../development/2026-10-28_reference_skiff.md)。
+
+## 2026-10-29 家园建造接入
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-NAV-R10 | 施工开始即预留动态木板水面阻挡、invalidate导航缓存，保护原泊位通道与当前船位置；平台完工后重定位落入阻挡范围的海面目标，既有航线由逐步segment_clear检查。 |
+
+[交付与实测](../../development/2026-10-28_building_delivery.md)。

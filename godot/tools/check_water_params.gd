@@ -19,6 +19,7 @@ const ParamsLibAbs = preload("res://src/rendering/water_params_absorption.gd")
 ## 值写清理由 —— 想往里塞新名字之前，先确认它真的不该给玩家调。
 ## 两套水共用一张表：某个名字只出现在其中一套里也无妨，两边都豁免。
 const EXEMPT := {
+	"cross_ripple_mask": "卡通十字波纹灰度贴图，两方案共用采样器",
 	"water_level": "main.gd 按 WATER_LEVEL 写，还牵着节点 Y 与船吃水",
 	"u_reverse_z": "render_flags.gd 按渲染后端换算",
 	"emission_gain": "render_flags.gd 的兼容后端补偿",

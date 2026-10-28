@@ -57,6 +57,10 @@ var water_mat: ShaderMaterial
 var water_node: MeshInstance3D
 var world_env: WorldEnvironment
 var player: Node3D
+var building = preload("res://src/building/building_service.gd").new()
+var building_world: Node3D
+var building_boundary: RefCounted
+var building_controller: Node3D
 var props: Node3D
 var build_field: Node3D
 var farm_field: Node3D
@@ -163,7 +167,7 @@ func _ready() -> void:
 	# 水面是接近纯色的大渐变，8 位输出会出现一圈圈可见色阶（网页版有轻微噪声盖住）。
 	# 开启去色带比往 shader 里掺噪点干净，也不会让静态截图变脏。
 	get_viewport().use_debanding = true
-	navigation.shape_query = _water_shapes
+	navigation.shape_query = func(): return _water_shapes() + (building_world.water_shapes() if building_world!=null else [])
 	Zones.zone_enabled_query = Scope.zone_enabled
 	if Scope.minimal(): navigation.allowed_area = Scope.HOME_WATER
 	Zones.far_sea_query = func() -> bool: return GameState.far_sea_unlocked
@@ -198,6 +202,7 @@ func _ready() -> void:
 	_setup_actor_controller()
 	_setup_calendar()
 	_setup_sleep()
+	_setup_building()
 	_setup_save_registry()
 	# 水面阻挡要遍历所有组件的三角形（五个区块合计约 0.5s）。放到一帧后再算，
 	# 免得第一次点水面时忽然卡一下；算完 _shore_shapes 就固定，运行期只做查询。
@@ -1387,7 +1392,8 @@ func _setup_props() -> void:
 	props.blocked.connect(func(reason: String): hud.toast(reason))
 	if Scope.minimal():
 		props.spawn_area = Scope.HOME_WATER.grow(-3)
-		props.crate_count = 0
+		props.crate_count = 6
+		props.planks_only = true
 		props.school_count = 4
 	props.build()
 	props.collected.connect(_on_crate_collected)
@@ -1451,11 +1457,14 @@ func _cancel_action() -> void:
 
 func _on_click_command(command: String) -> void:
 	if _title_active or (sleep_cycle != null and sleep_cycle.busy): return
+	if building_controller!=null and building_controller.active and command not in ["craft","save"]: building_controller.close()
 	if not Scope.command_enabled(command): return
 	if command != "cancel" and (salvage_panel.is_open() or order_panel.is_open()):
 		hud.toast("请先关闭当前操作面板")
 		return
 	match command:
+		"craft":
+			cam_panel.set_open(false);grade.set_open(false);building_controller.open()
 		"follow":
 			cam.resume_follow()
 			hud.toast("镜头跟随角色")
@@ -1548,6 +1557,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	# 订单面板同理：它自己按 ESC 关，别的键点击都不该穿透到世界里。
 	if order_panel != null and order_panel.is_open():
 		return
+	if building_controller!=null and building_controller.handle_input(event):
+		get_viewport().set_input_as_handled();return
 	# Tab / B 打开背包（建造也在这个面板里，切换页签即可）。
 	if event is InputEventKey and event.pressed and not event.echo:
 		var key := (event as InputEventKey).physical_keycode
@@ -1679,6 +1690,9 @@ func _handle_prop_click(prop: Dictionary) -> void:
 		var target2: Vector3 = crate.base
 		var goal2 := target2 + Vector3(1.4, 0, 0)
 		var path2 := plan_route_to(goal2.x, goal2.z)
+		if path2.is_empty():
+			goal2=target2
+			path2=plan_route_to(goal2.x,goal2.z)
 		if path2.is_empty():
 			hud.toast("无法到达漂流物")
 			return
@@ -1826,7 +1840,10 @@ func _process(delta: float) -> void:
 		if water_node.has_method("update_surface"): water_node.update_surface(_t,boat,cam.target)
 		return
 	sleep_cycle.advance(delta)
-	if sleep_cycle.busy: return
+	if sleep_cycle.busy:
+		if building_controller!=null and building_controller.active: building_controller.close()
+		return
+	if building_controller!=null: building_controller.tick(delta)
 	weather_service.tick(delta)
 	if weather_view != null:
 		weather_view.present(world_clock.query(),weather_service.query(),dive.active)
@@ -1866,7 +1883,9 @@ func _process(delta: float) -> void:
 			if pending.type == "fish":
 				props.collect_fish(pending.item)
 			else:
-				props.collect_crate(pending.item)
+				var target_root: Node3D=pending.item.get("root")
+				if is_instance_valid(target_root) and Vector2(target_root.position.x-boat.position.x,target_root.position.z-boat.position.z).length()<=2.2:
+					props.collect_crate(pending.item)
 		elif stopped:
 			var got: Dictionary = props.try_pickup(boat.position, true)
 			if not got.is_empty():
@@ -2019,15 +2038,55 @@ func _setup_daylight() -> void:
 			daylight_rig.set_scene_context(daylight_rig.season(), weather_service.kind))
 	daylight_rig.apply(world_clock.query().hour)
 
+func _setup_building() -> void:
+	building_world=preload("res://src/building/building_world.gd").new()
+	building_world.name="BuildingWorld";add_child(building_world)
+	var boundary=preload("res://src/building/building_boundary.gd").new()
+	building_boundary=boundary
+	boundary.world=building_world
+	boundary.actor_query=func(): return {"mode":actor_controller.mode(),"zone":GameState.current_zone,"position":player.global_position}
+	boundary.boat_query=func(): return boat.global_position
+	boundary.obstacles_query=func():
+		var result: Array=[]
+		for zone in _zone_nodes.values():
+			if zone.zone_id=="zone5": continue
+			for ground in zone.walk_areas:
+				for rect: Rect2 in ground.rects:
+					var point: Vector3=ground.to_global(Vector3(rect.position.x,0,rect.position.y))
+					result.append(Rect2(Vector2(point.x,point.z),rect.size))
+		return result
+	building.configure({"eligibility":boundary.eligibility,"space_reason":boundary.space_reason,"pay":Economy.inventory.pay})
+	building_world.configure(building,_zone_nodes.zone5.walk_areas[0],farm_field,_bind_constructed_plot,func(): navigation.invalidate())
+	building.completed.connect(func(_id): props.apply_population_scope())
+	building_controller=preload("res://src/building/building_controller.gd").new();add_child(building_controller)
+	building_controller.configure(building,building_world,cam,hud,Economy.inventory.all,actor_controller.cancel)
+	hud.material_shop=preload("res://src/building/material_shop.gd").new();hud.material_shop.inventory=Economy.inventory
+
+func _bind_constructed_plot(plot: Node3D) -> void:
+	plot.use_action_menu=true
+	if not plot.interaction_requested.is_connected(_open_plot_options): plot.interaction_requested.connect(_open_plot_options)
+
+func _restore_building(data: Dictionary) -> void:
+	building_controller.close()
+	building_world.reset_projection()
+	building.from_dict(data)
+	# Registry suppresses owner signals; the projection must exist before Farm restores.
+	building_world.sync()
+
+func _validate_building_world(snapshot: Dictionary) -> String:
+	return validate_world_state(snapshot.game,snapshot.building.instances)
+
 func _setup_save_registry() -> void:
-	save_registry.busy_query = func(): return Economy.daily.is_settling() or sleep_cycle.busy
+	save_registry.busy_query = func(): return Economy.daily.is_settling() or sleep_cycle.busy or building.busy()
 	var schemas: Dictionary = preload("res://src/save/save_schema.gd").schemas()
+	save_registry.snapshot_validator = _validate_building_world
+	save_registry.register("building",building.to_dict,_restore_building,schemas.building,building.to_dict(),building.validate_snapshot,[building])
 	var owners := {"economy":Economy,"gather":gather,"pickups":props,"dive":dive,"salvage":Economy.salvage,"time":world_clock,"weather":weather_service}
 	for id in owners:
 		var owner = owners[id]
 		var sources: Array = owner.snapshot_event_sources() if owner.has_method("snapshot_event_sources") else [owner]
 		save_registry.register(id,owner.to_dict,owner.from_dict,schemas[id],owner.to_dict(),Callable(),sources)
-	save_registry.register("game",capture_world_state,restore_world_state,schemas.game,capture_world_state(),validate_world_state,[GameState])
+	save_registry.register("game",capture_world_state,restore_world_state,schemas.game,capture_world_state(),Callable(),[GameState])
 	save_registry.restored.connect(_after_restore)
 
 func capture_world_state() -> Dictionary:
@@ -2073,15 +2132,20 @@ func _exit_tree() -> void:
 	save_registry.clear()
 	navigation.shape_query = Callable()
 
-func validate_world_state(data: Dictionary) -> String:
+func validate_world_state(data: Dictionary, layout: Variant = null) -> String:
 	var pos: Array = data.get("player",[])
 	if int(data.get("mode",1))==0 and pos.size()==3:
 		var zone_id := str(data.get("zone","zone1"))
 		if not _zone_nodes.has(zone_id): return "Unknown saved zone"
-		var area = _zone_nodes[zone_id].area_containing(float(pos[0]),float(pos[2]))
-		if area==null or absf(area.surface_y-float(pos[1]))>0.5: return "Saved player is outside walkable ground"
+		if zone_id=="zone5" and layout!=null:
+			if not building_world.contains_saved(Vector3(pos[0],pos[1],pos[2]),layout): return "Saved player is outside constructed ground"
+		else:
+			var area = _zone_nodes[zone_id].area_containing(float(pos[0]),float(pos[2]))
+			if area==null or absf(area.surface_y-float(pos[1]))>0.5: return "Saved player is outside walkable ground"
 	var pose: Array = data.get("boat",[])
-	if pose.size()==4 and not navigation.is_geometric_water(float(pose[0]),float(pose[2])): return "Saved boat is outside navigable water"
+	var candidate_nav = preload("res://src/navigation/water_navigation.gd").new()
+	candidate_nav.shape_query=func(): return _water_shapes()+building_world.water_shapes(building.query() if layout==null else layout)
+	if pose.size()==4 and not candidate_nav.is_geometric_water(float(pose[0]),float(pose[2])): return "Saved boat is outside navigable water"
 	return ""
 
 func _apply_play_scope() -> void:

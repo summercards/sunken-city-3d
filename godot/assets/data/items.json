@@ -14,13 +14,13 @@
     },
     {
       "id": "wood",
-      "label": "木料",
+      "label": "木板",
       "icon": "🪵",
       "category": "material",
       "stack": 40,
       "sell": 2,
       "color": "#c08a52",
-      "desc": "拆自沉船的旧木。建造与升级的基础材料，也用于修补甲板。"
+      "desc": "从海上浮木收集的木板，可用于拼接平台和制作种植区。"
     },
     {
       "id": "parts",
@@ -151,6 +151,16 @@
       "sell": 1,
       "color": "#a8d873",
       "desc": "在空地格播种，浇水后休息推进生长。"
+    },
+    {
+      "id": "soil",
+      "label": "土壤",
+      "icon": "",
+      "category": "material",
+      "stack": 40,
+      "sell": 0,
+      "color": "#987451",
+      "desc": "干净的培养土，在商店购买，用于建造种植区。"
     }
   ]
 }

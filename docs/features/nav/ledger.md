@@ -20,6 +20,8 @@
   "verification": [
     "reference-skiff",
     "visual-reference-skiff",
+    "boat-water-contact",
+    "visual-boat-water-contact",
     "visual-corner-notebook",
     "surface",
     "selftest",
@@ -32,6 +34,12 @@
   ]
 }
 ```
+
+## 2026-10-29 吃水碎浪与桨叶水花
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-NAV-R09 | 本轮补齐接水表现；桨叶入水点改由组件挂点驱动 | [交付记录](../../development/2026-10-29_boat_water_contact.md)。`OarL`/`OarR` 下新增 `BladeContact` 挂点，与桨叶 GLB 外下角对齐；`boat-water-contact` 与 `visual-boat-water-contact` 双方案真实渲染通过，小船专项与装饰/模块回归无新增失败。 |
 
 ## 2026-10-28 参考小船替换
 
@@ -156,3 +164,9 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 `route_ribbon.gd` 保留 `show_route(points, water_y)` 签名，只取航路末点；`debug_band_count()` 恒 0 供断言盯着航段不回潮。`click_reticle.gd` 还原为岸上走位落点环；`_try_sail_to` / `_select_landing` 不再叠加准星。新增着色器 `godot/shaders/water_ripple.gdshader`。航速、转向、碰撞、泊位、寻路与 30 条航线数据未改动。
 
 验证入口：`python3 scripts/run_verification.py visual-route-ripple click --full-world`。`click` 的三条跨区用例依赖 `--full-world`，属既有前提差异。
+
+## 2026-10-29 家园建造接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-NAV-R10 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |

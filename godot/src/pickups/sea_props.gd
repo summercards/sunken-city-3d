@@ -3,6 +3,7 @@ class_name SeaProps
 var give_resource: Callable
 var can_receive: Callable
 var spawn_area := Rect2()
+var planks_only := false
 var crate_count := 9
 var school_count := 7
 signal blocked(reason: String)
@@ -19,7 +20,7 @@ const WATER_LEVEL := 1.12
 
 const CRATE_KINDS := {
 	"crate": {"reward": {"wood": 2, "parts": 1}, "label": "漂流物资箱"},
-	"planks": {"reward": {"wood": 3}, "label": "漂流水料"},
+	"planks": {"reward": {"wood": 3}, "label": "漂流浮木"},
 	"barrel": {"reward": {"parts": 2, "wood": 1}, "label": "漂流零件桶"},
 }
 
@@ -63,7 +64,7 @@ func _spawn_crate() -> void:
 	if p == Vector2.ZERO:
 		return
 	var roll := _rng.randf()
-	var kind := "crate" if roll < 0.5 else ("planks" if roll < 0.8 else "barrel")
+	var kind := "planks" if planks_only else ("crate" if roll < 0.5 else ("planks" if roll < 0.8 else "barrel"))
 	var root := _build_crate_mesh(kind)
 	root.position = Vector3(p.x, WATER_LEVEL, p.y)
 	root.get_node("Ring").material_override.set_shader_parameter("phase", p.x * 0.7 + p.y * 0.3)
@@ -190,6 +191,8 @@ func _school_bounds() -> Rect2:
 func _school_water(p: Vector2) -> bool:
 	if not _fish_bounds.has_point(p): return false
 	if water_point_clear.is_valid() and not water_point_clear.call(p): return false
+	for c in crates:
+		if p.distance_to(Vector2(c.base.x,c.base.z))<4.0: return false
 	for zone in zones.list:
 		for walk in zone.get("walk", []):
 			for r in walk.rects:
@@ -225,8 +228,10 @@ func _flat(color: Color) -> StandardMaterial3D:
 
 func _random_water_point() -> Vector2:
 	for i in 200:
-		var x: float = _rng.randf_range(SPAWN.min_x, SPAWN.max_x)
-		var z: float = _rng.randf_range(SPAWN.min_z, SPAWN.max_z)
+		var bounds := spawn_area if spawn_area.has_area() else Rect2(SPAWN.min_x,SPAWN.min_z,SPAWN.max_x-SPAWN.min_x,SPAWN.max_z-SPAWN.min_z)
+		var x: float = _rng.randf_range(bounds.position.x,bounds.end.x)
+		var z: float = _rng.randf_range(bounds.position.y,bounds.end.y)
+		if water_point_clear.is_valid() and not water_point_clear.call(Vector2(x,z)): continue
 		if _is_land(x, z):
 			continue
 		var ok := true
@@ -311,6 +316,10 @@ func try_pickup(boat_pos: Vector3, boat_stopped: bool) -> Dictionary:
 func collect_crate(crate: Dictionary) -> Dictionary:
 	if not crates.has(crate): return {}
 	var spec: Dictionary = CRATE_KINDS.get(crate.kind, CRATE_KINDS.crate)
+	for key in spec.reward:
+		if can_receive.is_valid() and not can_receive.call(key,int(spec.reward[key])):
+			blocked.emit("背包已满，浮木留在水上")
+			return {}
 	crates.erase(crate)
 	var root: Node3D = crate.root
 	root.queue_free()
@@ -427,6 +436,12 @@ func apply_population_scope() -> void:
 		for c in crates: c.root.queue_free()
 		crates.clear()
 		_pending.clear()
+	if crate_count>0:
+		for c in crates.duplicate():
+			var p:=Vector2(c.base.x,c.base.z)
+			if not spawn_area.has_point(p) or (water_point_clear.is_valid() and not water_point_clear.call(p)):
+				c.root.queue_free();crates.erase(c)
+		for i in maxi(0,crate_count-crates.size()-_pending.size()): _spawn_crate()
 	var relocated := 0
 	for c in schools.duplicate():
 		if not _school_water(Vector2(c.base.x,c.base.z)):

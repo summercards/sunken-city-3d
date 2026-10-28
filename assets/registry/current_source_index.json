@@ -1,5 +1,4 @@
 {
-  "schema_version": 1,
   "sources": [
     {
       "asset_id": "ENV-TOWER-DISTRICT-ASPHALT-FOUNDATION",
@@ -2560,7 +2559,7 @@
     {
       "asset_id": "SEA-FARM-SOIL-CELL",
       "source": "godot/src/farming/farm_plot.gd",
-      "source_sha256": "e4737120d55bbb9f63382bf728b5ea2f2420815ef5136382a6c9727911578a13",
+      "source_sha256": "4c6375e4be6503d4b24919ab6a9b9399dd760e91733de0ca75969c10fdf640b0",
       "manifest": "assets/registry/manifests/sea-farm-soil-cell.json"
     },
     {
@@ -2690,6 +2689,12 @@
       "manifest": "art_source/scenes/submerged_neighborhood/v001/asset_manifest.json"
     },
     {
+      "asset_id": "SEA-BUILDING-WOOD-DECK",
+      "source": "godot/src/building/deck_visual.gd",
+      "source_sha256": "ff144dcf562ca87186604ba68c65e4b848217a3d6275c631fcd677be1dfde8fa",
+      "manifest": "assets/registry/manifests/sea-building-wood-deck.json"
+    },
+    {
       "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
       "source": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
       "source_sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",
@@ -2716,7 +2721,7 @@
     {
       "asset_id": "UI-HUD-CORNERS-001",
       "source": "godot/src/ui/corner_hud.gd",
-      "source_sha256": "ffe8e4f4250e6b0916544ce1bfe42329651463e0a9d5d2c4ade8a7e3cfdede18",
+      "source_sha256": "c1bb2cb1c5019112ad214a500667a58059534b7b6e6f1cd60e20cf1989ff8dda",
       "manifest": "assets/registry/manifests/ui_hud_corners_001.json"
     },
     {
@@ -2724,6 +2729,30 @@
       "source": "godot/src/ui/notebook.gd",
       "source_sha256": "ef53f56513877c6ea409eb4171cc3c0dd516b3d99edc6b608be86612859e012b",
       "manifest": "assets/registry/manifests/ui_notebook_001.json"
+    },
+    {
+      "asset_id": "SEA-VFX-WATER-CROSS-RIPPLE-001",
+      "source": "art_source/vfx/water_cross_ripple/v001/cartoon_cross_ripple.svg",
+      "source_sha256": "5b5e0454da4edcf65b755bad34fc632a32198c2a0c042d8b9058619efb214404",
+      "manifest": "art_source/vfx/water_cross_ripple/v001/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-CROP-LETTUCE",
+      "source": "art_source/crops/lettuce/v001/lettuce_v001.blend",
+      "source_sha256": "7f1aedb9130d831124893892beb05ec88e482b6c0a6dcace659c74a23200e874",
+      "manifest": "assets/registry/manifests/sea-crop-lettuce.json"
+    },
+    {
+      "asset_id": "SEA-CROP-TOMATO",
+      "source": "art_source/crops/tomato/v001/tomato_v001.blend",
+      "source_sha256": "2107fe5426ab3abeb85174cffd5705e1c9c047d773915d0f28375dc32b55b110",
+      "manifest": "assets/registry/manifests/sea-crop-tomato.json"
+    },
+    {
+      "asset_id": "SEA-CROP-PUMPKIN",
+      "source": "art_source/crops/pumpkin/v001/pumpkin_v001.blend",
+      "source_sha256": "330cdf33dcd79077bc19ff9f2c2fb11a29f328f9e4abc08913156c019fc3fd51",
+      "manifest": "assets/registry/manifests/sea-crop-pumpkin.json"
     }
   ]
 }

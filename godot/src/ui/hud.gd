@@ -5,6 +5,10 @@ var dialogue: CanvasLayer
 var calendar_query: Callable
 var weather_query: Callable
 var clock_label: Label
+var material_shop: RefCounted
+var owned_modal_query: Callable
+var owned_modal_close: Callable
+var owned_modal_input: Callable
 var corner: Control
 var notebook: Control
 const EconomyDependency = preload("res://src/economy/economy.gd")
@@ -465,6 +469,7 @@ func _activate_selection() -> void:
 
 func _input(event: InputEvent) -> void:
 	if menu and menu.active: return
+	if owned_modal_query.is_valid() and owned_modal_query.call(): return
 	if not event is InputEventKey or not event.pressed or event.echo: return
 	var key: int = event.physical_keycode if event.physical_keycode else event.keycode
 	if _panel_open:
@@ -884,6 +889,7 @@ func _service_snapshot(service: String) -> Dictionary:
 	for crop in economy.farm.crop_definitions():
 		var definition: Dictionary=economy.farm.crop_def(crop)
 		catalog.append({"id":str(definition.seed),"crop":str(crop),"count":0,"price":int(definition.seed_price)})
+	catalog.append({"id":"soil","crop":"soil","count":0,"price":preload("res://src/building/material_shop.gd").PRICE})
 	var accepted: Array=[]
 	for id in ItemDBLib.all_ids():
 		if economy.daily.accepts(id): accepted.append(id)
@@ -895,6 +901,6 @@ func _service_snapshot(service: String) -> Dictionary:
 func _service_command(id: String, action: String, amount: int) -> void:
 	var service:=_tab
 	_farm_action(func() -> Dictionary:
-		if action=="buy": return economy.farm.buy_seed(id)
+		if action=="buy": return material_shop.buy_soil() if id=="soil" else economy.farm.buy_seed(id)
 		if service=="shipping": return economy.daily.deposit(id,amount) if action=="deposit" else economy.daily.withdraw(id,amount)
 		return economy.storage.deposit(id,amount) if action=="deposit" else economy.storage.withdraw(id,amount))

@@ -20,12 +20,13 @@
         "pearl",
         "lettuce_seed",
         "tomato_seed",
-        "pumpkin_seed"
+        "pumpkin_seed",
+        "soil"
       ],
       "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
     },
     {
-      "owner": "SEA-FARM",
+      "owner": "SEA-CROP",
       "path": "godot/assets/data/crops.json",
       "collection_key": "crops",
       "ids": [
@@ -33,7 +34,7 @@
         "tomato",
         "pumpkin"
       ],
-      "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+      "note": "品种定义唯一源，由 SEA-CROP 拥有；数值被 SEA-FARM 查询，不在此复制。"
     },
     {
       "owner": "SEA-ORDER",

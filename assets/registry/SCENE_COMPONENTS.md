@@ -174,5 +174,15 @@
 | AssetID | 用途 | 独立入口 |
 |---|---|---|
 | SEA-FARM-CULTIVATION-DECK | 浅水平台木板面 | `godot/scenes/props/cultivation_deck.tscn` |
-| SEA-FARM-SOIL-CELL | 木框培养土、四阶段作物 | `godot/scenes/props/farm_cell.tscn` |
+| SEA-FARM-SOIL-CELL | 木框培养土（作物模型已移至 crops 域，见下节） | `godot/scenes/props/farm_cell.tscn` |
 | SEA-SCENE-SBR-COOLER | 复用原白盖蓝箱，码头出货入口 | `godot/scenes/components/solar_cabin/cooler.tscn`；`godot/src/orders/shipping_box.gd` |
+
+## 2026-10-29 作物品种（独立资产域 crops）
+
+| AssetID | 用途 | 独立入口 |
+|---|---|---|
+| SEA-CROP-LETTUCE | 生菜·四阶段（种子/发芽/二次发芽/收成） | `godot/scenes/crops/lettuce.tscn` |
+| SEA-CROP-TOMATO | 番茄·四阶段 | `godot/scenes/crops/tomato.tscn` |
+| SEA-CROP-PUMPKIN | 南瓜·四阶段 | `godot/scenes/crops/pumpkin.tscn` |
+
+主记录在 [crops 分账本](ledgers/crops.json)，不在 `scenes.json`。每品种 4 个阶段 GLB，合计 12 个，单个阶段整格 ≤900 三角面（实测 336–780）。

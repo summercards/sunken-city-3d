@@ -37,6 +37,18 @@ func build() -> void:
 func _on_acted(plot_id: String, event: String, payload: Dictionary) -> void:
 	acted.emit(plot_id, event, payload)
 
+func register_node(node: Node3D) -> void:
+	if find(node.plot_id)!=null: return
+	node.farm_model=farm_model
+	plots.append(node)
+	farm_model.register_plot({"id":node.plot_id,"zone":node.zone_id,"name":node.plot_name,"requires_site":node.requires_site,"requires_level":node.requires_level})
+	if not node.acted.is_connected(_on_acted): node.acted.connect(_on_acted)
+	farm_model.plots_changed.emit()
+
+func unregister_node(node: Node3D) -> void:
+	plots.erase(node)
+	farm_model.unregister_plot(node.plot_id)
+
 
 func find(plot_id: String) -> Node3D:
 	for p in plots:

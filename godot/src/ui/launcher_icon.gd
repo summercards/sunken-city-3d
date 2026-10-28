@@ -47,6 +47,11 @@ func _draw() -> void:
 			draw_line(corner,corner-Vector2(0,direction.y*9),Cozy.CREAM,4,true)
 		draw_circle(Vector2(36,28),6,Cozy.CREAM,true,-1,true)
 		_box(Rect2(26,38,20,13),Cozy.CREAM,8)
+	elif kind=="craft":
+		_box(Rect2(18,16,36,42),Cozy.CREAM,5)
+		_box(Rect2(18,16,7,42),Color("#98734c"),3)
+		draw_line(Vector2(32,47),Vector2(47,27),Color("#b48c50"),6,true)
+		draw_line(Vector2(37,24),Vector2(51,34),Color("#78a598"),9,true)
 	elif kind=="notes":
 		_box(Rect2(21,17,33,41),Color("#855e3e"),5)
 		_box(Rect2(18,14,33,41),Cozy.CREAM,5)

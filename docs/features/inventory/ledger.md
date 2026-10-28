@@ -95,3 +95,9 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 左下显示真实瓶盖、已用格/容量，使用原白色圆体且无背板。背包仍由B/Tab或右上图标进入；背包内“生活手册”改名“海岛笔记”。笔记物产卡读取背包/仓库数量，不复制或写回Inventory。
 
 对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。
+
+## 2026-10-29 家园建造接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-INVENTORY-R08 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |

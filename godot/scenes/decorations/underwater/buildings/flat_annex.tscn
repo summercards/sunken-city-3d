@@ -2,6 +2,7 @@
 [ext_resource type="Script" path="res://src/world/submerged_building.gd" id="contract"]
 [ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
 [ext_resource type="PackedScene" path="res://assets/models/scenery/submerged_neighborhood/flat_annex/flat_annex.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/submerged_neighborhood/matte.tres" id="palette"]
 [node name="水下景观·窄顶附楼" type="Node3D"]
 script = ExtResource("contract")
 asset_id = "SEA-SCENE-SUBMERGED-FLAT-ANNEX"
@@ -11,6 +12,7 @@ movable = false
 metadata/asset_id = "SEA-SCENE-SUBMERGED-FLAT-ANNEX"
 metadata/triangle_budget = 1000
 [node name="Visual" parent="." instance=ExtResource("model")]
+surface_material_override/0 = ExtResource("palette")
 [node name="Blockers" type="Node3D" parent="."]
 script = ExtResource("blocker")
 mode = "none"

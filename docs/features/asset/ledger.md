@@ -68,9 +68,11 @@
 
 ## 资源与调用入口
 
+2026-10-28：SEA-ASSET-R01/R02/R03新增原创卡通十字波纹`SEA-VFX-WATER-CROSS-RIPPLE-001`，经总索引登记在vfx分账本。矢量/2048px源、512px线性蒙版、运行引用与授权分开记录；[当前制作与验证](../../development/2026-10-28_cartoon_cross_ripple.md)。
+
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-ASSET-R29 | 六栋独立源/优化/GLB/PackedScene已制作；源级与实景专项验证，参考权属pending | [本轮交付](../../development/2026-10-28_submerged_neighborhood.md)；逐栋880/784/636/438/496/716三角面，公共色板、逐面UV和六独立包重开通过；优化清理为零减面，未以三角化冒充减面 |
+| SEA-ASSET-R29 | 六栋独立源/优化/GLB/PackedScene已制作；源级与实景专项验证，参考权属pending | [本轮交付](../../development/2026-10-28_submerged_neighborhood.md)、[材质序列化](../../development/2026-10-29_submerged_buildings_main_placement.md)；逐栋880/784/636/438/496/716三角面，公共色板、逐面UV和六独立包重开通过；优化清理为零减面，未以三角化冒充减面；六栋调色板材质已从运行期脚本改为PackedScene内序列化覆盖，并由专项断言盯着；阳光房57个组件的同类运行期上色尚未序列化 |
 
 - [art_source](../../../art_source)
 - [assets/registry](../../../assets/registry)
@@ -266,3 +268,17 @@ SEA-ASSET-R02/R03/R24：通过总索引定位场景分账本，只修正SEA-SCEN
 运行时哈希只更新这一个文件，未批量刷新。
 
 [本轮记录](../../development/2026-10-28_dock_seed_weather_asset_fix.md)。
+
+## 2026-10-29 通用建造木板
+
+SEA-ASSET-R02/R03：通过ledger_index登记原创程序几何SEA-BUILDING-WOOD-DECK，稳定预制体godot/scenes/buildables/wood_deck.tscn；引用现有SEA-FARM-SOIL-CELL，不改旧木面、美术源与许可。仅更新本轮items.json及新增木板源/场景资源哈希。[交付](../../development/2026-10-28_building_delivery.md)。
+
+## 2026-10-29 作物独立资产域
+
+| 对应设计条款 | 实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R30 | 已实现：`ledgers/crops.json` 建立 crops 域，生菜/番茄/南瓜各一行主记录；12 个阶段 GLB 入运行清单，制作源在 `art_source/crops/<id>/v001` | `structure` 契约检查 + [本轮记录](../../development/2026-10-29_crop_formalization.md) |
+
+授权：三品种为本工程程序化自建，`license` 记 `project_authored_procedural_geometry`，不冒用外部来源。
+源级「保存后重开 + 四视图渲染」尚未执行，阶段保持 `runtime_component_verified`，不写成已验收。
+本域只新增记录，未刷新任何既有资产哈希。

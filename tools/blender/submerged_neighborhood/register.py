@@ -27,7 +27,7 @@ if __name__=='__main__':
             category='underwater_scenic_building',classification=m['classification'],license=P['reference_license'],geometry_fingerprint=e['geometry_fingerprint'],
             consumer_features=['SEA-ASSET','SEA-WORLD'],verification=evidence,triangles=e['exported_triangles'],polygons=e['polygons'],triangle_budget=1000,
             source_optimization_manifest=m['export_manifest'],collision=False,interactive=False,
-            runtime_instances=['World/Zones/Zone1HomeHarbor/UnderwaterScenery/'+k],
+            runtime_instances=['World/UnderwaterScenery/'+k],
             note='Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending.'))
     aid='SEA-SCENE-SUBMERGED-ASSEMBLY';prefab='godot/scenes/decorations/underwater/neighborhood.tscn';mf=D/'asset_manifest.json'
     assembly=dict(asset_id=aid,name='阳光房水下景观街区-六栋独立装配',domain='scenes',suite='submerged_neighborhood',scope='scene_local',stage=stage,
@@ -37,7 +37,7 @@ if __name__=='__main__':
     write(mf,dict(assembly,asset_ledger=route['ledger']+'#'+aid,dependencies=[e['asset_id'] for e in new],
         optimized_source=E['optimized_source'],optimized_sha256=E['optimized_sha256'],
         component_plan=(D/'component_plan.json').relative_to(R).as_posix(),export_manifest=(D/'export_manifest.json').relative_to(R).as_posix(),
-        runtime_placement_owner=prefab,reference_sha256=P['reference_sha256'],collision=False,interactive=False))
+        runtime_placement_owner='godot/scenes/main.tscn#World/UnderwaterScenery',reference_sha256=P['reference_sha256'],collision=False,interactive=False))
     new.append(assembly);ids={e['asset_id'] for e in new}
     for domain,r in idx['domains'].items():
         for e in json.loads((R/r['ledger']).read_text(encoding='utf-8'))[r['asset_key']]:

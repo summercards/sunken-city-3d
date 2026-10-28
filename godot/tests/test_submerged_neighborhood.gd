@@ -27,6 +27,19 @@ func triangle_count(node: Node) -> int:
 			var arrays: Array = visual.mesh.surface_get_arrays(surface)
 			result += arrays[Mesh.ARRAY_INDEX].size() / 3 if arrays[Mesh.ARRAY_INDEX] != null and arrays[Mesh.ARRAY_INDEX].size() > 0 else arrays[Mesh.ARRAY_VERTEX].size() / 3
 	return result
+## 贴图来自 .tscn 里序列化的 surface_material_override，而不是只靠 @tool 脚本运行时补。
+## 一旦有人把它改成「脚本上色」，编辑器里重新实例化就会变回 GLB 的灰白底材。
+func serialized_palette_override(packed: PackedScene) -> bool:
+	var state := packed.get_state()
+	for node_index in state.get_node_count():
+		if state.get_node_name(node_index) != "Visual": continue
+		for p in state.get_node_property_count(node_index):
+			if not str(state.get_node_property_name(node_index, p)).begins_with("surface_material_override"): continue
+			var material = state.get_node_property_value(node_index, p)
+			if material is StandardMaterial3D and material.albedo_texture != null \
+				and material.albedo_texture.resource_path == "res://assets/textures/shared/sea_cozy_8x8_512.png":
+				return true
+	return false
 func snapshot(tag: String) -> void:
 	if DisplayServer.get_name() == "headless": return
 	for i in 10: await process_frame
@@ -45,21 +58,26 @@ func run() -> void:
 	main.boat.set_process(false)
 	for i in 8: await process_frame
 	var zone: Node3D = main.get_node("World/Zones/Zone1HomeHarbor")
-	var scenery: Node3D = zone.get_node("UnderwaterScenery")
+	# 摆放由 main.tscn 拥有：六栋是 World 下的独立实例，便于在完整场景里逐个对照调整。
+	var scenery: Node3D = main.get_node("World/UnderwaterScenery")
 	var base: Node3D = zone.get_node("Models/太阳能木屋/太阳能木屋-海下基座")
 	var base_box := bounds(base)
 	check(base_box.has_volume(), "existing MultiMesh sunroom base has measured volume")
 	evidence.base_bounds = str(base_box)
 	check(scenery.is_visible_in_tree(), "scenery visible in the default minimum playable scope")
 	check(scenery.get_child_count() == 6, "exactly six independent buildings")
+	check(scenery.get_parent() == main.get_node("World"), "placement owned by main.tscn")
+	check(zone.get_node_or_null("UnderwaterScenery") == null, "zone1 must not carry a second scenery instance")
 	check(scenery.get_node("terraced_tower").position.z < base_box.position.z and scenery.get_node("rear_slab").position.z < base_box.position.z, "tall background buildings recede behind the sunroom, not a surrounding ring")
 	check(scenery.get_node("rounded_tower").position.x < base_box.position.x, "large rounded silhouette anchors the left bank")
 	check(scenery.get_node("stepped_lowrise").position.z > base_box.end.z and scenery.get_node("flat_annex").position.z < scenery.get_node("stepped_lowrise").position.z, "foreground roof heights and distances are staggered")
 	var boxes: Array[AABB] = []
 	for key in KEYS:
-		var standalone: Node3D = load("res://scenes/decorations/underwater/buildings/" + key + ".tscn").instantiate()
+		var packed: PackedScene = load("res://scenes/decorations/underwater/buildings/" + key + ".tscn")
+		var standalone: Node3D = packed.instantiate()
 		root.add_child(standalone)
 		check(triangle_count(standalone) > 0 and triangle_count(standalone) <= 1000, key + " independently loads under triangle budget")
+		check(serialized_palette_override(packed), key + " palette material serialized in the prefab, not only applied by a runtime script")
 		standalone.queue_free()
 		var node: Node3D = scenery.get_node(key)
 		var box := bounds(node)

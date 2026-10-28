@@ -12,7 +12,10 @@ const CROPS_TABLE := "res://assets/data/crops.json"
 const PLOTS_TABLE := "res://assets/data/plots.json"
 const WATER_CAPACITY := 12
 const Ports = preload("res://src/farming/farming_ports.gd")
+const CatalogLib = preload("res://src/crops/crop_catalog.gd")
 var ports: RefCounted
+## 品种数据归 SEA-CROP：本模块只查询数值，不拥有作物定义，也不碰作物模型。
+var catalog: CatalogLib
 
 func configure(boundary: RefCounted) -> void:
 	assert(boundary.is_configured(), "Farming requires configured inventory/progression ports")
@@ -33,13 +36,23 @@ var watering_can := WATER_CAPACITY
 
 func _ready() -> void:
 	assert(ports != null and ports.is_configured(), "Configure farming before adding it to the tree")
-	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(CROPS_TABLE))
-	for row in data.get("crops", []):
-		crops[str(row.id)] = row
+	if catalog == null:
+		catalog = CatalogLib.new()
+		if not catalog.reload(CROPS_TABLE):
+			push_error("[farm] 作物表加载失败：" + catalog.error())
+	crops = catalog.definitions()
 	var table: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PLOTS_TABLE))
 	specs = table.get("plots", [])
 	for row in specs:
 		states[str(row.id)] = _empty_state()
+
+
+## 品种目录。表现层与 UI 通过它取模型路径与阶段标签。
+func crop_catalog() -> CatalogLib:
+	if catalog == null:
+		catalog = CatalogLib.new()
+		catalog.reload(CROPS_TABLE)
+	return catalog
 
 func _empty_state() -> Dictionary:
 	return {"crop":"", "remaining":0.0, "total":0.0, "water":0.0, "harvests":0}
@@ -50,6 +63,8 @@ func spec(plot_id: String) -> Dictionary:
 	return {}
 
 func crop_def(crop_id: String) -> Dictionary:
+	if catalog != null:
+		return catalog.get_crop(crop_id)
 	return crops.get(crop_id, {}).duplicate(true)
 
 func state(plot_id: String) -> Dictionary:
@@ -57,7 +72,10 @@ func state(plot_id: String) -> Dictionary:
 	return states.get(plot_id,_empty_state()).duplicate(true)
 
 func plot_specs() -> Array: return specs.duplicate(true)
-func crop_definitions() -> Dictionary: return crops.duplicate(true)
+func crop_definitions() -> Dictionary:
+	if catalog != null:
+		return catalog.definitions()
+	return crops.duplicate(true)
 
 func _state(plot_id: String) -> Dictionary:
 	if not states.has(plot_id): states[plot_id] = _empty_state()
@@ -324,7 +342,15 @@ func clear_plot_specs() -> void:
 
 func register_plot(row: Dictionary) -> void:
 	assert(not row.get("id","").is_empty())
+	for existing in specs:
+		if existing.id==row.id: return
 	specs.append(row.duplicate(true))
+
+func unregister_plot(id: String) -> void:
+	for i in range(specs.size()-1,-1,-1):
+		if specs[i].id==id: specs.remove_at(i)
+	states.erase(id)
+	plots_changed.emit()
 
 func access_reason(id: String) -> String:
 	return _access_reason(id)

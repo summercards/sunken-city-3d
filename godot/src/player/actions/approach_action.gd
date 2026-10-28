@@ -8,6 +8,19 @@ func execute(c, target: Node3D) -> bool:
 			return false
 	var zone: Node3D = c.ports.zone.call()
 	if zone==null: return false
+	if target.has_meta("approach_points"):
+		var best := Vector3.INF
+		var best_area: Node3D
+		var distance := INF
+		for point: Vector3 in target.get_meta("approach_points"):
+			var ground=zone.area_containing(point.x,point.z)
+			if ground==null or ground.path_between(c.actor.global_position,point).is_empty(): continue
+			var d: float=c.actor.global_position.distance_squared_to(point)
+			if d<distance: distance=d;best=point;best_area=ground
+		if best==Vector3.INF or not c.start_walk(best_area,best): return false
+		var route: Array=c.walk_path.duplicate();route.push_front(c.actor.global_position)
+		c.machine.change("approaching",{"area":best_area,"target":best,"path":route,"subject":target})
+		return true
 	var area = zone.area_containing(target.global_position.x,target.global_position.z)
 	if area==null: return false
 	var direction: Vector3 = c.actor.global_position-target.global_position

@@ -106,3 +106,9 @@ DailyShipping.query新增capacity/slots_used只读字段；存档结构、结算
 SEA-ORDER-R09/R10：稳定出货箱模型与交互同锚点；当前实体点击专项及出货、取回、07:00结算流程通过。
 
 [交付记录](../../development/2026-10-28_home_lighting_recovery.md)。
+
+## 2026-10-29 家园建造接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-ORDER-R11 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |

@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-29",
+  "feature_ids": [
+    "SEA-OCEAN",
+    "SEA-NAV"
+  ],
+  "requirements": [
+    "SEA-OCEAN-R21",
+    "SEA-NAV-R09"
+  ],
+  "defects_fixed": [
+    "stationary boat had no waterline contact (wake only ran while sailing)",
+    "oar ripple emitted at the old fixed 2.6m offset; new blade reaches 3.70m",
+    "BladeContact marker was referenced by boat.gd but absent from oar.tscn, so oar_blade_positions() was always empty"
+  ],
+  "measured": {
+    "blade_contact_local_x": 1.582232,
+    "blade_contact_local_y": 0.021,
+    "blade_outer_tip_from_centerline_m": 3.7037,
+    "blade_deepest_draft_m": 0.204,
+    "water_level_y": 1.12,
+    "hull_waterline_points": 24,
+    "blade_emit_cooldown_s": 0.5,
+    "blade_foam_lifetime_s": 1.7
+  },
+  "shader": {
+    "include": "godot/shaders/boat_water_contact.gdshaderinc",
+    "hosts": [
+      "godot/shaders/water.gdshader",
+      "godot/shaders/water_absorption.gdshader"
+    ],
+    "new_uniforms": [
+      "boat_blade_points[8]",
+      "boat_blade_count"
+    ],
+    "rejected_attempts": [
+      "shared u_ripples pool -> generic ring drawn over the splash (bullseye in a bullseye)",
+      "closed ring -> read as a dropped pebble",
+      "V-shaped arms -> read as a chevron icon",
+      "thin continuous arc -> read as a sticker outline"
+    ]
+  },
+  "verification": {
+    "boat-water-contact": {
+      "exit_code": 0,
+      "checks": 45,
+      "failures": 0,
+      "expected_faults": [],
+      "unexpected_errors": [],
+      "run": "20261029-003625-verification-24371c"
+    },
+    "visual-boat-water-contact": {
+      "exit_code": 0,
+      "checks": 45,
+      "failures": 0,
+      "expected_faults": [],
+      "unexpected_errors": [],
+      "run": "20261029-004717-verification-7cc4f9",
+      "renderer": "real",
+      "device": "NVIDIA GeForce RTX 4060 Ti / Forward+"
+    },
+    "reference-skiff": {
+      "exit_code": 0,
+      "checks": 94,
+      "failures": 0,
+      "run": "20261029-004814-verification-19411e"
+    },
+    "visual-reference-skiff": {
+      "exit_code": 0,
+      "checks": 94,
+      "failures": 0,
+      "run": "20261029-004847-verification-f8d421"
+    },
+    "decorations": {
+      "exit_code": 0,
+      "checks": 1703,
+      "failures": 0,
+      "run": "20261029-004828-verification-b09292"
+    },
+    "modules": {
+      "exit_code": 0,
+      "run": "20261029-004837-verification-15e827"
+    },
+    "surface_full_world": {
+      "exit_code": 1,
+      "checks": 456,
+      "failures": 1,
+      "failed_labels": [
+        "种植物件是独立场景 home_plot"
+      ],
+      "note": "existing assertion expecting the pre-2026-10-23 planting prefab hierarchy; recorded as pre-existing in 2026-10-28_reference_skiff.md, planting untouched this round"
+    }
+  },
+  "pixel_delta": {
+    "method": "real render, on/off uniform toggle, 2px sampling",
+    "original": {
+      "hull_changed_samples": 2750,
+      "oar_changed_samples": 1167
+    },
+    "absorption": {
+      "hull_changed_samples": 3705,
+      "oar_changed_samples": 806
+    }
+  },
+  "unexecuted": [
+    "manual gamepad rowing",
+    "mobile device/GPU performance",
+    "commercial reference rights review"
+  ]
+}

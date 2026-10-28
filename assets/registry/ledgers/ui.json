@@ -86,7 +86,7 @@
       "domain": "ui",
       "stage": "runtime_verified_reused_license_pending",
       "source": "godot/src/ui/corner_hud.gd",
-      "source_sha256": "ffe8e4f4250e6b0916544ce1bfe42329651463e0a9d5d2c4ade8a7e3cfdede18",
+      "source_sha256": "c1bb2cb1c5019112ad214a500667a58059534b7b6e6f1cd60e20cf1989ff8dda",
       "manifest": "assets/registry/manifests/ui_hud_corners_001.json",
       "version": "v002",
       "runtime_path": "godot/src/ui/corner_hud.gd",
@@ -96,10 +96,11 @@
         "SEA-INVENTORY",
         "SEA-FARM",
         "SEA-TIME",
-        "SEA-CAMERA"
+        "SEA-CAMERA",
+        "SEA-BUILDING"
       ],
-      "verification": "docs/development/2026-10-28_hud_date_camera_lock.md",
-      "note": "本轮程序化排版和图标；复用UI-FONT-LXGW975YUAN-SC-700、UI-ACTION-HANDDRAWN-001与UI-POCKET-HANDDRAWN-001。既有图片源与授权pending不变。 v002仅按用户后续要求改月日显示占位、瓶盖28px、右下角色定位圆图标和移除停止行动；既有图像与授权不变。",
+      "verification": "docs/development/2026-10-28_building_delivery.md",
+      "note": "本轮程序化排版和图标；复用UI-FONT-LXGW975YUAN-SC-700、UI-ACTION-HANDDRAWN-001与UI-POCKET-HANDDRAWN-001。既有图片源与授权pending不变。 v002仅按用户后续要求改月日显示占位、瓶盖28px、右下角色定位圆图标和移除停止行动；既有图像与授权不变。；2026-10-29 SEA-BUILDING新增设置右侧第八个建造入口，visual-building真实鼠标与渲染通过。",
       "previous_sources": [
         {
           "source": "godot/src/ui/corner_hud.gd",

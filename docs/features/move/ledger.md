@@ -103,3 +103,9 @@ SEA-MOVE-R01/R02/R03：正式surface 30航路503检查及click 30检查通过；
 | SEA-MOVE-R07 | 已实现；6 处清零点覆盖取消、改道、拾取、挡停、读档 | `dock-seed` 2 项断言（意图只消费一次、取消后不擅自下船） |
 
 [本轮记录](../../development/2026-10-28_dock_seed_weather_asset_fix.md)。
+
+## 2026-10-29 家园建造接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-MOVE-R08 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |

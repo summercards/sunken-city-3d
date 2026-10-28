@@ -14509,7 +14509,7 @@
       "domain": "scenes",
       "stage": "runtime_component_verified",
       "source": "godot/src/farming/farm_plot.gd",
-      "source_sha256": "e4737120d55bbb9f63382bf728b5ea2f2420815ef5136382a6c9727911578a13",
+      "source_sha256": "4c6375e4be6503d4b24919ab6a9b9399dd760e91733de0ca75969c10fdf640b0",
       "manifest": "assets/registry/manifests/sea-farm-soil-cell.json",
       "version": "v001",
       "runtime_path": "godot/src/farming/farm_plot.gd",
@@ -14979,7 +14979,7 @@
       "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/terraced_tower/terraced_tower.glb",
       "runtime_sha256": "76c857a2ade93249d90f81c10d2ef44a2db66dd78c922e0123da90887360e6b3",
       "prefab": "godot/scenes/decorations/underwater/buildings/terraced_tower.tscn",
-      "prefab_sha256": "7b068f6bcf171ee848f026581f6c813780cfecc444b7be1df30c533fb7467f1e",
+      "prefab_sha256": "ef9e4bd6c82041a9c89ef4a305027b7223f90227c6ee3edf40a39f4cc976c42d",
       "category": "underwater_scenic_building",
       "classification": {
         "category": "decoration",
@@ -15001,7 +15001,7 @@
       "collision": false,
       "interactive": false,
       "runtime_instances": [
-        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/terraced_tower"
+        "World/UnderwaterScenery/terraced_tower"
       ],
       "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
     },
@@ -15019,7 +15019,7 @@
       "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/rounded_tower/rounded_tower.glb",
       "runtime_sha256": "b2a90a3b7e15d4c578c465f667c35aa1589c3dd089f78eacbfc3f1e8ac6c2843",
       "prefab": "godot/scenes/decorations/underwater/buildings/rounded_tower.tscn",
-      "prefab_sha256": "210b3d9aff45861f4d6ef431bba2637beed2bc0f5575dd49e57b0b24b0b3621d",
+      "prefab_sha256": "6f3dbc7579b015330174393971390f9014e9cefdf3cb5d2648ea7e604f037ad6",
       "category": "underwater_scenic_building",
       "classification": {
         "category": "decoration",
@@ -15041,7 +15041,7 @@
       "collision": false,
       "interactive": false,
       "runtime_instances": [
-        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/rounded_tower"
+        "World/UnderwaterScenery/rounded_tower"
       ],
       "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
     },
@@ -15059,7 +15059,7 @@
       "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/slender_tower/slender_tower.glb",
       "runtime_sha256": "d814ea5e799c51575e122d76214f9c81fd75263ebc70896f986eb334cb220bd6",
       "prefab": "godot/scenes/decorations/underwater/buildings/slender_tower.tscn",
-      "prefab_sha256": "1cd4f4d278e3f382df07e8565f098ec3d92cf3bbf0d71c4363cfadaa67b0b2a6",
+      "prefab_sha256": "8338e40753b83ff2eed3078fa82b727ded6045f907575154b6fc416989245a31",
       "category": "underwater_scenic_building",
       "classification": {
         "category": "decoration",
@@ -15081,7 +15081,7 @@
       "collision": false,
       "interactive": false,
       "runtime_instances": [
-        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/slender_tower"
+        "World/UnderwaterScenery/slender_tower"
       ],
       "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
     },
@@ -15099,7 +15099,7 @@
       "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/stepped_lowrise/stepped_lowrise.glb",
       "runtime_sha256": "68159739aec7f73db3b8a6e39b5786a006d32128aa5aa4821ad527987b05b77a",
       "prefab": "godot/scenes/decorations/underwater/buildings/stepped_lowrise.tscn",
-      "prefab_sha256": "c73ba73727784d3b8d5d19de94595c35a8fe1c8cd7ff62897600ec64a2b29b5c",
+      "prefab_sha256": "0a42b4acdf5defc8ee58a39dc98460740f7145ff789f795eaced5eb74110562d",
       "category": "underwater_scenic_building",
       "classification": {
         "category": "decoration",
@@ -15121,7 +15121,7 @@
       "collision": false,
       "interactive": false,
       "runtime_instances": [
-        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/stepped_lowrise"
+        "World/UnderwaterScenery/stepped_lowrise"
       ],
       "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
     },
@@ -15139,7 +15139,7 @@
       "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/flat_annex/flat_annex.glb",
       "runtime_sha256": "3a3e0f7b6ed62d445dbe3fc506c52abd6724527d311407a5e912e892b5216745",
       "prefab": "godot/scenes/decorations/underwater/buildings/flat_annex.tscn",
-      "prefab_sha256": "6253fff8dfe53d18218b5377874cf4f00f5548a39e036b3ff334e01d2941cf76",
+      "prefab_sha256": "1ee05cac54817cdb0ae9529a14e434e0c7cb85beb8a72380690bea92d2f681db",
       "category": "underwater_scenic_building",
       "classification": {
         "category": "decoration",
@@ -15161,7 +15161,7 @@
       "collision": false,
       "interactive": false,
       "runtime_instances": [
-        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/flat_annex"
+        "World/UnderwaterScenery/flat_annex"
       ],
       "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
     },
@@ -15179,7 +15179,7 @@
       "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/rear_slab/rear_slab.glb",
       "runtime_sha256": "9b493009bb8b4e2b32da6044262b83fbe04e83a4e157f74c12b2982865beb787",
       "prefab": "godot/scenes/decorations/underwater/buildings/rear_slab.tscn",
-      "prefab_sha256": "51c92e21ca071a1373f89caf9a6b31a10c1c1329ca7a62be8e83c7e08a79e380",
+      "prefab_sha256": "638d20703abbdda603e73c7091fbe19380752f3898f84366154cdfbff0a45d76",
       "category": "underwater_scenic_building",
       "classification": {
         "category": "decoration",
@@ -15201,7 +15201,7 @@
       "collision": false,
       "interactive": false,
       "runtime_instances": [
-        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/rear_slab"
+        "World/UnderwaterScenery/rear_slab"
       ],
       "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
     },
@@ -15231,7 +15231,35 @@
       ],
       "verification": [
         "D:\\projects\\sea-work\\verification\\20261028-223721-submerged-delivery-fc2816\\report.json"
-      ]
+      ],
+      "runtime_instances": [],
+      "status": "reference_only",
+      "placement_owner": "godot/scenes/main.tscn#World/UnderwaterScenery",
+      "note": "分组参考场景，不再被任何正式场景实例化；六栋的正式摆放由 main.tscn 的 World/UnderwaterScenery 拥有，以免出现两份互相漂移的坐标。"
+    },
+    {
+      "asset_id": "SEA-BUILDING-WOOD-DECK",
+      "name": "家园拼接·通用木板",
+      "domain": "scenes",
+      "stage": "runtime_component_verified",
+      "source": "godot/src/building/deck_visual.gd",
+      "source_sha256": "ff144dcf562ca87186604ba68c65e4b848217a3d6275c631fcd677be1dfde8fa",
+      "manifest": "assets/registry/manifests/sea-building-wood-deck.json",
+      "version": "v001",
+      "runtime_path": "godot/src/building/deck_visual.gd",
+      "prefab": "godot/scenes/buildables/wood_deck.tscn",
+      "license": "project_authored_procedural_geometry",
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-WORLD",
+        "SEA-ASSET"
+      ],
+      "classification": {
+        "category": "building",
+        "subcategory": "structure"
+      },
+      "verification": "docs/development/2026-10-28_building_delivery.md",
+      "note": "以现有SEA-FARM-CULTIVATION-DECK木板厚度及配色派生参数化2.15×2.575米模块；旧平台不改，复用现有土壤格。"
     }
   ]
 }

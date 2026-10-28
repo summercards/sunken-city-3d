@@ -66,3 +66,5 @@ begin_site_upgrade / tick_sites / site_level / site_next_cost；sites_changed、
 施工状态和费用规则已移入 ConstructionService；BuildSite/BuildField 注入该服务。绞盘站三级成长等原设计内容仍待接入。
 
 新增条款 SEA-BUILD-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+2026-10-29：原研究方案已由独立[SEA-BUILDING](../building/spec.md)承接为家园拼接建造；本功能仍只拥有固定建筑升级，不混入动态布局或第二份库存。

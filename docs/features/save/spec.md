@@ -72,3 +72,11 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 | 条款 ID | 规则 |
 |---|---|
 | SEA-SAVE-R09 | 睡眠过渡busy查询阻止保存；醒来06:00的time/game/cargo状态可往返，07:00不提前或重复收货。 |
+
+## 2026-10-29 家园建造接入
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-SAVE-R10 | 根快照v4新增必填building（版本、next_id、instances），含稳定实例ID、支撑、网格/摆位、朝向与剩余秒。v0-v3迁为空布局；先完整校验候选布局与候选世界中的角色/船，再恢复布局、动态地格登记、Farm与其余状态。保留农场v2、坏档无修改、施工不重复扣费、离线不推进。 |
+
+[交付与实测](../../development/2026-10-28_building_delivery.md)。

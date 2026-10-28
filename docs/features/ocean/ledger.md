@@ -27,6 +27,8 @@
     "visual-home-lighting",
     "visual-atmosphere",
     "visual-boat-lamp",
+    "boat-water-contact",
+    "visual-boat-water-contact",
     "water-params"
   ]
 }
@@ -51,7 +53,7 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-OCEAN-R21 | 双方案改为共享的浅色聚光合成；8时段真实渲染逐一核验 | [本轮建筑与光斑交付](../../development/2026-10-28_submerged_neighborhood.md)；旧压暗路径的像素负向结果与修后对照分别记录，源建筑、波场与既有分时光照数值不变 |
+| SEA-OCEAN-R21 | 双方案使用同一张稀疏卡通十字灰度贴图，取消宽噪声斑驳；8时段真实渲染核验 | [十字贴图修订](../../development/2026-10-28_cartoon_cross_ripple.md)；2026-10-29最新136项专项、68项夜景、141项波场及双方案参数清单均通过，图像明显增亮区域不足1%，保留源建筑、波场与既有分时光照数值；[前版记录](../../development/2026-10-28_submerged_neighborhood.md)保留追溯 |
 
 - [godot/src/rendering](../../../godot/src/rendering)
 - [godot/shaders](../../../godot/shaders)
@@ -174,3 +176,9 @@ R12/R13的旧全暗夜景已被R15–R17替代。新增world_night全局与Water
 | SEA-OCEAN-R20 | 已实现；外舷短杆与下照暖色实灯，双方案纯水区域开关差分、远近衰减与随船转向/离开验证 | [设计与本轮验收](../../development/2026-10-28_boat_navigation_lamp.md) |
 
 船灯由Omni改为Spot，捕获按Light3D基类筛选home_lamps/boat_lamps分组；仍只有一个船灯，未新增灯光强度写入者。沿用原灯笼资产与boat/furnishing/bow_lantern实例ID；木杆为Boat运行包装内置几何配件。未改灯笼制作源、GLB或授权pending状态。
+
+## 2026-10-29 吃水碎浪与桨叶水花
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R21 | 已实现；船体水线由真实船壳三角形在 y=0 切片求凸包，桨叶水花走独立 uniform 通道，双方案真实渲染通过 | [本轮交付](../../development/2026-10-29_boat_water_contact.md)。画法经三轮返工才定稿：闭合圆环读成"掉石子"、V 形臂读成"箭头图标"、细弧线读成"贴纸描边"，最终采用与海面泡沫同源的阈值噪声碎斑。 |

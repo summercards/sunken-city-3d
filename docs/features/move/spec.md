@@ -68,3 +68,11 @@
 | 条款 ID | 规则 |
 |---|---|
 | SEA-MOVE-R05 | begin_sleep取消路径和交互后进入独立sleeping状态；该状态不评估行走/交互，醒来经restore_pose恢复ashore_idle。 |
+
+## 2026-10-29 家园建造接入
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-MOVE-R08 | 相连完工木板可连续行走，施工中的板不可踩；种植区占地从开工起预留，角色不得穿箱。动态地格提供多个操作锚点，ApproachAction选可达点后沿原状态机执行。 |
+
+[交付与实测](../../development/2026-10-28_building_delivery.md)。

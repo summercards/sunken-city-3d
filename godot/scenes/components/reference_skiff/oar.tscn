@@ -9,3 +9,11 @@ subcategory = "vessel_part"
 facility_id = "player_boat"
 metadata/asset_id = "SEA-SCENE-SKIFF-OAR"
 [node name="Visual" parent="." instance=ExtResource("visual")]
+
+[node name="BladeContact" type="Marker3D" parent="."]
+
+position = Vector3(1.582232, 0.021, 0)
+
+metadata/asset_id = "SEA-SCENE-SKIFF-OAR"
+
+metadata/note = "桨叶外下角；水面接触与桨纹由渲染读取，本节点不参与碰撞"

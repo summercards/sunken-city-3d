@@ -99,3 +99,9 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 ## 2026-10-28 开始界面时间连续性
 
 开始背景改为读取已恢复的同一WorldClock时刻，不修改存档格式、时间字段或07:00晨次。开始期间继续冻结时钟，入场后恢复计时；白天/夜间/清晨真实存档冷启动验证见[本轮记录](../../development/2026-10-28_title_composition_saved_time.md)。
+
+## 2026-10-29 家园建造接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-SAVE-R10 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |

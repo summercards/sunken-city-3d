@@ -42,6 +42,8 @@
         "godot/assets/data/zones.json"
       ],
       "verification": [
+        "submerged-neighborhood",
+        "visual-submerged-neighborhood",
         "selftest",
         "surface",
         "visual-sea-style",
@@ -99,6 +101,8 @@
       "verification": [
         "reference-skiff",
         "visual-reference-skiff",
+        "boat-water-contact",
+        "visual-boat-water-contact",
         "visual-corner-notebook",
         "surface",
         "selftest",
@@ -106,7 +110,8 @@
         "minimum-loop",
         "visual-home-lighting",
         "visual-atmosphere",
-        "visual-boat-lamp"
+        "visual-boat-lamp",
+        "visual-route-ripple"
       ]
     },
     {
@@ -245,6 +250,29 @@
       ]
     },
     {
+      "feature_id": "SEA-BUILDING",
+      "name": "家园拼接建造",
+      "group": "经营",
+      "dependencies": [
+        "SEA-INVENTORY",
+        "SEA-INTERACT",
+        "SEA-WORLD"
+      ],
+      "spec": "docs/features/building/spec.md",
+      "ledger": "docs/features/building/ledger.md",
+      "status": "implemented",
+      "owner": "BuildingService / BuildingWorld / BuildingController",
+      "code_paths": [
+        "godot/src/building"
+      ],
+      "verification": [
+        "building",
+        "building-integration",
+        "visual-building",
+        "building-restart"
+      ]
+    },
+    {
       "feature_id": "SEA-FACILITY",
       "name": "设施解锁与生产",
       "group": "经营",
@@ -288,13 +316,41 @@
       ]
     },
     {
+      "feature_id": "SEA-CROP",
+      "name": "作物品种与四阶段形态",
+      "group": "经营",
+      "dependencies": [
+        "SEA-ASSET"
+      ],
+      "spec": "docs/features/crop/spec.md",
+      "ledger": "docs/features/crop/ledger.md",
+      "status": "implemented",
+      "owner": "CropCatalog / CropView",
+      "code_paths": [
+        "godot/src/crops",
+        "godot/assets/data/crops.json",
+        "godot/scenes/crops",
+        "godot/assets/models/crops",
+        "art_source/crops",
+        "assets/registry/ledgers/crops.json"
+      ],
+      "verification": [
+        "crops",
+        "visual-crops",
+        "farming",
+        "modules",
+        "structure"
+      ]
+    },
+    {
       "feature_id": "SEA-FARM",
       "name": "种植与日常照料",
       "group": "经营",
       "dependencies": [
         "SEA-INVENTORY",
         "SEA-FACILITY",
-        "SEA-WORLD"
+        "SEA-WORLD",
+        "SEA-CROP"
       ],
       "spec": "docs/features/farm/spec.md",
       "ledger": "docs/features/farm/ledger.md",
@@ -604,6 +660,7 @@
         "godot/assets/materials"
       ],
       "verification": [
+        "visual-submerged-water-light",
         "ocean",
         "visual-sea-style",
         "lighting-params",
@@ -613,6 +670,8 @@
         "visual-home-lighting",
         "visual-atmosphere",
         "visual-boat-lamp",
+        "boat-water-contact",
+        "visual-boat-water-contact",
         "water-params"
       ]
     },
@@ -708,6 +767,8 @@
         "tools/blender"
       ],
       "verification": [
+        "submerged-neighborhood",
+        "visual-submerged-neighborhood",
         "reference-skiff",
         "visual-reference-skiff",
         "structure",

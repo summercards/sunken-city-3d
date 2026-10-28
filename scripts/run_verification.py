@@ -16,6 +16,11 @@ TESTS = {
     'modules': ('tests/test_feature_modules.gd', r'\[modules\] \d+ checks, 0 failures'),
     'parity': ('tests/test_core.gd', r'\d+ checks, 0 failures'),
     'farming': ('tests/test_farming.gd', r'\[farming\] \d+ checks, 0 failed'),
+    # 作物品种与四阶段形态：隔离运行，不加载 main.tscn（SEA-CROP-R05 的证据）。
+    'crops': ('tests/test_crops.gd', r'\[crops\] \d+ checks, 0 failed'),
+    # 作物 12 阶段真实渲染：正视图 + 俯视图，作为 SEA-CROP-R06 的渲染证据。
+    # 必须以 visual- 开头，harness 才会给真实渲染器；headless 下截不了图（会挂住）。
+    'visual-crops': ('tools/capture_crops.gd', r'\[crops-render\] \d+ checks, 0 failures'),
     'surface': ('tests/test_surface_movement.gd', r'\[surface\].*failures=0'),
     'click': ('tests/test_click_controls.gd', r'\[click-controls\] \d+ checks, 0 failures'),
     'management': ('tests/test_management_loop.gd', r'\[management\] \d+ checks, 0 failed'),
@@ -25,6 +30,13 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'boat-water-contact': ('tests/test_boat_water_contact.gd', r'\[boat-water-contact\] \d+ checks, 0 failures'),
+    'visual-boat-water-contact': ('tests/test_boat_water_contact.gd', r'\[boat-water-contact\] \d+ checks, 0 failures'),
+    'building-seed': ('tests/test_building_restart.gd', r'\[building-restart\] \d+ checks, 0 failures'),
+    'building-restart': ('tests/test_building_restart.gd', r'\[building-restart\] \d+ checks, 0 failures'),
+    'building': ('tests/test_building.gd', r'\[building\] \d+ checks, 0 failures'),
+    'building-integration': ('tests/test_building_integration.gd', r'\[building-integration\] \d+ checks, 0 failures'),
+    'visual-building': ('tests/test_building_visual.gd', r'\[visual-building\] \d+ checks, 0 failures'),
     'visual-submerged-water-light': ('tests/test_submerged_water_light.gd', r'\[submerged-water-light\] \d+ checks, 0 failures'),
     'submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
     'visual-submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
@@ -188,6 +200,9 @@ def main():
     if 'save-protection' in checks and 'save-corrupt-seed' not in checks:
         checks = list(checks)
         checks.insert(checks.index('save-protection'), 'save-corrupt-seed')
+    if 'building-restart' in checks and 'building-seed' not in checks:
+        checks = list(checks)
+        checks.insert(checks.index('building-restart'), 'building-seed')
     unknown = set(checks) - set(TESTS)
     if unknown:
         parser.error('unknown checks: ' + ', '.join(sorted(unknown)))
@@ -224,9 +239,10 @@ def main():
             print('\n'.join(import_text.splitlines()[-20:]), flush=True)
             return 1
     for name in checks:
-        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules'] else full_config
+        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules','building'] else full_config
         # Only intentional cross-process cases share a slot. Every other check starts fresh.
-        group = ('title-clock' if name == 'title-clock-seed' or name in title_cases else
+        group = ('building-restart' if name in ['building-seed','building-restart'] else
+                 'title-clock' if name == 'title-clock-seed' or name in title_cases else
                  'restart' if name in ['save-seed', 'framework-integration'] else
                  'protection' if name in ['save-corrupt-seed', 'save-protection'] else name)
         check_user_name = user_name + '/' + group
@@ -250,6 +266,9 @@ def main():
         if name in title_cases:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--title-fixture=' + name.rsplit('-', 1)[-1])
+        if name == 'building-seed':
+            if '--' not in cmd: cmd.append('--')
+            cmd.append('--building-seed')
         if args.full_world:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--full-world')

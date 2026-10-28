@@ -1,0 +1,30 @@
+{
+  "asset_id": "SEA-CROP-LETTUCE",
+  "asset_ledger": "assets/registry/ledgers/crops.json#SEA-CROP-LETTUCE",
+  "source": "art_source/crops/lettuce/v001/lettuce_v001.blend",
+  "prefab": "godot/scenes/crops/lettuce.tscn",
+  "stages": [
+    {
+      "key": "seed",
+      "node": "Stage0Seed",
+      "model": "godot/assets/models/crops/lettuce/stage_0_seed.glb"
+    },
+    {
+      "key": "sprout",
+      "node": "Stage1Sprout",
+      "model": "godot/assets/models/crops/lettuce/stage_1_sprout.glb"
+    },
+    {
+      "key": "leaf",
+      "node": "Stage2Leaf",
+      "model": "godot/assets/models/crops/lettuce/stage_2_leaf.glb"
+    },
+    {
+      "key": "harvest",
+      "node": "Stage3Harvest",
+      "model": "godot/assets/models/crops/lettuce/stage_3_harvest.glb"
+    }
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "note": "四阶段独立几何；切换只改可见性。数值与经济归 SEA-FARM，品种定义归 SEA-CROP。"
+}

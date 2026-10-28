@@ -1,4 +1,9 @@
-"""One-time NEW scenery initialization; final placement belongs to TSCN."""
+"""One-time NEW scenery initialization; final placement belongs to TSCN.
+
+2026-10-29：正式摆放已移交 `godot/scenes/main.tscn` 的 `World/UnderwaterScenery`（六栋各自独立实例，
+便于在完整场景里逐个对照调整）。本脚本生成的 `neighborhood.tscn` 现仅作分组参考，不再被实例化；
+重新运行会因「已存在」直接失败，不要用它覆盖 main.tscn 里的手工摆位。
+"""
 import json,hashlib
 from pathlib import Path
 R=Path(__file__).resolve().parents[3];D=R/'art_source/scenes/submerged_neighborhood/v001'

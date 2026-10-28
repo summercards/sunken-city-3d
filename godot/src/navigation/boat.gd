@@ -43,6 +43,9 @@ var _turn_rate := 0.0
 ## 两根桨。
 var _oar_l: Node3D
 var _oar_r: Node3D
+## 桨叶接触挂点（组件自带），只读给渲染层用。
+var _blade_l: Node
+var _blade_r: Node
 ## 手动航行的目标（点水面划过去）：没有区块、没有泊位朝向。
 var manual := false
 var _t := 0.0
@@ -378,6 +381,21 @@ func wake_uniform() -> Vector4:
 
 func rowing_state() -> Vector2:
 	return Vector2(_stroke, _row_blend)
+
+
+## Read-only visual contacts. Rendering owns the resulting water effects.
+func hull_visual() -> Node3D:
+	return model.get_node_or_null("Parts/hull_000") if model!=null else null
+
+## 桨叶入水点来自组件自带的 BladeContact 挂点，随桨的划水与收桨姿态移动；
+## 不再用固定距离推算落点。返回固定两侧，缺挂点的一侧给非有限值，调用方跳过。
+func oar_blade_positions() -> PackedVector3Array:
+	if _blade_l==null and _oar_l!=null:_blade_l=_oar_l.find_child("BladeContact",true,false)
+	if _blade_r==null and _oar_r!=null:_blade_r=_oar_r.find_child("BladeContact",true,false)
+	var positions := PackedVector3Array([Vector3.INF,Vector3.INF])
+	if _blade_l!=null:positions[0]=(_blade_l as Node3D).global_position
+	if _blade_r!=null:positions[1]=(_blade_r as Node3D).global_position
+	return positions
 
 
 func cruise_speed() -> float:

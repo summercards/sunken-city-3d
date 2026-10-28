@@ -15,6 +15,7 @@
 | 船级 | ShipService | upgrade_ship | ship_level / upgraded | ship_level |
 | 目标 | GoalService | track_goal | goal_info / resources_changed | tracked_goal |
 | 种植 | Farm | plant / water / advance_day / register_plot | state / plot_specs / crop_definitions / phase / crop_of / plots_changed | farm |
+| 作物品种 | CropCatalog（无状态，只读表） | reload（仅供工具/测试） | ids / has / get_crop / definitions / stage_labels / model_scene / stage_for_progress / validate | 无（品种是内容，不是状态；地格状态仍归 Farm） |
 | 订单 | Orders | fulfill / reroll / tick | offers / offer_at / changed / fulfilled | orders |
 | 打捞奖励 | SalvageRewards | commit_salvage | can_salvage / salvage_ready | salvage.left |
 | 采集 | GatherField / GatherSpot | interact / from_dict | seconds_left / collected | gather，稳定采集点 ID |
@@ -48,7 +49,7 @@
 
 ## 存档协议
 
-当前 wire version 为 3，顶层包含 economy、game、gather、pickups、dive、salvage、time、weather。v0/v1 只给历史缺失/新增模块补默认值；未知内容 ID 在所属模块按当前内容表过滤，类型错误、负容量/数量、非有限数值和未来版本拒绝。
+当前 wire version 为 4，顶层包含 building、economy、game、gather、pickups、dive、salvage、time、weather。v0/v1 只给历史缺失/新增模块补默认值；未知内容 ID 在所属模块按当前内容表过滤，类型错误、负容量/数量、非有限数值和未来版本拒绝。
 
 注册表先验证全部模块及世界位置，再调用恢复接口。恢复不购买、不结算奖励、不读写文件；完成后统一刷新镜头、区域表现和 HUD。读档回到稳定待机状态；离线时间冻结，施工/冷却存剩余秒，默认作物由07:00晨次推进，06:00醒来不结算。
 
@@ -91,3 +92,25 @@ v2校验覆盖必填嵌套记录、订单状态互斥、拾取ID唯一与next_id
 2026-10-28：睡觉点只发命令；23:00自动睡觉由SleepCycle调度，WorldClock唯一推进到06:00。过渡期间SnapshotRegistry.busy_query拒绝保存，醒后统一保存稳定姿态。光照、时钟、经营晨次互不复制状态。
 
 2026-10-28 服务口袋：`PocketService` 通过注入的 `query(service)` 读取背包、服务库存、真实容量、待结算金额和种子目录，只发出 `operation_requested(id, action, amount)`；HUD适配层分派到原DailyShipping、WarehouseService和Farm命令。`DailyShipping.query()`新增`capacity`、`slots_used`只读字段，存档无新增字段。视图仅保存页码/选中态，不保存第二份物品状态。[本轮记录](../development/2026-10-28_service_pockets.md)。
+
+## 2026-10-29 独立家园拼接建造
+
+SEA-BUILDING的BuildingService唯一写入动态布局与施工时间；Main只组合服务、Inventory支付端口、BuildingBoundary资格/空间查询和BuildingWorld投影。独立文档及账本在docs/features/building。固定ConstructionService仍归SEA-BUILD，Farm仍唯一写作物。
+
+SnapshotRegistry新增整份snapshot_validator；在任何apply前校验快照布局中的角色/船位置，避免查询旧世界误拒绝新平台上的角色。building第一个恢复，BuildingWorld显式重建投影和地格登记（恢复期间信号被屏蔽），随后恢复Economy内Farm，最后恢复game姿态；不以中间changed事件串接恢复。v0-v3由decode显式补空building。
+
+UI的owned_modal_query/close/input为独立手册和预览提供注入的模态生命周期，旧系统菜单每帧刷新不能取消此状态；Esc关闭建造，F9仍进入原确认流程。
+
+## 2026-10-29 作物品种独立域（SEA-CROP）
+
+依赖方向单向：`SEA-FARM → SEA-CROP → SEA-ASSET`。CropCatalog / CropView **不得**反向引用 Farm、地格状态或场景节点。
+
+| 边界 | 规则 |
+|---|---|
+| 品种数据 | `godot/assets/data/crops.json` 唯一源，由 CropCatalog 解析；Farm 只查询，不缓存第二份可写副本 |
+| 阶段判定 | `CropStage.stage_for_progress(progress, ready)` 是唯一映射；FarmPlot 只转交，不自己写阈值 |
+| 表现 | `CropView` 按 `model` 加载 `scenes/crops/<id>.tscn`，切换阶段只改 `visible`，不建网格、不改状态 |
+| 缺失降级 | 模型或阶段节点缺失时保留上一阶段并只警告一次，不崩溃、不留空箱 |
+| 资产 | 主记录在 `ledgers/crops.json`（domain=crops），不写入 `scenes.json` |
+
+跨进程契约的断言入口：`crops`（隔离测试，不加载 main）、`visual-crops`（12 阶段真实渲染）、`structure`（契约与哈希）。

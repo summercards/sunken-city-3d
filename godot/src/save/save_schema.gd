@@ -25,6 +25,7 @@ static func schemas() -> Dictionary:
 	var boat := vector.duplicate(true)
 	boat.sizes = [0,4]
 	return {
+		"building":object({"version":integer(1,1),"next_id":integer(1),"instances":list_of(object({}),54)},["version","next_id","instances"]),
 		"economy":object({
 			"daily_loop":object({"version":integer(1,1),"cargo":inventory(),"last_morning":integer(-1),"receipt":object({"day":integer(1),"income":integer(),"items":map(integer())})},["version","cargo","last_morning","receipt"]),
 			"inventory":inventory(),"warehouse":inventory(),"ship_level":integer(1,3),
@@ -43,13 +44,20 @@ static func schemas() -> Dictionary:
 		"weather":object({"kind":{"type":"string","enum":["clear","cloudy","rain"]},"remaining":number(),"seed":integer(1,2147483646),"duration":number(10,86400)},["kind","remaining","seed","duration"])
 	}
 static func validate(data: Dictionary) -> String:
-	var version_error: String = preload("res://src/core/record_contract.gd").check(data.get("version"),integer(3,3),"version")
+	var version_error: String = preload("res://src/core/record_contract.gd").check(data.get("version"),integer(4,4),"version")
 	if version_error != "": return version_error
 	var rules := schemas()
 	for id in rules:
 		if not data.has(id): return "Missing module: " + id
 		var error: String = preload("res://src/core/record_contract.gd").check(data[id],rules[id],id)
 		if error != "": return error
+	var building_error: String=preload("res://src/building/building_service.gd").validate_snapshot(data.building)
+	if building_error!="": return building_error
+	var dynamic_ids: Dictionary={}
+	for item in data.building.instances:
+		if item.kind=="planter" and item.left<=0: dynamic_ids["dynamic/"+str(item.id)]=true
+	for id in data.economy.farm.plots:
+		if str(id).begins_with("dynamic/") and not dynamic_ids.has(id): return "Orphan dynamic crop"
 	# A historical save has no pickup population: migration explicitly requests a rebuild.
 	# An empty/truncated current record must never silently regenerate collected rewards.
 	if data.pickups.get("reset",false):

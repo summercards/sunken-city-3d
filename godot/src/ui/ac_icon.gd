@@ -121,6 +121,10 @@ func _draw_symbol(id: String, p: Vector2) -> void:
 			_box(Rect2(p+Vector2(-25,-13),Vector2(48,27)),Color("#b18b61"),10)
 			_circle(p+Vector2(21,0),14,Color("#dcc298"));draw_arc(p+Vector2(21,0),8,0,TAU,20,INK,2,true)
 			for y in [-7,3,9]: draw_line(p+Vector2(-20,y),p+Vector2(9,y),Color("#8e6c49"),2,true)
+		"soil":
+			_box(Rect2(p+Vector2(-24,-23),Vector2(48,48)),Color("#c8ac7b"),12)
+			_circle(p+Vector2(0,3),17,Color("#806144"))
+			for offset in [Vector2(-8,2),Vector2(5,-5),Vector2(8,10)]: _circle(p+offset,3,Color("#ac8b63"))
 		"parts":
 			for i in 8:
 				var a:=TAU*i/8

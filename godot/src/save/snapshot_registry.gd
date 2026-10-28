@@ -14,6 +14,7 @@ func register(id: String, capture: Callable, apply: Callable, schema: Dictionary
 		sources.append(weakref(source))
 	_entries[id] = {"capture":capture, "apply":apply, "schema":schema.duplicate(true), "defaults":defaults.duplicate(true), "validator":validator,"event_sources":sources}
 
+var snapshot_validator: Callable
 var busy_query: Callable
 func is_busy() -> bool: return _restoring or (busy_query.is_valid() and busy_query.call())
 func is_restoring() -> bool: return _restoring
@@ -37,6 +38,7 @@ func validate(data: Dictionary) -> String:
 		if _entries[id].validator.is_valid():
 			error = _entries[id].validator.call(data[id])
 			if error != "": return error
+	if snapshot_validator.is_valid(): return snapshot_validator.call(data)
 	return ""
 
 func restore(data: Dictionary) -> Dictionary:
@@ -62,5 +64,6 @@ func restore(data: Dictionary) -> Dictionary:
 	return {"ok":true,"reason":""}
 
 func clear() -> void:
+	snapshot_validator = Callable()
 	busy_query = Callable()
 	_entries.clear()

@@ -32,12 +32,24 @@ func patch_delta(lit: Image, off: Image, point: Vector3) -> Dictionary:
 			darkest = minf(darkest,d)
 			n += 1
 	return {"mean":delta/maxi(n,1), "minimum":darkest, "samples":n, "rect":str(rect)}
+func signal_stats(lit: Image, off: Image) -> Dictionary:
+	var positive := 0
+	var total := 0
+	var peak := 0.0
+	for y in range(lit.get_height()/3, lit.get_height(),2):
+		for x in range(0,lit.get_width(),2):
+			var d := lit.get_pixel(x,y).get_luminance()-off.get_pixel(x,y).get_luminance()
+			if d > .004: positive += 1
+			peak = maxf(peak,d)
+			total += 1
+	return {"positive_fraction":float(positive)/maxi(total,1),"peak":peak}
 func run() -> void:
 	if DisplayServer.get_name() == "headless":
 		printerr("FAIL real renderer required");quit(1);return
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
 	main._autosave_on = false
+	main.process_mode = Node.PROCESS_MODE_DISABLED
 	main.set_process(false)
 	main.world_clock.paused = true;main.weather_service.paused = true
 	main.cam.set_process(false);main.cam.follow_enabled = false;main.boat.set_process(false)
@@ -47,7 +59,7 @@ func run() -> void:
 	main.cam.distance = 73
 	main.cam.orbit_dir = Vector3(-.6,.85,.8)
 	main.cam.refresh()
-	var scenery: Node3D = main.get_node("World/Zones/Zone1HomeHarbor/UnderwaterScenery")
+	var scenery: Node3D = main.get_node("World/UnderwaterScenery")
 	var probes := []
 	for key in ["rounded_tower", "stepped_lowrise", "flat_annex"]:
 		var node: Node3D = scenery.get_node(key)
@@ -56,6 +68,11 @@ func run() -> void:
 		probes.append({"key":key,"point":Vector3(box.get_center().x,box.end.y-.19,box.get_center().z)})
 	for scheme in ["original","absorption"]:
 		main.water_node.use_scheme(scheme)
+		var texture: Texture2D = main.water_node.current_material().get_shader_parameter("cross_ripple_mask")
+		check(texture != null and texture.resource_path == "res://assets/textures/water/cartoon_cross_ripple.png", scheme+" consumes the real cartoon cross mask")
+		if texture != null:
+			var mask := texture.get_image()
+			check(mask.get_width()==512 and mask.get_height()==512, scheme+" full-resolution mask")
 		for slot in Slots.SLOTS:
 			main.daylight_rig.apply(float(slot.hour))
 			var mat: ShaderMaterial = main.water_node.current_material()
@@ -63,7 +80,11 @@ func run() -> void:
 			var lit := await shot(scheme+"-"+slot.id)
 			mat.set_shader_parameter("caustics_enabled",false)
 			var off := await shot(scheme+"-"+slot.id+"-no-caustic")
-			var row := {"scheme":scheme,"slot":slot.id,"hour":slot.hour,"patches":[]}
+			var mark_stats := signal_stats(lit,off)
+			check(mark_stats.positive_fraction < .07, scheme+" "+slot.id+" sparse markings, no broad wash")
+			check(mark_stats.peak < .15, scheme+" "+slot.id+" faint highlight ceiling")
+			if slot.id == "morning" or slot.id == "noon": check(mark_stats.peak > .005, scheme+" "+slot.id+" actual cross texture is visible")
+			var row := {"scheme":scheme,"slot":slot.id,"hour":slot.hour,"patches":[],"signal":mark_stats}
 			for probe in probes:
 				var delta := patch_delta(lit,off,probe.point)
 				check(delta.samples > 100, scheme+" "+slot.id+" roof inside camera "+probe.key)
@@ -71,6 +92,13 @@ func run() -> void:
 				row.patches.append({"key":probe.key,"delta":delta})
 			evidence.append(row)
 			mat.set_shader_parameter("caustics_enabled",true)
+	main.water_node.use_scheme("original")
+	main.cam.target = Vector3(-1,-2,12)
+	main.cam.distance = 47
+	main.cam.refresh()
+	for hour in [9.0,17.0,19.0]:
+		main.daylight_rig.apply(hour)
+		await shot("cross-close-"+str(int(hour)))
 	var file := FileAccess.open("res://outputs/submerged-water-light.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(evidence,"\t"));file.close()
 	main.queue_free();await process_frame

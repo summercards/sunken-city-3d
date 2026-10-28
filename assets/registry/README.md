@@ -30,9 +30,21 @@
 | vfx | [vfx](ledgers/vfx.json) | pending；分类空账本，不代表该类资产已制作/授权/接入 |
 | music | [music](ledgers/music.json) | pending；分类空账本，不代表该类资产已制作/授权/接入 |
 | sfx | [sfx](ledgers/sfx.json) | pending；分类空账本，不代表该类资产已制作/授权/接入 |
+| crops | [crops](ledgers/crops.json) | 2026-10-29建立；生菜/番茄/南瓜各一行，四阶段模型列 stage_models |
 
 总索引先定位域，再按 AssetID 查询唯一主记录。新增域须同步独立账本；新增记录须同步来源索引和授权/接入证据。未重新核验的运行资源不批量刷新哈希。
 
 2026-10-27：[场景组件细分目录](SCENE_COMPONENTS.md)，建筑、升级植物、可移动摆件、装饰/水面植物、装饰/动物分别维护。新增42种植物与4类装饰资产登记，原AssetID和来源哈希保留。
 
 2026-10-27：新增程序化开始画面 `UI-TITLE-SEA-001`，登记在UI分账本，复用已有OFL授权圆体。参考图不进入发行资源；标题排字源、镜头适配和真实渲染证据见[本轮记录](../../docs/development/2026-10-27_minimum_loop_and_title.md)。仅为新增资产计算哈希，既有资产基线不变。
+
+## 2026-10-29 作物独立资产域
+
+作物从 `scenes.json` 的种植格条目中独立出来，主记录迁入 `ledgers/crops.json`：
+
+- `SEA-CROP-LETTUCE` / `SEA-CROP-TOMATO` / `SEA-CROP-PUMPKIN`，各含 `stage_models` 四条（seed/sprout/leaf/harvest）。
+- 制作源 `art_source/crops/<id>/v001/<id>_v001.blend`，外链公共 8×8 色板，PaletteUV 逐面落格。
+- 12 个阶段 GLB 已登记运行清单，单阶段整格三角面 336–780，均在 900 预算内。
+- `godot/assets/data/crops.json` 的 ContentIndex 所有权由 `SEA-FARM` 转为 `SEA-CROP`；数值仍被种植规则查询，不复制第二份。
+
+原 `SEA-FARM-SOIL-CELL` 保留，但描述改为「木框培养土」，不再声称承载作物模型。

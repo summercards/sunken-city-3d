@@ -59,6 +59,7 @@ uniform sampler2D normal_map : hint_normal, repeat_enable, filter_linear_mipmap;
 
 #include "res://shaders/ocean_waves.gdshaderinc"
 #include "res://shaders/ocean_wake.gdshaderinc"
+#include "res://shaders/boat_water_contact.gdshaderinc"
 
 group_uniforms absorb;
 // The wavelengths the water takes out of the scene behind it. Deep water shows
@@ -205,31 +206,6 @@ float sun_lobe(vec3 n, vec3 view_dir, float normal_view) {
 	return clamp(lobe * inverse_width * sun_lobe_gain, 0.0, 1.0);
 }
 
-// Caustic web. This is light that has already passed through the surface, so it
-// must be sampled at the submerged geometry's own world position and gated on
-// there being geometry at all — see the call site.
-//
-// Two octaves, warped into each other. A single octave thresholded gives clean
-// cells, which reads as a printed lattice; the reference frame shows lobes with
-// frayed, scalloped edges, so the fine octave is mixed in as a multiplier that
-// carves the coarse blobs rather than sprinkling extra light of its own.
-float caustic_net(vec2 p, float t) {
-	vec2 q = p * max(caustic_size, 0.01) * 0.6;
-	float a = noise(q + vec2(t * 0.11, t * 0.07));
-	float b = noise(q * 1.7 - vec2(t * 0.09, t * 0.13) + a * 1.2);
-	float c = noise(q * 2.9 + vec2(b * 1.6 - t * 0.05, a * 0.7));
-	// Coarse: broad lobes. The power is what turns the field into bright islands
-	// on a dark base instead of a uniform haze.
-	float lobes = pow(clamp(1.0 - abs(c - 0.5) * 3.0, 0.0, 1.0), 3.0);
-	if (caustic_detail <= 0.0) {
-		return lobes;
-	}
-	float d = noise(q * 4.3 + vec2(t * 0.07, b * 1.1));
-	float fray = clamp(1.0 - abs(d - 0.5) * 3.4, 0.0, 1.0);
-	// Multiply, not add: the fine octave should notch the lobes' outlines.
-	return lobes * mix(1.0, fray, caustic_detail);
-}
-
 void vertex() {
 	v_world = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	vec2 p = v_world.xz;
@@ -322,51 +298,15 @@ void fragment() {
 		color += sun_color * sun_lobe(normal, to_eye, normal_view) * sun_highlight_strength;
 	}
 
-	// ---- caustics on the submerged geometry --------------------------------
-	// Sampled at `bed_world.xz`, the world position of whatever the water is
-	// covering, NOT at `p` (the water plane). That single change is what makes
-	// this read as light in water: the pattern is welded to the sunken walls and
-	// the seabed, so it stays put while the surface scrolls past above it. Sampled
-	// at `p` it is a film of light glued to the water plane, which is what the
-	// first version looked like — a floating web across the whole sea.
-	//
-	// Gated three ways: there must be geometry under the pixel at all, it must be
-	// within the depth band, and it must not be right at the waterline.
+	// Shared sparse cartoon crosses, projected onto the actual geometry face.
 	if (caustics_enabled && caustic_strength > 0.0 && caustic_range > 0.0) {
-		// 只有水下真的有东西时才有光斑可以落。开阔水的深度缓冲是远平面（Reverse-Z
-		// 下 raw=0），不拦住的话光网会铺满整片海。
-		//
-		// 方向很容易写反：Reverse-Z 里「有几何体」是 raw 接近 1、远平面是 0，
-		// 所以这里要 raw 越大越算有物体。写成 `1.0 - smoothstep(...)` 就正好把
-		// 该亮的墙面全挡掉、只留开阔水 —— 实测表现是「怎么调都一点变化都没有」。
 		float on_geometry = u_reverse_z > 0.5
 			? smoothstep(0.0, 0.0005, raw)
 			: 1.0 - smoothstep(0.9975, 1.0, raw);
-		// Depth band. Shallow end: no room to focus yet, so it fades in over a
-		// short ramp. Deep end: the light has scattered, so it fades out.
-		//
-		// The ramp must be short. The drowned walls here sit only 1-3 m under the
-		// surface, and an earlier version eased over 1.2 m on top of a 0.25 m start
-		// — that put every wall below half strength, which then read as "the effect
-		// does nothing".
 		float band = smoothstep(caustic_near, caustic_near + 0.35, vertical_depth)
 			* (1.0 - smoothstep(caustic_range * 0.45, caustic_range, vertical_depth));
-		// 投影坐标必须三个轴都参与，否则会退化。
-		//
-		// 只用 `bed_world.xz` 时，一面竖直的墙 x/z 是常量、只有 y 在变，二维采样
-		// 于是退化成一条线 —— 实测表现就是墙面上出现整片竖向条纹，像拉丝而不是
-		// 阳光。这里把 y 按互质的比例混进两个轴，任何朝向的面都还是「二维的」：
-		// 地板靠 x/z 变化，竖墙靠 y 变化，斜面两者都有。
-		vec2 cp = vec2(
-			bed_world.x + bed_world.z * 0.37 + bed_world.y * 0.61,
-			bed_world.z + bed_world.x * 0.23 + bed_world.y * 0.89);
-		// Screen-space fade: past a few metres the lobes shrink below a pixel and
-		// would shimmer. `fwidth` measures exactly that footprint.
-		float resolved = 1.0 - smoothstep(0.35, 1.40, length(fwidth(cp * caustic_size)));
-		float web = caustic_net(cp, u_time) * band * resolved * on_geometry;
-		if (web > 0.0) {
-			color = submerged_caustic_light(color, caustic_color, web * caustic_strength);
-		}
+		float mark = submerged_cross_ripple(bed_world, u_time, caustic_size * 0.5, caustic_detail);
+		color = submerged_caustic_light(color, caustic_color, mark * band * on_geometry * caustic_strength);
 	}
 
 	color = clamp(color, vec3(0.0), vec3(1.0));
@@ -395,11 +335,15 @@ void fragment() {
 	}
 
 	color = mix(color, edge_color, clamp(ring * ripple_ring_strength, 0.0, 1.0));
+	vec2 vessel_foam=boat_water_foam(p);
+	float vessel_mask=max(vessel_foam.x,vessel_foam.y);
+	color=mix(color,vec3(.91,.97,1.0),vessel_mask);
 
 	// Preserve the approved absorption composition by day; at night use
 	// the same real light response as the other water scheme.
 	float night_depth = 1.0 - exp(-vertical_depth / max(night_depth_distance, 0.01));
 	ALBEDO = mix(night_albedo, night_deep_albedo, night_depth) * world_night;
+	ALBEDO=mix(ALBEDO,vec3(.72,.84,.88)*world_night,vessel_mask*.72*world_night);
 	NORMAL = normalize((VIEW_MATRIX * vec4(normal, 0.0)).xyz);
 	vec3 emission = color * exposure_comp * emission_gain;
 	// Static interleaved gradient noise: an animated dither boils in motion.

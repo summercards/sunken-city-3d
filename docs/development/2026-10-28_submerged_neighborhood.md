@@ -67,3 +67,7 @@
 修后`20261028-223510-submerged-light-layout-final-23c131`的光斑专项96项通过；该轮布局检查发现窄附楼与基座边缘有0.3米包络重叠，继续将其左移至X=-7.3。最新交付与逐时段像素数据以同名JSON列出的`submerged-delivery`运行报告为准；16组时段/方案各保留开启、关闭两帧。相关集成`20261028-223619-submerged-final-regressions-69475e`的ocean、visual-atmosphere、minimum-loop均退出0，布局的中间失败单独保留。
 
 最终交付运行 `20261028-223721-submerged-delivery-fc2816`：建筑89项/0失败、光斑96项/0失败，两项均退出0。相关回归为ocean 141项、visual-atmosphere 68项、minimum-loop 77项，均0失败和退出0。资产账本已改用本次最终布局报告登记，不沿用被后续修改覆盖的装配哈希。
+
+## 后续（2026-10-29）
+
+摆放所有者已从「zone1 实例化 `neighborhood.tscn`」改为「`main.tscn` 的 `World/UnderwaterScenery` 下六栋各自独立实例」，材质也从运行期脚本补改为 PackedScene 内序列化。坐标未改，`submerged-geometry-review.png` 与改动前逐字节同源。详见 [水下景观六栋：贴图为什么会掉、摆位为什么搬到 main](2026-10-29_submerged_buildings_main_placement.md)。

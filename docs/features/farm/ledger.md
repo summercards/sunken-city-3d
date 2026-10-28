@@ -42,6 +42,7 @@
 | SEA-FARM-R07 | 已实现并专项核验 | [边界补强记录](../../development/2026-10-27_framework_boundary_hardening.md) |
 | SEA-FARM-R08 | 已改用世界气泡，选择后接近并消费一次；实际鼠标三日种植/收获/出货通过 | [本轮证据](../../development/2026-10-28_pocket_action_bubbles.md) |
 | SEA-FARM-R09 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
+| SEA-FARM-R11 | 已实现：`farm_plot.gd` 只建木箱与 CropView 容器，作物几何全部移出 | `farming` 回归 + [作物拆分记录](../../development/2026-10-29_crop_formalization.md) |
 
 ## 资源与调用入口
 
@@ -111,3 +112,9 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 种植入口归入海岛笔记的种植分类。UI读取crop_definitions、grow_days、yield_of、plot_specs、state、status_text与access_reason展示真实资料和地格状态；前往地格仍经plot_focus_requested，播种/浇水/收获继续在世界气泡中明确选择。规则和状态所有权保持Farm。
 
 对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。
+
+## 2026-10-29 家园建造接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-FARM-R11 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |

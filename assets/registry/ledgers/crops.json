@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "domain": "crops",
+  "note": "作物品种分账本。每个品种一行主记录，四阶段模型列在 stage_models；阶段切换只改可见性。",
+  "assets": [
+    {
+      "asset_id": "SEA-CROP-LETTUCE",
+      "name": "生菜·四阶段",
+      "domain": "crops",
+      "stage": "runtime_component_verified",
+      "source": "art_source/crops/lettuce/v001/lettuce_v001.blend",
+      "source_sha256": "7f1aedb9130d831124893892beb05ec88e482b6c0a6dcace659c74a23200e874",
+      "manifest": "assets/registry/manifests/sea-crop-lettuce.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/crops/lettuce/stage_3_harvest.glb",
+      "prefab": "godot/scenes/crops/lettuce.tscn",
+      "license": "project_authored_procedural_geometry",
+      "consumer_features": [
+        "SEA-CROP",
+        "SEA-FARM",
+        "SEA-WORLD"
+      ],
+      "classification": {
+        "category": "crop",
+        "subcategory": "stage_set"
+      },
+      "stage_models": [
+        "godot/assets/models/crops/lettuce/stage_0_seed.glb",
+        "godot/assets/models/crops/lettuce/stage_1_sprout.glb",
+        "godot/assets/models/crops/lettuce/stage_2_leaf.glb",
+        "godot/assets/models/crops/lettuce/stage_3_harvest.glb"
+      ],
+      "verification": "docs/development/2026-10-29_crop_formalization.md",
+      "stage_sha256": [
+        "3c4c11cdc41d3bb0b52250bc71e7c7913c69cdaa6de222ec2ff27582362439ec",
+        "efed6119c04c6124bd13e6a834c733e05a492cf4d18fe19a81756fd7ab78c987",
+        "45755842967c453520958a3a7ec84ce9a80d7b2a238097270bfffc17b15550ef",
+        "ef1cb0da41767d0793abe59dbd242d1c867eea316645b47cad45cdc2ed739f99"
+      ]
+    },
+    {
+      "asset_id": "SEA-CROP-TOMATO",
+      "name": "番茄·四阶段",
+      "domain": "crops",
+      "stage": "runtime_component_verified",
+      "source": "art_source/crops/tomato/v001/tomato_v001.blend",
+      "source_sha256": "2107fe5426ab3abeb85174cffd5705e1c9c047d773915d0f28375dc32b55b110",
+      "manifest": "assets/registry/manifests/sea-crop-tomato.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/crops/tomato/stage_3_harvest.glb",
+      "prefab": "godot/scenes/crops/tomato.tscn",
+      "license": "project_authored_procedural_geometry",
+      "consumer_features": [
+        "SEA-CROP",
+        "SEA-FARM",
+        "SEA-WORLD"
+      ],
+      "classification": {
+        "category": "crop",
+        "subcategory": "stage_set"
+      },
+      "stage_models": [
+        "godot/assets/models/crops/tomato/stage_0_seed.glb",
+        "godot/assets/models/crops/tomato/stage_1_sprout.glb",
+        "godot/assets/models/crops/tomato/stage_2_leaf.glb",
+        "godot/assets/models/crops/tomato/stage_3_harvest.glb"
+      ],
+      "verification": "docs/development/2026-10-29_crop_formalization.md",
+      "stage_sha256": [
+        "c629372567e25c885aad14e207b6cc59182d3f71be59e0db2b6a54c496e8cb7b",
+        "703b4740bdda757e8738a7b8f6133d3716ca07c47e3995ce2bb123b746aedf5a",
+        "2756e745b6f05a93032e52e18122cf98729cf2c8ff8efcc010172cefc2a1393a",
+        "b333bf0706fada87170ccd8d360e6d2acc8407e5d3ce787fff72b973f54c0ee5"
+      ]
+    },
+    {
+      "asset_id": "SEA-CROP-PUMPKIN",
+      "name": "南瓜·四阶段",
+      "domain": "crops",
+      "stage": "runtime_component_verified",
+      "source": "art_source/crops/pumpkin/v001/pumpkin_v001.blend",
+      "source_sha256": "330cdf33dcd79077bc19ff9f2c2fb11a29f328f9e4abc08913156c019fc3fd51",
+      "manifest": "assets/registry/manifests/sea-crop-pumpkin.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/crops/pumpkin/stage_3_harvest.glb",
+      "prefab": "godot/scenes/crops/pumpkin.tscn",
+      "license": "project_authored_procedural_geometry",
+      "consumer_features": [
+        "SEA-CROP",
+        "SEA-FARM",
+        "SEA-WORLD"
+      ],
+      "classification": {
+        "category": "crop",
+        "subcategory": "stage_set"
+      },
+      "stage_models": [
+        "godot/assets/models/crops/pumpkin/stage_0_seed.glb",
+        "godot/assets/models/crops/pumpkin/stage_1_sprout.glb",
+        "godot/assets/models/crops/pumpkin/stage_2_leaf.glb",
+        "godot/assets/models/crops/pumpkin/stage_3_harvest.glb"
+      ],
+      "verification": "docs/development/2026-10-29_crop_formalization.md",
+      "stage_sha256": [
+        "f411b7ba7e8b151d1bb70c73fe8088463d8c035597008c167631ffa75e66aa48",
+        "aa5cd7b3e132d8c4f8ee4b08b8bf197b422f0e282ce9916ddacb991888043b49",
+        "0d00cb19b677e866c91608230065118c519107ec6e2ab81faf91e95e8cdf7481",
+        "e0d47e1eae1a859a679e834e53c603b5fa9a18ce6b00065bdefc61257af76edc"
+      ]
+    }
+  ]
+}

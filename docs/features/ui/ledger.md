@@ -243,3 +243,9 @@ SEA-UI-R19本轮按用户要求恢复P调试例外，其它范围限制保留。
 | SEA-UI-R40 | 已实现；右下圆形定位图标恢复角色视角锁定并同步状态，停止行动按钮移除 | [本轮交付](../../development/2026-10-28_hud_date_camera_lock.md) |
 
 HUD增加公开表现入口set_follow_locked(bool)，Main查询OrbitCam.follow_enabled后同步；UI不写镜头内部状态。旧取消命令仍供控制器及验证使用，已从HUD按钮注册移除。R35的最新状态以R39/R40为准。
+
+## 2026-10-29 家园建造接入
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-UI-R41 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |

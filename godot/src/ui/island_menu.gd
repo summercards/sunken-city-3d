@@ -95,12 +95,15 @@ func _dim_wanted() -> bool:
 
 func _sync_backdrop() -> void:
 	# Under all independent panels, above world annotations. The HUD owns this screen layer.
-	if hud: hud.set_external_modal(external_open(), _dim_wanted())
+	if hud:
+		var owned: bool=hud.owned_modal_query.is_valid() and hud.owned_modal_query.call()
+		hud.set_external_modal(external_open() or owned, _dim_wanted())
 
 func _process(_delta: float) -> void:
 	_sync_backdrop()
 
 func show_menu(target := "pause") -> void:
+	if hud and hud.owned_modal_query.is_valid() and hud.owned_modal_query.call(): hud.owned_modal_close.call()
 	if not active:
 		_focus = get_viewport().gui_get_focus_owner()
 		_previous_pause = get_tree().paused
@@ -139,6 +142,7 @@ func _close_popup(node: Node) -> bool:
 	return false
 
 func back() -> void:
+	if hud and hud.owned_modal_query.is_valid() and hud.owned_modal_query.call(): hud.owned_modal_close.call();return
 	if hud and hud.corner.expanded: hud.corner.set_expanded(false);return
 	if hud and hud.world_actions.is_open(): hud.world_actions.close();return
 	for presenter in presenters.values():
@@ -156,6 +160,8 @@ func back() -> void:
 
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey or not event.pressed or event.echo: return
+	if hud and hud.owned_modal_query.is_valid() and hud.owned_modal_query.call():
+		if hud.owned_modal_input.call(event): get_viewport().set_input_as_handled();return
 	var key: int = event.physical_keycode if event.physical_keycode else event.keycode
 	if key == KEY_ESCAPE:
 		back();get_viewport().set_input_as_handled()

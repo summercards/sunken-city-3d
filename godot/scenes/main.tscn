@@ -24,6 +24,12 @@
 [ext_resource type="PackedScene" path="res://scenes/zones/zone5_aqua_platform.tscn" id="24_zone5"]
 [ext_resource type="Script" uid="uid://bnmvsw7hxisaf" path="res://src/rendering/water_surface.gd" id="25_ocean"]
 [ext_resource type="Script" uid="uid://dg16a2540iktn" path="res://src/rendering/boat_wake.gd" id="26_wake"]
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/terraced_tower.tscn" id="27_sub_terraced_tower"]
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/rounded_tower.tscn" id="28_sub_rounded_tower"]
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/slender_tower.tscn" id="29_sub_slender_tower"]
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/stepped_lowrise.tscn" id="30_sub_stepped_lowrise"]
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/flat_annex.tscn" id="31_sub_flat_annex"]
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/rear_slab.tscn" id="32_sub_rear_slab"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_y6deb"]
 _surfaces = [{
@@ -102,6 +108,32 @@ script = ExtResource("26_wake")
 [node name="Zone4FarShore" parent="World/Zones" unique_id=1303000698 instance=ExtResource("23_zone4")]
 
 [node name="Zone5AquaPlatform" parent="World/Zones" unique_id=366632112 instance=ExtResource("24_zone5")]
+
+[node name="UnderwaterScenery" type="Node3D" parent="World" unique_id=1478200331]
+
+[node name="terraced_tower" parent="World/UnderwaterScenery" unique_id=1478200401 instance=ExtResource("27_sub_terraced_tower")]
+position = Vector3(17.6, -21.5, -10.8)
+instance_id = "home_submerged/terraced_tower"
+
+[node name="rounded_tower" parent="World/UnderwaterScenery" unique_id=1478200402 instance=ExtResource("28_sub_rounded_tower")]
+position = Vector3(-10.4, -20.4, 2.0)
+instance_id = "home_submerged/rounded_tower"
+
+[node name="slender_tower" parent="World/UnderwaterScenery" unique_id=1478200403 instance=ExtResource("29_sub_slender_tower")]
+position = Vector3(-1.2, -16.2, -9.2)
+instance_id = "home_submerged/slender_tower"
+
+[node name="stepped_lowrise" parent="World/UnderwaterScenery" unique_id=1478200404 instance=ExtResource("30_sub_stepped_lowrise")]
+position = Vector3(0.2, -12.0, 24.0)
+instance_id = "home_submerged/stepped_lowrise"
+
+[node name="flat_annex" parent="World/UnderwaterScenery" unique_id=1478200405 instance=ExtResource("31_sub_flat_annex")]
+position = Vector3(-7.3, -14.6, 15.8)
+instance_id = "home_submerged/flat_annex"
+
+[node name="rear_slab" parent="World/UnderwaterScenery" unique_id=1478200406 instance=ExtResource("32_sub_rear_slab")]
+position = Vector3(-11.2, -23.0, -11.0)
+instance_id = "home_submerged/rear_slab"
 
 [node name="Gameplay" type="Node3D" parent="World" unique_id=1251468208]
 

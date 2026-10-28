@@ -45,6 +45,7 @@ uniform int u_ripple_count = 0;
 
 #include "res://shaders/ocean_waves.gdshaderinc"
 #include "res://shaders/ocean_wake.gdshaderinc"
+#include "res://shaders/boat_water_contact.gdshaderinc"
 
 group_uniforms body;
 // Authored in the same space as the browser build: a cyan with the red channel
@@ -482,82 +483,16 @@ void fragment() {
 	vec3 shallow_tint = body_shallow * shallow_tint_strength;
 	float caustic_term = 0.0;
 
-	// ---- caustics on the submerged geometry --------------------------------
-	// The web build paints these onto the refracted scene sample, and that is the
-	// right place for them: caustics are light that has ALREADY passed through the
-	// surface, so they belong on the seabed and on the drowned walls, not on the
-	// water plane. Adding them after the bed is sampled means they also inherit
-	// the refraction wobble and the absorption falloff for free, which is what
-	// makes them read as light in water rather than as a decal.
-	//
-	// The pattern is the zero set of sin(x)·cos(y). |sin·cos| is dark everywhere
-	// except along the lines where either term crosses zero, so inverting a
-	// narrow band around 0 gives the thin bright cell walls caustics actually
-	// look like. Everything is sampled at `bed_world.xz`, so the web of light is
-	// welded to the geometry: it stays put while the water moves over it. That is
-	// also why it must not use `v_world` — the surface scrolls and snaps, the
-	// seabed does not.
+	// Sparse cross texture, anchored to the actual submerged face. No broad
+	// noise lobes or coordinate-warped stains remain in this layer.
 	if (caustics_enabled && caustics_strength > 0.0) {
-		// Broad soft patches, not a lattice. The first version used the classic
-		// `1 - smoothstep(a, b, |sin x · cos y|)` web; even widened it read as a
-		// regular grid of scratches, because a lattice is a lattice. What the
-		// reference frame actually shows is irregular light patches with softly
-		// scalloped edges, which is what low-frequency noise gives for free.
-		//
-		// Two octaves at very different scales: the coarse one decides where the
-		// big patches are, the fine one frays their edges so they do not look like
-		// blobs of paint.
-		vec2 drift = vec2(u_time * 0.055, -u_time * 0.041) * caustics_speed;
-		// 投影坐标必须三个轴都参与，否则会退化。
-		//
-		// 只用 `bed_world.xz` 时，一面竖直的墙 x/z 是常量、只有 y 在变，二维采样
-		// 于是退化成一条线 —— 墙上会出现整片竖向拉丝，像划痕而不是阳光。把 y 按
-		// 互质比例混进两个轴，任何朝向的面都还是「二维的」：地板靠 x/z，竖墙靠 y，
-		// 斜面两者都有。（吸收式那套是同一条修正，两边必须一起改，否则两套水在
-		// 同一个机位下的观感对不上。）
-		vec2 wp2 = vec2(
-			bed_world.x + bed_world.z * 0.37 + bed_world.y * 0.61,
-			bed_world.z + bed_world.x * 0.23 + bed_world.y * 0.89);
-		vec2 p1 = wp2 * (0.42 * caustics_scale) + drift;
-		float patch = noise(p1);
-		// Narrow-ish top band: light lands where the field peaks, not everywhere.
-		float caustic = smoothstep(0.46, 0.74, patch);
-		if (caustics_detail > 0.0) {
-			vec2 p2 = wp2 * (1.35 * caustics_scale) - drift * 1.7;
-			float fray = noise(p2 + noise(p1 * 1.8) * 0.9);
-			// Multiply rather than add: the fine octave should carve the coarse
-			// patches into lobes, not sprinkle extra light of its own.
-			caustic *= mix(1.0, smoothstep(0.30, 0.70, fray) * 1.35, caustics_detail);
-		}
-		// Screen-space fade. Past a few metres the patches shrink below a pixel and
-		// would shimmer into noise; `fwidth` measures exactly that footprint.
-		float resolved = 1.0 - smoothstep(0.35, 1.40, length(fwidth(p1)));
-		// Only where there is actually something down there. Open water has no bed
-		// for the light to land on, and without this guard the pattern spreads
-		// across the whole sea as floating stains.
-		//
-		// Sign depends on the depth convention, and getting it backwards silently
-		// masks out exactly the geometry that should be lit — that cost one full
-		// round of "the effect does nothing" here. Under Reverse-Z the far plane
-		// reads 0 and solid geometry reads near 1, so `raw` must be *high* to count
-		// as geometry; the normal convention is the other way round.
+		float mark = submerged_cross_ripple(bed_world, u_time * caustics_speed, caustics_scale, caustics_detail);
 		float on_geometry = u_reverse_z > 0.5
 			? smoothstep(0.0, 0.0005, raw)
 			: 1.0 - smoothstep(0.9975, 1.0, raw);
-		// Depth band. Near the surface the light has not had room to focus; deep
-		// down it has scattered too much. Both ends are soft so the pattern never
-		// terminates on a visible contour.
-		// 浅端只留一小段渐变。这里的墙多在 1~3 m 水下，渐变带宽拉太大会把整面墙
-		// 压到半强度以下，看起来像「这个效果没生效」——吸收式那边踩过同一个坑。
 		float depth_band = smoothstep(caustics_depth_near * 0.25, caustics_depth_near * 0.55, bed_depth)
 			* (1.0 - smoothstep(caustics_depth_far * 0.20, caustics_depth_far, bed_depth));
-		// Parked in its own variable, applied after the body composite below.
-		// Adding it into `submerged` looked right and did nothing: at 3 m the body
-		// is already ~97% opaque, so `bottom_visibility` scales the bed — and every
-		// caustic in it — down to 3%. Measured at strength 2.5 the pattern was
-		// still invisible. Caustics are light on a surface the eye can see, so they
-		// belong at the end of the chain, guarded by `on_geometry` instead.
-		caustic_term = caustic * caustics_strength * depth_band * resolved * on_geometry;
+		caustic_term = mark * caustics_strength * depth_band * on_geometry;
 	}
 
 	vec3 bed = submerged * exp(-vertical_depth * absorption);
@@ -692,12 +627,16 @@ void fragment() {
 	// `foam_color` uniform (declared by ocean_foam.gdshaderinc) so the P panel can
 	// tune it; it is `source_color`, so the resource stores the sRGB form of the
 	// linear 0.96/0.985/1.0 that was hard-coded here.
+	vec2 vessel_foam=boat_water_foam(p);
+	float vessel_mask=max(vessel_foam.x,vessel_foam.y);
+	foam=max(foam,vessel_mask);
 	color = mix(color, foam_color, clamp(foam, 0.0, 0.96));
 
 	// Keep the approved daytime emission. At night the actual scene lights
 	// illuminate the water albedo and its world-space optical normal.
 	float night_depth = 1.0 - exp(-vertical_depth / max(night_depth_distance, 0.01));
 	ALBEDO = mix(night_albedo, night_deep_albedo, night_depth) * world_night;
+	ALBEDO=mix(ALBEDO,vec3(.72,.84,.88)*world_night,vessel_mask*.72*world_night);
 	NORMAL = normalize((VIEW_MATRIX * vec4(normal, 0.0)).xyz);
 	vec3 emission = color * exposure_comp * emission_gain;
 	// Interleaved gradient noise: a stable, high-frequency, camera-static pattern

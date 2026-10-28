@@ -81,8 +81,8 @@ func refresh(service: String) -> void:
 	mode=service
 	if not query.is_valid(): return
 	snapshot=query.call(mode)
-	get_node("ServiceName").text={"shipping":"出货箱","storage":"保管仓库","shop":"种子小铺"}[mode]
-	caption.text={"shipping":"待出货 · 明早 07:00 收货","storage":"仓库 · 存放的东西不会出售","shop":"种子 · 选一包带回家"}[mode]
+	get_node("ServiceName").text={"shipping":"出货箱","storage":"保管仓库","shop":"家园补给"}[mode]
+	caption.text={"shipping":"待出货 · 明早 07:00 收货","storage":"仓库 · 存放的东西不会出售","shop":"种子与土壤 · 选一份带回家"}[mode]
 	total.text=("待结算    %d 瓶盖" % int(snapshot.expected)) if mode=="shipping" else ("瓶盖    %d" % int(snapshot.coins))
 	var rows: Array=[_stacks(snapshot.bag,int(snapshot.bag_capacity)),snapshot.catalog if mode=="shop" else _stacks(snapshot.other,int(snapshot.other_capacity))]
 	for pool in 2:
