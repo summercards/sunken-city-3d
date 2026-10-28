@@ -17,7 +17,9 @@
   "verification": [
     "click",
     "surface",
-    "framework-integration"
+    "framework-integration",
+    "visual-pocket-bubbles",
+    "visual-plot-shipping"
   ]
 }
 ```
@@ -72,3 +74,11 @@ SEA-INTERACT-R01/R02/R03：click 30项通过；真实visual-click有5项失败�
 Main 保留输入路由；接近、自动按住及完成释放由 ActorController 状态管理，交互类型不拥有种植或订单规则。
 
 新增条款 SEA-INTERACT-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+## 2026-10-28 场景气泡与口袋界面
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INTERACT-R05 | 已实现；实际渲染与输入专项通过；设备/授权边界单列 | [交付记录](../../development/2026-10-28_pocket_action_bubbles.md) |
+
+本轮运行结果、过程失败、退出码与未执行项集中记在交付记录。旧记录保留为历史，整体状态仍partial。

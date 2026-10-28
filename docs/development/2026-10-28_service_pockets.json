@@ -1,0 +1,374 @@
+{
+  "date": "2026-10-28",
+  "request_id": "21726f14-a5f7-438f-9db2-83ed622dd271",
+  "features": [
+    "SEA-UI-R28",
+    "SEA-ORDER-R10",
+    "SEA-WAREHOUSE-R05",
+    "SEA-INVENTORY-R07"
+  ],
+  "current_runs": [
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-111635-service-pockets-resumed-3d9a8d",
+      "results": {
+        "visual-pocket-services": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111635-service-pockets-resumed-3d9a8d\\visual-pocket-services.log",
+          "summary": "[pocket-services] 28 checks, 0 failures",
+          "full_world": false
+        },
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111635-service-pockets-resumed-3d9a8d\\visual-plot-shipping.log",
+          "summary": "[plot-shipping] 59 checks, 0 failures",
+          "full_world": false
+        },
+        "visual-pocket-bubbles": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111635-service-pockets-resumed-3d9a8d\\visual-pocket-bubbles.log",
+          "summary": "[pocket-bubbles] 65 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-111811-service-pockets-resumed-integration-039ec4",
+      "results": {
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111811-service-pockets-resumed-integration-039ec4\\minimum-loop.log",
+          "summary": "[minimum-loop] 77 checks, 0 failures",
+          "full_world": false
+        },
+        "framework-modules": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111811-service-pockets-resumed-integration-039ec4\\framework-modules.log",
+          "summary": "[framework-modules] 30 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-111822-service-pockets-resumed-full-972491",
+      "results": {
+        "selftest": {
+          "exit_code": 1,
+          "passed": false,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [
+            "  FAIL  home_cabin 落在可行走面  (3.817, 2.15, 6.776)",
+            "  FAIL  zone1_shell 落在可行走面  (5.887, 2.15, 10.65725)",
+            "  FAIL  zone1_wood 落在可行走面  (3.817, 2.15, 7.466)"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111822-service-pockets-resumed-full-972491\\selftest.log",
+          "summary": "[selftest] 535 passed, 3 failed",
+          "full_world": true
+        },
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111822-service-pockets-resumed-full-972491\\save-seed.log",
+          "summary": null,
+          "full_world": true
+        },
+        "framework-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111822-service-pockets-resumed-full-972491\\framework-integration.log",
+          "summary": "[framework-integration] 44 checks, 0 failures",
+          "full_world": true
+        }
+      }
+    }
+  ],
+  "prior_attempts": [
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-110001-service-pockets-compile-be8229",
+      "results": {
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110001-service-pockets-compile-be8229\\minimum-loop.log",
+          "summary": "[minimum-loop] 77 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-110158-service-pockets-input-7edcf6",
+      "results": {
+        "visual-pocket-services": {
+          "exit_code": 1,
+          "passed": false,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL shop illustration invokes actual seed purchase"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110158-service-pockets-input-7edcf6\\visual-pocket-services.log",
+          "summary": "[pocket-services] 27 checks, 1 failures",
+          "full_world": false
+        },
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110158-service-pockets-input-7edcf6\\visual-plot-shipping.log",
+          "summary": "[plot-shipping] 58 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-110334-service-pockets-final-visual-ed930f",
+      "results": {
+        "visual-pocket-services": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110334-service-pockets-final-visual-ed930f\\visual-pocket-services.log",
+          "summary": "[pocket-services] 27 checks, 0 failures",
+          "full_world": false
+        },
+        "visual-pocket-bubbles": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110334-service-pockets-final-visual-ed930f\\visual-pocket-bubbles.log",
+          "summary": "[pocket-bubbles] 65 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-110543-service-pockets-selftest-d9bd55",
+      "results": {
+        "selftest": {
+          "exit_code": 1,
+          "passed": false,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [
+            "  FAIL  home_cabin 落在可行走面  (3.817, 2.15, 6.776)",
+            "  FAIL  zone1_shell 落在可行走面  (5.887, 2.15, 10.65725)",
+            "  FAIL  zone1_wood 落在可行走面  (3.817, 2.15, 7.466)"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110543-service-pockets-selftest-d9bd55\\selftest.log",
+          "summary": "[selftest] 535 passed, 3 failed",
+          "full_world": true
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-110543-service-pockets-delivery-80722d",
+      "results": {
+        "visual-pocket-services": {
+          "exit_code": 1,
+          "passed": false,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL mouse deposit transfers exactly one",
+            "FAIL deposit updates pending wallet without selling",
+            "FAIL whole stack transfer",
+            "SCRIPT ERROR: Cannot call method 'get_global_transform_with_canvas' on a null value.",
+            "FAIL item slot exists fish"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110543-service-pockets-delivery-80722d\\visual-pocket-services.log",
+          "summary": "[pocket-services] 27 checks, 4 failures",
+          "full_world": false
+        },
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110543-service-pockets-delivery-80722d\\visual-plot-shipping.log",
+          "summary": "[plot-shipping] 59 checks, 0 failures",
+          "full_world": false
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110543-service-pockets-delivery-80722d\\minimum-loop.log",
+          "summary": "[minimum-loop] 77 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-111100-service-pockets-capacity-final-f0fe86",
+      "results": {
+        "visual-pocket-services": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111100-service-pockets-capacity-final-f0fe86\\visual-pocket-services.log",
+          "summary": "[pocket-services] 28 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    }
+  ],
+  "source_comparison": {
+    "basis": "Current source versus resumed real-rendering copy; normalized line endings and trailing EOF whitespace only",
+    "paths": {
+      "src/ui/pocket_service.gd": true,
+      "src/ui/hud.gd": true,
+      "src/ui/island_menu.gd": true,
+      "src/ui/pocket_inventory.gd": true,
+      "src/orders/daily_shipping.gd": true,
+      "src/warehouse/warehouse_service.gd": true,
+      "src/bootstrap/main.gd": true,
+      "tests/test_pocket_services.gd": true,
+      "tests/test_plot_shipping_loop.gd": true
+    },
+    "all_match": true
+  },
+  "screenshots": {
+    "shipping": "D:\\projects\\sea-work\\service-pockets-recovery\\shipping.png",
+    "shop": "D:\\projects\\sea-work\\service-pockets-recovery\\shop.png",
+    "warehouse": "D:\\projects\\sea-work\\service-pockets-recovery\\warehouse.png",
+    "three_resolutions": [
+      "D:\\projects\\sea-work\\verification\\20261028-111635-service-pockets-resumed-3d9a8d\\project\\outputs\\shipping-pockets-1280x800.png",
+      "D:\\projects\\sea-work\\verification\\20261028-111635-service-pockets-resumed-3d9a8d\\project\\outputs\\shipping-pockets-1600x1000.png",
+      "D:\\projects\\sea-work\\verification\\20261028-111635-service-pockets-resumed-3d9a8d\\project\\outputs\\shipping-pockets-1920x1080.png"
+    ]
+  },
+  "not_run": [
+    "touch/gamepad",
+    "long-session UI soak",
+    "standalone exported package",
+    "provider license/terms clearance"
+  ],
+  "asset_ids_reused": [
+    "UI-ACTION-HANDDRAWN-001",
+    "UI-POCKET-HANDDRAWN-001"
+  ],
+  "scope_limitations": [
+    "Full-world selftest has three walkable-surface assertion failures: home_cabin, zone1_shell, zone1_wood. They also appeared in the interrupted attempt; UI suites and world assertions are reported separately. No scene geometry or assertions changed in this recovery."
+  ],
+  "feature_contract_check": {
+    "sync": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/check_feature_contracts.py",
+        "--sync"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "log": "D:\\projects\\sea-work\\service-pockets-recovery\\feature-contract-final-sync.log",
+      "output": [
+        "PASS: 33 features, 432 source assets, 346 runtime resource hashes; 0 issues"
+      ]
+    },
+    "check": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/check_feature_contracts.py"
+      ],
+      "exit_code": 0,
+      "passed": true,
+      "log": "D:\\projects\\sea-work\\service-pockets-recovery\\feature-contract-final-check.log",
+      "output": [
+        "PASS: 33 features, 432 source assets, 346 runtime resource hashes; 0 issues"
+      ]
+    }
+  },
+  "initial_contract_attempt": {
+    "sync": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/check_feature_contracts.py",
+        "--sync"
+      ],
+      "exit_code": 1,
+      "passed": false,
+      "log": "D:\\projects\\sea-work\\service-pockets-recovery\\feature-contract-sync.log",
+      "issues": [
+        "FAIL: docs\\features\\order\\ledger.md: broken link ../../development/2026-10-28_service_pockets.json",
+        "FAIL: docs\\features\\warehouse\\ledger.md: broken link ../../development/2026-10-28_service_pockets.json",
+        "FAIL: docs\\features\\inventory\\ledger.md: broken link ../../development/2026-10-28_service_pockets.json",
+        "FAIL: docs\\features\\ui\\ledger.md: broken link ../../development/2026-10-28_service_pockets.json",
+        "FAIL: 33 features, 432 source assets, 346 runtime resource hashes; 4 issues"
+      ]
+    },
+    "check": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "scripts/check_feature_contracts.py"
+      ],
+      "exit_code": 1,
+      "passed": false,
+      "log": "D:\\projects\\sea-work\\service-pockets-recovery\\feature-contract-check.log",
+      "issues": [
+        "FAIL: docs\\features\\order\\ledger.md: broken link ../../development/2026-10-28_service_pockets.json",
+        "FAIL: docs\\features\\inventory\\ledger.md: broken link ../../development/2026-10-28_service_pockets.json",
+        "FAIL: docs\\features\\warehouse\\ledger.md: broken link ../../development/2026-10-28_service_pockets.json",
+        "FAIL: docs\\features\\ui\\ledger.md: broken link ../../development/2026-10-28_service_pockets.json",
+        "FAIL: derived feature index stale; use --sync",
+        "FAIL: 33 features, 432 source assets, 346 runtime resource hashes; 5 issues"
+      ]
+    }
+  }
+}

@@ -1,0 +1,732 @@
+{
+  "scope": "default minimum loop; legacy regression explicitly --full-world",
+  "records": [
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f",
+      "results": {
+        "modules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\modules.log",
+          "user_data_name": "sea-verification/20261027-175551-minimum-loop-regression-1a198f/modules",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_feature_modules.gd",
+            "--",
+            "--full-world"
+          ]
+        },
+        "farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\farming.log",
+          "user_data_name": "sea-verification/20261027-175551-minimum-loop-regression-1a198f/farming",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_farming.gd",
+            "--",
+            "--full-world"
+          ]
+        },
+        "management": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\management.log",
+          "user_data_name": "sea-verification/20261027-175551-minimum-loop-regression-1a198f/management",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_management_loop.gd",
+            "--",
+            "--full-world"
+          ]
+        },
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\save-seed.log",
+          "user_data_name": "sea-verification/20261027-175551-minimum-loop-regression-1a198f/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_seed.gd",
+            "--",
+            "--full-world"
+          ]
+        },
+        "framework-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\framework-integration.log",
+          "user_data_name": "sea-verification/20261027-175551-minimum-loop-regression-1a198f/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_framework_integration.gd",
+            "--",
+            "--full-world"
+          ]
+        },
+        "surface": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\surface.log",
+          "user_data_name": "sea-verification/20261027-175551-minimum-loop-regression-1a198f/surface",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-175551-minimum-loop-regression-1a198f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_surface_movement.gd",
+            "--",
+            "--full-world"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277",
+      "results": {
+        "framework-modules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\framework-modules.log",
+          "user_data_name": "sea-verification/20261027-181113-minimum-loop-save-v3-a70277/framework-modules",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_framework_modules.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\save-seed.log",
+          "user_data_name": "sea-verification/20261027-181113-minimum-loop-save-v3-a70277/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_seed.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "framework-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\framework-integration.log",
+          "user_data_name": "sea-verification/20261027-181113-minimum-loop-save-v3-a70277/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_framework_integration.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "save-corrupt-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\save-corrupt-seed.log",
+          "user_data_name": "sea-verification/20261027-181113-minimum-loop-save-v3-a70277/protection",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_corrupt_seed.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "save-protection": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\save-protection.log",
+          "user_data_name": "sea-verification/20261027-181113-minimum-loop-save-v3-a70277/protection",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_protection.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "selftest": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "  FAIL  划船时桨在动  1.081 -> 1.090"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\selftest.log",
+          "user_data_name": "sea-verification/20261027-181113-minimum-loop-save-v3-a70277/selftest",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181113-minimum-loop-save-v3-a70277\\project",
+            "--headless",
+            "--",
+            "--selftest",
+            "--nosave",
+            "--skip-title",
+            "--full-world"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-181505-home-loop-delivery-9a1b52",
+      "results": {
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181505-home-loop-delivery-9a1b52\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-181505-home-loop-delivery-9a1b52/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181505-home-loop-delivery-9a1b52\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181505-home-loop-delivery-9a1b52\\visual-minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-181505-home-loop-delivery-9a1b52/visual-minimum-loop",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181505-home-loop-delivery-9a1b52\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-title-screen": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181505-home-loop-delivery-9a1b52\\visual-title-screen.log",
+          "user_data_name": "sea-verification/20261027-181505-home-loop-delivery-9a1b52/visual-title-screen",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181505-home-loop-delivery-9a1b52\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_screen.gd"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-181515-home-loop-final-regression-4ed865",
+      "results": {
+        "selftest": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "  FAIL  划船时桨在动  stroke excursion 0.044"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181515-home-loop-final-regression-4ed865\\selftest.log",
+          "user_data_name": "sea-verification/20261027-181515-home-loop-final-regression-4ed865/selftest",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181515-home-loop-final-regression-4ed865\\project",
+            "--headless",
+            "--",
+            "--selftest",
+            "--nosave",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "camera": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181515-home-loop-final-regression-4ed865\\camera.log",
+          "user_data_name": "sea-verification/20261027-181515-home-loop-final-regression-4ed865/camera",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181515-home-loop-final-regression-4ed865\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_camera_follow.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-181710-home-loop-selftest-stroke-0f567d",
+      "results": {
+        "selftest": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181710-home-loop-selftest-stroke-0f567d\\selftest.log",
+          "user_data_name": "sea-verification/20261027-181710-home-loop-selftest-stroke-0f567d/selftest",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181710-home-loop-selftest-stroke-0f567d\\project",
+            "--headless",
+            "--",
+            "--selftest",
+            "--nosave",
+            "--skip-title",
+            "--full-world"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-181756-home-loop-final-visual-dc9da9",
+      "results": {
+        "visual-title-screen": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181756-home-loop-final-visual-dc9da9\\visual-title-screen.log",
+          "user_data_name": "sea-verification/20261027-181756-home-loop-final-visual-dc9da9/visual-title-screen",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181756-home-loop-final-visual-dc9da9\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_screen.gd"
+          ]
+        },
+        "visual-minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181756-home-loop-final-visual-dc9da9\\visual-minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-181756-home-loop-final-visual-dc9da9/visual-minimum-loop",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181756-home-loop-final-visual-dc9da9\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-181937-home-loop-final-commands-8b534b",
+      "results": {
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-181937-home-loop-final-commands-8b534b\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-181937-home-loop-final-commands-8b534b/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-181937-home-loop-final-commands-8b534b\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-175317-minimum-loop-first-e8e03e",
+      "results": {
+        "minimum-loop": {
+          "exit_code": 124,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "SCRIPT ERROR: Invalid access to property or key 'data' on a base object of type 'Dictionary'."
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-175317-minimum-loop-first-e8e03e\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-175317-minimum-loop-first-e8e03e/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-175317-minimum-loop-first-e8e03e\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-180644-title-and-loop-54e818",
+      "results": {
+        "title-screen": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL actual start click enters world",
+            "FAIL gameplay UI restored",
+            "FAIL world time resumes",
+            "FAIL game controls work after entry"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-180644-title-and-loop-54e818\\title-screen.log",
+          "user_data_name": "sea-verification/20261027-180644-title-and-loop-54e818/title-screen",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-180644-title-and-loop-54e818\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_title_screen.gd"
+          ]
+        },
+        "visual-title-screen": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL actual start click enters world",
+            "FAIL gameplay UI restored",
+            "FAIL world time resumes",
+            "FAIL game controls work after entry"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-180644-title-and-loop-54e818\\visual-title-screen.log",
+          "user_data_name": "sea-verification/20261027-180644-title-and-loop-54e818/visual-title-screen",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-180644-title-and-loop-54e818\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_screen.gd"
+          ]
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-180644-title-and-loop-54e818\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-180644-title-and-loop-54e818/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-180644-title-and-loop-54e818\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-180821-title-refinement-0366db",
+      "results": {
+        "visual-title-screen": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-180821-title-refinement-0366db\\visual-title-screen.log",
+          "user_data_name": "sea-verification/20261027-180821-title-refinement-0366db/visual-title-screen",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-180821-title-refinement-0366db\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_screen.gd"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-182047-home-loop-ui-origin-ff54b6",
+      "results": {
+        "visual-minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-182047-home-loop-ui-origin-ff54b6\\visual-minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-182047-home-loop-ui-origin-ff54b6/visual-minimum-loop",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-182047-home-loop-ui-origin-ff54b6\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-182251-home-loop-clean-ui-d6f5cc",
+      "results": {
+        "visual-minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-182251-home-loop-clean-ui-d6f5cc\\visual-minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-182251-home-loop-clean-ui-d6f5cc/visual-minimum-loop",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-182251-home-loop-clean-ui-d6f5cc\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-222049-home-loop-current-workspace-f24a8a",
+      "results": {
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-222049-home-loop-current-workspace-f24a8a\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-222049-home-loop-current-workspace-f24a8a/minimum-loop",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-222049-home-loop-current-workspace-f24a8a\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-title-screen": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-222049-home-loop-current-workspace-f24a8a\\visual-title-screen.log",
+          "user_data_name": "sea-verification/20261027-222049-home-loop-current-workspace-f24a8a/visual-title-screen",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-222049-home-loop-current-workspace-f24a8a\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_screen.gd"
+          ]
+        }
+      }
+    }
+  ],
+  "not_run": [
+    "mobile/touch/gamepad",
+    "real power loss/disk failure",
+    "long play economy balance",
+    "new NPC dialogue content"
+  ],
+  "final_contract_check": {
+    "passed": false,
+    "issue_count": 2,
+    "issues": [
+      {
+        "asset_id": "SEA-DECO-ANIMAL-FISH-SCHOOL",
+        "status": "pending source hash drift review; existing baseline preserved"
+      },
+      {
+        "asset_id": "SEA-DECO-ANIMAL-WHALE",
+        "status": "pending source hash drift review; existing baseline preserved"
+      }
+    ],
+    "note": "--sync and plain check both report source hash drift; no unknown asset hashes accepted."
+  }
+}

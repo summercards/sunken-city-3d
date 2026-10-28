@@ -16,6 +16,9 @@
         "godot/scenes/main.tscn"
       ],
       "verification": [
+        "visual-title-screen-day",
+        "visual-title-screen-night",
+        "visual-title-screen-dawn",
         "selftest",
         "framework-integration",
         "save-protection"
@@ -42,7 +45,12 @@
         "selftest",
         "surface",
         "visual-sea-style",
-        "visual-blockers"
+        "visual-blockers",
+        "decorations",
+        "visual-decorations",
+        "minimum-loop",
+        "visual-plot-shipping",
+        "visual-home-lighting"
       ]
     },
     {
@@ -66,7 +74,8 @@
         "surface",
         "click",
         "framework-modules",
-        "framework-integration"
+        "framework-integration",
+        "sleep-cycle"
       ]
     },
     {
@@ -90,7 +99,11 @@
       "verification": [
         "surface",
         "selftest",
-        "framework-modules"
+        "framework-modules",
+        "minimum-loop",
+        "visual-home-lighting",
+        "visual-atmosphere",
+        "visual-boat-lamp"
       ]
     },
     {
@@ -108,9 +121,13 @@
         "godot/src/camera"
       ],
       "verification": [
+        "visual-title-screen-day",
+        "visual-title-screen-night",
+        "visual-title-screen-dawn",
         "camera",
         "click",
-        "framework-modules"
+        "framework-modules",
+        "visual-title-screen"
       ]
     },
     {
@@ -130,7 +147,9 @@
       "verification": [
         "click",
         "surface",
-        "framework-integration"
+        "framework-integration",
+        "visual-pocket-bubbles",
+        "visual-plot-shipping"
       ]
     },
     {
@@ -169,7 +188,11 @@
       ],
       "verification": [
         "selftest",
-        "management"
+        "management",
+        "minimum-loop",
+        "visual-plot-shipping",
+        "visual-pocket-bubbles",
+        "visual-pocket-services"
       ]
     },
     {
@@ -189,7 +212,9 @@
       ],
       "verification": [
         "management",
-        "framework-integration"
+        "framework-integration",
+        "minimum-loop",
+        "visual-pocket-services"
       ]
     },
     {
@@ -279,7 +304,9 @@
         "farming",
         "management",
         "modules",
-        "framework-integration"
+        "framework-integration",
+        "minimum-loop",
+        "visual-plot-shipping"
       ]
     },
     {
@@ -323,7 +350,9 @@
       "verification": [
         "selftest",
         "modules",
-        "framework-integration"
+        "framework-integration",
+        "decorations",
+        "visual-decorations"
       ]
     },
     {
@@ -344,7 +373,9 @@
       "verification": [
         "selftest",
         "visual-sea-style",
-        "framework-integration"
+        "visual-fish-schools",
+        "framework-integration",
+        "minimum-loop"
       ]
     },
     {
@@ -369,7 +400,11 @@
         "management",
         "selftest",
         "modules",
-        "framework-integration"
+        "framework-integration",
+        "minimum-loop",
+        "visual-plot-shipping",
+        "visual-pocket-services",
+        "visual-home-lighting"
       ]
     },
     {
@@ -426,7 +461,38 @@
       "verification": [
         "framework-modules",
         "framework-integration",
-        "visual-weather"
+        "visual-weather",
+        "minimum-loop",
+        "visual-plot-shipping",
+        "sleep-cycle",
+        "visual-home-lighting"
+      ]
+    },
+    {
+      "feature_id": "SEA-SLEEP",
+      "name": "睡觉与次日醒来",
+      "group": "生活",
+      "dependencies": [
+        "SEA-TIME",
+        "SEA-MOVE",
+        "SEA-INTERACT"
+      ],
+      "spec": "docs/features/sleep/spec.md",
+      "ledger": "docs/features/sleep/ledger.md",
+      "status": "implemented",
+      "owner": "SleepCycle / SleepCheckpoint",
+      "code_paths": [
+        "godot/src/time/sleep_cycle.gd",
+        "godot/src/time/sleep_checkpoint.gd",
+        "godot/src/player/states/sleeping.gd",
+        "godot/src/ui/sleep_curtain.gd",
+        "godot/shaders/sleep_iris.gdshader"
+      ],
+      "verification": [
+        "sleep-cycle",
+        "visual-sleep-cycle",
+        "minimum-loop",
+        "framework-integration"
       ]
     },
     {
@@ -448,6 +514,7 @@
       "verification": [
         "framework-modules",
         "framework-integration",
+        "daylight",
         "visual-weather"
       ]
     },
@@ -497,8 +564,18 @@
         "godot/src/ui"
       ],
       "verification": [
+        "visual-title-screen-day",
+        "visual-title-screen-night",
+        "visual-title-screen-dawn",
         "click",
-        "management"
+        "management",
+        "minimum-loop",
+        "visual-title-screen",
+        "visual-plot-shipping",
+        "visual-sleep-cycle",
+        "visual-pocket-bubbles",
+        "visual-pocket-services",
+        "visual-home-lighting"
       ]
     },
     {
@@ -521,7 +598,13 @@
         "ocean",
         "visual-sea-style",
         "lighting-params",
-        "lighting-panel"
+        "lighting-panel",
+        "daylight",
+        "visual-weather",
+        "visual-home-lighting",
+        "visual-atmosphere",
+        "visual-boat-lamp",
+        "water-params"
       ]
     },
     {
@@ -540,7 +623,10 @@
         "godot/scenes/plants"
       ],
       "verification": [
-        "selftest"
+        "selftest",
+        "decorations",
+        "visual-decorations",
+        "visual-fish-schools"
       ]
     },
     {
@@ -563,7 +649,10 @@
         "management",
         "framework-modules",
         "framework-integration",
-        "save-protection"
+        "save-protection",
+        "minimum-loop",
+        "visual-plot-shipping",
+        "sleep-cycle"
       ]
     },
     {
@@ -610,7 +699,11 @@
         "tools/blender"
       ],
       "verification": [
-        "structure"
+        "structure",
+        "decorations",
+        "visual-decorations",
+        "visual-plot-shipping",
+        "visual-home-lighting"
       ]
     },
     {

@@ -16,7 +16,9 @@
   ],
   "verification": [
     "management",
-    "framework-integration"
+    "framework-integration",
+    "minimum-loop",
+    "visual-pocket-services"
   ]
 }
 ```
@@ -25,7 +27,7 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-WAREHOUSE-R01 | 独立48格Inventory与材料过滤；management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-WAREHOUSE-R01 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-WAREHOUSE-R02 | 存取边界保持；management与selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-WAREHOUSE-R03 | 建设支付独立端口；旧档明确补空仓，迁移专项通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-WAREHOUSE-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
@@ -63,3 +65,15 @@ deposit_materials / withdraw_material / construction_pay / construction_count / 
 仓储规则已独立到 WarehouseService，通过设施资格端口及注入的背包实例存取；暂无独立仓库建筑模型。
 
 新增条款 SEA-WAREHOUSE-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+## 2026-10-27 当前最小循环与开始画面
+
+本节及本轮修改条款优先于下方保留的历史范围。默认发布配置只开放家园生活循环；旧全功能验证须显式 `--full-world`，不能代替最小版本验收。接口、迁移及实测见[交付记录](../../development/2026-10-27_minimum_loop_and_title.md)。
+
+## 2026-10-28 服务界面补齐
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-WAREHOUSE-R05 | 已实现；真实GUI存取、商店购买与三分辨率专项 | [实测记录](../../development/2026-10-28_service_pockets.md) |
+
+2026-10-28 恢复验收（request ID `21726f14-a5f7-438f-9db2-83ed622dd271`）：当前源码重新通过服务口袋、实体出货箱全流程、场景气泡三项真实渲染专项及最小循环/模块检查；完整世界3项可行走面失败单列，不签署全工程通过。见[本轮记录](../../development/2026-10-28_service_pockets.md)与[机器证据](../../development/2026-10-28_service_pockets.json)。

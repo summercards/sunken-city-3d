@@ -1,0 +1,14 @@
+{
+  "asset_id": "SEA-DECO-ANIMAL-FISH-SCHOOL",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-DECO-ANIMAL-FISH-SCHOOL",
+  "source": "godot/src/ambient/decorative_fish_school.gd",
+  "prefab": "godot/scenes/decorations/animals/fish_school.tscn",
+  "classification": {
+    "category": "decoration",
+    "subcategory": "animals"
+  },
+  "dependencies": [
+    "godot/src/ambient/animal_mesh.gd"
+  ],
+  "note": "运行组件登记；来源授权和交互玩法验收分别记录。"
+}

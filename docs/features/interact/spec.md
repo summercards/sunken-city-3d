@@ -48,3 +48,13 @@ Main 保留输入路由；接近、自动按住及完成释放由 ActorControlle
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
 - [godot/CLICK_CONTROLS.md](../../../godot/CLICK_CONTROLS.md)
+
+## 2026-10-28 场景气泡与口袋界面
+
+2026-10-28 新增世界操作气泡与一次性命令端口；可用性仍由所属业务查询，主场景只装配命令。
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-INTERACT-R05 | 点击物体先展示可操作图标气泡，选择后才接近并按原时长执行；Interactor只缓存一次注入命令，在完成边界消费。取消、切换目标和打开菜单不会残留待执行命令。 |
+
+[交付记录](../../development/2026-10-28_pocket_action_bubbles.md)。

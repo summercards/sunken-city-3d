@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-28",
+  "request": "调试工具因为天气多云/晴朗在游戏中不一样，无法直接调整切换效果",
+  "features": [
+    "SEA-OCEAN-R14",
+    "SEA-WEATHER-R07"
+  ],
+  "root_cause": [
+    "偏移按 季节|天气|时段 三键存，_apply_offsets 只读游戏实际那一组",
+    "面板 set_preview 只锁时刻，季节/天气仅决定写入哪个 section",
+    "weather.json mode=fixed、fixed_kind=clear；季节无推进规则，spring|cloudy|* 与 summer|* 在游戏里永远读不到"
+  ],
+  "fix": {
+    "daylight_rig": [
+      "_preview_season / _preview_weather",
+      "effective_season() / effective_weather() / is_previewing()",
+      "set_preview(hour, season_id, weather_id) 三样一起锁",
+      "clear_preview() 三样一起放",
+      "_apply_offsets 改读 effective_*",
+      "weather_offset_count() / season_offset_count() 供侧栏打点"
+    ],
+    "color_grade_panel": [
+      "_hold_preview 传季节/天气",
+      "_touched 三维度判「调过没有」",
+      "_refresh_status 尾注：预览中 / 这套还没调过"
+    ],
+    "gameplay_state_untouched": "weather_service 与 rig._season/_weather 均不改"
+  },
+  "current_run": {
+    "run_dir": "D:/projects/sea-work/verification/20261028-143418-weather-preview-fix-b078b7",
+    "all_passed": true,
+    "results": [
+      {
+        "check": "lighting-params",
+        "renderer": "headless",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "[lighting-params] 221 checks, 0 failures",
+        "delta": "217 → 221"
+      },
+      {
+        "check": "lighting-panel",
+        "renderer": "headless",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "[light-probe] 61 checks, 0 failures",
+        "delta": "44 → 61"
+      },
+      {
+        "check": "daylight",
+        "renderer": "headless",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "[daylight] 194 checks, 0 failures"
+      },
+      {
+        "check": "visual-home-lighting",
+        "renderer": "real",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "[home-lighting] 114 checks, 0 failures",
+        "run_dir": "D:/projects/sea-work/verification/20261028-143130-weather-preview-visual-a9c2dd"
+      },
+      {
+        "check": "visual-weather",
+        "renderer": "real",
+        "exit_code": 0,
+        "passed": true,
+        "summary": "[visual-weather] complete",
+        "run_dir": "D:/projects/sea-work/verification/20261028-143130-weather-preview-visual-a9c2dd"
+      }
+    ]
+  },
+  "key_assertions": [
+    "点「多云」渲染上下文立刻切过去（实际 cloudy）",
+    "游戏实际天气没被面板改掉（clear）",
+    "多云段的滑杆立刻生效（实际 1.11）",
+    "差值存进 spring|cloudy|noon",
+    "晴这一套没被连带写上",
+    "切回晴立刻回到晴那一套（0.70）",
+    "点「夏」渲染上下文切到夏季（实际 summer）",
+    "关面板放掉了预览上下文",
+    "关面板后渲染回到游戏实际季节/天气（spring / clear）",
+    "多云的偏移落盘了（spring|clear|sunset, spring|clear|night, spring|cloudy|noon, summer|clear|noon）"
+  ],
+  "process_failures": [
+    "PATH 上的 godot 是 sh 垫片，Python subprocess 在 Windows 报 WinError 193；须用真身 Godot_..._console.exe"
+  ],
+  "not_done": [
+    "天气对画面的实际数值影响（三套天气默认一致，靠面板自行拉开差距）",
+    "点「雨」不出现雨线：weather_presenter 归 main 驱动，面板不改天气服务",
+    "游戏天气仍钉死晴、季节仍固定春：偏移是给将来的推进系统预留的",
+    "触控与手柄"
+  ]
+}

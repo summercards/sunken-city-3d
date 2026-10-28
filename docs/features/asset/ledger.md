@@ -17,7 +17,11 @@
     "tools/blender"
   ],
   "verification": [
-    "structure"
+    "structure",
+    "decorations",
+    "visual-decorations",
+    "visual-plot-shipping",
+    "visual-home-lighting"
   ]
 }
 ```
@@ -49,6 +53,8 @@
 | SEA-ASSET-R21 | v006上下部分均正式接入，实景与专项通过 | 海上45组件161实例；海下22组件导出、19组件298实例使用；67组件独立加载、468实景检查、30航路503检查和537自检通过；见v006记录 |
 | SEA-ASSET-R22 | v007源与模型专项接入通过；综合自检2项未通过 | 49组件160实例，71组件415独立检查、472实景检查和30航路503检查通过；原输入/旧色板保护，见[v007记录](../../development/2026-10-26_solar_cabin_v007.md) |
 | SEA-ASSET-R23 | 已建立分类路由；未核验资产保持 pending | ledger_index.json 与7个独立类型分账本；[框架交付记录](../../development/2026-10-27_modular_framework.md) |
+| SEA-ASSET-R24 | 运行组件拆分及账本完成；旧建筑合并网格内未辨识的陈设仍标待语义拆分 | 独立建筑包装13个、原植物组件42种、太阳房活动家具25实例、荷叶24实例、飞鸟/鱼群/鲸组件；见本轮记录 |
+| SEA-ASSET-R25 | 基座放大与落水贴合已接入；专项通过，跨功能失败项经基线对照归为既有 | 海下白色基座顶板 11.20×12.42 → 16.24×17.77（X1.450/Z1.431），顶面四边各超出上层建筑0.40；平台下移0.30、板底水面+0.04、基座顶面与板底齐平；704实景检查与装饰/组件/最小循环检查通过，[记录](../../development/2026-10-27_solar_cabin_base_scale_and_waterline.md) |
 
 ## 资源与调用入口
 
@@ -209,3 +215,40 @@
 [新版源入口](../../../art_source/scenes/sunny_bloom_retreat/v007/README.md)；[交付记录](../../development/2026-10-26_solar_cabin_v007.md)。保留用户布局，木板错落、低饱和配色、绳端连接与基座暖米白已接入。源/组件/实景/航路通过；综合自检535通过2失败单列，不代签全工程通过。
 
 2026-10-27 框架收尾：运行13组专项通过，架构边界0问题；最终契约门禁唯一失败为并行修改 water.tres 的运行哈希漂移，未批量接受。详见[最终门禁记录](../../development/2026-10-27_modular_framework.md#最终静态门禁与并发边界)。
+
+## 2026-10-27 场景组件细分与动物恢复
+
+见[本轮交付与验证记录](../../development/2026-10-27_scene_component_split.md)及[组件分类目录](../../../assets/registry/SCENE_COMPONENTS.md)。运行验证与素材授权分别登记；交互请求端口不代表玩家摆放编辑器已实现。
+
+最终补验：decorations 1589项通过；visual-decorations 1592项通过（包含独立实例、真实鱼群近景和正常上浮环境恢复）。surface 503项/30航线、自检537项通过；静态契约32功能/426源资产/317运行哈希0问题。旧水下网页同机位测试缺基准未执行，单列在本轮记录。
+
+## 2026-10-27 开始画面UI资产
+
+`UI-TITLE-SEA-001` 在 `assets/registry/ledgers/ui.json` 独立登记，使用 `UI-FONT-LXGW975YUAN-SC-700`；源为程序化排字布局，参考图仅作风格依据。新增源索引记录，不批量接受历史哈希漂移。[交付记录](../../development/2026-10-27_minimum_loop_and_title.md)。
+
+2026-10-27 22:20 继续任务复核：当前开始页与最小循环真实渲染通过；全局契约检查中鱼群、鲸鱼两项源哈希漂移，保留原基线并记为待核验。详见[当前工作区复验](../../development/2026-10-27_minimum_loop_and_title.md#继续任务后的当前工作区复验2220)。
+
+2026-10-27：新增独立木板平台 SEA-FARM-CULTIVATION-DECK 与木框土格 SEA-FARM-SOIL-CELL；复用 SEA-SCENE-SBR-COOLER 固定码头出货交互，原授权 pending 保留。[交付记录](../../development/2026-10-27_plot_shipping_loop.md)。
+
+## 2026-10-28 薄木板与暖木色
+
+| 对应设计条款 | 实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R26 | v008源与正式组件接入，当前专项通过 | [制作与验证](../../development/2026-10-28_thin_cabin_and_dayparts.md)，49组件、160实例；主板0.22米、板顶1.38、板底1.16；色板与旧源分别保留 |
+
+## 2026-10-28 家园箱子与夜灯修复
+
+SEA-ASSET-R02/R03/R24：通过总索引定位场景分账本，只修正SEA-SCENE-SBR-COOLER的运行时实例路径/位置/验证证据；保留源、GLB、AssetID与授权pending，未刷新任何资源哈希。
+
+[交付记录](../../development/2026-10-28_home_lighting_recovery.md)。
+
+## 2026-10-28 绞盘打捞台顶点色回填
+
+| 对应设计条款 | 实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R27 | 已实现；`SEA-REF-FACILITY-SALVAGE-STATION` 运行时 GLB 顶点色回填 18808/18852（99.77%），几何/材质/节点未改 | `visual-salvage` 修前/修后同机位真实渲染对照；`assets/registry/ledgers/scenes.json` 的 `runtime_sha256` 与 `runtime_patch_log` |
+
+来源未变：Blender 源、`source_sha256`、AssetID、授权 pending 全部保留。
+运行时哈希只更新这一个文件，未批量刷新。
+
+[本轮记录](../../development/2026-10-28_dock_seed_weather_asset_fix.md)。

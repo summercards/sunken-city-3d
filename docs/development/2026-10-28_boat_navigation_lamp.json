@@ -1,0 +1,216 @@
+{
+  "date": "2026-10-28",
+  "features": [
+    "SEA-NAV-R08",
+    "SEA-OCEAN-R20"
+  ],
+  "results": {
+    "daylight": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-162525-boat-lamp-delivery-4d0160\\daylight.log",
+      "completion": [
+        "[daylight] 231 checks, 0 failures"
+      ]
+    },
+    "visual-boat-lamp": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-162525-boat-lamp-delivery-4d0160\\visual-boat-lamp.log",
+      "completion": [
+        "[boat-navigation-lamp] 17 checks, 0 failures"
+      ]
+    },
+    "visual-home-lighting": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-162525-boat-lamp-delivery-4d0160\\visual-home-lighting.log",
+      "completion": [
+        "[home-lighting] 114 checks, 0 failures"
+      ]
+    },
+    "visual-atmosphere": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-162525-boat-lamp-delivery-4d0160\\visual-atmosphere.log",
+      "completion": [
+        "[atmosphere] 68 checks, 0 failures"
+      ]
+    },
+    "minimum-loop": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-162525-boat-lamp-delivery-4d0160\\minimum-loop.log",
+      "completion": [
+        "[minimum-loop] 77 checks, 0 failures"
+      ]
+    }
+  },
+  "metrics": {
+    "absorption": {
+      "far": {
+        "b": 0.00857418925353897,
+        "g": 0.0270381929719748,
+        "r": 0.0490019601524259,
+        "samples": 1711,
+        "warm_fraction": 0.59614260666277
+      },
+      "near": {
+        "b": 0.106975377826939,
+        "g": 0.290890684784902,
+        "r": 0.429855488754074,
+        "samples": 4296,
+        "warm_fraction": 0.918296089385475
+      },
+      "opposite": {
+        "b": 0.0,
+        "g": 0.0,
+        "r": 0.0,
+        "samples": 2787,
+        "warm_fraction": 0.0
+      }
+    },
+    "lamp": {
+      "color": "(1.0, 0.65, 0.28, 1.0)",
+      "energy": 8.0,
+      "local_position": "(-1.13, 1.17, -1.35)",
+      "range": 9.0
+    },
+    "old_pool_after_move": {
+      "b": 0.0073575200981268,
+      "g": -0.00252857487960901,
+      "r": -0.00574177736676605,
+      "samples": 4296,
+      "warm_fraction": 0.0
+    },
+    "original": {
+      "far": {
+        "b": 6.87592354244408e-06,
+        "g": 4.58394902829606e-05,
+        "r": 4.35475157688125e-05,
+        "samples": 1711,
+        "warm_fraction": 0.0
+      },
+      "near": {
+        "b": 0.0377337599599828,
+        "g": 0.102734024076266,
+        "r": 0.145015666826699,
+        "samples": 4296,
+        "warm_fraction": 0.609869646182495
+      },
+      "opposite": {
+        "b": 0.0,
+        "g": 0.0,
+        "r": 1.40709323981649e-06,
+        "samples": 2787,
+        "warm_fraction": 0.0
+      }
+    }
+  },
+  "old_lamp_metrics": {
+    "absorption": {
+      "far": {
+        "b": 0.0,
+        "g": 0.0,
+        "r": 0.0,
+        "samples": 1711,
+        "warm_fraction": 0.0
+      },
+      "near": {
+        "b": 0.0,
+        "g": 0.0,
+        "r": 0.0,
+        "samples": 4296,
+        "warm_fraction": 0.0
+      },
+      "opposite": {
+        "b": 0.00248069749496126,
+        "g": 0.00957946311969846,
+        "r": 0.0214637548298146,
+        "samples": 2787,
+        "warm_fraction": 0.0929314675278077
+      }
+    },
+    "lamp": {
+      "color": "(1.0, 0.65, 0.28, 1.0)",
+      "energy": 0.800000011920929,
+      "local_position": "(0.68, 0.95, -1.65)",
+      "range": 6.0
+    },
+    "old_pool_after_move": {
+      "b": 0.0073575200981268,
+      "g": -0.00252766205167859,
+      "r": -0.00574177736676605,
+      "samples": 4296,
+      "warm_fraction": 0.0
+    },
+    "original": {
+      "far": {
+        "b": 0.0,
+        "g": 0.0,
+        "r": 0.0,
+        "samples": 1711,
+        "warm_fraction": 0.0
+      },
+      "near": {
+        "b": 0.0,
+        "g": 0.0,
+        "r": 0.0,
+        "samples": 4296,
+        "warm_fraction": 0.0
+      },
+      "opposite": {
+        "b": 0.0089588692250712,
+        "g": 0.0283034057398188,
+        "r": 0.0468473567901053,
+        "samples": 2787,
+        "warm_fraction": 0.369931826336563
+      }
+    }
+  },
+  "protected_files": {
+    "daylight_presets.gd": {
+      "before": "797f6e6ed944199ac72440673c2d9cddccb66699836a236855ffe2bf1be8c8dc",
+      "after": "797f6e6ed944199ac72440673c2d9cddccb66699836a236855ffe2bf1be8c8dc",
+      "unchanged": true
+    },
+    "night_water_params.gd": {
+      "before": "1336bdd5db47ae4eb01bb2e73115a404a2786164a65f8549cacae508d40e2953",
+      "after": "1336bdd5db47ae4eb01bb2e73115a404a2786164a65f8549cacae508d40e2953",
+      "unchanged": true
+    }
+  },
+  "run_dir": "D:\\projects\\sea-work\\verification\\20261028-162525-boat-lamp-delivery-4d0160",
+  "profile_fixture": "D:\\projects\\sea-work\\boat-light-20261028\\entry",
+  "initial_negative_control": {
+    "log": "D:\\projects\\sea-work\\verification\\20261028-161601-boat-lamp-before-26cbaa\\visual-boat-lamp.log",
+    "exit_code": 1,
+    "failures": 8,
+    "reason": "Old inboard lamp failed the new pure-water brightness and coverage criteria."
+  },
+  "not_run": [
+    "gl_compatibility/WebGL actual rendering",
+    "mobile/target devices"
+  ],
+  "assets": {
+    "reused": "SEA-SCENE-SBR-LANTERN",
+    "source_or_glb_changed": false,
+    "license": "pending_user_reference_rights_review",
+    "instance_id": "boat/furnishing/bow_lantern"
+  }
+}

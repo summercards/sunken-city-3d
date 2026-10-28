@@ -23,7 +23,9 @@
 | 航行 | Boat / WaterNavigation | sail_to / plan_route_to / invalidate | is_open_water / valid_route / segment_clear / remaining_route / arrived / navigation_blocked | game.boat |
 | 镜头 | OrbitCam | resume_follow / suspend_follow / restore_follow | follow_enabled | 不恢复瞬态拖拽，读档重新跟随 |
 | 潜水 | UnderwaterWorld / DiveAir | dive / surface / swim_to | phase / discovered_count / exited | dive.found、opened；氧气与中途动作不存 |
-| 世界时间 | WorldClock | tick / rest_to_morning | query / changed / day_changed | time |
+| 世界时间 | WorldClock | tick / rest_to_morning / wake_to_morning | query / changed / day_changed | time |
+| 睡觉 | SleepCycle | advance / request；注入prepare、return_home | is_busy / woke | 不保存过渡态，使用time/game原快照 |
+| 昼夜光照 | DaylightRig | capture / apply / adopt / suspend / resume | base_of / owns；读取世界小时 | 光照由time派生；09:00基准保留资源/面板配置 |
 | 天气 | WeatherService | tick / set_weather | query / changed | weather |
 | 存档 | SnapshotRegistry / SaveGame | register / write / read / restore | 结果字典 ok、reason、recovered | 带版本的模块快照 |
 
@@ -35,7 +37,7 @@
 
 通用状态机拥有显式转换表，先 exit 再 enter；入口内请求转换进入队列，单次最多处理 16 个转换，防止重入递归。状态以弱引用连接机器与上下文，退出场景后不遗留循环引用。
 
-- 角色状态：ashore_idle、walking、approaching、interacting、boarding、boat_idle、sailing、diving。
+- 角色状态：ashore_idle、walking、approaching、interacting、boarding、boat_idle、sailing、diving、sleeping。
 - 角色动作：walk、approach、board、disembark。表演动作：idle、walking、rowing、planting、watering、harvesting、swimming，分别独立脚本。
 - 镜头状态：follow、manual。动作：pan、orbit、zoom。
 - 潜水阶段：surface、enter、swim、exit。动作：enter、surface、finish_exit、swim、search、camera、diver_pose。
@@ -46,9 +48,9 @@
 
 ## 存档协议
 
-当前 wire version 为 2，顶层包含 economy、game、gather、pickups、dive、salvage、time、weather。v0/v1 只给历史缺失/新增模块补默认值；未知内容 ID 在所属模块按当前内容表过滤，类型错误、负容量/数量、非有限数值和未来版本拒绝。
+当前 wire version 为 3，顶层包含 economy、game、gather、pickups、dive、salvage、time、weather。v0/v1 只给历史缺失/新增模块补默认值；未知内容 ID 在所属模块按当前内容表过滤，类型错误、负容量/数量、非有限数值和未来版本拒绝。
 
-注册表先验证全部模块及世界位置，再调用恢复接口。恢复不购买、不结算奖励、不读写文件；完成后统一刷新镜头、区域表现和 HUD。读档回到稳定待机状态；离线时间冻结，施工/冷却存剩余秒，作物仍由休息推进。
+注册表先验证全部模块及世界位置，再调用恢复接口。恢复不购买、不结算奖励、不读写文件；完成后统一刷新镜头、区域表现和 HUD。读档回到稳定待机状态；离线时间冻结，施工/冷却存剩余秒，默认作物由07:00晨次推进，06:00醒来不结算。
 
 存盘先写 tmp、读回验证，保存上一份有效备份，再替换主档。主档损坏时尝试 bak；未来版本主档不降级读取备份。启动默认读档，失败保护原槽位并关闭自动写入；可用显式新路径另存。不得以 `{}` 代替新游戏或恢复默认值。新游戏应由单独的明确命令创建新槽位。
 
@@ -73,3 +75,19 @@ Farm 的状态、地格表和作物表查询，以及 Orders.offers/offer_at 均
 v2校验覆盖必填嵌套记录、订单状态互斥、拾取ID唯一与next_id、64位随机流、作物计时语义和直接恢复版本。旧版缺拾取状态用 `{reset:true}` 明确重建，空v2对象拒绝。仅有未来备份同样禁止创建旧版本主档。
 
 [专项实现与证据](../development/2026-10-27_framework_boundary_hardening.md)。
+
+## 当前最小版本适配（2026-10-27）
+
+主文档的最小循环范围覆盖历史完整配置。新增公开边界：`PlayScope`开放规则 → Main注入Zones/WaterNavigation/SeaProps；`DailyShipping.observe(clock)`按08:00水位线调用注入的Farm命令并结算自有cargo；`InventoryTransfer.move`预检后双端发布事件；WarehouseService.deposit/withdraw仅管保管仓库。开始画面由StartScreen事件与TitleCamera.begin/blend/finish组成，Main只负责暂停及交还会话。快照v3必须含economy.daily_loop；旧版由decode迁移，当前缺字段拒绝。[实现与证据](../development/2026-10-27_minimum_loop_and_title.md)。
+
+
+## 2026-10-27 场景点击经营接口
+
+- FarmPlot.interaction_requested(plot_id) 只请求选项；HUD 的 PlotActionPanel 查询 Farm/Inventory，并经注入的 perform(action,crop) 发命令。FarmPlot.perform 复用唯一 Farm 写入者及 acted 事件，Main 校验岸上/距离并播放动作。
+- ShippingBox 只发 opened；HUD 调用原 DailyShipping deposit/withdraw，箱子无第二份库存。独立保管仓库不参与晨间销售。
+- DaySchedule 只声明07:00边界，不持有时间；WorldClock、DailyShipping、SaveSchema共用。保留 coins、plot_id、daily_loop 快照ID；版本3无新增必填字段。
+- CultivationDeck 独立场景只管木板外观，六格 FarmPlot 管木框/土壤/生长表现，FarmModel 管作物。箱子模型仍是 SEA-SCENE-SBR-COOLER，摆位在实例清单，点击代理在区块Objects。
+
+2026-10-28：睡觉点只发命令；23:00自动睡觉由SleepCycle调度，WorldClock唯一推进到06:00。过渡期间SnapshotRegistry.busy_query拒绝保存，醒后统一保存稳定姿态。光照、时钟、经营晨次互不复制状态。
+
+2026-10-28 服务口袋：`PocketService` 通过注入的 `query(service)` 读取背包、服务库存、真实容量、待结算金额和种子目录，只发出 `operation_requested(id, action, amount)`；HUD适配层分派到原DailyShipping、WarehouseService和Farm命令。`DailyShipping.query()`新增`capacity`、`slots_used`只读字段，存档无新增字段。视图仅保存页码/选中态，不保存第二份物品状态。[本轮记录](../development/2026-10-28_service_pockets.md)。

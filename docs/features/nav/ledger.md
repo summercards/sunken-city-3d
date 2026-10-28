@@ -20,7 +20,11 @@
   "verification": [
     "surface",
     "selftest",
-    "framework-modules"
+    "framework-modules",
+    "minimum-loop",
+    "visual-home-lighting",
+    "visual-atmosphere",
+    "visual-boat-lamp"
   ]
 }
 ```
@@ -30,9 +34,10 @@
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-NAV-R01 | 正式WaterNavigation查询/求路/验段；绕障模块和surface通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
-| SEA-NAV-R02 | Boat保留加减速和转向，每步段检；surface通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-NAV-R02 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-NAV-R03 | 30条有向航路全部通过，旧路接管由click/surface覆盖 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-NAV-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
+| SEA-NAV-R05 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 
 ## 资源与调用入口
 
@@ -96,3 +101,31 @@ SEA-NAV-R01/R02/R03：surface 30条有向航路503项通过，含30/60/120FPS抵
 保留「抵达」「已停船」等结果提示与「无法到达」「这里没有可通行航路」等拒绝原因；`hud.toast` 本体与纸条样式未改。
 
 SEA-NAV-R01/R02/R03 实现未改动，本轮回归 click、surface、selftest 均退出 0：[记录](../../development/2026-10-27_sail_toast_silence.md) · `sea-work/verification/20261027-111208-verification-83e9e6`。真实窗口目视复核未执行，文案已按源码检索确认清除。
+
+## 2026-10-27 当前最小循环与开始画面
+
+本节及本轮修改条款优先于下方保留的历史范围。默认发布配置只开放家园生活循环；旧全功能验证须显式 `--full-world`，不能代替最小版本验收。接口、迁移及实测见[交付记录](../../development/2026-10-27_minimum_loop_and_title.md)。
+
+## 2026-10-28 家园箱子与夜灯修复
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-NAV-R06 | 已实现；真实渲染和相关集成检查通过，设备边界单列 | [本轮实测](../../development/2026-10-28_home_lighting_recovery.md) |
+
+[交付记录](../../development/2026-10-28_home_lighting_recovery.md)。
+
+## 2026-10-28 船灯与夜航表现
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-NAV-R07 | 已实现；复用SEA-SCENE-SBR-LANTERN，局部光和水面倒影随船同步，白天熄灭；移动与生活循环回归见本轮记录 | [交付与实测](../../development/2026-10-28_cozy_daypart_atmosphere.md) |
+
+R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；局部光的增量颜色必须偏暖。灯的Light3D范围包围盒不再混进船模型像素测量。
+
+## 2026-10-28 外舷夜航照水灯
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-NAV-R08 | 已实现；外舷短杆与下照暖色实灯，双方案纯水区域开关差分、远近衰减与随船转向/离开验证 | [设计与本轮验收](../../development/2026-10-28_boat_navigation_lamp.md) |
+
+船灯由Omni改为Spot，捕获按Light3D基类筛选home_lamps/boat_lamps分组；仍只有一个船灯，未新增灯光强度写入者。沿用原灯笼资产与boat/furnishing/bow_lantern实例ID；木杆为Boat运行包装内置几何配件。未改灯笼制作源、GLB或授权pending状态。

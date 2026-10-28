@@ -18,7 +18,9 @@
   "verification": [
     "selftest",
     "modules",
-    "framework-integration"
+    "framework-integration",
+    "decorations",
+    "visual-decorations"
   ]
 }
 ```
@@ -31,6 +33,7 @@
 | SEA-DIVE-R02 | 搜索独立动作，奖励通过give_resource；selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-DIVE-R03 | 快照由模块全量恢复，读档稳定海面；存档与自检通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-DIVE-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
+| SEA-DIVE-R05 | 已接入；逻辑与组件检查通过 | 7群各18条鱼独立组件；自主更新关闭，潜水时钟sample驱动；见本轮记录 |
 
 ## 资源与调用入口
 
@@ -68,3 +71,9 @@ dive / surface / swim_to / cancel_navigation / to_dict / from_dict；phase_machi
 新增条款 SEA-DIVE-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
 
 2026-10-27 接口收口：公开头灯与诊断入口：toggle_lamp / uses_underwater_environment。
+
+## 2026-10-27 场景组件细分与动物恢复
+
+见[本轮交付与验证记录](../../development/2026-10-27_scene_component_split.md)及[组件分类目录](../../../assets/registry/SCENE_COMPONENTS.md)。运行验证与素材授权分别登记；交互请求端口不代表玩家摆放编辑器已实现。
+
+最终补验：decorations 1589项通过；visual-decorations 1592项通过（包含独立实例、真实鱼群近景和正常上浮环境恢复）。surface 503项/30航线、自检537项通过；静态契约32功能/426源资产/317运行哈希0问题。旧水下网页同机位测试缺基准未执行，单列在本轮记录。

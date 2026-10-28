@@ -17,7 +17,11 @@
   ],
   "verification": [
     "selftest",
-    "management"
+    "management",
+    "minimum-loop",
+    "visual-plot-shipping",
+    "visual-pocket-bubbles",
+    "visual-pocket-services"
   ]
 }
 ```
@@ -30,6 +34,8 @@
 | SEA-INVENTORY-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-INVENTORY-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-INVENTORY-R04 | 已实现；详见本轮框架专项 | [交付记录](../../development/2026-10-27_modular_framework.md) |
+| SEA-INVENTORY-R05 | 已实现；最小循环覆盖仓储、出货及满包拒绝 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-INVENTORY-R06 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 
 ## 资源与调用入口
 
@@ -67,3 +73,17 @@ Economy 兼容属性仍存在；功能账本不重复保存玩家库存。
 Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；Economy 为兼容门面，具体数量仍由 Inventory 唯一写入。
 
 [模块接口约定](../../architecture/module_contracts.md) · [本轮证据](../../development/2026-10-27_modular_framework.md)。
+
+2026-10-27 场景点击循环：07:00收货、瓶盖、木土种植格及码头出货箱；[本轮记录](../../development/2026-10-27_plot_shipping_loop.md)。
+
+## 2026-10-28 场景气泡与口袋界面
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INVENTORY-R07 | 已实现；实际渲染与输入专项通过；设备/授权边界单列 | [交付记录](../../development/2026-10-28_pocket_action_bubbles.md) |
+
+本轮运行结果、过程失败、退出码与未执行项集中记在交付记录。旧记录保留为历史，整体状态仍partial。
+
+2026-10-28 服务界面补齐：R07扩展为存取1件或所选整叠；所有权和原子容量拒绝不变。见[本轮记录](../../development/2026-10-28_service_pockets.md)。
+
+2026-10-28 恢复验收（request ID `21726f14-a5f7-438f-9db2-83ed622dd271`）：当前源码重新通过服务口袋、实体出货箱全流程、场景气泡三项真实渲染专项及最小循环/模块检查；完整世界3项可行走面失败单列，不签署全工程通过。见[本轮记录](../../development/2026-10-28_service_pockets.md)与[机器证据](../../development/2026-10-28_service_pockets.json)。

@@ -1,0 +1,473 @@
+{
+  "scope": "default playable plot/shipping loop; full-world regression explicitly tagged in commands",
+  "completed_date": "2026-10-28",
+  "records": [
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-231742-plot-context-initial-45442a",
+      "results": {
+        "minimum-loop": {
+          "exit_code": 124,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "SCRIPT ERROR: Parse Error: Cannot infer the type of \"box\" variable because the value doesn't have a set type.",
+            "ERROR: Failed to load script \"res://src/bootstrap/main.gd\" with error \"Parse error\".",
+            "SCRIPT ERROR: Invalid assignment of property or key '_autosave_on' with value of type 'bool' on a base object of type 'Node3D'."
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-231742-plot-context-initial-45442a\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-231742-plot-context-initial-45442a/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-231742-plot-context-initial-45442a\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-231821-plot-context-compile-474fe5",
+      "results": {
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-231821-plot-context-compile-474fe5\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-231821-plot-context-compile-474fe5/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-231821-plot-context-compile-474fe5\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-231929-plot-click-cycle-75422f",
+      "results": {
+        "visual-plot-shipping": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL 07:00 collector pays bottle caps once",
+            "FAIL same morning cannot pay twice"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-231929-plot-click-cycle-75422f\\visual-plot-shipping.log",
+          "user_data_name": "sea-verification/20261027-231929-plot-click-cycle-75422f/visual-plot-shipping",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-231929-plot-click-cycle-75422f\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_plot_shipping_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-232145-plot-click-refinement-1e3526",
+      "results": {
+        "visual-plot-shipping": {
+          "exit_code": 124,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL click opens seeds, never plants automatically",
+            "FAIL owned seeds offered",
+            "FAIL available button 种植",
+            "FAIL seed click consumes exactly one",
+            "FAIL planting does not secretly water",
+            "FAIL planted cell offers water",
+            "FAIL available button 浇水",
+            "FAIL explicit watering consumes one unit",
+            "SCRIPT ERROR: Invalid access to property or key 'disabled' on a base object of type 'Nil'."
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232145-plot-click-refinement-1e3526\\visual-plot-shipping.log",
+          "user_data_name": "sea-verification/20261027-232145-plot-click-refinement-1e3526/visual-plot-shipping",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232145-plot-click-refinement-1e3526\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_plot_shipping_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232145-plot-click-refinement-1e3526\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-232145-plot-click-refinement-1e3526/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232145-plot-click-refinement-1e3526\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-232323-plot-input-probe-09e1f3",
+      "results": {
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232323-plot-input-probe-09e1f3\\visual-plot-shipping.log",
+          "user_data_name": "sea-verification/20261027-232323-plot-input-probe-09e1f3/visual-plot-shipping",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232323-plot-input-probe-09e1f3\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_plot_shipping_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-232543-plot-shipping-final-b4dce6",
+      "results": {
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232543-plot-shipping-final-b4dce6\\visual-plot-shipping.log",
+          "user_data_name": "sea-verification/20261027-232543-plot-shipping-final-b4dce6/visual-plot-shipping",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232543-plot-shipping-final-b4dce6\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_plot_shipping_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232543-plot-shipping-final-b4dce6\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261027-232543-plot-shipping-final-b4dce6/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232543-plot-shipping-final-b4dce6\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "framework-modules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232543-plot-shipping-final-b4dce6\\framework-modules.log",
+          "user_data_name": "sea-verification/20261027-232543-plot-shipping-final-b4dce6/framework-modules",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232543-plot-shipping-final-b4dce6\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_framework_modules.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261027-232709-soil-dock-regression-922717",
+      "results": {
+        "farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232709-soil-dock-regression-922717\\farming.log",
+          "user_data_name": "sea-verification/20261027-232709-soil-dock-regression-922717/farming",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232709-soil-dock-regression-922717\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_farming.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "surface": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232709-soil-dock-regression-922717\\surface.log",
+          "user_data_name": "sea-verification/20261027-232709-soil-dock-regression-922717/surface",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232709-soil-dock-regression-922717\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_surface_movement.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232709-soil-dock-regression-922717\\save-seed.log",
+          "user_data_name": "sea-verification/20261027-232709-soil-dock-regression-922717/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232709-soil-dock-regression-922717\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_seed.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "framework-integration": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL interaction finishes once"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-232709-soil-dock-regression-922717\\framework-integration.log",
+          "user_data_name": "sea-verification/20261027-232709-soil-dock-regression-922717/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-232709-soil-dock-regression-922717\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_framework_integration.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-032929-plot-context-framework-8e2958",
+      "results": {
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-032929-plot-context-framework-8e2958\\save-seed.log",
+          "user_data_name": "sea-verification/20261028-032929-plot-context-framework-8e2958/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-032929-plot-context-framework-8e2958\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_seed.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "framework-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-032929-plot-context-framework-8e2958\\framework-integration.log",
+          "user_data_name": "sea-verification/20261028-032929-plot-context-framework-8e2958/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-032929-plot-context-framework-8e2958\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_framework_integration.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-033018-plot-shipping-delivery-9087d0",
+      "results": {
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-033018-plot-shipping-delivery-9087d0\\visual-plot-shipping.log",
+          "user_data_name": "sea-verification/20261028-033018-plot-shipping-delivery-9087d0/visual-plot-shipping",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-033018-plot-shipping-delivery-9087d0\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_plot_shipping_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-title-screen": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-033018-plot-shipping-delivery-9087d0\\visual-title-screen.log",
+          "user_data_name": "sea-verification/20261028-033018-plot-shipping-delivery-9087d0/visual-title-screen",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-033018-plot-shipping-delivery-9087d0\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_screen.gd"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-033129-seed-pack-click-final-1d7a07",
+      "results": {
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-033129-seed-pack-click-final-1d7a07\\visual-plot-shipping.log",
+          "user_data_name": "sea-verification/20261028-033129-seed-pack-click-final-1d7a07/visual-plot-shipping",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-033129-seed-pack-click-final-1d7a07\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_plot_shipping_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    }
+  ],
+  "final_contract_check": {
+    "passed": true,
+    "features": 32,
+    "source_assets": 429,
+    "runtime_resources": 317,
+    "issues": 0
+  },
+  "not_run": [
+    "mobile/touch/gamepad",
+    "long-running economy balance",
+    "real power loss/disk failure",
+    "collector NPC arrival/cargo animation"
+  ]
+}

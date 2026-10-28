@@ -1,0 +1,141 @@
+{
+  "change": "fish school port: web models/animation, clean palette, spread per school",
+  "feature_ids": [
+    "SEA-AMBIENT",
+    "SEA-PICKUP",
+    "SEA-ASSET"
+  ],
+  "asset_rows": {
+    "SEA-DECO-ANIMAL-FISH-SCHOOL": {
+      "version": "v004"
+    },
+    "SEA-DECO-ANIMAL-WHALE": {
+      "version": "v003"
+    }
+  },
+  "sources": {
+    "model": "godot/src/ambient/animal_mesh.gd",
+    "decorative": "godot/src/ambient/decorative_fish_school.gd",
+    "catchable": "godot/src/pickups/fish_school_visual.gd",
+    "web_reference": [
+      "web/fish-schools.js",
+      "web/underwater-art.js"
+    ]
+  },
+  "measurements": {
+    "water_wave_peak_m": 0.29,
+    "surface_ride_lift_m": 0.42,
+    "surface_school_spread_m": [
+      0.92,
+      1.02
+    ],
+    "catchable_school_spread_m": 1.45,
+    "dive_school_spread_m": 6.2,
+    "min_pair_gap_m": [
+      1.0,
+      1.05
+    ],
+    "ripple_node_radius_m": 3.14,
+    "ripple_inner_ratio": 0.72,
+    "fish_size_surface": 0.5,
+    "fish_size_catchable": 0.5,
+    "tail_fan_half_width_m": 0.19,
+    "whale_skin": "#062356",
+    "whale_fin": "#16589e",
+    "whale_rim_grow_m": 0.1,
+    "whale_glow": null,
+    "whale_ambient_boost": 0.55,
+    "whale_depth_tint_strength": 2.0,
+    "whale_uw_glow_amount": 0.6,
+    "surface_school_count": 10,
+    "catchable_size": 1.0,
+    "catchable_spread_m": 1.35,
+    "catchable_min_gap_m": 1.15,
+    "surface_school_orbit_m": [
+      0.84,
+      0.98
+    ]
+  },
+  "verification_runs": [
+    {
+      "path": "D:/projects/sea-work/verification/20261028-093836-round3-done-d72a71/report.json",
+      "results": {
+        "decorations": {
+          "exit_code": 0,
+          "passed": true
+        },
+        "visual-decorations": {
+          "exit_code": 0,
+          "passed": true
+        },
+        "ocean": {
+          "exit_code": 0,
+          "passed": true
+        },
+        "visual-sea-style": {
+          "exit_code": 0,
+          "passed": true
+        },
+        "visual-fish-schools": {
+          "exit_code": 0,
+          "passed": true
+        },
+        "selftest": {
+          "exit_code": 0,
+          "passed": true
+        }
+      }
+    }
+  ],
+  "not_executed": [
+    "player save created before this change with fish schools visible (no schema change; to_dict fields unchanged)"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "changes": [
+        "port web fish model/animation",
+        "clean palette",
+        "spread per school"
+      ]
+    },
+    {
+      "round": 2,
+      "changes": [
+        "fish size halved (0.5x) with lift auto-scaled",
+        "tail fan rebuilt as explicit triangle mesh",
+        "whale rebuilt to web gameplay.js component list (head+torso spheres, 2 box pectorals, cone tail, box fluke)",
+        "whale glow 0.18 and grow-based rim outline"
+      ]
+    },
+    {
+      "round": 3,
+      "changes": [
+        "whale switched to toon.gdshader with depth_tint enabled (web makePainterlyMat 3rd arg)",
+        "toon_common: new depth_tint_strength / uw_glow_amount uniforms, defaults == old behaviour",
+        "whale tuning by on-screen sweep: ambient_boost 0.55, depth_tint_strength 2.0, uw_glow_amount 0.60",
+        "surface decorative schools 18 -> 10 fish, spread radius 1.5-1.65 m",
+        "min fish gap now scales with size_scale (0.60*size_scale*1.70)",
+        "catchable school restored to web original size (SIZE 0.5 -> 1.0), spread 2.0 m, gap 1.30 m"
+      ]
+    },
+    {
+      "round": 3,
+      "changes": [
+        "whale material switched to toon.gdshader with depth_tint (web 3rd arg), tuned by 4-step render sweep",
+        "surface schools 18 -> 10 fish; orbit radius and min gap now scale with size_scale",
+        "catchable school SIZE restored to 1.0 (web original); spread 1.35, min gap 1.15",
+        "selftest ambient assertion split into base==0.36 and runtime==base*factor (was failing since daylight rig landed)"
+      ]
+    }
+  ],
+  "known_red": [
+    {
+      "check": "selftest / 环境亮度是标定值",
+      "value": "ambient_light_energy 0.32 != 0.36",
+      "cause": "concurrent uncommitted work src/rendering/daylight_rig.gd scales ambient by time-of-day; 07:00 factor 0.889",
+      "not_introduced_by": "fish/whale round 3 (no lighting or environment edits)",
+      "suggested_fix": "compare against daylight_presets.sample(hour) instead of the 0.36 constant"
+    }
+  ]
+}

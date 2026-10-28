@@ -15,8 +15,18 @@
     "godot/src/ui"
   ],
   "verification": [
+    "visual-title-screen-day",
+    "visual-title-screen-night",
+    "visual-title-screen-dawn",
     "click",
-    "management"
+    "management",
+    "minimum-loop",
+    "visual-title-screen",
+    "visual-plot-shipping",
+    "visual-sleep-cycle",
+    "visual-pocket-bubbles",
+    "visual-pocket-services",
+    "visual-home-lighting"
   ]
 }
 ```
@@ -43,6 +53,11 @@
 | SEA-UI-R15 | 已实现，`visual-paper-fit` 三分辨率通过 | 圆角由内容边距反推上限、纸外扩24px、面板控件与字号不动；11块纸背板逐字四角+四边中点内点判定0越界 |
 | SEA-UI-R16 | 已实现，`visual-world-text` 通过（24 checks / 0 failures） | 字号下限26px、合成加粗 embolden=1.0、零勾边；回退倍率后闸门7项红，证明断言会失败 |
 | SEA-UI-R18 | 已实现；详见本轮框架专项 | [交付记录](../../development/2026-10-27_modular_framework.md) |
+| SEA-UI-R19 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-UI-R20 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-UI-R21 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-UI-R22 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-UI-R23 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 
 ## 资源与调用入口
 
@@ -78,7 +93,7 @@
 
 交付与档位对照见 [浮层字交付记录](../../development/2026-10-26_world_text_scale.md)。
 
-- 问题：主界面左下「海贝 80 · 背包 1/24」笔画细、边缘发沟；上岸点名称用 `ThemeDB.fallback_font` + 11px + 4px `draw_string_outline`，既不是打包字体又被描边糊掉。
+- 问题：主界面左下「瓶盖 80 · 背包 1/24」笔画细、边缘发沟；上岸点名称用 `ThemeDB.fallback_font` + 11px + 4px `draw_string_outline`，既不是打包字体又被描边糊掉。
 - 字号（基准1600×1000）：资源行 22→44、潜水状态 20→40、视野提示 17→33、上岸点 11→26、水下宝箱 12→29。下限 26px 由 `WORLD_TEXT_FLOOR` 独立锁定。
 - 字重：霞鹜975圆体的拉丁数字在同一文件里偏细，44px 下与汉字两种粗细；用 `FontVariation.variation_embolden=1.0` 合成加粗补齐。档位实测 0.0 偏细、1.5 以上粘连，取 1.0。
 - 去勾边：移除 `draw_string_outline` 与 Label 的 `font_shadow` 轮廓，只保留右下固定偏移的柔和投影（`shadow_outline_size=0`），保证白字在白色建筑上仍可辨。
@@ -142,3 +157,66 @@ HUD 接收 economy / zones / game_state；presenter_sources 由 Main 装配，Is
 [模块接口约定](../../architecture/module_contracts.md) · [本轮证据](../../development/2026-10-27_modular_framework.md)。
 
 2026-10-27 接口收口：公开入口：is_panel_open / is_modal / toggle_panel / open_tab / refresh_view / toast_snapshot，Main 不再读面板和提示框私有字段。
+
+## 2026-10-27 当前最小循环与开始画面
+
+本节及本轮修改条款优先于下方保留的历史范围。默认发布配置只开放家园生活循环；旧全功能验证须显式 `--full-world`，不能代替最小版本验收。接口、迁移及实测见[交付记录](../../development/2026-10-27_minimum_loop_and_title.md)。
+
+2026-10-27 场景点击循环：07:00收货、瓶盖、木土种植格及码头出货箱；[本轮记录](../../development/2026-10-27_plot_shipping_loop.md)。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R24 | 已实现，圆形过场隐藏/恢复UI；实际点击与开始画面回归 | [本轮实测](../../development/2026-10-28_sleep_iris.md) |
+
+## 2026-10-28 场景气泡与口袋界面
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R25 | 已实现；实际渲染与输入专项通过；设备/授权边界单列 | [交付记录](../../development/2026-10-28_pocket_action_bubbles.md) |
+| SEA-UI-R26 | 已实现；实际渲染与输入专项通过；设备/授权边界单列 | [交付记录](../../development/2026-10-28_pocket_action_bubbles.md) |
+| SEA-UI-R27 | 已实现；实际渲染与输入专项通过；设备/授权边界单列 | [交付记录](../../development/2026-10-28_pocket_action_bubbles.md) |
+
+本轮运行结果、过程失败、退出码与未执行项集中记在交付记录。旧记录保留为历史，整体状态仍partial。
+
+## 2026-10-28 服务界面补齐
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R28 | 已实现；真实GUI存取、商店购买与三分辨率专项 | [实测记录](../../development/2026-10-28_service_pockets.md) |
+
+2026-10-28 恢复验收（request ID `21726f14-a5f7-438f-9db2-83ed622dd271`）：当前源码重新通过服务口袋、实体出货箱全流程、场景气泡三项真实渲染专项及最小循环/模块检查；完整世界3项可行走面失败单列，不签署全工程通过。见[本轮记录](../../development/2026-10-28_service_pockets.md)与[机器证据](../../development/2026-10-28_service_pockets.json)。
+
+## 2026-10-28 家园箱子与夜灯修复
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R29 | 已实现；真实渲染和相关集成检查通过，设备边界单列 | [本轮实测](../../development/2026-10-28_home_lighting_recovery.md) |
+
+SEA-UI-R19本轮按用户要求恢复P调试例外，其它范围限制保留。
+
+[交付记录](../../development/2026-10-28_home_lighting_recovery.md)。
+
+## 2026-10-28 P 面板分时段调参
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R30 | 已实现；4季×3天气×8段共96组合，侧栏挂在主面板左缘外侧（间距算上纸张外扩 24px）并每帧跟随，调过的时段按钮前显示· | `lighting-panel` 44项 |
+| SEA-UI-R31 | 已实现；滑杆写入选中组合的差值，打开面板锁预览、关闭即放，复位只清当前组合 | 「切回上午还是1.23」「夕阳的偏移没被连坐」等断言 |
+| SEA-UI-R32 | 已实现；天空盒7项本轮补齐（新增`sky`分段名），水面9项由`adopt`改走偏移 | 「天空盒地平线色真写进材质」「正午的海水没被夕阳的改动染上」 |
+| SEA-UI-R33 | 已实现；对比度改走偏移，在19:00跑过一帧仍在1.42 | 「对比度改完跑过一帧仍在 1.42」 |
+
+语义变更需注意：**P 面板不再修改 09:00 基准**。光照页、水面页里随时段走的 28 项、以及滤镜页的对比度，改的都是「当前选中时段」的偏移。原「改基准、夜里读基准」的断言已改为「改选中时段、别的时段不受影响」。
+
+参数清单由 30 项增至 37 项（环境 19 + 太阳 11 + 天空 7），静态核对 217 项通过。
+
+[本轮交付](../../development/2026-10-28_daypart_lighting_panel.md)。
+
+
+
+## 2026-10-28 开始构图与存档时刻
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R34 | 已实现；保持角度的房屋上移、按钮右移、三分辨率原生布局，白天/夜间/清晨存档冷启动与实际点击入场光照连续核验 | [本轮交付](../../development/2026-10-28_title_composition_saved_time.md) |
+
+开始机位只在TitleCamera临时接管，不改变玩家存档姿态；未修改光照时段参数、资产资源或存档格式。当前整体功能状态保持原状，目标设备等边界见交付记录。

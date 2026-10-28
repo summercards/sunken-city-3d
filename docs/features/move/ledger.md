@@ -21,7 +21,8 @@
     "surface",
     "click",
     "framework-modules",
-    "framework-integration"
+    "framework-integration",
+    "sleep-cycle"
   ]
 }
 ```
@@ -60,7 +61,7 @@ start_walk / approach / depart / cancel / request_mode / restore_pose / state_id
 
 ## 遗留与下一步
 
-角色控制已由 Main 拆到 ActorController；8 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
+角色控制已由 Main 拆到 ActorController；9 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
 
 ## 变更记录
 
@@ -86,6 +87,19 @@ SEA-MOVE-R01/R02/R03：正式surface 30航路503检查及click 30检查通过；
 
 ## 2026-10-27 模块框架落地
 
-角色控制已由 Main 拆到 ActorController；8 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
+角色控制已由 Main 拆到 ActorController；9 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
 
 新增条款 SEA-MOVE-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-MOVE-R05 | 已实现，自动/主动睡觉验证 | [本轮实测](../../development/2026-10-28_sleep_cycle_delivery.md) |
+
+## 2026-10-28 登陆标记的双向往返
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-MOVE-R06 | 已实现；三种情况均在状态表内完成，无新增状态 | `dock-seed` 5 项断言（上岸/上船/自动上岸/父节点/落点） |
+| SEA-MOVE-R07 | 已实现；6 处清零点覆盖取消、改道、拾取、挡停、读档 | `dock-seed` 2 项断言（意图只消费一次、取消后不擅自下船） |
+
+[本轮记录](../../development/2026-10-28_dock_seed_weather_asset_fix.md)。

@@ -17,6 +17,9 @@
     "godot/scenes/main.tscn"
   ],
   "verification": [
+    "visual-title-screen-day",
+    "visual-title-screen-night",
+    "visual-title-screen-dawn",
     "selftest",
     "framework-integration",
     "save-protection"
@@ -76,3 +79,11 @@ SEA-BOOT-R01/R03：Main仍合并移动、交互与存档协调。隔离双进程
 Main 保留场景装配、输入路由、跨功能流程及兼容转发；行走、航路、奖励、状态机和存储规则由独立服务拥有。GameState.mode 仅作兼容投影，正式模式由 ActorController 驱动。
 
 新增条款 SEA-BOOT-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+## 2026-10-28 开始构图与存档时刻
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-BOOT-R05 | 已实现；保持角度的房屋上移、按钮右移、三分辨率原生布局，白天/夜间/清晨存档冷启动与实际点击入场光照连续核验 | [本轮交付](../../development/2026-10-28_title_composition_saved_time.md) |
+
+开始机位只在TitleCamera临时接管，不改变玩家存档姿态；未修改光照时段参数、资产资源或存档格式。当前整体功能状态保持原状，目标设备等边界见交付记录。

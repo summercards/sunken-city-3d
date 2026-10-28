@@ -21,7 +21,12 @@
     "selftest",
     "surface",
     "visual-sea-style",
-    "visual-blockers"
+    "visual-blockers",
+    "decorations",
+    "visual-decorations",
+    "minimum-loop",
+    "visual-plot-shipping",
+    "visual-home-lighting"
   ]
 }
 ```
@@ -35,7 +40,10 @@
 | SEA-WORLD-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R05 | 部分实现：zone1 已由组件派生并清理空阻挡；其余区块已接入同一机制，但 zone2/zone3 的行走矩形仍为旧手工数据 | `visual-blockers` 空阻挡 0、漏阻挡 zone1 0.2%；zone4 接缝 12.9% 待区块重做。 [交付记录](../../development/2026-10-26_sea_scene_blockers.md) |
 | SEA-WORLD-R04 | 本轮表现与专项通过 | 环境静态鱼、尾鳍、圆环和点击圆盘退役；漂流物旧透明环退役，桶身金属环保留；源烘焙文件未修改，9 个区块 GLB 仅退役匹配的旧装饰三角索引。 [交付记录](../../development/2026-10-23_sea_visual_style.md) |
-| SEA-WORLD-R06 | 已实现；详见本轮框架专项 | [交付记录](../../development/2026-10-27_modular_framework.md) |
+| SEA-WORLD-R06 | 区域及导航注入端口保留；本轮增加zone_enabled_query | [模块框架](../../development/2026-10-27_modular_framework.md) |
+| SEA-WORLD-R07 | 本批实现并验证 | 15片旧荷叶精确退役840三角面，恢复另9片；独立组件与航路专项见本轮记录 |
+| SEA-WORLD-R08 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-WORLD-R09 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 
 ## 资源与调用入口
 
@@ -106,3 +114,31 @@ SEA-WORLD-R02/R03：稳定组件更新及49组件160实例；保留当前太阳�
 Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 WaterNavigation.shape_query，几何调整后 invalidate。
 
 [模块接口约定](../../architecture/module_contracts.md) · [本轮证据](../../development/2026-10-27_modular_framework.md)。
+
+## 2026-10-27 场景组件细分与动物恢复
+
+见[本轮交付与验证记录](../../development/2026-10-27_scene_component_split.md)及[组件分类目录](../../../assets/registry/SCENE_COMPONENTS.md)。运行验证与素材授权分别登记；交互请求端口不代表玩家摆放编辑器已实现。
+
+最终补验：decorations 1589项通过；visual-decorations 1592项通过（包含独立实例、真实鱼群近景和正常上浮环境恢复）。surface 503项/30航线、自检537项通过；静态契约32功能/426源资产/317运行哈希0问题。旧水下网页同机位测试缺基准未执行，单列在本轮记录。
+
+## 2026-10-27 当前最小循环与开始画面
+
+本节及本轮修改条款优先于下方保留的历史范围。默认发布配置只开放家园生活循环；旧全功能验证须显式 `--full-world`，不能代替最小版本验收。接口、迁移及实测见[交付记录](../../development/2026-10-27_minimum_loop_and_title.md)。
+
+## 2026-10-27 太阳房基座放大与落水贴合
+
+SEA-WORLD-R02/R03：太阳能木屋装配根节点改为带位移与缩放——海上区域整体下移0.30米使平台板底落到水面上0.04米；海下白色基座按X1.450/Z1.431放大并重新居中，顶板16.24×17.77、四边各超出上层建筑0.40米，顶面与平台板底齐平。区块行走面同步下移到1.85，`span_min/span_max`显式写为1.0/2.15；行走矩形、泊位与上岸点XZ范围不变。704实景检查、装饰、组件与最小循环检查通过；surface/click/farming/management 的既有失败经HEAD基线对照确认与本次无关。[记录](../../development/2026-10-27_solar_cabin_base_scale_and_waterline.md)。
+
+2026-10-27 场景点击循环：07:00收货、瓶盖、木土种植格及码头出货箱；[本轮记录](../../development/2026-10-27_plot_shipping_loop.md)。
+
+2026-10-28：zone1/Objects/SleepCheckpoint定位在入口地毯(8.35,1.85,8.75)，复用现有可行走区域；实际从停靠小船点击、上岸接近和醒来位置通过visual-sleep-cycle。[睡觉交付](../../development/2026-10-28_sleep_cycle_delivery.md)。
+
+## 2026-10-28 薄木板接合
+
+SEA-WORLD-R02/R03：海上根Y=-0.77，板底1.16、上岸/行走/出货/睡觉基准1.38；基座出檐与手改布局保留。zones.json查询同步，船泊位维持水面1.12。当前实景与完整世界30航路503检查通过。[记录](../../development/2026-10-28_thin_cabin_and_dayparts.md)。
+
+## 2026-10-28 家园箱子与夜灯修复
+
+SEA-WORLD-R09：箱子直接挂到Objects/ShippingBox，(1.05,1.38,15.15)；实测底面1.38米，旧房屋cooler排除，点击命中与行走面均通过。
+
+[交付记录](../../development/2026-10-28_home_lighting_recovery.md)。

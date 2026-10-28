@@ -20,7 +20,11 @@
     "management",
     "selftest",
     "modules",
-    "framework-integration"
+    "framework-integration",
+    "minimum-loop",
+    "visual-plot-shipping",
+    "visual-pocket-services",
+    "visual-home-lighting"
   ]
 }
 ```
@@ -29,12 +33,15 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-ORDER-R01 | 保持当前三槽长期订单配置；management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-ORDER-R01 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-ORDER-R02 | 背包整笔扣货及奖励试装规则保留；modules/management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-ORDER-R03 | 单次交付与补位快照；selftest/management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-ORDER-R04 | 保留原规划历史身份；本次未改订单玩法数值 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-ORDER-R05 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
 | SEA-ORDER-R06 | 已实现并专项核验 | [边界补强记录](../../development/2026-10-27_framework_boundary_hardening.md) |
+| SEA-ORDER-R07 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-ORDER-R08 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-ORDER-R09 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 
 ## 资源与调用入口
 
@@ -77,3 +84,25 @@ configure / fulfill / reroll / tick / to_dict / from_dict；changed、fulfilled�
 交易牌、面板与样式适配器已接查询；modules 验证返回副本和越界。
 
 [本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。
+
+## 2026-10-27 当前最小循环与开始画面
+
+本节及本轮修改条款优先于下方保留的历史范围。默认发布配置只开放家园生活循环；旧全功能验证须显式 `--full-world`，不能代替最小版本验收。接口、迁移及实测见[交付记录](../../development/2026-10-27_minimum_loop_and_title.md)。
+
+2026-10-27 场景点击循环：07:00收货、瓶盖、木土种植格及码头出货箱；[本轮记录](../../development/2026-10-27_plot_shipping_loop.md)。
+
+## 2026-10-28 服务界面补齐
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ORDER-R10 | 已实现；真实GUI存取、商店购买与三分辨率专项 | [实测记录](../../development/2026-10-28_service_pockets.md) |
+
+DailyShipping.query新增capacity/slots_used只读字段；存档结构、结算时刻与售价保持不变。
+
+2026-10-28 恢复验收（request ID `21726f14-a5f7-438f-9db2-83ed622dd271`）：当前源码重新通过服务口袋、实体出货箱全流程、场景气泡三项真实渲染专项及最小循环/模块检查；完整世界3项可行走面失败单列，不签署全工程通过。见[本轮记录](../../development/2026-10-28_service_pockets.md)与[机器证据](../../development/2026-10-28_service_pockets.json)。
+
+## 2026-10-28 家园箱子与夜灯修复
+
+SEA-ORDER-R09/R10：稳定出货箱模型与交互同锚点；当前实体点击专项及出货、取回、07:00结算流程通过。
+
+[交付记录](../../development/2026-10-28_home_lighting_recovery.md)。

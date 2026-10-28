@@ -1,0 +1,633 @@
+{
+  "request": "09:00保留基准、七时段平滑过渡；太阳房点击睡觉、23:00自动、06:00醒来；07:00生长与出货不变",
+  "reports": [
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261028-040710-daylight-sleep-first-df36b3\\report.json",
+      "results": {
+        "daylight": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "SCRIPT ERROR: Parse Error: Cannot infer the type of \"remaining\" variable because the value doesn't have a set type.",
+            "SCRIPT ERROR: Compile Error: Failed to compile depended scripts.",
+            "ERROR: Failed to load script \"res://src/bootstrap/main.gd\" with error \"Compilation failed\".",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.",
+            "FAIL 09:00 exact baseline sun/light_energy"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-040710-daylight-sleep-first-df36b3\\daylight.log",
+          "user_data_name": "sea-verification/20261028-040710-daylight-sleep-first-df36b3/daylight",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-040710-daylight-sleep-first-df36b3\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_daylight_rig.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "sleep-cycle": {
+          "exit_code": 124,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "SCRIPT ERROR: Parse Error: Cannot infer the type of \"remaining\" variable because the value doesn't have a set type.",
+            "SCRIPT ERROR: Compile Error: Failed to compile depended scripts.",
+            "ERROR: Failed to load script \"res://src/bootstrap/main.gd\" with error \"Compilation failed\".",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.",
+            "SCRIPT ERROR: Invalid access to property or key 'busy' on a base object of type 'Nil'."
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-040710-daylight-sleep-first-df36b3\\sleep-cycle.log",
+          "user_data_name": "sea-verification/20261028-040710-daylight-sleep-first-df36b3/sleep-cycle",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-040710-daylight-sleep-first-df36b3\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_sleep_cycle.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "minimum-loop": {
+          "exit_code": 124,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "SCRIPT ERROR: Parse Error: Cannot infer the type of \"remaining\" variable because the value doesn't have a set type.",
+            "SCRIPT ERROR: Compile Error: Failed to compile depended scripts.",
+            "ERROR: Failed to load script \"res://src/bootstrap/main.gd\" with error \"Compilation failed\".",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'new' in base 'GDScript'.",
+            "SCRIPT ERROR: Invalid access to property or key 'busy' on a base object of type 'Nil'.",
+            "SCRIPT ERROR: Invalid access to property or key 'busy' on a base object of type 'Nil'.",
+            "SCRIPT ERROR: Invalid access to property or key 'busy' on a base object of type 'Nil'.",
+            "SCRIPT ERROR: Invalid access to property or key 'busy' on a base object of type 'Nil'.",
+            "SCRIPT ERROR: Invalid access to property or key 'busy' on a base object of type 'Nil'.",
+            "SCRIPT ERROR: Invalid access to property or key 'busy' on a base object of type 'Nil'.",
+            "SCRIPT ERROR: Invalid access to property or key 'busy' on a base object of type 'Nil'.",
+            "SCRIPT ERROR: Invalid access to property or key 'woke' on a base object of type 'Nil'."
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-040710-daylight-sleep-first-df36b3\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261028-040710-daylight-sleep-first-df36b3/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-040710-daylight-sleep-first-df36b3\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261028-040745-daylight-sleep-fix-e7281c\\report.json",
+      "results": {
+        "daylight": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-040745-daylight-sleep-fix-e7281c\\daylight.log",
+          "user_data_name": "sea-verification/20261028-040745-daylight-sleep-fix-e7281c/daylight",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-040745-daylight-sleep-fix-e7281c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_daylight_rig.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-040745-daylight-sleep-fix-e7281c\\sleep-cycle.log",
+          "user_data_name": "sea-verification/20261028-040745-daylight-sleep-fix-e7281c/sleep-cycle",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-040745-daylight-sleep-fix-e7281c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_sleep_cycle.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-040745-daylight-sleep-fix-e7281c\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261028-040745-daylight-sleep-fix-e7281c/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-040745-daylight-sleep-fix-e7281c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261028-040837-sleep-light-render-2e6c8e\\report.json",
+      "results": {
+        "visual-sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-040837-sleep-light-render-2e6c8e\\visual-sleep-cycle.log",
+          "user_data_name": "sea-verification/20261028-040837-sleep-light-render-2e6c8e/visual-sleep-cycle",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-040837-sleep-light-render-2e6c8e\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_sleep_cycle.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-weather": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-040837-sleep-light-render-2e6c8e\\visual-weather.log",
+          "user_data_name": "sea-verification/20261028-040837-sleep-light-render-2e6c8e/visual-weather",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-040837-sleep-light-render-2e6c8e\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tools/capture_world_weather.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-title-screen": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-040837-sleep-light-render-2e6c8e\\visual-title-screen.log",
+          "user_data_name": "sea-verification/20261028-040837-sleep-light-render-2e6c8e/visual-title-screen",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-040837-sleep-light-render-2e6c8e\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_screen.gd"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\report.json",
+      "results": {
+        "daylight": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\daylight.log",
+          "user_data_name": "sea-verification/20261028-041216-sleep-current-final-778585/daylight",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_daylight_rig.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\visual-sleep-cycle.log",
+          "user_data_name": "sea-verification/20261028-041216-sleep-current-final-778585/visual-sleep-cycle",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_sleep_cycle.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-weather": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\visual-weather.log",
+          "user_data_name": "sea-verification/20261028-041216-sleep-current-final-778585/visual-weather",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tools/capture_world_weather.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261028-041216-sleep-current-final-778585/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "framework-modules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\framework-modules.log",
+          "user_data_name": "sea-verification/20261028-041216-sleep-current-final-778585/framework-modules",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041216-sleep-current-final-778585\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_framework_modules.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261028-041236-sleep-integration-4e5f2f\\report.json",
+      "results": {
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041236-sleep-integration-4e5f2f\\save-seed.log",
+          "user_data_name": "sea-verification/20261028-041236-sleep-integration-4e5f2f/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041236-sleep-integration-4e5f2f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_seed.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "framework-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041236-sleep-integration-4e5f2f\\framework-integration.log",
+          "user_data_name": "sea-verification/20261028-041236-sleep-integration-4e5f2f/restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041236-sleep-integration-4e5f2f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_framework_integration.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "surface": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041236-sleep-integration-4e5f2f\\surface.log",
+          "user_data_name": "sea-verification/20261028-041236-sleep-integration-4e5f2f/surface",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041236-sleep-integration-4e5f2f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_surface_movement.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        },
+        "farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041236-sleep-integration-4e5f2f\\farming.log",
+          "user_data_name": "sea-verification/20261028-041236-sleep-integration-4e5f2f/farming",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041236-sleep-integration-4e5f2f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_farming.gd",
+            "--",
+            "--skip-title",
+            "--full-world"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261028-041422-sleep-wake-polish-5545e6\\report.json",
+      "results": {
+        "daylight": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041422-sleep-wake-polish-5545e6\\daylight.log",
+          "user_data_name": "sea-verification/20261028-041422-sleep-wake-polish-5545e6/daylight",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041422-sleep-wake-polish-5545e6\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_daylight_rig.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041422-sleep-wake-polish-5545e6\\visual-sleep-cycle.log",
+          "user_data_name": "sea-verification/20261028-041422-sleep-wake-polish-5545e6/visual-sleep-cycle",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041422-sleep-wake-polish-5545e6\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_sleep_cycle.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261028-041648-verification-ec6906\\report.json",
+      "results": {
+        "sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041648-verification-ec6906\\sleep-cycle.log",
+          "user_data_name": "sea-verification/20261028-041648-verification-ec6906/sleep-cycle",
+          "renderer": "real",
+          "command": [
+            "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041648-verification-ec6906\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_sleep_cycle.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041648-verification-ec6906\\visual-sleep-cycle.log",
+          "user_data_name": "sea-verification/20261028-041648-verification-ec6906/visual-sleep-cycle",
+          "renderer": "real",
+          "command": [
+            "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041648-verification-ec6906\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_sleep_cycle.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "daylight": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041648-verification-ec6906\\daylight.log",
+          "user_data_name": "sea-verification/20261028-041648-verification-ec6906/daylight",
+          "renderer": "real",
+          "command": [
+            "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041648-verification-ec6906\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_daylight_rig.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-weather": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-041648-verification-ec6906\\visual-weather.log",
+          "user_data_name": "sea-verification/20261028-041648-verification-ec6906/visual-weather",
+          "renderer": "real",
+          "command": [
+            "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-041648-verification-ec6906\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tools/capture_world_weather.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261028-085413-sleep-delivery-current-6616e1\\report.json",
+      "results": {
+        "visual-sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-085413-sleep-delivery-current-6616e1\\visual-sleep-cycle.log",
+          "user_data_name": "sea-verification/20261028-085413-sleep-delivery-current-6616e1/visual-sleep-cycle",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-085413-sleep-delivery-current-6616e1\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_sleep_cycle.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    }
+  ],
+  "current_lighting_snapshot": {
+    "src/rendering/daylight_rig.gd": {
+      "matches_latest_render_snapshot": true,
+      "sha256_lf": "21de9df6ab26b120c53729b5220fae3334f3437ace38d0b3477d657a78df9a91"
+    },
+    "src/rendering/daylight_presets.gd": {
+      "matches_latest_render_snapshot": true,
+      "sha256_lf": "bb6856060f8ccc4de689b23a56ce3db564dc2cbd57ba60fad4e98cc86d4ccaa8"
+    },
+    "tests/test_daylight_rig.gd": {
+      "matches_latest_render_snapshot": true,
+      "sha256_lf": "83e814b6d4467c2244b2b7fe4d05ee1597241b5bac0c950ae878f2891baeef0d"
+    }
+  },
+  "not_run": [
+    "移动端/Web/触控/手柄专项",
+    "GL兼容渲染后端本轮未重跑",
+    "室内/床/睡姿动画及NPC收货动画未制作"
+  ],
+  "final_contract_check": {
+    "sync_exit_code": 1,
+    "check_exit_code": 1,
+    "issues": [
+      "SEA-DECO-ANIMAL-FISH-SCHOOL source hash drift",
+      "SEA-DECO-ANIMAL-WHALE source hash drift"
+    ],
+    "review": "Fish school comments and whale underwater shader changes outside the sleep delivery. Current scene rendering and 22 sleep checks passed; asset-specific acceptance not claimed and hashes not overwritten."
+  }
+}

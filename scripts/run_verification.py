@@ -61,6 +61,7 @@ TESTS.update({
     'visual-sea-style': ('tools/capture_sea_style.gd', r'\[sea-style\] complete'),
     # 鱼群专项：模型/动画/配色/单群散布 + 近景渲染证据。
     'visual-fish-schools': ('tools/capture_fish_schools.gd', r'\[fish-schools\] \d+ checks, failures=0'),
+    'visual-birds': ('tools/capture_birds.gd', r'\[birds\] \d+ checks, failures=0'),
     'visual-farming': ('tools/capture_farm_cycle.gd', r'\[farm-ui\] failures=0'),
     'visual-management': ('tools/capture_management_loop.gd', r'\[management-ui\].*0 failed'),
     'visual-click': ('tools/capture_click_controls.gd', r'\[click-ui\] failures=0'),
@@ -76,6 +77,8 @@ TESTS.update({
     'visual-plot-menu': ('tools/capture_plot_menu.gd', r'\[visual-plot-menu\] complete'),
     'visual-salvage': ('tools/capture_salvage.gd', r'\[visual-salvage\] complete'),
     'dock-seed': ('tests/test_dock_and_seed.gd', r'\[dock-seed\] \d+ checks, 0 failures'),
+    # 出货箱与码头缆绳的间距：箱子落点在场景，缆绳在组件 GLB 里，改任一边都可能重新穿模。
+    'dock-rope-clearance': ('tools/verify_box_rope.gd', r'\[dock-rope\] complete'),
 })
 EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
 

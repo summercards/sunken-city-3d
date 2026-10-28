@@ -19,6 +19,66 @@
       ],
       "note": "上游未修改完整字体，含版权与OFL；只新增本资源基线，不重算既有资产。",
       "verification": "docs/development/2026-10-26_ui_ac_single_card.md"
+    },
+    {
+      "asset_id": "UI-TITLE-SEA-001",
+      "name": "SEA开始画面 · 倾斜圆体标题与开始按钮",
+      "domain": "ui",
+      "stage": "runtime_integrated_verified",
+      "source": "godot/src/ui/start_screen.gd",
+      "source_sha256": "1dd5e2a8ac3a24aa6c133d83c0012919a4dbd705510ffddf38bc5b7f158481ef",
+      "manifest": "assets/registry/manifests/ui_title_sea_001.json",
+      "version": "v002",
+      "runtime_path": "godot/src/ui/start_screen.gd",
+      "license": "project-authored layout; font SIL-OFL-1.1",
+      "license_file": "godot/src/ui/fonts/OFL.txt",
+      "consumer_features": [
+        "SEA-UI",
+        "SEA-CAMERA"
+      ],
+      "font_asset_id": "UI-FONT-LXGW975YUAN-SC-700",
+      "note": "程序化排字使用已有授权圆体；参考图只作为风格与构图依据，未打包参考图，也不声称采用参考图原字体。",
+      "verification": "docs/development/2026-10-28_title_composition_saved_time.md",
+      "previous_source_sha256": "0e016a54790c8866a3bf3d77dc38b89eede5a75ec1117ad7a7b831e7c30dd1ae",
+      "revision_note": "2026-10-28: only StartGame horizontal anchor 0.66 -> 0.755; keep font, logo and reveal animation. Verified three sizes and saved-time entry; no unrelated hash refresh."
+    },
+    {
+      "asset_id": "UI-ACTION-HANDDRAWN-001",
+      "name": "世界操作 · 白色手绘剪影图标12枚",
+      "domain": "ui",
+      "stage": "runtime_verified_license_pending",
+      "source": "art_source/ui/handdrawn/v001/action-icons-source.png",
+      "source_sha256": "16211e886d79ab1d71f34046034af343252fba8ce17fb440c26aa1aee5b7faaa",
+      "manifest": "assets/registry/manifests/ui_action_handdrawn_001.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/ui/handdrawn/",
+      "license": "pending_provider_terms_review",
+      "consumer_features": [
+        "SEA-UI",
+        "SEA-INTERACT",
+        "SEA-INVENTORY"
+      ],
+      "verification": "docs/development/2026-10-28_pocket_action_bubbles.md",
+      "note": "用户指定gpt-image-2原创建图，参考图未入包；图标接入验证与授权pending分开登记。挖掘等图标预留，不增加未实现玩法。"
+    },
+    {
+      "asset_id": "UI-POCKET-HANDDRAWN-001",
+      "name": "随身口袋 · 手绘物品图标16枚",
+      "domain": "ui",
+      "stage": "runtime_verified_license_pending",
+      "source": "art_source/ui/handdrawn/v001/pocket-icons-source.png",
+      "source_sha256": "f0f693af39c8e183ea1c99c4b5e26bb18d1991bc91e2c1a9582efaa0a49e4f19",
+      "manifest": "assets/registry/manifests/ui_pocket_handdrawn_001.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/ui/handdrawn/",
+      "license": "pending_provider_terms_review",
+      "consumer_features": [
+        "SEA-UI",
+        "SEA-INTERACT",
+        "SEA-INVENTORY"
+      ],
+      "verification": "docs/development/2026-10-28_pocket_action_bubbles.md",
+      "note": "用户指定gpt-image-2原创建图，参考图未入包；图标接入验证与授权pending分开登记。挖掘等图标预留，不增加未实现玩法。"
     }
   ]
 }

@@ -1,0 +1,452 @@
+{
+  "manifest_invariants": {
+    "solar_cabin": {
+      "instances": 160,
+      "placement_and_geometry_unchanged": true,
+      "ids_unique": true
+    },
+    "bloom_lower_building": {
+      "instances": 298,
+      "placement_and_geometry_unchanged": true,
+      "ids_unique": true
+    }
+  },
+  "verification_runs": [
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\report.json",
+      "results": {
+        "visual-decorations": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\visual-decorations.log",
+          "user_data_name": "sea-verification/20261027-145854-decoration-visual-integration-7e4959/visual-decorations",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_scene_decorations.gd"
+          ]
+        },
+        "visual-solar-cabin": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL independent salvage unchanged"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\visual-solar-cabin.log",
+          "user_data_name": "sea-verification/20261027-145854-decoration-visual-integration-7e4959/visual-solar-cabin",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_solar_cabin_asset.gd"
+          ]
+        },
+        "solar-components": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\solar-components.log",
+          "user_data_name": "sea-verification/20261027-145854-decoration-visual-integration-7e4959/solar-components",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_solar_components.gd"
+          ]
+        },
+        "surface": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\surface.log",
+          "user_data_name": "sea-verification/20261027-145854-decoration-visual-integration-7e4959/surface",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_surface_movement.gd"
+          ]
+        },
+        "selftest": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\selftest.log",
+          "user_data_name": "sea-verification/20261027-145854-decoration-visual-integration-7e4959/selftest",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-145854-decoration-visual-integration-7e4959\\project",
+            "--headless",
+            "--",
+            "--selftest",
+            "--nosave"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\report.json",
+      "results": {
+        "decorations": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\decorations.log",
+          "user_data_name": "sea-verification/20261027-150142-decorations-final-5a0135/decorations",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_scene_decorations.gd"
+          ]
+        },
+        "solar-components": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\solar-components.log",
+          "user_data_name": "sea-verification/20261027-150142-decorations-final-5a0135/solar-components",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_solar_components.gd"
+          ]
+        },
+        "visual-solar-cabin": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\visual-solar-cabin.log",
+          "user_data_name": "sea-verification/20261027-150142-decorations-final-5a0135/visual-solar-cabin",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_solar_cabin_asset.gd"
+          ]
+        },
+        "surface": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\surface.log",
+          "user_data_name": "sea-verification/20261027-150142-decorations-final-5a0135/surface",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_surface_movement.gd"
+          ]
+        },
+        "selftest": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\selftest.log",
+          "user_data_name": "sea-verification/20261027-150142-decorations-final-5a0135/selftest",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150142-decorations-final-5a0135\\project",
+            "--headless",
+            "--",
+            "--selftest",
+            "--nosave"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\report.json",
+      "results": {
+        "visual-decorations": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\visual-decorations.log",
+          "user_data_name": "sea-verification/20261027-150534-decorations-delivery-4c1de8/visual-decorations",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_scene_decorations.gd"
+          ]
+        },
+        "decorations": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\decorations.log",
+          "user_data_name": "sea-verification/20261027-150534-decorations-delivery-4c1de8/decorations",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_scene_decorations.gd"
+          ]
+        },
+        "solar-components": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\solar-components.log",
+          "user_data_name": "sea-verification/20261027-150534-decorations-delivery-4c1de8/solar-components",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_solar_components.gd"
+          ]
+        },
+        "surface": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\surface.log",
+          "user_data_name": "sea-verification/20261027-150534-decorations-delivery-4c1de8/surface",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_surface_movement.gd"
+          ]
+        },
+        "selftest": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\selftest.log",
+          "user_data_name": "sea-verification/20261027-150534-decorations-delivery-4c1de8/selftest",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-150534-decorations-delivery-4c1de8\\project",
+            "--headless",
+            "--",
+            "--selftest",
+            "--nosave"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261027-163537-decorations-independent-197e1e\\report.json",
+      "results": {
+        "decorations": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-163537-decorations-independent-197e1e\\decorations.log",
+          "user_data_name": "sea-verification/20261027-163537-decorations-independent-197e1e/decorations",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-163537-decorations-independent-197e1e\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_scene_decorations.gd"
+          ]
+        },
+        "visual-decorations": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-163537-decorations-independent-197e1e\\visual-decorations.log",
+          "user_data_name": "sea-verification/20261027-163537-decorations-independent-197e1e/visual-decorations",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-163537-decorations-independent-197e1e\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_scene_decorations.gd"
+          ]
+        },
+        "visual-underwater-capture": {
+          "exit_code": 2,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-163537-decorations-independent-197e1e\\visual-underwater-capture.log",
+          "user_data_name": "sea-verification/20261027-163537-decorations-independent-197e1e/visual-underwater-capture",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-163537-decorations-independent-197e1e\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tools/capture_underwater_suite.gd"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261027-163833-decorations-dive-visible-1de355\\report.json",
+      "results": {
+        "visual-decorations": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL surface environment restored"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-163833-decorations-dive-visible-1de355\\visual-decorations.log",
+          "user_data_name": "sea-verification/20261027-163833-decorations-dive-visible-1de355/visual-decorations",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-163833-decorations-dive-visible-1de355\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_scene_decorations.gd"
+          ]
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261027-163954-decorations-dive-final-628b3a\\report.json",
+      "results": {
+        "visual-decorations": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261027-163954-decorations-dive-final-628b3a\\visual-decorations.log",
+          "user_data_name": "sea-verification/20261027-163954-decorations-dive-final-628b3a/visual-decorations",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261027-163954-decorations-dive-final-628b3a\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_scene_decorations.gd"
+          ]
+        }
+      }
+    }
+  ],
+  "note": "Earlier visual-solar-cabin failure was a stale salvage placement assertion; formal scene already used (-5,0,4.15) in HEAD.",
+  "final_checks": {
+    "decorations": "1589 checks, 0 failures; 163537 independent",
+    "visual-decorations": "1592 checks, 0 failures; 163954 dive-final",
+    "surface": "503 checks, 30 routes, 0 failures; 150534 delivery",
+    "selftest": "537 passed, 0 failed; 150534 delivery",
+    "solar-components": "PASS; 150534 delivery",
+    "visual-solar-cabin": "695 checks, 0 failures; 150142 final",
+    "feature_contracts": "PASS: 32 features, 426 source assets, 317 runtime hashes"
+  },
+  "limitations": [
+    "visual-underwater-capture not executed: missing historical web camera baseline, exit 2; replaced by current-scene visual-decorations dive capture, not claimed as parity pass",
+    "163833 probe attempted swim -> surface directly via private completion hook; FSM correctly rejected it. Probe fixed to use public surface(), wait exit completion; production code unchanged.",
+    "Legacy merged-building embedded details not all semantically separated; see asset maintenance_status."
+  ]
+}

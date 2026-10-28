@@ -15,9 +15,13 @@
     "godot/src/camera"
   ],
   "verification": [
+    "visual-title-screen-day",
+    "visual-title-screen-night",
+    "visual-title-screen-dawn",
     "camera",
     "click",
-    "framework-modules"
+    "framework-modules",
+    "visual-title-screen"
   ]
 }
 ```
@@ -30,6 +34,7 @@
 | SEA-CAMERA-R02 | pan/orbit/zoom动作独立，阻断端口；click/camera通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-CAMERA-R03 | 潜水阶段切换及退出回海面；selftest与framework-integration通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-CAMERA-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
+| SEA-CAMERA-R05 | 独立镜头适配已实现，真实鼠标入场验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 
 ## 资源与调用入口
 
@@ -72,3 +77,11 @@ SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、�
 新增条款 SEA-CAMERA-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
 
 2026-10-27 接口收口：公开姿态入口：apply_pose / orbit；Main 不再调用镜头私有姿态方法。
+
+## 2026-10-28 开始构图与存档时刻
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-CAMERA-R06 | 已实现；保持角度的房屋上移、按钮右移、三分辨率原生布局，白天/夜间/清晨存档冷启动与实际点击入场光照连续核验 | [本轮交付](../../development/2026-10-28_title_composition_saved_time.md) |
+
+开始机位只在TitleCamera临时接管，不改变玩家存档姿态；未修改光照时段参数、资产资源或存档格式。当前整体功能状态保持原状，目标设备等边界见交付记录。

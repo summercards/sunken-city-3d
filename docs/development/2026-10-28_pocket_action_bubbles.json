@@ -1,0 +1,453 @@
+{
+  "scope": "SEA-UI / SEA-INTERACT / SEA-INVENTORY / SEA-FARM; default minimum release and explicitly tagged legacy full-world checks",
+  "date": "2026-10-28",
+  "final_visual_run": "D:\\projects\\sea-work\\verification\\20261028-102904-pocket-bubbles-delivery-cfc669",
+  "records": [
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-101306-pocket-bubbles-compile-04b46f",
+      "asset_import": null,
+      "results": {
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-101306-pocket-bubbles-compile-04b46f\\minimum-loop.log",
+          "summary": "[minimum-loop] 77 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-101525-bubbles-plot-loop-508e1d",
+      "asset_import": null,
+      "results": {
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-101525-bubbles-plot-loop-508e1d\\visual-plot-shipping.log",
+          "summary": "[plot-shipping] 58 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-101826-pocket-bubbles-art-e28244",
+      "asset_import": {
+        "exit_code": 0,
+        "log": "D:\\projects\\sea-work\\verification\\20261028-101826-pocket-bubbles-art-e28244\\asset-import.log",
+        "unexpected_errors": []
+      },
+      "results": {
+        "visual-pocket-bubbles": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-101826-pocket-bubbles-art-e28244\\visual-pocket-bubbles.log",
+          "summary": "[pocket-bubbles] 61 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-102126-pocket-bubbles-final-visual-a6284b",
+      "asset_import": null,
+      "results": {
+        "visual-pocket-bubbles": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102126-pocket-bubbles-final-visual-a6284b\\visual-pocket-bubbles.log",
+          "summary": "[pocket-bubbles] 61 checks, 0 failures",
+          "full_world": false
+        },
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102126-pocket-bubbles-final-visual-a6284b\\visual-plot-shipping.log",
+          "summary": "[plot-shipping] 58 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-102237-pocket-bubbles-integration-8d5be5",
+      "asset_import": null,
+      "results": {
+        "click": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL 无种子立即反馈，不走空路",
+            "FAIL 面板外点击不穿透",
+            "FAIL 新航线取消旧拾取",
+            "FAIL 航行途中改道",
+            "FAIL 建造菜单前往并自动交付"
+          ],
+          "completion_marker": false,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102237-pocket-bubbles-integration-8d5be5\\click.log",
+          "summary": "[click-controls] 30 checks, 5 failures",
+          "full_world": false
+        },
+        "farming": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL 水壶12次用尽",
+            "FAIL 空壶拒绝",
+            "FAIL 补水继续"
+          ],
+          "completion_marker": false,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102237-pocket-bubbles-integration-8d5be5\\farming.log",
+          "summary": "[farming] 31 checks, 3 failed",
+          "full_world": false
+        },
+        "framework-modules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102237-pocket-bubbles-integration-8d5be5\\framework-modules.log",
+          "summary": "[framework-modules] 30 checks, 0 failures",
+          "full_world": false
+        },
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102237-pocket-bubbles-integration-8d5be5\\save-seed.log",
+          "summary": null,
+          "full_world": false
+        },
+        "framework-integration": {
+          "exit_code": 4294967295,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "SCRIPT ERROR: Invalid access of index '0' on a base object of type: 'Array'."
+          ],
+          "completion_marker": false,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102237-pocket-bubbles-integration-8d5be5\\framework-integration.log",
+          "summary": null,
+          "full_world": false
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102237-pocket-bubbles-integration-8d5be5\\minimum-loop.log",
+          "summary": "[minimum-loop] 77 checks, 0 failures",
+          "full_world": false
+        },
+        "sleep-cycle": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL world click approaches and begins sleep"
+          ],
+          "completion_marker": false,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102237-pocket-bubbles-integration-8d5be5\\sleep-cycle.log",
+          "summary": "[sleep-cycle] 3 checks, 1 failures",
+          "full_world": false
+        },
+        "title-screen": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102237-pocket-bubbles-integration-8d5be5\\title-screen.log",
+          "summary": "[title-screen] 25 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-102343-pocket-bubbles-full-world-d7b40d",
+      "asset_import": null,
+      "results": {
+        "click": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102343-pocket-bubbles-full-world-d7b40d\\click.log",
+          "summary": "[click-controls] 31 checks, 0 failures",
+          "full_world": true
+        },
+        "farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102343-pocket-bubbles-full-world-d7b40d\\farming.log",
+          "summary": "[farming] 31 checks, 0 failed",
+          "full_world": true
+        },
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102343-pocket-bubbles-full-world-d7b40d\\save-seed.log",
+          "summary": null,
+          "full_world": true
+        },
+        "framework-integration": {
+          "exit_code": 4294967295,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL interaction opens seed choices without planting",
+            "SCRIPT ERROR: Attempt to call function 'null::null (Callable)' on a null instance."
+          ],
+          "completion_marker": false,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102343-pocket-bubbles-full-world-d7b40d\\framework-integration.log",
+          "summary": null,
+          "full_world": true
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-102417-pocket-hover-visibility-8dd61a",
+      "asset_import": null,
+      "results": {
+        "visual-pocket-bubbles": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102417-pocket-hover-visibility-8dd61a\\visual-pocket-bubbles.log",
+          "summary": "[pocket-bubbles] 62 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-102608-pocket-cancel-sleep-hover-295436",
+      "asset_import": null,
+      "results": {
+        "pocket-bubbles": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102608-pocket-cancel-sleep-hover-295436\\pocket-bubbles.log",
+          "summary": "[pocket-bubbles] 62 checks, 0 failures",
+          "full_world": false
+        },
+        "sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102608-pocket-cancel-sleep-hover-295436\\sleep-cycle.log",
+          "summary": "[sleep-cycle] 33 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-102742-pocket-bubbles-framework-final-a70267",
+      "asset_import": null,
+      "results": {
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102742-pocket-bubbles-framework-final-a70267\\save-seed.log",
+          "summary": null,
+          "full_world": true
+        },
+        "framework-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102742-pocket-bubbles-framework-final-a70267\\framework-integration.log",
+          "summary": "[framework-integration] 44 checks, 0 failures",
+          "full_world": true
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-102904-pocket-bubbles-delivery-cfc669",
+      "asset_import": null,
+      "results": {
+        "visual-pocket-bubbles": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102904-pocket-bubbles-delivery-cfc669\\visual-pocket-bubbles.log",
+          "summary": "[pocket-bubbles] 65 checks, 0 failures",
+          "full_world": false
+        },
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102904-pocket-bubbles-delivery-cfc669\\visual-plot-shipping.log",
+          "summary": "[plot-shipping] 58 checks, 0 failures",
+          "full_world": false
+        },
+        "visual-sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102904-pocket-bubbles-delivery-cfc669\\visual-sleep-cycle.log",
+          "summary": "[sleep-cycle] 38 checks, 0 failures",
+          "full_world": false
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-102925-pocket-bubbles-selftest-1b2b1a",
+      "asset_import": null,
+      "results": {
+        "selftest": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261028-102925-pocket-bubbles-selftest-1b2b1a\\selftest.log",
+          "summary": "[selftest] 538 passed, 0 failed",
+          "full_world": true
+        }
+      }
+    }
+  ],
+  "not_run": [
+    "touch/gamepad",
+    "commercial license/provider terms clearance",
+    "long session UI soak",
+    "standalone exported package",
+    "new excavation gameplay (no existing command; icon prepared only)"
+  ],
+  "asset_ids": [
+    "UI-ACTION-HANDDRAWN-001",
+    "UI-POCKET-HANDDRAWN-001"
+  ],
+  "feature_contract_check": {
+    "sync": {
+      "exit_code": 1,
+      "passed": false,
+      "log": "D:\\projects\\sea-work\\ui-20261028\\feature-contract-sync.log",
+      "issues": [
+        "FAIL: runtime hash drift: godot/assets/data/zones.json",
+        "FAIL: runtime hash drift: godot/assets/materials/solar_cabin/sunny_emission.tres",
+        "FAIL: runtime hash drift: godot/assets/materials/solar_cabin/sunny_gloss.tres",
+        "FAIL: runtime hash drift: godot/assets/materials/solar_cabin/sunny_matte.tres",
+        "FAIL: runtime hash drift: godot/assets/materials/solar_cabin/sunny_metal.tres",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/ac_box/ac_box.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/ac_roof/ac_roof.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/ac_tall/ac_tall.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/canopy_post/canopy_post.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/concrete_slab/concrete_slab.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/dock_board/dock_board.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/dock_board_sand/dock_board_sand.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/dock_board_shade/dock_board_shade.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/house/house.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/platform_board/platform_board.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/platform_board_coral/platform_board_coral.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/platform_board_ochre/platform_board_ochre.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/terrace/terrace.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/instances.json",
+        "FAIL: 33 features, 431 source assets, 345 runtime resource hashes; 19 issues"
+      ]
+    },
+    "check": {
+      "exit_code": 1,
+      "passed": false,
+      "log": "D:\\projects\\sea-work\\ui-20261028\\feature-contract-check.log",
+      "issues": [
+        "FAIL: runtime hash drift: godot/assets/data/zones.json",
+        "FAIL: runtime hash drift: godot/assets/materials/solar_cabin/sunny_emission.tres",
+        "FAIL: runtime hash drift: godot/assets/materials/solar_cabin/sunny_gloss.tres",
+        "FAIL: runtime hash drift: godot/assets/materials/solar_cabin/sunny_matte.tres",
+        "FAIL: runtime hash drift: godot/assets/materials/solar_cabin/sunny_metal.tres",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/ac_box/ac_box.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/ac_roof/ac_roof.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/ac_tall/ac_tall.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/canopy_post/canopy_post.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/concrete_slab/concrete_slab.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/dock_board/dock_board.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/dock_board_sand/dock_board_sand.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/dock_board_shade/dock_board_shade.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/house/house.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/platform_board/platform_board.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/platform_board_coral/platform_board_coral.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/platform_board_ochre/platform_board_ochre.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/components/terrace/terrace.glb",
+        "FAIL: runtime hash drift: godot/assets/models/facilities/solar_cabin/instances.json",
+        "FAIL: 33 features, 431 source assets, 345 runtime resource hashes; 19 issues"
+      ]
+    }
+  },
+  "source_comparison": {
+    "matched": true,
+    "scripts": 11,
+    "basis": "Final visual run copies; normalize line endings and trailing EOF whitespace only"
+  },
+  "concurrent_asset_changes": "Solar cabin geometry/materials/instances and zones.json changed after the initial contract pass; keep unknown hashes unchanged. Full contract check remains pending in that domain."
+}

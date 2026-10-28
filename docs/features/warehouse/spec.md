@@ -15,7 +15,7 @@
 
 | 条款 ID | 目标规则 / 应验证的行为 |
 |---|---|
-| SEA-WAREHOUSE-R01 | 仓库提供 48 格，仅接受 material 类；货币、种子和作物留在背包。 |
+| SEA-WAREHOUSE-R01 | 默认开放48格保管仓库，接受种子、农产品、鱼和材料；货币不入库。保管仓库绝不自动出售，出货箱另有所有者。 |
 | SEA-WAREHOUSE-R02 | 存取不丢数量：仓满留在背包，包满留在仓库。 |
 | SEA-WAREHOUSE-R03 | 建设先使用背包再使用仓库，订单不能自动消费仓库；旧档缺仓库时补空仓。 |
 | SEA-WAREHOUSE-R04 | 仓库只经注入的资源和设施端口交换数据，持久化唯一归属 WarehouseService。 |
@@ -48,3 +48,15 @@
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
 - [godot/MANAGEMENT_LOOP.md](../../../godot/MANAGEMENT_LOOP.md)
+
+## 2026-10-27 当前最小循环与开始画面
+
+本节及本轮修改条款优先于下方保留的历史范围。默认发布配置只开放家园生活循环；旧全功能验证须显式 `--full-world`，不能代替最小版本验收。接口、迁移及实测见[交付记录](../../development/2026-10-27_minimum_loop_and_title.md)。
+
+## 2026-10-28 服务界面补齐
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-WAREHOUSE-R05 | 保管仓库界面以背包/仓库双口袋图标显示，按真实堆叠和容量分页；选择物品存入或取回，经既有WarehouseService命令执行，不回到旧文字表单。 |
+
+[本轮交付](../../development/2026-10-28_service_pockets.md)。

@@ -1,0 +1,170 @@
+{
+  "date": "2026-10-28",
+  "features": [
+    "SEA-CAMERA-R06",
+    "SEA-UI-R34",
+    "SEA-BOOT-R05"
+  ],
+  "renderer": "Windows / Godot 4.7.2 / Forward+ / RTX4060Ti",
+  "results": {
+    "visual-title-screen": {
+      "passed": true,
+      "exit_code": 0,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-164227-title-composition-ed2567\\visual-title-screen.log",
+      "completion": [
+        "[title-screen] 25 checks, 0 failures"
+      ]
+    },
+    "title-clock-seed": {
+      "passed": true,
+      "exit_code": 0,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-164507-title-saved-light-5936f3\\title-clock-seed.log",
+      "completion": [
+        "[title-clock-seed] ok=true"
+      ]
+    },
+    "visual-title-screen-day": {
+      "passed": true,
+      "exit_code": 0,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-164507-title-saved-light-5936f3\\visual-title-screen-day.log",
+      "completion": [
+        "[title-saved] 26 checks, 0 failures"
+      ]
+    },
+    "visual-title-screen-night": {
+      "passed": true,
+      "exit_code": 0,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-164507-title-saved-light-5936f3\\visual-title-screen-night.log",
+      "completion": [
+        "[title-saved] 26 checks, 0 failures"
+      ]
+    },
+    "visual-title-screen-dawn": {
+      "passed": true,
+      "exit_code": 0,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-164507-title-saved-light-5936f3\\visual-title-screen-dawn.log",
+      "completion": [
+        "[title-saved] 26 checks, 0 failures"
+      ]
+    },
+    "camera": {
+      "passed": true,
+      "exit_code": 0,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-164929-title-integration-150b50\\camera.log",
+      "completion": [
+        "[camera-follow] 8 checks, failures=0"
+      ]
+    },
+    "minimum-loop": {
+      "passed": true,
+      "exit_code": 0,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-164929-title-integration-150b50\\minimum-loop.log",
+      "completion": [
+        "[minimum-loop] 77 checks, 0 failures"
+      ]
+    },
+    "daylight": {
+      "passed": true,
+      "exit_code": 0,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-164929-title-integration-150b50\\daylight.log",
+      "completion": [
+        "[daylight] 231 checks, 0 failures"
+      ]
+    }
+  },
+  "saved_cases": {
+    "day": {
+      "ambient": 0.360000014305115,
+      "continuous": true,
+      "sky": 1.0,
+      "sun": 0.540000021457672,
+      "time": {
+        "day": 4,
+        "day_length": 1200.0,
+        "seconds": 32400.0
+      },
+      "variant": "day"
+    },
+    "night": {
+      "ambient": 0.229470908641815,
+      "continuous": true,
+      "sky": 0.159999996423721,
+      "sun": 0.0,
+      "time": {
+        "day": 4,
+        "day_length": 1200.0,
+        "seconds": 76500.0
+      },
+      "variant": "night"
+    },
+    "dawn": {
+      "ambient": 0.17679999768734,
+      "continuous": true,
+      "sky": 0.5,
+      "sun": 0.459000021219254,
+      "time": {
+        "day": 5,
+        "day_length": 1200.0,
+        "seconds": 21600.0
+      },
+      "variant": "dawn"
+    }
+  },
+  "sizes": [
+    [
+      1280,
+      800
+    ],
+    [
+      1600,
+      1000
+    ],
+    [
+      1920,
+      1080
+    ]
+  ],
+  "production_changes": {
+    "title_camera": "view-plane translation -up * 3.4m; direction/FOV31/distance64 unchanged",
+    "start_button": "horizontal viewport factor 0.66 -> 0.755",
+    "clock": "begin title consumes restored WorldClock.query().hour; no 09:00 override"
+  },
+  "not_run": [
+    "mobile/handheld input",
+    "gl_compatibility/WebGL rendering",
+    "disk failure and power-loss simulation"
+  ],
+  "resolved_test_issue": "First saved-clock assertion compared a typed clock dictionary against JSON numeric Variants. Replaced only that assertion with exact numeric comparisons for day/seconds/day_length; production save schema unchanged.",
+  "shots": "D:\\projects\\sea-work\\verification\\20261028-164507-title-saved-light-5936f3\\project\\outputs",
+  "asset_revision": {
+    "asset_id": "UI-TITLE-SEA-001",
+    "version": "v002",
+    "previous_source_sha256": "0e016a54790c8866a3bf3d77dc38b89eede5a75ec1117ad7a7b831e7c30dd1ae",
+    "source_sha256": "1dd5e2a8ac3a24aa6c133d83c0012919a4dbd705510ffddf38bc5b7f158481ef",
+    "verified_difference": "Only start-button horizontal anchor 0.66 -> 0.755; reverse substitution reproduces previous registered hash exactly."
+  }
+}

@@ -1,0 +1,540 @@
+{
+  "date": "2026-10-28",
+  "request_id": "8dc9a330-b868-4a82-90d2-1d1615b10d1b",
+  "original_chat": "修复箱子、夜间灯光和P键",
+  "resumed_chat": "Retry disconnected request",
+  "features": [
+    "SEA-WORLD-R09",
+    "SEA-ORDER-R09",
+    "SEA-ORDER-R10",
+    "SEA-OCEAN-R09",
+    "SEA-OCEAN-R11",
+    "SEA-OCEAN-R13",
+    "SEA-UI-R19",
+    "SEA-UI-R29",
+    "SEA-NAV-R06",
+    "SEA-TIME-R01",
+    "SEA-ASSET-R24"
+  ],
+  "current_runs": [
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-113031-home-lighting-final-7cabb6",
+      "results": {
+        "visual-home-lighting": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-113031-home-lighting-final-7cabb6\\visual-home-lighting.log",
+          "summary": "[home-lighting] 112 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-113031-home-lighting-final-7cabb6\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_home_lighting.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-112644-home-lighting-resumed-515baa",
+      "results": {
+        "visual-home-lighting": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112644-home-lighting-resumed-515baa\\visual-home-lighting.log",
+          "summary": "[home-lighting] 109 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112644-home-lighting-resumed-515baa\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_home_lighting.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "daylight": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112644-home-lighting-resumed-515baa\\daylight.log",
+          "summary": "[daylight] 194 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112644-home-lighting-resumed-515baa\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_daylight_rig.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112644-home-lighting-resumed-515baa\\minimum-loop.log",
+          "summary": "[minimum-loop] 77 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112644-home-lighting-resumed-515baa\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-112744-home-lighting-integration-607381",
+      "results": {
+        "lighting-params": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112744-home-lighting-integration-607381\\lighting-params.log",
+          "summary": "[lighting-params] 172 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112744-home-lighting-integration-607381\\project",
+            "--headless",
+            "--script",
+            "res://tools/check_light_params.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "lighting-panel": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112744-home-lighting-integration-607381\\lighting-panel.log",
+          "summary": "[light-probe] 22 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112744-home-lighting-integration-607381\\project",
+            "--headless",
+            "--script",
+            "res://tools/probe_light_panel.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-title-screen": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112744-home-lighting-integration-607381\\visual-title-screen.log",
+          "summary": "[title-screen] 25 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112744-home-lighting-integration-607381\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_screen.gd"
+          ]
+        },
+        "visual-plot-shipping": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112744-home-lighting-integration-607381\\visual-plot-shipping.log",
+          "summary": "[plot-shipping] 59 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112744-home-lighting-integration-607381\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_plot_shipping_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-112903-home-lighting-scene-regression-70cf4d",
+      "results": {
+        "visual-cabin-dayparts": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112903-home-lighting-scene-regression-70cf4d\\visual-cabin-dayparts.log",
+          "summary": "[cabin-dayparts] 75 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112903-home-lighting-scene-regression-70cf4d\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_cabin_dayparts.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112903-home-lighting-scene-regression-70cf4d\\ocean.log",
+          "summary": "[ocean] checks=141 failures=0",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112903-home-lighting-scene-regression-70cf4d\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_ocean.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "decorations": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-112903-home-lighting-scene-regression-70cf4d\\decorations.log",
+          "summary": "[decorations] 1589 checks, failures=0",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-112903-home-lighting-scene-regression-70cf4d\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_scene_decorations.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    }
+  ],
+  "prior_attempts": [
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-110948-home-lighting-before-5c2035",
+      "report_missing": true
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-110954-home-lighting-before-1b4574",
+      "results": {
+        "visual-home-lighting": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-110954-home-lighting-before-1b4574\\visual-home-lighting.log",
+          "summary": "[home-lighting] 0 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-110954-home-lighting-before-1b4574\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_home_lighting.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-111327-home-lighting-first-795bc0",
+      "results": {
+        "visual-home-lighting": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111327-home-lighting-first-795bc0\\visual-home-lighting.log",
+          "summary": "[home-lighting] 0 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-111327-home-lighting-first-795bc0\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_home_lighting.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "daylight": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111327-home-lighting-first-795bc0\\daylight.log",
+          "summary": "[daylight] 194 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-111327-home-lighting-first-795bc0\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_daylight_rig.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "headless",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111327-home-lighting-first-795bc0\\minimum-loop.log",
+          "summary": "[minimum-loop] 77 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-111327-home-lighting-first-795bc0\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-111521-home-lighting-panes-68df1c",
+      "results": {
+        "visual-home-lighting": {
+          "exit_code": 0,
+          "passed": true,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111521-home-lighting-panes-68df1c\\visual-home-lighting.log",
+          "summary": "[home-lighting] 0 checks, 0 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-111521-home-lighting-panes-68df1c\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_home_lighting.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261028-111917-home-lighting-regression-068b2c",
+      "results": {
+        "visual-home-lighting": {
+          "exit_code": 1,
+          "passed": false,
+          "renderer": "real",
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL P lighting controls edit the daylight baseline"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261028-111917-home-lighting-regression-068b2c\\visual-home-lighting.log",
+          "summary": "[home-lighting] 109 checks, 1 failures",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261028-111917-home-lighting-regression-068b2c\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_home_lighting.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    }
+  ],
+  "runtime_probe": {
+    "boat": {
+      "dark": "(0.0, 0.0, 0.0, 1.0)",
+      "day": "(0.17, 0.5123, 0.579, 1.0)",
+      "local_light": "(0.073, 0.0414, 0.0071, 1.0)",
+      "rect": "[P: (307.7496, 193.5098), S: (1034.213, 805.3707)]"
+    },
+    "box": {
+      "asset_id": "SEA-SCENE-SBR-COOLER",
+      "bounds": "[P: (0.265125, 1.38, 14.55703), S: (1.56975, 1.07916, 1.185938)]",
+      "position": "(1.05, 1.38, 15.15)"
+    },
+    "frames": [
+      {
+        "hour": 9.0,
+        "lamp_energy": 0.0
+      },
+      {
+        "hour": 18.5,
+        "lamp_energy": 3.05000001192093
+      },
+      {
+        "hour": 19.0,
+        "lamp_energy": 6.10000002384186
+      },
+      {
+        "hour": 0.0,
+        "lamp_energy": 6.10000002384186
+      },
+      {
+        "hour": 6.0,
+        "lamp_energy": 4.51851844787598
+      },
+      {
+        "hour": 7.0,
+        "lamp_energy": 0.0
+      }
+    ]
+  },
+  "source_comparison": {
+    "basis": "Byte-identical source versus final real-renderer isolated copy; project.godot user-data isolation fields intentionally differ.",
+    "files": {
+      "src/bootstrap/main.gd": true,
+      "src/core/play_scope.gd": true,
+      "src/navigation/boat.gd": true,
+      "src/world/sunny_bloom_visual.gd": true,
+      "src/rendering/daylight_rig.gd": true,
+      "src/rendering/color_grade_panel.gd": true,
+      "scenes/zones/zone1_home_harbor.tscn": true,
+      "scenes/facilities/solar_cabin_front_platform.tscn": true,
+      "scenes/facilities/solar_cabin_surface.tscn": true,
+      "scenes/facilities/solar_cabin_lighting.tscn": true,
+      "shaders/toon.gdshader": true,
+      "shaders/toon_alpha.gdshader": true,
+      "shaders/toon_common.gdshaderinc": true,
+      "shaders/sunny_palette.gdshader": true,
+      "shaders/sunny_palette_gloss.gdshader": true,
+      "tests/test_home_lighting.gd": true
+    },
+    "all_match": true
+  },
+  "asset_integrity": {
+    "asset_id": "SEA-SCENE-SBR-COOLER",
+    "source": "art_source/scenes/sunny_bloom_retreat/v008/components/cooler/cooler.blend",
+    "source_sha256": "2278f17c10654031219d3640ae0fd60bf0fc24621772de282bc7f495e082b934",
+    "runtime_path": "godot/assets/models/facilities/solar_cabin/components/cooler/cooler.glb",
+    "license": "pending_user_reference_rights_review",
+    "optimized_sha256": "55c9788ddef159c3b8aad8494ba01d8b7c791cb506dc756adea3a1c0b6abc19c"
+  },
+  "asset_integrity_unchanged": true,
+  "screenshots": {
+    "night": "D:\\projects\\sea-work\\home-lighting-recovery\\home-night.png",
+    "day": "D:\\projects\\sea-work\\home-lighting-recovery\\home-day.png",
+    "box-actions": "D:\\projects\\sea-work\\home-lighting-recovery\\home-box-actions.png",
+    "debug-p": "D:\\projects\\sea-work\\home-lighting-recovery\\home-debug-p.png",
+    "boat-day": "D:\\projects\\sea-work\\home-lighting-recovery\\home-boat-day.png",
+    "boat-dark": "D:\\projects\\sea-work\\home-lighting-recovery\\home-boat-dark.png",
+    "boat-local-light": "D:\\projects\\sea-work\\home-lighting-recovery\\home-boat-local-light.png"
+  },
+  "not_run": [
+    "gl_compatibility backend this round",
+    "touch/gamepad",
+    "standalone exported build",
+    "full-world selftest and complete 24-hour real-time playthrough",
+    "third-party/reference license clearance"
+  ],
+  "feature_contract_check": {
+    "sync": {
+      "command": "python3 scripts/check_feature_contracts.py --sync",
+      "exit_code": 0,
+      "passed": true,
+      "output": "PASS: 33 features, 432 source assets, 346 runtime resource hashes; 0 issues"
+    },
+    "check": {
+      "command": "python3 scripts/check_feature_contracts.py",
+      "exit_code": 0,
+      "passed": true,
+      "output": "PASS: 33 features, 432 source assets, 346 runtime resource hashes; 0 issues"
+    }
+  },
+  "diff_whitespace_check": {
+    "command": "git diff --check",
+    "exit_code": 0,
+    "passed": true,
+    "note": "Existing actor_controller/weather_presenter LF-to-CRLF notices only."
+  }
+}

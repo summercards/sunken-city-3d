@@ -19,7 +19,10 @@
     "management",
     "framework-modules",
     "framework-integration",
-    "save-protection"
+    "save-protection",
+    "minimum-loop",
+    "visual-plot-shipping",
+    "sleep-cycle"
   ]
 }
 ```
@@ -34,6 +37,8 @@
 | SEA-SAVE-R04 | SaveGame只访问注册表；恢复与UI刷新经公开适配接口 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-SAVE-R05 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
 | SEA-SAVE-R06 | 已实现并专项核验 | [边界补强记录](../../development/2026-10-27_framework_boundary_hardening.md) |
+| SEA-SAVE-R07 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-SAVE-R08 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 
 ## 资源与调用入口
 
@@ -65,7 +70,7 @@ SaveGame 仅依赖 host.save_registry；版本2全模块先验证后恢复，启
 
 ## 2026-10-26 功能与健康审计
 
-SEA-SAVE-R01/R02/R03/R04：selftest 存档子段24项通过，但隔离跨进程复现默认重启未读档、自动存档将98765海贝覆盖为80；空JSON被迁移接受，恢复将12345海贝清零；负船级/负容量/未知建筑键被接受。恢复仍访问Main/HUD私有字段。列为P1修复项，不能判健康；最终观测退出0仅表示复现完成。
+SEA-SAVE-R01/R02/R03/R04：selftest 存档子段24项通过，但隔离跨进程复现默认重启未读档、自动存档将98765瓶盖覆盖为80；空JSON被迁移接受，恢复将12345瓶盖清零；负船级/负容量/未知建筑键被接受。恢复仍访问Main/HUD私有字段。列为P1修复项，不能判健康；最终观测退出0仅表示复现完成。
 
 [本轮审计与证据](../../development/2026-10-26_feature_architecture_save_3c_audit.md)。本轮只审计和登记，未修改玩法实现。
 
@@ -80,3 +85,17 @@ SaveGame 仅依赖 host.save_registry；版本2全模块先验证后恢复，启
 SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档、未来备份、事件观察一致性与重入存盘专项通过。
 
 [本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。
+
+## 2026-10-27 当前最小循环与开始画面
+
+本节及本轮修改条款优先于下方保留的历史范围。默认发布配置只开放家园生活循环；旧全功能验证须显式 `--full-world`，不能代替最小版本验收。接口、迁移及实测见[交付记录](../../development/2026-10-27_minimum_loop_and_title.md)。
+
+2026-10-27 场景点击循环：07:00收货、瓶盖、木土种植格及码头出货箱；[本轮记录](../../development/2026-10-27_plot_shipping_loop.md)。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SAVE-R09 | 已实现，写盘与往返验证 | [本轮实测](../../development/2026-10-28_sleep_cycle_delivery.md) |
+
+## 2026-10-28 开始界面时间连续性
+
+开始背景改为读取已恢复的同一WorldClock时刻，不修改存档格式、时间字段或07:00晨次。开始期间继续冻结时钟，入场后恢复计时；白天/夜间/清晨真实存档冷启动验证见[本轮记录](../../development/2026-10-28_title_composition_saved_time.md)。

@@ -1,0 +1,302 @@
+{
+  "date": "2026-10-28",
+  "features": [
+    "SEA-OCEAN",
+    "SEA-NAV",
+    "SEA-TIME"
+  ],
+  "renderer": "Godot 4.7.2 / Forward+ / RTX 4060 Ti",
+  "results": {
+    "daylight": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-155114-atmosphere-verified-delivery-3c1c90\\daylight.log",
+      "completion": [
+        "[daylight] 231 checks, 0 failures"
+      ]
+    },
+    "water-params": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-155114-atmosphere-verified-delivery-3c1c90\\water-params.log",
+      "completion": [
+        "[water-params] PASS 原版 · 78 个参数与着色器一致（另有 21 个豁免）",
+        "[water-params] PASS 吸收式 · 45 个参数与着色器一致（另有 21 个豁免）"
+      ]
+    },
+    "lighting-params": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-155114-atmosphere-verified-delivery-3c1c90\\lighting-params.log",
+      "completion": [
+        "[lighting-params] 221 checks, 0 failures"
+      ]
+    },
+    "lighting-panel": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-155114-atmosphere-verified-delivery-3c1c90\\lighting-panel.log",
+      "completion": [
+        "[light-probe] 61 checks, 0 failures"
+      ]
+    },
+    "visual-atmosphere": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-155114-atmosphere-verified-delivery-3c1c90\\visual-atmosphere.log",
+      "completion": [
+        "[atmosphere] 68 checks, 0 failures"
+      ]
+    },
+    "minimum-loop": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-155114-atmosphere-verified-delivery-3c1c90\\minimum-loop.log",
+      "completion": [
+        "[minimum-loop] 77 checks, 0 failures"
+      ]
+    },
+    "sleep-cycle": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-155114-atmosphere-verified-delivery-3c1c90\\sleep-cycle.log",
+      "completion": [
+        "[sleep-cycle] 33 checks, 0 failures"
+      ]
+    },
+    "visual-home-lighting": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-153505-atmosphere-real-light-final-b6c987\\visual-home-lighting.log",
+      "completion": [
+        "[home-lighting] 114 checks, 0 failures"
+      ]
+    },
+    "ocean": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-153505-atmosphere-real-light-final-b6c987\\ocean.log",
+      "completion": [
+        "[ocean] checks=141 failures=0"
+      ]
+    },
+    "visual-cabin-dayparts": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "real",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-153645-atmosphere-integration-final-b37b5c\\visual-cabin-dayparts.log",
+      "completion": [
+        "[cabin-dayparts] 75 checks, 0 failures"
+      ]
+    },
+    "surface": {
+      "exit_code": 0,
+      "passed": true,
+      "renderer": "headless",
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-151653-atmosphere-navigation-080ffc\\surface.log",
+      "completion": [
+        "[surface] routes=30 checks=503 failures=0"
+      ]
+    }
+  },
+  "protected_keyframes": {
+    "7.0": {
+      "unchanged": true,
+      "value": "{\"hour\":7.0,\"label\":\"上午\",\"values\":[1.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0]},"
+    },
+    "11.0": {
+      "unchanged": true,
+      "value": "{\"hour\":11.0,\"label\":\"上午\",\"values\":[1.0,1.0,1.0,1.0,0.0,0.0,1.0,0.0]},"
+    },
+    "12.0": {
+      "unchanged": true,
+      "value": "{\"hour\":12.0,\"label\":\"正午\",\"values\":[1.30,1.08,1.18,1.06,0.0,0.0,1.60,42.0]},"
+    },
+    "14.0": {
+      "unchanged": true,
+      "value": "{\"hour\":14.0,\"label\":\"正午\",\"values\":[1.30,1.08,1.18,1.06,0.0,0.0,1.60,42.0]},"
+    },
+    "17.0": {
+      "unchanged": true,
+      "value": "{\"hour\":17.0,\"label\":\"夕阳\",\"values\":[0.56,0.48,0.55,0.52,1.0,0.0,0.21,115.0]},"
+    },
+    "18.3": {
+      "unchanged": true,
+      "value": "{\"hour\":18.3,\"label\":\"夕阳\",\"values\":[0.40,0.32,0.38,0.36,1.0,0.0,0.10,122.0]},"
+    }
+  },
+  "protected_saved_groups": {
+    "spring|clear|sunset": true,
+    "spring|cloudy|sunset": true
+  },
+  "configuration_read_only": {
+    "filter.cfg": {
+      "backup_sha256": "b19b092739a9f78ab75aeb893c0d704faf58760697b2f333da97e24465ccab14",
+      "current_sha256": "542250b20f499ad830726f06efb67bef586b675d5f6da46d982629d24a2e741b"
+    },
+    "light_slots.cfg": {
+      "backup_sha256": "f00980411915845de5267d338b8207bf4cb7325046f913f41e0c600ac9aa5f68",
+      "current_sha256": "bc3e0eecc25ce75920b00a5adca5e1d996d0626d8ddf38f32b2a1329b35ce4d3"
+    },
+    "water.cfg": {
+      "backup_sha256": "ae228a6a2d3d119dfc603c7b9fb3a4d36d80a868c4c9148c47f5bb9a29387410",
+      "current_sha256": "03c1d9e4c8da5bf0f652f891e10e96caafd842b6ad4e66c79b33b508c55e0464"
+    },
+    "water_presets.cfg": {
+      "backup_sha256": "71bcb03599c0024bda4ddcf2fb62e2fd41340a194dd4fa1f4df13658c3db6f03",
+      "current_sha256": "71bcb03599c0024bda4ddcf2fb62e2fd41340a194dd4fa1f4df13658c3db6f03"
+    }
+  },
+  "configuration_note": "Only read/copied user lighting settings. Live night/water settings changed during work; latest files were preserved, never replaced with the older fixture. Approved daytime groups remain semantically unchanged.",
+  "profile_backup": "D:\\projects\\sea-work\\atmosphere-20261028\\profile-backup",
+  "profile_fixture": "D:\\projects\\sea-work\\atmosphere-20261028\\profile-current",
+  "frames": "D:\\projects\\sea-work\\verification\\20261028-155114-atmosphere-verified-delivery-3c1c90\\project\\outputs",
+  "metrics": {
+    "absorption": {
+      "b": 0.30870751953125,
+      "lum": 0.0991078487951308,
+      "r": 0.000304574429988861,
+      "rgb": "(0.000305, 0.107319, 0.308708)",
+      "std": 0.00303361130589391
+    },
+    "afternoon": {
+      "b": 0.626710896809896,
+      "lum": 0.38252785636733,
+      "r": 3.46405232946078e-05,
+      "rgb": "(0.000035, 0.47162, 0.626711)",
+      "std": 0.00427206407495392
+    },
+    "boat": {
+      "bounds": "[P: (507.8843, 287.7466), S: (630.7225, 492.406)]",
+      "reflection_pixels": 5551,
+      "warm_pixels": 14332
+    },
+    "dawn": {
+      "b": 0.338817240397135,
+      "lum": 0.235481074288487,
+      "r": 0.100154368082682,
+      "rgb": "(0.100154, 0.265264, 0.338817)",
+      "std": 0.00806154967453863
+    },
+    "depth_absorption": {
+      "deep_5m": 0.466429456444559,
+      "shallow_0_6m": 0.588117162954319
+    },
+    "depth_original": {
+      "deep_5m": 0.309946689576634,
+      "shallow_0_6m": 0.82999900495542
+    },
+    "midnight": {
+      "b": 0.320173970540365,
+      "lum": 0.177786884430175,
+      "r": 0.11502685546875,
+      "rgb": "(0.115027, 0.182078, 0.320174)",
+      "std": 0.0739355458287082
+    },
+    "morning": {
+      "b": 0.82660986328125,
+      "lum": 0.535366763412952,
+      "r": 0.0134302139282227,
+      "rgb": "(0.01343, 0.661068, 0.82661)",
+      "std": 0.00710187742338236
+    },
+    "native_light": {
+      "all_lights_off": {
+        "b": 0.0,
+        "lum": 0.0,
+        "r": 0.0,
+        "rgb": "(0.0, 0.0, 0.0)",
+        "std": 0.0
+      },
+      "before": {
+        "b": 0.369355982000178,
+        "lum": 0.197414358308123,
+        "r": 0.124817044281762,
+        "rgb": "(0.124817, 0.201636, 0.369356)",
+        "std": 0.0340964079588592
+      },
+      "moved": {
+        "b": 0.369355982000178,
+        "lum": 0.197414358308123,
+        "r": 0.124817044281762,
+        "rgb": "(0.124817, 0.201636, 0.369356)",
+        "std": 0.0340964079588592
+      },
+      "on": {
+        "b": 0.374184915842104,
+        "lum": 0.231118351959985,
+        "r": 0.216074005631376,
+        "rgb": "(0.216074, 0.221146, 0.374185)",
+        "std": 0.0347071966206686
+      }
+    },
+    "night": {
+      "b": 0.355498128255208,
+      "lum": 0.186295001920313,
+      "r": 0.114481292724609,
+      "rgb": "(0.114481, 0.19057, 0.355498)",
+      "std": 0.0730699752518045
+    },
+    "noon": {
+      "b": 0.726986002604167,
+      "lum": 0.453807981617749,
+      "r": 4.18300678332647e-05,
+      "rgb": "(0.000042, 0.561099, 0.726986)",
+      "std": 0.00333090269651509
+    },
+    "sunset": {
+      "b": 0.562817993164062,
+      "lum": 0.37779268998156,
+      "r": 0.0865917663574219,
+      "rgb": "(0.086592, 0.445709, 0.562818)",
+      "std": 0.00739339978756467
+    }
+  },
+  "not_run": [
+    "gl_compatibility/WebGL real rendering",
+    "mobile/target devices",
+    "user judgement of final atmosphere"
+  ],
+  "scope_retry": {
+    "first_log": "D:\\projects\\sea-work\\verification\\20261028-151508-atmosphere-delivery-35a137\\surface.log",
+    "exit_code": 1,
+    "failures": 27,
+    "reason": "Legacy 30-route fixture includes locked zones; explicit full-world retry passed 30 routes / 503 checks."
+  },
+  "asset_reuse": {
+    "asset_id": "SEA-SCENE-SBR-LANTERN",
+    "license": "pending_user_reference_rights_review",
+    "source_or_glb_changed": false
+  }
+}

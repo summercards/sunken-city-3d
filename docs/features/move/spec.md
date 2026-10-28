@@ -35,11 +35,22 @@
 
 ## 当前实现与待完成边界
 
-角色控制已由 Main 拆到 ActorController；8 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
+角色控制已由 Main 拆到 ActorController；9 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
 
 2026-10-27 接口：start_walk / approach / depart / cancel / request_mode / restore_pose / state_id / snapshot；state_changed、mode_changed；状态/动作目录见模块约定。
 
 详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
+
+## 2026-10-28 登陆标记的双向往返
+
+| 条款 ID | 目标规则 / 应验证的行为 |
+|---|---|
+| SEA-MOVE-R06 | 同一个登陆标记按「角色现在在哪」决定方向，不新增第二个按钮：已在岸上点击 → 走回该泊位站立点后上船，角色挂到船下；已在船上且停在该泊位 → 上岸，角色挂回世界并落在 `stand_position()`；船不在该泊位（含别的区块）→ 先航行，**靠妥后自动上岸**，不需要玩家再点一次。 |
+| SEA-MOVE-R07 | 「到岸即上岸」是一次性意图：`_ashore_on_arrival` 在产生时置位，被到达回调消费后立即清零；取消动作、改划水面、点漂流物/鱼群、船被岸线挡停、读档恢复都必须清零，任何后续航线不得继承上一次的意图。 |
+
+角色仍在 `ActorController` 的既有状态表内完成：上岸 = `start_walk(landing.ground(), landing.stand_position())`，抵达即 `ashore_idle`；上船 = `depart()` → `boarding` → `boat_idle`。没有新增状态或边。
+
+[本轮交付](../../development/2026-10-28_dock_seed_weather_asset_fix.md)。
 
 ## 验收入口
 
@@ -51,3 +62,9 @@
 - [拆分前功能计划](../../archive/pre_split_20261023/功能重做计划.md)
 - [本次工程拆分记录](../../development/2026-10-23_feature_split.md)
 - [godot/CLICK_CONTROLS.md](../../../godot/CLICK_CONTROLS.md)
+
+## 2026-10-28 补充契约
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-MOVE-R05 | begin_sleep取消路径和交互后进入独立sleeping状态；该状态不评估行走/交互，醒来经restore_pose恢复ashore_idle。 |

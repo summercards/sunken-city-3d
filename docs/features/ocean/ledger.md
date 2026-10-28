@@ -20,7 +20,13 @@
     "ocean",
     "visual-sea-style",
     "lighting-params",
-    "lighting-panel"
+    "lighting-panel",
+    "daylight",
+    "visual-weather",
+    "visual-home-lighting",
+    "visual-atmosphere",
+    "visual-boat-lamp",
+    "water-params"
   ]
 }
 ```
@@ -105,3 +111,61 @@
 - 2026-10-26 水色按参考帧定版 + 俯视立体明暗 + P 面板去遮罩：新增 `relief` 段（`relief_light` / `relief_shade` / `relief_gain` / `relief_color` / `relief_enabled`），只改颜色，不动顶点位移、共享波场、船吃水与岸线距离图。驱动量用各向异性噪声：先用 `wave.x`、再用单条 4.9 m 波相位，两版都在海面留下平行斜纹，已改掉。`body_deep` → `(0.031, 0.588, 0.788)`、`exposure_comp` → `0.230`；纯水格实测绿通道 107.3 / 标准差 5.08，参考帧 109.8 / 5.06。P 面板不再铺 HUD 的压暗遮罩（见 SEA-UI-R17）。`ocean` / `visual-sea-style` 退出 0；`selftest` 仍 535 通过 2 失败，两项在未改动代码上同样存在（背包格子容器、zone1 共享材质），非本轮引入。 [交付记录](../../development/2026-10-26_water_look_and_panel_dim.md)。
 
 - 2026-10-26 光照参数进 P 面板：新增 `src/rendering/light_params.gd` 作为「光照」页的唯一清单（环境 19 项 + 太阳 11 项），`color_grade_panel.gd` 由两页扩成「滤镜 / 光照 / 水面」三页。太阳朝向以相对海平面的高度角/方位角表达（`look_at` 反算基），不让玩家在欧拉角上换算。写入分两条路：环境走 `ResourceSaver`（并还原被它改成 LF 的 CRLF 行尾，避免整文件 diff 幻影），太阳按行改 `main.tscn` 的 Sun 节点块（实测只动 2 行，节点数与 unique_id 原样保留）。同时修掉一个会丢存档的坑：`_save_cfg()` 原来新建 ConfigFile 直接 save，会把同文件的 `[environment]` / `[sun]` 段抹掉，现改为先 load。新增 `tools/check_light_params.gd`（172 项）、`tools/probe_light_panel.gd`（22 项），并登记进 `scripts/run_verification.py` 的 `lighting-params` / `lighting-panel`。[交付记录](../../development/2026-10-26_light_param_panel.md)。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R11 | 已实现，逐属性与时段连续性专项 | [本轮实测](../../development/2026-10-28_daylight_sleep.md) |
+
+## 2026-10-28 分时段光照修订
+
+| 对应设计条款 | 实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R12 | 预设、太阳/补光/环境/天空/两套水面同源，当前专项通过 | [分时段实测](../../development/2026-10-28_thin_cabin_and_dayparts.md)，07–11点严格恢复09点；19点后日光与海面提亮归零；逐时段真实Vulkan截图与参数/边界断言 |
+
+## 2026-10-28 家园箱子与夜灯修复
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R13 | 已实现；真实渲染和相关集成检查通过，设备边界单列 | [本轮实测](../../development/2026-10-28_home_lighting_recovery.md) |
+
+SEA-OCEAN-R09/R11：修复面板key与引擎prop不一致造成基准读写旁路的问题；光照保存/恢复/重置与跨夜基准实测通过。
+
+[交付记录](../../development/2026-10-28_home_lighting_recovery.md)。
+
+## 2026-10-28 面板预览上下文
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R14 | 已实现；季节/天气/时段三键既是偏移分组也是预览上下文，游戏状态不改，关面板一次放掉 | `lighting-panel` 61项（44→61，含「点多云立刻切过去 / 游戏天气没被改 / 关面板回实际」）+ `lighting-params` 221项 + `daylight` 194项 + 真实渲染 `visual-home-lighting` 114项 |
+
+修复背景：`_apply_offsets` 只读游戏实际那一组，而 `weather.json` 是 `mode=fixed`（晴）、季节固定春 —— 面板点「多云 / 夏」写进去的偏移没有任何代码读得到，表现为滑杆拖了没反应。
+
+[交付记录](../../development/2026-10-28_weather_preview_context.md)。
+
+## 2026-10-28 清晨、下午与温暖夜海
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R15 | 已实现；清晨低角度朝阳、明亮下午、双方案连续深蓝夜海，真实渲染通过 | [本轮记录](../../development/2026-10-28_cozy_daypart_atmosphere.md) |
+| SEA-OCEAN-R16 | 已实现；凹入玻璃发光、暖色灯芯、引擎真实灯直接照亮水面；船灯开关像素对照通过 | 同上，visual-atmosphere与visual-home-lighting |
+| SEA-OCEAN-R17 | 已实现；09:00基准、面板61项、配置保全及四季×三天气预览核验 | 同上，daylight/lighting-panel/配置哈希 |
+
+R12/R13的旧全暗夜景已被R15–R17替代。新增world_night全局与WaterMoon真实方向灯只由DaylightRig写入；最终版本没有water_lamps数组或额外模拟倒影。复用灯笼AssetID的授权pending保持原记录，本轮不变更资产哈希或制作源。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R18 | 已实现；夜间零自发光PBR水面、真实月光/船灯/普通灯受光；普通灯开关、移动与全暗对照为本轮真实渲染门禁 | [本轮记录](../../development/2026-10-28_cozy_daypart_atmosphere.md) |
+
+上午/正午/夕阳的原关键帧逐项冻结核验；夜海深浅材质色、深水距离、浅水不透明度与粗糙度五项加入双方案参数清单与分时段可调范围。用户配置仅只读复制到验证目录，开发期间发现实际夜间配置有更新时保留最新文件，不用旧备份覆盖。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R19 | 已实现；水深重建、浅水透明、深水吸收与水下轮廓恢复，双水方案分别进行受控深浅物体对照 | [本轮记录](../../development/2026-10-28_cozy_daypart_atmosphere.md) |
+
+## 2026-10-28 外舷夜航照水灯
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R20 | 已实现；外舷短杆与下照暖色实灯，双方案纯水区域开关差分、远近衰减与随船转向/离开验证 | [设计与本轮验收](../../development/2026-10-28_boat_navigation_lamp.md) |
+
+船灯由Omni改为Spot，捕获按Light3D基类筛选home_lamps/boat_lamps分组；仍只有一个船灯，未新增灯光强度写入者。沿用原灯笼资产与boat/furnishing/bow_lantern实例ID；木杆为Boat运行包装内置几何配件。未改灯笼制作源、GLB或授权pending状态。

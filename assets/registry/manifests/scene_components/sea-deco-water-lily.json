@@ -1,0 +1,16 @@
+{
+  "asset_id": "SEA-DECO-WATER-LILY",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-DECO-WATER-LILY",
+  "source": "godot/assets/data/lily_components.json",
+  "prefab": "godot/scenes/decorations/water/lily_leaf.tscn",
+  "classification": {
+    "category": "decoration",
+    "subcategory": "water_plants"
+  },
+  "dependencies": [
+    "godot/assets/baked/scene.json",
+    "godot/assets/baked/geoms.bin",
+    "godot/assets/baked/geoms_idx.bin"
+  ],
+  "note": "运行组件登记；来源授权和交互玩法验收分别记录。"
+}

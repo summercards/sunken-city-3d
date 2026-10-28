@@ -21,7 +21,9 @@
     "farming",
     "management",
     "modules",
-    "framework-integration"
+    "framework-integration",
+    "minimum-loop",
+    "visual-plot-shipping"
   ]
 }
 ```
@@ -30,13 +32,15 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-FARM-R01 | 18格经营规则保留；farming31项与selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
-| SEA-FARM-R02 | 休息推进；自然世界日历不暗中推进，集成专项通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-FARM-R01 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+| SEA-FARM-R02 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-FARM-R03 | 容量、余额及多茬逻辑；farming/management通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-FARM-R04 | farm v2与旧秒制迁移；farming/selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-FARM-R05 | 无Autoload modules通过；场景显式注入Farm | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
-| SEA-FARM-R06 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
+| SEA-FARM-R06 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-FARM-R07 | 已实现并专项核验 | [边界补强记录](../../development/2026-10-27_framework_boundary_hardening.md) |
+| SEA-FARM-R08 | 已改用世界气泡，选择后接近并消费一次；实际鼠标三日种植/收获/出货通过 | [本轮证据](../../development/2026-10-28_pocket_action_bubbles.md) |
+| SEA-FARM-R09 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 
 ## 资源与调用入口
 
@@ -80,3 +84,20 @@ Farm 的规则端口保留；FarmField/FarmPlot 显式注入 Farm，不再访问
 state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅截图调试使用；modules31项覆盖。
 
 [本轮实测记录](../../development/2026-10-27_framework_boundary_hardening.md)。
+
+## 2026-10-27 当前最小循环与开始画面
+
+本节及本轮修改条款优先于下方保留的历史范围。默认发布配置只开放家园生活循环；旧全功能验证须显式 `--full-world`，不能代替最小版本验收。接口、迁移及实测见[交付记录](../../development/2026-10-27_minimum_loop_and_title.md)。
+
+2026-10-27 场景点击循环：07:00收货、瓶盖、木土种植格及码头出货箱；[本轮记录](../../development/2026-10-27_plot_shipping_loop.md)。
+
+2026-10-28：R08输入与视图更新；`visual-plot-shipping`覆盖按气泡播种/浇水/收获、已浇水拒绝、仅显示持有种子、07:00出货及存读。
+
+## 2026-10-28 种植一律走种子二级
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-FARM-R09 | 已实现；单一种子也弹二级并标数量 | `dock-seed` 5 项断言；`visual-plot-menu` 真实点击两张截图 |
+| SEA-FARM-R10 | 已实现；簇按包围盒夹取 | `visual-plot-menu` 锚点居中与靠边两种情况 |
+
+[本轮记录](../../development/2026-10-28_dock_seed_weather_asset_fix.md)。

@@ -1,0 +1,15 @@
+{
+  "asset_id": "SEA-DECO-ANIMAL-BIRD",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-DECO-ANIMAL-BIRD",
+  "source": "godot/assets/baked/birds.json",
+  "prefab": "godot/scenes/decorations/animals/bird.tscn",
+  "classification": {
+    "category": "decoration",
+    "subcategory": "animals"
+  },
+  "dependencies": [
+    "godot/src/ambient/bird.gd",
+    "godot/src/ambient/birds.gd"
+  ],
+  "note": "运行组件登记；来源授权和交互玩法验收分别记录。"
+}
