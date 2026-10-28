@@ -18,11 +18,14 @@ func check(ok: bool, message: String) -> void:
 		failures += 1
 		printerr("FAIL ", message)
 
+## 机位不能用 cam.target/distance 摆：orbit camera 的 distance 会被 zoom_min(9.0) 夹住，
+## 而海鸥在 19+12≈31 m 高空，9 m 之外只剩米粒大。这里直接停掉跟随逻辑，
+## 手动摆 position/look_at —— 短距特写只在这个专项里用，不污染正式相机。
 func shot(label: String, target: Vector3, distance: float, orbit: Vector3) -> void:
-	main.cam.target = target
-	main.cam.distance = distance
-	main.cam.orbit_dir = orbit.normalized()
-	main.cam.refresh()
+	var cam: Camera3D = main.cam
+	cam.set_process(false)
+	cam.global_position = target + orbit.normalized() * distance
+	cam.look_at(target, Vector3.UP)
 	for i in 14:
 		await process_frame
 	await RenderingServer.frame_post_draw
