@@ -57,6 +57,8 @@ begin_site_upgrade / tick_sites / site_level / site_next_cost；sites_changed、
 
 ## 变更记录
 
+- 2026-10-28：完成海上木板扩建与种植摆件的静态研究，现有固定升级与发布范围不变；自由放置、通用玩法包装、动态空间和布局存档仍待实施。[研究方案](../../development/2026-10-28_buildable_deck_planters_research.md)。本记录不表示新增功能已实现或运行验收通过。
+
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
 
 ## 2026-10-27 模块框架落地

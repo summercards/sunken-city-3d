@@ -1,0 +1,818 @@
+{
+  "feature_ids": [
+    "SEA-ASSET",
+    "SEA-WORLD",
+    "SEA-OCEAN"
+  ],
+  "requirements": [
+    "SEA-ASSET-R29",
+    "SEA-WORLD-R10",
+    "SEA-OCEAN-R21"
+  ],
+  "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+  "source_sha256": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+  "optimized_source": "art_source/scenes/submerged_neighborhood/v001/export/v001/submerged_neighborhood_optimized.blend",
+  "optimized_sha256": "e2df797bd4a12b65af25c0bf804ca2151e459316cc224a906425c758bfb960a3",
+  "protected_sources_unchanged": true,
+  "geometry": [
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-TERRACED-TOWER",
+      "key": "terraced_tower",
+      "polygons": 424,
+      "triangles_before": 880,
+      "triangles_after": 880,
+      "exported_triangles": 880,
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/terraced_tower/terraced_tower.glb",
+      "runtime_sha256": "76c857a2ade93249d90f81c10d2ef44a2db66dd78c922e0123da90887360e6b3"
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-ROUNDED-TOWER",
+      "key": "rounded_tower",
+      "polygons": 351,
+      "triangles_before": 784,
+      "triangles_after": 784,
+      "exported_triangles": 784,
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/rounded_tower/rounded_tower.glb",
+      "runtime_sha256": "b2a90a3b7e15d4c578c465f667c35aa1589c3dd089f78eacbfc3f1e8ac6c2843"
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-SLENDER-TOWER",
+      "key": "slender_tower",
+      "polygons": 298,
+      "triangles_before": 636,
+      "triangles_after": 636,
+      "exported_triangles": 636,
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/slender_tower/slender_tower.glb",
+      "runtime_sha256": "d814ea5e799c51575e122d76214f9c81fd75263ebc70896f986eb334cb220bd6"
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-STEPPED-LOWRISE",
+      "key": "stepped_lowrise",
+      "polygons": 213,
+      "triangles_before": 438,
+      "triangles_after": 438,
+      "exported_triangles": 438,
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/stepped_lowrise/stepped_lowrise.glb",
+      "runtime_sha256": "68159739aec7f73db3b8a6e39b5786a006d32128aa5aa4821ad527987b05b77a"
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-FLAT-ANNEX",
+      "key": "flat_annex",
+      "polygons": 232,
+      "triangles_before": 496,
+      "triangles_after": 496,
+      "exported_triangles": 496,
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/flat_annex/flat_annex.glb",
+      "runtime_sha256": "3a3e0f7b6ed62d445dbe3fc506c52abd6724527d311407a5e912e892b5216745"
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-REAR-SLAB",
+      "key": "rear_slab",
+      "polygons": 338,
+      "triangles_before": 716,
+      "triangles_after": 716,
+      "exported_triangles": 716,
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/rear_slab/rear_slab.glb",
+      "runtime_sha256": "9b493009bb8b4e2b32da6044262b83fbe04e83a4e157f74c12b2982865beb787"
+    }
+  ],
+  "total_triangles": 3950,
+  "independent_packages_reopened": 6,
+  "source_uv_checks": "every face area and 8px cell margin; identity transforms; external unique palette; Closest",
+  "runtime_reports": [
+    "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-223721-submerged-delivery-fc2816\\report.json"
+  ],
+  "runtime_results": {
+    "visual-submerged-neighborhood": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-223721-submerged-delivery-fc2816\\visual-submerged-neighborhood.log",
+      "user_data_name": "sea-verification/20261028-223721-submerged-delivery-fc2816/visual-submerged-neighborhood",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-223721-submerged-delivery-fc2816\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_submerged_neighborhood.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261028-223721-submerged-delivery-fc2816\\report.json"
+    },
+    "ocean": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\ocean.log",
+      "user_data_name": "sea-verification/20261028-223619-submerged-final-regressions-69475e/ocean",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_ocean.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\report.json"
+    },
+    "visual-atmosphere": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\visual-atmosphere.log",
+      "user_data_name": "sea-verification/20261028-223619-submerged-final-regressions-69475e/visual-atmosphere",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_atmosphere.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\report.json"
+    },
+    "minimum-loop": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\minimum-loop.log",
+      "user_data_name": "sea-verification/20261028-223619-submerged-final-regressions-69475e/minimum-loop",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_minimum_loop.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261028-223619-submerged-final-regressions-69475e\\report.json"
+    },
+    "visual-submerged-water-light": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-223721-submerged-delivery-fc2816\\visual-submerged-water-light.log",
+      "user_data_name": "sea-verification/20261028-223721-submerged-delivery-fc2816/visual-submerged-water-light",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-223721-submerged-delivery-fc2816\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_submerged_water_light.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261028-223721-submerged-delivery-fc2816\\report.json"
+    }
+  },
+  "global_contracts": {
+    "sync": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\projects\\sea\\scripts\\check_feature_contracts.py",
+        "--sync"
+      ],
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\submerged_neighborhood_v001\\feature-contracts-sync.log",
+      "output": "FAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/assets/materials/world_env.tres\nFAIL: 33 features, 454 source assets, 366 runtime resource hashes; 2 issues\n"
+    },
+    "check": {
+      "command": [
+        "C:\\Users\\zhuangmenghong\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\projects\\sea\\scripts\\check_feature_contracts.py"
+      ],
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\submerged_neighborhood_v001\\feature-contracts-check.log",
+      "output": "FAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/assets/materials/world_env.tres\nFAIL: derived feature index stale; use --sync\nFAIL: 33 features, 454 source assets, 366 runtime resource hashes; 3 issues\n"
+    }
+  },
+  "provenance": "User supplied reference commercial rights pending; hidden elevations inferred",
+  "not_executed": [
+    "mobile/WeChat rendering",
+    "all historical full-world tests",
+    "user art approval",
+    "commercial rights verification"
+  ],
+  "known_warning": "2D MSAA enabled with no 2D content",
+  "source_work_directory": "D:\\projects\\sea-work\\submerged_neighborhood_v001",
+  "formal_layout": "godot/scenes/decorations/underwater/neighborhood.tscn",
+  "optimization_fidelity_rgb_mean_difference_8bit": {
+    "front": [
+      1.2941176470588236e-05,
+      8.235294117647058e-06,
+      1.8823529411764704e-05
+    ],
+    "back": [
+      3.5294117647058825e-06,
+      8.235294117647058e-06,
+      1.411764705882353e-05
+    ],
+    "side": [
+      1.2941176470588236e-05,
+      1.1764705882352942e-05,
+      9.411764705882352e-06
+    ],
+    "top": [
+      5.882352941176471e-06,
+      1.2941176470588236e-05,
+      8.235294117647058e-06
+    ]
+  },
+  "time_slot_pixel_comparison": [
+    {
+      "hour": 0.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.000256599189015105,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.000140263873618096,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.000103112717624754,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "slot": "deep_night"
+    },
+    {
+      "hour": 5.5,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "slot": "pre_dawn"
+    },
+    {
+      "hour": 6.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.113678366644308,
+            "minimum": 0.0227161049842834,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.086623003531713,
+            "minimum": 0.039539635181427,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0217167304945178,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "slot": "dawn"
+    },
+    {
+      "hour": 7.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0647740914719179,
+            "minimum": 0.0128658711910248,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.0494035662850365,
+            "minimum": 0.020765483379364,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0126222039107233,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "slot": "morning"
+    },
+    {
+      "hour": 12.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0378899704664946,
+            "minimum": 0.00642269849777222,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.0516915819607675,
+            "minimum": 0.011785089969635,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.00753787788562477,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "slot": "noon"
+    },
+    {
+      "hour": 14.2,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0677046981872991,
+            "minimum": 0.0154031217098236,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.050453825504519,
+            "minimum": 0.0207655429840088,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0122482050210238,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "slot": "afternoon"
+    },
+    {
+      "hour": 17.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.125470852071885,
+            "minimum": 0.0263701975345612,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.102266634465195,
+            "minimum": 0.0496368557214737,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0251913681859151,
+            "minimum": 0.00308781862258911,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "slot": "sunset"
+    },
+    {
+      "hour": 19.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.000141063152113929,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 5.47427916899323e-05,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 5.45404618605971e-05,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "original",
+      "slot": "night"
+    },
+    {
+      "hour": 0.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "slot": "deep_night"
+    },
+    {
+      "hour": 5.5,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "slot": "pre_dawn"
+    },
+    {
+      "hour": 6.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.022444786503911,
+            "minimum": -0.0030878484249115,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.00860319321509451,
+            "minimum": -0.00280469655990601,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0191724576288834,
+            "minimum": -0.000283122062683105,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "slot": "dawn"
+    },
+    {
+      "hour": 7.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0114083763910457,
+            "minimum": -0.00308787822723389,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.00795427802950144,
+            "minimum": -0.00308787822723389,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0219416846521199,
+            "minimum": -0.00280469655990601,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "slot": "morning"
+    },
+    {
+      "hour": 12.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0153030103538185,
+            "minimum": -0.00280469655990601,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.012342220870778,
+            "minimum": -0.00280469655990601,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0319787089247257,
+            "minimum": -0.000283181667327881,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "slot": "noon"
+    },
+    {
+      "hour": 14.2,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0130111415637657,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.00892509263940156,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0250017838552594,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "slot": "afternoon"
+    },
+    {
+      "hour": 17.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 0.0253404710674658,
+            "minimum": 0.000283122062683105,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 0.0110538710141554,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 0.0221841880120337,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "slot": "sunset"
+    },
+    {
+      "hour": 19.0,
+      "patches": [
+        {
+          "delta": {
+            "mean": 9.1611931566149e-05,
+            "minimum": 0.0,
+            "rect": "[P: (387, 445), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "rounded_tower"
+        },
+        {
+          "delta": {
+            "mean": 4.6982429921627e-05,
+            "minimum": 0.0,
+            "rect": "[P: (846, 649), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "stepped_lowrise"
+        },
+        {
+          "delta": {
+            "mean": 9.15931304916739e-05,
+            "minimum": 0.0,
+            "rect": "[P: (602, 631), S: (16, 16)]",
+            "samples": 256
+          },
+          "key": "flat_annex"
+        }
+      ],
+      "scheme": "absorption",
+      "slot": "night"
+    }
+  ],
+  "caustic_diagnostic_before": {
+    "report": "D:\\projects\\sea-work\\verification\\20261028-223415-submerged-caustic-before-7a7df7\\report.json",
+    "checks": "96, 15 failures; original darkening measured on real roofs",
+    "worst_mean_luminance_delta": -0.0711028272053227
+  },
+  "caustic_after": {
+    "slot_count": 8,
+    "schemes": [
+      "absorption",
+      "original"
+    ],
+    "worst_mean_luminance_delta": 0.0
+  }
+}

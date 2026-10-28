@@ -65,17 +65,33 @@ def run(cmd, timeout, cwd=None):
         return 127, f'找不到命令: {exc}'
 
 
+GODOT_CANDIDATES = [
+    Path(r'I:\Godot_v4.6.3-stable_win64.exe\Godot_v4.6.3-stable_win64_console.exe'),
+    Path(r'I:\Godot_v4.6.3-stable_win64.exe\Godot_v4.6.3-stable_win64.exe'),
+    Path(r'C:\Program Files\Godot\godot.exe'),
+    Path.home() / 'bin/godot.exe',
+]
+
+
 def find_godot():
-    exe = shutil.which('godot') or shutil.which('godot.exe')
-    if exe:
-        return exe
-    for cand in [
-        Path(r'C:\Program Files\Godot\godot.exe'),
-        Path.home() / 'bin/godot.exe',
-        Path.home() / 'bin/godot',
-    ]:
+    """优先返回真实 .exe。
+
+    本机的 `~/bin/godot` 是 sh 垫片、`godot.cmd` 是 cmd 垫片，subprocess
+    都不能直接执行（CreateProcess 只认 PE），必须落到它们指向的真身上。
+    """
+    for cand in GODOT_CANDIDATES:
         if cand.exists():
             return str(cand)
+    for name in ('godot.exe', 'godot'):
+        exe = shutil.which(name)
+        if exe and not exe.lower().endswith(('.cmd', '.bat', '.sh')):
+            return exe
+    # 兜底：读垫片里写死的真身路径
+    for shim in (Path.home() / 'bin/godot.cmd',):
+        if shim.exists():
+            for tok in shim.read_text(encoding='utf-8', errors='replace').replace('"', ' ').split():
+                if tok.lower().endswith('.exe') and Path(tok).exists():
+                    return tok
     return None
 
 
@@ -133,25 +149,40 @@ def git_step(result):
 
     # 先试 origin（内网 Tailscale，经常离线），失败回退 upstream；两者都失败才记错。
     attempts = []
-    origin_code, origin_out = run(['git', 'push', 'origin', branch], 120)
-    attempts.append(('origin', origin_code, origin_out))
-    if origin_code == 0:
+    ok, origin_out = try_push('origin', branch, 120, result)
+    attempts.append(('origin', 0 if ok else 1, origin_out))
+    if ok:
         result['git']['push'] = 'origin ok'
         result['git']['push_ok'] = True
         return
 
-    up_code, up_out = run(['git', 'push', 'upstream', branch], GIT_PUSH_TIMEOUT)
-    attempts.append(('upstream', up_code, up_out))
+    ok, up_out = try_push('upstream', branch, GIT_PUSH_TIMEOUT, result)
+    attempts.append(('upstream', 0 if ok else 1, up_out))
     result['git']['attempts'] = [
         {'remote': r, 'code': c, 'tail': (o or '').strip().splitlines()[-2:]}
         for r, c, o in attempts
     ]
-    if up_code == 0:
+    if ok:
         result['git']['push'] = 'upstream ok（origin 不可达，按约定跳过）'
         result['git']['push_ok'] = True
     else:
         result['git']['push'] = 'origin 与 upstream 均失败'
         result['git']['push_ok'] = False
+
+
+def try_push(remote, branch, timeout, result):
+    """推送一次；non-fast-forward 自动 rebase 重试一次，绝不 force。"""
+    code, out = run(['git', 'push', remote, branch], timeout)
+    if code == 0:
+        return True, out
+    text = out.lower()
+    rejected = 'non-fast-forward' in text or 'rejected' in text or 'fetch first' in text
+    if not rejected:
+        return False, out
+    run(['git', 'pull', '--rebase', remote, branch], timeout)
+    code, out = run(['git', 'push', remote, branch], timeout)
+    result['git']['rebased'] = True
+    return code == 0, out
 
 
 # ---------------------------------------------------------------- 导出
@@ -200,6 +231,42 @@ def web_size_mib():
     return round(total / 1048576, 1)
 
 
+def patch_web_pack(result):
+    """发布链路不带 .pck 白名单，把游戏包改成 .bin 并让引擎按 mainPack 加载。
+
+    Godot 的 engine.js 里是 `config.mainPack || executive + '.pck'`，
+    所以只要改 index.html 的 GODOT_CONFIG 并同步 service worker 的缓存清单，
+    改名后能正常加载。改完 .bin 就在发布白名单内。
+    """
+    pck = WEB_DIR / 'index.pck'
+    binp = WEB_DIR / 'index.bin'
+    if not pck.exists():
+        result['package']['web_pack'] = '缺少 index.pck'
+        return False
+    if binp.exists():
+        binp.unlink()
+    pck.rename(binp)
+
+    html = WEB_DIR / 'index.html'
+    text = html.read_text(encoding='utf-8')
+    if '"mainPack"' not in text:
+        text = text.replace('"executable":"index",', '"executable":"index","mainPack":"index.bin",', 1)
+    text = text.replace('index.pck', 'index.bin')
+    html.write_text(text, encoding='utf-8')
+
+    sw = WEB_DIR / 'index.service.worker.js'
+    if sw.exists():
+        sw.write_text(sw.read_text(encoding='utf-8').replace('index.pck', 'index.bin'),
+                      encoding='utf-8')
+
+    ok = binp.exists() and '"mainPack":"index.bin"' in html.read_text(encoding='utf-8')
+    result['package']['web_pack'] = {
+        'pck_mib': round(binp.stat().st_size / 1048576, 1) if binp.exists() else 0,
+        'mainpack_patched': ok,
+    }
+    return ok
+
+
 # ---------------------------------------------------------------- 发布
 
 def publish(publish_py, source, state, key, result):
@@ -207,6 +274,8 @@ def publish(publish_py, source, state, key, result):
     cmd = [sys.executable, str(publish_py), 'server', str(source)]
     if site_id:
         cmd += ['--update', '--site-id', site_id]
+    else:
+        cmd += ['--name', f'sea-{key}']
     code, out = run(cmd, PUBLISH_TIMEOUT)
     url = None
     for line in out.splitlines():
@@ -263,6 +332,8 @@ def main():
             else:
                 result['export']['web']['mib'] = web_size_mib()
                 log(f'  Web 产物 {web_size_mib()} MiB')
+                if not patch_web_pack(result):
+                    result['problems'].append('Web 游戏包改名失败')
 
             log('导出 Windows')
             clean(WIN_DIR)
