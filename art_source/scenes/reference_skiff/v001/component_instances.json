@@ -1,0 +1,890 @@
+{
+  "schema": "sea.component_instances",
+  "plane": "Blender XY",
+  "up": "+Z",
+  "rotation": "Euler XYZ radians",
+  "godot_mapping": "(x,y,z)->(x,z,-y)",
+  "runtime_placement_owner": "godot/scenes/props/reference_skiff.tscn",
+  "instances": [
+    {
+      "instance_id": "boat/hull_000",
+      "key": "hull",
+      "asset_id": "SEA-SCENE-SKIFF-HULL",
+      "position": [
+        -0.00010246038436889648,
+        0.2370898723602295,
+        -0.20562687516212463
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/gunwale_001",
+      "key": "gunwale",
+      "asset_id": "SEA-SCENE-SKIFF-GUNWALE",
+      "position": [
+        -0.00010251998901367188,
+        0.2370898723602295,
+        0.06817173957824707
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_002",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        -1.9600000381469727,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.02,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_003",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        -1.725000023841858,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.02,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_004",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        -1.4900000095367432,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.02,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_005",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        -1.2549999952316284,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.02,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_006",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        -1.0199999809265137,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.02,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_007",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        -0.7850000262260437,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_008",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        -0.550000011920929,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_009",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        -0.3149999976158142,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_010",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        -0.07999999821186066,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_011",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        0.1550000011920929,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_012",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        0.38999998569488525,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_013",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        0.625,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_014",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        0.8600000143051147,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_015",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        1.0950000286102295,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_016",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        1.3300000429153442,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_017",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        1.565000057220459,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.9,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/floor_board_018",
+      "key": "floor_board",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "position": [
+        0.0,
+        1.7999999523162842,
+        0.1274999976158142
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.9,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/bench_019",
+      "key": "bench",
+      "asset_id": "SEA-SCENE-SKIFF-BENCH",
+      "position": [
+        0.0,
+        -1.5,
+        0.3449999988079071
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/bench_020",
+      "key": "bench",
+      "asset_id": "SEA-SCENE-SKIFF-BENCH",
+      "position": [
+        0.0,
+        -0.15000000596046448,
+        0.3449999988079071
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.04,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/bench_021",
+      "key": "bench",
+      "asset_id": "SEA-SCENE-SKIFF-BENCH",
+      "position": [
+        0.0,
+        1.399999976158142,
+        0.3449999988079071
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.85,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_022",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        -0.8700000047683716,
+        -1.7999999523162842,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_023",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        0.8700000047683716,
+        -1.7999999523162842,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_024",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        -0.9200000166893005,
+        -0.8999999761581421,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_025",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        0.9200000166893005,
+        -0.8999999761581421,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_026",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        -0.9399999976158142,
+        0.0,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_027",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        0.9399999976158142,
+        0.0,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_028",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        -0.8500000238418579,
+        0.8999999761581421,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_029",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        0.8500000238418579,
+        0.8999999761581421,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_030",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        -0.6100000143051147,
+        1.7999999523162842,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rib_031",
+      "key": "rib",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "position": [
+        0.6100000143051147,
+        1.7999999523162842,
+        0.10499999672174454
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/outboard_032",
+      "key": "outboard",
+      "asset_id": "SEA-SCENE-SKIFF-OUTBOARD",
+      "position": [
+        0.15862378478050232,
+        -2.414470672607422,
+        -0.45809125900268555
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/luggage_033",
+      "key": "luggage",
+      "asset_id": "SEA-SCENE-SKIFF-LUGGAGE",
+      "position": [
+        0.4374488294124603,
+        0.7259802222251892,
+        0.20000000298023224
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.18
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/fender_034",
+      "key": "fender",
+      "asset_id": "SEA-SCENE-SKIFF-FENDER",
+      "position": [
+        -1.2549999952316284,
+        -1.0,
+        0.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/fender_035",
+      "key": "fender",
+      "asset_id": "SEA-SCENE-SKIFF-FENDER",
+      "position": [
+        1.2549999952316284,
+        0.800000011920929,
+        0.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/OarLVisual",
+      "key": "oar",
+      "asset_id": "SEA-SCENE-SKIFF-OAR",
+      "position": [
+        -2.1322317123413086,
+        -0.10000009089708328,
+        0.6990000009536743
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/OarRVisual",
+      "key": "oar",
+      "asset_id": "SEA-SCENE-SKIFF-OAR",
+      "position": [
+        2.1322317123413086,
+        -0.10000000149011612,
+        0.6990000009536743
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/oarlock_038",
+      "key": "oarlock",
+      "asset_id": "SEA-SCENE-SKIFF-OARLOCK",
+      "position": [
+        -1.100000023841858,
+        -0.10000000149011612,
+        0.6600000262260437
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/oarlock_039",
+      "key": "oarlock",
+      "asset_id": "SEA-SCENE-SKIFF-OARLOCK",
+      "position": [
+        1.100000023841858,
+        -0.10000000149011612,
+        0.6600000262260437
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/cleat_040",
+      "key": "cleat",
+      "asset_id": "SEA-SCENE-SKIFF-CLEAT",
+      "position": [
+        -0.7200000286102295,
+        -2.240000009536743,
+        0.7300000190734863
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/cleat_041",
+      "key": "cleat",
+      "asset_id": "SEA-SCENE-SKIFF-CLEAT",
+      "position": [
+        0.7200000286102295,
+        -2.240000009536743,
+        0.7300000190734863
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/cleat_042",
+      "key": "cleat",
+      "asset_id": "SEA-SCENE-SKIFF-CLEAT",
+      "position": [
+        0.10000000149011612,
+        2.680000066757202,
+        0.7300000190734863
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "instance_id": "boat/rope_coil_043",
+      "key": "rope_coil",
+      "asset_id": "SEA-SCENE-SKIFF-ROPE-COIL",
+      "position": [
+        -0.5,
+        -1.5199999809265137,
+        0.6100000143051147
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ]
+}

@@ -18,6 +18,8 @@
     "godot/assets/data/zones.json"
   ],
   "verification": [
+    "submerged-neighborhood",
+    "visual-submerged-neighborhood",
     "selftest",
     "surface",
     "visual-sea-style",
@@ -46,6 +48,10 @@
 | SEA-WORLD-R09 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 
 ## 资源与调用入口
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-WORLD-R10 | 六栋纯景观建筑独立接入zone1；当前实景专项核验 | [制作与验收](../../development/2026-10-28_submerged_neighborhood.md)；正式TSCN持有摆位，MultiMesh基座真实包围盒避让、楼间水道、全屋顶淹没、无互动/碰撞/船阻挡/岸线泡沫 |
 
 - [godot/src/world](../../../godot/src/world)
 - [godot/scenes/zones](../../../godot/scenes/zones)

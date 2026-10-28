@@ -1,0 +1,19 @@
+{
+  "asset_id": "UI-NOTEBOOK-001",
+  "asset_ledger": "assets/registry/ledgers/ui.json#UI-NOTEBOOK-001",
+  "source": "godot/src/ui/notebook.gd",
+  "runtime_path": "godot/src/ui/notebook.gd",
+  "dependencies": [
+    {
+      "path": "godot/src/ui/notebook_data.gd",
+      "sha256": "9efcf420573391a5b67126ba329bc2606bc3a8a39942749c9f9b8109c4a50eb0"
+    }
+  ],
+  "reused_assets": [
+    "UI-FONT-LXGW975YUAN-SC-700",
+    "UI-ACTION-HANDDRAWN-001",
+    "UI-POCKET-HANDDRAWN-001"
+  ],
+  "verification": "docs/development/2026-10-28_corner_hud_notebook.md",
+  "version": "v001"
+}

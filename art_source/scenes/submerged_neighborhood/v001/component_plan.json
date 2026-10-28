@@ -1,0 +1,180 @@
+{
+  "schema": "sea.scene_component_plan",
+  "version": "v001",
+  "status": "frozen_before_geometry",
+  "reference": "reference.jpg",
+  "reference_sha256": "6c1bb3c62abbdf71ae8895d53b32b31674ee91f134f3f0cbf8686b86eab14262",
+  "reference_license": "user_supplied_reference_commercial_rights_pending",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "unique_component_count": 6,
+  "components": [
+    {
+      "key": "terraced_tower",
+      "name": "水下景观·错层檐线楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-TERRACED-TOWER",
+      "semantic_family": "tiered",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        8.8,
+        7.2,
+        17.6
+      ],
+      "floors": 5,
+      "style": "tiered",
+      "triangle_budget": 1000,
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        13.6,
+        -18.8,
+        11.5
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false
+    },
+    {
+      "key": "rounded_tower",
+      "name": "水下景观·弧角窗廊楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-ROUNDED-TOWER",
+      "semantic_family": "curved",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        8.2,
+        7.0,
+        19.4
+      ],
+      "floors": 6,
+      "style": "curved",
+      "triangle_budget": 1000,
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -7.8,
+        -20.4,
+        3.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false
+    },
+    {
+      "key": "slender_tower",
+      "name": "水下景观·窄身竖窗楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-SLENDER-TOWER",
+      "semantic_family": "slender",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        4.2,
+        5.0,
+        14.2
+      ],
+      "floors": 5,
+      "style": "slender",
+      "triangle_budget": 1000,
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -4.0,
+        -16.2,
+        -5.9
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false
+    },
+    {
+      "key": "stepped_lowrise",
+      "name": "水下景观·L形矮楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-STEPPED-LOWRISE",
+      "semantic_family": "L",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        7.0,
+        5.6,
+        9.0
+      ],
+      "floors": 3,
+      "style": "L",
+      "triangle_budget": 1000,
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        4.3,
+        -12.0,
+        23.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false
+    },
+    {
+      "key": "flat_annex",
+      "name": "水下景观·窄顶附楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-FLAT-ANNEX",
+      "semantic_family": "annex",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        3.6,
+        4.6,
+        10.4
+      ],
+      "floors": 4,
+      "style": "annex",
+      "triangle_budget": 1000,
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -4.2,
+        -14.6,
+        17.3
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false
+    },
+    {
+      "key": "rear_slab",
+      "name": "水下景观·后排板楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-REAR-SLAB",
+      "semantic_family": "slab",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        6.8,
+        4.4,
+        16.0
+      ],
+      "floors": 5,
+      "style": "slab",
+      "triangle_budget": 1000,
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        8.0,
+        -20.5,
+        -6.5
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false
+    }
+  ],
+  "budget_basis": "User single building <=1000 faces; enforce evaluated/exported triangles <=1000, all attached geometry included",
+  "camera_interpretation": "High oblique view: rounded tall block left, slender block in rear water channel, terraced block beside existing sunroom base right, two lower flat roofs in front. Hidden elevations inferred.",
+  "ownership": "Six individually loadable decorative buildings. Existing sunroom, its seven-floor base, salvage, navigation and water materials protected; TSCN owns final placement.",
+  "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y)",
+  "art_direction": "Teal concrete, broad turquoise roof plates and layered cornices, dark blue recessed window bands, vertical piers, occasional coral paint scars. Real single-segment bevel on silhouette edges. No emissive materials."
+}

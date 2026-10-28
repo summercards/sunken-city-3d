@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-RIB",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-RIB",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/rib/rib.blend",
+  "source_sha256": "56302a958fee2b98a59ea2b5ddeb8cfefc4b46cef18dac8a64ead29eed01aacf",
+  "component": {
+    "key": "rib",
+    "name": "内舷木肋",
+    "asset_id": "SEA-SCENE-SKIFF-RIB",
+    "semantic_family": "rib",
+    "category": "structure",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-RIB",
+    "bounds": {
+      "min": [
+        -0.1173916906118393,
+        -0.05999999865889549,
+        0.0
+      ],
+      "max": [
+        0.1173916906118393,
+        0.05999999865889549,
+        0.5449659824371338
+      ]
+    },
+    "instance_count": 10,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "83b983f7e37196d09e9adf7f9b4c191d37f4fe5d51449e51e9610d662ea58602",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/rib/rib.glb",
+  "runtime_sha256": "f72956dcde195176405a43be8f082cda008249e1818ff9f161a12775fc17390a",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/rib.tscn",
+  "prefab_sha256": "4dba34a81f046d6a81f5787d14969cb4dc5b7684e12044f8e3eb7ce96f4da1b0",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/rib/rib.glb.import",
+    "sha256": "7f307fd80b7db59ea594edf27ecbc8c6db93674815402f69471359aeb895bb72",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

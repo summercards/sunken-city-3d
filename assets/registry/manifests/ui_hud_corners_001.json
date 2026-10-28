@@ -1,0 +1,23 @@
+{
+  "asset_id": "UI-HUD-CORNERS-001",
+  "asset_ledger": "assets/registry/ledgers/ui.json#UI-HUD-CORNERS-001",
+  "source": "godot/src/ui/corner_hud.gd",
+  "runtime_path": "godot/src/ui/corner_hud.gd",
+  "dependencies": [
+    {
+      "path": "godot/src/ui/launcher_icon.gd",
+      "sha256": "c8cc116c117c770984466b5442b6d6b82453b3244be0e024f024c7eee0f8bf45"
+    },
+    {
+      "path": "godot/src/ui/landing_markers.gd",
+      "sha256": "34067fa9d7b94fe4de5bd22a68d85e40bd7b18a1b7cef4865b706fc983103914"
+    }
+  ],
+  "reused_assets": [
+    "UI-FONT-LXGW975YUAN-SC-700",
+    "UI-ACTION-HANDDRAWN-001",
+    "UI-POCKET-HANDDRAWN-001"
+  ],
+  "verification": "docs/development/2026-10-28_hud_date_camera_lock.md",
+  "version": "v002"
+}

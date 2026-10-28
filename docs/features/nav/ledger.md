@@ -18,16 +18,26 @@
     "godot/src/navigation/route_ribbon.gd"
   ],
   "verification": [
+    "reference-skiff",
+    "visual-reference-skiff",
+    "visual-corner-notebook",
     "surface",
     "selftest",
     "framework-modules",
     "minimum-loop",
     "visual-home-lighting",
     "visual-atmosphere",
-    "visual-boat-lamp"
+    "visual-boat-lamp",
+    "visual-route-ripple"
   ]
 }
 ```
+
+## 2026-10-28 参考小船替换
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-NAV-R09 | 已接入；包络、原点、桨动画、灯具和真实渲染专项通过 | [交付及基线对照](../../development/2026-10-28_reference_skiff.md)。全世界30条航路完成；surface的种植Prefab断言1项和selftest4项失败与旧Boat一致，保留既有问题，不改无关玩法。 |
 
 ## 设计承接与实施条目
 
@@ -129,3 +139,20 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 | SEA-NAV-R08 | 已实现；外舷短杆与下照暖色实灯，双方案纯水区域开关差分、远近衰减与随船转向/离开验证 | [设计与本轮验收](../../development/2026-10-28_boat_navigation_lamp.md) |
 
 船灯由Omni改为Spot，捕获按Light3D基类筛选home_lamps/boat_lamps分组；仍只有一个船灯，未新增灯光强度写入者。沿用原灯笼资产与boat/furnishing/bow_lantern实例ID；木杆为Boat运行包装内置几何配件。未改灯笼制作源、GLB或授权pending状态。
+
+
+## 2026-10-28 HUD与笔记表现接线
+
+泊位外观和命中接口由SEA-UI-R38承接：同套手绘船锚，去名称，30→50px靠近放大并变暖金，点击半径26px。稳定zone/landing及双向登船/靠岸、自动登陆语义保留。
+
+对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。
+
+## 2026-10-28 航线虚线移除与点击水纹
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-NAV-R09 | 已实现；航路虚线整条删除，终点改贴浪扩散水纹，点击落点复用同一套；真实渲染 4 相位与点击回归通过 | [本轮交付](../../development/2026-10-28_route_ripple_replaces_dashed_line.md) |
+
+`route_ribbon.gd` 保留 `show_route(points, water_y)` 签名，只取航路末点；`debug_band_count()` 恒 0 供断言盯着航段不回潮。`click_reticle.gd` 还原为岸上走位落点环；`_try_sail_to` / `_select_landing` 不再叠加准星。新增着色器 `godot/shaders/water_ripple.gdshader`。航速、转向、碰撞、泊位、寻路与 30 条航线数据未改动。
+
+验证入口：`python3 scripts/run_verification.py visual-route-ripple click --full-world`。`click` 的三条跨区用例依赖 `--full-world`，属既有前提差异。

@@ -60,8 +60,8 @@ func run() -> void:
 	check(nose.dot(tangent) > 0.9, "鼻尖朝前（dot=%.3f）" % nose.dot(tangent))
 	# 侧拍：相机站在切线右侧。鸟头朝画面左/右都行，屁股对着镜头才是回归。
 	var right := nose.cross(Vector3.UP).normalized()
-	await shot("nose-side", body.global_position, 2.6, right + Vector3.UP * 0.28)
-	await shot("nose-front", body.global_position, 2.6, nose + Vector3.UP * 0.3)
+	await shot("nose-side", body.global_position, 5.5, right + Vector3.UP * 0.22)
+	await shot("nose-front", body.global_position, 5.5, nose + Vector3.UP * 0.25)
 	# 全景：整群仍在屋顶上方绕飞，不是贴地穿插。
 	await shot("flock-wide", first.flight_center + Vector3.UP * first.altitude, 26.0,
 		Vector3(-0.45, 0.8, 0.6))

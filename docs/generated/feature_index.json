@@ -97,6 +97,9 @@
         "godot/src/navigation/route_ribbon.gd"
       ],
       "verification": [
+        "reference-skiff",
+        "visual-reference-skiff",
+        "visual-corner-notebook",
         "surface",
         "selftest",
         "framework-modules",
@@ -121,6 +124,7 @@
         "godot/src/camera"
       ],
       "verification": [
+        "visual-corner-notebook",
         "visual-title-screen-day",
         "visual-title-screen-night",
         "visual-title-screen-dawn",
@@ -145,6 +149,7 @@
         "godot/src/interaction"
       ],
       "verification": [
+        "visual-corner-notebook",
         "click",
         "surface",
         "framework-integration",
@@ -187,6 +192,7 @@
         "godot/assets/data/items.json"
       ],
       "verification": [
+        "visual-corner-notebook",
         "selftest",
         "management",
         "minimum-loop",
@@ -301,6 +307,7 @@
         "godot/scenes/props/farm_cell.tscn"
       ],
       "verification": [
+        "visual-corner-notebook",
         "farming",
         "management",
         "modules",
@@ -459,6 +466,7 @@
         "godot/assets/data/world_time.json"
       ],
       "verification": [
+        "visual-corner-notebook",
         "framework-modules",
         "framework-integration",
         "visual-weather",
@@ -564,6 +572,7 @@
         "godot/src/ui"
       ],
       "verification": [
+        "visual-corner-notebook",
         "visual-title-screen-day",
         "visual-title-screen-night",
         "visual-title-screen-dawn",
@@ -699,6 +708,8 @@
         "tools/blender"
       ],
       "verification": [
+        "reference-skiff",
+        "visual-reference-skiff",
         "structure",
         "decorations",
         "visual-decorations",

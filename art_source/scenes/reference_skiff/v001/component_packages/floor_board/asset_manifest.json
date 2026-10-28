@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-FLOOR-BOARD",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/floor_board/floor_board.blend",
+  "source_sha256": "44e47dacd6df5d1dc60b6bd8ec366f41b9674fcf52785f7ec7e0c5b801072f7f",
+  "component": {
+    "key": "floor_board",
+    "name": "暖木底板",
+    "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+    "semantic_family": "floor_board",
+    "category": "structure",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+    "bounds": {
+      "min": [
+        -0.8650000095367432,
+        -0.11249999701976776,
+        0.0
+      ],
+      "max": [
+        0.8650000095367432,
+        0.11249999701976776,
+        0.07500001788139343
+      ]
+    },
+    "instance_count": 17,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "53ee385425ff62fa3b93f146dbb482eb8102d55bc190aa6e5849a6cb28986096",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/floor_board/floor_board.glb",
+  "runtime_sha256": "0dfd9104426bf92a230ea7fb83b915015150dceafa14e355bceefff06a41328a",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/floor_board.tscn",
+  "prefab_sha256": "01947542bc5d4e832d81b383fce243deb2a23617868efd59c0db9567bda1ee97",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/floor_board/floor_board.glb.import",
+    "sha256": "5e933ac916eb33ecfb1f63a303ac7223429bd2b89d695550653baeee0faec56b",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

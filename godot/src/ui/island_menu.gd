@@ -107,7 +107,8 @@ func show_menu(target := "pause") -> void:
 		get_tree().paused = true
 		active = true;visible = true;history.clear()
 		if hud: hud._toast_box.hide();hud._launch.hide();hud._world_actions.hide()
-		if hud and hud._panel_open: hud._panel.hide();hud.pockets.hide();hud.services.hide();hud._hints.hide();hud._backdrop.hide()
+		if hud: hud.corner.set_expanded(false)
+		if hud and hud._panel_open: hud._panel.hide();hud.pockets.hide();hud.services.hide();hud.notebook.hide();hud._hints.hide();hud._backdrop.hide()
 		page = target
 		_render()
 		Cozy.reveal(_paper)
@@ -138,6 +139,7 @@ func _close_popup(node: Node) -> bool:
 	return false
 
 func back() -> void:
+	if hud and hud.corner.expanded: hud.corner.set_expanded(false);return
 	if hud and hud.world_actions.is_open(): hud.world_actions.close();return
 	for presenter in presenters.values():
 		if presenter.visible and _close_popup(presenter): return

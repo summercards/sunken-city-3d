@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-FENDER",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-FENDER",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/fender/fender.blend",
+  "source_sha256": "53da2dcab53ce952362c07f651c157e74a8e4c48dedb3a6c71d156a3bcaffa70",
+  "component": {
+    "key": "fender",
+    "name": "橄榄绿防撞浮球",
+    "asset_id": "SEA-SCENE-SKIFF-FENDER",
+    "semantic_family": "fender",
+    "category": "fitting",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-FENDER",
+    "bounds": {
+      "min": [
+        -0.1250000298023224,
+        -0.11000001430511475,
+        0.0
+      ],
+      "max": [
+        0.1250000298023224,
+        0.11000001430511475,
+        0.7569230794906616
+      ]
+    },
+    "instance_count": 2,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "d6aa59b462d9c2f7c80e0bd6c39a6699a0662dd7d2b20bde415897c8b9e01ad6",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/fender/fender.glb",
+  "runtime_sha256": "bb92c68a24e1c7d1fc7a0fc137c30a40a50c3ca58a29d5a460db4f86c3890dc2",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/fender.tscn",
+  "prefab_sha256": "945cef265aef309bc904ddbf5bb1acc04bede6350b6928ebd7e43590da013491",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/fender/fender.glb.import",
+    "sha256": "df589637ee01a9629ea4927a03cb3f812009f627f28d33ca93396669613a128f",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

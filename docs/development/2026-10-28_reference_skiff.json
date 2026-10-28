@@ -1,0 +1,330 @@
+{
+  "date": "2026-10-28",
+  "feature_ids": [
+    "SEA-ASSET",
+    "SEA-NAV"
+  ],
+  "requirements": [
+    "SEA-ASSET-R28",
+    "SEA-NAV-R09"
+  ],
+  "source": "art_source/scenes/reference_skiff/v001/reference_skiff.blend",
+  "runtime_scene": "godot/scenes/props/reference_skiff.tscn",
+  "source_asset_records": 13,
+  "unique_components": 12,
+  "instances": 44,
+  "source_validation": {
+    "checks": 46589,
+    "issues": [],
+    "passed": true,
+    "source_sha256": "08fa9cf0494677ce5e94de46760ca5f14c2a1993f0279c3460f290f7f2beb05b",
+    "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+    "components": [
+      {
+        "key": "hull",
+        "source_sha256": "89591efb674160c8f69ae2434a82c50c80d1edbf70dbf966111bad0d66aa2bcd",
+        "faces": 797,
+        "triangles": 1728
+      },
+      {
+        "key": "gunwale",
+        "source_sha256": "c60638d9309f149bc17e4061f2728aa76ef03e952753a1a038361ad2142718cf",
+        "faces": 2226,
+        "triangles": 4428
+      },
+      {
+        "key": "floor_board",
+        "source_sha256": "44e47dacd6df5d1dc60b6bd8ec366f41b9674fcf52785f7ec7e0c5b801072f7f",
+        "faces": 98,
+        "triangles": 188
+      },
+      {
+        "key": "bench",
+        "source_sha256": "53bc1d899a94a9c1dc3f090413a8fae2f2123ca9c641146f6f7c3a57ca1d41a4",
+        "faces": 392,
+        "triangles": 752
+      },
+      {
+        "key": "rib",
+        "source_sha256": "56302a958fee2b98a59ea2b5ddeb8cfefc4b46cef18dac8a64ead29eed01aacf",
+        "faces": 98,
+        "triangles": 188
+      },
+      {
+        "key": "outboard",
+        "source_sha256": "cc15ca6205f963af2a107786f23f684d3356dba1b63506ba44ed66be676ad42a",
+        "faces": 1290,
+        "triangles": 2476
+      },
+      {
+        "key": "luggage",
+        "source_sha256": "55c6d35d445b280f53f7b9dd211157635b71dbd4a7daf486b1dc0dae36cd8fb2",
+        "faces": 808,
+        "triangles": 1552
+      },
+      {
+        "key": "fender",
+        "source_sha256": "53da2dcab53ce952362c07f651c157e74a8e4c48dedb3a6c71d156a3bcaffa70",
+        "faces": 256,
+        "triangles": 472
+      },
+      {
+        "key": "oar",
+        "source_sha256": "a1d761d8e285ccdb81d89cfa0d87c46f3839ad71b2ab0882d502718ac8d2babf",
+        "faces": 264,
+        "triangles": 520
+      },
+      {
+        "key": "oarlock",
+        "source_sha256": "0fc19f5b8c3f7856691e6fed9db8d64000b2a15de95eb58b14c60acd35f45027",
+        "faces": 122,
+        "triangles": 236
+      },
+      {
+        "key": "cleat",
+        "source_sha256": "f521ba6098228acda1f64492d1c215e3d764f8b9e419bf94f736af154709f12a",
+        "faces": 106,
+        "triangles": 204
+      },
+      {
+        "key": "rope_coil",
+        "source_sha256": "3c5d0864110ca92973aabe0d6aa13ae4768f78d112c94e54a96b34fb35d29449",
+        "faces": 1152,
+        "triangles": 2304
+      }
+    ],
+    "expanded_faces": 11697,
+    "expanded_triangles": 22888,
+    "rendered_views": [
+      "reference",
+      "close",
+      "top",
+      "hull_only"
+    ],
+    "godot_validation": {
+      "asset_specialties": "passed",
+      "reports": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "integration": "Baseline failures and current workspace hash drift documented separately"
+    },
+    "optimized_source": "art_source/scenes/reference_skiff/v001/export/v001/reference_skiff_optimized.blend",
+    "optimized_sha256": "d990f65fc190503e5ab1cc1d575919722cfb8cdf92b930da876d581645b02d75",
+    "exported_triangles": 22695
+  },
+  "accepted_run": "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b",
+  "results": {
+    "reference-skiff": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\reference-skiff.log",
+      "user_data_name": "sea-verification/20261028-190353-reference-skiff-accepted-3b705b/reference-skiff",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_reference_skiff.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-reference-skiff": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\visual-reference-skiff.log",
+      "user_data_name": "sea-verification/20261028-190353-reference-skiff-accepted-3b705b/visual-reference-skiff",
+      "renderer": "real",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_reference_skiff.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-boat-lamp": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\visual-boat-lamp.log",
+      "user_data_name": "sea-verification/20261028-190353-reference-skiff-accepted-3b705b/visual-boat-lamp",
+      "renderer": "real",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_boat_navigation_lamp.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-home-lighting": {
+      "exit_code": 1,
+      "passed": false,
+      "expected_errors": [],
+      "unexpected_errors": [
+        "FAIL actual box click opens world actions"
+      ],
+      "completion_marker": false,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\visual-home-lighting.log",
+      "user_data_name": "sea-verification/20261028-190353-reference-skiff-accepted-3b705b/visual-home-lighting",
+      "renderer": "real",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_home_lighting.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "decorations": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\decorations.log",
+      "user_data_name": "sea-verification/20261028-190353-reference-skiff-accepted-3b705b/decorations",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_scene_decorations.gd",
+        "--",
+        "--skip-title"
+      ]
+    }
+  },
+  "home_recheck": {
+    "visual-home-lighting": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\visual-home-lighting.log",
+      "user_data_name": "sea-verification/20261028-190717-reference-skiff-home-recheck-badb19/visual-home-lighting",
+      "renderer": "real",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_home_lighting.gd",
+        "--",
+        "--skip-title"
+      ]
+    }
+  },
+  "integration_full_world": "D:\\projects\\sea-work\\verification\\20261028-184421-reference-skiff-fullworld-8a6d88",
+  "legacy_comparison_run": "D:\\projects\\sea-work\\verification\\20261028-184459-reference-skiff-legacy-baseline-9b4790",
+  "integration_baseline_comparison": {
+    "surface": {
+      "same_failures": true,
+      "current_failures": [
+        "FAIL 种植物件是独立场景 home_plot"
+      ],
+      "baseline_failures": [
+        "FAIL 种植物件是独立场景 home_plot"
+      ],
+      "current_summary": [
+        "[surface] routes=30 checks=456 failures=1"
+      ],
+      "baseline_summary": [
+        "[surface] routes=30 checks=456 failures=1"
+      ]
+    },
+    "selftest": {
+      "same_failures": true,
+      "current_failures": [
+        "FAIL  home_cabin 落在可行走面  (3.817, 2.15, 6.776)",
+        "FAIL  菜箱数量  13",
+        "FAIL  zone1_shell 落在可行走面  (5.887, 2.15, 10.65725)",
+        "FAIL  zone1_wood 落在可行走面  (3.817, 2.15, 7.466)"
+      ],
+      "baseline_failures": [
+        "FAIL  home_cabin 落在可行走面  (3.817, 2.15, 6.776)",
+        "FAIL  菜箱数量  13",
+        "FAIL  zone1_shell 落在可行走面  (5.887, 2.15, 10.65725)",
+        "FAIL  zone1_wood 落在可行走面  (3.817, 2.15, 7.466)"
+      ],
+      "current_summary": [
+        "[selftest] 529 passed, 4 failed"
+      ],
+      "baseline_summary": [
+        "[selftest] 529 passed, 4 failed"
+      ]
+    }
+  },
+  "static_checks": {
+    "sync": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\reference_skiff_v001\\feature_contracts_sync.log"
+    },
+    "check": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\reference_skiff_v001\\feature_contracts_check.log"
+    },
+    "feature_index": "same checker projection regenerated separately; no runtime baseline changed",
+    "unrelated_runtime_hash_drift": [
+      {
+        "path": "godot/assets/materials/water.tres",
+        "registered_sha256": "77dcf5ce61526f8af56e52c4c154407b05764ec800ce3229e6db1b140f565a5a",
+        "observed_sha256": "da61719a2885257bc6e358262a7040b79af5bd9701441cb472d74dce0e19b3e6",
+        "lf_normalized_sha256": "0df449ccd06d71103c844ec5ad939365283cb43eed8585fb8c4a90bf08f78689",
+        "note": "Outside this boat change; retained without rebaselining"
+      },
+      {
+        "path": "godot/assets/materials/world_env.tres",
+        "registered_sha256": "46670a32ae0bc96bf40236cfff1223f0cd32f7305928ca1e243072954575b64c",
+        "observed_sha256": "00ce7e3ecd1714f9203d66a25c67be59915381468cc419e8b3c30d467d22a218",
+        "lf_normalized_sha256": "00ce7e3ecd1714f9203d66a25c67be59915381468cc419e8b3c30d467d22a218",
+        "note": "Outside this boat change; retained without rebaselining"
+      }
+    ]
+  },
+  "known_visual_observation": "minor self-shadow grain on gunwale/plank seams; geometry intact; standard real shadows retained",
+  "license": "user reference commercial rights pending",
+  "unexecuted": [
+    "manual gamepad play",
+    "release-pack review",
+    "commercial reference rights review",
+    "ship upgrade visual tiers"
+  ]
+}

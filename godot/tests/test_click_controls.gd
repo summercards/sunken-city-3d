@@ -13,8 +13,9 @@ func run() -> void:
 	root.add_child(main)
 	main._autosave_on = false
 	main.process_mode = Node.PROCESS_MODE_DISABLED
-	for command in ["bag","plant","build","cancel","save","load","camera","grade","rise","descend","lamp","close"]:
+	for command in ["bag","plant","build","follow","save","load","camera","grade","rise","descend","lamp","close"]:
 		check(main.hud.command_buttons.has(command),"鼠标入口 "+command)
+	check(not main.hud.command_buttons.has("cancel"),"主界面不再显示停止行动")
 	main._on_click_command("plant")
 	check(main.hud._panel_open and main.hud._tab=="plant","直达种植")
 	main._on_click_command("close")

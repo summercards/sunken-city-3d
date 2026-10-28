@@ -1,0 +1,303 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/hull.tscn" id="hull"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/gunwale.tscn" id="gunwale"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/floor_board.tscn" id="floor_board"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/bench.tscn" id="bench"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/rib.tscn" id="rib"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/outboard.tscn" id="outboard"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/luggage.tscn" id="luggage"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/fender.tscn" id="fender"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/oar.tscn" id="oar"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/oarlock.tscn" id="oarlock"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/cleat.tscn" id="cleat"]
+
+[ext_resource type="PackedScene" path="res://scenes/components/reference_skiff/rope_coil.tscn" id="rope_coil"]
+
+[node name="ReferenceSkiff" type="Node3D"]
+
+metadata/asset_id = "SEA-SCENE-SKIFF-ASSEMBLY"
+
+[node name="Parts" type="Node3D" parent="."]
+
+[node name="OarL" type="Node3D" parent="."]
+
+position = Vector3(-1.10, 0.68, 0.10)
+
+[node name="OarR" type="Node3D" parent="."]
+
+position = Vector3(1.10, 0.68, 0.10)
+
+[node name="hull_000" parent="Parts" instance=ExtResource("hull")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, -0.000102460, -0.205626875, -0.237089872)
+
+instance_id = "boat/hull_000"
+
+[node name="gunwale_001" parent="Parts" instance=ExtResource("gunwale")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, -0.000102520, 0.068171740, -0.237089872)
+
+instance_id = "boat/gunwale_001"
+
+[node name="floor_board_002" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.020000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, 1.960000038)
+
+instance_id = "boat/floor_board_002"
+
+[node name="floor_board_003" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.020000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, 1.725000024)
+
+instance_id = "boat/floor_board_003"
+
+[node name="floor_board_004" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.020000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, 1.490000010)
+
+instance_id = "boat/floor_board_004"
+
+[node name="floor_board_005" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.020000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, 1.254999995)
+
+instance_id = "boat/floor_board_005"
+
+[node name="floor_board_006" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.020000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, 1.019999981)
+
+instance_id = "boat/floor_board_006"
+
+[node name="floor_board_007" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, 0.785000026)
+
+instance_id = "boat/floor_board_007"
+
+[node name="floor_board_008" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, 0.550000012)
+
+instance_id = "boat/floor_board_008"
+
+[node name="floor_board_009" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, 0.314999998)
+
+instance_id = "boat/floor_board_009"
+
+[node name="floor_board_010" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, 0.079999998)
+
+instance_id = "boat/floor_board_010"
+
+[node name="floor_board_011" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, -0.155000001)
+
+instance_id = "boat/floor_board_011"
+
+[node name="floor_board_012" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, -0.389999986)
+
+instance_id = "boat/floor_board_012"
+
+[node name="floor_board_013" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, -0.625000000)
+
+instance_id = "boat/floor_board_013"
+
+[node name="floor_board_014" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, -0.860000014)
+
+instance_id = "boat/floor_board_014"
+
+[node name="floor_board_015" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, -1.095000029)
+
+instance_id = "boat/floor_board_015"
+
+[node name="floor_board_016" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, -1.330000043)
+
+instance_id = "boat/floor_board_016"
+
+[node name="floor_board_017" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(0.900000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, -1.565000057)
+
+instance_id = "boat/floor_board_017"
+
+[node name="floor_board_018" parent="Parts" instance=ExtResource("floor_board")]
+
+transform = Transform3D(0.900000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.127499998, -1.799999952)
+
+instance_id = "boat/floor_board_018"
+
+[node name="bench_019" parent="Parts" instance=ExtResource("bench")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.344999999, 1.500000000)
+
+instance_id = "boat/bench_019"
+
+[node name="bench_020" parent="Parts" instance=ExtResource("bench")]
+
+transform = Transform3D(1.040000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.344999999, 0.150000006)
+
+instance_id = "boat/bench_020"
+
+[node name="bench_021" parent="Parts" instance=ExtResource("bench")]
+
+transform = Transform3D(0.850000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.344999999, -1.399999976)
+
+instance_id = "boat/bench_021"
+
+[node name="rib_022" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(-1.000000000, 0.000000000, 0.000000087, 0.000000000, 1.000000000, 0.000000000, -0.000000087, 0.000000000, -1.000000000, -0.870000005, 0.104999997, 1.799999952)
+
+instance_id = "boat/rib_022"
+
+[node name="rib_023" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.870000005, 0.104999997, 1.799999952)
+
+instance_id = "boat/rib_023"
+
+[node name="rib_024" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(-1.000000000, 0.000000000, 0.000000087, 0.000000000, 1.000000000, 0.000000000, -0.000000087, 0.000000000, -1.000000000, -0.920000017, 0.104999997, 0.899999976)
+
+instance_id = "boat/rib_024"
+
+[node name="rib_025" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.920000017, 0.104999997, 0.899999976)
+
+instance_id = "boat/rib_025"
+
+[node name="rib_026" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(-1.000000000, 0.000000000, 0.000000087, 0.000000000, 1.000000000, 0.000000000, -0.000000087, 0.000000000, -1.000000000, -0.939999998, 0.104999997, -0.000000000)
+
+instance_id = "boat/rib_026"
+
+[node name="rib_027" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.939999998, 0.104999997, -0.000000000)
+
+instance_id = "boat/rib_027"
+
+[node name="rib_028" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(-1.000000000, 0.000000000, 0.000000087, 0.000000000, 1.000000000, 0.000000000, -0.000000087, 0.000000000, -1.000000000, -0.850000024, 0.104999997, -0.899999976)
+
+instance_id = "boat/rib_028"
+
+[node name="rib_029" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.850000024, 0.104999997, -0.899999976)
+
+instance_id = "boat/rib_029"
+
+[node name="rib_030" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(-1.000000000, 0.000000000, 0.000000087, 0.000000000, 1.000000000, 0.000000000, -0.000000087, 0.000000000, -1.000000000, -0.610000014, 0.104999997, -1.799999952)
+
+instance_id = "boat/rib_030"
+
+[node name="rib_031" parent="Parts" instance=ExtResource("rib")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.610000014, 0.104999997, -1.799999952)
+
+instance_id = "boat/rib_031"
+
+[node name="outboard_032" parent="Parts" instance=ExtResource("outboard")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.158623785, -0.458091259, 2.414470673)
+
+instance_id = "boat/outboard_032"
+
+[node name="luggage_033" parent="Parts" instance=ExtResource("luggage")]
+
+transform = Transform3D(0.983843693, 0.000000000, 0.179029573, 0.000000000, 1.000000000, 0.000000000, -0.179029573, 0.000000000, 0.983843693, 0.437448829, 0.200000003, -0.725980222)
+
+instance_id = "boat/luggage_033"
+
+[node name="fender_034" parent="Parts" instance=ExtResource("fender")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, -1.254999995, 0.000000000, 1.000000000)
+
+instance_id = "boat/fender_034"
+
+[node name="fender_035" parent="Parts" instance=ExtResource("fender")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 1.254999995, 0.000000000, -0.800000012)
+
+instance_id = "boat/fender_035"
+
+[node name="OarLVisual" parent="OarL" instance=ExtResource("oar")]
+
+transform = Transform3D(-1.000000000, 0.000000000, -0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, -1.000000000, -1.032231712, 0.019000001, 0.000000091)
+
+instance_id = "boat/OarLVisual"
+
+[node name="OarRVisual" parent="OarR" instance=ExtResource("oar")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 1.032231712, 0.019000001, 0.000000001)
+
+instance_id = "boat/OarRVisual"
+
+[node name="oarlock_038" parent="Parts" instance=ExtResource("oarlock")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, -1.100000024, 0.660000026, 0.100000001)
+
+instance_id = "boat/oarlock_038"
+
+[node name="oarlock_039" parent="Parts" instance=ExtResource("oarlock")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 1.100000024, 0.660000026, 0.100000001)
+
+instance_id = "boat/oarlock_039"
+
+[node name="cleat_040" parent="Parts" instance=ExtResource("cleat")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, -0.720000029, 0.730000019, 2.240000010)
+
+instance_id = "boat/cleat_040"
+
+[node name="cleat_041" parent="Parts" instance=ExtResource("cleat")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.720000029, 0.730000019, 2.240000010)
+
+instance_id = "boat/cleat_041"
+
+[node name="cleat_042" parent="Parts" instance=ExtResource("cleat")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.100000001, 0.730000019, -2.680000067)
+
+instance_id = "boat/cleat_042"
+
+[node name="rope_coil_043" parent="Parts" instance=ExtResource("rope_coil")]
+
+transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, -0.500000000, 0.610000014, 1.519999981)
+
+instance_id = "boat/rope_coil_043"

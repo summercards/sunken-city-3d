@@ -1,0 +1,126 @@
+{
+  "feature_ids": [
+    "SEA-UI",
+    "SEA-FARM",
+    "SEA-INVENTORY",
+    "SEA-TIME",
+    "SEA-NAV",
+    "SEA-INTERACT"
+  ],
+  "real_rendering": [
+    "visual-corner-notebook",
+    "visual-world-text",
+    "visual-pocket-bubbles",
+    "visual-pocket-services",
+    "visual-title-screen"
+  ],
+  "checks": {
+    "visual-corner-notebook": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-180843-corner-verified-4c09e1\\visual-corner-notebook.log",
+      "renderer": "real"
+    },
+    "visual-world-text": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-180843-corner-verified-4c09e1\\visual-world-text.log",
+      "renderer": "real"
+    },
+    "visual-pocket-bubbles": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-180843-corner-verified-4c09e1\\visual-pocket-bubbles.log",
+      "renderer": "real"
+    },
+    "visual-pocket-services": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-175618-corner-icons-text-e1d739\\visual-pocket-services.log",
+      "renderer": "real"
+    },
+    "visual-title-screen": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-175618-corner-icons-text-e1d739\\visual-title-screen.log",
+      "renderer": "real"
+    },
+    "sleep-cycle": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-175618-corner-icons-text-e1d739\\sleep-cycle.log",
+      "renderer": "headless"
+    },
+    "minimum-loop": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261028-175618-corner-icons-text-e1d739\\minimum-loop.log",
+      "renderer": "headless"
+    }
+  },
+  "expected_fault_runs": [],
+  "not_executed": [
+    "touchscreen",
+    "controller device navigation",
+    "manual player aesthetic sign-off"
+  ],
+  "source_audit": {
+    "existing_ui_asset_rows_unchanged": true,
+    "lighting_outside_diff": true,
+    "new_assets": [
+      "UI-HUD-CORNERS-001",
+      "UI-NOTEBOOK-001"
+    ],
+    "reused_icon_license": "pending_provider_terms_review unchanged"
+  },
+  "evidence_root": "D:\\projects\\sea-work\\verification\\20261028-180843-corner-verified-4c09e1",
+  "pointer_probe": {
+    "far_size": 30.0,
+    "near_size": 49.9414340061036,
+    "method": "real renderer; same injected pointer_query as Main hover, held by the existing debug pointer port; synthetic native viewport mouse and GUI clicks"
+  },
+  "prior_iterations": [
+    "initial toast covered launcher bag entry; hide toast while launcher expanded and move modal notices above the panel",
+    "world text inherited shadow_outline_size=1; explicitly reset to 0 and rechecked",
+    "synthetic root mouse events do not persistently change Windows global cursor; unified landing and hover pointer query, held the existing debug pointer for proximity animation checks"
+  ],
+  "contract_checks": {
+    "sync": {
+      "exit_code": 0,
+      "features": 33,
+      "source_assets": 434,
+      "runtime_resources": 346,
+      "issues": 0
+    },
+    "read_only": {
+      "exit_code": 0,
+      "features": 33,
+      "source_assets": 434,
+      "runtime_resources": 346,
+      "issues": 0
+    },
+    "scoped_git_diff_check": {
+      "exit_code": 0
+    }
+  },
+  "previews": [
+    "D:\\projects\\sea-work\\ui-20261028\\main-interface.png",
+    "D:\\projects\\sea-work\\ui-20261028\\notebook.png",
+    "D:\\projects\\sea-work\\ui-20261028\\dock-hover.png",
+    "D:\\projects\\sea-work\\ui-20261028\\night-interface.png"
+  ]
+}

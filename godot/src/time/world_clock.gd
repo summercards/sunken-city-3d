@@ -1,5 +1,7 @@
 extends RefCounted
 const Schedule = preload("res://src/time/day_schedule.gd")
+## Display calendar only: day 1 is January 1; a 365-day cycle needs no new save fields.
+const MONTH_LENGTHS := [31,28,31,30,31,30,31,31,30,31,30,31]
 signal changed(snapshot: Dictionary)
 signal day_changed(day: int)
 var day := 1
@@ -37,7 +39,17 @@ func wake_to_morning() -> void:
 
 func query() -> Dictionary:
 	var hour := seconds / 3600.0
-	return {"day":day,"hour":hour,"text":"第%d天 %02d:%02d" % [day,int(hour),int(seconds/60.0)%60],"daylight":clampf(sin((hour-6.0)/12.0*PI),0.0,1.0)}
+	var date:=calendar_date(day)
+	return {"day":day,"month":date.month,"day_of_month":date.day_of_month,"hour":hour,
+		"text":"%d月%d日 %02d:%02d" % [date.month,date.day_of_month,int(hour),int(seconds/60.0)%60],
+		"daylight":clampf(sin((hour-6.0)/12.0*PI),0.0,1.0)}
+
+static func calendar_date(elapsed_day: int) -> Dictionary:
+	var remaining: int=(maxi(1,elapsed_day)-1)%365
+	for index in MONTH_LENGTHS.size():
+		if remaining<int(MONTH_LENGTHS[index]): return {"month":index+1,"day_of_month":remaining+1}
+		remaining-=int(MONTH_LENGTHS[index])
+	return {"month":1,"day_of_month":1}
 
 func to_dict() -> Dictionary: return {"day":day,"seconds":seconds,"day_length":day_length}
 func from_dict(data: Dictionary) -> void:

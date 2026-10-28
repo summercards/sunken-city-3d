@@ -38,6 +38,7 @@
 shader_type spatial;
 global uniform float world_daylight;
 #include "res://shaders/ocean_night.gdshaderinc"
+#include "res://shaders/submerged_caustic_light.gdshaderinc"
 render_mode blend_mix, depth_draw_never, cull_disabled;
 
 uniform sampler2D screen_tex : hint_screen_texture, filter_linear_mipmap;
@@ -364,12 +365,7 @@ void fragment() {
 		float resolved = 1.0 - smoothstep(0.35, 1.40, length(fwidth(cp * caustic_size)));
 		float web = caustic_net(cp, u_time) * band * resolved * on_geometry;
 		if (web > 0.0) {
-			// Modulated, not added. The drowned walls are near-white, so an additive
-			// term is clamped away and shows nothing; multiplying also matches what
-			// caustics are — focused light with genuinely darker gaps between the
-			// bright folds.
-			color *= 1.0 - web * caustic_strength;
-			color += caustic_color * web * caustic_strength * 0.35;
+			color = submerged_caustic_light(color, caustic_color, web * caustic_strength);
 		}
 	}
 

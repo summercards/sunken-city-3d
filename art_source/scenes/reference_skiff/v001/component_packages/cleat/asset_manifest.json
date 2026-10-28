@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-CLEAT",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-CLEAT",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/cleat/cleat.blend",
+  "source_sha256": "f521ba6098228acda1f64492d1c215e3d764f8b9e419bf94f736af154709f12a",
+  "component": {
+    "key": "cleat",
+    "name": "系缆羊角",
+    "asset_id": "SEA-SCENE-SKIFF-CLEAT",
+    "semantic_family": "cleat",
+    "category": "fitting",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-CLEAT",
+    "bounds": {
+      "min": [
+        -0.12999999523162842,
+        -0.06499999761581421,
+        0.0
+      ],
+      "max": [
+        0.12999999523162842,
+        0.06499999761581421,
+        0.1550000011920929
+      ]
+    },
+    "instance_count": 3,
+    "material_roles": [
+      "SEA_Metal"
+    ],
+    "geometry_fingerprint": "b4cd6d7119d1f3837349d9cd009072cddb494e6c6c236649982b482edc345045",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/cleat/cleat.glb",
+  "runtime_sha256": "b91735df11312af4206325373325c7bf44b0c2a04df7e5dd29dd1360c7efd0c4",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/cleat.tscn",
+  "prefab_sha256": "0deec0dd8638e5790e50c307f6467653908a988f79473670bba031d8e1102b7f",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/cleat/cleat.glb.import",
+    "sha256": "f8dae2d168d1d47d84674672ebf336cca20cbe9d3b3b1824b9333e402a0b87de",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

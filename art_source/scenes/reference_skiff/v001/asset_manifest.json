@@ -1,0 +1,36 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-ASSEMBLY",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-ASSEMBLY",
+  "source": "art_source/scenes/reference_skiff/v001/reference_skiff.blend",
+  "source_sha256": "08fa9cf0494677ce5e94de46760ca5f14c2a1993f0279c3460f290f7f2beb05b",
+  "version": "v001",
+  "stage": "source_runtime_verified_provenance_pending",
+  "component_plan": "art_source/scenes/reference_skiff/v001/component_plan.json",
+  "component_catalog": "art_source/scenes/reference_skiff/v001/catalog.json",
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "optimized_source": "art_source/scenes/reference_skiff/v001/export/v001/reference_skiff_optimized.blend",
+  "optimized_sha256": "d990f65fc190503e5ab1cc1d575919722cfb8cdf92b930da876d581645b02d75",
+  "runtime_path": "godot/scenes/props/reference_skiff.tscn",
+  "dependencies": [
+    "SEA-SCENE-SKIFF-HULL",
+    "SEA-SCENE-SKIFF-GUNWALE",
+    "SEA-SCENE-SKIFF-FLOOR-BOARD",
+    "SEA-SCENE-SKIFF-BENCH",
+    "SEA-SCENE-SKIFF-RIB",
+    "SEA-SCENE-SKIFF-OUTBOARD",
+    "SEA-SCENE-SKIFF-LUGGAGE",
+    "SEA-SCENE-SKIFF-FENDER",
+    "SEA-SCENE-SKIFF-OAR",
+    "SEA-SCENE-SKIFF-OARLOCK",
+    "SEA-SCENE-SKIFF-CLEAT",
+    "SEA-SCENE-SKIFF-ROPE-COIL",
+    "SEA-SCENE-SBR-LANTERN"
+  ],
+  "runtime_placement_owner": "formal TSCN; JSON is trace/initialization only",
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "caveat": "Only base skiff appearance replaced; ship upgrade visual tiers remain unimplemented. Old bake preserved. Navigation integration limitations are recorded in development evidence."
+}

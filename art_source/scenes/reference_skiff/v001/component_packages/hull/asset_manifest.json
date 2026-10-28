@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-HULL",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-HULL",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/hull/hull.blend",
+  "source_sha256": "89591efb674160c8f69ae2434a82c50c80d1edbf70dbf966111bad0d66aa2bcd",
+  "component": {
+    "key": "hull",
+    "name": "黄白敞口船壳",
+    "asset_id": "SEA-SCENE-SKIFF-HULL",
+    "semantic_family": "hull",
+    "category": "structure",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-HULL",
+    "bounds": {
+      "min": [
+        -1.239722490310669,
+        -2.698740005493164,
+        0.0
+      ],
+      "max": [
+        1.239722490310669,
+        2.698740005493164,
+        0.9820730686187744
+      ]
+    },
+    "instance_count": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "666c96c5cbb59e329ed8681e79fd2d1cf663ff3f920c5b47ef86d645dde5172c",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/hull/hull.glb",
+  "runtime_sha256": "ab4ad5c65552fc264009c7d97887221fb35956d6750fa6a6eb693745e6205892",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/hull.tscn",
+  "prefab_sha256": "e3c1b03cdfa1ce7f3983d1a8f060a71c6a748d54054aca7458bb9eed3b032df6",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/hull/hull.glb.import",
+    "sha256": "2d7afa3f77674a7b408bdf2f060faf959626417afc3d1397a49a23a7f0c49ac2",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

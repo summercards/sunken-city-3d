@@ -14551,6 +14551,687 @@
       "category": "shared_palette",
       "runtime_path": "godot/assets/textures/shared/sea_cabin_timber_8x8_512.png",
       "prefab": null
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-HULL",
+      "name": "黄白敞口船壳",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/hull/hull.blend",
+      "source_sha256": "89591efb674160c8f69ae2434a82c50c80d1edbf70dbf966111bad0d66aa2bcd",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/hull/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/hull/hull.glb",
+      "runtime_sha256": "ab4ad5c65552fc264009c7d97887221fb35956d6750fa6a6eb693745e6205892",
+      "prefab": "godot/scenes/components/reference_skiff/hull.tscn",
+      "prefab_sha256": "e3c1b03cdfa1ce7f3983d1a8f060a71c6a748d54054aca7458bb9eed3b032df6",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "666c96c5cbb59e329ed8681e79fd2d1cf663ff3f920c5b47ef86d645dde5172c",
+      "category": "structure",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "structure"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-GUNWALE",
+      "name": "奶白舷边与金黄内沿",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/gunwale/gunwale.blend",
+      "source_sha256": "c60638d9309f149bc17e4061f2728aa76ef03e952753a1a038361ad2142718cf",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/gunwale/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/gunwale/gunwale.glb",
+      "runtime_sha256": "cac64e344559378a5ebcf0bc785f0aac235e586df87fe676e119fb9b9b5589f6",
+      "prefab": "godot/scenes/components/reference_skiff/gunwale.tscn",
+      "prefab_sha256": "099acd4e7154c11609e376c7fff17165b3774b9c189676e47548ced1df0600fb",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "ad41ada3a4a5c0e52bc131231e515b3b4989b696f4ce60028dc95537b2486128",
+      "category": "structure",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "structure"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "name": "暖木底板",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/floor_board/floor_board.blend",
+      "source_sha256": "44e47dacd6df5d1dc60b6bd8ec366f41b9674fcf52785f7ec7e0c5b801072f7f",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/floor_board/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/floor_board/floor_board.glb",
+      "runtime_sha256": "0dfd9104426bf92a230ea7fb83b915015150dceafa14e355bceefff06a41328a",
+      "prefab": "godot/scenes/components/reference_skiff/floor_board.tscn",
+      "prefab_sha256": "01947542bc5d4e832d81b383fce243deb2a23617868efd59c0db9567bda1ee97",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "53ee385425ff62fa3b93f146dbb482eb8102d55bc190aa6e5849a6cb28986096",
+      "category": "structure",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "structure"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-BENCH",
+      "name": "横向木座板",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/bench/bench.blend",
+      "source_sha256": "53bc1d899a94a9c1dc3f090413a8fae2f2123ca9c641146f6f7c3a57ca1d41a4",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/bench/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/bench/bench.glb",
+      "runtime_sha256": "ae5610bf751efce3ed5a10aff7bcfa196722692ba9c2418413efbbf849751896",
+      "prefab": "godot/scenes/components/reference_skiff/bench.tscn",
+      "prefab_sha256": "bba5b2f2a4594a1e6a43243b80c634885c35d29a3a2e8e2c0c2b06b6b4ecaccd",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "3185dc8a7362928068eee7197c1e1d575147b60bfb114399b267967325bf7892",
+      "category": "structure",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "structure"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "name": "内舷木肋",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/rib/rib.blend",
+      "source_sha256": "56302a958fee2b98a59ea2b5ddeb8cfefc4b46cef18dac8a64ead29eed01aacf",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/rib/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/rib/rib.glb",
+      "runtime_sha256": "f72956dcde195176405a43be8f082cda008249e1818ff9f161a12775fc17390a",
+      "prefab": "godot/scenes/components/reference_skiff/rib.tscn",
+      "prefab_sha256": "4dba34a81f046d6a81f5787d14969cb4dc5b7684e12044f8e3eb7ce96f4da1b0",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "83b983f7e37196d09e9adf7f9b4c191d37f4fe5d51449e51e9610d662ea58602",
+      "category": "structure",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "structure"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-OUTBOARD",
+      "name": "白盖灰紫船外机",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/outboard/outboard.blend",
+      "source_sha256": "cc15ca6205f963af2a107786f23f684d3356dba1b63506ba44ed66be676ad42a",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/outboard/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/outboard/outboard.glb",
+      "runtime_sha256": "a4d47d2722fd79abde104b0f4aa7dd7bc684356e9e52ab7e50f9dedf67d5d1ae",
+      "prefab": "godot/scenes/components/reference_skiff/outboard.tscn",
+      "prefab_sha256": "62ba6e5f1f2da7a2c43357db69d348f0dd0b38b173b9ce7438ce1bd335a22ced",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "fd7c23526b355c1dccd818783670e90c7b6a4b6fefcf3d5b0c9bfa13ab422a19",
+      "category": "fitting",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "fitting"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-LUGGAGE",
+      "name": "绿色帆布行李包",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/luggage/luggage.blend",
+      "source_sha256": "55c6d35d445b280f53f7b9dd211157635b71dbd4a7daf486b1dc0dae36cd8fb2",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/luggage/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/luggage/luggage.glb",
+      "runtime_sha256": "fb10f596592acc946f457957ec0ca035afb25aaed0f6d7d6cd0dcbc3c47f516d",
+      "prefab": "godot/scenes/components/reference_skiff/luggage.tscn",
+      "prefab_sha256": "33fb5d986d8496cee49e68eb583e1a1a2969f04e3bfa7019c9f8b1808f883fd0",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "8071e0acd7a989d667fd56d0988092d0fa1fc1f789d3679a73dfe7b91ee4a180",
+      "category": "fitting",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "fitting"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-FENDER",
+      "name": "橄榄绿防撞浮球",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/fender/fender.blend",
+      "source_sha256": "53da2dcab53ce952362c07f651c157e74a8e4c48dedb3a6c71d156a3bcaffa70",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/fender/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/fender/fender.glb",
+      "runtime_sha256": "bb92c68a24e1c7d1fc7a0fc137c30a40a50c3ca58a29d5a460db4f86c3890dc2",
+      "prefab": "godot/scenes/components/reference_skiff/fender.tscn",
+      "prefab_sha256": "945cef265aef309bc904ddbf5bb1acc04bede6350b6928ebd7e43590da013491",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "d6aa59b462d9c2f7c80e0bd6c39a6699a0662dd7d2b20bde415897c8b9e01ad6",
+      "category": "fitting",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "fitting"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-OAR",
+      "name": "圆杆宽叶木船桨",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/oar/oar.blend",
+      "source_sha256": "a1d761d8e285ccdb81d89cfa0d87c46f3839ad71b2ab0882d502718ac8d2babf",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/oar/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/oar/oar.glb",
+      "runtime_sha256": "b4f1be632243d8d471c9dfccdb1aab623b2edc9f665e201e105d88eaca5f2630",
+      "prefab": "godot/scenes/components/reference_skiff/oar.tscn",
+      "prefab_sha256": "e5694e1be78571d2253f417b81e83885fee5654b3f0812ece8bf552ef7aeffad",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "cc6d6608505820321cece828803386e1d5c8c4bde9b4593185c810a6a398a79e",
+      "category": "fitting",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "fitting"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-OARLOCK",
+      "name": "金属桨架",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/oarlock/oarlock.blend",
+      "source_sha256": "0fc19f5b8c3f7856691e6fed9db8d64000b2a15de95eb58b14c60acd35f45027",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/oarlock/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/oarlock/oarlock.glb",
+      "runtime_sha256": "9e25c612efbb1e3c486515814bbcbc2968d95e3acf96bb3b4d6da2ec778d81e8",
+      "prefab": "godot/scenes/components/reference_skiff/oarlock.tscn",
+      "prefab_sha256": "f81e0498f6e283be10550d446c215989b75d027f8df43e9a7273630c82488c35",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "5100079c9f94032524cc253aa5b7a76dfcf28a8bbb819f114b22a026e247f066",
+      "category": "fitting",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "fitting"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-CLEAT",
+      "name": "系缆羊角",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/cleat/cleat.blend",
+      "source_sha256": "f521ba6098228acda1f64492d1c215e3d764f8b9e419bf94f736af154709f12a",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/cleat/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/cleat/cleat.glb",
+      "runtime_sha256": "b91735df11312af4206325373325c7bf44b0c2a04df7e5dd29dd1360c7efd0c4",
+      "prefab": "godot/scenes/components/reference_skiff/cleat.tscn",
+      "prefab_sha256": "0deec0dd8638e5790e50c307f6467653908a988f79473670bba031d8e1102b7f",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "b4cd6d7119d1f3837349d9cd009072cddb494e6c6c236649982b482edc345045",
+      "category": "fitting",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "fitting"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-ROPE-COIL",
+      "name": "盘绕缆绳",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/component_packages/rope_coil/rope_coil.blend",
+      "source_sha256": "3c5d0864110ca92973aabe0d6aa13ae4768f78d112c94e54a96b34fb35d29449",
+      "manifest": "art_source/scenes/reference_skiff/v001/component_packages/rope_coil/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/rope_coil/rope_coil.glb",
+      "runtime_sha256": "263ff62b3a0e56cf79d6ae1ae3e05c30aa4cb519f17001e168a2c738211fdc57",
+      "prefab": "godot/scenes/components/reference_skiff/rope_coil.tscn",
+      "prefab_sha256": "edcd7627c1d6d842463e6615168d571aaef06c3313d68ed6edd06221c602a69e",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "86fb249ec90ba5245a307dade6853ead3a4afd7ca9fe8835470b47f8fabf7bda",
+      "category": "fitting",
+      "classification": {
+        "category": "vessel",
+        "subcategory": "fitting"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SKIFF-ASSEMBLY",
+      "name": "黄白木船-正式组件装配",
+      "domain": "scenes",
+      "suite": "reference_skiff",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/reference_skiff/v001/reference_skiff.blend",
+      "source_sha256": "08fa9cf0494677ce5e94de46760ca5f14c2a1993f0279c3460f290f7f2beb05b",
+      "manifest": "art_source/scenes/reference_skiff/v001/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/scenes/props/reference_skiff.tscn",
+      "runtime_sha256": "f9ca8d93c20ead7957dd7d79b159ecd1d08824c2ccb8f60128aa8215b0a7ac85",
+      "prefab": "godot/scenes/props/reference_skiff.tscn",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-NAV"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+      ],
+      "classification": {
+        "category": "vessel",
+        "subcategory": "assembly"
+      },
+      "note": "12 components/44 source instances; base boat replacement, existing lantern reused; hull envelope exactly matches legacy."
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-TERRACED-TOWER",
+      "name": "水下景观·错层檐线楼",
+      "domain": "scenes",
+      "suite": "submerged_neighborhood",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/submerged_neighborhood/v001/component_packages/terraced_tower/terraced_tower.blend",
+      "source_sha256": "37d0b240f0053ac6a652dea6dfa75209ba8f94f01b7dee0987740e7fe1b2a7cd",
+      "manifest": "art_source/scenes/submerged_neighborhood/v001/component_packages/terraced_tower/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/terraced_tower/terraced_tower.glb",
+      "runtime_sha256": "76c857a2ade93249d90f81c10d2ef44a2db66dd78c922e0123da90887360e6b3",
+      "prefab": "godot/scenes/decorations/underwater/buildings/terraced_tower.tscn",
+      "prefab_sha256": "7b068f6bcf171ee848f026581f6c813780cfecc444b7be1df30c533fb7467f1e",
+      "category": "underwater_scenic_building",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "underwater_buildings"
+      },
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "521309fde5888920beb559d0b4f4ed53804ea6772d628944f05005959958b627",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-222807-submerged-layout-final-a94a56\\report.json"
+      ],
+      "triangles": 880,
+      "polygons": 424,
+      "triangle_budget": 1000,
+      "source_optimization_manifest": "art_source/scenes/submerged_neighborhood/v001/export_manifest.json",
+      "collision": false,
+      "interactive": false,
+      "runtime_instances": [
+        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/terraced_tower"
+      ],
+      "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-ROUNDED-TOWER",
+      "name": "水下景观·弧角窗廊楼",
+      "domain": "scenes",
+      "suite": "submerged_neighborhood",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/submerged_neighborhood/v001/component_packages/rounded_tower/rounded_tower.blend",
+      "source_sha256": "18d5c3b9b139c73da722e6850a609e8876c74bf22276c8774a4b898ccabdf847",
+      "manifest": "art_source/scenes/submerged_neighborhood/v001/component_packages/rounded_tower/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/rounded_tower/rounded_tower.glb",
+      "runtime_sha256": "b2a90a3b7e15d4c578c465f667c35aa1589c3dd089f78eacbfc3f1e8ac6c2843",
+      "prefab": "godot/scenes/decorations/underwater/buildings/rounded_tower.tscn",
+      "prefab_sha256": "210b3d9aff45861f4d6ef431bba2637beed2bc0f5575dd49e57b0b24b0b3621d",
+      "category": "underwater_scenic_building",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "underwater_buildings"
+      },
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "5e4c0ebf97b3a27ec29d52d543bae9384d3ec58f62d166c649c0eaeec4d118a9",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-222807-submerged-layout-final-a94a56\\report.json"
+      ],
+      "triangles": 784,
+      "polygons": 351,
+      "triangle_budget": 1000,
+      "source_optimization_manifest": "art_source/scenes/submerged_neighborhood/v001/export_manifest.json",
+      "collision": false,
+      "interactive": false,
+      "runtime_instances": [
+        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/rounded_tower"
+      ],
+      "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-SLENDER-TOWER",
+      "name": "水下景观·窄身竖窗楼",
+      "domain": "scenes",
+      "suite": "submerged_neighborhood",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/submerged_neighborhood/v001/component_packages/slender_tower/slender_tower.blend",
+      "source_sha256": "74363c41725a2643bb5bc3f8b5385ebedb88537a38db6e490d2d905234118986",
+      "manifest": "art_source/scenes/submerged_neighborhood/v001/component_packages/slender_tower/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/slender_tower/slender_tower.glb",
+      "runtime_sha256": "d814ea5e799c51575e122d76214f9c81fd75263ebc70896f986eb334cb220bd6",
+      "prefab": "godot/scenes/decorations/underwater/buildings/slender_tower.tscn",
+      "prefab_sha256": "1cd4f4d278e3f382df07e8565f098ec3d92cf3bbf0d71c4363cfadaa67b0b2a6",
+      "category": "underwater_scenic_building",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "underwater_buildings"
+      },
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "37f8b63677eac0a459d58d323330728a294474aa28e65136722f15487fb87927",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-222807-submerged-layout-final-a94a56\\report.json"
+      ],
+      "triangles": 636,
+      "polygons": 298,
+      "triangle_budget": 1000,
+      "source_optimization_manifest": "art_source/scenes/submerged_neighborhood/v001/export_manifest.json",
+      "collision": false,
+      "interactive": false,
+      "runtime_instances": [
+        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/slender_tower"
+      ],
+      "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-STEPPED-LOWRISE",
+      "name": "水下景观·L形矮楼",
+      "domain": "scenes",
+      "suite": "submerged_neighborhood",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/submerged_neighborhood/v001/component_packages/stepped_lowrise/stepped_lowrise.blend",
+      "source_sha256": "2c0c25b6d323aadd37ccacc0dd289f0b273b54d6cde385ccec647b5463494ea0",
+      "manifest": "art_source/scenes/submerged_neighborhood/v001/component_packages/stepped_lowrise/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/stepped_lowrise/stepped_lowrise.glb",
+      "runtime_sha256": "68159739aec7f73db3b8a6e39b5786a006d32128aa5aa4821ad527987b05b77a",
+      "prefab": "godot/scenes/decorations/underwater/buildings/stepped_lowrise.tscn",
+      "prefab_sha256": "c73ba73727784d3b8d5d19de94595c35a8fe1c8cd7ff62897600ec64a2b29b5c",
+      "category": "underwater_scenic_building",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "underwater_buildings"
+      },
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "443b03625a070369479a581c325d01337d3ea0f9792f7dcddb92aad436efb98c",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-222807-submerged-layout-final-a94a56\\report.json"
+      ],
+      "triangles": 438,
+      "polygons": 213,
+      "triangle_budget": 1000,
+      "source_optimization_manifest": "art_source/scenes/submerged_neighborhood/v001/export_manifest.json",
+      "collision": false,
+      "interactive": false,
+      "runtime_instances": [
+        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/stepped_lowrise"
+      ],
+      "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-FLAT-ANNEX",
+      "name": "水下景观·窄顶附楼",
+      "domain": "scenes",
+      "suite": "submerged_neighborhood",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/submerged_neighborhood/v001/component_packages/flat_annex/flat_annex.blend",
+      "source_sha256": "6e13b15a65da0c0381182ee665b797ceff5e5952460c0d88d2605e05c0d0b5ab",
+      "manifest": "art_source/scenes/submerged_neighborhood/v001/component_packages/flat_annex/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/flat_annex/flat_annex.glb",
+      "runtime_sha256": "3a3e0f7b6ed62d445dbe3fc506c52abd6724527d311407a5e912e892b5216745",
+      "prefab": "godot/scenes/decorations/underwater/buildings/flat_annex.tscn",
+      "prefab_sha256": "6253fff8dfe53d18218b5377874cf4f00f5548a39e036b3ff334e01d2941cf76",
+      "category": "underwater_scenic_building",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "underwater_buildings"
+      },
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "796a8854f42b82e968b2a52226678adc6dee2c574b24408dd7666de5c9fac55c",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-222807-submerged-layout-final-a94a56\\report.json"
+      ],
+      "triangles": 496,
+      "polygons": 232,
+      "triangle_budget": 1000,
+      "source_optimization_manifest": "art_source/scenes/submerged_neighborhood/v001/export_manifest.json",
+      "collision": false,
+      "interactive": false,
+      "runtime_instances": [
+        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/flat_annex"
+      ],
+      "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-REAR-SLAB",
+      "name": "水下景观·后排板楼",
+      "domain": "scenes",
+      "suite": "submerged_neighborhood",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/submerged_neighborhood/v001/component_packages/rear_slab/rear_slab.blend",
+      "source_sha256": "5b262af62f631795d50a7d46e7e075adc6d53ddb73cedece26c4d119c248e76f",
+      "manifest": "art_source/scenes/submerged_neighborhood/v001/component_packages/rear_slab/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/rear_slab/rear_slab.glb",
+      "runtime_sha256": "9b493009bb8b4e2b32da6044262b83fbe04e83a4e157f74c12b2982865beb787",
+      "prefab": "godot/scenes/decorations/underwater/buildings/rear_slab.tscn",
+      "prefab_sha256": "51c92e21ca071a1373f89caf9a6b31a10c1c1329ca7a62be8e83c7e08a79e380",
+      "category": "underwater_scenic_building",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "underwater_buildings"
+      },
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "geometry_fingerprint": "006456d33061241c80dd9a408824e5a25300db1eed8da5d311706b7df8f0a4d7",
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-222807-submerged-layout-final-a94a56\\report.json"
+      ],
+      "triangles": 716,
+      "polygons": 338,
+      "triangle_budget": 1000,
+      "source_optimization_manifest": "art_source/scenes/submerged_neighborhood/v001/export_manifest.json",
+      "collision": false,
+      "interactive": false,
+      "runtime_instances": [
+        "World/Zones/Zone1HomeHarbor/UnderwaterScenery/rear_slab"
+      ],
+      "note": "Independent purely decorative submerged building. Original master + standalone source + independently saved optimized derivative. No resources, navigation, walk areas or interaction. Hidden elevations inferred; reference commercial rights pending."
+    },
+    {
+      "asset_id": "SEA-SCENE-SUBMERGED-ASSEMBLY",
+      "name": "阳光房水下景观街区-六栋独立装配",
+      "domain": "scenes",
+      "suite": "submerged_neighborhood",
+      "scope": "scene_local",
+      "stage": "source_runtime_verified_provenance_pending",
+      "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+      "source_sha256": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "manifest": "art_source/scenes/submerged_neighborhood/v001/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": "godot/scenes/decorations/underwater/neighborhood.tscn",
+      "runtime_sha256": "d28921220d249495c7bd3e993438c54c12fee3ef8e8a352eef2e4f154e80ea09",
+      "prefab": "godot/scenes/decorations/underwater/neighborhood.tscn",
+      "license": "user_supplied_reference_commercial_rights_pending",
+      "category": "underwater_scenery_assembly",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "underwater_buildings"
+      },
+      "consumer_features": [
+        "SEA-ASSET",
+        "SEA-WORLD"
+      ],
+      "verification": [
+        "D:\\projects\\sea-work\\verification\\20261028-222807-submerged-layout-final-a94a56\\report.json"
+      ]
     }
   ]
 }

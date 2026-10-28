@@ -1,0 +1,17 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://src/world/submerged_building.gd" id="contract"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+[ext_resource type="PackedScene" path="res://assets/models/scenery/submerged_neighborhood/slender_tower/slender_tower.glb" id="model"]
+[node name="水下景观·窄身竖窗楼" type="Node3D"]
+script = ExtResource("contract")
+asset_id = "SEA-SCENE-SUBMERGED-SLENDER-TOWER"
+component_kind = "decoration"
+subcategory = "underwater_buildings"
+movable = false
+metadata/asset_id = "SEA-SCENE-SUBMERGED-SLENDER-TOWER"
+metadata/triangle_budget = 1000
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "none"
+blocks_water = false

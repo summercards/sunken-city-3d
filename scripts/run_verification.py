@@ -25,6 +25,12 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'visual-submerged-water-light': ('tests/test_submerged_water_light.gd', r'\[submerged-water-light\] \d+ checks, 0 failures'),
+    'submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
+    'visual-submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
+    'reference-skiff': ('tests/test_reference_skiff.gd', r'\[reference-skiff\] \d+ checks, 0 failures'),
+    'visual-reference-skiff': ('tests/test_reference_skiff.gd', r'\[reference-skiff\] \d+ checks, 0 failures'),
+	'visual-corner-notebook': ('tests/test_corner_notebook.gd', r'\[corner-notebook\] \d+ checks, 0 failures'),
     'title-clock-seed': ('tests/seed_title_clock.gd', r'\[title-clock-seed\] ok=true'),
     'visual-title-screen-day': ('tests/test_title_saved_time.gd', r'\[title-saved\] \d+ checks, 0 failures'),
     'visual-title-screen-night': ('tests/test_title_saved_time.gd', r'\[title-saved\] \d+ checks, 0 failures'),
@@ -65,6 +71,8 @@ TESTS.update({
     'visual-farming': ('tools/capture_farm_cycle.gd', r'\[farm-ui\] failures=0'),
     'visual-management': ('tools/capture_management_loop.gd', r'\[management-ui\].*0 failed'),
     'visual-click': ('tools/capture_click_controls.gd', r'\[click-ui\] failures=0'),
+    # 航线水纹：航路虚线已移除，落点改成贴浪面的扩散波纹。
+    'visual-route-ripple': ('tools/capture_route_ripple.gd', r'\[route-ripple\] checks done, failures=0'),
     'visual-underwater-depth': ('tests/test_underwater_depth.gd', r'\[uw-depth\] double_sided_lighting.*PASS'),
     'visual-underwater-capture': ('tools/capture_underwater_suite.gd', r'\[uw-suite\] surface_environment_restored=true'),
     'visual-paper-fit': ('tools/check_paper_fit.gd', r'\[paper-fit\] \d+ checks, 0 failures'),

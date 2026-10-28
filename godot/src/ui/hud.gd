@@ -3,6 +3,10 @@ extends CanvasLayer
 const Scope = preload("res://src/core/play_scope.gd")
 var dialogue: CanvasLayer
 var calendar_query: Callable
+var weather_query: Callable
+var clock_label: Label
+var corner: Control
+var notebook: Control
 const EconomyDependency = preload("res://src/economy/economy.gd")
 var economy: EconomyDependency
 var zones: Node
@@ -70,13 +74,14 @@ var presenter_sources: Dictionary = {}
 var _external_modal := false
 ## 外部面板打开时是否铺压暗遮罩。调色 / 取景面板会把它关掉，见 `set_external_modal`。
 var _external_dim := true
-var _launch: HBoxContainer
+var _launch: Control
 var _world_actions: HBoxContainer
 var _history: Array[String] = []
 var _toast_elapsed := 0.0
 var _zoom: Label
 var _zoom_left := 0.0
 var _toast_tag: Label
+var _note_tick:=0.0
 
 func _ready() -> void:
 	layer = 60
@@ -107,40 +112,35 @@ func _ready() -> void:
 	_root.add_child(services);services.hide()
 	services.operation_requested.connect(_service_command)
 	services.close_requested.connect(close_card)
+	notebook=preload("res://src/ui/notebook.gd").new()
+	notebook.font=_font;notebook.query=_notebook_snapshot
+	_root.add_child(notebook);notebook.hide()
+	notebook.close_requested.connect(close_card)
+	notebook.requested.connect(_notebook_command)
 	world_actions=preload("res://src/ui/world_action_bubbles.gd").new()
 	add_child(world_actions);world_actions.notify=toast
 	for id in ["plant","build","save","load","camera","grade"]: command_buttons[id] = _panel.tiles[id]
-	var launch := HBoxContainer.new();_launch=launch;launch.position = Vector2(40,32);launch.add_theme_constant_override("separation",12)
-	_root.add_child(launch)
-	var bag := _plain_button("▤  背包 B",true);bag.tooltip_text="随身口袋 · B";launch.add_child(bag)
-	bag.pressed.connect(func():
-		if _panel_open: _toggle_panel()
-		else: command_requested.emit("bag"))
-	command_buttons.bag = bag
-	var system := _plain_button("☰  Esc",true);system.tooltip_text="暂停与设置 · Esc";launch.add_child(system)
-	system.pressed.connect(func(): menu.show_menu())
-	command_buttons.system = system
-	_dive_btn = _plain_button("潜水",true);launch.add_child(_dive_btn)
+	corner=preload("res://src/ui/corner_hud.gd").new();corner.font=_font;_root.add_child(corner)
+	_launch=corner.toolbar;_world_actions=corner.actions;_res_label=corner.balance;clock_label=corner.clock_label
+	for id in corner.buttons: command_buttons[id]=corner.buttons[id]
+	corner.requested.connect(func(id):
+		if id=="system": menu.show_menu()
+		elif id=="dive": dive_pressed.emit()
+		elif id=="map": open_tab("map")
+		else: command_requested.emit(id))
+	_dive_btn = _plain_button("潜水",true)
+	_root.add_child(_dive_btn);_dive_btn.hide()
 	_dive_btn.pressed.connect(func(): dive_pressed.emit())
 	if Scope.minimal():
 		_dive_btn.disabled = true
 		_dive_btn.text = "潜水 · 未开放"
 		_dive_btn.modulate = Color(0.6,0.6,0.6)
-		for entry in [["plant","种植"],["storage","仓库"],["shipping","出货箱"],["shop","商店"]]:
-			launch.add_child(_command_button(entry[1],entry[0],true))
 		for id in _panel.tiles:
 			if not Scope.command_enabled(id) or id in ["shell","pearl"]:
 				_panel.tiles[id].disabled = true
 				_panel.tiles[id].modulate = Color(0.5,0.5,0.5)
 				_panel.tiles[id].tooltip_text = "当前版本未开放"
 
-	_world_actions=HBoxContainer.new();_world_actions.add_theme_constant_override("separation",10);_root.add_child(_world_actions)
-	for entry in [["follow","回到角色"],["cancel","停止行动"]]:
-		var button := _command_button(entry[1],entry[0],true);_world_actions.add_child(button)
-	_res_label = _label("",15,Color.WHITE);_root.add_child(_res_label)
-	# 世界浮层字：大号、圆润、不勾边。旧的 22px + 1~2px 硬阴影正是截图里
-	# 「字很细、边缘发沟」的来源，见 Cozy.world_text 的两条规则。
-	Cozy.world_text(_res_label,Cozy.WORLD_TEXT_RESOURCES,Color.WHITE)
 	_dive_controls = HBoxContainer.new();_dive_controls.position = Vector2(32,88);_dive_controls.add_theme_constant_override("separation",8)
 	_root.add_child(_dive_controls)
 	for entry in [["rise","↑ 上游"],["descend","↓ 下游"],["lamp","头灯"]]: _dive_controls.add_child(_command_button(entry[1],entry[0],true))
@@ -207,7 +207,10 @@ func _command_button(title: String, command: String, dark := false) -> Button:
 
 func _layout() -> void:
 	_layout_size = _root.size
-	_world_actions.position=Vector2(40,_root.size.y-78)
+	corner.place(_root.size)
+	var note_fit:=minf(1.0,minf((_root.size.x-64)/notebook.size.x,(_root.size.y-110)/notebook.size.y))
+	notebook.scale=Vector2.ONE*note_fit
+	notebook.position=(_root.size-notebook.size*note_fit)/2
 	var extent: Vector2 = _panel.size
 	var fit := minf(1.0,minf((_root.size.y-160)/extent.y,(_root.size.x-100)/extent.x))
 	_base_position = Vector2((_root.size.x-extent.x)/2 if _panel.detail.visible else maxf(48,_root.size.x*0.13),(_root.size.y-extent.y)/2)
@@ -219,10 +222,6 @@ func _layout() -> void:
 	services.scale=Vector2.ONE*service_fit
 	services.position=Vector2((_root.size.x-services.size.x)/2,(_root.size.y-services.size.y)/2-20)
 	_hints.position=Vector2(_root.size.x-_hints.get_combined_minimum_size().x-40,_root.size.y-78)
-	# 资源行放大了 2 倍，位置必须跟着字高走，否则会压到底部的「跟随/停止行动」。
-	# 行高按 1.35em 估（圆体中文字面 + 上下留白），底边压在动作条上方 12px。
-	var res_h: float = _res_label.get_theme_font_size("font_size")*1.35
-	_res_label.position=Vector2(40,maxf(24,_root.size.y-90-res_h))
 	# 潜水状态在潜水按钮排（y=88，高 52）下面一行。
 	var dive_h: float = _dive_status.get_theme_font_size("font_size")*1.35
 	_dive_status.position=Vector2(34,140+maxf(12,dive_h*0.2))
@@ -231,7 +230,7 @@ func _layout() -> void:
 	_zoom.position=Vector2((_root.size.x-_zoom.get_combined_minimum_size().x)/2,_root.size.y-80)
 
 func _layout_notice() -> void:
-	_toast_box.position = Vector2(maxf(24,_root.size.x-520),32 if _panel_open and (_pocket_mode or _service_mode) else 112)
+	_toast_box.position = Vector2(maxf(24,_root.size.x-520),24 if _panel_open else 112)
 
 func _attach_presenters() -> void:
 	var adapter := preload("res://src/ui/island_presenters.gd").new()
@@ -249,6 +248,7 @@ func bind_presenters(views: Dictionary) -> void:
 func set_external_modal(on: bool, dim := true) -> void:
 	if _external_modal == on and _external_dim == dim: return
 	_external_modal=on
+	if on: corner.set_expanded(false)
 	_external_dim=dim
 	_sync_backdrop()
 	_hints.visible=on or _panel_open
@@ -279,6 +279,10 @@ func back() -> void:
 			_tab=_history.pop_back();_refresh_panel();_layout()
 		else: close_card()
 		return
+	if notebook.visible:
+		if not _history.is_empty(): _tab=_history.pop_back();_refresh_panel();_layout()
+		else: close_card()
+		return
 	if not _history.is_empty():
 		_tab=_history.pop_back();_refresh_panel();_layout()
 	elif _panel.detail.visible:
@@ -287,19 +291,23 @@ func back() -> void:
 
 func open_tab(tab: String) -> void:
 	if not Scope.command_enabled(tab): return
+	corner.set_expanded(false)
 	world_actions.close(true)
 	if _panel_open and tab != _tab and tab != "bag": _history.append(_tab)
 	if tab == "bag": _history.clear()
 	_tab=tab
+	if tab=="plant": notebook.category="plant";notebook.page=0;notebook.selected=""
 	if not _panel_open: _toggle_panel()
 	else: _refresh_panel();_layout()
 
 func _toggle_panel() -> void:
+	corner.set_expanded(false)
 	_panel_open = not _panel_open
 	if _open_tween: _open_tween.kill()
 	_panel.visible = _panel_open
 	pockets.hide()
 	services.hide()
+	notebook.hide()
 	_sync_backdrop()
 	_hints.visible = _panel_open or _external_modal
 	_launch.visible=not _panel_open and not _external_modal
@@ -308,7 +316,8 @@ func _toggle_panel() -> void:
 		_history.clear()
 		return
 	_refresh_panel();_layout()
-	if _pocket_mode or _service_mode:
+	if _pocket_mode or _service_mode or _tab in ["manual","notes","plant"]:
+		if _tab in ["manual","notes","plant"]: return
 		var grid_view: Control=services if _service_mode else pockets
 		if Cozy.motion_enabled:
 			grid_view.modulate.a=0
@@ -335,9 +344,14 @@ func _refresh_panel() -> void:
 	if _tab_body == null: return
 	_pocket_mode = _tab == "bag"
 	_service_mode = _tab in ["shipping","storage","shop"]
+	var note_mode:=_tab in ["manual","notes","plant"]
+	notebook.visible=_panel_open and note_mode
 	pockets.visible=_panel_open and _pocket_mode
 	services.visible=_panel_open and _service_mode
-	_panel.visible=_panel_open and not _pocket_mode and not _service_mode
+	_panel.visible=_panel_open and not _pocket_mode and not _service_mode and not note_mode
+	if note_mode:
+		notebook.refresh()
+		_layout();return
 	if _service_mode:
 		services.modulate.a=1;services.refresh(_tab);_layout();return
 	if _pocket_mode:
@@ -422,6 +436,10 @@ func _activate(id: String) -> void:
 		_: open_tab(id)
 
 func _activate_selection() -> void:
+	if notebook.visible:
+		var focused:=get_viewport().gui_get_focus_owner()
+		if focused is Button and notebook.is_ancestor_of(focused) and not focused.disabled: focused.pressed.emit()
+		return
 	if _service_mode and _panel_open:
 		if services.action_closing: return
 		if services.actions.visible:
@@ -452,13 +470,15 @@ func _input(event: InputEvent) -> void:
 	if _panel_open:
 		if key == KEY_ESCAPE: return
 		if key in [KEY_B,KEY_TAB]: _toggle_panel()
+		elif notebook.visible and key in [KEY_LEFT,KEY_RIGHT]: notebook.turn_page(-1 if key==KEY_LEFT else 1)
+		elif notebook.visible and key in [KEY_ENTER,KEY_SPACE]: _activate_selection()
 		elif _service_mode and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]: services.move_selection({KEY_LEFT:-1,KEY_RIGHT:1,KEY_UP:-8,KEY_DOWN:8}[key])
 		elif _service_mode and key in [KEY_ENTER,KEY_SPACE]: _activate_selection()
 		elif _pocket_mode and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]: pockets.move_selection({KEY_LEFT:-1,KEY_RIGHT:1,KEY_UP:-8,KEY_DOWN:8}[key])
 		elif _pocket_mode and key in [KEY_ENTER,KEY_SPACE]: _activate_selection()
 		elif key in [KEY_LEFT,KEY_RIGHT] and not _panel.detail.visible: _panel.flip(1-_panel.page)
-		elif key == KEY_UP and not _panel.detail.visible: _panel.move_selection(-1)
-		elif key == KEY_DOWN and not _panel.detail.visible: _panel.move_selection(1)
+		elif key == KEY_UP and not _panel.detail.visible and not notebook.visible: _panel.move_selection(-1)
+		elif key == KEY_DOWN and not _panel.detail.visible and not notebook.visible: _panel.move_selection(1)
 		elif key in [KEY_ENTER,KEY_SPACE] and not _panel.detail.visible: _activate_selection()
 		elif key in [KEY_C,KEY_P]:
 			command_requested.emit("camera" if key == KEY_C else "grade")
@@ -467,6 +487,8 @@ func _input(event: InputEvent) -> void:
 			else: menu.show_menu("load")
 		else: return
 		get_viewport().set_input_as_handled()
+	elif key==KEY_N:
+		command_requested.emit("notes");get_viewport().set_input_as_handled()
 	elif key in [KEY_B,KEY_TAB]:
 		command_requested.emit("bag");get_viewport().set_input_as_handled()
 
@@ -507,13 +529,17 @@ func note_zoom(ratio: float) -> void:
 		_zoom.text="  视野 %d%%  " % roundi(ratio*100)
 		_zoom_left=1.2
 
+func set_follow_locked(on: bool) -> void:
+	corner.set_follow_locked(on)
+
 ## Read-only presentation snapshot for diagnostics; never exposes mutable owner state.
 func presentation_snapshot() -> Dictionary:
 	return {"open":_panel_open,"page":_panel.page,"diving":_diving,"depth":_depth,"oxygen":_air_ratio,"clock":"—","tide":"—","turning":_panel.turning}
 
 func _refresh() -> void:
 	if _res_label == null: return
-	_res_label.text = "瓶盖 %d  ·  背包 %d / %d" % [economy.count("coins"),economy.inventory.slots_used(),economy.inventory.capacity()]
+	_res_label.text = "瓶盖 %d" % economy.count("coins")
+	corner.capacity.text="背包 %d / %d" % [economy.inventory.slots_used(),economy.inventory.capacity()]
 	for entry in _panel.harvest_specs:
 		var id: String = entry[0]
 		var count: int = economy.count(id)
@@ -525,8 +551,13 @@ func _refresh() -> void:
 
 func _process(delta: float) -> void:
 	if _root.size != _layout_size: _layout()
-	_res_label.visible=not _panel_open and not _external_modal and not menu.active
+	corner.status.visible=not _panel_open and not _external_modal and not menu.active and not _diving
+	corner.place(_root.size)
+	if notebook.visible:
+		_note_tick+=delta
+		if _note_tick>=1.0: _note_tick=0.0;notebook.refresh()
 	if _toast_left > 0:
+		_toast_box.visible=not corner.expanded
 		_toast_elapsed += delta
 		_toast.visible_characters = -1
 		_toast_left -= delta;_toast_box.modulate.a = clampf(_toast_left/0.9,0,1)
@@ -783,7 +814,7 @@ func _add_goal_button(id: String) -> void:
 	_tab_body.add_child(button)
 
 func is_modal() -> bool:
-	return _panel_open or _external_modal or (world_actions != null and world_actions.is_open()) or (menu != null and menu.visible and get_tree().paused)
+	return _panel_open or _external_modal or (corner!=null and corner.expanded) or (world_actions != null and world_actions.is_open()) or (menu != null and menu.visible and get_tree().paused)
 
 func refresh_after_restore() -> void:
 	refresh_view()
@@ -793,6 +824,7 @@ func bind_models() -> void:
 	if not economy.sites_changed.is_connected(_refresh_panel): economy.sites_changed.connect(_refresh_panel)
 	if not economy.resources_changed.is_connected(_refresh): economy.resources_changed.connect(_refresh)
 	if not economy.daily.changed.is_connected(_refresh): economy.daily.changed.connect(_refresh)
+	if not economy.farm.plots_changed.is_connected(_refresh): economy.farm.plots_changed.connect(_refresh)
 	_refresh()
 
 ## Public command/query boundary for scene composition and input routing.
@@ -832,6 +864,15 @@ func _pocket_command(id: String, action: String) -> void:
 		"plant": command_requested.emit("plant")
 		"ship": _farm_action(func() -> Dictionary: return economy.daily.deposit(id,1))
 		"store": _farm_action(func() -> Dictionary: return economy.storage.deposit(id,1))
+
+func _notebook_snapshot() -> Dictionary:
+	return preload("res://src/ui/notebook_data.gd").entries(economy,calendar_query.call() if calendar_query.is_valid() else {})
+
+func _notebook_command(command: String) -> void:
+	if command.begins_with("plot:"):
+		close_card();plot_focus_requested.emit(command.trim_prefix("plot:"))
+	elif command=="map": open_tab("map")
+	else: command_requested.emit(command)
 
 func open_world_actions(anchor: Callable, options: Array, hint := "") -> void:
 	close_card()

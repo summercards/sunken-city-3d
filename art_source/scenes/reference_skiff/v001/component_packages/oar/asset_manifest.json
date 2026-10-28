@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-OAR",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-OAR",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/oar/oar.blend",
+  "source_sha256": "a1d761d8e285ccdb81d89cfa0d87c46f3839ad71b2ab0882d502718ac8d2babf",
+  "component": {
+    "key": "oar",
+    "name": "圆杆宽叶木船桨",
+    "asset_id": "SEA-SCENE-SKIFF-OAR",
+    "semantic_family": "oar",
+    "category": "fitting",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-OAR",
+    "bounds": {
+      "min": [
+        -1.5822317600250244,
+        -0.23000000417232513,
+        0.0
+      ],
+      "max": [
+        1.5822316408157349,
+        0.23000000417232513,
+        0.11200001090765
+      ]
+    },
+    "instance_count": 2,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "cc6d6608505820321cece828803386e1d5c8c4bde9b4593185c810a6a398a79e",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/oar/oar.glb",
+  "runtime_sha256": "b4f1be632243d8d471c9dfccdb1aab623b2edc9f665e201e105d88eaca5f2630",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/oar.tscn",
+  "prefab_sha256": "e5694e1be78571d2253f417b81e83885fee5654b3f0812ece8bf552ef7aeffad",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/oar/oar.glb.import",
+    "sha256": "905b98a184bc42ed8ead0b2a398d2e42fa655a7ccf150e75e28eaafe3b98d532",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

@@ -1,6 +1,6 @@
 extends Node3D
 class_name Boat
-## 小船：模型来自网页版烘焙，运动与起伏在 Godot 内重建。
+## 小船：独立 Blender 组件装配；运动、靠泊和起伏由 Boat 保持原契约。
 
 signal arrived(zone_id: String, landing_id: String)
 signal navigation_blocked
@@ -13,10 +13,7 @@ var _wave_pitch := 0.0
 var _wave_roll := 0.0
 
 const WATER_LEVEL := 1.12
-const BASE := "res://assets/baked/"
-## boat.json geometries 34..40 are the seven createBoatEdgeStroke tubes from
-## index.html, not hull parts. Keep the source bake intact; retire only these overlays.
-const LEGACY_FOAM_GEOMETRIES := [34, 35, 36, 37, 38, 39, 40]
+const VISUAL_SCENE = preload("res://scenes/props/reference_skiff.tscn")
 ## 巡航速度。网页版 `sailDuration = 曲线长度 / 3.6`，这里取同一量级。
 const SPEED := 2.6
 
@@ -56,42 +53,17 @@ var _speed_actual := 0.0
 
 
 func build() -> void:
-	var meta = JSON.parse_string(FileAccess.get_file_as_string(BASE + "boat.json"))
-	if meta == null:
-		push_error("boat.json 解析失败")
-		return
-	var verts := _read_f32("boat_geoms.bin")
-	var idx := _read_i32("boat_geoms_idx.bin")
-	var inst := _read_f32("boat_instances.bin")
-
-	model = Node3D.new()
+	if is_instance_valid(model): return
+	model = VISUAL_SCENE.instantiate()
 	model.name = "Model"
 	add_child(model)
-
-	var meshes: Array[Mesh] = []
-	for g in meta.geoms:
-		meshes.append(_make_mesh(g, verts, idx))
-
-	for b in meta.batches:
-		if int(b.geom) in LEGACY_FOAM_GEOMETRIES and bool(b.unlit) and bool(b.alpha):
-			continue
-		var count := int(b.count)
-		if count <= 0:
-			continue
-		var mm := MultiMesh.new()
-		mm.transform_format = MultiMesh.TRANSFORM_3D
-		mm.use_colors = true
-		mm.mesh = meshes[int(b.geom)]
-		mm.instance_count = count
-		var off := int(b.instOff) * 16
-		mm.buffer = inst.slice(off, off + count * 16)
-		var mat := _make_material(bool(b.tint), bool(b.unlit), bool(b.alpha))
-		var mmi := MultiMeshInstance3D.new()
-		mmi.multimesh = mm
-		mmi.material_override = mat
-		mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
-		model.add_child(mmi)
-	_build_oars()
+	_oar_l = model.get_node("OarL")
+	_oar_r = model.get_node("OarR")
+	_mats.assign([
+		preload("res://assets/materials/reference_skiff/matte.tres"),
+		preload("res://assets/materials/reference_skiff/metal.tres"),
+		preload("res://assets/materials/reference_skiff/gloss.tres")])
+	_animate_oars(0.0)
 	# A short timber post lifts the lantern clear of the gunwale. The existing
 	# wall bracket fixes to its outside face; this fitting shares the boat motion.
 	var lamp_post := MeshInstance3D.new()
@@ -137,23 +109,6 @@ func build() -> void:
 	lamp.shadow_enabled = true
 	lamp.add_to_group("boat_lamps")
 	model.add_child(lamp)
-
-
-func _make_material(tint: bool, _unlit: bool, alpha: bool) -> ShaderMaterial:
-	# Baked unlit flags belong to the old web presentation. All boat surfaces,
-	# including the net and trim, receive the same real lights as the house.
-	var path := "res://shaders/toon.gdshader"
-	if alpha:
-		path = path.replace(".gdshader", "_alpha.gdshader")
-	var mat := ShaderMaterial.new()
-	mat.shader = load(path)
-	mat.set_shader_parameter("use_texture", false)
-	mat.set_shader_parameter("depth_tint", tint)
-	mat.set_shader_parameter("water_level", WATER_LEVEL)
-	mat.set_shader_parameter("albedo_tint", Vector3.ONE)
-	mat.set_shader_parameter("ambient_boost", 0.0)
-	_mats.append(mat)
-	return mat
 
 
 func place_at(pos: Vector3, yaw: float) -> void:
@@ -391,39 +346,6 @@ func _advance_route(delta: float) -> void:
 		arrived.emit(_to_zone, _to_landing)
 
 
-## 两根桨：俯视镜头下这是「在划船」最直观的信号。
-## 桨挂在船体两侧，绕 Y 前后划、绕 Z 入水出水；划船时随桨频摆动，停泊时收起来。
-func _build_oars() -> void:
-	_oar_l = _make_oar(-1.0)
-	_oar_r = _make_oar(1.0)
-
-
-func _make_oar(side: float) -> Node3D:
-	var pivot := Node3D.new()
-	pivot.name = "OarL" if side < 0.0 else "OarR"
-	# 桨架就设在舷边（船宽 3m → 舷边 ±1.5，留一点内收），桨杆**只向外伸**：
-	# 这样杆不会从船体中间穿过去，俯视下也不会被船身挡掉一半。
-	pivot.position = Vector3(1.05 * side, 0.34, 0.10)
-	add_child(pivot)
-	var shaft := BoxMesh.new()
-	shaft.size = Vector3(2.35, 0.08, 0.10)
-	var mi := MeshInstance3D.new()
-	mi.mesh = shaft
-	mi.position = Vector3(1.18 * side, 0.0, 0.0)
-	mi.material_override = _flat(Color("#8a5f30"))
-	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
-	pivot.add_child(mi)
-	var blade := BoxMesh.new()
-	blade.size = Vector3(0.72, 0.035, 0.42)
-	var bmi := MeshInstance3D.new()
-	bmi.mesh = blade
-	bmi.position = Vector3(2.30 * side, -0.03, 0.0)
-	bmi.material_override = _flat(Color("#f0d7a8"))
-	bmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
-	pivot.add_child(bmi)
-	return pivot
-
-
 func _flat(color: Color) -> StandardMaterial3D:
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = color
@@ -445,8 +367,10 @@ func _animate_oars(delta: float) -> void:
 	var turn := clampf(_turn_rate / TURN_RATE, -1.0, 1.0)
 	_oar_l.rotation.y = lerpf(1.1, swing * 0.30 * (1.0 - turn * 0.3), _row_blend)
 	_oar_r.rotation.y = lerpf(-1.1, -swing * 0.30 * (1.0 + turn * 0.3), _row_blend)
-	_oar_l.rotation.z = lerpf(-0.3, 0.10 + dip * 0.16, _row_blend)
-	_oar_r.rotation.z = lerpf(0.3, -0.10 - dip * 0.16, _row_blend)
+	# The authored oarlocks sit on the higher gunwale; the blade still dips below
+	# the original waterline on the power stroke and clears it on recovery.
+	_oar_l.rotation.z = lerpf(-0.3, 0.14 + dip * 0.22, _row_blend)
+	_oar_r.rotation.z = lerpf(0.3, -0.14 - dip * 0.22, _row_blend)
 
 
 func wake_uniform() -> Vector4:
@@ -454,58 +378,6 @@ func wake_uniform() -> Vector4:
 
 func rowing_state() -> Vector2:
 	return Vector2(_stroke, _row_blend)
-
-
-func _read_f32(file_name: String) -> PackedFloat32Array:
-	var f := FileAccess.open(BASE + file_name, FileAccess.READ)
-	if f == null:
-		return PackedFloat32Array()
-	var bytes := f.get_buffer(f.get_length())
-	f.close()
-	return bytes.to_float32_array()
-
-
-func _read_i32(file_name: String) -> PackedInt32Array:
-	var f := FileAccess.open(BASE + file_name, FileAccess.READ)
-	if f == null:
-		return PackedInt32Array()
-	var bytes := f.get_buffer(f.get_length())
-	f.close()
-	return bytes.to_int32_array()
-
-
-func _slice_vec3(src: PackedFloat32Array, off: int, count: int) -> PackedVector3Array:
-	var out := PackedVector3Array()
-	out.resize(count)
-	for i in count:
-		var k := off + i * 3
-		out[i] = Vector3(src[k], src[k + 1], src[k + 2])
-	return out
-
-
-func _slice_vec2(src: PackedFloat32Array, off: int, count: int) -> PackedVector2Array:
-	var out := PackedVector2Array()
-	out.resize(count)
-	for i in count:
-		var k := off + i * 2
-		out[i] = Vector2(src[k], src[k + 1])
-	return out
-
-
-func _make_mesh(g: Dictionary, verts: PackedFloat32Array, indices: PackedInt32Array) -> ArrayMesh:
-	var vc := int(g.vcount)
-	var arrays := []
-	arrays.resize(Mesh.ARRAY_MAX)
-	arrays[Mesh.ARRAY_VERTEX] = _slice_vec3(verts, int(g.pOff), vc)
-	if int(g.nOff) >= 0:
-		arrays[Mesh.ARRAY_NORMAL] = _slice_vec3(verts, int(g.nOff), vc)
-	if int(g.tOff) >= 0:
-		arrays[Mesh.ARRAY_TEX_UV] = _slice_vec2(verts, int(g.tOff), vc)
-	if int(g.icount) > 0:
-		arrays[Mesh.ARRAY_INDEX] = indices.slice(int(g.iOff), int(g.iOff) + int(g.icount))
-	var mesh := ArrayMesh.new()
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	return mesh
 
 
 func cruise_speed() -> float:

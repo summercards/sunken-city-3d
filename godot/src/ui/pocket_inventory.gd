@@ -47,7 +47,7 @@ func _ready() -> void:
 	capacity_label = _label("",22,Cozy.INK)
 	capacity_label.position = Vector2(310,427);add_child(capacity_label)
 	capacity_label.hide()
-	var manual := _button("生活手册")
+	var manual := _button("海岛笔记")
 	manual.position = Vector2(714,411);manual.size = Vector2(220,58)
 	manual.pressed.connect(func(): manual_requested.emit());add_child(manual)
 	actions = PanelContainer.new()

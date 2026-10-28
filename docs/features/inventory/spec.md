@@ -113,3 +113,10 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 | SEA-INVENTORY-R07 | 口袋视图只查询Inventory与ItemDB：容量、按stack拆分的格、数量和空位全部来自唯一所有者；瓶盖不占格。物品气泡通过已有仓储/出货命令存取1件或所选整叠，拒绝时保持数量，不新增出售规则。 |
 
 [交付记录](../../development/2026-10-28_pocket_action_bubbles.md)。
+
+
+## 2026-10-28 HUD与笔记表现接线
+
+左下显示真实瓶盖、已用格/容量，使用原白色圆体且无背板。背包仍由B/Tab或右上图标进入；背包内“生活手册”改名“海岛笔记”。笔记物产卡读取背包/仓库数量，不复制或写回Inventory。
+
+对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。

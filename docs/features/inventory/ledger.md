@@ -16,6 +16,7 @@
     "godot/assets/data/items.json"
   ],
   "verification": [
+    "visual-corner-notebook",
     "selftest",
     "management",
     "minimum-loop",
@@ -87,3 +88,10 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 2026-10-28 服务界面补齐：R07扩展为存取1件或所选整叠；所有权和原子容量拒绝不变。见[本轮记录](../../development/2026-10-28_service_pockets.md)。
 
 2026-10-28 恢复验收（request ID `21726f14-a5f7-438f-9db2-83ed622dd271`）：当前源码重新通过服务口袋、实体出货箱全流程、场景气泡三项真实渲染专项及最小循环/模块检查；完整世界3项可行走面失败单列，不签署全工程通过。见[本轮记录](../../development/2026-10-28_service_pockets.md)与[机器证据](../../development/2026-10-28_service_pockets.json)。
+
+
+## 2026-10-28 HUD与笔记表现接线
+
+左下显示真实瓶盖、已用格/容量，使用原白色圆体且无背板。背包仍由B/Tab或右上图标进入；背包内“生活手册”改名“海岛笔记”。笔记物产卡读取背包/仓库数量，不复制或写回Inventory。
+
+对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。

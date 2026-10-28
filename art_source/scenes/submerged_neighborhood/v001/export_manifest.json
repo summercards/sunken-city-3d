@@ -1,0 +1,433 @@
+{
+  "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+  "source_sha256": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+  "optimized_source": "art_source/scenes/submerged_neighborhood/v001/export/v001/submerged_neighborhood_optimized.blend",
+  "optimized_sha256": "e2df797bd4a12b65af25c0bf804ca2151e459316cc224a906425c758bfb960a3",
+  "protected_sources_unchanged": true,
+  "components": [
+    {
+      "key": "terraced_tower",
+      "name": "水下景观·错层檐线楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-TERRACED-TOWER",
+      "semantic_family": "tiered",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        8.8,
+        7.2,
+        17.6
+      ],
+      "floors": 5,
+      "style": "tiered",
+      "triangle_budget": 1000,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        13.6,
+        -18.8,
+        11.5
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "polygons": 424,
+      "triangles": 880,
+      "bounds_min": [
+        -4.39900016784668,
+        -3.609499931335449,
+        0.0
+      ],
+      "bounds_max": [
+        4.39900016784668,
+        3.609499931335449,
+        17.69999885559082
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+      "source_sha256_before": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "optimized_source": "art_source/scenes/submerged_neighborhood/v001/export/v001/submerged_neighborhood_optimized.blend",
+      "triangles_before": 880,
+      "triangles_after": 880,
+      "reduction_ratio": 0.0,
+      "operations": [
+        "merge duplicate vertices at 1e-6 m",
+        "dissolve degenerate edges at 1e-7 m",
+        "remove isolated vertices",
+        "recalculate outward normals"
+      ],
+      "vertices_before": 1040,
+      "vertices_after": 1040,
+      "faces_before": 424,
+      "faces_after": 424,
+      "preserved_faces": "Bottom/back/slab undersides retained: visible from arbitrary underwater camera. Flat window panels and trim boundaries retained for palette and silhouette fidelity. No unproven hidden-face deletion.",
+      "zero_reduction_reason": "Purpose-built low-poly silhouettes already fit budget; cleanup may weld vertices without changing triangles. Triangulation is not claimed as reduction.",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/terraced_tower/terraced_tower.glb",
+      "runtime_sha256": "76c857a2ade93249d90f81c10d2ef44a2db66dd78c922e0123da90887360e6b3",
+      "exported_triangles": 880,
+      "optimized_sha256": "e2df797bd4a12b65af25c0bf804ca2151e459316cc224a906425c758bfb960a3",
+      "source_sha256_after": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "geometry_fingerprint": "521309fde5888920beb559d0b4f4ed53804ea6772d628944f05005959958b627"
+    },
+    {
+      "key": "rounded_tower",
+      "name": "水下景观·弧角窗廊楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-ROUNDED-TOWER",
+      "semantic_family": "curved",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        8.2,
+        7.0,
+        19.4
+      ],
+      "floors": 6,
+      "style": "curved",
+      "triangle_budget": 1000,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -7.8,
+        -20.4,
+        3.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "polygons": 351,
+      "triangles": 784,
+      "bounds_min": [
+        -4.080999851226807,
+        -3.444999933242798,
+        0.0
+      ],
+      "bounds_max": [
+        4.080999851226807,
+        3.444999933242798,
+        19.5
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+      "source_sha256_before": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "optimized_source": "art_source/scenes/submerged_neighborhood/v001/export/v001/submerged_neighborhood_optimized.blend",
+      "triangles_before": 784,
+      "triangles_after": 784,
+      "reduction_ratio": 0.0,
+      "operations": [
+        "merge duplicate vertices at 1e-6 m",
+        "dissolve degenerate edges at 1e-7 m",
+        "remove isolated vertices",
+        "recalculate outward normals"
+      ],
+      "vertices_before": 884,
+      "vertices_after": 884,
+      "faces_before": 351,
+      "faces_after": 351,
+      "preserved_faces": "Bottom/back/slab undersides retained: visible from arbitrary underwater camera. Flat window panels and trim boundaries retained for palette and silhouette fidelity. No unproven hidden-face deletion.",
+      "zero_reduction_reason": "Purpose-built low-poly silhouettes already fit budget; cleanup may weld vertices without changing triangles. Triangulation is not claimed as reduction.",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/rounded_tower/rounded_tower.glb",
+      "runtime_sha256": "b2a90a3b7e15d4c578c465f667c35aa1589c3dd089f78eacbfc3f1e8ac6c2843",
+      "exported_triangles": 784,
+      "optimized_sha256": "e2df797bd4a12b65af25c0bf804ca2151e459316cc224a906425c758bfb960a3",
+      "source_sha256_after": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "geometry_fingerprint": "5e4c0ebf97b3a27ec29d52d543bae9384d3ec58f62d166c649c0eaeec4d118a9"
+    },
+    {
+      "key": "slender_tower",
+      "name": "水下景观·窄身竖窗楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-SLENDER-TOWER",
+      "semantic_family": "slender",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        4.2,
+        5.0,
+        14.2
+      ],
+      "floors": 5,
+      "style": "slender",
+      "triangle_budget": 1000,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -4.0,
+        -16.2,
+        -5.9
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "polygons": 298,
+      "triangles": 636,
+      "bounds_min": [
+        -1.9900000095367432,
+        -2.3899998664855957,
+        0.0
+      ],
+      "bounds_max": [
+        1.9900000095367432,
+        2.3899998664855957,
+        14.309999465942383
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+      "source_sha256_before": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "optimized_source": "art_source/scenes/submerged_neighborhood/v001/export/v001/submerged_neighborhood_optimized.blend",
+      "triangles_before": 636,
+      "triangles_after": 636,
+      "reduction_ratio": 0.0,
+      "operations": [
+        "merge duplicate vertices at 1e-6 m",
+        "dissolve degenerate edges at 1e-7 m",
+        "remove isolated vertices",
+        "recalculate outward normals"
+      ],
+      "vertices_before": 616,
+      "vertices_after": 616,
+      "faces_before": 298,
+      "faces_after": 298,
+      "preserved_faces": "Bottom/back/slab undersides retained: visible from arbitrary underwater camera. Flat window panels and trim boundaries retained for palette and silhouette fidelity. No unproven hidden-face deletion.",
+      "zero_reduction_reason": "Purpose-built low-poly silhouettes already fit budget; cleanup may weld vertices without changing triangles. Triangulation is not claimed as reduction.",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/slender_tower/slender_tower.glb",
+      "runtime_sha256": "d814ea5e799c51575e122d76214f9c81fd75263ebc70896f986eb334cb220bd6",
+      "exported_triangles": 636,
+      "optimized_sha256": "e2df797bd4a12b65af25c0bf804ca2151e459316cc224a906425c758bfb960a3",
+      "source_sha256_after": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "geometry_fingerprint": "37f8b63677eac0a459d58d323330728a294474aa28e65136722f15487fb87927"
+    },
+    {
+      "key": "stepped_lowrise",
+      "name": "水下景观·L形矮楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-STEPPED-LOWRISE",
+      "semantic_family": "L",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        7.0,
+        5.6,
+        9.0
+      ],
+      "floors": 3,
+      "style": "L",
+      "triangle_budget": 1000,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        4.3,
+        -12.0,
+        23.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "polygons": 213,
+      "triangles": 438,
+      "bounds_min": [
+        -3.444999933242798,
+        -2.703000068664551,
+        0.0
+      ],
+      "bounds_max": [
+        3.444999933242798,
+        2.703000068664551,
+        9.09999942779541
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+      "source_sha256_before": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "optimized_source": "art_source/scenes/submerged_neighborhood/v001/export/v001/submerged_neighborhood_optimized.blend",
+      "triangles_before": 438,
+      "triangles_after": 438,
+      "reduction_ratio": 0.0,
+      "operations": [
+        "merge duplicate vertices at 1e-6 m",
+        "dissolve degenerate edges at 1e-7 m",
+        "remove isolated vertices",
+        "recalculate outward normals"
+      ],
+      "vertices_before": 476,
+      "vertices_after": 476,
+      "faces_before": 213,
+      "faces_after": 213,
+      "preserved_faces": "Bottom/back/slab undersides retained: visible from arbitrary underwater camera. Flat window panels and trim boundaries retained for palette and silhouette fidelity. No unproven hidden-face deletion.",
+      "zero_reduction_reason": "Purpose-built low-poly silhouettes already fit budget; cleanup may weld vertices without changing triangles. Triangulation is not claimed as reduction.",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/stepped_lowrise/stepped_lowrise.glb",
+      "runtime_sha256": "68159739aec7f73db3b8a6e39b5786a006d32128aa5aa4821ad527987b05b77a",
+      "exported_triangles": 438,
+      "optimized_sha256": "e2df797bd4a12b65af25c0bf804ca2151e459316cc224a906425c758bfb960a3",
+      "source_sha256_after": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "geometry_fingerprint": "443b03625a070369479a581c325d01337d3ea0f9792f7dcddb92aad436efb98c"
+    },
+    {
+      "key": "flat_annex",
+      "name": "水下景观·窄顶附楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-FLAT-ANNEX",
+      "semantic_family": "annex",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        3.6,
+        4.6,
+        10.4
+      ],
+      "floors": 4,
+      "style": "annex",
+      "triangle_budget": 1000,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -4.2,
+        -14.6,
+        17.3
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "polygons": 232,
+      "triangles": 496,
+      "bounds_min": [
+        -1.6899999380111694,
+        -2.1730000972747803,
+        0.0
+      ],
+      "bounds_max": [
+        1.6899999380111694,
+        2.1730000972747803,
+        10.50999927520752
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+      "source_sha256_before": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "optimized_source": "art_source/scenes/submerged_neighborhood/v001/export/v001/submerged_neighborhood_optimized.blend",
+      "triangles_before": 496,
+      "triangles_after": 496,
+      "reduction_ratio": 0.0,
+      "operations": [
+        "merge duplicate vertices at 1e-6 m",
+        "dissolve degenerate edges at 1e-7 m",
+        "remove isolated vertices",
+        "recalculate outward normals"
+      ],
+      "vertices_before": 440,
+      "vertices_after": 440,
+      "faces_before": 232,
+      "faces_after": 232,
+      "preserved_faces": "Bottom/back/slab undersides retained: visible from arbitrary underwater camera. Flat window panels and trim boundaries retained for palette and silhouette fidelity. No unproven hidden-face deletion.",
+      "zero_reduction_reason": "Purpose-built low-poly silhouettes already fit budget; cleanup may weld vertices without changing triangles. Triangulation is not claimed as reduction.",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/flat_annex/flat_annex.glb",
+      "runtime_sha256": "3a3e0f7b6ed62d445dbe3fc506c52abd6724527d311407a5e912e892b5216745",
+      "exported_triangles": 496,
+      "optimized_sha256": "e2df797bd4a12b65af25c0bf804ca2151e459316cc224a906425c758bfb960a3",
+      "source_sha256_after": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "geometry_fingerprint": "796a8854f42b82e968b2a52226678adc6dee2c574b24408dd7666de5c9fac55c"
+    },
+    {
+      "key": "rear_slab",
+      "name": "水下景观·后排板楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-REAR-SLAB",
+      "semantic_family": "slab",
+      "category": "underwater_scenic_building",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        6.8,
+        4.4,
+        16.0
+      ],
+      "floors": 5,
+      "style": "slab",
+      "triangle_budget": 1000,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        8.0,
+        -20.5,
+        -6.5
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "polygons": 338,
+      "triangles": 716,
+      "bounds_min": [
+        -3.3389999866485596,
+        -2.0899999141693115,
+        0.0
+      ],
+      "bounds_max": [
+        3.3389999866485596,
+        2.0899999141693115,
+        16.110000610351562
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+      "source_sha256_before": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "optimized_source": "art_source/scenes/submerged_neighborhood/v001/export/v001/submerged_neighborhood_optimized.blend",
+      "triangles_before": 716,
+      "triangles_after": 716,
+      "reduction_ratio": 0.0,
+      "operations": [
+        "merge duplicate vertices at 1e-6 m",
+        "dissolve degenerate edges at 1e-7 m",
+        "remove isolated vertices",
+        "recalculate outward normals"
+      ],
+      "vertices_before": 776,
+      "vertices_after": 776,
+      "faces_before": 338,
+      "faces_after": 338,
+      "preserved_faces": "Bottom/back/slab undersides retained: visible from arbitrary underwater camera. Flat window panels and trim boundaries retained for palette and silhouette fidelity. No unproven hidden-face deletion.",
+      "zero_reduction_reason": "Purpose-built low-poly silhouettes already fit budget; cleanup may weld vertices without changing triangles. Triangulation is not claimed as reduction.",
+      "runtime_path": "godot/assets/models/scenery/submerged_neighborhood/rear_slab/rear_slab.glb",
+      "runtime_sha256": "9b493009bb8b4e2b32da6044262b83fbe04e83a4e157f74c12b2982865beb787",
+      "exported_triangles": 716,
+      "optimized_sha256": "e2df797bd4a12b65af25c0bf804ca2151e459316cc224a906425c758bfb960a3",
+      "source_sha256_after": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+      "geometry_fingerprint": "006456d33061241c80dd9a408824e5a25300db1eed8da5d311706b7df8f0a4d7"
+    }
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "fidelity": "Identical fixed front/back/side/top source and optimized renders; inspect images before integration",
+  "source_validation": "6 independent packages reopened; each face UV area/cell margin, texture path, identity transforms, triangle budget validated"
+}

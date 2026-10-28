@@ -1,0 +1,139 @@
+{
+  "feature_ids": [
+    "SEA-UI",
+    "SEA-TIME",
+    "SEA-CAMERA"
+  ],
+  "requirements": [
+    "SEA-UI-R39",
+    "SEA-UI-R40",
+    "SEA-TIME-R11",
+    "SEA-CAMERA-R07"
+  ],
+  "checks": {
+    "visual-corner-notebook": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "renderer": "real",
+      "log": "D:\\projects\\sea-work\\verification\\20261028-182416-hud-date-native-final-12a072\\visual-corner-notebook.log",
+      "scope": "minimal"
+    },
+    "framework-modules": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "renderer": "headless",
+      "log": "D:\\projects\\sea-work\\verification\\20261028-181837-hud-date-follow-fixed-9a239b\\framework-modules.log",
+      "scope": "minimal"
+    },
+    "camera": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "renderer": "headless",
+      "log": "D:\\projects\\sea-work\\verification\\20261028-181837-hud-date-follow-fixed-9a239b\\camera.log",
+      "scope": "minimal"
+    },
+    "click": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "renderer": "headless",
+      "log": "D:\\projects\\sea-work\\verification\\20261028-182132-hud-follow-click-full-c078a9\\click.log",
+      "scope": "full-world"
+    },
+    "minimum-loop": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "renderer": "headless",
+      "log": "D:\\projects\\sea-work\\verification\\20261028-181837-hud-date-follow-fixed-9a239b\\minimum-loop.log",
+      "scope": "minimal"
+    },
+    "sleep-cycle": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "renderer": "headless",
+      "log": "D:\\projects\\sea-work\\verification\\20261028-181837-hud-date-follow-fixed-9a239b\\sleep-cycle.log",
+      "scope": "minimal"
+    }
+  },
+  "real_rendering": [
+    "visual-corner-notebook"
+  ],
+  "expected_fault_runs": [],
+  "not_executed": [
+    "touchscreen device",
+    "controller device"
+  ],
+  "calendar": {
+    "first_day": "1月1日",
+    "cycle_days": 365,
+    "day_41": "2月10日",
+    "saved_fields_changed": false
+  },
+  "ui": {
+    "bottle_cap_font_before": 36,
+    "bottle_cap_font_after": 28,
+    "follow_button": "lower-right round person framing icon, existing follow command",
+    "stop_button_removed": true
+  },
+  "source_audit": {
+    "only_asset_updated": "UI-HUD-CORNERS-001",
+    "version": "v002",
+    "recorded_before": "D:/projects/sea-work/hud-date-follow-20261028/asset-before.json",
+    "old_asset_and_dependency_hashes_checked_before_edit": true,
+    "lighting_outside_diff": true,
+    "reused_icon_terms_pending_unchanged": true
+  },
+  "iterations": [
+    {
+      "run": "20261028-181715-hud-date-follow-c5a880",
+      "status": "interrupted after explicit Vector2 inference error in new icon; typed declaration fixed; owned isolated Godot process stopped"
+    },
+    {
+      "run": "20261028-181837-hud-date-follow-fixed-9a239b",
+      "status": "core time/camera/minimum-loop/sleep passed; native first menu click fixture lacked pointer motion; legacy click requires full-world for far-zone/build assertions"
+    },
+    {
+      "run": "20261028-182132-hud-date-native-bbdb0e",
+      "status": "native fixture still missed first menu click; changed helper to send mouse motion before mouse down/up, and let deferred layout settle"
+    },
+    {
+      "run": "20261028-182416-hud-date-native-final-12a072",
+      "status": "87 native checks, 0 failures; real follow click, free pan, three resolutions, original menu/pagination preserved"
+    }
+  ],
+  "previews": [
+    "D:\\projects\\sea-work\\hud-date-follow-20261028\\main-interface.png",
+    "D:\\projects\\sea-work\\hud-date-follow-20261028\\camera-locked.png",
+    "D:\\projects\\sea-work\\hud-date-follow-20261028\\night-interface.png"
+  ],
+  "contract_checks": {
+    "sync": {
+      "exit_code": 0,
+      "features": 33,
+      "source_assets": 434,
+      "runtime_resources": 346,
+      "issues": 0
+    },
+    "read_only": {
+      "exit_code": 0,
+      "features": 33,
+      "source_assets": 434,
+      "runtime_resources": 346,
+      "issues": 0
+    },
+    "scoped_git_diff_check": {
+      "exit_code": 0
+    }
+  }
+}

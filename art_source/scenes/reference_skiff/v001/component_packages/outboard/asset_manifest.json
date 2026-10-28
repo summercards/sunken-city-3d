@@ -1,0 +1,67 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-OUTBOARD",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-OUTBOARD",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/outboard/outboard.blend",
+  "source_sha256": "cc15ca6205f963af2a107786f23f684d3356dba1b63506ba44ed66be676ad42a",
+  "component": {
+    "key": "outboard",
+    "name": "白盖灰紫船外机",
+    "asset_id": "SEA-SCENE-SKIFF-OUTBOARD",
+    "semantic_family": "outboard",
+    "category": "fitting",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-OUTBOARD",
+    "bounds": {
+      "min": [
+        -0.5236238241195679,
+        -0.5280295610427856,
+        0.0
+      ],
+      "max": [
+        0.5236238241195679,
+        0.5280295610427856,
+        1.591091275215149
+      ]
+    },
+    "instance_count": 1,
+    "material_roles": [
+      "SEA_Gloss",
+      "SEA_Matte",
+      "SEA_Metal"
+    ],
+    "geometry_fingerprint": "fd7c23526b355c1dccd818783670e90c7b6a4b6fefcf3d5b0c9bfa13ab422a19",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/outboard/outboard.glb",
+  "runtime_sha256": "a4d47d2722fd79abde104b0f4aa7dd7bc684356e9e52ab7e50f9dedf67d5d1ae",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/outboard.tscn",
+  "prefab_sha256": "62ba6e5f1f2da7a2c43357db69d348f0dd0b38b173b9ce7438ce1bd335a22ced",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/outboard/outboard.glb.import",
+    "sha256": "3e346596475fcaab5b5f799e3b849c6aea60e428838431e26350534a778856d8",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

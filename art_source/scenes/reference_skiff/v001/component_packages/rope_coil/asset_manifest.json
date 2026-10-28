@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-ROPE-COIL",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-ROPE-COIL",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/rope_coil/rope_coil.blend",
+  "source_sha256": "3c5d0864110ca92973aabe0d6aa13ae4768f78d112c94e54a96b34fb35d29449",
+  "component": {
+    "key": "rope_coil",
+    "name": "盘绕缆绳",
+    "asset_id": "SEA-SCENE-SKIFF-ROPE-COIL",
+    "semantic_family": "rope_coil",
+    "category": "fitting",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-ROPE-COIL",
+    "bounds": {
+      "min": [
+        -0.19596189260482788,
+        -0.1481984257698059,
+        0.0
+      ],
+      "max": [
+        0.19596189260482788,
+        0.1481984257698059,
+        0.05965002626180649
+      ]
+    },
+    "instance_count": 1,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "86fb249ec90ba5245a307dade6853ead3a4afd7ca9fe8835470b47f8fabf7bda",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/rope_coil/rope_coil.glb",
+  "runtime_sha256": "263ff62b3a0e56cf79d6ae1ae3e05c30aa4cb519f17001e168a2c738211fdc57",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/rope_coil.tscn",
+  "prefab_sha256": "edcd7627c1d6d842463e6615168d571aaef06c3313d68ed6edd06221c602a69e",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/rope_coil/rope_coil.glb.import",
+    "sha256": "6d2d473cb49189ab0be52e7bd62fba83a9cc533c925e8361b369bf93b2e8fc66",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

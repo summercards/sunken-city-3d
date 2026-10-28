@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/world/skiff_palette_binding.gd" id="bind"]
+[ext_resource type="PackedScene" path="res://assets/models/boats/reference_skiff/components/outboard/outboard.glb" id="visual"]
+[node name="outboard" type="Node3D"]
+script = ExtResource("bind")
+asset_id = "SEA-SCENE-SKIFF-OUTBOARD"
+component_kind = "building"
+subcategory = "vessel_part"
+facility_id = "player_boat"
+metadata/asset_id = "SEA-SCENE-SKIFF-OUTBOARD"
+[node name="Visual" parent="." instance=ExtResource("visual")]

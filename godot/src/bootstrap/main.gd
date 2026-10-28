@@ -661,13 +661,13 @@ func _try_sail_to(screen: Vector2) -> bool:
 		return true
 	_pending_pick.clear()
 	_ashore_on_arrival = false
+	# 落点不再叠加第二套波纹：目标点的水纹（ribbon）从零开始散，
+	# 位置和点击点重合，再放一个准星只会多出一圈相位不同的干扰。
 	return _depart(func() -> void:
 		actor_controller.request_mode(GameState.Mode.SAILING)
 		boat.sail_to_point(p, path)
 		if ribbon != null:
-			ribbon.show_route(boat.route, WATER_LEVEL)
-		if reticle != null:
-			reticle.show_at(p, true))
+			ribbon.show_route(boat.route, WATER_LEVEL))
 
 
 
@@ -877,6 +877,7 @@ func _setup_markers() -> void:
 		add_child(markers)
 	markers.zones = Zones
 	markers.build(cam)
+	markers.pointer_query=_pointer_pos
 	markers.set_highlight(GameState.current_zone)
 
 
@@ -1171,14 +1172,17 @@ func _on_salvage_finished(haul: Dictionary, ok: bool) -> void:
 	hud.toast("打捞上来 · " + "  ".join(parts))
 
 
-## ---- 航线预览 / 水面寻路 -----------------------------------------------------
+## ---- 航行目标水纹 / 水面寻路 -------------------------------------------------
 
+## 目标点只留一圈荡开的水纹，不再铺航路虚线（2026-10-28 按用户要求去掉）。
+## 水面引用在这里注入，波纹才能贴着真实浪面走。
 func _setup_ribbon() -> void:
 	ribbon = get_node_or_null("RouteRibbon")
 	if ribbon == null:
 		ribbon = RouteRibbonScript.new()
 		ribbon.name = "RouteRibbon"
 		add_child(ribbon)
+	ribbon.water = water_node
 
 
 ## 岸线栅格按需建一次：25 个形状 ≈ 268×265 格，一次十几毫秒，不值得每帧算。
@@ -1224,6 +1228,8 @@ func _sail_to_landing(l: Dictionary, zone_id: String, landing_id: String, then_a
 
 ## ---- 悬停铭牌 / 落点环 -------------------------------------------------------
 
+## 落点环仍服务岸上走位（那里没有水面可荡）。
+## 海面点击的反馈由 RouteRibbon 的终点水纹承担，见 _setup_ribbon。
 func _setup_hover() -> void:
 	reticle = get_node_or_null("ClickReticle")
 	if reticle == null:
@@ -1246,7 +1252,7 @@ func _update_pointer_ui() -> void:
 	if hover == null:
 		return
 	if markers != null: markers.visible = not hud.is_panel_open() and not hud.menu.active and not hud.menu.external_open()
-	var panel_open: bool = (hud != null and hud.is_panel_open()) \
+	var panel_open: bool = (hud != null and hud.is_modal()) \
 		or (hud != null and hud.world_actions.is_open()) \
 		or (salvage_panel != null and salvage_panel.is_open()) \
 		or (order_panel != null and order_panel.is_open()) \
@@ -1302,8 +1308,7 @@ func _dump_winch() -> void:
 ## 缩放时给一句「缩放 62%」的反馈；手动航行时把已走过的航段从虚线上裁掉。
 func _update_camera_feedback(delta: float) -> void:
 	if cam != null and hud != null:
-		if hud.command_buttons.has("follow"):
-			hud.command_buttons.follow.text = "跟随中" if cam.follow_enabled else "回到角色"
+		hud.set_follow_locked(cam.follow_enabled)
 		var d: float = cam.distance
 		if absf(d - _zoom_seen) > maxf(0.4, _zoom_seen * 0.004):
 			_zoom_seen = d
@@ -1456,7 +1461,7 @@ func _on_click_command(command: String) -> void:
 			hud.toast("镜头跟随角色")
 		"close":
 			if hud.is_panel_open(): hud.toggle_panel()
-		"bag", "plant", "build", "storage", "shop", "shipping":
+		"bag", "notes", "plant", "build", "storage", "shop", "shipping":
 			_auto_target = null
 			interactor.auto_hold = false
 			cam_panel.set_open(false)
@@ -1634,8 +1639,7 @@ func _select_landing(hit: Dictionary) -> void:
 	var l := Zones.landing(zone_id, landing_id)
 	if not _sail_to_landing(l, zone_id, landing_id, true):
 		return
-	if reticle != null:
-		reticle.show_at(Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2])), true)
+	# 同上：目标水纹由 ribbon 负责，不再额外放一圈落点环。
 
 
 ## 靠泊后上岸的唯一入口：站在泊位上走过去，到位即 ashore_idle。
@@ -1830,7 +1834,7 @@ func _process(delta: float) -> void:
 		if daylight_rig != null:
 			daylight_rig.apply(world_clock.query().hour)
 		_calendar_label.text = world_clock.query().text + " · " + weather_service.query().label
-		_calendar_label.visible = not dive.active and not hud.is_modal()
+		_calendar_label.visible = not dive.active
 	if _autosave_on:
 		_autosave_left -= delta
 		if _autosave_left <= 0.0:
@@ -1983,26 +1987,17 @@ func _setup_calendar() -> void:
 	if Scope.minimal():
 		Economy.daily.observe(world_clock.query())
 		world_clock.changed.connect(Economy.daily.observe)
-		hud.calendar_query = world_clock.query
 		Economy.daily.settled.connect(func(receipt: Dictionary): hud.toast("收货员已收走货物 · 瓶盖 +%d" % receipt.income if receipt.income>0 else "第 %d 天 · 新的一天，记得照料作物" % receipt.day,4.0))
 	weather_service.configure(_load_json("res://assets/data/weather.json"))
+	hud.calendar_query=world_clock.query
+	hud.weather_query=weather_service.query
 	var layer := CanvasLayer.new()
 	layer.name = "WorldWeather"
 	layer.layer = 0
 	add_child(layer)
 	weather_view = preload("res://src/weather/weather_presenter.gd").new()
 	layer.add_child(weather_view)
-	_calendar_label = Label.new()
-	_calendar_label.set_meta("cozy_skip",true)
-	_calendar_label.position = Vector2(20,86)
-	_calendar_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_calendar_label.add_theme_font_override("font",preload("res://src/ui/ui_font.gd").embedded())
-	_calendar_label.add_theme_font_size_override("font_size",26)
-	_calendar_label.add_theme_color_override("font_color",Color("#fff8e7"))
-	_calendar_label.add_theme_color_override("font_shadow_color",Color(0,0,0,0.7))
-	_calendar_label.add_theme_constant_override("shadow_offset_x",1)
-	_calendar_label.add_theme_constant_override("shadow_offset_y",2)
-	layer.add_child(_calendar_label)
+	_calendar_label = hud.clock_label
 	_calendar_label.text = world_clock.query().text + " · " + weather_service.query().label
 	_setup_daylight()
 

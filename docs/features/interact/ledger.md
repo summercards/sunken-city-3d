@@ -15,6 +15,7 @@
     "godot/src/interaction"
   ],
   "verification": [
+    "visual-corner-notebook",
     "click",
     "surface",
     "framework-integration",
@@ -82,3 +83,10 @@ Main 保留输入路由；接近、自动按住及完成释放由 ActorControlle
 | SEA-INTERACT-R05 | 已实现；实际渲染与输入专项通过；设备/授权边界单列 | [交付记录](../../development/2026-10-28_pocket_action_bubbles.md) |
 
 本轮运行结果、过程失败、退出码与未执行项集中记在交付记录。旧记录保留为历史，整体状态仍partial。
+
+
+## 2026-10-28 HUD与笔记表现接线
+
+展开的图标菜单也属于模态阻断，外点收起先消费点击。泊位自身船锚已承担悬停反馈，HoverCard对landing保留target与指针但不显示第二颗手形图标；其它交互物的小操作图标和气泡不变。
+
+对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。

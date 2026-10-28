@@ -85,3 +85,10 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 最新规则见本轮新增条款；07:00结算和瓶盖命名优先于历史引用。[交付与实测](../../development/2026-10-27_plot_shipping_loop.md)。
 
 2026-10-28：R08改用世界动画气泡；规则和注入端口不变。实测见[本轮记录](../../development/2026-10-28_pocket_action_bubbles.md)。
+
+
+## 2026-10-28 HUD与笔记表现接线
+
+种植入口归入海岛笔记的种植分类。UI读取crop_definitions、grow_days、yield_of、plot_specs、state、status_text与access_reason展示真实资料和地格状态；前往地格仍经plot_focus_requested，播种/浇水/收获继续在世界气泡中明确选择。规则和状态所有权保持Farm。
+
+对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。

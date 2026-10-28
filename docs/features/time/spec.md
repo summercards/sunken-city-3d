@@ -23,7 +23,7 @@
 - [godot/src/time/world_clock.gd](../../../godot/src/time/world_clock.gd)
 - [godot/assets/data/world_time.json](../../../godot/assets/data/world_time.json)
 
-`configure(config)` 设置 day_length_seconds（默认1200秒）；`tick(delta)` 推进；`paused` 由会话暂停管理；`rest_to_morning()` 到次日07:00；`query()` 返回 day/hour/text/daylight；`changed(snapshot)` 与 `day_changed(day)` 通知订阅者。
+`configure(config)` 设置 day_length_seconds（默认1200秒）；`tick(delta)` 推进；`paused` 由会话暂停管理；`rest_to_morning()` 到次日07:00；`query()` 返回 day/month/day_of_month/hour/text/daylight；`changed(snapshot)` 与 `day_changed(day)` 通知订阅者。
 
 快照 `time` 包含 day（>=1）、seconds（0≤值<86400）、day_length（60–86400）。显示层读取查询；默认由 DailyShipping 观察07:00晨次，通过注入命令推进作物；休息和自然时间共用一次结算。
 
@@ -61,3 +61,19 @@
 时段表是表现层的分组，**不是新的时间所有者**：`WorldClock` 仍是唯一时钟，`daylight_slots.gd` 只做「某一时刻落在哪一段」的查询。
 
 [本轮交付](../../development/2026-10-28_daypart_lighting_panel.md)。
+
+
+## 2026-10-28 HUD与笔记表现接线
+
+原日期Label移动到HUD左下文字区域，Main继续组合WorldClock/Weather查询显示。笔记通过注入calendar_query读取同一时间；开始画面与睡觉显隐、恢复时刻、晨次和快照契约保留。
+
+对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。
+
+
+## 2026-10-28 月日日历显示
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-TIME-R11 | WorldClock从已有累计day派生月日：第1天为1月1日，固定365日显示循环，月份按31/28/31/30/31/30/31/31/30/31/30/31天；第41天显示2月10日，第366天显示1月1日。query新增month/day_of_month，text改为月日及时间。累计day、快照字段、晨次/睡觉/离线冻结不变；不把月日写回存档，不联动天气或季节光照。 |
+
+calendar_date(elapsed_day)为无副作用查询。月末/年末/读档/午夜边界与实际HUD见[本轮交付](../../development/2026-10-28_hud_date_camera_lock.md)。

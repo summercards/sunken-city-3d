@@ -14,6 +14,7 @@
     "godot/assets/data/world_time.json"
   ],
   "verification": [
+    "visual-corner-notebook",
     "framework-modules",
     "framework-integration",
     "visual-weather",
@@ -92,3 +93,19 @@ SEA-TIME-R01/R08/R09继续由同一WorldClock与预设表驱动。本轮只改SE
 ## 2026-10-28 开始界面时间连续性
 
 开始背景改为读取已恢复的同一WorldClock时刻，不修改存档格式、时间字段或07:00晨次。开始期间继续冻结时钟，入场后恢复计时；白天/夜间/清晨真实存档冷启动验证见[本轮记录](../../development/2026-10-28_title_composition_saved_time.md)。
+
+
+## 2026-10-28 HUD与笔记表现接线
+
+原日期Label移动到HUD左下文字区域，Main继续组合WorldClock/Weather查询显示。笔记通过注入calendar_query读取同一时间；开始画面与睡觉显隐、恢复时刻、晨次和快照契约保留。
+
+对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。
+
+
+## 2026-10-28 月日派生显示
+
+| 对应条款 | 实施状态 | 证据 |
+|---|---|---|
+| SEA-TIME-R11 | 已实现；累计日不变，纯查询派生月日，无快照迁移；月末/跨年/午夜/恢复专项覆盖 | [本轮交付](../../development/2026-10-28_hud_date_camera_lock.md) |
+
+当前新增公开查询字段month/day_of_month与静态calendar_date；快照仍仅day/seconds/day_length。显示从1月1日起按365日循环，不引入闰年或新年份状态。

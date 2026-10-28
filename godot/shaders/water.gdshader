@@ -33,6 +33,7 @@
 shader_type spatial;
 global uniform float world_daylight;
 #include "res://shaders/ocean_night.gdshaderinc"
+#include "res://shaders/submerged_caustic_light.gdshaderinc"
 render_mode blend_mix, depth_draw_never, cull_disabled;
 
 uniform sampler2D screen_tex : hint_screen_texture, filter_linear_mipmap;
@@ -564,20 +565,11 @@ void fragment() {
 		+ body_deep * (transmission * (1.0 - shallow_visibility));
 	color = clamp(color, vec3(0.0), vec3(1.0));
 
-	// Caustics land on whatever the light reaches under the surface. Applied here,
-	// after the body composite, so the depth-based body opacity cannot swallow
-	// them (see the note where `caustic_term` is computed).
-	//
-	// The pattern darkens the gaps instead of brightening the peaks, and that is
-	// not a stylistic choice — it is the only thing that works on this scene. The
-	// drowned walls are near-white (0.9+), so any additive term is clamped away:
-	// measured at strength 2.5 the additive version was completely invisible.
-	// Physically it is also the right reading: caustics are focused light *with
-	// dimmer surroundings*, so the walls between the bright folds genuinely are
-	// darker than ambient. Keeping the peaks at full brightness and pulling the
-	// gaps down makes the web visible on a white wall and on a dark window alike.
+	// A soft light contribution after absorption, anchored to the submerged
+	// geometry. Shared by both schemes; the existing day/night output weights
+	// attenuate it at dusk and remove it in the genuinely lit night material.
 	if (caustic_term > 0.0) {
-		color *= 1.0 - caustic_term;
+		color = submerged_caustic_light(color, caustics_color, caustic_term);
 		color = clamp(color, vec3(0.0), vec3(1.0));
 	}
 

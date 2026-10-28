@@ -1,0 +1,469 @@
+{
+  "source": "art_source/scenes/reference_skiff/v001/reference_skiff.blend",
+  "source_sha256": "08fa9cf0494677ce5e94de46760ca5f14c2a1993f0279c3460f290f7f2beb05b",
+  "optimized_source": "art_source/scenes/reference_skiff/v001/export/v001/reference_skiff_optimized.blend",
+  "optimized_sha256": "d990f65fc190503e5ab1cc1d575919722cfb8cdf92b930da876d581645b02d75",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "components": [
+    {
+      "key": "hull",
+      "name": "黄白敞口船壳",
+      "asset_id": "SEA-SCENE-SKIFF-HULL",
+      "semantic_family": "hull",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-HULL",
+      "bounds": {
+        "min": [
+          -1.239722490310669,
+          -2.698740005493164,
+          0.0
+        ],
+        "max": [
+          1.239722490310669,
+          2.698740005493164,
+          0.9820730686187744
+        ]
+      },
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "666c96c5cbb59e329ed8681e79fd2d1cf663ff3f920c5b47ef86d645dde5172c",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/hull/hull.glb",
+      "runtime_sha256": "ab4ad5c65552fc264009c7d97887221fb35956d6750fa6a6eb693745e6205892",
+      "exported_triangles": 1727
+    },
+    {
+      "key": "gunwale",
+      "name": "奶白舷边与金黄内沿",
+      "asset_id": "SEA-SCENE-SKIFF-GUNWALE",
+      "semantic_family": "gunwale",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-GUNWALE",
+      "bounds": {
+        "min": [
+          -1.2873544692993164,
+          -2.698740005493164,
+          0.0
+        ],
+        "max": [
+          1.2873544692993164,
+          2.698740005493164,
+          0.7993383407592773
+        ]
+      },
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "ad41ada3a4a5c0e52bc131231e515b3b4989b696f4ce60028dc95537b2486128",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/gunwale/gunwale.glb",
+      "runtime_sha256": "cac64e344559378a5ebcf0bc785f0aac235e586df87fe676e119fb9b9b5589f6",
+      "exported_triangles": 4428
+    },
+    {
+      "key": "floor_board",
+      "name": "暖木底板",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "semantic_family": "floor_board",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "bounds": {
+        "min": [
+          -0.8650000095367432,
+          -0.11249999701976776,
+          0.0
+        ],
+        "max": [
+          0.8650000095367432,
+          0.11249999701976776,
+          0.07500001788139343
+        ]
+      },
+      "instance_count": 17,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "53ee385425ff62fa3b93f146dbb482eb8102d55bc190aa6e5849a6cb28986096",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/floor_board/floor_board.glb",
+      "runtime_sha256": "0dfd9104426bf92a230ea7fb83b915015150dceafa14e355bceefff06a41328a",
+      "exported_triangles": 188
+    },
+    {
+      "key": "bench",
+      "name": "横向木座板",
+      "asset_id": "SEA-SCENE-SKIFF-BENCH",
+      "semantic_family": "bench",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-BENCH",
+      "bounds": {
+        "min": [
+          -1.0099999904632568,
+          -0.26249998807907104,
+          0.0
+        ],
+        "max": [
+          1.0099999904632568,
+          0.26249998807907104,
+          0.257500022649765
+        ]
+      },
+      "instance_count": 3,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "3185dc8a7362928068eee7197c1e1d575147b60bfb114399b267967325bf7892",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/bench/bench.glb",
+      "runtime_sha256": "ae5610bf751efce3ed5a10aff7bcfa196722692ba9c2418413efbbf849751896",
+      "exported_triangles": 752
+    },
+    {
+      "key": "rib",
+      "name": "内舷木肋",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "semantic_family": "rib",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-RIB",
+      "bounds": {
+        "min": [
+          -0.1173916906118393,
+          -0.05999999865889549,
+          0.0
+        ],
+        "max": [
+          0.1173916906118393,
+          0.05999999865889549,
+          0.5449659824371338
+        ]
+      },
+      "instance_count": 10,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "83b983f7e37196d09e9adf7f9b4c191d37f4fe5d51449e51e9610d662ea58602",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/rib/rib.glb",
+      "runtime_sha256": "f72956dcde195176405a43be8f082cda008249e1818ff9f161a12775fc17390a",
+      "exported_triangles": 188
+    },
+    {
+      "key": "outboard",
+      "name": "白盖灰紫船外机",
+      "asset_id": "SEA-SCENE-SKIFF-OUTBOARD",
+      "semantic_family": "outboard",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-OUTBOARD",
+      "bounds": {
+        "min": [
+          -0.5236238241195679,
+          -0.5280295610427856,
+          0.0
+        ],
+        "max": [
+          0.5236238241195679,
+          0.5280295610427856,
+          1.591091275215149
+        ]
+      },
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "fd7c23526b355c1dccd818783670e90c7b6a4b6fefcf3d5b0c9bfa13ab422a19",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/outboard/outboard.glb",
+      "runtime_sha256": "a4d47d2722fd79abde104b0f4aa7dd7bc684356e9e52ab7e50f9dedf67d5d1ae",
+      "exported_triangles": 2284
+    },
+    {
+      "key": "luggage",
+      "name": "绿色帆布行李包",
+      "asset_id": "SEA-SCENE-SKIFF-LUGGAGE",
+      "semantic_family": "luggage",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-LUGGAGE",
+      "bounds": {
+        "min": [
+          -0.2849999964237213,
+          -0.24424999952316284,
+          0.0
+        ],
+        "max": [
+          0.2849999964237213,
+          0.24424999952316284,
+          0.6376776695251465
+        ]
+      },
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "8071e0acd7a989d667fd56d0988092d0fa1fc1f789d3679a73dfe7b91ee4a180",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/luggage/luggage.glb",
+      "runtime_sha256": "fb10f596592acc946f457957ec0ca035afb25aaed0f6d7d6cd0dcbc3c47f516d",
+      "exported_triangles": 1552
+    },
+    {
+      "key": "fender",
+      "name": "橄榄绿防撞浮球",
+      "asset_id": "SEA-SCENE-SKIFF-FENDER",
+      "semantic_family": "fender",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-FENDER",
+      "bounds": {
+        "min": [
+          -0.1250000298023224,
+          -0.11000001430511475,
+          0.0
+        ],
+        "max": [
+          0.1250000298023224,
+          0.11000001430511475,
+          0.7569230794906616
+        ]
+      },
+      "instance_count": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "d6aa59b462d9c2f7c80e0bd6c39a6699a0662dd7d2b20bde415897c8b9e01ad6",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/fender/fender.glb",
+      "runtime_sha256": "bb92c68a24e1c7d1fc7a0fc137c30a40a50c3ca58a29d5a460db4f86c3890dc2",
+      "exported_triangles": 472
+    },
+    {
+      "key": "oar",
+      "name": "圆杆宽叶木船桨",
+      "asset_id": "SEA-SCENE-SKIFF-OAR",
+      "semantic_family": "oar",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-OAR",
+      "bounds": {
+        "min": [
+          -1.5822317600250244,
+          -0.23000000417232513,
+          0.0
+        ],
+        "max": [
+          1.5822316408157349,
+          0.23000000417232513,
+          0.11200001090765
+        ]
+      },
+      "instance_count": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "cc6d6608505820321cece828803386e1d5c8c4bde9b4593185c810a6a398a79e",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/oar/oar.glb",
+      "runtime_sha256": "b4f1be632243d8d471c9dfccdb1aab623b2edc9f665e201e105d88eaca5f2630",
+      "exported_triangles": 520
+    },
+    {
+      "key": "oarlock",
+      "name": "金属桨架",
+      "asset_id": "SEA-SCENE-SKIFF-OARLOCK",
+      "semantic_family": "oarlock",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-OARLOCK",
+      "bounds": {
+        "min": [
+          -0.10000000149011612,
+          -0.10000000149011612,
+          0.0
+        ],
+        "max": [
+          0.10000000149011612,
+          0.10000000149011612,
+          0.2376776784658432
+        ]
+      },
+      "instance_count": 2,
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "5100079c9f94032524cc253aa5b7a76dfcf28a8bbb819f114b22a026e247f066",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/oarlock/oarlock.glb",
+      "runtime_sha256": "9e25c612efbb1e3c486515814bbcbc2968d95e3acf96bb3b4d6da2ec778d81e8",
+      "exported_triangles": 236
+    },
+    {
+      "key": "cleat",
+      "name": "系缆羊角",
+      "asset_id": "SEA-SCENE-SKIFF-CLEAT",
+      "semantic_family": "cleat",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-CLEAT",
+      "bounds": {
+        "min": [
+          -0.12999999523162842,
+          -0.06499999761581421,
+          0.0
+        ],
+        "max": [
+          0.12999999523162842,
+          0.06499999761581421,
+          0.1550000011920929
+        ]
+      },
+      "instance_count": 3,
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "b4cd6d7119d1f3837349d9cd009072cddb494e6c6c236649982b482edc345045",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/cleat/cleat.glb",
+      "runtime_sha256": "b91735df11312af4206325373325c7bf44b0c2a04df7e5dd29dd1360c7efd0c4",
+      "exported_triangles": 204
+    },
+    {
+      "key": "rope_coil",
+      "name": "盘绕缆绳",
+      "asset_id": "SEA-SCENE-SKIFF-ROPE-COIL",
+      "semantic_family": "rope_coil",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000,
+      "collection": "SEA-SCENE-SKIFF-ROPE-COIL",
+      "bounds": {
+        "min": [
+          -0.19596189260482788,
+          -0.1481984257698059,
+          0.0
+        ],
+        "max": [
+          0.19596189260482788,
+          0.1481984257698059,
+          0.05965002626180649
+        ]
+      },
+      "instance_count": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "86fb249ec90ba5245a307dade6853ead3a4afd7ca9fe8835470b47f8fabf7bda",
+      "collision_responsibility": "Boat/WaterNavigation; no collision exported",
+      "runtime_path": "godot/assets/models/boats/reference_skiff/components/rope_coil/rope_coil.glb",
+      "runtime_sha256": "263ff62b3a0e56cf79d6ae1ae3e05c30aa4cb519f17001e168a2c738211fdc57",
+      "exported_triangles": 2304
+    }
+  ],
+  "validation_report": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+}

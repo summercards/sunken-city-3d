@@ -1,0 +1,45 @@
+{
+  "asset_id": "SEA-SCENE-SUBMERGED-ASSEMBLY",
+  "name": "阳光房水下景观街区-六栋独立装配",
+  "domain": "scenes",
+  "suite": "submerged_neighborhood",
+  "scope": "scene_local",
+  "stage": "source_runtime_verified_provenance_pending",
+  "source": "art_source/scenes/submerged_neighborhood/v001/submerged_neighborhood.blend",
+  "source_sha256": "1b84c941bfffbfe9b2530e8d80725717bc93defaf4ddc0c803ec3c59a2e9f9ed",
+  "manifest": "art_source/scenes/submerged_neighborhood/v001/asset_manifest.json",
+  "version": "v001",
+  "runtime_path": "godot/scenes/decorations/underwater/neighborhood.tscn",
+  "runtime_sha256": "d28921220d249495c7bd3e993438c54c12fee3ef8e8a352eef2e4f154e80ea09",
+  "prefab": "godot/scenes/decorations/underwater/neighborhood.tscn",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "category": "underwater_scenery_assembly",
+  "classification": {
+    "category": "decoration",
+    "subcategory": "underwater_buildings"
+  },
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-222807-submerged-layout-final-a94a56\\report.json"
+  ],
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SUBMERGED-ASSEMBLY",
+  "dependencies": [
+    "SEA-SCENE-SUBMERGED-TERRACED-TOWER",
+    "SEA-SCENE-SUBMERGED-ROUNDED-TOWER",
+    "SEA-SCENE-SUBMERGED-SLENDER-TOWER",
+    "SEA-SCENE-SUBMERGED-STEPPED-LOWRISE",
+    "SEA-SCENE-SUBMERGED-FLAT-ANNEX",
+    "SEA-SCENE-SUBMERGED-REAR-SLAB"
+  ],
+  "optimized_source": "art_source/scenes/submerged_neighborhood/v001/export/v001/submerged_neighborhood_optimized.blend",
+  "optimized_sha256": "e2df797bd4a12b65af25c0bf804ca2151e459316cc224a906425c758bfb960a3",
+  "component_plan": "art_source/scenes/submerged_neighborhood/v001/component_plan.json",
+  "export_manifest": "art_source/scenes/submerged_neighborhood/v001/export_manifest.json",
+  "runtime_placement_owner": "godot/scenes/decorations/underwater/neighborhood.tscn",
+  "reference_sha256": "6c1bb3c62abbdf71ae8895d53b32b31674ee91f134f3f0cbf8686b86eab14262",
+  "collision": false,
+  "interactive": false
+}

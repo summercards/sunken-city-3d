@@ -14,28 +14,28 @@
       "bytes": 8287,
       "sha256": "324cc9510eb98b1c51ac4777ea67f7cc8e2084e8f769e7768b6fc52e61cda5c5",
       "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+      "status": "retired_boat_bake_preserved_for_reference"
     },
     {
       "path": "godot/assets/baked/boat_geoms.bin",
       "bytes": 183840,
       "sha256": "59c1c5c75b6a884e6a18d5ed0bc58f5ee70c41c37c9a38e0324b54d892add5aa",
       "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+      "status": "retired_boat_bake_preserved_for_reference"
     },
     {
       "path": "godot/assets/baked/boat_geoms_idx.bin",
       "bytes": 40440,
       "sha256": "825d4c1a9362868cba3866cbf9376eaa747a1dafe6a2dc840a55f40d744f3e26",
       "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+      "status": "retired_boat_bake_preserved_for_reference"
     },
     {
       "path": "godot/assets/baked/boat_instances.bin",
       "bytes": 3008,
       "sha256": "6fabf86586fbe6a26cffec88e6ab4a84a474245ef7725ade448fa0a28f4fff58",
       "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+      "status": "retired_boat_bake_preserved_for_reference"
     },
     {
       "path": "godot/assets/baked/geoms.bin",
@@ -427,6 +427,90 @@
           "evidence": "docs/development/2026-10-28_cozy_daypart_atmosphere.md"
         }
       ]
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/bench/bench.glb",
+      "bytes": 53868,
+      "sha256": "ae5610bf751efce3ed5a10aff7bcfa196722692ba9c2418413efbbf849751896",
+      "asset_id": "SEA-SCENE-SKIFF-BENCH",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/cleat/cleat.glb",
+      "bytes": 16800,
+      "sha256": "b91735df11312af4206325373325c7bf44b0c2a04df7e5dd29dd1360c7efd0c4",
+      "asset_id": "SEA-SCENE-SKIFF-CLEAT",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/fender/fender.glb",
+      "bytes": 35356,
+      "sha256": "bb92c68a24e1c7d1fc7a0fc137c30a40a50c3ca58a29d5a460db4f86c3890dc2",
+      "asset_id": "SEA-SCENE-SKIFF-FENDER",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/floor_board/floor_board.glb",
+      "bytes": 14776,
+      "sha256": "0dfd9104426bf92a230ea7fb83b915015150dceafa14e355bceefff06a41328a",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/gunwale/gunwale.glb",
+      "bytes": 313944,
+      "sha256": "cac64e344559378a5ebcf0bc785f0aac235e586df87fe676e119fb9b9b5589f6",
+      "asset_id": "SEA-SCENE-SKIFF-GUNWALE",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/hull/hull.glb",
+      "bytes": 120684,
+      "sha256": "ab4ad5c65552fc264009c7d97887221fb35956d6750fa6a6eb693745e6205892",
+      "asset_id": "SEA-SCENE-SKIFF-HULL",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/luggage/luggage.glb",
+      "bytes": 110492,
+      "sha256": "fb10f596592acc946f457957ec0ca035afb25aaed0f6d7d6cd0dcbc3c47f516d",
+      "asset_id": "SEA-SCENE-SKIFF-LUGGAGE",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/oar/oar.glb",
+      "bytes": 40512,
+      "sha256": "b4f1be632243d8d471c9dfccdb1aab623b2edc9f665e201e105d88eaca5f2630",
+      "asset_id": "SEA-SCENE-SKIFF-OAR",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/oarlock/oarlock.glb",
+      "bytes": 19032,
+      "sha256": "9e25c612efbb1e3c486515814bbcbc2968d95e3acf96bb3b4d6da2ec778d81e8",
+      "asset_id": "SEA-SCENE-SKIFF-OARLOCK",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/outboard/outboard.glb",
+      "bytes": 169036,
+      "sha256": "a4d47d2722fd79abde104b0f4aa7dd7bc684356e9e52ab7e50f9dedf67d5d1ae",
+      "asset_id": "SEA-SCENE-SKIFF-OUTBOARD",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/rib/rib.glb",
+      "bytes": 14764,
+      "sha256": "f72956dcde195176405a43be8f082cda008249e1818ff9f161a12775fc17390a",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/boats/reference_skiff/components/rope_coil/rope_coil.glb",
+      "bytes": 162668,
+      "sha256": "263ff62b3a0e56cf79d6ae1ae3e05c30aa4cb519f17001e168a2c738211fdc57",
+      "asset_id": "SEA-SCENE-SKIFF-ROPE-COIL",
+      "status": "source_runtime_verified_provenance_pending"
     },
     {
       "path": "godot/assets/models/debug/quad_test.glb",
@@ -1165,6 +1249,48 @@
       "status": "runtime_integrated_verified",
       "previous_sha256": "d355cc48ad621cbece83af4f7c45270a44775cdbf51434434432d2d33320ae14",
       "note": "Reviewed v008 timber/daypart change"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_neighborhood/flat_annex/flat_annex.glb",
+      "bytes": 35052,
+      "sha256": "3a3e0f7b6ed62d445dbe3fc506c52abd6724527d311407a5e912e892b5216745",
+      "asset_id": "SEA-SCENE-SUBMERGED-FLAT-ANNEX",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_neighborhood/rear_slab/rear_slab.glb",
+      "bytes": 50200,
+      "sha256": "9b493009bb8b4e2b32da6044262b83fbe04e83a4e157f74c12b2982865beb787",
+      "asset_id": "SEA-SCENE-SUBMERGED-REAR-SLAB",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_neighborhood/rounded_tower/rounded_tower.glb",
+      "bytes": 53600,
+      "sha256": "b2a90a3b7e15d4c578c465f667c35aa1589c3dd089f78eacbfc3f1e8ac6c2843",
+      "asset_id": "SEA-SCENE-SUBMERGED-ROUNDED-TOWER",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_neighborhood/slender_tower/slender_tower.glb",
+      "bytes": 44604,
+      "sha256": "d814ea5e799c51575e122d76214f9c81fd75263ebc70896f986eb334cb220bd6",
+      "asset_id": "SEA-SCENE-SUBMERGED-SLENDER-TOWER",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_neighborhood/stepped_lowrise/stepped_lowrise.glb",
+      "bytes": 31632,
+      "sha256": "68159739aec7f73db3b8a6e39b5786a006d32128aa5aa4821ad527987b05b77a",
+      "asset_id": "SEA-SCENE-SUBMERGED-STEPPED-LOWRISE",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_neighborhood/terraced_tower/terraced_tower.glb",
+      "bytes": 61928,
+      "sha256": "76c857a2ade93249d90f81c10d2ef44a2db66dd78c922e0123da90887360e6b3",
+      "asset_id": "SEA-SCENE-SUBMERGED-TERRACED-TOWER",
+      "status": "source_runtime_verified_provenance_pending"
     },
     {
       "path": "godot/assets/models/underwater/basin/basin.glb",
@@ -2268,6 +2394,13 @@
       "status": "runtime_integrated_verified"
     },
     {
+      "path": "godot/assets/textures/shared/sea_cabin_timber_8x8_512.png",
+      "asset_id": "SEA-PALETTE-CABIN-TIMBER-64",
+      "sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+      "bytes": 5695,
+      "note": "Reviewed v008 timber/daypart change"
+    },
+    {
       "path": "godot/assets/textures/shared/sea_cozy_8x8_512.png",
       "bytes": 5695,
       "sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
@@ -2280,97 +2413,6 @@
       "sha256": "8b2f09125acbc82322d7357b78a344d42d3a8c054e4a640d03443af6f2203181",
       "asset_id": null,
       "status": "third_party_package_source_license_and_registration_pending"
-    },
-    {
-      "path": "godot/assets/world/environment/bake.json",
-      "bytes": 55892,
-      "sha256": "aee37e0edcc545ff8e80a81ce1bebae68dcc2ac5d61906660ac45d965eb555cb",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/world/environment/instances.bin",
-      "bytes": 15944704,
-      "sha256": "8195ea5ecef5ae4dff7f60526708836074414862b427742e0daaca22eb2fb1e4",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone1_home_harbor/bake.json",
-      "bytes": 62753,
-      "sha256": "2542f170ec7618545ec5f33710eca834fcf537e74964329e62be76aee67aae0c",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone1_home_harbor/instances.bin",
-      "bytes": 91776,
-      "sha256": "394ebd412dc9ec1b2ae9deff13f1ad6e211db5012e517abcb4dbfb4d0ade187b",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone2_yokohama_station/bake.json",
-      "bytes": 34728,
-      "sha256": "6f40cacc664e24946353126bc8a6fb22745283543a2c875f04e5895314f98b5b",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone2_yokohama_station/instances.bin",
-      "bytes": 13504,
-      "sha256": "60e1e6d4e1d2bf240557f16a7f2c064d792ed797a44b0e198db17fbc06be8111",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone3_arc_farm/bake.json",
-      "bytes": 36679,
-      "sha256": "3aef174f30af8d22a2672dfce4e3cf194e3f414092572112dbd9a788c5c9e62d",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone3_arc_farm/instances.bin",
-      "bytes": 78336,
-      "sha256": "08f7e697b82cd7c213d981cfb56d6c11066abd4985b9e8f5522229a400cef28a",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone4_far_shore/bake.json",
-      "bytes": 6974,
-      "sha256": "1f114f5274d0672df7f8fb0961d02efcdbbd989bfd8a7fe7a3187f47bb0ba675",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone4_far_shore/instances.bin",
-      "bytes": 2560,
-      "sha256": "dc98953eea2028c094f170eaf5b99fc6062df23e68537a50852cea50795b0847",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone5_aqua_platform/bake.json",
-      "bytes": 3215,
-      "sha256": "4240429811ff1af872c85291557a25dff26edd9b91e57990394d80fb35590489",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/assets/zones/zone5_aqua_platform/instances.bin",
-      "bytes": 3328,
-      "sha256": "89efb2e57f9f4c00b12bd614482d78060019b8351632e0930618634f9b695892",
-      "asset_id": null,
-      "status": "legacy_runtime_path_recorded_asset_registration_pending"
-    },
-    {
-      "path": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
-      "bytes": 14884594,
-      "sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",
-      "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
-      "status": "runtime_integrated_verified"
     },
     {
       "path": "godot/assets/ui/handdrawn/action_anchor.png",
@@ -2569,11 +2611,109 @@
       "status": "runtime_verified_license_pending"
     },
     {
-      "path": "godot/assets/textures/shared/sea_cabin_timber_8x8_512.png",
-      "asset_id": "SEA-PALETTE-CABIN-TIMBER-64",
-      "sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
-      "bytes": 5695,
-      "note": "Reviewed v008 timber/daypart change"
+      "path": "godot/assets/world/environment/bake.json",
+      "bytes": 55892,
+      "sha256": "aee37e0edcc545ff8e80a81ce1bebae68dcc2ac5d61906660ac45d965eb555cb",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/world/environment/instances.bin",
+      "bytes": 15944704,
+      "sha256": "8195ea5ecef5ae4dff7f60526708836074414862b427742e0daaca22eb2fb1e4",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone1_home_harbor/bake.json",
+      "bytes": 62753,
+      "sha256": "2542f170ec7618545ec5f33710eca834fcf537e74964329e62be76aee67aae0c",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone1_home_harbor/instances.bin",
+      "bytes": 91776,
+      "sha256": "394ebd412dc9ec1b2ae9deff13f1ad6e211db5012e517abcb4dbfb4d0ade187b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone2_yokohama_station/bake.json",
+      "bytes": 34728,
+      "sha256": "6f40cacc664e24946353126bc8a6fb22745283543a2c875f04e5895314f98b5b",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone2_yokohama_station/instances.bin",
+      "bytes": 13504,
+      "sha256": "60e1e6d4e1d2bf240557f16a7f2c064d792ed797a44b0e198db17fbc06be8111",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone3_arc_farm/bake.json",
+      "bytes": 36679,
+      "sha256": "3aef174f30af8d22a2672dfce4e3cf194e3f414092572112dbd9a788c5c9e62d",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone3_arc_farm/instances.bin",
+      "bytes": 78336,
+      "sha256": "08f7e697b82cd7c213d981cfb56d6c11066abd4985b9e8f5522229a400cef28a",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone4_far_shore/bake.json",
+      "bytes": 6974,
+      "sha256": "1f114f5274d0672df7f8fb0961d02efcdbbd989bfd8a7fe7a3187f47bb0ba675",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone4_far_shore/instances.bin",
+      "bytes": 2560,
+      "sha256": "dc98953eea2028c094f170eaf5b99fc6062df23e68537a50852cea50795b0847",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone5_aqua_platform/bake.json",
+      "bytes": 3215,
+      "sha256": "4240429811ff1af872c85291557a25dff26edd9b91e57990394d80fb35590489",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/zones/zone5_aqua_platform/instances.bin",
+      "bytes": 3328,
+      "sha256": "89efb2e57f9f4c00b12bd614482d78060019b8351632e0930618634f9b695892",
+      "asset_id": null,
+      "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/scenes/decorations/underwater/neighborhood.tscn",
+      "bytes": 1881,
+      "sha256": "d28921220d249495c7bd3e993438c54c12fee3ef8e8a352eef2e4f154e80ea09",
+      "asset_id": "SEA-SCENE-SUBMERGED-ASSEMBLY",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/props/reference_skiff.tscn",
+      "bytes": 14717,
+      "sha256": "f9ca8d93c20ead7957dd7d79b159ecd1d08824c2ccb8f60128aa8215b0a7ac85",
+      "asset_id": "SEA-SCENE-SKIFF-ASSEMBLY",
+      "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
+      "bytes": 14884594,
+      "sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",
+      "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
+      "status": "runtime_integrated_verified"
     }
   ]
 }

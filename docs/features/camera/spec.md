@@ -59,3 +59,12 @@
 | SEA-CAMERA-R06 | 开始镜头保持原视线方向、31°FOV、64m距离和水平构图，只沿自身视平面向下平移3.4m，使房屋主体上移约画面高度的10%；不得改动房屋位置或把开始机位写入正式玩家镜头。入场仍按R05恢复原游戏姿态。 |
 
 [本轮实景](../../development/2026-10-28_title_composition_saved_time.md)。
+
+
+## 2026-10-28 右下锁定角色图标
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-CAMERA-R07 | 右下人物定位圆形图标点击恢复resume_follow，跟随真实player全球坐标；Main将follow_enabled经HUD.set_follow_locked同步为图标颜色。手动拖动保持原接管规则，图标同步为自由观察态，再点恢复。点击图标不向世界发送移动目标，不改变原角度、缩放和距离规则。 |
+
+[本轮交付](../../development/2026-10-28_hud_date_camera_lock.md)。

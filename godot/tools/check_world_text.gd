@@ -98,16 +98,12 @@ func run() -> void:
 		ok(bundled(hud._res_label), "资源行在 _font_tree 之后仍是加粗变体")
 		ok(bundled(hud._dive_status), "潜水状态在 _font_tree 之后仍是加粗变体")
 
-	# 上岸点名称：自绘走 `Cozy.world_font()`，字号走 `Cozy.world_text_size`。
+	# 泊位现在只画手绘图标，名字由新的笔记/地图承接；不得再恢复浮层字。
 	var markers: Node = main.get_node_or_null("LandingMarkers")
 	if markers != null:
-		ok(markers._font is FontVariation, "上岸点名称用加粗变体（%s）" % markers._font.get_class())
-		var fs: int = Cozy.world_text_size(Cozy.WORLD_TEXT_LANDING)
-		ok(fs >= Cozy.WORLD_TEXT_FLOOR, "上岸点名称 ≥ 下限 %dpx（%dpx，原 11px）" % [Cozy.WORLD_TEXT_FLOOR, fs])
-		# 自绘拿不到主题，只能查源码：`draw_string_outline(` 会在笔画外侧勾硬边。
-		# 只查调用形态，注释里提到这个方法名不算。
 		var src := FileAccess.get_file_as_string("res://src/ui/landing_markers.gd")
-		ok(not src.contains("draw_string_outline("), "上岸点名称不再调用 draw_string_outline")
+		ok(not src.contains("draw_string("), "上岸点不再绘制名称")
+		ok(markers._tex==preload("res://src/ui/illustrated_icons.gd").texture("anchor",true), "上岸点复用手绘图标")
 
 	# 水下宝箱名牌
 	var uw: Node = main.get_node_or_null("Underwater")

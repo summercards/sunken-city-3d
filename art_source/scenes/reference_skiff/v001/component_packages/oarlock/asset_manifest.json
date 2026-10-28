@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-OARLOCK",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-OARLOCK",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/oarlock/oarlock.blend",
+  "source_sha256": "0fc19f5b8c3f7856691e6fed9db8d64000b2a15de95eb58b14c60acd35f45027",
+  "component": {
+    "key": "oarlock",
+    "name": "金属桨架",
+    "asset_id": "SEA-SCENE-SKIFF-OARLOCK",
+    "semantic_family": "oarlock",
+    "category": "fitting",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-OARLOCK",
+    "bounds": {
+      "min": [
+        -0.10000000149011612,
+        -0.10000000149011612,
+        0.0
+      ],
+      "max": [
+        0.10000000149011612,
+        0.10000000149011612,
+        0.2376776784658432
+      ]
+    },
+    "instance_count": 2,
+    "material_roles": [
+      "SEA_Metal"
+    ],
+    "geometry_fingerprint": "5100079c9f94032524cc253aa5b7a76dfcf28a8bbb819f114b22a026e247f066",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/oarlock/oarlock.glb",
+  "runtime_sha256": "9e25c612efbb1e3c486515814bbcbc2968d95e3acf96bb3b4d6da2ec778d81e8",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/oarlock.tscn",
+  "prefab_sha256": "f81e0498f6e283be10550d446c215989b75d027f8df43e9a7273630c82488c35",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/oarlock/oarlock.glb.import",
+    "sha256": "0d6172a600509b4696357427c388b08bea22224b3abccf32c258a8fc47c0a7ca",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

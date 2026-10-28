@@ -1,0 +1,53 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/terraced_tower.tscn" id="terraced_tower"]
+
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/rounded_tower.tscn" id="rounded_tower"]
+
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/slender_tower.tscn" id="slender_tower"]
+
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/stepped_lowrise.tscn" id="stepped_lowrise"]
+
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/flat_annex.tscn" id="flat_annex"]
+
+[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/rear_slab.tscn" id="rear_slab"]
+
+[node name="水下景观街区" type="Node3D"]
+
+metadata/placement_owner = "formal Godot TSCN"
+
+[node name="terraced_tower" parent="." instance=ExtResource("terraced_tower")]
+
+position = Vector3(17.6, -21.5, -10.8)
+
+instance_id = "home_submerged/terraced_tower"
+
+[node name="rounded_tower" parent="." instance=ExtResource("rounded_tower")]
+
+position = Vector3(-10.4, -20.4, 2.0)
+
+instance_id = "home_submerged/rounded_tower"
+
+[node name="slender_tower" parent="." instance=ExtResource("slender_tower")]
+
+position = Vector3(-1.2, -16.2, -9.2)
+
+instance_id = "home_submerged/slender_tower"
+
+[node name="stepped_lowrise" parent="." instance=ExtResource("stepped_lowrise")]
+
+position = Vector3(0.2, -12.0, 24.0)
+
+instance_id = "home_submerged/stepped_lowrise"
+
+[node name="flat_annex" parent="." instance=ExtResource("flat_annex")]
+
+position = Vector3(-7.3, -14.6, 15.8)
+
+instance_id = "home_submerged/flat_annex"
+
+[node name="rear_slab" parent="." instance=ExtResource("rear_slab")]
+
+position = Vector3(-11.2, -23.0, -11.0)
+
+instance_id = "home_submerged/rear_slab"

@@ -15,6 +15,7 @@
     "godot/src/camera"
   ],
   "verification": [
+    "visual-corner-notebook",
     "visual-title-screen-day",
     "visual-title-screen-night",
     "visual-title-screen-dawn",
@@ -85,3 +86,12 @@ SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、�
 | SEA-CAMERA-R06 | 已实现；保持角度的房屋上移、按钮右移、三分辨率原生布局，白天/夜间/清晨存档冷启动与实际点击入场光照连续核验 | [本轮交付](../../development/2026-10-28_title_composition_saved_time.md) |
 
 开始机位只在TitleCamera临时接管，不改变玩家存档姿态；未修改光照时段参数、资产资源或存档格式。当前整体功能状态保持原状，目标设备等边界见交付记录。
+
+
+## 2026-10-28 右下视角锁定
+
+| 对应条款 | 实施状态 | 证据 |
+|---|---|---|
+| SEA-CAMERA-R07 | 已实现；真实鼠标点定位图标恢复跟随、手动观察释放、状态颜色回填及三分辨率右下布局 | [本轮交付](../../development/2026-10-28_hud_date_camera_lock.md) |
+
+复用原resume_follow/follow_enabled，不增加镜头状态写入者；UI只有展示状态。

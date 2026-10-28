@@ -58,6 +58,9 @@ func update_hover(screen: Vector2) -> void:
 		_hide()
 		return
 	Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND)
+	if str(hit.get("type",""))=="landing":
+		_hide()
+		return
 	_show(hit, screen)
 
 

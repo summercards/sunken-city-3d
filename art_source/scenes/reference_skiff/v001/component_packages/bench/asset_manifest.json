@@ -1,0 +1,65 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-BENCH",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-BENCH",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/bench/bench.blend",
+  "source_sha256": "53bc1d899a94a9c1dc3f090413a8fae2f2123ca9c641146f6f7c3a57ca1d41a4",
+  "component": {
+    "key": "bench",
+    "name": "横向木座板",
+    "asset_id": "SEA-SCENE-SKIFF-BENCH",
+    "semantic_family": "bench",
+    "category": "structure",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-BENCH",
+    "bounds": {
+      "min": [
+        -1.0099999904632568,
+        -0.26249998807907104,
+        0.0
+      ],
+      "max": [
+        1.0099999904632568,
+        0.26249998807907104,
+        0.257500022649765
+      ]
+    },
+    "instance_count": 3,
+    "material_roles": [
+      "SEA_Matte"
+    ],
+    "geometry_fingerprint": "3185dc8a7362928068eee7197c1e1d575147b60bfb114399b267967325bf7892",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/bench/bench.glb",
+  "runtime_sha256": "ae5610bf751efce3ed5a10aff7bcfa196722692ba9c2418413efbbf849751896",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/bench.tscn",
+  "prefab_sha256": "bba5b2f2a4594a1e6a43243b80c634885c35d29a3a2e8e2c0c2b06b6b4ecaccd",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/bench/bench.glb.import",
+    "sha256": "96e75437b4d6adcc12d2d2eb281c70ad1f76ff10a4080d522c0b54099944013d",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

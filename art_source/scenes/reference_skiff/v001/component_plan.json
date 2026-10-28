@@ -1,0 +1,195 @@
+{
+  "schema": "sea.scene_component_plan",
+  "version": "v001",
+  "status": "frozen_before_geometry",
+  "reference": "reference.png",
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "reference_license": "user_supplied_reference_commercial_rights_pending",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "dimensions": {
+    "legacy_hull_godot": {
+      "min": [
+        -1.2874569589968194,
+        -0.2056268813924278,
+        -2.935829523839402
+      ],
+      "max": [
+        1.2872519646575284,
+        0.8675099899249052,
+        2.4616500246202646
+      ]
+    },
+    "size": [
+      2.574708923654348,
+      1.073136871317333,
+      5.397479548459667
+    ],
+    "rule": "Match hull+gunwale envelope exactly; accessories and oar sweep excluded; no gameplay scale changes",
+    "godot_waterline_y": 0,
+    "blender_front": "+Y",
+    "godot_front": "-Z",
+    "mapping": "(x,y,z)->(x,z,-y)",
+    "character_anchor_godot": [
+      0,
+      0.62,
+      -0.3
+    ],
+    "collision": "Existing WaterNavigation/Boat owns collision; pure visual components"
+  },
+  "legacy_sha256": {
+    "godot/assets/baked/boat.json": "324cc9510eb98b1c51ac4777ea67f7cc8e2084e8f769e7768b6fc52e61cda5c5",
+    "godot/assets/baked/boat_geoms.bin": "59c1c5c75b6a884e6a18d5ed0bc58f5ee70c41c37c9a38e0324b54d892add5aa",
+    "godot/assets/baked/boat_geoms_idx.bin": "825d4c1a9362868cba3866cbf9376eaa747a1dafe6a2dc840a55f40d744f3e26",
+    "godot/assets/baked/boat_instances.bin": "6fabf86586fbe6a26cffec88e6ab4a84a474245ef7725ade448fa0a28f4fff58"
+  },
+  "components": [
+    {
+      "key": "hull",
+      "name": "黄白敞口船壳",
+      "asset_id": "SEA-SCENE-SKIFF-HULL",
+      "semantic_family": "hull",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "gunwale",
+      "name": "奶白舷边与金黄内沿",
+      "asset_id": "SEA-SCENE-SKIFF-GUNWALE",
+      "semantic_family": "gunwale",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "floor_board",
+      "name": "暖木底板",
+      "asset_id": "SEA-SCENE-SKIFF-FLOOR-BOARD",
+      "semantic_family": "floor_board",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "bench",
+      "name": "横向木座板",
+      "asset_id": "SEA-SCENE-SKIFF-BENCH",
+      "semantic_family": "bench",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "rib",
+      "name": "内舷木肋",
+      "asset_id": "SEA-SCENE-SKIFF-RIB",
+      "semantic_family": "rib",
+      "category": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "outboard",
+      "name": "白盖灰紫船外机",
+      "asset_id": "SEA-SCENE-SKIFF-OUTBOARD",
+      "semantic_family": "outboard",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "luggage",
+      "name": "绿色帆布行李包",
+      "asset_id": "SEA-SCENE-SKIFF-LUGGAGE",
+      "semantic_family": "luggage",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "fender",
+      "name": "橄榄绿防撞浮球",
+      "asset_id": "SEA-SCENE-SKIFF-FENDER",
+      "semantic_family": "fender",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "oar",
+      "name": "圆杆宽叶木船桨",
+      "asset_id": "SEA-SCENE-SKIFF-OAR",
+      "semantic_family": "oar",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "oarlock",
+      "name": "金属桨架",
+      "asset_id": "SEA-SCENE-SKIFF-OARLOCK",
+      "semantic_family": "oarlock",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "cleat",
+      "name": "系缆羊角",
+      "asset_id": "SEA-SCENE-SKIFF-CLEAT",
+      "semantic_family": "cleat",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    },
+    {
+      "key": "rope_coil",
+      "name": "盘绕缆绳",
+      "asset_id": "SEA-SCENE-SKIFF-ROPE-COIL",
+      "semantic_family": "rope_coil",
+      "category": "fitting",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "+Y",
+      "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+      "triangle_budget": 6000
+    }
+  ],
+  "unique_component_count": 12,
+  "art_direction": "Pointed raised bow, broad flat transom, yellow hull/cream rim, individual honey planks, three benches, lavender-white outboard, green bag, two fenders and two wooden oars. Retain existing navigation lantern as separate reused runtime asset.",
+  "budget": "No user triangle cap; modest rounded hard edges, no texture detail geometry"
+}

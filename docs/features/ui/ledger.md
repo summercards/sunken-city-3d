@@ -15,6 +15,7 @@
     "godot/src/ui"
   ],
   "verification": [
+    "visual-corner-notebook",
     "visual-title-screen-day",
     "visual-title-screen-night",
     "visual-title-screen-dawn",
@@ -220,3 +221,25 @@ SEA-UI-R19本轮按用户要求恢复P调试例外，其它范围限制保留。
 | SEA-UI-R34 | 已实现；保持角度的房屋上移、按钮右移、三分辨率原生布局，白天/夜间/清晨存档冷启动与实际点击入场光照连续核验 | [本轮交付](../../development/2026-10-28_title_composition_saved_time.md) |
 
 开始机位只在TitleCamera临时接管，不改变玩家存档姿态；未修改光照时段参数、资产资源或存档格式。当前整体功能状态保持原状，目标设备等边界见交付记录。
+
+
+## 2026-10-28 左下文字与海岛笔记
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R35 | 已实现；零背板、原白色加粗圆体、真实时间/余额/容量集中左下，三分辨率检查 | [本轮交付](../../development/2026-10-28_corner_hud_notebook.md) |
+| SEA-UI-R36 | 已实现；右上单图标展开彩色图标菜单，真实服务路由、Esc/外点收起和模态隔离 | [本轮交付](../../development/2026-10-28_corner_hud_notebook.md) |
+| SEA-UI-R37 | 已实现；四类目录、六卡分页、真实资料与状态、详情和原服务返回链 | [本轮交付](../../development/2026-10-28_corner_hud_notebook.md) |
+| SEA-UI-R38 | 已实现；手绘船锚、无名称、靠近放大/离开缩回、命中ID保留，无重复手形气泡 | [本轮交付](../../development/2026-10-28_corner_hud_notebook.md) |
+
+公开表现入口增加corner（收拢/展开状态）与notebook（分类/页/选中资料），均为临时UI状态；calendar_query/weather_query在装配层注入。主场景保留唯一时钟Label引用，Label归入HUD左下区域。笔记query返回新字典，命令仍经HUD原分发器或plot_focus_requested信号。硬件设备触控/手柄专项未执行。
+
+
+## 2026-10-28 月日与右下镜头入口
+
+| 对应条款 | 实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R39 | 已实现；真实存档日数换算月日，瓶盖28px，原白色圆体与零背板保留 | [本轮交付](../../development/2026-10-28_hud_date_camera_lock.md) |
+| SEA-UI-R40 | 已实现；右下圆形定位图标恢复角色视角锁定并同步状态，停止行动按钮移除 | [本轮交付](../../development/2026-10-28_hud_date_camera_lock.md) |
+
+HUD增加公开表现入口set_follow_locked(bool)，Main查询OrbitCam.follow_enabled后同步；UI不写镜头内部状态。旧取消命令仍供控制器及验证使用，已从HUD按钮注册移除。R35的最新状态以R39/R40为准。

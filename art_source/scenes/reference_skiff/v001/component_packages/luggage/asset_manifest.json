@@ -1,0 +1,66 @@
+{
+  "asset_id": "SEA-SCENE-SKIFF-LUGGAGE",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SKIFF-LUGGAGE",
+  "version": "v001",
+  "source": "art_source/scenes/reference_skiff/v001/component_packages/luggage/luggage.blend",
+  "source_sha256": "55c6d35d445b280f53f7b9dd211157635b71dbd4a7daf486b1dc0dae36cd8fb2",
+  "component": {
+    "key": "luggage",
+    "name": "绿色帆布行李包",
+    "asset_id": "SEA-SCENE-SKIFF-LUGGAGE",
+    "semantic_family": "luggage",
+    "category": "fitting",
+    "scope": "scene_local",
+    "origin": [
+      0,
+      0,
+      0
+    ],
+    "front_axis": "+Y",
+    "allowed_rotation": "full Euler XYZ; oar runtime pivot is a wrapper",
+    "triangle_budget": 6000,
+    "collection": "SEA-SCENE-SKIFF-LUGGAGE",
+    "bounds": {
+      "min": [
+        -0.2849999964237213,
+        -0.24424999952316284,
+        0.0
+      ],
+      "max": [
+        0.2849999964237213,
+        0.24424999952316284,
+        0.6376776695251465
+      ]
+    },
+    "instance_count": 1,
+    "material_roles": [
+      "SEA_Matte",
+      "SEA_Metal"
+    ],
+    "geometry_fingerprint": "8071e0acd7a989d667fd56d0988092d0fa1fc1f789d3679a73dfe7b91ee4a180",
+    "collision_responsibility": "Boat/WaterNavigation; no collision exported"
+  },
+  "reference_sha256": "9bf9f028f71303289aaa4a807055ac57d3d1b478df78cca3076072cfd6333299",
+  "license": "user_supplied_reference_commercial_rights_pending",
+  "stage": "source_runtime_verified_provenance_pending",
+  "runtime_path": "godot/assets/models/boats/reference_skiff/components/luggage/luggage.glb",
+  "runtime_sha256": "fb10f596592acc946f457957ec0ca035afb25aaed0f6d7d6cd0dcbc3c47f516d",
+  "source_validation": {
+    "passed": true,
+    "checks": 46589,
+    "evidence": "D:/projects/sea-work/reference_skiff_v001/source_validation.json"
+  },
+  "verification": [
+    "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
+    "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+  ],
+  "prefab": "godot/scenes/components/reference_skiff/luggage.tscn",
+  "prefab_sha256": "33fb5d986d8496cee49e68eb583e1a1a2969f04e3bfa7019c9f8b1808f883fd0",
+  "godot_import": {
+    "path": "godot/assets/models/boats/reference_skiff/components/luggage/luggage.glb.import",
+    "sha256": "f904a2ab62abce0df14cb3c1fda89abfcf10af4e442fcc7fdf1249b5c2389e34",
+    "generate_lods": false,
+    "create_shadow_meshes": false,
+    "force_disable_compression": true
+  }
+}

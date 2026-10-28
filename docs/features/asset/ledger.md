@@ -17,6 +17,10 @@
     "tools/blender"
   ],
   "verification": [
+    "submerged-neighborhood",
+    "visual-submerged-neighborhood",
+    "reference-skiff",
+    "visual-reference-skiff",
     "structure",
     "decorations",
     "visual-decorations",
@@ -25,6 +29,12 @@
   ]
 }
 ```
+
+## 2026-10-28 黄白木船与双桨
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-ASSET-R28 | 12组件/44实例、12独立包、公共PaletteUV及四视图通过；已接入正式Boat，参考商业权属pending | 源级46589检查、11697面/22888三角面，优化导出22695三角面；新船专项、实景、灯光及装饰回归见[交付记录](../../development/2026-10-28_reference_skiff.md)。全世界surface/selftest有1+4项既有失败，新旧Boat单文件对照一致，不记为全通过。 |
 
 ## 设计承接与实施条目
 
@@ -57,6 +67,10 @@
 | SEA-ASSET-R25 | 基座放大与落水贴合已接入；专项通过，跨功能失败项经基线对照归为既有 | 海下白色基座顶板 11.20×12.42 → 16.24×17.77（X1.450/Z1.431），顶面四边各超出上层建筑0.40；平台下移0.30、板底水面+0.04、基座顶面与板底齐平；704实景检查与装饰/组件/最小循环检查通过，[记录](../../development/2026-10-27_solar_cabin_base_scale_and_waterline.md) |
 
 ## 资源与调用入口
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-ASSET-R29 | 六栋独立源/优化/GLB/PackedScene已制作；源级与实景专项验证，参考权属pending | [本轮交付](../../development/2026-10-28_submerged_neighborhood.md)；逐栋880/784/636/438/496/716三角面，公共色板、逐面UV和六独立包重开通过；优化清理为零减面，未以三角化冒充减面 |
 
 - [art_source](../../../art_source)
 - [assets/registry](../../../assets/registry)

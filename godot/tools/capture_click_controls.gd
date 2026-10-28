@@ -39,8 +39,9 @@ func run() -> void:
 	await mouse(pos,true)
 	await mouse(pos,false)
 	check(main._auto_target==cell,"直接点击世界中的第二格命中正确目标")
-	await click(main.hud.command_buttons.cancel)
-	check(main._auto_target==null and not main._walking,"鼠标取消移动与操作")
+	# The HUD stop button was removed; exercise the existing cancel command directly.
+	main._on_click_command("cancel")
+	check(main._auto_target==null and not main._walking,"命令取消移动与操作")
 	await click(main.hud._dive_btn)
 	for i in 300:
 		await process_frame
@@ -52,8 +53,8 @@ func run() -> void:
 	await click(main.hud.command_buttons.descend)
 	check(not main.dive._route.is_empty(),"鼠标下游深度导航")
 	await shot("click-controls-underwater")
-	await click(main.hud.command_buttons.cancel)
-	check(main.dive._route.is_empty(),"鼠标取消游动")
+	main._on_click_command("cancel")
+	check(main.dive._route.is_empty(),"命令取消游动")
 	await click(main.hud._dive_btn)
 	for i in 300:
 		await process_frame
@@ -67,8 +68,8 @@ func run() -> void:
 	await mouse(Vector2(700,600),false)
 	check(not main.salvage_panel._mouse_holding,"按钮外松手也停止收线")
 	await shot("click-controls-salvage")
-	await click(main.hud.command_buttons.cancel)
-	check(not main.salvage_panel.is_open(),"鼠标退出打捞")
+	main._on_click_command("cancel")
+	check(not main.salvage_panel.is_open(),"命令退出打捞")
 	print("[click-ui] failures=",failures)
 	main.queue_free()
 	await process_frame

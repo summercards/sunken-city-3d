@@ -17,6 +17,7 @@
     "godot/assets/materials"
   ],
   "verification": [
+    "visual-submerged-water-light",
     "ocean",
     "visual-sea-style",
     "lighting-params",
@@ -47,6 +48,10 @@
 | SEA-OCEAN-R10 | 本轮实现，两套方案实测通过 | 焦散画在水面材质里、采样水下几何体的世界坐标（`bed_world`），不另开 pass 也不动 300+ 个 toon 实例。踩掉两个坑：采样坐标用 `bed_world.xz` 会在竖墙上退化成竖向拉丝（改为三轴互质混合）；`on_geometry` 的 Reverse-Z 判据写反会把该亮的墙全挡掉。图案用双层值噪声（不用正弦，避免规则条纹）。近景 16 m 水下墙面绿通道增量：原版 mean 9.23 / p95 34.0 / 覆盖 34.4%，吸收式 mean 8.10 / p95 34.0 / 覆盖 32.9%，两套观感一致。两套出厂强度统一为 0.35，采样坐标与浅端渐变带宽同源，同一机位下落点与颗粒感对齐。`check_water_params` 原版 73 项 / 吸收式 40 项通过，`ocean` 与 `visual-sea-style` 退出 0，双后端无 SHADER ERROR。 [OCEAN_RENDERING](../../../godot/OCEAN_RENDERING.md) |
 
 ## 资源与调用入口
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-OCEAN-R21 | 双方案改为共享的浅色聚光合成；8时段真实渲染逐一核验 | [本轮建筑与光斑交付](../../development/2026-10-28_submerged_neighborhood.md)；旧压暗路径的像素负向结果与修后对照分别记录，源建筑、波场与既有分时光照数值不变 |
 
 - [godot/src/rendering](../../../godot/src/rendering)
 - [godot/shaders](../../../godot/shaders)
