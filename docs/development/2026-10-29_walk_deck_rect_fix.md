@@ -1,4 +1,4 @@
-# 码头栈桥两处可走进水里：行走矩形越过甲板
+# 码头栈桥两处可走进水里：行走矩形 + 身影半径
 
 日期：2026-10-29 · 功能：SEA-MOVE（R01）· 关联：SEA-WORLD
 
@@ -7,84 +7,150 @@
 主人截图圈出木屋码头栈桥的左右两条边：站在那儿能继续往海里走，人物浮在水面上。
 画面上看不出任何"能走"的提示 —— 没有栏杆、没有高亮，只是点过去就去了。
 
-## 根因
+第一轮按实测甲板收窄了矩形之后，主人复查仍然能"穿进去"：人物中心已经踩在甲板内，
+但**帽檐和肩膀压在水面上**，看上去还是人站在水里。
+
+## 根因（两层）
+
+### 第一层：行走矩形从来没按甲板实测过
 
 本工程的走路**不走物理碰撞**：场景里没有 `StaticBody3D` / `CollisionShape3D`，
 角色站得住是因为 `WalkArea.surface_y` 把脚直接贴到那个高度（`walk_area.gd`）。
 "哪里能走"完全由 `Walk_zone1_home_dock.rects` 这一份矩形决定。
 
 第三块矩形是 `Rect2(0, 11.5, 6.5, 6.5)`，即 x `0.0…6.5`、z `11.5…18.0`。
-实测栈桥甲板只有 x `0.60…5.85`、z `12.90…17.90`：
+用球检测实测栈桥甲板只有 x `0.60…5.80`、z `12.90…17.90`：
 
-| 边 | 矩形 | 实测甲板 | 越界 |
+| 边 | 原矩形 | 实测甲板 | 越界 |
 |---|---|---|---|
 | 左缘 | x = 0.00 | x = 0.60 | 0.60 m |
-| 右缘 | x = 6.50 | x = 5.85 | 0.65 m |
+| 右缘 | x = 6.50 | x = 5.80 | 0.70 m |
 | 末端 | z = 18.00 | z = 17.90 | 0.10 m |
 
-左右各多出约 0.6 m 的行走带，正好盖在栈桥两侧的缆桩与海面上 —— 就是主人圈的两处。
+左右各多出约 0.6 m 的行走带，正好盖在栈桥两侧的缆桩与海面上。
 
-这不是"碰撞漏了"，而是**可行走矩形从来没按甲板实测过**。矩形是 2026-10-26
-整理阻挡时按"大概范围"写的，当时只量了主甲板，栈桥末端沿用了旧值。
+矩形是 2026-10-26 整理阻挡时按"大概范围"写的，当时只量了主甲板。
 
-## 量化
+### 第二层：把圆心夹到甲板边，人还伸出去半米
 
-探针 `godot/tools/probe_deck_edges.gd` 给区块可见网格临时建三角碰撞（只在本进程内存里），
-在每块矩形内按 0.25 m 栅格、每格抖 3×3 点取多数（抗木板缝造成的假空洞），
-统计"脚下确有 surface_y 附近朝上实心面"的比例：
+矩形改准之后仍然"穿"，因为判据本身是错的：
 
-| 指标 | 修复前 | 修复后 |
-|---|---|---|
-| `zone1_home_dock` 甲板覆盖率 | 0.903 | 0.943 |
-| 无甲板格子数 | 152 / 1568 | 83 / 1468 |
-| 栈桥段（原第三块矩形）无甲板格子 | 约 60 | 0（该段并入新矩形后仅剩 2 格木板缝） |
-| 越界行走带面积 | 约 8.3 m²（左右各 0.6 m × 6.5 m） | 0 |
+`clamp_point()` 只保证**角色中心点**在甲板内。可角色不是一根杆子 ——
+斜俯视看到的是整只人，站直时最宽处是渔夫帽檐（`CylinderMesh` radius **0.34**）
+和手臂外缘。中心点贴着甲板边，帽檐就必然悬在水面上。
+
+这就是"修了矩形却还是进水"的原因：改的是**点**，漏的是**身影**。
 
 ## 修复
 
-改数据，不改算法 —— `walk_area.gd` 的矩形语义本来就是"可行走区域就是场景数据"。
-
-`godot/scenes/zones/zone1_home_harbor.tscn` 的 `Walk_zone1_home_dock.rects`：
+### 1. 行走矩形按实测甲板拆成两块（`zone1_home_harbor.tscn`）
 
 ```
 - Rect2(0, 11.5, 6.5, 6.5)
-+ Rect2(0, 11.5, 6.5, 1.4)      # 主甲板南沿到栈桥根部，保留全宽
-+ Rect2(0.6, 12.9, 5.25, 5.0)   # 栈桥本体，按实测甲板 x 0.60…5.85 / z 12.90…17.90
++ Rect2(0.35, 11.5, 5.2, 1.4)   # 主甲板南沿到栈桥根部，按实测 x 0.20…5.75 内缩
++ Rect2(0.6, 12.9, 5.2, 5)      # 栈桥本体，按实测 x 0.60…5.80 / z 12.90…17.90
 ```
 
-拆成两块而不是直接收窄：主甲板在 z `11.5…12.9` 这段本来就是全宽（`#` 覆盖满），
-栈桥才收窄。一块矩形做不到"先宽后窄"，硬收会把主甲板边缘也切掉。
+一块矩形做不到"先宽后窄"（主甲板那段本来就该全宽），硬收会把主甲板边缘切掉。
 
-`godot/assets/data/zones.json` 的 `zone1.walk[zone1_home_dock].rects` 同步更新。
-注意两份的坐标写法不同：TSCN 是 `Rect2(x, z, w, h)`，JSON 是 `[x0, x1, z0, z1]`
-（`zones.gd: bind_scene()` 的写法）。运行时会用场景覆盖 JSON，JSON 只是无场景测试的基线，
-但两份不一致会让测试与实机分叉，所以必须一起改。
+`godot/assets/data/zones.json` 同步。注意两份坐标写法不同：TSCN 是
+`Rect2(x, z, w, h)`，JSON 是 `[x0, x1, z0, z1]`（`zones.gd: bind_scene()`）。
+运行时用场景覆盖 JSON，JSON 只是无场景测试的基线 —— 但两份分叉会让测试与实机不一致。
+
+### 2. 站位点按身影半径内收（`walk_area.gd`）
+
+新增 `body_radius = 0.38`、`clearance(x, z)`、`walkable_local(p)`：
+
+- `clearance()` 量「该点到行走区并集边界的最短距离」= 能塞进多大的圆；
+  用并集而不是单块矩形，接缝处不算边界。
+- `walkable_local()` 判据改成「以该点为圆心、`body_radius` 为半径的圆整个落在并集内」。
+  不满足就从近到远一圈圈找最近的可行点（圈在外层，保证拿到最近的那个）。
+- 整片区域都容不下人影（走廊比人窄）时返回原位 —— 那是数据侧要改的事。
+
+`clamp_point()` 改成两步：先夹进矩形并集，再按身影内收。
+
+**`path_between()` 不做内收**：交互目标（土箱、菜箱中心）的落点语义是"走到那个点"，
+终点内收会挪动落点、破坏可达性判断（实测会把 zone5 六个菜箱全判成不可达）。
+内收只在「点地面走路」这条路上做。
+
+### 3. 内收进 `zone_scene.pick_walk()`
+
+落点内收放在 `pick_walk()` 的返回值里，而不是 `main.gd` 的 `_try_walk()`：
+这样所有"点地面走路"的入口都拿到已内收的落点，不必各自实现一遍。
+
+## 关于半径取值（踩过的坑）
+
+先用 AABB 角点量角色轮廓，得到 **0.54 m** —— 那是斜立方体包围盒的对角线，虚高一大截：
+0.54 会把栈桥两侧各收掉 0.54，5.2 m 宽的栈桥只剩 4.1 m 可用，可走区域被无故吃掉。
+
+按实际几何取：渔夫帽檐 `radius = 0.34`（`character.gd` 第 99 行），手臂外缘略小，
+取 **0.38** 留 4 cm 余量。
+
+## 量化
+
+探针 `godot/tools/probe_deck_cover.gd` 用半径 0.10 m 的球做覆盖检测
+（单条射线会掉进木板缝，把整排判成"没有甲板"，量出来的边界会抖）。
+
+`zone1_home_dock` 甲板覆盖率（`visual-walk-deck`，0.25 m 栅格 + 3×3 抖动）：
+
+| 指标 | 改矩形前 | 改矩形后 |
+|---|---|---|
+| 甲板覆盖率 | 0.903 | 0.943 |
+| 无甲板格子 | 152 / 1568 | 83 / 1468 |
+
+站位身影净空（`walk-deck-fit`，目标值 `body_radius = 0.38`）：
+
+| 点击位置 | 内收前站位 | 内收后站位 | 净空 |
+|---|---|---|---|
+| 栈桥东缘 (6.60, 14.20) | (5.80, 14.20) 净空 0.00 | (5.40, 14.20) | 0.40 |
+| 栈桥西缘 (0.00, 14.20) | (0.60, 14.20) 净空 0.00 | (1.00, 14.20) | 0.40 |
+| 栈桥末端 (3.00, 18.20) | (3.00, 17.90) 净空 0.00 | (3.00, 17.50) | 0.40 |
+
+实测脚本：`godot/tools/probe_jetty_walk.gd`（`--headless` 之外需真实渲染仅用于截图，
+数值部分 headless 亦可得）。
+
+
+## 开销
+
+`clamp_point()` 只在「点地面」时跑一次，不在逐帧循环里。实测（200 次平均）：
+
+| 情形 | 耗时 |
+|---|---|
+| 区域内点击（无需内收） | 0.04 ms |
+| 贴边点击（一轮 16 方向推到位） | 0.40 ms |
+| 角落点击（直角凹口，需要兜底外扩） | 1.3 ms |
+
+第一版从 0.05 m 起步逐圈外扩，贴边要量 7～10 圈、约 4.4 ms —— 偏重，
+所以改成「按缺口 deficit 一次推到位，试不出来再逐圈兜底」。
 
 ## 会失败的断言
 
-这类错误不报错、不崩、不进日志 —— 人物只是站在水面上。没有断言盯着，几个月后重做甲板
-必然重犯。所以加了两条：
+这类错误不报错、不崩、不进日志 —— 人物只是站在水上。没有断言盯着，重做甲板必然重犯。
 
-1. `godot/tests/test_walk_deck_fit.gd`（`walk-deck-fit`，不需要真实渲染）
-   把主人圈的两处越界点钉死为"不可走"，同时断言栈桥自身、接缝、泊位站立点、
-   出货箱位置仍然可走 —— 防止"为了堵缺口把整条栈桥切掉"这种反向错误。
+1. `godot/tests/test_walk_deck_fit.gd`（`walk-deck-fit`，headless 可跑）
+   - 主人圈的两处越界点必须**不可走**；
+   - 栈桥自身、接缝、泊位站立点、出货箱位置必须**仍可走**（防"堵缺口把整条栈桥切掉"）；
+   - 四条边缘点击的**站位身影净空 ≥ body_radius**（防"点收窄了但人影仍探出去"）。
 2. `godot/tools/verify_walk_deck.gd`（`visual-walk-deck`，必须真实渲染）
-   五个区块全部 WalkArea 的甲板覆盖率不得低于实测基线。覆盖率上升放行，下降失败。
+   五个区块全部 WalkArea 的甲板覆盖率不得低于实测基线。上升放行，下降失败。
 
 两条都接进 `scripts/run_verification.py`。
 
 ## 验证
 
 ```
-python scripts/run_verification.py walk-deck-fit visual-walk-deck --label walk-deck-final
+python scripts/run_verification.py walk-deck-fit visual-walk-deck walk-facing board-click dock-seed --label final-gate
 ```
 
 ```
 walk-deck-fit PASS exit=0
 visual-walk-deck PASS exit=0
+walk-facing PASS exit=0
+board-click PASS exit=0
+dock-seed PASS exit=0
 ```
 
-`visual-walk-deck` 明细（真实渲染，0.25 m 栅格 + 3×3 抖动）：
+`visual-walk-deck` 明细：
 
 ```
 OK   zone1/zone1_home_dock cover=0.943 base=0.940 cells=1468 wet=83
@@ -93,44 +159,39 @@ OK   zone2/zone2_station   cover=0.697 base=0.690 cells=920  wet=279
 OK   zone3/zone3_ground    cover=0.391 base=0.390 cells=1992 wet=1213
 OK   zone4/zone4_shore     cover=0.685 base=0.680 cells=273  wet=86
 OK   zone5/zone5_aqua      cover=0.909 base=0.900 cells=572  wet=52
-[walk-deck] 6 checks, 0 failures
 ```
 
-回归验证：把 `zone1_home_harbor.tscn` 回滚到旧矩形后，
-`walk-deck-fit` 报 3 failures、`visual-walk-deck` 报 1 failure，确认断言真的会失败。
+回归对照：把场景矩形回滚到旧值，`walk-deck-fit` 报 3 failures；
+把 `body_radius` 调回 0，四条身影净空断言全报失败。确认断言真的会响。
 
-真实渲染取证（把 WalkArea 矩形画成甲板上 6 cm 的红框，俯视 + 侧视）：
-`docs/development/evidence/2026-10-29_walk_deck/jetty_walkrect_top.png`、
-`jetty_walkrect_side.png`。红框左右两侧已贴回甲板边缘，不再落到水上。
+真实渲染取证（复刻主人报问题时的机位与朝向，点栈桥东缘）：
+`evidence/2026-10-29_walk_deck/jetty_edge_after.png`。人物整个落在岸绳以内，
+帽檐、肩膀、脚都不再压到水面。
 
-实跑取证（`godot/tools/probe_jetty_walk.gd`）：从栈桥中点分别点向左右两侧边缘外侧 0.5 m，
-角色被 `clamp_point()` 夹回甲板内并停在木板上，而不是走出水面：
+## 已知残留
 
-```
-[probe] left  want=(0.10, 1.38, 14.5) clamped=(0.60, 14.5) inside=false → final=(0.60, 14.5) on_deck=true
-[probe] right want=(6.40, 1.38, 14.5) clamped=(5.85, 14.5) inside=false → final=(5.85, 14.5) on_deck=true
-```
+- `zone1_home_dock` 仍有 83 格无甲板，集中在 rect1 北侧 `z 5.0…6.0 / x 0.4…1.4`
+  一块结构缝。那儿踩下去是踩在结构缝里而不是水里，观感上不明显，但严格说也越界。
+  要收得把 rect1 北沿按实测再切一刀，属于甲板重做的活。
+- `zone2`（0.697）、`zone3`（0.391）、`zone4`（0.685）覆盖率偏低，是
+  `2026-10-26_sea_scene_blockers.md` §4 已记录的既有残留。本次只登记基线，不放宽也不掩盖。
+- 岸绳（栈桥两侧的围栏绳）没有碰撞，人站在甲板内缘时绳子会穿过身体。
+  绳子是 `solar_cabin_bridge` 组件里的装饰几何，要不要挡人属于表现与玩法口径问题，未纳入本次。
 
-截图：`evidence/2026-10-29_walk_deck/jetty_walk_stops_on_deck.png`。
+## 与既有失败的关系
 
-其它专项：`walk-facing` / `board-click` / `dock-seed` 通过；`click` 3 项、
-`surface` 1 项（`种植物件是独立场景 home_plot`）为改动前既有失败 —— 用 `git stash`
-回滚两份数据文件后复跑，同样数量失败，与本改动无关。
-
-## 已知残留（未纳入本次范围）
-
-- `zone1_home_dock` 剩余 83 格无甲板，集中在 rect1 北侧 `z 5.0…6.0 / x 0.4…1.4`
-  一块结构缝。那儿踩下去是踩在结构缝里而不是水里，观感上不明显，但严格说也越界了。
-  要收就得把 rect1 北沿按实测再切一刀，属于甲板重做时的活。
-- `zone2`（0.697）、`zone3`（0.391）、`zone4`（0.685）覆盖率仍然偏低，是
-  `2026-10-26_sea_scene_blockers.md` §4 已记录的既有残留：旧手工矩形与废墟拼接接缝。
-  本次只登记基线，不放宽、不掩盖。
-- `zone5` 的 52 格集中在 `x -3.2…0 / z -2.8…-2.5` 一带，同一性质。
+`surface`（`不可达目标不退回穿岸直线` 等 8 项）、`selftest`（25 项）、`click`（3 项）
+在本次改动前的工作区基线上就是同样数量 —— 用 `git stash` 回滚本次四个文件后复跑对照确认。
+它们来自同一工作区里另一批未提交的航行边界 / 建造改造（`main.gd` 把
+`navigation.allowed_area` 从 `Scope.SAIL_BOUNDS` 改成了 `Rect2()`），与本次栈桥修复无关。
 
 ## 相关文件
 
 - 修改：`godot/scenes/zones/zone1_home_harbor.tscn`、`godot/assets/data/zones.json`、
+  `godot/src/navigation/walk_area.gd`、`godot/src/world/zone_scene.gd`、
   `scripts/run_verification.py`
 - 新增：`godot/tests/test_walk_deck_fit.gd`、`godot/tools/verify_walk_deck.gd`、
-  `godot/tools/probe_deck_edges.gd`、`godot/tools/capture_walk_edge.gd`、
-  `godot/tools/probe_jetty_walk.gd`
+  `godot/tools/probe_deck_cover.gd`、`godot/tools/probe_deck_measure.gd`、
+  `godot/tools/probe_deck_edges.gd`、`godot/tools/probe_jetty_walk.gd`、
+  `godot/tools/probe_player_radius.gd`、`godot/tools/capture_walk_edge.gd`、
+  `godot/tools/capture_jetty_edge.gd`

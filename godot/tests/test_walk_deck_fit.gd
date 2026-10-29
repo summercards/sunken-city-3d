@@ -70,5 +70,24 @@ func run() -> void:
 	# 4) 甲板上的固定物件仍在行走区内（拾取/交互依赖站得住）。
 	check(area.contains_world(3.00, 14.60), "出货箱位置 x=3.00 z=14.6 可走")
 
+	# 5) 站位点必须按身影内收：脚在甲板上不等于人没进水。
+	#    角色是斜俯视看到的一整只人，帽檐半径 0.54 m（probe_player_radius.gd 实测）。
+	#    点甲板边缘时圆心若只夹到矩形边界，帽檐和肩膀会压在水面上。
+	check(area.body_radius >= 0.36, "身影半径已声明（%.2f m）" % area.body_radius)
+	var edge_points := [
+		["栈桥东缘", Vector2(6.60, 14.20)],
+		["栈桥西缘", Vector2(0.00, 14.20)],
+		["栈桥末端", Vector2(3.00, 18.30)],
+		["主甲板东沿", Vector2(9.90, 9.00)],
+	]
+	for item in edge_points:
+		var want: Vector2 = item[1]
+		var got: Vector2 = area.clamp_point(want.x, want.y)
+		var local: Vector3 = area.to_local(Vector3(got.x, 0, got.y))
+		var free: float = area.clearance(local.x, local.z)
+		check(free + 0.02 >= area.body_radius,
+			"%s 站位身影净空 %.2f ≥ %.2f（点 (%.2f,%.2f) → (%.2f,%.2f)）" % [
+				item[0], free, area.body_radius, want.x, want.y, got.x, got.y])
+
 	print("[walk-deck-fit] %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)

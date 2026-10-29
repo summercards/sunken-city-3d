@@ -35,7 +35,7 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-MOVE-R01 | 合法地面求路及步进复核；surface456项（1项既有失败：种植物件独立场景），非全地图穷举；可行走矩形与实测甲板的贴合由 walk-deck-fit + visual-walk-deck 两条门禁守着 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md)；[栈桥矩形越界修复](../../development/2026-10-29_walk_deck_rect_fix.md) |
+| SEA-MOVE-R01 | 合法地面求路及步进复核；非全地图穷举；可行走矩形与实测甲板的贴合、点地面落点的身影内收，由 walk-deck-fit + visual-walk-deck 两条门禁守着 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md)；[栈桥越界与身影内收修复](../../development/2026-10-29_walk_deck_rect_fix.md) |
 | SEA-MOVE-R02 | 独立上下船动作与状态转换；surface/selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-MOVE-R03 | 自动接近、模态阻断、完成一次、取消回调；framework-integration通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-MOVE-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
@@ -71,7 +71,8 @@ start_walk / approach / depart / cancel / request_mode / restore_pose / state_id
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
-- 2026-10-29：码头栈桥左右两侧可走进水里（可行走矩形 x 0…6.5 / z 11.5…18 越过实测甲板 x 0.6…5.85 / z 12.9…17.9）。拆成「主甲板南沿 + 栈桥本体」两块矩形，甲板覆盖率 0.903 → 0.943；新增 `walk-deck-fit`（数据断言）与 `visual-walk-deck`（五区块甲板覆盖率基线）两条门禁。[记录](../../development/2026-10-29_walk_deck_rect_fix.md)
+- 2026-10-29：码头栈桥左右两侧可走进水里（可行走矩形 x 0…6.5 / z 11.5…18 越过实测甲板 x 0.6…5.8 / z 12.9…17.9）。拆成「主甲板南沿 + 栈桥本体」两块矩形，甲板覆盖率 0.903 → 0.943。新增 `walk-deck-fit`（数据断言）与 `visual-walk-deck`（五区块甲板覆盖率基线）两条门禁。
+- 2026-10-29（同日复查）：只收窄矩形后人物中心在甲板内、帽檐仍压在水面上。`clamp_point()` 改为两步——先夹进矩形并集、再按 `body_radius = 0.38`（渔夫帽檐实测半径）内收，保证整个身影落在甲板上；内收只用于点地面走路（`zone_scene.pick_walk()`），`path_between()` 不动，以免挪动交互目标落点。`walk-deck-fit` 补四条"站位身影净空 ≥ 半径"断言。[记录](../../development/2026-10-29_walk_deck_rect_fix.md)
 
 ## 太阳能木屋接入影响验证（2026-10-25）
 

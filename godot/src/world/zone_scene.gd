@@ -156,6 +156,10 @@ func set_geometry_source(src: String) -> void:
 
 
 ## 命中最靠前的可行走区域，返回 {area, point, distance}；没有命中返回 {}。
+##
+## 返回的 point 已按角色身影内收（`WalkArea.clamp_point`）：点甲板最边上时，
+## 圆心如果只夹到矩形边界，人的帽檐和肩膀会压在水面上 —— 看起来就是"走进水里"。
+## 内收只影响「点地面走路」的落点，交互目标的落点由各自的接近逻辑决定。
 func pick_walk(origin: Vector3, dir: Vector3) -> Dictionary:
 	var best := {}
 	var best_t := INF
@@ -164,6 +168,11 @@ func pick_walk(origin: Vector3, dir: Vector3) -> Dictionary:
 		if t >= 0.0 and t < best_t:
 			best_t = t
 			best = {"area": area, "distance": t, "point": origin + dir * t}
+	if not best.is_empty():
+		var area: Node3D = best.area
+		var raw: Vector3 = best.point
+		var stand: Vector2 = area.clamp_point(raw.x, raw.z)
+		best.point = Vector3(stand.x, raw.y, stand.y)
 	return best
 
 
