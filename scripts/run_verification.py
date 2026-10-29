@@ -40,6 +40,8 @@ TESTS = {
 CORE = list(TESTS)
 TESTS.update({
     'walk-facing': ('tests/test_walk_facing.gd', r'\[walk-facing\] \d+ checks, 0 failures'),
+    # 码头栈桥两处围栏缺口：矩形越界点必须拒绝、甲板自身必须仍可走（SEA-MOVE-R01）。
+    'walk-deck-fit': ('tests/test_walk_deck_fit.gd', r'\[walk-deck-fit\] \d+ checks, 0 failures'),
     'visual-walk-facing': ('tests/test_walk_facing.gd', r'\[walk-facing\] \d+ checks, 0 failures'),
     'visual-building-fit': ('tools/capture_building_fit.gd', r'\[building-fit\] \d+ checks, 0 failures'),
     'boat-water-contact': ('tests/test_boat_water_contact.gd', r'\[boat-water-contact\] \d+ checks, 0 failures'),
@@ -50,6 +52,9 @@ TESTS.update({
     'building-integration': ('tests/test_building_integration.gd', r'\[building-integration\] \d+ checks, 0 failures'),
     # 建造要先走过去：点远处虚影只排队，站定了才扣材料开工。
     'building-approach': ('tests/test_building_approach.gd', r'\[building-approach\] \d+ checks, 0 failures'),
+    # Diagnostic reproduction, not acceptance of the documented construction guarantees.
+    'building-boundary-audit': ('tools/probe_building_boundary_audit.gd', r'\[building-boundary-audit\] \d+ checks, 0 failures'),
+    'visual-building-boundary-audit': ('tools/probe_building_boundary_audit.gd', r'\[building-boundary-audit\] \d+ checks, 0 failures'),
     # 浮层进度条：拾取/建造共用一份自绘细条，且拾取条只在最后约 2 秒航程出现。
     # 这两点都不会报错，只会在画面上"看起来不对"，必须显式断言。
     'progress-bars': ('tools/check_progress_bars.gd', r'\[progress-bars\] \d+ checks, 0 failures'),
@@ -114,6 +119,10 @@ TESTS.update({
     'visual-paper-fit': ('tools/check_paper_fit.gd', r'\[paper-fit\] \d+ checks, 0 failures'),
     'visual-world-text': ('tools/check_world_text.gd', r'\[world-text\] \d+ checks, 0 failures'),
     'visual-blockers': ('tools/verify_blockers.gd', r'\[blockers-check\] OK failures=0'),
+    # SEA-MOVE-R01：可行走矩形必须落在真实甲板上。
+    # 走路不走物理碰撞，站得住是因为 surface_y 把脚贴到那个高度 ——
+    # 矩形越过甲板边缘时人物会站在水面上，不报错、不崩，只能靠量。
+    'visual-walk-deck': ('tools/verify_walk_deck.gd', r'\[walk-deck\] \d+ checks, 0 failures'),
     # P 面板「光照」页：清单对账（属性名/范围）与端到端写入探针。
     # 两项都不进 core，跟其它参数工具一起按需跑。
     'lighting-params': ('tools/check_light_params.gd', r'\[lighting-params\] \d+ checks, 0 failures'),

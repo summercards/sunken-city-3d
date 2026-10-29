@@ -20,6 +20,8 @@
   "verification": [
     "walk-facing",
     "visual-walk-facing",
+    "walk-deck-fit",
+    "visual-walk-deck",
     "surface",
     "click",
     "framework-modules",
@@ -33,7 +35,7 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-MOVE-R01 | 合法地面求路及步进复核；surface503项，非全地图穷举 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
+| SEA-MOVE-R01 | 合法地面求路及步进复核；surface456项（1项既有失败：种植物件独立场景），非全地图穷举；可行走矩形与实测甲板的贴合由 walk-deck-fit + visual-walk-deck 两条门禁守着 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md)；[栈桥矩形越界修复](../../development/2026-10-29_walk_deck_rect_fix.md) |
 | SEA-MOVE-R02 | 独立上下船动作与状态转换；surface/selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-MOVE-R03 | 自动接近、模态阻断、完成一次、取消回调；framework-integration通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-MOVE-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
@@ -69,6 +71,7 @@ start_walk / approach / depart / cancel / request_mode / restore_pose / state_id
 ## 变更记录
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
+- 2026-10-29：码头栈桥左右两侧可走进水里（可行走矩形 x 0…6.5 / z 11.5…18 越过实测甲板 x 0.6…5.85 / z 12.9…17.9）。拆成「主甲板南沿 + 栈桥本体」两块矩形，甲板覆盖率 0.903 → 0.943；新增 `walk-deck-fit`（数据断言）与 `visual-walk-deck`（五区块甲板覆盖率基线）两条门禁。[记录](../../development/2026-10-29_walk_deck_rect_fix.md)
 
 ## 太阳能木屋接入影响验证（2026-10-25）
 
@@ -111,7 +114,7 @@ SEA-MOVE-R01/R02/R03：正式surface 30航路503检查及click 30检查通过；
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-MOVE-R08 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+| SEA-MOVE-R08 | 动态木面/种植区扣除已实现；实际吸附布局缺角色通行宽度检查，非吸附服务层布局另可断连 | [原交付](../../development/2026-10-28_building_delivery.md)；[当前反例](../../development/2026-10-29_building_boundary_audit.md) |
 
 ## 2026-10-29 角色正向行走
 

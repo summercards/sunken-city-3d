@@ -75,6 +75,8 @@
       "verification": [
         "walk-facing",
         "visual-walk-facing",
+        "walk-deck-fit",
+        "visual-walk-deck",
         "surface",
         "click",
         "framework-modules",
@@ -269,7 +271,7 @@
       ],
       "spec": "docs/features/building/spec.md",
       "ledger": "docs/features/building/ledger.md",
-      "status": "implemented",
+      "status": "partial",
       "owner": "BuildingService / BuildingWorld / BuildingController",
       "code_paths": [
         "godot/src/building"
@@ -279,7 +281,9 @@
         "building-integration",
         "visual-building",
         "building-restart",
-        "progress-bars"
+        "progress-bars",
+        "building-boundary-audit",
+        "visual-building-boundary-audit"
       ]
     },
     {
