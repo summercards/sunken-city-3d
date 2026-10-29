@@ -27,6 +27,8 @@ TESTS = {
     'camera': ('tests/test_camera_follow.gd', r'\[camera-follow\].*failures=0'),
     # 交互热区必须跟着物体走：出货箱曾偏 2.07 米，看得见却点不到。
     'interact-focus': ('tests/test_interact_focus.gd', r'\[interact-focus\] \d+ checks, 0 failures'),
+    # 点船 = 上船；靠岸图标随「点击会干什么」换宿主（岸上贴船、船上贴码头）。
+    'board-click': ('tests/test_board_by_click.gd', r'\[board-click\] \d+ checks, 0 failures'),
     'ocean': ('tests/test_ocean.gd', r'\[ocean\].*failures=0'),
     'selftest': (None, r'\[selftest\] \d+ passed, 0 failed'),
 }

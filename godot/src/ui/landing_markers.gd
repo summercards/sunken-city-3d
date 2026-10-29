@@ -10,6 +10,14 @@ var zones: Node
 var items: Array = []
 var camera: Camera3D
 var pointer_query: Callable
+## 图标实际贴在哪：`func(zone_id, landing_id, 默认位置) -> Vector3`。
+##
+## 一个图标承担「上船 / 靠岸」两个方向（见 main._select_landing），所以它该贴在
+## 点击后会被操作的那个东西上，而不是永远钉在码头边缘：
+##   · 人在岸上、船正停在这个泊位 → 点它等于上船，图标贴到船上；
+##   · 人在船上 / 船不在 → 点它等于靠岸或换泊位，图标留在码头边缘。
+## 由 main 注入，本脚本只负责「按查询结果画」，不判断玩法状态。
+var world_query: Callable
 var current_zone := "zone1"
 var _tex: Texture2D
 var _canvas: Control
@@ -26,6 +34,7 @@ func build(cam: Camera3D) -> void:
 			var point: Array=landing.dockEdge
 			items.append({"zone":z.id,"landing":landing.id,"name":str(landing.get("name",z.name)),
 				"world":Vector3(point[0],float(point[1])+0.55,point[2]),
+				"draw_world":Vector3(point[0],float(point[1])+0.55,point[2]),
 				"screen":Vector2.ZERO,"size":ICON_MIN,"near":0.0,"visible":false})
 
 func _process(delta: float) -> void:
@@ -35,7 +44,11 @@ func _process(delta: float) -> void:
 	var mouse: Vector2=pointer_query.call() if pointer_query.is_valid() else get_viewport().get_mouse_position()
 	for item in items:
 		item.visible=false
+		# 位置每帧解析：图标可能刚因为「上船/靠岸」切换而换了宿主。
 		var world: Vector3=item.world
+		if world_query.is_valid():
+			world=world_query.call(String(item.zone),String(item.landing),item.world)
+		item.draw_world=world
 		if camera.is_position_behind(world) or camera.global_position.distance_to(world)>VISIBLE_RANGE: continue
 		var screen:=camera.unproject_position(world)
 		if not Rect2(Vector2(-60,-60),extent+Vector2(120,120)).has_point(screen): continue

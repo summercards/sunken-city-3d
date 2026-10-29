@@ -21,7 +21,8 @@
     "framework-integration",
     "visual-pocket-bubbles",
     "visual-plot-shipping",
-    "interact-focus"
+    "interact-focus",
+    "board-click"
   ]
 }
 ```
@@ -104,3 +105,16 @@ Main 保留输入路由；接近、自动按住及完成释放由 ActorControlle
 新增 `interact-focus` 专项：8 项断言，实测 `8 checks, 0 failures`，退出 0。
 同轮复跑 farming / modules / parity / ocean 均通过；click 3 项、management 4 项失败为
 既有的航行与区块复原问题，与本轮改动无关（见交付记录末尾说明）。整体状态仍 partial。
+
+## 2026-10-29 点船上船与图标换宿主
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INTERACT-R07 | 已实现；图标宿主随点击含义切换，船体可点 | [交付记录](../../development/2026-10-29_click_boat_to_board.md) |
+
+根因：图标一律钉在 `dockEdge`，而船停在旁边 2.49 米处（zone5），俯视图标看起来压在船上；
+且 `boat.gd` 没有拾取入口，点船体无反应。
+
+新增 `board-click` 专项：12 项断言，实测 `12 checks, 0 failures`，退出 0。
+同轮复跑 interact-focus / farming / modules / parity / ocean / camera 均通过。
+click 的 3 项失败为既有的航行与区块复原问题，与本轮无关。整体状态仍 partial。

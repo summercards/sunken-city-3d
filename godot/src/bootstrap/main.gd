@@ -887,7 +887,55 @@ func _setup_markers() -> void:
 	markers.zones = Zones
 	markers.build(cam)
 	markers.pointer_query=_pointer_pos
+	markers.world_query = _landing_icon_world
 	markers.set_highlight(GameState.current_zone)
+
+
+## 靠岸图标贴在哪（每帧由 LandingMarkers 调用）。
+##
+## 同一个图标承担两个方向，所以它得贴在「点下去会被操作的那个东西」上：
+##   · 人在岸上、船正停在这个泊位 → 点它等于上船，图标贴到船上；
+##   · 其余情况（人在船上 / 船不在泊位）→ 点它等于靠岸或换泊位，留在码头边缘。
+## 以前一律钉在 dockEdge，而船就停在旁边 2.5 米处，视觉上图标像压在船上：
+## 于是「点船」看起来像「点了码头的图标」，动作来源说不清。
+func _landing_icon_world(zone_id: String, landing_id: String, fallback: Vector3) -> Vector3:
+	if GameState.mode != GameState.Mode.ASHORE or boat == null:
+		return fallback
+	if zone_id != GameState.current_zone or landing_id != GameState.landing_id:
+		return fallback
+	var l: Dictionary = Zones.landing(zone_id, landing_id)
+	if l.is_empty():
+		return fallback
+	var park := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
+	# starts_sailing() 不在 Node3D 基类上：不显式写 bool，整条表达式会退化成
+	# Variant，Godot 推不出类型直接报解析错误，整个 main.gd 加载不了。
+	var sailing: bool = boat.starts_sailing()
+	if sailing or boat.position.distance_to(park) > 1.0:
+		return fallback
+	# 抬到船舱上方，和 dockEdge 的 +0.55 观感一致，不被船体挡住。
+	return boat.global_position + Vector3.UP * 1.35
+
+
+## 点船体 = 上船。
+##
+## 只有「船正停在当前泊位、人还在岸上」才成立 —— 其余情况点船不该改变航路，
+## 否则站在岸上点到一搜停远的船会被莫名其妙送过去。
+## 动作本身复用 _select_landing 的上船分支，避免两套上船路径跑出不同结果。
+func _click_boat(screen: Vector2) -> bool:
+	if GameState.mode != GameState.Mode.ASHORE or boat == null:
+		return false
+	if not boat.pick_hull(screen, cam):
+		return false
+	var l: Dictionary = Zones.landing(GameState.current_zone, GameState.landing_id)
+	if l.is_empty():
+		return false
+	var park := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
+	var sailing: bool = boat.starts_sailing()
+	if sailing or boat.position.distance_to(park) > 1.0:
+		hud.toast("船不在泊位，先用登陆点把它叫回来")
+		return true
+	_select_landing({"zone": GameState.current_zone, "landing": GameState.landing_id})
+	return true
 
 
 func _setup_player() -> void:
@@ -1614,6 +1662,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			var hit: Dictionary = markers.pick(mb.position)
 			if not hit.is_empty():
 				_select_landing(hit)
+				return
+			# 点船体也上船：图标只覆盖一小圈，船比它大得多，
+			# 点船头船尾都该算「要上这条船」。放在图标之后，
+			# 让精确点图标的行为保持优先。
+			if _click_boat(mb.position):
 				return
 			# 先看点在不在甲板上（走），不在就当作「点水面划船」。
 			if _try_walk(mb.position):

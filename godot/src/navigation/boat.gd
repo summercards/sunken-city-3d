@@ -387,6 +387,72 @@ func rowing_state() -> Vector2:
 func hull_visual() -> Node3D:
 	return model.get_node_or_null("Parts/hull_000") if model!=null else null
 
+
+## 点船体命中测试（供「点船 = 上船」用）。
+##
+## 船没有物理碰撞体（它靠航线与阻挡盒移动，不需要刚体），所以这里把相机射线
+## 变换到船的本地空间，与船体的本地包围盒求交 —— 等价于一个带旋转的 OBB，
+## 比用世界 AABB 精确：船横着停时世界 AABB 会大出一圈，点旁边的水面也会中。
+func pick_hull(screen: Vector2, camera: Camera3D) -> bool:
+	if model == null or camera == null:
+		return false
+	var box := hull_local_aabb()
+	if box.size.length() < 0.001:
+		return false
+	var inv := model.global_transform.affine_inverse()
+	var origin := inv * camera.project_ray_origin(screen)
+	var dir := inv.basis * camera.project_ray_normal(screen)
+	return _ray_hits_aabb(origin, dir, box)
+
+
+## 船体在 model 本地空间的包围盒。优先只用船壳，避免把伸出去的桨也算进来。
+func hull_local_aabb() -> AABB:
+	if model == null:
+		return AABB()
+	var root := hull_visual()
+	if root == null:
+		root = model
+	var inv := model.global_transform.affine_inverse()
+	var box := AABB()
+	var first := true
+	var stack: Array = [root]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		if n is MeshInstance3D and (n as MeshInstance3D).mesh != null:
+			var xf: Transform3D = inv * (n as Node3D).global_transform
+			var b: AABB = xf * (n as MeshInstance3D).get_aabb()
+			box = b if first else box.merge(b)
+			first = false
+		stack.append_array(n.get_children())
+	return box
+
+
+## 射线 vs AABB（slab 法）。方向不必归一化，只判是否相交。
+static func _ray_hits_aabb(origin: Vector3, dir: Vector3, box: AABB) -> bool:
+	var tmin := -INF
+	var tmax := INF
+	for axis in 3:
+		var o: float = origin[axis]
+		var d: float = dir[axis]
+		var lo: float = box.position[axis]
+		var hi: float = box.position[axis] + box.size[axis]
+		if absf(d) < 1e-8:
+			# 平行于这对平面：起点在板外就没戏。
+			if o < lo or o > hi:
+				return false
+			continue
+		var t1: float = (lo - o) / d
+		var t2: float = (hi - o) / d
+		if t1 > t2:
+			var tmp := t1
+			t1 = t2
+			t2 = tmp
+		tmin = maxf(tmin, t1)
+		tmax = minf(tmax, t2)
+		if tmin > tmax:
+			return false
+	return tmax >= 0.0
+
 ## 桨叶入水点来自组件自带的 BladeContact 挂点，随桨的划水与收桨姿态移动；
 ## 不再用固定距离推算落点。返回固定两侧，缺挂点的一侧给非有限值，调用方跳过。
 func oar_blade_positions() -> PackedVector3Array:
