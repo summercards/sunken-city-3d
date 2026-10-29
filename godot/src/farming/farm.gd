@@ -347,6 +347,9 @@ func clear_plot_specs() -> void:
 
 func register_plot(row: Dictionary) -> void:
 	assert(not row.get("id","").is_empty())
+	# Authored starting cells and constructed cells are real saved plots as soon
+	# as they register. Rebinding a scene must never reset an existing crop.
+	if not states.has(str(row.id)): states[str(row.id)] = _empty_state()
 	for existing in specs:
 		if existing.id==row.id: return
 	specs.append(row.duplicate(true))

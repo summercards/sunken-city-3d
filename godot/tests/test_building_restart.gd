@@ -32,8 +32,8 @@ func run() -> void:
 		if main.building.query().size()!=3: main.queue_free();await process_frame;quit(1);return
 		check(main.farm_field.find("dynamic/built_2")!=null,"startup registers planter")
 		check(econ.farm.crop_of("dynamic/built_2")=="lettuce" and not econ.farm.is_dry("dynamic/built_2"),"startup restores planted watered crop")
-		check(main.player.global_position.is_equal_approx(Vector3(26.3,1.48,16)),"startup restores standing on new plank")
-		check(main._zone_nodes.zone5.walk_areas[0].contains_world(26.3,16),"startup ground registered")
+		check(main.player.global_position.distance_to(Vector3(26.3,1.48,16))<=0.3,"legacy deck-edge position migrates within one body radius")
+		check(main._zone_nodes.zone5.walk_areas[0].contains_world(main.player.global_position.x,main.player.global_position.z),"startup ground registered and restored actor safe")
 		check(is_equal_approx(main.building.row("built_3").left,2),"startup preserves work time")
 		check(econ.count("wood")==35 and econ.count("soil")==8,"restart does not charge again")
 		for mat: ShaderMaterial in main.water_node.schemes.values():

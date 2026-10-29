@@ -40,7 +40,7 @@
 
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
-| SEA-NAV-R11 | 已实现；可航区 150×150，五个泊位在界内，四角可规划，边界内外判定正确 | [本轮交付](../../development/2026-10-29_sail_bounds_150m.md)。`sail-bounds` 20 项通过；`surface` 30 条航路 456 项仅剩既有种植 Prefab 失败。 |
+| SEA-NAV-R11 | 已实现；开放海域、远处段校验与显式场景边界专项通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
 
 范围常量只保留一份：`play_scope.gd` 的 `SAIL_BOUNDS`。几何硬界 `WORLD_WATER`（160m）与相机 `pan_bounds`（154m）都改为包住它，`_safe_nav` 兜底网格不再写死 144×136。家园生活区 `HOME_WATER`（55×48）语义不变。
 

@@ -63,6 +63,12 @@ resume_follow / suspend_follow / restore_follow / setup / set_distance；状态�
 
 ## 变更记录
 
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-CAMERA-R09 | follow按角色真实高度，manual保留旧范围；镜头数值未改 | [角色框架实测](../../development/2026-10-29_character_physics_framework.md) |
+
+SEA-CAMERA-R09：仅移除follow模式的旧10m高度夹限，保留manual范围和全部镜头数值。camera与角色物理集成证据见[本轮交付](../../development/2026-10-29_character_physics_framework.md)。
+
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
 
 ## 2026-10-26 功能与健康审计
@@ -95,3 +101,9 @@ SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、�
 | SEA-CAMERA-R07 | 已实现；真实鼠标点定位图标恢复跟随、手动观察释放、状态颜色回填及三分辨率右下布局 | [本轮交付](../../development/2026-10-28_hud_date_camera_lock.md) |
 
 复用原resume_follow/follow_enabled，不增加镜头状态写入者；UI只有展示状态。
+
+## 2026-10-29 自由海域镜头
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-CAMERA-R08 | 已实现；远处相机目标不被旧边界夹回，真实海上施工近景通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |

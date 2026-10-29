@@ -112,3 +112,9 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 | SEA-INVENTORY-R10 | 已实现：`material_shop.buy_soil(amount)` / `farm.buy_seed(crop_id, amount)` 总价与余量一起检查，被拒时一分不扣 | `pocket-drag-buy` 覆盖"钱不够买 3 包被拒且不扣不加""背包满买 2 份被拒且不扣不加""买 2 份一起到账并按份扣款" |
 
 `try_pickup` 已于同批删除（见 SEA-PICKUP-R09），本功能接口清单不受影响。存档新增字段只增不改，旧档读取路径有专门断言。
+
+## 2026-10-29 建造材料退款
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INVENTORY-R11 | 已实现；多材料占用同一剩余格拒绝无变化，未满堆可完整返还；回调重入受建造提交锁保护 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |

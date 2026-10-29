@@ -39,6 +39,12 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'walk-on-planters': ('tests/test_walk_on_planters.gd', r'\[walk-on-planters\] \d+ checks, 0 failures'),
+    'visual-walk-on-planters': ('tests/test_walk_on_planters.gd', r'\[walk-on-planters\] \d+ checks, 0 failures'),
+    'character-motor': ('tests/test_character_motor.gd', r'\[character-motor\] \d+ checks, 0 failures'),
+    'actor-presentation': ('tests/test_actor_presentation.gd', r'\[actor-presentation\] \d+ checks, 0 failures'),
+    'ground-space': ('tests/test_ground_space.gd', r'\[ground-space\] \d+ checks, 0 failures'),
+    'character-space-save': ('tests/test_character_space_save.gd', r'\[character-space-save\] \d+ checks, 0 failures'),
     'walk-facing': ('tests/test_walk_facing.gd', r'\[walk-facing\] \d+ checks, 0 failures'),
     # 码头栈桥两处围栏缺口：矩形越界点必须拒绝、甲板自身必须仍可走（SEA-MOVE-R01）。
     'walk-deck-fit': ('tests/test_walk_deck_fit.gd', r'\[walk-deck-fit\] \d+ checks, 0 failures'),
@@ -55,6 +61,13 @@ TESTS.update({
     'building-integration': ('tests/test_building_integration.gd', r'\[building-integration\] \d+ checks, 0 failures'),
     # 建造要先走过去：点远处虚影只排队，站定了才扣材料开工。
     'building-approach': ('tests/test_building_approach.gd', r'\[building-approach\] \d+ checks, 0 failures'),
+    'building-open-rules': ('tests/test_building_open_rules.gd', r'\[building-open-rules\] \d+ checks, 0 failures'),
+    'building-space': ('tests/test_building_space.gd', r'\[building-space\] \d+ checks, 0 failures'),
+    'building-ocean': ('tests/test_building_ocean.gd', r'\[building-ocean\] \d+ checks, 0 failures'),
+    'visual-building-ocean': ('tests/test_building_ocean.gd', r'\[building-ocean\] \d+ checks, 0 failures'),
+    'building-open-seed': ('tests/test_building_open_restart.gd', r'\[building-open-restart\] \d+ checks, 0 failures'),
+    'building-open-restart': ('tests/test_building_open_restart.gd', r'\[building-open-restart\] \d+ checks, 0 failures'),
+    'visual-building-diy': ('tests/test_building_diy_visual.gd', r'\[building-diy-visual\] \d+ checks, 0 failures'),
     # Diagnostic reproduction, not acceptance of the documented construction guarantees.
     'building-boundary-audit': ('tools/probe_building_boundary_audit.gd', r'\[building-boundary-audit\] \d+ checks, 0 failures'),
     'visual-building-boundary-audit': ('tools/probe_building_boundary_audit.gd', r'\[building-boundary-audit\] \d+ checks, 0 failures'),
@@ -91,6 +104,8 @@ TESTS.update({
     'sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
     'visual-sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
     'visual-plot-shipping': ('tests/test_plot_shipping_loop.gd', r'\[plot-shipping\].*0 failures'),
+    'initial-planters': ('tests/test_initial_planters.gd', r'\[initial-planters\] \d+ checks, 0 failures'),
+    'visual-initial-planters': ('tests/test_initial_planters.gd', r'\[initial-planters\] \d+ checks, 0 failures'),
     'title-screen': ('tests/test_title_screen.gd', r'\[title-screen\].*0 failures'),
     'visual-title-screen': ('tests/test_title_screen.gd', r'\[title-screen\].*0 failures'),
     'minimum-loop': ('tests/test_minimum_loop.gd', r'\[minimum-loop\].*0 failures'),
@@ -242,6 +257,9 @@ def main():
     if 'building-restart' in checks and 'building-seed' not in checks:
         checks = list(checks)
         checks.insert(checks.index('building-restart'), 'building-seed')
+    if 'building-open-restart' in checks and 'building-open-seed' not in checks:
+        checks = list(checks)
+        checks.insert(checks.index('building-open-restart'), 'building-open-seed')
     unknown = set(checks) - set(TESTS)
     if unknown:
         parser.error('unknown checks: ' + ', '.join(sorted(unknown)))
@@ -280,7 +298,8 @@ def main():
     for name in checks:
         config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules','building'] else full_config
         # Only intentional cross-process cases share a slot. Every other check starts fresh.
-        group = ('building-restart' if name in ['building-seed','building-restart'] else
+        group = ('building-open-restart' if name in ['building-open-seed','building-open-restart'] else
+                 'building-restart' if name in ['building-seed','building-restart'] else
                  'title-clock' if name == 'title-clock-seed' or name in title_cases else
                  'restart' if name in ['save-seed', 'framework-integration'] else
                  'protection' if name in ['save-corrupt-seed', 'save-protection'] else name)
@@ -308,6 +327,9 @@ def main():
         if name == 'building-seed':
             if '--' not in cmd: cmd.append('--')
             cmd.append('--building-seed')
+        if name == 'building-open-seed':
+            if '--' not in cmd: cmd.append('--')
+            cmd.append('--building-open-seed')
         if args.full_world:
             if '--' not in cmd: cmd.append('--')
             cmd.append('--full-world')

@@ -28,13 +28,40 @@ var _ripples := PackedVector4Array()
 var _ripple_index := 0
 var _runtime_contacts := PackedVector4Array()
 var _runtime_contact_count := 0
+var _all_runtime_contacts: Array=[]
+var _contact_focus:=Vector2.INF
 
 func set_runtime_contact_rects(rects: Array) -> void:
-	assert(rects.size()<=24,"Runtime water contact rectangle budget exceeded")
-	_runtime_contact_count=rects.size()
+	_all_runtime_contacts=rects.duplicate()
+	_contact_focus=Vector2.INF
+	_select_contact_rects(Vector2(position.x,position.z))
+
+func _select_contact_rects(focus: Vector2) -> void:
+	# The shader's 24 slots are a local visual budget, never a construction cap.
+	# Merge touching rectangles first; select by view focus for scattered islands.
+	var merged: Array=[]
+	for raw: Vector4 in _all_runtime_contacts:
+		var next:=Rect2(Vector2(raw.x-raw.z,raw.y-raw.w),Vector2(raw.z,raw.w)*2.0)
+		var repeat:=true
+		while repeat:
+			repeat=false
+			for i in merged.size():
+				var prior: Rect2=merged[i]
+				var horizontal:=is_equal_approx(prior.position.y,next.position.y) and is_equal_approx(prior.size.y,next.size.y) and prior.grow(0.001).intersects(next)
+				var vertical:=is_equal_approx(prior.position.x,next.position.x) and is_equal_approx(prior.size.x,next.size.x) and prior.grow(0.001).intersects(next)
+				if horizontal or vertical:
+					next=next.merge(prior);merged.remove_at(i);repeat=true;break
+		merged.append(next)
+	merged.sort_custom(func(a: Rect2,b: Rect2):
+		return a.get_center().distance_squared_to(focus)<b.get_center().distance_squared_to(focus))
+	_runtime_contact_count=mini(merged.size(),24)
 	_runtime_contacts.resize(24)
 	_runtime_contacts.fill(Vector4.ZERO)
-	for i in rects.size(): _runtime_contacts[i]=rects[i]
+	for i in _runtime_contact_count:
+		var rect: Rect2=merged[i]
+		var center:=rect.get_center()
+		_runtime_contacts[i]=Vector4(center.x,center.y,rect.size.x*0.5,rect.size.y*0.5)
+	_contact_focus=focus
 	for mat in schemes.values(): _sync_contacts(mat)
 
 func _sync_contacts(mat: ShaderMaterial) -> void:
@@ -116,6 +143,8 @@ func sample_surface(p: Vector2, at_time: float = -1.0) -> Vector3:
 
 func update_surface(t: float, boat: Node3D, focus: Vector3) -> void:
 	time = t
+	if _all_runtime_contacts.size()>24 and _contact_focus.distance_to(Vector2(focus.x,focus.z))>4.0:
+		_select_contact_rects(Vector2(focus.x,focus.z))
 	# Snapping only changes tessellation placement; wave phase stays in world space.
 	position.x = snappedf(focus.x, 0.5)
 	position.z = snappedf(focus.z, 0.5)

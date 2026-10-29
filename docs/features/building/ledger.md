@@ -1,29 +1,36 @@
 # SEA-BUILDING · 家园拼接建造 · 独立账本
 
+同日最新修订：用户明确要求种植模型不挡人、可直接踩上去。R05按阻挡角色分类，R16登记可踩种植区；只改碰撞声明、行走/操作点/恢复资格投影，不改Farm、费用工期、承载重叠或奖励。[种植区通行交付](../../development/2026-10-29_walk_on_planters.md)。
+
+后续初始六格修复（R05/R16，关联SEA-FARM-R12）：固定六格每次布局同步也生成统一操作点，保留模型位置、ID与可踩踏；Farm独立负责初始状态补齐。[本轮交付](../../development/2026-10-29_initial_six_planters.md)。
+
+2026-10-29角色碰撞接入：本功能运行代码及规则保持输入内容；仅Main原geometry_changed回调通知ZoneScene刷新人物空间。动态中心域不二次内收；返船、跨板搬移、作物保留和退款见[角色框架交付](../../development/2026-10-29_character_physics_framework.md)。
+
 [主文档](../../../GDD_V1.0.md#sea-building) · [设计](spec.md)
 
 ```json
 {
   "feature_id": "SEA-BUILDING",
-  "status": "partial",
+  "status": "implemented",
   "owner": "BuildingService / BuildingWorld / BuildingController",
   "code_paths": ["godot/src/building"],
-  "verification": ["building", "building-integration", "visual-building", "building-restart", "progress-bars", "building-boundary-audit", "visual-building-boundary-audit"]
+  "verification": ["building", "building-open-rules", "building-space", "building-ocean", "building-integration", "building-restart", "building-open-restart", "visual-building", "visual-building-diy", "visual-building-ocean", "building-boundary-audit", "visual-building-boundary-audit", "walk-on-planters", "visual-walk-on-planters"]
 }
 ```
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-BUILDING-R01 | 已实现；本轮专项通过 | 菜单、手册与真实渲染 |
-| SEA-BUILDING-R02 | 现行两圈/24新板/西侧泊位限制已实现；手册与超界反馈缺失 | 陆地资格与未来策略注入；[边界审计](../../development/2026-10-29_building_boundary_audit.md) |
-| SEA-BUILDING-R03 | 已实现；本轮专项通过 | 成本、计时、重复与预览取消 |
-| SEA-BUILDING-R04 | 部分实现；跨板自由摆位可用，但未校验角色通行宽度；服务层另接受封路布局 | [摆位修正](../../development/2026-10-29_planter_free_placement.md)；[当前反例](../../development/2026-10-29_building_boundary_audit.md) |
-| SEA-BUILDING-R05 | 木面与船阻挡增量已实现；实际吸附布局留极窄通路，非吸附服务层布局另可断连 | [当前反例](../../development/2026-10-29_building_boundary_audit.md) |
-| SEA-BUILDING-R06 | 部分实现；小布局恢复通过，但服务允许实例数超过保存/恢复的54上限 | [55实例起校验拒绝](../../development/2026-10-29_building_boundary_audit.md) |
-| SEA-BUILDING-R07 | 已实现；本轮专项通过 | 无Autoload专项 |
-| SEA-BUILDING-R08 | 已实现；15项实景与几何检查通过，双水面吃水线可见 | [板底与电线杆摆位](../../development/2026-10-29_deck_draft_pole_placement.md) |
-| SEA-BUILDING-R09 | 已实现：施工条换成 92×8 px 自绘细条（原约 20 px） | `progress-bars` 26 项 0 失败；`building-integration` 38 项照旧通过；[本轮交付](../../development/2026-10-29_pickup_progress_bar.md) |
-| SEA-BUILDING-R10 | 正常接近流程已实现；服务层封路布局下不可达施工点仍给“点击施工”预览，确认时才拒绝 | `building-approach` 18项通过；[原交付](../../development/2026-10-29_build_requires_approach.md)；[当前审计](../../development/2026-10-29_building_boundary_audit.md) |
+| SEA-BUILDING-R01 | 已实现；手册三配方、搬移/拆回与红绿理由；真实输入通过 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R02 | 已实现；稀疏无圈数网格、船上独立基础、实际建筑与泊位保护 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R03 | 已实现；保持原费用/工期，新增小型配方，拒绝/重复/取消不收费 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R04 | 已实现；承载并集、跨缝、双尺寸、旋转、0.1/0.01米摆位 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R05 | 已实现；0.22米角色宽度、连接/操作点保护、船阻挡和水线增量 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R06 | 已实现；移除54上限、支撑顺序无关校验、65实例跨进程恢复及旧边缘迁移 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R07 | 已实现；无全局纯规则、提交锁、容量/支付/退款注入及回调重入拒绝 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R08 | 已实现；木板顶面/吃水厚度不变，小型培养土按目录尺寸投影 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R09 | 已实现；细条保留，全部木板参与状态，近景泡沫预算不再限制布局 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R10 | 已实现；岸上接近与船上航行到位、停稳才扣费、取消清意图 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R16 | 固定六格与DIY双尺寸可踩踏，成熟蔬菜穿越状态不变；站格保存恢复和外缘阻挡通过 | [种植区通行实测](../../development/2026-10-29_walk_on_planters.md) |
 
 实施与验证记录：[本轮交付](../../development/2026-10-28_building_delivery.md)。
 
@@ -63,3 +70,19 @@
 最终`building-boundary-audit`与真实渲染`visual-building-boundary-audit`各31项、退出0：成功复现固定两圈边界、泛化提示、实际0.1米吸附布局缺角色通行宽度检查，以及24新板+36箱共60实例被存档54上限拒绝。另单独复现服务/快照端接受非吸附坐标的封路布局，以及此布局下不可达格仍提示点击施工，明确不把该服务层反例当成鼠标吸附直接复现。**审计探针通过表示反例复现成功，不代表建造机制验收通过。** 其中R06为P1保存风险；R04/R05通行宽度、服务层完整性及边界显示/提示列P2。
 
 同轮原有专项：`building`29项、`building-approach`18项、`building-integration`38项、`building-seed`5项、`building-restart`8项均退出0；真实输入`visual-building`结果及完整证据见[审计记录](../../development/2026-10-29_building_boundary_audit.md)。本次未修改玩法限制、费用、布局状态或玩家存档。
+
+## 2026-10-29 海上自由建造与DIY交付（当前口径）
+
+本节按用户最新范围替代上方“两圈/不支持搬移拆除”的历史阶段；旧审计结果保留，不再把已修缺口作为当前结论。登记头为implemented（已实现待完整验收），不代表任意数量/任意远坐标性能或所有设备已验收。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-BUILDING-R11 | 已实现；带作物搬移保留稳定ID、浇水/生长与原节点，取消不改现场 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R12 | 已实现；空摆件/安全板拆回，全额原子退款；有作物、桥板、当前泊位等拒绝 | 同上 |
+| SEA-BUILDING-R13 | 已实现；派生稳定登陆ID，独立平台航行→登陆→返船，冷热恢复 | 同上 |
+| SEA-BUILDING-R14 | 已实现；目录role/support/footprint/visual元数据与注入策略，未来内容有明确适配入口 | 同上；尚未制作墙/门/家具/多层等未来内容 |
+| SEA-BUILDING-R15 | 已实现；技术字节容量在扣费前拒绝，虚影96/水线24局部预算，稀疏坐标与局部航路 | 同上；不宣称任意无限实例帧率 |
+
+当前专项、真实渲染、过程失败、退出码与未执行项集中记录在[交付记录](../../development/2026-10-29_open_ocean_building.md)。玩家存档未被用作测试槽，也未因本次规则更新强制重置。
+
+2026-10-29最终收尾：建造纯规则120、空间15、集成39、海上真实渲染30、DIY真实输入28、边界回归51、大布局跨进程70+8、旧档迁移5+11全部0失败/退出0；最小循环77、种植35、上下船12、睡觉33及坏档保护通过。架构15服务0问题；功能同步与无参检查35功能/459源资产/392运行期哈希0问题。详见[机器证据](../../development/2026-10-29_open_ocean_building_verification.json)。

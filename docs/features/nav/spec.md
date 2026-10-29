@@ -114,7 +114,7 @@
 
 | 条款 ID | 规则 |
 |---|---|
-| SEA-NAV-R11 | 正式可航区为 150m × 150m，以原点为中心：x ∈ [−75, 75)、z ∈ [−75, 75)。该矩形由 `godot/src/core/play_scope.gd` 的 `SAIL_BOUNDS` 唯一拥有，WaterNavigation 只接收它，不得另写范围数字。几何硬界 `WORLD_WATER`（160m）与相机 `pan_bounds`（154m）必须包住可航区，`_safe_nav` 兜底网格与可航区同范围；任一处被单独改动时 `tests/test_sail_bounds.gd` 必须失败。五个已登记泊位（zone1 main/salvage、zone2、zone3、zone4、zone5）全部落在界内，四角开阔水面可规划航路。家园生活区 `HOME_WATER`（55m × 48m）不随之扩大，仍只用于采集物/鱼群生成、出生点与旧档迁移回位判定。 |
+| SEA-NAV-R11 | 按海上自由建造最新范围取消固定150m可航矩形与160m几何硬界；默认allowed_area为空，有限的无障碍海面均可航行，HOME_WATER仍只负责补给生成。清水直线航路用解析段校验；有障碍时在本趟起终点周围构建有工作预算的局部网格并逐段验证，不按整个海洋分配网格。显式场景仍可注入allowed_area；旧SAIL_BOUNDS/WORLD_WATER仅历史工具参考。远处合法船位读档不回位，实际建筑仍阻挡 |
 
 [本轮交付](../../development/2026-10-29_sail_bounds_150m.md)。
 
@@ -125,3 +125,7 @@
 | SEA-NAV-R10 | 施工开始即预留动态木板水面阻挡、invalidate导航缓存，保护原泊位通道与当前船位置；平台完工后重定位落入阻挡范围的海面目标，既有航线由逐步segment_clear检查。 |
 
 [交付与实测](../../development/2026-10-28_building_delivery.md)。
+
+## 2026-10-29 海上自由建造补充
+
+本轮SEA-NAV-R11覆盖前文“同一固定矩形用于正式航区”的历史范围；R01–R10的实际避障、靠泊与速度契约保留。SEA-BUILDING-R13的派生泊位复用原航行→抵达→上岸流程，不增加第二份权威船位。[本轮交付](../../development/2026-10-29_open_ocean_building.md)。

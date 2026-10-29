@@ -217,6 +217,27 @@ func pay(costs: Dictionary) -> bool:
 		remove(id, int(costs[id]))
 	return true
 
+## Entire material refund, including stacks shared by several item types.
+## Reject before publishing events when any part would overflow the backpack.
+func add_all(amounts: Dictionary) -> bool:
+	var candidate:=_counts.duplicate()
+	for id in amounts:
+		if not ItemDB.has(str(id)) or not (amounts[id] is int or amounts[id] is float): return false
+		var amount:=float(amounts[id])
+		if not is_finite(amount) or amount<0 or amount!=floor(amount): return false
+		candidate[id]=int(candidate.get(id,0))+int(amount)
+	var used:=0
+	for id in candidate:
+		if ItemDB.is_currency(str(id)): continue
+		used+=int(ceil(float(candidate[id])/float(maxi(1,ItemDB.stack_limit(str(id))))))
+	if used>_capacity: return false
+	_counts=candidate
+	for id in amounts: _register(str(id))
+	for id in amounts:
+		if int(amounts[id])>0: changed.emit(str(id),int(amounts[id]))
+	capacity_changed.emit(slots_used(),_capacity)
+	return true
+
 
 func expand(extra_slots: int) -> void:
 	_capacity += maxi(extra_slots, 0)

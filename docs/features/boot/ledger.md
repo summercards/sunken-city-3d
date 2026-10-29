@@ -65,6 +65,8 @@ Main 保留场景装配、输入路由、跨功能流程及兼容转发；行走
 
 ## 变更记录
 
+2026-10-29角色物理接入：Main只增加唯一物理帧驱动与空间/高度适配；原Explorer节点路径与Transform保留，原生类型改为CharacterBody3D，其它内容不变。[角色框架交付](../../development/2026-10-29_character_physics_framework.md)。
+
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
 - 2026-10-24：`_unhandled_input` 增加 HUD 存在性早退，`cam_panel` / `grade` / 船靠岸提示的 `hud` 访问补空判断。装配顺序与玩法数值未变。
 

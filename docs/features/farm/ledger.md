@@ -24,7 +24,9 @@
     "modules",
     "framework-integration",
     "minimum-loop",
-    "visual-plot-shipping"
+    "visual-plot-shipping",
+    "initial-planters",
+    "visual-initial-planters"
   ]
 }
 ```
@@ -42,7 +44,8 @@
 | SEA-FARM-R07 | 已实现并专项核验 | [边界补强记录](../../development/2026-10-27_framework_boundary_hardening.md) |
 | SEA-FARM-R08 | 已改用世界气泡，选择后接近并消费一次；实际鼠标三日种植/收获/出货通过 | [本轮证据](../../development/2026-10-28_pocket_action_bubbles.md) |
 | SEA-FARM-R09 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
-| SEA-FARM-R11 | 已实现：`farm_plot.gd` 只建木箱与 CropView 容器，作物几何全部移出 | `farming` 回归 + [作物拆分记录](../../development/2026-10-29_crop_formalization.md) |
+| SEA-FARM-R11 | 已实现；双尺寸动态地格、带作物搬移/读档和空格注销验证通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-FARM-R12 | 已实现；六格真实输入247项、真实渲染250项及玩家档副本40项通过；新局显式登记、旧档保留作物和重复登记不重置通过 | [本轮交付](../../development/2026-10-29_initial_six_planters.md) |
 
 ## 资源与调用入口
 
@@ -72,6 +75,8 @@ configure；plant / water / harvest / advance_day / access_reason；register_plo
 Farm 的规则端口保留；FarmField/FarmPlot 显式注入 Farm，不再访问全局 Economy。开垦、工具升级、品质和季节仍为规划。
 
 ## 变更记录
+
+2026-10-29 SEA-FARM-R11关联验证：穿越前后作物/水分/生长快照一致，成熟不自动收获；正常操作仍走原Farm命令，Farm代码未改。[通行实测](../../development/2026-10-29_walk_on_planters.md)。
 
 - 2026-10-28：完成可建木板上放置种植箱的静态研究；确认可复用单格预制体及Farm规则，待补增量登记、交互接线与先登记后恢复作物的存档链路。[研究方案](../../development/2026-10-28_buildable_deck_planters_research.md)。现有种植状态与实现不变，未执行运行验收。
 

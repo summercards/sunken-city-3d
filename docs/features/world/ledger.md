@@ -13,6 +13,8 @@
   "owner": "Zones / ZoneScene",
   "code_paths": [
     "godot/src/world",
+    "godot/src/navigation/ground_space.gd",
+    "godot/src/navigation/actor_collision_body.gd",
     "godot/scenes/zones",
     "godot/scenes/world",
     "godot/assets/data/zones.json"
@@ -46,6 +48,7 @@
 | SEA-WORLD-R07 | 本批实现并验证 | 15片旧荷叶精确退役840三角面，恢复另9片；独立组件与航路专项见本轮记录 |
 | SEA-WORLD-R08 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-WORLD-R09 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
+| SEA-WORLD-R12 | 正式区块装配GroundSpace并提供高度查询；建造通过现有geometry_changed刷新投影，水面阻挡未改 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
 
 ## 资源与调用入口
 
@@ -90,6 +93,8 @@ SEA-WORLD-R05 首次落地。根因是阻挡有三份互不相干的来源（`sh
 验证：`python3 scripts/run_verification.py visual-blockers surface selftest click management camera visual-sea-style` 全部退出 0；selftest 535 passed / 2 failed（背包格容器、zone1 共享材质，均为本轮之前的既有项）。`python3 scripts/check_feature_contracts.py` 0 issues。 [交付记录](../../development/2026-10-26_sea_scene_blockers.md)。
 
 ## 变更记录
+
+2026-10-29 SEA-WORLD-R11/R12：种植区可踩踏，投影不再挖培养土洞口，木面外缘及显式实心实体仍阻挡；旧布局恢复无需改格式。[通行实测](../../development/2026-10-29_walk_on_planters.md)。
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
 

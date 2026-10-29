@@ -21,7 +21,11 @@ func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
 	main._autosave_on = false
-	main.process_mode = Node.PROCESS_MODE_DISABLED
+	# Freeze the two production drivers, not CollisionObject3D participation:
+	# PROCESS_MODE_DISABLED would remove the character from the physics world.
+	main.set_process(false)
+	main.set_physics_process(false)
+	main.player.set_process(false)
 	if main.actor_controller.actor == null:
 		printerr("FAIL actor controller did not initialize")
 		main.queue_free()
@@ -33,6 +37,24 @@ func run() -> void:
 	area.rects = [Rect2(-5, -5, 10, 10)]
 	area.surface_y = 10.0
 	main.add_child(area)
+	var fixture_space = preload("res://src/navigation/ground_space.gd").new()
+	main.add_child(fixture_space)
+	fixture_space.configure([area])
+	# This fixture used to need only a declared rectangle. The formal motor now
+	# requires real support, while every speed/facing assertion stays unchanged.
+	var floor_body := StaticBody3D.new()
+	floor_body.collision_layer = 256
+	floor_body.collision_mask = 512
+	var floor_collision := CollisionShape3D.new()
+	var floor_shape := BoxShape3D.new()
+	floor_shape.size = Vector3(10.0, 0.2, 10.0)
+	floor_collision.shape = floor_shape
+	floor_body.add_child(floor_collision)
+	main.add_child(floor_body)
+	floor_body.global_position = Vector3(0.0, 9.9, 0.0)
+	for i in 3:
+		await physics_frame
+		await process_frame
 	for fps in [30, 60, 120]:
 		for direction: Vector3 in [Vector3.RIGHT, Vector3.LEFT, Vector3.BACK, Vector3.FORWARD,
 				Vector3(1,0,1).normalized(), Vector3(1,0,-1).normalized(),
@@ -41,9 +63,10 @@ func run() -> void:
 			main.player.rotation = Vector3.ZERO
 			var start: Vector3 = main.player.global_position
 			check(main.actor_controller.start_walk(area, start + direction * 3.0), "start %s %d FPS" % [direction,fps])
+			main.player._process(0.0)
 			for i in fps / 2: main.actor_controller.tick(1.0 / fps)
 			var movement: Vector3 = main.player.global_position - start
-			check(movement.normalized().dot(forward()) > 0.9999, "face follows displacement %s %d FPS" % [direction,fps])
+			check(movement.normalized().dot(forward()) > 0.9999, "face follows displacement %s %d FPS moved=%s facing=%s" % [direction,fps,movement,forward()])
 			check(absf(movement.length() - 1.15) < 0.001, "walk speed preserved")
 			for i in fps: main.actor_controller.tick(1.0 / fps)
 			check(not main.actor_controller.walking() and main.player.global_position.distance_to(start + direction * 3.0) < 0.001, "arrive and stop")
@@ -52,10 +75,12 @@ func run() -> void:
 	main.actor_controller.restore_pose({"mode":0,"player":[20.5,1.48,16]})
 	var ground: Node3D = main._zone_nodes.zone5.landing_point("main").ground()
 	check(main.actor_controller.start_walk(ground, Vector3(23.5,1.48,16)), "platform outward")
+	main.player._process(0.0)
 	for i in 30: main.actor_controller.tick(1.0/60)
 	check(forward().dot(Vector3.RIGHT) > 0.9999, "platform faces outward")
 	if DisplayServer.get_name() != "headless": await capture("outward")
 	check(main.actor_controller.start_walk(ground, Vector3(19.8,1.48,16)), "platform reverse")
+	main.player._process(0.0)
 	var previous: Vector3 = forward()
 	main.actor_controller.tick(1.0/60)
 	check(previous.dot(forward()) > 0.8, "reverse turns smoothly")

@@ -251,7 +251,7 @@ HUD增加公开表现入口set_follow_locked(bool)，Main查询OrbitCam.follow_e
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-UI-R41 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+| SEA-UI-R41 | 已实现；三配方/管理手册、真实鼠标旋转精细/搬移取消与退款28项通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-UI-R42 | 已实现：世界浮层进度条统一为自绘细条（建造 8 px / 拾取 6 px），带 `cozy_skip`；浮层挂点选"永远在画面里"的对象（拾取条挂角色头顶） | `progress-bars` 37 项 0 失败（含"过一遍 cozy 主题仍是 6 px""目标在相机背后时条仍可见"）；[本轮交付](../../development/2026-10-29_pickup_progress_bar.md) |
 
 ## 2026-10-29 背包拖拽整理与购买数量

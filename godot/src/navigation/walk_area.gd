@@ -15,6 +15,10 @@ extends Node3D
 @export var span_max := 2.45
 @export var rects: Array = []
 @export var polygons: Array[PackedVector2Array] = []
+## Optional local-space 3D triangles for slopes and stacked floors. Existing
+## authored rectangles remain the compatibility input for the current content.
+@export var surface_triangles := PackedVector3Array()
+var ground_space: Node3D
 const GroundPath = preload("res://src/navigation/ground_path.gd")
 
 ## 角色轮廓半径：站位点要往里收这么多，人物整个身影才落在甲板上。
@@ -103,6 +107,15 @@ func walkable_local(p: Vector2) -> Vector2:
 ## 交互目标（土箱、菜箱中心）本身不需要站在它正中心，
 ## 内收会挪动落点、破坏「走到目标点」的语义。内收只在点击落点处做（`clamp_point`）。
 func path_between(start: Vector3, goal: Vector3) -> Array[Vector3]:
+	goal = surface_point(goal)
+	if not goal.is_finite(): return []
+	if not is_instance_valid(ground_space) and is_inside_tree():
+		var space := preload("res://src/navigation/ground_space.gd").new()
+		space.name = "GroundSpace"
+		add_child(space)
+		space.configure([self])
+	if is_instance_valid(ground_space):
+		return ground_space.route(start, goal)
 	var a := to_local(start)
 	var b := to_local(goal)
 	var route := GroundPath.route(outlines(), Vector2(a.x, a.z), Vector2(b.x, b.z))
@@ -119,12 +132,21 @@ func contains_local(x: float, z: float) -> bool:
 
 
 func contains_world(x: float, z: float) -> bool:
+	if not surface_triangles.is_empty():
+		return surface_point(Vector3(x, surface_y, z)).is_finite()
 	var local := to_local(Vector3(x, surface_y, z))
 	return contains_local(local.x, local.z)
 
 
 ## 射线与该站立面求交，命中返回沿射线的距离，未命中返回 -1。
 func pick(origin: Vector3, dir: Vector3) -> float:
+	if not surface_triangles.is_empty():
+		var best := INF
+		var faces := surface_faces()
+		for i in range(0, faces.size(), 3):
+			var hit: Variant = Geometry3D.ray_intersects_triangle(origin, dir, faces[i], faces[i+1], faces[i+2])
+			if hit != null: best = minf(best, origin.distance_to(hit))
+		return best if is_finite(best) else -1.0
 	if absf(dir.y) < 0.0001:
 		return -1.0
 	var t := (surface_y - origin.y) / dir.y
@@ -172,3 +194,53 @@ func clamp_point(x: float, z: float) -> Vector2:
 
 func area_span() -> Vector2:
 	return Vector2(span_min, span_max)
+
+func surface_faces() -> PackedVector3Array:
+	var faces := PackedVector3Array()
+	if not surface_triangles.is_empty():
+		for p in surface_triangles: faces.append(to_global(p))
+	else:
+		for outline: PackedVector2Array in outlines():
+			var indices := Geometry2D.triangulate_polygon(outline)
+			for index in indices:
+				var p := to_global(Vector3(outline[index].x, 0.0, outline[index].y))
+				p.y = surface_y
+				faces.append(p)
+	# Recast and one-sided physical floors share the same upward winding.
+	for i in range(0, faces.size()-2, 3):
+		if (faces[i+1]-faces[i]).cross(faces[i+2]-faces[i]).y < 0.0:
+			var temp := faces[i+1]
+			faces[i+1] = faces[i+2]; faces[i+2] = temp
+	return faces
+
+func surface_point(point: Vector3) -> Vector3:
+	if surface_triangles.is_empty():
+		return Vector3(point.x, surface_y, point.z) if contains_world(point.x, point.z) else Vector3.INF
+	var best := Vector3.INF
+	var distance := INF
+	var faces := surface_faces()
+	for i in range(0, faces.size()-2, 3):
+		var a := faces[i]; var b := faces[i+1]; var c := faces[i+2]
+		var normal := (b-a).cross(c-a)
+		if absf(normal.y) < 0.00001: continue
+		var y := a.y - (normal.x*(point.x-a.x)+normal.z*(point.z-a.z))/normal.y
+		var candidate := Vector3(point.x,y,point.z)
+		var outline := PackedVector2Array([Vector2(a.x,a.z),Vector2(b.x,b.z),Vector2(c.x,c.z)])
+		if not GroundPath.contains([outline],Vector2(point.x,point.z)): continue
+		if absf(y-point.y) < distance:
+			distance = absf(y-point.y); best = candidate
+	return best
+
+func contains_position(point: Vector3, tolerance: float=0.5) -> bool:
+	var support := surface_point(point)
+	return support.is_finite() and absf(support.y-point.y) <= tolerance
+
+func surface_normal(point: Vector3) -> Vector3:
+	if surface_triangles.is_empty(): return Vector3.UP
+	var faces := surface_faces()
+	for i in range(0,faces.size()-2,3):
+		var a := faces[i]; var b := faces[i+1]; var c := faces[i+2]
+		var outline := PackedVector2Array([Vector2(a.x,a.z),Vector2(b.x,b.z),Vector2(c.x,c.z)])
+		if GroundPath.contains([outline],Vector2(point.x,point.z)):
+			return (b-a).cross(c-a).normalized()
+	return Vector3.UP

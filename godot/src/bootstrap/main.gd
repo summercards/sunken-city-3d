@@ -61,6 +61,7 @@ var building = preload("res://src/building/building_service.gd").new()
 var building_world: Node3D
 var building_boundary: RefCounted
 var building_controller: Node3D
+var building_access: Node
 var props: Node3D
 var build_field: Node3D
 var farm_field: Node3D
@@ -203,7 +204,9 @@ func _ready() -> void:
 	get_viewport().use_debanding = true
 	navigation.shape_query = func(): return _water_shapes() + (building_world.water_shapes() if building_world!=null else [])
 	Zones.zone_enabled_query = Scope.zone_enabled
-	if Scope.minimal(): navigation.allowed_area = Scope.SAIL_BOUNDS
+	# Free ocean construction shares an unbounded sea with sailing. HOME_WATER
+	# remains the pickup population area, not a build/sail/camera fence.
+	navigation.allowed_area=Rect2()
 	Zones.far_sea_query = func() -> bool: return GameState.far_sea_unlocked
 	_setup_environment()
 	_setup_lights()
@@ -658,15 +661,22 @@ func _try_walk(screen: Vector2) -> bool:
 	_auto_target = null
 	_cancel_pending_pick()
 	interactor.auto_hold = false
-	if _start_walk(area, Vector3(point.x, area.surface_y, point.z)):
-		reticle.show_at(Vector3(point.x,area.surface_y,point.z))
+	if _start_walk(area, point):
+		reticle.show_at(point)
 	# 点击了地面就消费输入；不通的地面不能继续被解释成水面航行。
 	return true
 
 
 func _current_landing() -> Node3D:
+	if building_access!=null and building_access.is_dynamic(GameState.landing_id):
+		return building_access.landing_node(GameState.landing_id)
 	var zone: Node3D = _zone_nodes.get(GameState.current_zone)
 	return zone.landing_point(GameState.landing_id) if zone != null else null
+
+func _landing_data(zone_id: String,landing_id: String) -> Dictionary:
+	if building_access!=null and building_access.is_dynamic(landing_id):
+		return building_access.landing_data(landing_id) if zone_id=="zone5" else {}
+	return Zones.landing(zone_id,landing_id)
 
 
 func _start_walk(area: Node3D, target: Vector3) -> bool:
@@ -781,6 +791,10 @@ func _board_player() -> void:
 
 func _update_walk(delta: float) -> void:
 	actor_controller.tick(delta)
+
+func _physics_process(delta: float) -> void:
+	if _title_active or sleep_cycle.busy or actor_controller.actor == null: return
+	_update_walk(delta)
 
 func _setup_water() -> void:
 	water_node = get_node_or_null("World/Water") as MeshInstance3D
@@ -934,7 +948,7 @@ func _landing_icon_world(zone_id: String, landing_id: String, fallback: Vector3)
 		return fallback
 	if zone_id != GameState.current_zone or landing_id != GameState.landing_id:
 		return fallback
-	var l: Dictionary = Zones.landing(zone_id, landing_id)
+	var l: Dictionary = _landing_data(zone_id, landing_id)
 	if l.is_empty():
 		return fallback
 	var park := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
@@ -957,7 +971,7 @@ func _click_boat(screen: Vector2) -> bool:
 		return false
 	if not boat.pick_hull(screen, cam):
 		return false
-	var l: Dictionary = Zones.landing(GameState.current_zone, GameState.landing_id)
+	var l: Dictionary = _landing_data(GameState.current_zone, GameState.landing_id)
 	if l.is_empty():
 		return false
 	var park := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
@@ -1728,6 +1742,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			# 让精确点图标的行为保持优先。
 			if _click_boat(mb.position):
 				return
+			if actor_controller.mode()!=0 and building_access!=null:
+				var built_landing: Dictionary=building_access.pick_landing(mb.position)
+				if not built_landing.is_empty():
+					_select_landing(built_landing);return
 			# 先看点在不在甲板上（走），不在就当作「点水面划船」。
 			if _try_walk(mb.position):
 				return
@@ -1745,7 +1763,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _select_landing(hit: Dictionary) -> void:
 	var zone_id: String = hit.zone
 	var landing_id: String = hit.landing
-	var selected: Dictionary = Zones.landing(zone_id,landing_id)
+	var selected: Dictionary = _landing_data(zone_id,landing_id)
 	if selected.is_empty(): return
 	var park := Vector3(float(selected.boatPark[0]),WATER_LEVEL,float(selected.boatPark[2]))
 	# 显式写 bool：boat 声明为 Node3D，starts_sailing() 不在基类上，
@@ -1764,7 +1782,7 @@ func _select_landing(hit: Dictionary) -> void:
 	if not Zones.is_unlocked(zone_id):
 		hud.toast("远海街町需要先升级船只")
 		return
-	var l := Zones.landing(zone_id, landing_id)
+	var l := _landing_data(zone_id, landing_id)
 	if not _sail_to_landing(l, zone_id, landing_id, true):
 		return
 	# 同上：目标水纹由 ribbon 负责，不再额外放一圈落点环。
@@ -2100,7 +2118,6 @@ func _process(delta: float) -> void:
 	for zone in _zone_nodes.values():
 		if zone.has_method("update_time"):
 			zone.update_time(_t)
-	_update_walk(delta)
 	# 交互只在岸上、站定时开放：船上/航行中/潜水都不该出现采集提示。
 	if interactor != null:
 		interactor.active = (not dive.active) and (not _walking) \
@@ -2217,6 +2234,7 @@ func _setup_actor_controller() -> void:
 	Economy.ship.upgraded.connect(func(_level): GameState.far_sea_unlocked=true)
 	interactor.completed.connect(func(_spot,_reward): actor_controller.complete_interaction())
 	interactor.blocked.connect(func(_reason): actor_controller.complete_interaction())
+	interactor.reachable_query = func(spot: Node3D) -> bool: return _land_reach_reason(spot) == ""
 	# SEA-FARM-R02「水壶12份，岸上免费补满」：上岸那一刻补满。
 	#
 	# 这条以前只有文字没有实现，水壶见底后所有种下的格子都变成死局：
@@ -2273,21 +2291,25 @@ func _setup_building() -> void:
 	var boundary=preload("res://src/building/building_boundary.gd").new()
 	building_boundary=boundary
 	boundary.world=building_world
-	boundary.actor_query=func(): return {"mode":actor_controller.mode(),"zone":GameState.current_zone,"position":player.global_position}
+	boundary.actor_query=func(): return {"mode":actor_controller.mode(),"zone":GameState.current_zone,"position":player.global_position,"state":actor_controller.state_id()}
 	boundary.boat_query=func(): return boat.global_position
-	boundary.obstacles_query=func():
-		var result: Array=[]
-		for zone in _zone_nodes.values():
-			if zone.zone_id=="zone5": continue
-			for ground in zone.walk_areas:
-				for rect: Rect2 in ground.rects:
-					var point: Vector3=ground.to_global(Vector3(rect.position.x,0,rect.position.y))
-					result.append(Rect2(Vector2(point.x,point.z),rect.size))
-		return result
-	building.configure({"eligibility":boundary.eligibility,"space_reason":boundary.space_reason,"pay":Economy.inventory.pay})
+	boundary.obstacles_query=_construction_obstacles
+	boundary.protected_query=_construction_protected
+	boundary.farm_query=Economy.farm.state
+	boundary.active_landing_query=func(): return GameState.landing_id if actor_controller.mode()==0 else ""
+	building.configure({"eligibility":boundary.eligibility,"space_reason":boundary.space_reason,
+		"layout_reason":_construction_layout_reason,"pay":Economy.inventory.pay,"refund":_construction_refund,
+		"capacity_reason":_construction_capacity_reason})
 	building_world.configure(building,_zone_nodes.zone5.walk_areas[0],farm_field,_bind_constructed_plot,func():
 		navigation.invalidate()
+		_zone_nodes.zone5.rebuild_ground(_zone_nodes.zone5.walk_areas[0])
 		water_node.set_runtime_contact_rects(building_world.contact_rects()))
+	building_access=preload("res://src/building/building_access.gd").new();add_child(building_access)
+	building_access.configure(building,building_world,navigation,boat,markers,cam,_construction_actor_state,_select_landing,func(): return GameState.landing_id)
+	building.changed.connect(func():
+		if actor_controller.mode()!=0 and building_access.is_dynamic(GameState.landing_id) and building_access.landing_data(GameState.landing_id).is_empty():
+			GameState.landing_id="main")
+	cam.pan_bounds=Rect2()
 	building.completed.connect(func(_id): props.apply_population_scope())
 	building_controller=preload("res://src/building/building_controller.gd").new();add_child(building_controller)
 	building_controller.configure(building,building_world,cam,hud,Economy.inventory.all,actor_controller.cancel,
@@ -2304,6 +2326,12 @@ func _bind_constructed_plot(plot: Node3D) -> void:
 ## 沿「角色这一侧」的方向往外探几个半径，取第一个落在可走矩形里、且有通路的位置。
 ## 都探不到就退回到「把格心夹到最近的可行走面」，避免在平台边缘建造成死局。
 func _construction_stand_point(center: Vector3) -> Vector3:
+	if actor_controller.mode() in [1,2]: return building_access.boat_stand(center)
+	if building_world.has_method("find_stand_point"):
+		var request: Dictionary={}
+		if building_controller!=null:
+			request=building_controller.pending if not building_controller.pending.is_empty() else building_controller.preview
+		return building_world.find_stand_point(player.global_position,center,2.8,request)
 	var zone: Node = _zone_nodes.get("zone5")
 	if zone == null: return Vector3.INF
 	var actor: Vector3 = player.global_position
@@ -2327,6 +2355,14 @@ func _construction_stand_point(center: Vector3) -> Vector3:
 
 ## 施工前走过去。走不到就返回 false，由建造控制器说明原因，不给「原地开工」的捷径。
 func _construction_walk(point: Vector3) -> bool:
+	if actor_controller.mode() in [1,2]:
+		var path:=plan_route_to(point.x,point.z)
+		if path.is_empty(): return false
+		_cancel_pending_pick();_ashore_on_arrival=false
+		boat.sail_to(point,boat.rotation.y,"","",path)
+		actor_controller.request_mode(GameState.Mode.SAILING)
+		if ribbon!=null: ribbon.show_route(boat.route,WATER_LEVEL)
+		return true
 	var zone: Node = _zone_nodes.get("zone5")
 	if zone == null: return false
 	var ground: Variant = zone.area_containing(point.x, point.z)
@@ -2335,7 +2371,58 @@ func _construction_walk(point: Vector3) -> bool:
 	return actor_controller.start_walk(ground, point)
 
 func _construction_actor_state() -> Dictionary:
-	return {"position": player.global_position, "walking": actor_controller.walking()}
+	var afloat: bool=actor_controller.mode() in [1,2]
+	return {"position":boat.global_position if afloat else player.global_position,
+		"walking":boat.starts_sailing() if afloat else actor_controller.walking(),"mode":actor_controller.mode()}
+
+func _construction_refund(cost: Dictionary) -> bool:
+	return Economy.inventory.add_all(cost)
+
+func _construction_layout_reason(before: Array,after: Array,request: Dictionary) -> String:
+	var reason: String=building_boundary.layout_reason(before,after,request)
+	if reason!="": return reason
+	if actor_controller.mode()==0 and building_access!=null and building_access.is_dynamic(GameState.landing_id):
+		if building_access.landing_data(GameState.landing_id,after).is_empty(): return "请保留当前上下船的位置"
+	return ""
+
+func _construction_capacity_reason(rows: Array) -> String:
+	if save_registry==null or save_registry.is_busy(): return "正在结算或恢复，请稍后建造"
+	var snapshot: Dictionary=SaveGameLib.encode(self)
+	if snapshot.is_empty() or not snapshot.has("building"): return ""
+	snapshot.building.instances=rows
+	# Include the future Farm records of unfinished furnishings before charging.
+	var states: Dictionary=snapshot.economy.farm.plots
+	var live: Dictionary={}
+	for row in rows:
+		if row.kind=="deck": continue
+		var id: String="dynamic/"+str(row.id)
+		live[id]=true
+		if not states.has(id): states[id]={"crop":"pumpkin","remaining":3.0,"total":3.0,"water":1.0,"harvests":1000000000}
+	for id in states.keys():
+		if str(id).begins_with("dynamic/") and not live.has(id): states.erase(id)
+	return "存档已达到安全容量，请先整理已有建造" if JSON.stringify(snapshot,"\t").to_utf8_buffer().size()>SaveGameLib.MAX_BYTES-65536 else ""
+
+func _construction_obstacles() -> Array:
+	var result: Array=_water_shapes().duplicate()
+	for zone in _zone_nodes.values():
+		if zone.zone_id=="zone5": continue
+		for ground in zone.walk_areas:
+			for rect: Rect2 in ground.rects:
+				var point: Vector3=ground.to_global(Vector3(rect.position.x,0,rect.position.y))
+				result.append(Rect2(Vector2(point.x,point.z),rect.size))
+	return result
+
+func _construction_protected() -> Array:
+	var result: Array=[]
+	for zone in _zone_nodes.values():
+		for landing in zone.landing_points():
+			if str(landing.landing_id).begins_with("built:"): continue
+			var data: Dictionary=landing.data()
+			var park:=Vector2(data.boatPark[0],data.boatPark[2])
+			var stand:=Vector2(data.landStand[0],data.landStand[2])
+			result.append(Rect2(park-Vector2.ONE*1.3,Vector2.ONE*2.6))
+			result.append(Rect2(stand,Vector2.ZERO).expand(park).grow(0.45))
+	return result
 
 func _restore_building(data: Dictionary) -> void:
 	building_controller.close()
@@ -2367,8 +2454,7 @@ func capture_world_state() -> Dictionary:
 
 func restore_world_state(data: Dictionary) -> void:
 	data = data.duplicate(true)
-	var old_pose: Array = data.get("boat",[])
-	if Scope.minimal() and (not Scope.zone_enabled(str(data.get("zone","zone1"))) or (old_pose.size()==4 and not Scope.SAIL_BOUNDS.has_point(Vector2(old_pose[0],old_pose[2])))):
+	if Scope.minimal() and not Scope.zone_enabled(str(data.get("zone","zone1"))):
 		data.merge({"zone":"zone1","landing":"main","mode":1,"boat":[],"player":[]},true)
 	_cancel_pending_pick()
 	_ashore_on_arrival = false
@@ -2377,6 +2463,8 @@ func restore_world_state(data: Dictionary) -> void:
 	var zone_id := str(data.get("zone","zone1"))
 	if not _zone_nodes.has(zone_id): zone_id="zone1"
 	GameState.landing_id = str(data.get("landing","main"))
+	if building_access!=null and building_access.is_dynamic(GameState.landing_id) and building_access.landing_data(GameState.landing_id).is_empty():
+		GameState.landing_id="main"
 	var pose: Array = data.get("boat",[])
 	if pose.size()==4: boat.place_at(Vector3(pose[0],pose[1],pose[2]),pose[3])
 	else:
@@ -2384,8 +2472,14 @@ func restore_world_state(data: Dictionary) -> void:
 		boat.place_at(Vector3(landing.boatPark[0],WATER_LEVEL,landing.boatPark[2]),landing.boatYaw)
 	var saved_player: Array = data.get("player",[])
 	if int(data.get("mode",1)) == GameState.Mode.ASHORE and saved_player.size()==3:
-		var ground = _zone_nodes[zone_id].area_containing(float(saved_player[0]),float(saved_player[2]))
-		if ground != null: data.player = [saved_player[0],ground.surface_y,saved_player[2]]
+		var saved_point := Vector3(saved_player[0],saved_player[1],saved_player[2])
+		var ground = _zone_nodes[zone_id].area_at(saved_point,0.5)
+		if ground != null:
+			var support: Vector3 = ground.surface_point(saved_point)
+			data.player = [support.x,support.y,support.z]
+		elif zone_id=="zone5" and building_world.has_method("closest_walk_point"):
+			var recovered: Vector3=building_world.closest_walk_point(Vector3(saved_player[0],saved_player[1],saved_player[2]))
+			if recovered.is_finite(): data.player=[recovered.x,recovered.y,recovered.z]
 	actor_controller.restore_pose(data)
 	GameState.enter_zone(zone_id)
 
@@ -2404,6 +2498,10 @@ func _exit_tree() -> void:
 	navigation.shape_query = Callable()
 
 func validate_world_state(data: Dictionary, layout: Variant = null) -> String:
+	var landing: String=str(data.get("landing","main"))
+	if building_access!=null and building_access.is_dynamic(landing):
+		if str(data.get("zone",""))!="zone5" or building_access.landing_data(landing,building.query() if layout==null else layout).is_empty():
+			return "Saved constructed landing is invalid"
 	var pos: Array = data.get("player",[])
 	if int(data.get("mode",1))==0 and pos.size()==3:
 		var zone_id := str(data.get("zone","zone1"))
@@ -2411,8 +2509,8 @@ func validate_world_state(data: Dictionary, layout: Variant = null) -> String:
 		if zone_id=="zone5" and layout!=null:
 			if not building_world.contains_saved(Vector3(pos[0],pos[1],pos[2]),layout): return "Saved player is outside constructed ground"
 		else:
-			var area = _zone_nodes[zone_id].area_containing(float(pos[0]),float(pos[2]))
-			if area==null or absf(area.surface_y-float(pos[1]))>0.5: return "Saved player is outside walkable ground"
+			var area = _zone_nodes[zone_id].area_at(Vector3(pos[0],pos[1],pos[2]),0.5)
+			if area==null: return "Saved player is outside walkable ground"
 	var pose: Array = data.get("boat",[])
 	var candidate_nav = preload("res://src/navigation/water_navigation.gd").new()
 	candidate_nav.shape_query=func(): return _water_shapes()+building_world.water_shapes(building.query() if layout==null else layout)
@@ -2602,7 +2700,7 @@ func _compute_reach_reason(spot: Node3D) -> String:
 	var on_here := false
 	if here != null:
 		for p: Vector3 in points:
-			var area: Variant = here.area_containing(p.x, p.z)
+			var area: Variant = here.area_at(p,1.4)
 			if area == null: continue
 			on_here = true
 			if not (area as Node3D).path_between(from, p).is_empty(): return ""
@@ -2611,7 +2709,7 @@ func _compute_reach_reason(spot: Node3D) -> String:
 		var node: Node = _zone_nodes[zone_id]
 		if node == null or node == here: continue
 		for p2: Vector3 in points:
-			if node.area_containing(p2.x, p2.z) != null:
+			if node.area_at(p2,1.4) != null:
 				return "那边在别的区域，需要先坐船靠岸"
 	return "那里是水面，走不过去"
 

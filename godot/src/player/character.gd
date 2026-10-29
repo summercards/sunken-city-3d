@@ -1,4 +1,4 @@
-extends Node3D
+extends "res://src/player/character_motor.gd"
 class_name Character
 ## 程序化小人（对齐网页版 character-art.js 的轮廓与配色）。
 ##
@@ -33,8 +33,7 @@ var _rowing := false
 var _farm_action_left := 0.0
 
 func play_farm_action(event: String) -> void:
-	_farm_action_left=1.1
-	_action="watering" if event in ["watered","浇水"] else ("harvesting" if event in ["harvested","收获"] else "planting")
+	play_action("watering" if event in ["watered","浇水"] else ("harvesting" if event in ["harvested","收获"] else "planting"))
 
 var _walking := false
 
@@ -241,19 +240,19 @@ func set_walking(on: bool) -> void:
 	_walking=on
 	if on:
 		_base_action="walking"
-		_farm_action_left=0.0
+		cancel_action("walking")
 	elif _base_action=="walking": _base_action="idle"
 
 func set_rowing(on: bool) -> void:
 	_rowing=on
 	if on:
 		_base_action="rowing"
-		_farm_action_left=0.0
+		cancel_action("rowing")
 	elif _base_action=="rowing": _base_action="idle"
 
 func set_diving(on: bool) -> void:
 	_base_action = "swimming" if on else "idle"
-	_farm_action_left = 0.0
+	cancel_action("diving" if on else "restore")
 	if gear:
 		gear.visible = on
 	if mask:
@@ -272,15 +271,83 @@ var _actions := {
 	"planting":preload("res://src/player/animation/planting_action.gd").new(),
 	"watering":preload("res://src/player/animation/watering_action.gd").new(),
 	"harvesting":preload("res://src/player/animation/harvesting_action.gd").new()}
+
+## These events report presentation only. Inventory, interaction completion and
+## rewards remain owned by their gameplay services, never by an animation event.
+signal action_started(action_id: String, token: int)
+signal action_finished(action_id: String, token: int)
+signal action_cancelled(action_id: String, token: int, reason: String)
+var _action_durations := {"planting":1.1,"watering":1.1,"harvesting":1.1}
+var _action_playback = preload("res://src/player/animation/action_playback.gd").new()
+var _action_events: Array[Dictionary] = []
+var _dispatching_action_events := false
+
+## Add future inspect/collect/tool clips without coupling character code to a
+## gameplay service. A sampler implements sample(character, delta), like the
+## existing seven procedural clips. Existing clips cannot be silently replaced.
+func register_action(action_id: String, sampler: RefCounted, duration: float) -> bool:
+	if action_id.is_empty() or _actions.has(action_id) or sampler == null or not sampler.has_method("sample"):
+		return false
+	if not is_finite(duration) or duration <= 0.0: return false
+	_actions[action_id] = sampler
+	_action_durations[action_id] = duration
+	return true
+
+## Returns a unique token, or 0 without changing the current action on rejection.
+func play_action(action_id: String) -> int:
+	if not _action_durations.has(action_id): return 0
+	var result: Dictionary = _action_playback.start(action_id, float(_action_durations[action_id]))
+	if result.is_empty(): return 0
+	_farm_action_left = _action_playback.remaining()
+	_action = action_id
+	_last_action = ""
+	if not result.replaced.is_empty():
+		_action_events.append({"kind":"cancelled","id":result.replaced.id,"token":result.replaced.token,"reason":"replaced"})
+	_action_events.append({"kind":"started","id":action_id,"token":result.token})
+	_flush_action_events()
+	return int(result.token)
+
+func cancel_action(reason: String = "cancelled") -> bool:
+	var previous: Dictionary = _action_playback.cancel()
+	_farm_action_left = 0.0
+	if previous.is_empty(): return false
+	_action = _base_action
+	_action_events.append({"kind":"cancelled","id":previous.id,"token":previous.token,"reason":reason})
+	_flush_action_events()
+	return true
+
+func action_progress() -> float: return _action_playback.progress()
+func action_playback() -> Dictionary: return _action_playback.capture()
+
+func _flush_action_events() -> void:
+	if _dispatching_action_events: return
+	_dispatching_action_events = true
+	while not _action_events.is_empty():
+		var event: Dictionary = _action_events.pop_front()
+		match event.kind:
+			"started": action_started.emit(str(event.id), int(event.token))
+			"finished": action_finished.emit(str(event.id), int(event.token))
+			"cancelled": action_cancelled.emit(str(event.id), int(event.token), str(event.reason))
+	_dispatching_action_events = false
+
 func _process(delta: float) -> void:
+	if not is_finite(delta) or delta < 0.0: return
 	_t += delta
 	if body_pivot==null: return
-	if _farm_action_left<=0: _action=_base_action
+	var playback: Dictionary = _action_playback.capture()
+	_action = str(playback.id) if not playback.is_empty() else _base_action
+	_farm_action_left = _action_playback.remaining()
 	if _last_action != _action:
 		for joint in [body_pivot,head_pivot,left_arm,right_arm,left_elbow,right_elbow,left_leg,right_leg,left_knee,right_knee]:
 			joint.rotation = Vector3.ZERO
 		body_pivot.position.y = 0.0
 		_last_action = _action
 	_actions[_action].sample(self,delta)
+	if not playback.is_empty():
+		var completed: Dictionary = _action_playback.advance(delta)
+		_farm_action_left = _action_playback.remaining()
+		if not completed.is_empty():
+			_action_events.append({"kind":"finished","id":completed.id,"token":completed.token})
+			_flush_action_events()
 
 func animation_state() -> String: return _action

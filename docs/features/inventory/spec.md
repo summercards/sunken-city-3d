@@ -139,3 +139,11 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 `order` 已进 `save_schema`（`list_of(string)`，**不进 required**，旧档兼容）。
 
 [交付与实测](../../development/2026-10-29_pocket_drag_buy.md)。
+
+## 2026-10-29 建造材料退款
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-INVENTORY-R11 | add_all接收多种材料，先按全部堆叠合计容量，再一次写入并发布事件；任一项放不下整笔拒绝，不部分入包。建造拆回使用此命令全额返还配方，物件只在退款成功后删除；数量仍由Inventory唯一写入。 |
+
+[本轮交付](../../development/2026-10-29_open_ocean_building.md)。

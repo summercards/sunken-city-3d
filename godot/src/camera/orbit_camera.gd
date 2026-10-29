@@ -136,7 +136,9 @@ func _process(delta: float) -> void:
 	if current: camera_machine.tick(delta)
 
 	_clamp_target()
-	target.y = clampf(target.y, 0.0, 10.0)
+	# Following consumes the real character height, including future upper floors.
+	# The original manual observation height remains unchanged.
+	if not follow_enabled: target.y = clampf(target.y, 0.0, 10.0)
 
 	var k := 1.0 - exp(-TARGET_DAMP * delta)
 	_cur_target = _cur_target.lerp(target, k)
@@ -291,6 +293,7 @@ func _ray_plane(screen: Vector2) -> Vector3:
 
 
 func _clamp_target() -> void:
+	if not pan_bounds.has_area(): return
 	target.x = clampf(target.x, pan_bounds.position.x, pan_bounds.end.x)
 	target.z = clampf(target.z, pan_bounds.position.y, pan_bounds.end.y)
 

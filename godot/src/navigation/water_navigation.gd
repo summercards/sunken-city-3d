@@ -2,8 +2,8 @@ extends RefCounted
 ## Legal water area -> route planning -> segment validation. No scene or global dependencies.
 const SailNavLib = preload("res://src/navigation/sail_nav.gd")
 const BLOCK_INDEX_CELL := 6.0
-## 几何水域硬界：只回答「这里还是不是海」，比可航区再外扩一圈，
-## 保证 SEA-NAV 的可航区永远不会被硬界切掉。是否允许航行由 allowed_area 决定。
+## Historical bounds retained for old tooling; geometric ocean queries are now
+## unbounded. An explicit allowed_area may still restrict a particular scenario.
 const WORLD_WATER := Rect2(-80.0, -80.0, 160.0, 160.0)
 var _nav_grid: Dictionary = {}
 var _block_index: Dictionary = {}
@@ -21,7 +21,7 @@ func is_open_water(x: float, z: float) -> bool:
 	return is_geometric_water(x,z)
 
 func is_geometric_water(x: float, z: float) -> bool:
-	if not WORLD_WATER.has_point(Vector2(x, z)):
+	if not is_finite(x) or not is_finite(z):
 		return false
 	if _block_index.is_empty():
 		_build_block_index()
@@ -92,7 +92,8 @@ func nav_grid() -> Dictionary:
 	max_p += Vector2(14.0, 14.0)
 	var bounds := allowed_area if allowed_area.has_area() else Rect2(min_p, max_p - min_p)
 	var clearance := 2.3
-	var grid: Dictionary = SailNavLib.create_nav_grid(rects, bounds, 0.5, clearance)
+	var work_cell:=maxf(0.5,maxf(bounds.size.x,bounds.size.y)/640.0)
+	var grid: Dictionary = SailNavLib.create_nav_grid(rects, bounds, work_cell, clearance)
 
 	# 圆形轮廓补进去：按格子中心到圆心的距离判定。
 	var blocked: PackedByteArray = grid.blocked
@@ -120,6 +121,9 @@ func plan_route_to(from: Vector2, x: float, z: float) -> Array:
 	var goal := Vector2(x, z)
 	if not is_open_water(from.x, from.y) or not is_open_water(x, z):
 		return []
+	# Open ocean has no fixed world box. Most distant trips need no grid at all.
+	if segment_clear(from,goal): return [from,goal]
+	if not allowed_area.has_area(): return _local_route(from,goal)
 	var grid := nav_grid()
 	if grid.is_empty():
 		return []
@@ -148,9 +152,57 @@ func valid_route(path: Variant) -> bool:
 	return true
 
 func segment_clear(a: Vector2, b: Vector2) -> bool:
-	var steps := maxi(1, int(ceil(a.distance_to(b) / 0.1)))
-	for i in range(steps + 1):
-		var p := a.lerp(b, float(i) / steps)
-		if not is_open_water(p.x, p.y):
-			return false
+	if not is_open_water(a.x,a.y) or not is_open_water(b.x,b.y): return false
+	# Analytic intersections avoid allocating/sampling by distance on the open sea.
+	for shape: Dictionary in _water_shapes():
+		var center:=Vector2(float(shape.x),float(shape.z))
+		var hx:=float(shape.hx)+0.9
+		if bool(shape.get("round",false)):
+			if Geometry2D.get_closest_point_to_segment(center,a,b).distance_to(center)<=hx: return false
+		else:
+			var hz:=float(shape.get("hz",shape.hx))+0.9
+			var rect:=Rect2(center-Vector2(hx,hz),Vector2(hx,hz)*2.0)
+			if _segment_hits_rect(a,b,rect): return false
 	return true
+
+static func _segment_hits_rect(a: Vector2,b: Vector2,rect: Rect2) -> bool:
+	var delta:=b-a
+	var lo:=0.0
+	var hi:=1.0
+	for axis in 2:
+		if absf(delta[axis])<0.000001:
+			if a[axis]<rect.position[axis] or a[axis]>rect.end[axis]: return false
+		else:
+			var u: float=(rect.position[axis]-a[axis])/delta[axis]
+			var v: float=(rect.end[axis]-a[axis])/delta[axis]
+			lo=maxf(lo,minf(u,v));hi=minf(hi,maxf(u,v))
+			if lo>hi: return false
+	return true
+
+func _local_route(from: Vector2,goal: Vector2) -> Array:
+	# A bounded working grid around this trip, never a map-sized allocation.
+	# Wider retries allow detours; fine exact-water fallback keeps old docks usable.
+	for margin in [14.0,40.0]:
+		var bounds:=Rect2(from,Vector2.ZERO).expand(goal).grow(margin)
+		var cell:=maxf(0.5,maxf(bounds.size.x,bounds.size.y)/640.0)
+		var rects: Array=[]
+		var rounds: Array=[]
+		for shape: Dictionary in _water_shapes():
+			var p:=Vector2(float(shape.x),float(shape.z))
+			var half:=Vector2(float(shape.hx),float(shape.get("hz",shape.hx)))
+			if not bounds.intersects(Rect2(p-half,half*2.0).grow(3.0)): continue
+			if bool(shape.get("round",false)): rounds.append(Vector3(p.x,p.y,half.x))
+			else: rects.append(Rect2(p-half,half*2.0))
+		for clearance in [2.3,0.91]:
+			var grid:=SailNavLib.create_nav_grid(rects,bounds,cell,clearance)
+			for circle: Vector3 in rounds:
+				var radius: float=circle.z+float(clearance)
+				var c:=SailNavLib.cell_of(grid,circle.x,circle.y)
+				var span:=int(ceil(radius/cell))+1
+				for j in range(maxi(0,c.y-span),mini(grid.rows,c.y+span+1)):
+					for i in range(maxi(0,c.x-span),mini(grid.cols,c.x+span+1)):
+						if SailNavLib.cell_center(grid,i,j).distance_to(Vector2(circle.x,circle.y))<=radius:
+							grid.blocked[j*int(grid.cols)+i]=1
+			var path: Variant=SailNavLib.plan_route(grid,from,goal)
+			if valid_route(path): return path
+	return []

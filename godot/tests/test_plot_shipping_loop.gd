@@ -58,7 +58,8 @@ func interact_world(node: Node3D) -> void:
 	main.hud.close_card()
 	main.hud.world_actions.close(true)
 	await process_frame
-	var anchor := node.global_position+Vector3.UP*(0.18 if node.is_in_group("farm_plots") else 0.75)
+	var anchor: Vector3 = node.focus_position() if node.has_method("focus_position") else node.global_position
+	anchor += Vector3.UP*(0.18 if node.is_in_group("farm_plots") else 0.75)
 	var screen: Vector2 = main.cam.unproject_position(anchor)
 	var hit: Dictionary = main.hover._pick(screen)
 	check(hit.get("node")==node,"screen pick selects "+node.name)

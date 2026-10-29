@@ -25,7 +25,7 @@ func run() -> void:
 	var result: Dictionary=service.begin(candidate)
 	check(result.ok and balance.wood==24,"one deck payment")
 	check(not service.begin(candidate).ok and balance.wood==24,"repeat rejected")
-	check(not service.begin({"kind":"deck","x":40,"z":40}).ok,"remote cell rejected")
+	check(service.geometry_reason({"kind":"deck","x":40,"z":40})=="","remote foundation geometry allowed; runtime policy checks access")
 	service.tick(1)
 	var snapshot: Dictionary=service.to_dict()
 	check(is_equal_approx(snapshot.instances[0].left,2),"relative progress")
@@ -74,11 +74,13 @@ func run() -> void:
 	var deck2: Dictionary=service.row(made.id)
 	var c2: Vector2=Catalog.tile_rect(deck2.x,deck2.z).get_center()
 	# 贴边越界不足 0.4 米时吸回最近合法格点，避免像素级瞄准；再远就真的放不下。
-	var edge: Dictionary={"kind":"planter","support":deck2.id,"px":c2.x+0.3,"pz":c2.y,"turn":0}
+	# Sparse frontier is sorted west-to-east. Its next west tile joins the
+	# previous tile on the right, so probe the exposed left edge instead.
+	var edge: Dictionary={"kind":"planter","support":deck2.id,"px":c2.x-0.3,"pz":c2.y,"turn":0}
 	check(service.geometry_reason(edge)!="","edge outside before snap")
 	var snapped: Dictionary=service.snap_planter(edge)
-	check(service.geometry_reason(snapped)=="" and float(snapped.px)<float(edge.px),"edge snaps back inside deck")
-	check(service.geometry_reason({"kind":"planter","support":deck2.id,"px":c2.x+1.0,"pz":c2.y,"turn":0})!="","far outside stays rejected")
+	check(service.geometry_reason(snapped)=="" and float(snapped.px)>float(edge.px),"edge snaps back inside deck")
+	check(service.geometry_reason({"kind":"planter","support":deck2.id,"px":c2.x-1.0,"pz":c2.y,"turn":0})!="","far outside stays rejected")
 	check(service.begin({"kind":"planter","support":deck2.id,"px":c2.x+0.12,"pz":c2.y+0.35,"turn":0}).ok,"off-center placement allowed")
 	check(not service.begin({"kind":"planter","support":deck2.id,"px":c2.x,"pz":c2.y,"turn":0}).ok,"overlap still rejected")
 	print("[building] %d checks, %d failures"%[checks,failures]);quit(1 if failures else 0)

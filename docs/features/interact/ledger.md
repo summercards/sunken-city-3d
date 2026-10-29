@@ -66,6 +66,14 @@ Main 保留输入路由；接近、自动按住及完成释放由 ActorControlle
 
 ## 变更记录
 
+SEA-INTERACT-R11初始六格修复：固定六格与DIY格使用同一操作点算法；已靠泊船上的路径起点统一为泊位站立点。初始六格真实输入专项覆盖菜单、选种、接近、浇水、补水与显式收获。[实测](../../development/2026-10-29_initial_six_planters.md)。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INTERACT-R11 | 接近按三维操作点求路，Interactor通过注入空间过滤；业务结算未改 | [角色框架实测](../../development/2026-10-29_character_physics_framework.md) |
+
+SEA-INTERACT-R11：接近/可达性接高度查询，Interactor新增注入空间过滤端口；交互结算未改。验证与局限见[本轮交付](../../development/2026-10-29_character_physics_framework.md)。
+
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
 
 ## 2026-10-26 功能与健康审计
@@ -99,7 +107,7 @@ Main 保留输入路由；接近、自动按住及完成释放由 ActorControlle
 
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
-| SEA-INTERACT-R06 | 已实现；锚点由视觉包围盒推导，判定/图标/编辑器预览同源 | [交付记录](../../development/2026-10-29_interact_focus_follows_object.md) |
+| SEA-INTERACT-R06 | 已实现；锚点由视觉包围盒推导，接近/自动长按/判定/图标/编辑器预览同源；14项专项及61项完整种植出货真实输入通过 | [锚点交付](../../development/2026-10-29_interact_focus_follows_object.md)；[本轮补齐与实测](../../development/2026-10-29_walk_on_planters.md) |
 
 出货箱热区曾偏离物体 2.065 米（半径 2.4 米），根因是锚点写死节点原点而视觉带偏移。
 本轮统一到 `Interactable.focus_position()`，全场景最差偏差由 2.065 米降到 0.0000 米。

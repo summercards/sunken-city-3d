@@ -5,8 +5,8 @@ extends RefCounted
 ## 它比可航区小，只描述「家里这一片」，不代表船能开多远。
 const HOME_WATER := Rect2(-18, -12, 55, 48)
 
-## 可航区：150m × 150m，以原点为中心，覆盖全部五个区块泊位。
-## 这是航行合法水域的唯一来源；WaterNavigation 的几何硬界必须不小于它。
+## Historical 150m framing reference. Free ocean building/sailing no longer uses
+## this rectangle as a fence or relocates a valid distant save back inside it.
 const SAIL_BOUNDS := Rect2(-75, -75, 150, 150)
 static func minimal() -> bool:
 	return not OS.get_cmdline_user_args().has("--full-world")

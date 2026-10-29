@@ -68,3 +68,19 @@
 | SEA-CAMERA-R07 | 右下人物定位圆形图标点击恢复resume_follow，跟随真实player全球坐标；Main将follow_enabled经HUD.set_follow_locked同步为图标颜色。手动拖动保持原接管规则，图标同步为自由观察态，再点恢复。点击图标不向世界发送移动目标，不改变原角度、缩放和距离规则。 |
 
 [本轮交付](../../development/2026-10-28_hud_date_camera_lock.md)。
+
+## 2026-10-29 自由海域镜头
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-CAMERA-R08 | 正式自由海域pan_bounds为空，跟随和手动平移不被旧154m矩形夹住；显式有面积的场景边界仍可生效。缩放、俯角和UI模态规则保留，合法远处读档恢复跟随。 |
+
+[本轮交付](../../development/2026-10-29_open_ocean_building.md)。
+
+## 2026-10-29 角色真实高度跟随
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-CAMERA-R09 | follow模式按真实角色高度加0.7m跟随，不再被旧target.y≤10夹住；manual仍保留0–10m观察高度。原角度、FOV、距离、阻尼、缩放、手动接管、UI阻断及开始镜头不变。 |
+
+[本轮交付](../../development/2026-10-29_character_physics_framework.md)。

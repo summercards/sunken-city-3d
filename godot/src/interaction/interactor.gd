@@ -22,6 +22,8 @@ signal blocked(reason: String)
 @export var move_tolerance := 0.35
 
 var active := false
+## Optional actor-space query. The interactor never owns navigation or rules.
+var reachable_query: Callable
 ## 点击目标后由 main 打开：小人走到位就自动按住，不用玩家再按 E。
 var auto_hold := false
 ## 点击选择的地格优先，避免相邻六格被最近距离抢走。
@@ -145,6 +147,8 @@ func _refresh_target() -> void:
 		if spot == null or not is_instance_valid(spot):
 			continue
 		if not spot.is_visible_in_tree():
+			continue
+		if reachable_query.is_valid() and not bool(reachable_query.call(spot)):
 			continue
 		# 位置一律走 focus_position()：它跟着视觉几何走，而不是节点原点。
 		# 曾经硬编码 global_position，导致给视觉加了偏移的物件（出货箱偏 2.07 米）

@@ -1,5 +1,13 @@
 # 模块与数据接口约定
 
+## 2026-10-29 角色碰撞与三维空间
+
+SEA-MOVE拥有CharacterMotor的物理执行和Character表现生命周期；ActorController仍唯一写角色状态。Main物理帧是生产唯一tick驱动，原_update_walk仅作兼容转发，渲染帧不重复推进。CharacterBody3D胶囊(0.22m/1.30m)只碰人物地面层256，人物层512；船与潜水仍经原系统，状态切换管理启停。
+
+SEA-WORLD装配GroundSpace，读取WalkArea表面声明；它只持有派生物理体/NavigationServer3D私有map，释放时清RID，不写源布局。SEA-BUILDING通过既有geometry_changed回调请求刷新，不修改BuildingService/Farm规则。动态中心域body_radius=0不重复内收。area_at、surface_point和三维route供移动、交互与世界存档适配使用；旧XZ接口留给旧工具。
+
+表现端口register_action/play_action/cancel_action及started/finished/cancelled只描述动作，不能结算奖励。现有农作事件继续调用兼容入口，未来动作注册sampler及时长即可；取消/上船/潜水/睡眠/恢复清动作和旧回调。架构边界与验证见[本轮交付](../development/2026-10-29_character_physics_framework.md)。
+
 [主文档总目录](../../GDD_V1.0.md#feature-control)
 
 ## 所有权
@@ -116,3 +124,7 @@ UI的owned_modal_query/close/input为独立手册和预览提供注入的模态�
 跨进程契约的断言入口：`crops`（隔离测试，不加载 main）、`visual-crops`（12 阶段真实渲染）、`structure`（契约与哈希）。
 
 2026-10-29：`BuildingWorld.contact_rects()`只读派生完工木板占地，经Main组合到`WaterSurface.set_runtime_contact_rects()`；水面只维护表现用24项上限的矩形通道，不写建造布局。两方案通过`runtime_water_contacts.gdshaderinc`合并静态岸线与动态接触距离，保留各自泡沫风格；布局同步/恢复更新派生数据，未完工虚影不接水线。[验证](../development/2026-10-29_deck_draft_pole_placement.md)。
+
+2026-10-29种植区可踩踏：`BuildingCatalog.blocks_actor()`声明摆件的人物阻挡资格，`BuildingSpace`与`BuildingWorld`按同一声明派生通行和恢复资格。固定六格及DIY两种培养土默认不挡人，木板外缘保护继续生效；建设占位不等于人物阻挡。Farm/Crop仍唯一负责作物状态，人物穿过不发种植或收获命令。[当前契约与实测](../development/2026-10-29_walk_on_planters.md)。
+
+2026-10-29初始六格：Farm.register_plot幂等补缺失空状态，首次存档即拥有六格，不覆盖旧作物。BuildingWorld按原固定格实际矩形派生操作点，固定与DIY共用BuildingSpace.operation_points_for；ActorController的操作点预筛从所属泊位开始处理船上接近，最终走原靠泊校验。未建立第二份初始布局或改存档ID。[本轮契约与实测](../development/2026-10-29_initial_six_planters.md)。

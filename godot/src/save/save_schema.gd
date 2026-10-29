@@ -25,11 +25,14 @@ static func inventory() -> Dictionary:
 static func schemas() -> Dictionary:
 	var string := {"type":"string"}
 	var boolean := {"type":"bool"}
-	var vector := {"type":"array","items":number(-10000,10000),"sizes":[0,3]}
+	var vector := {"type":"array","items":{"type":"number"},"sizes":[0,3]}
 	var boat := vector.duplicate(true)
 	boat.sizes = [0,4]
 	return {
-		"building":object({"version":integer(1,1),"next_id":integer(1),"instances":list_of(object({}),54)},["version","next_id","instances"]),
+		# No gameplay instance limit. The storage layer's byte budget and the
+		# building admission policy protect actual serialized capacity together.
+		"building":object({"version":integer(1,1),"next_id":{"type":"integer","min":1},
+			"instances":{"type":"array","items":object({}),"max":2147483647}},["version","next_id","instances"]),
 		"economy":object({
 			"daily_loop":object({"version":integer(1,1),"cargo":inventory(),"last_morning":integer(-1),"receipt":object({"day":integer(1),"income":integer(),"items":map(integer())})},["version","cargo","last_morning","receipt"]),
 			"inventory":inventory(),"warehouse":inventory(),"ship_level":integer(1,3),
@@ -59,7 +62,8 @@ static func validate(data: Dictionary) -> String:
 	if building_error!="": return building_error
 	var dynamic_ids: Dictionary={}
 	for item in data.building.instances:
-		if item.kind=="planter" and item.left<=0: dynamic_ids["dynamic/"+str(item.id)]=true
+		if preload("res://src/building/building_catalog.gd").role(str(item.kind))=="planter" and item.left<=0:
+			dynamic_ids["dynamic/"+str(item.id)]=true
 	for id in data.economy.farm.plots:
 		if str(id).begins_with("dynamic/") and not dynamic_ids.has(id): return "Orphan dynamic crop"
 	# A historical save has no pickup population: migration explicitly requests a rebuild.

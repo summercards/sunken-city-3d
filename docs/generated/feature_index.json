@@ -37,6 +37,8 @@
       "owner": "Zones / ZoneScene",
       "code_paths": [
         "godot/src/world",
+        "godot/src/navigation/ground_space.gd",
+        "godot/src/navigation/actor_collision_body.gd",
         "godot/scenes/zones",
         "godot/scenes/world",
         "godot/assets/data/zones.json"
@@ -73,6 +75,11 @@
         "godot/src/navigation/landing_point.gd"
       ],
       "verification": [
+        "walk-on-planters",
+        "visual-walk-on-planters",
+        "character-motor",
+        "ground-space",
+        "actor-presentation",
         "walk-facing",
         "visual-walk-facing",
         "walk-deck-fit",
@@ -271,19 +278,26 @@
       ],
       "spec": "docs/features/building/spec.md",
       "ledger": "docs/features/building/ledger.md",
-      "status": "partial",
+      "status": "implemented",
       "owner": "BuildingService / BuildingWorld / BuildingController",
       "code_paths": [
         "godot/src/building"
       ],
       "verification": [
         "building",
+        "building-open-rules",
+        "building-space",
+        "building-ocean",
         "building-integration",
-        "visual-building",
         "building-restart",
-        "progress-bars",
+        "building-open-restart",
+        "visual-building",
+        "visual-building-diy",
+        "visual-building-ocean",
         "building-boundary-audit",
-        "visual-building-boundary-audit"
+        "visual-building-boundary-audit",
+        "walk-on-planters",
+        "visual-walk-on-planters"
       ]
     },
     {
@@ -383,7 +397,9 @@
         "modules",
         "framework-integration",
         "minimum-loop",
-        "visual-plot-shipping"
+        "visual-plot-shipping",
+        "initial-planters",
+        "visual-initial-planters"
       ]
     },
     {

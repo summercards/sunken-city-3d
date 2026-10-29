@@ -15,6 +15,7 @@ const ZoneBatch = preload("res://src/world/zone_batch.gd")
 const WalkArea = preload("res://src/navigation/walk_area.gd")
 const PlantField = preload("res://src/ambient/plant_field.gd")
 const BlockerSet = preload("res://src/world/blocker_set.gd")
+const GroundSpace = preload("res://src/navigation/ground_space.gd")
 
 @export var zone_id := ""
 @export var zone_label := ""
@@ -29,6 +30,7 @@ var models: Node3D = null
 var plants: Node3D = null
 var water_block_rects: Array[Rect2] = []
 var _timed: Array = []
+var ground_space: Node3D
 
 
 func _enter_tree() -> void:
@@ -46,6 +48,10 @@ func _ready() -> void:
 	_register()
 	if not Engine.is_editor_hint():
 		preload("res://src/ambient/lily_migration.gd").install(self,get_node_or_null("Models"))
+		ground_space = GroundSpace.new()
+		ground_space.name = "GroundSpace"
+		add_child(ground_space)
+		ground_space.configure(walk_areas)
 	_ensure_blockers()
 	_collect_timed()
 
@@ -171,9 +177,25 @@ func pick_walk(origin: Vector3, dir: Vector3) -> Dictionary:
 	if not best.is_empty():
 		var area: Node3D = best.area
 		var raw: Vector3 = best.point
-		var stand: Vector2 = area.clamp_point(raw.x, raw.z)
-		best.point = Vector3(stand.x, raw.y, stand.y)
+		if area.surface_triangles.is_empty():
+			var stand: Vector2 = area.clamp_point(raw.x, raw.z)
+			best.point = Vector3(stand.x, raw.y, stand.y)
 	return best
+
+## Height-aware query for movement, interaction and saved poses. The legacy XZ
+## query remains available to authoring tools, never selects a stacked floor.
+func area_at(point: Vector3, tolerance: float=0.5) -> Variant:
+	if is_instance_valid(ground_space): return ground_space.area_at(point,tolerance)
+	var best: Node3D
+	var distance := INF
+	for area in walk_areas:
+		var support: Vector3 = area.surface_point(point)
+		if support.is_finite() and absf(support.y-point.y) <= minf(tolerance,distance):
+			best = area; distance = absf(support.y-point.y)
+	return best
+
+func rebuild_ground(area: Node3D=null) -> void:
+	if is_instance_valid(ground_space): ground_space.rebuild(area)
 
 
 func area_containing(x: float, z: float) -> Variant:

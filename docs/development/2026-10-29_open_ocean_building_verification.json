@@ -1,0 +1,422 @@
+{
+  "feature_id": "SEA-BUILDING",
+  "date": "2026-10-29",
+  "status": "implemented",
+  "scope": "Open ocean construction and movable/recoverable DIY with stable Farm identity",
+  "evidence": [
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174458-building-open-acceptance-2eb556",
+      "head": "586e54fefb3a2b1678e6839e5c60d75f1d3f2ba5",
+      "results": {
+        "visual-building-ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174458-building-open-acceptance-2eb556\\visual-building-ocean.log",
+          "renderer": "real"
+        },
+        "building-open-rules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174458-building-open-acceptance-2eb556\\building-open-rules.log",
+          "renderer": "headless"
+        },
+        "building-space": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174458-building-open-acceptance-2eb556\\building-space.log",
+          "renderer": "headless"
+        },
+        "building-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174458-building-open-acceptance-2eb556\\building-integration.log",
+          "renderer": "headless"
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6",
+      "head": "586e54fefb3a2b1678e6839e5c60d75f1d3f2ba5",
+      "results": {
+        "building-open-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6\\building-open-seed.log",
+          "renderer": "headless"
+        },
+        "building-open-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6\\building-open-restart.log",
+          "renderer": "headless"
+        },
+        "sail-bounds": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6\\sail-bounds.log",
+          "renderer": "headless"
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174100-building-open-visual-final-72c341",
+      "head": "586e54fefb3a2b1678e6839e5c60d75f1d3f2ba5",
+      "results": {
+        "visual-building-diy": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174100-building-open-visual-final-72c341\\visual-building-diy.log",
+          "renderer": "real"
+        },
+        "visual-building-ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174100-building-open-visual-final-72c341\\visual-building-ocean.log",
+          "renderer": "real"
+        },
+        "visual-building-boundary-audit": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174100-building-open-visual-final-72c341\\visual-building-boundary-audit.log",
+          "renderer": "real"
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf",
+      "head": "586e54fefb3a2b1678e6839e5c60d75f1d3f2ba5",
+      "results": {
+        "farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\farming.log",
+          "renderer": "headless"
+        },
+        "minimum-loop": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL world sailing boundary"
+          ],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\minimum-loop.log",
+          "renderer": "headless"
+        },
+        "save-corrupt-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\save-corrupt-seed.log",
+          "renderer": "headless"
+        },
+        "save-protection": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\save-protection.log",
+          "renderer": "headless"
+        },
+        "board-click": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\board-click.log",
+          "renderer": "headless"
+        },
+        "sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\sleep-cycle.log",
+          "renderer": "headless"
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-175051-building-open-render-fit-7fb95e",
+      "head": "586e54fefb3a2b1678e6839e5c60d75f1d3f2ba5",
+      "results": {
+        "visual-building-ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-175051-building-open-render-fit-7fb95e\\visual-building-ocean.log",
+          "renderer": "real"
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-175051-building-open-render-fit-7fb95e\\minimum-loop.log",
+          "renderer": "headless"
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-175240-building-ocean-docked-render-6fe102",
+      "head": "586e54fefb3a2b1678e6839e5c60d75f1d3f2ba5",
+      "results": {
+        "visual-building-ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-175240-building-ocean-docked-render-6fe102\\visual-building-ocean.log",
+          "renderer": "real"
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12",
+      "head": "c5b2bc1d43329f0a987fcd57940fb20e10672fea",
+      "results": {
+        "building-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12\\building-seed.log",
+          "renderer": "headless"
+        },
+        "building-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12\\building-restart.log",
+          "renderer": "headless"
+        },
+        "building-space": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12\\building-space.log",
+          "renderer": "headless"
+        }
+      }
+    },
+    {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-175240-building-ocean-docked-render-6fe102",
+      "head": "586e54fefb3a2b1678e6839e5c60d75f1d3f2ba5",
+      "results": {
+        "visual-building-ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "log": "D:\\projects\\sea-work\\verification\\20261029-175240-building-ocean-docked-render-6fe102\\visual-building-ocean.log",
+          "renderer": "real"
+        }
+      }
+    }
+  ],
+  "static_checks": {
+    "architecture": {
+      "exit_code": 0,
+      "services": 15,
+      "issues": 0
+    },
+    "feature_contracts_sync": {
+      "exit_code": 0,
+      "features": 35,
+      "source_assets": 459,
+      "runtime_resources": 392,
+      "issues": 0
+    },
+    "feature_contracts": {
+      "exit_code": 0,
+      "issues": 0
+    }
+  },
+  "limitations": [
+    "4MiB layout / 8MiB save technical admission budget",
+    "No arbitrary infinite-object performance claim",
+    "Device/layout exhaustiveness not tested"
+  ],
+  "final_screenshot": "D:\\projects\\sea-work\\verification\\20261029-175240-building-ocean-docked-render-6fe102\\project\\outputs\\ocean-build-garden.png",
+  "current_results": {
+    "visual-building-ocean": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-175240-building-ocean-docked-render-6fe102",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-175240-building-ocean-docked-render-6fe102\\visual-building-ocean.log",
+      "renderer": "real"
+    },
+    "building-open-rules": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174458-building-open-acceptance-2eb556",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-174458-building-open-acceptance-2eb556\\building-open-rules.log",
+      "renderer": "headless"
+    },
+    "building-space": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12\\building-space.log",
+      "renderer": "headless"
+    },
+    "building-integration": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174458-building-open-acceptance-2eb556",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-174458-building-open-acceptance-2eb556\\building-integration.log",
+      "renderer": "headless"
+    },
+    "building-open-seed": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6\\building-open-seed.log",
+      "renderer": "headless"
+    },
+    "building-open-restart": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6\\building-open-restart.log",
+      "renderer": "headless"
+    },
+    "sail-bounds": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-173946-building-open-cold-final-b1b0f6\\sail-bounds.log",
+      "renderer": "headless"
+    },
+    "visual-building-diy": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174100-building-open-visual-final-72c341",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-174100-building-open-visual-final-72c341\\visual-building-diy.log",
+      "renderer": "real"
+    },
+    "visual-building-boundary-audit": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174100-building-open-visual-final-72c341",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-174100-building-open-visual-final-72c341\\visual-building-boundary-audit.log",
+      "renderer": "real"
+    },
+    "farming": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\farming.log",
+      "renderer": "headless"
+    },
+    "minimum-loop": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-175051-building-open-render-fit-7fb95e",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-175051-building-open-render-fit-7fb95e\\minimum-loop.log",
+      "renderer": "headless"
+    },
+    "save-corrupt-seed": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\save-corrupt-seed.log",
+      "renderer": "headless"
+    },
+    "save-protection": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\save-protection.log",
+      "renderer": "headless"
+    },
+    "board-click": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\board-click.log",
+      "renderer": "headless"
+    },
+    "sleep-cycle": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-174801-building-open-cross-feature-d88dcf\\sleep-cycle.log",
+      "renderer": "headless"
+    },
+    "building-seed": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12\\building-seed.log",
+      "renderer": "headless"
+    },
+    "building-restart": {
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261029-164706-building-space-legacy-final-badc12\\building-restart.log",
+      "renderer": "headless"
+    }
+  },
+  "all_current_checks_passed": true
+}

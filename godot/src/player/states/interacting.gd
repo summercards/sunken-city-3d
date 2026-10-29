@@ -7,6 +7,8 @@ func tick(_delta: float) -> void:
 		context.complete_interaction()
 		return
 	var blocked: bool = context.ports.input_blocked.call()
-	context.interactor.auto_hold=not blocked and context.actor.global_position.distance_to(context.auto_target.global_position)<=2.2
+	var target: Node3D = context.auto_target
+	var anchor: Vector3 = target.focus_position() if target.has_method("focus_position") else target.global_position
+	context.interactor.auto_hold=not blocked and context.actor.global_position.distance_to(anchor)<=2.2
 func exit() -> void:
 	context.clear_interaction()

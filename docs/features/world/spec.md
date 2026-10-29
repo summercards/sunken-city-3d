@@ -35,6 +35,7 @@
 状态/交付所有者：**Zones / ZoneScene**。正式代码和资源入口：
 
 - [godot/src/world](../../../godot/src/world)
+- [三维陆地空间](../../../godot/src/navigation/ground_space.gd)与[可选人物碰撞代理](../../../godot/src/navigation/actor_collision_body.gd)
 - [godot/scenes/zones](../../../godot/scenes/zones)
 - [godot/scenes/world](../../../godot/scenes/world)
 - [godot/assets/data/zones.json](../../../godot/assets/data/zones.json)
@@ -79,6 +80,14 @@ Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 Wat
 
 | 条款 ID | 规则 |
 |---|---|
-| SEA-WORLD-R11 | BuildingWorld只派生建造实例表现、行走面与水面阻挡，不持有第二份布局。布局改变更新同一zone5 WalkArea；培养土占地从新板可走面扣除，恢复相同ID不同布局也必须重建投影。 |
+| SEA-WORLD-R11 | BuildingWorld只派生建造实例表现、行走面与水面阻挡，不持有第二份布局。布局改变更新同一zone5 WalkArea；仅扣除显式阻挡实体，固定种植格及DIY培养土默认可踩踏。恢复相同ID不同布局仍须重建投影。 |
 
 [交付与实测](../../development/2026-10-28_building_delivery.md)。
+
+## 2026-10-29 陆地空间投影
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-WORLD-R12 | ZoneScene装配独立GroundSpace，按已有WalkArea派生人物专属地板、边界/洞口碰撞和引擎三维导航，不重摆模型、不修改船只BlockerSet。area_at(Vector3,tolerance)按高度选地面，旧area_containing(XZ)保留工具兼容。建造几何刷新后更新派生物，移除物不留陈旧碰撞；未变几何不重复重建。 |
+
+现有手工rects是本轮保留内容的迁移输入；没有宣称所有可见模型都已自动生成碰撞。后续组件必须显式提供可行走表面/障碍声明，纯景观继续不参与人物空间。见[本轮交付](../../development/2026-10-29_character_physics_framework.md)。

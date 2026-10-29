@@ -47,6 +47,8 @@ func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boun
 	machine.configure(self, nodes, edges, "boat_idle")
 
 func _transitioned(previous: String, current: String) -> void:
+	if is_instance_valid(actor) and actor.has_method("set_grounded_motion"):
+		actor.set_grounded_motion(current in ["ashore_idle","walking","approaching","interacting","sleeping"])
 	mode_changed.emit(mode())
 	state_changed.emit(previous, current)
 
@@ -90,6 +92,7 @@ func clear_interaction() -> void:
 		interactor.cancel()
 
 func cancel() -> void:
+	if is_instance_valid(actor) and actor.has_method("cancel_action"): actor.cancel_action("cancelled")
 	clear_interaction()
 	after_walk = Callable()
 	walk_path.clear()

@@ -1,5 +1,7 @@
 extends RefCounted
 func execute(c) -> void:
+	if c.actor.has_method("set_grounded_motion"): c.actor.set_grounded_motion(false)
+	if c.actor.has_method("cancel_action"): c.actor.cancel_action("boarding")
 	if c.actor.get_parent()!=c.vessel: c.actor.reparent(c.vessel,true)
 	c.actor.position = Vector3(0,0.62,-0.30)
 	c.actor.rotation = Vector3.ZERO

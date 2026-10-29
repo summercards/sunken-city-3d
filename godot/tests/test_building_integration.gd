@@ -8,7 +8,7 @@ func check(ok: bool,label: String) -> void:
 func _init() -> void: call_deferred("run")
 func run() -> void:
 	var main=load("res://scenes/main.tscn").instantiate();root.add_child(main)
-	main._autosave_on=false;main.set_process(false)
+	main._autosave_on=false;main.set_process(false);main.set_physics_process(false)
 	var econ=root.get_node("Economy");econ.set_process(false)
 	await process_frame
 	check(main.props.crates.size()==6,"six local driftwood bundles")
@@ -45,7 +45,7 @@ func run() -> void:
 	main.building_controller.open()
 	check(main.building_controller.book.visible,"construction book opens")
 	main.building_controller.select_recipe("deck")
-	check(main.building_controller.book.visible,"cannot select build from boat")
+	check(not main.building_controller.book.visible,"boat can select an ocean foundation")
 	main.building_controller.close()
 	main._debug_teleport("zone5")
 	var landing=main._zone_nodes.zone5.landing_point("main")
@@ -77,7 +77,10 @@ func run() -> void:
 	main.building_controller.tick(4)
 	var plot=main.farm_field.find("dynamic/"+planted.id)
 	check(plot!=null and plot.use_action_menu,"registered interactive plot")
-	check(not area.contains_world(center.x,center.z),"planter footprint excluded")
+	check(area.contains_world(center.x,center.z),"planter soil remains walkable")
+	# Physics projections made by construction/restoration become active on a
+	# physics step. Manual controller ticks must use the same boundary as play.
+	await physics_frame; await physics_frame
 	check(main.actor_controller.approach(plot),"reachable planter interaction anchor")
 	for i in 3000:
 		if not main._walking and main.actor_controller.state_id()!="approaching": break
@@ -87,10 +90,11 @@ func run() -> void:
 	check(plot.perform("plant","lettuce").get("event")=="planted","dynamic plot plants")
 	check(plot.perform("water").get("event")=="watered","dynamic plot waters")
 	var saved: Dictionary=save.encode(main)
-	check(save.write("user://building.json",main).ok,"write built world")
+	var write_result: Dictionary=save.write("user://building.json",main)
+	check(write_result.ok,"write built world: "+str(write_result.reason)+" pose="+str(main.capture_world_state()))
 	main.building.from_dict(preload("res://src/building/building_service.gd").empty_snapshot())
 	var restored: Dictionary=save.restore(main,saved)
-	check(restored.ok,"candidate world validates after layout cleared")
+	check(restored.ok,"candidate world validates after layout cleared: "+str(restored.reason))
 	check(econ.farm.state("dynamic/"+planted.id).crop=="lettuce","crop restored after registration")
 	var bad: Dictionary=saved.duplicate(true);bad.building.instances[1].support="gone"
 	check(not save.restore(main,bad).ok and main.building.query().size()==2,"bad layout leaves live state")

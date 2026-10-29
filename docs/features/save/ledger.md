@@ -66,6 +66,10 @@ SaveGame 仅依赖 host.save_registry；版本2全模块先验证后恢复，启
 
 ## 变更记录
 
+SEA-SAVE-R08初始六格修订：首次快照显式包含六格，旧单格档补齐空格且保留作物字段；玩家档只读副本通过正式decode/restore后逐格可达、接近并取消，固定及DIY作物记录不变。schema/version/恢复顺序不改，未写入玩家档。[实测](../../development/2026-10-29_initial_six_planters.md)。
+
+2026-10-29 SEA-SAVE-R08：只在世界姿态适配层改为按XYZ选层吸附，SaveGame/SnapshotRegistry及存档格式未改。动态建造恢复、坏档/跨进程专项见[本轮交付](../../development/2026-10-29_character_physics_framework.md)。
+
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
 
 ## 2026-10-26 功能与健康审计
@@ -104,4 +108,4 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-SAVE-R10 | 小布局候选校验/恢复通过；建造服务能产生超过54实例的布局，保存入口将拒绝 | [原交付](../../development/2026-10-28_building_delivery.md)；[当前容量反例](../../development/2026-10-29_building_boundary_audit.md) |
+| SEA-SAVE-R10 | 已实现；65实例含带作物搬移的独立海上平台70+8项跨进程恢复，旧档边缘迁移5+11项通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |

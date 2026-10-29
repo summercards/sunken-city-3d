@@ -13,6 +13,16 @@ extends SceneTree
 var checks := 0
 var failures := 0
 
+class InteractionContext extends RefCounted:
+	var actor: Node3D
+	var auto_target: Node3D
+	var interactor: Node
+	var ports: Dictionary
+	var completions := 0
+	func complete_interaction() -> void:
+		completions += 1
+		interactor.auto_hold = false
+
 func _init() -> void:
 	call_deferred("run")
 
@@ -86,5 +96,44 @@ func run() -> void:
 		"node 模式锚点回到节点原点")
 	box.focus_anchor = "geometry"
 
+	# 到位自动长按也必须用同一视觉锚点，不能走到箱旁后还测旧原点。
+	var context := InteractionContext.new()
+	context.actor = Node3D.new()
+	root.add_child(context.actor)
+	context.auto_target = box
+	context.interactor = interactor
+	var gate := {"blocked":false}
+	context.ports = {"input_blocked":func(): return gate.blocked}
+	var state = preload("res://src/player/states/interacting.gd").new()
+	state.context = context
+	var outward: Vector3 = box.focus_position() - box.global_position
+	outward.y = 0.0
+	outward = outward.normalized()
+	context.actor.global_position = box.focus_position() + outward
+	check(context.actor.global_position.distance_to(box.global_position)>2.2,
+		"自动交互反例确实位于旧原点门槛之外")
+	state.tick(0.0)
+	check(interactor.auto_hold,"视觉旁到位后可自动交互")
+	gate.blocked = true
+	state.tick(0.0)
+	check(not interactor.auto_hold,"模态阻断仍禁止自动交互")
+	gate.blocked = false
+	context.actor.global_position = box.focus_position() + outward*2.3
+	state.tick(0.0)
+	check(not interactor.auto_hold,"离开原2.2米范围仍停止自动交互")
+	var plain := Node3D.new()
+	root.add_child(plain)
+	context.auto_target = plain
+	context.actor.global_position = plain.global_position + Vector3.RIGHT
+	state.tick(0.0)
+	check(interactor.auto_hold,"没有视觉锚点接口的目标保留节点位置后备")
+	context.auto_target = null
+	state.tick(0.0)
+	check(context.completions==1 and not interactor.auto_hold,"目标消失仍结束并释放自动输入")
+	context.actor.queue_free()
+	plain.queue_free()
+
 	print("[interact-focus] %d checks, %d failures" % [checks, failures])
-	quit()
+	main.queue_free()
+	await process_frame
+	quit(1 if failures else 0)

@@ -161,7 +161,7 @@ orbit_dir = Vector3(-54, 76.37, 54)
 [node name="Boat" type="Node3D" parent="." unique_id=916517458]
 script = ExtResource("4_boat")
 
-[node name="Explorer" type="Node3D" parent="Boat" unique_id=110714910]
+[node name="Explorer" type="CharacterBody3D" parent="Boat" unique_id=110714910]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, -0.3)
 script = ExtResource("17_character")
 

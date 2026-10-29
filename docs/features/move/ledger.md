@@ -18,6 +18,11 @@
     "godot/src/navigation/landing_point.gd"
   ],
   "verification": [
+    "walk-on-planters",
+    "visual-walk-on-planters",
+    "character-motor",
+    "ground-space",
+    "actor-presentation",
     "walk-facing",
     "visual-walk-facing",
     "walk-deck-fit",
@@ -40,6 +45,9 @@
 | SEA-MOVE-R03 | 自动接近、模态阻断、完成一次、取消回调；framework-integration通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-MOVE-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
 | SEA-MOVE-R09 | 已实现；八方向 × 30/60/120 FPS，专项102项、真实渲染106项通过；旧公式对照复现26项朝向失败 | [朝向修复与实测](../../development/2026-10-29_walk_facing.md) |
+| SEA-MOVE-R11 | 正式角色已接胶囊扫掠及唯一物理帧驱动，岸/船/潜水碰撞启停；保留原速度和转向 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
+| SEA-MOVE-R12 | 正式区块接GroundSpace，现有布局派生地板/边界/导航；三维表面及上下坡控制器专项通过 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
+| SEA-MOVE-R13 | 独立动作生命周期、token及注册/播放/取消接口；原七动作和农作时序保留 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
 
 ## 资源与调用入口
 
@@ -69,6 +77,10 @@ start_walk / approach / depart / cancel / request_mode / restore_pose / state_id
 角色控制已由 Main 拆到 ActorController；9 个状态、4 个控制动作和7个表现动作分别独立文件。已有行为完成回归；移动端手感、跳跃/战斗等未设计玩法不计完成。
 
 ## 变更记录
+
+SEA-MOVE-R02/R03初始六格修复：带操作点的自动接近从船上使用所属泊位站立点预筛陆路，最终仍由start_walk检查靠泊与同面；固定六格真实鼠标播种/浇水/收获通过，原边缘格靠泊上岸场景通过。[实测](../../development/2026-10-29_initial_six_planters.md)。
+
+SEA-MOVE-R08同日种植区修订：固定六格及DIY双尺寸可踩踏，导航/物理/恢复同源，平台外缘保护保留。[通行实测](../../development/2026-10-29_walk_on_planters.md)。
 
 - 2026-10-23：从主文档和现有工程建立本功能独立文档、账本与代码入口；目标设计完整保留，未修改玩法数值。
 - 2026-10-29：码头栈桥左右两侧可走进水里（可行走矩形 x 0…6.5 / z 11.5…18 越过实测甲板 x 0.6…5.8 / z 12.9…17.9）。拆成「主甲板南沿 + 栈桥本体」两块矩形，甲板覆盖率 0.903 → 0.943。新增 `walk-deck-fit`（数据断言）与 `visual-walk-deck`（五区块甲板覆盖率基线）两条门禁。
@@ -115,10 +127,16 @@ SEA-MOVE-R01/R02/R03：正式surface 30航路503检查及click 30检查通过；
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-MOVE-R08 | 动态木面/种植区扣除已实现；实际吸附布局缺角色通行宽度检查，非吸附服务层布局另可断连 | [原交付](../../development/2026-10-28_building_delivery.md)；[当前反例](../../development/2026-10-29_building_boundary_audit.md) |
+| SEA-MOVE-R08 | 已实现；角色宽度、桥板拆回保护、操作点与旧边缘迁移专项通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
 
 ## 2026-10-29 角色正向行走
 
 SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，保留平滑转向与步速。`walk-facing`（102项）、`visual-walk-facing`（106项）、`board-click`（12项）、`framework-integration`（44项）均退出0。真实渲染近景已目视核对。
 
 `surface`（456项/1失败）、`click`（32项/3失败）退出1；工程外恢复旧朝向公式后的对照运行产生完全相同的4项失败，涉及种植场景路径与拾取/建造流程，未计为本次通过。初次主场景验证遇到HUD类型推断错误，已补bool声明，后续无该编译错误。详细日志、预期对照失败及未执行项见[交付记录](../../development/2026-10-29_walk_facing.md)。
+
+## 2026-10-29 自建平台上下船
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-MOVE-R10 | 已实现；离岸基础施工、动态泊位靠岸/回船与存读档实测通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
