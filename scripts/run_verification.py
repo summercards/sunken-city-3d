@@ -42,6 +42,9 @@ TESTS.update({
     'walk-facing': ('tests/test_walk_facing.gd', r'\[walk-facing\] \d+ checks, 0 failures'),
     # 码头栈桥两处围栏缺口：矩形越界点必须拒绝、甲板自身必须仍可走（SEA-MOVE-R01）。
     'walk-deck-fit': ('tests/test_walk_deck_fit.gd', r'\[walk-deck-fit\] \d+ checks, 0 failures'),
+    # 栈桥栏杆绳是行走的真正边界：矩形必须落在绳内沿以内。
+    # 关键在"从模型几何现场量绳位"——绳挪了判据自动跟着改，脱节会被当场抓住。
+    'rope-bounds': ('tests/test_rope_bounds.gd', r'\[rope-bounds\] \d+ checks, 0 failures'),
     'visual-walk-facing': ('tests/test_walk_facing.gd', r'\[walk-facing\] \d+ checks, 0 failures'),
     'visual-building-fit': ('tools/capture_building_fit.gd', r'\[building-fit\] \d+ checks, 0 failures'),
     'boat-water-contact': ('tests/test_boat_water_contact.gd', r'\[boat-water-contact\] \d+ checks, 0 failures'),

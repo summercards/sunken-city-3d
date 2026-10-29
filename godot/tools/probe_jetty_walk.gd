@@ -84,5 +84,6 @@ func _run() -> void:
 	main.cam.target = Vector3(3.2, 1.5, 15.0)
 	main.cam.distance = 8.0
 	main.cam.refresh()
-	await shot("east-edge")
+	if DisplayServer.get_name() != "headless":
+		await shot("east-edge")
 	quit(0)

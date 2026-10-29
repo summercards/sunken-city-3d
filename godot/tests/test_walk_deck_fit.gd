@@ -45,19 +45,25 @@ func run() -> void:
 		quit(1)
 		return
 
-	# 1) 主人截图圈出的两处：栈桥左缘外侧、右缘外侧。都不许再是可行走面。
-	check(not area.contains_world(0.20, 14.00), "栈桥左缘外 x=0.20 z=14.0 不可走")
-	check(not area.contains_world(0.30, 16.50), "栈桥左缘外 x=0.30 z=16.5 不可走")
-	check(not area.contains_world(6.30, 14.00), "栈桥右缘外 x=6.30 z=14.0 不可走")
-	check(not area.contains_world(3.00, 18.20), "栈桥末端外 x=3.00 z=18.2 不可走")
+	# 1) 主人截图圈出的两处：栈桥栏杆绳外侧。都不许是可行走面。
+	#
+	# 栈桥两侧各有一道栏杆绳（`bridge_rope` 实例），实测世界坐标：
+	#   西侧绳 x 0.833…0.936，东侧绳 x 5.197…5.300，
+	#   根部端头 z 11.117…11.853，末端端头 z 17.172…17.908，高出甲板 0.48…1.06 m。
+	# 所以可行走的上限是「绳的内沿」而不是「甲板边」——
+	# 早先按甲板边放矩形（x 0.6…5.8），人整个站在绳子外面走，看着像穿绳。
+	check(not area.contains_world(0.60, 14.00), "西绳外 x=0.60 z=14.0 不可走")
+	check(not area.contains_world(0.85, 16.50), "西绳内沿上 x=0.85 z=16.5 不可走")
+	check(not area.contains_world(5.60, 14.00), "东绳外 x=5.60 z=14.0 不可走")
+	check(not area.contains_world(5.30, 16.50), "东绳内沿上 x=5.30 z=16.5 不可走")
+	check(not area.contains_world(3.00, 18.20), "末端绳外 x=3.00 z=18.2 不可走")
 
-	# 2) 栈桥本身照旧能走：左右各留 0.25 m 内缩，末端内缩 0.1 m。
-	check(area.contains_world(0.90, 14.00), "栈桥左缘内 x=0.90 z=14.0 可走")
-	check(area.contains_world(5.50, 16.50), "栈桥右缘内 x=5.50 z=16.5 可走")
-	check(area.contains_world(3.00, 17.80), "栈桥末端内 x=3.00 z=17.8 可走")
+	# 2) 绳围出来的内部照旧能走。
+	check(area.contains_world(1.30, 14.00), "西绳内 x=1.30 z=14.0 可走")
+	check(area.contains_world(4.80, 16.50), "东绳内 x=4.80 z=16.5 可走")
+	check(area.contains_world(3.00, 17.00), "末端绳内 x=3.00 z=17.0 可走")
 	# 栈桥与主甲板的接缝必须连通，否则从船舱走不到泊位。
 	check(area.contains_world(3.00, 12.20), "接缝 x=3.00 z=12.2 可走")
-	check(area.contains_world(3.00, 12.95), "接缝 x=3.00 z=12.95 可走")
 
 	# 3) 上岸站立点必须在行走区内 —— 矩形收窄不能把泊位本身切掉。
 	for landing in zone.landing_points():
