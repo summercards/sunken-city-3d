@@ -8,3 +8,6 @@ facility_id = "salvage_station"
 asset_id = "SEA-REF-FACILITY-SALVAGE-STATION"
 [node name="salvage_station" parent="." instance=ExtResource("g0")]
 position = Vector3(0, 0, 0)
+[node name="PoleAndFlowers" parent="salvage_station" index="2"]
+position = Vector3(2.2, 0, 2.4)
+[editable path="salvage_station"]

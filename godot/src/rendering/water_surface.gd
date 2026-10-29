@@ -26,6 +26,21 @@ var boat_contact := preload("res://src/rendering/boat_water_contact.gd").new()
 var _was_moving := false
 var _ripples := PackedVector4Array()
 var _ripple_index := 0
+var _runtime_contacts := PackedVector4Array()
+var _runtime_contact_count := 0
+
+func set_runtime_contact_rects(rects: Array) -> void:
+	assert(rects.size()<=24,"Runtime water contact rectangle budget exceeded")
+	_runtime_contact_count=rects.size()
+	_runtime_contacts.resize(24)
+	_runtime_contacts.fill(Vector4.ZERO)
+	for i in rects.size(): _runtime_contacts[i]=rects[i]
+	for mat in schemes.values(): _sync_contacts(mat)
+
+func _sync_contacts(mat: ShaderMaterial) -> void:
+	if _runtime_contacts.is_empty(): _runtime_contacts.resize(24)
+	mat.set_shader_parameter("runtime_contact_rects",_runtime_contacts)
+	mat.set_shader_parameter("runtime_contact_count",_runtime_contact_count)
 
 func _ready() -> void:
 	mesh = _make_grid()
@@ -71,6 +86,7 @@ func current_material() -> ShaderMaterial:
 	return material_override as ShaderMaterial
 
 func _sync(mat: ShaderMaterial) -> void:
+	_sync_contacts(mat)
 	preload("res://src/rendering/night_water_params.gd").ensure_defaults(mat)
 	mat.set_shader_parameter("ocean_waves", ocean_waves)
 	mat.set_shader_parameter("wave_scale", wave_scale)

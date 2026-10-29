@@ -54,6 +54,7 @@ uniform sampler2D shore_distance : filter_linear, repeat_disable;
 uniform vec4 shore_bounds = vec4(0.0);
 uniform float shore_texel = 0.0009765625;
 uniform bool shore_enabled = false;
+#include "res://shaders/runtime_water_contacts.gdshaderinc"
 
 uniform sampler2D normal_map : hint_normal, repeat_enable, filter_linear_mipmap;
 
@@ -179,9 +180,9 @@ float noise(vec2 p) {
 vec2 shoreline_data(vec2 p) {
 	vec2 uv = (p - shore_bounds.xy) / max(shore_bounds.zw, vec2(1.0));
 	if (!shore_enabled || any(lessThan(uv, vec2(0.0))) || any(greaterThan(uv, vec2(1.0)))) {
-		return vec2(100.0, 1.0);
+		return with_runtime_contacts(p, vec2(100.0, 1.0));
 	}
-	return textureLod(shore_distance, uv * (1.0 - shore_texel) + shore_texel * 0.5, 0.0).rg;
+	return with_runtime_contacts(p, textureLod(shore_distance, uv * (1.0 - shore_texel) + shore_texel * 0.5, 0.0).rg);
 }
 
 vec3 view_position(vec2 uv, float raw, mat4 inverse_projection) {

@@ -114,3 +114,5 @@ UI的owned_modal_query/close/input为独立手册和预览提供注入的模态�
 | 资产 | 主记录在 `ledgers/crops.json`（domain=crops），不写入 `scenes.json` |
 
 跨进程契约的断言入口：`crops`（隔离测试，不加载 main）、`visual-crops`（12 阶段真实渲染）、`structure`（契约与哈希）。
+
+2026-10-29：`BuildingWorld.contact_rects()`只读派生完工木板占地，经Main组合到`WaterSurface.set_runtime_contact_rects()`；水面只维护表现用24项上限的矩形通道，不写建造布局。两方案通过`runtime_water_contacts.gdshaderinc`合并静态岸线与动态接触距离，保留各自泡沫风格；布局同步/恢复更新派生数据，未完工虚影不接水线。[验证](../development/2026-10-29_deck_draft_pole_placement.md)。

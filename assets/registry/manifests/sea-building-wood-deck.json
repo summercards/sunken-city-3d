@@ -4,5 +4,7 @@
   "source": "godot/src/building/deck_visual.gd",
   "prefab": "godot/scenes/buildables/wood_deck.tscn",
   "license": "project_authored_procedural_geometry",
-  "note": "以现有SEA-FARM-CULTIVATION-DECK木板厚度及配色派生参数化2.15×2.575米模块；旧平台不改，复用现有土壤格。"
+  "note": "以现有SEA-FARM-CULTIVATION-DECK木板厚度及配色派生参数化2.15×2.575米模块；旧平台不改，复用现有土壤格。 v002按用户要求顶面1.48米不动，厚度改为0.50米并全部向下补足，底面0.98米。",
+  "version": "v002",
+  "verification": "docs/development/2026-10-29_deck_draft_pole_placement.md"
 }

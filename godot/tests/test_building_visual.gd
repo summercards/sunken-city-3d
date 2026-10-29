@@ -43,12 +43,17 @@ func run() -> void:
 	main._debug_teleport("zone5")
 	main.actor_controller.restore_pose({"mode":0,"player":[21,1.48,16]});root.get_node("GameState").enter_zone("zone5")
 	econ.inventory.set_count("wood",30);econ.inventory.set_count("soil",6)
-	aim();await process_frame
+	aim()
+	# Container sorting and HUD placement are deferred beyond process_frame's signal.
+	# Let the actual viewport settle before deriving screen coordinates for clicks.
+	for i in 8: await process_frame
 	await button(main.hud.corner.menu_button)
 	check(main.hud.corner.buttons.craft.is_visible_in_tree(),"eighth launcher visible")
 	await shot("menu")
 	await button(main.hud.corner.buttons.craft)
 	check(main.building_controller.book.visible,"mouse opens book")
+	if not main.building_controller.book.visible:
+		print("[visual-building] %d checks, %d failures"%[checks,failures]);quit(1);return
 	await shot("book")
 	check(main.hud.is_modal(),"book stays modal after menu sync")
 	await button(main.building_controller.book.recipe_buttons.deck)

@@ -17,7 +17,7 @@
 [ext_resource type="Material" uid="uid://cilcap5f0o2tu" path="res://assets/materials/water.tres" id="15_water"]
 [ext_resource type="PackedScene" path="res://scenes/underwater/underwater_world.tscn" id="16_uw"]
 [ext_resource type="Script" uid="uid://dnmfdu5fimx56" path="res://src/player/character.gd" id="17_character"]
-[ext_resource type="PackedScene" path="res://scenes/zones/zone1_home_harbor.tscn" id="20_zone1"]
+[ext_resource type="PackedScene" uid="uid://boy2dafsw0fsf" path="res://scenes/zones/zone1_home_harbor.tscn" id="20_zone1"]
 [ext_resource type="PackedScene" path="res://scenes/zones/zone2_yokohama_station.tscn" id="21_zone2"]
 [ext_resource type="PackedScene" path="res://scenes/zones/zone3_arc_farm.tscn" id="22_zone3"]
 [ext_resource type="PackedScene" path="res://scenes/zones/zone4_far_shore.tscn" id="23_zone4"]
@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/flat_annex.tscn" id="31_sub_flat_annex"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/rear_slab.tscn" id="32_sub_rear_slab"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_y6deb"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_fv21b"]
 _surfaces = [{
 "aabb": AABB(-640, 0, -640, 1280, 1e-05, 1280),
 "format": 34359742471,
@@ -90,7 +90,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12, 0)
 material_override = ExtResource("15_water")
 cast_shadow = 0
 extra_cull_margin = 2.0
-mesh = SubResource("ArrayMesh_y6deb")
+mesh = SubResource("ArrayMesh_fv21b")
 script = ExtResource("25_ocean")
 ocean_waves = PackedVector4Array(0.94, 0.34, 0.16, 12, -0.42, 0.91, 0.085, 7.6, 0.72, -0.69, 0.0325, 4.9, -0.85, -0.53, 0.0105, 2.55)
 
@@ -112,27 +112,31 @@ script = ExtResource("26_wake")
 [node name="UnderwaterScenery" type="Node3D" parent="World" unique_id=1478200331]
 
 [node name="terraced_tower" parent="World/UnderwaterScenery" unique_id=1478200401 instance=ExtResource("27_sub_terraced_tower")]
-position = Vector3(17.6, -21.5, -10.8)
+transform = Transform3D(1.2972144, -0.109194055, -0.61986125, 0.14394581, 0.98403764, -0.0687831, 0.830498, 0, 0.98012775, 30.17171, -19.394762, -28.943344)
 instance_id = "home_submerged/terraced_tower"
 
 [node name="rounded_tower" parent="World/UnderwaterScenery" unique_id=1478200402 instance=ExtResource("28_sub_rounded_tower")]
-position = Vector3(-10.4, -20.4, 2.0)
+transform = Transform3D(-1.5957636, 0, -0.6830726, 0, 1.1182024, 0, 0.6984135, 0, -1.5607119, -12.64131, -25.511404, -16.185486)
 instance_id = "home_submerged/rounded_tower"
 
 [node name="slender_tower" parent="World/UnderwaterScenery" unique_id=1478200403 instance=ExtResource("29_sub_slender_tower")]
-position = Vector3(-1.2, -16.2, -9.2)
+transform = Transform3D(1.5624714, 0, 0, 0, 1, 0, 0, 0, 1.5551654, -1.2, -16.2, -9.2)
 instance_id = "home_submerged/slender_tower"
 
 [node name="stepped_lowrise" parent="World/UnderwaterScenery" unique_id=1478200404 instance=ExtResource("30_sub_stepped_lowrise")]
-position = Vector3(0.2, -12.0, 24.0)
+transform = Transform3D(-1.2814827, 0, -1.1990949, 0, 1.7550005, 0, 1.1990949, 0, -1.2814827, 0.2, -24.96325, -19.143696)
 instance_id = "home_submerged/stepped_lowrise"
 
+[node name="flat_annex2" parent="World/UnderwaterScenery" unique_id=1770527324 instance=ExtResource("31_sub_flat_annex")]
+transform = Transform3D(1.982467, 0, -0.937215, 0, 1, 0, 1.7120997, 0, 1.0852157, 26.721878, -16.416988, -2.2457771)
+instance_id = "home_submerged/flat_annex"
+
 [node name="flat_annex" parent="World/UnderwaterScenery" unique_id=1478200405 instance=ExtResource("31_sub_flat_annex")]
-position = Vector3(-7.3, -14.6, 15.8)
+transform = Transform3D(2.128904, 0, 0, 0, 1, 0, 0, 0, 1.197455, -5.7989664, -16.727169, 18.78206)
 instance_id = "home_submerged/flat_annex"
 
 [node name="rear_slab" parent="World/UnderwaterScenery" unique_id=1478200406 instance=ExtResource("32_sub_rear_slab")]
-position = Vector3(-11.2, -23.0, -11.0)
+transform = Transform3D(0.035241533, 0, -2.116315, 0, 1.1999999, 0, 1.5008235, 0, 0.049694173, -8.477363, -27.362999, 0.37824583)
 instance_id = "home_submerged/rear_slab"
 
 [node name="Gameplay" type="Node3D" parent="World" unique_id=1251468208]

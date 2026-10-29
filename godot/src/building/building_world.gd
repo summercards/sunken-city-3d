@@ -89,6 +89,14 @@ func water_shapes(saved: Variant = null) -> Array:
 		var p:=rect.get_center()+Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
 		result.append({"x":p.x,"z":p.y,"hx":rect.size.x/2,"hz":rect.size.y/2,"round":false})
 	return result
+func contact_rects() -> Array:
+	var result: Array=[]
+	for item in service.query():
+		if item.kind!="deck" or item.left>0: continue
+		var rect:=Catalog.tile_rect(item.x,item.z)
+		var center:=rect.get_center()+Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
+		result.append(Vector4(center.x,center.y,rect.size.x/2,rect.size.y/2))
+	return result
 func contains_saved(point: Vector3, rows: Array) -> bool:
 	if absf(point.y-Catalog.ORIGIN.y)>0.5: return false
 	var p:=Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)

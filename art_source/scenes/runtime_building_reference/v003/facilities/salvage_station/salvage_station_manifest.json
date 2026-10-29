@@ -51,5 +51,28 @@
   "prefab": "godot/scenes/facilities/salvage_station.tscn",
   "runtime_scope": "完整独立绞盘打捞台",
   "optimized_source": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/solar_cabin_optimized_v001.blend",
-  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/export_manifest.json"
+  "export_manifest": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/export_manifest.json",
+  "runtime_sha256": "f0c1b55a265d4ee2ca1ac16f26fb292cab4560120cba0c19f9cdd9547007854b",
+  "runtime_version": "1.1",
+  "runtime_pole_group": "salvage_station/PoleAndFlowers",
+  "runtime_patch_log": [
+    {
+      "date": "2026-10-28",
+      "change": "vertex_color_restored",
+      "runtime_path": "godot/assets/models/facilities/legacy_home/salvage_station.glb",
+      "runtime_sha256": "4aaef9b50fca8c6ee889cc5cc34a622e0a5e0e7d890cad9922a96a9e20536e9b",
+      "tool": "tools/restore_salvage_vertex_colors.py",
+      "note": "拆分导出的 GLB 把主体 primitive 的 COLOR_0 写成纯白，材质 use_texture=false 后整座设施变白模；按世界坐标从同一几何的 zone1 detail.glb 回填顶点色，几何/材质/节点未改。"
+    },
+    {
+      "date": "2026-10-29",
+      "change": "connected_pole_flower_group_split",
+      "runtime_path": "godot/assets/models/facilities/legacy_home/salvage_station.glb",
+      "runtime_sha256": "f0c1b55a265d4ee2ca1ac16f26fb292cab4560120cba0c19f9cdd9547007854b",
+      "tool": "tools/split_salvage_pole_group.py",
+      "note": "完整连通构件拆出PoleAndFlowers；原顶点属性/材质/面数保留；正式TSCN位移(+2.2,0,+2.4)，其他设施不移动。",
+      "verification": "docs/development/2026-10-29_deck_draft_pole_placement.md"
+    }
+  ],
+  "verification": "docs/development/2026-10-29_deck_draft_pole_placement.md"
 }

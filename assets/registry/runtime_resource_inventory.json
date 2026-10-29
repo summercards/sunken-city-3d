@@ -808,9 +808,9 @@
     },
     {
       "path": "godot/assets/models/facilities/legacy_home/salvage_station.glb",
-      "bytes": 892276,
-      "sha256": "4aaef9b50fca8c6ee889cc5cc34a622e0a5e0e7d890cad9922a96a9e20536e9b",
-      "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
+      "bytes": 1695760,
+      "sha256": "f0c1b55a265d4ee2ca1ac16f26fb292cab4560120cba0c19f9cdd9547007854b",
+      "asset_id": "SEA-REF-FACILITY-SALVAGE-STATION",
       "status": "runtime_integrated_verified"
     },
     {
@@ -2857,8 +2857,8 @@
     },
     {
       "path": "godot/src/building/deck_visual.gd",
-      "bytes": 959,
-      "sha256": "ff144dcf562ca87186604ba68c65e4b848217a3d6275c631fcd677be1dfde8fa",
+      "bytes": 1074,
+      "sha256": "bedb33953f15271bb02d6a41333185fca54aadef4fbbc69f81092fc32d5a03d2",
       "asset_id": "SEA-BUILDING-WOOD-DECK",
       "status": "runtime_component_verified"
     },
@@ -2868,6 +2868,41 @@
       "sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",
       "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
       "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/scenes/facilities/salvage_station.tscn",
+      "bytes": 667,
+      "sha256": "0dfec0a8d02362e87977e63e42efc886149dfae365072a9e9693a2a56f88be77",
+      "asset_id": "SEA-REF-FACILITY-SALVAGE-STATION",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/shaders/runtime_water_contacts.gdshaderinc",
+      "bytes": 591,
+      "sha256": "2294f62ca4e8aef2dd2b98c81921fb3bab1e62b7915bf36ce2389a7619836b4d",
+      "asset_id": null,
+      "status": "runtime_resource_verified"
+    },
+    {
+      "path": "godot/shaders/ocean_foam.gdshaderinc",
+      "bytes": 5063,
+      "sha256": "edc0b43a91ffb98e605c8aa4e9886d90d393c3e6683b3beb23e7de09f10a69f0",
+      "asset_id": null,
+      "status": "runtime_resource_verified"
+    },
+    {
+      "path": "godot/shaders/water_absorption.gdshader",
+      "bytes": 18348,
+      "sha256": "40bdba6b66c25134922dd84e22cea83d81d419a641f05d0fdf7db3f6809e5228",
+      "asset_id": null,
+      "status": "runtime_resource_verified"
+    },
+    {
+      "path": "godot/src/rendering/water_surface.gd",
+      "bytes": 7213,
+      "sha256": "67e71e2d93842f167b283c990042d36d25e80943976b70b1e6b7383099085af0",
+      "asset_id": null,
+      "status": "runtime_resource_verified"
     }
   ]
 }

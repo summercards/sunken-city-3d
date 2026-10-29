@@ -282,3 +282,9 @@ SEA-ASSET-R02/R03：通过ledger_index登记原创程序几何SEA-BUILDING-WOOD-
 授权：三品种为本工程程序化自建，`license` 记 `project_authored_procedural_geometry`，不冒用外部来源。
 源级「保存后重开 + 四视图渲染」尚未执行，阶段保持 `runtime_component_verified`，不写成已验收。
 本域只新增记录，未刷新任何既有资产哈希。
+
+## 2026-10-29 电线杆与花移出甲板
+
+| 对应设计条款 | 实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R31 | 已实现；实景前后对照、几何边界与属性逐字节复核通过 | [板底与电线杆摆位](../../development/2026-10-29_deck_draft_pole_placement.md) |

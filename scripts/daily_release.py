@@ -226,6 +226,30 @@ def zip_windows(result):
     return True
 
 
+def check_pack_assets(result, pack_path, key):
+    """导出后必须过资产契约：字体/数据文件真的在包里。
+
+    2026-10-29 的字体豆腐块事故就是这里漏了 —— 源 .ttf 不进包，
+    运行期只能读到空字节。宁可发布失败，也不要发一个没字的包。
+    """
+    script = ROOT / 'scripts/check_pack_assets.py'
+    if not script.exists():
+        return True
+    if not pack_path.exists():
+        result['problems'].append(f'{key} 包不存在，跳过资产检查：{pack_path.name}')
+        return False
+    code, out = run([sys.executable, str(script), str(pack_path), '--quiet'], 600)
+    result.setdefault('pack_check', {})[key] = {
+        'code': code,
+        'tail': out.strip().splitlines()[-4:] if out.strip() else [],
+    }
+    if code != 0:
+        log(f'  {key} 资产契约不成立')
+        result['problems'].append(f'{key} 包资产契约不成立（字体或数据没进包）')
+        return False
+    return True
+
+
 def web_size_mib():
     total = sum(p.stat().st_size for p in WEB_DIR.rglob('*') if p.is_file())
     return round(total / 1048576, 1)
@@ -334,12 +358,16 @@ def main():
                 log(f'  Web 产物 {web_size_mib()} MiB')
                 if not patch_web_pack(result):
                     result['problems'].append('Web 游戏包改名失败')
+                else:
+                    check_pack_assets(result, WEB_DIR / 'index.bin', 'web')
 
             log('导出 Windows')
             clean(WIN_DIR)
             if not export_platform(godot, 'Windows Desktop', WIN_DIR / 'sea.exe',
                                    WIN_EXPORT_TIMEOUT, result, 'windows'):
                 result['problems'].append('Windows 导出失败')
+            else:
+                check_pack_assets(result, WIN_DIR / 'sea.pck', 'windows')
 
     if (WEB_DIR / 'index.html').exists() and (WIN_DIR / 'sea.exe').exists():
         log('打包 Windows zip')

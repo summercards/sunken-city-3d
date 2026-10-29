@@ -12,6 +12,9 @@ uniform sampler2D shore_distance : filter_linear, repeat_disable;
 uniform vec4 shore_bounds;
 uniform float shore_texel = 0.0009765625;
 uniform bool shore_enabled = false;
+// Bounded runtime solids, supplied by scene projection after build/restore.
+// These reuse the same contact foam as the static atlas without a full rebake.
+#include "res://shaders/runtime_water_contacts.gdshaderinc"
 uniform float crest_foam_strength : hint_range(0.0, 1.5) = 0.0;
 uniform vec3 foam_color : source_color = vec3(0.91, 0.98, 0.94);
 // Water column that still counts as "touching something" for the depth edge.
@@ -20,8 +23,11 @@ uniform float edge_strength : hint_range(0.0, 1.5, 0.01) = 0.45;
 
 vec2 shoreline_data(vec2 p) {
 	vec2 uv = (p - shore_bounds.xy) / max(shore_bounds.zw, vec2(1.0));
-	if (!shore_enabled || any(lessThan(uv, vec2(0.0))) || any(greaterThan(uv, vec2(1.0)))) return vec2(100.0, 1.0);
-	return textureLod(shore_distance, uv * (1.0 - shore_texel) + shore_texel * 0.5, 0.0).rg;
+	vec2 result = vec2(100.0, 1.0);
+	if (shore_enabled && all(greaterThanEqual(uv, vec2(0.0))) && all(lessThanEqual(uv, vec2(1.0)))) {
+		result = textureLod(shore_distance, uv * (1.0 - shore_texel) + shore_texel * 0.5, 0.0).rg;
+	}
+	return with_runtime_contacts(p, result);
 }
 
 float shoreline_distance(vec2 p) { return shoreline_data(p).x; }

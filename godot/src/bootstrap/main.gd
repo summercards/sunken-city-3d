@@ -2056,7 +2056,9 @@ func _setup_building() -> void:
 					result.append(Rect2(Vector2(point.x,point.z),rect.size))
 		return result
 	building.configure({"eligibility":boundary.eligibility,"space_reason":boundary.space_reason,"pay":Economy.inventory.pay})
-	building_world.configure(building,_zone_nodes.zone5.walk_areas[0],farm_field,_bind_constructed_plot,func(): navigation.invalidate())
+	building_world.configure(building,_zone_nodes.zone5.walk_areas[0],farm_field,_bind_constructed_plot,func():
+		navigation.invalidate()
+		water_node.set_runtime_contact_rects(building_world.contact_rects()))
 	building.completed.connect(func(_id): props.apply_population_scope())
 	building_controller=preload("res://src/building/building_controller.gd").new();add_child(building_controller)
 	building_controller.configure(building,building_world,cam,hud,Economy.inventory.all,actor_controller.cancel)

@@ -7,15 +7,14 @@
 [ext_resource type="PackedScene" path="res://scenes/props/farm_plot_single.tscn" id="farm_prefab"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/salvage_station.tscn" id="independent_salvage"]
 [ext_resource type="Script" uid="uid://bgt2ik1wbg2yi" path="res://src/navigation/landing_point.gd" id="landing_script"]
+[ext_resource type="Script" uid="uid://1sfliqvrp6is" path="res://src/orders/shipping_box.gd" id="shipping_script"]
+[ext_resource type="PackedScene" path="res://scenes/components/solar_cabin/cooler.tscn" id="shipping_visual"]
+[ext_resource type="Script" uid="uid://c8vwaklg0k1ro" path="res://src/time/sleep_checkpoint.gd" id="sleep_script"]
 [ext_resource type="PackedScene" uid="uid://boyqyowbitbxp" path="res://scenes/facilities/solar_cabin.tscn" id="sunny_surface"]
 [ext_resource type="PackedScene" uid="uid://q1nk5yaje4p0" path="res://assets/models/zones/zone1_home_harbor/units/detail.glb" id="unit_detail"]
 [ext_resource type="PackedScene" uid="uid://cboek4wgwh4sm" path="res://assets/models/zones/zone1_home_harbor/units/unit_01.glb" id="unit_unit_01"]
 [ext_resource type="PackedScene" uid="uid://nmkpgyf8hb2" path="res://assets/models/zones/zone1_home_harbor/units/unit_02.glb" id="unit_unit_02"]
 [ext_resource type="PackedScene" uid="uid://ggmtkvl0vp85" path="res://assets/models/zones/zone1_home_harbor/units/unit_03.glb" id="unit_unit_03"]
-
-[ext_resource type="Script" path="res://src/orders/shipping_box.gd" id="shipping_script"]
-[ext_resource type="PackedScene" path="res://scenes/components/solar_cabin/cooler.tscn" id="shipping_visual"]
-[ext_resource type="Script" path="res://src/time/sleep_checkpoint.gd" id="sleep_script"]
 
 [node name="Zone1HomeHarbor" type="Node3D" unique_id=1223767158]
 script = ExtResource("1_zone")
@@ -50,7 +49,7 @@ visible = false
 [node name="太阳能木屋" parent="Models" unique_id=1292332584 instance=ExtResource("sunny_surface")]
 
 [node name="绞盘打捞台" parent="Models" unique_id=1558224747 instance=ExtResource("independent_salvage")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0, 0, 4.15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4.15)
 
 [node name="WalkAreas" type="Node3D" parent="." unique_id=1912354651]
 
@@ -110,15 +109,25 @@ plot_name = "木屋菜箱"
 requires_site = "home_cabin"
 requires_level = 1
 
-[node name="ShippingBox" type="Node3D" parent="Objects"]
-position = Vector3(3.0, 1.38, 14.6)
+[node name="ShippingBox" type="Node3D" parent="Objects" unique_id=605721070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.38, 14.6)
 script = ExtResource("shipping_script")
+id = "home_shipping_box"
+label = "出货箱"
+verb = "放入 / 取回"
+priority = 3
+hold_time = 0.12
 
-[node name="Visual" parent="Objects/ShippingBox" instance=ExtResource("shipping_visual")]
-scale = Vector3(1.725, 1.587, 1.725)
+[node name="Visual" parent="Objects/ShippingBox" unique_id=809078684 instance=ExtResource("shipping_visual")]
+transform = Transform3D(0.017022815, 0, 1.724916, 0, 1.5869999, 0, -1.724916, 0, 0.017022815, -1.4000826, 0, 1.5174732)
 instance_id = "solar_cabin/shipping_box"
 facility_id = "solar_cabin"
 
-[node name="SleepCheckpoint" type="Node3D" parent="Objects"]
-position = Vector3(8.35, 1.38, 8.75)
+[node name="SleepCheckpoint" type="Node3D" parent="Objects" unique_id=567116255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35, 1.38, 8.75)
 script = ExtResource("sleep_script")
+id = "home_sleep"
+label = "太阳房 · 睡觉"
+verb = "睡到早上 06:00"
+priority = 4
+hold_time = 0.15

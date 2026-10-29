@@ -36,7 +36,10 @@ func run() -> void:
 		check(main._zone_nodes.zone5.walk_areas[0].contains_world(26.3,16),"startup ground registered")
 		check(is_equal_approx(main.building.row("built_3").left,2),"startup preserves work time")
 		check(econ.count("wood")==35 and econ.count("soil")==8,"restart does not charge again")
+		for mat: ShaderMaterial in main.water_node.schemes.values():
+			check(int(mat.get_shader_parameter("runtime_contact_count"))==1,"restart restores completed deck waterline only")
 		main.building.tick(2)
 		check(main.building.row("built_3").left==0,"restored work finishes")
+		check(main.building_world.contact_rects().size()==2,"restored work adds its waterline on completion")
 	main.queue_free();await process_frame
 	print("[building-restart] %d checks, %d failures"%[checks,failures]);quit(1 if failures else 0)

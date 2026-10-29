@@ -3,9 +3,10 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c67e715f286rh"
-path="res://.godot/imported/stage_1_sprout_sea_cozy_8x8_512.png-223e8372567c34d070460440bb211702.ctex"
+path.s3tc="res://.godot/imported/stage_1_sprout_sea_cozy_8x8_512.png-223e8372567c34d070460440bb211702.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={
 "md5": "fe77defbf3242e381c20f7b9d55d8187"
@@ -14,11 +15,11 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/models/crops/lettuce/stage_1_sprout_sea_cozy_8x8_512.png"
-dest_files=["res://.godot/imported/stage_1_sprout_sea_cozy_8x8_512.png-223e8372567c34d070460440bb211702.ctex"]
+dest_files=["res://.godot/imported/stage_1_sprout_sea_cozy_8x8_512.png-223e8372567c34d070460440bb211702.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -40,4 +41,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

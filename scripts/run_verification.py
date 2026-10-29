@@ -30,6 +30,7 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'visual-building-fit': ('tools/capture_building_fit.gd', r'\[building-fit\] \d+ checks, 0 failures'),
     'boat-water-contact': ('tests/test_boat_water_contact.gd', r'\[boat-water-contact\] \d+ checks, 0 failures'),
     'visual-boat-water-contact': ('tests/test_boat_water_contact.gd', r'\[boat-water-contact\] \d+ checks, 0 failures'),
     'building-seed': ('tests/test_building_restart.gd', r'\[building-restart\] \d+ checks, 0 failures'),
