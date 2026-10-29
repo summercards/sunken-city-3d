@@ -20,7 +20,8 @@
     "surface",
     "framework-integration",
     "visual-pocket-bubbles",
-    "visual-plot-shipping"
+    "visual-plot-shipping",
+    "interact-focus"
   ]
 }
 ```
@@ -90,3 +91,16 @@ Main 保留输入路由；接近、自动按住及完成释放由 ActorControlle
 展开的图标菜单也属于模态阻断，外点收起先消费点击。泊位自身船锚已承担悬停反馈，HoverCard对landing保留target与指针但不显示第二颗手形图标；其它交互物的小操作图标和气泡不变。
 
 对应SEA-UI-R35–R38；[本轮交付](../../development/2026-10-28_corner_hud_notebook.md)。本功能整体状态与玩法边界保留。
+
+## 2026-10-29 热区跟随物体
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INTERACT-R06 | 已实现；锚点由视觉包围盒推导，判定/图标/环同源 | [交付记录](../../development/2026-10-29_interact_focus_follows_object.md) |
+
+出货箱热区曾偏离物体 2.065 米（半径 2.4 米），根因是锚点写死节点原点而视觉带偏移。
+本轮统一到 `Interactable.focus_position()`，全场景最差偏差由 2.065 米降到 0.0000 米。
+
+新增 `interact-focus` 专项：8 项断言，实测 `8 checks, 0 failures`，退出 0。
+同轮复跑 farming / modules / parity / ocean 均通过；click 3 项、management 4 项失败为
+既有的航行与区块复原问题，与本轮改动无关（见交付记录末尾说明）。整体状态仍 partial。

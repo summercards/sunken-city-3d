@@ -146,10 +146,13 @@ func _refresh_target() -> void:
 			continue
 		if not spot.is_visible_in_tree():
 			continue
-		var to := spot.global_position - origin
+		# 位置一律走 focus_position()：它跟着视觉几何走，而不是节点原点。
+		# 曾经硬编码 global_position，导致给视觉加了偏移的物件（出货箱偏 2.07 米）
+		# 要站回原始锚点才能交互。
+		var to: Vector3 = spot.focus_position() - origin
 		to.y = 0.0
 		var dist := to.length()
-		if dist > minf(radius, spot.focus_radius) + 0.9:
+		if dist > minf(radius, float(spot.effective_focus_radius())) + 0.9:
 			continue
 		if not spot.can_interact():
 			continue

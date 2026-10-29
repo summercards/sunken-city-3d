@@ -81,7 +81,10 @@ func _pick(screen: Vector2) -> Dictionary:
 		var spot: Node3D = raw
 		if spot == null or not is_instance_valid(spot) or not spot.is_visible_in_tree():
 			continue
-		var anchor: Vector3 = spot.global_position + Vector3.UP * (0.18 if spot.is_in_group("farm_plots") else 0.75)
+		# 图标贴在热区锚点上，和判定、聚焦环用同一个位置。菜箱是贴地的格子，
+		# 抬高少一点；其余物件抬到物体上半身，避免图标被自己挡住。
+		var base: Vector3 = spot.focus_position()
+		var anchor: Vector3 = base + Vector3.UP * (0.18 if spot.is_in_group("farm_plots") else 0.75)
 		if camera.is_position_behind(anchor):
 			continue
 		var sp: Vector2 = camera.unproject_position(anchor)
