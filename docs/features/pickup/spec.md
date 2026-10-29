@@ -37,7 +37,7 @@
 
 SeaProps 注入区域查询和 give_resource，拥有目标ID、随机流与相对补货计时；表现仍在本模块内部维护，完整生态与养殖不是本功能。
 
-2026-10-27 接口：collect_crate / collect_fish / nearest_crate / nearest_school / to_dict / from_dict；collected、fish_collected；pickups 快照见存档协议。
+2026-10-27 接口：collect_crate / collect_fish / nearest_crate / nearest_school / to_dict / from_dict；collected、fish_collected；pickups 快照见存档协议。2026-10-29 起 `try_pickup`（停船瞬收）已删除，改由场景侧打捞阶段触发结算。
 
 详细所有权、状态转换与扩展方法见 [模块接口约定](../../architecture/module_contracts.md)；实测范围见 [框架交付记录](../../development/2026-10-27_modular_framework.md)。原目标中尚未实现的内容保持登记，不因架构拆分自动升级完成度。
 
@@ -68,3 +68,22 @@ save_schema语义检查；SeaProps接受旧版显式reset；坏档不会重新�
 | SEA-PICKUP-R08 | 本轮覆盖R07中“不生成漂流材料”：最小范围同时保持4鱼群及6束浮木；浮木随机布于合法本地水域，每束3木板（内部wood ID不变）。靠近停船自动收取或点击后航行接近；满包保留目标，重复目标不发奖，相对补货计时及随机流存档，旧无浮木档补齐。 |
 
 [交付与实测](../../development/2026-10-28_building_delivery.md)。
+
+## 2026-10-29 拾取流程：停下才打捞
+
+一次海上拾取分三个阶段，**这是玩法状态机，不是表现层的修饰**：
+
+| 阶段 | 条件 | 结果 |
+|---|---|---|
+| IDLE 空闲 | 没有拾取 | — |
+| SAILING 航行 | 点击浮木/鱼群后，船正朝它划过去 | **没有任何进度**。赶路不是打捞。 |
+| GATHERING 打捞 | 船**已停稳**（`starts_sailing() == false`）且目标在打捞范围内 | 进度条从 0 出现，计时走满才结算 |
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-PICKUP-R09 | 拾取是「停下来做的动作」，顺序固定为**停船 → 开始打捞 → 计时 → 结算**。航行阶段无论还剩多远都**不得出现任何进度**（`PICK_REVEAL_SECONDS` 那种"按剩余航程折算进度"的写法已废弃：它让船还在划、人还没碰到东西时条就在走）。停稳后先校验目标是否真的在范围内（浮木 2.2 米 / 鱼群 `FISH_PICKUP_RADIUS` 3.2 米）：够得着才进入打捞，够不着（例如半路被岸线挡住）直接作废待拾取，不允许在原地对空气打捞。打捞时长 `PICK_GATHER_CRATE = 1.2` 秒 / `PICK_GATHER_FISH = 1.6` 秒，进度条在此期间按时间从 0 走到 1；**走满那一刻才真正结算**（`collect_crate` / `collect_fish`），打捞途中不进账。结算成功条停满格 0.5 秒再收；背包满等失败情况立即收条，不闪假满格。取消、改道、靠岸、读档、入睡等取消路径立即清阶段并收条。没有点击、船自己停在浮木旁时走同一条路径（停稳 → 打捞），不再瞬收。 |
+| SEA-PICKUP-R10 | 拾取进度条挂在**角色头顶**（`ANCHOR_LIFT = 1.35` 米 + `SCREEN_GAP = 16` px 屏幕偏移），76×6 px，与建造条共用 `res://src/ui/thin_progress_bar.gd`。挂点必须是角色而不是目标：镜头跟着角色走，目标很容易偏出取景框，挂在目标上的条会随之整条消失。 |
+
+R09 新增了 1.2 / 1.6 秒的打捞时长（原先是到站瞬收）。这是本轮唯一的玩法数值改动，只影响「停下之后捞多久」，不改航速、奖励数量、补货计时与存档结构。
+
+[交付与实测](../../development/2026-10-29_pickup_progress_bar.md)。

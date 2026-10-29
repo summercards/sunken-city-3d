@@ -8,7 +8,7 @@
   "status": "implemented",
   "owner": "BuildingService / BuildingWorld / BuildingController",
   "code_paths": ["godot/src/building"],
-  "verification": ["building", "building-integration", "visual-building", "building-restart"]
+  "verification": ["building", "building-integration", "visual-building", "building-restart", "progress-bars"]
 }
 ```
 
@@ -17,11 +17,13 @@
 | SEA-BUILDING-R01 | 已实现；本轮专项通过 | 菜单、手册与真实渲染 |
 | SEA-BUILDING-R02 | 已实现；本轮专项通过 | 陆地资格与未来策略注入 |
 | SEA-BUILDING-R03 | 已实现；本轮专项通过 | 成本、计时、重复与预览取消 |
-| SEA-BUILDING-R04 | 已实现；本轮专项通过 | 独立种植区与农场闭环 |
+| SEA-BUILDING-R04 | 已实现；边界改为整片木面，可跨板自由摆位 | 独立种植区与农场闭环；[摆位修正](../../development/2026-10-29_planter_free_placement.md) |
 | SEA-BUILDING-R05 | 已实现；本轮专项通过 | 行走、绕障与泊位保护 |
 | SEA-BUILDING-R06 | 已实现；本轮专项通过 | 冷热恢复、施工恢复与坏档 |
 | SEA-BUILDING-R07 | 已实现；本轮专项通过 | 无Autoload专项 |
 | SEA-BUILDING-R08 | 已实现；15项实景与几何检查通过，双水面吃水线可见 | [板底与电线杆摆位](../../development/2026-10-29_deck_draft_pole_placement.md) |
+| SEA-BUILDING-R09 | 已实现：施工条换成 92×8 px 自绘细条（原约 20 px） | `progress-bars` 26 项 0 失败；`building-integration` 38 项照旧通过；[本轮交付](../../development/2026-10-29_pickup_progress_bar.md) |
+| SEA-BUILDING-R10 | 已实现：点虚影先走过去，站定才扣料开工 | `building-approach` 18 项 0 失败；`visual-building` 24 项 0 失败；[本轮交付](../../development/2026-10-29_build_requires_approach.md) |
 
 实施与验证记录：[本轮交付](../../development/2026-10-28_building_delivery.md)。
 
@@ -30,3 +32,26 @@
 2026-10-29 00:32–00:40 复验（并行作物接入后的当前工作区）：`building` 20项、`building-integration` 38项、`building-seed` 5项、`building-restart` 8项、`visual-building` 19项全部PASS；同轮`farming` 35项、`minimum-loop` 77项、`framework-modules` 50项、`pocket-services` 28项、`save-corrupt-seed`、`save-protection`全部PASS。`check_architecture.py` 15服务0问题。`check_feature_contracts.py --sync`在00:35:16的窗口内为0问题，但随后并发的作物资产重写使crop源/运行期哈希漂移与`crops`高度断言失败，全局门禁当前为红，均由并行SEA-CROP任务承担，本功能未代其重算。`visual-building`首次在未导入的隔离工程中因新作物纹理缺失报20项资源错误，属并行作物的导入前置条件，`--import-assets`后复跑通过；该次失败不计作建造回归。证据目录`D:/projects/sea-work/verification/`下`20261029-003237-building-resume-7f7eed`、`20261029-003346-building-resume-visual-975be0`、`20261029-003551-building-resume-integration-8b4e07`。
 
 2026-10-29最终收尾：上述并行临时红项已清除。`--sync`及无参功能检查均PASS（35功能、459源资产、387运行期哈希、0问题）；架构检查15服务0问题。`20261029-080045-building-visual-layout-d983d2`导入及真实渲染再次PASS，鼠标/按键19检查0失败；已查看书本、虚影与种植完成截图。测试补齐初次点击前的延迟布局等待，002616超时轮保留为失败记录。
+
+2026-10-29 11:40–11:55 种植区摆位修正（R04）：旧判定把单块板内缩12厘米当边界，x容差仅±5.8厘米，比0.1米吸附步长还窄，因此光标离开板中心两三个像素就红，玩家实际上建不出种植区；同时`support`板只允许一格，跨板摆放不可能。改为以已完工木板的**并集**为边界（4厘米外缘边距）、只禁止与已有种植区重叠，`walk_rects` 对每块板减去每一个种植区footprint，接近点被拉回最近走道；越出木面不足0.4米时由`snap_planter`吸到最近合法格点，重叠与压角色不吸。`support` 降为主支撑板，旧档仍全部合法。`building` 29项、`building-integration` 38项、`building-restart` 8项、`building-seed` 5项、`visual-building` 21项全部0失败（新增接缝覆盖/单侧越界/缺口越界/偏离中心可建/贴边吸回/远处仍拒6条断言）。首轮`visual-building`有`rotate key`冷启动抖动，连续两轮复跑PASS并保留该失败记录。
+
+## 2026-10-29 建造要先走到工地
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-BUILDING-R10 | 已实现；点击虚影只排队，角色走到格子旁站定才扣材料开工 | [交付记录](../../development/2026-10-29_build_requires_approach.md) |
+
+旧实现 `handle_input` 里点击虚影直接 `service.begin(preview)`：五米外点一下，
+木板上就自己长出了进度条 —— 建造读起来像在 map 上点按钮，而不是在自己家里动手。
+
+新增 `building-approach` 专项：18 项断言，实测 `18 checks, 0 failures`，退出 0。
+覆盖：人还在远处时不开工也不扣料、等待期间虚影锁在目标格、走到位自动开工且只扣一次、
+开工后人确实站在工地边、退出建造模式清排队且不再自己开工、站在旁边点一下当场开工。
+
+控制器新增三个注入端口（`stand_point` / `approach` / `actor_state`），不读全局。
+`_construction_stand_point` 沿「角色这一侧」由近到远探 1.15/1.5/1.9/2.4 米，
+取第一个落在可走矩形且有通路的位置 —— 新木板格本身还没进可行走面，不能直接拿格心当目标。
+
+同轮复跑：`building` / `building-integration` / `building-restart` / `visual-building`（24 项）
+/ `unreachable-menu` / `interact-focus` / `board-click` / `farming` / `modules` / `pocket-bubbles`
+全部退出 0。整体状态仍 partial（拆除与海上施工未做）。

@@ -128,3 +128,14 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 | SEA-INVENTORY-R08 | 木料显示名改为木板，wood稳定ID、旧库存和堆叠40保留；新增soil（土壤），每格堆叠40，用于建造，购买与拾取须检查容量。 |
 
 [交付与实测](../../development/2026-10-28_building_delivery.md)。
+
+## 2026-10-29 背包排列与批量购买
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-INVENTORY-R09 | **排列顺序是 Inventory 自己的状态**，与数量一起存档。`ordered_ids()` 返回当前持有的非货币物品次序；`move_item(a,b)` 互换两者位置，`move_to_end(a)` 把物品挪到末尾；两者都只改顺序，**绝不改数量**。同种物品超过 `stack_limit` 拆出的几堆必须始终相邻，不因排序被打散。旧存档没有 `order` 字段必须照样能读，读档后退回物品表顺序；脏 order（不存在 / 已用光 / 货币 / 重复）全部过滤。`to_dict()` 只写当前还持有的物品，已用光的不占顺序位。 |
+| SEA-INVENTORY-R10 | 批量购买必须**原子**：`buy_seed(crop_id, amount)` 与 `buy_soil(amount)` 先算总价、一起检查背包余量与瓶盖，够才扣。不允许出现"扣了瓶盖只塞进去一部分"。被拒时瓶盖与物品数量都不变，返回 `blocked` 原因。单价 × 份数即为总价，不引入折扣或批量优惠。 |
+
+`order` 已进 `save_schema`（`list_of(string)`，**不进 required**，旧档兼容）。
+
+[交付与实测](../../development/2026-10-29_pocket_drag_buy.md)。

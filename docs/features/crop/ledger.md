@@ -43,6 +43,9 @@
 | SEA-CROP-R08 | 已实现：seed 类别、produce 存在、yield 键一致由 `validate()` 断言 | `crops` 一致性断言 |
 | SEA-CROP-R09 | 已实现：三品种 leaf 轮廓不同（放射结球 / 直立分层 / 匍匐藤蔓） | 阶段几何差异断言 + 待补真实渲染 |
 | SEA-CROP-R10 | 已实现：`ledgers/crops.json` 独立分账本 3 行，GLB 进运行清单 | `structure` 契约检查 |
+| SEA-CROP-R11 | 已实现：seed 0.07 → sprout 0.45 → leaf 0.48 → harvest 0.80（生菜高度，米）；首次浇水当次可见 | `visual-crops` 四阶段对照图 + `visual-plot-shipping` 游戏内 day-1 截图 |
+| SEA-CROP-R12 | 已实现：`FRAME_ENVELOPE` 构建期断言，12 阶段全部 ≤ 1.30 × 0.90 | 构建输出 `all stages within budget`，越界即 exit 2 |
+| SEA-CROP-R13 | 已实现：`farm_plot.gd` 按 `1/scale.y` 补偿；`_pop` 基于基准缩放 | `visual-plot-shipping` 游戏内地格截图 |
 
 ## 当前接口清单
 
@@ -74,5 +77,7 @@ CropStage：SEED / SPROUT / LEAF / HARVEST / KEYS / NODE_NAMES / count / key_of 
 - 新增作物须同时补：`crops.json` 一行、`art_source/crops/<id>/v001` 制作源、`godot/scenes/crops/<id>.tscn`、`ledgers/crops.json` 一行、`runtime_resource_inventory.json` 四条 GLB、`content_index.json` 的 ID 列表。
 
 ## 变更记录
+
+- 2026-10-29（第二轮）：按用户反馈调整体量。第 1 阶段从 0.2 米的芽放大到 0.45 米（三叶 + 嫩茎），解决「浇水后第二天才看得出变化」；第 3/4 阶段单株体积放大约 2.6x / 5x。暴露并修掉两个真问题：① 地格父级 `scale.y=0.65` 把作物压扁，容器补 `1/0.65`；② `_pop` 把补偿洗成 1，改成基于基准缩放。同时加入 `FRAME_ENVELOPE` 越界断言，防止放大后穿模。面数预算 900 → 1600，理由是造型目标变了而非数据超标。
 
 - 2026-10-29：从 SEA-FARM 拆出品种与形态，建立独立功能文档、独立账本、独立代码模块 `godot/src/crops`、独立资产分账本 `ledgers/crops.json`；三作物升级为四阶段正式资产，原 `farm_plot.gd` 内联几何移除。

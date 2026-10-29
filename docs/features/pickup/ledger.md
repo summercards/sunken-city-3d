@@ -19,7 +19,8 @@
     "visual-sea-style",
     "visual-fish-schools",
     "framework-integration",
-    "minimum-loop"
+    "minimum-loop",
+    "progress-bars"
   ]
 }
 ```
@@ -44,7 +45,7 @@
 
 ## 当前接口清单
 
-collect_crate / collect_fish / nearest_crate / nearest_school / to_dict / from_dict；collected、fish_collected；pickups 快照见存档协议。
+collect_crate / collect_fish / nearest_crate / nearest_school / to_dict / from_dict；collected、fish_collected；pickups 快照见存档协议。`try_pickup`（停船瞬收）已删除：停船只代表「可以开始捞」，结算由场景侧打捞计时触发。
 
 [模块接口约定](../../architecture/module_contracts.md) 给出跨功能依赖、状态机和持久化契约；兼容字段仅供已有调试工具，不作为新增业务写入口。
 
@@ -112,3 +113,16 @@ save_schema语义检查；SeaProps接受旧版显式reset；坏档不会重新�
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-PICKUP-R08 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+
+## 2026-10-29 拾取流程：停下才打捞
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-PICKUP-R09 | 已实现：三阶段状态机 IDLE → SAILING → GATHERING；航行段零进度，停稳且够得着才开捞，打捞走满才结算；`progress-bars` 45 项、`visual-pickup-progress` 12 项、`building-integration` 38 项全部 0 失败 | 推进到只剩 3 米仍在航行时条不出现；停稳后条从 0 出现、0.6 秒到 0.50、走满才进账；停稳但离目标 20 米时作废不打捞；`try_pickup` 瞬收路径已删除；[本轮交付](../../development/2026-10-29_pickup_progress_bar.md) |
+| SEA-PICKUP-R10 | 已实现：条挂**角色头顶**（1.35 米 + 16 px 屏幕偏移），`progress-bars` 覆盖 | 目标在相机背后时条仍可见、条心对准角色误差 < 2 px、条与目标投影点分开 1517 px、角色移动条跟随 242.8 px |
+
+三次失败都记在这里，不隐藏：
+
+1. 同日首版从点击那一刻就把 0% 的条挂在**目标上方**，船还在几十米外 —— 玩家读到的是"还没开始捞就已经有进度"。
+2. 之后改成"按剩余航程折算、最后 2 秒露条"，主人夜里实机仍然"看不到进度条"：条挂在目标上，而镜头跟着角色走，目标一偏出取景框条就一起消失。挂点改为**角色**。
+3. 再然后主人指出**根因不在表现层**：`PICK_REVEAL_SECONDS` 那套写法让船还在划、人还没停下，条就已经在走 —— "角色还没停船就开始走进度条，很不合理"。改成玩法状态机：航行段彻底没有进度，停稳才是「开始打捞」，打捞计时走满才结算。同时删掉 `try_pickup` 那一停就瞬收的旧路径（它与新规则自相矛盾），`PICK_REVEAL_SECONDS` 一并废弃。

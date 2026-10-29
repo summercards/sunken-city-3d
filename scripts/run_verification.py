@@ -27,6 +27,11 @@ TESTS = {
     'camera': ('tests/test_camera_follow.gd', r'\[camera-follow\].*failures=0'),
     # 交互热区必须跟着物体走：出货箱曾偏 2.07 米，看得见却点不到。
     'interact-focus': ('tests/test_interact_focus.gd', r'\[interact-focus\] \d+ checks, 0 failures'),
+    # 走不到的地方点开操作菜单：图标贴边可命中、菜单钉住、逐项写明原因。
+    # 交互热区按模型本体算：土箱之间的甲板缝不能被吞，否则点地面走不了路。
+    'pick-mesh': ('tests/test_pick_mesh.gd', r'\[pick-mesh\] \d+ checks, 0 failures'),
+    'visual-pick-mesh': ('tools/capture_pick_mesh.gd', r'\[shot\] done'),
+    'unreachable-menu': ('tests/test_unreachable_menu.gd', r'\[unreachable-menu\] \d+ checks, 0 failures'),
     # 点船 = 上船；靠岸图标随「点击会干什么」换宿主（岸上贴船、船上贴码头）。
     'board-click': ('tests/test_board_by_click.gd', r'\[board-click\] \d+ checks, 0 failures'),
     'ocean': ('tests/test_ocean.gd', r'\[ocean\].*failures=0'),
@@ -34,6 +39,8 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'walk-facing': ('tests/test_walk_facing.gd', r'\[walk-facing\] \d+ checks, 0 failures'),
+    'visual-walk-facing': ('tests/test_walk_facing.gd', r'\[walk-facing\] \d+ checks, 0 failures'),
     'visual-building-fit': ('tools/capture_building_fit.gd', r'\[building-fit\] \d+ checks, 0 failures'),
     'boat-water-contact': ('tests/test_boat_water_contact.gd', r'\[boat-water-contact\] \d+ checks, 0 failures'),
     'visual-boat-water-contact': ('tests/test_boat_water_contact.gd', r'\[boat-water-contact\] \d+ checks, 0 failures'),
@@ -41,7 +48,15 @@ TESTS.update({
     'building-restart': ('tests/test_building_restart.gd', r'\[building-restart\] \d+ checks, 0 failures'),
     'building': ('tests/test_building.gd', r'\[building\] \d+ checks, 0 failures'),
     'building-integration': ('tests/test_building_integration.gd', r'\[building-integration\] \d+ checks, 0 failures'),
+    # 建造要先走过去：点远处虚影只排队，站定了才扣材料开工。
+    'building-approach': ('tests/test_building_approach.gd', r'\[building-approach\] \d+ checks, 0 failures'),
+    # 浮层进度条：拾取/建造共用一份自绘细条，且拾取条只在最后约 2 秒航程出现。
+    # 这两点都不会报错，只会在画面上"看起来不对"，必须显式断言。
+    'progress-bars': ('tools/check_progress_bars.gd', r'\[progress-bars\] \d+ checks, 0 failures'),
+    # 拾取进度条的真实渲染证据：航行段不画条、贴近目标才画。
+    'visual-pickup-progress': ('tools/capture_pickup_progress.gd', r'\[pickup-progress\] \d+ checks, 0 failures'),
     'visual-building': ('tests/test_building_visual.gd', r'\[visual-building\] \d+ checks, 0 failures'),
+    'visual-build-approach': ('tools/capture_build_approach.gd', r'\[shot\] done'),
     'visual-submerged-water-light': ('tests/test_submerged_water_light.gd', r'\[submerged-water-light\] \d+ checks, 0 failures'),
     'submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
     'visual-submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
@@ -60,6 +75,10 @@ TESTS.update({
     'visual-pocket-services': ('tests/test_pocket_services.gd', r'\[pocket-services\].*0 failures'),
     'visual-cabin-dayparts': ('tests/test_cabin_dayparts.gd', r'\[cabin-dayparts\] \d+ checks, 0 failures'),
     'pocket-bubbles': ('tests/test_pocket_bubbles.gd', r'\[pocket-bubbles\].*0 failures'),
+    # 口袋拖拽整理 + 购买数量 +/−：顺序要持久化、买多份要原子。
+    'pocket-drag-buy': ('tools/check_pocket_drag_buy.gd', r'\[pocket-drag-buy\] \d+ checks, 0 failures'),
+    # 拖拽整理与购买数量的真实渲染：数量选择器长什么样、拖拽手感如何。
+    'visual-pocket-drag-buy': ('tools/capture_pocket_drag_buy.gd', r'\[pocket-ui\] \d+ checks, 0 failures'),
     'visual-pocket-bubbles': ('tests/test_pocket_bubbles.gd', r'\[pocket-bubbles\].*0 failures'),
     'sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
     'visual-sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
@@ -104,6 +123,9 @@ TESTS.update({
     'dock-seed': ('tests/test_dock_and_seed.gd', r'\[dock-seed\] \d+ checks, 0 failures'),
     # 出货箱与码头缆绳的间距：箱子落点在场景，缆绳在组件 GLB 里，改任一边都可能重新穿模。
     'dock-rope-clearance': ('tools/verify_box_rope.gd', r'\[dock-rope\] complete'),
+    # SEA-NAV-R11：150m 可航区横跨可航区常量、几何硬界、相机范围、存档回位四处，
+    # 单独改任一处都不会报错，只会让「船能开多远」在雷达图和实际上不一致。
+    'sail-bounds': ('tests/test_sail_bounds.gd', r'\[sail-bounds\] \d+ checks, 0 failures'),
 })
 EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
 

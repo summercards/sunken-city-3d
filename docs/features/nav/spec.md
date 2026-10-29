@@ -108,6 +108,16 @@
 
 [源、实景与新旧船对照](../../development/2026-10-28_reference_skiff.md)。
 
+## 2026-10-29 可航区扩大为 150m × 150m
+
+本节替代 SEA-NAV-R05 中的「最小版本合法航区」范围，R05 其余内容（同一矩形同时用于范围检查、导航网格与逐段验证）继续有效。R01–R04、R06–R10 不变。
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-NAV-R11 | 正式可航区为 150m × 150m，以原点为中心：x ∈ [−75, 75)、z ∈ [−75, 75)。该矩形由 `godot/src/core/play_scope.gd` 的 `SAIL_BOUNDS` 唯一拥有，WaterNavigation 只接收它，不得另写范围数字。几何硬界 `WORLD_WATER`（160m）与相机 `pan_bounds`（154m）必须包住可航区，`_safe_nav` 兜底网格与可航区同范围；任一处被单独改动时 `tests/test_sail_bounds.gd` 必须失败。五个已登记泊位（zone1 main/salvage、zone2、zone3、zone4、zone5）全部落在界内，四角开阔水面可规划航路。家园生活区 `HOME_WATER`（55m × 48m）不随之扩大，仍只用于采集物/鱼群生成、出生点与旧档迁移回位判定。 |
+
+[本轮交付](../../development/2026-10-29_sail_bounds_150m.md)。
+
 ## 2026-10-29 家园建造接入
 
 | 条款 ID | 规则 |

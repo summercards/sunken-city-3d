@@ -16,7 +16,9 @@ class_name OrbitCam
 @export var cam_near := 0.5
 @export var cam_far := 600.0
 ## 平移范围（x 起点, z 起点, 宽, 高），防止把镜头拖到虚空里。
-@export var pan_bounds := Rect2(-72.0, -82.0, 156.0, 156.0)
+## 必须包住 SEA-NAV 的 150m 可航区（x/z 各 -75..75），再各留 2m，
+## 否则船贴着航区边界时会「船在动、镜头被卡住」。
+@export var pan_bounds := Rect2(-77.0, -77.0, 154.0, 154.0)
 ## 俯角范围（度）。低于 22° 会看到海平面切口，高于 78° 会变成纯正俯视看不出立体。
 @export var pitch_min_deg := 22.0
 @export var pitch_max_deg := 78.0

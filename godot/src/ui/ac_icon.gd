@@ -20,6 +20,13 @@ var font: Font
 var hover_tween: Tween
 var count_tween: Tween
 var flash_tween: Tween
+## 能否拖拽整理。默认关闭：卡片、图标等其它用途不该被拖走。
+var drag_sortable := false
+## 拖拽所属的口袋编号（0=背包 / 1=下方池）。只允许在同一个池内互换。
+var drag_pool := -1
+## 拖拽落下时发出：把 `from_id` 放到 `to_id` 的位置。
+## `to_id` 为空串表示落在空槽 —— 宿主按"移到末尾"处理。
+signal drag_sorted(from_id: String, to_id: String)
 
 func _ready() -> void:
 	set_meta("cozy_skip", true)
@@ -63,6 +70,58 @@ func highlight() -> void:
 	flash = 1.0
 	flash_tween = create_tween()
 	flash_tween.tween_property(self,"flash",0.0,0.55)
+
+
+## --- 拖拽整理 ---------------------------------------------------------------
+##
+## 用 Godot 原生拖放：按住格子拖到另一个格子上松开。
+## 预览用同脚本再实例化一个"影子格"，所以拖起来就是那个图标本身在动，
+## 不必再为图标单独准备一张贴图。
+##
+## 只允许同一个池内互换（`drag_pool` 相同）：把背包里的菜拖到商店目录里
+## 没有意义（那是商品不是库存），拖过去只会让人以为买到了什么。
+
+## 拖拽载荷：纯数据，不含任何节点。
+##
+## 与 `set_drag_preview()` 分开是有意的：预览必须在**真实拖拽**里创建
+## （viewport 会接管并负责释放）。把两者绑在一起，任何"只想问一句
+## 这格能不能拖"的调用方都会顺手造出一个无人释放的影子节点。
+func drag_payload() -> Variant:
+	if not drag_sortable or empty_slot or kind == "": return null
+	return {"item_id": kind, "pool": drag_pool}
+
+
+func _get_drag_data(_at_position: Vector2) -> Variant:
+	var payload: Variant = drag_payload()
+	if payload == null: return null
+	var ghost: Control = get_script().new()
+	ghost.pocket = pocket
+	ghost.kind = kind
+	ghost.amount = amount
+	ghost.shown_amount = float(amount)
+	ghost.font = font
+	ghost.custom_minimum_size = Vector2(64,64)
+	ghost.size = Vector2(64,64)
+	ghost.modulate.a = 0.92
+	# 让影子格落在光标中心：packed 容器按左上角对齐，偏半个身位才对准指针。
+	var holder := Control.new()
+	holder.add_child(ghost)
+	ghost.position = Vector2(-32,-32)
+	set_drag_preview(holder)
+	return payload
+
+
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
+	if not drag_sortable: return false
+	if not (data is Dictionary): return false
+	if str(data.get("item_id","")) == "": return false
+	# 空槽也能接：表示"挪到末尾"，玩家拖到空位时不该被无视。
+	return int(data.get("pool",-1)) == drag_pool
+
+
+func _drop_data(_at_position: Vector2, data: Variant) -> void:
+	if not _can_drop_data(_at_position, data): return
+	drag_sorted.emit(str(data.get("item_id","")), "" if empty_slot else kind)
 
 func _process(delta: float) -> void:
 	if not is_visible_in_tree(): return

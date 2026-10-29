@@ -40,7 +40,7 @@
 | SEA-WORLD-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
-| SEA-WORLD-R05 | 部分实现：zone1 已由组件派生并清理空阻挡；其余区块已接入同一机制，但 zone2/zone3 的行走矩形仍为旧手工数据 | `visual-blockers` 空阻挡 0、漏阻挡 zone1 0.2%；zone4 接缝 12.9% 待区块重做。 [交付记录](../../development/2026-10-26_sea_scene_blockers.md) |
+| SEA-WORLD-R05 | 部分实现：zone1 已由组件派生并清理空阻挡；其余区块已接入同一机制，但 zone2/zone3 的行走矩形仍为旧手工数据 | `visual-blockers` 空阻挡 0、漏阻挡 zone1 2.4%；zone4 接缝 12.9% 待区块重做。水下基座改由组件声明 mode=none、水面阻挡只从「海上区域」派生，解除 zone1↔zone5 2.6m 水道的隐形墙（航路 42.7m→11.2m）。 [交付记录](../../development/2026-10-26_sea_scene_blockers.md)、[水下基座](../../development/2026-10-29_submerged_base_water_blocker.md) |
 | SEA-WORLD-R04 | 本轮表现与专项通过 | 环境静态鱼、尾鳍、圆环和点击圆盘退役；漂流物旧透明环退役，桶身金属环保留；源烘焙文件未修改，9 个区块 GLB 仅退役匹配的旧装饰三角索引。 [交付记录](../../development/2026-10-23_sea_visual_style.md) |
 | SEA-WORLD-R06 | 区域及导航注入端口保留；本轮增加zone_enabled_query | [模块框架](../../development/2026-10-27_modular_framework.md) |
 | SEA-WORLD-R07 | 本批实现并验证 | 15片旧荷叶精确退役840三角面，恢复另9片；独立组件与航路专项见本轮记录 |

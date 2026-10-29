@@ -10,6 +10,12 @@ class_name Interactable
 ##   4. UI 只反映「当前焦点」，不再把所有可点目标同时铺在屏幕上。
 ##
 ## 子类只负责：造型、can_interact()、interact()。
+##
+## 焦点反馈只走「焦点文案 + 悬浮图标」，世界里不再画聚焦环（2026-10-29 移除）。
+## 原因：环是贴地的 torus，尺寸按视觉包围盒的 3 倍上限放大。多格菜箱的包围盒
+## 覆盖整张 cultivation deck（约 5×6 米），于是环被撑到直径近 4 米；
+## 土箱又比环高，把环切成几段 —— 在俯视镜头里读成「甲板上随手划的一道白弧」，
+## 而不是「这个是焦点」。要复现这段画面：zone5 站到菜箱边，环就是那道弧。
 
 signal focus_changed(focused: bool)
 
@@ -24,7 +30,7 @@ signal focus_changed(focused: bool)
 @export var hold_time: float = 0.0
 @export var accent: Color = Color("#8fe8d6")
 
-## 热区锚点从哪来 —— 决定「交互判定、悬浮图标、聚焦环」三者共同的中心：
+## 热区锚点从哪来 —— 决定「交互判定、悬浮图标、编辑器热区预览」三者共同的中心：
 ##   geometry —— 跟随子节点的视觉包围盒（默认）。视觉挪到哪，热区就跟到哪；
 ##               摆场景时只管挪模型，不用再回来对齐一个看不见的锚点。
 ##   node     —— 固定在自己原点。只有「没有视觉几何、或需要精确锚点」时才用。
@@ -43,9 +49,6 @@ signal focus_changed(focused: bool)
 
 var focused := false
 
-var _ring: MeshInstance3D
-var _ring_mat: StandardMaterial3D
-var _ring_base_scale := Vector3.ONE
 var _t := 0.0
 ## 几何锚点缓存：视觉没动就不重复算包围盒。
 var _anchor_cache := Vector3.ZERO
@@ -58,9 +61,7 @@ var _heat_mat: StandardMaterial3D
 
 func _ready() -> void:
 	add_to_group("interactable")
-	_build_focus_ring()
 	_on_ready()
-	_sync_ring_to_anchor()
 
 
 func _process(delta: float) -> void:
@@ -68,27 +69,17 @@ func _process(delta: float) -> void:
 	# 但锚点要跟着视觉走 —— 摆场景时挪动模型，热区预览必须同步。
 	if Engine.is_editor_hint():
 		_update_heat_preview()
-		_sync_ring_to_anchor()
 		return
 	_t += delta
-	if _ring != null:
-		# 呼吸 + 缓慢自转：远处的焦点也能被一眼看到。
-		# 缩放在「按热区半径算出的基准尺寸」上叠加，不能直接覆盖 ——
-		# 否则环会退回固定大小，和热区对不上。
-		var s := 1.0 + sin(_t * 3.2) * 0.06
-		_ring.scale = Vector3(_ring_base_scale.x * s, 1.0, _ring_base_scale.z * s)
-		_ring.rotation.y += delta * 0.9
-		if focused:
-			_sync_ring_to_anchor()
 	_on_tick(delta)
 
 
-## 热区锚点（世界坐标）—— 交互判定、悬浮图标、聚焦环共用的唯一真相源。
+## 热区锚点（世界坐标）—— 交互判定、悬浮图标、编辑器热区预览共用的唯一真相源。
 ##
 ## 三个消费者必须都走这里，否则「看得见 / 点得到 / 走得到」会各说各话：
 ##   Interactor._refresh_target()  选目标时的距离
 ##   HoverCard                     悬浮卡片贴在哪
-##   focus ring / heat preview     视觉反馈画在哪
+##   heat preview                  编辑器里的判定范围画在哪
 func focus_position() -> Vector3:
 	if focus_anchor == "node":
 		return global_position + focus_offset
@@ -103,7 +94,7 @@ func effective_focus_radius() -> float:
 
 
 ## 几何锚点：视觉包围盒的 XZ 中心 + 本节点自身的高度。
-## Y 取节点原点是有意的 —— 环要贴在地面上，不能悬到箱子半腰。
+## Y 取节点原点是有意的 —— 热区预览要贴在地面上，不能悬到箱子半腰。
 func _geometry_anchor() -> Vector3:
 	var vis := visual_root()
 	if vis == null:
@@ -132,7 +123,7 @@ func _geometry_half_extent() -> float:
 
 
 ## 视觉根：优先叫 Visual 的子节点，否则取第一个非辅助子节点。
-## 聚焦环、热区预览、阻挡体都不算视觉。
+## 热区预览、阻挡体都不算视觉。
 func visual_root() -> Node3D:
 	var named := get_node_or_null("Visual")
 	if named is Node3D:
@@ -140,10 +131,10 @@ func visual_root() -> Node3D:
 	for c in get_children():
 		if not (c is Node3D):
 			continue
-		if c == _ring or c == _heat:
+		if c == _heat:
 			continue
 		var n := String(c.name)
-		if n == "FocusRing" or n == "HeatPreview" or n == "Blockers":
+		if n == "HeatPreview" or n == "Blockers":
 			continue
 		return c
 	return null
@@ -169,21 +160,6 @@ func visual_aabb() -> AABB:
 			first = false
 		stack.append_array(n.get_children())
 	return box
-
-
-## 把聚焦环挪到锚点。环是子节点，所以用局部坐标表达。
-func _sync_ring_to_anchor() -> void:
-	if _ring == null:
-		return
-	var local := focus_position() - global_position
-	_ring.position = Vector3(local.x, 0.09, local.z)
-	# 环要「围住」物件，不能埋在物件里 —— 大箱子的半宽比环本身还大，固定尺寸会被完全遮住。
-	# 按半宽 + 余量定尺寸；小物件（采集点等）仍保持原来的观感。
-	# 真正的判定范围由编辑器里的 heat preview 显示，两者不必一致。
-	var half := _geometry_half_extent()
-	var s := clampf((half + 0.35) / 0.56, 1.0, 3.0)
-	_ring_base_scale = Vector3(s, 1.0, s)
-	_ring.scale = _ring_base_scale
 
 
 ## 编辑器里选中本节点时显示热区圆盘：摆场景时能直接看见判定范围。
@@ -261,8 +237,6 @@ func focus_enter() -> void:
 	if focused:
 		return
 	focused = true
-	if _ring != null:
-		_ring.visible = true
 	focus_changed.emit(true)
 
 
@@ -270,26 +244,4 @@ func focus_exit() -> void:
 	if not focused:
 		return
 	focused = false
-	if _ring != null:
-		_ring.visible = false
 	focus_changed.emit(false)
-
-
-func _build_focus_ring() -> void:
-	var torus := TorusMesh.new()
-	torus.inner_radius = 0.44
-	torus.outer_radius = 0.56
-	torus.rings = 20
-	torus.ring_segments = 8
-	_ring = MeshInstance3D.new()
-	_ring.name = "FocusRing"
-	_ring.mesh = torus
-	_ring.position = Vector3(0, 0.06, 0)
-	_ring.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	_ring_mat = StandardMaterial3D.new()
-	_ring_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	_ring_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	_ring_mat.albedo_color = Color(accent.r, accent.g, accent.b, 0.75)
-	_ring.material_override = _ring_mat
-	_ring.visible = false
-	add_child(_ring)

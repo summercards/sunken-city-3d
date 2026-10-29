@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 [ext_resource type="Script" path="res://src/world/sunny_bloom_visual.gd" id="visual"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
 [node name="太阳能木屋-海下基座" type="Node3D"]
 script = ExtResource("visual")
 instance_data_path = "res://assets/models/facilities/bloom_lower_building/instances.json"
@@ -7,3 +8,12 @@ component_directory = "res://scenes/components/bloom_lower_building"
 module_key = "submerged_base"
 metadata/asset_id = "SEA-SCENE-BLB-ASSEMBLY"
 metadata/asset_version = "1.0"
+
+; 沉在水下的基座不参与水面阻挡：它的顶板只比水面高 4cm，auto 派生出
+; 16.4×17.6m 的隐形墙，把 zone1 与 zone5 之间唯一的 2.6m 水道整条封死
+; （航路被迫绕 42.7m）。船从这片水面开过去看到的就是水，不该有墙。
+; 露在水面以上的支撑柱、平台在上层「海上区域」里，由那边正常派生。
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "none"
+blocks_water = false

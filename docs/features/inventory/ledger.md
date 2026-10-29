@@ -22,7 +22,9 @@
     "minimum-loop",
     "visual-plot-shipping",
     "visual-pocket-bubbles",
-    "visual-pocket-services"
+    "visual-pocket-services",
+    "pocket-drag-buy",
+    "visual-pocket-drag-buy"
   ]
 }
 ```
@@ -101,3 +103,12 @@ Inventory.to_dict/from_dict；save_schema.inventory 为容量和计数契约；E
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-INVENTORY-R08 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+
+## 2026-10-29 背包排列与批量购买
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-INVENTORY-R09 | 已实现：`ordered_ids` / `move_item` / `move_to_end`，`order` 随数量一起存档且进 schema（不进 required） | `pocket-drag-buy` 覆盖互换、可逆还原、挪末尾、多堆相邻、存档往返、**旧档无 order 可读**、脏 order 过滤；[本轮交付](../../development/2026-10-29_pocket_drag_buy.md) |
+| SEA-INVENTORY-R10 | 已实现：`material_shop.buy_soil(amount)` / `farm.buy_seed(crop_id, amount)` 总价与余量一起检查，被拒时一分不扣 | `pocket-drag-buy` 覆盖"钱不够买 3 包被拒且不扣不加""背包满买 2 份被拒且不扣不加""买 2 份一起到账并按份扣款" |
+
+`try_pickup` 已于同批删除（见 SEA-PICKUP-R09），本功能接口清单不受影响。存档新增字段只增不改，旧档读取路径有专门断言。

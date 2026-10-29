@@ -27,8 +27,12 @@ func run() -> void:
 	for i in 12000:
 		if not main.boat.starts_sailing(): break
 		main.boat._steer(1.0/60)
+	# 到站只代表「可以开始捞」：第一帧进入打捞、但不进账。
 	main._process(0.0)
-	check(not main.boat.starts_sailing() and econ.count("wood")==sailing_wood+3,"sailing arrival picks up driftwood")
+	check(not main.boat.starts_sailing() and econ.count("wood")==sailing_wood,"arrival starts gathering without instant reward")
+	# 打捞走完才结算（浮木 1.2 秒，这里给 2 秒余量）。
+	for i in 120: main._process(1.0/60)
+	check(econ.count("wood")==sailing_wood+3,"gathering completion picks up driftwood")
 	var bag: Dictionary=econ.inventory.to_dict()
 	econ.inventory.from_dict({"capacity":1,"counts":{"parts":30}})
 	var population: int=main.props.crates.size()

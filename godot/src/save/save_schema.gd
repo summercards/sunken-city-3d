@@ -17,7 +17,11 @@ static func signed_integer_string(raw: String) -> bool:
 	if digits.length()==limit.length() and digits.casecmp_to(limit)>0: return false
 	return str(int(raw))==raw
 static func inventory() -> Dictionary:
-	return object({"capacity":integer(1,10000),"counts":map(integer())},["capacity","counts"])
+	# `order` 是玩家拖拽整理出的物品次序，2026-10-29 新增。
+	# **不进 required**：旧存档没有这个字段必须照样能读（读档后退回物品表顺序）。
+	# 但只要出现，就必须是字符串数组 —— 脏数据不能用它把界面搞崩。
+	return object({"capacity":integer(1,10000),"counts":map(integer()),
+		"order":list_of({"type":"string"},256)},["capacity","counts"])
 static func schemas() -> Dictionary:
 	var string := {"type":"string"}
 	var boolean := {"type":"bool"}

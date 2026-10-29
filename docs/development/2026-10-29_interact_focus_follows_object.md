@@ -53,6 +53,9 @@ func focus_position() -> Vector3:
 | `HoverCard` 图标锚点 | `spot.global_position` | `spot.focus_position()` |
 | 聚焦环位置 | 固定挂原点 | 每帧跟 `focus_position()` |
 
+> 聚焦环当天晚些时候整条移除（尺寸按整张甲板放大、被土箱切碎，读成一道白弧），
+> 见 [移除世界里的聚焦环](2026-10-29_remove_focus_ring.md)。锚点契约不变。
+
 配套两个开关：
 
 - `focus_anchor`：`geometry`（默认）或 `node`（无视觉几何时用，如睡眠点）。

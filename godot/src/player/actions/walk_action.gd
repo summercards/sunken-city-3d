@@ -35,7 +35,8 @@ func step(c, delta: float) -> bool:
 				c.cancel()
 				return false
 			c.actor.global_position = candidate
-			c.actor.rotation.y = lerp_angle(c.actor.rotation.y,atan2(-offset.z,offset.x),1.0-exp(-12.0*delta))
+			# Character 的脸、脚尖朝局部 +Z；偏航必须将 +Z 对齐行走方向。
+			c.actor.rotation.y = lerp_angle(c.actor.rotation.y,atan2(offset.x,offset.z),1.0-exp(-12.0*delta))
 		budget -= length
 		if distance<=length+0.0001: c.walk_path.pop_front()
 		else: break

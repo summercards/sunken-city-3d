@@ -27,7 +27,10 @@
     "visual-sleep-cycle",
     "visual-pocket-bubbles",
     "visual-pocket-services",
-    "visual-home-lighting"
+    "visual-home-lighting",
+    "progress-bars",
+    "pocket-drag-buy",
+    "visual-pocket-drag-buy"
   ]
 }
 ```
@@ -249,3 +252,13 @@ HUD增加公开表现入口set_follow_locked(bool)，Main查询OrbitCam.follow_e
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-UI-R41 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+| SEA-UI-R42 | 已实现：世界浮层进度条统一为自绘细条（建造 8 px / 拾取 6 px），带 `cozy_skip`；浮层挂点选"永远在画面里"的对象（拾取条挂角色头顶） | `progress-bars` 37 项 0 失败（含"过一遍 cozy 主题仍是 6 px""目标在相机背后时条仍可见"）；[本轮交付](../../development/2026-10-29_pickup_progress_bar.md) |
+
+## 2026-10-29 背包拖拽整理与购买数量
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-UI-R43 | 已实现：服务口袋与 B 键纯背包的背包格都可拖拽互换/挪到末尾；商店目录不可拖、也不接背包物品 | `pocket-drag-buy` 44 项 0 失败（含"界面按排列摆格""落下后立即重排""拖拽不改数量""商店目录不接受落下"）；`visual-pocket-drag-buy` 真实鼠标按下→移动→松开后顺序实测由 `fish,vegetable,tomato` 变 `tomato,vegetable,fish`；[本轮交付](../../development/2026-10-29_pocket_drag_buy.md) |
+| SEA-UI-R44 | 已实现：`[−] N [+]` + 「购买 N」，上限取瓶盖与背包余量的较小值并置灰封顶 | `pocket-drag-buy` 覆盖"默认 1""点两次 + 变 3""减号回退""买 2 扣 2 倍价并到手 2 包""只够 1 个时 ± 都置灰"；真实截图见 `pocket-buy-1.png` / `pocket-buy-3.png` |
+
+两处都改了对接层：`pocket_service` 新增 `sort_requested` 信号（界面不算账，只把意图转给宿主），`hud._service_sort` 落到 `Inventory`。快照额外带上 `bag_order` / `other_order` / 每件商品的 `max_buy`。

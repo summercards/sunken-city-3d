@@ -20,6 +20,9 @@
 |---|---|
 | SEA-CROP-R01 | 品种定义的唯一可编辑源是 `godot/assets/data/crops.json`。每个品种含稳定 `id`、`name`、`icon`、`seed`、`produce`、`grow_days`、`regrow_days`、`harvests`、`seed_price`、`yield`、`color`、`model`、`stage_labels`、`desc`。代码中不得写死品种名、品种数量或阶段名；增删品种只改本文件。 |
 | SEA-CROP-R02 | 每个品种有且只有四个可见阶段：`seed`（种子）、`sprout`（发芽）、`leaf`（二次发芽·抽叶）、`harvest`（收成）。阶段由生长进度唯一决定，公式固定：`phase=="ready" → 3`；`p ≤ 0.001 → 0`；`p < 0.5 → 1`；否则 `2`。以 `grow_days=3` 为例，剩余 3/2/1/0 天分别对应 0/1/2/3，不得跳阶段，不得用同一套几何冒充两个阶段。 |
+| SEA-CROP-R11 | 相邻阶段必须在游戏默认镜头距离下一眼可分。判定量化：`harvest` 高度 ≥ `leaf` 高度 × 0.9，`leaf` 高度 ≥ `sprout` 高度 × 1.0，`sprout` 高度 ≥ `seed` 高度 × 3。首次浇水后**当次**必须看出变化，不允许"要到第二天才看得见"。`sprout` 至少三片叶并带可见嫩茎。 |
+| SEA-CROP-R12 | 单格合成体必须落在木框外沿内（X ≤ 1.30，Z ≤ 0.90，Blender 坐标 Y 深度对应 Godot Z）。构建期越界即失败，不放宽框、不靠相邻地格重叠凑体量。放大靠「减株数 / 收簇距 / 堆高度」，不靠整体缩放。 |
+| SEA-CROP-R13 | 作物容器必须抵消父级非等比缩放。地格实例是 `scale=(1.38, 0.65, 1.75)`，作物作为子节点会被压到 65% 高；容器 Y 取 `1/scale.y` 补偿，X/Z 保留父缩放以铺满被拉大的木框。动作弹跳必须基于基准缩放，不得把补偿洗成 `Vector3.ONE`。 |
 | SEA-CROP-R03 | 每个品种 × 每阶段都有独立美术资产与独立节点。场景内节点名固定为 `Stage0Seed` / `Stage1Sprout` / `Stage2Leaf` / `Stage3Harvest`；切换只改 `visible`。禁止运行时用 `scale=0`、`queue_free()` 或材质替换来"假装"切阶段。 |
 | SEA-CROP-R04 | 作物几何只从 `godot/scenes/crops/<crop_id>.tscn` 装配。地格视图（SEA-FARM 的 `farm_plot.gd`）不得内联构造任何作物网格；替换作物外观只改 json 的 `model` 与场景，不碰规则代码。 |
 | SEA-CROP-R05 | 规则层只查询品种数值，不持有几何、不引用场景资源；表现层只读品种定义，不回写生长状态。`CropCatalog` 无节点、无 Autoload、无场景依赖，可在隔离测试中直接 `new()` 并加载。 |

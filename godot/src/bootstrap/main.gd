@@ -123,6 +123,36 @@ var _press_pos := Vector2.ZERO
 var _world_press := false
 var _dragged := false
 var _pending_pick := {}
+## 拾取进度条（漂流浮木 / 鱼群）。故意不加静态类型：
+## PickupProgress 的 begin/set_ratio/refresh 等方法不在 CanvasLayer 基类上。
+var pickup_progress = null
+## 一次海上拾取的生命周期。**这是玩法状态，不是表现状态。**
+##
+##   IDLE      —— 没有拾取。
+##   SAILING   —— 点了浮木/鱼群，船正朝它划过去。这一段**没有任何进度**，
+##                因为人还没开始捞，只是在赶路。
+##   GATHERING —— 船**已经停稳**、目标在打捞范围内，正在捞。进度从这个阶段
+##                的第一帧才出现，走完才结算。
+##
+## 为什么要分成三段：早先拿「剩余航程 / 总航程」当进度，结果船还在划、
+## 人还没碰到东西，条就已经在走了 —— 玩家读到的是「我明明还没开始捞」。
+## 拾取本来就是「停下来做的动作」，所以先停下、再开始、才有进度。
+const PICK_PHASE_IDLE := 0
+const PICK_PHASE_SAILING := 1
+const PICK_PHASE_GATHERING := 2
+
+## 打捞耗时（秒）。这是本轮新增的玩法时长（原先到站瞬收）。
+##   浮木 1.2 秒：木头捆就在船舷边，弯腰一捞。
+##   鱼群 1.6 秒：要下网兜一圈，比捞木头慢一点。
+## 只决定「停下之后捞多久」，不影响航速、奖励数量与掉率。
+const PICK_GATHER_CRATE := 1.2
+const PICK_GATHER_FISH := 1.6
+
+var _pick_phase := PICK_PHASE_IDLE
+## 当前阶段剩余秒数（只有 GATHERING 用）。
+var _pick_left := 0.0
+## 当前这次打捞的总时长（用来算比例，避免每帧再查类型）。
+var _pick_span := 1.0
 ## 点登陆标记时的意图：靠妥这一趟之后是否直接上岸。
 ## 玩家点「浅水养殖台」想要的是「过去并站上去」，不是「开过去还坐在船里」。
 ## 中途取消/改道必须清掉，否则下一条航线会莫名把人送下船。
@@ -173,7 +203,7 @@ func _ready() -> void:
 	get_viewport().use_debanding = true
 	navigation.shape_query = func(): return _water_shapes() + (building_world.water_shapes() if building_world!=null else [])
 	Zones.zone_enabled_query = Scope.zone_enabled
-	if Scope.minimal(): navigation.allowed_area = Scope.HOME_WATER
+	if Scope.minimal(): navigation.allowed_area = Scope.SAIL_BOUNDS
 	Zones.far_sea_query = func() -> bool: return GameState.far_sea_unlocked
 	_setup_environment()
 	_setup_lights()
@@ -192,6 +222,7 @@ func _ready() -> void:
 	cam.target = player.global_position + Vector3.UP*0.7
 	cam.apply_pose()
 	_setup_props()
+	_setup_pickup_progress()
 	_setup_dive()
 	_setup_hud()
 	_setup_shipping_box()
@@ -625,7 +656,7 @@ func _try_walk(screen: Vector2) -> bool:
 	var area: Node3D = hit.area
 	var point: Vector3 = hit.point
 	_auto_target = null
-	_pending_pick.clear()
+	_cancel_pending_pick()
 	interactor.auto_hold = false
 	if _start_walk(area, Vector3(point.x, area.surface_y, point.z)):
 		reticle.show_at(Vector3(point.x,area.surface_y,point.z))
@@ -668,7 +699,7 @@ func _try_sail_to(screen: Vector2) -> bool:
 	if path.is_empty():
 		hud.toast("这里没有可通行航路")
 		return true
-	_pending_pick.clear()
+	_cancel_pending_pick()
 	_ashore_on_arrival = false
 	# 落点不再叠加第二套波纹：目标点的水纹（ribbon）从零开始散，
 	# 位置和点击点重合，再放一个准星只会多出一圈相位不同的干扰。
@@ -843,7 +874,7 @@ func _setup_boat() -> void:
 				if school.has_method("set_water"):
 					school.set_water(water_node)
 	boat.navigation_blocked.connect(func() -> void:
-		_pending_pick.clear()
+		_cancel_pending_pick()
 		_ashore_on_arrival = false
 		actor_controller.request_mode(GameState.Mode.ON_BOAT)
 		player.set_rowing(false)
@@ -1273,7 +1304,7 @@ func _sail_to_landing(l: Dictionary, zone_id: String, landing_id: String, then_a
 	if path.is_empty():
 		hud.toast("无法到达该泊位")
 		return false
-	_pending_pick.clear()
+	_cancel_pending_pick()
 	_ashore_on_arrival = then_ashore
 	return _depart(func() -> void:
 		boat.sail_to(goal, float(l.boatYaw), zone_id, landing_id, path)
@@ -1302,6 +1333,9 @@ func _setup_hover() -> void:
 	hover.camera = cam
 	hover.markers = markers
 	hover.props = props
+	# 走不到的目标不给悬停图标、不改指针 —— 有图标就等于「这里能点」，
+	# 玩家点了却弹不出东西，只会觉得界面坏了。判定与点击提示共用同一个函数。
+	hover.reach_gate = _land_reach_reason
 
 
 ## 悬停与自动交互每帧更新：面板打开 / 潜水时整体关掉，避免抢指针。
@@ -1392,7 +1426,7 @@ func _pointer_pos() -> Vector2:
 ## 点击「走过去」，到位后由 _update_pointer_ui 打开自动长按。
 func _approach(node: Node3D) -> bool:
 	if not actor_controller.approach(node): return false
-	_pending_pick.clear()
+	_cancel_pending_pick()
 	if reticle != null: reticle.show_at(_walk_target)
 	return true
 
@@ -1400,7 +1434,10 @@ func _approach(node: Node3D) -> bool:
 func _activate_hover(hit: Dictionary) -> bool:
 	match str(hit.get("type", "")):
 		"spot":
-			_open_spot_bubbles(hit.node)
+			# 把命中点的屏幕位置一并带过去：目标远到投影出屏时，
+			# 气泡靠它钉在玩家点下去的地方，而不是「开一帧就关」。
+			var at: Variant = hit.get("screen", Vector2.INF)
+			_open_spot_bubbles(hit.node, at if at is Vector2 else Vector2.INF)
 			return true
 		"landing":
 			_select_landing(hit.hit)
@@ -1452,6 +1489,21 @@ func _setup_props() -> void:
 	props.fish_collected.connect(_on_fish_collected)
 
 
+## 海上拾取的进度条：角色头顶的一条细进度，表示「船还有多远到货」。
+##
+## 单独一个模块（src/pickups/pickup_progress.gd），主场景只负责接线：
+## 什么时候开始、进度是多少、什么时候收。
+##
+## 挂角色而不是挂目标：镜头跟着角色走，目标一偏出取景框条就一起消失，
+## 玩家在最需要看进度的那几秒反而什么都没有。角色永远在画面里。
+func _setup_pickup_progress() -> void:
+	pickup_progress = preload("res://src/pickups/pickup_progress.gd").new()
+	pickup_progress.name = "PickupProgress"
+	add_child(pickup_progress)
+	pickup_progress.camera = cam
+	pickup_progress.subject = player
+
+
 ## 海底是独立地图：整棵 UnderwaterWorld 一直挂在主线里，平时隐藏，
 ## 下潜时切相机 + 换 Environment（海面物体整体隐藏）。
 func _setup_dive() -> void:
@@ -1501,7 +1553,7 @@ func _setup_hud() -> void:
 func _cancel_action() -> void:
 	if hud != null: hud.world_actions.close(true)
 	actor_controller.cancel()
-	_pending_pick.clear()
+	_cancel_pending_pick()
 	_ashore_on_arrival = false
 	if dive.active: dive.cancel_navigation()
 	if ribbon != null: ribbon.clear()
@@ -1655,6 +1707,14 @@ func _unhandled_input(event: InputEvent) -> void:
 				# 在释放点重新命中，避免读取拖动前的旧目标。
 				if _activate_hover(hover._pick(mb.position)):
 					return
+				# 走不到的可交互物：不弹菜单，只说明为什么过不去。
+				# 这不是「多此一举的提示」—— 少了它，玩家点了远处箱子什么都没发生。
+				var barred: Dictionary = hover._pick(mb.position, true)
+				if str(barred.get("type", "")) == "spot":
+					var why := str(barred.get("barred", ""))
+					if why != "":
+						hud.toast(why)
+						return
 			var prop: Dictionary = props.pick(mb.position, cam)
 			if not prop.is_empty():
 				_handle_prop_click(prop)
@@ -1741,7 +1801,7 @@ func _handle_prop_click(prop: Dictionary) -> void:
 		boat.sail_to(goal, boat.rotation.y, GameState.current_zone, GameState.landing_id, path)
 		if ribbon != null:
 			ribbon.show_route(boat.route, WATER_LEVEL)
-		_pending_pick = {"type": "fish", "item": school}
+		_begin_pick_sail({"type": "fish", "item": school})
 	else:
 		var crate: Dictionary = prop.item
 		var target2: Vector3 = crate.base
@@ -1756,8 +1816,129 @@ func _handle_prop_click(prop: Dictionary) -> void:
 		boat.sail_to(goal2, boat.rotation.y, GameState.current_zone, GameState.landing_id, path2)
 		if ribbon != null:
 			ribbon.show_route(boat.route, WATER_LEVEL)
-		_pending_pick = {"type": "crate", "item": crate}
+		_begin_pick_sail({"type": "crate", "item": crate})
 	actor_controller.request_mode(GameState.Mode.SAILING)
+
+
+## 点了浮木/鱼群：进入「航行」阶段。
+##
+## 这个阶段**不显示任何进度**：船还没到，人也还没开始捞。
+## 条只是被重置成隐藏状态（清掉上一轮可能残留的满格）。
+func _begin_pick_sail(pick: Dictionary) -> void:
+	_pending_pick = pick
+	_pick_phase = PICK_PHASE_SAILING
+	_pick_left = 0.0
+	if pickup_progress != null:
+		pickup_progress.begin()
+		pickup_progress.hide_bar()
+
+
+## 船停稳且目标够得着：进入「打捞」阶段。
+##
+## 这里才是「开始拾取」的时刻 —— 进度条从这一帧起出现在角色头顶，
+## 从 0 走到 1，走满才结算。时长按目标类型给（浮木 1.2 / 鱼群 1.6 秒）。
+func _begin_pick_gather() -> void:
+	_pick_phase = PICK_PHASE_GATHERING
+	var is_fish: bool = str(_pending_pick.get("type", "")) == "fish"
+	_pick_span = PICK_GATHER_FISH if is_fish else PICK_GATHER_CRATE
+	_pick_left = _pick_span
+	if pickup_progress != null:
+		pickup_progress.begin()
+		pickup_progress.set_ratio(0.0)
+		pickup_progress.refresh()
+
+
+## 打捞走完：真正结算（记账、移除目标、补货计时都在 props 里）。
+##
+## 只有结算成功才让条停在满格；背包满等失败情况直接收条，
+## 不然玩家会看到一条满格的条却什么都没进包。
+func _finish_pick() -> void:
+	var pick: Dictionary = _pending_pick
+	_pending_pick = {}
+	_pick_phase = PICK_PHASE_IDLE
+	_pick_left = 0.0
+	var got := false
+	if props != null:
+		if str(pick.get("type", "")) == "fish":
+			got = props.collect_fish(pick.item)
+		else:
+			got = not props.collect_crate(pick.item).is_empty()
+	if pickup_progress != null:
+		if got:
+			pickup_progress.complete()
+		else:
+			pickup_progress.clear()
+
+
+## 船停稳之后，目标是否真的在打捞范围内。
+##
+## 必须查这一下：船半路被岸线挡住也会「停」，那时候离目标还有几十米，
+## 不校验就会在原地对着空气捞 1.2 秒，然后什么都没收到。
+## 浮木沿用结算原本的 2.2 米，鱼群用 props 自己的捕捞半径。
+func _pick_in_reach() -> bool:
+	if props == null: return false
+	var item: Dictionary = _pending_pick.get("item", {})
+	var root = item.get("root")
+	if not (root is Node3D) or not is_instance_valid(root): return false
+	var d: float = Vector2(root.position.x - boat.position.x,
+		root.position.z - boat.position.z).length()
+	var reach: float = props.FISH_PICKUP_RADIUS \
+		if str(_pending_pick.get("type", "")) == "fish" else 2.2
+	return d <= reach
+
+
+## 取消一次待拾取：清掉待办、退回空闲并收起进度条。
+##
+## 进度条必须跟着一起收：目标没了还挂着一条永远不走的条，比不画更误导。
+func _cancel_pending_pick() -> void:
+	_pending_pick = {}
+	_pick_phase = PICK_PHASE_IDLE
+	_pick_left = 0.0
+	if pickup_progress != null:
+		pickup_progress.clear()
+
+
+## 每帧推进拾取。**航行段只判断「到没到」，打捞段才走进度。**
+##
+## 顺序即语义：
+##   1. 航行中 → 条一直藏着（这一段是赶路，不是拾取）。
+##   2. 船停了 → 够得着就开始打捞（条从 0 出现）；够不着就作废。
+##   3. 打捞中 → 计时推进，条跟着走；走满结算。
+func _update_pickup_progress(delta: float) -> void:
+	if pickup_progress == null: return
+	pickup_progress.tick(delta)
+	if _pick_phase == PICK_PHASE_SAILING:
+		if boat.starts_sailing():
+			pickup_progress.hide_bar()
+			return
+		# 停稳了：够得着才算真的开始捞。
+		if _pick_in_reach():
+			_begin_pick_gather()
+		else:
+			_cancel_pending_pick()
+		return
+	if _pick_phase != PICK_PHASE_GATHERING: return
+	# 潜水时暂停打捞（人不该一边下潜一边捞木头），进度也冻住。
+	if dive.active: return
+	_pick_left = maxf(_pick_left - delta, 0.0)
+	pickup_progress.set_ratio(1.0 - _pick_left / maxf(_pick_span, 0.001))
+	pickup_progress.refresh()
+	if _pick_left <= 0.0:
+		_finish_pick()
+
+
+## 没有点击、船自己停在浮木旁边：同样走「停下 → 打捞」。
+##
+## 原先这里是 try_pickup 一停就瞬收。两条路径必须同一套语义：
+## 只有停下来才捞得到东西，否则「点过去」要打捞、「自己划过去」瞬收，
+## 玩家会觉得规则自相矛盾。
+func _start_idle_pick() -> void:
+	if _pick_phase != PICK_PHASE_IDLE: return
+	if props == null or boat.starts_sailing() or dive.active: return
+	var near: Dictionary = props.nearest_crate(boat.position, props.PICKUP_RADIUS)
+	if near.is_empty(): return
+	_pending_pick = {"type": "crate", "item": near}
+	_begin_pick_gather()
 
 
 func _on_crate_collected(_kind: String, label: String, reward: Dictionary) -> void:
@@ -1932,21 +2113,12 @@ func _process(delta: float) -> void:
 	_active_water_mat().set_shader_parameter("u_time", _t)
 	if water_node.has_method("update_surface") and not dive.active:
 		water_node.update_surface(_t, boat, cam.target)
+	# 拾取：推进当前这一轮（航行→打捞→结算都在里面）。
+	_update_pickup_progress(delta)
+	# 没有点击、船自己停在浮木旁边：也走同一套「停下才打捞」。
+	# 顺序在推进之后：先让上一轮结算/收条，再考虑开新一轮。
 	if props != null and not dive.active:
-		var stopped: bool = not boat.starts_sailing()
-		if not _pending_pick.is_empty() and stopped:
-			var pending: Dictionary = _pending_pick
-			_pending_pick = {}
-			if pending.type == "fish":
-				props.collect_fish(pending.item)
-			else:
-				var target_root: Node3D=pending.item.get("root")
-				if is_instance_valid(target_root) and Vector2(target_root.position.x-boat.position.x,target_root.position.z-boat.position.z).length()<=2.2:
-					props.collect_crate(pending.item)
-		elif stopped:
-			var got: Dictionary = props.try_pickup(boat.position, true)
-			if not got.is_empty():
-				hud.toast("%s · %s" % [got.label, "  ".join(_reward_parts(got.reward))])
+		_start_idle_pick()
 	if boat != null:
 		_active_water_mat().set_shader_parameter("u_boat", boat.wake_uniform())
 
@@ -2118,12 +2290,52 @@ func _setup_building() -> void:
 		water_node.set_runtime_contact_rects(building_world.contact_rects()))
 	building.completed.connect(func(_id): props.apply_population_scope())
 	building_controller=preload("res://src/building/building_controller.gd").new();add_child(building_controller)
-	building_controller.configure(building,building_world,cam,hud,Economy.inventory.all,actor_controller.cancel)
+	building_controller.configure(building,building_world,cam,hud,Economy.inventory.all,actor_controller.cancel,
+		_construction_stand_point,_construction_walk,_construction_actor_state)
 	hud.material_shop=preload("res://src/building/material_shop.gd").new();hud.material_shop.inventory=Economy.inventory
 
 func _bind_constructed_plot(plot: Node3D) -> void:
 	plot.use_action_menu=true
 	if not plot.interaction_requested.is_connected(_open_plot_options): plot.interaction_requested.connect(_open_plot_options)
+
+## 施工时角色该站哪：目标格旁最近的、走得到的落脚点。
+##
+## 新木板格本身还不在可行走面上（要建完才算地面），所以不能直接把格心当目标 ——
+## 沿「角色这一侧」的方向往外探几个半径，取第一个落在可走矩形里、且有通路的位置。
+## 都探不到就退回到「把格心夹到最近的可行走面」，避免在平台边缘建造成死局。
+func _construction_stand_point(center: Vector3) -> Vector3:
+	var zone: Node = _zone_nodes.get("zone5")
+	if zone == null: return Vector3.INF
+	var actor: Vector3 = player.global_position
+	var dir := actor - center
+	dir.y = 0.0
+	if dir.length() < 0.05: dir = Vector3(0.0, 0.0, 1.0)
+	dir = dir.normalized()
+	for radius in [1.15, 1.5, 1.9, 2.4]:
+		var probe: Vector3 = center + dir * radius
+		for ground in zone.walk_areas:
+			if not ground.contains_world(probe.x, probe.z): continue
+			if ground.path_between(actor, probe).is_empty(): continue
+			return Vector3(probe.x, ground.surface_y, probe.z)
+	for ground in zone.walk_areas:
+		var q: Vector2 = ground.clamp_point(center.x, center.z)
+		var point := Vector3(q.x, ground.surface_y, q.y)
+		if Vector2(point.x - center.x, point.z - center.z).length() < 0.35: continue
+		if ground.path_between(actor, point).is_empty(): continue
+		return point
+	return Vector3.INF
+
+## 施工前走过去。走不到就返回 false，由建造控制器说明原因，不给「原地开工」的捷径。
+func _construction_walk(point: Vector3) -> bool:
+	var zone: Node = _zone_nodes.get("zone5")
+	if zone == null: return false
+	var ground: Variant = zone.area_containing(point.x, point.z)
+	if ground == null: return false
+	if hud != null: hud.world_actions.close(true)
+	return actor_controller.start_walk(ground, point)
+
+func _construction_actor_state() -> Dictionary:
+	return {"position": player.global_position, "walking": actor_controller.walking()}
 
 func _restore_building(data: Dictionary) -> void:
 	building_controller.close()
@@ -2156,9 +2368,9 @@ func capture_world_state() -> Dictionary:
 func restore_world_state(data: Dictionary) -> void:
 	data = data.duplicate(true)
 	var old_pose: Array = data.get("boat",[])
-	if Scope.minimal() and (not Scope.zone_enabled(str(data.get("zone","zone1"))) or (old_pose.size()==4 and not Scope.HOME_WATER.has_point(Vector2(old_pose[0],old_pose[2])))):
+	if Scope.minimal() and (not Scope.zone_enabled(str(data.get("zone","zone1"))) or (old_pose.size()==4 and not Scope.SAIL_BOUNDS.has_point(Vector2(old_pose[0],old_pose[2])))):
 		data.merge({"zone":"zone1","landing":"main","mode":1,"boat":[],"player":[]},true)
-	_pending_pick.clear()
+	_cancel_pending_pick()
 	_ashore_on_arrival = false
 	actor_controller.cancel()
 	GameState.far_sea_unlocked = bool(data.get("far_sea",false))
@@ -2274,17 +2486,35 @@ func _open_plot_options(plot_id: String) -> void:
 	if plot == null or _title_active: return
 	_open_spot_bubbles(plot)
 
+## 气泡锚点：和判定、悬浮图标同一个 `focus_position()`，只是抬到物体上半身。
+##
+## 以前这里用 `global_position`（节点原点），而判定用视觉包围盒中心 —— 出货箱两者
+## 差 2 米，菜单会开在箱子旁边的空地上。目标整块投影出屏时返回 null，
+## 由 `_open_spot_bubbles` 的屏幕兜底接住。
 func _bubble_anchor(spot: Node3D) -> Callable:
 	return func() -> Variant:
 		if not is_instance_valid(spot) or not spot.is_visible_in_tree(): return null
-		var world: Vector3 = spot.global_position+Vector3.UP*0.45
+		var base: Vector3 = spot.focus_position() if spot.has_method("focus_position") else spot.global_position
+		var world: Vector3 = base+Vector3.UP*0.45
 		if cam.is_position_behind(world): return null
 		var screen: Vector2=cam.unproject_position(world)
 		if not get_viewport().get_visible_rect().grow(24).has_point(screen): return null
 		return screen
 
-func _open_spot_bubbles(spot: Node3D) -> void:
+## 展开一处可交互物的操作菜单。
+##
+## 走不到就不弹（2026-10-29 二次修订）。上一版是「照弹菜单、把每一项涂灰写原因」，
+## 玩家的反馈很直接：一个能点、能展开、全是灰的菜单，读起来就是界面坏了，
+## 而且它出现的位置本身就在告诉玩家「这个东西现在能操作」。
+## 现在的规则：
+##   1. 陆地状态下走不到的目标，点它只 toast 一句原因，不弹菜单、不显示悬浮图标；
+##   2. 够得着的目标照常弹，选项只反映业务规则（缺种子 / 已浇水）。
+func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 	if not is_instance_valid(spot): return
+	var unreachable: String = _land_reach_reason(spot)
+	if unreachable != "":
+		hud.toast(unreachable)
+		return
 	actor_controller.cancel()
 	var options: Array = []
 	if spot.is_in_group("farm_plots"):
@@ -2296,7 +2526,7 @@ func _open_spot_bubbles(spot: Node3D) -> void:
 			# 背包里有种子就一定弹二级：选哪一包、还剩几包，必须由玩家确认。
 			# 以前「只有一种就直接种」会让手里拿着三包生菜的人点一下就没得选，
 			# 也看不出刚才种掉的是哪一包。
-			options.append({"id":"plant","icon":"plant","label":"种植","blocked":access if access!="" else ("背包里没有种子，可到商店购买" if owned.is_empty() else ""),"command":func(): _open_seed_bubbles(spot)})
+			options.append({"id":"plant","icon":"plant","label":"种植","blocked":access if access!="" else ("背包里没有种子，可到商店购买" if owned.is_empty() else ""),"command":func(): _open_seed_bubbles(spot, screen)})
 			# 空地才摆出「浇水 / 收获」两颗灰项，说明这格还能做什么。
 			options.append({"id":"water","icon":"water","label":"浇水","blocked":access if access!="" else "种下种子后再浇水"})
 			options.append({"id":"harvest","icon":"harvest","label":"收获","blocked":access if access!="" else "还没有成熟的作物"})
@@ -2327,7 +2557,63 @@ func _open_spot_bubbles(spot: Node3D) -> void:
 		elif str(spot.verb).contains("挖"): icon="dig"
 		var blocked := str(spot.blocked_reason()) if spot.has_method("blocked_reason") else ""
 		options.append({"id":"interact","icon":icon,"label":str(spot.verb),"blocked":blocked,"command":func(): _approach(spot)})
-	hud.open_world_actions(_bubble_anchor(spot),options)
+	hud.open_world_actions(_bubble_anchor(spot),options,"",screen)
+
+## 这一处目标，从玩家脚下能不能走过去？空串表示能。
+##
+## 只看陆地：人在船上或水里时不做预检 —— 那种情况 `approach` 自己会先靠岸，
+## 提前判死会让「在船上点岸上的箱子」变成一堆点不动的目标。
+##
+## 分三类原因，因为玩家能做的补救不一样：
+##   别的区域 → 需要坐船过去；同一区域但断开 → 中间真的没有路。
+##
+## 悬停层每帧都会问，所以带 350ms 缓存：路径规划不算便宜，
+## 全场景每个候选都现算会把悬停拖卡。过期就重算 —— 走两步之后结论可能就变了。
+var _reach_cache := {}
+const REACH_TTL_MS := 350
+
+func _land_reach_reason(spot: Node3D) -> String:
+	if actor_controller.mode() != 0: return ""
+	if spot == null or not is_instance_valid(spot): return ""
+	var key := spot.get_instance_id()
+	var now := Time.get_ticks_msec()
+	if _reach_cache.has(key):
+		var cached: Dictionary = _reach_cache[key]
+		if now - int(cached.stamp) < REACH_TTL_MS: return str(cached.reason)
+	var reason := _compute_reach_reason(spot)
+	if _reach_cache.size() > 128:
+		for id in _reach_cache.keys():
+			if now - int(_reach_cache[id].stamp) >= REACH_TTL_MS: _reach_cache.erase(id)
+	_reach_cache[key] = {"reason": reason, "stamp": now}
+	return reason
+
+func _compute_reach_reason(spot: Node3D) -> String:
+	# 站着的那一格不等于物体中心：培养土把中心从可行走面里挖掉了，
+	# 用中心判可达会让「自己刚建好的菜箱」被说成走不过去。
+	# 有 approach_points 就按它判 —— 那本来就是给「站到哪去操作」准备的。
+	var points: Array = []
+	if spot.has_meta("approach_points"):
+		for p in spot.get_meta("approach_points"):
+			points.append(p)
+	if points.is_empty():
+		points.append(spot.focus_position() if spot.has_method("focus_position") else spot.global_position)
+	var here: Node = actor_controller.ports.zone.call()
+	var from: Vector3 = actor_controller.actor.global_position
+	var on_here := false
+	if here != null:
+		for p: Vector3 in points:
+			var area: Variant = here.area_containing(p.x, p.z)
+			if area == null: continue
+			on_here = true
+			if not (area as Node3D).path_between(from, p).is_empty(): return ""
+	if on_here: return "那里走不过去，中间没有连通的路"
+	for zone_id in _zone_nodes:
+		var node: Node = _zone_nodes[zone_id]
+		if node == null or node == here: continue
+		for p2: Vector3 in points:
+			if node.area_containing(p2.x, p2.z) != null:
+				return "那边在别的区域，需要先坐船靠岸"
+	return "那里是水面，走不过去"
 
 func _owned_seeds() -> Array:
 	var result: Array=[]
@@ -2337,7 +2623,7 @@ func _owned_seeds() -> Array:
 
 ## 二级：选种子。每个气泡下面挂「生菜 ×3」这样的胶囊，
 ## 免得三个种子只剩图标 —— 生菜/番茄/南瓜的种子图标在小尺寸下几乎分不出。
-func _open_seed_bubbles(plot: Node3D) -> void:
+func _open_seed_bubbles(plot: Node3D, screen: Variant = Vector2.INF) -> void:
 	var options: Array=[]
 	for raw in _owned_seeds():
 		var crop := str(raw)
@@ -2346,7 +2632,7 @@ func _open_seed_bubbles(plot: Node3D) -> void:
 		options.append({"id":"seed:"+crop,"icon":"plant","item_icon":str(definition.seed),
 			"label":str(definition.name),"caption":"%s ×%d" % [str(definition.name),count],
 			"command":func(): _queue_plot_action(plot,"plant",crop)})
-	hud.open_world_actions(_bubble_anchor(plot),options,"选择种子")
+	hud.open_world_actions(_bubble_anchor(plot),options,"选择种子",screen)
 
 func _approach_command(spot: Node3D, command: Callable) -> void:
 	if _approach(spot): interactor.queue_command(spot,command)
@@ -2397,7 +2683,7 @@ func _setup_sleep() -> void:
 
 func _prepare_sleep() -> void:
 	actor_controller.cancel()
-	_pending_pick.clear()
+	_cancel_pending_pick()
 	if ribbon != null: ribbon.clear()
 	interactor.active = false
 	hud.menu.close_menu()

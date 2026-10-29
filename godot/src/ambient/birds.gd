@@ -1,7 +1,10 @@
 extends Node3D
 ## Flock placement only. The bird prefab owns its visual and motion.
 const Bird = preload("res://scenes/decorations/animals/bird.tscn")
-@export var altitude_offset := 12.0
+## 烘焙 baseY 是 Three 原型的坐标（5.8~9.2），搬进 Godot 要抬到屋顶之上。
+## 原先抬 12 → 整群飞在 18.8~21.2 m，比屋顶（实测 11.84）高 7 m，实机像贴着画面上沿。
+## 改成 8.5 → 14.3~17.7 m，最低那只仍在屋顶上方 2.4 m，净空断言（屋顶 +1 m）保留 0.6 m 余量。
+@export var altitude_offset := 8.5
 var _birds: Array = []
 func build() -> void:
 	for child in get_children(): child.free()

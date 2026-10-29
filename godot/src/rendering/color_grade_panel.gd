@@ -137,7 +137,14 @@ var _water_wrap: VBoxContainer
 var _water_body: VBoxContainer
 var _water_scroll: ScrollContainer
 var _status: Label
+## `_flash` 的回报要压住 `_refresh_status()` 的常规提示几秒。
+## 状态栏每帧都会被常规提示重写，回报一出场就被冲掉 —— 用户点了「写入」
+## 只看到一句「海水色与反射只改这一段」，自然以为按键没反应。
+var _flash_hold := 0
 var _tab := TAB_FILTER
+## 上一次真正生效的页签。`_set_tab` 每帧都被 `_process` 调（刷回调试皮肤），
+## 状态栏只在它和当前页签不同时重写 —— 见 `_set_tab` 末尾的注释。
+var _tab_applied := ""
 var _tab_buttons := {}
 
 ## 参数清单摊平后的副本，省掉每次读盘都重新摊一次。
@@ -673,6 +680,12 @@ func _on_light_save() -> void:
 	# 资源文件，第二天中午也回不来。写完立刻 `resume`，画面无缝接着走。
 	# 所有分支（含失败）都要走到 `resume`，所以这里不用 early return。
 	var rig = _daylight()
+	# 写盘前后各抄一份文件指纹，用来告诉用户「这次到底有没有改动」。
+	# 光照页所有参数都存在「这一段」的偏移里，基准没被动过 —— 于是
+	# `_write_light_files` 抄下去的往往就是文件里原来的数。以前一律报
+	# 「已写入」，用户回游戏一看没变化，只能怀疑按钮坏了。
+	var env_before := FileAccess.get_file_as_string(ENV_MAT_PATH)
+	var scene_before := FileAccess.get_file_as_string(MAIN_SCENE_PATH)
 	if rig != null:
 		rig.suspend()
 	var outcome := _write_light_files(notes)
@@ -684,7 +697,13 @@ func _on_light_save() -> void:
 	# 写回资源的是**基准**（`suspend` 时铺回去的），这一段的偏移仍然留在 cfg 里 ——
 	# 两件事分开：资源管「这一天长什么样」，cfg 管「这一段要不要偏一点」。
 	_save_light_cfg()
-	_flash("已写入 %s（重开游戏生效）" % "、".join(notes))
+	var touched: bool = (FileAccess.get_file_as_string(ENV_MAT_PATH) != env_before) \
+		or (FileAccess.get_file_as_string(MAIN_SCENE_PATH) != scene_before)
+	if touched:
+		_flash("已写入 %s（重开游戏生效）" % "、".join(notes))
+	else:
+		_flash("文件没有变化：%s 的调整是「%s」的时段偏移，已存在 light_slots.cfg（重开也在）；资源文件里是 09:00 基准，这次没有被改到" % [
+			_slot_where(), SlotsLib.slot_label(_slot)])
 
 
 ## 真正落盘的几步。返回空串表示成功，否则是要显示给用户的原因。
@@ -1018,6 +1037,12 @@ func _water_write(key: String, value: Variant) -> void:
 			return
 		rig.set_offset(_slot_season, _slot_weather, _slot, "water/" + key, _delta_of(coerced, natural))
 		_water_dirty = true
+		# 差值不属于 `water.cfg`（那份记的是材质参数），归昼夜装置的
+		# `light_slots.cfg` 管。滤镜页的「对比度」早就在这么标了，水面页漏了：
+		# 结果是面板里拖出来的海色只活在内存，关面板就没了 —— 看起来像
+		# 「写入没生效」，其实是压根没存过。标记后 `_save_water_cfg` /
+		# `_save_light_cfg` 都会把偏移落一次盘。
+		_light_dirty = true
 		return
 	if not is_instance_valid(_water_mat):
 		return
@@ -1294,6 +1319,8 @@ func _pick_slot(kind: String, id: String) -> void:
 	_sync_light()
 	if _tab == TAB_WATER:
 		_sync_water()
+	# 换个时段是在表达新意图，上一次的「已写入 …」到此为止，让位给当前上下文提示。
+	_flash_hold = 0
 	_refresh_status()
 	if _sync_side.is_valid():
 		_sync_side.call()
@@ -1461,6 +1488,7 @@ func _sync_scheme_buttons() -> void:
 	# 「写入 xxx.tres」的目标文件跟着方案走，不然会以为写进了另一套。
 	if _save_button != null:
 		_save_button.text = "写入 %s" % _mat_file_name()
+		_save_button.tooltip_text = "只写全局项（泡沫、波纹、透明度、波浪等）。海水色与天空反射按「季节 / 天气 / 时段」分库存差值，拖完自动保存，不需要点这里。"
 
 
 func _mat_file_name() -> String:
@@ -2236,16 +2264,24 @@ func _set_tab(id: String) -> void:
 		if _sync_side.is_valid():
 			# 面板刚变可见时 rect 还没结算，等一帧再贴上去。
 			_sync_side.call_deferred()
+	# 这个函数每帧都会被 `_process` 调一次（`Cozy.style_tree` 会把按钮皮肤刷成
+	# 奶油色，得靠它刷回调试皮肤）。所以状态栏的重写必须只在**真的换页**时做：
+	# 否则任何 `_flash` 回报都活不过一帧 —— 「已写入 …」还没看清就被常规提示
+	# 顶掉，用户看到的是一片沉默。
+	if _tab_applied == id:
+		return
+	_tab_applied = id
+	_flash_hold = 0
 	_refresh_status()
 
 
 func _refresh_status() -> void:
 	if _status == null:
 		return
-	var where := "%s / %s / %s" % [
-		String(SlotsLib.SEASON_LABELS.get(_slot_season, _slot_season)),
-		String(SlotsLib.WEATHER_LABELS.get(_slot_weather, _slot_weather)),
-		SlotsLib.slot_label(_slot)]
+	# 刚报过结果就让它留几秒，别被常规提示立刻盖回去。
+	if Time.get_ticks_msec() < _flash_hold:
+		return
+	var where := _slot_where()
 	var extra := _preview_note()
 	if _tab == TAB_WATER:
 		_status.text = "%s · 海水色与反射只改这一段，波形泡沫仍是全局%s" % [where, extra]
@@ -2422,6 +2458,7 @@ func _on_save_to_scene() -> void:
 		return
 	# 同上：写盘那一刻必须是基准值，不能是把夜里的暗值存进去。
 	var rig = _daylight()
+	var before := FileAccess.get_file_as_string(path)
 	if rig != null:
 		rig.suspend()
 	var err := ResourceSaver.save(_env, path)
@@ -2429,7 +2466,12 @@ func _on_save_to_scene() -> void:
 		rig.resume()
 	if err == OK:
 		_save_cfg()
-		_flash("已写入 %s（重开游戏生效）" % path)
+		# 这一页只有前三项直接落文件；「对比度」和光照页一样是时段偏移，
+		# 只动它的话文件逐字节不变 —— 不能照样报「已写入」。
+		if FileAccess.get_file_as_string(path) == before:
+			_flash("文件没有变化：这一页只有曝光 / 亮度 / 饱和度直接写文件，对比度是「%s」的时段偏移（已存 light_slots.cfg）" % SlotsLib.slot_label(_slot))
+		else:
+			_flash("已写入 %s（重开游戏生效）" % path)
 	else:
 		_flash("写入失败：%s" % error_string(err))
 
@@ -2513,10 +2555,23 @@ func _on_water_save() -> void:
 	var eol := "\r\n" if text.contains("\r\n") else "\n"
 	var lines := text.replace("\r\n", "\n").split("\n")
 	var written := 0
+	## 真正发生了变化（新值 ≠ 文件里原来那行）的项数。
+	## 「写了 N 行」和「改了 M 项」不是一回事：海水色那几行走的全是基准值，
+	## 写下去逐字节相同 —— 用户看到的就该是「没变化」，而不是一个漂亮的 N。
+	var changed := 0
+	## 归昼夜装置管的项（海水色、天空反射、太阳高光）不写这个文件。
+	## 它们在面板上存的是「这一段」的差值，文件里那一行是 09:00 基准 ——
+	## 写下去只是把原来那一行原样再抄一遍，文件一个字节都不变。
+	## 以前不区分，于是点「写入」得到的是「已写入 N 项」但画面纹丝不动。
+	var slot_owned := 0
+	var rig = _daylight()
 
 	for key in _order:
 		var spec: Dictionary = _spec.get(key, {})
 		if spec.kind == "node":
+			continue
+		if rig != null and rig.owns("water", key):
+			slot_owned += 1
 			continue
 		var v: Variant = _water_read(key)
 		if v == null:
@@ -2526,6 +2581,8 @@ func _on_water_save() -> void:
 		var found := false
 		for i in lines.size():
 			if String(lines[i]).begins_with(prefix):
+				if String(lines[i]) != line:
+					changed += 1
 				lines[i] = line
 				found = true
 				break
@@ -2535,6 +2592,7 @@ func _on_water_save() -> void:
 				lines.remove_at(lines.size() - 1)
 			lines.append(line)
 			lines.append("")
+			changed += 1
 		written += 1
 
 	var out := eol.join(PackedStringArray(lines))
@@ -2561,13 +2619,35 @@ func _on_water_save() -> void:
 	_file_defaults.clear()
 	_file_defaults_loaded = false
 	_save_water_cfg()
-	_flash("已写入 %s 的 %d 项（当场生效，重开也保留）" % [_mat_file_name(), written])
+	# 状态栏必须说清「这次到底写了什么」。只报一个总数，用户调了海水色再点写入，
+	# 看到的「已写入 N 项」和纹丝不动的画面互相矛盾 —— 那 N 项全是全局参数，
+	# 他改的那几项根本不在这个文件里。
+	if changed == 0 and slot_owned > 0:
+		_flash("「%s」这 %d 项属「%s」，已存进 light_slots.cfg，重开也在；%s 只管 09:00 基准，不含它们 —— 这次文件没有变化" % [
+			_slot_where(), slot_owned, SlotsLib.slot_label(_slot), _mat_file_name()])
+	elif changed == 0:
+		_flash("%s 里这几项本来就是这些值，这次没有改动（复位过？）" % _mat_file_name())
+	elif slot_owned > 0:
+		_flash("已写入 %s 的 %d 项全局参数（其中 %d 项有变化）；另有 %d 项属「%s」，已存进 light_slots.cfg" % [
+			_mat_file_name(), written, changed, slot_owned, SlotsLib.slot_label(_slot)])
+	else:
+		_flash("已写入 %s 的 %d 项（其中 %d 项有变化，当场生效、重开也保留）" % [
+			_mat_file_name(), written, changed])
+
+
+## 「春 / 晴 / 清晨」。状态栏与写入回报共用，别在两处各拼一遍。
+func _slot_where() -> String:
+	return "%s / %s / %s" % [
+		String(SlotsLib.SEASON_LABELS.get(_slot_season, _slot_season)),
+		String(SlotsLib.WEATHER_LABELS.get(_slot_weather, _slot_weather)),
+		SlotsLib.slot_label(_slot)]
 
 
 func _flash(text: String) -> void:
 	if _status == null:
 		return
 	_status.text = text
+	_flash_hold = Time.get_ticks_msec() + 6000
 
 
 # ---- 持久化 -----------------------------------------------------------------
@@ -2634,8 +2714,15 @@ func _apply_water_cfg() -> void:
 	# 调好的参数看起来像没生效。
 	if String(cfg.get_value(section, CFG_SIG_KEY, "")) != _mat_signature():
 		return
+	var rig = _daylight()
 	for key in _order:
 		if not cfg.has_section_key(section, key):
+			continue
+		# 归昼夜装置管的那几项不在这里回放：存档里记的是**基准**（面板从没改过
+		# 它），走 `_water_write` 会被当成「目标值」换算成差值，于是每次启动都
+		# 凭空给当前时段加一截偏移 —— 越开越亮，而且看不出是谁干的。
+		# 它们的真正存档是 `light_slots.cfg`，由装置的 `load_offset_cfg` 负责。
+		if rig != null and rig.owns("water", key):
 			continue
 		var v: Variant = cfg.get_value(section, key)
 		if v == null:
@@ -2681,7 +2768,13 @@ func _save_water_cfg() -> void:
 	var cfg := ConfigFile.new()
 	cfg.load(WATER_CFG_PATH)
 	var section := _cfg_section()
+	var rig = _daylight()
 	for key in _order:
+		# 时段驱动的项不写进 `water.cfg`：`_water_read` 对它们返回的是 09:00 基准，
+		# 存下来等于「什么都没调」，回放时还会被当成目标值算出差值（见 `_apply_water_cfg`）。
+		# 它们的存档是 `light_slots.cfg`，下一段马上落盘。
+		if rig != null and rig.owns("water", key):
+			continue
 		var v: Variant = _water_read(key)
 		if v == null:
 			continue
@@ -2689,6 +2782,11 @@ func _save_water_cfg() -> void:
 	cfg.set_value(section, CFG_SIG_KEY, _mat_signature())
 	cfg.set_value("meta", "scheme", _scheme)
 	cfg.save(WATER_CFG_PATH)
+	# 水面页调出来的差值必须跟着落盘。以前这里只存材质参数，偏移要等
+	# `_save_light_cfg()` —— 而那个被 `_light_dirty` 卡着，光拖水面永远进不去，
+	# 于是「调好、关面板、重开就没了」。两件事本来就在同一次操作里，一次写完。
+	if rig != null:
+		rig.save_offset_cfg()
 
 
 # ---- 小工具 -----------------------------------------------------------------

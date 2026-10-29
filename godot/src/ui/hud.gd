@@ -115,6 +115,7 @@ func _ready() -> void:
 	services.font=_font;services.query=_service_snapshot
 	_root.add_child(services);services.hide()
 	services.operation_requested.connect(_service_command)
+	services.sort_requested.connect(_service_sort)
 	services.close_requested.connect(close_card)
 	notebook=preload("res://src/ui/notebook.gd").new()
 	notebook.font=_font;notebook.query=_notebook_snapshot
@@ -879,28 +880,62 @@ func _notebook_command(command: String) -> void:
 	elif command=="map": open_tab("map")
 	else: command_requested.emit(command)
 
-func open_world_actions(anchor: Callable, options: Array, hint := "") -> void:
+func open_world_actions(anchor: Callable, options: Array, hint := "", screen_fallback := Vector2.INF) -> void:
 	close_card()
-	world_actions.open(anchor,options,hint)
+	world_actions.open(anchor,options,hint,screen_fallback)
 
 func _service_snapshot(service: String) -> Dictionary:
 	var pending: Dictionary=economy.daily.query()
+	var coins:=economy.count("coins")
 	var catalog: Array=[]
 	for crop in economy.farm.crop_definitions():
 		var definition: Dictionary=economy.farm.crop_def(crop)
-		catalog.append({"id":str(definition.seed),"crop":str(crop),"count":0,"price":int(definition.seed_price)})
-	catalog.append({"id":"soil","crop":"soil","count":0,"price":preload("res://src/building/material_shop.gd").PRICE})
+		var seed_id:=str(definition.seed)
+		var price:=int(definition.seed_price)
+		catalog.append({"id":seed_id,"crop":str(crop),"count":0,"price":price,
+			"max_buy":_buy_limit(seed_id,price,coins)})
+	catalog.append({"id":"soil","crop":"soil","count":0,"price":preload("res://src/building/material_shop.gd").PRICE,
+		"max_buy":_buy_limit("soil",preload("res://src/building/material_shop.gd").PRICE,coins)})
 	var accepted: Array=[]
 	for id in ItemDBLib.all_ids():
 		if economy.daily.accepts(id): accepted.append(id)
 	return {"bag":economy.inventory.all(),"bag_capacity":economy.inventory.capacity(),
 		"other":pending.items if service=="shipping" else economy.warehouse.all(),
 		"other_capacity":int(pending.capacity) if service=="shipping" else economy.warehouse.capacity(),
-		"coins":economy.count("coins"),"expected":int(pending.expected),"catalog":catalog,"accepts":accepted}
+		# 玩家拖拽整理出的次序。界面据此排格子，拖完立即重排。
+		"bag_order":economy.inventory.ordered_ids(),
+		"other_order":[] if service=="shipping" else economy.warehouse.ordered_ids(),
+		"coins":coins,"expected":int(pending.expected),"catalog":catalog,"accepts":accepted}
+
+## 一次最多能买几个：瓶盖够多少份、背包又还放得下多少，取小的那个。
+##
+## 界面上的 + 按钮靠这个封顶。封顶而不是"点过头再报错"：
+## 让玩家能一直点到买不起，是最容易让人误会的交互。
+func _buy_limit(id: String, price: int, coins: int) -> int:
+	var by_coin:=999 if price<=0 else int(coins/price)
+	return maxi(0,mini(by_coin,economy.inventory.room_for(id)))
+
+
+## 口袋里拖拽整理：把 from 放到 to 的位置（to 为空串=挪到末尾）。
+##
+## 顺序是 Inventory 的状态，界面只是发起方；改完直接重开同一页，
+## 让玩家立刻看到结果，不必关掉面板再开一次。
+func _service_sort(from_id: String, to_id: String) -> void:
+	# 拆成两行：`var moved: bool = a if c else b` 在 4.6 里推断不出类型，
+	# 会直接变成脚本解析错误（整份 hud.gd 无法加载），不是行为问题。
+	var moved: bool = false
+	if to_id == "":
+		moved = economy.inventory.move_to_end(from_id)
+	else:
+		moved = economy.inventory.move_item(from_id, to_id)
+	if not moved: return
+	services.refresh(_tab)
+
 
 func _service_command(id: String, action: String, amount: int) -> void:
 	var service:=_tab
 	_farm_action(func() -> Dictionary:
-		if action=="buy": return material_shop.buy_soil() if id=="soil" else economy.farm.buy_seed(id)
+		if action=="buy":
+			return material_shop.buy_soil(amount) if id=="soil" else economy.farm.buy_seed(id,amount)
 		if service=="shipping": return economy.daily.deposit(id,amount) if action=="deposit" else economy.daily.withdraw(id,amount)
 		return economy.storage.deposit(id,amount) if action=="deposit" else economy.storage.withdraw(id,amount))

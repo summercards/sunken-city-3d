@@ -5,6 +5,9 @@ const Items = preload("res://src/inventory/item_db.gd")
 const Tile = preload("res://src/ui/ac_icon.gd")
 signal operation_requested(id: String, action: String, amount: int)
 signal close_requested
+## 拖拽整理：把 `from_id` 放到 `to_id` 的位置（空串=挪到末尾）。
+## 本界面不算账，只把意图转给宿主（hud → Inventory）。
+signal sort_requested(from_id: String, to_id: String)
 var query: Callable
 var font: Font
 var mode := "shipping"
@@ -25,6 +28,8 @@ var selected_index := -1
 var selected_data: Dictionary = {}
 var action_tween: Tween
 var action_closing := false
+## 购买气泡里当前选中的数量。每次重开气泡重置为 1。
+var buy_amount := 1
 
 func _ready() -> void:
 	set_meta("cozy_skip",true)
@@ -84,7 +89,8 @@ func refresh(service: String) -> void:
 	get_node("ServiceName").text={"shipping":"出货箱","storage":"保管仓库","shop":"家园补给"}[mode]
 	caption.text={"shipping":"待出货 · 明早 07:00 收货","storage":"仓库 · 存放的东西不会出售","shop":"种子与土壤 · 选一份带回家"}[mode]
 	total.text=("待结算    %d 瓶盖" % int(snapshot.expected)) if mode=="shipping" else ("瓶盖    %d" % int(snapshot.coins))
-	var rows: Array=[_stacks(snapshot.bag,int(snapshot.bag_capacity)),snapshot.catalog if mode=="shop" else _stacks(snapshot.other,int(snapshot.other_capacity))]
+	var rows: Array=[_stacks(snapshot.bag,int(snapshot.bag_capacity),snapshot.get("bag_order",[])),
+		snapshot.catalog if mode=="shop" else _stacks(snapshot.other,int(snapshot.other_capacity),snapshot.get("other_order",[]))]
 	for pool in 2:
 		for node in grids[pool].get_children(): grids[pool].remove_child(node);node.queue_free()
 		slots[pool]=[]
@@ -101,10 +107,26 @@ func refresh(service: String) -> void:
 	name_tag.hide();actions.hide();selected_data={};selected_index=-1
 	queue_redraw()
 
-func _stacks(counts: Dictionary, capacity: int) -> Array:
+## 把 {物品id: 数量} 摊成格子行。
+##
+## `order` 是玩家拖拽整理出的次序（来自 Inventory.ordered_ids()）。
+## 不传就退回物品表顺序 —— 旧存档、快照没带 order 时都能照常显示。
+## 同一物品数量超过叠放上限会拆成多堆，**跟着自己的 id 挨在一起**，
+## 不会因为排序把同种物品的几堆打散到八个格子以外。
+func _stacks(counts: Dictionary, capacity: int, order: Array = []) -> Array:
 	var result: Array=[]
+	var ids: Array=[]
+	var seen := {}
+	for raw in order:
+		var key := str(raw)
+		if seen.has(key) or int(counts.get(key,0))<=0 or Items.is_currency(key): continue
+		seen[key]=true;ids.append(key)
 	for id in Items.all_ids():
 		if Items.is_currency(id): continue
+		var key := str(id)
+		if seen.has(key) or int(counts.get(key,0))<=0: continue
+		seen[key]=true;ids.append(key)
+	for id in ids:
 		var remaining:=int(counts.get(id,0))
 		while remaining>0:
 			var count:=mini(remaining,Items.stack_limit(id));result.append({"id":str(id),"count":count});remaining-=count
@@ -121,6 +143,12 @@ func _add_tile(pool: int, index: int, data: Dictionary) -> void:
 	tile.mouse_entered.connect(func(): if not actions.visible: select(pool,index))
 	tile.focus_entered.connect(func(): select(pool,index))
 	tile.pressed.connect(func(): select(pool,index);show_actions())
+	# 拖拽整理只开给背包（pool 0）：
+	# 下方在 shop 模式是商品目录、在出货/仓库模式是另一份独立库存，
+	# 两者都不是"我的背包格子"，拖过去没有可解释的后果。
+	if pool==0:
+		tile.drag_sortable=true;tile.drag_pool=pool
+		tile.drag_sorted.connect(func(from_id:String,to_id:String): sort_requested.emit(from_id,to_id))
 	tile.set_meta("entry",data.duplicate(true))
 	if data.has("price"):
 		var price:=_label("%d 瓶盖" % int(data.price),20,Cozy.INK)
@@ -139,8 +167,64 @@ func select(pool: int, index: int) -> void:
 	var point:=grids[pool].position+Vector2((index%8)*106+42,(index/8)*92)
 	name_tag.position=Vector2(clampf(point.x-name_tag.size.x/2,12,size.x-name_tag.size.x-12),point.y-44 if pool==0 else point.y+86)
 
+
+## 购买数量选择器：`[−] N [+]` 加一个「购买 N」。
+##
+## 为什么不是一次买一个：种子和土壤是**消耗品**，玩家要一次种好几格、
+## 或者一次囤一叠土。只能一个一个点，等于逼人重复点十几次。
+##
+## 上下限来自快照里的 `max_buy`（瓶盖够几份、背包还放得下几个，取小的）：
+## 点 + 到顶就灰掉，而不是让人一路点到"瓶盖不足"再被弹回来。
+## 数量变化只改三个控件，不重建整个气泡 —— 否则每点一次 + 都要闪一下。
+func _buy_picker() -> void:
+	var limit:=maxi(0,int(selected_data.get("max_buy",0)))
+	if limit<=0:
+		var short_coins:=int(snapshot.get("coins",0))<int(selected_data.get("price",0))
+		action_body.add_child(_label("瓶盖不足" if short_coins else "背包已满",22,Cozy.INK))
+		return
+	buy_amount=clampi(buy_amount,1,limit)
+	var row:=HBoxContainer.new()
+	row.add_theme_constant_override("separation",6)
+	row.alignment=BoxContainer.ALIGNMENT_CENTER
+	action_body.add_child(row)
+	var minus:=_step_button("−");row.add_child(minus)
+	var counter:=_label(str(buy_amount),26,Cozy.INK)
+	counter.custom_minimum_size=Vector2(54,44);counter.size=Vector2(54,44)
+	counter.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+	counter.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
+	row.add_child(counter)
+	var plus:=_step_button("+");row.add_child(plus)
+	var buy:=_button("购买 %d" % buy_amount)
+	buy.custom_minimum_size=Vector2(190,45)
+	buy.set_meta("service_action","buy");buy.set_meta("amount",buy_amount)
+	action_body.add_child(buy)
+	minus.disabled=buy_amount<=1
+	plus.disabled=buy_amount>=limit
+	var apply:=func(delta: int) -> void:
+		buy_amount=clampi(buy_amount+delta,1,limit)
+		counter.text=str(buy_amount)
+		buy.text="购买 %d" % buy_amount
+		buy.set_meta("amount",buy_amount)
+		minus.disabled=buy_amount<=1
+		plus.disabled=buy_amount>=limit
+	minus.pressed.connect(func(): apply.call(-1))
+	plus.pressed.connect(func(): apply.call(1))
+	buy.pressed.connect(func(): operation_requested.emit(str(selected_data.get("crop",selected_data.id)),"buy",buy_amount))
+	buy.grab_focus.call_deferred()
+
+
+## 数量选择的 ± 小圆钮：比「购买 N」窄，视觉上从属它。
+func _step_button(text: String) -> Button:
+	var button:=_button(text)
+	button.custom_minimum_size=Vector2(52,44)
+	button.add_theme_font_size_override("font_size",28)
+	return button
+
+
 func show_actions() -> void:
 	if selected_data.is_empty() or str(selected_data.id)=="": return
+	# 每次重新开气泡都从 1 起：上一件商品选到 7，换一件还是 7 会误买。
+	buy_amount=1
 	action_closing=false;actions.mouse_filter=Control.MOUSE_FILTER_STOP
 	for node in action_body.get_children(): action_body.remove_child(node);node.queue_free()
 	var id:=str(selected_data.id)
@@ -149,8 +233,10 @@ func show_actions() -> void:
 	var blocked: bool=selected_pool==0 and ((mode=="shipping" and not id in snapshot.accepts) or mode=="shop")
 	if blocked:
 		var info:=_label("出货箱只收鱼和农产品" if mode=="shipping" else "在下方选择种子购买",22,Cozy.INK);action_body.add_child(info)
+	elif action=="buy":
+		_buy_picker()
 	else:
-		for amount in ([1,int(selected_data.count)] if int(selected_data.count)>1 and action!="buy" else [1]):
+		for amount in ([1,int(selected_data.count)] if int(selected_data.count)>1 else [1]):
 			var button:=_button("%s %d" % [verb,amount]);button.custom_minimum_size=Vector2(190,45)
 			button.set_meta("service_action",action);button.set_meta("amount",amount)
 			button.pressed.connect(func(): operation_requested.emit(str(selected_data.get("crop",id)),action,amount))
@@ -167,7 +253,6 @@ func show_actions() -> void:
 
 func turn(pool: int, step: int) -> void:
 	pages[pool]+=step;refresh(mode)
-
 func move_selection(step: int) -> void:
 	actions.hide()
 	if selected_index<0: select(0,0);return

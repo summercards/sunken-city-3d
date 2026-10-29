@@ -186,3 +186,11 @@ R12/R13的旧全暗夜景已被R15–R17替代。新增world_night全局与Water
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-OCEAN-R22 | 已实现；完工木板通过只读占地查询投影到双水面现有泡沫，当前实景与恢复专项通过 | [板底与电线杆摆位](../../development/2026-10-29_deck_draft_pole_placement.md) |
+
+## 2026-10-29 调色面板的写入与落盘
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-OCEAN-R23 | 已实现；水面页差值随拖动/关面板落进 `light_slots.cfg`，两页写入按钮按文件实际变化回报，状态栏回报不再被每帧常规提示覆盖 | [本轮交付](../../development/2026-10-29_grade_panel_write_persist.md)，lighting-panel 67 checks / 0 failures |
+
+三个根因都不是这条新加的行为，而是旧实现的漏：`_water_write` 走偏移却只置 `_water_dirty`（`_save_light_cfg` 被 `_light_dirty` 卡着）；`_on_water_save` 对时段项写的是未被动过的 09:00 基准（文件逐字节相同却报「已写入 N 项」）；`_process` 每帧调 `_set_tab`，把状态栏回报碾掉。`water.cfg` 回放时也不再拿基准当目标值反算差值，避免每次非 9 点启动凭空给当前时段加一截偏移。

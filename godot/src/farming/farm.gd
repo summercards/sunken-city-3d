@@ -237,14 +237,19 @@ func refill() -> Dictionary:
 	plots_changed.emit()
 	return {"message":"淡水补满 · %d/%d" % [watering_can,WATER_CAPACITY]}
 
-func buy_seed(crop_id: String) -> Dictionary:
+## 买种子。`amount` 默认 1，界面上的 +/− 可以一次买多包。
+##
+## 原子性同土壤：总价与背包余量一起检查，够才扣。
+## 不然"加到 5 包、扣了瓶盖、只塞进去 2 包"这种半途失败最难解释。
+func buy_seed(crop_id: String, amount := 1) -> Dictionary:
+	amount = maxi(1, amount)
 	var c := crop_def(crop_id)
 	if c.is_empty(): return {"blocked":"没有这种种子"}
-	var price := int(c.seed_price)
-	if not ports.inventory.can_add(str(c.seed),1): return {"blocked":"背包已满，无法购买"}
+	var price := int(c.seed_price) * amount
+	if not ports.inventory.can_add(str(c.seed),amount): return {"blocked":"背包已满，无法购买"}
 	if not ports.pay.call({"coins":price}): return {"blocked":"瓶盖不足"}
-	ports.give.call({str(c.seed):1})
-	return {"message":"买到 1 包"+crop_name(crop_id)+"种子"}
+	ports.give.call({str(c.seed):amount})
+	return {"message":"买到 %d 包%s种子" % [amount, crop_name(crop_id)]}
 
 func exchange_seed() -> Dictionary:
 	if not ports.inventory.can_add("lettuce_seed",1): return {"blocked":"背包已满"}

@@ -1,5 +1,6 @@
 extends SceneTree
 const Service = preload("res://src/building/building_service.gd")
+const Catalog = preload("res://src/building/building_catalog.gd")
 var checks:=0
 var failures:=0
 var balance: Dictionary={"wood":30,"soil":6}
@@ -58,4 +59,26 @@ func run() -> void:
 	allowed=false
 	service.configure({"eligibility":func(): return "","space_reason":func(_r): return "","pay":pay})
 	check(service.context_reason()=="","future policy can be replaced")
+	# 木面是边界，不是单块板：接缝合法，缺口非法。
+	balance.wood=40;balance.soil=8
+	var west: Rect2=Catalog.tile_rect(1,0)
+	var pair: Array=[west,Catalog.tile_rect(2,0)]
+	check(Catalog.covered(Rect2(west.end.x-0.897,west.position.y+0.5,1.794,1.575),pair),"seam counts as one surface")
+	check(not Catalog.covered(Rect2(west.position.x-0.3,west.position.y+0.5,1.794,1.575),pair),"half-off edge rejected")
+	check(not Catalog.covered(Rect2(west.end.x+0.4,west.position.y+0.5,1.794,1.575),pair),"one-tile gap rejected")
+	# 不居中也能建：旧规则要求贴到板中心 ±5.8 厘米，等于建不出来。
+	var next: Dictionary=service.candidates()[0]
+	var made: Dictionary=service.begin(next)
+	check(made.ok,"third deck payment")
+	service.tick(3)
+	var deck2: Dictionary=service.row(made.id)
+	var c2: Vector2=Catalog.tile_rect(deck2.x,deck2.z).get_center()
+	# 贴边越界不足 0.4 米时吸回最近合法格点，避免像素级瞄准；再远就真的放不下。
+	var edge: Dictionary={"kind":"planter","support":deck2.id,"px":c2.x+0.3,"pz":c2.y,"turn":0}
+	check(service.geometry_reason(edge)!="","edge outside before snap")
+	var snapped: Dictionary=service.snap_planter(edge)
+	check(service.geometry_reason(snapped)=="" and float(snapped.px)<float(edge.px),"edge snaps back inside deck")
+	check(service.geometry_reason({"kind":"planter","support":deck2.id,"px":c2.x+1.0,"pz":c2.y,"turn":0})!="","far outside stays rejected")
+	check(service.begin({"kind":"planter","support":deck2.id,"px":c2.x+0.12,"pz":c2.y+0.35,"turn":0}).ok,"off-center placement allowed")
+	check(not service.begin({"kind":"planter","support":deck2.id,"px":c2.x,"pz":c2.y,"turn":0}).ok,"overlap still rejected")
 	print("[building] %d checks, %d failures"%[checks,failures]);quit(1 if failures else 0)

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_submerged_base.tscn" id="base"]
 [ext_resource type="Script" uid="uid://b5pe0kppdnmwv" path="res://src/ambient/scene_component.gd" id="contract"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/solar_cabin_surface.tscn" id="surface"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
 
 [node name="太阳能木屋" type="Node3D" unique_id=839374598]
 script = ExtResource("contract")
@@ -17,3 +18,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.77, 0)
 [node name="太阳能木屋-海下基座" parent="." unique_id=679986593 instance=ExtResource("base")]
 transform = Transform3D(1.4501, 0, 0, 0, 1, 0, 0, 0, 1.4308, -1.5113, -0.3, 1.5988)
 excluded_components = PackedStringArray()
+
+; 水面阻挡只从「海上区域」派生。海下基座在组件场景里自己声明了 mode=none，
+; 这里显式限定扫描范围，避免它的顶板再一次混进水面阻挡。
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "auto"
+target_path = NodePath("../太阳能木屋-海上区域")

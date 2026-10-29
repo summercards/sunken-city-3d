@@ -28,6 +28,14 @@ func settle() -> void:
 		main.interactor.update(1.0/60,main.interactor.auto_hold)
 		if frame>10 and main.actor_controller.auto_target==null: break
 	await process_frame
+## 手动推进角色与建造控制器，直到走到工地并开工。
+## main 关掉了自动 process，所以这两条 tick 必须由测试自己推。
+func wait_walk_to(frames: int) -> bool:
+	for i in frames:
+		main.actor_controller.tick(1.0/60)
+		main.building_controller.tick(1.0/60)
+		if main.building.query().size()>0: return true
+	return false
 func bubble(label: String) -> void:
 	await create_timer(0.35).timeout
 	var found: Button
@@ -61,7 +69,12 @@ func run() -> void:
 	await shot("ghosts")
 	var target:=Vector3(26.3,1.48,14.7125)
 	await click(main.cam.unproject_position(target))
-	check(main.building.query().size()==1,"world click starts deck")
+	# 施工要先走过去：点一下只记下意图，人还站在五米外，不能原地开工。
+	check(not main.building_controller.pending.is_empty() and main.building.query().is_empty(),
+		"world click only queues; nothing is built at a distance")
+	check(wait_walk_to(900),"walking up to the site starts the deck")
+	check(main.building.query().size()==1,"arrival starts the deck")
+	check(main.building_controller.pending.is_empty(),"pending clears once started")
 	main.building_controller.tick(1)
 	await shot("progress")
 	check(main.building_controller.progress.size()==1,"progress visible")
@@ -71,10 +84,18 @@ func run() -> void:
 	check(main.building.query()[0].left==0,"closed mode still completes")
 	await button(main.hud.corner.menu_button);await button(main.hud.corner.buttons.craft)
 	await button(main.building_controller.book.recipe_buttons.planter)
+	# 木面是边界：偏离板中心同样可以摆位，旧规则只在中心 ±5.8 厘米内放行。
+	main.building_controller.update_preview(main.cam.unproject_position(target+Vector3(0.12,0,0.3)))
+	check(not main.building_controller.preview.is_empty() and main.building.can_place(main.building_controller.preview)=="","off-center preview legal")
+	# 压在板边缘：虚影吸回最近合法格点，不再因为差几厘米判红。
+	main.building_controller.update_preview(main.cam.unproject_position(target+Vector3(0.5,0,0.3)))
+	check(not main.building_controller.preview.is_empty() and main.building.can_place(main.building_controller.preview)=="" and absf(float(main.building_controller.preview.px)-4.3)<=0.15,"edge preview snaps inside")
 	await key(KEY_R)
 	check(main.building_controller.turn==1,"rotate key")
 	await key(KEY_R);await key(KEY_R);await key(KEY_R)
 	await click(main.cam.unproject_position(target))
+	# 人已经站在这一格旁边：点一下应当当场开工，不再走第二趟。
+	if main.building.query().size()<2: wait_walk_to(300)
 	check(main.building.query().size()==2,"mouse places planter")
 	main.building_controller.tick(4);await key(KEY_ESCAPE)
 	var plot=main.farm_field.find("dynamic/built_2")
@@ -98,7 +119,13 @@ func run() -> void:
 	if tile!=null:
 		await button(tile);await create_timer(0.3).timeout
 		var before: int=econ.count("soil")
-		await button(main.hud.services.action_body.get_child(0))
+		# 商店面板现在先放一行数量步进（−/n/+），再放购买按钮，
+		# 所以不能按「第一个子节点」找 —— 按 meta 找，结构再调也不会错位。
+		var buy: Button
+		for node in main.hud.services.action_body.get_children():
+			if node is Button and str(node.get_meta("service_action",""))=="buy": buy=node
+		check(buy!=null,"soil buy button present")
+		if buy!=null: await button(buy)
 		check(econ.count("soil")==before+1,"mouse buys soil")
 	await shot("soil-shop")
 	main.hud.close_card()

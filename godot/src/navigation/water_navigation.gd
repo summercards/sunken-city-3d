@@ -2,6 +2,9 @@ extends RefCounted
 ## Legal water area -> route planning -> segment validation. No scene or global dependencies.
 const SailNavLib = preload("res://src/navigation/sail_nav.gd")
 const BLOCK_INDEX_CELL := 6.0
+## 几何水域硬界：只回答「这里还是不是海」，比可航区再外扩一圈，
+## 保证 SEA-NAV 的可航区永远不会被硬界切掉。是否允许航行由 allowed_area 决定。
+const WORLD_WATER := Rect2(-80.0, -80.0, 160.0, 160.0)
 var _nav_grid: Dictionary = {}
 var _block_index: Dictionary = {}
 var _safe_nav: Dictionary = {}
@@ -18,7 +21,7 @@ func is_open_water(x: float, z: float) -> bool:
 	return is_geometric_water(x,z)
 
 func is_geometric_water(x: float, z: float) -> bool:
-	if x < -68.0 or x > 76.0 or z < -78.0 or z > 58.0:
+	if not WORLD_WATER.has_point(Vector2(x, z)):
 		return false
 	if _block_index.is_empty():
 		_build_block_index()
@@ -124,7 +127,9 @@ func plan_route_to(from: Vector2, x: float, z: float) -> Array:
 	if valid_route(path):
 		return path
 	if _safe_nav.is_empty():
-		_safe_nav = SailNavLib.create_nav_grid([], Rect2(-68, -78, 144, 136), 0.5, 0.9)
+		# 兜底网格必须跟可航区同一范围，否则边角处兜底路径会缺格。
+		var safe_bounds := allowed_area if allowed_area.has_area() else WORLD_WATER
+		_safe_nav = SailNavLib.create_nav_grid([], safe_bounds, 0.5, 0.9)
 		var blocked: PackedByteArray = _safe_nav.blocked
 		for j in _safe_nav.rows:
 			for i in _safe_nav.cols:

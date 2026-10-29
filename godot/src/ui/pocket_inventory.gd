@@ -84,8 +84,9 @@ func refresh() -> void:
 	var previous := selected_index
 	for node in grid.get_children(): grid.remove_child(node);node.queue_free()
 	slots.clear()
-	for id in Items.all_ids():
-		if Items.is_currency(id): continue
+	# 按玩家拖拽整理出的次序摆格；同种物品的几堆挨在一起，不被打散。
+	var order: Array = inventory.ordered_ids() if inventory.has_method("ordered_ids") else []
+	for id in order:
 		var remaining: int = inventory.count(id)
 		while remaining > 0:
 			var count := mini(remaining,Items.stack_limit(id))
@@ -112,6 +113,17 @@ func _add_slot(id: String, count: int) -> void:
 	tile.mouse_entered.connect(func(): if not actions.visible: select(index))
 	tile.focus_entered.connect(func(): select(index))
 	tile.pressed.connect(func(): select(index);show_actions())
+	# 拖拽整理：拖到另一格就是两者互换位置，拖到空槽就是挪到末尾。
+	tile.drag_sortable=true;tile.drag_pool=0
+	tile.drag_sorted.connect(_on_sorted)
+
+## 拖拽落下：改 Inventory 的排列，再重排本界面。
+func _on_sorted(from_id: String, to_id: String) -> void:
+	if inventory == null: return
+	var moved: bool = inventory.move_to_end(from_id) if to_id=="" else inventory.move_item(from_id,to_id)
+	if not moved: return
+	refresh()
+
 
 func select(index: int) -> void:
 	if index<0 or index>=slots.size(): return

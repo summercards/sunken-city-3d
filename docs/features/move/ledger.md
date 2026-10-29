@@ -18,6 +18,8 @@
     "godot/src/navigation/landing_point.gd"
   ],
   "verification": [
+    "walk-facing",
+    "visual-walk-facing",
     "surface",
     "click",
     "framework-modules",
@@ -35,6 +37,7 @@
 | SEA-MOVE-R02 | 独立上下船动作与状态转换；surface/selftest通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-MOVE-R03 | 自动接近、模态阻断、完成一次、取消回调；framework-integration通过 | [2026-10-27实测](../../development/2026-10-27_modular_framework.md) |
 | SEA-MOVE-R04 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
+| SEA-MOVE-R09 | 已实现；八方向 × 30/60/120 FPS，专项102项、真实渲染106项通过；旧公式对照复现26项朝向失败 | [朝向修复与实测](../../development/2026-10-29_walk_facing.md) |
 
 ## 资源与调用入口
 
@@ -109,3 +112,9 @@ SEA-MOVE-R01/R02/R03：正式surface 30航路503检查及click 30检查通过；
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-MOVE-R08 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+
+## 2026-10-29 角色正向行走
+
+SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，保留平滑转向与步速。`walk-facing`（102项）、`visual-walk-facing`（106项）、`board-click`（12项）、`framework-integration`（44项）均退出0。真实渲染近景已目视核对。
+
+`surface`（456项/1失败）、`click`（32项/3失败）退出1；工程外恢复旧朝向公式后的对照运行产生完全相同的4项失败，涉及种植场景路径与拾取/建造流程，未计为本次通过。初次主场景验证遇到HUD类型推断错误，已补bool声明，后续无该编译错误。详细日志、预期对照失败及未执行项见[交付记录](../../development/2026-10-29_walk_facing.md)。

@@ -22,7 +22,9 @@
     "visual-pocket-bubbles",
     "visual-plot-shipping",
     "interact-focus",
-    "board-click"
+    "board-click",
+    "unreachable-menu",
+    "pick-mesh"
   ]
 }
 ```
@@ -97,7 +99,7 @@ Main 保留输入路由；接近、自动按住及完成释放由 ActorControlle
 
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
-| SEA-INTERACT-R06 | 已实现；锚点由视觉包围盒推导，判定/图标/环同源 | [交付记录](../../development/2026-10-29_interact_focus_follows_object.md) |
+| SEA-INTERACT-R06 | 已实现；锚点由视觉包围盒推导，判定/图标/编辑器预览同源 | [交付记录](../../development/2026-10-29_interact_focus_follows_object.md) |
 
 出货箱热区曾偏离物体 2.065 米（半径 2.4 米），根因是锚点写死节点原点而视觉带偏移。
 本轮统一到 `Interactable.focus_position()`，全场景最差偏差由 2.065 米降到 0.0000 米。
@@ -118,3 +120,68 @@ Main 保留输入路由；接近、自动按住及完成释放由 ActorControlle
 新增 `board-click` 专项：12 项断言，实测 `12 checks, 0 failures`，退出 0。
 同轮复跑 interact-focus / farming / modules / parity / ocean / camera 均通过。
 click 的 3 项失败为既有的航行与区块复原问题，与本轮无关。整体状态仍 partial。
+
+## 2026-10-29 移除世界里的聚焦环
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INTERACT-R08 | 已实现；`Interactable` 不再建任何 3D 焦点指示，焦点只走文案与悬浮图标 | [交付记录](../../development/2026-10-29_remove_focus_ring.md) |
+
+根因：环按视觉包围盒放大（上限 3 倍），多格菜箱的包围盒覆盖整张培养甲板，
+环被撑到直径约 3.4 米；抬高的土箱又把它切成几段，俯视时就是甲板上一道无意义的白弧。
+
+场景装配后遍历整棵树：`FocusRing` 节点数 0。`interact-focus` / `farming` / `modules` /
+`parity` 同轮复跑均退出 0。焦点状态、HUD 文案、悬浮卡片、编辑器热区预览均未改动，
+整体状态仍 partial。
+
+
+## 2026-10-29 到不了的地方也要能点出菜单
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INTERACT-R09 | 已实现；命中改为物体包围盒、菜单锚点兜底、走不到时逐项写明原因 | [交付记录](../../development/2026-10-29_unreachable_interaction_menu.md) |
+
+根因是三处叠加，任一处都足以让「点了没反应」：
+
+1. `HoverCard._pick()` 只认图标中心 30 px，而图标是命中之后才画的 —— 物体本体点不中。
+   实测 z1 出货箱：箱体屏幕包围盒 240×275 px，本体中心离图标 775 px。
+2. `_bubble_anchor()` 在投影出屏时返回 null，`_place()` 立刻 `close(true)` ——
+   隔水看对面平台时锚点落在视口外，菜单开一帧就关。
+3. `approach_action.execute()` 的 `area == null` / `start_walk` 失败都是静默 return false。
+
+新增 `unreachable-menu` 专项：25 项断言，实测 `25 checks, 0 failures`，退出 0。
+覆盖：点包围盒最远角（离图标 192 px）仍命中、24×24 米巨型包围盒不吞甲板、
+菜单 40 帧后仍开且不压右上角、菜箱→种植→选种子的二级菜单、
+跨区目标每项写原因且标题就是那句原因、灰项 toast、海面中央交互点接近有提示。
+
+同轮复跑 interact-focus / board-click / farming / modules / building-integration /
+pocket-bubbles / visual-pocket-bubbles 均退出 0。
+
+`click` 的 3 项失败（新航线取消旧拾取、航行途中改道、建造菜单前往并自动交付）
+用 HEAD 版本对照复跑，结果完全一致（32 checks, 3 failures），属既有航行与
+区块复原问题，与本轮无关。整体状态仍 partial。
+
+## 2026-10-29 热区按模型本体算
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INTERACT-R10 | 已实现；命中改为相机射线打模型三角形 | `pick-mesh` 9 项 0 失败；[交付记录](../../development/2026-10-29_pick_hotspot_follows_mesh.md) |
+
+根因：上一轮把命中改成「物体屏幕 AABB 外扩 10 px」。单个物件没问题，
+但 zone5 六个土箱并排，格心间距 2.15×2.575 米、模型 footprint 1.79×1.58 米，
+真实缝隙只有约 0.36×0.99 米，俯视 9 米机位下屏幕上十几像素宽；
+两侧 AABB 各外扩 10 px 就把整条缝盖满 —— 点甲板缝被判成点土箱，
+既不走也不弹菜单。`BODY_AREA_LIMIT` 挡不住：单个土箱面积远低于阈值，
+问题出在外扩叠加，不是单块太大。
+
+改为射线 vs 三角形（Möller–Trumbore），gated by mesh 自身 OBB 粗筛。
+实测面数：土箱 84、出货箱 752、告示牌 336，全部远低于 1500 阈值。
+图标 30 px 只保留给没有几何的纯逻辑点（睡眠位）。
+同一位置模型命中优先于图标热区。
+
+同轮修掉 `hud.gd:924` 的 `var moved: bool = a if c else b`——
+Godot 4.6 推断不出类型，整份 hud.gd 解析失败并连带 main.tscn 无法加载（1115 条
+SCRIPT ERROR）。那是并行改动留下的，但会挡住所有验证，故改为显式 if/else。
+
+同轮复跑 pick-mesh / unreachable-menu / interact-focus / board-click / farming /
+modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 partial。

@@ -73,6 +73,8 @@
         "godot/src/navigation/landing_point.gd"
       ],
       "verification": [
+        "walk-facing",
+        "visual-walk-facing",
         "surface",
         "click",
         "framework-modules",
@@ -111,7 +113,8 @@
         "visual-home-lighting",
         "visual-atmosphere",
         "visual-boat-lamp",
-        "visual-route-ripple"
+        "visual-route-ripple",
+        "sail-bounds"
       ]
     },
     {
@@ -161,7 +164,9 @@
         "visual-pocket-bubbles",
         "visual-plot-shipping",
         "interact-focus",
-        "board-click"
+        "board-click",
+        "unreachable-menu",
+        "pick-mesh"
       ]
     },
     {
@@ -205,7 +210,9 @@
         "minimum-loop",
         "visual-plot-shipping",
         "visual-pocket-bubbles",
-        "visual-pocket-services"
+        "visual-pocket-services",
+        "pocket-drag-buy",
+        "visual-pocket-drag-buy"
       ]
     },
     {
@@ -271,7 +278,8 @@
         "building",
         "building-integration",
         "visual-building",
-        "building-restart"
+        "building-restart",
+        "progress-bars"
       ]
     },
     {
@@ -440,7 +448,8 @@
         "visual-sea-style",
         "visual-fish-schools",
         "framework-integration",
-        "minimum-loop"
+        "minimum-loop",
+        "progress-bars"
       ]
     },
     {
@@ -642,7 +651,10 @@
         "visual-sleep-cycle",
         "visual-pocket-bubbles",
         "visual-pocket-services",
-        "visual-home-lighting"
+        "visual-home-lighting",
+        "progress-bars",
+        "pocket-drag-buy",
+        "visual-pocket-drag-buy"
       ]
     },
     {
@@ -696,6 +708,7 @@
         "selftest",
         "decorations",
         "visual-decorations",
+        "visual-birds",
         "visual-fish-schools"
       ]
     },

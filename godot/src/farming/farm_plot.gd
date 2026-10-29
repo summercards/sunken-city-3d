@@ -157,12 +157,18 @@ func _build_box() -> void:
 
 
 ## 作物表现容器。土面高度 0.33，作物几何以土面为原点。
+##
+## Y 方向必须抵消父节点缩放：浮台地格是 scale=(1.38, 0.65, 1.75)，
+## 作物作为子节点会被压到 65% 高——这正是「作物又矮又平、看着小」的一半原因。
+## X/Z 故意保留父缩放：木框被拉大了，作物跟着铺满才不留空土。
 func _build_crop_view() -> void:
 	_crop_view = CropViewLib.new()
 	_crop_view.name = "Crop"
 	_crop_view.position = Vector3(0.0, 0.33, 0.0)
 	_crop_view.preview_crop = "lettuce"
 	_crop_view.preview_stage = StageDef.HARVEST
+	var squash := scale.y
+	_crop_view.scale = Vector3(1.0, 1.0 / squash if squash > 0.001 else 1.0, 1.0)
 	add_child(_crop_view)
 
 
@@ -221,12 +227,15 @@ func _sync(_delta: float) -> void:
 
 
 ## 播种/收获的动作反馈：整体轻弹一下。这不是阶段开关，阶段只由可见性切换。
+## 弹跳必须基于基准缩放，不能用 Vector3.ONE——那会把 Y 方向的压扁补偿洗掉，
+## 弹一下就变成扁的。
 func _pop() -> void:
 	if _crop_view == null:
 		return
+	var base: Vector3 = _crop_view.scale
 	var tw := create_tween()
-	_crop_view.scale = Vector3(0.92, 0.92, 0.92)
-	tw.tween_property(_crop_view, "scale", Vector3.ONE, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_crop_view.scale = base * 0.92
+	tw.tween_property(_crop_view, "scale", base, 0.28).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 func _mat(color: Color) -> StandardMaterial3D:

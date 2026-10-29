@@ -57,28 +57,58 @@ func _remove(id: String) -> void:
 func reset_projection() -> void:
 	for id in _nodes.keys(): _remove(id)
 func walk_rects(rows: Array) -> Array:
+	var cuts: Array=[]
+	for item in rows:
+		if item.kind=="planter": cuts.append(Catalog.plot_rect(item).grow(0.05))
 	var result: Array=_base_rects.duplicate()
 	for item in rows:
 		if item.kind!="deck" or item.left>0: continue
-		var rect:=Catalog.tile_rect(item.x,item.z)
-		var cut:=Rect2()
-		for other in rows:
-			if other.kind=="planter" and other.support==item.id: cut=Catalog.plot_rect(other).grow(0.06)
-		if not cut.has_area(): result.append(rect);continue
-		# Four non-overlapping strips avoid polygon holes being treated as walkable union.
-		for strip in [Rect2(rect.position,Vector2(rect.size.x,cut.position.y-rect.position.y)),
-			Rect2(Vector2(rect.position.x,cut.end.y),Vector2(rect.size.x,rect.end.y-cut.end.y)),
-			Rect2(Vector2(rect.position.x,cut.position.y),Vector2(cut.position.x-rect.position.x,cut.size.y)),
-			Rect2(Vector2(cut.end.x,cut.position.y),Vector2(rect.end.x-cut.end.x,cut.size.y))]:
-			if strip.size.x>0.01 and strip.size.y>0.01: result.append(strip)
+		var pieces: Array=[Catalog.tile_rect(item.x,item.z)]
+		# A planter may span two decks, so every deck subtracts every footprint
+		# instead of only the one it was built on.
+		for cut: Rect2 in cuts:
+			var next: Array=[]
+			for piece: Rect2 in pieces: next.append_array(_subtract(piece,cut))
+			pieces=next
+		for piece: Rect2 in pieces:
+			if piece.size.x>0.01 and piece.size.y>0.01: result.append(piece)
+	return result
+## Splits `a` around `b`, producing non-overlapping strips that avoid polygon holes.
+static func _subtract(a: Rect2, b: Rect2) -> Array:
+	if not a.intersects(b): return [a]
+	var top:=maxf(a.position.y,b.position.y)
+	var bottom:=minf(a.end.y,b.end.y)
+	var result: Array=[]
+	if top-a.position.y>0.01: result.append(Rect2(a.position,Vector2(a.size.x,top-a.position.y)))
+	if a.end.y-bottom>0.01: result.append(Rect2(Vector2(a.position.x,bottom),Vector2(a.size.x,a.end.y-bottom)))
+	if bottom-top>0.0001:
+		if b.position.x-a.position.x>0.01: result.append(Rect2(Vector2(a.position.x,top),Vector2(b.position.x-a.position.x,bottom-top)))
+		if a.end.x-b.end.x>0.01: result.append(Rect2(Vector2(b.end.x,top),Vector2(a.end.x-b.end.x,bottom-top)))
 	return result
 func approach_points(item: Dictionary) -> Array[Vector3]:
 	var rect:=Catalog.plot_rect(item)
 	var center:=rect.get_center()
+	var walk:=walk_rects(service.query())
 	var result: Array[Vector3]=[]
 	for p in [Vector2(center.x,rect.position.y-0.25),Vector2(center.x,rect.end.y+0.25),Vector2(rect.position.x-0.25,center.y),Vector2(rect.end.x+0.25,center.y)]:
-		result.append(Catalog.ORIGIN+Vector3(p.x,0,p.y))
+		var at: Vector2=_nearest_walk(walk,p)
+		result.append(Catalog.ORIGIN+Vector3(at.x,0,at.y))
 	return result
+## Free placement can push the four probes off the deck edge; pull each one back
+## onto the nearest walkable strip so a built planter stays usable.
+static func _nearest_walk(rects: Array, p: Vector2) -> Vector2:
+	for rect: Rect2 in rects:
+		if rect.has_point(p): return p
+	var best:=p
+	var best_distance:=INF
+	for rect: Rect2 in rects:
+		if rect.size.x<0.3 or rect.size.y<0.3: continue
+		var inner:=rect.grow(-0.2)
+		if inner.size.x<=0.0 or inner.size.y<=0.0: inner=rect
+		var candidate:=Vector2(clampf(p.x,inner.position.x,inner.end.x),clampf(p.y,inner.position.y,inner.end.y))
+		var distance:=p.distance_squared_to(candidate)
+		if distance<best_distance: best_distance=distance;best=candidate
+	return best
 func water_shapes(saved: Variant = null) -> Array:
 	var rows: Array=service.query() if saved==null else saved
 	var result: Array=[]

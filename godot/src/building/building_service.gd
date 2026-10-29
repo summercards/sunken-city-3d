@@ -55,9 +55,12 @@ func geometry_reason(request: Dictionary) -> String:
 	if support.is_empty() or support.kind!="deck" or support.left>0: return "请放在已完成的新木板上"
 	if not request.has("px") or not request.has("pz"): return "请选择位置"
 	var rect := Catalog.plot_rect(request)
-	if not Catalog.tile_rect(support.x,support.z).grow(-0.12).encloses(rect): return "种植区需要完整放在木板内"
+	# The board is the boundary, not the tile: the whole finished deck outline is
+	# walkable surface, so the footprint may cross seams and share a deck.
+	if not Catalog.tile_rect(support.x,support.z).intersects(rect): return "种植区需要完整放在木板内"
+	if not Catalog.covered(rect.grow(Catalog.PLANTER_MARGIN),Catalog.deck_tiles(_rows)): return "种植区超出了木板边缘"
 	for item in _rows:
-		if item.kind=="planter" and item.support==support.id: return "这块木板已经有种植区"
+		if item.kind=="planter" and Catalog.plot_rect(item).grow(0.02).intersects(rect): return "种植区不能重叠"
 	return ""
 func can_place(request: Dictionary) -> String:
 	var reason := context_reason()
@@ -65,6 +68,24 @@ func can_place(request: Dictionary) -> String:
 	reason=geometry_reason(request)
 	if reason!="": return reason
 	return _ports.space_reason.call(request)
+## 越界不足 0.4 米时把种植区吸到最近的合法格点，省掉"差几厘米就红"的像素级瞄准。
+## 超过这个距离说明该处确实放不下，保持红；重叠、压到角色也保持原样，不偷偷挪位。
+func snap_planter(request: Dictionary) -> Dictionary:
+	if str(request.get("kind",""))!="planter": return request.duplicate()
+	if not request.has("px") or not request.has("pz"): return request.duplicate()
+	if Catalog.covered(Catalog.plot_rect(request).grow(Catalog.PLANTER_MARGIN),Catalog.deck_tiles(_rows)): return request.duplicate()
+	var base := Vector2(float(request.px),float(request.pz))
+	var best: Dictionary={}
+	var best_distance:=INF
+	for i in range(-4,5):
+		for j in range(-4,5):
+			var candidate: Dictionary=request.duplicate()
+			candidate.px=snappedf(base.x+float(i)*0.1,0.1)
+			candidate.pz=snappedf(base.y+float(j)*0.1,0.1)
+			if geometry_reason(candidate)!="": continue
+			var distance:=base.distance_squared_to(Vector2(candidate.px,candidate.pz))
+			if distance<best_distance: best_distance=distance;best=candidate
+	return best if not best.is_empty() else request.duplicate()
 func begin(request: Dictionary) -> Dictionary:
 	if _committing: return {"ok":false,"reason":"正在提交建造"}
 	var reason := can_place(request)

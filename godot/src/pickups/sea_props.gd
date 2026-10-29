@@ -303,16 +303,11 @@ func _process(delta: float) -> void:
 
 
 ## 船停着 / 正在开往目标 / 人走到旁边才结算。
-func try_pickup(boat_pos: Vector3, boat_stopped: bool) -> Dictionary:
-	if not boat_stopped:
-		return {}
-	for c in crates:
-		var root: Node3D = c.root
-		if Vector2(root.position.x - boat_pos.x, root.position.z - boat_pos.z).length() <= PICKUP_RADIUS:
-			return collect_crate(c)
-	return {}
-
-
+##
+## 注意：`try_pickup`（停船一碰就瞬收）已随「停下才打捞」的规则调整删掉。
+## 现在停船只代表「可以开始捞」，捞多久由场景侧的拾取阶段计时负责，
+## 结算仍走 collect_crate / collect_fish。要判断「船边有没有货」用
+## `nearest_crate(pos, PICKUP_RADIUS)`，它只查不结算。
 func collect_crate(crate: Dictionary) -> Dictionary:
 	if not crates.has(crate): return {}
 	var spec: Dictionary = CRATE_KINDS.get(crate.kind, CRATE_KINDS.crate)

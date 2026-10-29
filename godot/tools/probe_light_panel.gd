@@ -211,6 +211,50 @@ func run() -> void:
 			"正午的海水没被夕阳的改动染上（%s）" % (water_mat.get_shader_parameter("body_shallow") as Color).to_html(false))
 		check(rig.offset_count("spring", "clear", "sunset") > 0, "夕阳段记下了水面偏移")
 
+	# ---- 9b. 只拖水面时偏移也必须自己落盘（回归项） --------------------------
+	# 以前 `_water_write` 只置 `_water_dirty`，而落盘走 `_save_light_cfg()`，
+	# 那个被 `_light_dirty` 卡着。于是「只调水面」的用户关掉面板时，
+	# 一条差值都没写进 `light_slots.cfg` —— 面板里看着生效、重开全没了，
+	# 而写入按钮照报成功。这一条盯的就是那个组合。
+	grade.set_tab("water")
+	grade._pick_slot("slot", "dawn")
+	await frames(4)
+	grade._light_dirty = false  # 模拟「从头到尾只碰过水面页」
+	grade._water_write("body_deep", Color(0.9, 0.30, 0.20))
+	await frames(2)
+	grade.set_open(false)
+	await frames(6)
+	cfg = ConfigFile.new()
+	cfg.load(CFG)
+	check(cfg.has_section("spring|clear|dawn"),
+		"只调水面、关面板也写出了 dawn 这一段（实际 %s）" % str(cfg.get_sections()))
+	check(cfg.has_section_key("spring|clear|dawn", "water__body_deep"),
+		"水面差值进了 light_slots.cfg（键 water__body_deep）")
+
+	# ---- 9c. 「写入 watertres」不得假装改了东西 ------------------------------
+	# 海水色这一批存的是差值，文件里那一行是 09:00 基准。旧实现把基准原样
+	# 抄回去、还报「已写入 N 项」，用户回游戏一看没变化，只能怀疑按钮坏了。
+	var mat_path := "res://assets/materials/water.tres"
+	var mat_before := FileAccess.get_file_as_string(mat_path)
+	grade.set_open(true)
+	grade.set_tab("water")
+	await frames(6)
+	grade._on_water_save()
+	await frames(2)
+	check(grade._status.text.contains("light_slots.cfg"),
+		"状态栏说清了改动存在 light_slots.cfg（%s）" % grade._status.text)
+	check(not grade._status.text.begins_with("已写入 的 0"),
+		"状态栏不再给出空头承诺")
+	# 无论写没写，恢复文件原文（验证工程把 assets 目录联接回仓库，
+	# 写穿过去就是改真文件 —— 这条探针不许在仓库里留下痕迹）。
+	if FileAccess.get_file_as_string(mat_path) != mat_before:
+		var restore := FileAccess.open(mat_path, FileAccess.WRITE)
+		if restore != null:
+			restore.store_string(mat_before)
+			restore.close()
+	check(FileAccess.get_file_as_string(mat_path) == mat_before,
+		"water.tres 逐字节没有被本次探针改动")
+
 	# ---- 10. 滤镜页的对比度不再被昼夜覆盖 ------------------------------------
 	# 回归项：`_apply_env` 每帧把 `adjustment_contrast` 按 night 重算，
 	# 旧实现直接写 `_env` 只能闪一帧。这条断言就是盯那件事的。
