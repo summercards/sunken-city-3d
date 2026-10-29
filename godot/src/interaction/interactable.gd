@@ -179,13 +179,25 @@ func _update_heat_preview() -> void:
 			_heat_mat.albedo_color = Color(accent.r, accent.g, accent.b, 0.16)
 
 
+## 编辑器里选中本节点时，画面上显示热区预览。
+##
+## 不能用 `EditorInterface.get_selection()` 静态引用：`EditorInterface` 这个类
+## 只存在于编辑器构建里，导出模板中没有这个符号，整个脚本会在导出包的解析阶段
+## 就失败（`Parse Error: Identifier "EditorInterface" not declared`），
+## 连带把 `gather_spot.gd` → `gather_field.gd` 一起拖垮。
+## 所以改为运行时取单例，取不到就当"没选中"。
 func _is_selected_in_editor() -> bool:
 	if not Engine.is_editor_hint():
 		return false
-	var sel := EditorInterface.get_selection()
+	if not Engine.has_singleton("EditorInterface"):
+		return false
+	var ei: Object = Engine.get_singleton("EditorInterface")
+	if ei == null:
+		return false
+	var sel: Object = ei.call("get_selection")
 	if sel == null:
 		return false
-	for n in sel.get_selected_nodes():
+	for n in sel.call("get_selected_nodes"):
 		if n == self:
 			return true
 	return false

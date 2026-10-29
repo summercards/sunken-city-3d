@@ -10,7 +10,7 @@
 第一轮按实测甲板收窄了矩形之后，主人复查仍然能"穿进去"：人物中心已经踩在甲板内，
 但**帽檐和肩膀压在水面上**，看上去还是人站在水里。
 
-## 根因（两层）
+## 根因（三层）
 
 ### 第一层：行走矩形从来没按甲板实测过
 
@@ -40,6 +40,90 @@
 和手臂外缘。中心点贴着甲板边，帽檐就必然悬在水面上。
 
 这就是"修了矩形却还是进水"的原因：改的是**点**，漏的是**身影**。
+
+### 第三层：主人跑的是旧导出包（这才是"并没有改变"的原因）
+
+前两层修完，主人复查仍然"穿进去"。查下来不是代码没生效，而是**包没重导**：
+
+| 产物 | 修复前时间戳 | 内容 |
+|---|---|---|
+| `godot/build/windows/sea.exe` + `sea.pck` | 10:32 | 旧矩形 `[0, 6.5, 11.5, 18]` |
+| `godot/build/web/index.*` | 10:32 | 同上 |
+
+修复发生在 16:00 之后，两个包都是当天上午导的。`.gitignore` 里
+`/godot/build/` 被忽略，所以这份"发行产物"从来不进版本库、也没人因为改数据而重导 ——
+它静静躺在那里，谁双击 `sea.exe` 谁就回到七小时前的行为。
+
+已重新导出（windows 17:44 / web 17:46），并从 PCK 二进制里直接取出 walk 数据确认：
+
+```
+zone1_home_dock ... "rects": [
+  [-1, 4.5, 5, 11.5],
+  [4.5, 9.5, 7.5, 11.5],
+  [0.35, 5.55, 11.5, 12.9],
+  [0.6, 5.8, 12.9, 17.9]
+]
+```
+
+**教训**：改数据不等于改行为。这个工程有"源码 + 导出包"两份状态，
+导出包不跟源码同源校验，就会出现"改完还是老样子"。
+
+后续要防的话，可以在 `run_verification.py` 里加一条「导出包 mtime 必须晚于
+`godot/scenes/zones/*.tscn` 与 `godot/assets/data/*.json`」的检查 —— 目前只记录，
+未接入（导出一次 1 分 16 秒，不适合每次都跑）。
+
+### 顺带修掉：导出包里 interactable.gd 根本编译不了
+
+重导后先跑了一遍新包，报：
+
+```
+SCRIPT ERROR: Parse Error: Identifier "EditorInterface" not declared in the current scope.
+   at: GDScript::reload (res://src/interaction/interactable.gd:185)
+SCRIPT ERROR: Parse Error: Could not resolve class "Interactable".
+   at: gather_spot.gd:2  →  gather_field.gd 一并失败
+```
+
+`EditorInterface` 只存在于编辑器构建，导出模板里没有这个符号。静态写
+`EditorInterface.get_selection()` 会让整个脚本在导出包解析阶段就失败，
+连带把采集链（`gather_spot.gd` → `gather_field.gd`）拖垮。
+
+这不是本次改动引入的（`2c50f51` 引入，`995db38` 与 10:32 的旧包里都有），
+但既然"包必须能跑"是这次修复成立的前提，就一起修了：
+改成 `Engine.has_singleton("EditorInterface")` + `Engine.get_singleton()` 运行时取，
+取不到就当"没选中"。
+
+修完 `sea.exe --headless` 不再有 Parse Error。
+
+## 「能不能走」到底靠什么判断（回答主人的架构疑问）
+
+实测结论：**整个运行时一个碰撞体都没有**。
+
+探针 `godot/tools/probe_world_colliders.gd`：
+
+```
+[colliders] PhysicsBody3D 总数: 0
+[colliders] player 是 PhysicsBody3D: false  子节点类型: Node3D,Node3D
+[colliders] 竖直射线 x=1.00 z=14.20 → 无任何碰撞体
+[colliders] 竖直射线 x=3.00 z=14.20 → 无任何碰撞体
+[colliders] 竖直射线 x=6.60 z=14.20 → 无任何碰撞体
+```
+
+也就是说：栈桥上从上往下打射线，既没有地板也没有墙。人站在那儿，
+不是因为脚下有碰撞面，而是 `WalkArea.surface_y = 1.38` 把他的 y 直接写死。
+
+工程里确实有"阻挡"系统，但它**只服务船**：
+
+| 对象 | 判定依据 | 数据从哪来 |
+|---|---|---|
+| **船** | `water_block_rects` / `BlockerSet` | 运行时从组件可见几何派生（0.4 m 栅格） |
+| **人** | `WalkArea.rects` | 场景 TSCN 里手写的矩形 |
+
+所以「模型长什么样」跟「人能不能走」**毫无关系**。栈桥换成更窄的板、
+加一圈栏杆、把甲板削掉一块 —— 只要 `rects` 不改，人照样按旧矩形走。
+反过来也一样：这次矩形改准了，模型一个像素都没动。
+
+这也是为什么这类 bug 反复出现：三份数据（模型、矩形、水面阻挡）互不约束，
+改一份不会提醒另外两份。
 
 ## 修复
 
