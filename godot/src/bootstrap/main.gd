@@ -162,8 +162,12 @@ var _title_layers: Array = []
 var _title_props: Dictionary = {}
 var _title_economy_ticking := true
 const Scope = preload("res://src/core/play_scope.gd")
+const MaterialParamGuard = preload("res://src/rendering/material_param_guard.gd")
 
 func _ready() -> void:
+	# 材质参数只存在 .tres 里，编辑器保存时可能整批被清空且不报错（详见该脚本注释）。
+	# 先把缺的补回内存，任何几何都不会因此变白。
+	MaterialParamGuard.enforce()
 	# 水面是接近纯色的大渐变，8 位输出会出现一圈圈可见色阶（网页版有轻微噪声盖住）。
 	# 开启去色带比往 shader 里掺噪点干净，也不会让静态截图变脏。
 	get_viewport().use_debanding = true

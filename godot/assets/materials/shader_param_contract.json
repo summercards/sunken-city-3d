@@ -1,0 +1,184 @@
+{
+  "_why": [
+    "ShaderMaterial 的参数只存在 .tres 的 shader_parameter/* 行里。",
+    "Godot 重写这些行时依据的是「当前已编译着色器的 uniform 列表」；",
+    "该列表一旦为空（着色器正在重编译、或资源早于着色器就绪被保存），",
+    "整批参数会被静默丢弃，没有任何报错。sunny_palette 的 palette 无默认值，",
+    "丢掉后 texture() 返回纯白 —— 这就是「模型突然变白」的全部原因。",
+    "本文件是这几种材质的唯一真相源：check 用它断言，repair 用它复原。"
+  ],
+  "version": 1,
+  "materials": {
+    "godot/assets/materials/water.tres": {
+      "shader": "res://shaders/water.gdshader",
+      "min_params": 90,
+      "required": [
+        "water_level",
+        "body_shallow",
+        "body_deep"
+      ],
+      "params": {
+        "water_level": "1.12",
+        "u_reverse_z": "1.0",
+        "body_shallow": "Color(0.128, 0.618, 0.584, 1)",
+        "body_deep": "Color(0.070588216, 0.40324757, 0.54901963, 1)",
+        "depth_half_distance": "3.75",
+        "shallow_tint_strength": "1.95",
+        "view_occlusion_strength": "0.1",
+        "absorption": "Vector3(0.088, 0.036, 0.028)",
+        "refraction_strength": "22.0",
+        "normal_lighting": "0.45",
+        "large_wave_normals": {
+          "res": "res://assets/textures/water/large_waves.png"
+        },
+        "surface_normal_strength": "0.45",
+        "normal_repeat_metres": "2.5",
+        "detail_broad": "0.36",
+        "detail_mid": "0.44",
+        "detail_fine": "0.16",
+        "caustics_enabled": "true",
+        "caustics_color": "Color(0.55, 1, 0.92, 1)",
+        "caustics_strength": "0.395",
+        "caustics_scale": "1.0",
+        "caustics_speed": "1.0",
+        "caustics_detail": "0.35",
+        "caustics_depth_near": "1.2",
+        "caustics_depth_far": "15.0",
+        "relief_enabled": "true",
+        "relief_gain": "1.0",
+        "relief_light": "1.15",
+        "relief_shade": "1.6",
+        "relief_color": "Color(0.68, 0.941, 0.992, 1)",
+        "sky_top_color": "Color(0.30775452, 0.94921875, 0.78384125, 1)",
+        "sky_horizon_color": "Color(0.61, 0.79, 0.84, 1)",
+        "sky_ground_color": "Color(0.1, 0.26, 0.32, 1)",
+        "sky_curve": "0.35",
+        "sky_sun_glow": "0.35",
+        "reflection_strength": "0.35",
+        "fresnel_power": "6.0",
+        "sun_direction": "Vector3(0.5191, 0.7787, -0.3523)",
+        "sun_color": "Color(1, 0.955, 0.8, 1)",
+        "sun_highlight_strength": "0.3",
+        "sun_glossiness": "7000.0",
+        "sun_lobe_gain": "60.0",
+        "ripples_enabled": "true",
+        "ripple_color": "Color(0.85, 0.95, 0.9, 0.45)",
+        "ripple_coverage": "0.47",
+        "ripple_width_multiplier": "0.27",
+        "ripple_dissipation_speed": "1.0",
+        "ripple_scale": "0.78",
+        "ripple_tile_metres": "Vector2(6.6, 5.9)",
+        "ripple_fade_near": "10.5",
+        "ripple_fade_far": "28.0",
+        "ripple_pattern": {
+          "res": "res://assets/textures/water/ripple_pattern.png"
+        },
+        "flow_speed": "0.5",
+        "flow_direction_degrees": "180.0",
+        "glints_enabled": "true",
+        "glint_color": "Color(0.88, 0.99, 0.96, 1)",
+        "glint_strength": "0.39",
+        "glint_density": "0.25",
+        "glint_size": "0.63",
+        "glint_speed": "1.0",
+        "glint_drift": "1.0",
+        "glint_twinkle": "2.4",
+        "glint_zone_inner": "2.2",
+        "glint_zone_outer": "11.8",
+        "exposure_comp": "0.66",
+        "emission_gain": "Vector3(1, 1, 1)",
+        "dither_strength": "1.0",
+        "shore_bounds": "Vector4(0, 0, 0, 0)",
+        "shore_texel": "0.0009765625",
+        "shore_enabled": "false",
+        "crest_foam_strength": "0.0",
+        "foam_color": "Color(1, 1, 1, 1)",
+        "contact_depth": "3.76",
+        "edge_strength": "0.11",
+        "contact_foam_color": "Color(0.93, 0.99, 0.97, 1)",
+        "contact_foam_rim_width": "0.175",
+        "contact_foam_width": "2.12",
+        "contact_foam_strength": "1.12",
+        "contact_foam_animation_speed": "1.09",
+        "contact_foam_interval_seconds": "1.1",
+        "contact_foam_pattern": {
+          "res": "res://assets/textures/water/foam_line.png"
+        },
+        "contact_foam_repeat_metres": "6.6",
+        "caustic_strength": "0.135",
+        "caustic_scale": "0.74",
+        "caustic_speed": "2.48",
+        "caustic_color": "Color(1, 0.80859375, 0.8848572, 1)",
+        "night_albedo": "Color(0.4, 0.48, 0.59, 1)",
+        "night_deep_albedo": "Color(0.18, 0.29, 0.44, 1)",
+        "night_depth_distance": "5.0",
+        "night_shallow_opacity": "0.32",
+        "night_roughness": "0.36"
+      }
+    },
+    "godot/assets/materials/solar_cabin/sunny_matte.tres": {
+      "shader": "res://shaders/sunny_palette.gdshader",
+      "min_params": 5,
+      "required": [
+        "palette"
+      ],
+      "params": {
+        "palette": {
+          "res": "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
+        },
+        "roughness_value": "0.62",
+        "metallic_value": "0",
+        "emission_value": "0",
+        "grid_role": "false"
+      }
+    },
+    "godot/assets/materials/solar_cabin/sunny_metal.tres": {
+      "shader": "res://shaders/sunny_palette.gdshader",
+      "min_params": 5,
+      "required": [
+        "palette"
+      ],
+      "params": {
+        "palette": {
+          "res": "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
+        },
+        "roughness_value": "0.42",
+        "metallic_value": "0.18",
+        "emission_value": "0",
+        "grid_role": "true"
+      }
+    },
+    "godot/assets/materials/solar_cabin/sunny_gloss.tres": {
+      "shader": "res://shaders/sunny_palette_gloss.gdshader",
+      "min_params": 5,
+      "required": [
+        "palette"
+      ],
+      "params": {
+        "palette": {
+          "res": "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
+        },
+        "roughness_value": "0.24",
+        "metallic_value": "0",
+        "emission_value": "0",
+        "grid_role": "false"
+      }
+    },
+    "godot/assets/materials/solar_cabin/sunny_emission.tres": {
+      "shader": "res://shaders/sunny_palette.gdshader",
+      "min_params": 5,
+      "required": [
+        "palette"
+      ],
+      "params": {
+        "palette": {
+          "res": "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
+        },
+        "roughness_value": "0.35",
+        "metallic_value": "0",
+        "emission_value": "2",
+        "grid_role": "false"
+      }
+    }
+  }
+}

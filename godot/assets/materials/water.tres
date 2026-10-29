@@ -1,7 +1,100 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://cilcap5f0o2tu"]
+[gd_resource type="ShaderMaterial" format=4 uid="uid://cilcap5f0o2tu"]
 
 [ext_resource type="Shader" uid="uid://erv7ypqs8idl" path="res://shaders/water.gdshader" id="1_mlyr4"]
+[ext_resource type="Texture2D" uid="uid://dungvelmedig4" path="res://assets/textures/water/foam_line.png" id="2_foam"]
+[ext_resource type="Texture2D" path="res://assets/textures/water/large_waves.png" id="3_waves"]
+[ext_resource type="Texture2D" path="res://assets/textures/water/ripple_pattern.png" id="4_ripple"]
 
 [resource]
 render_priority = 2
 shader = ExtResource("1_mlyr4")
+shader_parameter/water_level = 1.12
+shader_parameter/u_reverse_z = 1.0
+shader_parameter/body_shallow = Color(0.128, 0.618, 0.584, 1)
+shader_parameter/body_deep = Color(0.070588216, 0.40324757, 0.54901963, 1)
+shader_parameter/depth_half_distance = 3.75
+shader_parameter/shallow_tint_strength = 1.95
+shader_parameter/view_occlusion_strength = 0.1
+shader_parameter/absorption = Vector3(0.088, 0.036, 0.028)
+shader_parameter/refraction_strength = 22.0
+shader_parameter/normal_lighting = 0.45
+shader_parameter/large_wave_normals = ExtResource("3_waves")
+shader_parameter/surface_normal_strength = 0.45
+shader_parameter/normal_repeat_metres = 2.5
+shader_parameter/detail_broad = 0.36
+shader_parameter/detail_mid = 0.44
+shader_parameter/detail_fine = 0.16
+shader_parameter/caustics_enabled = true
+shader_parameter/caustics_color = Color(0.55, 1, 0.92, 1)
+shader_parameter/caustics_strength = 0.395
+shader_parameter/caustics_scale = 1.0
+shader_parameter/caustics_speed = 1.0
+shader_parameter/caustics_detail = 0.35
+shader_parameter/caustics_depth_near = 1.2
+shader_parameter/caustics_depth_far = 15.0
+shader_parameter/relief_enabled = true
+shader_parameter/relief_gain = 1.0
+shader_parameter/relief_light = 1.15
+shader_parameter/relief_shade = 1.6
+shader_parameter/relief_color = Color(0.68, 0.941, 0.992, 1)
+shader_parameter/sky_top_color = Color(0.30775452, 0.94921875, 0.78384125, 1)
+shader_parameter/sky_horizon_color = Color(0.61, 0.79, 0.84, 1)
+shader_parameter/sky_ground_color = Color(0.1, 0.26, 0.32, 1)
+shader_parameter/sky_curve = 0.35
+shader_parameter/sky_sun_glow = 0.35
+shader_parameter/reflection_strength = 0.35
+shader_parameter/fresnel_power = 6.0
+shader_parameter/sun_direction = Vector3(0.5191, 0.7787, -0.3523)
+shader_parameter/sun_color = Color(1, 0.955, 0.8, 1)
+shader_parameter/sun_highlight_strength = 0.3
+shader_parameter/sun_glossiness = 7000.0
+shader_parameter/sun_lobe_gain = 60.0
+shader_parameter/ripples_enabled = true
+shader_parameter/ripple_color = Color(0.85, 0.95, 0.9, 0.45)
+shader_parameter/ripple_coverage = 0.47
+shader_parameter/ripple_width_multiplier = 0.27
+shader_parameter/ripple_dissipation_speed = 1.0
+shader_parameter/ripple_scale = 0.78
+shader_parameter/ripple_tile_metres = Vector2(6.6, 5.9)
+shader_parameter/ripple_fade_near = 10.5
+shader_parameter/ripple_fade_far = 28.0
+shader_parameter/ripple_pattern = ExtResource("4_ripple")
+shader_parameter/flow_speed = 0.5
+shader_parameter/flow_direction_degrees = 180.0
+shader_parameter/glints_enabled = true
+shader_parameter/glint_color = Color(0.88, 0.99, 0.96, 1)
+shader_parameter/glint_strength = 0.39
+shader_parameter/glint_density = 0.25
+shader_parameter/glint_size = 0.63
+shader_parameter/glint_speed = 1.0
+shader_parameter/glint_drift = 1.0
+shader_parameter/glint_twinkle = 2.4
+shader_parameter/glint_zone_inner = 2.2
+shader_parameter/glint_zone_outer = 11.8
+shader_parameter/exposure_comp = 0.66
+shader_parameter/emission_gain = Vector3(1, 1, 1)
+shader_parameter/dither_strength = 1.0
+shader_parameter/shore_bounds = Vector4(0, 0, 0, 0)
+shader_parameter/shore_texel = 0.0009765625
+shader_parameter/shore_enabled = false
+shader_parameter/crest_foam_strength = 0.0
+shader_parameter/foam_color = Color(1, 1, 1, 1)
+shader_parameter/contact_depth = 3.76
+shader_parameter/edge_strength = 0.11
+shader_parameter/contact_foam_color = Color(0.93, 0.99, 0.97, 1)
+shader_parameter/contact_foam_rim_width = 0.175
+shader_parameter/contact_foam_width = 2.12
+shader_parameter/contact_foam_strength = 1.12
+shader_parameter/contact_foam_animation_speed = 1.09
+shader_parameter/contact_foam_interval_seconds = 1.1
+shader_parameter/contact_foam_pattern = ExtResource("2_foam")
+shader_parameter/contact_foam_repeat_metres = 6.6
+shader_parameter/caustic_strength = 0.135
+shader_parameter/caustic_scale = 0.74
+shader_parameter/caustic_speed = 2.48
+shader_parameter/caustic_color = Color(1, 0.80859375, 0.8848572, 1)
+shader_parameter/night_albedo = Color(0.4, 0.48, 0.59, 1)
+shader_parameter/night_deep_albedo = Color(0.18, 0.29, 0.44, 1)
+shader_parameter/night_depth_distance = 5.0
+shader_parameter/night_shallow_opacity = 0.32
+shader_parameter/night_roughness = 0.36

@@ -133,6 +133,20 @@ def git_step(result):
     result['git']['changed_files'] = len(changed)
 
     if changed:
+        # 提交前先挡住「材质参数被清空」——这类损坏肉眼要等到画面变白才发现，
+        # 一旦进了历史，连 `git checkout HEAD --` 都救不回来（2026-10-29 发生过）。
+        code, out = run([sys.executable, str(ROOT / 'scripts/check_material_params.py'), '--quiet'], 180)
+        if code != 0:
+            run([sys.executable, str(ROOT / 'scripts/repair_material_params.py')], 180)
+            code, out = run([sys.executable, str(ROOT / 'scripts/check_material_params.py'), '--quiet'], 180)
+            if code != 0:
+                lines = out.strip().splitlines()
+                result['git']['commit'] = '阻断：材质参数契约不成立 → ' + ' / '.join(lines[-3:])
+                return
+            result['git']['material_repair'] = 'auto'
+            code, out = run(['git', 'status', '--porcelain'], 60)
+            changed = [ln for ln in out.splitlines() if ln.strip()]
+
         code, out = run(['git', 'add', '-A'], 600)
         if code != 0:
             result['git']['commit'] = f'add 失败 {code}'
