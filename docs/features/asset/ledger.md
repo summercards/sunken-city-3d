@@ -288,3 +288,5 @@ SEA-ASSET-R02/R03：通过ledger_index登记原创程序几何SEA-BUILDING-WOOD-
 | 对应设计条款 | 实施状态 | 证据 |
 |---|---|---|
 | SEA-ASSET-R31 | 已实现；实景前后对照、几何边界与属性逐字节复核通过 | [板底与电线杆摆位](../../development/2026-10-29_deck_draft_pole_placement.md) |
+
+SEA-ASSET-R31后续：上段杆身底端直接延长并移除旧下段32三角形，工具与备份见[本轮记录](../../development/2026-10-29_deck_draft_pole_placement.md)。真实渲染15项通过，已查看整根杆截图；功能契约同步/无参检查与架构检查均通过。

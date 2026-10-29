@@ -29,3 +29,9 @@
 第一次`081342-building-draft-pole`、第二次`081551-building-draft-water`运行几何检查通过，但主场景当前Water节点被编辑器隐藏，图中没有水，不能证明吃水效果。此后的捕获工具只在隔离场景临时show水面；`081636-building-fit-visible-water`发现板底已接海但静态岸线未更新，随后增加完工矩形接触通道，并以上表最后两轮为最终证据。正式main.tscn的用户编辑状态保留。
 
 已执行`check_feature_contracts.py --sync`及无参检查，当前均报告6项其他材质哈希差异：ocean_sky、solar_cabin/sunny_{emission,gloss,matte,metal}、water。工作期间另有编辑器保存main.tscn、solar_cabin.tscn与材质改动，未回退、未代其重算哈希；本轮仅登记明确修改的木板源、绞盘GLB/包装、BuildingWorld、水面接触接口与foam include。架构检查PASS，15服务0问题。全局摘要同步受这6项差异阻断，不能宣称全工程门禁通过。
+
+## 后续：杆身延长接通
+
+按新截图直接延长移动后上方杆身底端：17个截面顶点沿既有轴向下移动(-2.34243,-23.24495,-4.21352)米，其余上段/花/绞盘不变；删除旧海下独立杆身32三角形。整杆底端约Y=-22.125，原立柱位置清空；正式水平摆位保持。补丁工具tools/extend_salvage_pole.py，备份在sea-work/backups/salvage-before-extension-f0c1b55a265d.glb。
+
+本次证据：`20261029-101430-pole-extension-final-70e6d5`，visual-building-fit 15项0失败、退出0；已查看`project/outputs/fit-pole-full.png`，杆身连续延伸，旧下段已移除。功能契约`--sync`/无参检查35功能459源资产392运行资源均0问题，架构15服务0问题。首次导入轮`101311`因沿用旧“整体包围盒不跨板边”断言失败；延长后的水下部分允许向原轴下方延伸，改为只检查海上段净空后复验通过。

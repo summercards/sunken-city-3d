@@ -269,6 +269,76 @@ def web_size_mib():
     return round(total / 1048576, 1)
 
 
+# ---------------------------------------------------------------- 网页曝光补偿
+
+# 网页导出只能跑 gl_compatibility（WebGL2），桌面跑 forward_plus。两者对 3D 高光的
+# 处理根本不同：Forward+ 在 HDR 缓冲里过 ACES，屋顶/白墙被滚降到 ~229；兼容后端写
+# 的是 LDR 缓冲，超过 1.0 先被削平再过曲线，结果停在 249~255 —— 观感就是"网页版曝光
+# 更强、白墙糊成一片"。
+#
+# 实测（同一机位、同一帧，1440x900，排除 UI 区）：
+#   桌面 Forward+  p1=102.0  p50=111.0  p99=229.3   触顶 2.07%  全白 0.00%
+#   桌面 gl_compat p1=113.0  p50=123.3  p99=249.7   触顶 3.65%  全白 0.23%
+#   网页           p1=113.0  p50=123.3  p99=249.7   触顶 3.65%  全白 0.23%
+# 逐档扫过 tonemap_mode × tonemap_exposure（21 组），最好一组 p99 仍停在 240 —— 削顶
+# 发生在曲线之前，改参数救不回来。所以补偿只能放在画布输出上。
+#
+# 关键约束：只压高光，200 以下恒等。水面/天空本来就和桌面一致（G/B 相差 ≤2），
+# 一旦整体压暗会让它比桌面更暗，反而更偏。200 起的肩部只吃白墙、屋顶和高光泡沫。
+WEB_TONE_SHOULDER = 215      # 肩部起点（0-255，sRGB）；215 以下完全恒等，保住水面与中间调
+WEB_TONE_SCALE = 0.55        # 肩部以上每 1 级的输出增量（按 FP 的墙面高光反解）
+WEB_TONE_MARK = 'id="sea-web-tone-lut"'
+WEB_TONE_FILTER = 'sea-web-tone'
+
+
+def _web_tone_lut():
+    lut = []
+    for x in range(256):
+        y = x if x <= WEB_TONE_SHOULDER else WEB_TONE_SHOULDER + (x - WEB_TONE_SHOULDER) * WEB_TONE_SCALE
+        lut.append(f'{min(y, 255) / 255:.5f}'.rstrip('0').rstrip('.') or '0')
+    return ' '.join(lut)
+
+
+def patch_web_tone(result):
+    """把高光肩部压回 Forward+ 的水平，纯网页外壳改动，不碰 godot/ 与桌面产物。"""
+    html = WEB_DIR / 'index.html'
+    if not html.exists():
+        result['problems'].append('缺少 index.html，无法注入曝光补偿')
+        return False
+    text = html.read_text(encoding='utf-8')
+    if WEB_TONE_MARK in text:
+        result.setdefault('web_tone', {})['applied'] = 'already'
+        return True
+
+    lut = _web_tone_lut()
+    svg = (
+        f'<svg {WEB_TONE_MARK} width="0" height="0" aria-hidden="true" '
+        f'style="position:absolute;pointer-events:none">'
+        f'<filter id="{WEB_TONE_FILTER}" color-interpolation-filters="sRGB">'
+        f'<feComponentTransfer>'
+        + ''.join(f'<feFunc{c} type="table" tableValues="{lut}"/>' for c in 'RGB')
+        + '</feComponentTransfer></filter></svg>'
+    )
+    style = f'<style>#canvas{{filter:url(#{WEB_TONE_FILTER})}}</style>'
+
+    if '</head>' in text:
+        text = text.replace('</head>', svg + style + '</head>', 1)
+    else:
+        text = text.replace('<body', svg + style + '<body', 1)
+
+    html.write_text(text, encoding='utf-8')
+    patched = WEB_TONE_MARK in html.read_text(encoding='utf-8')
+    result.setdefault('web_tone', {}).update({
+        'applied': patched,
+        'shoulder': WEB_TONE_SHOULDER,
+        'scale': WEB_TONE_SCALE,
+        'lut_len': len(lut.split()),
+    })
+    if not patched:
+        result['problems'].append('网页曝光补偿注入失败')
+    return patched
+
+
 def patch_web_pack(result):
     """发布链路不带 .pck 白名单，把游戏包改成 .bin 并让引擎按 mainPack 加载。
 
@@ -374,6 +444,7 @@ def main():
                     result['problems'].append('Web 游戏包改名失败')
                 else:
                     check_pack_assets(result, WEB_DIR / 'index.bin', 'web')
+                    patch_web_tone(result)
 
             log('导出 Windows')
             clean(WIN_DIR)

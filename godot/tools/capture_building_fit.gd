@@ -27,11 +27,17 @@ func run() -> void:
 	check(pole.position.is_equal_approx(Vector3(2.2,0,2.4)),"pole and flowers share horizontal offset")
 	check(is_zero_approx(pole.position.y),"pole/flowers height unchanged")
 	check(station.position.is_equal_approx(Vector3(-5,0,4.15)),"deck assembly placement unchanged")
-	check((pole.global_transform*pole.get_aabb()).position.z>15.50,"pole/flower bounds clear original deck edge")
+	var above_clear:=true
+	for vertex: Vector3 in pole.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]:
+		if vertex.y>=1.119 and (pole.global_transform*vertex).z<=15.50: above_clear=false
+	check(above_clear,"above-water pole/flowers clear original deck edge")
 	pole.position=Vector3.ZERO
 	await shot("station-before",Vector3(-12,4.7,13.4),24.0,Vector3(-0.5,0.7,0.5))
 	pole.position=Vector3(2.2,0,2.4)
 	await shot("station-after",Vector3(-12,4.7,13.4),24.0,Vector3(-0.5,0.7,0.5))
+	main.water_node.hide()
+	await shot("pole-full",Vector3(-12,-4.5,12.0),43.0,Vector3(-0.5,0.35,0.7))
+	main.water_node.show()
 	main._debug_teleport("zone5")
 	main.actor_controller.restore_pose({"mode":0,"player":[21,1.48,16]});root.get_node("GameState").enter_zone("zone5")
 	root.get_node("Economy").inventory.set_count("wood",20)

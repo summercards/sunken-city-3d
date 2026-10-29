@@ -12548,7 +12548,7 @@
       },
       "previous_sources": [],
       "note": "绞盘打捞台与太阳能木屋为两个独立设施；各有海上区域和海下基座。当前为替换参照，不修改正式游戏资源。",
-      "runtime_version": "1.1",
+      "runtime_version": "1.2",
       "runtime_scope": "完整独立绞盘打捞台",
       "optimized_source": "art_source/scenes/sunny_bloom_retreat/v003/export/v001/solar_cabin_optimized_v001.blend",
       "optimized_sha256": "602c56138bdd9960de16f28292db88363f812db3c0907cc081bfa6018b2a816b",
@@ -12558,7 +12558,7 @@
         "category": "building",
         "subcategory": "structure"
       },
-      "runtime_sha256": "f0c1b55a265d4ee2ca1ac16f26fb292cab4560120cba0c19f9cdd9547007854b",
+      "runtime_sha256": "fd88ce36e4ee0ce3da44bd1076d2fc379c3478c13b837dea3649b7f5db855192",
       "runtime_patch_log": [
         {
           "date": "2026-10-28",
@@ -12576,6 +12576,13 @@
           "tool": "tools/split_salvage_pole_group.py",
           "note": "完整连通构件拆出PoleAndFlowers；原顶点属性/材质/面数保留；正式TSCN位移(+2.2,0,+2.4)，其他设施不移动。",
           "verification": "docs/development/2026-10-29_deck_draft_pole_placement.md"
+        },
+        {
+          "date": "2026-10-29",
+          "change": "upper_pole_extended_old_lower_removed",
+          "tool": "tools/extend_salvage_pole.py",
+          "runtime_sha256": "fd88ce36e4ee0ce3da44bd1076d2fc379c3478c13b837dea3649b7f5db855192",
+          "note": "上方杆身底部17顶点沿原倾斜轴向下延长23.245米，删除旧下段32三角形；花、绞盘和上段不缩放。"
         }
       ],
       "verification": "docs/development/2026-10-29_deck_draft_pole_placement.md"
