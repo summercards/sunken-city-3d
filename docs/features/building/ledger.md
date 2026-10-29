@@ -5,25 +5,25 @@
 ```json
 {
   "feature_id": "SEA-BUILDING",
-  "status": "implemented",
+  "status": "partial",
   "owner": "BuildingService / BuildingWorld / BuildingController",
   "code_paths": ["godot/src/building"],
-  "verification": ["building", "building-integration", "visual-building", "building-restart", "progress-bars"]
+  "verification": ["building", "building-integration", "visual-building", "building-restart", "progress-bars", "building-boundary-audit", "visual-building-boundary-audit"]
 }
 ```
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-BUILDING-R01 | 已实现；本轮专项通过 | 菜单、手册与真实渲染 |
-| SEA-BUILDING-R02 | 已实现；本轮专项通过 | 陆地资格与未来策略注入 |
+| SEA-BUILDING-R02 | 现行两圈/24新板/西侧泊位限制已实现；手册与超界反馈缺失 | 陆地资格与未来策略注入；[边界审计](../../development/2026-10-29_building_boundary_audit.md) |
 | SEA-BUILDING-R03 | 已实现；本轮专项通过 | 成本、计时、重复与预览取消 |
-| SEA-BUILDING-R04 | 已实现；边界改为整片木面，可跨板自由摆位 | 独立种植区与农场闭环；[摆位修正](../../development/2026-10-29_planter_free_placement.md) |
-| SEA-BUILDING-R05 | 已实现；本轮专项通过 | 行走、绕障与泊位保护 |
-| SEA-BUILDING-R06 | 已实现；本轮专项通过 | 冷热恢复、施工恢复与坏档 |
+| SEA-BUILDING-R04 | 部分实现；跨板自由摆位可用，但未校验角色通行宽度；服务层另接受封路布局 | [摆位修正](../../development/2026-10-29_planter_free_placement.md)；[当前反例](../../development/2026-10-29_building_boundary_audit.md) |
+| SEA-BUILDING-R05 | 木面与船阻挡增量已实现；实际吸附布局留极窄通路，非吸附服务层布局另可断连 | [当前反例](../../development/2026-10-29_building_boundary_audit.md) |
+| SEA-BUILDING-R06 | 部分实现；小布局恢复通过，但服务允许实例数超过保存/恢复的54上限 | [55实例起校验拒绝](../../development/2026-10-29_building_boundary_audit.md) |
 | SEA-BUILDING-R07 | 已实现；本轮专项通过 | 无Autoload专项 |
 | SEA-BUILDING-R08 | 已实现；15项实景与几何检查通过，双水面吃水线可见 | [板底与电线杆摆位](../../development/2026-10-29_deck_draft_pole_placement.md) |
 | SEA-BUILDING-R09 | 已实现：施工条换成 92×8 px 自绘细条（原约 20 px） | `progress-bars` 26 项 0 失败；`building-integration` 38 项照旧通过；[本轮交付](../../development/2026-10-29_pickup_progress_bar.md) |
-| SEA-BUILDING-R10 | 已实现：点虚影先走过去，站定才扣料开工 | `building-approach` 18 项 0 失败；`visual-building` 24 项 0 失败；[本轮交付](../../development/2026-10-29_build_requires_approach.md) |
+| SEA-BUILDING-R10 | 正常接近流程已实现；服务层封路布局下不可达施工点仍给“点击施工”预览，确认时才拒绝 | `building-approach` 18项通过；[原交付](../../development/2026-10-29_build_requires_approach.md)；[当前审计](../../development/2026-10-29_building_boundary_audit.md) |
 
 实施与验证记录：[本轮交付](../../development/2026-10-28_building_delivery.md)。
 
@@ -55,3 +55,11 @@
 同轮复跑：`building` / `building-integration` / `building-restart` / `visual-building`（24 项）
 / `unreachable-menu` / `interact-focus` / `board-click` / `farming` / `modules` / `pocket-bubbles`
 全部退出 0。整体状态仍 partial（拆除与海上施工未做）。
+
+## 2026-10-29 外围木板不可建与机制完整性审计
+
+本节为当前状态；此前通过记录只说明其覆盖样例，不能覆盖本轮新反例。登记头改为`partial`，原因是R04/R06已有目标未闭环，而非把明确不开放的拆除/海上施工算作失败。
+
+最终`building-boundary-audit`与真实渲染`visual-building-boundary-audit`各31项、退出0：成功复现固定两圈边界、泛化提示、实际0.1米吸附布局缺角色通行宽度检查，以及24新板+36箱共60实例被存档54上限拒绝。另单独复现服务/快照端接受非吸附坐标的封路布局，以及此布局下不可达格仍提示点击施工，明确不把该服务层反例当成鼠标吸附直接复现。**审计探针通过表示反例复现成功，不代表建造机制验收通过。** 其中R06为P1保存风险；R04/R05通行宽度、服务层完整性及边界显示/提示列P2。
+
+同轮原有专项：`building`29项、`building-approach`18项、`building-integration`38项、`building-seed`5项、`building-restart`8项均退出0；真实输入`visual-building`结果及完整证据见[审计记录](../../development/2026-10-29_building_boundary_audit.md)。本次未修改玩法限制、费用、布局状态或玩家存档。

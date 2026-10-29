@@ -104,4 +104,4 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-SAVE-R10 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+| SEA-SAVE-R10 | 小布局候选校验/恢复通过；建造服务能产生超过54实例的布局，保存入口将拒绝 | [原交付](../../development/2026-10-28_building_delivery.md)；[当前容量反例](../../development/2026-10-29_building_boundary_audit.md) |

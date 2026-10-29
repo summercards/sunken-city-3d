@@ -79,6 +79,8 @@
 
 右上菜单设置右侧新增建造手册。海面维持6束随机位置浮木，靠近收取每束获得3木板；商店4瓶盖购买1土壤。角色登上六格种植平台后，可沿原木面周围拼接木板（6木板、3秒），再在新木板上自由选位置建单格培养土（3木板+2土壤、4秒）；虚影点击开始施工，进度结束后开放行走或种植。初阶仅限此平台陆地施工，海上施工策略接口保留。新功能SEA-BUILDING独立于SEA-BUILD固定建筑升级，布局独立存档，作物仍归SEA-FARM。关联SEA-PICKUP / SEA-INVENTORY / SEA-UI / SEA-MOVE / SEA-NAV / SEA-SAVE / SEA-ASSET。[交付与实测](docs/development/2026-10-28_building_delivery.md)。
 
+2026-10-29机制审计：现行初阶范围相对原六格平台固定，北/南/东各最多扩两排，西侧留泊位，最多新增24块木板；不会随新木板向外滚动。边界缺少玩家提示，角色通行宽度与合法布局的存档容量仍有已复现缺口，SEA-BUILDING账本已改为部分实现。导航摘要同步因工作区`zones.json`资产哈希漂移暂未完成，历史“已实现待完整验收”不能覆盖本轮结论。[审计与待修项](docs/development/2026-10-29_building_boundary_audit.md)。
+
 ## 2026-10-29 交互热区按模型本体算
 
 点击命中从「物体屏幕包围盒外扩10px」改为相机射线打模型三角形（Möller–Trumbore），每个网格先用自身OBB粗筛，三角形按mesh实例缓存，超1500面的网格退回OBB。原因：zone5六个土箱并排，真实缝隙约0.36×0.99米，屏幕上仅十几像素宽，两侧包围盒各外扩10px把整条缝盖满，点甲板空地会被判成点土箱，既不走也不弹菜单。图标30px只留给没有几何的纯逻辑交互点，模型命中优先。同轮修掉`hud.gd`中Godot 4.6推断不出类型的条件表达式（会导致整份hud.gd解析失败）。关联SEA-INTERACT-R10。[交付与实测](docs/development/2026-10-29_pick_hotspot_follows_mesh.md)。
@@ -336,7 +338,7 @@
 | <a id="sea-inventory"></a>SEA-INVENTORY | 资源与背包 | 经营 | — | [文档](docs/features/inventory/spec.md) | [账本](docs/features/inventory/ledger.md) | 部分实现 |
 | <a id="sea-warehouse"></a>SEA-WAREHOUSE | 材料仓储 | 经营 | SEA-INVENTORY, SEA-FACILITY | [文档](docs/features/warehouse/spec.md) | [账本](docs/features/warehouse/ledger.md) | 部分实现 |
 | <a id="sea-build"></a>SEA-BUILD | 建筑修缮与升级 | 经营 | SEA-INVENTORY, SEA-INTERACT | [文档](docs/features/build/spec.md) | [账本](docs/features/build/ledger.md) | 部分实现 |
-| <a id="sea-building"></a>SEA-BUILDING | 家园拼接建造 | 经营 | SEA-INVENTORY, SEA-INTERACT, SEA-WORLD | [文档](docs/features/building/spec.md) | [账本](docs/features/building/ledger.md) | 已实现待完整验收 |
+| <a id="sea-building"></a>SEA-BUILDING | 家园拼接建造 | 经营 | SEA-INVENTORY, SEA-INTERACT, SEA-WORLD | [文档](docs/features/building/spec.md) | [账本](docs/features/building/ledger.md) | 部分实现 |
 | <a id="sea-facility"></a>SEA-FACILITY | 设施解锁与生产 | 经营 | SEA-BUILD, SEA-INVENTORY | [文档](docs/features/facility/spec.md) | [账本](docs/features/facility/ledger.md) | 部分实现 |
 | <a id="sea-ship"></a>SEA-SHIP | 船只升级与区域解锁 | 成长 | SEA-INVENTORY, SEA-BUILD | [文档](docs/features/ship/spec.md) | [账本](docs/features/ship/ledger.md) | 部分实现 |
 | <a id="sea-crop"></a>SEA-CROP | 作物品种与四阶段形态 | 经营 | SEA-ASSET | [文档](docs/features/crop/spec.md) | [账本](docs/features/crop/ledger.md) | 已实现待完整验收 |
