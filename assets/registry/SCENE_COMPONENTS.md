@@ -13,6 +13,7 @@
 | 装饰 | 水下纯景观建筑 | 阳光房周围六栋独立楼体，单栋导出三角面≤1000，无碰撞/互动/资源；正式布局 `godot/scenes/decorations/underwater/neighborhood.tscn` |
 | 装饰 | 动物 | 7只飞鸟、海面下3群鱼、潜水7群鱼、1头巡游鲸；无资源产出 |
 | 船只 | 基础船与附属件 | reference_skiff：12组件、44实例，基础黄白木船、双桨、船外机和行李；正式入口 [reference_skiff.tscn](../../godot/scenes/props/reference_skiff.tscn)，行为仍由Boat拥有 |
+| 建筑 | 商店（海上结构物） | 海上悬浮商铺 `SEA-SCENE-FSH-ASSEMBLY`，39组件/248实例烘成4材质角色单一GLB；预制体 [floating_shop.tscn](../../godot/scenes/facilities/floating_shop.tscn)，正式摆放 `main.tscn` 的 `World/SeaStructures/floating_shop`（阳光房主体正南50米）；无WalkArea/泊位/交互 |
 
 ## 维护规则
 

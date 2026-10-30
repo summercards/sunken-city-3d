@@ -159,3 +159,9 @@ SEA-WORLD-R09：箱子直接挂到Objects/ShippingBox，(1.05,1.38,15.15)；实�
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-WORLD-R11 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+
+## 2026-10-30 区块外海上结构物
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-WORLD-R13 | 已实现；`World/SeaStructures/floating_shop` 自带 BlockerSet，`main._water_shapes()` 收集后浮店中心判为阻挡水域（`floating-shop` 21 项 0 失败） | [浮店接入记录](../../development/2026-10-30_floating_shop_runtime.md) |

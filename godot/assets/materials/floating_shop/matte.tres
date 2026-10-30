@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
+[ext_resource type="Texture2D" path="res://assets/textures/shared/sea_cozy_8x8_512.png" id="palette"]
+[resource]
+resource_name = "SEA_Matte_FloatingShop"
+albedo_texture = ExtResource("palette")
+texture_filter = 0
+roughness = 0.8
+metallic = 0.0

@@ -8,7 +8,7 @@
   "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ASSEMBLY",
   "source": "art_source/scenes/floating_shop/v002/floating_shop.blend",
   "source_sha256": "e13931520f13e5ea13d6e18bb3f1e28300a7d5bcf02a8a6651c2230191662a31",
-  "runtime_status": "pending",
+  "runtime_status": "runtime_integrated_pending_walk_and_interaction",
   "license": "pending_user_reference_rights_review",
   "reference": "reference.png",
   "reference_sha256": "75a556d3b215657e97c2056994ba1438d6e751d3dce256016ebc5ffadb633f78",
@@ -76,5 +76,27 @@
     "source": "art_source/scenes/floating_shop/v001/floating_shop.blend",
     "source_sha256": "5e2496eb74c1c5fe32737623fa0d2bde0b5d98500fee60cd8dd6ff3a7a3c7ea3",
     "manifest": "art_source/scenes/floating_shop/v001/asset_manifest.json"
+  },
+  "runtime": {
+    "glb": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
+    "prefab": "godot/scenes/facilities/floating_shop.tscn",
+    "placement": "godot/scenes/main.tscn#World/SeaStructures/floating_shop",
+    "position_godot": [
+      6.158,
+      -1.134,
+      51.813
+    ],
+    "export_manifest": "art_source/scenes/floating_shop/v002/export/v001/export_manifest.json",
+    "export_tool": "tools/blender/floating_shop/export_runtime.py",
+    "surfaces": 4,
+    "textures_embedded": false,
+    "placement_rule": "阳光房主体（后部方形建筑＋前部倾斜太阳能房）占地中心正南 50 米；甲板顶面 = 水面 1.12 + 0.26",
+    "pending": [
+      "walk_area",
+      "landing_point",
+      "shop_interaction",
+      "triangle_reduction",
+      "user_art_acceptance"
+    ]
   }
 }

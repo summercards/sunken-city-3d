@@ -13,6 +13,6 @@ v002：外环站人平台从1.2米加宽到3.0米（2.5倍），平台直径约1
 
 色板外链到 `art_source/shared/palettes/sea_cozy_8x8_512.png`；请保留仓库相对目录，禁止将色板复制进套件。当前组件计划、实例布局、catalog与asset_manifest均在v002中。
 
-分类为建筑、海上区域。源登记：`assets/registry/ledgers/scenes.json`，前缀`SEA-SCENE-FSH-`。当前仅源级交付；未接入正式Godot场景，碰撞、导航、性能及参考图商业授权pending。
+分类为建筑/商店、海上区域。源登记：`assets/registry/ledgers/scenes.json`，前缀`SEA-SCENE-FSH-`。**已接入正式场景**：运行GLB `godot/assets/models/facilities/floating_shop/floating_shop.glb`（导出脚本 `tools/blender/floating_shop/export_runtime.py`，248实例按四材质角色烘合并为四块网格，无内嵌贴图），预制体 `godot/scenes/facilities/floating_shop.tscn`，正式摆放 `godot/scenes/main.tscn` 的 `World/SeaStructures/floating_shop`（阳光房主体正南50米，甲板顶面水面+0.26米）。水面阻挡由预制体自带 `Blockers` 派生；行走面、泊位、商店交互、面数优化及参考图商业授权仍 pending。详见 `docs/development/2026-10-30_floating_shop_runtime.md`。
 
 制作与源级核查脚本：`tools/blender/floating_shop/`；渲染和安全备份：工程外 `D:/projects/sea-work/floating_shop/`，可用`SEA_WORK_ROOT`重定向。详细记录见 `docs/development/2026-10-30_floating_shop.md`。

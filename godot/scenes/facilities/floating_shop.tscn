@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="PackedScene" uid="uid://vpv6o33ks6e5" path="res://assets/models/facilities/floating_shop/floating_shop.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/matte.tres" id="matte"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/metal.tres" id="metal"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/gloss.tres" id="gloss"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/emission.tres" id="emission"]
+[ext_resource type="Script" path="res://src/world/sea_structure.gd" id="structure"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+
+[node name="海上悬浮商铺" type="Node3D"]
+script = ExtResource("structure")
+asset_id = "SEA-SCENE-FSH-ASSEMBLY"
+role = "shop"
+metadata/asset_id = "SEA-SCENE-FSH-ASSEMBLY"
+metadata/classification = "building/shop"
+metadata/triangles = 669345
+metadata/front_godot = Vector3(0, 0, 1)
+metadata/deck_top_local = 2.514
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+
+[node name="FSH_SEA_Matte" parent="Visual" index="2"]
+surface_material_override/0 = ExtResource("matte")
+
+[node name="FSH_SEA_Metal" parent="Visual" index="3"]
+surface_material_override/0 = ExtResource("metal")
+
+[node name="FSH_SEA_Gloss" parent="Visual" index="1"]
+surface_material_override/0 = ExtResource("gloss")
+
+[node name="FSH_SEA_Emission" parent="Visual" index="0"]
+surface_material_override/0 = ExtResource("emission")
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blockers")
+mode = "auto"
+target_path = NodePath("../Visual")
+blocks_water = true
+cell = 0.4

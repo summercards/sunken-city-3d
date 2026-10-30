@@ -140,3 +140,10 @@ SEA-ASSET-R32导出补充：PaletteUV必须是唯一UV层，GLB以TEXCOORD_0消�
 [本套件制作与证据](../../development/2026-10-30_floating_shop.md)。
 
 SEA-ASSET-R34最新修订：按用户圈图，v002外环平台从1.2米加宽至3.0米（2.5倍），店体直径12米保持；边缘护栏、护舷和爬梯等随外移，正面护栏开约3.43米入口并与2米商铺门对齐。中央通路至少1.95米宽、无陈设挡路、门槛齐甲板；新建v002，保留v001。源/独立包/尺寸/UV及全景、入口、俯视、建筑分离视图复验，运行通行仍待Godot接入专项验证。[修订与实测](../../development/2026-10-30_floating_shop_v002.md)。
+
+
+## 2026-10-30 海上悬浮商铺接入 main
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R35 | 海上悬浮商铺以 v002 源导出单一运行 GLB：39 组件、248 实例在导出时按 `SEA_Matte` / `SEA_Metal` / `SEA_Gloss` / `SEA_Emission` 四个材质角色烘合并网格，倒角在导出前求值，展示用相机/灯光/背景地面不得进入发行文件。GLB 不内嵌贴图，颜色由 `godot/assets/materials/floating_shop/` 的同源公共色板材质**序列化覆盖**在预制体上，不允许退回「脚本运行时补色」。资产归类 `building/shop`（账本等级＝商店），放置层 `above_water`，正式摆放由 `main.tscn` 的 `World/SeaStructures/floating_shop` 独有：位于阳光房主体（后部方形建筑＋前部倾斜太阳能房）占地中心正南 50 米海面，甲板顶面与家园甲板同高（水面 +0.26 米），板底与推进器沉到水面以下。区块之外的结构没有 ZoneScene 扫描，水面阻挡统一由 `main._water_shapes()` 收集 `World/SeaStructures` 下各结构的 `BlockerSet`，船不得穿过浮店。行走地面、泊位与商店交易界面不属于本轮范围，仍为 pending。 |

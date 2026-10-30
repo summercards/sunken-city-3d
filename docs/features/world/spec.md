@@ -91,3 +91,9 @@ Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 Wat
 | SEA-WORLD-R12 | ZoneScene装配独立GroundSpace，按已有WalkArea派生人物专属地板、边界/洞口碰撞和引擎三维导航，不重摆模型、不修改船只BlockerSet。area_at(Vector3,tolerance)按高度选地面，旧area_containing(XZ)保留工具兼容。建造几何刷新后更新派生物，移除物不留陈旧碰撞；未变几何不重复重建。 |
 
 现有手工rects是本轮保留内容的迁移输入；没有宣称所有可见模型都已自动生成碰撞。后续组件必须显式提供可行走表面/障碍声明，纯景观继续不参与人物空间。见[本轮交付](../../development/2026-10-29_character_physics_framework.md)。
+
+## 2026-10-30 区块外海上结构物的水面阻挡
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-WORLD-R13 | 不属于任何区块的固定海上结构物放在 `main.tscn` 的 `World/SeaStructures` 下，由结构自身带 `BlockerSet` 从可见几何派生水面阻挡；这些结构没有 ZoneScene，因此 `main._water_shapes()` 在收集区块之后必须再收集 `World/SeaStructures` 的每个子节点，两段合成同一份 `_shore_shapes`。漏掉这一步会让船直接从建筑中间穿过去。区外结构不创建 WalkArea、泊位、交互或存档字段；需要登船靠泊时另立条款。 |

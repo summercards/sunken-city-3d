@@ -18263,23 +18263,24 @@
       "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
       "name": "海上悬浮商铺",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "source_runtime_verified_provenance_pending",
       "source": "art_source/scenes/floating_shop/v002/floating_shop.blend",
       "source_sha256": "e13931520f13e5ea13d6e18bb3f1e28300a7d5bcf02a8a6651c2230191662a31",
       "manifest": "art_source/scenes/floating_shop/v002/asset_manifest.json",
       "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
+      "runtime_path": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
+      "prefab": "godot/scenes/facilities/floating_shop.tscn",
       "license": "pending_user_reference_rights_review",
       "geometry_fingerprint": null,
       "consumer_features": [
-        "SEA-ASSET"
+        "SEA-ASSET",
+        "SEA-WORLD"
       ],
       "category": "building/structure",
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "外环从1.2m加宽到3.0m，正面护栏净开口约3.43m，贯通店门的1.95m通路无陈设阻挡；248实例，仅源级完成。",
+      "note": "v002 环廊3.0米、正面护栏开口约3.43米、门前1.95米通路无阻挡；39组件/248实例已烘成4个材质角色的单一GLB（669345三角面、50.4MB，无内嵌贴图，运行时以色板材质覆盖）。由World/SeaStructures/floating_shop实例摆放在阳光房主体正南50米海面，甲板顶面与家园甲板同高（水面+0.26米）。行走、泊位、商店交互、参考图商业授权与用户最终美术验收仍pending。",
       "source_history": [
         {
           "version": "v001",
@@ -18287,7 +18288,33 @@
           "source_sha256": "5e2496eb74c1c5fe32737623fa0d2bde0b5d98500fee60cd8dd6ff3a7a3c7ea3",
           "manifest": "art_source/scenes/floating_shop/v001/asset_manifest.json"
         }
-      ]
+      ],
+      "runtime_sha256": "b792c06cb4db97c4c1c53fc1623067c852a05fbecf168e906b7fa28c9e27dad1",
+      "prefab_sha256": "3671e0da17e7159a0fbfccfcb7c7597606de068ad1eb5dbc40cd2c90207c4911",
+      "runtime_version": "v002",
+      "runtime_scope": "single_surface_assembly",
+      "triangles": 669345,
+      "classification": {
+        "category": "building",
+        "subcategory": "shop",
+        "level": "商店"
+      },
+      "placement_owner": "main",
+      "runtime_instances": [
+        "World/SeaStructures/floating_shop"
+      ],
+      "front_axis": "-Y (Blender) = +Z (Godot)",
+      "footprint": [
+        18.5,
+        18.1125
+      ],
+      "height": 7.525,
+      "collision": {
+        "walkable_deck": false,
+        "water_blocker": "derived_from_geometry",
+        "note": "甲板与环廊尚无 WalkArea 与泊位，玩家暂不可登船靠泊；水面阻挡由 BlockerSet 派生"
+      },
+      "interactive": false
     }
   ]
 }

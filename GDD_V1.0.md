@@ -31,6 +31,8 @@
 
 2026-10-30建造收尾：手册改为奶油纸色5列×2行卡片，仅图片、名称和消耗；固定/旧木板可承载新组件，4×4浮台按实际板边精确衔接，保留旧板尺寸；22组件统一PaletteUV为UV0并保留材质角色，修复贴图错乱。全部22件经正式游戏建成，二层行走与保存恢复、卡片鼠标、UV实际渲染验收通过。[完整结果](docs/development/2026-10-30_modular_building_kit.md)。
 
+2026-10-30海上悬浮商铺进main：`art_source/scenes/floating_shop/v002`导出为单一运行GLB（39组件/248实例按四材质角色烘合并，669345三角面，无内嵌贴图，颜色由预制体上序列化的公共色板材质覆盖），归`building/shop`（账本等级＝商店）、放置层`above_water`。正式摆放由`main.tscn`的`World/SeaStructures/floating_shop`独有，位于阳光房主体（后部方形建筑＋前部倾斜太阳能房）占地中心正南50米海面，甲板顶面与家园甲板同高（水面+0.26米），板体与推进器沉入水下。区块外的结构没有ZoneScene扫描，`main._water_shapes()`补充收集`World/SeaStructures`，船不再穿过浮店。行走面、泊位与商店交易界面仍pending。归SEA-ASSET-R35 / SEA-WORLD-R13。[交付与实测](docs/development/2026-10-30_floating_shop_runtime.md)。
+
 2026-10-30浮木密度最新修订：阳光房周围保留原补给区总计6束，外部海域数量降至先前30%（默认10个开放分区60束→18束），鱼群数量和位置保持。载入密集旧档即生效，并保留采集冷却；07:00日更与浮木6–10游戏小时补货规则保留。归SEA-PICKUP-R14。[交付与实测](docs/development/2026-10-30_wood_density.md)。
 
 2026-10-30自建上岸提示：普通提示间距增至12米、屏幕间距100px、最多4个；当前返船入口优先。提示按稳定ID复用展示状态，修复0.75秒刷新时的一帧消失和悬停重置；合法边仍可直接点击板面登陆。归SEA-BUILDING-R17 / SEA-UI-R38。[修复与实景](docs/development/2026-10-30_sparse_landing_markers.md)。

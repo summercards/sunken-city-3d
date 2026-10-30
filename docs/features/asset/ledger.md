@@ -322,3 +322,9 @@ SEA-ASSET-R31后续：上段杆身底端直接延长并移除旧下段32三角�
 ### 海上悬浮商铺v002：加宽平台与正面入口
 
 SEA-ASSET-R34当前源为[v002](../../../art_source/scenes/floating_shop/v002/floating_shop.blend)，v001保留。环廊宽3米（原1.2米的2.5倍），护栏开口约3.43米，门前1.95米连续通路几何检查无障碍；邮筒/售货装置移让、门槛压平。39组件/248实例，39独立包及130283母版面PaletteUV复验通过；展开339061多边形/669345三角面。40条原AssetID更新至v002并保留source_history，未新建重复主记录；Godot接入/运行通行/碰撞/导航/性能/商业授权及最终用户美术验收pending。[修订记录](../../development/2026-10-30_floating_shop_v002.md)、[机器证据](../../development/2026-10-30_floating_shop_v002_verification.json)。
+
+## 2026-10-30 海上悬浮商铺接入 main
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R35 | v002 已导出运行 GLB（4 个材质角色合一、669345 三角面、50.4MB、无内嵌贴图），预制体 4 条 `surface_material_override` 序列化到 tscn；`main.tscn` 的 `World/SeaStructures/floating_shop` 摆放在阳光房主体中心正南 50 米，甲板顶面 = 水面 +0.26 米；`main._water_shapes()` 已接入 `World/SeaStructures`，浮店中心判为阻挡水域。行走/泊位/商店交互/参考图商业授权/用户最终美术验收 pending。 | `floating-shop` 21 项 0 失败、`visual-floating-shop` 三视图，[接入记录](../../development/2026-10-30_floating_shop_runtime.md)、[导出清单](../../../art_source/scenes/floating_shop/v002/export/v001/export_manifest.json) |

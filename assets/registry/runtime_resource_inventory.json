@@ -3300,8 +3300,8 @@
       "path": "godot/src/bootstrap/main.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 123549,
-      "sha256": "8e657b37f69fc23ea8a9faee29730ef3f566f099b0828f0c23bffe0cdbf3a5bf"
+      "bytes": 123954,
+      "sha256": "6ea4f9a0b9aa2394b9bf5c1d268d9bdf9697129afabc0fcf048bdfe902847341"
     },
     {
       "path": "godot/src/navigation/walk_area.gd",
@@ -3372,6 +3372,50 @@
       "status": "runtime_resource_verified",
       "bytes": 4118,
       "sha256": "e7ddd080e6228681450792b2eed15a24f48fd4c0801e2ec32d5e53ba79dbcef9"
+    },
+    {
+      "path": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
+      "bytes": 50420360,
+      "sha256": "b792c06cb4db97c4c1c53fc1623067c852a05fbecf168e906b7fa28c9e27dad1",
+      "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "4个材质角色合一；无内嵌贴图，运行时按材质覆盖上色"
+    },
+    {
+      "path": "godot/scenes/facilities/floating_shop.tscn",
+      "bytes": 1708,
+      "sha256": "3671e0da17e7159a0fbfccfcb7c7597606de068ad1eb5dbc40cd2c90207c4911",
+      "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "正式摆放实例位于 main.tscn 的 World/SeaStructures"
+    },
+    {
+      "path": "godot/assets/materials/floating_shop/matte.tres",
+      "bytes": 306,
+      "sha256": "473ba9296e22daf9135cfa55d28aa6071384e9075bd92e4f3e2c6174f37f8546",
+      "status": "runtime_path_recorded_asset_registration_pending",
+      "note": "浮店专用色板材质覆盖"
+    },
+    {
+      "path": "godot/assets/materials/floating_shop/metal.tres",
+      "bytes": 308,
+      "sha256": "dd206f987169a569d146abe6b1f962ecf7e94ff8cb6ef5aacd5660d3613e23b1",
+      "status": "runtime_path_recorded_asset_registration_pending",
+      "note": "浮店专用色板材质覆盖"
+    },
+    {
+      "path": "godot/assets/materials/floating_shop/gloss.tres",
+      "bytes": 374,
+      "sha256": "eb56f45312d44448960ed0b2d22d8ef10451eb5b36c93aa13c975cc9923d08cf",
+      "status": "runtime_path_recorded_asset_registration_pending",
+      "note": "浮店专用色板材质覆盖"
+    },
+    {
+      "path": "godot/assets/materials/floating_shop/emission.tres",
+      "bytes": 423,
+      "sha256": "110d647ee4876db4ed502ca1fa58c0ba1903296d9ff78d92405f2a86fae59887",
+      "status": "runtime_path_recorded_asset_registration_pending",
+      "note": "浮店专用色板材质覆盖"
     }
   ]
 }

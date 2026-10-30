@@ -102,6 +102,9 @@ TESTS.update({
     'visual-submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
     'reference-skiff': ('tests/test_reference_skiff.gd', r'\[reference-skiff\] \d+ checks, 0 failures'),
     'visual-reference-skiff': ('tests/test_reference_skiff.gd', r'\[reference-skiff\] \d+ checks, 0 failures'),
+    # 海上悬浮商铺：位置=阳光房主体正南 50 米、材质序列化在预制体里、只导 4 个运行网格。
+    'floating-shop': ('tests/test_floating_shop.gd', r'\[floating-shop\] \d+ checks, 0 failures'),
+    'visual-floating-shop': ('tools/capture_floating_shop.gd', r'\[floating-shop-render\] \d+ checks, 0 failures'),
 	'visual-corner-notebook': ('tests/test_corner_notebook.gd', r'\[corner-notebook\] \d+ checks, 0 failures'),
     'title-clock-seed': ('tests/seed_title_clock.gd', r'\[title-clock-seed\] ok=true'),
     'visual-title-screen-day': ('tests/test_title_saved_time.gd', r'\[title-saved\] \d+ checks, 0 failures'),

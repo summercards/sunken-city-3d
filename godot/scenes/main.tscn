@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/stepped_lowrise.tscn" id="30_sub_stepped_lowrise"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/flat_annex.tscn" id="31_sub_flat_annex"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/rear_slab.tscn" id="32_sub_rear_slab"]
+[ext_resource type="PackedScene" path="res://scenes/facilities/floating_shop.tscn" id="33_floating_shop"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_fv21b"]
 _surfaces = [{
@@ -138,6 +139,11 @@ instance_id = "home_submerged/flat_annex"
 [node name="rear_slab" parent="World/UnderwaterScenery" unique_id=1478200406 instance=ExtResource("32_sub_rear_slab")]
 transform = Transform3D(0.035241533, 0, -2.116315, 0, 1.1999999, 0, 1.5008235, 0, 0.049694173, -8.477363, -27.362999, 0.37824583)
 instance_id = "home_submerged/rear_slab"
+
+[node name="SeaStructures" type="Node3D" parent="World" unique_id=1826540311]
+
+[node name="floating_shop" parent="World/SeaStructures" unique_id=1826540312 instance=ExtResource("33_floating_shop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.158, -1.134, 51.813)
 
 [node name="Gameplay" type="Node3D" parent="World" unique_id=1251468208]
 

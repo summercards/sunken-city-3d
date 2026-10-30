@@ -756,17 +756,10 @@ func _warm_water_shapes() -> void:
 func _water_shapes() -> Array:
 	if not _shore_shapes.is_empty():
 		return _shore_shapes
-	var zones_root: Node = get_node_or_null("World/Zones")
-	if zones_root != null:
-		for zone in zones_root.get_children():
-			if zone.has_method("rebuild_blockers"):
-				zone.rebuild_blockers(WATER_LEVEL, 1.6)
-				var rects: Array = zone.water_block_rects
-				for r in rects:
-					_shore_shapes.append({"x": (r as Rect2).get_center().x,
-						"z": (r as Rect2).get_center().y,
-						"hx": (r as Rect2).size.x * 0.5, "hz": (r as Rect2).size.y * 0.5,
-						"round": false})
+	_collect_water_shapes(get_node_or_null("World/Zones"))
+	# 区块之外的海上结构物（World/SeaStructures）同样挡船：它们没有 ZoneScene，
+	# 但有自己的 BlockerSet 与 rebuild_blockers，这里走同一个入口。
+	_collect_water_shapes(get_node_or_null("World/SeaStructures"))
 	var env: Variant = JSON.parse_string(
 		FileAccess.get_file_as_string("res://assets/baked/shore_environment.json"))
 	if env is Dictionary and env.has("shapes"):
@@ -777,6 +770,22 @@ func _water_shapes() -> Array:
 		if legacy is Dictionary and legacy.has("shapes"):
 			_shore_shapes = legacy.shapes
 	return _shore_shapes
+
+
+## 把一棵子树里每个带 rebuild_blockers 的节点派生成的水面矩形并进 _shore_shapes。
+func _collect_water_shapes(root: Node) -> void:
+	if root == null:
+		return
+	for item in root.get_children():
+		if not item.has_method("rebuild_blockers"):
+			continue
+		item.rebuild_blockers(WATER_LEVEL, 1.6)
+		var rects: Array = item.water_block_rects
+		for r in rects:
+			_shore_shapes.append({"x": (r as Rect2).get_center().x,
+				"z": (r as Rect2).get_center().y,
+				"hx": (r as Rect2).size.x * 0.5, "hz": (r as Rect2).size.y * 0.5,
+				"round": false})
 
 
 ## 下船：把小人从船锚挂到世界上，落在离目标最近的可站立点

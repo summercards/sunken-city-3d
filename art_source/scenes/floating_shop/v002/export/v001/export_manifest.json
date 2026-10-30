@@ -1,0 +1,66 @@
+{
+  "schema": "sea.scene.runtime_export",
+  "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+  "version": "v002",
+  "source": "art_source/scenes/floating_shop/v002/floating_shop.blend",
+  "source_sha256": "e13931520f13e5ea13d6e18bb3f1e28300a7d5bcf02a8a6651c2230191662a31",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
+  "runtime_path": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
+  "runtime_sha256": "b792c06cb4db97c4c1c53fc1623067c852a05fbecf168e906b7fa28c9e27dad1",
+  "runtime_bytes": 50420360,
+  "instances_baked": 248,
+  "display_support_excluded": [],
+  "surfaces": [
+    {
+      "index": 0,
+      "role": "SEA_Matte",
+      "triangles": 483265,
+      "vertices": 255655,
+      "polygons": 249173
+    },
+    {
+      "index": 1,
+      "role": "SEA_Metal",
+      "triangles": 177868,
+      "vertices": 90460,
+      "polygons": 85970
+    },
+    {
+      "index": 2,
+      "role": "SEA_Gloss",
+      "triangles": 1624,
+      "vertices": 840,
+      "polygons": 812
+    },
+    {
+      "index": 3,
+      "role": "SEA_Emission",
+      "triangles": 6588,
+      "vertices": 3318,
+      "polygons": 3106
+    }
+  ],
+  "triangles": 669345,
+  "vertices": 350273,
+  "bounds_blender": {
+    "min": [
+      -9.25,
+      -9.0562,
+      -0.025
+    ],
+    "max": [
+      9.25,
+      9.0562,
+      7.5
+    ],
+    "size": [
+      18.5,
+      18.1125,
+      7.525
+    ]
+  },
+  "mapping": "Blender(x,y,z) -> Godot(x,z,-y); front is Blender -Y = Godot +Z",
+  "textures": "none embedded; Godot overrides each surface with the shared palette material",
+  "modifiers": "bevels baked via depsgraph before merge"
+}
