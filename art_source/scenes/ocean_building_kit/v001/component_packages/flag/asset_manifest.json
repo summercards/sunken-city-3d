@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-FLAG",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-FLAG",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/flag/flag.blend",
+  "source_sha256": "b65f600ebc40e66b0bb08fb4efbbaf4dfe356715e8bdb99d8fe123a20b238136",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/flag/flag.glb",
+  "runtime_sha256": "b23302473ff00f15caa6245e7220ba4ea250db26dbbb1d955aadd3d8b45ae6f7",
+  "prefab": "godot/scenes/buildables/kit/flag.tscn",
+  "component": {
+    "id": "flag",
+    "name": "小旗杆",
+    "asset_id": "SEA-KIT-FLAG",
+    "profile": "flag",
+    "footprint": [
+      1.15,
+      0.35
+    ],
+    "height": 2,
+    "cost": {
+      "wood": 3
+    },
+    "seconds": 3.45,
+    "category": "decoration",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": false,
+    "movable": true,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/flag.tscn",
+    "description": "自由布置的装饰",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-FLAG",
+    "triangles": 388,
+    "bounds": {
+      "min": [
+        -0.1599999964237213,
+        -0.1599999964237213,
+        0.0
+      ],
+      "max": [
+        0.5800000429153442,
+        0.1599999964237213,
+        2.0
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

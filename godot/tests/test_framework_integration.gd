@@ -61,7 +61,9 @@ func run() -> void:
 	invalid=good.duplicate(true)
 	invalid.economy.inventory.counts.coins=-1
 	check(not storage.restore(main,invalid).ok and economy.coins==98765,"bad snapshot cannot mutate any state")
-	invalid=good.duplicate(true);invalid.game.boat=[999,1,999,0]
+	# Far open sea is legal. Use an actual building obstruction for rejection.
+	var obstacle: Dictionary=main._water_shapes()[0]
+	invalid=good.duplicate(true);invalid.game.boat=[obstacle.x,1,obstacle.z,0]
 	check(not storage.restore(main,invalid).ok and economy.coins==98765,"unsafe world position rejected before economy apply")
 	var path: String="user://backup_test.json"
 	check(storage.write(path,main).ok,"first generation write")

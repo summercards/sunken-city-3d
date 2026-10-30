@@ -11,9 +11,9 @@ func run() -> void:
 	main._autosave_on=false;main.set_process(false);main.set_physics_process(false)
 	var econ=root.get_node("Economy");econ.set_process(false)
 	await process_frame
-	check(main.props.crates.size()==6,"six local driftwood bundles")
+	check(main.props.crates.size()>6 and main.props.crates.size()<=54,"driftwood streams across the open sea within the active node budget")
 	for c in main.props.crates:
-		check(c.kind=="planks" and preload("res://src/core/play_scope.gd").HOME_WATER.has_point(Vector2(c.base.x,c.base.z)),"local timber pickup")
+		check(c.kind=="planks" and main.navigation.is_open_water(c.base.x,c.base.z),"timber pickup uses legal water")
 	var crate: Dictionary=main.props.crates[0]
 	var before: int=econ.count("wood")
 	check(not main.props.collect_crate(crate).is_empty() and econ.count("wood")==before+3,"pickup enters inventory")

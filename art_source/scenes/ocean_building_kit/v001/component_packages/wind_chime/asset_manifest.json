@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-WIND-CHIME",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-WIND-CHIME",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/wind_chime/wind_chime.blend",
+  "source_sha256": "089ef5ab28d2d94dcf7cb6cca263811e21dab756463e7ab83c4cc5b607f6b8bd",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/wind_chime/wind_chime.glb",
+  "runtime_sha256": "2f121575e48dafd0e3ff2be3da92b33ce4b8092d45b662618e456ea3ef1afb34",
+  "prefab": "godot/scenes/buildables/kit/wind_chime.tscn",
+  "component": {
+    "id": "wind_chime",
+    "name": "木架风铃",
+    "asset_id": "SEA-KIT-WIND-CHIME",
+    "profile": "chime",
+    "footprint": [
+      0.45,
+      0.45
+    ],
+    "height": 1.4,
+    "cost": {
+      "wood": 3
+    },
+    "seconds": 3.45,
+    "category": "decoration",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": false,
+    "movable": true,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/wind_chime.tscn",
+    "description": "轻摆装饰，首版无声音",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-WIND-CHIME",
+    "triangles": 1564,
+    "bounds": {
+      "min": [
+        -0.22499999403953552,
+        -0.05999999865889549,
+        0.0
+      ],
+      "max": [
+        0.22499999403953552,
+        0.05999999865889549,
+        1.3550000190734863
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

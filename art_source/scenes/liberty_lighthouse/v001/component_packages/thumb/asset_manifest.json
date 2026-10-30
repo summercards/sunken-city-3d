@@ -1,0 +1,36 @@
+{
+  "key": "thumb",
+  "asset_id": "SEA-SCENE-LHL-THUMB",
+  "name": "巨手拇指",
+  "category": "structure",
+  "family": "hand",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-THUMB",
+  "root": "thumb_组件根",
+  "bounds_size": [
+    1.1600003242492676,
+    1.6000001430511475,
+    2.009999990463257
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/thumb/thumb.blend",
+  "geometry_fingerprint": "3b437554d0d73daed057ee1066cbca9a6075f256d64a216e41532050fb1d9df7",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 924,
+  "source_sha256": "1c14ee64b3cdd462a72c51714ee2985622b5fb017d549a02633797d0442a0f45",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-THUMB"
+}

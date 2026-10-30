@@ -1,0 +1,36 @@
+{
+  "key": "barge",
+  "asset_id": "SEA-SCENE-LHL-BARGE",
+  "name": "漂浮驳船基座",
+  "category": "structure",
+  "family": "base",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-BARGE",
+  "root": "barge_组件根",
+  "bounds_size": [
+    8.0,
+    6.029999732971191,
+    1.2400000095367432
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/barge/barge.blend",
+  "geometry_fingerprint": "afce4d9d82e5e6d89282894cd680938e3a2e94e1122abdc634ab6ed6392c24a2",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 216,
+  "source_sha256": "6ae0f66c21887c1c4b992fadd1431ebf3f0617c85fc856f5970613e6707df868",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-BARGE"
+}

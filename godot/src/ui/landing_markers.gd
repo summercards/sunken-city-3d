@@ -37,6 +37,35 @@ func build(cam: Camera3D) -> void:
 				"draw_world":Vector3(point[0],float(point[1])+0.55,point[2]),
 				"screen":Vector2.ZERO,"size":ICON_MIN,"near":0.0,"visible":false})
 
+## Keep presentation state on a stable landing identity. Recreating every item
+## after the marker process ran hid it for one frame and restarted hover growth.
+func sync_dynamic_markers(definitions: Array) -> void:
+	var previous: Dictionary={}
+	var next: Array=[]
+	for item in items:
+		if item.get("dynamic_build",false): previous[_identity(item)]=item
+		else: next.append(item)
+	var seen: Dictionary={}
+	for definition: Dictionary in definitions:
+		var key:=_identity(definition)
+		if seen.has(key): continue
+		seen[key]=true
+		var item: Dictionary=previous.get(key,{})
+		if item.is_empty():
+			item={"zone":definition.zone,"landing":definition.landing,"name":str(definition.get("name","自建平台")),
+				"world":definition.world,"draw_world":definition.world,"screen":Vector2.ZERO,
+				"size":ICON_MIN,"near":0.0,"visible":false,"dynamic_build":true}
+		else:
+			item.world=definition.world
+			item.name=str(definition.get("name",item.name))
+		next.append(item)
+	items=next
+	# Project new entries this frame too; a periodic data refresh is not a fade.
+	_process(0.0)
+
+static func _identity(item: Dictionary) -> String:
+	return str(item.get("zone",""))+"/"+str(item.get("landing",""))
+
 func _process(delta: float) -> void:
 	if camera==null: return
 	var extent:=get_viewport().get_visible_rect().size

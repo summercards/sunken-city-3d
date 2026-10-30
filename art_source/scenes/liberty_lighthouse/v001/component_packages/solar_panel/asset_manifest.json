@@ -1,0 +1,36 @@
+{
+  "key": "solar_panel",
+  "asset_id": "SEA-SCENE-LHL-SOLAR-PANEL",
+  "name": "斜置太阳能板",
+  "category": "facility",
+  "family": "solar",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-SOLAR-PANEL",
+  "root": "solar_panel_组件根",
+  "bounds_size": [
+    1.5800000429153442,
+    1.0299530029296875,
+    0.7767982482910156
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/solar_panel/solar_panel.blend",
+  "geometry_fingerprint": "762c6d09217d0e747ef55d783a881a40f32f02eeebd1223903b759962998151a",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 148,
+  "source_sha256": "debb43dbef05c2f1e0497d08e03d2d515ac1808c7c658ea1e900cb330eaac24b",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-SOLAR-PANEL"
+}

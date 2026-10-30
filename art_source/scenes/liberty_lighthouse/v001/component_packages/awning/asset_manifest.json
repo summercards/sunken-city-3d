@@ -1,0 +1,36 @@
+{
+  "key": "awning",
+  "asset_id": "SEA-SCENE-LHL-AWNING",
+  "name": "蓝白条纹遮阳棚",
+  "category": "facility",
+  "family": "canopy",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-AWNING",
+  "root": "awning_组件根",
+  "bounds_size": [
+    7.659999847412109,
+    6.176166772842407,
+    1.3578092455863953
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/awning/awning.blend",
+  "geometry_fingerprint": "76456731205308da03bb911ddd9dfb26f93371b8d702c5c67bb51db6149e3a87",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 600,
+  "source_sha256": "e366c70bd7ef6093ad67d4a46952e9e61c25d11be51ca21082eb0922a482e7a4",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-AWNING"
+}

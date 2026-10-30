@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-STOOL",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-STOOL",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/stool/stool.blend",
+  "source_sha256": "22563508dc91f8177879a6c0c0dc4e49e98a73f814da647203d37f3c0dfba1d7",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/stool/stool.glb",
+  "runtime_sha256": "d15d886335c161bf541bb70cbdf2adf33774ab9e5b1ff813593de9403ff53f2f",
+  "prefab": "godot/scenes/buildables/kit/stool.tscn",
+  "component": {
+    "id": "stool",
+    "name": "木矮凳",
+    "asset_id": "SEA-KIT-STOOL",
+    "profile": "decoration",
+    "footprint": [
+      0.45,
+      0.45
+    ],
+    "height": 0.45,
+    "cost": {
+      "wood": 2
+    },
+    "seconds": 3.3,
+    "category": "decoration",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": true,
+    "movable": true,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/stool.tscn",
+    "description": "自由布置的装饰",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-STOOL",
+    "triangles": 800,
+    "bounds": {
+      "min": [
+        -0.23000000417232513,
+        -0.23000000417232513,
+        0.027323447167873383
+      ],
+      "max": [
+        0.23000000417232513,
+        0.23000000417232513,
+        0.45000001788139343
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

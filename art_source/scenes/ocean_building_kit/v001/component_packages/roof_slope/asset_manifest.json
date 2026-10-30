@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-ROOF-SLOPE",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-ROOF-SLOPE",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_slope/roof_slope.blend",
+  "source_sha256": "8ca93fca753f44bef89883840efbc01fa25d69a81a80fc5d56fb6305a0105c7a",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/roof_slope/roof_slope.glb",
+  "runtime_sha256": "c12ddb13c38a8ebf1c1eb851fd74bda49b2920b05fa905d35c82a31507196362",
+  "prefab": "godot/scenes/buildables/kit/roof_slope.tscn",
+  "component": {
+    "id": "roof_slope",
+    "name": "斜面屋顶",
+    "asset_id": "SEA-KIT-ROOF-SLOPE",
+    "profile": "roof",
+    "footprint": [
+      2,
+      4
+    ],
+    "height": 1.25,
+    "cost": {
+      "wood": 8
+    },
+    "seconds": 4.2,
+    "category": "structure",
+    "role": "furnishing",
+    "placement": "top",
+    "active": true,
+    "blocks_actor": false,
+    "movable": false,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/roof_slope.tscn",
+    "description": "2米模数拼接",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-ROOF-SLOPE",
+    "triangles": 1520,
+    "bounds": {
+      "min": [
+        -1.0037322044372559,
+        -2.013664484024048,
+        0.060535818338394165
+      ],
+      "max": [
+        1.0037322044372559,
+        2.013664484024048,
+        1.254290223121643
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

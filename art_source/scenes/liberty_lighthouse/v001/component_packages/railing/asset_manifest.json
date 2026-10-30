@@ -1,0 +1,36 @@
+{
+  "key": "railing",
+  "asset_id": "SEA-SCENE-LHL-RAILING",
+  "name": "断裂观景栏杆",
+  "category": "structure",
+  "family": "railing",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-RAILING",
+  "root": "railing_组件根",
+  "bounds_size": [
+    1.621244192123413,
+    0.09000001102685928,
+    1.1449999809265137
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/railing/railing.blend",
+  "geometry_fingerprint": "89f80294ac6f2706765ef4fbf273f0271d3ff30f3328135c932f28de42a18b3f",
+  "instances": 10,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 212,
+  "source_sha256": "b353379a3f876bd9189e5e79785860f0a86c34063664de89a1d4daccbcaba8f8",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-RAILING"
+}

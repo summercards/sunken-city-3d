@@ -1,0 +1,577 @@
+{
+  "schema": 1,
+  "modules": [
+    {
+      "id": "raft_4x4",
+      "name": "4×4木浮台",
+      "asset_id": "SEA-KIT-RAFT-4X4",
+      "profile": "foundation",
+      "footprint": [
+        4,
+        4
+      ],
+      "height": 0.5,
+      "cost": {
+        "wood": 20
+      },
+      "seconds": 6.0,
+      "category": "structure",
+      "role": "deck",
+      "placement": "water",
+      "active": true,
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/raft_4x4.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "surface_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "raft_2x4",
+      "name": "2×4木浮台",
+      "asset_id": "SEA-KIT-RAFT-2X4",
+      "profile": "foundation",
+      "footprint": [
+        2,
+        4
+      ],
+      "height": 0.5,
+      "cost": {
+        "wood": 12
+      },
+      "seconds": 4.8,
+      "category": "structure",
+      "role": "deck",
+      "placement": "water",
+      "active": true,
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/raft_2x4.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "surface_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "wall",
+      "name": "木板实墙",
+      "asset_id": "SEA-KIT-WALL",
+      "profile": "wall",
+      "footprint": [
+        2,
+        0.16
+      ],
+      "height": 2.8,
+      "cost": {
+        "wood": 6
+      },
+      "seconds": 3.9,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/wall.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "window_wall",
+      "name": "开窗木墙",
+      "asset_id": "SEA-KIT-WINDOW-WALL",
+      "profile": "window",
+      "footprint": [
+        2,
+        0.16
+      ],
+      "height": 2.8,
+      "cost": {
+        "wood": 7
+      },
+      "seconds": 4.05,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/window_wall.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "door_frame",
+      "name": "通行门框",
+      "asset_id": "SEA-KIT-DOOR-FRAME",
+      "profile": "door",
+      "footprint": [
+        2,
+        0.16
+      ],
+      "height": 2.8,
+      "cost": {
+        "wood": 5
+      },
+      "seconds": 3.75,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/door_frame.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "post",
+      "name": "木立柱",
+      "asset_id": "SEA-KIT-POST",
+      "profile": "post",
+      "footprint": [
+        0.2,
+        0.2
+      ],
+      "height": 2.8,
+      "cost": {
+        "wood": 3
+      },
+      "seconds": 3.45,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/post.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "beam",
+      "name": "承重横梁",
+      "asset_id": "SEA-KIT-BEAM",
+      "profile": "beam",
+      "footprint": [
+        2,
+        0.2
+      ],
+      "height": 0.2,
+      "cost": {
+        "wood": 3
+      },
+      "seconds": 3.45,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "top",
+      "active": true,
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/beam.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "railing",
+      "name": "交叉栏杆",
+      "asset_id": "SEA-KIT-RAILING",
+      "profile": "railing",
+      "footprint": [
+        2,
+        0.14
+      ],
+      "height": 1,
+      "cost": {
+        "wood": 4
+      },
+      "seconds": 3.6,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/railing.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "stairs",
+      "name": "直跑楼梯",
+      "asset_id": "SEA-KIT-STAIRS",
+      "profile": "stairs",
+      "footprint": [
+        1.2,
+        4
+      ],
+      "height": 2.8,
+      "cost": {
+        "wood": 10
+      },
+      "seconds": 4.5,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/stairs.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "upper_floor",
+      "name": "二层木楼板",
+      "asset_id": "SEA-KIT-UPPER-FLOOR",
+      "profile": "floor",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 0.18,
+      "cost": {
+        "wood": 8
+      },
+      "seconds": 4.2,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "top",
+      "active": true,
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/upper_floor.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "surface_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "roof_slope",
+      "name": "斜面屋顶",
+      "asset_id": "SEA-KIT-ROOF-SLOPE",
+      "profile": "roof",
+      "footprint": [
+        2,
+        4
+      ],
+      "height": 1.25,
+      "cost": {
+        "wood": 8
+      },
+      "seconds": 4.2,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "top",
+      "active": true,
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/roof_slope.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "roof_flat",
+      "name": "平顶遮棚",
+      "asset_id": "SEA-KIT-ROOF-FLAT",
+      "profile": "roof",
+      "footprint": [
+        4,
+        4
+      ],
+      "height": 0.16,
+      "cost": {
+        "wood": 10
+      },
+      "seconds": 4.5,
+      "category": "structure",
+      "role": "furnishing",
+      "placement": "top",
+      "active": true,
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/roof_flat.tscn",
+      "description": "2米模数拼接",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "oil_lamp",
+      "name": "桌面油灯",
+      "asset_id": "SEA-KIT-OIL-LAMP",
+      "profile": "lamp",
+      "footprint": [
+        0.38,
+        0.38
+      ],
+      "height": 0.65,
+      "cost": {
+        "wood": 2
+      },
+      "seconds": 3.3,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": false,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/oil_lamp.tscn",
+      "description": "真实暖光照明",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "lamp_post",
+      "name": "立杆油灯",
+      "asset_id": "SEA-KIT-LAMP-POST",
+      "profile": "lamp",
+      "footprint": [
+        0.4,
+        0.4
+      ],
+      "height": 2.2,
+      "cost": {
+        "wood": 4
+      },
+      "seconds": 3.6,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": false,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/lamp_post.tscn",
+      "description": "真实暖光照明",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "windmill",
+      "name": "小风车",
+      "asset_id": "SEA-KIT-WINDMILL",
+      "profile": "windmill",
+      "footprint": [
+        1.05,
+        0.5
+      ],
+      "height": 1.7,
+      "cost": {
+        "wood": 4
+      },
+      "seconds": 3.6,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/windmill.tscn",
+      "description": "旋转装饰，不发电",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "flower_pot",
+      "name": "开花陶盆",
+      "asset_id": "SEA-KIT-FLOWER-POT",
+      "profile": "decoration",
+      "footprint": [
+        0.55,
+        0.55
+      ],
+      "height": 0.8,
+      "cost": {
+        "wood": 2
+      },
+      "seconds": 3.3,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/flower_pot.tscn",
+      "description": "自由布置的装饰",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "storage_crate",
+      "name": "木储物箱",
+      "asset_id": "SEA-KIT-STORAGE-CRATE",
+      "profile": "storage",
+      "footprint": [
+        1,
+        0.65
+      ],
+      "height": 0.7,
+      "cost": {
+        "wood": 5
+      },
+      "seconds": 3.75,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/storage_crate.tscn",
+      "description": "接入共享保管仓库",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "water_barrel",
+      "name": "补水木桶",
+      "asset_id": "SEA-KIT-WATER-BARREL",
+      "profile": "water",
+      "footprint": [
+        0.7,
+        0.7
+      ],
+      "height": 0.95,
+      "cost": {
+        "wood": 5
+      },
+      "seconds": 3.75,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/water_barrel.tscn",
+      "description": "免费补满水壶",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "flag",
+      "name": "小旗杆",
+      "asset_id": "SEA-KIT-FLAG",
+      "profile": "flag",
+      "footprint": [
+        1.15,
+        0.35
+      ],
+      "height": 2,
+      "cost": {
+        "wood": 3
+      },
+      "seconds": 3.45,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": false,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/flag.tscn",
+      "description": "自由布置的装饰",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "table",
+      "name": "圆角木桌",
+      "asset_id": "SEA-KIT-TABLE",
+      "profile": "decoration",
+      "footprint": [
+        1.2,
+        0.8
+      ],
+      "height": 0.85,
+      "cost": {
+        "wood": 4
+      },
+      "seconds": 3.6,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/table.tscn",
+      "description": "自由布置的装饰",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "stool",
+      "name": "木矮凳",
+      "asset_id": "SEA-KIT-STOOL",
+      "profile": "decoration",
+      "footprint": [
+        0.45,
+        0.45
+      ],
+      "height": 0.45,
+      "cost": {
+        "wood": 2
+      },
+      "seconds": 3.3,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": true,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/stool.tscn",
+      "description": "自由布置的装饰",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "wind_chime",
+      "name": "木架风铃",
+      "asset_id": "SEA-KIT-WIND-CHIME",
+      "profile": "chime",
+      "footprint": [
+        0.45,
+        0.45
+      ],
+      "height": 1.4,
+      "cost": {
+        "wood": 3
+      },
+      "seconds": 3.45,
+      "category": "decoration",
+      "role": "furnishing",
+      "placement": "deck",
+      "active": true,
+      "blocks_actor": false,
+      "movable": true,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/wind_chime.tscn",
+      "description": "轻摆装饰，首版无声音",
+      "source_origin": "bottom_center",
+      "front_axis": "-Z"
+    }
+  ]
+}

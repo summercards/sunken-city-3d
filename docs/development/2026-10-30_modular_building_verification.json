@@ -1,0 +1,293 @@
+{
+  "date": "2026-10-30",
+  "features": [
+    "SEA-BUILDING",
+    "SEA-ASSET",
+    "SEA-MOVE",
+    "SEA-UI"
+  ],
+  "results": [
+    {
+      "check": "kit-safety",
+      "run_dir": "20261030-181730-kit-final-regression-c7656e",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\kit-safety.log",
+      "user_data_name": "sea-verification/20261030-181730-kit-final-regression-c7656e/kit-safety",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_kit_safety.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "building-kit",
+      "run_dir": "20261030-181730-kit-final-regression-c7656e",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\building-kit.log",
+      "user_data_name": "sea-verification/20261030-181730-kit-final-regression-c7656e/building-kit",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_kit.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "building",
+      "run_dir": "20261030-181730-kit-final-regression-c7656e",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\building.log",
+      "user_data_name": "sea-verification/20261030-181730-kit-final-regression-c7656e/building",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "building-integration",
+      "run_dir": "20261030-181730-kit-final-regression-c7656e",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\building-integration.log",
+      "user_data_name": "sea-verification/20261030-181730-kit-final-regression-c7656e/building-integration",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_integration.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "building-open-rules",
+      "run_dir": "20261030-181730-kit-final-regression-c7656e",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\building-open-rules.log",
+      "user_data_name": "sea-verification/20261030-181730-kit-final-regression-c7656e/building-open-rules",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_rules.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "ground-space",
+      "run_dir": "20261030-181730-kit-final-regression-c7656e",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\ground-space.log",
+      "user_data_name": "sea-verification/20261030-181730-kit-final-regression-c7656e/ground-space",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_ground_space.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "character-space-save",
+      "run_dir": "20261030-181730-kit-final-regression-c7656e",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\character-space-save.log",
+      "user_data_name": "sea-verification/20261030-181730-kit-final-regression-c7656e/character-space-save",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-181730-kit-final-regression-c7656e\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_character_space_save.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "visual-building-kit",
+      "run_dir": "20261030-181855-kit-full-content-final-a04f28",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-181855-kit-full-content-final-a04f28\\visual-building-kit.log",
+      "user_data_name": "sea-verification/20261030-181855-kit-full-content-final-a04f28/visual-building-kit",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-181855-kit-full-content-final-a04f28\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_building_kit.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "building-kit",
+      "run_dir": "20261030-182003-kit-upper-safety-final-e65448",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-182003-kit-upper-safety-final-e65448\\building-kit.log",
+      "user_data_name": "sea-verification/20261030-182003-kit-upper-safety-final-e65448/building-kit",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-182003-kit-upper-safety-final-e65448\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_kit.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "visual-recipe-cards",
+      "run_dir": "20261030-174817-recipe-cards-final-8834df",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-174817-recipe-cards-final-8834df\\visual-recipe-cards.log",
+      "user_data_name": "sea-verification/20261030-174817-recipe-cards-final-8834df/visual-recipe-cards",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-174817-recipe-cards-final-8834df\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tools/capture_recipe_cards.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    {
+      "check": "visual-kit-uv",
+      "run_dir": "20261030-165252-kit-uv-transfer-58cecd",
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261030-165252-kit-uv-transfer-58cecd\\visual-kit-uv.log",
+      "user_data_name": "sea-verification/20261030-165252-kit-uv-transfer-58cecd/visual-kit-uv",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261030-165252-kit-uv-transfer-58cecd\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tools/capture_kit_uv.gd",
+        "--",
+        "--skip-title"
+      ]
+    }
+  ],
+  "expected_failures": [],
+  "not_executed": [
+    "Mobile touchscreen and physical gamepad verification",
+    "Third storey and electrical power generation are outside current scope"
+  ],
+  "visual_review": [
+    "recipe-cards-decoration.png: all 10 objects, image/name/cost only",
+    "kit-uv-all.png and individual closeups: 22 components, palette UV and material roles",
+    "kit-assembly.png: stairs and upper-floor alignment"
+  ],
+  "static_checks": [
+    {
+      "command": "python3 scripts/check_feature_contracts.py --sync",
+      "passed": true,
+      "features": 35,
+      "source_assets": 513,
+      "runtime_hashes": 459,
+      "issues": 0
+    },
+    {
+      "command": "python3 scripts/check_feature_contracts.py",
+      "passed": true,
+      "issues": 0
+    },
+    {
+      "command": "python3 scripts/check_architecture.py",
+      "passed": true,
+      "independent_rule_services": 17,
+      "issues": 0
+    }
+  ]
+}

@@ -14,6 +14,8 @@ var _nodes := {}
 var _completed := {}
 var _fixed_footprints: Array=[]
 var revision := 0
+var prop_action: Callable
+var _assembly_walk: Node3D
 
 func configure(model: RefCounted, ground: Node3D, farm_field: Node3D, bind: Callable, invalidate: Callable) -> void:
 	service=model;area=ground;field=farm_field;bind_plot=bind;geometry_changed=invalidate
@@ -36,10 +38,15 @@ func _fixed_plot_rect(plot: Node3D) -> Rect2:
 	var extent:=Vector2(1.30*absf(plot.global_basis.get_scale().x),0.90*absf(plot.global_basis.get_scale().z))
 	if absf(sin(plot.global_rotation.y))>0.5: extent=Vector2(extent.y,extent.x)
 	return Rect2(Vector2(center.x,center.z)-extent/2,extent)
+func fixed_occupied_rects() -> Array:
+	var result: Array=[]
+	for plot: Node3D in field.plots:
+		if str(plot.zone_id)=="zone5" and not str(plot.plot_id).begins_with("dynamic/"): result.append(_fixed_plot_rect(plot))
+	return result
 func node_for(id: String) -> Node3D: return _nodes.get(id)
 func position_for(row: Dictionary) -> Vector3:
 	var p: Vector2=Catalog.tile_rect(row.x,row.z).get_center() if row.kind=="deck" else Vector2(row.px,row.pz)
-	return Catalog.ORIGIN+Vector3(p.x,0,p.y)
+	return Catalog.ORIGIN+Vector3(p.x,Catalog.elevation(row),p.y)
 func sync() -> void:
 	revision+=1
 	var rows: Array=service.query()
@@ -60,6 +67,11 @@ func sync() -> void:
 		var node: Node3D
 		if item.kind=="deck":
 			node=Deck.instantiate();node.ghost=not done
+		elif Catalog.is_kit(str(item.kind)):
+			node=load(Catalog.RECIPES[item.kind].prefab).instantiate()
+			node.ghost=not done;node.instance_id=str(item.id)
+			node.rotation.y=int(item.turn)*PI/2
+			if prop_action.is_valid(): node.action_requested.connect(func(action): prop_action.call(action))
 		elif done and Catalog.role(str(item.kind))=="planter":
 			node=Plot.instantiate();node.plot_id="dynamic/"+item.id;node.zone_id="zone5";node.plot_name="培养土种植格"
 			var footprint: Vector2=Catalog.RECIPES[item.kind].footprint
@@ -76,6 +88,7 @@ func sync() -> void:
 			bind_plot.call(node)
 	area.rects=walk_rects(rows)
 	area.polygons.clear()
+	_sync_assembly(rows)
 	# Every placement can change another plot's usable operation side. Refresh
 	# all anchors after projecting the complete candidate walking surface.
 	for item in rows:
@@ -85,6 +98,22 @@ func sync() -> void:
 		if str(plot.zone_id)!="zone5" or str(plot.plot_id).begins_with("dynamic/"): continue
 		plot.set_meta("approach_points",_world_operation_points(_fixed_plot_rect(plot),bool(plot.get_meta("blocks_actor",false))))
 	geometry_changed.call()
+func _sync_assembly(rows: Array) -> void:
+	var zone: Node3D=area.get_parent().get_parent()
+	if _assembly_walk==null:
+		_assembly_walk=preload("res://src/navigation/walk_area.gd").new()
+		_assembly_walk.name="AssemblyWalk";_assembly_walk.area_id="zone5_assembly";_assembly_walk.zone_id="zone5"
+		_assembly_walk.body_radius=0.0;_assembly_walk.surface_y=Catalog.ORIGIN.y+2.8
+		area.get_parent().add_child(_assembly_walk);_assembly_walk.global_position=Catalog.ORIGIN
+		zone.walk_areas.append(_assembly_walk)
+		zone.ground_space.configure(zone.walk_areas)
+	_assembly_walk.surface_triangles=preload("res://src/building/assembly_surfaces.gd").faces(rows)
+	area.open_surface_junctions.clear()
+	for row in rows:
+		if row.left<=0 and Catalog.RECIPES[row.kind].get("profile","")=="stairs":
+			var rect:=Catalog.footprint_rect(row);rect.position+=Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
+			area.open_surface_junctions.append(rect)
+
 func _remove(id: String) -> void:
 	var node: Node3D=_nodes[id]
 	if "plot_id" in node: field.unregister_node(node)
@@ -97,6 +126,13 @@ func walk_rects(rows: Array) -> Array:
 static func _subtract(a: Rect2, b: Rect2) -> Array:
 	return Space.subtract(a,b)
 func approach_points(item: Dictionary) -> Array[Vector3]:
+	if Catalog.elevation(item)>.5 and _assembly_walk!=null:
+		var result: Array[Vector3]=[]
+		var at:=position_for(item)
+		for offset: Vector3 in [Vector3(0,0,.7),Vector3(0,0,-.7),Vector3(.7,0,0),Vector3(-.7,0,0)]:
+			var point: Vector3=_assembly_walk.surface_point(at+offset)
+			if point.is_finite() and absf(point.y-at.y)<.3: result.append(point)
+		return result
 	return _world_operation_points(Catalog.plot_rect(item),Catalog.blocks_actor(str(item.kind)))
 func _world_operation_points(rect: Rect2, blocks_actor: bool) -> Array[Vector3]:
 	var walk: Array=area.rects
@@ -115,6 +151,10 @@ func closest_walk_point(point: Vector3, max_distance: float=INF) -> Vector3:
 	return Vector3.INF if nearest==Vector2.INF else Catalog.ORIGIN+Vector3(nearest.x,0,nearest.y)
 
 func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, request: Dictionary={}) -> Vector3:
+	if actor.y>Catalog.ORIGIN.y+0.5 and _assembly_walk!=null:
+		for offset: Vector3 in [Vector3(1,0,0),Vector3(-1,0,0),Vector3(0,0,1),Vector3(0,0,-1)]:
+			var candidate: Vector3=_assembly_walk.surface_point(center+offset)
+			if candidate.is_finite() and not _assembly_walk.path_between(actor,candidate).is_empty(): return candidate
 	var walk: Array=area.rects
 	var groups:=Space.components(walk)
 	var local:=Vector2(actor.x-Catalog.ORIGIN.x,actor.z-Catalog.ORIGIN.z)
@@ -148,21 +188,22 @@ func water_shapes(saved: Variant = null) -> Array:
 	var rows: Array=service.query() if saved==null else saved
 	var result: Array=[]
 	for item in rows:
-		if item.kind!="deck": continue
+		if not Catalog.is_deck(str(item.kind)): continue
 		# Reserve water as soon as work starts, so a boat cannot enter during construction.
-		var rect:=Catalog.tile_rect(item.x,item.z)
+		var rect:=Catalog.footprint_rect(item)
 		var p:=rect.get_center()+Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
 		result.append({"x":p.x,"z":p.y,"hx":rect.size.x/2,"hz":rect.size.y/2,"round":false})
 	return result
 func contact_rects() -> Array:
 	var result: Array=[]
 	for item in service.query():
-		if item.kind!="deck" or item.left>0: continue
-		var rect:=Catalog.tile_rect(item.x,item.z)
+		if not Catalog.is_deck(str(item.kind)) or item.left>0: continue
+		var rect:=Catalog.footprint_rect(item)
 		var center:=rect.get_center()+Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
 		result.append(Vector4(center.x,center.y,rect.size.x/2,rect.size.y/2))
 	return result
 func contains_saved(point: Vector3, rows: Array) -> bool:
+	if preload("res://src/building/assembly_surfaces.gd").contains(point-Catalog.ORIGIN,rows): return true
 	if absf(point.y-Catalog.ORIGIN.y)>0.5: return false
 	var p:=Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)
 	# Old saves may contain positions in former narrow paths. They remain valid
@@ -171,7 +212,7 @@ func contains_saved(point: Vector3, rows: Array) -> bool:
 	legacy.append_array(Catalog.deck_tiles(rows))
 	var cuts: Array=[]
 	for row in rows:
-		if Catalog.is_furnishing(str(row.kind)) and Catalog.blocks_actor(str(row.kind)):
+		if Catalog.is_furnishing(str(row.kind)) and Catalog.blocks_actor(str(row.kind)) and Catalog.elevation(row)<0.5:
 			cuts.append(Catalog.plot_rect(row).grow(0.05))
 	for rect in Space.cut_all(legacy,cuts):
 		if preload("res://src/navigation/ground_path.gd").contains([Catalog.polygon(rect)],p): return true

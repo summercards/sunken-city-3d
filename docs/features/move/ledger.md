@@ -23,6 +23,8 @@
     "character-motor",
     "ground-space",
     "actor-presentation",
+    "harvest-receive",
+    "visual-harvest-receive",
     "walk-facing",
     "visual-walk-facing",
     "walk-deck-fit",
@@ -31,7 +33,9 @@
     "click",
     "framework-modules",
     "framework-integration",
-    "sleep-cycle"
+    "sleep-cycle",
+    "building-kit",
+    "character-space-save"
   ]
 }
 ```
@@ -47,7 +51,8 @@
 | SEA-MOVE-R09 | 已实现；八方向 × 30/60/120 FPS，专项102项、真实渲染106项通过；旧公式对照复现26项朝向失败 | [朝向修复与实测](../../development/2026-10-29_walk_facing.md) |
 | SEA-MOVE-R11 | 正式角色已接胶囊扫掠及唯一物理帧驱动，岸/船/潜水碰撞启停；保留原速度和转向 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
 | SEA-MOVE-R12 | 正式区块接GroundSpace，现有布局派生地板/边界/导航；三维表面及上下坡控制器专项通过 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
-| SEA-MOVE-R13 | 独立动作生命周期、token及注册/播放/取消接口；原七动作和农作时序保留 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
+| SEA-MOVE-R13 | 独立动作生命周期、token及注册/播放/取消接口；播种/浇水1.1秒，收获按R14更新 | [框架实测](../../development/2026-10-29_character_physics_framework.md)；[当前收获实测](../../development/2026-10-30_harvest_receive_animation.md) |
+| SEA-MOVE-R14 | 已实现；三种实物、帽上停留、双手支撑、包盖/收物、真实鼠标只触发一次及7类中断通过；30/60/120FPS及长帧清理通过 | `harvest-receive`、`visual-harvest-receive`；[本轮交付与原生渲染](../../development/2026-10-30_harvest_receive_animation.md) |
 
 ## 资源与调用入口
 
@@ -59,6 +64,8 @@
 资产记录见 [资产总入口](../../../assets/registry/README.md)。共用资产按 AssetID 引用；未取得生产 AssetID 的旧运行资源通过路径定位并标注补登，不自动认定正式资产验收完成。
 
 ## 当前接口清单
+
+2026-10-30表现：`play_receive_item(crop_id)`、`play_farm_action(event,payload={})`、`play_action(id,context={})`。业务成功事件负责发起，动画不持有背包或Farm；原动作token、取消和查询接口保留。
 
 start_walk / approach / depart / cancel / request_mode / restore_pose / state_id / snapshot；state_changed、mode_changed；状态/动作目录见模块约定。
 
@@ -140,3 +147,9 @@ SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-MOVE-R10 | 已实现；离岸基础施工、动态泊位靠岸/回船与存读档实测通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
+
+## 2026-10-30 自建楼梯与二层通行
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-MOVE-R15 | 已实现；实际胶囊走楼梯到2.8米二层、根快照恢复仍在二层、角色所在楼梯/楼板拆除保护通过；GroundSpace及character-space-save回归通过，真实画面同向 | [本轮记录](../../development/2026-10-30_modular_building_kit.md)及[机器证据](../../development/2026-10-30_modular_building_verification.json) |

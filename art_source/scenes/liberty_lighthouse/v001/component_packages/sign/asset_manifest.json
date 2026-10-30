@@ -1,0 +1,36 @@
+{
+  "key": "sign",
+  "asset_id": "SEA-SCENE-LHL-SIGN",
+  "name": "黄色双段招牌",
+  "category": "facility",
+  "family": "signage",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-SIGN",
+  "root": "sign_组件根",
+  "bounds_size": [
+    7.0,
+    0.19300000369548798,
+    0.800000011920929
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/sign/sign.blend",
+  "geometry_fingerprint": "31c360ed894daf8468b5f1a14e982779d8e3eba7db18eedd17ff04e3227e1924",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 25164,
+  "source_sha256": "5e9daeea693e494d9fb07718935f897df8b2637ed5de2a1e489b7a75d80be519",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-SIGN"
+}

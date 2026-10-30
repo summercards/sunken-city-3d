@@ -29,6 +29,7 @@ var canvas: CanvasLayer
 var active := false
 var recipe := ""
 var turn := 0
+var build_level := 0
 var preview: Dictionary = {}
 var progress := {}
 var candidate_ghosts: Array = []
@@ -85,6 +86,7 @@ func select_recipe(kind: String) -> void:
 	var reason: String=service.context_reason()
 	if reason!="": hud.toast(reason); return
 	if not Catalog.RECIPES.has(kind) and kind not in ["move","remove"]: return
+	if Catalog.RECIPES.has(kind) and not Catalog.enabled(kind): hud.toast("该内容已停用");return
 	if not pending.is_empty(): cancel_actor.call()
 	_clear_pending(); moving_id=""; hovered_id=""; preview={}
 	recipe=kind; book.hide(); hint.show(); _refresh_ghosts(); update_preview(get_viewport().get_mouse_position())
@@ -160,13 +162,20 @@ func _refresh_ghosts() -> void:
 		candidate_ghosts=next
 	elif _is_furnishing(recipe):
 		if candidate_ghosts.is_empty():
-			var node:=World.ghost_planter(); _size_ghost(node,recipe); preview_root.add_child(node); node.hide()
+			var node: Node3D=load(Catalog.RECIPES[recipe].prefab).instantiate() if Catalog.is_kit(recipe) else World.ghost_planter()
+			if Catalog.is_kit(recipe): node.ghost=true
+			else: _size_ghost(node,recipe)
+			preview_root.add_child(node); node.hide()
 			candidate_ghosts.append({"node":node})
 
 func _point(screen: Vector2) -> Vector3:
 	var origin:=camera.project_ray_origin(screen); var direction:=camera.project_ray_normal(screen)
 	if absf(direction.y)<0.0001: return Vector3.INF
-	var distance: float=(Catalog.ORIGIN.y-origin.y)/direction.y
+	var level:=float(build_level)*2.8
+	var kind:=str(service.row(moving_id).get("kind",recipe)) if moving_id!="" else recipe
+	if kind=="deck" or (Catalog.is_kit(kind) and Catalog.RECIPES[kind].group=="structure"): level=0.0
+	if Catalog.is_kit(kind) and Catalog.RECIPES[kind].placement=="top": level=2.8
+	var distance: float=(Catalog.ORIGIN.y+level-origin.y)/direction.y
 	return origin+direction*distance if distance>0 else Vector3.INF
 
 func _deck_request(local: Vector2) -> Dictionary:
@@ -178,24 +187,46 @@ func _furnishing_request(local: Vector2) -> Dictionary:
 	var kind:=str(service.row(moving_id).get("kind","planter")) if moving_id!="" else recipe
 	var request: Dictionary={"kind":kind,"x":0,"z":0,"px":snappedf(local.x,step),"pz":snappedf(local.y,step),
 		"turn":turn,"support":"","snap_step":step}
+	if Catalog.is_kit(kind):
+		var definition: Dictionary=Catalog.RECIPES[kind]
+		request.py=float(build_level)*2.8
+		if definition.group=="structure":
+			# Legacy boards have fractional metre origins. Their sockets establish
+			# the local module grid instead of forcing the ocean's integer phase.
+			var anchor:=Vector2.ZERO;var closest:=INF
+			for tile: Rect2 in Catalog.support_tiles(_rows_cache):
+				var clamped:=Vector2(clampf(local.x,tile.position.x,tile.end.x),clampf(local.y,tile.position.y,tile.end.y))
+				var distance:=local.distance_squared_to(clamped)
+				if distance<closest: closest=distance;anchor=tile.get_center()
+			request.px=anchor.x+snappedf(local.x-anchor.x,1.0);request.pz=anchor.y+snappedf(local.y-anchor.y,1.0);request.py=0.0
+		if definition.placement=="top":
+			request.py=2.6 if definition.profile=="beam" else 2.8
+			var bearings: Array=preload("res://src/building/assembly_rules.gd").bearing_ids(request,_rows_cache)
+			if not bearings.is_empty(): request.support=bearings[0]
+			return request
 	if moving_id!="": request.exclude_id=moving_id
 	var footprint: Rect2=Catalog.plot_rect(request)
 	var best_distance:=INF
+	if float(request.get("py",0))<.5 and Catalog.BASE.grow(.05).intersects(footprint):
+		request.support="@base";best_distance=Catalog.BASE.get_center().distance_squared_to(local)-1000.0
 	for item in _rows_cache:
-		if item.kind!="deck" or item.left>0: continue
-		var rect: Rect2=Catalog.tile_rect(item.x,item.z)
+		if item.left>0: continue
+		if float(request.get("py",0))>0.5:
+			if Catalog.RECIPES[item.kind].get("profile","")!="floor": continue
+		elif not Catalog.is_deck(str(item.kind)): continue
+		var rect: Rect2=Catalog.footprint_rect(item)
 		if not rect.grow(0.4).intersects(footprint): continue
 		var distance: float=rect.get_center().distance_squared_to(local)
 		if rect.has_point(local): distance-=1000.0
 		if distance<best_distance: best_distance=distance; request.support=item.id
-	if step>=0.1 and request.support!="": request=service.snap_planter(request)
+	if not Catalog.is_kit(kind) and step>=0.1 and request.support!="": request=service.snap_planter(request)
 	return request
 
 func _item_at(local: Vector2,only_furnishing:=false) -> Dictionary:
 	var deck: Dictionary={}
 	for item in _rows_cache:
-		if _is_furnishing(item.kind) and Catalog.plot_rect(item).has_point(local): return item
-		if not only_furnishing and item.kind=="deck" and Catalog.tile_rect(item.x,item.z).has_point(local): deck=item
+		if _is_furnishing(item.kind) and absf(Catalog.elevation(item)-build_level*2.8)<0.5 and Catalog.plot_rect(item).has_point(local): return item
+		if not only_furnishing and Catalog.is_deck(str(item.kind)) and Catalog.footprint_rect(item).has_point(local): deck=item
 	return deck
 
 func _size_ghost(node: Node3D,kind: String) -> void:
@@ -207,7 +238,9 @@ func _size_ghost(node: Node3D,kind: String) -> void:
 func _ghost(kind: String) -> Node3D:
 	if focus_ghost!=null and _focus_kind==kind: return focus_ghost
 	if focus_ghost!=null: preview_root.remove_child(focus_ghost); focus_ghost.queue_free()
-	if kind=="deck": focus_ghost=World.Deck.instantiate(); focus_ghost.ghost=true
+	if Catalog.is_kit(kind):
+		focus_ghost=load(Catalog.RECIPES[kind].prefab).instantiate();focus_ghost.ghost=true
+	elif kind=="deck": focus_ghost=World.Deck.instantiate(); focus_ghost.ghost=true
 	else: focus_ghost=World.ghost_planter(); _size_ghost(focus_ghost,kind)
 	preview_root.add_child(focus_ghost); _focus_kind=kind
 	return focus_ghost
@@ -257,7 +290,9 @@ func update_preview(screen: Vector2) -> void:
 	if not point.is_finite(): return
 	var local:=Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)
 	var operation:="build"; var reason:=""
-	if recipe=="deck": preview=_deck_request(local)
+	if Catalog.is_kit(recipe) and Catalog.is_deck(recipe):
+		preview=Catalog.snap_foundation(recipe,local,turn,_rows_cache)
+	elif recipe=="deck": preview=_deck_request(local)
 	elif _is_furnishing(recipe): preview=_furnishing_request(local)
 	elif recipe=="move":
 		operation="move"
@@ -278,7 +313,7 @@ func update_preview(screen: Vector2) -> void:
 	if recipe=="deck": controls="可持续扩建，也可乘船在空海面新建 · 右键 手册 · Esc 退出"
 	elif recipe=="move" and moving_id!="": controls="R 旋转 · Shift 精细摆放 · Esc 取消选取"
 	elif recipe=="remove": controls="有作物、承载摆件或切断通路时拒绝 · 右键 手册 · Esc 退出"
-	hint.text=label+"\n"+controls
+	hint.text=label+"\n"+controls+" · U 楼层 "+str(build_level+1)
 	for entry in candidate_ghosts:
 		var selected: bool=_is_furnishing(recipe) or (not preview.is_empty() and entry.has("request") and entry.request.x==preview.get("x") and entry.request.z==preview.get("z"))
 		entry.node.visible=recipe=="deck" or not preview.is_empty()
@@ -305,6 +340,7 @@ func handle_input(event: InputEvent) -> bool:
 				_clear_pending(); moving_id=""; preview={}; _preview_cache.clear()
 			else: close()
 		elif event.physical_keycode==KEY_R: turn=(turn+1)%4; _preview_cache.clear()
+		elif event.physical_keycode==KEY_U: build_level=1-build_level;_preview_cache.clear()
 		elif event.physical_keycode==KEY_M: select_recipe("move")
 		elif event.physical_keycode==KEY_DELETE: select_recipe("remove")
 		else: return false
@@ -341,7 +377,7 @@ func _request_action(request: Dictionary,operation: String,id: String) -> void:
 	var state: Dictionary=actor_state.call() if actor_state.is_valid() else {}
 	var at: Vector3=state.get("position",Vector3.INF)
 	var action:=request.duplicate(true); action._operation=operation; action._target_id=id
-	if at.is_finite() and not bool(state.get("walking",false)) and Vector2(at.x-stand.x,at.z-stand.z).length()<=ARRIVE:
+	if at.is_finite() and not bool(state.get("walking",false)) and at.distance_to(stand)<=ARRIVE:
 		_begin_now(action); return
 	if not approach_point.is_valid() or not bool(approach_point.call(stand)): hud.toast("走不到施工位置，换个地方建"); return
 	pending=action; pending_stand=stand
@@ -369,7 +405,7 @@ func _sync_pending(delta: float) -> void:
 	pending_left-=delta; pending_age+=delta
 	var state: Dictionary=actor_state.call() if actor_state.is_valid() else {}
 	var at: Vector3=state.get("position",Vector3.INF); var walking:=bool(state.get("walking",true))
-	var near:=at.is_finite() and Vector2(at.x-pending_stand.x,at.z-pending_stand.z).length()<=ARRIVE
+	var near:=at.is_finite() and at.distance_to(pending_stand)<=ARRIVE
 	if near and not walking: _begin_now(pending.duplicate(true)); return
 	if pending_left<=0.0 or (not walking and pending_age>0.4): _clear_pending(); preview={}; hud.toast("没到施工位置，已取消")
 

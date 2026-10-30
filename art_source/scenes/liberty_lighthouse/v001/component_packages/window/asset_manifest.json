@@ -1,0 +1,36 @@
+{
+  "key": "window",
+  "asset_id": "SEA-SCENE-LHL-WINDOW",
+  "name": "侧墙玻璃窗",
+  "category": "facility",
+  "family": "window",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-WINDOW",
+  "root": "window_组件根",
+  "bounds_size": [
+    1.149999976158142,
+    0.18000000715255737,
+    1.350000023841858
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/window/window.blend",
+  "geometry_fingerprint": "c8ae70cffc49bcd1c75ab1be1724fba7f28245414160a3f5ae736d55b4509101",
+  "instances": 2,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 48,
+  "source_sha256": "f36e382ac2acf224bf1a6118774106781e5d030eb043d333ea756f4ede4ff38f",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-WINDOW"
+}

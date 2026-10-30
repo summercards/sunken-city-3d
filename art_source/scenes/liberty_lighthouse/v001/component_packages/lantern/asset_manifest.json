@@ -1,0 +1,36 @@
+{
+  "key": "lantern",
+  "asset_id": "SEA-SCENE-LHL-LANTERN",
+  "name": "多边形玻璃灯室",
+  "category": "structure",
+  "family": "lantern",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-LANTERN",
+  "root": "lantern_组件根",
+  "bounds_size": [
+    1.2604987621307373,
+    1.2604987621307373,
+    2.0
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/lantern/lantern.blend",
+  "geometry_fingerprint": "ec467f98ae2a417bc91180103d793f047aab8c8bb7057b64befc2fdaa03d193e",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 504,
+  "source_sha256": "fafe4fbed7bca779905272d648dca8c9ff6eb43845cf51f42784a3e35f9d4372",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-LANTERN"
+}

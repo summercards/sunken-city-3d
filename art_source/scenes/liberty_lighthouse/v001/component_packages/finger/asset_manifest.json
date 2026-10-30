@@ -1,0 +1,36 @@
+{
+  "key": "finger",
+  "asset_id": "SEA-SCENE-LHL-FINGER",
+  "name": "环握柱身手指",
+  "category": "structure",
+  "family": "hand",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-FINGER",
+  "root": "finger_组件根",
+  "bounds_size": [
+    0.8000003099441528,
+    2.080000162124634,
+    0.9488517045974731
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/finger/finger.blend",
+  "geometry_fingerprint": "f38cd2d54c5ab974c58b4aca2cab87edd070b84f4a568f4d59a58f936a26f4be",
+  "instances": 4,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 972,
+  "source_sha256": "c42e2b4cf05f4b4f20c43c18c3022d8abdd45dd5e6ced1590ec5e8c8133c457d",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-FINGER"
+}

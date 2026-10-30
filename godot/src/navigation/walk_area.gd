@@ -18,6 +18,8 @@ extends Node3D
 ## Optional local-space 3D triangles for slopes and stacked floors. Existing
 ## authored rectangles remain the compatibility input for the current content.
 @export var surface_triangles := PackedVector3Array()
+## Ground boundary edges intentionally joined by another sloped surface.
+var open_surface_junctions: Array=[]
 var ground_space: Node3D
 const GroundPath = preload("res://src/navigation/ground_path.gd")
 

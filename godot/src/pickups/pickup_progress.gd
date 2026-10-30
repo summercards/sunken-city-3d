@@ -1,7 +1,7 @@
 extends CanvasLayer
 ## 海上拾取（漂流浮木 / 鱼群）的进度表现。
 ##
-## 只做表现，不改玩法：进度值由调用方给（主场景按剩余航程算好），
+## 只做表现，不改玩法：进度值由调用方按停船后的打捞计时给，
 ## 这里只负责把这条细进度条放到**角色头顶**，并在没有拾取时收起来。
 ##
 ## 为什么挂在角色头上、而不是挂在目标上：
@@ -36,6 +36,9 @@ const SCREEN_GAP := 16.0
 ## 收尾停留（秒）。条走到 100% 后不立刻消失，
 ## 留一拍让玩家看清"到了"再收；否则最后那一格永远看不见。
 const HOLD_SECONDS := 0.5
+const REWARD_SECONDS := 1.35
+const REWARD_RISE := 46.0
+const Icons = preload("res://src/ui/illustrated_icons.gd")
 
 ## 投影用的相机。主场景注入。
 var camera: Camera3D
@@ -46,6 +49,7 @@ var bar: ThinBar
 
 var _hold := 0.0
 var _active := false
+var rewards: Array[Dictionary] = []
 
 
 func _ready() -> void:
@@ -112,12 +116,67 @@ func clear() -> void:
 	_hold = 0.0
 	bar.set_ratio(0.0)
 	bar.visible = false
+	for reward in rewards: reward.node.queue_free()
+	rewards.clear()
+
+## Called only by a successful collection event. Reuse actual inventory art,
+## with the committed quantity; this view never writes inventory or timers.
+func receive(items: Dictionary) -> void:
+	var row := HBoxContainer.new()
+	row.name = "ReceivedItems"
+	row.set_meta("cozy_skip",true)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_theme_constant_override("separation",4)
+	for id in items:
+		if int(items[id]) <= 0: continue
+		var icon := TextureRect.new()
+		icon.texture = Icons.texture(str(id))
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon.custom_minimum_size = Vector2(38,38)
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		row.add_child(icon)
+		var amount := Label.new()
+		amount.text = "+%d" % int(items[id])
+		amount.add_theme_font_size_override("font_size",24)
+		amount.add_theme_color_override("font_color",Color("#fff6d8"))
+		amount.add_theme_color_override("font_shadow_color",Color(0.10,0.24,0.25,0.85))
+		amount.add_theme_constant_override("shadow_offset_x",1)
+		amount.add_theme_constant_override("shadow_offset_y",2)
+		amount.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		row.add_child(amount)
+	if row.get_child_count() == 0:
+		row.free()
+		return
+	add_child(row)
+	rewards.append({"node":row,"age":0.0})
+	_place_rewards()
+
+func _place_rewards() -> void:
+	for reward in rewards:
+		var row: Control = reward.node
+		row.visible = is_instance_valid(camera) and is_instance_valid(subject)
+		if not row.visible: continue
+		var point := subject.global_position + Vector3.UP * ANCHOR_LIFT
+		row.visible = not camera.is_position_behind(point)
+		if not row.visible: continue
+		var p := clampf(float(reward.age)/REWARD_SECONDS,0,1)
+		row.size = row.get_combined_minimum_size()
+		row.position = camera.unproject_position(point) - Vector2(row.size.x*0.5,SCREEN_GAP+ThinBar.PICK_HEIGHT+10+row.size.y+REWARD_RISE*p)
+		row.modulate.a = 1.0-smoothstep(0.38,1.0,p)
 
 
 ## 每帧推进收尾停留计时。
 func tick(delta: float) -> void:
+	for i in range(rewards.size()-1,-1,-1):
+		rewards[i].age += maxf(0.0,delta)
+		if float(rewards[i].age) >= REWARD_SECONDS:
+			rewards[i].node.queue_free()
+			rewards.remove_at(i)
+	_place_rewards()
 	if _hold <= 0.0:
 		return
 	_hold -= delta
 	if _hold <= 0.0:
-		clear()
+		bar.visible = false
+		bar.set_ratio(0.0)

@@ -1,5 +1,6 @@
 extends RefCounted
 ## Sole layout owner. All scene, route, inventory and crop policies are injected.
+const Assembly = preload("res://src/building/assembly_rules.gd")
 const Catalog = preload("res://src/building/building_catalog.gd")
 signal changed
 signal completed(id: String)
@@ -25,6 +26,7 @@ func row(id: String) -> Dictionary:
 
 func _index(item: Dictionary) -> void:
 	_by_id[item.id]=item
+	if item.kind!="deck" and Catalog.is_deck(str(item.kind)) and float(item.left)<=0: _finished_tiles.append(Catalog.footprint_rect(item))
 	if item.kind=="deck":
 		_deck_cells[Vector2i(int(item.x),int(item.z))]=item
 		if float(item.left)<=0.0: _finished_tiles.append(Catalog.tile_rect(int(item.x),int(item.z)))
@@ -66,20 +68,24 @@ func geometry_reason(request: Dictionary) -> String:
 	var rotation: Variant=request.get("turn",0)
 	if not (rotation is int or rotation is float) or not is_finite(float(rotation)) or rotation!=floor(rotation) or rotation<0 or rotation>3:
 		return "朝向无效"
+	if Catalog.is_kit(kind): return Assembly.reason(request,query())
 	if kind=="deck":
+		for other in _rows:
+			if Catalog.is_deck(str(other.kind)) and other.kind!="deck" and Catalog.footprint_rect(other).grow(-0.001).intersects(Catalog.tile_rect(int(request.x),int(request.z))): return "这里已有浮台"
 		var x:=int(request.x)
 		var z:=int(request.z)
 		if Catalog.base_cell(x,z): return "这里是原有平台"
 		if _deck_cells.has(Vector2i(x,z)): return "这里已有木板或正在施工"
 		return ""
-	var support: Dictionary=_by_id.get(str(request.get("support","")),{})
-	if support.is_empty() or support.kind!="deck" or support.left>0: return "请放在已完成的新木板上"
+	var support: Dictionary=Catalog.fixed_support() if str(request.get("support",""))=="@base" else _by_id.get(str(request.get("support","")),{})
+	if support.is_empty() or (str(support.id)!="@base" and not Catalog.is_deck(str(support.kind))) or support.left>0: return "请放在已完成的新木板上"
 	var rect := Catalog.plot_rect(request)
-	if not Catalog.tile_rect(int(support.x),int(support.z)).intersects(rect): return "请选择脚下的支撑木板"
-	if not Catalog.covered(rect.grow(Catalog.PLANTER_MARGIN),_finished_tiles): return "种植区超出了木板边缘"
+	if not (Catalog.BASE if str(support.id)=="@base" else Catalog.footprint_rect(support)).intersects(rect): return "请选择脚下的支撑木板"
+	if not Catalog.covered(rect.grow(Catalog.PLANTER_MARGIN),Catalog.support_tiles(_rows)): return "种植区超出了木板边缘"
 	var excluded := str(request.get("exclude_id",""))
 	for item in _rows:
-		if item.id==excluded or item.kind=="deck": continue
+		if item.id==excluded or Catalog.is_deck(str(item.kind)): continue
+		if Catalog.elevation(item)>0.5: continue
 		if Catalog.plot_rect(item).grow(0.02).intersects(rect): return "摆件不能重叠"
 	return ""
 
@@ -87,6 +93,8 @@ func _record(request: Dictionary, id: String, seconds: float) -> Dictionary:
 	# Only consume fields that geometry validated for this placement kind.
 	# A furnishing request's unused x/z (or a deck's px/pz/support) must never
 	# reach numeric conversions or turn into an unsaveable committed record.
+	if Catalog.is_kit(str(request.kind)):
+		return {"id":id,"kind":str(request.kind),"x":0,"z":0,"px":float(request.px),"pz":float(request.pz),"py":float(request.get("py",0)),"turn":int(request.get("turn",0)),"support":str(request.get("support","")),"left":seconds}
 	if str(request.kind)=="deck":
 		return {"id":id,"kind":"deck","x":int(request.x),"z":int(request.z),
 			"px":0.0,"pz":0.0,"turn":0,"support":"","left":seconds}
@@ -170,6 +178,7 @@ func snap_planter(request: Dictionary) -> Dictionary:
 func begin(request: Dictionary) -> Dictionary:
 	if _committing: return {"ok":false,"reason":"正在提交建造"}
 	if str(request.get("exclude_id",""))!="": return {"ok":false,"reason":"搬移请使用搬移命令"}
+	if not Catalog.enabled(str(request.get("kind",""))): return {"ok":false,"reason":"该配方已停用"}
 	var reason := can_place(request)
 	if reason!="": return {"ok":false,"reason":reason}
 	var recipe: Dictionary=Catalog.RECIPES[request.kind]
@@ -217,12 +226,17 @@ func can_remove(id: String) -> String:
 	if item.is_empty(): return "摆件已经不存在"
 	if item.left>0.0: return "施工完成后才能回收"
 	if not bool(Catalog.RECIPES[item.kind].get("removable",false)): return "这个物件不能回收"
-	if item.kind=="deck":
-		var rect:=Catalog.tile_rect(int(item.x),int(item.z))
+	if Catalog.is_deck(str(item.kind)):
+		var rect:=Catalog.footprint_rect(item)
 		for other in _rows:
-			if other.kind=="deck": continue
+			if Catalog.is_deck(str(other.kind)): continue
 			if other.support==id or Catalog.plot_rect(other).grow(Catalog.PLANTER_MARGIN).intersects(rect):
 				return "先搬走木板上的摆件，再回收木板"
+	var remaining: Array=[]
+	for other in _rows:
+		if other.id!=id: remaining.append(other)
+	for other in remaining:
+		if Catalog.is_kit(str(other.kind)) and Assembly.reason(other,remaining)!="": return "先拆除依附在此构件上的结构或摆件"
 	var request: Dictionary=item.duplicate(true)
 	request.operation="remove"
 	return _layout_reason(request,"remove",id)
@@ -289,13 +303,17 @@ static func validate_snapshot(data: Dictionary) -> String:
 		if not suffix.is_valid_int() or raw.id!="built_%d"%int(suffix) or int(suffix)<1 or int(suffix)>=sequence or ids.has(raw.id):
 			return "Invalid building identity"
 		ids[raw.id]=true
-		if raw.kind=="deck":
+		if raw.kind=="deck" or (Catalog.is_kit(str(raw.kind)) and Catalog.is_deck(str(raw.kind))):
 			if validator.geometry_reason(raw)!="" or raw.support!="": return "Invalid building deck or overlap"
 			validator._rows.append(raw.duplicate(true))
 			validator._index(validator._rows[-1])
 		else: furnishings.append(raw)
-	for raw in furnishings:
-		if validator.geometry_reason(raw)!="": return "Invalid building support or overlap"
-		validator._rows.append(raw.duplicate(true))
-		validator._index(validator._rows[-1])
+	var pending: Array=furnishings.duplicate()
+	while not pending.is_empty():
+		var progressed:=false
+		for raw in pending.duplicate():
+			if validator.geometry_reason(raw)!="": continue
+			validator._rows.append(raw.duplicate(true));validator._index(validator._rows[-1])
+			pending.erase(raw);progressed=true
+		if not progressed: return "Invalid building support or overlap"
 	return ""

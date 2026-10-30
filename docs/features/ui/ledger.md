@@ -12,7 +12,10 @@
   "status": "partial",
   "owner": "HUD / UI presenters",
   "code_paths": [
-    "godot/src/ui"
+    "godot/src/ui",
+    "godot/src/building/building_book.gd",
+    "godot/src/building/recipe_card.gd",
+    "godot/src/building/recipe_thumbnail.gd"
   ],
   "verification": [
     "visual-corner-notebook",
@@ -30,7 +33,12 @@
     "visual-home-lighting",
     "progress-bars",
     "pocket-drag-buy",
-    "visual-pocket-drag-buy"
+    "visual-pocket-drag-buy",
+    "landing-markers",
+    "visual-landing-markers",
+    "close-hint",
+    "visual-close-hint",
+    "visual-recipe-cards"
   ]
 }
 ```
@@ -62,6 +70,18 @@
 | SEA-UI-R21 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-UI-R22 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-UI-R23 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
+
+## 2026-10-30 海上收获浮层
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R45 | 已实现；复用背包图标，在6px拾取条上方显示实际+数量，独立上飘/渐隐；不截获鼠标、失败不播 | `ocean-pickups`43项、`visual-ocean-pickups`13项通过；[原生画面与交付](../../development/2026-10-30_ocean_pickups.md) |
+
+## 2026-10-30 海上地图：你在哪、太阳房在哪
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R46 | 已实现：`island_atlas` 新增太阳房房子徽标（钉 `zone1`，名字固定「太阳房 · 家园」）与按真实世界坐标投影的橙点；`HUD.player_query` 由 `Main._setup_hud` 注入 `player.global_position`，UI 不读业务状态 | `island-atlas` 10 项 0 失败（含"玩家标记用真实坐标""两块航间不贴回任一区块中心""无坐标时退回当前区块且仍画"）；`visual-island-atlas` 家园/浅水/两处之间的海面三张原生截图；[本轮交付](../../development/2026-10-30_island_atlas_you_and_home.md) |
 
 ## 资源与调用入口
 
@@ -233,7 +253,7 @@ SEA-UI-R19本轮按用户要求恢复P调试例外，其它范围限制保留。
 | SEA-UI-R35 | 已实现；零背板、原白色加粗圆体、真实时间/余额/容量集中左下，三分辨率检查 | [本轮交付](../../development/2026-10-28_corner_hud_notebook.md) |
 | SEA-UI-R36 | 已实现；右上单图标展开彩色图标菜单，真实服务路由、Esc/外点收起和模态隔离 | [本轮交付](../../development/2026-10-28_corner_hud_notebook.md) |
 | SEA-UI-R37 | 已实现；四类目录、六卡分页、真实资料与状态、详情和原服务返回链 | [本轮交付](../../development/2026-10-28_corner_hud_notebook.md) |
-| SEA-UI-R38 | 已实现；手绘船锚、无名称、靠近放大/离开缩回、命中ID保留，无重复手形气泡 | [本轮交付](../../development/2026-10-28_corner_hud_notebook.md) |
+| SEA-UI-R38 | 已实现；手绘船锚、无名称、平滑悬停及命中ID保留；动态提示稳定对象复用，周期刷新不再闪烁 | [原交付](../../development/2026-10-28_corner_hud_notebook.md)；[本轮修复](../../development/2026-10-30_sparse_landing_markers.md) |
 
 公开表现入口增加corner（收拢/展开状态）与notebook（分类/页/选中资料），均为临时UI状态；calendar_query/weather_query在装配层注入。主场景保留唯一时钟Label引用，Label归入HUD左下区域。笔记query返回新字典，命令仍经HUD原分发器或plot_focus_requested信号。硬件设备触控/手柄专项未执行。
 
@@ -251,7 +271,7 @@ HUD增加公开表现入口set_follow_locked(bool)，Main查询OrbitCam.follow_e
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-UI-R41 | 已实现；三配方/管理手册、真实鼠标旋转精细/搬移取消与退款28项通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-UI-R41 | 已实现；25配方以5列×2行奶油色图片/名字/消耗卡片展示，真实鼠标分类/翻页/整卡选择/退出78项通过；旋转精细/搬移拆回保留 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-UI-R42 | 已实现：世界浮层进度条统一为自绘细条（建造 8 px / 拾取 6 px），带 `cozy_skip`；浮层挂点选"永远在画面里"的对象（拾取条挂角色头顶） | `progress-bars` 37 项 0 失败（含"过一遍 cozy 主题仍是 6 px""目标在相机背后时条仍可见"）；[本轮交付](../../development/2026-10-29_pickup_progress_bar.md) |
 
 ## 2026-10-29 背包拖拽整理与购买数量
@@ -262,3 +282,12 @@ HUD增加公开表现入口set_follow_locked(bool)，Main查询OrbitCam.follow_e
 | SEA-UI-R44 | 已实现：`[−] N [+]` + 「购买 N」，上限取瓶盖与背包余量的较小值并置灰封顶 | `pocket-drag-buy` 覆盖"默认 1""点两次 + 变 3""减号回退""买 2 扣 2 倍价并到手 2 包""只够 1 个时 ± 都置灰"；真实截图见 `pocket-buy-1.png` / `pocket-buy-3.png` |
 
 两处都改了对接层：`pocket_service` 新增 `sort_requested` 信号（界面不算账，只把意图转给宿主），`hud._service_sort` 落到 `Inventory`。快照额外带上 `bag_order` / `other_order` / 每件商品的 `max_buy`。
+
+## 2026-10-30 右下角只留一枚关闭键
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-UI-R47 | 已实现：面板/模态打开时右下角只有一枚奶白圆片关闭键（62px、深棕描边、粗叉、落影、逆时针歪 6°），原「返回 Esc / 选择 Enter」两枚胶囊移除；服务口袋的「完成」按钮同步移除，关闭入口只剩这一枚；Esc/Enter 键盘路径保留，关闭语义仍走 `menu.back()` | `close-hint` 16 项 0 失败（只剩一枚、控件类型、无文字、贴角 34/30、62px、rotation≠0、绕圆心、`cozy_skip`、点击真关闭）；`visual-close-hint` 出全画面与 320×240 近景；`pocket-services` / `visual-pocket-services` 回归通过；[本轮交付](../../development/2026-10-30_detail_fixes.md) |
+| SEA-UI-R47 实现注记 | 外层 `_hints` 从 `HBoxContainer` 改为普通 `Control`：Godot `Container.fit_child_in_rect` 会把子节点旋转归零，放进 HBox 的按钮永远摆不出那 6°。改动后 `_hints` 的 position/visible 调用点（`set_external_modal`、`_toggle_panel`、`island_menu`）全部保持原样 | `close-hint` 第一条「只剩一枚按钮」与 rotation 断言同时覆盖这一点；[坑位记录](../../development/2026-10-30_detail_fixes.md) |
+
+2026-10-30建造手册卡片修订（R41）：BuildingBook/RecipeCard只展示目录与发送选择；RecipeThumbnail从实际组件渲染并缓存图片，最新PaletteUV修复后重新实测。卡片不显示描述、工期或独立“选择建造”按钮。见[交付](../../development/2026-10-30_modular_building_kit.md)及[机器证据](../../development/2026-10-30_modular_building_verification.json)。

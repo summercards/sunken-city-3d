@@ -2903,6 +2903,475 @@
       "sha256": "7e84e3db1aeb7ab795957a4901179ce540101b57e1c441445c0811d09842688d",
       "asset_id": null,
       "status": "runtime_resource_verified"
+    },
+    {
+      "path": "godot/src/player/animation/item_receive.gd",
+      "bytes": 5193,
+      "sha256": "8b08f26c14d3f080855a78a5e2ff1ee6e040194ba71cdc2848a9d0467493455b",
+      "asset_id": "SEA-CHAR-RECEIVE-001",
+      "status": "runtime_component_verified"
+    },
+    {
+      "path": "godot/assets/models/building_kit/raft_4x4/raft_4x4.glb",
+      "asset_id": "SEA-KIT-RAFT-4X4",
+      "status": "runtime_component_verified",
+      "bytes": 138564,
+      "sha256": "fd24541146987b0a44e609dc7d00797d60e6f6101dd4b231cc10ed3452a062ed"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/raft_4x4.tscn",
+      "asset_id": "SEA-KIT-RAFT-4X4",
+      "status": "runtime_component_verified",
+      "bytes": 363,
+      "sha256": "8a445b150acbc18718d759998c7b8f5406197265581251dc6b95d8bc56b0feed"
+    },
+    {
+      "path": "godot/assets/models/building_kit/raft_2x4/raft_2x4.glb",
+      "asset_id": "SEA-KIT-RAFT-2X4",
+      "status": "runtime_component_verified",
+      "bytes": 76892,
+      "sha256": "fd7d4c8f17b3439d037815f5027430f931ed3504fd8e3b3eacf75433864868dd"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/raft_2x4.tscn",
+      "asset_id": "SEA-KIT-RAFT-2X4",
+      "status": "runtime_component_verified",
+      "bytes": 363,
+      "sha256": "8b19282fb42fd39f3bb3dffcae3b6870cdf649afe2cbb7254d39ae2c426485b7"
+    },
+    {
+      "path": "godot/assets/models/building_kit/wall/wall.glb",
+      "asset_id": "SEA-KIT-WALL",
+      "status": "runtime_component_verified",
+      "bytes": 54480,
+      "sha256": "454ee3f9458a33ed3a7e8713fd15e885bda7ee9a3bc29bd364635c5a6fc38180"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/wall.tscn",
+      "asset_id": "SEA-KIT-WALL",
+      "status": "runtime_component_verified",
+      "bytes": 347,
+      "sha256": "99a37e4bcdd42f209681b6aa56cd28d4b13b6c2a0161cf06aa6d0e8645dd941a"
+    },
+    {
+      "path": "godot/assets/models/building_kit/window_wall/window_wall.glb",
+      "asset_id": "SEA-KIT-WINDOW-WALL",
+      "status": "runtime_component_verified",
+      "bytes": 47016,
+      "sha256": "df6603856b241329b29e8e18039bdeeb615838acbb4bc4afedd054ac4c6f017c"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/window_wall.tscn",
+      "asset_id": "SEA-KIT-WINDOW-WALL",
+      "status": "runtime_component_verified",
+      "bytes": 375,
+      "sha256": "4a3a6c31e06a8bd5cd8b3a5d4e91a0db0d764443945efb4367f5bb7c1c5a8ace"
+    },
+    {
+      "path": "godot/assets/models/building_kit/door_frame/door_frame.glb",
+      "asset_id": "SEA-KIT-DOOR-FRAME",
+      "status": "runtime_component_verified",
+      "bytes": 24284,
+      "sha256": "578561efb769089c6f3314cd1fac52b0e8171df7687b9b65be37ee63427f76b0"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/door_frame.tscn",
+      "asset_id": "SEA-KIT-DOOR-FRAME",
+      "status": "runtime_component_verified",
+      "bytes": 371,
+      "sha256": "005ca459df7e1261b6dcd9ce611ccabd14ed6b272861f3b5421a671b419107c2"
+    },
+    {
+      "path": "godot/assets/models/building_kit/post/post.glb",
+      "asset_id": "SEA-KIT-POST",
+      "status": "runtime_component_verified",
+      "bytes": 9156,
+      "sha256": "a88dd83390a8364461dc9fe1bf77af65fae4ecc593aee5cdcb2f25e250cd9a3d"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/post.tscn",
+      "asset_id": "SEA-KIT-POST",
+      "status": "runtime_component_verified",
+      "bytes": 347,
+      "sha256": "b63e0b684f21775e8dce0ec579befeba5882b10fe4f47a8db2e2f46c4e9021c2"
+    },
+    {
+      "path": "godot/assets/models/building_kit/beam/beam.glb",
+      "asset_id": "SEA-KIT-BEAM",
+      "status": "runtime_component_verified",
+      "bytes": 16700,
+      "sha256": "44cb4fb1e0224b76dc2258738c431ec57bffb7d206bc4e76b004115970a724b7"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/beam.tscn",
+      "asset_id": "SEA-KIT-BEAM",
+      "status": "runtime_component_verified",
+      "bytes": 347,
+      "sha256": "49c40500a83594724ff8246ccbaf0ef6478b46956d0ce47eed2c4d502e0bcc00"
+    },
+    {
+      "path": "godot/assets/models/building_kit/railing/railing.glb",
+      "asset_id": "SEA-KIT-RAILING",
+      "status": "runtime_component_verified",
+      "bytes": 56148,
+      "sha256": "0068d3f3c16b9b8819d7fe69e80b2e002f7693586339856b743e22c3a8704560"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/railing.tscn",
+      "asset_id": "SEA-KIT-RAILING",
+      "status": "runtime_component_verified",
+      "bytes": 359,
+      "sha256": "9d1913e8be582c128edb9971582357b3853e0c81335e85030c633021024000a6"
+    },
+    {
+      "path": "godot/assets/models/building_kit/stairs/stairs.glb",
+      "asset_id": "SEA-KIT-STAIRS",
+      "status": "runtime_component_verified",
+      "bytes": 145076,
+      "sha256": "d100da2be16c4656e46c68651ae0696337460a3d0e596c65abffde373493c030"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/stairs.tscn",
+      "asset_id": "SEA-KIT-STAIRS",
+      "status": "runtime_component_verified",
+      "bytes": 355,
+      "sha256": "fb6326b3b888fdbad2a3ca976bd908ca6e71b987e4f34f92a3ec48d46fc804a7"
+    },
+    {
+      "path": "godot/assets/models/building_kit/upper_floor/upper_floor.glb",
+      "asset_id": "SEA-KIT-UPPER-FLOOR",
+      "status": "runtime_component_verified",
+      "bytes": 61904,
+      "sha256": "4a97ec3d5100283a506d53c5976c280ecaae831d9cb23d5b16d4e6187e63bd14"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/upper_floor.tscn",
+      "asset_id": "SEA-KIT-UPPER-FLOOR",
+      "status": "runtime_component_verified",
+      "bytes": 375,
+      "sha256": "02f78e1966abca6ee6af4bfeda9ac255205cb47daa12f01183c6ee652fcc136a"
+    },
+    {
+      "path": "godot/assets/models/building_kit/roof_slope/roof_slope.glb",
+      "asset_id": "SEA-KIT-ROOF-SLOPE",
+      "status": "runtime_component_verified",
+      "bytes": 109828,
+      "sha256": "c12ddb13c38a8ebf1c1eb851fd74bda49b2920b05fa905d35c82a31507196362"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/roof_slope.tscn",
+      "asset_id": "SEA-KIT-ROOF-SLOPE",
+      "status": "runtime_component_verified",
+      "bytes": 371,
+      "sha256": "580c22e10493509988f322aa260e92db4ca847ad03a993548d044b9d9efb0229"
+    },
+    {
+      "path": "godot/assets/models/building_kit/roof_flat/roof_flat.glb",
+      "asset_id": "SEA-KIT-ROOF-FLAT",
+      "status": "runtime_component_verified",
+      "bytes": 137352,
+      "sha256": "80c43d688ebd1c690d193a239523518068521b05586b87fe77fd4d95b89a7480"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/roof_flat.tscn",
+      "asset_id": "SEA-KIT-ROOF-FLAT",
+      "status": "runtime_component_verified",
+      "bytes": 367,
+      "sha256": "9e1ff0b66af9906d0b329b472095a860b738f351e595a61c30f55059441c4dfb"
+    },
+    {
+      "path": "godot/assets/models/building_kit/oil_lamp/oil_lamp.glb",
+      "asset_id": "SEA-KIT-OIL-LAMP",
+      "status": "runtime_component_verified",
+      "bytes": 102248,
+      "sha256": "f6185ee3cc0dbd93e0d9cb606d0a9e053f850809f2e69b8158f4d6919e08a3b6"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/oil_lamp.tscn",
+      "asset_id": "SEA-KIT-OIL-LAMP",
+      "status": "runtime_component_verified",
+      "bytes": 363,
+      "sha256": "76984289260bde0a61e52e951c156170a760a982de1bb6a643d34fbec5fec0b2"
+    },
+    {
+      "path": "godot/assets/models/building_kit/lamp_post/lamp_post.glb",
+      "asset_id": "SEA-KIT-LAMP-POST",
+      "status": "runtime_component_verified",
+      "bytes": 130064,
+      "sha256": "6362c113951f87b7733a8f5425dce95afc8fd8118e6710c0ab8f1e0b4f4200d3"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/lamp_post.tscn",
+      "asset_id": "SEA-KIT-LAMP-POST",
+      "status": "runtime_component_verified",
+      "bytes": 367,
+      "sha256": "6140f56a401bf580490598a20532269b4da9effc276672c5360ea7c84c1afe7e"
+    },
+    {
+      "path": "godot/assets/models/building_kit/windmill/windmill.glb",
+      "asset_id": "SEA-KIT-WINDMILL",
+      "status": "runtime_component_verified",
+      "bytes": 59564,
+      "sha256": "e06616f1d2271fa1d3648fc82489ed8beaac37f96a0aff1e03eb21f47e9ed5df"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/windmill.tscn",
+      "asset_id": "SEA-KIT-WINDMILL",
+      "status": "runtime_component_verified",
+      "bytes": 363,
+      "sha256": "f9de6652f6616be641e7d3d81d9a4a6e6720e4b23aee4743fea3cee4a9e01f38"
+    },
+    {
+      "path": "godot/assets/models/building_kit/flower_pot/flower_pot.glb",
+      "asset_id": "SEA-KIT-FLOWER-POT",
+      "status": "runtime_component_verified",
+      "bytes": 227508,
+      "sha256": "af96bf72cae0169bc1f14249802bbcd09122e8dab14339007ba3fad2e3009ea2"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/flower_pot.tscn",
+      "asset_id": "SEA-KIT-FLOWER-POT",
+      "status": "runtime_component_verified",
+      "bytes": 371,
+      "sha256": "d100c7b5986ec24e26c6a073dfd742d6b0aec9e5919262d072022b329efd147c"
+    },
+    {
+      "path": "godot/assets/models/building_kit/storage_crate/storage_crate.glb",
+      "asset_id": "SEA-KIT-STORAGE-CRATE",
+      "status": "runtime_component_verified",
+      "bytes": 54564,
+      "sha256": "44471f6bfb804a64c4b1b1fdf43d91d737840fdcc19f3d5aa41bf356fa08e9af"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/storage_crate.tscn",
+      "asset_id": "SEA-KIT-STORAGE-CRATE",
+      "status": "runtime_component_verified",
+      "bytes": 383,
+      "sha256": "f8fa17785d2df7b0bca599c14a1e9a946d9998f5cca40110fc2fe088d807e1fc"
+    },
+    {
+      "path": "godot/assets/models/building_kit/water_barrel/water_barrel.glb",
+      "asset_id": "SEA-KIT-WATER-BARREL",
+      "status": "runtime_component_verified",
+      "bytes": 59660,
+      "sha256": "4b15480337b1abc08544be9c706d0f577861e6a9b7a008e9978224fc6d2781ff"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/water_barrel.tscn",
+      "asset_id": "SEA-KIT-WATER-BARREL",
+      "status": "runtime_component_verified",
+      "bytes": 379,
+      "sha256": "d67bc874a4201a6e38593038b805eb57c0f61045427f4ff7ba82750a298f3076"
+    },
+    {
+      "path": "godot/assets/models/building_kit/flag/flag.glb",
+      "asset_id": "SEA-KIT-FLAG",
+      "status": "runtime_component_verified",
+      "bytes": 28332,
+      "sha256": "b23302473ff00f15caa6245e7220ba4ea250db26dbbb1d955aadd3d8b45ae6f7"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/flag.tscn",
+      "asset_id": "SEA-KIT-FLAG",
+      "status": "runtime_component_verified",
+      "bytes": 347,
+      "sha256": "8bcbb68e3a48154fffe08c5a90dfdd24cc813e5871a2f4e65f7a07c40210689b"
+    },
+    {
+      "path": "godot/assets/models/building_kit/table/table.glb",
+      "asset_id": "SEA-KIT-TABLE",
+      "status": "runtime_component_verified",
+      "bytes": 39432,
+      "sha256": "692960b61a4b7fbbdc018936aa8362f07bc2a0692721f1947e12f91ec1b7b731"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/table.tscn",
+      "asset_id": "SEA-KIT-TABLE",
+      "status": "runtime_component_verified",
+      "bytes": 351,
+      "sha256": "1ffe04e1610348816745f0dcdd3b62ef97676f38d39e8b5f9e2605a42452dc34"
+    },
+    {
+      "path": "godot/assets/models/building_kit/stool/stool.glb",
+      "asset_id": "SEA-KIT-STOOL",
+      "status": "runtime_component_verified",
+      "bytes": 58768,
+      "sha256": "d15d886335c161bf541bb70cbdf2adf33774ab9e5b1ff813593de9403ff53f2f"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/stool.tscn",
+      "asset_id": "SEA-KIT-STOOL",
+      "status": "runtime_component_verified",
+      "bytes": 351,
+      "sha256": "86f662b705342ad5e32e8660509ea299dd60120b88bbe8eb6eb26c9ea8415b68"
+    },
+    {
+      "path": "godot/assets/models/building_kit/wind_chime/wind_chime.glb",
+      "asset_id": "SEA-KIT-WIND-CHIME",
+      "status": "runtime_component_verified",
+      "bytes": 113656,
+      "sha256": "2f121575e48dafd0e3ff2be3da92b33ce4b8092d45b662618e456ea3ef1afb34"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/wind_chime.tscn",
+      "asset_id": "SEA-KIT-WIND-CHIME",
+      "status": "runtime_component_verified",
+      "bytes": 371,
+      "sha256": "b7a529ffa915491829a36613b1605ce023557cbc1f826edb2ef63b4942840f0b"
+    },
+    {
+      "path": "godot/src/building/building_catalog.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 8146,
+      "sha256": "83b2109fcf50aa01784f0c37896ff4959a537f85be87502d066455351d9c92d8"
+    },
+    {
+      "path": "godot/src/building/building_service.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 16507,
+      "sha256": "76e9b175f1ff622110697912e57e5d1a47803bed4f77e0f577b133606586eca5"
+    },
+    {
+      "path": "godot/src/building/building_space.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 9301,
+      "sha256": "c44e56c5c6d357dcf391e1d3470251fec09b9cb8fe8e43c1eadb90409f911841"
+    },
+    {
+      "path": "godot/src/building/building_boundary.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 7111,
+      "sha256": "91197e78898ca318e7c6203bc55ad73d15119da71c57f5c6c9062093b5a0d3fd"
+    },
+    {
+      "path": "godot/src/building/building_world.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 12131,
+      "sha256": "d3f5a7efc8be4526ae73a204b470de961a10ad6c6f7ce14f6152c4dc404c1a94"
+    },
+    {
+      "path": "godot/src/building/building_access.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 10963,
+      "sha256": "3c659d9aa8d55facb377fab6af56788cc4bca2773ca596cb3fa3f8779f5d17c9"
+    },
+    {
+      "path": "godot/src/building/building_controller.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 22956,
+      "sha256": "1e7cdd3cd7073f313f97114aa850ca50acef49222ac7e030a5301bfb5326701e"
+    },
+    {
+      "path": "godot/src/building/building_book.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 5124,
+      "sha256": "ff3962c8f34fe2212f9bb2a7b76431677619e5ed2608702783a1332e45eb1814"
+    },
+    {
+      "path": "godot/src/building/assembly_rules.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 6127,
+      "sha256": "7b7f422c7b4cf05d0365053bb1fa94dd53cb1136cd22e0c1ce3907cb1a2ad14c"
+    },
+    {
+      "path": "godot/src/building/assembly_surfaces.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 2735,
+      "sha256": "970ce636690243432fbb67837d16a375d4079435cc1a183e80c7618b84c5dbb5"
+    },
+    {
+      "path": "godot/src/building/kit_visual.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 2738,
+      "sha256": "d2cc12782f87824639b9caabbb4694dae679f205f7eb3ec9f0bb7f794b15e54f"
+    },
+    {
+      "path": "godot/src/bootstrap/main.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 123549,
+      "sha256": "8e657b37f69fc23ea8a9faee29730ef3f566f099b0828f0c23bffe0cdbf3a5bf"
+    },
+    {
+      "path": "godot/src/navigation/walk_area.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 9958,
+      "sha256": "3cea6b2bae6c688ac91a4b3200f724cf6e2fcf8a8eba130cf27ce29b963a2c3f"
+    },
+    {
+      "path": "godot/src/navigation/ground_space.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 14101,
+      "sha256": "74e9441fd99e47fb3fa365d528e8bd46dfe22b7b483cbcf479b4e4a8bd15f415"
+    },
+    {
+      "path": "godot/src/player/actions/walk_action.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 2902,
+      "sha256": "917bdf1624e6815e6c15eeb19e65adcb3bc486851cfb55c6403ce8a9e580013d"
+    },
+    {
+      "path": "godot/assets/data/building_kit.json",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 14411,
+      "sha256": "0ac23b47607e1cb8bef6074a700196c9a0085ecda6124ce533a01f86d17b6aad"
+    },
+    {
+      "path": "godot/assets/materials/building_kit/emission.tres",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 371,
+      "sha256": "cc19f3d6e9f1a58f7303b6b308d49a742b3b6b62b54706d5c7ef6cee31195dd5"
+    },
+    {
+      "path": "godot/assets/materials/building_kit/gloss.tres",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 245,
+      "sha256": "eb2c523fa152094076736bf21fe62b9ba6fc3649e78a4b4ee13697e096ba7be1"
+    },
+    {
+      "path": "godot/assets/materials/building_kit/matte.tres",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 244,
+      "sha256": "5e848d26ed5b2d626c2999de8adeab2ce0fbf6af7ab5eaece581554c8c580eb2"
+    },
+    {
+      "path": "godot/assets/materials/building_kit/metal.tres",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 261,
+      "sha256": "04056d0e5c4f3ee4634d17f34bd15fa9f34dc7750be09fb49f93238be12fd605"
+    },
+    {
+      "path": "godot/src/building/recipe_card.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 3617,
+      "sha256": "ede9e3953f1056b5e758bd375b1a3f9fe520374fb0e3420bdb218cb8633e2c9a"
+    },
+    {
+      "path": "godot/src/building/recipe_thumbnail.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 4118,
+      "sha256": "e7ddd080e6228681450792b2eed15a24f48fd4c0801e2ec32d5e53ba79dbcef9"
     }
   ]
 }

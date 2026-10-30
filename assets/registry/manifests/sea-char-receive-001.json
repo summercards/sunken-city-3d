@@ -1,0 +1,58 @@
+{
+  "asset_id": "SEA-CHAR-RECEIVE-001",
+  "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-RECEIVE-001",
+  "source": "godot/src/player/animation/item_receive.gd",
+  "runtime_path": "godot/src/player/animation/item_receive.gd",
+  "version": "v001",
+  "animation": {
+    "id": "harvesting",
+    "duration": 2.4,
+    "loop": false,
+    "root_motion": false,
+    "consumer": "godot/src/player/character.gd",
+    "state_owner": "ActorController",
+    "inputs": [
+      "crop"
+    ],
+    "transient_nodes": [
+      "ReceivedItem"
+    ],
+    "slots": [
+      "Satchel",
+      "Satchel/Flap"
+    ],
+    "coordinate_system": "+Y up, +Z forward, root scale 1",
+    "overhead_center_m": [
+      0,
+      1.6,
+      0.08
+    ]
+  },
+  "authored_files": [
+    {
+      "path": "godot/src/player/animation/item_receive.gd",
+      "sha256": "8b08f26c14d3f080855a78a5e2ff1ee6e040194ba71cdc2848a9d0467493455b"
+    },
+    {
+      "path": "godot/src/player/animation/harvesting_action.gd",
+      "sha256": "b7dc6c06824bf36d923fbfe5a81a0ad1cfd2f10216f37aae906def31ff96db85"
+    },
+    {
+      "path": "godot/src/crops/harvest_visual.gd",
+      "sha256": "9fe865e95eb2054dd0f125e9225f39784c4c32c3d9298ae13de50db002143633"
+    }
+  ],
+  "reused_assets": [
+    "SEA-CROP-LETTUCE",
+    "SEA-CROP-TOMATO",
+    "SEA-CROP-PUMPKIN"
+  ],
+  "source_type": "existing sea procedural node model; no Blender/GLB change",
+  "verification": "docs/development/2026-10-30_harvest_receive_animation.md",
+  "checks": [
+    "actor-presentation",
+    "harvest-receive",
+    "visual-harvest-receive"
+  ],
+  "rollback": "revert only files listed in development record; original crop GLBs unchanged"
+}

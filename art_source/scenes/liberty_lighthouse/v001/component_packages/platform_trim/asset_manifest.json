@@ -1,0 +1,36 @@
+{
+  "key": "platform_trim",
+  "asset_id": "SEA-SCENE-LHL-PLATFORM-TRIM",
+  "name": "平台线脚与托臂",
+  "category": "structure",
+  "family": "platform",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-PLATFORM-TRIM",
+  "root": "platform_trim_组件根",
+  "bounds_size": [
+    6.079999923706055,
+    6.079999923706055,
+    1.6286498308181763
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform_trim/platform_trim.blend",
+  "geometry_fingerprint": "3418cfa2ec3506430e97e8d09d8b884b195e2b258a51779302e0992def4d8707",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 620,
+  "source_sha256": "fbcecf846236d34467da707bbfbf67192aabd8b60c01fe88be95656499be47e6",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-PLATFORM-TRIM"
+}

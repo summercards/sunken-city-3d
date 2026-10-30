@@ -32,8 +32,13 @@ var _t := 0.0
 var _rowing := false
 var _farm_action_left := 0.0
 
-func play_farm_action(event: String) -> void:
-	play_action("watering" if event in ["watered","浇水"] else ("harvesting" if event in ["harvested","收获"] else "planting"))
+func play_farm_action(event: String, payload: Dictionary = {}) -> void:
+	play_action("watering" if event in ["watered","浇水"] else ("harvesting" if event in ["harvested","收获"] else "planting"),payload)
+
+## Successful gameplay commands may use this port for a crop produce item.
+## It displays one representative item and never changes inventory quantities.
+func play_receive_item(crop_id: String) -> int:
+	return play_action("harvesting",{"crop":crop_id})
 
 var _walking := false
 
@@ -122,6 +127,7 @@ func build() -> void:
 	right_leg = _limb("RightLeg", Vector3(0.14, 0.34, 0))
 	left_knee = _knee(left_leg, "LeftKnee")
 	right_knee = _knee(right_leg, "RightKnee")
+	_item_receive.build(self)
 
 	# 潜水装备（默认隐藏，和网页版一致）
 	gear = Node3D.new()
@@ -277,7 +283,8 @@ var _actions := {
 signal action_started(action_id: String, token: int)
 signal action_finished(action_id: String, token: int)
 signal action_cancelled(action_id: String, token: int, reason: String)
-var _action_durations := {"planting":1.1,"watering":1.1,"harvesting":1.1}
+var _item_receive = preload("res://src/player/animation/item_receive.gd").new()
+var _action_durations := {"planting":1.1,"watering":1.1,"harvesting":2.4}
 var _action_playback = preload("res://src/player/animation/action_playback.gd").new()
 var _action_events: Array[Dictionary] = []
 var _dispatching_action_events := false
@@ -294,10 +301,14 @@ func register_action(action_id: String, sampler: RefCounted, duration: float) ->
 	return true
 
 ## Returns a unique token, or 0 without changing the current action on rejection.
-func play_action(action_id: String) -> int:
+func play_action(action_id: String, context: Dictionary = {}) -> int:
 	if not _action_durations.has(action_id): return 0
+	if action_id == "harvesting" and not _item_receive.Produce.supports(str(context.get("crop","lettuce"))): return 0
 	var result: Dictionary = _action_playback.start(action_id, float(_action_durations[action_id]))
 	if result.is_empty(): return 0
+	_item_receive.clear()
+	_reset_action_pose()
+	if action_id == "harvesting": _item_receive.prepare(self,str(context.get("crop","lettuce")))
 	_farm_action_left = _action_playback.remaining()
 	_action = action_id
 	_last_action = ""
@@ -311,6 +322,8 @@ func cancel_action(reason: String = "cancelled") -> bool:
 	var previous: Dictionary = _action_playback.cancel()
 	_farm_action_left = 0.0
 	if previous.is_empty(): return false
+	_item_receive.clear()
+	_reset_action_pose()
 	_action = _base_action
 	_action_events.append({"kind":"cancelled","id":previous.id,"token":previous.token,"reason":reason})
 	_flush_action_events()
@@ -318,6 +331,19 @@ func cancel_action(reason: String = "cancelled") -> bool:
 
 func action_progress() -> float: return _action_playback.progress()
 func action_playback() -> Dictionary: return _action_playback.capture()
+
+func _reset_action_pose() -> void:
+	if body_pivot == null: return
+	for joint in [body_pivot,head_pivot,left_arm,right_arm,left_elbow,right_elbow,left_leg,right_leg,left_knee,right_knee]:
+		joint.rotation = Vector3.ZERO
+	body_pivot.position.y = 0.0
+	left_arm.position = Vector3(-0.255,0.84,0)
+	right_arm.position = Vector3(0.255,0.84,0)
+	left_arm.scale = Vector3.ONE
+	right_arm.scale = Vector3.ONE
+	_item_receive.set_arm_length(left_arm,left_elbow,1.0)
+	_item_receive.set_arm_length(right_arm,right_elbow,1.0)
+	_last_action = ""
 
 func _flush_action_events() -> void:
 	if _dispatching_action_events: return
@@ -338,15 +364,14 @@ func _process(delta: float) -> void:
 	_action = str(playback.id) if not playback.is_empty() else _base_action
 	_farm_action_left = _action_playback.remaining()
 	if _last_action != _action:
-		for joint in [body_pivot,head_pivot,left_arm,right_arm,left_elbow,right_elbow,left_leg,right_leg,left_knee,right_knee]:
-			joint.rotation = Vector3.ZERO
-		body_pivot.position.y = 0.0
+		_reset_action_pose()
 		_last_action = _action
 	_actions[_action].sample(self,delta)
 	if not playback.is_empty():
 		var completed: Dictionary = _action_playback.advance(delta)
 		_farm_action_left = _action_playback.remaining()
 		if not completed.is_empty():
+			_item_receive.clear()
 			_action_events.append({"kind":"finished","id":completed.id,"token":completed.token})
 			_flush_action_events()
 

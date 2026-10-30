@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-WINDMILL",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-WINDMILL",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/windmill/windmill.blend",
+  "source_sha256": "58488eb6149301842b344d52f0f96149c766fe7c69acad77bb474467af60d471",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/windmill/windmill.glb",
+  "runtime_sha256": "e06616f1d2271fa1d3648fc82489ed8beaac37f96a0aff1e03eb21f47e9ed5df",
+  "prefab": "godot/scenes/buildables/kit/windmill.tscn",
+  "component": {
+    "id": "windmill",
+    "name": "小风车",
+    "asset_id": "SEA-KIT-WINDMILL",
+    "profile": "windmill",
+    "footprint": [
+      1.05,
+      0.5
+    ],
+    "height": 1.7,
+    "cost": {
+      "wood": 4
+    },
+    "seconds": 3.6,
+    "category": "decoration",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": true,
+    "movable": true,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/windmill.tscn",
+    "description": "旋转装饰，不发电",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-WINDMILL",
+    "triangles": 808,
+    "bounds": {
+      "min": [
+        -0.47999998927116394,
+        -0.21000000834465027,
+        0.0
+      ],
+      "max": [
+        0.47999998927116394,
+        0.09000000357627869,
+        1.760000228881836
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

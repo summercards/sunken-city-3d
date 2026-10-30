@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-DOOR-FRAME",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-DOOR-FRAME",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/door_frame/door_frame.blend",
+  "source_sha256": "0e937b3d20dba4d58064c4f99048e841d0e8760107d1430f5207245b94997774",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/door_frame/door_frame.glb",
+  "runtime_sha256": "578561efb769089c6f3314cd1fac52b0e8171df7687b9b65be37ee63427f76b0",
+  "prefab": "godot/scenes/buildables/kit/door_frame.tscn",
+  "component": {
+    "id": "door_frame",
+    "name": "通行门框",
+    "asset_id": "SEA-KIT-DOOR-FRAME",
+    "profile": "door",
+    "footprint": [
+      2,
+      0.16
+    ],
+    "height": 2.8,
+    "cost": {
+      "wood": 5
+    },
+    "seconds": 3.75,
+    "category": "structure",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": true,
+    "movable": false,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/door_frame.tscn",
+    "description": "2米模数拼接",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-DOOR-FRAME",
+    "triangles": 324,
+    "bounds": {
+      "min": [
+        -1.0,
+        -0.09000000357627869,
+        0.0
+      ],
+      "max": [
+        1.0,
+        0.09000000357627869,
+        2.799999952316284
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

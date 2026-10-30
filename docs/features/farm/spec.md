@@ -106,3 +106,11 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 [交付与实测](../../development/2026-10-28_building_delivery.md)。
 
 初始六格的登记与交互修订见[本轮交付](../../development/2026-10-29_initial_six_planters.md)。
+
+## 2026-10-30 收获获得表现
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-FARM-R13 | 气泡选择收获、E交互和正式FarmPlot.perform均在Farm成功结算后，经FarmPlot→FarmField的acted事件，把原返回的crop/reward交给SEA-MOVE播放举高收包动作；一次成功只播放一次。接近和长按准备阶段不得提前展示成功实物，满包/未成熟/取消不产生成功表现。奖励仍由Farm调用库存注入端口在原业务时点结算，动画完成/取消不得再次发奖或撤回，番茄续茬、成长、水分、收获数量和存档结构不变。 |
+
+动作细节归SEA-MOVE-R14，实物副本归SEA-CROP-R14。种植与浇水也统一从成功acted事件触发表现，移除气泡命令与长按开始的重复播放路径。直接调用无场景Farm规则仍可独立使用，不依赖角色或动画。详见[本轮交付](../../development/2026-10-30_harvest_receive_animation.md)。

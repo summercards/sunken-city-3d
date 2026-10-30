@@ -51,8 +51,9 @@ func _ready() -> void:
 		var page_label:=_label("",18,Cozy.DIM);page_label.position=Vector2(895,359 if pool==0 else 581)
 		add_child(page_label);page_labels.append(page_label)
 	total=_tag("",Color("#b8a54f"),Cozy.CREAM,26);total.position=Vector2(18,631);add_child(total)
-	var done:=_button("完成");done.position=Vector2(784,632);done.size=Vector2(198,52)
-	done.pressed.connect(func(): close_requested.emit());add_child(done)
+	# 原先这里有一枚「完成」按钮收面板。按 SEA-UI-R47 移除：关闭入口只保留
+	# 屏幕右下角那一枚动物森友会式圆键，面板内不再各挂一个「完成/×」。
+	# `close_requested` 信号与 Esc / 点空白回退路径都没变，只是少一个可见按钮。
 	name_tag=_tag("",Cozy.TEAL,Color.WHITE,23);add_child(name_tag);name_tag.hide()
 	actions=PanelContainer.new();actions.add_theme_stylebox_override("panel",Cozy.surface(Color("#fff0ab"),28));add_child(actions)
 	action_body=VBoxContainer.new();action_body.add_theme_constant_override("separation",6);actions.add_child(action_body);actions.hide()

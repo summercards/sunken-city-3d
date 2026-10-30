@@ -1,0 +1,36 @@
+{
+  "key": "tower_body",
+  "asset_id": "SEA-SCENE-LHL-TOWER-BODY",
+  "name": "上部收窄塔身",
+  "category": "structure",
+  "family": "tower",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-TOWER-BODY",
+  "root": "tower_body_组件根",
+  "bounds_size": [
+    0.9841471910476685,
+    0.9841471910476685,
+    2.5
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/tower_body/tower_body.blend",
+  "geometry_fingerprint": "2b9f97a2e3ceeb72b06f0a239d79d5641c0e91fda6557e37f56589bfe13fdd08",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 236,
+  "source_sha256": "a90d4f63837149838a81afab585bc7dfe01add68273f76c0a7f59cfac1d4c56a",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-TOWER-BODY"
+}

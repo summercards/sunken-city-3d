@@ -33,6 +33,7 @@
 | SEA-AMBIENT-R02 | 本批实现并专项验证 | zone1 花瓣粒子按主人截图反馈停用（数据层 `effect=None`，代码路径保留）；`visual-decorations` 断言 zone1 运行时不建任何 `GPUParticles3D`、植物场无 `effect_node`、摆动参数仍在。见[本轮记录](../../development/2026-10-28_zone1_petals_removed.md) |
 | SEA-AMBIENT-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-AMBIENT-R04 | 本批实现并专项验证 | 稳定实例ID、describe/request_interaction/set_upgrade_level接口、完整鸟轨迹净空、装饰鱼与捕捞解耦；飞鸟鼻尖朝飞行切线（`bird.gd` 用 `atan2(tangent.x, tangent.z)`，与鲸鱼/鱼群同一烘焙约定），`visual-decorations` 断言鼻尖与切线 `dot > 0.9`、`visual-birds` 出侧拍实拍；鸥群高度带 14.3–17.7 m（`altitude_offset` 12 → 8.5，屋脊实测 11.84 m），按截图反馈压低后仍由「屋顶 +1 m」净空断言守住；水面装饰群沉在浪面下 0.5–1.5 m（最高点口径）、每群 3 色、铺开跨度 ≥3 m、单条鱼游程 ≥1 m。见[本轮记录](../../development/2026-10-28_fish_school_spread_palette.md)、[海鸥朝向修正](../../development/2026-10-28_bird_heading_flip.md)、[鸥群高度下压](../../development/2026-10-29_bird_altitude.md) |
+| SEA-AMBIENT-R05 | 已实现；06:00–18:00 出现，18:00 后整群收起，05:30/18:30 两侧断言通过 | `decorations` 新增四条时段断言（11:00 可见 / 18:30 不可见 / 05:30 不可见 / 06:06 恢复）；小时由 `Main` 从 `WorldClock.changed` 下发，鸟群不持有第二份时间；[本轮交付](../../development/2026-10-30_detail_fixes.md) |
 
 ## 资源与调用入口
 
@@ -45,7 +46,7 @@
 
 以下是拆分时的代码事实快照，便于定位公开命令、查询和事件；不等于允许直接访问所有内部字段。变更接口时同步本页与功能文档。
 
-- `godot/src/ambient/birds.gd`：命令/查询 `build()`；事件 `无`。
+- `godot/src/ambient/birds.gd`：命令/查询 `build(), set_hour(hour: float), is_flying_hour()`；事件 `无`。
 - `godot/src/ambient/plant.gd`：命令/查询 `set_growth(value: float), grow_to(value: float)`；事件 `无`。
 - `godot/src/ambient/plant_field.gd`：命令/查询 `spawn_from_placements(), spawn(arch: String, scope: String, position: Vector3), set_zone_level(level: int, instant := false)`；事件 `无`。
 - `godot/src/ambient/mesh_io.gd`：命令/查询 `load_mesh(path: String)`；事件 `无`。

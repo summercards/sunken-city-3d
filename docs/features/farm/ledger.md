@@ -26,7 +26,9 @@
     "minimum-loop",
     "visual-plot-shipping",
     "initial-planters",
-    "visual-initial-planters"
+    "visual-initial-planters",
+    "harvest-receive",
+    "visual-harvest-receive"
   ]
 }
 ```
@@ -46,6 +48,7 @@
 | SEA-FARM-R09 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 | SEA-FARM-R11 | 已实现；双尺寸动态地格、带作物搬移/读档和空格注销验证通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-FARM-R12 | 已实现；六格真实输入247项、真实渲染250项及玩家档副本40项通过；新局显式登记、旧档保留作物和重复登记不重置通过 | [本轮交付](../../development/2026-10-29_initial_six_planters.md) |
+| SEA-FARM-R13 | 已实现；三品种原产量只结算一次，正式鼠标收获只启动一次动画，满包不改作物且不庆祝；取消/恢复不重发奖励 | `harvest-receive`、`visual-harvest-receive`及farming回归；[本轮交付](../../development/2026-10-30_harvest_receive_animation.md) |
 
 ## 资源与调用入口
 

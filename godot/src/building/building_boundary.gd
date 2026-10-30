@@ -19,13 +19,16 @@ func eligibility() -> String:
 	return ""
 func space_reason(request: Dictionary) -> String:
 	if Catalog.is_furnishing(str(request.kind)):
+		if world!=null and Catalog.elevation(request)<0.5:
+			for occupied: Rect2 in world.fixed_occupied_rects():
+				if occupied.grow(-.01).intersects(Catalog.plot_rect(request)): return "这里已有原来的种植区，请选择旁边空木面"
 		var context: Dictionary=actor_query.call()
 		if int(context.get("mode",0))==0:
 			var actor: Vector3=context.position
-			if Catalog.plot_rect(request).grow(Space.RADIUS).has_point(Vector2(actor.x-Catalog.ORIGIN.x,actor.z-Catalog.ORIGIN.z)):
+			if absf(actor.y-Catalog.ORIGIN.y-Catalog.elevation(request))<0.5 and Catalog.plot_rect(request).grow(Space.RADIUS).has_point(Vector2(actor.x-Catalog.ORIGIN.x,actor.z-Catalog.ORIGIN.z)):
 				return "请先让出摆件的位置"
 		return ""
-	var rect:=Catalog.tile_rect(int(request.x),int(request.z))
+	var rect:=Catalog.footprint_rect(request)
 	rect.position+=Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
 	if boat_query.is_valid():
 		var boat: Vector3=boat_query.call()
@@ -75,12 +78,22 @@ func _layout_reason_now(before: Array, after: Array, request: Dictionary, contex
 		if state is Dictionary and str(state.get("crop",""))!="": return "先收获作物，再回收种植区"
 	var at: Vector3=context.position
 	var local:=Vector2(at.x-Catalog.ORIGIN.x,at.z-Catalog.ORIGIN.z)
-	if operation=="remove" and request.kind=="deck" and int(context.get("mode",0))==0:
-		if Catalog.tile_rect(int(request.x),int(request.z)).grow(Space.RADIUS).has_point(local): return "请先离开这块木板，再回收"
+	if operation=="remove" and Catalog.is_deck(str(request.kind)) and int(context.get("mode",0))==0:
+		if Catalog.footprint_rect(request).grow(Space.RADIUS).has_point(local): return "请先离开这块木板，再回收"
 		if active_landing_query.is_valid():
 			var landing_id:=str(active_landing_query.call())
 			if landing_id.begins_with("built:"+id+":"): return "这块木板是当前上下船位置，请先上船或换个泊位"
-	if operation=="begin" and request.kind=="deck": return ""
+	if operation=="begin" and Catalog.is_deck(str(request.kind)): return ""
+	if Catalog.is_kit(str(request.kind)):
+		if operation=="remove" and preload("res://src/building/assembly_surfaces.gd").contains(at-Catalog.ORIGIN,[request]): return "请先离开楼梯或二层楼板"
+		if operation=="remove" and Catalog.RECIPES[request.kind].get("profile","")=="stairs" and at.y>Catalog.ORIGIN.y+.5 and int(context.get("mode",0))==0: return "请先下楼，再回收楼梯"
+		var old_ground: Array=world.walk_rects(before)
+		var new_ground: Array=world.walk_rects(after)
+		if Catalog.RECIPES[request.kind].get("profile","")!="stairs":
+			var disconnected:=Space.connection_reason(before,after,old_ground,new_ground)
+			if disconnected!="": return disconnected
+		if int(context.get("mode",0))==0 and absf(at.y-Catalog.ORIGIN.y)<.5 and Space.nearest(old_ground,local,.01)!=Vector2.INF and Space.nearest(new_ground,local,.01)==Vector2.INF: return "这里会挡住角色，请先换个站位"
+		return ""
 	var old_walk: Array=world.walk_rects(before)
 	var new_walk: Array=world.walk_rects(after)
 	var reason:=Space.connection_reason(before,after,old_walk,new_walk)

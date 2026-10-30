@@ -96,8 +96,26 @@
 |---|---|
 | SEA-MOVE-R11 | Character继承独立CharacterMotor（CharacterBody3D），胶囊半径0.22m、高1.30m。人物layer512、地面/人物障碍layer256，船仍用原航行系统。生产只由物理帧驱动ActorController；行走以move_and_collide扫掠，取消/阻挡清路径，上船/潜水关闭陆地碰撞，下船/恢复岸上重新启用；无直接position位移兜底。 |
 | SEA-MOVE-R12 | GroundSpace拥有派生物理/导航，不拥有世界或建造布局。WalkArea可声明局部surface_triangles，支持斜面与重叠楼层；按三维位置选地面，跨表面路线必须经实际连通导航，不能以相同XZ跨层。普通楼梯可由未来组件提供连续坡面代理；竖直梯子等特殊动作另行设计，不因接入导航自动完成。 |
-| SEA-MOVE-R13 | 角色表现保留原七种动作及农作1.1秒曲线；register_action/play_action/cancel_action、进度快照与开始/完成/取消事件为唯一扩展入口。动作token区分重复请求，取消不可再完成；动画只表现，不结算物品、推进玩法或修改角色根位移。表现接口允许未来收菜、检查、工具等动作接入。 |
+| SEA-MOVE-R13 | 角色表现保留七种动作；播种/浇水保留1.1秒曲线，收获按R14升级为2.4秒。register_action/play_action/cancel_action、进度快照与开始/完成/取消事件为唯一扩展入口。动作token区分重复请求，取消不可再完成；动画只表现，不结算物品、推进玩法或修改角色根位移。 |
 
 所有者与扩展：输入→ActorController命令/状态→WalkAction路线/CharacterMotor执行；Character表现消费状态与显式动作。新增动作仅注册sampler与时长；新增地面声明归场景，旧rects、area_id、landing_id及存档XYZ保持稳定。物理支撑的微小安全余量不计为到达失败，斜坡路线按胶囊接触几何计算站位高度。
 
 专项：character-motor、ground-space、actor-presentation、walk-facing、dock-seed、board-click；真实渲染、集成、存档及未执行项见[交付记录](../../development/2026-10-29_character_physics_framework.md)。
+
+## 2026-10-30 获得物品：举高展示与收包
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-MOVE-R14 | 成功收获后播放2.4秒的独立`harvesting`动作：俯身取物（0–16%）→双手举高（16–44%）→帽檐上方停留展示（44–62%，约0.43秒）→沿前侧弧线收至右侧挎包口（62–84%）→缩入包内（84–92%）→合盖复位。三种作物各展示一份代表实物，数量仍按原奖励结算。双手跟随实物，包盖开合及轻微鼓起同步；只调整表现节点，人物根位置/碰撞/导航不变。成功事件只开启一次，行走、划船、潜水、取消、睡觉、读档和新动作替换均立即移除临时实物、关闭包盖并恢复手臂，取消后不再完成；临时表现不存档、不退款、不再次发奖。 |
+
+正式角色仍采用已有程序节点动画；本轮没有角色Blender/GLB迁移。新增`play_receive_item(crop_id) -> token`供作物获得表现复用，`play_action(id, context={})`允许传入独立表现上下文，`play_farm_action(event, payload={})`保持旧调用兼容。首批接线为正式FarmPlot成功事件（气泡及E两条入口），商店/仓库存取和海面拾取尚未接此动作，不因库存变动自动触发。
+
+角色动作/挎包资产`SEA-CHAR-RECEIVE-001`按总索引登记在characters分账本；蔬菜引用已有作物资产。详见[角色契约](../../character-visuals.md)与[本轮交付](../../development/2026-10-30_harvest_receive_animation.md)。
+
+## 2026-10-30 自建楼梯与二层通行
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-MOVE-R15 | SEA-BUILDING提供的楼梯/二层楼板经WalkArea.surface_triangles进入既有GroundSpace，实际胶囊沿三维路径爬升；平面/坡面接缝允许使用明确的open_surface_junctions，不能把侧面外缘或未知海域整体放开。路径中间转折点仅使用4厘米水平/10厘米垂直引导容差以跨过胶囊在斜坡入口的接触偏移，最终目标仍保留严格停止容差；不传送角色。三维工地目标按area_at(point)选地面，防止相同XZ误选一层。 |
+
+[设计与专项](../../development/2026-10-30_modular_building_kit.md)。

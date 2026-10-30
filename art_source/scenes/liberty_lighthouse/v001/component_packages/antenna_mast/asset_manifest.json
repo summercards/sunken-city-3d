@@ -1,0 +1,36 @@
+{
+  "key": "antenna_mast",
+  "asset_id": "SEA-SCENE-LHL-ANTENNA-MAST",
+  "name": "通信天线桅杆",
+  "category": "facility",
+  "family": "antenna",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-ANTENNA-MAST",
+  "root": "antenna_mast_组件根",
+  "bounds_size": [
+    0.6150000095367432,
+    0.19999999552965164,
+    3.5
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/antenna_mast/antenna_mast.blend",
+  "geometry_fingerprint": "fcb30625be5593981849ae4c44d46cd59917119452855cfe3993bb40b04bdccf",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 440,
+  "source_sha256": "e280b2355102ec6e9d4886f2c38b3f451135f105e57f94c64e363c552a7d524e",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-ANTENNA-MAST"
+}

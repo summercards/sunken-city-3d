@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/building_kit/raft_4x4/raft_4x4.glb" id="2"]
+[node name="raft_4x4" type="Node3D"]
+script = ExtResource("1")
+content_id = "raft_4x4"
+[node name="Model" parent="." instance=ExtResource("2")]

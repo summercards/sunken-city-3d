@@ -20,6 +20,9 @@
     "visual-fish-schools",
     "framework-integration",
     "minimum-loop",
+    "ocean-pickups",
+    "wood-density",
+    "visual-ocean-pickups",
     "progress-bars"
   ]
 }
@@ -44,6 +47,23 @@
 资产记录见 [资产总入口](../../../assets/registry/README.md)。共用资产按 AssetID 引用；未取得生产 AssetID 的旧运行资源通过路径定位并标注补登，不自动认定正式资产验收完成。
 
 ## 当前接口清单
+
+2026-10-30新增：`sync_population(clock, boat_position)`组合唯一日历与船位，内部OceanPopulation拥有日次/缺失槽位，`ocean.to_dict/from_dict`持久化游戏小时截止时间。旧`apply_population_scope`仅用于未开启开放海域的历史独立夹具。
+
+## 2026-10-30 开放海域与收获反馈
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-PICKUP-R11 | 已实现；九格资源覆盖远海四象限及1400m位置，回访保留缺失槽位，按真实导航避让 | `ocean-pickups`；[交付](../../development/2026-10-30_ocean_pickups.md) |
+| SEA-PICKUP-R12 | 已实现；鱼群07:00日更、浮木独立6–10游戏小时补货、离线冻结、午夜/06:00不重复刷新、存读和旧档迁移 | `ocean-pickups`专项；[交付](../../development/2026-10-30_ocean_pickups.md) |
+| SEA-PICKUP-R13 | 已实现；成功事件驱动物品图标上飘渐隐，拒绝不播、取消清理；真实木板/鱼收获渲染通过 | 逻辑43项与真实渲染13项；[交付](../../development/2026-10-30_ocean_pickups.md) |
+| SEA-PICKUP-R14 | 已实现并专项通过：阳光房补给区总计6束；外海仅原30%，按整数余数分配；鱼群保留原布局，读密集旧档立即生效且保留冷却 | `wood-density`16项、`ocean-pickups`43项、`visual-ocean-pickups`14项通过，生活141项/建造53项回归通过；[本轮交付](../../development/2026-10-30_wood_density.md) |
+
+## 2026-10-30 打捞巡航不拧正船头
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-PICKUP-R15 | 已实现：`sail_to` 新增 `align_at_arrival`（默认 true）；打捞两处调用传 false，到站 `_yaw_to` 就地改成当前朝向、`_dock_left` 归零，停稳后船头不再自转 | `ocean-pickups` 新增三条正向断言（到站朝向是航行方向而非出发朝向、停稳后 40 帧角度变化 < 0.01、`_dock_left` 为 0）与一条反向对照（靠泊仍保留 > 0.5 rad 拧正量）；[本轮交付](../../development/2026-10-30_detail_fixes.md) |
 
 collect_crate / collect_fish / nearest_crate / nearest_school / to_dict / from_dict；collected、fish_collected；pickups 快照见存档协议。`try_pickup`（停船瞬收）已删除：停船只代表「可以开始捞」，结算由场景侧打捞计时触发。
 

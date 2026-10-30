@@ -35,6 +35,8 @@ const BRAKE := 3.0
 const TURN_RATE := 1.8
 var _yaw_from := 0.0
 var _yaw_to := 0.0
+## 到站是否拧正到 `_yaw_to`。靠泊要（船头对着泊位方向），打捞/施工不要。
+var _align_at_arrival := true
 ## 靠妥后还剩多少弧度要转正（按 TURN_RATE 慢慢拧）。
 var _dock_left := 0.0
 ## 划桨相位（0..TAU 循环）与转向速率（给侧倾用）。
@@ -128,9 +130,15 @@ func place_at(pos: Vector3, yaw: float) -> void:
 
 ## 出航。`path` 是 SailNav 规划好的折线（世界 xz，首点≈当前位置、末点=泊位）；
 ## 不传就退化成直线（没有岸线数据的老场景/测试也能用）。
-func sail_to(pos: Vector3, yaw: float, zone_id: String, landing_id: String, path: Array = []) -> void:
+##
+## `align_at_arrival = false`：到站不把船头拧回出发时的朝向。
+## 打捞/施工这类"开到目标旁边"的航行没有泊位朝向可言，拧正只会在停稳后
+## 多转一下船头（主人反馈的「打捞时自动转向一下」就是这段）；靠泊仍传 true。
+func sail_to(pos: Vector3, yaw: float, zone_id: String, landing_id: String, path: Array = [],
+		align_at_arrival := true) -> void:
 	if landing_id != "manual":
 		manual = false
+	_align_at_arrival = align_at_arrival
 	_yaw_from = rotation.y
 	_yaw_to = yaw
 	_to_zone = zone_id
@@ -343,7 +351,8 @@ func _advance_route(delta: float) -> void:
 		_sailing = false
 		_vel = 0.0
 		# 保留真实终点附近的位置；不做最后半米瞬移。
-		if manual:
+		# 不拧正时把目标朝向就地改成当前朝向：`_dock_left` 随之归零，停稳后船不动。
+		if manual or not _align_at_arrival:
 			_yaw_to = rotation.y
 		_dock_left = absf(angle_difference(rotation.y, _yaw_to))
 		arrived.emit(_to_zone, _to_landing)

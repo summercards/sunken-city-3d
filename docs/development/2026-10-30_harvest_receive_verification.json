@@ -1,0 +1,184 @@
+{
+  "date": "2026-10-30",
+  "feature_requirements": [
+    "SEA-MOVE-R14",
+    "SEA-FARM-R13",
+    "SEA-CROP-R14"
+  ],
+  "asset_id": "SEA-CHAR-RECEIVE-001",
+  "runs": {
+    "actor_and_initial": {
+      "report": "D:\\projects\\sea-work\\verification\\20261030-075450-harvest-delivery-7d535f\\report.json",
+      "results": {
+        "actor-presentation": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075450-harvest-delivery-7d535f\\actor-presentation.log"
+        },
+        "harvest-receive": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075450-harvest-delivery-7d535f\\harvest-receive.log"
+        },
+        "visual-harvest-receive": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075450-harvest-delivery-7d535f\\visual-harvest-receive.log"
+        },
+        "initial-planters": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075450-harvest-delivery-7d535f\\initial-planters.log"
+        }
+      }
+    },
+    "acceptance": {
+      "report": "D:\\projects\\sea-work\\verification\\20261030-075745-harvest-receive-acceptance-22c9a2\\report.json",
+      "results": {
+        "harvest-receive": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075745-harvest-receive-acceptance-22c9a2\\harvest-receive.log"
+        },
+        "visual-harvest-receive": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075745-harvest-receive-acceptance-22c9a2\\visual-harvest-receive.log"
+        }
+      }
+    },
+    "final_visual": {
+      "report": "D:\\projects\\sea-work\\verification\\20261030-075825-harvest-visual-delivery-755975\\report.json",
+      "results": {
+        "visual-harvest-receive": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "real",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075825-harvest-visual-delivery-755975\\visual-harvest-receive.log"
+        }
+      }
+    },
+    "integration": {
+      "report": "D:\\projects\\sea-work\\verification\\20261030-075148-harvest-integration-d1061d\\report.json",
+      "results": {
+        "farming": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075148-harvest-integration-d1061d\\farming.log"
+        },
+        "crops": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075148-harvest-integration-d1061d\\crops.log"
+        },
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075148-harvest-integration-d1061d\\save-seed.log"
+        },
+        "framework-integration": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL unsafe world position rejected before economy apply"
+          ],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075148-harvest-integration-d1061d\\framework-integration.log"
+        },
+        "character-space-save": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075148-harvest-integration-d1061d\\character-space-save.log"
+        },
+        "sleep-cycle": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075148-harvest-integration-d1061d\\sleep-cycle.log"
+        }
+      }
+    },
+    "without_animation_control": {
+      "report": "D:\\projects\\sea-work\\verification\\20261030-075513-harvest-without-animation-control-cecf68\\report.json",
+      "results": {
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075513-harvest-without-animation-control-cecf68\\save-seed.log"
+        },
+        "framework-integration": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL unsafe world position rejected before economy apply"
+          ],
+          "renderer": "headless",
+          "log": "D:\\projects\\sea-work\\verification\\20261030-075513-harvest-without-animation-control-cecf68\\framework-integration.log"
+        }
+      }
+    }
+  },
+  "structure": [
+    {
+      "command": "python scripts/check_feature_contracts.py --sync",
+      "exit_code": 0,
+      "output": "PASS: 35 features, 460 source assets, 393 runtime resource hashes; 0 issues\n"
+    },
+    {
+      "command": "python scripts/check_feature_contracts.py",
+      "exit_code": 0,
+      "output": "PASS: 35 features, 460 source assets, 393 runtime resource hashes; 0 issues\n"
+    },
+    {
+      "command": "python scripts/check_architecture.py",
+      "exit_code": 0,
+      "output": "PASS: architecture boundaries; 15 independent rule/storage services; 0 issues\n"
+    }
+  ],
+  "known_failure": "framework-integration: unsafe world position rejected before economy apply; same 44 checks / 1 failure with receive animation removed; old 999m assertion conflicts with open ocean",
+  "unexecuted": [
+    "Blender character authoring/export (no such assets in this change)",
+    "touch/mobile/gamepad/multiple resolutions",
+    "other item acquisition entry points",
+    "exhaustive full world suite"
+  ]
+}

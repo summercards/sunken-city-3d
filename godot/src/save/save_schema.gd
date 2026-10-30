@@ -42,9 +42,10 @@ static func schemas() -> Dictionary:
 				"plots":map(object({"crop":string,"remaining":number(),"total":number(),"water":number(0,1),"harvests":integer()},["crop","remaining","total","water","harvests"]))},["version","day","watering_can","selected_crop","plots"]),
 			"orders":object({"slots":list_of(object({"uid":string,"order":string,"left":number(),"refill":number()}),3)},["slots"])},["inventory","warehouse","ship_level","tracked_goal","site_levels","facilities","site_work","farm","orders","daily_loop"]),
 		"game":object({"zone":string,"landing":string,"mode":integer(0,3),"far_sea":boolean,"boat":boat,"player":vector},["zone","landing","mode","far_sea","boat","player"]),
-		"pickups":object({"reset":boolean,"crates":list_of(object({"id":integer(1),"kind":{"type":"string","enum":["crate","planks","barrel"]},"base":{"type":"array","sizes":[3],"items":number(-1000,1000)},"phase":number(),"yaw":number()},["id","kind","base","phase","yaw"]),32),
-			"schools":list_of(object({"id":integer(1),"base":{"type":"array","sizes":[3],"items":number(-1000,1000)},"phase":number(),"count":integer(1,12)},["id","base","phase","count"]),32),
-			"pending":list_of(number(0,60),32),"pending_fish":list_of(number(0,60),32),"rng":string,"fish_rng":string,"next_id":integer(1),"anchor":integer(),"elapsed":number()}),
+		"pickups":object({"reset":boolean,"crates":list_of(object({"id":integer(1),"slot":string,"kind":{"type":"string","enum":["crate","planks","barrel"]},"base":{"type":"array","sizes":[3],"items":number(-1.0e9,1.0e9)},"phase":number(),"yaw":number()},["id","kind","base","phase","yaw"]),128),
+			"schools":list_of(object({"id":integer(1),"slot":string,"base":{"type":"array","sizes":[3],"items":number(-1.0e9,1.0e9)},"phase":number(),"count":integer(1,12)},["id","base","phase","count"]),128),
+			"pending":list_of(number(0,60),32),"pending_fish":list_of(number(0,60),32),"rng":string,"fish_rng":string,"next_id":integer(1),"anchor":integer(),"elapsed":number(),
+			"ocean":object({"version":integer(1,1),"cycle":integer(),"now":number(0,1.0e12),"missing":map(number(0,1.0e12))},["version","cycle","now","missing"])}),
 		"gather":map(number()),"dive":object({"found":list_of(integer()),"opened":list_of(integer())},["found","opened"]),
 		"salvage":object({"left":number()},["left"]),
 		"time":object({"day":integer(1),"seconds":number(0,86399.999999),"day_length":number(60,86400)},["day","seconds","day_length"]),
@@ -81,6 +82,22 @@ static func validate(data: Dictionary) -> String:
 			for item in population:
 				if ids.has(item.id) or item.id >= data.pickups.next_id: return "Duplicate or invalid pickup identity"
 				ids[item.id]=true
+		if data.pickups.has("ocean"):
+			var ocean_error: String = preload("res://src/pickups/ocean_population.gd").validate_snapshot(data.pickups.ocean)
+			if ocean_error != "": return ocean_error
+			var clock_hours := (int(data.time.day)-1)*24.0+float(data.time.seconds)/3600.0
+			var current_cycle := int(data.time.day) if float(data.time.seconds)>=preload("res://src/time/day_schedule.gd").MORNING_SECONDS else int(data.time.day)-1
+			if float(data.pickups.ocean.now)>clock_hours+0.000001 or int(data.pickups.ocean.cycle)>current_cycle: return "Future ocean refresh watermark"
+			if not data.pickups.pending.is_empty() or not data.pickups.pending_fish.is_empty(): return "Mixed ocean and legacy respawn timers"
+			var slots := {}
+			for population in [data.pickups.crates,data.pickups.schools]:
+				for item in population:
+					var slot := str(item.get("slot",""))
+					if slot == "" or slots.has(slot) or data.pickups.ocean.missing.has(slot): return "Duplicate or depleted live ocean slot"
+					var parts := slot.split(":")
+					if parts.size()!=4 or not parts[0].is_valid_int() or not parts[1].is_valid_int() or not parts[3].is_valid_int(): return "Invalid live ocean slot"
+					if parts[2]!=("wood" if item.has("kind") else "fish") or int(parts[3])<0 or int(parts[3])>=9: return "Invalid live ocean resource kind"
+					slots[slot] = true
 	for plot in data.economy.farm.plots.values():
 		if plot.remaining > plot.total: return "Invalid crop timer"
 		if plot.crop != "" and plot.total <= 0.0: return "Planted crop requires positive duration"

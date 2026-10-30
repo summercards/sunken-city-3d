@@ -34,6 +34,12 @@
 
 ## 所有者、接口与数据
 
+| 条款 ID | 规则 |
+|---|---|
+| SEA-CROP-R14 | 收获手持实物由`HarvestVisual.create(crop_id)`从CropCatalog模型场景的成熟阶段复制既有mesh/material。生菜按菜心的水平邻近关系选择一株叶簇，番茄仅选一个果实，南瓜选一颗果实及对应瓜蒂；不带整株藤架、土壤或碰撞。不修改原成熟节点、原GLB或材质，归一为0.32–0.40米代表实物；临时副本生命周期由角色表现拥有，不占用地格四阶段状态，也不改变种植资产验收阶段。 |
+
+2026-10-30：本条服务SEA-MOVE-R14与SEA-FARM-R13；[本轮交付](../../development/2026-10-30_harvest_receive_animation.md)。
+
 状态/交付所有者：**CropCatalog / CropView**。正式代码和资源入口：
 
 - [godot/src/crops](../../../godot/src/crops)

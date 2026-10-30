@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-FLOWER-POT",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-FLOWER-POT",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/flower_pot/flower_pot.blend",
+  "source_sha256": "8f0df7c512fad1f2d36fd4d40cf52a45e96fd00f8b6064ce42692a1bd2056063",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/flower_pot/flower_pot.glb",
+  "runtime_sha256": "af96bf72cae0169bc1f14249802bbcd09122e8dab14339007ba3fad2e3009ea2",
+  "prefab": "godot/scenes/buildables/kit/flower_pot.tscn",
+  "component": {
+    "id": "flower_pot",
+    "name": "开花陶盆",
+    "asset_id": "SEA-KIT-FLOWER-POT",
+    "profile": "decoration",
+    "footprint": [
+      0.55,
+      0.55
+    ],
+    "height": 0.8,
+    "cost": {
+      "wood": 2
+    },
+    "seconds": 3.3,
+    "category": "decoration",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": true,
+    "movable": true,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/flower_pot.tscn",
+    "description": "自由布置的装饰",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-FLOWER-POT",
+    "triangles": 3100,
+    "bounds": {
+      "min": [
+        -0.27000001072883606,
+        -0.27000001072883606,
+        0.0
+      ],
+      "max": [
+        0.2849999964237213,
+        0.27000001072883606,
+        0.7550000548362732
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

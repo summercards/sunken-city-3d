@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-STORAGE-CRATE",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-STORAGE-CRATE",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/storage_crate/storage_crate.blend",
+  "source_sha256": "8e6815a7c49533b1a8e9162e84f7a42bf0801e70c57219f676363d7db8d88fd0",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/storage_crate/storage_crate.glb",
+  "runtime_sha256": "44471f6bfb804a64c4b1b1fdf43d91d737840fdcc19f3d5aa41bf356fa08e9af",
+  "prefab": "godot/scenes/buildables/kit/storage_crate.tscn",
+  "component": {
+    "id": "storage_crate",
+    "name": "木储物箱",
+    "asset_id": "SEA-KIT-STORAGE-CRATE",
+    "profile": "storage",
+    "footprint": [
+      1,
+      0.65
+    ],
+    "height": 0.7,
+    "cost": {
+      "wood": 5
+    },
+    "seconds": 3.75,
+    "category": "decoration",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": true,
+    "movable": true,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/storage_crate.tscn",
+    "description": "接入共享保管仓库",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-STORAGE-CRATE",
+    "triangles": 756,
+    "bounds": {
+      "min": [
+        -0.5199999809265137,
+        -0.3449999988079071,
+        0.0
+      ],
+      "max": [
+        0.5199999809265137,
+        0.3449999988079071,
+        0.7150000333786011
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

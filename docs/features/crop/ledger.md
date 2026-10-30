@@ -23,6 +23,8 @@
     "crops",
     "visual-crops",
     "farming",
+    "harvest-receive",
+    "visual-harvest-receive",
     "modules",
     "structure"
   ]
@@ -46,6 +48,7 @@
 | SEA-CROP-R11 | 已实现：seed 0.07 → sprout 0.45 → leaf 0.48 → harvest 0.80（生菜高度，米）；首次浇水当次可见 | `visual-crops` 四阶段对照图 + `visual-plot-shipping` 游戏内 day-1 截图 |
 | SEA-CROP-R12 | 已实现：`FRAME_ENVELOPE` 构建期断言，12 阶段全部 ≤ 1.30 × 0.90 | 构建输出 `all stages within budget`，越界即 exit 2 |
 | SEA-CROP-R13 | 已实现：`farm_plot.gd` 按 `1/scale.y` 补偿；`_pop` 基于基准缩放 | `visual-plot-shipping` 游戏内地格截图 |
+| SEA-CROP-R14 | 已实现；三品种从成熟阶段复制一份可收物，只含视觉，无碰撞；真实渲染已核对，原四阶段资源未改 | `harvest-receive`、`visual-harvest-receive`；[本轮交付](../../development/2026-10-30_harvest_receive_animation.md) |
 
 ## 当前接口清单
 

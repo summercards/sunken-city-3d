@@ -1,0 +1,36 @@
+{
+  "key": "roof_cap",
+  "asset_id": "SEA-SCENE-LHL-ROOF-CAP",
+  "name": "灯室顶盖",
+  "category": "structure",
+  "family": "roof",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-ROOF-CAP",
+  "root": "roof_cap_组件根",
+  "bounds_size": [
+    2.200000047683716,
+    2.200000047683716,
+    0.5099999904632568
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/roof_cap/roof_cap.blend",
+  "geometry_fingerprint": "b31d549a7fcd54b6c922f268f4f0dfd677a55a36e3b3c82ac13fa20df6e8d880",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 56,
+  "source_sha256": "8d2a7d3c49908cc71c98d44d2e24ba265c6c3f119416c0a139f9e36f67c6c9b8",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-ROOF-CAP"
+}

@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-WATER-BARREL",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-WATER-BARREL",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/water_barrel/water_barrel.blend",
+  "source_sha256": "395aff0d78aca75f412ec8c10a469524e0466f9316b048043233cf9d3ad24037",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/water_barrel/water_barrel.glb",
+  "runtime_sha256": "4b15480337b1abc08544be9c706d0f577861e6a9b7a008e9978224fc6d2781ff",
+  "prefab": "godot/scenes/buildables/kit/water_barrel.tscn",
+  "component": {
+    "id": "water_barrel",
+    "name": "补水木桶",
+    "asset_id": "SEA-KIT-WATER-BARREL",
+    "profile": "water",
+    "footprint": [
+      0.7,
+      0.7
+    ],
+    "height": 0.95,
+    "cost": {
+      "wood": 5
+    },
+    "seconds": 3.75,
+    "category": "decoration",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": true,
+    "movable": true,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/water_barrel.tscn",
+    "description": "免费补满水壶",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-WATER-BARREL",
+    "triangles": 844,
+    "bounds": {
+      "min": [
+        -0.3499999940395355,
+        -0.44999998807907104,
+        0.0
+      ],
+      "max": [
+        0.3499999940395355,
+        0.3499999940395355,
+        0.9350000023841858
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

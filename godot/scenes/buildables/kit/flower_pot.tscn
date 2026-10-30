@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/building_kit/flower_pot/flower_pot.glb" id="2"]
+[node name="flower_pot" type="Node3D"]
+script = ExtResource("1")
+content_id = "flower_pot"
+[node name="Model" parent="." instance=ExtResource("2")]

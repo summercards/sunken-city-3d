@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-RAFT-4X4",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-RAFT-4X4",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/raft_4x4/raft_4x4.blend",
+  "source_sha256": "bc57a993fcf48250d01b5b9caba74ee13fabcd9c46eb07d2419268c5427bbbbb",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/raft_4x4/raft_4x4.glb",
+  "runtime_sha256": "fd24541146987b0a44e609dc7d00797d60e6f6101dd4b231cc10ed3452a062ed",
+  "prefab": "godot/scenes/buildables/kit/raft_4x4.tscn",
+  "component": {
+    "id": "raft_4x4",
+    "name": "4×4木浮台",
+    "asset_id": "SEA-KIT-RAFT-4X4",
+    "profile": "foundation",
+    "footprint": [
+      4,
+      4
+    ],
+    "height": 0.5,
+    "cost": {
+      "wood": 20
+    },
+    "seconds": 6.0,
+    "category": "structure",
+    "role": "deck",
+    "placement": "water",
+    "active": true,
+    "blocks_actor": true,
+    "movable": false,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/raft_4x4.tscn",
+    "description": "2米模数拼接",
+    "source_origin": "surface_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-RAFT-4X4",
+    "triangles": 1944,
+    "bounds": {
+      "min": [
+        -2.0,
+        -2.0,
+        -0.5
+      ],
+      "max": [
+        2.0,
+        2.0,
+        0.0
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

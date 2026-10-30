@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / 'godot/src'
 RULES = [
     'building/building_service.gd', 'building/material_shop.gd',
+    'building/assembly_rules.gd', 'building/assembly_surfaces.gd',
     'construction/construction_service.gd', 'facilities/facility_service.gd',
     'ship/ship_service.gd', 'warehouse/warehouse_service.gd', 'goals/goal_service.gd',
     'salvage/salvage_rewards.gd', 'farming/farm.gd', 'orders/orders.gd',

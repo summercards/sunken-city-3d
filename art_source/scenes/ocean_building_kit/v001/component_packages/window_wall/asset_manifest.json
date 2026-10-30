@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-WINDOW-WALL",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-WINDOW-WALL",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/window_wall/window_wall.blend",
+  "source_sha256": "d82b7a93c3b1e2e333d703329c12471cb842d4b747ffb3b695d7471c1675c042",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/window_wall/window_wall.glb",
+  "runtime_sha256": "df6603856b241329b29e8e18039bdeeb615838acbb4bc4afedd054ac4c6f017c",
+  "prefab": "godot/scenes/buildables/kit/window_wall.tscn",
+  "component": {
+    "id": "window_wall",
+    "name": "开窗木墙",
+    "asset_id": "SEA-KIT-WINDOW-WALL",
+    "profile": "window",
+    "footprint": [
+      2,
+      0.16
+    ],
+    "height": 2.8,
+    "cost": {
+      "wood": 7
+    },
+    "seconds": 4.05,
+    "category": "structure",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": true,
+    "movable": false,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/window_wall.tscn",
+    "description": "2米模数拼接",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-WINDOW-WALL",
+    "triangles": 648,
+    "bounds": {
+      "min": [
+        -1.0,
+        -0.14000000059604645,
+        0.0
+      ],
+      "max": [
+        1.0,
+        0.14000000059604645,
+        2.799999952316284
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

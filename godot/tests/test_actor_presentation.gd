@@ -48,17 +48,17 @@ func run() -> void:
 	check(actor.animation_state() == "idle", "idle remains initial clip")
 	var harvest: int = actor.play_action("harvesting")
 	check(harvest > 0 and actor.animation_state() == "harvesting", "public harvest presentation command")
-	actor._process(0.55)
-	check(is_equal_approx(actor.body_pivot.rotation.x, 0.38), "harvest original midpoint pose")
+	actor._process(1.2)
+	check(is_instance_valid(actor._item_receive.prop) and actor._item_receive.prop.position.y > 1.5, "harvest presents produce overhead")
 	check(is_equal_approx(actor.action_progress(), 0.5), "normalized action progress")
 	check(actor.play_action("unknown") == 0 and actor.action_playback().token == harvest, "unknown clip leaves current action intact")
-	actor._process(0.55)
+	actor._process(1.2)
 	check(events.count("finish:harvesting:%d" % harvest) == 1 and actor.action_playback().is_empty(), "finite action finishes once")
 	actor._process(0.0)
 	check(actor.animation_state() == "idle", "completed clip returns to locomotion")
 	check(actor.global_position == origin, "sampling never moves gameplay root")
 
-	for row in [["播种","planting",0.3],["浇水","watering",0.22],["收获","harvesting",0.38]]:
+	for row in [["播种","planting",0.3],["浇水","watering",0.22]]:
 		actor.play_farm_action(row[0])
 		actor._process(0.55)
 		check(actor.animation_state() == row[1] and is_equal_approx(actor.body_pivot.rotation.x, float(row[2])), "legacy farm clip pose " + str(row[1]))

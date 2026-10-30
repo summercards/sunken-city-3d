@@ -52,6 +52,10 @@ func step(c, delta: float) -> bool:
 		# The capsule rests a fraction above the face (physics safe margin).
 		# Do not keep chasing that sub-millimetre vertical recovery forever.
 		var rest: Vector3 = c.actor.global_position-next
-		if Vector2(rest.x,rest.z).length() <= 0.0005 and absf(rest.y) <= 0.02: c.walk_path.pop_front()
+		# At a flat/ramp hinge the capsule touches the slope before its foot
+		# reaches the exact zero-width knot. Intermediate route vertices are
+		# guidance, not destinations; a small tolerance lets physics take over.
+		var corner: bool=c.walk_path.size()>1
+		if Vector2(rest.x,rest.z).length() <= (0.04 if corner else 0.0005) and absf(rest.y) <= (0.10 if corner else 0.02): c.walk_path.pop_front()
 		else: break
 	return c.walk_path.is_empty()

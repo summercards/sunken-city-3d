@@ -1,0 +1,36 @@
+{
+  "key": "arm",
+  "asset_id": "SEA-SCENE-LHL-ARM",
+  "name": "巨手手臂与手掌",
+  "category": "structure",
+  "family": "hand",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-ARM",
+  "root": "arm_组件根",
+  "bounds_size": [
+    2.630000591278076,
+    2.0,
+    7.569999694824219
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/arm/arm.blend",
+  "geometry_fingerprint": "2c92a4fb99f64fcc2c60fcdaace17cb406b3ab078682db9887567bc17a8545ac",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 1468,
+  "source_sha256": "f7709c210f40a8590e918fd30c2ff87daeb276c0f028d9dc3b3d4227f472a8b3",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-ARM"
+}

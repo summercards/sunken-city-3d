@@ -909,6 +909,11 @@ func _setup_birds() -> void:
 		bird_root.set_script(load("res://src/ambient/birds.gd"))
 		add_child(bird_root)
 	bird_root.build()
+	# 海鸥只在 06:00–18:00 出现（SEA-AMBIENT-R05）。小时从唯一时钟读，
+	# 鸟群自己不记时间；读档/睡觉/跨日都走同一条 `changed` 通道。
+	world_clock.changed.connect(func(snapshot: Dictionary) -> void:
+		bird_root.set_hour(float(snapshot.get("hour", 12.0))))
+	bird_root.set_hour(world_clock.query().hour)
 
 
 func _setup_camera() -> void:
@@ -1051,6 +1056,9 @@ func _setup_farm() -> void:
 
 
 func _on_farm_acted(plot_id: String, event: String, payload: Dictionary) -> void:
+	# FarmPlot emits only after a successful business command, including E.
+	# One success event owns presentation; starting a hold must not fake a reward.
+	if event in ["planted","watered","harvested"]: player.play_farm_action(event,payload)
 	match event:
 		"planted":
 			hud.toast("播下 · %s（需 %d 个浇水日）" % [
@@ -1101,8 +1109,6 @@ func _setup_prompt() -> void:
 	prompt.action_requested.connect(func() -> void:
 		if interactor.target != null: _approach(interactor.target))
 	if interactor != null:
-		interactor.action_started.connect(func(spot: Node3D) -> void:
-			if spot.is_in_group("farm_plots") and spot.verb == "收获": player.play_farm_action(spot.verb))
 		interactor.blocked.connect(func(reason: String) -> void:
 			_auto_target = null
 			interactor.auto_hold = false
@@ -1488,22 +1494,23 @@ func _setup_props() -> void:
 		props.name = "SeaProps"
 		add_child(props)
 	props.water_surface = water_node
-	props.water_point_clear = func(p: Vector2) -> bool: return SailNavLib.is_free(nav_grid(), p.x, p.y)
+	props.water_point_clear = func(p: Vector2) -> bool: return navigation.is_open_water(p.x, p.y)
 	props.zones = Zones
 	props.give_resource = Economy.add_resource
 	props.can_receive = Economy.inventory.can_add
 	props.blocked.connect(func(reason: String): hud.toast(reason))
 	if Scope.minimal():
-		props.spawn_area = Scope.HOME_WATER.grow(-3)
 		props.crate_count = 6
 		props.planks_only = true
 		props.school_count = 4
+	props.ocean_enabled = true
 	props.build()
+	props.sync_population(world_clock.query(),boat.position)
 	props.collected.connect(_on_crate_collected)
 	props.fish_collected.connect(_on_fish_collected)
 
 
-## 海上拾取的进度条：角色头顶的一条细进度，表示「船还有多远到货」。
+## 海上拾取的进度条与成功收获浮层：角色头顶，停稳后才打捞。
 ##
 ## 单独一个模块（src/pickups/pickup_progress.gd），主场景只负责接线：
 ## 什么时候开始、进度是多少、什么时候收。
@@ -1549,6 +1556,10 @@ func _setup_hud() -> void:
 	hud.economy = Economy
 	hud.zones = Zones
 	hud.game_state = GameState
+	# 地图上的「你」要真实世界坐标，不能拿区块中心糊弄：船开到两块之间时中心环会撒谎。
+	hud.player_query = func() -> Dictionary:
+		if player == null: return {}
+		return {"zone":GameState.current_zone,"position":player.global_position}
 	hud.bind_models()
 	hud.command_requested.connect(_on_click_command)
 	hud.destination_pressed.connect(_on_destination)
@@ -1816,7 +1827,8 @@ func _handle_prop_click(prop: Dictionary) -> void:
 		if path.is_empty():
 			hud.toast("无法到达鱼群")
 			return
-		boat.sail_to(goal, boat.rotation.y, GameState.current_zone, GameState.landing_id, path)
+		# 打捞不是靠泊：到站保留船头朝向，不在停稳后再拧一下（SEA-PICKUP-R15）。
+		boat.sail_to(goal, boat.rotation.y, GameState.current_zone, GameState.landing_id, path, false)
 		if ribbon != null:
 			ribbon.show_route(boat.route, WATER_LEVEL)
 		_begin_pick_sail({"type": "fish", "item": school})
@@ -1831,7 +1843,7 @@ func _handle_prop_click(prop: Dictionary) -> void:
 		if path2.is_empty():
 			hud.toast("无法到达漂流物")
 			return
-		boat.sail_to(goal2, boat.rotation.y, GameState.current_zone, GameState.landing_id, path2)
+		boat.sail_to(goal2, boat.rotation.y, GameState.current_zone, GameState.landing_id, path2, false)
 		if ribbon != null:
 			ribbon.show_route(boat.route, WATER_LEVEL)
 		_begin_pick_sail({"type": "crate", "item": crate})
@@ -1896,6 +1908,8 @@ func _finish_pick() -> void:
 func _pick_in_reach() -> bool:
 	if props == null: return false
 	var item: Dictionary = _pending_pick.get("item", {})
+	var is_fish: bool = str(_pending_pick.get("type", "")) == "fish"
+	if not (props.schools if is_fish else props.crates).has(item): return false
 	var root = item.get("root")
 	if not (root is Node3D) or not is_instance_valid(root): return false
 	var d: float = Vector2(root.position.x - boat.position.x,
@@ -1936,6 +1950,9 @@ func _update_pickup_progress(delta: float) -> void:
 			_cancel_pending_pick()
 		return
 	if _pick_phase != PICK_PHASE_GATHERING: return
+	if boat.starts_sailing() or not _pick_in_reach():
+		_cancel_pending_pick()
+		return
 	# 潜水时暂停打捞（人不该一边下潜一边捞木头），进度也冻住。
 	if dive.active: return
 	_pick_left = maxf(_pick_left - delta, 0.0)
@@ -1960,6 +1977,7 @@ func _start_idle_pick() -> void:
 
 
 func _on_crate_collected(_kind: String, label: String, reward: Dictionary) -> void:
+	if pickup_progress != null: pickup_progress.receive(reward)
 	var parts: Array = []
 	for k in reward.keys():
 		parts.append("%s +%d" % [Economy.COLLECTIONS.get(k, {}).get("label", k), int(reward[k])])
@@ -1967,6 +1985,7 @@ func _on_crate_collected(_kind: String, label: String, reward: Dictionary) -> vo
 
 
 func _on_fish_collected(_label: String) -> void:
+	if pickup_progress != null: pickup_progress.receive({"fish":1})
 	hud.toast("捞到 1 条鱼")
 
 
@@ -2099,6 +2118,7 @@ func _process(delta: float) -> void:
 	if sleep_cycle.busy:
 		if building_controller!=null and building_controller.active: building_controller.close()
 		return
+	props.sync_population(world_clock.query(),boat.position)
 	if building_controller!=null: building_controller.tick(delta)
 	weather_service.tick(delta)
 	if weather_view != null:
@@ -2250,6 +2270,7 @@ func _setup_actor_controller() -> void:
 func _setup_calendar() -> void:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/world_time.json"))
 	world_clock.configure(config.get("clock",{}))
+	world_clock.changed.connect(func(snapshot: Dictionary): props.sync_population(snapshot,boat.position))
 	if Scope.minimal():
 		Economy.daily.observe(world_clock.query())
 		world_clock.changed.connect(Economy.daily.observe)
@@ -2302,8 +2323,12 @@ func _setup_building() -> void:
 		"capacity_reason":_construction_capacity_reason})
 	building_world.configure(building,_zone_nodes.zone5.walk_areas[0],farm_field,_bind_constructed_plot,func():
 		navigation.invalidate()
+		props.ocean.invalidate()
 		_zone_nodes.zone5.rebuild_ground(_zone_nodes.zone5.walk_areas[0])
 		water_node.set_runtime_contact_rects(building_world.contact_rects()))
+	building_world.prop_action=func(action):
+		if action=="storage": hud.open_tab("storage")
+		elif action=="water": Economy.farm.refill();hud.toast("水壶已补满")
 	building_access=preload("res://src/building/building_access.gd").new();add_child(building_access)
 	building_access.configure(building,building_world,navigation,boat,markers,cam,_construction_actor_state,_select_landing,func(): return GameState.landing_id)
 	building.changed.connect(func():
@@ -2365,7 +2390,7 @@ func _construction_walk(point: Vector3) -> bool:
 		return true
 	var zone: Node = _zone_nodes.get("zone5")
 	if zone == null: return false
-	var ground: Variant = zone.area_containing(point.x, point.z)
+	var ground: Variant = zone.area_at(point,0.5)
 	if ground == null: return false
 	if hud != null: hud.world_actions.close(true)
 	return actor_controller.start_walk(ground, point)
@@ -2394,7 +2419,7 @@ func _construction_capacity_reason(rows: Array) -> String:
 	var states: Dictionary=snapshot.economy.farm.plots
 	var live: Dictionary={}
 	for row in rows:
-		if row.kind=="deck": continue
+		if preload("res://src/building/building_catalog.gd").role(str(row.kind))!="planter": continue
 		var id: String="dynamic/"+str(row.id)
 		live[id]=true
 		if not states.has(id): states[id]={"crop":"pumpkin","remaining":3.0,"total":3.0,"water":1.0,"harvests":1000000000}
@@ -2484,6 +2509,7 @@ func restore_world_state(data: Dictionary) -> void:
 	GameState.enter_zone(zone_id)
 
 func _after_restore() -> void:
+	props.sync_population(world_clock.query(),boat.position)
 	if Scope.minimal(): Economy.daily.observe(world_clock.query())
 	Economy.publish_restored()
 	_sync_zone_levels()
@@ -2739,8 +2765,6 @@ func _queue_plot_action(plot: Node3D, action: String, crop: String) -> void:
 	_approach_command(plot,func() -> Dictionary:
 		if not is_instance_valid(plot): return {"blocked":"种植格已不可用"}
 		var result: Dictionary=plot.perform(action,crop)
-		if not result.has("blocked"):
-			player.play_farm_action({"plant":"播种","water":"浇水","harvest":"收获"}.get(action,"查看"))
 		return result)
 
 ## 水壶见底时的一步操作：补满淡水 → 立刻浇这一格。
@@ -2752,8 +2776,6 @@ func _queue_refill_and_water(plot: Node3D) -> void:
 		if not is_instance_valid(plot): return {"blocked":"种植格已不可用"}
 		Economy.farm.refill()
 		var result: Dictionary=plot.perform("water","")
-		if not result.has("blocked"):
-			player.play_farm_action("浇水")
 		return result)
 
 func _setup_shipping_box() -> void:

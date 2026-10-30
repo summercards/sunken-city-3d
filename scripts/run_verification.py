@@ -39,10 +39,20 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'visual-recipe-cards': ('tools/capture_recipe_cards.gd', r'\[recipe-cards\] \d+ checks, 0 failures'),
+    'visual-kit-uv': ('tools/capture_kit_uv.gd', r'\[kit-uv\] \d+ checks, 0 failures'),
+    'kit-safety': ('tests/test_kit_safety.gd', r'\[kit-safety\] \d+ checks, 0 failures'),
+    'building-kit': ('tests/test_building_kit.gd', r'\[building-kit\] \d+ checks, 0 failures'),
+    'visual-building-kit': ('tests/test_building_kit.gd', r'\[building-kit\] \d+ checks, 0 failures'),
+    'ocean-pickups': ('tests/test_ocean_pickups.gd', r'\[ocean-pickups\] \d+ checks, 0 failures'),
+    'wood-density': ('tests/test_wood_density.gd', r'\[wood-density\] \d+ checks, 0 failures'),
+    'visual-ocean-pickups': ('tools/capture_ocean_pickups.gd', r'\[ocean-pickups-render\] \d+ checks, 0 failures'),
     'walk-on-planters': ('tests/test_walk_on_planters.gd', r'\[walk-on-planters\] \d+ checks, 0 failures'),
     'visual-walk-on-planters': ('tests/test_walk_on_planters.gd', r'\[walk-on-planters\] \d+ checks, 0 failures'),
     'character-motor': ('tests/test_character_motor.gd', r'\[character-motor\] \d+ checks, 0 failures'),
     'actor-presentation': ('tests/test_actor_presentation.gd', r'\[actor-presentation\] \d+ checks, 0 failures'),
+    'harvest-receive': ('tests/test_harvest_receive.gd', r'\[harvest-receive\] \d+ checks, 0 failures'),
+    'visual-harvest-receive': ('tests/test_harvest_receive.gd', r'\[harvest-receive\] \d+ checks, 0 failures'),
     'ground-space': ('tests/test_ground_space.gd', r'\[ground-space\] \d+ checks, 0 failures'),
     'character-space-save': ('tests/test_character_space_save.gd', r'\[character-space-save\] \d+ checks, 0 failures'),
     'walk-facing': ('tests/test_walk_facing.gd', r'\[walk-facing\] \d+ checks, 0 failures'),
@@ -64,6 +74,12 @@ TESTS.update({
     'building-open-rules': ('tests/test_building_open_rules.gd', r'\[building-open-rules\] \d+ checks, 0 failures'),
     'building-space': ('tests/test_building_space.gd', r'\[building-space\] \d+ checks, 0 failures'),
     'building-ocean': ('tests/test_building_ocean.gd', r'\[building-ocean\] \d+ checks, 0 failures'),
+    'landing-markers': ('tests/test_landing_markers.gd', r'\[landing-markers\] \d+ checks, 0 failures'),
+    'visual-landing-markers': ('tests/test_landing_markers.gd', r'\[landing-markers\] \d+ checks, 0 failures'),
+    # 海上地图：你自己的位置用真实世界坐标投影，太阳房在家园钉一个固定徽标。
+    # 单独一项，因为 map 页只有打开时才构建，普通 UI 回归不会经过它。
+    'island-atlas': ('tests/test_island_atlas.gd', r'\[island-atlas\] \d+ checks, 0 failures'),
+    'visual-island-atlas': ('tools/capture_island_atlas.gd', r'\[island-atlas-render\] \d+ checks, 0 failures'),
     'visual-building-ocean': ('tests/test_building_ocean.gd', r'\[building-ocean\] \d+ checks, 0 failures'),
     'building-open-seed': ('tests/test_building_open_restart.gd', r'\[building-open-restart\] \d+ checks, 0 failures'),
     'building-open-restart': ('tests/test_building_open_restart.gd', r'\[building-open-restart\] \d+ checks, 0 failures'),
@@ -74,6 +90,9 @@ TESTS.update({
     # 浮层进度条：拾取/建造共用一份自绘细条，且拾取条只在最后约 2 秒航程出现。
     # 这两点都不会报错，只会在画面上"看起来不对"，必须显式断言。
     'progress-bars': ('tools/check_progress_bars.gd', r'\[progress-bars\] \d+ checks, 0 failures'),
+    # 右下角只剩一枚动物森友会式关闭键（SEA-UI-R47）：贴角、略歪、无键盘文案、点得动。
+    'close-hint': ('tools/check_close_hint.gd', r'\[close-hint\] \d+ checks, 0 failures'),
+    'visual-close-hint': ('tools/capture_close_hint.gd', r'\[close-hint-render\] \d+ checks, 0 failures'),
     # 拾取进度条的真实渲染证据：航行段不画条、贴近目标才画。
     'visual-pickup-progress': ('tools/capture_pickup_progress.gd', r'\[pickup-progress\] \d+ checks, 0 failures'),
     'visual-building': ('tests/test_building_visual.gd', r'\[visual-building\] \d+ checks, 0 failures'),
@@ -296,7 +315,7 @@ def main():
             print('\n'.join(import_text.splitlines()[-20:]), flush=True)
             return 1
     for name in checks:
-        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules','building'] else full_config
+        config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules','building','kit-safety'] else full_config
         # Only intentional cross-process cases share a slot. Every other check starts fresh.
         group = ('building-open-restart' if name in ['building-open-seed','building-open-restart'] else
                  'building-restart' if name in ['building-seed','building-restart'] else

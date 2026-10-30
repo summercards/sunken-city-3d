@@ -40,6 +40,12 @@
 | SEA-SAVE-R07 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-SAVE-R08 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 
+## 2026-10-30 海域日历与冷却存读
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SAVE-R11 | 已实现；v4可选ocean扩展，远处资源/截止时间磁盘往返、旧缺失数量迁移、负冷却和坏槽位恢复前拒绝 | `ocean-pickups`43项通过；[本轮交付](../../development/2026-10-30_ocean_pickups.md) |
+
 ## 资源与调用入口
 
 - [godot/src/save](../../../godot/src/save)

@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-POST",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-POST",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/post/post.blend",
+  "source_sha256": "ced8344a5665cc8d6fb6bb010cdb272fec0dc8def81d5270a6a5a46bdc4ee751",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/post/post.glb",
+  "runtime_sha256": "a88dd83390a8364461dc9fe1bf77af65fae4ecc593aee5cdcb2f25e250cd9a3d",
+  "prefab": "godot/scenes/buildables/kit/post.tscn",
+  "component": {
+    "id": "post",
+    "name": "木立柱",
+    "asset_id": "SEA-KIT-POST",
+    "profile": "post",
+    "footprint": [
+      0.2,
+      0.2
+    ],
+    "height": 2.8,
+    "cost": {
+      "wood": 3
+    },
+    "seconds": 3.45,
+    "category": "structure",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": true,
+    "movable": false,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/post.tscn",
+    "description": "2米模数拼接",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-POST",
+    "triangles": 108,
+    "bounds": {
+      "min": [
+        -0.10000000149011612,
+        -0.10000000149011612,
+        0.0
+      ],
+      "max": [
+        0.10000000149011612,
+        0.10000000149011612,
+        2.799999952316284
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

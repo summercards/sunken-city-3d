@@ -13,14 +13,38 @@
   "feature_id": "SEA-BUILDING",
   "status": "implemented",
   "owner": "BuildingService / BuildingWorld / BuildingController",
-  "code_paths": ["godot/src/building"],
-  "verification": ["building", "building-open-rules", "building-space", "building-ocean", "building-integration", "building-restart", "building-open-restart", "visual-building", "visual-building-diy", "visual-building-ocean", "building-boundary-audit", "visual-building-boundary-audit", "walk-on-planters", "visual-walk-on-planters"]
+  "code_paths": [
+    "godot/src/building"
+  ],
+  "verification": [
+    "building",
+    "building-open-rules",
+    "building-space",
+    "building-ocean",
+    "building-integration",
+    "building-restart",
+    "building-open-restart",
+    "visual-building",
+    "visual-building-diy",
+    "visual-building-ocean",
+    "building-boundary-audit",
+    "visual-building-boundary-audit",
+    "walk-on-planters",
+    "visual-walk-on-planters",
+    "building-kit",
+    "visual-building-kit",
+    "ground-space",
+    "kit-safety",
+    "visual-kit-uv",
+    "visual-recipe-cards",
+    "character-space-save"
+  ]
 }
 ```
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-BUILDING-R01 | 已实现；手册三配方、搬移/拆回与红绿理由；真实输入通过 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R01 | 已实现；25配方分类/分页卡片，每卡图片+名字+消耗；搬移/拆回与虚影理由保留，鼠标78项通过 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R02 | 已实现；稀疏无圈数网格、船上独立基础、实际建筑与泊位保护 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R03 | 已实现；保持原费用/工期，新增小型配方，拒绝/重复/取消不收费 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R04 | 已实现；承载并集、跨缝、双尺寸、旋转、0.1/0.01米摆位 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
@@ -86,3 +110,24 @@
 当前专项、真实渲染、过程失败、退出码与未执行项集中记录在[交付记录](../../development/2026-10-29_open_ocean_building.md)。玩家存档未被用作测试槽，也未因本次规则更新强制重置。
 
 2026-10-29最终收尾：建造纯规则120、空间15、集成39、海上真实渲染30、DIY真实输入28、边界回归51、大布局跨进程70+8、旧档迁移5+11全部0失败/退出0；最小循环77、种植35、上下船12、睡觉33及坏档保护通过。架构15服务0问题；功能同步与无参检查35功能/459源资产/392运行期哈希0问题。详见[机器证据](../../development/2026-10-29_open_ocean_building_verification.json)。
+
+## 2026-10-30 上岸提示稀疏与闪烁修复
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-BUILDING-R17 | 已实现；4米/8个提示改为12米/最多4个，100px投影间距；稳定ID复用对象和悬停状态，当前返船入口优先 | [本轮交付](../../development/2026-10-30_sparse_landing_markers.md) |
+
+R13的实际登陆边、航行/登岸/返船和存档格式保留，改动仅是派生提示选择与展示状态。闪烁根因：BuildingAccess每0.75秒删除再创建visible=false、near=0的字典，刚好发生在LandingMarkers当帧处理之后，导致下一次绘制缺图标且反复从小尺寸开始。现为按zone/landing同步，留存有效提示并保留插值进度。完整退出码、实景与过程失败见本轮交付。
+
+本轮收尾：landing-markers与visual-landing-markers各25项/0失败，海上登陆/返船与board-click回归均退出0；功能同步及无参检查35功能/460源资产/393运行期哈希0问题，架构15服务0问题。见[机器证据](../../development/2026-10-30_sparse_landing_markers_verification.json)。
+
+## 2026-10-30 模块化建筑与生活摆件
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-BUILDING-R18 | 已实现；25配方分类卡片、真实鼠标78检查通过；停用拒新建且保留历史存档 | [本轮记录](../../development/2026-10-30_modular_building_kit.md) |
+| SEA-BUILDING-R19 | 已实现；12结构全部经正式Service/World建成，完整承载、依附拆除、门洞通行/实墙阻挡通过；旧板承载及4×4精确贴边/通路回归通过 | 同上；规则72项、完整游戏121项0失败 |
+| SEA-BUILDING-R20 | 已实现；真实胶囊爬升、二层根快照恢复、上下层站位保护及楼梯/楼板拆除保护通过；实际渲染核对楼梯同向 | 同上；ground-space及character-space-save回归通过 |
+| SEA-BUILDING-R21 | 已实现；10摆件全部在正式世界建成，真实暖灯、共享仓库、补水、摆动通过；22组件UV/材质563项及真实卡片渲染通过 | 同上；不提供电网和风铃声音 |
+
+2026-10-30最终收尾：R01改为每卡仅图片+名字+消耗，R04承载包含固定木面和新旧板并集；原六箱占地保留。完整游戏121项、真实渲染120项、卡片真实鼠标78项、UV/材质563项、纯规则72项全部0失败/退出0；旧建造、集成、开放规则、三维空间与位置恢复专项通过。资产状态仅晋升本套件22件，不覆盖其他pending资产。全部结果和未执行设备项见[机器证据](../../development/2026-10-30_modular_building_verification.json)。

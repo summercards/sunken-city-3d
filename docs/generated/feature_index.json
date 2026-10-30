@@ -80,6 +80,8 @@
         "character-motor",
         "ground-space",
         "actor-presentation",
+        "harvest-receive",
+        "visual-harvest-receive",
         "walk-facing",
         "visual-walk-facing",
         "walk-deck-fit",
@@ -88,7 +90,9 @@
         "click",
         "framework-modules",
         "framework-integration",
-        "sleep-cycle"
+        "sleep-cycle",
+        "building-kit",
+        "character-space-save"
       ]
     },
     {
@@ -297,7 +301,14 @@
         "building-boundary-audit",
         "visual-building-boundary-audit",
         "walk-on-planters",
-        "visual-walk-on-planters"
+        "visual-walk-on-planters",
+        "building-kit",
+        "visual-building-kit",
+        "ground-space",
+        "kit-safety",
+        "visual-kit-uv",
+        "visual-recipe-cards",
+        "character-space-save"
       ]
     },
     {
@@ -366,6 +377,8 @@
         "crops",
         "visual-crops",
         "farming",
+        "harvest-receive",
+        "visual-harvest-receive",
         "modules",
         "structure"
       ]
@@ -399,7 +412,9 @@
         "minimum-loop",
         "visual-plot-shipping",
         "initial-planters",
-        "visual-initial-planters"
+        "visual-initial-planters",
+        "harvest-receive",
+        "visual-harvest-receive"
       ]
     },
     {
@@ -469,6 +484,9 @@
         "visual-fish-schools",
         "framework-integration",
         "minimum-loop",
+        "ocean-pickups",
+        "wood-density",
+        "visual-ocean-pickups",
         "progress-bars"
       ]
     },
@@ -656,7 +674,10 @@
       "status": "partial",
       "owner": "HUD / UI presenters",
       "code_paths": [
-        "godot/src/ui"
+        "godot/src/ui",
+        "godot/src/building/building_book.gd",
+        "godot/src/building/recipe_card.gd",
+        "godot/src/building/recipe_thumbnail.gd"
       ],
       "verification": [
         "visual-corner-notebook",
@@ -674,7 +695,12 @@
         "visual-home-lighting",
         "progress-bars",
         "pocket-drag-buy",
-        "visual-pocket-drag-buy"
+        "visual-pocket-drag-buy",
+        "landing-markers",
+        "visual-landing-markers",
+        "close-hint",
+        "visual-close-hint",
+        "visual-recipe-cards"
       ]
     },
     {
@@ -810,7 +836,9 @@
         "decorations",
         "visual-decorations",
         "visual-plot-shipping",
-        "visual-home-lighting"
+        "visual-home-lighting",
+        "visual-kit-uv",
+        "building-kit"
       ]
     },
     {

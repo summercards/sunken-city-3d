@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-UPPER-FLOOR",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-UPPER-FLOOR",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/upper_floor/upper_floor.blend",
+  "source_sha256": "76d997ac9aca5d57fb5a4938df483fa156f52f29ae728a3450554b1072f9a01c",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/upper_floor/upper_floor.glb",
+  "runtime_sha256": "4a97ec3d5100283a506d53c5976c280ecaae831d9cb23d5b16d4e6187e63bd14",
+  "prefab": "godot/scenes/buildables/kit/upper_floor.tscn",
+  "component": {
+    "id": "upper_floor",
+    "name": "二层木楼板",
+    "asset_id": "SEA-KIT-UPPER-FLOOR",
+    "profile": "floor",
+    "footprint": [
+      2,
+      2
+    ],
+    "height": 0.18,
+    "cost": {
+      "wood": 8
+    },
+    "seconds": 4.2,
+    "category": "structure",
+    "role": "furnishing",
+    "placement": "top",
+    "active": true,
+    "blocks_actor": false,
+    "movable": false,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/upper_floor.tscn",
+    "description": "2米模数拼接",
+    "source_origin": "surface_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-UPPER-FLOOR",
+    "triangles": 864,
+    "bounds": {
+      "min": [
+        -0.9940000176429749,
+        -1.0,
+        -0.18000000715255737
+      ],
+      "max": [
+        0.9940000176429749,
+        1.0,
+        0.0
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

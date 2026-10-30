@@ -1,0 +1,36 @@
+{
+  "key": "platform",
+  "asset_id": "SEA-SCENE-LHL-PLATFORM",
+  "name": "圆形观景平台",
+  "category": "structure",
+  "family": "platform",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-PLATFORM",
+  "root": "platform_组件根",
+  "bounds_size": [
+    6.0,
+    6.0,
+    0.955000028014183
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform/platform.blend",
+  "geometry_fingerprint": "114cd7c6c47522ca24e4f98794bae096b89e3903fd12a6e5d33fc1c5df6af438",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 596,
+  "source_sha256": "b30e4b72954216cc0aab6c7de386db97ddca2a71b6548ace81b241c14ca84ab3",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-PLATFORM"
+}

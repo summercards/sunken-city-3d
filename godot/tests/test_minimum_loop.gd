@@ -30,9 +30,9 @@ func run() -> void:
 	for id in ["zone2","zone3","zone4"]:
 		check(not main._zone_nodes[id].visible and not root.get_node("Zones").is_unlocked(id),"hidden and blocked "+id)
 	check(main._is_open_water(500,500),"unobstructed ocean is open beyond the former home boundary")
-	check(main.props.schools.size()>0 and main.props.crates.size()==6,"local fishing and six driftwood bundles")
+	check(main.props.schools.size()>0 and main.props.crates.size()>6 and main.props.crates.size()<=54,"fishing and driftwood cover the active open sea cells")
 	for school in main.props.schools:
-		check(preload("res://src/core/play_scope.gd").HOME_WATER.has_point(Vector2(school.base.x,school.base.z)),"local fish point")
+		check(main.navigation.is_open_water(school.base.x,school.base.z),"fish point in navigable ocean")
 	for school in main.props.schools:
 		check(not main.plan_route_to(school.base.x+2.1,school.base.z).is_empty(),"fish has reachable approach")
 	var zones = root.get_node("Zones")

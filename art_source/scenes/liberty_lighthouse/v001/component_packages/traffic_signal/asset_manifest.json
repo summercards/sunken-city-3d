@@ -1,0 +1,36 @@
+{
+  "key": "traffic_signal",
+  "asset_id": "SEA-SCENE-LHL-TRAFFIC-SIGNAL",
+  "name": "交通信号装置",
+  "category": "facility",
+  "family": "signal",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-TRAFFIC-SIGNAL",
+  "root": "traffic_signal_组件根",
+  "bounds_size": [
+    0.41999998688697815,
+    0.48500001430511475,
+    2.0299999713897705
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/traffic_signal/traffic_signal.blend",
+  "geometry_fingerprint": "dd91134a1e3e3bd36bf60c23b964c5295621a55b97510b49b8c254f44ac57c30",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 236,
+  "source_sha256": "51b87c6ad4e4801e9a420d0281a2418b9664aef3d26e652d9e73fece2c70b1ad",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-TRAFFIC-SIGNAL"
+}

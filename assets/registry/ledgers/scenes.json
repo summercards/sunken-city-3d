@@ -15285,6 +15285,1770 @@
           "verification": "docs/development/2026-10-28_building_delivery.md"
         }
       ]
+    },
+    {
+      "asset_id": "SEA-KIT-RAFT-4X4",
+      "name": "4×4木浮台",
+      "asset_key": "raft_4x4",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/raft_4x4/raft_4x4.blend",
+      "source_sha256": "bc57a993fcf48250d01b5b9caba74ee13fabcd9c46eb07d2419268c5427bbbbb",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/raft_4x4/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/raft_4x4/raft_4x4.glb",
+      "runtime_sha256": "fd24541146987b0a44e609dc7d00797d60e6f6101dd4b231cc10ed3452a062ed",
+      "prefab": "godot/scenes/buildables/kit/raft_4x4.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-RAFT-4X4",
+      "triangles": 1944,
+      "bounds_blender": {
+        "min": [
+          -2.0,
+          -2.0,
+          -0.5
+        ],
+        "max": [
+          2.0,
+          2.0,
+          0.0
+        ]
+      },
+      "origin": "surface_center",
+      "front_axis": "-Z",
+      "profile": "foundation",
+      "footprint": [
+        4,
+        4
+      ],
+      "height": 0.5,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-RAFT-2X4",
+      "name": "2×4木浮台",
+      "asset_key": "raft_2x4",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/raft_2x4/raft_2x4.blend",
+      "source_sha256": "bc612bccdb5ebf3929b0fe86f02472a85a741b341e18782972a95f68a545c634",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/raft_2x4/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/raft_2x4/raft_2x4.glb",
+      "runtime_sha256": "fd7d4c8f17b3439d037815f5027430f931ed3504fd8e3b3eacf75433864868dd",
+      "prefab": "godot/scenes/buildables/kit/raft_2x4.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-RAFT-2X4",
+      "triangles": 1080,
+      "bounds_blender": {
+        "min": [
+          -1.0,
+          -2.0,
+          -0.5
+        ],
+        "max": [
+          1.0,
+          2.0,
+          0.0
+        ]
+      },
+      "origin": "surface_center",
+      "front_axis": "-Z",
+      "profile": "foundation",
+      "footprint": [
+        2,
+        4
+      ],
+      "height": 0.5,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-WALL",
+      "name": "木板实墙",
+      "asset_key": "wall",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/wall/wall.blend",
+      "source_sha256": "0e120bd11ff34fc98a9a0dd536369c286e965c616e4f2748ec78c9c8663f0375",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/wall/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/wall/wall.glb",
+      "runtime_sha256": "454ee3f9458a33ed3a7e8713fd15e885bda7ee9a3bc29bd364635c5a6fc38180",
+      "prefab": "godot/scenes/buildables/kit/wall.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-WALL",
+      "triangles": 756,
+      "bounds_blender": {
+        "min": [
+          -1.0,
+          -0.07000000029802322,
+          0.005000010132789612
+        ],
+        "max": [
+          1.0,
+          0.07000000029802322,
+          2.794999837875366
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "wall",
+      "footprint": [
+        2,
+        0.16
+      ],
+      "height": 2.8,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-WINDOW-WALL",
+      "name": "开窗木墙",
+      "asset_key": "window_wall",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/window_wall/window_wall.blend",
+      "source_sha256": "d82b7a93c3b1e2e333d703329c12471cb842d4b747ffb3b695d7471c1675c042",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/window_wall/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/window_wall/window_wall.glb",
+      "runtime_sha256": "df6603856b241329b29e8e18039bdeeb615838acbb4bc4afedd054ac4c6f017c",
+      "prefab": "godot/scenes/buildables/kit/window_wall.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-WINDOW-WALL",
+      "triangles": 648,
+      "bounds_blender": {
+        "min": [
+          -1.0,
+          -0.14000000059604645,
+          0.0
+        ],
+        "max": [
+          1.0,
+          0.14000000059604645,
+          2.799999952316284
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "window",
+      "footprint": [
+        2,
+        0.16
+      ],
+      "height": 2.8,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-DOOR-FRAME",
+      "name": "通行门框",
+      "asset_key": "door_frame",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/door_frame/door_frame.blend",
+      "source_sha256": "0e937b3d20dba4d58064c4f99048e841d0e8760107d1430f5207245b94997774",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/door_frame/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/door_frame/door_frame.glb",
+      "runtime_sha256": "578561efb769089c6f3314cd1fac52b0e8171df7687b9b65be37ee63427f76b0",
+      "prefab": "godot/scenes/buildables/kit/door_frame.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-DOOR-FRAME",
+      "triangles": 324,
+      "bounds_blender": {
+        "min": [
+          -1.0,
+          -0.09000000357627869,
+          0.0
+        ],
+        "max": [
+          1.0,
+          0.09000000357627869,
+          2.799999952316284
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "door",
+      "footprint": [
+        2,
+        0.16
+      ],
+      "height": 2.8,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-POST",
+      "name": "木立柱",
+      "asset_key": "post",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/post/post.blend",
+      "source_sha256": "ced8344a5665cc8d6fb6bb010cdb272fec0dc8def81d5270a6a5a46bdc4ee751",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/post/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/post/post.glb",
+      "runtime_sha256": "a88dd83390a8364461dc9fe1bf77af65fae4ecc593aee5cdcb2f25e250cd9a3d",
+      "prefab": "godot/scenes/buildables/kit/post.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-POST",
+      "triangles": 108,
+      "bounds_blender": {
+        "min": [
+          -0.10000000149011612,
+          -0.10000000149011612,
+          0.0
+        ],
+        "max": [
+          0.10000000149011612,
+          0.10000000149011612,
+          2.799999952316284
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "post",
+      "footprint": [
+        0.2,
+        0.2
+      ],
+      "height": 2.8,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-BEAM",
+      "name": "承重横梁",
+      "asset_key": "beam",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/beam/beam.blend",
+      "source_sha256": "96105094e410d7c1e082a1c65c4914adb76093dbe49a86bab9a68ffb78e98c18",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/beam/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/beam/beam.glb",
+      "runtime_sha256": "44cb4fb1e0224b76dc2258738c431ec57bffb7d206bc4e76b004115970a724b7",
+      "prefab": "godot/scenes/buildables/kit/beam.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-BEAM",
+      "triangles": 216,
+      "bounds_blender": {
+        "min": [
+          -1.0,
+          -0.14000000059604645,
+          0.0
+        ],
+        "max": [
+          1.0,
+          0.14000000059604645,
+          0.20000000298023224
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "beam",
+      "footprint": [
+        2,
+        0.2
+      ],
+      "height": 0.2,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-RAILING",
+      "name": "交叉栏杆",
+      "asset_key": "railing",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/railing/railing.blend",
+      "source_sha256": "9a58a6f0a4fecb5339f6445bb1f05da3a3c99af268ea33d086a02c18176df887",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/railing/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/railing/railing.glb",
+      "runtime_sha256": "0068d3f3c16b9b8819d7fe69e80b2e002f7693586339856b743e22c3a8704560",
+      "prefab": "godot/scenes/buildables/kit/railing.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-RAILING",
+      "triangles": 764,
+      "bounds_blender": {
+        "min": [
+          -1.0,
+          -0.09000000357627869,
+          0.0
+        ],
+        "max": [
+          1.0,
+          0.09000000357627869,
+          1.059999942779541
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "railing",
+      "footprint": [
+        2,
+        0.14
+      ],
+      "height": 1,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-STAIRS",
+      "name": "直跑楼梯",
+      "asset_key": "stairs",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/stairs/stairs.blend",
+      "source_sha256": "b506a725c87318826a7a6c20e4857c574ee22c6d526eb4c8c867f5bc288963b6",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/stairs/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/stairs/stairs.glb",
+      "runtime_sha256": "d100da2be16c4656e46c68651ae0696337460a3d0e596c65abffde373493c030",
+      "prefab": "godot/scenes/buildables/kit/stairs.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-STAIRS",
+      "triangles": 1952,
+      "bounds_blender": {
+        "min": [
+          -0.6000002026557922,
+          -2.007499933242798,
+          -0.007660565432161093
+        ],
+        "max": [
+          0.6000002026557922,
+          2.007499933242798,
+          2.799999952316284
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "stairs",
+      "footprint": [
+        1.2,
+        4
+      ],
+      "height": 2.8,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-UPPER-FLOOR",
+      "name": "二层木楼板",
+      "asset_key": "upper_floor",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/upper_floor/upper_floor.blend",
+      "source_sha256": "76d997ac9aca5d57fb5a4938df483fa156f52f29ae728a3450554b1072f9a01c",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/upper_floor/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/upper_floor/upper_floor.glb",
+      "runtime_sha256": "4a97ec3d5100283a506d53c5976c280ecaae831d9cb23d5b16d4e6187e63bd14",
+      "prefab": "godot/scenes/buildables/kit/upper_floor.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-UPPER-FLOOR",
+      "triangles": 864,
+      "bounds_blender": {
+        "min": [
+          -0.9940000176429749,
+          -1.0,
+          -0.18000000715255737
+        ],
+        "max": [
+          0.9940000176429749,
+          1.0,
+          0.0
+        ]
+      },
+      "origin": "surface_center",
+      "front_axis": "-Z",
+      "profile": "floor",
+      "footprint": [
+        2,
+        2
+      ],
+      "height": 0.18,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-ROOF-SLOPE",
+      "name": "斜面屋顶",
+      "asset_key": "roof_slope",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_slope/roof_slope.blend",
+      "source_sha256": "8ca93fca753f44bef89883840efbc01fa25d69a81a80fc5d56fb6305a0105c7a",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_slope/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/roof_slope/roof_slope.glb",
+      "runtime_sha256": "c12ddb13c38a8ebf1c1eb851fd74bda49b2920b05fa905d35c82a31507196362",
+      "prefab": "godot/scenes/buildables/kit/roof_slope.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-ROOF-SLOPE",
+      "triangles": 1520,
+      "bounds_blender": {
+        "min": [
+          -1.0037322044372559,
+          -2.013664484024048,
+          0.060535818338394165
+        ],
+        "max": [
+          1.0037322044372559,
+          2.013664484024048,
+          1.254290223121643
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "roof",
+      "footprint": [
+        2,
+        4
+      ],
+      "height": 1.25,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-ROOF-FLAT",
+      "name": "平顶遮棚",
+      "asset_key": "roof_flat",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_flat/roof_flat.blend",
+      "source_sha256": "404f5947f1c583e283fe3aecba000e58bc6a6815513509f8b0d045df7a7d3649",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_flat/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/roof_flat/roof_flat.glb",
+      "runtime_sha256": "80c43d688ebd1c690d193a239523518068521b05586b87fe77fd4d95b89a7480",
+      "prefab": "godot/scenes/buildables/kit/roof_flat.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "building",
+        "subcategory": "modular_structure"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-ROOF-FLAT",
+      "triangles": 1944,
+      "bounds_blender": {
+        "min": [
+          -1.9950000047683716,
+          -2.059999942779541,
+          -0.015000000596046448
+        ],
+        "max": [
+          1.9950000047683716,
+          2.059999942779541,
+          0.2150000035762787
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "roof",
+      "footprint": [
+        4,
+        4
+      ],
+      "height": 0.16,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-OIL-LAMP",
+      "name": "桌面油灯",
+      "asset_key": "oil_lamp",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/oil_lamp/oil_lamp.blend",
+      "source_sha256": "41d5d077ae929a13cfbeaeeb716c607d1397a0521350ec1e69017926969501cc",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/oil_lamp/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/oil_lamp/oil_lamp.glb",
+      "runtime_sha256": "f6185ee3cc0dbd93e0d9cb606d0a9e053f850809f2e69b8158f4d6919e08a3b6",
+      "prefab": "godot/scenes/buildables/kit/oil_lamp.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-OIL-LAMP",
+      "triangles": 1420,
+      "bounds_blender": {
+        "min": [
+          -0.17000000178813934,
+          -0.17000000178813934,
+          0.0
+        ],
+        "max": [
+          0.17000000178813934,
+          0.17000000178813934,
+          0.6579010486602783
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "lamp",
+      "footprint": [
+        0.38,
+        0.38
+      ],
+      "height": 0.65,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-LAMP-POST",
+      "name": "立杆油灯",
+      "asset_key": "lamp_post",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/lamp_post/lamp_post.blend",
+      "source_sha256": "cb89a5ea7263903a0f6c7bab9240cd7af48b070bfd2a1c132ee4114761722f86",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/lamp_post/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/lamp_post/lamp_post.glb",
+      "runtime_sha256": "6362c113951f87b7733a8f5425dce95afc8fd8118e6710c0ab8f1e0b4f4200d3",
+      "prefab": "godot/scenes/buildables/kit/lamp_post.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-LAMP-POST",
+      "triangles": 1828,
+      "bounds_blender": {
+        "min": [
+          -0.18818064033985138,
+          -0.18818064033985138,
+          0.0
+        ],
+        "max": [
+          0.18818064033985138,
+          0.18818064033985138,
+          2.197753429412842
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "lamp",
+      "footprint": [
+        0.4,
+        0.4
+      ],
+      "height": 2.2,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-WINDMILL",
+      "name": "小风车",
+      "asset_key": "windmill",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/windmill/windmill.blend",
+      "source_sha256": "58488eb6149301842b344d52f0f96149c766fe7c69acad77bb474467af60d471",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/windmill/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/windmill/windmill.glb",
+      "runtime_sha256": "e06616f1d2271fa1d3648fc82489ed8beaac37f96a0aff1e03eb21f47e9ed5df",
+      "prefab": "godot/scenes/buildables/kit/windmill.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-WINDMILL",
+      "triangles": 808,
+      "bounds_blender": {
+        "min": [
+          -0.47999998927116394,
+          -0.21000000834465027,
+          0.0
+        ],
+        "max": [
+          0.47999998927116394,
+          0.09000000357627869,
+          1.760000228881836
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "windmill",
+      "footprint": [
+        1.05,
+        0.5
+      ],
+      "height": 1.7,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-FLOWER-POT",
+      "name": "开花陶盆",
+      "asset_key": "flower_pot",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/flower_pot/flower_pot.blend",
+      "source_sha256": "8f0df7c512fad1f2d36fd4d40cf52a45e96fd00f8b6064ce42692a1bd2056063",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/flower_pot/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/flower_pot/flower_pot.glb",
+      "runtime_sha256": "af96bf72cae0169bc1f14249802bbcd09122e8dab14339007ba3fad2e3009ea2",
+      "prefab": "godot/scenes/buildables/kit/flower_pot.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-FLOWER-POT",
+      "triangles": 3100,
+      "bounds_blender": {
+        "min": [
+          -0.27000001072883606,
+          -0.27000001072883606,
+          0.0
+        ],
+        "max": [
+          0.2849999964237213,
+          0.27000001072883606,
+          0.7550000548362732
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "decoration",
+      "footprint": [
+        0.55,
+        0.55
+      ],
+      "height": 0.8,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-STORAGE-CRATE",
+      "name": "木储物箱",
+      "asset_key": "storage_crate",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/storage_crate/storage_crate.blend",
+      "source_sha256": "8e6815a7c49533b1a8e9162e84f7a42bf0801e70c57219f676363d7db8d88fd0",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/storage_crate/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/storage_crate/storage_crate.glb",
+      "runtime_sha256": "44471f6bfb804a64c4b1b1fdf43d91d737840fdcc19f3d5aa41bf356fa08e9af",
+      "prefab": "godot/scenes/buildables/kit/storage_crate.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-STORAGE-CRATE",
+      "triangles": 756,
+      "bounds_blender": {
+        "min": [
+          -0.5199999809265137,
+          -0.3449999988079071,
+          0.0
+        ],
+        "max": [
+          0.5199999809265137,
+          0.3449999988079071,
+          0.7150000333786011
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "storage",
+      "footprint": [
+        1,
+        0.65
+      ],
+      "height": 0.7,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-WATER-BARREL",
+      "name": "补水木桶",
+      "asset_key": "water_barrel",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/water_barrel/water_barrel.blend",
+      "source_sha256": "395aff0d78aca75f412ec8c10a469524e0466f9316b048043233cf9d3ad24037",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/water_barrel/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/water_barrel/water_barrel.glb",
+      "runtime_sha256": "4b15480337b1abc08544be9c706d0f577861e6a9b7a008e9978224fc6d2781ff",
+      "prefab": "godot/scenes/buildables/kit/water_barrel.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-WATER-BARREL",
+      "triangles": 844,
+      "bounds_blender": {
+        "min": [
+          -0.3499999940395355,
+          -0.44999998807907104,
+          0.0
+        ],
+        "max": [
+          0.3499999940395355,
+          0.3499999940395355,
+          0.9350000023841858
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "water",
+      "footprint": [
+        0.7,
+        0.7
+      ],
+      "height": 0.95,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-FLAG",
+      "name": "小旗杆",
+      "asset_key": "flag",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/flag/flag.blend",
+      "source_sha256": "b65f600ebc40e66b0bb08fb4efbbaf4dfe356715e8bdb99d8fe123a20b238136",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/flag/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/flag/flag.glb",
+      "runtime_sha256": "b23302473ff00f15caa6245e7220ba4ea250db26dbbb1d955aadd3d8b45ae6f7",
+      "prefab": "godot/scenes/buildables/kit/flag.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-FLAG",
+      "triangles": 388,
+      "bounds_blender": {
+        "min": [
+          -0.1599999964237213,
+          -0.1599999964237213,
+          0.0
+        ],
+        "max": [
+          0.5800000429153442,
+          0.1599999964237213,
+          2.0
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "flag",
+      "footprint": [
+        1.15,
+        0.35
+      ],
+      "height": 2,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-TABLE",
+      "name": "圆角木桌",
+      "asset_key": "table",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/table/table.blend",
+      "source_sha256": "373d6371022136f54ff71baa58f22205ae9868f571c86c258a93fd542edb263f",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/table/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/table/table.glb",
+      "runtime_sha256": "692960b61a4b7fbbdc018936aa8362f07bc2a0692721f1947e12f91ec1b7b731",
+      "prefab": "godot/scenes/buildables/kit/table.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-TABLE",
+      "triangles": 540,
+      "bounds_blender": {
+        "min": [
+          -0.6000000238418579,
+          -0.4000000059604645,
+          0.0
+        ],
+        "max": [
+          0.6000000238418579,
+          0.4000000059604645,
+          0.8500000238418579
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "decoration",
+      "footprint": [
+        1.2,
+        0.8
+      ],
+      "height": 0.85,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-STOOL",
+      "name": "木矮凳",
+      "asset_key": "stool",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/stool/stool.blend",
+      "source_sha256": "22563508dc91f8177879a6c0c0dc4e49e98a73f814da647203d37f3c0dfba1d7",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/stool/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/stool/stool.glb",
+      "runtime_sha256": "d15d886335c161bf541bb70cbdf2adf33774ab9e5b1ff813593de9403ff53f2f",
+      "prefab": "godot/scenes/buildables/kit/stool.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-STOOL",
+      "triangles": 800,
+      "bounds_blender": {
+        "min": [
+          -0.23000000417232513,
+          -0.23000000417232513,
+          0.027323447167873383
+        ],
+        "max": [
+          0.23000000417232513,
+          0.23000000417232513,
+          0.45000001788139343
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "decoration",
+      "footprint": [
+        0.45,
+        0.45
+      ],
+      "height": 0.45,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-KIT-WIND-CHIME",
+      "name": "木架风铃",
+      "asset_key": "wind_chime",
+      "domain": "scenes",
+      "stage": "runtime_integrated_verified",
+      "version": "v001",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/wind_chime/wind_chime.blend",
+      "source_sha256": "089ef5ab28d2d94dcf7cb6cca263811e21dab756463e7ab83c4cc5b607f6b8bd",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/wind_chime/asset_manifest.json",
+      "runtime_path": "godot/assets/models/building_kit/wind_chime/wind_chime.glb",
+      "runtime_sha256": "2f121575e48dafd0e3ff2be3da92b33ce4b8092d45b662618e456ea3ef1afb34",
+      "prefab": "godot/scenes/buildables/kit/wind_chime.tscn",
+      "license": "project_authored_procedural_geometry",
+      "classification": {
+        "category": "decoration",
+        "subcategory": "placeable_prop"
+      },
+      "consumer_features": [
+        "SEA-BUILDING",
+        "SEA-ASSET",
+        "SEA-MOVE"
+      ],
+      "collection": "SEA-KIT-WIND-CHIME",
+      "triangles": 1564,
+      "bounds_blender": {
+        "min": [
+          -0.22499999403953552,
+          -0.05999999865889549,
+          0.0
+        ],
+        "max": [
+          0.22499999403953552,
+          0.05999999865889549,
+          1.3550000190734863
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis": "-Z",
+      "profile": "chime",
+      "footprint": [
+        0.45,
+        0.45
+      ],
+      "height": 1.4,
+      "placement_owner": "BuildingService instances; Godot PackedScene projection",
+      "collision_responsibility": "BuildingWorld/AssemblySurfaces/BuildingSpace derived projection; pure visual GLB",
+      "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "verification": "docs/development/2026-10-30_modular_building_kit.md",
+      "note": "每件独立母版/可打开组件包/GLB/PackedScene。源重开及PaletteUV检查完成；最终游戏画面结果以交付记录为准。无第三层、电网或风铃音效。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-BARGE",
+      "name": "漂浮驳船基座",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/barge/barge.blend",
+      "source_sha256": "6ae0f66c21887c1c4b992fadd1431ebf3f0617c85fc856f5970613e6707df868",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/barge/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "afce4d9d82e5e6d89282894cd680938e3a2e94e1122abdc634ab6ed6392c24a2",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-TIRE",
+      "name": "轮胎护舷",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/tire/tire.blend",
+      "source_sha256": "1b1a4a77794a380c99721f9b925c933c73193b199c3594ae1f023bdabbd40373",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/tire/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "3aebdf21351c3584dec0a4eb647060b1bd36daa3bdc7d55b06a6fab45ac58c9b",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SHOP-SHELL",
+      "name": "开放式商铺墙壳",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/shop_shell/shop_shell.blend",
+      "source_sha256": "606f9ede8cde9982a8425edb5041f99824f2916dc14f26b98da961d0ebc2d1be",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/shop_shell/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "3c5404985b453a0a1691e5dd60ad828a8ee8fdb8fbc16cf06ae5524bec69e478",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SHOP-TRIM",
+      "name": "商铺金属包边",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/shop_trim/shop_trim.blend",
+      "source_sha256": "d1499333b2012646b8b2390df0b3559de6971df3042cfcb6890a002b8a38c02b",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/shop_trim/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "8ed80a5c5bfc3df7bfd12c72a0928c68c03f58e92233c59dba3826ec7ac666b6",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-AWNING",
+      "name": "蓝白条纹遮阳棚",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/awning/awning.blend",
+      "source_sha256": "e366c70bd7ef6093ad67d4a46952e9e61c25d11be51ca21082eb0922a482e7a4",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/awning/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "76456731205308da03bb911ddd9dfb26f93371b8d702c5c67bb51db6149e3a87",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SIGN",
+      "name": "黄色双段招牌",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/sign/sign.blend",
+      "source_sha256": "5e9daeea693e494d9fb07718935f897df8b2637ed5de2a1e489b7a75d80be519",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/sign/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "31c360ed894daf8468b5f1a14e982779d8e3eba7db18eedd17ff04e3227e1924",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-WINDOW",
+      "name": "侧墙玻璃窗",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/window/window.blend",
+      "source_sha256": "f36e382ac2acf224bf1a6118774106781e5d030eb043d333ea756f4ede4ff38f",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/window/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "c8ae70cffc49bcd1c75ab1be1724fba7f28245414160a3f5ae736d55b4509101",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SERVICE-WINDOW",
+      "name": "服务窗口",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/service_window/service_window.blend",
+      "source_sha256": "3d57504029f956154809a8a174b1708e4e6b6cbd6ea41cd65cbf244b3756b1cc",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/service_window/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "4d6c7ab3b94ad1a55c8ba983cf0b4a15c6d8bc423dd51890a264bb6c700725ba",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-NOTICE",
+      "name": "手写告示牌",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/notice/notice.blend",
+      "source_sha256": "0e0dcaeccb44c04d7eda00b9e53976ae5162564187e5ff8f29d4dd8f7ea5d5e4",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/notice/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "17e92d21f6a109ee706eda0ef0e9fe171866c23fc666e9360d988e4e39d13c62",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ICE-BOX",
+      "name": "ICE内嵌冷藏柜",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/ice_box/ice_box.blend",
+      "source_sha256": "7c21f3374a62f5fa3ec629ff5035d3b2c3a617806c80e0b01ecfe1841060a119",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/ice_box/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "b096ed3f61e060e270e5d0457fa765cc635270460ad2b6df120fc90f1ca8f8be",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-HYDRANT",
+      "name": "红白消防栓",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/hydrant/hydrant.blend",
+      "source_sha256": "fd7433828925a415738c098c4fd33500eba347a94047e109ed9e40be5dcc54a7",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/hydrant/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "2dc60beff0bc289de3c9831a8d49ed91befd00c94916e850eb82f096431112d0",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-TRAFFIC-SIGNAL",
+      "name": "交通信号装置",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/traffic_signal/traffic_signal.blend",
+      "source_sha256": "51b87c6ad4e4801e9a420d0281a2418b9664aef3d26e652d9e73fece2c70b1ad",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/traffic_signal/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "dd91134a1e3e3bd36bf60c23b964c5295621a55b97510b49b8c254f44ac57c30",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-BILLBOARD",
+      "name": "立式ICE广告牌",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/billboard/billboard.blend",
+      "source_sha256": "a2e7eb83cd083dbe87a2542790f945ba41590c3dad119e6688274e328f1f4d37",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/billboard/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "e9204e3025eb73e63cf1b5ddfd80e8e3f918f128a6c242c5441d7f48886e73eb",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ARM",
+      "name": "巨手手臂与手掌",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/arm/arm.blend",
+      "source_sha256": "f7709c210f40a8590e918fd30c2ff87daeb276c0f028d9dc3b3d4227f472a8b3",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/arm/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "2c92a4fb99f64fcc2c60fcdaace17cb406b3ab078682db9887567bc17a8545ac",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-FINGER",
+      "name": "环握柱身手指",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/finger/finger.blend",
+      "source_sha256": "c42e2b4cf05f4b4f20c43c18c3022d8abdd45dd5e6ced1590ec5e8c8133c457d",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/finger/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "f38cd2d54c5ab974c58b4aca2cab87edd070b84f4a568f4d59a58f936a26f4be",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-THUMB",
+      "name": "巨手拇指",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/thumb/thumb.blend",
+      "source_sha256": "1c14ee64b3cdd462a72c51714ee2985622b5fb017d549a02633797d0442a0f45",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/thumb/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "3b437554d0d73daed057ee1066cbca9a6075f256d64a216e41532050fb1d9df7",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-COLUMN",
+      "name": "竖槽柱身",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/column/column.blend",
+      "source_sha256": "9957b55f62c7bc2aad772da6cc3910b304a839664703dcb7bdfc531e42caf891",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/column/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "1ed294d2bc27367e11c09c64baae900b27f8caddfa237f18087ce1eec5f7475f",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-MAINTENANCE-DOOR",
+      "name": "柱身检修门",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/maintenance_door/maintenance_door.blend",
+      "source_sha256": "430e994ef69444b6239123c7874d895dbcba07894ed6b2a1b149f954d31a0df1",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/maintenance_door/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "682e88c425e3f016fd5572fd7a28bffca6aaddee551979d2f003b36e44b54284",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-PLATFORM",
+      "name": "圆形观景平台",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform/platform.blend",
+      "source_sha256": "b30e4b72954216cc0aab6c7de386db97ddca2a71b6548ace81b241c14ca84ab3",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "114cd7c6c47522ca24e4f98794bae096b89e3903fd12a6e5d33fc1c5df6af438",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-PLATFORM-TRIM",
+      "name": "平台线脚与托臂",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform_trim/platform_trim.blend",
+      "source_sha256": "fbcecf846236d34467da707bbfbf67192aabd8b60c01fe88be95656499be47e6",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform_trim/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "3418cfa2ec3506430e97e8d09d8b884b195e2b258a51779302e0992def4d8707",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-RAILING",
+      "name": "断裂观景栏杆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/railing/railing.blend",
+      "source_sha256": "b353379a3f876bd9189e5e79785860f0a86c34063664de89a1d4daccbcaba8f8",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/railing/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "89f80294ac6f2706765ef4fbf273f0271d3ff30f3328135c932f28de42a18b3f",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-EQUIPMENT-BOX",
+      "name": "平台设备箱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/equipment_box/equipment_box.blend",
+      "source_sha256": "283fbd03b36c0527efa7153146de753d93997a7b6e60e21f5fe5e10ef7afa7ea",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/equipment_box/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "f90665cceb0d202f25c4841f341da45bd74b2ef2fdf216e3ebb3826476bda3ac",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SOLAR-PANEL",
+      "name": "斜置太阳能板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/solar_panel/solar_panel.blend",
+      "source_sha256": "debb43dbef05c2f1e0497d08e03d2d515ac1808c7c658ea1e900cb330eaac24b",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/solar_panel/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "762c6d09217d0e747ef55d783a881a40f32f02eeebd1223903b759962998151a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-TOWER-BODY",
+      "name": "上部收窄塔身",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/tower_body/tower_body.blend",
+      "source_sha256": "a90d4f63837149838a81afab585bc7dfe01add68273f76c0a7f59cfac1d4c56a",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/tower_body/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "2b9f97a2e3ceeb72b06f0a239d79d5641c0e91fda6557e37f56589bfe13fdd08",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-LANTERN",
+      "name": "多边形玻璃灯室",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/lantern/lantern.blend",
+      "source_sha256": "fafe4fbed7bca779905272d648dca8c9ff6eb43845cf51f42784a3e35f9d4372",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/lantern/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "ec467f98ae2a417bc91180103d793f047aab8c8bb7057b64befc2fdaa03d193e",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-LENS",
+      "name": "灯室透镜灯座",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/lens/lens.blend",
+      "source_sha256": "ed8eb2cfa7c5701400682a882d796abdf45da109b98b1d2e318f601ff3d7d827",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/lens/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "f6779180f7c9975b6ae743898d555a5702183874a47303120461e2f94ac7709f",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ANTENNA-MAST",
+      "name": "通信天线桅杆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/antenna_mast/antenna_mast.blend",
+      "source_sha256": "e280b2355102ec6e9d4886f2c38b3f451135f105e57f94c64e363c552a7d524e",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/antenna_mast/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "fcb30625be5593981849ae4c44d46cd59917119452855cfe3993bb40b04bdccf",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SATELLITE-DISH",
+      "name": "圆形卫星天线",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/satellite_dish/satellite_dish.blend",
+      "source_sha256": "782ecc63898f2565ad4af855f025a0eecd042e0c1f30293f9059fa03f2560cd9",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/satellite_dish/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "b96e4354d0b85e86784ee2a1bf367a4d4afb5f5ba7d15f5af1211978b44cfe54",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-PANEL-ANTENNA",
+      "name": "矩形通信天线",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/panel_antenna/panel_antenna.blend",
+      "source_sha256": "1adaf557e67964da18a96921e81953c64f357ff74e78ce198de61796628ce768",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/panel_antenna/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7f6892cdbecd38d9bc4e7a0c4f536cfc3bae1055e21a3754da940843122e0927",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "facility",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ROOF-CAP",
+      "name": "灯室顶盖",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/roof_cap/roof_cap.blend",
+      "source_sha256": "8d2a7d3c49908cc71c98d44d2e24ba265c6c3f119416c0a139f9e36f67c6c9b8",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/roof_cap/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "b31d549a7fcd54b6c922f268f4f0dfd677a55a36e3b3c82ac13fa20df6e8d880",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "scope": "scene_local",
+      "note": "巨手灯塔场景组件；母版与独立包重开、逐面 PaletteUV 及关键尺寸通过；Godot 接入、碰撞/导航、商业授权及用户最终美术验收 pending。"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ASSEMBLY",
+      "name": "巨手托举纪念品灯塔",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/liberty_lighthouse/v001/liberty_lighthouse.blend",
+      "source_sha256": "ad40601312342879a6b1345d4be4af8fa0598ed238c22e1268ee7afe46156b52",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/asset_manifest.json",
+      "version": "v001",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": null,
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "scene_assembly",
+      "scope": "scene_local",
+      "note": "30组件/55实例的独立Blender场景套件；源级检查及四视图目视复核完成，未接入Godot，不替换现有阳光房或其他正式场景。"
     }
   ]
 }

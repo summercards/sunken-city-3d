@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-ROOF-FLAT",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-ROOF-FLAT",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_flat/roof_flat.blend",
+  "source_sha256": "404f5947f1c583e283fe3aecba000e58bc6a6815513509f8b0d045df7a7d3649",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/roof_flat/roof_flat.glb",
+  "runtime_sha256": "80c43d688ebd1c690d193a239523518068521b05586b87fe77fd4d95b89a7480",
+  "prefab": "godot/scenes/buildables/kit/roof_flat.tscn",
+  "component": {
+    "id": "roof_flat",
+    "name": "平顶遮棚",
+    "asset_id": "SEA-KIT-ROOF-FLAT",
+    "profile": "roof",
+    "footprint": [
+      4,
+      4
+    ],
+    "height": 0.16,
+    "cost": {
+      "wood": 10
+    },
+    "seconds": 4.5,
+    "category": "structure",
+    "role": "furnishing",
+    "placement": "top",
+    "active": true,
+    "blocks_actor": false,
+    "movable": false,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/roof_flat.tscn",
+    "description": "2米模数拼接",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-ROOF-FLAT",
+    "triangles": 1944,
+    "bounds": {
+      "min": [
+        -1.9950000047683716,
+        -2.059999942779541,
+        -0.015000000596046448
+      ],
+      "max": [
+        1.9950000047683716,
+        2.059999942779541,
+        0.2150000035762787
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

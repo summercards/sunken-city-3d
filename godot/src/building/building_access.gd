@@ -3,7 +3,13 @@ extends Node
 ## their owners; every query is injected by the composition root.
 const Catalog = preload("res://src/building/building_catalog.gd")
 const Landing = preload("res://src/navigation/landing_point.gd")
+const MarkerView = preload("res://src/ui/landing_markers.gd")
 const DIRECTIONS := [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]
+## Roughly five boards between suggestions. These are display budgets only;
+## every valid edge remains available when the player clicks the deck itself.
+const MARKER_SPACING := 12.0
+const MARKER_SCREEN_SPACING := 100.0
+const MAX_MARKERS := 4
 var service: RefCounted
 var world: Node3D
 var navigation: RefCounted
@@ -45,14 +51,14 @@ func landing_data(id: String, rows: Variant = null, walk_override: Variant = nul
 	var item: Dictionary={}
 	var occupied: Dictionary={}
 	for row in records:
-		if row.kind!="deck": continue
+		if not Catalog.is_deck(str(row.kind)): continue
 		occupied[Vector2i(int(row.x),int(row.z))]=true
 		if row.id==parts[1] and float(row.left)<=0.0: item=row
 	if item.is_empty(): return {}
 	var direction: Vector2i=DIRECTIONS[side]
 	var neighbor:=Vector2i(int(item.x),int(item.z))+direction
-	if occupied.has(neighbor) or Catalog.base_cell(neighbor.x,neighbor.y): return {}
-	var rect: Rect2=Catalog.tile_rect(item.x,item.z)
+	if item.kind=="deck" and (occupied.has(neighbor) or Catalog.base_cell(neighbor.x,neighbor.y)): return {}
+	var rect: Rect2=Catalog.footprint_rect(item)
 	var center:=rect.get_center()
 	var normal:=Vector2(direction)
 	var half: float=rect.size.x*0.5 if side<2 else rect.size.y*0.5
@@ -97,14 +103,20 @@ func landing_node(id: String) -> Node3D:
 	return node
 
 func refresh_markers() -> void:
-	for i in range(markers.items.size()-1,-1,-1):
-		if markers.items[i].get("dynamic_build",false): markers.items.remove_at(i)
-	var candidates: Array=[]
+	var previous: Array=[]
+	var occupied: Array[Vector3]=[]
+	for item in markers.items:
+		if item.get("dynamic_build",false): previous.append(str(item.landing))
+		else:
+			var point: Vector3=item.world
+			if markers.world_query.is_valid(): point=markers.world_query.call(str(item.zone),str(item.landing),point)
+			if _marker_relevant(point): occupied.append(point)
+	var candidates: Dictionary={}
 	var rows: Array=service.query()
 	var live_walk: Array=world.area.rects
 	var near_decks: Array=[]
 	for row in rows:
-		if row.kind!="deck" or float(row.left)>0: continue
+		if not Catalog.is_deck(str(row.kind)) or float(row.left)>0: continue
 		var center: Vector3=world.position_for(row)
 		row=row.duplicate();row.distance=Vector2(center.x-boat.position.x,center.z-boat.position.z).length_squared()
 		near_decks.append(row)
@@ -113,26 +125,62 @@ func refresh_markers() -> void:
 		var row: Dictionary=near_decks[index]
 		for side in 4:
 			var id: String="built:%s:%d"%[row.id,side]
-			var data:=landing_data(id,rows,live_walk)
-			if data.is_empty(): continue
-			var park:=Vector2(data.boatPark[0],data.boatPark[2])
-			if not navigation.is_open_water(park.x,park.y): continue
-			data.distance=park.distance_squared_to(Vector2(boat.position.x,boat.position.z))
-			candidates.append(data)
-	candidates.sort_custom(func(a: Dictionary,b: Dictionary): return a.distance<b.distance)
-	var chosen: Array=[]
+			_add_marker_candidate(candidates,id,rows,live_walk)
 	var active: String=str(current_id.call())
-	for data in candidates:
-		if chosen.size()>=8 and data.id!=active: continue
-		var p:=Vector3(data.dockEdge[0],data.dockEdge[1]+0.55,data.dockEdge[2])
-		# Avoid placing several anchor icons on top of each other.
-		var near:=false
-		for prior: Vector3 in chosen:
-			if prior.distance_to(p)<4.0: near=true;break
-		if near and data.id!=active: continue
-		chosen.append(p)
-		markers.items.append({"zone":"zone5","landing":data.id,"name":"自建平台","world":p,
-			"draw_world":p,"screen":Vector2.ZERO,"size":30.0,"near":0.0,"visible":false,"dynamic_build":true})
+	# Retain useful visible suggestions instead of re-ranking them on every tiny
+	# boat movement. The active return-to-boat point is independent of nearest24.
+	for id: String in previous: _add_marker_candidate(candidates,id,rows,live_walk)
+	if is_dynamic(active): _add_marker_candidate(candidates,active,rows,live_walk,true)
+	var ordered: Array=candidates.values()
+	ordered.sort_custom(func(a: Dictionary,b: Dictionary) -> bool:
+		return str(a.id)<str(b.id) if is_equal_approx(float(a.distance),float(b.distance)) else float(a.distance)<float(b.distance))
+	var selected: Array=[]
+	var chosen: Array[Vector3]=[]
+	var ids: Dictionary={}
+	if candidates.has(active):
+		var data: Dictionary=candidates[active]
+		selected.append(_marker_definition(data));chosen.append(data.display_world);ids[active]=true
+	for id: String in previous:
+		if selected.size()>=MAX_MARKERS: break
+		if not candidates.has(id) or ids.has(id): continue
+		var data: Dictionary=candidates[id]
+		if not _marker_separated(data.display_world,occupied,chosen): continue
+		selected.append(_marker_definition(data));chosen.append(data.display_world);ids[id]=true
+	for data: Dictionary in ordered:
+		if selected.size()>=MAX_MARKERS: break
+		if ids.has(data.id) or not _marker_separated(data.display_world,occupied,chosen): continue
+		selected.append(_marker_definition(data));chosen.append(data.display_world);ids[data.id]=true
+	markers.sync_dynamic_markers(selected)
+
+func _add_marker_candidate(candidates: Dictionary,id: String,rows: Array,walk: Array,active: bool=false) -> void:
+	if candidates.has(id): return
+	var data:=landing_data(id,rows,walk)
+	if data.is_empty(): return
+	var park:=Vector2(data.boatPark[0],data.boatPark[2])
+	if not active and not navigation.is_open_water(park.x,park.y): return
+	var fallback:=Vector3(data.dockEdge[0],data.dockEdge[1]+0.55,data.dockEdge[2])
+	var point:=fallback
+	if markers.world_query.is_valid(): point=markers.world_query.call("zone5",id,fallback)
+	if not active and not _marker_relevant(point): return
+	data.world=fallback;data.display_world=point
+	data.distance=park.distance_squared_to(Vector2(boat.position.x,boat.position.z))
+	candidates[id]=data
+
+static func _marker_definition(data: Dictionary) -> Dictionary:
+	return {"zone":"zone5","landing":data.id,"name":"自建平台","world":data.world,"dynamic_build":true}
+
+func _marker_relevant(point: Vector3) -> bool:
+	if camera==null: return true
+	if camera.is_position_behind(point) or camera.global_position.distance_to(point)>MarkerView.VISIBLE_RANGE: return false
+	return camera.get_viewport().get_visible_rect().grow(60.0).has_point(camera.unproject_position(point))
+
+func _marker_separated(point: Vector3,fixed: Array[Vector3],selected: Array[Vector3]) -> bool:
+	for group in [fixed,selected]:
+		for prior: Vector3 in group:
+			if Vector2(prior.x-point.x,prior.z-point.z).length()<MARKER_SPACING: return false
+			if camera!=null and not camera.is_position_behind(point) and not camera.is_position_behind(prior):
+				if camera.unproject_position(prior).distance_to(camera.unproject_position(point))<MARKER_SCREEN_SPACING: return false
+	return true
 
 func pick_landing(screen: Vector2) -> Dictionary:
 	var origin:=camera.project_ray_origin(screen)
@@ -145,7 +193,7 @@ func pick_landing(screen: Vector2) -> Dictionary:
 	var rows: Array=service.query()
 	var live_walk: Array=world.area.rects
 	for row in rows:
-		if row.kind!="deck" or row.left>0 or not Catalog.tile_rect(row.x,row.z).has_point(local): continue
+		if not Catalog.is_deck(str(row.kind)) or row.left>0 or not Catalog.footprint_rect(row).has_point(local): continue
 		var choices: Array=[]
 		for side in 4:
 			var data:=landing_data("built:%s:%d"%[row.id,side],rows,live_walk)

@@ -25,7 +25,9 @@
     "decorations",
     "visual-decorations",
     "visual-plot-shipping",
-    "visual-home-lighting"
+    "visual-home-lighting",
+    "visual-kit-uv",
+    "building-kit"
   ]
 }
 ```
@@ -67,6 +69,8 @@
 | SEA-ASSET-R25 | 基座放大与落水贴合已接入；专项通过，跨功能失败项经基线对照归为既有 | 海下白色基座顶板 11.20×12.42 → 16.24×17.77（X1.450/Z1.431），顶面四边各超出上层建筑0.40；平台下移0.30、板底水面+0.04、基座顶面与板底齐平；704实景检查与装饰/组件/最小循环检查通过，[记录](../../development/2026-10-27_solar_cabin_base_scale_and_waterline.md) |
 
 ## 资源与调用入口
+
+2026-10-30 SEA-ASSET-R02/R03/R23：`SEA-CHAR-RECEIVE-001`登记至索引解析的characters分账本，源为本项目已有节点动画体系内的`item_receive.gd`，包含原创抬举收包动作与挎包；运行专项与真实渲染通过，旧角色整体来源登记仍pending，作物源级未执行项保留。仅登记本次新源哈希，不刷新未知历史哈希。[交付与证据](../../development/2026-10-30_harvest_receive_animation.md)。
 
 2026-10-28：SEA-ASSET-R01/R02/R03新增原创卡通十字波纹`SEA-VFX-WATER-CROSS-RIPPLE-001`，经总索引登记在vfx分账本。矢量/2048px源、512px线性蒙版、运行引用与授权分开记录；[当前制作与验证](../../development/2026-10-28_cartoon_cross_ripple.md)。
 
@@ -290,3 +294,19 @@ SEA-ASSET-R02/R03：通过ledger_index登记原创程序几何SEA-BUILDING-WOOD-
 | SEA-ASSET-R31 | 已实现；实景前后对照、几何边界与属性逐字节复核通过 | [板底与电线杆摆位](../../development/2026-10-29_deck_draft_pole_placement.md) |
 
 SEA-ASSET-R31后续：上段杆身底端直接延长并移除旧下段32三角形，工具与备份见[本轮记录](../../development/2026-10-29_deck_draft_pole_placement.md)。真实渲染15项通过，已查看整根杆截图；功能契约同步/无参检查与架构检查均通过。
+
+## 2026-10-30 模块化海上建造套件
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R32 | 已实现并接入；22件母版/独立包/GLB/PackedScene逐件登记，源重开/四视图/UV面积单格通过；PaletteUV唯一UV0及材质角色563项、22件正式世界建成和卡片真实鼠标/渲染通过 | [本轮记录](../../development/2026-10-30_modular_building_kit.md)及[机器证据](../../development/2026-10-30_modular_building_verification.json) |
+
+独立来源为项目程序化自建，授权记`project_authored_procedural_geometry`；现有公共色板保持原归属。源级与游戏级结果分别登记，尚未通过的项不标记验收完成。
+
+## 2026-10-30 巨手托举纪念品灯塔
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-ASSET-R33 | `liberty_lighthouse/v001` Blender母版、30独立组件包和四视图已完成；源级几何/UV/尺寸/原点检查通过；Godot、碰撞、导航、商业授权与用户最终美术验收pending | [制作与验收记录](../../development/2026-10-30_liberty_lighthouse.md)；55实例、48539母版面逐面检查、68759展开多边形/132596三角面；装配总高约25.4米。雨棚已归一为局部底部中心、世界下缘3.50米，甲板上净高约2.26米。巨手轮廓、雨棚环绕/招牌关系、真实开洞、锈蚀与透镜可见性仍需后续美术打磨，不代签最终美术验收。 |
+
+2026-10-30组件UV修复（R32）：默认UVMap已从全部22源组件删除，PaletteUV为唯一活动/渲染层并导出为TEXCOORD_0；GLB保留四种SEA材质语义槽，KitVisual严格绑定共享材质，不再将丢失角色静默当Matte。`visual-kit-uv`563项/0失败，已查看全22件及浮台/油灯/花盆/风车近景。[修复与证据](../../development/2026-10-30_modular_building_kit.md)。

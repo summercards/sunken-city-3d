@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-KIT-LAMP-POST",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-LAMP-POST",
+  "version": "v001",
+  "source": "art_source/scenes/ocean_building_kit/v001/component_packages/lamp_post/lamp_post.blend",
+  "source_sha256": "cb89a5ea7263903a0f6c7bab9240cd7af48b070bfd2a1c132ee4114761722f86",
+  "mother_source": "art_source/scenes/ocean_building_kit/v001/building_kit.blend",
+  "runtime_path": "godot/assets/models/building_kit/lamp_post/lamp_post.glb",
+  "runtime_sha256": "6362c113951f87b7733a8f5425dce95afc8fd8118e6710c0ab8f1e0b4f4200d3",
+  "prefab": "godot/scenes/buildables/kit/lamp_post.tscn",
+  "component": {
+    "id": "lamp_post",
+    "name": "立杆油灯",
+    "asset_id": "SEA-KIT-LAMP-POST",
+    "profile": "lamp",
+    "footprint": [
+      0.4,
+      0.4
+    ],
+    "height": 2.2,
+    "cost": {
+      "wood": 4
+    },
+    "seconds": 3.6,
+    "category": "decoration",
+    "role": "furnishing",
+    "placement": "deck",
+    "active": true,
+    "blocks_actor": false,
+    "movable": true,
+    "removable": true,
+    "prefab": "res://scenes/buildables/kit/lamp_post.tscn",
+    "description": "真实暖光照明",
+    "source_origin": "bottom_center",
+    "front_axis": "-Z",
+    "collection": "SEA-KIT-LAMP-POST",
+    "triangles": 1828,
+    "bounds": {
+      "min": [
+        -0.18818064033985138,
+        -0.18818064033985138,
+        0.0
+      ],
+      "max": [
+        0.18818064033985138,
+        0.18818064033985138,
+        2.197753429412842
+      ]
+    }
+  },
+  "license": "project_authored_procedural_geometry",
+  "stage": "runtime_integrated_verified",
+  "verification": "docs/development/2026-10-30_modular_building_kit.md",
+  "source_verification": {
+    "tool": "tools/blender/building_kit/refine.py",
+    "log": "D:/projects/sea-work/building_kit_v001/refine.log",
+    "checks": "saved mother reopen, independent package scene/collection, nonempty geometry, PaletteUV area and one-tile islands; four renders"
+  },
+  "transfer_verification": {
+    "tool": "tools/blender/building_kit/fix_palette_export.py",
+    "report": "D:/projects/sea-work/building_kit_v001/uv_transfer_report.json",
+    "contract": "PaletteUV is sole TEXCOORD_0; GLB UV tile samples match source; four named material roles survive without embedded palette copy"
+  }
+}

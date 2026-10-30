@@ -35,22 +35,35 @@ static func support_cells(rows: Array) -> Dictionary:
 	for x in 3:
 		for z in 2: cells[Vector2i(x,z)]=true
 	for row in rows:
-		if row.kind=="deck" and float(row.left)<=0.0: cells[Vector2i(int(row.x),int(row.z))]=true
+		if Catalog.is_deck(str(row.kind)) and float(row.left)<=0.0: cells[Vector2i(int(row.x),int(row.z))]=true
 	return cells
 
 static func exterior_cuts(rows: Array, radius: float) -> Array:
-	var cells := support_cells(rows)
-	var result: Array=[]
-	if radius<=0.0: return result
-	for cell: Vector2i in cells:
-		var rect := Catalog.tile_rect(cell.x,cell.y)
-		# Tangential extension also clears concave corners, so a diagonal point
-		# contact cannot become a character-width connection.
-		if not cells.has(cell+Vector2i.LEFT): result.append(Rect2(rect.position-Vector2(0,radius),Vector2(radius,rect.size.y+radius*2)))
-		if not cells.has(cell+Vector2i.RIGHT): result.append(Rect2(Vector2(rect.end.x-radius,rect.position.y-radius),Vector2(radius,rect.size.y+radius*2)))
-		if not cells.has(cell+Vector2i.UP): result.append(Rect2(rect.position-Vector2(radius,0),Vector2(rect.size.x+radius*2,radius)))
-		if not cells.has(cell+Vector2i.DOWN): result.append(Rect2(Vector2(rect.position.x-radius,rect.end.y-radius),Vector2(rect.size.x+radius*2,radius)))
-	return result
+	var tiles: Array=Catalog.deck_tiles(rows)
+	for x in 3:
+		for z in 2: tiles.append(Catalog.tile_rect(x,z))
+	var cuts: Array=[]
+	if radius<=0: return cuts
+	for tile: Rect2 in Catalog.deck_tiles(rows):
+		for side in 4:
+			var vertical:=side<2
+			var edge: float=(tile.position.x if side==0 else tile.end.x) if vertical else (tile.position.y if side==2 else tile.end.y)
+			var spans: Array=[Vector2(tile.position.y-radius,tile.end.y+radius) if vertical else Vector2(tile.position.x-radius,tile.end.x+radius)]
+			for other: Rect2 in tiles:
+				if other==tile: continue
+				var crosses: bool=(other.position.x<edge-EPS and other.end.x>=edge-EPS) if side==0 else ((other.end.x>edge+EPS and other.position.x<=edge+EPS) if side==1 else ((other.position.y<edge-EPS and other.end.y>=edge-EPS) if side==2 else (other.end.y>edge+EPS and other.position.y<=edge+EPS)))
+				if not crosses: continue
+				var lo: float=other.position.y if vertical else other.position.x
+				var hi: float=other.end.y if vertical else other.end.x
+				var next: Array=[]
+				for span: Vector2 in spans:
+					if lo>span.x: next.append(Vector2(span.x,minf(lo,span.y)))
+					if hi<span.y: next.append(Vector2(maxf(hi,span.x),span.y))
+				spans=next
+			for span: Vector2 in spans:
+				if span.y-span.x<=EPS: continue
+				cuts.append(Rect2(Vector2(edge if side==0 else edge-radius,span.x),Vector2(radius,span.y-span.x)) if vertical else Rect2(Vector2(span.x,edge if side==2 else edge-radius),Vector2(span.y-span.x,radius)))
+	return cuts
 
 static func walk_rects(base: Array, rows: Array, fixed: Array=[], radius: float=RADIUS) -> Array:
 	var support: Array=Catalog.deck_tiles(rows)
@@ -62,8 +75,9 @@ static func walk_rects(base: Array, rows: Array, fixed: Array=[], radius: float=
 	var cuts: Array=[]
 	for rect: Rect2 in fixed: cuts.append(rect.grow(radius))
 	for row in rows:
-		if Catalog.is_furnishing(str(row.kind)) and Catalog.blocks_actor(str(row.kind)):
-			cuts.append(Catalog.plot_rect(row).grow(radius))
+		if Catalog.is_furnishing(str(row.kind)) and Catalog.blocks_actor(str(row.kind)) and Catalog.elevation(row)<0.5:
+			for blocker: Rect2 in preload("res://src/building/assembly_surfaces.gd").blockers(row): cuts.append(blocker.grow(radius))
+		if row.left<=0 and Catalog.RECIPES[row.kind].get("profile","")=="stairs": cuts.append(Catalog.plot_rect(row))
 	return cut_all(result,cuts)
 
 static func contains(rect: Rect2, p: Vector2) -> bool:
@@ -161,10 +175,10 @@ static func connection_reason(before_rows: Array, after_rows: Array, before: Arr
 	var targets: Dictionary={"@base":Catalog.BASE}
 	var removed: Dictionary={}
 	for row in before_rows:
-		if row.kind=="deck" and float(row.left)<=0.0:
-			targets[row.id]=Catalog.tile_rect(int(row.x),int(row.z));removed[row.id]=true
+		if Catalog.is_deck(str(row.kind)) and float(row.left)<=0.0:
+			targets[row.id]=Catalog.footprint_rect(row);removed[row.id]=true
 	for row in after_rows:
-		if row.kind=="deck": removed.erase(row.id)
+		if Catalog.is_deck(str(row.kind)): removed.erase(row.id)
 	for id in targets:
 		if removed.has(id): continue
 		var old_components := rect_components(before,before_groups,targets[id])

@@ -2695,6 +2695,324 @@
       "manifest": "assets/registry/manifests/sea-building-wood-deck.json"
     },
     {
+      "asset_id": "SEA-KIT-RAFT-4X4",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/raft_4x4/raft_4x4.blend",
+      "source_sha256": "bc57a993fcf48250d01b5b9caba74ee13fabcd9c46eb07d2419268c5427bbbbb",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/raft_4x4/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-RAFT-2X4",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/raft_2x4/raft_2x4.blend",
+      "source_sha256": "bc612bccdb5ebf3929b0fe86f02472a85a741b341e18782972a95f68a545c634",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/raft_2x4/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-WALL",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/wall/wall.blend",
+      "source_sha256": "0e120bd11ff34fc98a9a0dd536369c286e965c616e4f2748ec78c9c8663f0375",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/wall/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-WINDOW-WALL",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/window_wall/window_wall.blend",
+      "source_sha256": "d82b7a93c3b1e2e333d703329c12471cb842d4b747ffb3b695d7471c1675c042",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/window_wall/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-DOOR-FRAME",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/door_frame/door_frame.blend",
+      "source_sha256": "0e937b3d20dba4d58064c4f99048e841d0e8760107d1430f5207245b94997774",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/door_frame/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-POST",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/post/post.blend",
+      "source_sha256": "ced8344a5665cc8d6fb6bb010cdb272fec0dc8def81d5270a6a5a46bdc4ee751",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/post/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-BEAM",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/beam/beam.blend",
+      "source_sha256": "96105094e410d7c1e082a1c65c4914adb76093dbe49a86bab9a68ffb78e98c18",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/beam/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-RAILING",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/railing/railing.blend",
+      "source_sha256": "9a58a6f0a4fecb5339f6445bb1f05da3a3c99af268ea33d086a02c18176df887",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/railing/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-STAIRS",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/stairs/stairs.blend",
+      "source_sha256": "b506a725c87318826a7a6c20e4857c574ee22c6d526eb4c8c867f5bc288963b6",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/stairs/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-UPPER-FLOOR",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/upper_floor/upper_floor.blend",
+      "source_sha256": "76d997ac9aca5d57fb5a4938df483fa156f52f29ae728a3450554b1072f9a01c",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/upper_floor/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-ROOF-SLOPE",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_slope/roof_slope.blend",
+      "source_sha256": "8ca93fca753f44bef89883840efbc01fa25d69a81a80fc5d56fb6305a0105c7a",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_slope/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-ROOF-FLAT",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_flat/roof_flat.blend",
+      "source_sha256": "404f5947f1c583e283fe3aecba000e58bc6a6815513509f8b0d045df7a7d3649",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/roof_flat/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-OIL-LAMP",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/oil_lamp/oil_lamp.blend",
+      "source_sha256": "41d5d077ae929a13cfbeaeeb716c607d1397a0521350ec1e69017926969501cc",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/oil_lamp/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-LAMP-POST",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/lamp_post/lamp_post.blend",
+      "source_sha256": "cb89a5ea7263903a0f6c7bab9240cd7af48b070bfd2a1c132ee4114761722f86",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/lamp_post/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-WINDMILL",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/windmill/windmill.blend",
+      "source_sha256": "58488eb6149301842b344d52f0f96149c766fe7c69acad77bb474467af60d471",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/windmill/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-FLOWER-POT",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/flower_pot/flower_pot.blend",
+      "source_sha256": "8f0df7c512fad1f2d36fd4d40cf52a45e96fd00f8b6064ce42692a1bd2056063",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/flower_pot/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-STORAGE-CRATE",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/storage_crate/storage_crate.blend",
+      "source_sha256": "8e6815a7c49533b1a8e9162e84f7a42bf0801e70c57219f676363d7db8d88fd0",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/storage_crate/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-WATER-BARREL",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/water_barrel/water_barrel.blend",
+      "source_sha256": "395aff0d78aca75f412ec8c10a469524e0466f9316b048043233cf9d3ad24037",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/water_barrel/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-FLAG",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/flag/flag.blend",
+      "source_sha256": "b65f600ebc40e66b0bb08fb4efbbaf4dfe356715e8bdb99d8fe123a20b238136",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/flag/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-TABLE",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/table/table.blend",
+      "source_sha256": "373d6371022136f54ff71baa58f22205ae9868f571c86c258a93fd542edb263f",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/table/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-STOOL",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/stool/stool.blend",
+      "source_sha256": "22563508dc91f8177879a6c0c0dc4e49e98a73f814da647203d37f3c0dfba1d7",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/stool/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-KIT-WIND-CHIME",
+      "source": "art_source/scenes/ocean_building_kit/v001/component_packages/wind_chime/wind_chime.blend",
+      "source_sha256": "089ef5ab28d2d94dcf7cb6cca263811e21dab756463e7ab83c4cc5b607f6b8bd",
+      "manifest": "art_source/scenes/ocean_building_kit/v001/component_packages/wind_chime/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-BARGE",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/barge/barge.blend",
+      "source_sha256": "6ae0f66c21887c1c4b992fadd1431ebf3f0617c85fc856f5970613e6707df868",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/barge/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-TIRE",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/tire/tire.blend",
+      "source_sha256": "1b1a4a77794a380c99721f9b925c933c73193b199c3594ae1f023bdabbd40373",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/tire/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SHOP-SHELL",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/shop_shell/shop_shell.blend",
+      "source_sha256": "606f9ede8cde9982a8425edb5041f99824f2916dc14f26b98da961d0ebc2d1be",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/shop_shell/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SHOP-TRIM",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/shop_trim/shop_trim.blend",
+      "source_sha256": "d1499333b2012646b8b2390df0b3559de6971df3042cfcb6890a002b8a38c02b",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/shop_trim/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-AWNING",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/awning/awning.blend",
+      "source_sha256": "e366c70bd7ef6093ad67d4a46952e9e61c25d11be51ca21082eb0922a482e7a4",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/awning/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SIGN",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/sign/sign.blend",
+      "source_sha256": "5e9daeea693e494d9fb07718935f897df8b2637ed5de2a1e489b7a75d80be519",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/sign/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-WINDOW",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/window/window.blend",
+      "source_sha256": "f36e382ac2acf224bf1a6118774106781e5d030eb043d333ea756f4ede4ff38f",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/window/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SERVICE-WINDOW",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/service_window/service_window.blend",
+      "source_sha256": "3d57504029f956154809a8a174b1708e4e6b6cbd6ea41cd65cbf244b3756b1cc",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/service_window/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-NOTICE",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/notice/notice.blend",
+      "source_sha256": "0e0dcaeccb44c04d7eda00b9e53976ae5162564187e5ff8f29d4dd8f7ea5d5e4",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/notice/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ICE-BOX",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/ice_box/ice_box.blend",
+      "source_sha256": "7c21f3374a62f5fa3ec629ff5035d3b2c3a617806c80e0b01ecfe1841060a119",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/ice_box/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-HYDRANT",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/hydrant/hydrant.blend",
+      "source_sha256": "fd7433828925a415738c098c4fd33500eba347a94047e109ed9e40be5dcc54a7",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/hydrant/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-TRAFFIC-SIGNAL",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/traffic_signal/traffic_signal.blend",
+      "source_sha256": "51b87c6ad4e4801e9a420d0281a2418b9664aef3d26e652d9e73fece2c70b1ad",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/traffic_signal/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-BILLBOARD",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/billboard/billboard.blend",
+      "source_sha256": "a2e7eb83cd083dbe87a2542790f945ba41590c3dad119e6688274e328f1f4d37",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/billboard/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ARM",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/arm/arm.blend",
+      "source_sha256": "f7709c210f40a8590e918fd30c2ff87daeb276c0f028d9dc3b3d4227f472a8b3",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/arm/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-FINGER",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/finger/finger.blend",
+      "source_sha256": "c42e2b4cf05f4b4f20c43c18c3022d8abdd45dd5e6ced1590ec5e8c8133c457d",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/finger/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-THUMB",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/thumb/thumb.blend",
+      "source_sha256": "1c14ee64b3cdd462a72c51714ee2985622b5fb017d549a02633797d0442a0f45",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/thumb/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-COLUMN",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/column/column.blend",
+      "source_sha256": "9957b55f62c7bc2aad772da6cc3910b304a839664703dcb7bdfc531e42caf891",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/column/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-MAINTENANCE-DOOR",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/maintenance_door/maintenance_door.blend",
+      "source_sha256": "430e994ef69444b6239123c7874d895dbcba07894ed6b2a1b149f954d31a0df1",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/maintenance_door/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-PLATFORM",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform/platform.blend",
+      "source_sha256": "b30e4b72954216cc0aab6c7de386db97ddca2a71b6548ace81b241c14ca84ab3",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-PLATFORM-TRIM",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform_trim/platform_trim.blend",
+      "source_sha256": "fbcecf846236d34467da707bbfbf67192aabd8b60c01fe88be95656499be47e6",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/platform_trim/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-RAILING",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/railing/railing.blend",
+      "source_sha256": "b353379a3f876bd9189e5e79785860f0a86c34063664de89a1d4daccbcaba8f8",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/railing/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-EQUIPMENT-BOX",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/equipment_box/equipment_box.blend",
+      "source_sha256": "283fbd03b36c0527efa7153146de753d93997a7b6e60e21f5fe5e10ef7afa7ea",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/equipment_box/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SOLAR-PANEL",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/solar_panel/solar_panel.blend",
+      "source_sha256": "debb43dbef05c2f1e0497d08e03d2d515ac1808c7c658ea1e900cb330eaac24b",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/solar_panel/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-TOWER-BODY",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/tower_body/tower_body.blend",
+      "source_sha256": "a90d4f63837149838a81afab585bc7dfe01add68273f76c0a7f59cfac1d4c56a",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/tower_body/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-LANTERN",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/lantern/lantern.blend",
+      "source_sha256": "fafe4fbed7bca779905272d648dca8c9ff6eb43845cf51f42784a3e35f9d4372",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/lantern/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-LENS",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/lens/lens.blend",
+      "source_sha256": "ed8eb2cfa7c5701400682a882d796abdf45da109b98b1d2e318f601ff3d7d827",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/lens/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ANTENNA-MAST",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/antenna_mast/antenna_mast.blend",
+      "source_sha256": "e280b2355102ec6e9d4886f2c38b3f451135f105e57f94c64e363c552a7d524e",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/antenna_mast/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-SATELLITE-DISH",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/satellite_dish/satellite_dish.blend",
+      "source_sha256": "782ecc63898f2565ad4af855f025a0eecd042e0c1f30293f9059fa03f2560cd9",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/satellite_dish/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-PANEL-ANTENNA",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/panel_antenna/panel_antenna.blend",
+      "source_sha256": "1adaf557e67964da18a96921e81953c64f357ff74e78ce198de61796628ce768",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/panel_antenna/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ROOF-CAP",
+      "source": "art_source/scenes/liberty_lighthouse/v001/component_packages/roof_cap/roof_cap.blend",
+      "source_sha256": "8d2a7d3c49908cc71c98d44d2e24ba265c6c3f119416c0a139f9e36f67c6c9b8",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/component_packages/roof_cap/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-LHL-ASSEMBLY",
+      "source": "art_source/scenes/liberty_lighthouse/v001/liberty_lighthouse.blend",
+      "source_sha256": "ad40601312342879a6b1345d4be4af8fa0598ed238c22e1268ee7afe46156b52",
+      "manifest": "art_source/scenes/liberty_lighthouse/v001/asset_manifest.json"
+    },
+    {
       "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
       "source": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
       "source_sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",
@@ -2729,6 +3047,12 @@
       "source": "godot/src/ui/notebook.gd",
       "source_sha256": "ef53f56513877c6ea409eb4171cc3c0dd516b3d99edc6b608be86612859e012b",
       "manifest": "assets/registry/manifests/ui_notebook_001.json"
+    },
+    {
+      "asset_id": "SEA-CHAR-RECEIVE-001",
+      "source": "godot/src/player/animation/item_receive.gd",
+      "source_sha256": "8b08f26c14d3f080855a78a5e2ff1ee6e040194ba71cdc2848a9d0467493455b",
+      "manifest": "assets/registry/manifests/sea-char-receive-001.json"
     },
     {
       "asset_id": "SEA-VFX-WATER-CROSS-RIPPLE-001",

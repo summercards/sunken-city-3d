@@ -1,0 +1,36 @@
+{
+  "key": "notice",
+  "asset_id": "SEA-SCENE-LHL-NOTICE",
+  "name": "手写告示牌",
+  "category": "facility",
+  "family": "signage",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-NOTICE",
+  "root": "notice_组件根",
+  "bounds_size": [
+    0.6000000238418579,
+    0.05500000901520252,
+    0.800000011920929
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/notice/notice.blend",
+  "geometry_fingerprint": "17e92d21f6a109ee706eda0ef0e9fe171866c23fc666e9360d988e4e39d13c62",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 19088,
+  "source_sha256": "0e0dcaeccb44c04d7eda00b9e53976ae5162564187e5ff8f29d4dd8f7ea5d5e4",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-NOTICE"
+}

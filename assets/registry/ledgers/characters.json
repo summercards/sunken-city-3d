@@ -2,6 +2,29 @@
   "schema_version": 1,
   "domain": "characters",
   "status": "pending",
-  "note": "分类入口已建立；旧运行资源尚未逐项核对源、授权和正式接入，不虚构生产AssetID。实际资源路径见runtime_resource_inventory.json。",
-  "assets": []
+  "note": "已登记本次新增程序动作与挎包；旧角色整体源、授权和生产AssetID仍pending，不由本次条目替代。",
+  "assets": [
+    {
+      "asset_id": "SEA-CHAR-RECEIVE-001",
+      "name": "主角获得物品 · 举高展示与挎包收纳",
+      "domain": "characters",
+      "stage": "runtime_component_verified",
+      "source": "godot/src/player/animation/item_receive.gd",
+      "source_sha256": "8b08f26c14d3f080855a78a5e2ff1ee6e040194ba71cdc2848a9d0467493455b",
+      "manifest": "assets/registry/manifests/sea-char-receive-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/player/animation/item_receive.gd",
+      "license": "project_authored_procedural_motion_and_satchel",
+      "consumer_features": [
+        "SEA-MOVE",
+        "SEA-FARM"
+      ],
+      "classification": {
+        "category": "character_animation",
+        "subcategory": "receive_item"
+      },
+      "verification": "docs/development/2026-10-30_harvest_receive_animation.md",
+      "note": "基于sea已有程序节点角色新增表现；角色整体旧资产来源登记仍pending，本条不补签整体角色。复用三种作物成熟网格，原作物源级未执行项保留。"
+    }
+  ]
 }

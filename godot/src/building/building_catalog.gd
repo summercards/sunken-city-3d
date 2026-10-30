@@ -13,7 +13,7 @@ const PLANTER_MARGIN := 0.04
 const MAX_LAYOUT_BYTES := 4 * 1024 * 1024
 ## Placement and rendering both consume these roles. Adding a new furnishing
 ## means adding a recipe and its projection, not another layout state owner.
-const RECIPES := {
+const LEGACY_RECIPES := {
 	"deck":{"name":"拼接木板", "cost":{"wood":6}, "seconds":3.0,
 		"description":"接出平台，或乘船在空旷海面开始新平台。", "category":"structure",
 		"placement":"ocean_grid", "support":"water", "footprint":TILE, "visual":"deck",
@@ -27,6 +27,27 @@ const RECIPES := {
 		"placement":"deck_surface", "support":"finished_deck", "footprint":Vector2(0.9,1.0),
 		"visual":"planter", "role":"planter", "blocks_actor":false, "rotatable":true, "movable":true, "removable":true}
 }
+static var RECIPES: Dictionary = _load_recipes()
+static func _load_recipes() -> Dictionary:
+	var result: Dictionary=LEGACY_RECIPES.duplicate(true)
+	var data: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/building_kit.json"))
+	assert(data is Dictionary and data.get("schema")==1,"Invalid building content catalog")
+	for raw: Dictionary in data.modules:
+		assert(not result.has(raw.id),"Duplicate recipe ID")
+		var definition: Dictionary=raw.duplicate(true)
+		definition.footprint=Vector2(raw.footprint[0],raw.footprint[1])
+		definition.kit=true;definition.visual="kit"
+		definition.category="structure" if raw.profile=="foundation" else "furnishing"
+		definition.group=raw.category
+		definition.support="water" if raw.profile=="foundation" else "finished_deck"
+		definition.rotatable=true
+		result[raw.id]=definition
+	return result
+static func is_kit(kind: String) -> bool: return bool(RECIPES.get(kind,{}).get("kit",false))
+static func is_deck(kind: String) -> bool: return role(kind)=="deck"
+static func enabled(kind: String) -> bool: return bool(RECIPES.get(kind,{}).get("active",true))
+static func position_rect(row: Dictionary) -> Rect2: return footprint_rect(row)
+static func elevation(row: Dictionary) -> float: return float(row.get("py",0.0))
 static func is_furnishing(kind: String) -> bool:
 	return RECIPES.has(kind) and RECIPES[kind].category=="furnishing"
 static func role(kind: String) -> String:
@@ -56,9 +77,39 @@ static func polygon(rect: Rect2) -> PackedVector2Array:
 static func deck_tiles(rows: Array) -> Array:
 	var result: Array=[]
 	for item in rows:
-		if item.kind!="deck" or float(item.left)>0: continue
-		result.append(tile_rect(int(item.x),int(item.z)))
+		if not is_deck(str(item.kind)) or float(item.left)>0: continue
+		result.append(footprint_rect(item))
 	return result
+static func support_tiles(rows: Array) -> Array:
+	var result:=deck_tiles(rows)
+	result.append(BASE)
+	return result
+static func fixed_support() -> Dictionary:
+	return {"id":"@base","kind":"fixed_base","left":0.0}
+static func snap_foundation(kind: String,point: Vector2,turn: int,rows: Array) -> Dictionary:
+	var request: Dictionary={"kind":kind,"px":snappedf(point.x,2.0),"pz":snappedf(point.y,2.0),"py":0.0,"x":0,"z":0,"support":"","turn":turn}
+	var extent: Vector2=plot_rect(request).size
+	var best:=1.45*1.45
+	for tile: Rect2 in support_tiles(rows):
+		for side in 4:
+			var normal: Vector2=[Vector2.LEFT,Vector2.RIGHT,Vector2.UP,Vector2.DOWN][side]
+			var at:=point
+			if side<2:
+				at.x=(tile.position.x-extent.x/2) if side==0 else (tile.end.x+extent.x/2)
+				at.y=tile.get_center().y+snappedf(point.y-tile.get_center().y,1.0)
+				at.y=clampf(at.y,tile.position.y-extent.y/2+.5,tile.end.y+extent.y/2-.5)
+			else:
+				at.y=(tile.position.y-extent.y/2) if side==2 else (tile.end.y+extent.y/2)
+				at.x=tile.get_center().x+snappedf(point.x-tile.get_center().x,1.0)
+				at.x=clampf(at.x,tile.position.x-extent.x/2+.5,tile.end.x+extent.x/2-.5)
+			var candidate:=request.duplicate();candidate.px=at.x;candidate.pz=at.y
+			var rect:=footprint_rect(candidate).grow(-.002)
+			var overlaps:=false
+			for existing: Rect2 in support_tiles(rows):
+				if rect.intersects(existing.grow(-.002)): overlaps=true;break
+			if not overlaps and point.distance_squared_to(at)<best:
+				best=point.distance_squared_to(at);request=candidate
+	return request
 ## True when `rect` lies entirely inside the union of `tiles`.
 ## Sweeps every vertical slice between tile edges, so a seam between two
 ## neighbouring decks counts as covered and a gap never does.

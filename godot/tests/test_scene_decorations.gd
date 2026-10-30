@@ -45,6 +45,24 @@ func run() -> void:
 	var solar: Node3D=main.get_node("World/Zones/Zone1HomeHarbor/Models/太阳能木屋")
 	var bounds := box_of(solar)
 	print("[decorations] solar_bounds=",bounds," roof_y=",bounds.end.y)
+	# SEA-AMBIENT-R05：海鸥只在 06:00–18:00 出现，其余时段整群收起。
+	# 两侧各取一档：只查中午会漏掉"夜里也照飞"的回归，只查夜里会漏掉"白天不出来"。
+	main.bird_root.set_hour(11.0)
+	check(main.bird_root.visible,"海鸥在 11:00 出现")
+	main.bird_root.set_hour(18.5)
+	check(not main.bird_root.visible,"海鸥过了 18:00 不再出现")
+	main.bird_root.set_hour(5.5)
+	check(not main.bird_root.visible,"海鸥在 06:00 前不出现")
+	main.bird_root.set_hour(6.1)
+	check(main.bird_root.visible,"海鸥 06:00 之后回来")
+	main.bird_root.set_hour(7.0)
+	# 读档停在 19:00：build() 之后第一次 set_hour 就必须生效。
+	# 若把"上次状态"初值写成 false，shown=false 会命中"没变化"提前返回，鸟群留在可见。
+	main.bird_root.build()
+	main.bird_root.set_hour(19.0)
+	check(not main.bird_root.visible,"19:00 读档后第一次定位就收掉鸥群")
+	main.bird_root.set_hour(9.0)
+	check(main.bird_root.visible,"白天到来后鸥群重新出现")
 	for bird in main.bird_root.get_children():
 		bird.set_process(false)
 		for sample in 121:

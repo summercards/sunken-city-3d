@@ -121,6 +121,36 @@
         "zone5"
       ],
       "note": "定义/摆放来源定位，不复制数值；plots 仅历史初始化，正式地格来自场景。"
+    },
+    {
+      "owner": "SEA-BUILDING",
+      "path": "godot/assets/data/building_kit.json",
+      "collection_key": "modules",
+      "ids": [
+        "raft_4x4",
+        "raft_2x4",
+        "wall",
+        "window_wall",
+        "door_frame",
+        "post",
+        "beam",
+        "railing",
+        "stairs",
+        "upper_floor",
+        "roof_slope",
+        "roof_flat",
+        "oil_lamp",
+        "lamp_post",
+        "windmill",
+        "flower_pot",
+        "storage_crate",
+        "water_barrel",
+        "flag",
+        "table",
+        "stool",
+        "wind_chime"
+      ],
+      "note": "配方ID唯一源；active控制新建，旧档定义不因停用删除。"
     }
   ]
 }

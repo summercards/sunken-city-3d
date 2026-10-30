@@ -1,0 +1,54 @@
+{
+  "schema": "sea.scene.assembly_manifest",
+  "asset_id": "SEA-SCENE-LHL-ASSEMBLY",
+  "name": "巨手托举纪念品灯塔",
+  "source": "art_source/scenes/liberty_lighthouse/v001/liberty_lighthouse.blend",
+  "source_sha256": "ad40601312342879a6b1345d4be4af8fa0598ed238c22e1268ee7afe46156b52",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-ASSEMBLY",
+  "version": "v001",
+  "category": "scene_assembly",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review",
+  "component_catalog": "catalog.json",
+  "component_instances": "component_instances.json",
+  "reference": "reference.png",
+  "reference_sha256": "ca3eca8b2e48c3f0ec0d4479320d8b66e56baa961f76e59ca1d3b15658af1a53",
+  "component_count": 30,
+  "instance_count": 55,
+  "palette_asset_id": "SEA-PALETTE-COZY-64",
+  "metrics": {
+    "components": 30,
+    "instances": 55,
+    "uv_faces_checked": 48539,
+    "expanded_polygons": 68759,
+    "expanded_triangles": 132596,
+    "overall_height_m": 25.399999618530273
+  },
+  "visual_review": {
+    "status": "source_views_reviewed_user_art_acceptance_pending",
+    "views": [
+      {
+        "name": "beauty",
+        "path": "D:\\projects\\sea\\sea-work\\liberty_lighthouse\\beauty.png"
+      },
+      {
+        "name": "detail",
+        "path": "D:\\projects\\sea\\sea-work\\liberty_lighthouse\\detail.png"
+      },
+      {
+        "name": "shop_detail",
+        "path": "D:\\projects\\sea\\sea-work\\liberty_lighthouse\\shop_detail.png"
+      },
+      {
+        "name": "top",
+        "path": "D:\\projects\\sea\\sea-work\\liberty_lighthouse\\top.png"
+      }
+    ],
+    "refinements_pending": [
+      "巨手解剖轮廓与握持姿态",
+      "雨棚环绕与招牌空间关系",
+      "窗洞/服务窗真实开洞",
+      "锈蚀层次与灯室透镜可见性"
+    ]
+  }
+}

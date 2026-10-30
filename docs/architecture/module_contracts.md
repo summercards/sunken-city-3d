@@ -6,7 +6,7 @@ SEA-MOVE拥有CharacterMotor的物理执行和Character表现生命周期；Acto
 
 SEA-WORLD装配GroundSpace，读取WalkArea表面声明；它只持有派生物理体/NavigationServer3D私有map，释放时清RID，不写源布局。SEA-BUILDING通过既有geometry_changed回调请求刷新，不修改BuildingService/Farm规则。动态中心域body_radius=0不重复内收。area_at、surface_point和三维route供移动、交互与世界存档适配使用；旧XZ接口留给旧工具。
 
-表现端口register_action/play_action/cancel_action及started/finished/cancelled只描述动作，不能结算奖励。现有农作事件继续调用兼容入口，未来动作注册sampler及时长即可；取消/上船/潜水/睡眠/恢复清动作和旧回调。架构边界与验证见[本轮交付](../development/2026-10-29_character_physics_framework.md)。
+表现端口register_action/play_action/cancel_action及started/finished/cancelled只描述动作，不能结算奖励。2026-10-30：FarmPlot成功acted事件统一触发play_farm_action(event,payload)，harvesting消费crop上下文播放2.4秒举高收包；play_receive_item(crop_id)可复用表现，播种/浇水仍1.1秒。取消/上船/潜水/睡眠/恢复/替换清动作、临时实物、包盖与袖长。架构边界见[框架交付](../development/2026-10-29_character_physics_framework.md)与[收获交付](../development/2026-10-30_harvest_receive_animation.md)。
 
 [主文档总目录](../../GDD_V1.0.md#feature-control)
 
@@ -128,3 +128,18 @@ UI的owned_modal_query/close/input为独立手册和预览提供注入的模态�
 2026-10-29种植区可踩踏：`BuildingCatalog.blocks_actor()`声明摆件的人物阻挡资格，`BuildingSpace`与`BuildingWorld`按同一声明派生通行和恢复资格。固定六格及DIY两种培养土默认不挡人，木板外缘保护继续生效；建设占位不等于人物阻挡。Farm/Crop仍唯一负责作物状态，人物穿过不发种植或收获命令。[当前契约与实测](../development/2026-10-29_walk_on_planters.md)。
 
 2026-10-29初始六格：Farm.register_plot幂等补缺失空状态，首次存档即拥有六格，不覆盖旧作物。BuildingWorld按原固定格实际矩形派生操作点，固定与DIY共用BuildingSpace.operation_points_for；ActorController的操作点预筛从所属泊位开始处理船上接近，最终走原靠泊校验。未建立第二份初始布局或改存档ID。[本轮契约与实测](../development/2026-10-29_initial_six_planters.md)。
+
+2026-10-30开放海域资源：SeaProps.sync_population(clock_query, boat_position)消费唯一日历和船位，内部OceanPopulation拥有64m网格槽位/缺失截止时间，远格卸载不重置采集。WaterNavigation.is_open_water为合法水域查询。07:00统一日更鱼/木，浮木独立6–10游戏小时补回；pickups.ocean可选存档扩展由SaveSchema恢复前校验。成功collected/fish_collected事件只驱动PickupProgress.receive的原背包图标上飘，表现不结算奖励。[当前证据](../development/2026-10-30_ocean_pickups.md)。
+
+## 2026-10-30 模块化建造内容与楼层
+
+| 所有者/接口 | 契约 |
+|---|---|
+| `BuildingCatalog` / `building_kit.json` | 目录拥有稳定配方ID、Prefab、尺寸、profile和启用标记；active=false仅退出新建，不删除旧定义。旧三配方兼容。 |
+| `BuildingService` / `AssemblyRules` | 唯一布局写入者；规则以副本校验承载、挂点、同高度重叠及依附拆除，保存稳定support和py高度。未知/缺失支撑拒绝，不把其当种植区。 |
+| `BuildingWorld` / `AssemblySurfaces` | 从完工布局派生模型、墙/门阻挡、楼梯坡面与二层表面；输入WalkArea/GroundSpace，不保存第二份楼层布局。 |
+| `BuildingController` / `BuildingBook` | 目录分类分页、R旋转/U楼层/Shift精细与预览；实际支付仍经Service，输入不直接写布局。 |
+| `KitVisual.action_requested` | 资产只发`storage`/`water`语义信号；Main组合到共享仓库与Farm.refill。灯/风车等表现只在组件内维护临时渲染状态。 |
+| `WalkArea.open_surface_junctions` / `WalkAction` | 显式坡面接缝避免生成封口边界；三维路线沿实际胶囊执行，路径中间引导容差不改变终点契约。 |
+
+首批限制：基础层/二层，不开放第三层、竖梯、风力发电或风铃音效。业务与技术验证分别记录在[本轮交付](../development/2026-10-30_modular_building_kit.md)。

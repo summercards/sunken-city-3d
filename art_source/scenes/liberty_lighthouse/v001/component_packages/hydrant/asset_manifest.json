@@ -1,0 +1,36 @@
+{
+  "key": "hydrant",
+  "asset_id": "SEA-SCENE-LHL-HYDRANT",
+  "name": "红白消防栓",
+  "category": "facility",
+  "family": "hydrant",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-HYDRANT",
+  "root": "hydrant_组件根",
+  "bounds_size": [
+    0.6800000071525574,
+    0.5,
+    0.9099999666213989
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/hydrant/hydrant.blend",
+  "geometry_fingerprint": "2dc60beff0bc289de3c9831a8d49ed91befd00c94916e850eb82f096431112d0",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 284,
+  "source_sha256": "fd7433828925a415738c098c4fd33500eba347a94047e109ed9e40be5dcc54a7",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-HYDRANT"
+}

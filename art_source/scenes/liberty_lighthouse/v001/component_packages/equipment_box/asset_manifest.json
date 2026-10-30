@@ -1,0 +1,36 @@
+{
+  "key": "equipment_box",
+  "asset_id": "SEA-SCENE-LHL-EQUIPMENT-BOX",
+  "name": "平台设备箱",
+  "category": "facility",
+  "family": "equipment",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-EQUIPMENT-BOX",
+  "root": "equipment_box_组件根",
+  "bounds_size": [
+    1.0399999618530273,
+    0.8574999868869781,
+    0.8600000143051147
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/equipment_box/equipment_box.blend",
+  "geometry_fingerprint": "f90665cceb0d202f25c4841f341da45bd74b2ef2fdf216e3ebb3826476bda3ac",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 36,
+  "source_sha256": "283fbd03b36c0527efa7153146de753d93997a7b6e60e21f5fe5e10ef7afa7ea",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-EQUIPMENT-BOX"
+}

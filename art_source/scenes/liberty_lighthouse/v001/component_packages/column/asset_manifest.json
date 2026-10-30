@@ -1,0 +1,36 @@
+{
+  "key": "column",
+  "asset_id": "SEA-SCENE-LHL-COLUMN",
+  "name": "竖槽柱身",
+  "category": "structure",
+  "family": "column",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-COLUMN",
+  "root": "column_组件根",
+  "bounds_size": [
+    2.200000047683716,
+    2.200000047683716,
+    5.0
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/column/column.blend",
+  "geometry_fingerprint": "1ed294d2bc27367e11c09c64baae900b27f8caddfa237f18087ce1eec5f7475f",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 796,
+  "source_sha256": "9957b55f62c7bc2aad772da6cc3910b304a839664703dcb7bdfc531e42caf891",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-COLUMN"
+}

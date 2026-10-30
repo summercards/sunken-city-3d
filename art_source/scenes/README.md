@@ -34,6 +34,14 @@
 
 这是 Blender 源级资产：米制尺寸依据参考图估计，尚未对齐现有玩法碰撞；未生成正式 Godot GLB/Prefab，不替换当前游戏建筑。参考图来源为用户附件，商业使用权仍为 pending。
 
+## 巨手托举纪念品灯塔（2026-10-30）
+
+- [完整 Blender 母版](liberty_lighthouse/v001/liberty_lighthouse.blend)：30 种组件、55 个 Collection Instance，另附 30 个可单独打开的组件包。
+- [冻结计划与尺寸修订](liberty_lighthouse/v001/component_plan.json) · [组件目录](liberty_lighthouse/v001/catalog.json) · [完整实例变换](liberty_lighthouse/v001/component_instances.json)。
+- 场景 `巨手灯塔_制作与装配_v001` 为最终查看入口；包含漂浮商铺、巨手握柱、圆形观景平台、灯室与通信天线。展示海面、相机和灯光不属于独立组件。
+- [制作与源级验收记录](../../docs/development/2026-10-30_liberty_lighthouse.md)。预览及验证在工程外 `sea-work/liberty_lighthouse/`，制作工具在 `tools/blender/liberty_lighthouse/`。
+- 本轮只交付 Blender 原始文件和组件包；Godot 导入、碰撞、导航、商业授权与用户最终美术验收 pending。不是已运行的游戏建筑。
+
 ## 可复现工具
 
 脚本位于 `tools/blender/solar_flower_house/`，仅处理本套新资产：

@@ -6,6 +6,10 @@ var spawn_area := Rect2()
 var planks_only := false
 var crate_count := 9
 var school_count := 7
+var ocean_enabled := false
+var ocean = preload("res://src/pickups/ocean_population.gd").new()
+var _legacy_population: Dictionary = {}
+var _population_cell := Vector2i(2147483647,2147483647)
 signal blocked(reason: String)
 var zones: Node
 ## 海面可交互物件：漂流物资 + 鱼群（对齐网页版 drift-crates.js / fish-schools.js）。
@@ -50,6 +54,7 @@ var _anchor_index := 0
 func build() -> void:
 	_rng.seed = 20261019
 	_fish_rng.seed = 20261023
+	if ocean_enabled: return
 	_fish_bounds = _school_bounds()
 	for i in crate_count:
 		_spawn_crate()
@@ -59,9 +64,9 @@ func build() -> void:
 
 # ---------------------------------------------------------------- 漂流物资
 
-func _spawn_crate() -> void:
-	var p := _random_water_point()
-	if p == Vector2.ZERO:
+func _spawn_crate(point := Vector2.INF, slot := "") -> void:
+	var p := _random_water_point() if point == Vector2.INF else point
+	if point == Vector2.INF and p == Vector2.ZERO:
 		return
 	var roll := _rng.randf()
 	var kind := "planks" if planks_only else ("crate" if roll < 0.5 else ("planks" if roll < 0.8 else "barrel"))
@@ -71,6 +76,7 @@ func _spawn_crate() -> void:
 	add_child(root)
 	crates.append({
 		"id":_next_id,
+		"slot":slot,
 		"kind": kind,
 		"root": root,
 		"base": Vector3(p.x, WATER_LEVEL, p.y),
@@ -162,8 +168,8 @@ func _build_crate_mesh(kind: String) -> Node3D:
 
 # ---------------------------------------------------------------- 鱼群
 
-func _spawn_school() -> void:
-	var p := _school_point()
+func _spawn_school(point := Vector2.INF, slot := "") -> void:
+	var p := _school_point() if point == Vector2.INF else point
 	if p == Vector2.INF:
 		return
 	var root := FishVisual.new()
@@ -172,7 +178,7 @@ func _spawn_school() -> void:
 	add_child(root)
 	var phase := _fish_rng.randf() * TAU
 	root.build(_fish_rng, _fish_rng.randi_range(3, 6), phase)
-	schools.append({"id":_next_id,"root": root, "base": root.position, "phase": phase, "fish": root.fish})
+	schools.append({"id":_next_id,"slot":slot,"root": root, "base": root.position, "phase": phase, "fish": root.fish})
 
 	_next_id += 1
 
@@ -189,7 +195,7 @@ func _school_bounds() -> Rect2:
 	return Rect2(lo - Vector2.ONE * 12.0, hi - lo + Vector2.ONE * 24.0)
 
 func _school_water(p: Vector2) -> bool:
-	if not _fish_bounds.has_point(p): return false
+	if not ocean_enabled and not _fish_bounds.has_point(p): return false
 	if water_point_clear.is_valid() and not water_point_clear.call(p): return false
 	for c in crates:
 		if p.distance_to(Vector2(c.base.x,c.base.z))<4.0: return false
@@ -285,14 +291,16 @@ func _process(delta: float) -> void:
 		var phase: float = s.phase
 		var base: Vector3 = s.base
 		var candidate := Vector2(base.x + sin(_t * 0.21 + phase) * 0.12 * delta, base.z + cos(_t * 0.18 + phase) * 0.12 * delta)
-		if _school_water(candidate):
+		# Streamed schools keep a stable resource slot; individual fish still swim.
+		if ocean_enabled: candidate = Vector2(base.x, base.z)
+		if not ocean_enabled and _school_water(candidate):
 			s.base = Vector3(candidate.x, WATER_LEVEL, candidate.y)
 		var root: Node3D = s.root
 		root.position = s.base
 		root.animate(_t, water_surface)
 
 	# Relative timers freeze while paused/offline and cannot outlive a restored snapshot.
-	for schedule in [_pending,_pending_fish]:
+	for schedule in ([] if ocean_enabled else [_pending,_pending_fish]):
 		for i in range(schedule.size()-1,-1,-1):
 			schedule[i]=maxf(0.0,float(schedule[i])-delta)
 			if schedule[i]<=0.0:
@@ -318,7 +326,8 @@ func collect_crate(crate: Dictionary) -> Dictionary:
 	crates.erase(crate)
 	var root: Node3D = crate.root
 	root.queue_free()
-	_pending.append(_rng.randf_range(4.0,9.0))
+	if ocean_enabled: ocean.collect(str(crate.slot), false, _rng)
+	else: _pending.append(_rng.randf_range(4.0,9.0))
 	for key in spec.reward.keys():
 		give_resource.call(key, int(spec.reward[key]))
 	collected.emit(crate.kind, spec.label, spec.reward)
@@ -336,7 +345,8 @@ func collect_fish(school: Dictionary) -> bool:
 	give_resource.call("fish", 1)
 	fish_collected.emit("鱼群")
 	# 鱼群换个地方重聚
-	_pending_fish.append(_rng.randf_range(14.0,30.0))
+	if ocean_enabled: ocean.collect(str(school.slot), true, _rng)
+	else: _pending_fish.append(_rng.randf_range(14.0,30.0))
 	return true
 
 
@@ -393,14 +403,19 @@ func nearest_school(pos: Vector3, radius := 12.0) -> Dictionary:
 func to_dict() -> Dictionary:
 	var cargo: Array=[]
 	var fish: Array=[]
-	for c in crates: cargo.append({"id":c.id,"kind":c.kind,"base":[c.base.x,c.base.y,c.base.z],"phase":c.phase,"yaw":c.yaw})
-	for c in schools: fish.append({"id":c.id,"base":[c.base.x,c.base.y,c.base.z],"phase":c.phase,"count":c.fish.size()})
-	return {"crates":cargo,"schools":fish,"pending":_pending.duplicate(),"pending_fish":_pending_fish.duplicate(),"rng":str(_rng.state),"fish_rng":str(_fish_rng.state),"next_id":_next_id,"anchor":_anchor_index,"elapsed":_t}
+	for c in crates: cargo.append({"id":c.id,"slot":c.get("slot",""),"kind":c.kind,"base":[c.base.x,c.base.y,c.base.z],"phase":c.phase,"yaw":c.yaw})
+	for c in schools: fish.append({"id":c.id,"slot":c.get("slot",""),"base":[c.base.x,c.base.y,c.base.z],"phase":c.phase,"count":c.fish.size()})
+	var result := {"crates":cargo,"schools":fish,"pending":_pending.duplicate(),"pending_fish":_pending_fish.duplicate(),"rng":str(_rng.state),"fish_rng":str(_fish_rng.state),"next_id":_next_id,"anchor":_anchor_index,"elapsed":_t}
+	if ocean_enabled: result.ocean = ocean.to_dict()
+	return result
 
 func from_dict(data: Dictionary) -> void:
 	for c in crates: c.root.queue_free()
 	for c in schools: c.root.queue_free()
 	crates.clear();schools.clear();_pending.clear();_pending_fish.clear()
+	_legacy_population.clear()
+	ocean = preload("res://src/pickups/ocean_population.gd").new()
+	_population_cell = Vector2i(2147483647,2147483647)
 	if data.is_empty() or data.get("reset",false):
 		_anchor_index=0
 		_next_id=1
@@ -411,7 +426,7 @@ func from_dict(data: Dictionary) -> void:
 		var base := Vector3(c.base[0],c.base[1],c.base[2])
 		mesh.position=base
 		add_child(mesh)
-		crates.append({"id":int(c.id),"kind":str(c.kind),"base":base,"phase":float(c.phase),"yaw":float(c.yaw),"root":mesh,"ring":mesh.get_node_or_null("Ring")})
+		crates.append({"id":int(c.id),"slot":str(c.get("slot","")),"kind":str(c.kind),"base":base,"phase":float(c.phase),"yaw":float(c.yaw),"root":mesh,"ring":mesh.get_node_or_null("Ring")})
 	for c in data.get("schools",[]):
 		var mesh := FishVisual.new()
 		mesh.name="FishSchool"
@@ -419,11 +434,63 @@ func from_dict(data: Dictionary) -> void:
 		mesh.position=base
 		add_child(mesh)
 		mesh.build(_fish_rng,int(c.count),float(c.phase))
-		schools.append({"id":int(c.id),"root":mesh,"base":base,"phase":float(c.phase),"fish":mesh.fish})
+		schools.append({"id":int(c.id),"slot":str(c.get("slot","")),"root":mesh,"base":base,"phase":float(c.phase),"fish":mesh.fish})
 	_pending.assign(data.get("pending",[]));_pending_fish.assign(data.get("pending_fish",[]))
 	_rng.state=int(data.rng);_fish_rng.state=int(data.fish_rng)
 	_next_id=int(data.next_id);_anchor_index=int(data.anchor);_t=float(data.elapsed)
-	apply_population_scope()
+	if ocean_enabled:
+		if data.has("ocean"): ocean.from_dict(data.ocean)
+		else: _legacy_population = data.duplicate(true)
+		_pending.clear(); _pending_fish.clear()
+	else: apply_population_scope()
+
+## Clock and boat position are injected by the composition root. No global time,
+## inventory or scene lookup, and no real-time respawn timers in ocean mode.
+func sync_population(clock: Dictionary, focus: Vector3) -> void:
+	if not ocean_enabled: return
+	var previous_cycle: int = ocean.cycle
+	var changed: bool = ocean.observe(clock)
+	var cell: Vector2i = ocean.cell_at(Vector2(focus.x,focus.z))
+	if not changed and _population_cell == cell and _legacy_population.is_empty(): return
+	_population_cell = cell
+	if not _legacy_population.is_empty():
+		# Old six-bundle/four-school home saves have only remaining second timers.
+		# Keep those missing slots depleted instead of granting an immediate refill.
+		var home := Vector2i.ZERO
+		for kind in ["wood", "fish"]:
+			var count: int = crate_count if kind == "wood" else school_count
+			var live: Array = _legacy_population.get("crates" if kind == "wood" else "schools", [])
+			for index in range(mini(live.size(), count), count):
+				ocean.collect("%d:%d:%s:%d" % [home.x,home.y,kind,index], kind == "fish", _rng)
+		_legacy_population.clear()
+	var desired: Dictionary = ocean.desired(Vector2(focus.x, focus.z), crate_count, school_count, _ocean_point_clear)
+	var live := {}
+	for population in [crates, schools]:
+		for item in population.duplicate():
+			var slot := str(item.get("slot", ""))
+			var p := Vector2(item.base.x, item.base.z)
+			var moved_home: bool = desired.has(slot) and slot.begins_with("0:0:wood:") and p.distance_to(desired[slot].point)>0.01
+			if previous_cycle != ocean.cycle or not desired.has(slot) or moved_home or not _ocean_point_clear(p, population == schools):
+				item.root.hide()
+				item.root.queue_free()
+				population.erase(item)
+			else: live[slot] = true
+	for slot in desired:
+		if live.has(slot): continue
+		var target: Dictionary = desired[slot]
+		if not _ocean_point_clear(target.point, target.fish): continue
+		if target.fish: _spawn_school(target.point, slot)
+		else: _spawn_crate(target.point, slot)
+
+func _ocean_point_clear(point: Vector2, fish: bool) -> bool:
+	# Include the resource's drift/swim radius, so its visible geometry stays out
+	# of fixed buildings, new platforms and closed water, not just its anchor.
+	var margin := 2.8 if fish else 1.0
+	for offset in [Vector2.ZERO, Vector2(margin,0),Vector2(-margin,0),Vector2(0,margin),Vector2(0,-margin)]:
+		var p: Vector2 = point + offset
+		if water_point_clear.is_valid() and not water_point_clear.call(p): return false
+		if _is_land(p.x,p.y): return false
+	return true
 
 func apply_population_scope() -> void:
 	if not spawn_area.has_area(): return

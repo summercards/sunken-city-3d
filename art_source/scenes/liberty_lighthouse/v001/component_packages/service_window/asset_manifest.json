@@ -1,0 +1,36 @@
+{
+  "key": "service_window",
+  "asset_id": "SEA-SCENE-LHL-SERVICE-WINDOW",
+  "name": "服务窗口",
+  "category": "facility",
+  "family": "window",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "scope": "scene_local",
+  "triangle_budget": 20000,
+  "collection": "SEA-SCENE-LHL-SERVICE-WINDOW",
+  "root": "service_window_组件根",
+  "bounds_size": [
+    1.2000000476837158,
+    0.4000000059604645,
+    1.3200000524520874
+  ],
+  "component_source": "art_source/scenes/liberty_lighthouse/v001/component_packages/service_window/service_window.blend",
+  "geometry_fingerprint": "4d6c7ab3b94ad1a55c8ba983cf0b4a15c6d8bc423dd51890a264bb6c700725ba",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "Godot PackedScene pending",
+  "triangles": 36,
+  "source_sha256": "3d57504029f956154809a8a174b1708e4e6b6cbd6ea41cd65cbf244b3756b1cc",
+  "palette": "art_source\\shared\\palettes\\sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-LHL-SERVICE-WINDOW"
+}

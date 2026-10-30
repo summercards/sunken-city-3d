@@ -312,6 +312,10 @@ func _boundary_faces(records: Array) -> PackedVector3Array:
 			var start := a.lerp(b,cuts[i-1])
 			var end := a.lerp(b,cuts[i])
 			var middle := (start+end)*0.5
+			var joined:=false
+			for junction: Rect2 in edge.area.open_surface_junctions:
+				if junction.grow(ACTOR_RADIUS+0.01).has_point(Vector2(middle.x,middle.z)): joined=true;break
+			if joined: continue
 			var left := _supports(middle+normal*0.002,records)
 			var right := _supports(middle-normal*0.002,records)
 			if left == right: continue

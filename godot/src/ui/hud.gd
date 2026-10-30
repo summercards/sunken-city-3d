@@ -15,6 +15,8 @@ const EconomyDependency = preload("res://src/economy/economy.gd")
 var economy: EconomyDependency
 var zones: Node
 var game_state: Node
+## 海上地图的「你在哪」：返回 {"zone": String, "position": Vector3}。由 Main 注入。
+var player_query: Callable
 ## SEA-UI: one physical card; gameplay mutations only through existing commands.
 signal destination_pressed(zone_id: String)
 signal dive_pressed
@@ -28,6 +30,7 @@ signal ship_upgrade_requested
 const UiFontLib = preload("res://src/ui/ui_font.gd")
 const ItemDBLib = preload("res://src/inventory/item_db.gd")
 const Card = preload("res://src/ui/ac_card.gd")
+const CloseButton = preload("res://src/ui/close_button.gd")
 const Cozy = preload("res://src/ui/cozy_ui.gd")
 const INK := Cozy.INK
 const DIM := Cozy.DIM
@@ -66,7 +69,7 @@ var _toast: Label
 var _toast_box: PanelContainer
 var _toast_left := 0.0
 var _res_label: Label
-var _hints: HBoxContainer
+var _hints: Control
 var _backdrop: ColorRect
 var _open_tween: Tween
 var _base_position := Vector2(160,190)
@@ -153,12 +156,20 @@ func _ready() -> void:
 	_root.add_child(_dive_status);_dive_status.hide()
 	Cozy.world_text(_dive_status,Cozy.WORLD_TEXT_DIVE,Color.WHITE)
 	_dive_controls.hide()
-	_hints = HBoxContainer.new();_hints.add_theme_constant_override("separation",12);_root.add_child(_hints)
-	var close := _plain_button("Ⓑ  返回   Esc",true);close.pressed.connect(func():
+	# 右下只留一枚关闭键（SEA-UI-R47）：不再摆「返回 Esc / 选择 Enter」两枚胶囊。
+	# Esc / Enter 的键盘路径仍在 `_input` / `_activate_selection` 里，这里只是把
+	# 屏幕上那排提示收成一个圆按钮。
+	#
+	# 外层**故意用普通 Control 而不是 HBoxContainer**：Godot 的 Container 在
+	# `fit_child_in_rect` 里会把子节点旋转归零，放进 HBox 的按钮永远摆不正那 6° 的歪。
+	# 只有一枚按钮，不需要容器排版；`_hints` 这个名字保留，既有布局/显隐调用不用改。
+	_hints = Control.new();_root.add_child(_hints)
+	_hints.custom_minimum_size = Vector2(CloseButton.DIAMETER,CloseButton.DIAMETER)
+	var close := CloseButton.new();close.position = Vector2.ZERO
+	close.pressed.connect(func():
 		if menu: menu.back()
 		else: back())
-	command_buttons.close = close;_hints.add_child(close)
-	var select := _plain_button("Ⓐ  选择  Enter",true);select.pressed.connect(_activate_selection);_hints.add_child(select);_hints.hide()
+	command_buttons.close = close;_hints.add_child(close);_hints.hide()
 	_toast_box = PanelContainer.new();_toast_box.add_theme_stylebox_override("panel",_pill(true));_toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_toast_box);_toast_box.hide();_toast = _label("",22,Cozy.CREAM);_toast_box.add_child(_toast)
 	_toast.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;_toast.custom_minimum_size.x=440
@@ -226,7 +237,10 @@ func _layout() -> void:
 	var service_fit:=minf(1.0,minf((_root.size.x-100)/services.size.x,(_root.size.y-180)/services.size.y))
 	services.scale=Vector2.ONE*service_fit
 	services.position=Vector2((_root.size.x-services.size.x)/2,(_root.size.y-services.size.y)/2-20)
-	_hints.position=Vector2(_root.size.x-_hints.get_combined_minimum_size().x-40,_root.size.y-78)
+	# 右下角贴边：留 34px 右边距 / 30px 下边距。圆片 62px，倾斜 6° 后四角外扩约 3px，
+	# 仍落在边距里，不会被屏幕裁掉。普通 Control 不会自己撑开 size，这里显式给。
+	_hints.size=Vector2(CloseButton.DIAMETER,CloseButton.DIAMETER)
+	_hints.position=Vector2(_root.size.x-CloseButton.DIAMETER-34,_root.size.y-CloseButton.DIAMETER-30)
 	# 潜水状态在潜水按钮排（y=88，高 52）下面一行。
 	var dive_h: float = _dive_status.get_theme_font_size("font_size")*1.35
 	_dive_status.position=Vector2(34,140+maxf(12,dive_h*0.2))
@@ -378,8 +392,8 @@ func _refresh_panel() -> void:
 		"storage": _panel.show_detail("背包与仓储");_refresh_storage()
 		"map":
 			_panel.show_detail("海风带你去哪里？")
-			var atlas := preload("res://src/ui/island_atlas.gd").new();atlas.font=_font;atlas.zones=zones;atlas.game_state=game_state;_tab_body.add_child(atlas)
-			_tab_body.add_child(_label("圆环是你的位置 · 选择一处泊位，准备出发。",16,DIM))
+			var atlas := preload("res://src/ui/island_atlas.gd").new();atlas.font=_font;atlas.zones=zones;atlas.game_state=game_state;atlas.player_query=player_query;_tab_body.add_child(atlas)
+			_tab_body.add_child(_label("橙点是你现在的位置 · 太阳房是家园，随时可以回去。",16,DIM))
 			for entry in DESTINATIONS:
 				if not Scope.zone_enabled(entry.id): continue
 				var unlocked: bool=zones.is_unlocked(entry.id)

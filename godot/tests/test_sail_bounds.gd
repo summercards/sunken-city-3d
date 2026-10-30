@@ -12,7 +12,7 @@ func run() -> void:
 	var main: Node=load("res://scenes/main.tscn").instantiate();root.add_child(main)
 	main._autosave_on=false;main.process_mode=Node.PROCESS_MODE_DISABLED
 	check(not main.navigation.allowed_area.has_area(),"free ocean has no fixed area fence")
-	check(Scope.HOME_WATER.size==Vector2(55,48),"pickup population scope stays independent")
+	check(Scope.HOME_WATER.size==Vector2(55,48),"historical home reference stays independent of open sea generation")
 	for p in [Vector2(75.5,0),Vector2(0,75.5),Vector2(500,500),Vector2(-500,500),Vector2(-500,-500),Vector2(500,-500)]:
 		check(main.navigation.is_open_water(p.x,p.y),"unobstructed distant ocean allowed "+str(p))
 	var path: Array=main.navigation.plan_route_to(Vector2(500,500),750,500)
