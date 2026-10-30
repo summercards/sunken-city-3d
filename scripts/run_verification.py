@@ -42,6 +42,12 @@ TESTS.update({
     'visual-recipe-cards': ('tools/capture_recipe_cards.gd', r'\[recipe-cards\] \d+ checks, 0 failures'),
     'visual-kit-uv': ('tools/capture_kit_uv.gd', r'\[kit-uv\] \d+ checks, 0 failures'),
     'kit-safety': ('tests/test_kit_safety.gd', r'\[kit-safety\] \d+ checks, 0 failures'),
+    # 平台只有一类：旧板与两种浮台必须贴边拼、接缝可走、不能隔空起板（SEA-BUILDING-R22）。
+    'building-join': ('tests/test_building_join.gd', r'\[building-join\] \d+ checks, 0 failures'),
+    # 全模板玩家模拟：12 框架全部拼装、真实胶囊通行与上楼、10 摆件落新平台、整档存读（SEA-BUILDING-R23）。
+    'building-simulate': ('tests/test_building_simulate.gd', r'\[building-simulate\] \d+ checks, 0 failures'),
+    # 同一模拟的真实渲染版：给合成后的房子与摆件台各抓一张图。
+    'visual-building-simulate': ('tests/test_building_simulate.gd', r'\[building-simulate\] \d+ checks, 0 failures'),
     'building-kit': ('tests/test_building_kit.gd', r'\[building-kit\] \d+ checks, 0 failures'),
     'visual-building-kit': ('tests/test_building_kit.gd', r'\[building-kit\] \d+ checks, 0 failures'),
     'ocean-pickups': ('tests/test_ocean_pickups.gd', r'\[ocean-pickups\] \d+ checks, 0 failures'),

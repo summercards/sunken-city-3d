@@ -114,4 +114,19 @@ func run() -> void:
 	var bad:=row("oil_lamp",100,100,100,"built_1");bad.py=NAN
 	check(Assembly.reason(bad,[base()])!="","nonfinite height rejected")
 	check(pure.geometry_reason({"kind":"unknown_component","px":1,"pz":1,"turn":0})!="","unknown content does not become generic furnishing")
+	# A post corner and a wall end are the same socket point. Taking only the
+	# first owner made a legal floor depend on which of the two was built first,
+	# so a layout could be accepted and then fail its own save validation.
+	var bearing_deck:=row("raft_4x4",200,20,20)
+	var bearing_posts: Array=[row("post",201,19,19,"built_200"),row("post",202,21,19,"built_200"),
+		row("post",203,19,21,"built_200"),row("post",204,21,21,"built_200")]
+	var bearing_floor:=row("upper_floor",205,20,20,"built_201",2.8)
+	# This wall's two end sockets land exactly on the floor's north corners.
+	var corner_wall:=row("wall",206,20,19,"built_200")
+	check(Assembly.reason(bearing_floor,[bearing_deck]+bearing_posts+[corner_wall])=="",
+		"floor finds its bearing post when the wall comes after")
+	check(Assembly.reason(bearing_floor,[bearing_deck,corner_wall]+bearing_posts)=="",
+		"floor still finds its bearing post when the wall came first")
+	check(Assembly.bearing_ids(bearing_floor,[bearing_deck,corner_wall]+bearing_posts).has(str(bearing_floor.support)),
+		"every socket owner counts at a shared corner, not just the first match")
 	print("[kit-safety] %d checks, %d failures"%[checks,failures]);quit(1 if failures else 0)

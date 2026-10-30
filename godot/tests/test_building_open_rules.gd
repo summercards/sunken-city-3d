@@ -31,20 +31,23 @@ func configured() -> RefCounted:
 			callback_seen={"before":before.size(),"after":after.size(),"operation":request.operation,"id":request.id}
 			return "occupied crop" if layout_blocked else ""})
 	return service
-func deck(x:int,z:int) -> Dictionary: return {"kind":"deck","x":x,"z":z}
+func deck(x:int,z:int,origin:="shore") -> Dictionary: return {"kind":"deck","x":x,"z":z,"origin":origin}
 func furnish(id:String,x:float,z:float,kind:="planter_small") -> Dictionary:
 	return {"kind":kind,"px":x,"pz":z,"support":id,"turn":0}
-func make_deck(service:RefCounted,x:int,z:int) -> Dictionary:
-	var result:Dictionary=service.begin(deck(x,z))
-	check(result.ok,"deck accepted at %d,%d"%[x,z])
+func make_deck(service:RefCounted,x:int,z:int,origin:="shore") -> Dictionary:
+	var result:Dictionary=service.begin(deck(x,z,origin))
+	check(result.ok,"deck accepted at %d,%d (%s)"%[x,z,origin])
 	service.tick(3.0)
 	return service.row(result.get("id",""))
 func run() -> void:
 	var service:=configured()
 	check(Catalog.allowed_cell(-100,100) and Catalog.allowed_cell(100,-100),"no ring or west-side prohibition")
 	check(not Catalog.allowed_cell(0,0),"original platform cannot be overwritten")
-	var far:=make_deck(service,40,-40)
-	check(not far.is_empty(),"disconnected foundation accepted by geometry; policy owns eligibility")
+	# Two classes only: a platform must touch the surface it extends. The whole
+	# sea is still open, but the boat is what puts a lone platform there.
+	check(not service.begin(deck(40,-40)).ok,"a shore board cannot start a platform in open water")
+	var far:=make_deck(service,40,-40,"boat")
+	check(not far.is_empty(),"the boat can start a lone platform anywhere on the sea")
 	var frontier:Dictionary={}
 	for candidate in service.candidates(): frontier[Vector2i(candidate.x,candidate.z)]=true
 	check(frontier.has(Vector2i(41,-40)) and frontier.has(Vector2i(40,-41)),"sparse frontier follows remote foundation")
@@ -52,7 +55,8 @@ func run() -> void:
 	check(not service.begin(deck(40,-40)).ok and paid==count_before,"duplicate foundation never pays again")
 	check(not service.begin({"kind":"deck","x":INF,"z":0}).ok,"nonfinite grid rejected")
 	check(not service.begin({"kind":"deck","x":0.1,"z":5}).ok,"fractional grid rejected")
-	for i in 70: make_deck(service,100+i,100)
+	check(not service.begin(deck(60,60)).ok,"a far cell with no neighbour is still refused on foot")
+	for i in 70: make_deck(service,100+i,100,"boat")
 	var snapshot:Dictionary=service.to_dict()
 	check(snapshot.instances.size()>54 and Service.validate_snapshot(snapshot)=="","more than 54 instances round-trip")
 	check(Contract.check(snapshot,Schema.schemas().building)=="","wire schema uses the same unlimited count contract")
@@ -61,7 +65,7 @@ func run() -> void:
 	var copy:Array=service.query();copy.clear()
 	check(not service.query().is_empty(),"query cannot mutate owner")
 
-	var a:=make_deck(service,0,5)
+	var a:=make_deck(service,0,5,"boat")
 	var center_a:Vector2=Catalog.tile_rect(0,5).get_center()
 	var built:Dictionary=service.begin(furnish(a.id,center_a.x,center_a.y))
 	check(built.ok,"compact planter uses metadata footprint")
@@ -102,7 +106,7 @@ func run() -> void:
 	check(Service.validate_snapshot(service.to_dict())=="","holes in instance ids after removal remain valid")
 
 	var edge_service:=configured()
-	var support:=make_deck(edge_service,7,7)
+	var support:=make_deck(edge_service,7,7,"boat")
 	var center:Vector2=Catalog.tile_rect(7,7).get_center()
 	var tiny:Dictionary=edge_service.begin(furnish(support.id,center.x,center.y))
 	edge_service.tick(3.0)
@@ -126,13 +130,13 @@ func run() -> void:
 	reentry_service=Service.new()
 	reentry_service.configure({"eligibility":func():return "","space_reason":func(_r):return "","pay":func(_c):return true,
 		"refund":func(_c):
-			reentry_blocked=not reentry_service.begin(deck(91,91)).ok and reentry_service.busy()
+			reentry_blocked=not reentry_service.begin(deck(91,91,"boat")).ok and reentry_service.busy()
 			return true})
-	var reclaim:=make_deck(reentry_service,90,90)
+	var reclaim:=make_deck(reentry_service,90,90,"boat")
 	check(reentry_service.remove(reclaim.id).ok and reentry_blocked and reentry_service.query().is_empty(),"refund callbacks cannot reenter layout commits")
 	reentry_service=null
 	var ignored:=configured()
-	var poisoned_deck:=deck(92,92)
+	var poisoned_deck:=deck(92,92,"boat")
 	poisoned_deck.px=[];poisoned_deck.pz=INF;poisoned_deck.support="not-a-support"
 	var clean_deck:Dictionary=ignored.begin(poisoned_deck)
 	check(clean_deck.ok and Service.validate_snapshot(ignored.to_dict())=="","unused deck request fields cannot poison committed snapshot")

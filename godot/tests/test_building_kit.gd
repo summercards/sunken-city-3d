@@ -8,8 +8,11 @@ func _init() -> void: call_deferred("run")
 func check(ok: bool,label: String) -> void:
 	checks+=1
 	if not ok: failures+=1;printerr("FAIL ",label)
-func build(kind: String,x: float,z: float,support: String="",height: float=0.0) -> String:
-	var result: Dictionary=main.building.begin({"kind":kind,"px":x+SHIFT.x,"pz":z+SHIFT.y,"py":height,"support":support,"turn":0})
+## Fixture builder. `origin` defaults to "boat" because these cases start a
+## fresh test platform at an arbitrary spot; the on-foot join rule is covered by
+## test_building_join.gd, which exercises the real approach path.
+func build(kind: String,x: float,z: float,support: String="",height: float=0.0,origin: String="boat") -> String:
+	var result: Dictionary=main.building.begin({"kind":kind,"px":x+SHIFT.x,"pz":z+SHIFT.y,"py":height,"support":support,"turn":0,"origin":origin})
 	check(result.get("ok",false),"build "+kind+": "+str(result.get("reason","")))
 	if not result.get("ok",false): return ""
 	main.building.tick(30);return str(result.id)

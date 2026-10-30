@@ -30,18 +30,26 @@ static func joint_overlap(a: Dictionary,b: Dictionary) -> bool:
 		for other in joint_points(b):
 			if point.distance_to(other)<=.23: return true
 	return false
+## Every socket owner at a required point counts. A post corner and the end of a
+## wall are the same point, so taking only the first match let build order decide
+## whether a floor found the bearing its `support` names — validation then failed
+## a layout that had been accepted moments earlier.
 static func bearing_ids(row: Dictionary, rows: Array) -> Array[String]:
 	var ids: Array[String]=[]
+	var own:=str(row.get("id",row.get("exclude_id","")))
 	for point in required_sockets(row):
-		var found:=""
+		var found:=false
 		for other in rows:
-			if str(other.id)==str(row.get("id",row.get("exclude_id",""))) or other.left>0: continue
+			if str(other.id)==own or other.left>0: continue
 			for socket in sockets(other):
-				if socket.distance_to(point)<0.26: found=str(other.id);break
-			if found!="": break
-		if found=="": return []
-		if not ids.has(found): ids.append(found)
+				if socket.distance_to(point)>=0.26: continue
+				found=true
+				if not ids.has(str(other.id)): ids.append(str(other.id))
+				break
+		if not found: return []
 	return ids
+## Pure geometry: overlap, floor, bearings. Whether a new platform may start
+## where it stands is a build-eligibility question and lives in BuildingService.
 static func reason(row: Dictionary, rows: Array) -> String:
 	var kind:=str(row.get("kind",""))
 	if not Catalog.is_kit(kind): return "未知组件"

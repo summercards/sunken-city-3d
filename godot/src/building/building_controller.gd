@@ -173,20 +173,27 @@ func _point(screen: Vector2) -> Vector3:
 	if absf(direction.y)<0.0001: return Vector3.INF
 	var level:=float(build_level)*2.8
 	var kind:=str(service.row(moving_id).get("kind",recipe)) if moving_id!="" else recipe
-	if kind=="deck" or (Catalog.is_kit(kind) and Catalog.RECIPES[kind].group=="structure"): level=0.0
+	if Catalog.is_platform(kind): level=0.0
 	if Catalog.is_kit(kind) and Catalog.RECIPES[kind].placement=="top": level=2.8
 	var distance: float=(Catalog.ORIGIN.y+level-origin.y)/direction.y
 	return origin+direction*distance if distance>0 else Vector3.INF
 
+## The boat carries the material, so only it may start a lone platform.
+func _afloat() -> bool:
+	if not actor_state.is_valid(): return false
+	var state: Dictionary=actor_state.call()
+	return int(state.get("mode",0)) in [1,2]
+
 func _deck_request(local: Vector2) -> Dictionary:
 	return {"kind":"deck","x":int(floor((local.x-Catalog.BASE.position.x)/Catalog.TILE.x)),
-		"z":int(floor((local.y-Catalog.BASE.position.y)/Catalog.TILE.y)),"px":0.0,"pz":0.0,"turn":0,"support":""}
+		"z":int(floor((local.y-Catalog.BASE.position.y)/Catalog.TILE.y)),"px":0.0,"pz":0.0,"turn":0,
+		"support":"","origin":"boat" if _afloat() else "shore"}
 
 func _furnishing_request(local: Vector2) -> Dictionary:
 	var step:=0.01 if precision_held or Input.is_physical_key_pressed(KEY_SHIFT) else 0.1
 	var kind:=str(service.row(moving_id).get("kind","planter")) if moving_id!="" else recipe
 	var request: Dictionary={"kind":kind,"x":0,"z":0,"px":snappedf(local.x,step),"pz":snappedf(local.y,step),
-		"turn":turn,"support":"","snap_step":step}
+		"turn":turn,"support":"","snap_step":step,"origin":"boat" if _afloat() else "shore"}
 	if Catalog.is_kit(kind):
 		var definition: Dictionary=Catalog.RECIPES[kind]
 		request.py=float(build_level)*2.8
@@ -291,7 +298,7 @@ func update_preview(screen: Vector2) -> void:
 	var local:=Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)
 	var operation:="build"; var reason:=""
 	if Catalog.is_kit(recipe) and Catalog.is_deck(recipe):
-		preview=Catalog.snap_foundation(recipe,local,turn,_rows_cache)
+		preview=Catalog.snap_foundation(recipe,local,turn,_rows_cache,_afloat())
 	elif recipe=="deck": preview=_deck_request(local)
 	elif _is_furnishing(recipe): preview=_furnishing_request(local)
 	elif recipe=="move":

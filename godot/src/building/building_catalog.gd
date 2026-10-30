@@ -11,19 +11,28 @@ const PLANTER_MARGIN := 0.04
 ## Storage protection, not a plot-count or map-size progression rule. Reserve
 ## the other half of the 8 MiB save envelope for crops and the other owners.
 const MAX_LAYOUT_BYTES := 4 * 1024 * 1024
+## Two content classes only. Platforms carry bodies and join each other
+## edge-to-edge; frames stand on a platform and need a real support socket.
+## Decorations are the frames' loose furniture and follow the same support rule.
+const CATEGORY_PLATFORM := "platform"
+const CATEGORY_STRUCTURE := "structure"
+const CATEGORY_DECORATION := "decoration"
+## A seam a body must be able to cross. Wider than the 0.44 m actor, so a
+## rounded corner or a 0.2 m post beside it never closes the join.
+const JOIN_MIN := 0.6
 ## Placement and rendering both consume these roles. Adding a new furnishing
 ## means adding a recipe and its projection, not another layout state owner.
 const LEGACY_RECIPES := {
 	"deck":{"name":"拼接木板", "cost":{"wood":6}, "seconds":3.0,
-		"description":"接出平台，或乘船在空旷海面开始新平台。", "category":"structure",
+		"description":"接出平台，或乘船在空旷海面开始新平台。", "category":CATEGORY_PLATFORM,
 		"placement":"ocean_grid", "support":"water", "footprint":TILE, "visual":"deck",
 		"role":"deck", "rotatable":false, "movable":false, "removable":true},
 	"planter":{"name":"培养土种植区", "cost":{"wood":3,"soil":2}, "seconds":4.0,
-		"description":"在整片木面自由摆放，可搬移、旋转与回收。", "category":"furnishing",
+		"description":"在整片木面自由摆放，可搬移、旋转与回收。", "category":CATEGORY_DECORATION,
 		"placement":"deck_surface", "support":"finished_deck", "footprint":PLOT_EXTENT,
 		"visual":"planter", "role":"planter", "blocks_actor":false, "rotatable":true, "movable":true, "removable":true},
 	"planter_small":{"name":"小型培养土", "cost":{"wood":2,"soil":1}, "seconds":3.0,
-		"description":"占地更小，适合单板花园和窄平台。", "category":"furnishing",
+		"description":"占地更小，适合单板花园和窄平台。", "category":CATEGORY_DECORATION,
 		"placement":"deck_surface", "support":"finished_deck", "footprint":Vector2(0.9,1.0),
 		"visual":"planter", "role":"planter", "blocks_actor":false, "rotatable":true, "movable":true, "removable":true}
 }
@@ -37,19 +46,38 @@ static func _load_recipes() -> Dictionary:
 		var definition: Dictionary=raw.duplicate(true)
 		definition.footprint=Vector2(raw.footprint[0],raw.footprint[1])
 		definition.kit=true;definition.visual="kit"
-		definition.category="structure" if raw.profile=="foundation" else "furnishing"
+		# A raft is a platform, not a frame: it carries bodies and joins other
+		# platforms edge-to-edge, exactly like the legacy 2.15x2.575 board.
+		# Walls, posts, beams and roofs are frames; furniture is decoration.
+		if raw.profile=="foundation":
+			definition.category=CATEGORY_PLATFORM
+			definition.support="water"
+			definition.placement="platform_edge"
+		elif str(raw.category)=="decoration":
+			definition.category=CATEGORY_DECORATION
+			definition.support="finished_deck"
+		else:
+			definition.category=CATEGORY_STRUCTURE
+			definition.support="finished_deck"
 		definition.group=raw.category
-		definition.support="water" if raw.profile=="foundation" else "finished_deck"
 		definition.rotatable=true
 		result[raw.id]=definition
 	return result
 static func is_kit(kind: String) -> bool: return bool(RECIPES.get(kind,{}).get("kit",false))
-static func is_deck(kind: String) -> bool: return role(kind)=="deck"
+static func is_platform(kind: String) -> bool:
+	return RECIPES.has(kind) and str(RECIPES[kind].get("category",""))==CATEGORY_PLATFORM and role(kind)=="deck"
+## Kept as the historical name: every platform is a walkable deck surface.
+static func is_deck(kind: String) -> bool: return is_platform(kind)
+static func is_frame(kind: String) -> bool:
+	return RECIPES.has(kind) and str(RECIPES[kind].get("category",""))==CATEGORY_STRUCTURE
+static func category(kind: String) -> String:
+	return str(RECIPES.get(kind,{}).get("category",""))
 static func enabled(kind: String) -> bool: return bool(RECIPES.get(kind,{}).get("active",true))
 static func position_rect(row: Dictionary) -> Rect2: return footprint_rect(row)
 static func elevation(row: Dictionary) -> float: return float(row.get("py",0.0))
 static func is_furnishing(kind: String) -> bool:
-	return RECIPES.has(kind) and RECIPES[kind].category=="furnishing"
+	# Anything mounted on a finished platform: frames and loose furniture.
+	return RECIPES.has(kind) and not is_platform(kind)
 static func role(kind: String) -> String:
 	return str(RECIPES.get(kind,{}).get("role",""))
 static func blocks_actor(kind: String) -> bool:
@@ -86,30 +114,78 @@ static func support_tiles(rows: Array) -> Array:
 	return result
 static func fixed_support() -> Dictionary:
 	return {"id":"@base","kind":"fixed_base","left":0.0}
-static func snap_foundation(kind: String,point: Vector2,turn: int,rows: Array) -> Dictionary:
-	var request: Dictionary={"kind":kind,"px":snappedf(point.x,2.0),"pz":snappedf(point.y,2.0),"py":0.0,"x":0,"z":0,"support":"","turn":turn}
-	var extent: Vector2=plot_rect(request).size
-	var best:=1.45*1.45
+
+## Footprint of a platform after rotation. Turn swaps the two edge lengths.
+static func platform_extent(kind: String, turn: int) -> Vector2:
+	var extent: Vector2=RECIPES.get(kind,RECIPES.deck).get("footprint",TILE)
+	return Vector2(extent.y,extent.x) if int(turn)%2==1 else extent
+static func rect_distance(rect: Rect2, point: Vector2) -> float:
+	var dx:=maxf(maxf(rect.position.x-point.x,point.x-rect.end.x),0.0)
+	var dz:=maxf(maxf(rect.position.y-point.y,point.y-rect.end.y),0.0)
+	return Vector2(dx,dz).length()
+## Length of the edge two rectangles share. A corner touch is not a seam.
+static func contact_length(a: Rect2, b: Rect2) -> float:
+	var x:=minf(a.end.x,b.end.x)-maxf(a.position.x,b.position.x)
+	var z:=minf(a.end.y,b.end.y)-maxf(a.position.y,b.position.y)
+	if absf(z)<=0.02 and x>0.02: return x
+	if absf(x)<=0.02 and z>0.02: return z
+	return 0.0
+## Longest seam with the finished platform union, the fixed base included.
+static func platform_contact(rect: Rect2, rows: Array) -> float:
+	var best:=0.0
 	for tile: Rect2 in support_tiles(rows):
+		best=maxf(best,contact_length(rect,tile))
+	return best
+static func overlaps_any(rect: Rect2, surfaces: Array) -> bool:
+	for tile: Rect2 in surfaces:
+		var overlap: Rect2=rect.grow(-0.002).intersection(tile)
+		if overlap.size.x>0.001 and overlap.size.y>0.001: return true
+	return false
+## Platforms only join edge to edge. Each candidate is generated by laying one
+## raft edge flush against an existing platform edge, then sliding it along that
+## edge until one of its own edges lines up with a neighbour's corner. Free
+## integer-metre positions are only for a raft that joins nothing, which the
+## boat unlocks; on foot a platform must touch the surface it extends.
+static func snap_foundation(kind: String,point: Vector2,turn: int,rows: Array,free_water: bool=false) -> Dictionary:
+	var extent:=platform_extent(kind,turn)
+	var free: Dictionary={"kind":kind,"px":snappedf(point.x,2.0),"pz":snappedf(point.y,2.0),
+		"py":0.0,"x":0,"z":0,"support":"","turn":turn}
+	var surfaces:=support_tiles(rows)
+	if free_water:
+		var lone:=Rect2(Vector2(free.px,free.pz)-extent/2,extent)
+		var clear:=not overlaps_any(lone,surfaces)
+		for tile: Rect2 in surfaces:
+			if tile.grow(0.6).intersects(lone): clear=false;break
+		if clear: return free
+	var best: Dictionary={}
+	var best_score:=INF
+	for tile: Rect2 in surfaces:
 		for side in 4:
-			var normal: Vector2=[Vector2.LEFT,Vector2.RIGHT,Vector2.UP,Vector2.DOWN][side]
-			var at:=point
-			if side<2:
-				at.x=(tile.position.x-extent.x/2) if side==0 else (tile.end.x+extent.x/2)
-				at.y=tile.get_center().y+snappedf(point.y-tile.get_center().y,1.0)
-				at.y=clampf(at.y,tile.position.y-extent.y/2+.5,tile.end.y+extent.y/2-.5)
-			else:
-				at.y=(tile.position.y-extent.y/2) if side==2 else (tile.end.y+extent.y/2)
-				at.x=tile.get_center().x+snappedf(point.x-tile.get_center().x,1.0)
-				at.x=clampf(at.x,tile.position.x-extent.x/2+.5,tile.end.x+extent.x/2-.5)
-			var candidate:=request.duplicate();candidate.px=at.x;candidate.pz=at.y
-			var rect:=footprint_rect(candidate).grow(-.002)
-			var overlaps:=false
-			for existing: Rect2 in support_tiles(rows):
-				if rect.intersects(existing.grow(-.002)): overlaps=true;break
-			if not overlaps and point.distance_squared_to(at)<best:
-				best=point.distance_squared_to(at);request=candidate
-	return request
+			var vertical:=side<2
+			var edge: float=(tile.position.x if side==0 else tile.end.x) if vertical else (tile.position.y if side==2 else tile.end.y)
+			var span: float=extent.y if vertical else extent.x
+			var seen: Dictionary={}
+			for other: Rect2 in surfaces:
+				for raw: float in [(other.position.y if vertical else other.position.x)+span/2,
+						(other.end.y if vertical else other.end.x)-span/2]:
+					var key:=int(round(raw*100.0))
+					if seen.has(key): continue
+					seen[key]=true
+					var request: Dictionary=free.duplicate()
+					if vertical:
+						request.px=edge-(extent.x/2) if side==0 else edge+(extent.x/2)
+						request.pz=raw
+					else:
+						request.px=raw
+						request.pz=edge-(extent.y/2) if side==2 else edge+(extent.y/2)
+					var rect:=Rect2(Vector2(request.px,request.pz)-extent/2,extent)
+					if platform_contact(rect,rows)<JOIN_MIN: continue
+					if overlaps_any(rect,surfaces): continue
+					var score:=rect_distance(rect,point)
+					if score<best_score-0.0005:
+						best_score=score;best=request
+	if not best.is_empty(): return best
+	return free
 ## True when `rect` lies entirely inside the union of `tiles`.
 ## Sweeps every vertical slice between tile edges, so a seam between two
 ## neighbouring decks counts as covered and a gap never does.

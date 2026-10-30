@@ -18,9 +18,11 @@ func _ready() -> void:
 	set_meta("cozy_skip",true);size=Vector2(940,700);mouse_filter=Control.MOUSE_FILTER_STOP
 	_label("建造手册",Vector2(38,20),31)
 	var close:=_button("×",Vector2(864,20),Vector2(40,40));close.pressed.connect(func(): closed.emit())
-	for i in 4:
-		var key: String=["all","structure","decoration","planting"][i]
-		var node:=_button(["全部","建筑结构","生活摆件","种植"][i],Vector2(38+i*190,78),Vector2(174,40))
+	var labels: Array[String]=["全部","拼接平台","框架结构","生活摆件","种植"]
+	var keys: Array[String]=["all","platform","structure","decoration","planting"]
+	for i in labels.size():
+		var key: String=keys[i]
+		var node:=_button(labels[i],Vector2(38+i*178,78),Vector2(168,40))
 		node.pressed.connect(func(): category=key;page=0;refresh());category_buttons[key]=node
 	for kind: String in Catalog.RECIPES:
 		var entry: Dictionary=Catalog.RECIPES[kind]
@@ -38,6 +40,12 @@ func _cost_text(kind: String) -> String:
 	for id in Catalog.RECIPES[kind].cost:
 		parts.append("%s ×%d"%[preload("res://src/inventory/item_db.gd").label(id),Catalog.RECIPES[kind].cost[id]])
 	return "  ".join(parts)
+## Reading order of the combined page: platform, frame, furniture, planting.
+func _rank(kind: String) -> int:
+	if Catalog.is_platform(kind): return 0
+	if Catalog.category(kind)==Catalog.CATEGORY_STRUCTURE: return 1
+	if Catalog.is_furnishing(kind) and Catalog.role(kind)=="planter": return 3
+	return 2
 func _label(value: String,pos: Vector2,pixels: int,parent: Node=null) -> Label:
 	var node:=Label.new();node.text=value;node.position=pos;node.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	node.add_theme_font_override("font",font);node.add_theme_font_size_override("font_size",pixels)
@@ -57,8 +65,18 @@ func refresh() -> void:
 	for kind: String in Catalog.RECIPES:
 		var entry: Dictionary=Catalog.RECIPES[kind];cards[kind].hide()
 		if not Catalog.enabled(kind): continue
-		var group:=str(entry.get("group","planting" if kind!="deck" else "structure"))
+		# Two content classes: platforms (legacy boards and both rafts) join
+		# edge to edge; frames and loose furniture stand on them.
+		var group: String="platform" if Catalog.is_platform(kind) else str(entry.get("group","planting"))
 		if category=="all" or group==category: filtered.append(kind)
+	# "All" reads bottom-up: the platforms come first, then the frames and the
+	# furniture that stand on them. Catalog order alone mixed a raft between
+	# two beds and made the two classes look like three.
+	var ordered: Array=[]
+	for i in filtered.size(): ordered.append({"kind":filtered[i],"rank":_rank(filtered[i]),"order":i})
+	ordered.sort_custom(func(a: Dictionary,b: Dictionary) -> bool:
+		return a.rank<b.rank if a.rank!=b.rank else a.order<b.order)
+	filtered.assign(ordered.map(func(item: Dictionary) -> String: return str(item.kind)))
 	var pages:=maxi(1,ceili(filtered.size()/float(PER_PAGE)));page=clampi(page,0,pages-1)
 	for j in mini(PER_PAGE,filtered.size()-page*PER_PAGE):
 		var card: Button=cards[filtered[page*PER_PAGE+j]];card.place(Vector2(38+(j%5)*176,145+floori(j/5.0)*233));card.show()

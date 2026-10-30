@@ -35,6 +35,9 @@
     "visual-building-kit",
     "ground-space",
     "kit-safety",
+    "building-join",
+    "building-simulate",
+    "visual-building-simulate",
     "visual-kit-uv",
     "visual-recipe-cards",
     "character-space-save"
@@ -131,3 +134,32 @@ R13的实际登陆边、航行/登岸/返船和存档格式保留，改动仅是
 | SEA-BUILDING-R21 | 已实现；10摆件全部在正式世界建成，真实暖灯、共享仓库、补水、摆动通过；22组件UV/材质563项及真实卡片渲染通过 | 同上；不提供电网和风铃声音 |
 
 2026-10-30最终收尾：R01改为每卡仅图片+名字+消耗，R04承载包含固定木面和新旧板并集；原六箱占地保留。完整游戏121项、真实渲染120项、卡片真实鼠标78项、UV/材质563项、纯规则72项全部0失败/退出0；旧建造、集成、开放规则、三维空间与位置恢复专项通过。资产状态仅晋升本套件22件，不覆盖其他pending资产。全部结果和未执行设备项见[机器证据](../../development/2026-10-30_modular_building_verification.json)。
+
+## 2026-10-31 平台归为一类
+
+用户实测指出拼接木板能接、能走，4×4／2×4 浮台却拼不上并隔出一条缝；要求按「两类」收敛，且不能隔空造。本轮把平台类（旧板＋两种浮台）合成一套贴边拼接与连接体规则，框架件维持挂点要求。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-BUILDING-R22 | 已实现；三种平台共用边对齐吸附（齐平优先、按光标到矩形距离取舍）、0.6米接缝门槛、跨缝行走；岸上隔空起板被拒，船上可另起独立起点；旧档孤立平台照常读档与拆除 | [本轮交付](../../development/2026-10-31_platform_join_classes.md) |
+| SEA-BUILDING-R02 | 已实现（口径修订）；不再允许岸上“不相连的独立基础”，独立起点仅船上 | 同上 |
+| SEA-BUILDING-R14 | 已实现（口径修订）；目录识别 platform/structure/decoration，行为两类 | 同上 |
+
+改造前实测反例：4×4 在旧板边 0–2.5 米范围内全部落回世界 2 米网格，与旧板重叠 0.775–2.775 米；2×4 在 0.5 米处给出 0.225 米真空缝；900 米空旷海面可直接起板。根因是贴边候选被 1.45 米光标半径挡死、沿边吸附到 1 米节拍、以及 foundation 分支没有连接检查。
+
+本轮收尾：`building-join` 37项、`building-open-rules` 122项、`building` 30项、`building-space` 18项、`building-integration` 53项、`kit-safety` 72项、`building-kit` 121项、`building-approach` 18项、`building-restart` 11+5项、`ground-space` 33项、`character-space-save` 10项、`visual-recipe-cards` 108项（真实鼠标）、`visual-building`与`visual-building-kit`（真实渲染）全部0失败/退出0。三条旧断言按新口径反转；另修了`visual-building`直接点隐藏卡片的测试缺陷（应先切种植页签），记录见交付文档。手机触屏与手柄专项本轮未执行。
+
+## 2026-10-31 全模板模拟验收与挂点遮蔽修复
+
+用户要求模拟一遍全部框架拼装、角色通行（斜面除外）、摆件落到新平台、存档与其它问题。模拟在正式场景按鼠标路径装配，用真实胶囊行走，再走整档存读。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-BUILDING-R23 | 已实现；12 框架全部拼装成功，10 摆件全部落到新建浮台并集内，真实胶囊跨缝通行与爬楼梯到二层，两种屋顶均不产生行走面，整档存读 31 实例逐字段一致 | [本轮交付](../../development/2026-10-31_full_template_simulation.md) |
+| SEA-BUILDING-R06 | 已修复；挂点判定不再只取第一个匹配，柱角与墙端共点时全部共有者计入承载，构建顺序不再影响合法性与读档 | `building-simulate` 191项、`kit-safety` 75项（新增3条顺序断言） |
+
+真实缺陷：`Assembly.bearing_ids` 对每个必需挂点只认第一个命中构件。柱角与墙端同点时，若墙先入列，楼板的 `support`（指向柱）就不在承载依据里，报“顶部挂点缺少完整的立柱或墙体支撑”——先建墙后建柱再建楼板会被误拒；同样几何换个顺序却能建。这同时违反 R06「不依赖创建顺序」：布局可能建成后被自己的存档校验判无效。修复为收集该点全部共有者。反向验证：临时放回旧实现，`kit-safety` 立即两条断言失败，恢复后 75 项 0 失败。
+
+模拟首轮 21 项失败中 18 项是夹具写错（漏加世界原点、世界/局部坐标混比、木料设 4000 超出 40×24 上限），已逐条记录以免误判为产品问题。其中“背包满时回收整笔失败并保留物件”是 R12 既定语义，非缺陷。
+
+本轮收尾：`building-simulate` 191项、`kit-safety` 75项、`building` 30项、`building-join` 37项、`building-open-rules` 122项、`building-space` 18项、`building-integration` 53项、`building-kit` 121项、`building-restart` 11+5项、`building-approach` 18项、`ground-space` 33项、`character-space-save` 10项全部0失败/退出0。

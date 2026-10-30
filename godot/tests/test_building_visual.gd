@@ -83,7 +83,11 @@ func run() -> void:
 	main.building_controller.tick(2)
 	check(main.building.query()[0].left==0,"closed mode still completes")
 	await button(main.hud.corner.menu_button);await button(main.hud.corner.buttons.craft)
+	# The combined page groups platforms first, so planting lives on its own
+	# tab. Click the tab a player would click, not a hidden card.
+	await button(main.building_controller.book.category_buttons.planting)
 	await button(main.building_controller.book.recipe_buttons.planter)
+	check(main.building_controller.recipe=="planter","planting tab selects the planter")
 	# 木面是边界：偏离板中心同样可以摆位，旧规则只在中心 ±5.8 厘米内放行。
 	main.building_controller.update_preview(main.cam.unproject_position(target+Vector3(0.12,0,0.3)))
 	check(not main.building_controller.preview.is_empty() and main.building.can_place(main.building_controller.preview)=="","off-center preview legal")

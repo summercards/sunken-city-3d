@@ -56,7 +56,7 @@ func candidates() -> Array:
 		result.append({"kind":"deck","x":cell.x,"z":cell.y,"px":0.0,"pz":0.0,"turn":0,"support":""})
 	return result
 
-func geometry_reason(request: Dictionary) -> String:
+func geometry_reason(request: Dictionary, strict_join: bool=true) -> String:
 	var kind := str(request.get("kind",""))
 	if not Catalog.RECIPES.has(kind): return "未知配方"
 	for key in (["x","z"] if kind=="deck" else ["px","pz"]):
@@ -68,7 +68,10 @@ func geometry_reason(request: Dictionary) -> String:
 	var rotation: Variant=request.get("turn",0)
 	if not (rotation is int or rotation is float) or not is_finite(float(rotation)) or rotation!=floor(rotation) or rotation<0 or rotation>3:
 		return "朝向无效"
-	if Catalog.is_kit(kind): return Assembly.reason(request,query())
+	if Catalog.is_kit(kind):
+		var geometry:=Assembly.reason(request,query())
+		if geometry!="": return geometry
+		return _platform_join_reason(request) if strict_join else ""
 	if kind=="deck":
 		for other in _rows:
 			if Catalog.is_deck(str(other.kind)) and other.kind!="deck" and Catalog.footprint_rect(other).grow(-0.001).intersects(Catalog.tile_rect(int(request.x),int(request.z))): return "这里已有浮台"
@@ -76,6 +79,13 @@ func geometry_reason(request: Dictionary) -> String:
 		var z:=int(request.z)
 		if Catalog.base_cell(x,z): return "这里是原有平台"
 		if _deck_cells.has(Vector2i(x,z)): return "这里已有木板或正在施工"
+		# A new board extends the deck it touches. The boat is the only way to
+		# start a platform where nothing can be walked to.
+		if strict_join and str(request.get("origin","shore"))!="boat":
+			for direction in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
+				var next: Vector2i=Vector2i(x,z)+direction
+				if Catalog.base_cell(next.x,next.y) or _deck_cells.has(next): return ""
+			return "木板要接在已有平台边上；要单独起一块，请乘船到那片海面"
 		return ""
 	var support: Dictionary=Catalog.fixed_support() if str(request.get("support",""))=="@base" else _by_id.get(str(request.get("support","")),{})
 	if support.is_empty() or (str(support.id)!="@base" and not Catalog.is_deck(str(support.kind))) or support.left>0: return "请放在已完成的新木板上"
@@ -88,6 +98,18 @@ func geometry_reason(request: Dictionary) -> String:
 		if Catalog.elevation(item)>0.5: continue
 		if Catalog.plot_rect(item).grow(0.02).intersects(rect): return "摆件不能重叠"
 	return ""
+
+## A platform extends the surface it touches: it has to be walked to. Only the
+## boat, which carried the material there, may start one in open water.
+func _platform_join_reason(request: Dictionary) -> String:
+	if not Catalog.is_deck(str(request.get("kind",""))): return ""
+	if str(request.get("origin","shore"))=="boat": return ""
+	var own:=str(request.get("exclude_id",""))
+	var rows: Array=[]
+	for item in _rows:
+		if str(item.id)!=own: rows.append(item)
+	if Catalog.platform_contact(Catalog.footprint_rect(request),rows)>=Catalog.JOIN_MIN: return ""
+	return "浮台要接在已有平台边上；要单独起一块，请乘船到那片海面"
 
 func _record(request: Dictionary, id: String, seconds: float) -> Dictionary:
 	# Only consume fields that geometry validated for this placement kind.
@@ -288,7 +310,7 @@ static func validate_snapshot(data: Dictionary) -> String:
 	# furnishing is checked: a moved box can use a deck built later than itself.
 	for raw in data.instances:
 		if not raw is Dictionary: return "Invalid building record"
-		if raw.has("exclude_id") or raw.has("operation") or raw.has("snap_step"):
+		if raw.has("exclude_id") or raw.has("operation") or raw.has("snap_step") or raw.has("origin"):
 			return "Transient building command cannot be saved as layout"
 		for key in ["id","kind","support"]:
 			if not raw.get(key) is String: return "Missing building string: "+key
@@ -304,7 +326,7 @@ static func validate_snapshot(data: Dictionary) -> String:
 			return "Invalid building identity"
 		ids[raw.id]=true
 		if raw.kind=="deck" or (Catalog.is_kit(str(raw.kind)) and Catalog.is_deck(str(raw.kind))):
-			if validator.geometry_reason(raw)!="" or raw.support!="": return "Invalid building deck or overlap"
+			if validator.geometry_reason(raw,false)!="" or raw.support!="": return "Invalid building deck or overlap"
 			validator._rows.append(raw.duplicate(true))
 			validator._index(validator._rows[-1])
 		else: furnishings.append(raw)
@@ -312,7 +334,7 @@ static func validate_snapshot(data: Dictionary) -> String:
 	while not pending.is_empty():
 		var progressed:=false
 		for raw in pending.duplicate():
-			if validator.geometry_reason(raw)!="": continue
+			if validator.geometry_reason(raw,false)!="": continue
 			validator._rows.append(raw.duplicate(true));validator._index(validator._rows[-1])
 			pending.erase(raw);progressed=true
 		if not progressed: return "Invalid building support or overlap"
