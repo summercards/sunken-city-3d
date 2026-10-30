@@ -1,0 +1,42 @@
+{
+  "key": "facade_window",
+  "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+  "name": "通透弧形橱窗单元",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "facade",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-FACADE-WINDOW",
+  "root": "facade_window_ROOT",
+  "bounds_size": [
+    2.4693784713745117,
+    0.2502627372741699,
+    2.820000171661377
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -5.894868850708008,
+    0.05999999865889549
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/facade_window/facade_window.blend",
+  "geometry_fingerprint": "93a72eab5fd04381399b0000417b1c2e58d75a811a101554696996b3b7519cc3",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 14,
+  "polygons": 1204,
+  "triangles": 2432,
+  "materials": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-FACADE-WINDOW",
+  "source_sha256": "4e75badb290fd9ce9ab52ba7573e24625d7bf11aa0edf1fc4b624a941a95ac03",
+  "stage": "source_verified_runtime_pending"
+}

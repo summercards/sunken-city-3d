@@ -1,0 +1,40 @@
+{
+  "key": "shelf",
+  "asset_id": "SEA-SCENE-FSH-SHELF",
+  "name": "店内三层陈列架",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "shelf",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-SHELF",
+  "root": "shelf_ROOT",
+  "bounds_size": [
+    1.9200000762939453,
+    0.47999998927116394,
+    1.5499999523162842
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.014999985694885254
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/shelf/shelf.blend",
+  "geometry_fingerprint": "3b20c3ef32379c8f8229c46a00467a4f35f64672c91f689db2910f23b83b5a92",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 8,
+  "polygons": 490,
+  "triangles": 940,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "727383a8029792bf6cc480d805ca15a55536ad7852b9ecbdfdcad05bd9f74259",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SHELF"
+}

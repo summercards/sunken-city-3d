@@ -1,0 +1,40 @@
+{
+  "key": "gift",
+  "asset_id": "SEA-SCENE-FSH-GIFT",
+  "name": "礼品盒与玩偶陈列组",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "stock",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-GIFT",
+  "root": "gift_ROOT",
+  "bounds_size": [
+    1.1400001049041748,
+    0.3199999928474426,
+    0.7450000047683716
+  ],
+  "authored_origin_shift": [
+    -0.010000020265579224,
+    -0.015000000596046448,
+    0.01000000536441803
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/gift/gift.blend",
+  "geometry_fingerprint": "7ccc7d76624bea2e97e44d920a7f56383fab4314319765b978f2363c06b9e58e",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 10,
+  "polygons": 1340,
+  "triangles": 2472,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "6e70c7e6c8a909c5d1355e428ca75d57318a3239a4cae2be3d0cd6760773fa06",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-GIFT"
+}

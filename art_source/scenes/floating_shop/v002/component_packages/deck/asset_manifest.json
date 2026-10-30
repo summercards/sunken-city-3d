@@ -1,0 +1,41 @@
+{
+  "key": "deck",
+  "asset_id": "SEA-SCENE-FSH-DECK",
+  "name": "环形厚甲板与分板",
+  "category": "building/structure",
+  "source_group": "structure",
+  "family": "deck",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-DECK",
+  "root": "deck_ROOT",
+  "bounds_size": [
+    18.112499237060547,
+    18.112499237060547,
+    0.47400015592575073
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/deck/deck.blend",
+  "geometry_fingerprint": "82661c71681b4d88bebf5399a224a04378dab7913c660fe02b8a5a13d18cd783",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 12772,
+  "triangles": 26904,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-DECK",
+  "source_sha256": "7e56e6da4321af5a3ec289ed3c446fec852ceda7aa8acb3ecc4478d16cac8579",
+  "stage": "source_verified_runtime_pending"
+}

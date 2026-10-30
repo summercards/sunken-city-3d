@@ -1,0 +1,41 @@
+{
+  "key": "electrical_box",
+  "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+  "name": "带合页电气箱",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "electrical",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+  "root": "electrical_box_ROOT",
+  "bounds_size": [
+    0.6600000262260437,
+    0.4124999940395355,
+    0.6800000071525574
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.04625000059604645,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/electrical_box/electrical_box.blend",
+  "geometry_fingerprint": "359fa045728bf53a4062f599c14e478b988b48328d0b7fbf6bdcfaac04b6b39c",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "polygons": 1038,
+  "triangles": 1924,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "5408c02f5ec2d3955b19522218a5c8d26ea7709cbfb9a7e3c3e8fa3c3566805a",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ELECTRICAL-BOX"
+}

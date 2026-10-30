@@ -1,0 +1,41 @@
+{
+  "key": "life_ring",
+  "asset_id": "SEA-SCENE-FSH-LIFE-RING",
+  "name": "红白救生圈和系绳",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "safety",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-LIFE-RING",
+  "root": "life_ring_ROOT",
+  "bounds_size": [
+    0.8960000276565552,
+    0.22599999606609344,
+    0.9880000352859497
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.04800000786781311
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/life_ring/life_ring.blend",
+  "geometry_fingerprint": "20e38acb3d28726b45b6f6a46b08df184c95cd6a60c1b741f137af40e39a48b6",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 2,
+  "polygons": 1546,
+  "triangles": 3092,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-LIFE-RING",
+  "source_sha256": "3a58d05b8a9c83d1da1b0fa0e08ba95e1f3bdd7ace2c537e0a4ec91c7da5c946",
+  "stage": "source_verified_runtime_pending"
+}

@@ -1,0 +1,41 @@
+{
+  "key": "sign_gifts",
+  "asset_id": "SEA-SCENE-FSH-SIGN-GIFTS",
+  "name": "GIFTS礼物招牌",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "sign",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-SIGN-GIFTS",
+  "root": "sign_gifts_ROOT",
+  "bounds_size": [
+    4.513346195220947,
+    0.504183292388916,
+    0.9350000023841858
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -5.98240852355957,
+    0.05000000074505806
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/sign_gifts/sign_gifts.blend",
+  "geometry_fingerprint": "cded125f97eb780a333ceeea415f3c640a43377856851c2a7dea3aeef40a618b",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 8462,
+  "triangles": 15653,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-GIFTS",
+  "source_sha256": "78a38fee8513c77d92d215226a035b9c0c830d652344638f0c63911fc33195ac",
+  "stage": "source_verified_runtime_pending"
+}

@@ -1,0 +1,41 @@
+{
+  "key": "vending",
+  "asset_id": "SEA-SCENE-FSH-VENDING",
+  "name": "黄色投币售货装置",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "vending",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-VENDING",
+  "root": "vending_ROOT",
+  "bounds_size": [
+    0.46000000834465027,
+    0.43150001764297485,
+    1.3799999952316284
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.01574999839067459,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/vending/vending.blend",
+  "geometry_fingerprint": "c6f1e878fc115d989cae9a444f0e5d5c0a56412e6de348526d1d96e0570007b8",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 738,
+  "triangles": 1436,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-VENDING",
+  "source_sha256": "4e71bed430fb7020509632132b0e85b963a206b1112c2377b32008a383d26802",
+  "stage": "source_verified_runtime_pending"
+}

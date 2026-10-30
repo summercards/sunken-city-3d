@@ -1,0 +1,40 @@
+{
+  "key": "foliage",
+  "asset_id": "SEA-SCENE-FSH-FOLIAGE",
+  "name": "饱满宽叶盆栽",
+  "category": "upgrade_attachment/plants",
+  "source_group": "plant",
+  "family": "foliage",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-FOLIAGE",
+  "root": "foliage_ROOT",
+  "bounds_size": [
+    0.9451998472213745,
+    1.02886962890625,
+    0.5304076671600342
+  ],
+  "authored_origin_shift": [
+    -0.1154884546995163,
+    -0.04225638508796692,
+    0.012054100632667542
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/foliage/foliage.blend",
+  "geometry_fingerprint": "b7491fc5a5446f58acd4e11373db28837f448c5b9a55f893649948703bf3e5ff",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "polygons": 3186,
+  "triangles": 6228,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-FOLIAGE",
+  "source_sha256": "9e2411623e65e1e5e4017c5fdb3a34f0e9a97bb120d12438adb9e388c1c4aa2b",
+  "stage": "source_verified_runtime_pending"
+}

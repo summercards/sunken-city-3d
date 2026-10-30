@@ -1,0 +1,40 @@
+{
+  "key": "under_brace",
+  "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+  "name": "底盘辐射支臂及管线",
+  "category": "building/structure",
+  "source_group": "structure",
+  "family": "brace",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-UNDER-BRACE",
+  "root": "under_brace_ROOT",
+  "bounds_size": [
+    0.699999988079071,
+    3.9000000953674316,
+    0.38664746284484863
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.011647459119558334
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/under_brace/under_brace.blend",
+  "geometry_fingerprint": "627c75f0a808155a2bdc596973ede17c9c31275ce546dc0abacdd04c48ca3954",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 8,
+  "polygons": 324,
+  "triangles": 624,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "407e62dd95ebecccc4e9d00686ac30d1ba4ca142cfeb899a74acad33e33ab1db",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-UNDER-BRACE"
+}

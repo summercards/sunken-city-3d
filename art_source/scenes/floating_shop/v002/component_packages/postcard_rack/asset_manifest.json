@@ -1,0 +1,41 @@
+{
+  "key": "postcard_rack",
+  "asset_id": "SEA-SCENE-FSH-POSTCARD-RACK",
+  "name": "双面明信片旋转架",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "rack",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-POSTCARD-RACK",
+  "root": "postcard_rack_ROOT",
+  "bounds_size": [
+    0.7160000205039978,
+    0.6399999856948853,
+    1.8399999141693115
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/postcard_rack/postcard_rack.blend",
+  "geometry_fingerprint": "8546a2ca204025332fbb4cfc8c9cf0c7803d4319821c219c8d6bcb46dc6f57ae",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 9854,
+  "triangles": 18548,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-POSTCARD-RACK",
+  "source_sha256": "6445f7d50b683c9b9d4029433c417c49c594935d91b487d0b3d4bb5bcd196ba3",
+  "stage": "source_verified_runtime_pending"
+}

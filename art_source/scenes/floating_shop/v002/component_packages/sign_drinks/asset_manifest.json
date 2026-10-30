@@ -1,0 +1,41 @@
+{
+  "key": "sign_drinks",
+  "asset_id": "SEA-SCENE-FSH-SIGN-DRINKS",
+  "name": "COLD DRINKS饮料招牌",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "sign",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-SIGN-DRINKS",
+  "root": "sign_drinks_ROOT",
+  "bounds_size": [
+    6.824970245361328,
+    1.0870842933654785,
+    0.9350000023841858
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -5.694018363952637,
+    0.05000000074505806
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/sign_drinks/sign_drinks.blend",
+  "geometry_fingerprint": "6848119194ca7eb72de8a9e496fb7b88ffb9ebe6a9486e5f6e8202d803605f87",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 14641,
+  "triangles": 26580,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-DRINKS",
+  "source_sha256": "e3f6fce71791ea462a61c6ccb2900c26d9cb70aa1e93791a155776b48eddfc71",
+  "stage": "source_verified_runtime_pending"
+}

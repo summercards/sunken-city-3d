@@ -1,0 +1,40 @@
+{
+  "key": "ladder",
+  "asset_id": "SEA-SCENE-FSH-LADDER",
+  "name": "平台至动力层爬梯",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "ladder",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-LADDER",
+  "root": "ladder_ROOT",
+  "bounds_size": [
+    0.6860000491142273,
+    0.3930000066757202,
+    3.1908955574035645
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.15349999070167542,
+    0.04999995231628418
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/ladder/ladder.blend",
+  "geometry_fingerprint": "f5bf21669f7dcfafccaeb478deae63e4e34419b4bae24d624964689d8c6f3430",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 1428,
+  "triangles": 3144,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-LADDER",
+  "source_sha256": "34110b6b9b666701fe905996266bf5079a670dfeabbf402eca8fb2b47c23b9e6",
+  "stage": "source_verified_runtime_pending"
+}

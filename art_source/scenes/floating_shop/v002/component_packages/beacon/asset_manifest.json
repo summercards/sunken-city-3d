@@ -1,0 +1,41 @@
+{
+  "key": "beacon",
+  "asset_id": "SEA-SCENE-FSH-BEACON",
+  "name": "屋面橙色信号灯",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "beacon",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-BEACON",
+  "root": "beacon_ROOT",
+  "bounds_size": [
+    0.2699999213218689,
+    0.26999998092651367,
+    0.940000057220459
+  ],
+  "authored_origin_shift": [
+    2.2351741790771484e-08,
+    2.2351741790771484e-08,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/beacon/beacon.blend",
+  "geometry_fingerprint": "e7f1e545568bc034ab61c7066c65f7497c0ee7c35168b540547f8b9435318cdc",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 2,
+  "polygons": 600,
+  "triangles": 1224,
+  "materials": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-BEACON",
+  "source_sha256": "ee3bb3bbfac8a6dfcfb22ea814672bb6d67b12d3dad1fd620d1b45ba039194db",
+  "stage": "source_verified_runtime_pending"
+}

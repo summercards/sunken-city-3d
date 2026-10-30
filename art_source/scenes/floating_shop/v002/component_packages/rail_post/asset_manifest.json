@@ -1,0 +1,40 @@
+{
+  "key": "rail_post",
+  "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+  "name": "黄色球头护栏立柱",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "rail_post",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-RAIL-POST",
+  "root": "rail_post_ROOT",
+  "bounds_size": [
+    0.25999999046325684,
+    0.25999999046325684,
+    1.2050000429153442
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/rail_post/rail_post.blend",
+  "geometry_fingerprint": "daa03de99385c93f909d1d07b8dc64c9e5eb4532f56aa406944f2cf03c3a222a",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 31,
+  "polygons": 694,
+  "triangles": 1452,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-RAIL-POST",
+  "source_sha256": "c74b6bbe9f3d6fccf0ea51b7b5a1d30a622a3525dcd54fa61012cb0a3d6f31e0",
+  "stage": "source_verified_runtime_pending"
+}

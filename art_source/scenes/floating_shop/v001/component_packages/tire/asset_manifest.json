@@ -1,0 +1,40 @@
+{
+  "key": "tire",
+  "asset_id": "SEA-SCENE-FSH-TIRE",
+  "name": "轮胎护舷和挂绳",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "fender",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-TIRE",
+  "root": "tire_ROOT",
+  "bounds_size": [
+    1.0,
+    0.30000007152557373,
+    1.4110000133514404
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/tire/tire.blend",
+  "geometry_fingerprint": "05815870c284576dc6d972b15aac43f83fa539679a0f967d070cdf377d081051",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 10,
+  "polygons": 4100,
+  "triangles": 8008,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "2d8a159a15984b7ce1b88ac04913af11138ee3186819816a3ab67891d8e2196b",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-TIRE"
+}

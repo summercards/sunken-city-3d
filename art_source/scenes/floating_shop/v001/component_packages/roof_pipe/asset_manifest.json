@@ -1,0 +1,40 @@
+{
+  "key": "roof_pipe",
+  "asset_id": "SEA-SCENE-FSH-ROOF-PIPE",
+  "name": "弯折管线与阀门",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "roof_pipe",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-ROOF-PIPE",
+  "root": "roof_pipe_ROOT",
+  "bounds_size": [
+    1.5,
+    0.3100000023841858,
+    1.024999976158142
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -1.6763809229658477e-09
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/roof_pipe/roof_pipe.blend",
+  "geometry_fingerprint": "7c339301b07e3909a0f99b4246fe424c661e6d635e0ac6cdfec05fddbf64e0c1",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 2,
+  "polygons": 1620,
+  "triangles": 3328,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "227280cbf88e8020209101c2ff41afafbf77688f36069bdc8885a57f09f5678f",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ROOF-PIPE"
+}

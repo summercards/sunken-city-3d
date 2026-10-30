@@ -1,0 +1,41 @@
+{
+  "key": "roof",
+  "asset_id": "SEA-SCENE-FSH-ROOF",
+  "name": "浅穹顶设备屋面",
+  "category": "building/structure",
+  "source_group": "structure",
+  "family": "roof",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-ROOF",
+  "root": "roof_ROOT",
+  "bounds_size": [
+    12.260000228881836,
+    12.260000228881836,
+    0.6000000238418579
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.18000000715255737
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/roof/roof.blend",
+  "geometry_fingerprint": "7bd4a9985a3d227643c31c9748c0a424c36b9819e9ad5ff46bf39b4eae70aeda",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 5410,
+  "triangles": 11260,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ROOF",
+  "source_sha256": "ae283bbb39f4aec0056c0563bbe94abcbe0f6446879892422be7e6e2b4608640",
+  "stage": "source_verified_runtime_pending"
+}

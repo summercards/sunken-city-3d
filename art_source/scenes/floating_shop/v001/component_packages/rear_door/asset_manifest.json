@@ -1,0 +1,41 @@
+{
+  "key": "rear_door",
+  "asset_id": "SEA-SCENE-FSH-REAR-DOOR",
+  "name": "背面检修小门",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "door",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-REAR-DOOR",
+  "root": "rear_door_ROOT",
+  "bounds_size": [
+    1.159999966621399,
+    0.30000001192092896,
+    2.059999942779541
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.07000000029802322,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/rear_door/rear_door.blend",
+  "geometry_fingerprint": "f86c4ac08177fdce5ce7627fb3ba498644854c0a86ff1d5961f92a2eed499a7c",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 622,
+  "triangles": 1188,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "6f184dbb14d40c2cf6f4d9cf2c6c987de602fc897f141295a2513844e635da66",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-REAR-DOOR"
+}

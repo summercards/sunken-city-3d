@@ -1,0 +1,41 @@
+{
+  "key": "engine",
+  "asset_id": "SEA-SCENE-FSH-ENGINE",
+  "name": "中央悬浮主推进舱",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "engine",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-ENGINE",
+  "root": "engine_ROOT",
+  "bounds_size": [
+    3.240000009536743,
+    3.240000009536743,
+    1.9500000476837158
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.020000003278255463
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/engine/engine.blend",
+  "geometry_fingerprint": "755b1861e73c839acf7a4d657fde58ac0504aff55635f76c26f9ce982b7c0032",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 7128,
+  "triangles": 14736,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "0ba19adb19d48eab6dc6cbccc742926e64219921910fbf64dfa40d5c5a9c3df4",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ENGINE"
+}

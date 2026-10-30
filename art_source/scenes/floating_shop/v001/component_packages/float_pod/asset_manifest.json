@@ -1,0 +1,41 @@
+{
+  "key": "float_pod",
+  "asset_id": "SEA-SCENE-FSH-FLOAT-POD",
+  "name": "橙色球形辅助浮舱",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "float",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-FLOAT-POD",
+  "root": "float_pod_ROOT",
+  "bounds_size": [
+    2.5380001068115234,
+    2.5380001068115234,
+    2.533388376235962
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.019999999552965164
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/float_pod/float_pod.blend",
+  "geometry_fingerprint": "f73196ff06e8ff031c3f394ffd26e000b0e0a8f1bddac977dc956e55398bb254",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 2,
+  "polygons": 3158,
+  "triangles": 6386,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "fdf256d85185b3b4ed7f05ca95475c65f3cb020ae768ded7fc389ff775fccd36",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-FLOAT-POD"
+}

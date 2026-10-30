@@ -1,0 +1,1586 @@
+{
+  "schema": "sea.scene.component_catalog",
+  "components": [
+    {
+      "key": "deck",
+      "asset_id": "SEA-SCENE-FSH-DECK",
+      "name": "环形厚甲板与分板",
+      "category": "building/structure",
+      "source_group": "structure",
+      "family": "deck",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-DECK",
+      "root": "deck_ROOT",
+      "bounds_size": [
+        18.112499237060547,
+        18.112499237060547,
+        0.47400015592575073
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/deck/deck.blend",
+      "geometry_fingerprint": "82661c71681b4d88bebf5399a224a04378dab7913c660fe02b8a5a13d18cd783",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 12772,
+      "triangles": 26904,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-DECK",
+      "source_sha256": "7e56e6da4321af5a3ec289ed3c446fec852ceda7aa8acb3ecc4478d16cac8579",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "roof",
+      "asset_id": "SEA-SCENE-FSH-ROOF",
+      "name": "浅穹顶设备屋面",
+      "category": "building/structure",
+      "source_group": "structure",
+      "family": "roof",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-ROOF",
+      "root": "roof_ROOT",
+      "bounds_size": [
+        12.260000228881836,
+        12.260000228881836,
+        0.6000000238418579
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        -0.18000000715255737
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/roof/roof.blend",
+      "geometry_fingerprint": "7bd4a9985a3d227643c31c9748c0a424c36b9819e9ad5ff46bf39b4eae70aeda",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 5410,
+      "triangles": 11260,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ROOF",
+      "source_sha256": "ae283bbb39f4aec0056c0563bbe94abcbe0f6446879892422be7e6e2b4608640",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "name": "通透弧形橱窗单元",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "facade",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "root": "facade_window_ROOT",
+      "bounds_size": [
+        2.4693784713745117,
+        0.2502627372741699,
+        2.820000171661377
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -5.894868850708008,
+        0.05999999865889549
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/facade_window/facade_window.blend",
+      "geometry_fingerprint": "93a72eab5fd04381399b0000417b1c2e58d75a811a101554696996b3b7519cc3",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 14,
+      "polygons": 1204,
+      "triangles": 2432,
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-FACADE-WINDOW",
+      "source_sha256": "4e75badb290fd9ce9ab52ba7573e24625d7bf11aa0edf1fc4b624a941a95ac03",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "entry",
+      "asset_id": "SEA-SCENE-FSH-ENTRY",
+      "name": "正面开放式门框",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "entry",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-ENTRY",
+      "root": "entry_ROOT",
+      "bounds_size": [
+        2.260000228881836,
+        0.25999999046325684,
+        2.7799999713897705
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -0.02500000223517418,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/entry/entry.blend",
+      "geometry_fingerprint": "d81adc5bf5a8f8d261db2daf765a1614be58da6321ceefeef1cbadf2ab98d340",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 490,
+      "triangles": 940,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ENTRY",
+      "source_sha256": "473a755c1f607c5bacf3c492b7bd4147148b53de32329ffeebdf24820e7b2e24",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "rear_wall",
+      "asset_id": "SEA-SCENE-FSH-REAR-WALL",
+      "name": "背面封闭墙弧",
+      "category": "building/structure",
+      "source_group": "structure",
+      "family": "rear_wall",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-REAR-WALL",
+      "root": "rear_wall_ROOT",
+      "bounds_size": [
+        4.582726955413818,
+        0.5999331474304199,
+        2.9000000953674316
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -5.700033187866211,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/rear_wall/rear_wall.blend",
+      "geometry_fingerprint": "caa50dfdb2db8b58242ed0a05c8d18f61f415f9aece5890fe915cf64958cbb52",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 466,
+      "triangles": 924,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-REAR-WALL",
+      "source_sha256": "2ccab193d8c0a9e7e7c80c1629fa6f46309ec18314aff12ef9b95da48c78a0e4",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "rear_door",
+      "asset_id": "SEA-SCENE-FSH-REAR-DOOR",
+      "name": "背面检修小门",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "door",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-REAR-DOOR",
+      "root": "rear_door_ROOT",
+      "bounds_size": [
+        1.159999966621399,
+        0.30000001192092896,
+        2.059999942779541
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -0.07000000029802322,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/rear_door/rear_door.blend",
+      "geometry_fingerprint": "f86c4ac08177fdce5ce7627fb3ba498644854c0a86ff1d5961f92a2eed499a7c",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 622,
+      "triangles": 1188,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-REAR-DOOR",
+      "source_sha256": "b62ecc42466cb9c07ae20a105a0a945f6ead51a12654f152081798258619a7ed",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "sign_band",
+      "asset_id": "SEA-SCENE-FSH-SIGN-BAND",
+      "name": "环形米黄招牌底带",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "sign_band",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-SIGN-BAND",
+      "root": "sign_band_ROOT",
+      "bounds_size": [
+        12.380000114440918,
+        12.379631996154785,
+        1.0649999380111694
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -0.00018405914306640625,
+        -0.02500000037252903
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/sign_band/sign_band.blend",
+      "geometry_fingerprint": "6f9fc37e6394d932fe92083860f194e7cfd285148c8f508eab9d9158d35f6779",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 6390,
+      "triangles": 12756,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-BAND",
+      "source_sha256": "b0b7431ad79eb274e1d6bc9128fc0b86c72e963338ce4d3a010c7c635697ec12",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "sign_gifts",
+      "asset_id": "SEA-SCENE-FSH-SIGN-GIFTS",
+      "name": "GIFTS礼物招牌",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "sign",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-SIGN-GIFTS",
+      "root": "sign_gifts_ROOT",
+      "bounds_size": [
+        4.513346195220947,
+        0.504183292388916,
+        0.9350000023841858
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -5.98240852355957,
+        0.05000000074505806
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/sign_gifts/sign_gifts.blend",
+      "geometry_fingerprint": "cded125f97eb780a333ceeea415f3c640a43377856851c2a7dea3aeef40a618b",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 8462,
+      "triangles": 15653,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-GIFTS",
+      "source_sha256": "78a38fee8513c77d92d215226a035b9c0c830d652344638f0c63911fc33195ac",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "sign_postcards",
+      "asset_id": "SEA-SCENE-FSH-SIGN-POSTCARDS",
+      "name": "POSTCARDS信封招牌",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "sign",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-SIGN-POSTCARDS",
+      "root": "sign_postcards_ROOT",
+      "bounds_size": [
+        6.824970245361328,
+        1.0878052711486816,
+        0.9350000023841858
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -5.694378852844238,
+        0.05000000074505806
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/sign_postcards/sign_postcards.blend",
+      "geometry_fingerprint": "5b623eed46a49bc5052d5c9353199d8b15c9d2e71bcb063ff412bfa69fbc63f7",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 17074,
+      "triangles": 30844,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-POSTCARDS",
+      "source_sha256": "41b6d78be877b0879a562f3803cb9ac2113894ec48de40ec2183e0319b98cc6f",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "sign_drinks",
+      "asset_id": "SEA-SCENE-FSH-SIGN-DRINKS",
+      "name": "COLD DRINKS饮料招牌",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "sign",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-SIGN-DRINKS",
+      "root": "sign_drinks_ROOT",
+      "bounds_size": [
+        6.824970245361328,
+        1.0870842933654785,
+        0.9350000023841858
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -5.694018363952637,
+        0.05000000074505806
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/sign_drinks/sign_drinks.blend",
+      "geometry_fingerprint": "6848119194ca7eb72de8a9e496fb7b88ffb9ebe6a9486e5f6e8202d803605f87",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 14641,
+      "triangles": 26580,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-DRINKS",
+      "source_sha256": "e3f6fce71791ea462a61c6ccb2900c26d9cb70aa1e93791a155776b48eddfc71",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "name": "蓝色弧面圆垂边雨棚条",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "awning",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-AWNING-BLUE",
+      "root": "awning_blue_ROOT",
+      "bounds_size": [
+        0.5442981123924255,
+        0.9426350593566895,
+        0.7570484280586243
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -6.478682518005371,
+        0.019999999552965164
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/awning_blue/awning_blue.blend",
+      "geometry_fingerprint": "db2de839a30822666dfd41bc157424e6146197bdf64c242124571122b2425de0",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 40,
+      "polygons": 314,
+      "triangles": 620,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-AWNING-BLUE",
+      "source_sha256": "6c3b7ddb4c2e0e86db4873a004af50d7a097b6eba3a412759f9063f8153f3a9a",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "name": "白色弧面圆垂边雨棚条",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "awning",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-AWNING-WHITE",
+      "root": "awning_white_ROOT",
+      "bounds_size": [
+        0.5442981123924255,
+        0.9426350593566895,
+        0.7570484280586243
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -6.478682518005371,
+        0.019999999552965164
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/awning_white/awning_white.blend",
+      "geometry_fingerprint": "db2de839a30822666dfd41bc157424e6146197bdf64c242124571122b2425de0",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 40,
+      "polygons": 314,
+      "triangles": 620,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-AWNING-WHITE",
+      "source_sha256": "f2b84843db995d42ddab7f7cec80b02d40df92069d08bc826b5fa774c720da5c",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "name": "黄色球头护栏立柱",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "rail_post",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-RAIL-POST",
+      "root": "rail_post_ROOT",
+      "bounds_size": [
+        0.25999999046325684,
+        0.25999999046325684,
+        1.2050000429153442
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/rail_post/rail_post.blend",
+      "geometry_fingerprint": "daa03de99385c93f909d1d07b8dc64c9e5eb4532f56aa406944f2cf03c3a222a",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 31,
+      "polygons": 694,
+      "triangles": 1452,
+      "materials": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-RAIL-POST",
+      "source_sha256": "c74b6bbe9f3d6fccf0ea51b7b5a1d30a622a3525dcd54fa61012cb0a3d6f31e0",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "name": "双道弧形黄色栏杆",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "rail",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-RAIL-ARC",
+      "root": "rail_arc_ROOT",
+      "bounds_size": [
+        3.4542994499206543,
+        0.28127625584602356,
+        0.5932313799858093
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -6.933128833770752,
+        0.44956618547439575
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/rail_arc/rail_arc.blend",
+      "geometry_fingerprint": "9849d6caf5bf92deb7af5d021f3b25538b93c5f8e9c96ad2c411e59da8d4dccd",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 15,
+      "polygons": 320,
+      "triangles": 640,
+      "materials": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-RAIL-ARC",
+      "source_sha256": "f67554df8d0cdd53e8b548151f19410731f6898ea01b1f00d29b16694c8bec58",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "name": "轮胎护舷和挂绳",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "fender",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-TIRE",
+      "root": "tire_ROOT",
+      "bounds_size": [
+        1.0,
+        0.30000007152557373,
+        1.4110000133514404
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/tire/tire.blend",
+      "geometry_fingerprint": "05815870c284576dc6d972b15aac43f83fa539679a0f967d070cdf377d081051",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 10,
+      "polygons": 4100,
+      "triangles": 8008,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-TIRE",
+      "source_sha256": "8badbfd772afbd0ed621631bf342825c58bea6c6922288a5e01d20a4c9c1850d",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "life_ring",
+      "asset_id": "SEA-SCENE-FSH-LIFE-RING",
+      "name": "红白救生圈和系绳",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "safety",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-LIFE-RING",
+      "root": "life_ring_ROOT",
+      "bounds_size": [
+        0.8960000276565552,
+        0.22599999606609344,
+        0.9880000352859497
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        -0.04800000786781311
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/life_ring/life_ring.blend",
+      "geometry_fingerprint": "20e38acb3d28726b45b6f6a46b08df184c95cd6a60c1b741f137af40e39a48b6",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 2,
+      "polygons": 1546,
+      "triangles": 3092,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-LIFE-RING",
+      "source_sha256": "3a58d05b8a9c83d1da1b0fa0e08ba95e1f3bdd7ace2c537e0a4ec91c7da5c946",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "ladder",
+      "asset_id": "SEA-SCENE-FSH-LADDER",
+      "name": "平台至动力层爬梯",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "ladder",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-LADDER",
+      "root": "ladder_ROOT",
+      "bounds_size": [
+        0.6860000491142273,
+        0.3930000066757202,
+        3.1908955574035645
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.15349999070167542,
+        0.04999995231628418
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/ladder/ladder.blend",
+      "geometry_fingerprint": "f5bf21669f7dcfafccaeb478deae63e4e34419b4bae24d624964689d8c6f3430",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 1428,
+      "triangles": 3144,
+      "materials": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-LADDER",
+      "source_sha256": "34110b6b9b666701fe905996266bf5079a670dfeabbf402eca8fb2b47c23b9e6",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "controller",
+      "asset_id": "SEA-SCENE-FSH-CONTROLLER",
+      "name": "米黄圆柱穹顶主控",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "controller",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-CONTROLLER",
+      "root": "controller_ROOT",
+      "bounds_size": [
+        2.069999933242798,
+        2.069999933242798,
+        1.2000000476837158
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/controller/controller.blend",
+      "geometry_fingerprint": "5b90dc56dbf78b8e7a0140a344de6adc8340793fb0c41ffb0695891a2cc6bebf",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 3754,
+      "triangles": 7268,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-CONTROLLER",
+      "source_sha256": "288a6ffc9b9fc7e43300ffcff29529f53d63a77fb5cd3c3b48b1cb7323990499",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "spotlight",
+      "asset_id": "SEA-SCENE-FSH-SPOTLIGHT",
+      "name": "黑色射灯及叉形支架",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "light",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-SPOTLIGHT",
+      "root": "spotlight_ROOT",
+      "bounds_size": [
+        0.5540000200271606,
+        0.4846877157688141,
+        0.9121296405792236
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -0.0325346440076828,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/spotlight/spotlight.blend",
+      "geometry_fingerprint": "7ba7c32256d3c3d4d976b614af8e96502305c6659f3ddfcc80184e925686253a",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 4,
+      "polygons": 1352,
+      "triangles": 2880,
+      "materials": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SPOTLIGHT",
+      "source_sha256": "2df2f8f1f09a7e10e7532a3505e4f826618a770ca10f2ad780b214ab7c701293",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "roof_pipe",
+      "asset_id": "SEA-SCENE-FSH-ROOF-PIPE",
+      "name": "弯折管线与阀门",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "roof_pipe",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-ROOF-PIPE",
+      "root": "roof_pipe_ROOT",
+      "bounds_size": [
+        1.5,
+        0.3100000023841858,
+        1.024999976158142
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        -1.6763809229658477e-09
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/roof_pipe/roof_pipe.blend",
+      "geometry_fingerprint": "7c339301b07e3909a0f99b4246fe424c661e6d635e0ac6cdfec05fddbf64e0c1",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 2,
+      "polygons": 1620,
+      "triangles": 3328,
+      "materials": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ROOF-PIPE",
+      "source_sha256": "8dc05288f2132e3604a4014bed35fd81878a14a02ef720538622594219f253d7",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "electrical_box",
+      "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+      "name": "带合页电气箱",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "electrical",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+      "root": "electrical_box_ROOT",
+      "bounds_size": [
+        0.6600000262260437,
+        0.4124999940395355,
+        0.6800000071525574
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -0.04625000059604645,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/electrical_box/electrical_box.blend",
+      "geometry_fingerprint": "359fa045728bf53a4062f599c14e478b988b48328d0b7fbf6bdcfaac04b6b39c",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 4,
+      "polygons": 1038,
+      "triangles": 1924,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ELECTRICAL-BOX",
+      "source_sha256": "6e67d370595b73f64080eef98f18999d602b5b7f0398e1335c4c22775811fd1d",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "beacon",
+      "asset_id": "SEA-SCENE-FSH-BEACON",
+      "name": "屋面橙色信号灯",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "beacon",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-BEACON",
+      "root": "beacon_ROOT",
+      "bounds_size": [
+        0.2699999213218689,
+        0.26999998092651367,
+        0.940000057220459
+      ],
+      "authored_origin_shift": [
+        2.2351741790771484e-08,
+        2.2351741790771484e-08,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/beacon/beacon.blend",
+      "geometry_fingerprint": "e7f1e545568bc034ab61c7066c65f7497c0ee7c35168b540547f8b9435318cdc",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 2,
+      "polygons": 600,
+      "triangles": 1224,
+      "materials": [
+        "SEA_Emission",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-BEACON",
+      "source_sha256": "ee3bb3bbfac8a6dfcfb22ea814672bb6d67b12d3dad1fd620d1b45ba039194db",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "engine",
+      "asset_id": "SEA-SCENE-FSH-ENGINE",
+      "name": "中央悬浮主推进舱",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "engine",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-ENGINE",
+      "root": "engine_ROOT",
+      "bounds_size": [
+        3.240000009536743,
+        3.240000009536743,
+        1.9500000476837158
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        -0.020000003278255463
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/engine/engine.blend",
+      "geometry_fingerprint": "755b1861e73c839acf7a4d657fde58ac0504aff55635f76c26f9ce982b7c0032",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 7128,
+      "triangles": 14736,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ENGINE",
+      "source_sha256": "c4ea30760aa864a3462d696b8c4e72aaa76a065faf21a1c1ed7193936d7bc92f",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "engine_glow",
+      "asset_id": "SEA-SCENE-FSH-ENGINE-GLOW",
+      "name": "主喷口发光内芯",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "emission",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-ENGINE-GLOW",
+      "root": "engine_glow_ROOT",
+      "bounds_size": [
+        0.8600000143051147,
+        0.8600000143051147,
+        0.16499999165534973
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        -0.02499999850988388
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/engine_glow/engine_glow.blend",
+      "geometry_fingerprint": "47810f613b4001481909a711aa935cb499ca8a269f6cd5f686d1dec79bf43884",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 722,
+      "triangles": 1468,
+      "materials": [
+        "SEA_Emission"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ENGINE-GLOW",
+      "source_sha256": "6f452409b5b3ed825d6ed334b515aaa062b1a08848c2af4b8af4a2c3be97d876",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "float_pod",
+      "asset_id": "SEA-SCENE-FSH-FLOAT-POD",
+      "name": "橙色球形辅助浮舱",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "float",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-FLOAT-POD",
+      "root": "float_pod_ROOT",
+      "bounds_size": [
+        2.5380001068115234,
+        2.5380001068115234,
+        2.533388376235962
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        -0.019999999552965164
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/float_pod/float_pod.blend",
+      "geometry_fingerprint": "f73196ff06e8ff031c3f394ffd26e000b0e0a8f1bddac977dc956e55398bb254",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 2,
+      "polygons": 3158,
+      "triangles": 6386,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-FLOAT-POD",
+      "source_sha256": "7ad4fb88697206efac49e837f8093c44549816d0c5ee34e954206467e6efcdd4",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "aux_nozzle",
+      "asset_id": "SEA-SCENE-FSH-AUX-NOZZLE",
+      "name": "小型辅助推进器",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "nozzle",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-AUX-NOZZLE",
+      "root": "aux_nozzle_ROOT",
+      "bounds_size": [
+        0.7200000286102295,
+        0.7200000286102295,
+        0.5099999308586121
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.03500000014901161
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/aux_nozzle/aux_nozzle.blend",
+      "geometry_fingerprint": "07b1d266b0aba3f573235d59c97660cb8426f8c430a9d20b1bcd4fb72195019e",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 4,
+      "polygons": 1028,
+      "triangles": 2168,
+      "materials": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-AUX-NOZZLE",
+      "source_sha256": "8ad7ca7d268f7758af6dc8ffbaf1f0bd4f405d5c154ebc7a559c1700a4f7d2f4",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "aux_glow",
+      "asset_id": "SEA-SCENE-FSH-AUX-GLOW",
+      "name": "辅助喷口发光内芯",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "emission",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-AUX-GLOW",
+      "root": "aux_glow_ROOT",
+      "bounds_size": [
+        0.36000001430511475,
+        0.36000001430511475,
+        0.07000000029802322
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/aux_glow/aux_glow.blend",
+      "geometry_fingerprint": "a2966c31d642e902ed708cebdf034774dbe598742cc04e25b3dd1794b796dac7",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 4,
+      "polygons": 226,
+      "triangles": 508,
+      "materials": [
+        "SEA_Emission"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-AUX-GLOW",
+      "source_sha256": "3d4d4fdef38850784bbe368d959254ee2a38c6827ffe377c0a9b70fca25d1bd4",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "under_brace",
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "name": "底盘辐射支臂及管线",
+      "category": "building/structure",
+      "source_group": "structure",
+      "family": "brace",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-UNDER-BRACE",
+      "root": "under_brace_ROOT",
+      "bounds_size": [
+        0.699999988079071,
+        3.9000000953674316,
+        0.38664746284484863
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        -0.011647459119558334
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/under_brace/under_brace.blend",
+      "geometry_fingerprint": "627c75f0a808155a2bdc596973ede17c9c31275ce546dc0abacdd04c48ca3954",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 8,
+      "polygons": 324,
+      "triangles": 624,
+      "materials": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-UNDER-BRACE",
+      "source_sha256": "87539ef8eb976423594bd8743dc7a37a0ce585f090781b322ec3cf63edbb033d",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "counterweight",
+      "asset_id": "SEA-SCENE-FSH-COUNTERWEIGHT",
+      "name": "悬挂橙色配重柱",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "counterweight",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-COUNTERWEIGHT",
+      "root": "counterweight_ROOT",
+      "bounds_size": [
+        0.25,
+        0.25,
+        1.2000000476837158
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/counterweight/counterweight.blend",
+      "geometry_fingerprint": "3e1ffe07d1a46bc256e3cfc91a35d87620efd464a262b4d892944a50871b68bc",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 4,
+      "polygons": 454,
+      "triangles": 1012,
+      "materials": [
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-COUNTERWEIGHT",
+      "source_sha256": "39b2d54672691b510bb79ee86d6ab83bfd8327da4a3668c62767b5d1780fd212",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "postcard_rack",
+      "asset_id": "SEA-SCENE-FSH-POSTCARD-RACK",
+      "name": "双面明信片旋转架",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "rack",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-POSTCARD-RACK",
+      "root": "postcard_rack_ROOT",
+      "bounds_size": [
+        0.7160000205039978,
+        0.6399999856948853,
+        1.8399999141693115
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/postcard_rack/postcard_rack.blend",
+      "geometry_fingerprint": "8546a2ca204025332fbb4cfc8c9cf0c7803d4319821c219c8d6bcb46dc6f57ae",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 9854,
+      "triangles": 18548,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-POSTCARD-RACK",
+      "source_sha256": "6445f7d50b683c9b9d4029433c417c49c594935d91b487d0b3d4bb5bcd196ba3",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "mailbox",
+      "asset_id": "SEA-SCENE-FSH-MAILBOX",
+      "name": "红色邮筒",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "mailbox",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-MAILBOX",
+      "root": "mailbox_ROOT",
+      "bounds_size": [
+        0.550000011920929,
+        0.4950000047683716,
+        1.2200000286102295
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -0.027500003576278687,
+        0.030000030994415283
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/mailbox/mailbox.blend",
+      "geometry_fingerprint": "5cb3caba0a359fdc64f951dbf6473f5816ee75d27e29719506a9613281b8b18e",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 2,
+      "polygons": 7094,
+      "triangles": 12684,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-MAILBOX",
+      "source_sha256": "e6990320fdaf5eaf5e15ceeb5f357df9f0a170a06d0e145fb4de26af0ac63f12",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "ice_box",
+      "asset_id": "SEA-SCENE-FSH-ICE-BOX",
+      "name": "白色ICE冷藏箱",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "cooler",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-ICE-BOX",
+      "root": "ice_box_ROOT",
+      "bounds_size": [
+        1.0399999618530273,
+        0.7825000286102295,
+        1.244999885559082
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -0.02124999463558197,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/ice_box/ice_box.blend",
+      "geometry_fingerprint": "bd209d6d25a64ee377fb171898af697e7928a0a10bc9054f54ea13414dc626ee",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 2,
+      "polygons": 2712,
+      "triangles": 5040,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ICE-BOX",
+      "source_sha256": "7f71e22aa4eb7412a21ea346710ebe4b79ab677784778373a32708136bfa21bf",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "vending",
+      "asset_id": "SEA-SCENE-FSH-VENDING",
+      "name": "黄色投币售货装置",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "vending",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-VENDING",
+      "root": "vending_ROOT",
+      "bounds_size": [
+        0.46000000834465027,
+        0.43150001764297485,
+        1.3799999952316284
+      ],
+      "authored_origin_shift": [
+        0.0,
+        -0.01574999839067459,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/vending/vending.blend",
+      "geometry_fingerprint": "c6f1e878fc115d989cae9a444f0e5d5c0a56412e6de348526d1d96e0570007b8",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 1,
+      "polygons": 738,
+      "triangles": 1436,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-VENDING",
+      "source_sha256": "4e71bed430fb7020509632132b0e85b963a206b1112c2377b32008a383d26802",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "name": "店内三层陈列架",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "shelf",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-SHELF",
+      "root": "shelf_ROOT",
+      "bounds_size": [
+        1.9200000762939453,
+        0.47999998927116394,
+        1.5499999523162842
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        -0.014999985694885254
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/shelf/shelf.blend",
+      "geometry_fingerprint": "3b20c3ef32379c8f8229c46a00467a4f35f64672c91f689db2910f23b83b5a92",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 8,
+      "polygons": 490,
+      "triangles": 940,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SHELF",
+      "source_sha256": "771667f8145060ecda956fe957c934130d4c1b0aebc0c56b4c134f4ea77ebaa9",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "name": "彩色饮料瓶组",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "stock",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-BOTTLE",
+      "root": "bottle_ROOT",
+      "bounds_size": [
+        1.034000039100647,
+        0.15399999916553497,
+        0.41750001907348633
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.030000001192092896
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/bottle/bottle.blend",
+      "geometry_fingerprint": "46f87facaac6caade2df5c013cac90820c904db285e95ffed0d1fe9eb80c1ad9",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 13,
+      "polygons": 3160,
+      "triangles": 6680,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-BOTTLE",
+      "source_sha256": "b53b36f29aaf0828dbd97b381ec0a4c9118c10e977269f30c194709dbb076ada",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "name": "礼品盒与玩偶陈列组",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "stock",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-GIFT",
+      "root": "gift_ROOT",
+      "bounds_size": [
+        1.1400001049041748,
+        0.3199999928474426,
+        0.7450000047683716
+      ],
+      "authored_origin_shift": [
+        -0.010000020265579224,
+        -0.015000000596046448,
+        0.01000000536441803
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/gift/gift.blend",
+      "geometry_fingerprint": "7ccc7d76624bea2e97e44d920a7f56383fab4314319765b978f2363c06b9e58e",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 10,
+      "polygons": 1340,
+      "triangles": 2472,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-GIFT",
+      "source_sha256": "120b60652f39ffa2e5a6bc56dcdcb9bb77acc7a5c399de542e88a0b27c29139c",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "pot",
+      "asset_id": "SEA-SCENE-FSH-POT",
+      "name": "米白圆陶盆",
+      "category": "building/structure",
+      "source_group": "facility",
+      "family": "pot",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-POT",
+      "root": "pot_ROOT",
+      "bounds_size": [
+        0.6200000047683716,
+        0.6200000047683716,
+        0.4350000023841858
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/pot/pot.blend",
+      "geometry_fingerprint": "3af30aca7cfd5981aef8a50692ee6dd3bb67ce05f5c62ebf8d96661ba5f1a9cb",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 4,
+      "polygons": 836,
+      "triangles": 1784,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-POT",
+      "source_sha256": "a505fb43a0fcd3fb657a94c53d2813a52452c0c4c45b3dbdd7c2f5be2ff85c58",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "foliage",
+      "asset_id": "SEA-SCENE-FSH-FOLIAGE",
+      "name": "饱满宽叶盆栽",
+      "category": "upgrade_attachment/plants",
+      "source_group": "plant",
+      "family": "foliage",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-FOLIAGE",
+      "root": "foliage_ROOT",
+      "bounds_size": [
+        0.9451998472213745,
+        1.02886962890625,
+        0.5304076671600342
+      ],
+      "authored_origin_shift": [
+        -0.1154884546995163,
+        -0.04225638508796692,
+        0.012054100632667542
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/foliage/foliage.blend",
+      "geometry_fingerprint": "b7491fc5a5446f58acd4e11373db28837f448c5b9a55f893649948703bf3e5ff",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 4,
+      "polygons": 3186,
+      "triangles": 6228,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-FOLIAGE",
+      "source_sha256": "9e2411623e65e1e5e4017c5fdb3a34f0e9a97bb120d12438adb9e388c1c4aa2b",
+      "stage": "source_verified_runtime_pending"
+    },
+    {
+      "key": "flowers",
+      "asset_id": "SEA-SCENE-FSH-FLOWERS",
+      "name": "小簇暖黄花",
+      "category": "upgrade_attachment/plants",
+      "source_group": "plant",
+      "family": "flower",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "scope": "scene_local",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": 25000,
+      "collection": "SEA-SCENE-FSH-FLOWERS",
+      "root": "flowers_ROOT",
+      "bounds_size": [
+        0.4596373438835144,
+        0.21358609199523926,
+        0.4180000126361847
+      ],
+      "authored_origin_shift": [
+        0.0,
+        0.006206948310136795,
+        0.0
+      ],
+      "component_source": "art_source/scenes/floating_shop/v002/component_packages/flowers/flowers.blend",
+      "geometry_fingerprint": "8e2b096b50cf7d09c21eefafc2087703918d47023305d3c4e561abb71cb4090a",
+      "collision_owner": "Godot wrapper pending",
+      "instances": 4,
+      "polygons": 3222,
+      "triangles": 5940,
+      "materials": [
+        "SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+      "version": "v002",
+      "license": "pending_user_reference_rights_review",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-FLOWERS",
+      "source_sha256": "fb6ddf4d7478e743a7b1ba6ef215bf1d2b7d7dd50a96cf558774ee27ed44f151",
+      "stage": "source_verified_runtime_pending"
+    }
+  ]
+}

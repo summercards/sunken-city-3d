@@ -1,0 +1,40 @@
+{
+  "key": "engine_glow",
+  "asset_id": "SEA-SCENE-FSH-ENGINE-GLOW",
+  "name": "主喷口发光内芯",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "emission",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-ENGINE-GLOW",
+  "root": "engine_glow_ROOT",
+  "bounds_size": [
+    0.8600000143051147,
+    0.8600000143051147,
+    0.16499999165534973
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.02499999850988388
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/engine_glow/engine_glow.blend",
+  "geometry_fingerprint": "47810f613b4001481909a711aa935cb499ca8a269f6cd5f686d1dec79bf43884",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 722,
+  "triangles": 1468,
+  "materials": [
+    "SEA_Emission"
+  ],
+  "source_sha256": "d31f3d8d6a3012cdd058109eb484ddb15f29139a78aa5d2534d0f523f33f9ce4",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ENGINE-GLOW"
+}

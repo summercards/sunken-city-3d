@@ -1,0 +1,41 @@
+{
+  "key": "controller",
+  "asset_id": "SEA-SCENE-FSH-CONTROLLER",
+  "name": "米黄圆柱穹顶主控",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "controller",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-CONTROLLER",
+  "root": "controller_ROOT",
+  "bounds_size": [
+    2.069999933242798,
+    2.069999933242798,
+    1.2000000476837158
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/controller/controller.blend",
+  "geometry_fingerprint": "5b90dc56dbf78b8e7a0140a344de6adc8340793fb0c41ffb0695891a2cc6bebf",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 3754,
+  "triangles": 7268,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-CONTROLLER",
+  "source_sha256": "288a6ffc9b9fc7e43300ffcff29529f53d63a77fb5cd3c3b48b1cb7323990499",
+  "stage": "source_verified_runtime_pending"
+}

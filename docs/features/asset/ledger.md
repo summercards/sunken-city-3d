@@ -310,3 +310,15 @@ SEA-ASSET-R31后续：上段杆身底端直接延长并移除旧下段32三角�
 | SEA-ASSET-R33 | `liberty_lighthouse/v001` Blender母版、30独立组件包和四视图已完成；源级几何/UV/尺寸/原点检查通过；Godot、碰撞、导航、商业授权与用户最终美术验收pending | [制作与验收记录](../../development/2026-10-30_liberty_lighthouse.md)；55实例、48539母版面逐面检查、68759展开多边形/132596三角面；装配总高约25.4米。雨棚已归一为局部底部中心、世界下缘3.50米，甲板上净高约2.26米。巨手轮廓、雨棚环绕/招牌关系、真实开洞、锈蚀与透镜可见性仍需后续美术打磨，不代签最终美术验收。 |
 
 2026-10-30组件UV修复（R32）：默认UVMap已从全部22源组件删除，PaletteUV为唯一活动/渲染层并导出为TEXCOORD_0；GLB保留四种SEA材质语义槽，KitVisual严格绑定共享材质，不再将丢失角色静默当Matte。`visual-kit-uv`563项/0失败，已查看全22件及浮台/油灯/花盆/风车近景。[修复与证据](../../development/2026-10-30_modular_building_kit.md)。
+
+## 2026-10-30 海上悬浮商铺
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R34 | Blender MCP制作39组件、250实例，建筑/植物分离；39独立包已逐个重开，130283母版面PaletteUV/原点/恒等变换检查通过；真实多视图与源登记见记录。Godot、碰撞、导航、性能、参考图商业授权和用户最终美术验收pending。 | [制作记录](../../development/2026-10-30_floating_shop.md)、[机器证据](../../development/2026-10-30_floating_shop_verification.json)、[母版](../../../art_source/scenes/floating_shop/v001/floating_shop.blend) |
+
+套件归建筑 `building/structure`，海上区域；植物组件归 `upgrade_attachment/plants` 并隶属同一设施。分账本经 `ledger_index.json` 的 `domains.scenes` 路由，`SEA-SCENE-FSH-` 共40条（39组件＋1装配），没有接受任务外哈希漂移。展开全实例为340075多边形/671437三角面，本次没有低面数预算，尚未作游戏优化。
+
+### 海上悬浮商铺v002：加宽平台与正面入口
+
+SEA-ASSET-R34当前源为[v002](../../../art_source/scenes/floating_shop/v002/floating_shop.blend)，v001保留。环廊宽3米（原1.2米的2.5倍），护栏开口约3.43米，门前1.95米连续通路几何检查无障碍；邮筒/售货装置移让、门槛压平。39组件/248实例，39独立包及130283母版面PaletteUV复验通过；展开339061多边形/669345三角面。40条原AssetID更新至v002并保留source_history，未新建重复主记录；Godot接入/运行通行/碰撞/导航/性能/商业授权及最终用户美术验收pending。[修订记录](../../development/2026-10-30_floating_shop_v002.md)、[机器证据](../../development/2026-10-30_floating_shop_v002_verification.json)。

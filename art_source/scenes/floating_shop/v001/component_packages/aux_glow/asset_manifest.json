@@ -1,0 +1,40 @@
+{
+  "key": "aux_glow",
+  "asset_id": "SEA-SCENE-FSH-AUX-GLOW",
+  "name": "辅助喷口发光内芯",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "emission",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-AUX-GLOW",
+  "root": "aux_glow_ROOT",
+  "bounds_size": [
+    0.36000001430511475,
+    0.36000001430511475,
+    0.07000000029802322
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/aux_glow/aux_glow.blend",
+  "geometry_fingerprint": "a2966c31d642e902ed708cebdf034774dbe598742cc04e25b3dd1794b796dac7",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "polygons": 226,
+  "triangles": 508,
+  "materials": [
+    "SEA_Emission"
+  ],
+  "source_sha256": "f95d0606aba399d4bd391778b5a9e80a75a6b33f44a237e94e9434682272b816",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-AUX-GLOW"
+}

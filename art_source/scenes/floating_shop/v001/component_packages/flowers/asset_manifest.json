@@ -1,0 +1,40 @@
+{
+  "key": "flowers",
+  "asset_id": "SEA-SCENE-FSH-FLOWERS",
+  "name": "小簇暖黄花",
+  "category": "upgrade_attachment/plants",
+  "source_group": "plant",
+  "family": "flower",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-FLOWERS",
+  "root": "flowers_ROOT",
+  "bounds_size": [
+    0.4596373438835144,
+    0.21358609199523926,
+    0.4180000126361847
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.006206948310136795,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/flowers/flowers.blend",
+  "geometry_fingerprint": "8e2b096b50cf7d09c21eefafc2087703918d47023305d3c4e561abb71cb4090a",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "polygons": 3222,
+  "triangles": 5940,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "3c9107ceac429b4cb7b7483f5b02b3461aa999508f5f84c077e9219ff76b3a7d",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-FLOWERS"
+}

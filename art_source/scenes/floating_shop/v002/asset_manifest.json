@@ -1,0 +1,80 @@
+{
+  "schema": "sea.scene.assembly_manifest",
+  "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+  "name": "海上悬浮商铺",
+  "version": "v002",
+  "category": "building/structure",
+  "placement_layer": "above_water",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ASSEMBLY",
+  "source": "art_source/scenes/floating_shop/v002/floating_shop.blend",
+  "source_sha256": "e13931520f13e5ea13d6e18bb3f1e28300a7d5bcf02a8a6651c2230191662a31",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review",
+  "reference": "reference.png",
+  "reference_sha256": "75a556d3b215657e97c2056994ba1438d6e751d3dce256016ebc5ffadb633f78",
+  "revision_reference": "revision_reference.png",
+  "revision_reference_sha256": "13bf75cc9855d0a6e6d5a71504462257982fe148f7666d8e50b8e958edeea15e",
+  "component_catalog": "catalog.json",
+  "component_instances": "component_instances.json",
+  "palette_asset_id": "SEA-PALETTE-COZY-64",
+  "metrics": {
+    "components": 39,
+    "instances": 248,
+    "master_meshes": 636,
+    "uv_faces_checked": 130283,
+    "expanded_polygons": 339061,
+    "expanded_triangles": 669345,
+    "overall_bounds_m": [
+      18.5,
+      18.112499237060547,
+      7.525000000372529
+    ],
+    "door_clear_width_m": 2.0,
+    "door_clear_height_m": 2.200000047683716,
+    "rail_height_m": 1.0999999046325684
+  },
+  "revision_metrics": {
+    "previous_walkway_width_m": 1.2,
+    "new_walkway_width_m": 3.0,
+    "width_multiplier": 2.5,
+    "front_railing_opening_m": 3.4335896674838575,
+    "clear_route_width_m": 1.95,
+    "route_obstructions": []
+  },
+  "visual_review": {
+    "status": "source_views_reviewed_user_art_acceptance_pending",
+    "views": [
+      {
+        "name": "beauty",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v002\\beauty.png",
+        "actual_render": true
+      },
+      {
+        "name": "front",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v002\\front.png",
+        "actual_render": true
+      },
+      {
+        "name": "top",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v002\\top.png",
+        "actual_render": true
+      },
+      {
+        "name": "entry",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v002\\entry.png",
+        "actual_render": true
+      },
+      {
+        "name": "building_only",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v002\\building_only.png",
+        "actual_render": true
+      }
+    ]
+  },
+  "previous_source": {
+    "version": "v001",
+    "source": "art_source/scenes/floating_shop/v001/floating_shop.blend",
+    "source_sha256": "5e2496eb74c1c5fe32737623fa0d2bde0b5d98500fee60cd8dd6ff3a7a3c7ea3",
+    "manifest": "art_source/scenes/floating_shop/v001/asset_manifest.json"
+  }
+}

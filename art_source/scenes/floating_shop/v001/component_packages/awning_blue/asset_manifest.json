@@ -1,0 +1,40 @@
+{
+  "key": "awning_blue",
+  "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+  "name": "蓝色弧面圆垂边雨棚条",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "awning",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-AWNING-BLUE",
+  "root": "awning_blue_ROOT",
+  "bounds_size": [
+    0.5442981123924255,
+    0.9426350593566895,
+    0.7570484280586243
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -6.478682518005371,
+    0.019999999552965164
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/awning_blue/awning_blue.blend",
+  "geometry_fingerprint": "db2de839a30822666dfd41bc157424e6146197bdf64c242124571122b2425de0",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 40,
+  "polygons": 314,
+  "triangles": 620,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "6f384ad4be5484ded0eb4fe2de0b7d419651fbab712cff9efb855064cf1d256c",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-AWNING-BLUE"
+}

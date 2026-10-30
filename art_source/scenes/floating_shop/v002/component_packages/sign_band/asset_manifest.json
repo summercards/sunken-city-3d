@@ -1,0 +1,40 @@
+{
+  "key": "sign_band",
+  "asset_id": "SEA-SCENE-FSH-SIGN-BAND",
+  "name": "环形米黄招牌底带",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "sign_band",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-SIGN-BAND",
+  "root": "sign_band_ROOT",
+  "bounds_size": [
+    12.380000114440918,
+    12.379631996154785,
+    1.0649999380111694
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.00018405914306640625,
+    -0.02500000037252903
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/sign_band/sign_band.blend",
+  "geometry_fingerprint": "6f9fc37e6394d932fe92083860f194e7cfd285148c8f508eab9d9158d35f6779",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 6390,
+  "triangles": 12756,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-BAND",
+  "source_sha256": "b0b7431ad79eb274e1d6bc9128fc0b86c72e963338ce4d3a010c7c635697ec12",
+  "stage": "source_verified_runtime_pending"
+}

@@ -1,0 +1,40 @@
+{
+  "key": "rail_arc",
+  "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+  "name": "双道弧形黄色栏杆",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "rail",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-RAIL-ARC",
+  "root": "rail_arc_ROOT",
+  "bounds_size": [
+    3.4542994499206543,
+    0.28127625584602356,
+    0.5932313799858093
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -6.933128833770752,
+    0.44956618547439575
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/rail_arc/rail_arc.blend",
+  "geometry_fingerprint": "9849d6caf5bf92deb7af5d021f3b25538b93c5f8e9c96ad2c411e59da8d4dccd",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 15,
+  "polygons": 320,
+  "triangles": 640,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-RAIL-ARC",
+  "source_sha256": "f67554df8d0cdd53e8b548151f19410731f6898ea01b1f00d29b16694c8bec58",
+  "stage": "source_verified_runtime_pending"
+}

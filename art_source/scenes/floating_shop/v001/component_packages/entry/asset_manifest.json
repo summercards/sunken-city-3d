@@ -1,0 +1,41 @@
+{
+  "key": "entry",
+  "asset_id": "SEA-SCENE-FSH-ENTRY",
+  "name": "正面开放式门框",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "entry",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-ENTRY",
+  "root": "entry_ROOT",
+  "bounds_size": [
+    2.260000228881836,
+    0.25999999046325684,
+    2.7799999713897705
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.02500000223517418,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/entry/entry.blend",
+  "geometry_fingerprint": "9aef0a3e1a0bd4f5f57270c34c20486881219e3b9220f00ba6c08e43dfbdc46f",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 490,
+  "triangles": 940,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "68456ecee879eef2822426f39c64b28794e446d2ad1b62ba5d0d3189445a2187",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ENTRY"
+}

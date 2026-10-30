@@ -1,0 +1,40 @@
+{
+  "key": "counterweight",
+  "asset_id": "SEA-SCENE-FSH-COUNTERWEIGHT",
+  "name": "悬挂橙色配重柱",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "counterweight",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-COUNTERWEIGHT",
+  "root": "counterweight_ROOT",
+  "bounds_size": [
+    0.25,
+    0.25,
+    1.2000000476837158
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/counterweight/counterweight.blend",
+  "geometry_fingerprint": "3e1ffe07d1a46bc256e3cfc91a35d87620efd464a262b4d892944a50871b68bc",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "polygons": 454,
+  "triangles": 1012,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-COUNTERWEIGHT",
+  "source_sha256": "39b2d54672691b510bb79ee86d6ab83bfd8327da4a3668c62767b5d1780fd212",
+  "stage": "source_verified_runtime_pending"
+}

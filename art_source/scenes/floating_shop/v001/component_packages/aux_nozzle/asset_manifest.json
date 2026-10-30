@@ -1,0 +1,40 @@
+{
+  "key": "aux_nozzle",
+  "asset_id": "SEA-SCENE-FSH-AUX-NOZZLE",
+  "name": "小型辅助推进器",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "nozzle",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-AUX-NOZZLE",
+  "root": "aux_nozzle_ROOT",
+  "bounds_size": [
+    0.7200000286102295,
+    0.7200000286102295,
+    0.5099999308586121
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.03500000014901161
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/aux_nozzle/aux_nozzle.blend",
+  "geometry_fingerprint": "07b1d266b0aba3f573235d59c97660cb8426f8c430a9d20b1bcd4fb72195019e",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "polygons": 1028,
+  "triangles": 2168,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "ce27903ee7fc911cc4a1ec1d6d68ff2259af3e832755228b90799a37d78a28b5",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-AUX-NOZZLE"
+}

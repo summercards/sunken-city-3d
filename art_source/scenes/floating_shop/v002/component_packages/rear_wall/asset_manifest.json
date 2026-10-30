@@ -1,0 +1,40 @@
+{
+  "key": "rear_wall",
+  "asset_id": "SEA-SCENE-FSH-REAR-WALL",
+  "name": "背面封闭墙弧",
+  "category": "building/structure",
+  "source_group": "structure",
+  "family": "rear_wall",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-REAR-WALL",
+  "root": "rear_wall_ROOT",
+  "bounds_size": [
+    4.582726955413818,
+    0.5999331474304199,
+    2.9000000953674316
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -5.700033187866211,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/rear_wall/rear_wall.blend",
+  "geometry_fingerprint": "caa50dfdb2db8b58242ed0a05c8d18f61f415f9aece5890fe915cf64958cbb52",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 466,
+  "triangles": 924,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-REAR-WALL",
+  "source_sha256": "2ccab193d8c0a9e7e7c80c1629fa6f46309ec18314aff12ef9b95da48c78a0e4",
+  "stage": "source_verified_runtime_pending"
+}

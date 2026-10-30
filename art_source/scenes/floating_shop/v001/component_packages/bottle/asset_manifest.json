@@ -1,0 +1,41 @@
+{
+  "key": "bottle",
+  "asset_id": "SEA-SCENE-FSH-BOTTLE",
+  "name": "彩色饮料瓶组",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "stock",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-BOTTLE",
+  "root": "bottle_ROOT",
+  "bounds_size": [
+    1.034000039100647,
+    0.15399999916553497,
+    0.41750001907348633
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.030000001192092896
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/bottle/bottle.blend",
+  "geometry_fingerprint": "46f87facaac6caade2df5c013cac90820c904db285e95ffed0d1fe9eb80c1ad9",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 13,
+  "polygons": 3160,
+  "triangles": 6680,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "cdbb51e0de3afa671d69781346c90b88d07c3faeb2061c82d0854ed445080eff",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-BOTTLE"
+}

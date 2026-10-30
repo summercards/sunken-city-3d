@@ -1,0 +1,5008 @@
+{
+  "schema": "sea.scene.instances",
+  "up_axis": "Z",
+  "front_axis": "-Y",
+  "godot_mapping": "(x,y,z)->(x,z,-y)",
+  "instances": [
+    {
+      "name": "deck_001",
+      "key": "deck",
+      "asset_id": "SEA-SCENE-FSH-DECK",
+      "position": [
+        0,
+        0,
+        2.04
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "roof_001",
+      "key": "roof",
+      "asset_id": "SEA-SCENE-FSH-ROOF",
+      "position": [
+        0,
+        0,
+        6.05
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.5
+      ]
+    },
+    {
+      "name": "facade_window_001",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        2.2558681964874268,
+        -5.446148872375488,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.39269909262657166
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_002",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        4.168302059173584,
+        -4.168301105499268,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.7853981852531433
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_003",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        5.44614839553833,
+        -2.2558701038360596,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.1780972480773926
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_004",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        5.894868850708008,
+        -4.4505023311103287e-07,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_005",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        5.44614839553833,
+        2.255869150161743,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.9634953737258911
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_006",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        4.168300628662109,
+        4.168302536010742,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.356194496154785
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_007",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        2.255868911743164,
+        5.44614839553833,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.7488934993743896
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_008",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        -2.255866527557373,
+        5.4461493492126465,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.5342917442321777
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_009",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        -4.168300628662109,
+        4.168302536010742,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.9269907474517822
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_010",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        -5.44614839553833,
+        2.255869150161743,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.319689750671387
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_011",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        -5.894868850708008,
+        -4.4505023311103287e-07,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.71238899230957
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_012",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        -5.44614839553833,
+        -2.2558701038360596,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.105088233947754
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_013",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        -4.168303966522217,
+        -4.168299674987793,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.497786998748779
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "facade_window_014",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
+      "position": [
+        -2.255870819091797,
+        -5.446147918701172,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.890486240386963
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "entry_001",
+      "key": "entry",
+      "asset_id": "SEA-SCENE-FSH-ENTRY",
+      "position": [
+        0,
+        -5.96,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rear_wall_001",
+      "key": "rear_wall",
+      "asset_id": "SEA-SCENE-FSH-REAR-WALL",
+      "position": [
+        0,
+        5.77,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rear_door_001",
+      "key": "rear_door",
+      "asset_id": "SEA-SCENE-FSH-REAR-DOOR",
+      "position": [
+        0,
+        6.02,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "sign_band_001",
+      "key": "sign_band",
+      "asset_id": "SEA-SCENE-FSH-SIGN-BAND",
+      "position": [
+        0,
+        0,
+        5.35
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "sign_gifts_001",
+      "key": "sign_gifts",
+      "asset_id": "SEA-SCENE-FSH-SIGN-GIFTS",
+      "position": [
+        0.0,
+        -5.98240852355957,
+        5.400000095367432
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "sign_postcards_001",
+      "key": "sign_postcards",
+      "asset_id": "SEA-SCENE-FSH-SIGN-POSTCARDS",
+      "position": [
+        -4.664562225341797,
+        -3.2661612033843994,
+        5.400000095367432
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -0.9599310755729675
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "sign_drinks_001",
+      "key": "sign_drinks",
+      "asset_id": "SEA-SCENE-FSH-SIGN-DRINKS",
+      "position": [
+        4.664267063140869,
+        -3.2659544944763184,
+        5.400000095367432
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.9599310755729675
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_001",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        0.0,
+        -6.478682518005371,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_001",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        0.5083118081092834,
+        -6.458710670471191,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.07853981852531433
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_002",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        1.0134896039962769,
+        -6.398919105529785,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.15707963705062866
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_002",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        1.5124189853668213,
+        -6.299675941467285,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.235619455575943
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_003",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        2.0020222663879395,
+        -6.161593437194824,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.3141592741012573
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_003",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        2.4792840480804443,
+        -5.985522270202637,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.39269909262657166
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_004",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        2.9412600994110107,
+        -5.772548198699951,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.471238911151886
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_004",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        3.3851022720336914,
+        -5.523984909057617,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.5497786998748779
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_005",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        3.8080739974975586,
+        -5.241364479064941,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.6283185482025146
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_005",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        4.207568168640137,
+        -4.92642879486084,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.7068583369255066
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_006",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        4.581120491027832,
+        -4.581120014190674,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.7853981852531433
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_006",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        4.926429271697998,
+        -4.20756721496582,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.8639379739761353
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_007",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        5.241364479064941,
+        -3.8080732822418213,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.942477822303772
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_007",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        5.523985385894775,
+        -3.385101318359375,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.0210176706314087
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_008",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        5.772547721862793,
+        -2.9412617683410645,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.0995573997497559
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_008",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        5.9855217933654785,
+        -2.479285955429077,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.1780972480773926
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_009",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        6.161592960357666,
+        -2.0020241737365723,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.2566370964050293
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_009",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        6.299675941467285,
+        -1.5124194622039795,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.3351768255233765
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_010",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        6.398919105529785,
+        -1.013490080833435,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.4137166738510132
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_010",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        6.458710670471191,
+        -0.5083122849464417,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.49225652217865
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_011",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        6.478682518005371,
+        -4.891269327345071e-07,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_011",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        6.458710670471191,
+        0.5083113312721252,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.6493360996246338
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_012",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        6.398919105529785,
+        1.0134891271591187,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.7278759479522705
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_012",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        6.299675941467285,
+        1.5124186277389526,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.8064157962799072
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_013",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        6.161592960357666,
+        2.002023220062256,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.884955644607544
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_013",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        5.9855217933654785,
+        2.4792850017547607,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.9634953737258911
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_014",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        5.772548198699951,
+        2.941261053085327,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.0420353412628174
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_014",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        5.523984432220459,
+        3.3851029872894287,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.120574951171875
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_015",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        5.241363525390625,
+        3.808075189590454,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.1991147994995117
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_015",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        4.926427841186523,
+        4.207568645477295,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.2776546478271484
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_016",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        4.581119060516357,
+        4.581121444702148,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.356194496154785
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_016",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        4.207566261291504,
+        4.926429748535156,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.434734344482422
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_017",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        3.808072328567505,
+        5.241365432739258,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.5132741928100586
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_017",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        3.3851003646850586,
+        5.523985862731934,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.5918140411376953
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_018",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        2.941260814666748,
+        5.772548198699951,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.670353651046753
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_018",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        2.4792847633361816,
+        5.9855217933654785,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.7488934993743896
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_019",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        2.002023220062256,
+        6.161592960357666,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.8274333477020264
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_019",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        1.512418508529663,
+        6.299675941467285,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.905973196029663
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_020",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        1.0134891271591187,
+        6.398919105529785,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.9845130443573
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_020",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        0.5083112120628357,
+        6.45871114730835,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.0630528926849365
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_021",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        5.663844149239594e-07,
+        6.478682518005371,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_021",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -0.5083081126213074,
+        6.45871114730835,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.220132350921631
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_022",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -1.0134860277175903,
+        6.398919582366943,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.2986721992492676
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_022",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -1.5124155282974243,
+        6.299676895141602,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.3772120475769043
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_023",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -2.0020203590393066,
+        6.161593914031982,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.455751895904541
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_023",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -2.4792821407318115,
+        5.985523223876953,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.5342917442321777
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_024",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -2.941258192062378,
+        5.772549629211426,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.6128315925598145
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_024",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -3.3851003646850586,
+        5.523985862731934,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.691371440887451
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_025",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -3.808072328567505,
+        5.241365432739258,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.769911289215088
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_025",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -4.207566261291504,
+        4.926429748535156,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.8484508991241455
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_026",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -4.581119060516357,
+        4.581121444702148,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.9269907474517822
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_026",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -4.926427841186523,
+        4.207568645477295,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.005530834197998
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_027",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -5.241363525390625,
+        3.808075189590454,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.084070682525635
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_027",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -5.523984432220459,
+        3.3851029872894287,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.162610054016113
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_028",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -5.772548198699951,
+        2.941261053085327,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.24114990234375
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_028",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -5.9855217933654785,
+        2.4792850017547607,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.319689750671387
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_029",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -6.161592960357666,
+        2.002023220062256,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.398229598999023
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_029",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -6.299675941467285,
+        1.5124186277389526,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.47676944732666
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_030",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -6.398919105529785,
+        1.0134891271591187,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.555309295654297
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_030",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -6.458710670471191,
+        0.5083113312721252,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.633849143981934
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_031",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -6.478682518005371,
+        -4.891269327345071e-07,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.71238899230957
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_031",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -6.458710670471191,
+        -0.5083122849464417,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.790928840637207
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_032",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -6.398919105529785,
+        -1.013490080833435,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.869468688964844
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_032",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -6.299675941467285,
+        -1.5124194622039795,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.9480085372924805
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_033",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -6.161592960357666,
+        -2.0020241737365723,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.026548385620117
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_033",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -5.9855217933654785,
+        -2.479285955429077,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.105088233947754
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_034",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -5.772547721862793,
+        -2.9412617683410645,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.183628082275391
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_034",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -5.523983955383301,
+        -3.385104179382324,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.262167930603027
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_035",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -5.241366863250732,
+        -3.8080708980560303,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.340707302093506
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_035",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -4.926431655883789,
+        -4.207564830780029,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.419247150421143
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_036",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -4.581122875213623,
+        -4.581118106842041,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.497786998748779
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_036",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -4.207570552825928,
+        -4.926426410675049,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.576326847076416
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_037",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -3.8080766201019287,
+        -5.241362571716309,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.654866695404053
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_037",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -3.3851048946380615,
+        -5.523983478546143,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.7334065437316895
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_038",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -2.941262722015381,
+        -5.772547245025635,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.811946392059326
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_038",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -2.4792869091033936,
+        -5.98552131652832,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.890486240386963
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_039",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -2.0020251274108887,
+        -6.161592483520508,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.9690260887146
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_039",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -1.5124205350875854,
+        -6.299675464630127,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        6.047565937042236
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_blue_040",
+      "key": "awning_blue",
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "position": [
+        -1.013491153717041,
+        -6.398919105529785,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        6.126105785369873
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "awning_white_040",
+      "key": "awning_white",
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "position": [
+        -0.5083133578300476,
+        -6.458710670471191,
+        4.760000228881836
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        6.20464563369751
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_post_001",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        0.0,
+        -7.0,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_002",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        1.3656322541128978,
+        -6.865496962822613,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_003",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        2.6787840265556286,
+        -6.467156727579007,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_004",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        3.8889916311372152,
+        -5.820287286117817,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_005",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        4.949747468305833,
+        -4.949747468305833,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_006",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        5.820287286117817,
+        -3.888991631137216,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_007",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        6.467156727579007,
+        -2.678784026555629,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_008",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        6.865496962822613,
+        -1.3656322541128982,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_009",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        7.0,
+        -4.286263797015736e-16,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_010",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        6.865496962822613,
+        1.3656322541128973,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_011",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        6.467156727579007,
+        2.678784026555628,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_012",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        5.820287286117818,
+        3.8889916311372135,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_013",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        4.949747468305833,
+        4.949747468305832,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_014",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        3.8889916311372152,
+        5.820287286117818,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_015",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        2.678784026555629,
+        6.467156727579007,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_016",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        1.3656322541129002,
+        6.865496962822613,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_017",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        8.572527594031472e-16,
+        7.0,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_018",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -1.3656322541128985,
+        6.865496962822613,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_019",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -2.6787840265556278,
+        6.467156727579008,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_020",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -3.8889916311372135,
+        5.820287286117818,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_021",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -4.949747468305832,
+        4.949747468305834,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_022",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -5.820287286117817,
+        3.8889916311372152,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_023",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -6.467156727579006,
+        2.678784026555632,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_024",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -6.865496962822612,
+        1.3656322541129007,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_025",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -7.0,
+        1.2858791391047208e-15,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_026",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -6.865496962822613,
+        -1.365632254112898,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_027",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -6.467156727579006,
+        -2.67878402655563,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_028",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -5.820287286117818,
+        -3.888991631137213,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_029",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -4.949747468305834,
+        -4.949747468305832,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_030",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -3.8889916311372152,
+        -5.820287286117817,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_031",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -2.6787840265556326,
+        -6.467156727579006,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_post_032",
+      "key": "rail_post",
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "position": [
+        -1.3656322541129011,
+        -6.865496962822612,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        0.9128630705394191
+      ]
+    },
+    {
+      "name": "rail_arc_001",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        0.0,
+        -6.933128833770752,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_002",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        2.6531929969787598,
+        -6.405375957489014,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.39269909262657166
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_003",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        4.902462959289551,
+        -4.902462005615234,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.7853981852531433
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_004",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        6.405375003814697,
+        -2.6531951427459717,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.1780972480773926
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_005",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        6.933128833770752,
+        -5.234366540207702e-07,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_006",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        6.4053754806518555,
+        2.6531941890716553,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.9634953737258911
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_007",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        4.902461051940918,
+        4.902463436126709,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.356194496154785
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_008",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        2.653193950653076,
+        6.4053754806518555,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.7488934993743896
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_009",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        6.061133603907365e-07,
+        6.933128833770752,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_010",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        -2.653191089630127,
+        6.40537691116333,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.5342917442321777
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_011",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        -4.902461051940918,
+        4.902463436126709,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.9269907474517822
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_012",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        -6.4053754806518555,
+        2.6531941890716553,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.319689750671387
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_013",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        -6.933128833770752,
+        -5.234366540207702e-07,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.71238899230957
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_014",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        -6.405375003814697,
+        -2.6531951427459717,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.105088233947754
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_015",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        -4.902465343475342,
+        -4.902459621429443,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.497786998748779
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "rail_arc_016",
+      "key": "rail_arc",
+      "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
+      "position": [
+        -2.653196096420288,
+        -6.405375003814697,
+        2.9800000190734863
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.890486240386963
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_001",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        2.255824058937116,
+        -6.9427125689546205,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.3141592741012573
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_002",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        5.9058240589371165,
+        -4.290832341735054,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.942477822303772
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_003",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        7.3,
+        -4.469960816887839e-16,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_004",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        5.9058240589371165,
+        4.290832341735053,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.1991147994995117
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_005",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        2.2558240589371166,
+        6.9427125689546205,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.8274333477020264
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_006",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        -2.255824058937112,
+        6.942712568954622,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.455751895904541
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_007",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        -5.905824058937116,
+        4.2908323417350545,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.084070682525635
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_008",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        -7.3,
+        1.3409882450663517e-15,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.71238899230957
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_009",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        -5.905824058937117,
+        -4.290832341735052,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.340707302093506
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "tire_010",
+      "key": "tire",
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "position": [
+        -2.255824058937118,
+        -6.9427125689546205,
+        1.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.9690260887146
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "life_ring_001",
+      "key": "life_ring",
+      "asset_id": "SEA-SCENE-FSH-LIFE-RING",
+      "position": [
+        -5.412658773652741,
+        -3.125000000000001,
+        3.25
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.0471975803375244
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "life_ring_002",
+      "key": "life_ring",
+      "asset_id": "SEA-SCENE-FSH-LIFE-RING",
+      "position": [
+        5.412658773652741,
+        -3.125000000000001,
+        3.25
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.0471975803375244
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "ladder_001",
+      "key": "ladder",
+      "asset_id": "SEA-SCENE-FSH-LADDER",
+      "position": [
+        3.2047474782578913,
+        -6.155744764088232,
+        0.02
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.47999998927116394
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "controller_001",
+      "key": "controller",
+      "asset_id": "SEA-SCENE-FSH-CONTROLLER",
+      "position": [
+        0,
+        0,
+        6.3
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "spotlight_001",
+      "key": "spotlight",
+      "asset_id": "SEA-SCENE-FSH-SPOTLIGHT",
+      "position": [
+        -3.027823130017148,
+        -3.594758280237096,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -0.699999988079071
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "spotlight_002",
+      "key": "spotlight",
+      "asset_id": "SEA-SCENE-FSH-SPOTLIGHT",
+      "position": [
+        3.027823130017148,
+        -3.594758280237096,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.699999988079071
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "spotlight_003",
+      "key": "spotlight",
+      "asset_id": "SEA-SCENE-FSH-SPOTLIGHT",
+      "position": [
+        3.0278231300171488,
+        3.594758280237095,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.4415926933288574
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "spotlight_004",
+      "key": "spotlight",
+      "asset_id": "SEA-SCENE-FSH-SPOTLIGHT",
+      "position": [
+        -3.0278231300171483,
+        3.5947582802370954,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.84159255027771
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "roof_pipe_001",
+      "key": "roof_pipe",
+      "asset_id": "SEA-SCENE-FSH-ROOF-PIPE",
+      "position": [
+        -3.0676200372663147,
+        0.7156865982832243,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.7999999523162842
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "roof_pipe_002",
+      "key": "roof_pipe",
+      "asset_id": "SEA-SCENE-FSH-ROOF-PIPE",
+      "position": [
+        3.0676200372663147,
+        0.7156865982832243,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.7999999523162842
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "electrical_box_001",
+      "key": "electrical_box",
+      "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+      "position": [
+        -1.8815800071483442,
+        3.1276439497966577,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.11999999731779099,
+        0.0,
+        -2.5999999046325684
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "electrical_box_002",
+      "key": "electrical_box",
+      "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+      "position": [
+        1.8815800071483442,
+        3.1276439497966577,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.11999999731779099,
+        0.0,
+        2.5999999046325684
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "beacon_001",
+      "key": "beacon",
+      "asset_id": "SEA-SCENE-FSH-BEACON",
+      "position": [
+        -4.901640480337894,
+        -2.4947786678406754,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "beacon_002",
+      "key": "beacon",
+      "asset_id": "SEA-SCENE-FSH-BEACON",
+      "position": [
+        4.901640480337894,
+        -2.4947786678406754,
+        6.32
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "electrical_box_003",
+      "key": "electrical_box",
+      "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+      "position": [
+        2.576933763649298,
+        5.473747562480778,
+        2.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.7015926837921143
+      ],
+      "scale": [
+        1.25,
+        1,
+        1.35
+      ]
+    },
+    {
+      "name": "electrical_box_004",
+      "key": "electrical_box",
+      "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+      "position": [
+        -2.5769337636492966,
+        5.473747562480779,
+        2.63
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.581592559814453
+      ],
+      "scale": [
+        1.25,
+        1,
+        1.35
+      ]
+    },
+    {
+      "name": "engine_001",
+      "key": "engine",
+      "asset_id": "SEA-SCENE-FSH-ENGINE",
+      "position": [
+        0,
+        0,
+        0.0
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "engine_glow_001",
+      "key": "engine_glow",
+      "asset_id": "SEA-SCENE-FSH-ENGINE-GLOW",
+      "position": [
+        0,
+        0,
+        -0.025
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "float_pod_001",
+      "key": "float_pod",
+      "asset_id": "SEA-SCENE-FSH-FLOAT-POD",
+      "position": [
+        -3.1,
+        -2.4,
+        0.02
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "float_pod_002",
+      "key": "float_pod",
+      "asset_id": "SEA-SCENE-FSH-FLOAT-POD",
+      "position": [
+        3.1,
+        -2.4,
+        0.02
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "aux_nozzle_001",
+      "key": "aux_nozzle",
+      "asset_id": "SEA-SCENE-FSH-AUX-NOZZLE",
+      "position": [
+        1.0728143862933306,
+        -5.292359520342705,
+        1.54
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "aux_glow_001",
+      "key": "aux_glow",
+      "asset_id": "SEA-SCENE-FSH-AUX-GLOW",
+      "position": [
+        1.0728143862933306,
+        -5.292359520342705,
+        1.52
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "aux_nozzle_002",
+      "key": "aux_nozzle",
+      "asset_id": "SEA-SCENE-FSH-AUX-NOZZLE",
+      "position": [
+        1.0728143862933324,
+        5.292359520342704,
+        1.54
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "aux_glow_002",
+      "key": "aux_glow",
+      "asset_id": "SEA-SCENE-FSH-AUX-GLOW",
+      "position": [
+        1.0728143862933324,
+        5.292359520342704,
+        1.52
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "aux_nozzle_003",
+      "key": "aux_nozzle",
+      "asset_id": "SEA-SCENE-FSH-AUX-NOZZLE",
+      "position": [
+        -1.0728143862933324,
+        5.292359520342704,
+        1.54
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "aux_glow_003",
+      "key": "aux_glow",
+      "asset_id": "SEA-SCENE-FSH-AUX-GLOW",
+      "position": [
+        -1.0728143862933324,
+        5.292359520342704,
+        1.52
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "aux_nozzle_004",
+      "key": "aux_nozzle",
+      "asset_id": "SEA-SCENE-FSH-AUX-NOZZLE",
+      "position": [
+        -1.0728143862933306,
+        -5.292359520342705,
+        1.54
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "aux_glow_004",
+      "key": "aux_glow",
+      "asset_id": "SEA-SCENE-FSH-AUX-GLOW",
+      "position": [
+        -1.0728143862933306,
+        -5.292359520342705,
+        1.52
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "under_brace_001",
+      "key": "under_brace",
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "position": [
+        0.0,
+        -3.5999999046325684,
+        1.9199999570846558
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "under_brace_002",
+      "key": "under_brace",
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "position": [
+        2.5455844402313232,
+        -2.5455844402313232,
+        1.9199999570846558
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.7853981852531433
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "under_brace_003",
+      "key": "under_brace",
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "position": [
+        3.5999999046325684,
+        -2.2043642023044041e-16,
+        1.9199999570846558
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.5707963705062866
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "under_brace_004",
+      "key": "under_brace",
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "position": [
+        2.5455844402313232,
+        2.5455844402313232,
+        1.9199999570846558
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.356194496154785
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "under_brace_005",
+      "key": "under_brace",
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "position": [
+        4.4087284046088083e-16,
+        3.5999999046325684,
+        1.9199999570846558
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "under_brace_006",
+      "key": "under_brace",
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "position": [
+        -2.5455844402313232,
+        2.5455844402313232,
+        1.9199999570846558
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.9269907474517822
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "under_brace_007",
+      "key": "under_brace",
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "position": [
+        -3.5999999046325684,
+        6.61309273926211e-16,
+        1.9199999570846558
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        4.71238899230957
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "under_brace_008",
+      "key": "under_brace",
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "position": [
+        -2.5455844402313232,
+        -2.5455844402313232,
+        1.9199999570846558
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        5.497786998748779
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "counterweight_001",
+      "key": "counterweight",
+      "asset_id": "SEA-SCENE-FSH-COUNTERWEIGHT",
+      "position": [
+        -6.358196949682427,
+        -2.1126598280483,
+        0.67
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "counterweight_002",
+      "key": "counterweight",
+      "asset_id": "SEA-SCENE-FSH-COUNTERWEIGHT",
+      "position": [
+        6.358196949682427,
+        -2.1126598280483,
+        0.67
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "counterweight_003",
+      "key": "counterweight",
+      "asset_id": "SEA-SCENE-FSH-COUNTERWEIGHT",
+      "position": [
+        3.7831045717467378,
+        5.5297486198948445,
+        0.67
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "counterweight_004",
+      "key": "counterweight",
+      "asset_id": "SEA-SCENE-FSH-COUNTERWEIGHT",
+      "position": [
+        -3.7831045717467373,
+        5.529748619894845,
+        0.67
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "postcard_rack_001",
+      "key": "postcard_rack",
+      "asset_id": "SEA-SCENE-FSH-POSTCARD-RACK",
+      "position": [
+        -2.45,
+        -5.85,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -0.15000000596046448
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "mailbox_001",
+      "key": "mailbox",
+      "asset_id": "SEA-SCENE-FSH-MAILBOX",
+      "position": [
+        -1.0,
+        -6.24,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "ice_box_001",
+      "key": "ice_box",
+      "asset_id": "SEA-SCENE-FSH-ICE-BOX",
+      "position": [
+        2.65,
+        -5.75,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.11999999731779099
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "vending_001",
+      "key": "vending",
+      "asset_id": "SEA-SCENE-FSH-VENDING",
+      "position": [
+        1.36,
+        -6.12,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.07999999821186066
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "mailbox_002",
+      "key": "mailbox",
+      "asset_id": "SEA-SCENE-FSH-MAILBOX",
+      "position": [
+        -6.292375383864301,
+        0.3098580780592745,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.6200000047683716
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "ice_box_002",
+      "key": "ice_box",
+      "asset_id": "SEA-SCENE-FSH-ICE-BOX",
+      "position": [
+        6.347292379313557,
+        0.18541696661318396,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.600000023841858
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "shelf_001",
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "position": [
+        -2.8497244713177428,
+        -4.349605779558972,
+        2.55
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -0.5799999833106995
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gift_001",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        -2.833283753213986,
+        -4.324511900061516,
+        2.69
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -0.5799999833106995
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gift_002",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        -2.833283753213986,
+        -4.324511900061516,
+        3.3899999999999997
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -0.5799999833106995
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gift_003",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        -2.833283753213986,
+        -4.324511900061516,
+        4.08
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -0.5799999833106995
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "shelf_002",
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "position": [
+        2.8497244713177428,
+        -4.349605779558972,
+        2.55
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.5799999833106995
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_001",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        2.833283753213986,
+        -4.324511900061516,
+        2.69
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.5799999833106995
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_002",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        2.833283753213986,
+        -4.324511900061516,
+        3.3899999999999997
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.5799999833106995
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_003",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        2.833283753213986,
+        -4.324511900061516,
+        4.08
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.5799999833106995
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "shelf_003",
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "position": [
+        -4.634278272319464,
+        -2.358699831413002,
+        2.55
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.100000023841858
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gift_004",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        -4.607542051517621,
+        -2.3450919477702348,
+        2.69
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.100000023841858
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gift_005",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        -4.607542051517621,
+        -2.3450919477702348,
+        3.3899999999999997
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.100000023841858
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gift_006",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        -4.607542051517621,
+        -2.3450919477702348,
+        4.08
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -1.100000023841858
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "shelf_004",
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "position": [
+        4.634278272319464,
+        -2.358699831413002,
+        2.55
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.100000023841858
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_004",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        4.607542051517621,
+        -2.3450919477702348,
+        2.69
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.100000023841858
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_005",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        4.607542051517621,
+        -2.3450919477702348,
+        3.3899999999999997
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.100000023841858
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_006",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        4.607542051517621,
+        -2.3450919477702348,
+        4.08
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        1.100000023841858
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "shelf_005",
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "position": [
+        3.512408538865985,
+        3.8344473208144763,
+        2.55
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.4000000953674316
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_007",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        3.4921446434494503,
+        3.812325509348239,
+        2.69
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.4000000953674316
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_008",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        3.4921446434494503,
+        3.812325509348239,
+        3.3899999999999997
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.4000000953674316
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_009",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        3.4921446434494503,
+        3.812325509348239,
+        4.08
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        2.4000000953674316
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "shelf_006",
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "position": [
+        -3.512408538865985,
+        3.8344473208144763,
+        2.55
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -2.4000000953674316
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gift_007",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        -3.4921446434494503,
+        3.812325509348239,
+        2.69
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -2.4000000953674316
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gift_008",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        -3.4921446434494503,
+        3.812325509348239,
+        3.3899999999999997
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -2.4000000953674316
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "gift_009",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        -3.4921446434494503,
+        3.812325509348239,
+        4.08
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        -2.4000000953674316
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "shelf_007",
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "position": [
+        6.368163355566237e-16,
+        5.2,
+        2.55
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_010",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        6.331423951591816e-16,
+        5.17,
+        2.69
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_011",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        6.331423951591816e-16,
+        5.17,
+        3.3899999999999997
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_012",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        6.331423951591816e-16,
+        5.17,
+        4.08
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        3.1415927410125732
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "shelf_008",
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "position": [
+        0,
+        -3.8,
+        2.55
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.15,
+        1,
+        0.82
+      ]
+    },
+    {
+      "name": "gift_010",
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "position": [
+        0,
+        -3.88,
+        3.83
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "bottle_013",
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "position": [
+        -0.2,
+        -3.88,
+        3.25
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "pot_001",
+      "key": "pot",
+      "asset_id": "SEA-SCENE-FSH-POT",
+      "position": [
+        -3.9928357025172754,
+        -4.937586764068392,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "foliage_001",
+      "key": "foliage",
+      "asset_id": "SEA-SCENE-FSH-FOLIAGE",
+      "position": [
+        -3.9928357025172754,
+        -4.937586764068392,
+        2.91
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "flowers_001",
+      "key": "flowers",
+      "asset_id": "SEA-SCENE-FSH-FLOWERS",
+      "position": [
+        -3.9928357025172754,
+        -4.937586764068392,
+        3.0
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "pot_002",
+      "key": "pot",
+      "asset_id": "SEA-SCENE-FSH-POT",
+      "position": [
+        4.9741258761345195,
+        -3.947223298518719,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "foliage_002",
+      "key": "foliage",
+      "asset_id": "SEA-SCENE-FSH-FOLIAGE",
+      "position": [
+        4.9741258761345195,
+        -3.947223298518719,
+        2.91
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "flowers_002",
+      "key": "flowers",
+      "asset_id": "SEA-SCENE-FSH-FLOWERS",
+      "position": [
+        4.9741258761345195,
+        -3.947223298518719,
+        3.0
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "pot_003",
+      "key": "pot",
+      "asset_id": "SEA-SCENE-FSH-POT",
+      "position": [
+        -6.1040975388931535,
+        1.749998067335657,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "foliage_003",
+      "key": "foliage",
+      "asset_id": "SEA-SCENE-FSH-FOLIAGE",
+      "position": [
+        -6.1040975388931535,
+        1.749998067335657,
+        2.91
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "flowers_003",
+      "key": "flowers",
+      "asset_id": "SEA-SCENE-FSH-FLOWERS",
+      "position": [
+        -6.1040975388931535,
+        1.749998067335657,
+        3.0
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "pot_004",
+      "key": "pot",
+      "asset_id": "SEA-SCENE-FSH-POT",
+      "position": [
+        5.133952164254397,
+        3.7369820945714456,
+        2.5
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "foliage_004",
+      "key": "foliage",
+      "asset_id": "SEA-SCENE-FSH-FOLIAGE",
+      "position": [
+        5.133952164254397,
+        3.7369820945714456,
+        2.91
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "flowers_004",
+      "key": "flowers",
+      "asset_id": "SEA-SCENE-FSH-FLOWERS",
+      "position": [
+        5.133952164254397,
+        3.7369820945714456,
+        3.0
+      ],
+      "rotation_euler_xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "key": "spotlight",
+  "asset_id": "SEA-SCENE-FSH-SPOTLIGHT",
+  "name": "黑色射灯及叉形支架",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "light",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-SPOTLIGHT",
+  "root": "spotlight_ROOT",
+  "bounds_size": [
+    0.5540000200271606,
+    0.4846877157688141,
+    0.9121296405792236
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.0325346440076828,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/spotlight/spotlight.blend",
+  "geometry_fingerprint": "7ba7c32256d3c3d4d976b614af8e96502305c6659f3ddfcc80184e925686253a",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "polygons": 1352,
+  "triangles": 2880,
+  "materials": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "source_sha256": "ac183a8fc6acd66e94429c06b2ef7025cad24fe8630a9179070d0323f0709932",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SPOTLIGHT"
+}

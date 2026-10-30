@@ -1,0 +1,41 @@
+{
+  "key": "sign_postcards",
+  "asset_id": "SEA-SCENE-FSH-SIGN-POSTCARDS",
+  "name": "POSTCARDS信封招牌",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "sign",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-SIGN-POSTCARDS",
+  "root": "sign_postcards_ROOT",
+  "bounds_size": [
+    6.824970245361328,
+    1.0878052711486816,
+    0.9350000023841858
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -5.694378852844238,
+    0.05000000074505806
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/sign_postcards/sign_postcards.blend",
+  "geometry_fingerprint": "5b623eed46a49bc5052d5c9353199d8b15c9d2e71bcb063ff412bfa69fbc63f7",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 17074,
+  "triangles": 30844,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-POSTCARDS",
+  "source_sha256": "41b6d78be877b0879a562f3803cb9ac2113894ec48de40ec2183e0319b98cc6f",
+  "stage": "source_verified_runtime_pending"
+}

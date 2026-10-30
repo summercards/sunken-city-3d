@@ -1,0 +1,41 @@
+{
+  "key": "mailbox",
+  "asset_id": "SEA-SCENE-FSH-MAILBOX",
+  "name": "红色邮筒",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "mailbox",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-MAILBOX",
+  "root": "mailbox_ROOT",
+  "bounds_size": [
+    0.550000011920929,
+    0.4950000047683716,
+    1.2200000286102295
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.027500003576278687,
+    0.030000030994415283
+  ],
+  "component_source": "art_source/scenes/floating_shop/v001/component_packages/mailbox/mailbox.blend",
+  "geometry_fingerprint": "5cb3caba0a359fdc64f951dbf6473f5816ee75d27e29719506a9613281b8b18e",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 2,
+  "polygons": 7094,
+  "triangles": 12684,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "ef4179ac2871ffe248ff899b4304984e65a769c99240e830986e55bc3827768e",
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-MAILBOX"
+}

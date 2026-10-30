@@ -1,0 +1,40 @@
+{
+  "key": "pot",
+  "asset_id": "SEA-SCENE-FSH-POT",
+  "name": "米白圆陶盆",
+  "category": "building/structure",
+  "source_group": "facility",
+  "family": "pot",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": 25000,
+  "collection": "SEA-SCENE-FSH-POT",
+  "root": "pot_ROOT",
+  "bounds_size": [
+    0.6200000047683716,
+    0.6200000047683716,
+    0.4350000023841858
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v002/component_packages/pot/pot.blend",
+  "geometry_fingerprint": "3af30aca7cfd5981aef8a50692ee6dd3bb67ce05f5c62ebf8d96661ba5f1a9cb",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "polygons": 836,
+  "triangles": 1784,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "version": "v002",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-POT",
+  "source_sha256": "a505fb43a0fcd3fb657a94c53d2813a52452c0c4c45b3dbdd7c2f5be2ff85c58",
+  "stage": "source_verified_runtime_pending"
+}
