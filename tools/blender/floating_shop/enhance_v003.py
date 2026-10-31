@@ -174,7 +174,7 @@ def sign_glyph(name, ch, size, cell, depth, bevel):
 
 
 def sign_text(prefix, lines, cell, center_x=0.0, plate_front_y=-.07,
-              depth=.10, bevel=.027, tracking=.055, max_width=None):
+              depth=.12, bevel=.034, tracking=.062, max_width=None):
     """Lay out solid lettering line by line; every glyph shares one colour.
 
     Lines are `(body, cap_centre_z, size)`. Widths are measured from the built
@@ -213,6 +213,32 @@ def sign_text(prefix, lines, cell, center_x=0.0, plate_front_y=-.07,
 
 PLATE_HALF_Y = .07
 
+# The corner icons stay, but the 1.5x lettering took most of the plate, so they
+# shrink and sit in the gap past the last letter instead of under it. Dropping
+# them entirely would be a silent asset removal; the sign keeps its icon.
+ICON_SCALE = .74
+
+
+def park_icon(objs, right_edge, scale=ICON_SCALE):
+    """Shrink an icon about its real centre and sit its right edge at right_edge.
+
+    Two traps here. Touching `v.co` is useless: `cube()` puts the position on
+    the object's location, so the vertices are local and never move. And a
+    hand-typed anchor is not the assembled icon's centre. So measure the icon
+    through `matrix_world`, then post-multiply a scale-about-centre.
+    """
+    pts = [o.matrix_world @ v.co for o in objs for v in o.data.vertices]
+    xs = [q.x for q in pts]
+    ys = [q.y for q in pts]
+    zs = [q.z for q in pts]
+    c = Vector(((min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2, (min(zs) + max(zs)) / 2))
+    half = (max(xs) - min(xs)) / 2 * scale
+    dx = (right_edge - half) - c.x
+    m = (Matrix.Translation(Vector((dx, 0, 0)))
+         @ Matrix.Translation(c) @ Matrix.Scale(scale, 4) @ Matrix.Translation(-c))
+    for o in objs:
+        o.matrix_world = m @ o.matrix_world
+
 
 def sign_board(body, size, icon, cell='deepblue'):
     """Straight hanging fascia: cream panel, gold trim, chunky solid lettering."""
@@ -223,21 +249,27 @@ def sign_board(body, size, icon, cell='deepblue'):
         cube('招牌竖边', (x, -.076, .52), (.05, .055, 1.04), 'ochre', 'SEA_Metal', .009)
     if ' ' in body:
         head, tail = body.split(' ', 1)
-        sign_text('招牌字_' + head + tail, [(head, .74, size), (tail, .30, size)],
-                  cell, center_x=-.24, max_width=2.50)
+        sign_text('招牌字_' + head + tail, [(head, .80, size), (tail, .17, size)],
+                  cell, center_x=-.21, max_width=3.62)
     else:
-        sign_text('招牌字_' + body, [(body, .52, size)], cell, center_x=-.30,
-                  max_width=2.44)
+        sign_text('招牌字_' + body, [(body, .52, size)], cell, center_x=-.21,
+                  max_width=3.62)
     if icon == 'gift':
-        cube('招牌红色礼盒', (1.26, -.090, .38), (.34, .05, .36), 'red_dark', bevel=.022)
-        cube('招牌礼盒盖', (1.26, -.094, .57), (.39, .06, .08), 'red', bevel=.014)
-        cube('招牌礼盒金缎带', (1.26, -.100, .38), (.068, .02, .38), 'gold', bevel=.005)
-        for x in [1.185, 1.335]:
-            sphere('招牌礼盒蝴蝶结', (x, -.094, .63), (.085, .045, .065), 'red_dark', seg=16, rings=10)
+        made = [
+            cube('招牌红色礼盒', (1.26, -.090, .38), (.34, .05, .36), 'red_dark', bevel=.022),
+            cube('招牌礼盒盖', (1.26, -.094, .57), (.39, .06, .08), 'red', bevel=.014),
+            cube('招牌礼盒金缎带', (1.26, -.100, .38), (.068, .02, .38), 'gold', bevel=.005),
+        ]
+        made += [sphere('招牌礼盒蝴蝶结', (x, -.094, .63), (.085, .045, .065), 'red_dark',
+                        seg=16, rings=10) for x in [1.185, 1.335]]
+        park_icon(made, right_edge=1.56)
     else:
-        cube('招牌红饮料杯', (1.30, -.090, .34), (.24, .05, .38), 'red', bevel=.032)
-        cube('招牌杯蓝盖', (1.30, -.094, .53), (.28, .06, .07), 'aqua', bevel=.014)
-        rod('招牌吸管', (1.33, -.098, .54), (1.39, -.098, .73), .016, 'cream')
+        made = [
+            cube('招牌红饮料杯', (1.30, -.090, .34), (.24, .05, .38), 'red', bevel=.032),
+            cube('招牌杯蓝盖', (1.30, -.094, .53), (.28, .06, .07), 'aqua', bevel=.014),
+            rod('招牌吸管', (1.33, -.098, .54), (1.39, -.098, .73), .016, 'cream'),
+        ]
+        park_icon(made, right_edge=1.56)
 
 
 def shop_lamp():
@@ -351,9 +383,10 @@ def sign_panel():
     """Centre plate; rebuilt here only so its letters match the flanking ones."""
     cube('方形补给站铭牌外框', (0, 0, .45), (5.6, .18, .9), 'ochre', 'SEA_Metal', .06)
     cube('奶黄铭牌面', (0, -.105, .45), (5.42, .06, .72), 'butter', bevel=.045)
-    sign_text('铭牌字_SEASUPPLY', [('SEA SUPPLY', .47, .62)], 'deepblue',
-              plate_front_y=-.135, depth=.072, bevel=.020, tracking=.085)
-    text('铭牌小字', 'MARINE STATION', (0, -.152, .155), .085, 'wood_mid')
+    sign_text('铭牌字_SEASUPPLY', [('SEA SUPPLY', .52, .93)], 'deepblue',
+              plate_front_y=-.135, depth=.100, bevel=.030, tracking=.085,
+              max_width=5.62)
+    text('铭牌小字', 'MARINE STATION', (0, -.152, .095), .070, 'wood_mid')
 
 
 sign_panel_slot = next(i for i, x in enumerate(layout) if x['key'] == 'sign_panel')
@@ -362,8 +395,8 @@ for key, fn in [('cargo_crate', cargo_crate), ('sign_panel', sign_panel),
                 ('shop_window', shop_window), ('shop_lamp', shop_lamp), ('shop_string', shop_string),
                 ('postcard_rack', postcards), ('mailbox', mailbox), ('ice_box', icebox),
                 ('vending', vending), ('bottle', bottles), ('gift', gifts),
-                ('sign_gifts', lambda: sign_board('GIFTS', .66, 'gift', cell='red')),
-                ('sign_drinks', lambda: sign_board('COLD DRINKS', .54, 'drink', cell='teal'))]:
+                ('sign_gifts', lambda: sign_board('GIFTS', .99, 'gift', cell='red')),
+                ('sign_drinks', lambda: sign_board('COLD DRINKS', .81, 'drink', cell='teal'))]:
     drop_key(key)
     part(key, fn)
 # The rebuilt centre plate lost its instance; put it back where it hung.

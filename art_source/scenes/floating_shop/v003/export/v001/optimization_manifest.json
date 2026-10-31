@@ -3,15 +3,15 @@
   "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
   "role": "optimized",
   "source": "art_source/scenes/floating_shop/v003/floating_shop.blend",
-  "source_sha256_before": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
-  "source_sha256_after": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
+  "source_sha256_before": "75dd770a31fed7a06b5f82302cc09d576b3ac872696c0f0208ce4f1c58a9a28c",
+  "source_sha256_after": "75dd770a31fed7a06b5f82302cc09d576b3ac872696c0f0208ce4f1c58a9a28c",
   "optimized": "art_source/scenes/floating_shop/v003/export/v001/floating_shop_optimized_v001.blend",
-  "optimized_sha256": "48ed28580323f0f60f00aa68910f9b2a6886fe10d601a084a0a37cdd3ad84913",
+  "optimized_sha256": "7725d7eb2831bc6c9d5a34583791142c4b08b0aa20c7fca505cbb816266db71c",
   "palette_sha256_before": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
   "palette_sha256_after": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
-  "triangles_before": 559034,
-  "triangles_after": 520181,
-  "reduction_ratio": 0.0695002450655953,
+  "triangles_before": 559030,
+  "triangles_after": 520185,
+  "reduction_ratio": 0.06948643185517772,
   "components": [
     {
       "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
@@ -946,16 +946,16 @@
     {
       "asset_id": "SEA-SCENE-FSH-SIGN-PANEL",
       "key": "sign_panel",
-      "triangles_before": 20892,
+      "triangles_before": 20884,
       "triangles_after": 20572,
-      "reduction_ratio": 0.015316867700555237,
+      "reduction_ratio": 0.014939666730511397,
       "operations": {
         "merge_distance_m": 1e-06,
         "degenerate_distance_m": 1e-07,
         "planar_dissolve_angle_rad": 0.005,
         "surface_collapse_ratio": null,
         "surface_meshes_collapsed": 0,
-        "cleanup_elements_removed": 5049,
+        "cleanup_elements_removed": 5043,
         "palette_uv_reprojected_same_cell": true
       },
       "budget": null,
@@ -963,12 +963,12 @@
       "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
       "bounds_before_m": [
         5.599999904632568,
-        0.37400001287460327,
+        0.4400000274181366,
         0.8999999761581421
       ],
       "bounds_after_m": [
         5.599999904632568,
-        0.37400001287460327,
+        0.4400000274181366,
         0.8999999761581421
       ],
       "max_bounds_change_m": 0.0
@@ -1263,12 +1263,12 @@
       "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
       "bounds_before_m": [
         3.299999952316284,
-        0.35199999809265137,
+        0.39899998903274536,
         1.0399999618530273
       ],
       "bounds_after_m": [
         3.299999952316284,
-        0.35199999809265137,
+        0.39899998903274536,
         1.0399999618530273
       ],
       "max_bounds_change_m": 0.0
@@ -1276,9 +1276,9 @@
     {
       "asset_id": "SEA-SCENE-FSH-SIGN-DRINKS",
       "key": "sign_drinks",
-      "triangles_before": 9288,
-      "triangles_after": 9238,
-      "reduction_ratio": 0.005383290267011198,
+      "triangles_before": 9292,
+      "triangles_after": 9242,
+      "reduction_ratio": 0.005380972879896685,
       "operations": {
         "merge_distance_m": 1e-06,
         "degenerate_distance_m": 1e-07,
@@ -1293,13 +1293,13 @@
       "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
       "bounds_before_m": [
         3.299999952316284,
-        0.35199999809265137,
-        1.0399999618530273
+        0.39899998903274536,
+        1.117225170135498
       ],
       "bounds_after_m": [
         3.299999952316284,
-        0.35199999809265137,
-        1.0399999618530273
+        0.39899998903274536,
+        1.117225170135498
       ],
       "max_bounds_change_m": 0.0
     },

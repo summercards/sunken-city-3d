@@ -352,10 +352,10 @@ SEA-ASSET-R34当前源为[v002](../../../art_source/scenes/floating_shop/v002/fl
 
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
-| SEA-ASSET-R37 | 已实现并接入：32→44 组件、273→296 实例、429474→520181 三角面（立体字重做后）。正面 4 个玻璃橱窗（窗带 0.56–4.30 米）替换 4 块实墙板，Gloss 恢复透明；`sign_gifts` / `sign_drinks` 与 `sign_panel` 同带；明信片架/邮筒/售货机/冷藏箱在环廊外侧避开 3.2 米开口；店内 4 组货架 + 瓶 + 礼盒、4 盏吊灯 + 串灯均在窗带内。门仍为 0、主体内部仍不可走、外壳尺寸与摆放未动。`floating-shop` 37 项、`sea-supply` 37 项、`visual-floating-shop` 16 项均 0 失败。 | [零售细修记录](../../development/2026-10-31_floating_shop_retail_detail.md)、[装配清单](../../../art_source/scenes/floating_shop/v003/asset_manifest.json)、[导出清单](../../../art_source/scenes/floating_shop/v003/export/v001/export_manifest.json) |
+| SEA-ASSET-R37 | 已实现并接入：32→44 组件、273→296 实例、429474→520185 三角面（立体字重做并再放大 1.5 倍后）。正面 4 个玻璃橱窗（窗带 0.56–4.30 米）替换 4 块实墙板，Gloss 恢复透明；`sign_gifts` / `sign_drinks` 与 `sign_panel` 同带；明信片架/邮筒/售货机/冷藏箱在环廊外侧避开 3.2 米开口；店内 4 组货架 + 瓶 + 礼盒、4 盏吊灯 + 串灯均在窗带内。门仍为 0、主体内部仍不可走、外壳尺寸与摆放未动。`floating-shop` 37 项、`sea-supply` 37 项、`visual-floating-shop` 16 项均 0 失败。 | [零售细修记录](../../development/2026-10-31_floating_shop_retail_detail.md)、[装配清单](../../../art_source/scenes/floating_shop/v003/asset_manifest.json)、[导出清单](../../../art_source/scenes/floating_shop/v003/export/v001/export_manifest.json) |
 
 ## 2026-10-31 广告牌立体字：更粗更大更厚、三色、一块歪挂
 
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
-| SEA-ASSET-R37 | 三块广告牌的立体字重做：逐字挤出 0.10 米、圆角 0.027 米（原只有 0.007 / 0.0025，等于贴纸）；字号 SEA SUPPLY 0.62、GIFTS 0.66、COLD DRINKS 两行 0.74 / 0.30。三块牌各有主色：深蓝 / 红 / 青绿，其中红与青绿为本轮新增。排版按实测字宽逐字定位，允许超出奶黄面板；侧牌在 `max_width` 内**等比**缩放，绝不做单轴压扁（压扁会把笔画拉细，正是"不够饱满"的来源）。COLD DRINKS 绕 Y 轴右倾 3.2°。侧牌面板由 3.02 米加宽到 3.30 米给字腾地方，仍在 12 米墙 3.2 米空档内。外壳、尺寸、摆放、水线一律未动。`floating-shop` 37 项、`sea-supply` 37 项、`visual-floating-shop` 16 项均 0 失败。 | [零售细修记录](../../development/2026-10-31_floating_shop_retail_detail.md)、[装配清单](../../../art_source/scenes/floating_shop/v003/asset_manifest.json) |
+| SEA-ASSET-R37 | 三块广告牌的立体字重做：逐字挤出 0.10 米、圆角 0.027 米（原只有 0.007 / 0.0025，等于贴纸）；字号 SEA SUPPLY 0.62、GIFTS 0.66、COLD DRINKS 两行 0.74 / 0.30。三块牌各有主色：深蓝 / 红 / 青绿，其中红与青绿为本轮新增。排版按实测字宽逐字定位，允许超出奶黄面板；侧牌在 `max_width` 内**等比**缩放，绝不做单轴压扁（压扁会把笔画拉细，正是"不够饱满"的来源）。COLD DRINKS 绕 Y 轴右倾 3.2°。随后整组再放大 1.5 倍（挤深 0.12 米、字号 0.93/0.99/0.80/0.17），三块牌实测文字包围盒首尾相接不重叠，牌角图标缩至 0.74 倍让位而非删除。侧牌面板由 3.02 米加宽到 3.30 米给字腾地方，仍在 12 米墙 3.2 米空档内。外壳、尺寸、摆放、水线一律未动。`floating-shop` 37 项、`sea-supply` 37 项、`visual-floating-shop` 16 项均 0 失败。 | [零售细修记录](../../development/2026-10-31_floating_shop_retail_detail.md)、[装配清单](../../../art_source/scenes/floating_shop/v003/asset_manifest.json) |

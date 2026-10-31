@@ -7,7 +7,7 @@
   "placement_layer": "above_water",
   "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ASSEMBLY",
   "source": "art_source/scenes/floating_shop/v003/floating_shop.blend",
-  "source_sha256": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
+  "source_sha256": "75dd770a31fed7a06b5f82302cc09d576b3ac872696c0f0208ce4f1c58a9a28c",
   "runtime_status": "runtime_integrated",
   "license": "pending_user_reference_rights_review",
   "reference": "reference.png",
@@ -21,9 +21,9 @@
     "components": 44,
     "instances": 296,
     "master_meshes": 606,
-    "uv_faces_checked": 93534,
-    "expanded_polygons": 284146,
-    "expanded_triangles": 559034,
+    "uv_faces_checked": 93532,
+    "expanded_polygons": 284144,
+    "expanded_triangles": 559030,
     "overall_bounds_m": [
       20.5,
       15.5,
@@ -73,15 +73,15 @@
   "dimension_standard": ".agents/skills/sea-scene-component-authoring/references/building_scale.json",
   "optimization": {
     "optimized": "art_source/scenes/floating_shop/v003/export/v001/floating_shop_optimized_v001.blend",
-    "optimized_sha256": "48ed28580323f0f60f00aa68910f9b2a6886fe10d601a084a0a37cdd3ad84913",
+    "optimized_sha256": "7725d7eb2831bc6c9d5a34583791142c4b08b0aa20c7fca505cbb816266db71c",
     "manifest": "export/v001/optimization_manifest.json",
-    "triangles_before": 559034,
-    "triangles_after": 520181,
-    "reduction_ratio": 0.0695002450655953,
+    "triangles_before": 559030,
+    "triangles_after": 520185,
+    "reduction_ratio": 0.06948643185517772,
     "fidelity_status": "rendered_pending_visual_review",
     "source_hash_unchanged": true,
-    "source_sha256_before": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
-    "source_sha256_after": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
+    "source_sha256_before": "75dd770a31fed7a06b5f82302cc09d576b3ac872696c0f0208ce4f1c58a9a28c",
+    "source_sha256_after": "75dd770a31fed7a06b5f82302cc09d576b3ac872696c0f0208ce4f1c58a9a28c",
     "palette_sha256_before": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
     "palette_sha256_after": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
   },
@@ -147,8 +147,8 @@
   },
   "runtime": {
     "glb": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
-    "glb_sha256": "43b9bb2d7983dc460f0f6883d4df5e28429d4d924b0613579ad6049905f6a213",
-    "glb_bytes": 39141012,
+    "glb_sha256": "404c7790f765c451ec03acd94310a605f79158bba6650d083e5a489f92ece747",
+    "glb_bytes": 39142852,
     "prefab": "godot/scenes/facilities/floating_shop.tscn",
     "placement": "godot/scenes/main.tscn#World/SeaStructures/floating_shop",
     "position_godot": [
@@ -228,10 +228,10 @@
       "user_request": "立体字更粗更大更饱满、更厚，可以超出背板；多两种颜色，其中一块可以歪一点",
       "builder": "sign_glyph / sign_text（逐字挤出 depth=0.10、bevel=0.027，Arial Bold）",
       "size_m": {
-        "sign_panel_SEA_SUPPLY": 0.62,
-        "sign_gifts_GIFTS": 0.66,
-        "sign_drinks_COLD": 0.74,
-        "sign_drinks_DRINKS": 0.3
+        "sign_panel_SEA_SUPPLY": 0.93,
+        "sign_gifts_GIFTS": 0.99,
+        "sign_drinks_COLD": 0.8,
+        "sign_drinks_DRINKS": 0.17
       },
       "colours": {
         "sign_panel": "deepblue",
@@ -251,7 +251,13 @@
       "plate_width_m": {
         "flanking": 3.3,
         "centre": 5.6
-      }
+      },
+      "scale_pass": "x1.5 (2026-10-31 第二轮：用户要求再放大 1.5 倍)",
+      "depth_m": 0.12,
+      "bevel_m": 0.034,
+      "plate_lane_width_m": 3.62,
+      "icon": "保留了礼盒/饮料杯图标：缩到 0.74 倍、右缘贴 1.56 米，正好落在字块右侧空当，不与字相碰",
+      "no_cross_talk": "三块牌文字包围盒互不侵占：gifts −6.11..−2.81 / panel −2.80..2.80 / drinks 2.819..6.167"
     }
   }
 }
