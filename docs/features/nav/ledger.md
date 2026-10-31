@@ -31,7 +31,8 @@
     "visual-atmosphere",
     "visual-boat-lamp",
     "visual-route-ripple",
-    "sail-bounds"
+    "sail-bounds",
+    "sea-supply"
   ]
 }
 ```
@@ -183,3 +184,9 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 ## 2026-10-30 自建上岸提示收敛
 
 本轮只调整SEA-BUILDING-R17 / SEA-UI-R38的提示密度与展示生命周期；所有外露合法边的landing_data、动态泊位ID与原航行/自动登岸/返船命令保留。当前返船入口不受普通候选采样挤掉，提示隐藏时仍可点击实际板面登陆。[本轮验证](../../development/2026-10-30_sparse_landing_markers.md)。
+
+## 2026-10-31 结构物泊位
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-NAV-R12 | 已实现；`sea_supply` 的 `main` 泊位复用唯一「航行→抵达→上岸」链路，站立点 y=1.38 落在甲板、船位 y=1.12 在甲板外 2.35 米开阔水面（该点 `_is_open_water` 为真）、靠岸边在两者之间；从家园起航可规划出 6 点折线。 | `sea-supply` 专项与 `sea-supply-probe` 实测；[接入记录](../../development/2026-10-31_sea_supply_station.md) |

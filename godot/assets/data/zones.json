@@ -494,5 +494,33 @@
       }
     ],
     "harbor": []
+  },
+  {
+    "id": "sea_supply",
+    "name": "海上补给站",
+    "role": "shop",
+    "purpose": "阳光房正南 50 米的海上悬浮商铺：可行走环廊、单一泊位、无人值守补给入口",
+    "unlock": null,
+    "origin": [
+      6.158,
+      -1.134,
+      51.813
+    ],
+    "camera": [
+      6.158,
+      1.38,
+      51.813
+    ],
+    "hover": [
+      6.158,
+      4.5,
+      51.813
+    ],
+    "site": null,
+    "landings": [],
+    "walk": [],
+    "harbor": [],
+    "scene_binding": "World/SeaStructures/floating_shop",
+    "note": "walk/landings 由场景绑定在运行时填写（Zones.bind_scene），这里只保留区块身份与取景；不是第二份地面数据。"
   }
 ]

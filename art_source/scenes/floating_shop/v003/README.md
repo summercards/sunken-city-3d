@@ -10,6 +10,6 @@
 - 游戏输出来自独立的`export/v001/floating_shop_optimized_v001.blend`；逐组件优化、源保护、保真与导出数据记录在同目录两个manifest中。制作母版未因优化回写。
 - 装配级登记见`asset_manifest.json`：32组件/273实例、371母版网格、63248母版面、展开468299三角面、优化后429474三角面、GLB 32447188字节。尺寸契约与冻结计划见`component_plan.json`，尺度基准为`.agents/skills/sea-scene-component-authoring/references/building_scale.json`。
 
-正式游戏仍引用`godot/scenes/facilities/floating_shop.tscn`及稳定GLB，不重建main场景；现有阳光房主体南50米、水面上0.26米甲板关系保持。本轮只更新造型与水面阻挡几何，原本未接入的登岸、行走面和交易交互仍未新增。
+正式游戏仍引用`godot/scenes/facilities/floating_shop.tscn`及稳定GLB，不重建main场景；现有阳光房主体南50米、水面上0.26米甲板关系保持。2026-10-31 起这个预制体同时是最小区块 `sea_supply`：四条环廊可走、一个泊位、招牌下一个补给入口（见 `docs/development/2026-10-31_sea_supply_station.md`）。封闭主体仍不承诺可进入，本轮没有新增店内空间。
 
 源检查/渲染/优化对照在工程外`sea-work/floating_shop/v003/`；统一Godot runner隔离实测与最终结果见`docs/development/2026-10-31_floating_shop_v003.md`和同名verification JSON。参考图商业授权及用户最终美术验收pending。

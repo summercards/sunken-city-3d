@@ -18418,7 +18418,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "v003 矩形4:3底座（20×15米）与封闭主体（12×9米），低坡矩形屋顶、方形主控箱，取消原店门/玻璃橱窗/店内陈列；32组件/273实例烘成4个材质角色的单一GLB（429474三角面、32.4MB，无内嵌贴图，运行时按暖木色板材质覆盖）。由World/SeaStructures/floating_shop实例摆放在阳光房主体正南50米海面，甲板顶面=水面+0.26米、0.22米实板板底+0.04米；水面阻挡按新矩形几何派生。行走、泊位、商店交互、参考图商业授权与用户最终美术验收仍pending。",
+      "note": "v003 矩形4:3底座（20×15米）与封闭主体（12×9米），低坡矩形屋顶、方形主控箱，取消原店门/玻璃橱窗/店内陈列；32组件/273实例烘成4个材质角色的单一GLB（429474三角面、32.4MB，无内嵌贴图，运行时按暖木色板材质覆盖）。由World/SeaStructures/floating_shop实例摆放在阳光房主体正南50米海面，甲板顶面=水面+0.26米、0.22米实板板底+0.04米；水面阻挡按新矩形几何派生。行走（四条环廊）、泊位与补给入口已接入（sea_supply 最小区块）；参考图商业授权与用户最终美术验收仍pending。",
       "source_history": [
         {
           "version": "v001",
@@ -18454,11 +18454,12 @@
       ],
       "height": 9.170335,
       "collision": {
-        "walkable_deck": false,
+        "walkable_deck": true,
         "water_blocker": "derived_from_geometry",
-        "note": "甲板与环廊尚无 WalkArea 与泊位，玩家暂不可登船靠泊；水面阻挡由 BlockerSet 派生"
+        "note": "四条环廊可走（封闭主体内不可走）；水面阻挡由根下 Blockers 从几何派生"
       },
-      "interactive": false
+      "interactive": true,
+      "zone_id": "sea_supply"
     },
     {
       "asset_id": "SEA-SCENE-FSH-BENCH",

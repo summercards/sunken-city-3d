@@ -1,15 +1,20 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="PackedScene" uid="uid://vpv6o33ks6e5" path="res://assets/models/facilities/floating_shop/floating_shop.glb" id="model"]
 [ext_resource type="Material" path="res://assets/materials/floating_shop/matte.tres" id="matte"]
 [ext_resource type="Material" path="res://assets/materials/floating_shop/metal.tres" id="metal"]
 [ext_resource type="Material" path="res://assets/materials/floating_shop/gloss.tres" id="gloss"]
 [ext_resource type="Material" path="res://assets/materials/floating_shop/emission.tres" id="emission"]
-[ext_resource type="Script" path="res://src/world/sea_structure.gd" id="structure"]
+[ext_resource type="Script" path="res://src/world/sea_supply_zone.gd" id="structure"]
 [ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blockers"]
+[ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
+[ext_resource type="Script" path="res://src/navigation/landing_point.gd" id="landing"]
+[ext_resource type="Script" path="res://src/facilities/supply_counter.gd" id="counter"]
 
 [node name="海上悬浮商铺" type="Node3D"]
 script = ExtResource("structure")
+zone_id = "sea_supply"
+zone_label = "海上补给站"
 asset_id = "SEA-SCENE-FSH-ASSEMBLY"
 role = "shop"
 metadata/asset_id = "SEA-SCENE-FSH-ASSEMBLY"
@@ -27,6 +32,8 @@ metadata/slab_thickness = 0.22
 metadata/column_width = 0.5175
 metadata/plank_width = 0.893551
 metadata/door_frame_reference_height = 3.070845
+metadata/walkable_ring_width_front_m = 3
+metadata/landing_id = "main"
 
 [node name="Visual" parent="." instance=ExtResource("model")]
 
@@ -48,3 +55,39 @@ mode = "auto"
 target_path = NodePath("../Visual")
 blocks_water = true
 cell = 0.4
+
+[node name="WalkAreas" type="Node3D" parent="."]
+
+[node name="Walk_sea_supply_deck" type="Node3D" parent="WalkAreas"]
+script = ExtResource("walk")
+area_id = "sea_supply_deck"
+zone_id = "sea_supply"
+surface_y = 1.38
+span_min = 1.0
+span_max = 1.68
+rects = [Rect2(-9.4, 4.55, 18.8, 2.45), Rect2(-9.4, -7, 18.8, 2.45), Rect2(-9.4, -7, 3.35, 14), Rect2(6.05, -7, 3.35, 14)]
+
+[node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_sea_supply_deck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.514, 5.2)
+script = ExtResource("landing")
+landing_label = "海上补给站"
+
+[node name="BoatPark" type="Marker3D" parent="WalkAreas/Walk_sea_supply_deck/Landing_main"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.26, 4.65)
+
+[node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_sea_supply_deck/Landing_main"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.9)
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="SupplyCounter" type="Node3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.514, 6.6)
+script = ExtResource("counter")
+id = "sea_supply_counter"
+label = "海上补给站"
+verb = "补给"
+priority = 4
+focus_radius = 2.8
+hold_time = 0.0
+accent = Color(0.556863, 0.909804, 0.839216, 1)
+focus_anchor = "node"

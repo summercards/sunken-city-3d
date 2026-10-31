@@ -188,6 +188,11 @@ func _school_bounds() -> Rect2:
 	var hi := Vector2(-INF, -INF)
 	for zone in zones.list:
 		# Browser derives the region from each zone's primary landing, plus 12 m.
+		# 海上结构物（浮店）也算区块，但它不是生活区：没有落点就没有可扩的区域，
+		# 这里跳过而不是让 zone.landings[0] 越界。
+		var landings: Array = zone.get("landings", [])
+		if landings.is_empty():
+			continue
 		for key in ["boatPark", "dockEdge", "landStand"]:
 			var p: Array = zone.landings[0][key]
 			lo = lo.min(Vector2(p[0], p[2]))

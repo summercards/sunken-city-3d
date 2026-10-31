@@ -24,7 +24,8 @@
     "interact-focus",
     "board-click",
     "unreachable-menu",
-    "pick-mesh"
+    "pick-mesh",
+    "sea-supply"
   ]
 }
 ```
@@ -193,3 +194,9 @@ SCRIPT ERROR）。那是并行改动留下的，但会挡住所有验证，故�
 
 同轮复跑 pick-mesh / unreachable-menu / interact-focus / board-click / farming /
 modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 partial。
+
+## 2026-10-31 结构物交互点
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-INTERACT-R12 | 已实现；`Objects/SupplyCounter` 挂在补给站正面招牌下的甲板上（`focus_anchor=node`，锚点 y=2.514），`interact()` 只发 `opened` 信号，组合根 `main._open_supply` 打开既有商店页；专项断言「靠妥 → 走到点（≤2 米）→ 按 E 使 `hud._tab=="shop"` 且面板打开」整条链路。 | `sea-supply` 37 项 0 失败；[接入记录](../../development/2026-10-31_sea_supply_station.md) |

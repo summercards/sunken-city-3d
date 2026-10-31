@@ -68,7 +68,15 @@ func _ok(name: String, cond: bool, detail := "") -> void:
 
 func _test_zones() -> void:
 	print("[zones]")
-	_ok("五个区块", Zones.list.size() == 5, str(Zones.list.size()))
+	# 生活区块仍是五个。世界注册表里还会出现结构物区块（sea_supply），
+	# 它不属于世界分区，单独断言，不合并进这个数字。
+	var life := []
+	for z in Zones.list:
+		if not z.has("scene_binding") or str(z.get("scene_binding", "")).begins_with("World/Zones"):
+			life.append(str(z.id))
+	_ok("五个区块", life.size() == 5, str(life.size()) + " / " + str(Zones.list.size()))
+	_ok("结构物区块已登记", Zones.get_zone("sea_supply").get("scene_binding", "")
+		== "World/SeaStructures/floating_shop")
 	_ok("zone1 有两个上岸点", Zones.landings_of("zone1").size() == 2)
 	_ok("zone4 需要远海解锁", not Zones.is_unlocked("zone4"))
 	GameState.far_sea_unlocked = true
@@ -634,6 +642,14 @@ func _test_zones_scene() -> void:
 		var plants: Node = zone.get_node_or_null("Plants")
 		_ok("%s 有植物场" % zone.zone_id, plants != null)
 	for zid in Zones.list:
+		# 结构物区块不在 World/Zones 下，按它自己的位置单独核对。
+		if zid.has("scene_binding") and not str(zid.get("scene_binding", "")).begins_with("World/Zones"):
+			var bound: Node3D = main.get_node_or_null(str(zid.scene_binding))
+			_ok("%s 场景已装配" % zid.id, bound != null and bound.zone_id == str(zid.id))
+			if bound != null:
+				_ok("%s 有可行动区域" % zid.id, bound.walk_areas.size() > 0)
+				_ok("%s 有泊位" % zid.id, bound.landing_points().size() > 0)
+			continue
 		_ok("%s 场景已装配" % zid.id, seen.has(zid.id))
 
 
@@ -1527,7 +1543,7 @@ func _test_sail_nav() -> void:
 				print("    无航路 ", keys[i], " -> ", keys[j])
 				continue
 			var route: Array = raw
-			var bad := _route_crosses_land(shapes, route)
+			var bad := _route_crosses_land(shapes, route, main._is_open_water)
 			if bad >= 0:
 				fails += 1
 				print("    航路穿岛 %s -> %s @ %s" % [keys[i], keys[j], str(route[bad])])
@@ -1572,7 +1588,14 @@ func _test_sail_nav() -> void:
 
 ## 航线有没有穿进陆地。跳过首尾各 3m（泊位本来就贴着岸）。
 ## 返回第一个越界的点下标，没穿返回 -1。
-func _route_crosses_land(shapes: Array, route: Array) -> int:
+## 航线是否压到陆地。
+##
+## `shore.json` 是烘焙出来的**粗包围矩形**（例如家园港那块 12.7×5.3 米的 AABB
+## 比实际甲板外扩出约 0.7 米）。只按它判会误报：实时几何把那段裁掉之后，
+## 船其实开得过去，测试却说着穿岛。所以再问一次真正挡船的口径
+## （`main._is_open_water`，与碰撞同源），两边都说「不是开阔水面」才算穿陆。
+## 这样断言仍然会红——真压在甲板/结构物上时实时几何也会说被挡。
+func _route_crosses_land(shapes: Array, route: Array, live_open := Callable()) -> int:
 	var total := 0.0
 	for i in range(1, route.size()):
 		total += (route[i] as Vector2).distance_to(route[i - 1])
@@ -1589,8 +1612,11 @@ func _route_crosses_land(shapes: Array, route: Array) -> int:
 				continue
 			var p := a.lerp(b, t)
 			for s in shapes:
-				if _point_in_shape(s, p.x, p.y, 0.15):
-					return i
+				if not _point_in_shape(s, p.x, p.y, 0.15):
+					continue
+				if live_open.is_valid() and bool(live_open.call(p.x, p.y)):
+					continue
+				return i
 		walked += seg
 	return -1
 

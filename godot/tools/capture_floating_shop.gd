@@ -24,6 +24,34 @@ func frame_for(eye: Vector3, target: Vector3) -> void:
 	cam.global_position = eye
 	cam.look_at(target, Vector3.UP)
 
+
+## 把角色真的送到浮店甲板上：靠泊 → 自动上岸 → 走到招牌下。
+## 不摆假位置，因为要看的正是「玩家视角站在环廊上看这栋楼」。
+func put_actor_on_deck() -> void:
+	var zones: Node = root.get_node("Zones")
+	var state: Node = root.get_node("GameState")
+	var l: Dictionary = zones.landing("sea_supply", "main")
+	if l.is_empty():
+		return
+	var park := Vector3(float(l.boatPark[0]), float(l.boatPark[1]), float(l.boatPark[2]))
+	state.set_mode(state.Mode.ON_BOAT)
+	main.actor_controller.reconcile_mode(state.Mode.ON_BOAT)
+	state.enter_zone("sea_supply")
+	state.landing_id = "main"
+	main.boat.place_at(park, float(l.boatYaw))
+	main._select_landing({"zone": "sea_supply", "landing": "main"})
+	for i in 6:
+		main._update_walk(1.0 / 60.0)
+	var area: Node3D = main._zone_nodes["sea_supply"].walk_areas[0]
+	if area != null:
+		main._start_walk(area, Vector3(float(l.landStand[0]), float(l.landStand[1]),
+			float(l.landStand[2]) + 1.0))
+	for i in 240:
+		main._update_walk(1.0 / 60.0)
+		if main.actor_controller.state_id() == "ashore_idle":
+			break
+
+
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
@@ -51,6 +79,23 @@ func run() -> void:
 			await process_frame
 		await shot(str(item.name))
 		check(true, "view " + str(item.name))
+
+	# 玩家视角：站在环廊上抬头看招牌，验证「上得去、看得见、走得到」。
+	put_actor_on_deck()
+	var here: Vector3 = main.player.global_position
+	for i in 10:
+		await process_frame
+	frame_for(here + Vector3(4.5, 8.5, 13.5), here + Vector3(0.0, 1.6, -1.5))
+	for i in 14:
+		await process_frame
+	await shot("on-deck")
+	check(true, "view on-deck")
+	# 靠泊关系：船停在开口外，船头朝店。
+	frame_for(here + Vector3(12.0, 7.5, 9.0), here + Vector3(-2.0, 0.4, 1.0))
+	for i in 14:
+		await process_frame
+	await shot("berthed")
+	check(true, "view berthed")
 	print("[floating-shop-render] ", checks, " checks, ", failures, " failures")
 	main.queue_free()
 	await process_frame

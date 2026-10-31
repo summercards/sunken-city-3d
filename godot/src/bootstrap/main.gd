@@ -620,9 +620,35 @@ func _setup_scene() -> void:
 		if "zone_id" in child and not str(child.zone_id).is_empty():
 			_zone_nodes[child.zone_id] = child
 			Zones.bind_scene(child)
+	_register_sea_structures(world_root.get_node_or_null("SeaStructures"))
 	if _zone_nodes.is_empty():
 		push_error("World/Zones 下没有区块场景实例")
 	_sync_zone_levels()
+
+
+## 区块之外的结构物如果自己声明了 zone_id，就按「最小区块」登记。
+##
+## 为什么要破例：浮店原来只是景观 + 水面阻挡，玩家上不去也停不了船。
+## 现在它是一个海上补给站 —— 甲板要走得上去、船要靠得进来，就需要
+## 与区块同一套 WalkArea / LandingPoint / GroundSpace。与其在 main 里
+## 另造一条并行的靠岸通道，不如让它满足区块那几条接口，登记进同一张表。
+##
+## 边界：仍然只有 `world_root/Zones` 是「有植物的生活区」；这里登记的结构物
+## 不带 Plants / StaticBatch / 建造等级，`_sync_zone_levels` 对它们调
+## `set_zone_level` 也只是空转。
+func _register_sea_structures(root: Node) -> void:
+	if root == null:
+		return
+	for child in root.get_children():
+		if not ("zone_id" in child) or str(child.zone_id).is_empty():
+			continue
+		if _zone_nodes.has(child.zone_id):
+			push_error("Structure zone id collides with a zone: " + str(child.zone_id))
+			continue
+		if not (child.has_method("landing_points") and "walk_areas" in child):
+			continue
+		_zone_nodes[child.zone_id] = child
+		Zones.bind_scene(child)
 
 
 ## 建造等级 → 植物生长进度
@@ -1202,6 +1228,25 @@ func _setup_trade() -> void:
 		Economy.orders.changed.connect(func() -> void:
 			if order_panel != null and order_panel.is_open():
 				order_panel.refresh())
+	_bind_supply_counter()
+
+
+## 海上补给站：正面招牌下的交互点 → 打开补给页。
+##
+## 只做「把点击接到已有的商店页」这一件事：种子价格来自 Crop 定义、
+## 土壤价格来自 material_shop，扣钱与库存检查走 Farm / Inventory 的公开端口。
+## 这里不持有一份商品表，也不新增数值。
+func _bind_supply_counter() -> void:
+	var shop: Node = _zone_nodes.get("sea_supply")
+	if shop == null:
+		return
+	var counter := shop.get_node_or_null("Objects/SupplyCounter")
+	if counter != null and counter.has_signal("opened"):
+		counter.opened.connect(_open_supply)
+
+
+func _open_supply(_counter: Node3D) -> void:
+	hud.open_tab("shop")
 
 
 func _open_orders(_board: Node3D) -> void:

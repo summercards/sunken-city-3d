@@ -96,4 +96,10 @@ Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 Wat
 
 | 条款 ID | 规则 |
 |---|---|
-| SEA-WORLD-R13 | 不属于任何区块的固定海上结构物放在 `main.tscn` 的 `World/SeaStructures` 下，由结构自身带 `BlockerSet` 从可见几何派生水面阻挡；这些结构没有 ZoneScene，因此 `main._water_shapes()` 在收集区块之后必须再收集 `World/SeaStructures` 的每个子节点，两段合成同一份 `_shore_shapes`。漏掉这一步会让船直接从建筑中间穿过去。区外结构不创建 WalkArea、泊位、交互或存档字段；需要登船靠泊时另立条款。 |
+| SEA-WORLD-R13 | 不属于任何区块的固定海上结构物放在 `main.tscn` 的 `World/SeaStructures` 下，由结构自身带 `BlockerSet` 从可见几何派生水面阻挡；这些结构没有 ZoneScene，因此 `main._water_shapes()` 在收集区块之后必须再收集 `World/SeaStructures` 的每个子节点，两段合成同一份 `_shore_shapes`。漏掉这一步会让船直接从建筑中间穿过去。区外结构**默认**不创建 WalkArea、泊位、交互或存档字段；需要登船靠泊时按 SEA-WORLD-R14 显式登记，不在本条款里默默扩张。 |
+
+## 2026-10-31 海上结构物作为最小区块
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-WORLD-R14 | 允许 `World/SeaStructures` 下的结构物**显式**成为一个最小区块，前提是它同时满足区块的那几条接口：`zone_id` 非空、`walk_areas` 提供 WalkArea、`landing_points()` 提供 LandingPoint、`area_at()` / `ground_space` 可查询、`Zones.bind_scene()` 能回填 landings/walk。`main._setup_scene()` 先扫 `World/Zones`，再扫 `World/SeaStructures` 里带 `zone_id` 的节点并入同一张 `_zone_nodes`；重复 id 直接报错，不静默覆盖。<br>边界：这类结构物不放进 `World/Zones`，不带 Plants / StaticBatch / 建造等级（父类成员保持 null），也不参与「有植物的生活区」相关流程。`zones.json` 只保留区块身份、取景与说明，`walk` / `landings` 由场景绑定在运行时填写——不允许出现第二份可编辑的地面数据。<br>首个实例：海上悬浮商铺（`sea_supply`），见 [补给站接入记录](../../development/2026-10-31_sea_supply_station.md)。 |

@@ -11,6 +11,7 @@ const SAIL_BOUNDS := Rect2(-75, -75, 150, 150)
 static func minimal() -> bool:
 	return not OS.get_cmdline_user_args().has("--full-world")
 static func zone_enabled(id: String) -> bool:
-	return not minimal() or id in ["zone1", "zone5"]
+	# 海上补给站是家园动线上的固定设施（阳光房正南 50 米），不属于远海内容。
+	return not minimal() or id in ["zone1", "zone5", "sea_supply"]
 static func command_enabled(id: String) -> bool:
 	return not minimal() or id not in ["build", "dive", "lamp", "hook", "camera", "orders", "salvage", "rise", "descend"]

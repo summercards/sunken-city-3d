@@ -8,7 +8,7 @@
   "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ASSEMBLY",
   "source": "art_source/scenes/floating_shop/v003/floating_shop.blend",
   "source_sha256": "a731ec3cb44d7b86e4935af8c1bd339d8ce14a195496ec7092bed3086834a3a3",
-  "runtime_status": "runtime_integrated_pending_walk_and_interaction",
+  "runtime_status": "runtime_integrated",
   "license": "pending_user_reference_rights_review",
   "reference": "reference.png",
   "reference_sha256": "75a556d3b215657e97c2056994ba1438d6e751d3dce256016ebc5ffadb633f78",
@@ -150,14 +150,14 @@
     "textures_embedded": false,
     "placement_rule": "阳光房主体（后部方形建筑＋前部倾斜太阳能房）占地中心正南 50 米；甲板顶面 = 水面 + 0.26 米，0.22 米实板板底离水面 +0.04 米",
     "pending": [
-      "walk_area",
-      "landing_point",
-      "shop_interaction",
       "user_art_acceptance"
-    ]
+    ],
+    "zone_id": "sea_supply",
+    "walkable_deck": "ring_walkway_only",
+    "landing": "Landing_main (stand on deck z=+5.2, boat at z=+9.85)",
+    "interaction": "Objects/SupplyCounter → existing shop tab"
   },
   "not_executed": [
-    "new walk surface/landing/trade gameplay",
     "reference commercial rights verification",
     "user final art acceptance"
   ]

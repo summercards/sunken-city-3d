@@ -24,7 +24,8 @@
     "minimum-loop",
     "visual-plot-shipping",
     "visual-pocket-services",
-    "visual-home-lighting"
+    "visual-home-lighting",
+    "sea-supply"
   ]
 }
 ```
@@ -112,3 +113,9 @@ SEA-ORDER-R09/R10：稳定出货箱模型与交互同锚点；当前实体点击
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-ORDER-R11 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+
+## 2026-10-31 海上补给站入口
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ORDER-R12 | 已实现；补给站不新增商品表与数值，入口直接开既有商店页（种子走 `Farm.buy_seed`、土壤走 `MaterialShop`），浮店不提供保管仓库与出货箱。 | `sea-supply` 专项断言打开的是 `shop` 页而非新界面；[接入记录](../../development/2026-10-31_sea_supply_station.md) |

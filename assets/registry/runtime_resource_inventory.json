@@ -253,12 +253,12 @@
     },
     {
       "path": "godot/assets/data/zones.json",
-      "bytes": 7979,
-      "sha256": "ab414bcbb2dd6c42c0b1bb38eee0bb4bdc5622a3e9b9e1244bfd187fcba2645f",
+      "bytes": 9200,
+      "sha256": "41b7f328e93d37825806369caa3147c2faf5247ba6b2e5f0dbf5f6ad464e3588",
       "asset_id": null,
       "status": "legacy_runtime_path_recorded_asset_registration_pending",
       "previous_sha256": "f173b94db29c11e27d34d427d313bd1cbd93c40fbf0ef479c09a21f6da5c8b0b",
-      "note": "Reviewed v008 timber/daypart change"
+      "note": "区块身份表新增 sea_supply（海上补给站）；walk/landings 由场景绑定运行时回填，不在此复制地面数据"
     },
     {
       "path": "godot/assets/fonts/NotoSansSC-Regular.otf",
@@ -3300,8 +3300,9 @@
       "path": "godot/src/bootstrap/main.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 123954,
-      "sha256": "6ea4f9a0b9aa2394b9bf5c1d268d9bdf9697129afabc0fcf048bdfe902847341"
+      "bytes": 125937,
+      "sha256": "106d8da98bbffc9ebe5a530af219c70615f01d5a6c46547b435d499e6ffae8bb",
+      "note": "组合根新增 _register_sea_structures（结构物最小区块登记）与 _bind_supply_counter（补给入口接既有商店页）"
     },
     {
       "path": "godot/src/navigation/walk_area.gd",
@@ -3383,11 +3384,11 @@
     },
     {
       "path": "godot/scenes/facilities/floating_shop.tscn",
-      "bytes": 2074,
-      "sha256": "1c85bd279d57dee93116b8391934f59f4066d9abaaa3ecde03c25cc6d8e7a390",
+      "bytes": 3842,
+      "sha256": "54ecc78de6d67d75fc1adef413ca50dc4f7504ff079fdd6feb184bd707609a71",
       "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
       "status": "source_runtime_verified_provenance_pending",
-      "note": "正式摆放实例位于main.tscn的World/SeaStructures；v003尺寸与矩形甲板元数据已写入"
+      "note": "浮店预制体同时承担最小区块：根脚本改 sea_supply_zone，新增 WalkAreas/Landing_main/Objects/SupplyCounter"
     },
     {
       "path": "godot/assets/materials/floating_shop/matte.tres",

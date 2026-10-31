@@ -108,12 +108,14 @@ func run() -> void:
 	var rows_by_cell: Dictionary={}
 	for x in range(40,46):
 		for z in range(40,46):
-			var result: Dictionary=main.building.begin({"kind":"deck","x":x,"z":z})
+			# 船停在这片海上，远程起板必须是「乘船起」：R22 起岸上不能隔空起板，
+			# 夹具按真实链路补 origin，而不是放宽产品规则。
+			var result: Dictionary=main.building.begin({"kind":"deck","x":x,"z":z,"origin":"boat"})
 			if not result.ok: build_errors.append(str(Vector2i(x,z))+": "+str(result.reason))
 			else: rows_by_cell[Vector2i(x,z)]=str(result.id)
 			main.building.tick(3.0)
 	for x in range(46,56):
-		var result: Dictionary=main.building.begin({"kind":"deck","x":x,"z":43})
+		var result: Dictionary=main.building.begin({"kind":"deck","x":x,"z":43,"origin":"boat"})
 		if not result.ok: build_errors.append(str(Vector2i(x,43))+": "+str(result.reason))
 		else: rows_by_cell[Vector2i(x,43)]=str(result.id)
 		main.building.tick(3.0)

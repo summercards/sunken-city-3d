@@ -30,7 +30,9 @@
     "visual-decorations",
     "minimum-loop",
     "visual-plot-shipping",
-    "visual-home-lighting"
+    "visual-home-lighting",
+    "sea-supply",
+    "sea-supply-probe"
   ]
 }
 ```
@@ -165,3 +167,9 @@ SEA-WORLD-R09：箱子直接挂到Objects/ShippingBox，(1.05,1.38,15.15)；实�
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-WORLD-R13 | 已实现；`World/SeaStructures/floating_shop` 自带 BlockerSet，`main._water_shapes()` 收集后浮店中心判为阻挡水域（`floating-shop` 21 项 0 失败） | [浮店接入记录](../../development/2026-10-30_floating_shop_runtime.md) |
+
+## 2026-10-31 结构物作为最小区块（sea_supply）
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-WORLD-R14 | 已实现并接入：`World/SeaStructures/floating_shop` 声明 `zone_id=sea_supply`，`main._setup_scene()` 扫完 `World/Zones` 后再把带 zone_id 的结构物并入同一张 `_zone_nodes`（重复 id 报错）；`zones.json` 只保留身份与取景，`walk`/`landings` 由 `Zones.bind_scene()` 在运行时回填；结构物不带 Plants/StaticBatch/建造等级。`Scope.zone_enabled` 把 `sea_supply` 列入最小游玩范围内。 | `sea-supply` 37 项 0 失败、`sea-supply-probe` 探针记录登记/甲板/泊位实测值；[接入记录](../../development/2026-10-31_sea_supply_station.md) |
