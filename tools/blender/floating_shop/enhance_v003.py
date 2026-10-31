@@ -104,13 +104,13 @@ def drop_key(key):
     catalog = [e for e in catalog if e['key'] != key]
 
 
-def put(key, p, a=0.0, s=(1, 1, 1)):
+def put(key, p, a=0.0, s=(1, 1, 1), rot=None):
     n = key + '_' + str(sum(1 for x in layout if x['key'] == key) + 1).zfill(3)
     o = bpy.data.objects.new(n, None)
     o.instance_type = 'COLLECTION'
     o.instance_collection = components[key]
     o.location = p
-    o.rotation_euler = (0, 0, a)
+    o.rotation_euler = rot if rot is not None else (0, 0, a)
     o.scale = s
     (plants_col if key in ('foliage', 'flowers') else building_col).objects.link(o)
     layout.append({'name': n, 'key': key,
@@ -142,24 +142,102 @@ def shop_window():
         cube('橱窗分格竖线', (x, .06, (0.56 + 4.30) / 2), (.022, .02, 4.30 - .56), 'sage_gray', 'SEA_Metal', .004)
 
 
-def sign_board(body, size, icon):
-    """Straight hanging fascia: cream panel, gold trim, geometric lettering."""
-    cube('招牌米黄面板', (0, 0, .52), (3.02, .14, 1.02), 'butter', bevel=.032)
+FONT_BOLD = Path('C:/Windows/Fonts/arialbd.ttf')
+
+
+def sign_glyph(name, ch, size, cell, depth, bevel):
+    """One solid glyph, extruded deep and rounded so it reads plump.
+
+    The stock `text()` helper is deliberately thin (.007 extrude) because it was
+    written for the old slim arc lettering. Signage wants mass, so the fascia
+    gets its own glyph builder.
+    """
+    cu = bpy.data.curves.new(name, 'FONT')
+    cu.body = ch
+    cu.align_x = 'CENTER'
+    cu.align_y = 'CENTER'
+    cu.size = size
+    cu.extrude = depth
+    cu.bevel_depth = bevel
+    cu.bevel_resolution = 3
+    cu.resolution_u = 3
+    if FONT_BOLD.exists():
+        cu.font = bpy.data.fonts.get('Arial Bold') or bpy.data.fonts.load(str(FONT_BOLD))
+    o = bpy.data.objects.new(name, cu)
+    sc.collection.objects.link(o)
+    o.location = (0, 0, 0)
+    o.rotation_euler = (math.pi / 2, 0, 0)
+    bpy.context.view_layer.objects.active = o
+    o.select_set(True)
+    bpy.ops.object.convert(target='MESH')
+    return finish(bpy.context.object, cell)
+
+
+def sign_text(prefix, lines, cell, center_x=0.0, plate_front_y=-.07,
+              depth=.10, bevel=.027, tracking=.055, max_width=None):
+    """Lay out solid lettering line by line; every glyph shares one colour.
+
+    Lines are `(body, cap_centre_z, size)`. Widths are measured from the built
+    mesh rather than guessed. Letters are allowed to run past the cream plate --
+    a sign whose letters are bigger than its board is the look asked for -- but
+    the block is kept symmetric about its own centre so it never looks sheared
+    off at one end. `max_width` is the only hard stop, used where an icon needs
+    the right-hand third of the plate.
+    """
+    y = plate_front_y - depth + .015
+    for row, (body, z, size) in enumerate(lines):
+        glyphs = []
+        for i, ch in enumerate(body):
+            if ch == ' ':
+                glyphs.append((None, size * .26))
+                continue
+            o = sign_glyph('%s_%d_%02d' % (prefix, row, i), ch, size, cell, depth, bevel)
+            xs = [v.co.x for v in o.data.vertices]
+            glyphs.append((o, max(xs) - min(xs)))
+        total = sum(w for _, w in glyphs) + tracking * (len(glyphs) - 1)
+        k = 1.0
+        if max_width is not None and total > max_width:
+            k = max_width / total
+        cursor = center_x - total * k / 2
+        for o, w in glyphs:
+            if o is not None:
+                if k != 1.0:
+                    # Scale both axes by the same factor. Squashing X alone
+                    # narrows each stroke and is exactly what read as "thin".
+                    for v in o.data.vertices:
+                        v.co.x *= k
+                        v.co.z *= k
+                o.location = (cursor + w * k / 2, y, z)
+            cursor += w * k + tracking * k
+
+
+PLATE_HALF_Y = .07
+
+
+def sign_board(body, size, icon, cell='deepblue'):
+    """Straight hanging fascia: cream panel, gold trim, chunky solid lettering."""
+    cube('招牌米黄面板', (0, 0, .52), (3.30, .14, 1.02), 'butter', bevel=.032)
     for z in [.04, .99]:
-        cube('招牌金色细框', (0, -.078, z), (3.0, .045, .05), 'ochre', 'SEA_Metal', .009)
-    for x in [-1.48, 1.48]:
+        cube('招牌金色细框', (0, -.078, z), (3.28, .045, .05), 'ochre', 'SEA_Metal', .009)
+    for x in [-1.62, 1.62]:
         cube('招牌竖边', (x, -.076, .52), (.05, .055, 1.04), 'ochre', 'SEA_Metal', .009)
-    text('招牌文字_' + body, body, (-.42, -.086, .50), size, 'deepblue')
-    if icon == 'gift':
-        cube('招牌红色礼盒', (1.16, -.090, .38), (.38, .05, .40), 'red_dark', bevel=.022)
-        cube('招牌礼盒盖', (1.16, -.094, .60), (.43, .06, .08), 'red', bevel=.014)
-        cube('招牌礼盒金缎带', (1.16, -.100, .38), (.075, .02, .42), 'gold', bevel=.005)
-        for x in [1.075, 1.245]:
-            sphere('招牌礼盒蝴蝶结', (x, -.094, .67), (.095, .045, .07), 'red_dark', seg=16, rings=10)
+    if ' ' in body:
+        head, tail = body.split(' ', 1)
+        sign_text('招牌字_' + head + tail, [(head, .74, size), (tail, .30, size)],
+                  cell, center_x=-.24, max_width=2.50)
     else:
-        cube('招牌红饮料杯', (1.15, -.090, .36), (.26, .05, .40), 'red', bevel=.032)
-        cube('招牌杯蓝盖', (1.15, -.094, .56), (.30, .06, .07), 'aqua', bevel=.014)
-        rod('招牌吸管', (1.18, -.098, .57), (1.24, -.098, .76), .016, 'cream')
+        sign_text('招牌字_' + body, [(body, .52, size)], cell, center_x=-.30,
+                  max_width=2.44)
+    if icon == 'gift':
+        cube('招牌红色礼盒', (1.26, -.090, .38), (.34, .05, .36), 'red_dark', bevel=.022)
+        cube('招牌礼盒盖', (1.26, -.094, .57), (.39, .06, .08), 'red', bevel=.014)
+        cube('招牌礼盒金缎带', (1.26, -.100, .38), (.068, .02, .38), 'gold', bevel=.005)
+        for x in [1.185, 1.335]:
+            sphere('招牌礼盒蝴蝶结', (x, -.094, .63), (.085, .045, .065), 'red_dark', seg=16, rings=10)
+    else:
+        cube('招牌红饮料杯', (1.30, -.090, .34), (.24, .05, .38), 'red', bevel=.032)
+        cube('招牌杯蓝盖', (1.30, -.094, .53), (.28, .06, .07), 'aqua', bevel=.014)
+        rod('招牌吸管', (1.33, -.098, .54), (1.39, -.098, .73), .016, 'cream')
 
 
 def shop_lamp():
@@ -269,13 +347,29 @@ def cargo_crate():
     cube('箱盖扣', (0, -.405, .72), (.13, .05, .13), 'slate', 'SEA_Metal', .015)
 
 
-for key, fn in [('cargo_crate', cargo_crate), ('shop_window', shop_window), ('shop_lamp', shop_lamp), ('shop_string', shop_string),
+def sign_panel():
+    """Centre plate; rebuilt here only so its letters match the flanking ones."""
+    cube('方形补给站铭牌外框', (0, 0, .45), (5.6, .18, .9), 'ochre', 'SEA_Metal', .06)
+    cube('奶黄铭牌面', (0, -.105, .45), (5.42, .06, .72), 'butter', bevel=.045)
+    sign_text('铭牌字_SEASUPPLY', [('SEA SUPPLY', .47, .62)], 'deepblue',
+              plate_front_y=-.135, depth=.072, bevel=.020, tracking=.085)
+    text('铭牌小字', 'MARINE STATION', (0, -.152, .155), .085, 'wood_mid')
+
+
+sign_panel_slot = next(i for i, x in enumerate(layout) if x['key'] == 'sign_panel')
+
+for key, fn in [('cargo_crate', cargo_crate), ('sign_panel', sign_panel),
+                ('shop_window', shop_window), ('shop_lamp', shop_lamp), ('shop_string', shop_string),
                 ('postcard_rack', postcards), ('mailbox', mailbox), ('ice_box', icebox),
                 ('vending', vending), ('bottle', bottles), ('gift', gifts),
-                ('sign_gifts', lambda: sign_board('GIFTS', .40, 'gift')),
-                ('sign_drinks', lambda: sign_board('COLD DRINKS', .27, 'drink'))]:
+                ('sign_gifts', lambda: sign_board('GIFTS', .66, 'gift', cell='red')),
+                ('sign_drinks', lambda: sign_board('COLD DRINKS', .54, 'drink', cell='teal'))]:
     drop_key(key)
     part(key, fn)
+# The rebuilt centre plate lost its instance; put it back where it hung.
+put('sign_panel', (0, -5.25, 7.38))
+layout.insert(sign_panel_slot, layout.pop())
+
 shelf_key = 'shelf'
 drop_key(shelf_key)
 part(shelf_key, lambda: [cube('陈列架层板', (0, 0, z), (1.9, .48, .10), 'wood_light', bevel=.025)
@@ -297,8 +391,8 @@ for x in [-3, -1, 1, 3]:
 # Same fascia band as the SEA SUPPLY plate (5.55 + DZ = 7.38). Anything lower
 # sits behind the awning; the flanks of the 12 m wall are 3.2 m wide, cleared by
 # the 2.8 m centre plate.
-put('sign_gifts', (-4.42, -5.25, 7.38))
-put('sign_drinks', (4.42, -5.25, 7.38))
+put('sign_gifts', (-4.46, -5.25, 7.38))
+put('sign_drinks', (4.46, -5.25, 7.38), rot=(0, math.radians(3.2), 0))
 
 # Exterior displays, clear of the 3.2 m railing opening at x -1.6..1.6.
 put('postcard_rack', (-5.35, -5.85, DECK_Z))

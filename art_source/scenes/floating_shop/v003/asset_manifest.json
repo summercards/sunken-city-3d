@@ -7,7 +7,7 @@
   "placement_layer": "above_water",
   "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ASSEMBLY",
   "source": "art_source/scenes/floating_shop/v003/floating_shop.blend",
-  "source_sha256": "68f9d9194b426752c7b8ec9f2a4c1afc0cf11c2a64819b46a8f551765923f1c3",
+  "source_sha256": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
   "runtime_status": "runtime_integrated",
   "license": "pending_user_reference_rights_review",
   "reference": "reference.png",
@@ -20,10 +20,10 @@
   "metrics": {
     "components": 44,
     "instances": 296,
-    "master_meshes": 585,
-    "uv_faces_checked": 112119,
-    "expanded_polygons": 302731,
-    "expanded_triangles": 591687,
+    "master_meshes": 606,
+    "uv_faces_checked": 93534,
+    "expanded_polygons": 284146,
+    "expanded_triangles": 559034,
     "overall_bounds_m": [
       20.5,
       15.5,
@@ -73,15 +73,15 @@
   "dimension_standard": ".agents/skills/sea-scene-component-authoring/references/building_scale.json",
   "optimization": {
     "optimized": "art_source/scenes/floating_shop/v003/export/v001/floating_shop_optimized_v001.blend",
-    "optimized_sha256": "f38258bc8c769f6b2a83d0d732e293d6770080c856f5ff52cbea432ca398910f",
+    "optimized_sha256": "48ed28580323f0f60f00aa68910f9b2a6886fe10d601a084a0a37cdd3ad84913",
     "manifest": "export/v001/optimization_manifest.json",
-    "triangles_before": 591687,
-    "triangles_after": 552040,
-    "reduction_ratio": 0.06700671131865328,
+    "triangles_before": 559034,
+    "triangles_after": 520181,
+    "reduction_ratio": 0.0695002450655953,
     "fidelity_status": "rendered_pending_visual_review",
     "source_hash_unchanged": true,
-    "source_sha256_before": "68f9d9194b426752c7b8ec9f2a4c1afc0cf11c2a64819b46a8f551765923f1c3",
-    "source_sha256_after": "68f9d9194b426752c7b8ec9f2a4c1afc0cf11c2a64819b46a8f551765923f1c3",
+    "source_sha256_before": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
+    "source_sha256_after": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
     "palette_sha256_before": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
     "palette_sha256_after": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
   },
@@ -147,8 +147,8 @@
   },
   "runtime": {
     "glb": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
-    "glb_sha256": "58f926c6de4e2a6dc0d5b280124b81ef32b198b18c03def492d1ec2cf2a73a7a",
-    "glb_bytes": 41420216,
+    "glb_sha256": "43b9bb2d7983dc460f0f6883d4df5e28429d4d924b0613579ad6049905f6a213",
+    "glb_bytes": 39141012,
     "prefab": "godot/scenes/facilities/floating_shop.tscn",
     "placement": "godot/scenes/main.tscn#World/SeaStructures/floating_shop",
     "position_godot": [
@@ -223,6 +223,35 @@
       "roof_vent"
     ],
     "glazing_is_not_an_opening": "玻璃是陈列面：门仍为 0，主体内部仍不可走（sea-supply 断言）",
-    "material_contract_change": "Gloss 由不透明釉面改回透明玻璃（gloss.tres transparency=1, alpha=0.13）；货箱盖移出 Gloss 槽改走 Metal，避免跟着变透"
+    "material_contract_change": "Gloss 由不透明釉面改回透明玻璃（gloss.tres transparency=1, alpha=0.13）；货箱盖移出 Gloss 槽改走 Metal，避免跟着变透",
+    "sign_lettering": {
+      "user_request": "立体字更粗更大更饱满、更厚，可以超出背板；多两种颜色，其中一块可以歪一点",
+      "builder": "sign_glyph / sign_text（逐字挤出 depth=0.10、bevel=0.027，Arial Bold）",
+      "size_m": {
+        "sign_panel_SEA_SUPPLY": 0.62,
+        "sign_gifts_GIFTS": 0.66,
+        "sign_drinks_COLD": 0.74,
+        "sign_drinks_DRINKS": 0.3
+      },
+      "colours": {
+        "sign_panel": "deepblue",
+        "sign_gifts": "red",
+        "sign_drinks": "teal"
+      },
+      "new_colours": [
+        "red",
+        "teal"
+      ],
+      "overhang": "逐字按实测字宽排版并允许超出奶黄面板；侧牌只在 max_width 内等比缩放，不做单轴压扁",
+      "crooked": {
+        "plate": "sign_drinks",
+        "tilt_deg": 3.2,
+        "axis": "Y"
+      },
+      "plate_width_m": {
+        "flanking": 3.3,
+        "centre": 5.6
+      }
+    }
   }
 }

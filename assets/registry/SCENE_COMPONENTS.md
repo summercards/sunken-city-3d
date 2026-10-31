@@ -13,7 +13,7 @@
 | 装饰 | 水下纯景观建筑 | 阳光房周围六栋独立楼体，单栋导出三角面≤1000，无碰撞/互动/资源；正式布局 `godot/scenes/decorations/underwater/neighborhood.tscn` |
 | 装饰 | 动物 | 7只飞鸟、海面下3群鱼、潜水7群鱼、1头巡游鲸；无资源产出 |
 | 船只 | 基础船与附属件 | reference_skiff：12组件、44实例，基础黄白木船、双桨、船外机和行李；正式入口 [reference_skiff.tscn](../../godot/scenes/props/reference_skiff.tscn)，行为仍由Boat拥有 |
-| 建筑 | 商店（海上结构物） | 海上悬浮商铺 `SEA-SCENE-FSH-ASSEMBLY`，v003 为 4:3 矩形底座与立面：44组件/296实例烘成4材质角色单一GLB（552040三角面），正面4个玻璃橱窗（陈列面，门仍为0）+ GIFTS/COLD DRINKS 广告牌 + 环廊外部摆件 + 店内货架与装饰灯；预制体 [floating_shop.tscn](../../godot/scenes/facilities/floating_shop.tscn)，正式摆放 `main.tscn` 的 `World/SeaStructures/floating_shop`（阳光房主体正南50米）。自 2026-10-31 起它同时是自己那个最小区块 `sea_supply`：四条环廊可走（封闭主体内不可走）、一个泊位、招牌下有一个补给入口；v002 的圆形壳体与店门组件仍标历史保留，零售摆件/广告牌/玻璃已在 v003 重建并复核 |
+| 建筑 | 商店（海上结构物） | 海上悬浮商铺 `SEA-SCENE-FSH-ASSEMBLY`，v003 为 4:3 矩形底座与立面：44组件/296实例烘成4材质角色单一GLB（520181三角面），正面4个玻璃橱窗（陈列面，门仍为0）+ GIFTS/COLD DRINKS 广告牌（立体字逐字挤出0.10米、三色、COLD DRINKS 右倾3.2°） + 环廊外部摆件 + 店内货架与装饰灯；预制体 [floating_shop.tscn](../../godot/scenes/facilities/floating_shop.tscn)，正式摆放 `main.tscn` 的 `World/SeaStructures/floating_shop`（阳光房主体正南50米）。自 2026-10-31 起它同时是自己那个最小区块 `sea_supply`：四条环廊可走（封闭主体内不可走）、一个泊位、招牌下有一个补给入口；v002 的圆形壳体与店门组件仍标历史保留，零售摆件/广告牌/玻璃已在 v003 重建并复核 |
 
 ## 维护规则
 

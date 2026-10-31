@@ -3,15 +3,15 @@
   "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
   "role": "optimized",
   "source": "art_source/scenes/floating_shop/v003/floating_shop.blend",
-  "source_sha256_before": "68f9d9194b426752c7b8ec9f2a4c1afc0cf11c2a64819b46a8f551765923f1c3",
-  "source_sha256_after": "68f9d9194b426752c7b8ec9f2a4c1afc0cf11c2a64819b46a8f551765923f1c3",
+  "source_sha256_before": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
+  "source_sha256_after": "43760e977b59f674432a6d6ea7ec310209a58a4db6c0d6c3a4d6d0364d0c5fe0",
   "optimized": "art_source/scenes/floating_shop/v003/export/v001/floating_shop_optimized_v001.blend",
-  "optimized_sha256": "f38258bc8c769f6b2a83d0d732e293d6770080c856f5ff52cbea432ca398910f",
+  "optimized_sha256": "48ed28580323f0f60f00aa68910f9b2a6886fe10d601a084a0a37cdd3ad84913",
   "palette_sha256_before": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
   "palette_sha256_after": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
-  "triangles_before": 591687,
-  "triangles_after": 552040,
-  "reduction_ratio": 0.06700671131865328,
+  "triangles_before": 559034,
+  "triangles_after": 520181,
+  "reduction_ratio": 0.0695002450655953,
   "components": [
     {
       "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
@@ -824,36 +824,6 @@
       "max_bounds_change_m": 0.0
     },
     {
-      "asset_id": "SEA-SCENE-FSH-SIGN-PANEL",
-      "key": "sign_panel",
-      "triangles_before": 33305,
-      "triangles_after": 32599,
-      "reduction_ratio": 0.021198018315568234,
-      "operations": {
-        "merge_distance_m": 1e-06,
-        "degenerate_distance_m": 1e-07,
-        "planar_dissolve_angle_rad": 0.005,
-        "surface_collapse_ratio": null,
-        "surface_meshes_collapsed": 0,
-        "cleanup_elements_removed": 8936,
-        "palette_uv_reprojected_same_cell": true
-      },
-      "budget": null,
-      "budget_source": "user supplied no triangle cap",
-      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
-      "bounds_before_m": [
-        5.599999904632568,
-        0.25450000166893005,
-        0.8999999761581421
-      ],
-      "bounds_after_m": [
-        5.599999904632568,
-        0.25450000166893005,
-        0.8999999761581421
-      ],
-      "max_bounds_change_m": 0.0
-    },
-    {
       "asset_id": "SEA-SCENE-FSH-BENCH",
       "key": "bench",
       "triangles_before": 752,
@@ -970,6 +940,36 @@
         1.0,
         0.8149999976158142,
         0.8299999833106995
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-SIGN-PANEL",
+      "key": "sign_panel",
+      "triangles_before": 20892,
+      "triangles_after": 20572,
+      "reduction_ratio": 0.015316867700555237,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 5049,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        5.599999904632568,
+        0.37400001287460327,
+        0.8999999761581421
+      ],
+      "bounds_after_m": [
+        5.599999904632568,
+        0.37400001287460327,
+        0.8999999761581421
       ],
       "max_bounds_change_m": 0.0
     },
@@ -1246,29 +1246,29 @@
     {
       "asset_id": "SEA-SCENE-FSH-SIGN-GIFTS",
       "key": "sign_gifts",
-      "triangles_before": 11372,
-      "triangles_after": 11276,
-      "reduction_ratio": 0.008441786844882167,
+      "triangles_before": 5420,
+      "triangles_after": 5400,
+      "reduction_ratio": 0.0036900369003690036,
       "operations": {
         "merge_distance_m": 1e-06,
         "degenerate_distance_m": 1e-07,
         "planar_dissolve_angle_rad": 0.005,
         "surface_collapse_ratio": null,
         "surface_meshes_collapsed": 0,
-        "cleanup_elements_removed": 2404,
+        "cleanup_elements_removed": 663,
         "palette_uv_reprojected_same_cell": true
       },
       "budget": null,
       "budget_source": "user supplied no triangle cap",
       "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
       "bounds_before_m": [
-        3.0199999809265137,
-        0.20899999141693115,
+        3.299999952316284,
+        0.35199999809265137,
         1.0399999618530273
       ],
       "bounds_after_m": [
-        3.0199999809265137,
-        0.20899999141693115,
+        3.299999952316284,
+        0.35199999809265137,
         1.0399999618530273
       ],
       "max_bounds_change_m": 0.0
@@ -1276,29 +1276,29 @@
     {
       "asset_id": "SEA-SCENE-FSH-SIGN-DRINKS",
       "key": "sign_drinks",
-      "triangles_before": 23576,
-      "triangles_after": 23194,
-      "reduction_ratio": 0.016202918221920597,
+      "triangles_before": 9288,
+      "triangles_after": 9238,
+      "reduction_ratio": 0.005383290267011198,
       "operations": {
         "merge_distance_m": 1e-06,
         "degenerate_distance_m": 1e-07,
         "planar_dissolve_angle_rad": 0.005,
         "surface_collapse_ratio": null,
         "surface_meshes_collapsed": 0,
-        "cleanup_elements_removed": 5906,
+        "cleanup_elements_removed": 1564,
         "palette_uv_reprojected_same_cell": true
       },
       "budget": null,
       "budget_source": "user supplied no triangle cap",
       "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
       "bounds_before_m": [
-        3.0199999809265137,
-        0.1940000057220459,
+        3.299999952316284,
+        0.35199999809265137,
         1.0399999618530273
       ],
       "bounds_after_m": [
-        3.0199999809265137,
-        0.1940000057220459,
+        3.299999952316284,
+        0.35199999809265137,
         1.0399999618530273
       ],
       "max_bounds_change_m": 0.0
