@@ -1,0 +1,41 @@
+{
+  "key": "shop_string",
+  "asset_id": "SEA-SCENE-FSH-SHOP-STRING",
+  "name": "橱窗内侧串灯",
+  "family": "lamp",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-SHOP-STRING",
+  "root": "shop_string_ROOT",
+  "bounds_size": [
+    8.601658821105957,
+    0.09599999338388443,
+    0.32738253474235535
+  ],
+  "authored_origin_shift": [
+    0.0,
+    3.725290298461914e-09,
+    0.023999996483325958
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/shop_string/shop_string.blend",
+  "geometry_fingerprint": "8f33f5d14e328ec4fed4b61a2ede9af4bbf2b78ab0b182600b087fe835dd8cec",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 2060,
+  "triangles": 3756,
+  "materials": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "source_sha256": "7a5651d9f70fa3e1d7b05e182e7745405f0206253ad69d0cc9666ee18be7bffb",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SHOP-STRING"
+}

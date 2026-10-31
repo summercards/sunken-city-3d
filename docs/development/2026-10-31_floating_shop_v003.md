@@ -16,7 +16,7 @@
 
 同实例集合口径：源468299三角面，优化429474，减少8.291%；各件前后计数、操作及零变化原因见[优化清单](../../art_source/scenes/floating_shop/v003/export/v001/optimization_manifest.json)。组件最大包络变化约0.000381米。源及公共色板优化前后SHA-256一致。优化文件另存后重开，四个同相机/灯光/尺度视图已实际渲染对比，形体、开口、颜色、阴影目视通过；最终用户美术验收没有代签。首次派生保存的色板相对路径被Blender二次重映射，保真图暴露粉色；已修复外链、重载和保存，再渲染核验。
 
-沿用本项目R35单一装配GLB、四个材质网格接口（逐组件优化仍单独登记），没有重建正式main。稳定文件`godot/assets/models/facilities/floating_shop/floating_shop.glb`现为429474三角面、32447188字节；仅4个FSH_SEA_*网格，没有展示地面、相机、灯或内嵌图片。材质仍由预制体序列化绑定，Gloss角色由玻璃改为不透明釉面货箱盖。源/优化/运行哈希、边界与坐标见[导出清单](../../art_source/scenes/floating_shop/v003/export/v001/export_manifest.json)。
+沿用本项目R35单一装配GLB、四个材质网格接口（逐组件优化仍单独登记），没有重建正式main。稳定文件`godot/assets/models/facilities/floating_shop/floating_shop.glb`当期曾为429474三角面、32447188字节；零售细修后为552040三角面、41420216字节；仅4个FSH_SEA_*网格，没有展示地面、相机、灯或内嵌图片。材质仍由预制体序列化绑定。Gloss角色当时由玻璃改为不透明釉面货箱盖；2026-10-31 零售细修已改回透明玻璃（见 [零售细修记录](2026-10-31_floating_shop_retail_detail.md)）。源/优化/运行哈希、边界与坐标见[导出清单](../../art_source/scenes/floating_shop/v003/export/v001/export_manifest.json)。
 
 ## 游戏与验证边界
 

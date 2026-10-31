@@ -1,0 +1,40 @@
+{
+  "key": "gift",
+  "asset_id": "SEA-SCENE-FSH-GIFT",
+  "name": "礼品盒与玩偶陈列组",
+  "family": "goods",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-GIFT",
+  "root": "gift_ROOT",
+  "bounds_size": [
+    1.1400001049041748,
+    0.3199999928474426,
+    0.7450000047683716
+  ],
+  "authored_origin_shift": [
+    -0.010000020265579224,
+    -0.015000000596046448,
+    0.01000000536441803
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/gift/gift.blend",
+  "geometry_fingerprint": "dc3433b20bf280bc6b428e0208c8a0c6354134435d45e87d76915e2eee5fb74d",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "version": "v003",
+  "polygons": 1340,
+  "triangles": 2472,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "6b5683eaecd3ac00545618dd80f35d517a5c7fda4ce0c46b2d6a5bf2d211d43b",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-GIFT"
+}

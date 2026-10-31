@@ -1,8 +1,10 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
-[ext_resource type="Texture2D" path="res://assets/textures/shared/sea_cabin_timber_8x8_512.png" id="palette"]
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://byw8sx4vqm6th"]
+
+[ext_resource type="Texture2D" uid="uid://b6r04lsbmpw" path="res://assets/textures/shared/sea_cabin_timber_8x8_512.png" id="palette"]
+
 [resource]
 resource_name = "SEA_Metal_FloatingShop"
 albedo_texture = ExtResource("palette")
-texture_filter = 0
-roughness = 0.38
 metallic = 0.55
+roughness = 0.38
+texture_filter = 0

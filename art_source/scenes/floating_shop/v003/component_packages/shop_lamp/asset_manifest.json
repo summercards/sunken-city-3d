@@ -1,0 +1,41 @@
+{
+  "key": "shop_lamp",
+  "asset_id": "SEA-SCENE-FSH-SHOP-LAMP",
+  "name": "店内吊灯",
+  "family": "lamp",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-SHOP-LAMP",
+  "root": "shop_lamp_ROOT",
+  "bounds_size": [
+    0.6449981331825256,
+    0.6449981331825256,
+    1.0850000381469727
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.06499999761581421
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/shop_lamp/shop_lamp.blend",
+  "geometry_fingerprint": "0ebc733525066cdea3ead4153a1b6503e37f1fd590f2732b13fd761eee0df47b",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "version": "v003",
+  "polygons": 746,
+  "triangles": 1560,
+  "materials": [
+    "SEA_Emission",
+    "SEA_Metal"
+  ],
+  "source_sha256": "a422a5b87b6cc78da5b26b6dab103babf0f73609dd70471bf050df6c2848e4da",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SHOP-LAMP"
+}

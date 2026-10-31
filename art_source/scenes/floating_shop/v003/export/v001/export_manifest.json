@@ -3,42 +3,42 @@
   "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
   "version": "v003",
   "source": "art_source/scenes/floating_shop/v003/floating_shop.blend",
-  "source_sha256": "a731ec3cb44d7b86e4935af8c1bd339d8ce14a195496ec7092bed3086834a3a3",
+  "source_sha256": "68f9d9194b426752c7b8ec9f2a4c1afc0cf11c2a64819b46a8f551765923f1c3",
   "optimized": "art_source/scenes/floating_shop/v003/export/v001/floating_shop_optimized_v001.blend",
-  "optimized_sha256": "e9888a7b846c1fc41799d4138e336069ecfc162790dd1e8f97fa6d8482dded24",
+  "optimized_sha256": "f38258bc8c769f6b2a83d0d732e293d6770080c856f5ff52cbea432ca398910f",
   "optimization_manifest": "optimization_manifest.json",
   "runtime_path": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
-  "runtime_sha256": "025772c217d37126c7b7e4662f98acb1a80fee36f545d444353df52f63b2db80",
-  "previous_runtime_sha256": "1e80f9f6b2586d407de4048ea5a61f480922412be69350b1bcd3f7cc3b7d2fdc",
-  "runtime_bytes": 32447188,
-  "instances_baked": 273,
+  "runtime_sha256": "58f926c6de4e2a6dc0d5b280124b81ef32b198b18c03def492d1ec2cf2a73a7a",
+  "previous_runtime_sha256": "14bc236f2b18c9170acc9e4a70fe3f5bebc67847a4fe805f425584304717249b",
+  "runtime_bytes": 41420216,
+  "instances_baked": 296,
   "surfaces": [
     {
       "role": "SEA_Emission",
       "node": "FSH_SEA_Emission",
-      "triangles": 6588,
-      "vertices": 3318
+      "triangles": 13832,
+      "vertices": 6982
     },
     {
       "role": "SEA_Gloss",
       "node": "FSH_SEA_Gloss",
-      "triangles": 564,
-      "vertices": 288
+      "triangles": 48,
+      "vertices": 32
     },
     {
       "role": "SEA_Matte",
       "node": "FSH_SEA_Matte",
-      "triangles": 263826,
-      "vertices": 133955
+      "triangles": 362948,
+      "vertices": 184032
     },
     {
       "role": "SEA_Metal",
       "node": "FSH_SEA_Metal",
-      "triangles": 158496,
-      "vertices": 80656
+      "triangles": 175212,
+      "vertices": 89166
     }
   ],
-  "triangles": 429474,
+  "triangles": 552040,
   "bounds_blender": {
     "min": [
       -10.250069618225098,

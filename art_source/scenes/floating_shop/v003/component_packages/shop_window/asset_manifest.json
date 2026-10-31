@@ -1,0 +1,42 @@
+{
+  "key": "shop_window",
+  "asset_id": "SEA-SCENE-FSH-SHOP-WINDOW",
+  "name": "直线玻璃橱窗单元",
+  "family": "window",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-SHOP-WINDOW",
+  "root": "shop_window_ROOT",
+  "bounds_size": [
+    2.0799999237060547,
+    0.3149999976158142,
+    4.866334915161133
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.057500001043081284,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/shop_window/shop_window.blend",
+  "geometry_fingerprint": "d093e61a4fa8ee7b84c9cbf55be245b4a5b2e678685d1437823d789528c9d977",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "version": "v003",
+  "polygons": 1182,
+  "triangles": 2268,
+  "materials": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "0ed4979dea519b6a1983d28e221cc2addffb75cee27b55a4fc911aa9ba06450d",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SHOP-WINDOW"
+}

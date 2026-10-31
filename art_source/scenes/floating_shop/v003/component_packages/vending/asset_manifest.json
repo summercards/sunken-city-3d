@@ -1,0 +1,41 @@
+{
+  "key": "vending",
+  "asset_id": "SEA-SCENE-FSH-VENDING",
+  "name": "黄色投币售货机",
+  "family": "furniture",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-VENDING",
+  "root": "vending_ROOT",
+  "bounds_size": [
+    0.46000000834465027,
+    0.43150001764297485,
+    1.3799999952316284
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.01574999839067459,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/vending/vending.blend",
+  "geometry_fingerprint": "0842d180c2128add1b17fcacec93ba49c3b5b3fe30a7996623b43505b37bb8a7",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 738,
+  "triangles": 1436,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "e1c8cf7934549aff22bd6253d91b7512c639118186b919f3e43823cd303d1d67",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-VENDING"
+}

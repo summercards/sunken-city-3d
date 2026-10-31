@@ -1,0 +1,40 @@
+{
+  "key": "shelf",
+  "asset_id": "SEA-SCENE-FSH-SHELF",
+  "name": "店内三层陈列架",
+  "family": "furniture",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-SHELF",
+  "root": "shelf_ROOT",
+  "bounds_size": [
+    1.9200000762939453,
+    0.47999998927116394,
+    1.5499999523162842
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.014999985694885254
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/shelf/shelf.blend",
+  "geometry_fingerprint": "3b20c3ef32379c8f8229c46a00467a4f35f64672c91f689db2910f23b83b5a92",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "version": "v003",
+  "polygons": 490,
+  "triangles": 940,
+  "materials": [
+    "SEA_Matte"
+  ],
+  "source_sha256": "775465bb7cc693d35ae401c1f8dd47110e4ca9faff0493bbf3a986c561958e7e",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SHELF"
+}

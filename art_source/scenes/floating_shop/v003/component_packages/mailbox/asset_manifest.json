@@ -1,0 +1,41 @@
+{
+  "key": "mailbox",
+  "asset_id": "SEA-SCENE-FSH-MAILBOX",
+  "name": "红色邮筒",
+  "family": "furniture",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-MAILBOX",
+  "root": "mailbox_ROOT",
+  "bounds_size": [
+    0.550000011920929,
+    0.4950000047683716,
+    1.2200000286102295
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.027500003576278687,
+    0.030000030994415283
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/mailbox/mailbox.blend",
+  "geometry_fingerprint": "2c8c976de0ee60f665fac2b6013262a1baccda0093f221ad8f99ccca6127a8e7",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 7096,
+  "triangles": 12684,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "9dca2047aaa72b207f28e64b57c9ca1863523f803d07efce933c541319b6aa3d",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-MAILBOX"
+}

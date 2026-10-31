@@ -1,0 +1,41 @@
+{
+  "key": "bottle",
+  "asset_id": "SEA-SCENE-FSH-BOTTLE",
+  "name": "彩色饮料瓶组",
+  "family": "goods",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-BOTTLE",
+  "root": "bottle_ROOT",
+  "bounds_size": [
+    1.034000039100647,
+    0.15399999916553497,
+    0.41750001907348633
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.030000001192092896
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/bottle/bottle.blend",
+  "geometry_fingerprint": "f01762f7183a7d24c8dbbb2da0d8670082d8b64c6b25f2b3d7563a43c6833df9",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 4,
+  "version": "v003",
+  "polygons": 3160,
+  "triangles": 6680,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "68fc81cdc87dbb46cc47a64465e3b860180e2153b20c01579c4405e10167b589",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-BOTTLE"
+}

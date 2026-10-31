@@ -3376,47 +3376,47 @@
     },
     {
       "path": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
-      "bytes": 32447188,
-      "sha256": "025772c217d37126c7b7e4662f98acb1a80fee36f545d444353df52f63b2db80",
+      "bytes": 41420216,
+      "sha256": "58f926c6de4e2a6dc0d5b280124b81ef32b198b18c03def492d1ec2cf2a73a7a",
       "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
       "status": "source_runtime_verified_provenance_pending",
-      "note": "v003矩形4:3底座；32组件/273实例烘成4个材质角色合一（429474三角面）；无内嵌贴图，运行时按暖木色板材质覆盖；展示相机/灯光/地面已排除"
+      "note": "v003零售细修：44组件/296实例烘成4个材质角色合一（552040三角面）；补回玻璃橱窗、广告牌、外部摆件与店内货架/吊灯；无内嵌贴图"
     },
     {
       "path": "godot/scenes/facilities/floating_shop.tscn",
-      "bytes": 3842,
-      "sha256": "54ecc78de6d67d75fc1adef413ca50dc4f7504ff079fdd6feb184bd707609a71",
+      "bytes": 3947,
+      "sha256": "3e336ad1e046695e2082ab9913e8011f7c35ad2a06fb0320b2545bfabf4760c1",
       "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
       "status": "source_runtime_verified_provenance_pending",
-      "note": "浮店预制体同时承担最小区块：根脚本改 sea_supply_zone，新增 WalkAreas/Landing_main/Objects/SupplyCounter"
+      "note": "v003零售细修：storefront_windows=4（陈列面，非入口）、retail_displays=8、interior_lamps=5"
     },
     {
       "path": "godot/assets/materials/floating_shop/matte.tres",
-      "bytes": 314,
-      "sha256": "421856e1f4efad247cd16dd82b0ea2f0018ba839c8ed20213fc4c980068b49b8",
+      "bytes": 338,
+      "sha256": "8f29705f83e2ec007cdc11077371baae1a48e7981a11ac8a1498280923268d53",
       "status": "runtime_path_recorded_asset_registration_pending",
       "note": "浮店专用暖木色板材质覆盖（v003）"
     },
     {
       "path": "godot/assets/materials/floating_shop/metal.tres",
-      "bytes": 316,
-      "sha256": "447830ecd2617ec0a90660c3e33de2759f4a4df54d8efa640bdbc138eb2fcc2c",
+      "bytes": 355,
+      "sha256": "dc3058b724a6434cbd97c370feb6202562968071f3a9974e7f4d5f1e85b28438",
       "status": "runtime_path_recorded_asset_registration_pending",
-      "note": "浮店专用暖木色板材质覆盖（v003）"
+      "note": "浮店专用暖木色板材质覆盖（v003）；货箱盖改走本槽"
     },
     {
       "path": "godot/assets/materials/floating_shop/gloss.tres",
-      "bytes": 379,
-      "sha256": "818e01e385c5ccdb597bcc33b885e9cfb30dc64266f76e47f3e9dccbad1acd58",
+      "bytes": 427,
+      "sha256": "1120f832abf1138539b182800c79ebec2b560ff42941929d41d6a99ad1a1f0c8",
       "status": "runtime_path_recorded_asset_registration_pending",
-      "note": "浮店专用暖木色板材质覆盖（v003）；v003起为不透明釉面，transparency=0"
+      "note": "v003零售细修：Gloss由不透明釉面改回透明玻璃（transparency=1, alpha=0.13, roughness=0.05）"
     },
     {
       "path": "godot/assets/materials/floating_shop/emission.tres",
-      "bytes": 431,
-      "sha256": "67dba7cc0c566ae86ed99c9bdec83da6b0c594ca5a96a2269bca18c340ea93b7",
+      "bytes": 470,
+      "sha256": "e33b107a0f9d62a1933d4c4cdf60ee4b1a6a545d9aa8a7d0a513022944061df5",
       "status": "runtime_path_recorded_asset_registration_pending",
-      "note": "浮店专用暖木色板材质覆盖（v003）"
+      "note": "浮店专用暖木色板材质覆盖（v003）；店内吊灯/串灯用此槽"
     }
   ]
 }

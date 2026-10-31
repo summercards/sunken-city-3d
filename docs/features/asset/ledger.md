@@ -336,7 +336,7 @@ SEA-ASSET-R34当前源为[v002](../../../art_source/scenes/floating_shop/v002/fl
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-ASSET-R34 | v003 源级已完成：32组件/273实例/371母版网格、32独立包全部保存重开、63248母版面 PaletteUV 通过；底座 20.010×15.010 米、主体 12×9 米、封闭立面零门窗；v001/v002 源保留。16 个被取消的旧组件标 `historical_source_retained`，不计入当前装配 | [v003 制作与收尾记录](../../development/2026-10-31_floating_shop_v003.md)、[机器证据](../../development/2026-10-31_floating_shop_v003_verification.json)、[母版](../../../art_source/scenes/floating_shop/v003/floating_shop.blend) |
-| SEA-ASSET-R35 | v003 已接入稳定运行 GLB：32组件/273实例烘成 4 个材质角色的单一网格，429474 三角面、32447188 字节、无内嵌贴图；预制体序列化四材质覆盖，Gloss 改为不透明釉面。按阳光房标准改 0.22 米实板（板顶水面 +0.26 米、板底 +0.04 米），水面阻挡按新矩形几何派生并覆盖四角。`floating-shop` 32 项、`visual-floating-shop` 16 项均 0 失败。行走/泊位/商店交互已由本轮 SEA-ASSET-R36 接入（见下）；参考图商业授权与用户最终美术验收仍 pending | [导出清单](../../../art_source/scenes/floating_shop/v003/export/v001/export_manifest.json)、[优化清单](../../../art_source/scenes/floating_shop/v003/export/v001/optimization_manifest.json)、[装配清单](../../../art_source/scenes/floating_shop/v003/asset_manifest.json) |
+| SEA-ASSET-R35 | v003 已接入稳定运行 GLB：32组件/273实例烘成 4 个材质角色的单一网格，429474 三角面、32447188 字节、无内嵌贴图；预制体序列化四材质覆盖（Gloss 当时改为不透明釉面，后由 R37 改回透明玻璃）。按阳光房标准改 0.22 米实板（板顶水面 +0.26 米、板底 +0.04 米），水面阻挡按新矩形几何派生并覆盖四角。`floating-shop` / `visual-floating-shop` 当期 0 失败（零售细修后为 37 / 16 项）。行走/泊位/商店交互已由本轮 SEA-ASSET-R36 接入（见下）；参考图商业授权与用户最终美术验收仍 pending | [导出清单](../../../art_source/scenes/floating_shop/v003/export/v001/export_manifest.json)、[优化清单](../../../art_source/scenes/floating_shop/v003/export/v001/optimization_manifest.json)、[装配清单](../../../art_source/scenes/floating_shop/v003/asset_manifest.json) |
 
 分账本登记同步：33 条 FSH 行为 v003 现状（24 更新含装配行、9 新增 AssetID），16 条标历史保留；`current_source_index.json` 由账本重建为 562 条，`runtime_resource_inventory.json` 6 条浮店运行资源逐条刷新哈希。运行时材质实际外链暖木色板 `sea_cabin_timber_8x8_512.png`，catalog 与组件 manifest 里残留的 `sea_cozy_8x8_512.png` 已按只读探针证据纠正；不重跑已验收产物。
 
@@ -347,3 +347,9 @@ SEA-ASSET-R34当前源为[v002](../../../art_source/scenes/floating_shop/v002/fl
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-ASSET-R36 | 已实现；预制体根脚本换为 `src/world/sea_supply_zone.gd`（继承 ZoneScene），甲板按 20×15 名义甲板派生四条环廊行走矩形，封闭主体内部无行走矩形；`Visual` 下四个材质角色网格不再各自派生阻挡（覆写 `_ensure_blockers`），阻挡只由根下覆盖整栋建筑的 `Blockers` 提供；结构物不带 Plants/StaticBatch。`floating-shop` 32 项、`sea-supply` 37 项均 0 失败。 | [接入记录](../../development/2026-10-31_sea_supply_station.md) |
+
+## 2026-10-31 浮店零售细修：摆件 / 广告牌 / 玻璃 / 店内装饰灯
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R37 | 已实现并接入：32→44 组件、273→296 实例、429474→552040 三角面。正面 4 个玻璃橱窗（窗带 0.56–4.30 米）替换 4 块实墙板，Gloss 恢复透明；`sign_gifts` / `sign_drinks` 与 `sign_panel` 同带；明信片架/邮筒/售货机/冷藏箱在环廊外侧避开 3.2 米开口；店内 4 组货架 + 瓶 + 礼盒、4 盏吊灯 + 串灯均在窗带内。门仍为 0、主体内部仍不可走、外壳尺寸与摆放未动。`floating-shop` 37 项、`sea-supply` 37 项、`visual-floating-shop` 16 项均 0 失败。 | [零售细修记录](../../development/2026-10-31_floating_shop_retail_detail.md)、[装配清单](../../../art_source/scenes/floating_shop/v003/asset_manifest.json)、[导出清单](../../../art_source/scenes/floating_shop/v003/export/v001/export_manifest.json) |

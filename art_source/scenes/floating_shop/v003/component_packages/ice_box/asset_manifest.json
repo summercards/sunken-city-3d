@@ -1,0 +1,41 @@
+{
+  "key": "ice_box",
+  "asset_id": "SEA-SCENE-FSH-ICE-BOX",
+  "name": "白色ICE冷藏箱",
+  "family": "furniture",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-ICE-BOX",
+  "root": "ice_box_ROOT",
+  "bounds_size": [
+    1.0399999618530273,
+    0.7825000286102295,
+    1.244999885559082
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.02124999463558197,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/ice_box/ice_box.blend",
+  "geometry_fingerprint": "bd209d6d25a64ee377fb171898af697e7928a0a10bc9054f54ea13414dc626ee",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 2712,
+  "triangles": 5040,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "0d5dda0a2e404ce87eda4dbafd70f96856e7e8d04d5a81ae15a24d7c9dbdbd10",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ICE-BOX"
+}

@@ -1,0 +1,41 @@
+{
+  "key": "sign_drinks",
+  "asset_id": "SEA-SCENE-FSH-SIGN-DRINKS",
+  "name": "COLD DRINKS饮料招牌",
+  "family": "sign",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-SIGN-DRINKS",
+  "root": "sign_drinks_ROOT",
+  "bounds_size": [
+    3.0199999809265137,
+    0.1940000057220459,
+    1.0399999618530273
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.026999998837709427,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/sign_drinks/sign_drinks.blend",
+  "geometry_fingerprint": "2da7441a69f143fc422153ba62125fe63a7e36668175907f762d048bc74d5786",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 13171,
+  "triangles": 23576,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "a1e8a1881951758cd736b9441104fad800c9a8f3cbdcba1a4ccbb8bade1cebc7",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-DRINKS"
+}

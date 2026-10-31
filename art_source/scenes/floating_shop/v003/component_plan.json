@@ -23,7 +23,7 @@
     "deck_top_z": 2.514,
     "front_railing_opening_m": 3.2,
     "door_count": 0,
-    "window_count": 0,
+    "window_count": 4,
     "roof_shape": "rectangular_low_gable",
     "single_storey_clear_height": 4.86633491516113,
     "floor_to_floor": 5.086334943771359,
@@ -31,7 +31,11 @@
     "main_column_width": 0.517499923706055,
     "platform_board_width": 0.893550634384155,
     "platform_board_thickness": 0.220000028610229,
-    "door_reference_outer_height": 3.07084512710571
+    "door_reference_outer_height": 3.07084512710571,
+    "window_band_m": [
+      0.56,
+      4.3
+    ]
   },
   "components": [
     {
@@ -449,8 +453,165 @@
       "front_axis": "-Y",
       "allowed_rotation": "full Euler XYZ",
       "triangle_budget": null
+    },
+    {
+      "key": "shop_window",
+      "asset_id": "SEA-SCENE-FSH-SHOP-WINDOW",
+      "name": "直线玻璃橱窗单元",
+      "family": "window",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "sign_gifts",
+      "asset_id": "SEA-SCENE-FSH-SIGN-GIFTS",
+      "name": "GIFTS礼盒招牌",
+      "family": "sign",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "sign_drinks",
+      "asset_id": "SEA-SCENE-FSH-SIGN-DRINKS",
+      "name": "COLD DRINKS饮料招牌",
+      "family": "sign",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "shop_lamp",
+      "asset_id": "SEA-SCENE-FSH-SHOP-LAMP",
+      "name": "店内吊灯",
+      "family": "lamp",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "shop_string",
+      "asset_id": "SEA-SCENE-FSH-SHOP-STRING",
+      "name": "橱窗内侧串灯",
+      "family": "lamp",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "postcard_rack",
+      "asset_id": "SEA-SCENE-FSH-POSTCARD-RACK",
+      "name": "双面明信片旋转架",
+      "family": "furniture",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "mailbox",
+      "asset_id": "SEA-SCENE-FSH-MAILBOX",
+      "name": "红色邮筒",
+      "family": "furniture",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "ice_box",
+      "asset_id": "SEA-SCENE-FSH-ICE-BOX",
+      "name": "白色ICE冷藏箱",
+      "family": "furniture",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "vending",
+      "asset_id": "SEA-SCENE-FSH-VENDING",
+      "name": "黄色投币售货机",
+      "family": "furniture",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-FSH-SHELF",
+      "name": "店内三层陈列架",
+      "family": "furniture",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "bottle",
+      "asset_id": "SEA-SCENE-FSH-BOTTLE",
+      "name": "彩色饮料瓶组",
+      "family": "goods",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
+    },
+    {
+      "key": "gift",
+      "asset_id": "SEA-SCENE-FSH-GIFT",
+      "name": "礼品盒与玩偶陈列组",
+      "family": "goods",
+      "category": "building/structure",
+      "source_group": "structure",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotation": "full Euler XYZ",
+      "triangle_budget": null
     }
   ],
   "dimension_standard": ".agents/skills/sea-scene-component-authoring/references/building_scale.json",
-  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "revision_note": "v003 retail pass: rectangular shell unchanged; reopening glazing, advertising signs, exterior displays and interior decorative lights to the v002 art direction (user 2026-10-31)."
 }

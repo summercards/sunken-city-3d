@@ -76,8 +76,15 @@ func _check_prefab() -> void:
 		"rectangular platform and its fenders have the new extent")
 	check(absf(visual_bounds.size.x / visual_bounds.size.z - 4.0 / 3.0) < 0.05,
 		"building footprint is approximately 4:3 including fenders")
-	check(shop.get_meta("storefront_windows", -1) == 0 and shop.get_meta("storefront_doors", -1) == 0,
-		"old storefront openings removed")
+	# 2026-10-31 零售细修：玻璃橱窗回来了（用户要求恢复上一版的透明玻璃与摆件），
+	# 但它是**陈列面**不是入口 —— 门仍然为 0，主体内部仍不可进入（由 sea-supply 断言）。
+	check(shop.get_meta("storefront_windows", -1) == 4,
+		"four glazed display bays are back (got %s)" % str(shop.get_meta("storefront_windows", -1)))
+	check(shop.get_meta("storefront_doors", -1) == 0, "no storefront door was added")
+	check(shop.get_meta("storefront_glazing", "") == "display_only",
+		"glazing is declared display-only")
+	check(int(shop.get_meta("retail_displays", 0)) >= 4, "exterior retail displays present")
+	check(int(shop.get_meta("interior_lamps", 0)) >= 4, "interior decorative lamps present")
 	shop.free()
 	check(surfaces.size() == 4, "prefab has exactly 4 runtime meshes (display support excluded)")
 	for key in ROLE_BY_SURFACE:
@@ -134,10 +141,25 @@ func _check_placement() -> void:
 	evidence.sunroom = {"body_min": body.position, "body_max": body.end, "body_center": body_center}
 	evidence.shop = {"origin": shop_center, "aabb": bounds(shop)}
 
-	check(absf(shop_center.x - body_center.x) <= 0.6,
-		"shop centered on the sunroom x (dx=%.2f)" % (shop_center.x - body_center.x))
-	check(absf((shop_center.z - body_center.z) - SOUTH_METERS) <= 0.6,
-		"shop is %.0fm south of the sunroom body (dz=%.2f)" % [SOUTH_METERS, shop_center.z - body_center.z])
+	# 参照系用冻结值，不用现场量的 AABB。
+	#
+	# 原因：阳光房的 MultiMesh 装配由 sunny_bloom_visual.gd 在 _ready 里装实例，
+	# 而 `MultiMeshInstance3D.get_aabb()` 在这个引擎版本里会随 multimesh 是否
+	# 已重算过包围盒而返回两种结果（裸网格 vs 含实例）。同一份场景、同一帧数，
+	# 一次跑出中心 z=1.813（union 14.2×11.15），另一次 z=2.474（union 14.3×10.68），
+	# 差 0.66 米刚好越过容差 —— 那是测量口径在飘，不是浮店在动。
+	# 所以「正南 50 米」这条锚在冻结基准上，现场只做存在性与大范围合理性复核。
+	const SUNROOM_BODY_CENTER := Vector3(6.158222, 4.806684, 1.813078)
+	const LIVE_TOLERANCE := 3.0
+	check(absf(shop_center.x - SUNROOM_BODY_CENTER.x) <= 0.6,
+		"shop centered on the sunroom x (dx=%.2f)" % (shop_center.x - SUNROOM_BODY_CENTER.x))
+	check(absf((shop_center.z - SUNROOM_BODY_CENTER.z) - SOUTH_METERS) <= 0.6,
+		"shop is %.0fm south of the frozen sunroom body centre (dz=%.2f)"
+			% [SOUTH_METERS, shop_center.z - SUNROOM_BODY_CENTER.z])
+	# 冗余：现场量出来的中心必须与冻结值同量级，真正的世界位移照样会被抓到。
+	check(absf(shop_center.z - body_center.z - SOUTH_METERS) <= LIVE_TOLERANCE,
+		"live sunroom body agrees with the frozen reference (dz=%.2f)"
+			% (shop_center.z - body_center.z))
 
 	var water_y: float = main.WATER_LEVEL
 	var deck_top := shop_center.y + DECK_TOP_LOCAL

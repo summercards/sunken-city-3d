@@ -1,0 +1,41 @@
+{
+  "key": "postcard_rack",
+  "asset_id": "SEA-SCENE-FSH-POSTCARD-RACK",
+  "name": "双面明信片旋转架",
+  "family": "furniture",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-POSTCARD-RACK",
+  "root": "postcard_rack_ROOT",
+  "bounds_size": [
+    0.7160000205039978,
+    0.6399999856948853,
+    1.8399999141693115
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/postcard_rack/postcard_rack.blend",
+  "geometry_fingerprint": "dab08120e282309abdbefd84fcd1c3d23aef4d6f1e8fed5cc259f7dd2715f2f6",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 9854,
+  "triangles": 18548,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "c7ce87ffdc153174d299013e92afc9045e5abde0959746db347f8fa7316d4a18",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-POSTCARD-RACK"
+}

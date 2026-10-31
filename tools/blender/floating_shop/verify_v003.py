@@ -5,16 +5,22 @@ R=Path('D:/projects/sea');D=R/'art_source/scenes/floating_shop/v003';W=Path(os.e
 cat=json.loads((D/'catalog.json').read_text(encoding='utf-8'));layout=json.loads((D/'component_instances.json').read_text(encoding='utf-8'))['instances'];errors=[];uvfaces=meshes=0
 base=(R/'tools/blender/floating_shop/verify.py').read_text(encoding='utf-8');exec(base[base.index('def req('):base.index('bpy.ops.wm.open_mainfile(filepath=str(source))')])
 bpy.ops.wm.open_mainfile(filepath=str(source));sc=bpy.data.scenes['海上悬浮商铺_v003'];bpy.context.window_manager.windows[0].scene=sc
-actual={o.name:o for o in sc.objects if o.instance_type=='COLLECTION'};req(len(actual)==len(layout)==273,'layout instances');req(len(cat['components'])==32,'32 planned components')
+actual={o.name:o for o in sc.objects if o.instance_type=='COLLECTION'};req(len(actual)==len(layout)==296,'layout instances');req(len(cat['components'])==44,'44 planned components')
 for e in cat['components']:inspect(e,True)
 for row in layout:
  o=actual.get(row['name']);req(o is not None,row['name']+' missing')
  if o:
   for k,n in [('position','location'),('rotation_euler_xyz','rotation_euler'),('scale','scale')]:req(max(abs(getattr(o,n)[j]-row[k][j]) for j in range(3))<1e-5,row['name']+' transform')
-forbidden={'facade_window','entry','rear_wall','rear_door','shelf','bottle','gift','postcard_rack','vending','mailbox','ice_box','rail_arc','sign_band','sign_gifts','sign_drinks','sign_postcards'}
-req(not({r['key'] for r in layout}&forbidden),'old storefront/circular structure retained')
+# 2026-10-31 retail pass: glazing, advertising, displays and interior lamps are back
+# on purpose. What must never return are the circular-arc shell parts and the door.
+forbidden={'facade_window','entry','rear_wall','rear_door','rail_arc','sign_band','sign_postcards'}
+req(not({r['key'] for r in layout}&forbidden),'circular shell or door reintroduced')
+required={'shop_window','sign_gifts','sign_drinks','shop_lamp','shop_string',
+          'postcard_rack','mailbox','ice_box','vending','shelf','bottle','gift'}
+req(required<={r['key'] for r in layout},'retail set incomplete '+str(sorted(required-{r['key'] for r in layout})))
 deck=next(e for e in cat['components'] if e['key']=='deck');req(abs(deck['bounds_size'][0]/deck['bounds_size'][1]-4/3)<.005,'deck 4:3')
-wall_instances=[r for r in layout if r['key']=='wall_panel'];req(len(wall_instances)==20,'all twenty solid wall panels');req({r['key'] for r in layout}=={e['key'] for e in cat['components']},'every component consumed')
+wall_instances=[r for r in layout if r['key']=='wall_panel'];req(len(wall_instances)==16,'sixteen solid wall panels (four bays glazed)')
+windows=[r for r in layout if r['key']=='shop_window'];req(len(windows)==4,'four glazed display bays');req({r['key'] for r in layout}=={e['key'] for e in cat['components']},'every component consumed')
 allpts=[];polys=tris=0
 for row in layout:
  o=actual[row['name']]
@@ -41,7 +47,7 @@ for board in boards:
  size=[max(v.co[j] for v in board.data.vertices)-min(v.co[j] for v in board.data.vertices) for j in range(3)];req(abs(size[1]-standard['platform_board_width'])<1e-5 and abs(size[2]-standard['platform_board_thickness'])<1e-5,board.name+' standard plank size')
 previous=json.loads((W/'verification.json').read_text(encoding='utf-8')) if (W/'verification.json').exists() else {}
 views=previous.get('views',[]) if previous.get('source_sha256')==sha(source) else []
-report={'schema':'sea.scene.source_verification','passed':not errors,'errors':sorted(set(errors)),'source_only':True,'source_sha256':sha(source),'palette_sha256':sha(pal),'reference_sha256':sha(D/'reference.png'),'metrics':{'components':32,'instances':len(layout),'master_meshes':meshes,'uv_faces_checked':uvfaces,'expanded_polygons':polys,'expanded_triangles':tris,'overall_bounds_m':[max(p[j] for p in allpts)-min(p[j] for p in allpts) for j in range(3)],'deck_bounds_m':deck['bounds_size'],'deck_aspect_ratio':deck['bounds_size'][0]/deck['bounds_size'][1],'solid_wall_panels':20,'doors':0,'windows':0,'clear_front_deck_route_m':2.4},'standalone_packages_reopened':0,'views':views,'exit_codes':{},'not_executed':['new walk surface/landing/trade gameplay','reference commercial rights verification','user final art acceptance']}
+report={'schema':'sea.scene.source_verification','passed':not errors,'errors':sorted(set(errors)),'source_only':True,'source_sha256':sha(source),'palette_sha256':sha(pal),'reference_sha256':sha(D/'reference.png'),'metrics':{'components':len(cat['components']),'instances':len(layout),'master_meshes':meshes,'uv_faces_checked':uvfaces,'expanded_polygons':polys,'expanded_triangles':tris,'overall_bounds_m':[max(p[j] for p in allpts)-min(p[j] for p in allpts) for j in range(3)],'deck_bounds_m':deck['bounds_size'],'deck_aspect_ratio':deck['bounds_size'][0]/deck['bounds_size'][1],'solid_wall_panels':len(wall_instances),'doors':0,'windows':len(windows),'glazing_role':'display_only_not_an_opening','clear_front_deck_route_m':2.4,'exterior_displays':sum(1 for r in layout if r['key'] in ('postcard_rack','mailbox','ice_box','vending')),'interior_lamps':sum(1 for r in layout if r['key'] in ('shop_lamp','shop_string')),'interior_shelves':sum(1 for r in layout if r['key']=='shelf')},'standalone_packages_reopened':0,'views':views,'exit_codes':{},'not_executed':['new walk surface/landing/trade gameplay','reference commercial rights verification','user final art acceptance']}
 report['sunroom_dimension_validation']={'single_storey_clear_height_m':bykey['wall_panel']['bounds_size'][2],'floor_to_floor_reference_m':standard['ground_floor_to_floor'],'deck_thickness_m':deck['bounds_size'][2],'roof_floor_plate_thickness_m':standard['slab_thickness'],'column_cross_section_m':bykey['corner_post']['bounds_size'][:2],'board_width_m':standard['platform_board_width'],'board_thickness_m':standard['platform_board_thickness'],'planks_checked':len(boards),'door_outer_frame_reference_only_m':standard['door_frame_outer_height'],'door_added':False}
 if errors:
  (W/'verification.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8');raise RuntimeError(str(errors))
