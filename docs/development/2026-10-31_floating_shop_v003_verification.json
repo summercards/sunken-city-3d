@@ -1,0 +1,282 @@
+{
+  "schema": "sea.scene.delivery_evidence",
+  "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+  "version": "v003",
+  "feature_ids": [
+    "SEA-ASSET"
+  ],
+  "requirement_ids": [
+    "SEA-ASSET-R34",
+    "SEA-ASSET-R35",
+    "SEA-WORLD-R13"
+  ],
+  "source_verification": {
+    "schema": "sea.scene.source_verification",
+    "passed": true,
+    "errors": [],
+    "source_only": true,
+    "source_sha256": "a731ec3cb44d7b86e4935af8c1bd339d8ce14a195496ec7092bed3086834a3a3",
+    "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+    "reference_sha256": "75a556d3b215657e97c2056994ba1438d6e751d3dce256016ebc5ffadb633f78",
+    "metrics": {
+      "components": 32,
+      "instances": 273,
+      "master_meshes": 371,
+      "uv_faces_checked": 63248,
+      "expanded_polygons": 237778,
+      "expanded_triangles": 468299,
+      "overall_bounds_m": [
+        20.5,
+        15.5,
+        9.17033519782126
+      ],
+      "deck_bounds_m": [
+        20.009998321533203,
+        15.010000228881836,
+        0.2200000286102295
+      ],
+      "deck_aspect_ratio": 1.3331111270092126,
+      "solid_wall_panels": 20,
+      "doors": 0,
+      "windows": 0,
+      "clear_front_deck_route_m": 2.4
+    },
+    "standalone_packages_reopened": 32,
+    "views": [
+      {
+        "name": "beauty",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\beauty.png",
+        "actual_render": true
+      },
+      {
+        "name": "front",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\front.png",
+        "actual_render": true
+      },
+      {
+        "name": "back",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\back.png",
+        "actual_render": true
+      },
+      {
+        "name": "side",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\side.png",
+        "actual_render": true
+      },
+      {
+        "name": "top",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\top.png",
+        "actual_render": true
+      },
+      {
+        "name": "detail",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\detail.png",
+        "actual_render": true
+      },
+      {
+        "name": "building_only",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\building_only.png",
+        "actual_render": true
+      }
+    ],
+    "exit_codes": {
+      "source_validation": 0,
+      "render_views": 0
+    },
+    "not_executed": [
+      "new walk surface/landing/trade gameplay",
+      "reference commercial rights verification",
+      "user final art acceptance"
+    ],
+    "sunroom_dimension_validation": {
+      "single_storey_clear_height_m": 4.866334915161133,
+      "floor_to_floor_reference_m": 5.086334943771359,
+      "deck_thickness_m": 0.2200000286102295,
+      "roof_floor_plate_thickness_m": 0.220000028610229,
+      "column_cross_section_m": [
+        0.5174999237060547,
+        0.5174999237060547
+      ],
+      "board_width_m": 0.893550634384155,
+      "board_thickness_m": 0.220000028610229,
+      "planks_checked": 32,
+      "door_outer_frame_reference_only_m": 3.07084512710571,
+      "door_added": false
+    }
+  },
+  "dimension_contract": {
+    "deck_width_m": 20,
+    "deck_depth_m": 15,
+    "deck_ratio": 1.3333333333333333,
+    "building_width_m": 12,
+    "building_depth_m": 9,
+    "building_ratio": 1.3333333333333333,
+    "walkway_front_back_m": 3,
+    "walkway_left_right_m": 4,
+    "deck_top_z": 2.514,
+    "front_railing_opening_m": 3.2,
+    "door_count": 0,
+    "window_count": 0,
+    "roof_shape": "rectangular_low_gable",
+    "single_storey_clear_height": 4.86633491516113,
+    "floor_to_floor": 5.086334943771359,
+    "slab_thickness": 0.220000028610229,
+    "main_column_width": 0.517499923706055,
+    "platform_board_width": 0.893550634384155,
+    "platform_board_thickness": 0.220000028610229,
+    "door_reference_outer_height": 3.07084512710571
+  },
+  "dimension_standard": ".agents/skills/sea-scene-component-authoring/references/building_scale.json",
+  "optimization": {
+    "optimized": "art_source/scenes/floating_shop/v003/export/v001/floating_shop_optimized_v001.blend",
+    "optimized_sha256": "e9888a7b846c1fc41799d4138e336069ecfc162790dd1e8f97fa6d8482dded24",
+    "source_sha256_before": "a731ec3cb44d7b86e4935af8c1bd339d8ce14a195496ec7092bed3086834a3a3",
+    "source_sha256_after": "a731ec3cb44d7b86e4935af8c1bd339d8ce14a195496ec7092bed3086834a3a3",
+    "palette_sha256_before": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+    "palette_sha256_after": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+    "triangles_before": 468299,
+    "triangles_after": 429474,
+    "reduction_ratio": 0.08290643371008694,
+    "components": 32,
+    "fidelity_status": "four_fixed_views_reviewed_passed_user_acceptance_pending",
+    "fidelity_views": [
+      {
+        "source": "D:\\projects\\sea-work\\floating_shop\\v003\\beauty.png",
+        "optimized": "D:\\projects\\sea-work\\floating_shop\\v003\\optimized_beauty.png",
+        "camera_lighting_material_scale_identical": true
+      },
+      {
+        "source": "D:\\projects\\sea-work\\floating_shop\\v003\\front.png",
+        "optimized": "D:\\projects\\sea-work\\floating_shop\\v003\\optimized_front.png",
+        "camera_lighting_material_scale_identical": true
+      },
+      {
+        "source": "D:\\projects\\sea-work\\floating_shop\\v003\\back.png",
+        "optimized": "D:\\projects\\sea-work\\floating_shop\\v003\\optimized_back.png",
+        "camera_lighting_material_scale_identical": true
+      },
+      {
+        "source": "D:\\projects\\sea-work\\floating_shop\\v003\\side.png",
+        "optimized": "D:\\projects\\sea-work\\floating_shop\\v003\\optimized_side.png",
+        "camera_lighting_material_scale_identical": true
+      }
+    ],
+    "resolved_issues": [
+      "首次派生另存时Blender再次重映射色板相对路径，保真图显示粉色；在已位于派生路径的文件中修复外链、重载并保存后重新渲染。"
+    ]
+  },
+  "runtime_export": {
+    "glb": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
+    "glb_sha256": "025772c217d37126c7b7e4662f98acb1a80fee36f545d444353df52f63b2db80",
+    "previous_runtime_sha256": "1e80f9f6b2586d407de4048ea5a61f480922412be69350b1bcd3f7cc3b7d2fdc",
+    "bytes": 32447188,
+    "triangles": 429474,
+    "instances_baked": 273,
+    "surfaces": [
+      {
+        "role": "SEA_Emission",
+        "node": "FSH_SEA_Emission",
+        "triangles": 6588,
+        "vertices": 3318
+      },
+      {
+        "role": "SEA_Gloss",
+        "node": "FSH_SEA_Gloss",
+        "triangles": 564,
+        "vertices": 288
+      },
+      {
+        "role": "SEA_Matte",
+        "node": "FSH_SEA_Matte",
+        "triangles": 263826,
+        "vertices": 133955
+      },
+      {
+        "role": "SEA_Metal",
+        "node": "FSH_SEA_Metal",
+        "triangles": 158496,
+        "vertices": 80656
+      }
+    ],
+    "textures_embedded": false,
+    "display_support_excluded": true,
+    "mapping": "Blender(x,y,z)->Godot(x,z,-y)"
+  },
+  "game_verification": {
+    "runner": "scripts/run_verification.py",
+    "run_dir": "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e",
+    "label": "floating-shop-v003-calibrated",
+    "head": "ae47f91601f1c8013fb427d4a6f818f3fd6e83bb",
+    "results": {
+      "floating-shop": {
+        "exit_code": 0,
+        "passed": true,
+        "renderer": "headless",
+        "expected_errors": [],
+        "unexpected_errors": [],
+        "completion_marker": true,
+        "log": "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e\\floating-shop.log",
+        "screenshots": []
+      },
+      "visual-floating-shop": {
+        "exit_code": 0,
+        "passed": true,
+        "renderer": "real",
+        "expected_errors": [],
+        "unexpected_errors": [],
+        "completion_marker": true,
+        "log": "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e\\visual-floating-shop.log",
+        "screenshots": [
+          "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e\\project\\outputs\\floating-shop-approach.png",
+          "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e\\project\\outputs\\floating-shop-deck.png",
+          "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e\\project\\outputs\\floating-shop-from-home.png",
+          "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e\\project\\outputs\\floating-shop-rect-front.png",
+          "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e\\project\\outputs\\floating-shop-rect-overview.png",
+          "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e\\project\\outputs\\floating-shop-relation.png"
+        ]
+      }
+    },
+    "asset_import": {
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\verification\\20261031-144756-floating-shop-v003-calibrated-1ef71e\\asset-import.log",
+      "unexpected_errors": []
+    },
+    "checks": {
+      "floating-shop": 32,
+      "visual-floating-shop": 12
+    }
+  },
+  "registry_updates": {
+    "ledger": "assets/registry/ledgers/scenes.json",
+    "component_rows_updated": 23,
+    "component_rows_created": 9,
+    "component_rows_retired": 16,
+    "assembly_row_updated": 1,
+    "source_index": "assets/registry/current_source_index.json",
+    "runtime_inventory": "assets/registry/runtime_resource_inventory.json",
+    "palette_correction": {
+      "issue": "catalog 与组件 manifest 的 palette 字段仍写 sea_cozy_8x8_512.png，而全部 v003 blend 实际外链 sea_cabin_timber_8x8_512.png；贴图 datablock 名字也仍是 sea_cozy_8x8_512.png（名与文件不同步）。",
+      "evidence": "tools/blender/floating_shop/inspect_palette_link_v003.py 只读打开母版、组件包与优化文件，filepath 均为 //.../shared/palettes/sea_cabin_timber_8x8_512.png；palette sha256 f4b1f525...15d09 与优化清单前后值一致。",
+      "fix": "修正 catalog.json 17 条与 32 个组件 manifest 的 palette / palette_sha256 字段；未改动 blend，不重跑已验收产物。",
+      "residual": "blend 内 image datablock 名称仍是旧名，仅影响可读性，不影响渲染。"
+    }
+  },
+  "failures": {
+    "blender_gui": "Blender 4.5 GUI 内清理旧 scene 时出现访问冲突；随后一次视口依赖图缓存崩溃。制作源与旧版均已保护，重开保存源后在隔离包内复查完成；崩溃中的文件不作为最终交付。",
+    "palette_remap": "首次派生保存的色板相对路径被 Blender 二次重映射，保真图暴露粉色；已修复外链、重载并保存后重新渲染核验。"
+  },
+  "not_executed": [
+    "行走面 WalkArea 与登岸点",
+    "泊位与船只靠泊",
+    "商店交易交互与存档",
+    "参考图商业授权核验",
+    "用户最终美术验收"
+  ],
+  "pending": [
+    "walk_area",
+    "landing_point",
+    "shop_interaction",
+    "reference_rights",
+    "user_art_acceptance"
+  ]
+}

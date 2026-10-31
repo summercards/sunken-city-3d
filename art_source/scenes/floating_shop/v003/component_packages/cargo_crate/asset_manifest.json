@@ -1,0 +1,41 @@
+{
+  "key": "cargo_crate",
+  "asset_id": "SEA-SCENE-FSH-CARGO-CRATE",
+  "name": "防水货箱",
+  "family": "crate",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-CARGO-CRATE",
+  "root": "cargo_crate_ROOT",
+  "bounds_size": [
+    1.0,
+    0.8149999976158142,
+    0.8299999833106995
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.02250000834465027,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/cargo_crate/cargo_crate.blend",
+  "geometry_fingerprint": "d02287b934c580644e1ab426f869f43783bf024ea37a7de749a1ac9b8a75d851",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 3,
+  "version": "v003",
+  "polygons": 490,
+  "triangles": 940,
+  "materials": [
+    "SEA_Gloss",
+    "SEA_Metal"
+  ],
+  "source_sha256": "609da71b465c78bf868ebe52607804b5450b01f28d6b85319bf33496f791583d",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-CARGO-CRATE",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

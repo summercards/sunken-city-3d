@@ -1,0 +1,40 @@
+{
+  "key": "plinth",
+  "asset_id": "SEA-SCENE-FSH-PLINTH",
+  "name": "青绿矩形墙脚",
+  "family": "plinth",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-PLINTH",
+  "root": "plinth_ROOT",
+  "bounds_size": [
+    12.149999618530273,
+    9.149999618530273,
+    0.2750000059604645
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/plinth/plinth.blend",
+  "geometry_fingerprint": "4816ed933e454dae27e8f883241eba72a14abd984886ce52aec28f1eff0e3bd3",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 196,
+  "triangles": 376,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "64c22a302db8a6208bdab7e166560957ae2ddab208fa0ddc21cfd34b51a50754",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-PLINTH",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

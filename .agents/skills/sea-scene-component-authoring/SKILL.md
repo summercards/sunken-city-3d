@@ -32,6 +32,8 @@ description: 为 sea 项目按参考图制作 Blender 场景、建筑和花草�
 
 sea 首版使用 `art_source/shared/palettes/sea_cozy_8x8_512.png`，512×512、8×8 纯色色格，配套 JSON 记录色名、行列和 sRGB。格子边长 64 像素；行号从图像顶部开始。色板由米白、木色、海蓝、植物绿、花色与冷灰构成。修改已使用格子的含义前评估全部消费者。
 
+与当前阳光房同族的海上生活建筑，使用其正式暖木变体 `art_source/shared/palettes/sea_cabin_timber_8x8_512.png`；这是已登记的共享变体，不复制到套件，不改旧色板。建模前读取[阳光房尺寸基准](references/building-scale.md)及[机器尺寸表](references/building_scale.json)，以最终游戏米制对齐层高、楼板/木板厚度、门框和柱截面、板宽及拼缝。不能直接套2.2米门高或2.8米层高，也不能把源文件尺寸乘一个猜测的统一倍率。用户明确指定不同尺度时登记该资产的例外，不改其他建筑。
+
 - 所有组件外链同一 PNG，不在每个包复制或打包。图片节点使用 `Closest`，明确由 `PaletteUV` 驱动。
 - 每个面的 UV 是有面积的小岛，完整位于一个色格内并留至少 8 像素安全边；不压为单点。活动编辑层和渲染层均为 `PaletteUV`。
 - 颜色由 UV 决定，质感由最多四个共享角色决定：`SEA_Matte`、`SEA_Metal`、`SEA_Gloss`、`SEA_Emission`。不为每个颜色新增材质。发光几何单独命名并分离。

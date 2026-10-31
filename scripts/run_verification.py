@@ -114,6 +114,7 @@ TESTS.update({
     'visual-reference-skiff': ('tests/test_reference_skiff.gd', r'\[reference-skiff\] \d+ checks, 0 failures'),
     # 海上悬浮商铺：位置=阳光房主体正南 50 米、材质序列化在预制体里、只导 4 个运行网格。
     'floating-shop': ('tests/test_floating_shop.gd', r'\[floating-shop\] \d+ checks, 0 failures'),
+    'building-scale-reference': ('tools/probe_building_scale.gd', r'\[building-scale-reference\] \d+ rows, 0 failures'),
     'visual-floating-shop': ('tools/capture_floating_shop.gd', r'\[floating-shop-render\] \d+ checks, 0 failures'),
 	'visual-corner-notebook': ('tests/test_corner_notebook.gd', r'\[corner-notebook\] \d+ checks, 0 failures'),
     'title-clock-seed': ('tests/seed_title_clock.gd', r'\[title-clock-seed\] ok=true'),

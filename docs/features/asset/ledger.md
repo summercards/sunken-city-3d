@@ -328,3 +328,14 @@ SEA-ASSET-R34当前源为[v002](../../../art_source/scenes/floating_shop/v002/fl
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-ASSET-R35 | v002 已导出运行 GLB（4 个材质角色合一、669345 三角面、50.4MB、无内嵌贴图），预制体 4 条 `surface_material_override` 序列化到 tscn；`main.tscn` 的 `World/SeaStructures/floating_shop` 摆放在阳光房主体中心正南 50 米，甲板顶面 = 水面 +0.26 米；`main._water_shapes()` 已接入 `World/SeaStructures`，浮店中心判为阻挡水域。行走/泊位/商店交互/参考图商业授权/用户最终美术验收 pending。 | `floating-shop` 21 项 0 失败、`visual-floating-shop` 三视图，[接入记录](../../development/2026-10-30_floating_shop_runtime.md)、[导出清单](../../../art_source/scenes/floating_shop/v002/export/v001/export_manifest.json) |
+
+## 2026-10-31 海上悬浮商铺 v003：4:3矩形建筑替换
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R34 | v003 源级已完成：32组件/273实例/371母版网格、32独立包全部保存重开、63248母版面 PaletteUV 通过；底座 20.010×15.010 米、主体 12×9 米、封闭立面零门窗；v001/v002 源保留。16 个被取消的旧组件标 `historical_source_retained`，不计入当前装配 | [v003 制作与收尾记录](../../development/2026-10-31_floating_shop_v003.md)、[机器证据](../../development/2026-10-31_floating_shop_v003_verification.json)、[母版](../../../art_source/scenes/floating_shop/v003/floating_shop.blend) |
+| SEA-ASSET-R35 | v003 已接入稳定运行 GLB：32组件/273实例烘成 4 个材质角色的单一网格，429474 三角面、32447188 字节、无内嵌贴图；预制体序列化四材质覆盖，Gloss 改为不透明釉面。按阳光房标准改 0.22 米实板（板顶水面 +0.26 米、板底 +0.04 米），水面阻挡按新矩形几何派生并覆盖四角。`floating-shop` 32 项、`visual-floating-shop` 12 项均 0 失败。行走/泊位/商店交互/参考图商业授权/用户最终美术验收 pending | [导出清单](../../../art_source/scenes/floating_shop/v003/export/v001/export_manifest.json)、[优化清单](../../../art_source/scenes/floating_shop/v003/export/v001/optimization_manifest.json)、[装配清单](../../../art_source/scenes/floating_shop/v003/asset_manifest.json) |
+
+分账本登记同步：33 条 FSH 行为 v003 现状（24 更新含装配行、9 新增 AssetID），16 条标历史保留；`current_source_index.json` 由账本重建为 562 条，`runtime_resource_inventory.json` 6 条浮店运行资源逐条刷新哈希。运行时材质实际外链暖木色板 `sea_cabin_timber_8x8_512.png`，catalog 与组件 manifest 里残留的 `sea_cozy_8x8_512.png` 已按只读探针证据纠正；不重跑已验收产物。
+
+同族建筑尺度基准（底层净高 4.866335 米、层高 5.086335 米、楼板 0.22 米、主柱 0.5175 米、平台板宽 0.893551 米、门框参照 3.070845 米）已写入[项目场景 skill 尺寸说明](../../../.agents/skills/sea-scene-component-authoring/references/building-scale.md)及其[机器表](../../../.agents/skills/sea-scene-component-authoring/references/building_scale.json)，由 `building-scale-reference` 探针从正式阳光房 v008 运行装配量取；不改阳光房本身。

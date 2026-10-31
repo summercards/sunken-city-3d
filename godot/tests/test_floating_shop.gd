@@ -39,7 +39,15 @@ func bounds(node: Node) -> AABB:
 		# 阳光房是 MultiMesh 装配，浮店是整体网格；两种都要算进来。
 		if not (mesh is MeshInstance3D or mesh is MultiMeshInstance3D):
 			continue
-		var part: AABB = mesh.global_transform * mesh.get_aabb()
+		var mesh_transform: Transform3D = mesh.transform
+		if mesh.is_inside_tree():
+			mesh_transform = mesh.global_transform
+		else:
+			var ancestor: Node = mesh.get_parent()
+			while ancestor is Node3D:
+				mesh_transform = (ancestor as Node3D).transform * mesh_transform
+				ancestor = ancestor.get_parent()
+		var part: AABB = mesh_transform * mesh.get_aabb()
 		result = part if first else result.merge(part)
 		first = false
 	return result
@@ -62,6 +70,14 @@ func _check_prefab() -> void:
 	var surfaces := {}
 	for child in shop.find_children("FSH_SEA_*", "MeshInstance3D", true, false):
 		surfaces[str(child.name)] = child.mesh.get_surface_count()
+	var visual_bounds := bounds(shop)
+	check(shop.get_meta("source_version", "") == "v003", "rectangular v003 prefab metadata")
+	check(visual_bounds.size.x > 20.0 and visual_bounds.size.z > 15.0,
+		"rectangular platform and its fenders have the new extent")
+	check(absf(visual_bounds.size.x / visual_bounds.size.z - 4.0 / 3.0) < 0.05,
+		"building footprint is approximately 4:3 including fenders")
+	check(shop.get_meta("storefront_windows", -1) == 0 and shop.get_meta("storefront_doors", -1) == 0,
+		"old storefront openings removed")
 	shop.free()
 	check(surfaces.size() == 4, "prefab has exactly 4 runtime meshes (display support excluded)")
 	for key in ROLE_BY_SURFACE:
@@ -127,19 +143,28 @@ func _check_placement() -> void:
 	var deck_top := shop_center.y + DECK_TOP_LOCAL
 	check(absf(deck_top - (water_y + DECK_ABOVE_WATER)) <= 0.02,
 		"deck top is %.2fm above water (got %.3f, water %.2f)" % [DECK_ABOVE_WATER, deck_top, water_y])
-	# 甲板底面要没进水里，船体/浮筒才不会悬空。
-	var deck_bottom := shop_center.y + 2.04
-	check(deck_bottom < water_y, "deck slab dips below the water line (%.3f < %.2f)" % [deck_bottom, water_y])
+	# 与阳光房一致：0.22m实板，板顶+0.26m，板底+0.04m；浮舱仍在板下。
+	var deck_bottom := deck_top - 0.22
+	check(absf(deck_bottom - (water_y + 0.04)) <= 0.02,
+		"sunroom-standard thin slab bottom is 0.04m above water")
+	check(absf(float(shop.get_meta("single_storey_clear_height", 0.0)) - 4.866335) < 0.001,
+		"storey height follows measured formal sunroom")
+	check(absf(float(shop.get_meta("column_width", 0.0)) - 0.5175) < 0.001,
+		"main columns follow sunroom cross section")
+	check(absf(float(shop.get_meta("plank_width", 0.0)) - 0.893551) < 0.001,
+		"platform plank rhythm follows sunroom")
 
-	# 不能压在别的区块上：浮店四周一格（18.5m 见方）必须是开阔水面。
-	var half := 9.3
+	# 用当前几何包络，避免改成长方形后仍只检查历史圆盘范围。
+	var shop_bounds := bounds(shop)
+	var footprint := Rect2(Vector2(shop_bounds.position.x, shop_bounds.position.z),
+		Vector2(shop_bounds.size.x, shop_bounds.size.z)).grow(0.4)
 	var clear := true
 	for zone_node in main.get_node("World/Zones").get_children():
 		if not zone_node.has_method("rebuild_blockers"):
 			continue
 		for r in zone_node.water_block_rects:
 			var rect: Rect2 = r
-			if rect.intersects(Rect2(shop_center.x - half, shop_center.z - half, half * 2.0, half * 2.0)):
+			if rect.intersects(footprint):
 				clear = false
 				printerr("  overlap with ", zone_node.name, " ", rect)
 	check(clear, "shop water footprint does not overlap another zone")
@@ -151,3 +176,7 @@ func _check_placement() -> void:
 		"shop_rects": shop.water_block_rects.size()}
 	check(shop.water_block_rects.size() > 0, "shop derived water blockers from its own geometry")
 	check(covered, "boat cannot sail through the shop center")
+	# These points lie in the rectangular deck's corners, outside the old disc.
+	for offset in [Vector2(-8.7, -6.2), Vector2(8.7, -6.2), Vector2(-8.7, 6.2), Vector2(8.7, 6.2)]:
+		check(not main._is_open_water(shop_center.x + offset.x, shop_center.z + offset.y),
+			"rectangular deck corner blocks boats " + str(offset))

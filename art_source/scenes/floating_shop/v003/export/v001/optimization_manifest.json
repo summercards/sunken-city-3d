@@ -1,0 +1,1004 @@
+{
+  "schema": "sea.scene.optimization",
+  "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+  "role": "optimized",
+  "source": "art_source/scenes/floating_shop/v003/floating_shop.blend",
+  "source_sha256_before": "a731ec3cb44d7b86e4935af8c1bd339d8ce14a195496ec7092bed3086834a3a3",
+  "source_sha256_after": "a731ec3cb44d7b86e4935af8c1bd339d8ce14a195496ec7092bed3086834a3a3",
+  "optimized": "art_source/scenes/floating_shop/v003/export/v001/floating_shop_optimized_v001.blend",
+  "optimized_sha256": "e9888a7b846c1fc41799d4138e336069ecfc162790dd1e8f97fa6d8482dded24",
+  "palette_sha256_before": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "palette_sha256_after": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "triangles_before": 468299,
+  "triangles_after": 429474,
+  "reduction_ratio": 0.08290643371008694,
+  "components": [
+    {
+      "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+      "key": "electrical_box",
+      "triangles_before": 1924,
+      "triangles_after": 1924,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.6600000262260437,
+        0.4124999940395355,
+        0.6800000071525574
+      ],
+      "bounds_after_m": [
+        0.6600000262260437,
+        0.4124999940395355,
+        0.6800000071525574
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-FLOWERS",
+      "key": "flowers",
+      "triangles_before": 5940,
+      "triangles_after": 5940,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.4596373438835144,
+        0.21358609199523926,
+        0.4180000126361847
+      ],
+      "bounds_after_m": [
+        0.4596373438835144,
+        0.21358609199523926,
+        0.4180000126361847
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-FOLIAGE",
+      "key": "foliage",
+      "triangles_before": 6228,
+      "triangles_after": 6228,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.9451998472213745,
+        1.02886962890625,
+        0.5304076671600342
+      ],
+      "bounds_after_m": [
+        0.9451998472213745,
+        1.02886962890625,
+        0.5304076671600342
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-BEACON",
+      "key": "beacon",
+      "triangles_before": 1224,
+      "triangles_after": 1224,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.2699999213218689,
+        0.26999998092651367,
+        0.940000057220459
+      ],
+      "bounds_after_m": [
+        0.2699999213218689,
+        0.26999998092651367,
+        0.940000057220459
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ROOF-PIPE",
+      "key": "roof_pipe",
+      "triangles_before": 3328,
+      "triangles_after": 3328,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 12,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        1.5,
+        0.3100000023841858,
+        1.024999976158142
+      ],
+      "bounds_after_m": [
+        1.5,
+        0.3100000023841858,
+        1.024999976158142
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-RAIL-POST",
+      "key": "rail_post",
+      "triangles_before": 1452,
+      "triangles_after": 1452,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.25999999046325684,
+        0.25999999046325684,
+        1.2050000429153442
+      ],
+      "bounds_after_m": [
+        0.25999999046325684,
+        0.25999999046325684,
+        1.2050000429153442
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-AUX-GLOW",
+      "key": "aux_glow",
+      "triangles_before": 508,
+      "triangles_after": 508,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.36000001430511475,
+        0.36000001430511475,
+        0.07000000029802322
+      ],
+      "bounds_after_m": [
+        0.36000001430511475,
+        0.36000001430511475,
+        0.07000000029802322
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-TIRE",
+      "key": "tire",
+      "triangles_before": 8008,
+      "triangles_after": 7036,
+      "reduction_ratio": 0.12137862137862138,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": 0.72,
+        "surface_meshes_collapsed": 3,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        1.0,
+        0.30000007152557373,
+        1.4110000133514404
+      ],
+      "bounds_after_m": [
+        1.0,
+        0.30013877153396606,
+        1.4110000133514404
+      ],
+      "max_bounds_change_m": 0.00013870000839233398
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ENGINE",
+      "key": "engine",
+      "triangles_before": 14736,
+      "triangles_after": 12620,
+      "reduction_ratio": 0.14359391965255158,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": 0.72,
+        "surface_meshes_collapsed": 7,
+        "cleanup_elements_removed": 48,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        3.240000009536743,
+        3.240000009536743,
+        1.9500000476837158
+      ],
+      "bounds_after_m": [
+        3.240000009536743,
+        3.240000009536743,
+        1.9501184813125292
+      ],
+      "max_bounds_change_m": 0.00011843362881336361
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ENGINE-GLOW",
+      "key": "engine_glow",
+      "triangles_before": 1468,
+      "triangles_after": 1468,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.8600000143051147,
+        0.8600000143051147,
+        0.16499999165534973
+      ],
+      "bounds_after_m": [
+        0.8600000143051147,
+        0.8600000143051147,
+        0.16499999165534973
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-POT",
+      "key": "pot",
+      "triangles_before": 1784,
+      "triangles_after": 1784,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.6200000047683716,
+        0.6200000047683716,
+        0.4350000023841858
+      ],
+      "bounds_after_m": [
+        0.6200000047683716,
+        0.6200000047683716,
+        0.4350000023841858
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-AUX-NOZZLE",
+      "key": "aux_nozzle",
+      "triangles_before": 2168,
+      "triangles_after": 1844,
+      "reduction_ratio": 0.14944649446494465,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": 0.72,
+        "surface_meshes_collapsed": 1,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.7200000286102295,
+        0.7200000286102295,
+        0.5099999308586121
+      ],
+      "bounds_after_m": [
+        0.7200000286102295,
+        0.7200000286102295,
+        0.5100379747927946
+      ],
+      "max_bounds_change_m": 3.804393418249674e-05
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-LIFE-RING",
+      "key": "life_ring",
+      "triangles_before": 3092,
+      "triangles_after": 2444,
+      "reduction_ratio": 0.2095730918499353,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": 0.72,
+        "surface_meshes_collapsed": 2,
+        "cleanup_elements_removed": 36,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.8960000276565552,
+        0.22599999606609344,
+        0.9880000352859497
+      ],
+      "bounds_after_m": [
+        0.8960000276565552,
+        0.22599999606609344,
+        0.9880000352859497
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-COUNTERWEIGHT",
+      "key": "counterweight",
+      "triangles_before": 1012,
+      "triangles_after": 1012,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.25,
+        0.25,
+        1.2000000476837158
+      ],
+      "bounds_after_m": [
+        0.25,
+        0.25,
+        1.2000000476837158
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-LADDER",
+      "key": "ladder",
+      "triangles_before": 3144,
+      "triangles_after": 3144,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.6860000491142273,
+        0.3930000066757202,
+        3.1908955574035645
+      ],
+      "bounds_after_m": [
+        0.6860000491142273,
+        0.392999991774559,
+        3.1908955574035645
+      ],
+      "max_bounds_change_m": 1.4901161193847656e-08
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-SPOTLIGHT",
+      "key": "spotlight",
+      "triangles_before": 2880,
+      "triangles_after": 2880,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.5540000200271606,
+        0.4846877157688141,
+        0.9121296405792236
+      ],
+      "bounds_after_m": [
+        0.5540000200271606,
+        0.4846877157688141,
+        0.9121296405792236
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-FLOAT-POD",
+      "key": "float_pod",
+      "triangles_before": 6386,
+      "triangles_after": 5442,
+      "reduction_ratio": 0.14782336360789228,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": 0.72,
+        "surface_meshes_collapsed": 2,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        2.5380001068115234,
+        2.5380001068115234,
+        2.533388376235962
+      ],
+      "bounds_after_m": [
+        2.5380747318267822,
+        2.5376195907592773,
+        2.533388376235962
+      ],
+      "max_bounds_change_m": 0.00038051605224609375
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-DECK",
+      "key": "deck",
+      "triangles_before": 11078,
+      "triangles_after": 11077,
+      "reduction_ratio": 9.026900162484202e-05,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 1,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        20.009998321533203,
+        15.010000228881836,
+        0.2200000286102295
+      ],
+      "bounds_after_m": [
+        20.009998321533203,
+        15.010000228881836,
+        0.2200000286102295
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ROOF",
+      "key": "roof",
+      "triangles_before": 1324,
+      "triangles_after": 1324,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        13.279999732971191,
+        10.199999809265137,
+        0.8850002288818359
+      ],
+      "bounds_after_m": [
+        13.279999732971191,
+        10.199999809265137,
+        0.8850002288818359
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-WALL-PANEL",
+      "key": "wall_panel",
+      "triangles_before": 2176,
+      "triangles_after": 2176,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        2.0,
+        0.2849999964237213,
+        4.866334915161133
+      ],
+      "bounds_after_m": [
+        2.0,
+        0.2849999964237213,
+        4.866334915161133
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-CORNER-POST",
+      "key": "corner_post",
+      "triangles_before": 564,
+      "triangles_after": 564,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.5174999237060547,
+        0.5174999237060547,
+        4.866334915161133
+      ],
+      "bounds_after_m": [
+        0.5174999237060547,
+        0.5174999237060547,
+        4.866334915161133
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-PLINTH",
+      "key": "plinth",
+      "triangles_before": 376,
+      "triangles_after": 376,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        12.149999618530273,
+        9.149999618530273,
+        0.2750000059604645
+      ],
+      "bounds_after_m": [
+        12.149999618530273,
+        9.149999618530273,
+        0.2750000059604645
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-AWNING-BLUE",
+      "key": "awning_blue",
+      "triangles_before": 620,
+      "triangles_after": 460,
+      "reduction_ratio": 0.25806451612903225,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 175,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.4000000059604645,
+        0.9980000257492065,
+        0.7055794596672058
+      ],
+      "bounds_after_m": [
+        0.4000000059604645,
+        0.9980000257492065,
+        0.7055794596672058
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-AWNING-WHITE",
+      "key": "awning_white",
+      "triangles_before": 620,
+      "triangles_after": 460,
+      "reduction_ratio": 0.25806451612903225,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 175,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.4000000059604645,
+        0.9980000257492065,
+        0.7055794596672058
+      ],
+      "bounds_after_m": [
+        0.4000000059604645,
+        0.9980000257492065,
+        0.7055794596672058
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-RAIL-STRAIGHT",
+      "key": "rail_straight",
+      "triangles_before": 504,
+      "triangles_after": 504,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        2.0,
+        0.09000009298324585,
+        0.5970001220703125
+      ],
+      "bounds_after_m": [
+        2.0,
+        0.09000009298324585,
+        0.5970001220703125
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-CONTROLLER",
+      "key": "controller",
+      "triangles_before": 1960,
+      "triangles_after": 1960,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        2.6500000953674316,
+        1.899999976158142,
+        1.034999966621399
+      ],
+      "bounds_after_m": [
+        2.6500000953674316,
+        1.899999976158142,
+        1.034999966621399
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "key": "under_brace",
+      "triangles_before": 248,
+      "triangles_after": 248,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.4750000238418579,
+        5.199999809265137,
+        0.33138060569763184
+      ],
+      "bounds_after_m": [
+        0.4750000238418579,
+        5.199999809265137,
+        0.33138060569763184
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-SIGN-PANEL",
+      "key": "sign_panel",
+      "triangles_before": 33305,
+      "triangles_after": 32605,
+      "reduction_ratio": 0.021017865185407596,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 8933,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        5.599999904632568,
+        0.25450000166893005,
+        0.8999999761581421
+      ],
+      "bounds_after_m": [
+        5.599999904632568,
+        0.25450000166893005,
+        0.8999999761581421
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-BENCH",
+      "key": "bench",
+      "triangles_before": 752,
+      "triangles_after": 752,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        2.200000047683716,
+        0.5600000023841858,
+        0.6899999976158142
+      ],
+      "bounds_after_m": [
+        2.200000047683716,
+        0.5600000023841858,
+        0.6899999976158142
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-CARGO-CRATE",
+      "key": "cargo_crate",
+      "triangles_before": 940,
+      "triangles_after": 940,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        1.0,
+        0.8149999976158142,
+        0.8299999833106995
+      ],
+      "bounds_after_m": [
+        1.0,
+        0.8149999976158142,
+        0.8299999833106995
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-BOLLARD",
+      "key": "bollard",
+      "triangles_before": 1012,
+      "triangles_after": 1012,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        0.5799999833106995,
+        0.4000000059604645,
+        0.5649999976158142
+      ],
+      "bounds_after_m": [
+        0.5799999833106995,
+        0.4000000059604645,
+        0.5649999976158142
+      ],
+      "max_bounds_change_m": 0.0
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ROOF-VENT",
+      "key": "roof_vent",
+      "triangles_before": 1128,
+      "triangles_after": 1128,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.005,
+        "surface_collapse_ratio": null,
+        "surface_meshes_collapsed": 0,
+        "cleanup_elements_removed": 0,
+        "palette_uv_reprojected_same_cell": true
+      },
+      "budget": null,
+      "budget_source": "user supplied no triangle cap",
+      "retained_faces": "underside/back/internal faces kept unless degenerate; no assumed invisible-face deletion",
+      "bounds_before_m": [
+        1.0800000429153442,
+        0.800000011920929,
+        0.675000011920929
+      ],
+      "bounds_after_m": [
+        1.0800000429153442,
+        0.800000011920929,
+        0.675000011920929
+      ],
+      "max_bounds_change_m": 0.0
+    }
+  ],
+  "fidelity_status": "four_fixed_views_reviewed_passed_user_acceptance_pending",
+  "project_export_contract": "SEA-ASSET-R35 retains a single assembly GLB merged into four stable material meshes; per-component optimization recorded separately.",
+  "resolved_issues": [
+    "首次派生另存时Blender再次重映射色板相对路径，保真图显示粉色；在已位于派生路径的文件中修复外链、重载并保存后重新渲染。"
+  ],
+  "fidelity_views": [
+    {
+      "source": "D:\\projects\\sea-work\\floating_shop\\v003\\beauty.png",
+      "optimized": "D:\\projects\\sea-work\\floating_shop\\v003\\optimized_beauty.png",
+      "camera_lighting_material_scale_identical": true
+    },
+    {
+      "source": "D:\\projects\\sea-work\\floating_shop\\v003\\front.png",
+      "optimized": "D:\\projects\\sea-work\\floating_shop\\v003\\optimized_front.png",
+      "camera_lighting_material_scale_identical": true
+    },
+    {
+      "source": "D:\\projects\\sea-work\\floating_shop\\v003\\back.png",
+      "optimized": "D:\\projects\\sea-work\\floating_shop\\v003\\optimized_back.png",
+      "camera_lighting_material_scale_identical": true
+    },
+    {
+      "source": "D:\\projects\\sea-work\\floating_shop\\v003\\side.png",
+      "optimized": "D:\\projects\\sea-work\\floating_shop\\v003\\optimized_side.png",
+      "camera_lighting_material_scale_identical": true
+    }
+  ]
+}

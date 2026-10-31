@@ -1,0 +1,41 @@
+{
+  "key": "deck",
+  "asset_id": "SEA-SCENE-FSH-DECK",
+  "name": "四比三矩形木甲板",
+  "family": "base",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-DECK",
+  "root": "deck_ROOT",
+  "bounds_size": [
+    20.009998321533203,
+    15.010000228881836,
+    0.2200000286102295
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/deck/deck.blend",
+  "geometry_fingerprint": "7e36968e1340b02b7081e002d755a1a1b94345015d65d68f6218489b77d945e7",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 5948,
+  "triangles": 11078,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "ab07aba954b7cfe12cc256ae4ef57ffd4c86985845b58267518df60e91de63d2",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-DECK",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

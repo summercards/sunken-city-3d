@@ -1,0 +1,41 @@
+{
+  "key": "ladder",
+  "asset_id": "SEA-SCENE-FSH-LADDER",
+  "name": "平台至水面爬梯",
+  "category": "building/structure",
+  "source_group": "structure",
+  "family": "ladder",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-LADDER",
+  "root": "ladder_ROOT",
+  "bounds_size": [
+    0.6860000491142273,
+    0.3930000066757202,
+    3.1908955574035645
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.15349999070167542,
+    0.04999995231628418
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/ladder/ladder.blend",
+  "geometry_fingerprint": "f5bf21669f7dcfafccaeb478deae63e4e34419b4bae24d624964689d8c6f3430",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 1428,
+  "triangles": 3144,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-LADDER",
+  "stage": "source_verified_runtime_pending",
+  "source_sha256": "e3233a46e8f5c23b93fe475d61d27a7f18e413fb707f4d6baddd30d46a69c179",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

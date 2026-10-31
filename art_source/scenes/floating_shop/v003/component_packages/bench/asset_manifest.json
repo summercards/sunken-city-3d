@@ -1,0 +1,41 @@
+{
+  "key": "bench",
+  "asset_id": "SEA-SCENE-FSH-BENCH",
+  "name": "甲板长木凳",
+  "family": "bench",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-BENCH",
+  "root": "bench_ROOT",
+  "bounds_size": [
+    2.200000047683716,
+    0.5600000023841858,
+    0.6899999976158142
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.06000000238418579,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/bench/bench.blend",
+  "geometry_fingerprint": "d3ddf688e640a20cc62a8d453f44b45675e54d14aa5c25154a10113db8b12b70",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 2,
+  "version": "v003",
+  "polygons": 392,
+  "triangles": 752,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "c967d364d7c071f58a83e94f99bf1e825f7b2ec8c165bd24ed7e1a003a60a88e",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-BENCH",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

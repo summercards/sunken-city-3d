@@ -1,0 +1,164 @@
+{
+  "schema": "sea.scene.assembly_manifest",
+  "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+  "name": "海上悬浮商铺",
+  "version": "v003",
+  "category": "building/structure",
+  "placement_layer": "above_water",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ASSEMBLY",
+  "source": "art_source/scenes/floating_shop/v003/floating_shop.blend",
+  "source_sha256": "a731ec3cb44d7b86e4935af8c1bd339d8ce14a195496ec7092bed3086834a3a3",
+  "runtime_status": "runtime_integrated_pending_walk_and_interaction",
+  "license": "pending_user_reference_rights_review",
+  "reference": "reference.png",
+  "reference_sha256": "75a556d3b215657e97c2056994ba1438d6e751d3dce256016ebc5ffadb633f78",
+  "component_catalog": "catalog.json",
+  "component_instances": "component_instances.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "palette_asset_id": "SEA-PALETTE-CABIN-TIMBER-64",
+  "metrics": {
+    "components": 32,
+    "instances": 273,
+    "master_meshes": 371,
+    "uv_faces_checked": 63248,
+    "expanded_polygons": 237778,
+    "expanded_triangles": 468299,
+    "overall_bounds_m": [
+      20.5,
+      15.5,
+      9.17033519782126
+    ],
+    "deck_bounds_m": [
+      20.009998321533203,
+      15.010000228881836,
+      0.2200000286102295
+    ],
+    "deck_aspect_ratio": 1.3331111270092126,
+    "solid_wall_panels": 20,
+    "doors": 0,
+    "windows": 0,
+    "clear_front_deck_route_m": 2.4
+  },
+  "dimension_contract": {
+    "deck_width_m": 20,
+    "deck_depth_m": 15,
+    "deck_ratio": 1.3333333333333333,
+    "building_width_m": 12,
+    "building_depth_m": 9,
+    "building_ratio": 1.3333333333333333,
+    "walkway_front_back_m": 3,
+    "walkway_left_right_m": 4,
+    "deck_top_z": 2.514,
+    "front_railing_opening_m": 3.2,
+    "door_count": 0,
+    "window_count": 0,
+    "roof_shape": "rectangular_low_gable",
+    "single_storey_clear_height": 4.86633491516113,
+    "floor_to_floor": 5.086334943771359,
+    "slab_thickness": 0.220000028610229,
+    "main_column_width": 0.517499923706055,
+    "platform_board_width": 0.893550634384155,
+    "platform_board_thickness": 0.220000028610229,
+    "door_reference_outer_height": 3.07084512710571
+  },
+  "dimension_standard": ".agents/skills/sea-scene-component-authoring/references/building_scale.json",
+  "optimization": {
+    "optimized": "art_source/scenes/floating_shop/v003/export/v001/floating_shop_optimized_v001.blend",
+    "optimized_sha256": "e9888a7b846c1fc41799d4138e336069ecfc162790dd1e8f97fa6d8482dded24",
+    "manifest": "export/v001/optimization_manifest.json",
+    "triangles_before": 468299,
+    "triangles_after": 429474,
+    "reduction_ratio": 0.08290643371008694,
+    "fidelity_status": "four_fixed_views_reviewed_passed_user_acceptance_pending",
+    "source_hash_unchanged": true
+  },
+  "visual_review": {
+    "status": "source_views_reviewed_user_art_acceptance_pending",
+    "views": [
+      {
+        "name": "beauty",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\beauty.png",
+        "actual_render": true
+      },
+      {
+        "name": "front",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\front.png",
+        "actual_render": true
+      },
+      {
+        "name": "back",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\back.png",
+        "actual_render": true
+      },
+      {
+        "name": "side",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\side.png",
+        "actual_render": true
+      },
+      {
+        "name": "top",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\top.png",
+        "actual_render": true
+      },
+      {
+        "name": "detail",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\detail.png",
+        "actual_render": true
+      },
+      {
+        "name": "building_only",
+        "path": "D:\\projects\\sea-work\\floating_shop\\v003\\building_only.png",
+        "actual_render": true
+      }
+    ],
+    "optimized_comparison": {
+      "path": "D://projects//sea-work//floating_shop//v003//optimization_compare.png",
+      "actual_render": true,
+      "views": [
+        "beauty",
+        "back",
+        "front",
+        "side"
+      ]
+    },
+    "limits": [
+      "封闭主体不承诺可进入，本轮没有新增店内空间",
+      "未补另一套玻璃门窗；取消即取消，不以下一门窗替代"
+    ]
+  },
+  "previous_source": {
+    "version": "v002",
+    "source": "art_source/scenes/floating_shop/v002/floating_shop.blend",
+    "source_sha256": "e13931520f13e5ea13d6e18bb3f1e28300a7d5bcf02a8a6651c2230191662a31",
+    "manifest": "art_source/scenes/floating_shop/v002/asset_manifest.json"
+  },
+  "runtime": {
+    "glb": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
+    "glb_sha256": "025772c217d37126c7b7e4662f98acb1a80fee36f545d444353df52f63b2db80",
+    "glb_bytes": 32447188,
+    "prefab": "godot/scenes/facilities/floating_shop.tscn",
+    "placement": "godot/scenes/main.tscn#World/SeaStructures/floating_shop",
+    "position_godot": [
+      6.158,
+      -1.134,
+      51.813
+    ],
+    "export_manifest": "export/v001/export_manifest.json",
+    "export_tool": "tools/blender/floating_shop/export_v003.py",
+    "surfaces": 4,
+    "textures_embedded": false,
+    "placement_rule": "阳光房主体（后部方形建筑＋前部倾斜太阳能房）占地中心正南 50 米；甲板顶面 = 水面 + 0.26 米，0.22 米实板板底离水面 +0.04 米",
+    "pending": [
+      "walk_area",
+      "landing_point",
+      "shop_interaction",
+      "user_art_acceptance"
+    ]
+  },
+  "not_executed": [
+    "new walk surface/landing/trade gameplay",
+    "reference commercial rights verification",
+    "user final art acceptance"
+  ]
+}

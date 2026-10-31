@@ -1,0 +1,40 @@
+{
+  "key": "corner_post",
+  "asset_id": "SEA-SCENE-FSH-CORNER-POST",
+  "name": "青绿建筑角柱",
+  "family": "post",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-CORNER-POST",
+  "root": "corner_post_ROOT",
+  "bounds_size": [
+    0.5174999237060547,
+    0.5174999237060547,
+    4.866334915161133
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/corner_post/corner_post.blend",
+  "geometry_fingerprint": "638426cbcf7b13f175960ecaea11400625c6f9435886dd1a19f3b0d0562d2dc4",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 10,
+  "version": "v003",
+  "polygons": 294,
+  "triangles": 564,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "7c7b48c3ffb647acaa3968dc9af1638ca48f954f2bf4d65a7d5d6678b596ab89",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-CORNER-POST",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

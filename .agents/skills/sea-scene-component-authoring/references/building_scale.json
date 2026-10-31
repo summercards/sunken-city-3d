@@ -1,0 +1,38 @@
+{
+  "schema": "sea.building.dimensions",
+  "version": "2026-10-31",
+  "scope": "与正式阳光房同族的海上生活建筑；特殊层级可显式登记不同尺寸，不能改变既有建筑",
+  "reference_facility": "SEA-REF-FACILITY-SOLAR-CABIN",
+  "reference_source_version": "sunny_bloom_retreat/v008",
+  "units": "metres at final runtime scale; not unscaled Blender source",
+  "runtime_instance_sha256": "f6f4a685130e43275ce9d64ea3054d83d27215764bee7d8c42f9e7ed5787c183",
+  "measurements": {
+    "ground_clear_height": 4.86633491516113,
+    "ground_floor_to_floor": 5.086334943771359,
+    "slab_thickness": 0.220000028610229,
+    "main_column_width": 0.517499923706055,
+    "main_column_depth": 0.517499923706055,
+    "platform_board_width": 0.893550634384155,
+    "platform_board_thickness": 0.220000028610229,
+    "platform_board_pitch": 0.92,
+    "platform_board_gap": 0.02644936561584499,
+    "bridge_board_width": 0.750375747680664,
+    "terrace_board_width": 0.7801312506198885,
+    "door_frame_outer_height": 3.07084512710571,
+    "door_frame_outer_width": 1.82849979400635,
+    "upper_decorative_column_width": 0.388125,
+    "upper_decorative_column_height": 3.09465,
+    "surface_above_water": 0.26,
+    "slab_bottom_above_water": 0.04
+  },
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_runtime": "godot/assets/textures/shared/sea_cabin_timber_8x8_512.png",
+  "evidence": "docs/development/2026-10-31_sunroom_dimension_probe.json",
+  "probe_check": "building-scale-reference",
+  "caveats": [
+    "door frame bounds are not a measured clear doorway",
+    "upper decorative posts differ from full ground-floor columns",
+    "bridge and terrace board widths are measured variants; main platform standard is the default",
+    "source instance scale differs in XYZ; never multiply all source sizes by a guessed uniform factor"
+  ]
+}

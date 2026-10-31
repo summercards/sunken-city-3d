@@ -1,0 +1,40 @@
+{
+  "key": "under_brace",
+  "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+  "name": "矩形底盘横梁与管线",
+  "family": "brace",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-UNDER-BRACE",
+  "root": "under_brace_ROOT",
+  "bounds_size": [
+    0.4750000238418579,
+    5.199999809265137,
+    0.33138060569763184
+  ],
+  "authored_origin_shift": [
+    -0.05750000476837158,
+    0.0,
+    -0.03138059377670288
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/under_brace/under_brace.blend",
+  "geometry_fingerprint": "549a63ae5f574df2ee284a505d461a8a4fca085af38f2d54d77cd87cef74be17",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 5,
+  "version": "v003",
+  "polygons": 128,
+  "triangles": 248,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "1f5ba7ddf6a8b42116d9c885d44bf1050fff8f2b1212b66dc55e5bd6579d5d8a",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-UNDER-BRACE",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

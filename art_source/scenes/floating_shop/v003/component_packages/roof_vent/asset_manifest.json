@@ -1,0 +1,40 @@
+{
+  "key": "roof_vent",
+  "asset_id": "SEA-SCENE-FSH-ROOF-VENT",
+  "name": "矩形百叶通风盒",
+  "family": "vent",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-ROOF-VENT",
+  "root": "roof_vent_ROOT",
+  "bounds_size": [
+    1.0800000429153442,
+    0.800000011920929,
+    0.675000011920929
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/roof_vent/roof_vent.blend",
+  "geometry_fingerprint": "0ba7c1c85af1a7a7f0630f9413de15cbe98061e8e692824c9724d21592070364",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 2,
+  "version": "v003",
+  "polygons": 588,
+  "triangles": 1128,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "2ecaf5fd8beea7477ec0e1e47917414964e6f26355060e6dc546c618dfdbd8c3",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ROOF-VENT",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

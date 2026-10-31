@@ -37,6 +37,8 @@ func run() -> void:
 	var shop: Node3D = main.get_node("World/SeaStructures/floating_shop")
 	var hub: Vector3 = shop.global_position + Vector3(0, 4.4, 0)
 	var cases := [
+		{"name": "rect-overview", "eye": hub + Vector3(-22.0, 15.0, 25.0), "target": hub},
+		{"name": "rect-front", "eye": hub + Vector3(0.0, 4.5, 27.0), "target": hub},
 		{"name": "approach", "eye": hub + Vector3(-16.0, 3.6, 22.0), "target": hub},
 		{"name": "deck", "eye": hub + Vector3(6.5, 2.6, 13.0), "target": hub + Vector3(0, -1.2, 0)},
 		{"name": "from-home", "eye": Vector3(6.2, 6.5, 24.0), "target": hub},

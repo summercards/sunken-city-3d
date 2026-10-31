@@ -17055,14 +17055,14 @@
       "name": "环形厚甲板与分板",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/deck/deck.blend",
-      "source_sha256": "7e56e6da4321af5a3ec289ed3c446fec852ceda7aa8acb3ecc4478d16cac8579",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/deck/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/deck/deck.blend",
+      "source_sha256": "ab07aba954b7cfe12cc256ae4ef57ffd4c86985845b58267518df60e91de63d2",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/deck/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "82661c71681b4d88bebf5399a224a04378dab7913c660fe02b8a5a13d18cd783",
+      "geometry_fingerprint": "7e36968e1340b02b7081e002d755a1a1b94345015d65d68f6218489b77d945e7",
       "consumer_features": [
         "SEA-ASSET"
       ],
@@ -17071,13 +17071,19 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/deck/deck.blend",
           "source_sha256": "a2289d428deb989fb735edd023b93a7e28ff0bd63bbc8217bada0b8a90b7292c",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/deck/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/deck/deck.blend",
+          "source_sha256": "7e56e6da4321af5a3ec289ed3c446fec852ceda7aa8acb3ecc4478d16cac8579",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/deck/asset_manifest.json"
         }
       ]
     },
@@ -17086,14 +17092,14 @@
       "name": "浅穹顶设备屋面",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/roof/roof.blend",
-      "source_sha256": "ae283bbb39f4aec0056c0563bbe94abcbe0f6446879892422be7e6e2b4608640",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/roof/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/roof/roof.blend",
+      "source_sha256": "0e613c85470e1bc55de2ba75d7f0df5a92ce073e23ce8eb7eddbe9dd0363dd5c",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/roof/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "7bd4a9985a3d227643c31c9748c0a424c36b9819e9ad5ff46bf39b4eae70aeda",
+      "geometry_fingerprint": "0cc18dc0356ffb1e584cde7247096063f7b4d8fc876a8769853fa3117ff4885a",
       "consumer_features": [
         "SEA-ASSET"
       ],
@@ -17102,13 +17108,19 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/roof/roof.blend",
           "source_sha256": "506a860e95b6ee0f8994343fa260489f6e62a452ec3ccae92fe655d434ef93ae",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/roof/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/roof/roof.blend",
+          "source_sha256": "ae283bbb39f4aec0056c0563bbe94abcbe0f6446879892422be7e6e2b4608640",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/roof/asset_manifest.json"
         }
       ]
     },
@@ -17116,7 +17128,7 @@
       "asset_id": "SEA-SCENE-FSH-FACADE-WINDOW",
       "name": "通透弧形橱窗单元",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/facade_window/facade_window.blend",
       "source_sha256": "4e75badb290fd9ce9ab52ba7573e24625d7bf11aa0edf1fc4b624a941a95ac03",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/facade_window/asset_manifest.json",
@@ -17133,7 +17145,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17147,7 +17159,7 @@
       "asset_id": "SEA-SCENE-FSH-ENTRY",
       "name": "正面开放式门框",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/entry/entry.blend",
       "source_sha256": "473a755c1f607c5bacf3c492b7bd4147148b53de32329ffeebdf24820e7b2e24",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/entry/asset_manifest.json",
@@ -17164,7 +17176,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17178,7 +17190,7 @@
       "asset_id": "SEA-SCENE-FSH-REAR-WALL",
       "name": "背面封闭墙弧",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/rear_wall/rear_wall.blend",
       "source_sha256": "2ccab193d8c0a9e7e7c80c1629fa6f46309ec18314aff12ef9b95da48c78a0e4",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/rear_wall/asset_manifest.json",
@@ -17195,7 +17207,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17209,7 +17221,7 @@
       "asset_id": "SEA-SCENE-FSH-REAR-DOOR",
       "name": "背面检修小门",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/rear_door/rear_door.blend",
       "source_sha256": "b62ecc42466cb9c07ae20a105a0a945f6ead51a12654f152081798258619a7ed",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/rear_door/asset_manifest.json",
@@ -17226,7 +17238,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17240,7 +17252,7 @@
       "asset_id": "SEA-SCENE-FSH-SIGN-BAND",
       "name": "环形米黄招牌底带",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/sign_band/sign_band.blend",
       "source_sha256": "b0b7431ad79eb274e1d6bc9128fc0b86c72e963338ce4d3a010c7c635697ec12",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/sign_band/asset_manifest.json",
@@ -17257,7 +17269,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17271,7 +17283,7 @@
       "asset_id": "SEA-SCENE-FSH-SIGN-GIFTS",
       "name": "GIFTS礼物招牌",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/sign_gifts/sign_gifts.blend",
       "source_sha256": "78a38fee8513c77d92d215226a035b9c0c830d652344638f0c63911fc33195ac",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/sign_gifts/asset_manifest.json",
@@ -17288,7 +17300,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17302,7 +17314,7 @@
       "asset_id": "SEA-SCENE-FSH-SIGN-POSTCARDS",
       "name": "POSTCARDS信封招牌",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/sign_postcards/sign_postcards.blend",
       "source_sha256": "41b6d78be877b0879a562f3803cb9ac2113894ec48de40ec2183e0319b98cc6f",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/sign_postcards/asset_manifest.json",
@@ -17319,7 +17331,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17333,7 +17345,7 @@
       "asset_id": "SEA-SCENE-FSH-SIGN-DRINKS",
       "name": "COLD DRINKS饮料招牌",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/sign_drinks/sign_drinks.blend",
       "source_sha256": "e3f6fce71791ea462a61c6ccb2900c26d9cb70aa1e93791a155776b48eddfc71",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/sign_drinks/asset_manifest.json",
@@ -17350,7 +17362,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17365,29 +17377,35 @@
       "name": "蓝色弧面圆垂边雨棚条",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/awning_blue/awning_blue.blend",
-      "source_sha256": "6c3b7ddb4c2e0e86db4873a004af50d7a097b6eba3a412759f9063f8153f3a9a",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/awning_blue/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/awning_blue/awning_blue.blend",
+      "source_sha256": "66180a8e72cb04d63001b915091f9ce5e7e2e7b531ca4567d0ec45a9d351b938",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/awning_blue/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "db2de839a30822666dfd41bc157424e6146197bdf64c242124571122b2425de0",
+      "geometry_fingerprint": "5d61c8cc358fd67abb6ee2145afc633568f0e824487cfe3772ca5d3fb3c484f2",
       "consumer_features": [
         "SEA-ASSET"
       ],
       "category": "building/structure",
-      "source_group": "facility",
+      "source_group": "structure",
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/awning_blue/awning_blue.blend",
           "source_sha256": "6f384ad4be5484ded0eb4fe2de0b7d419651fbab712cff9efb855064cf1d256c",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/awning_blue/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/awning_blue/awning_blue.blend",
+          "source_sha256": "6c3b7ddb4c2e0e86db4873a004af50d7a097b6eba3a412759f9063f8153f3a9a",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/awning_blue/asset_manifest.json"
         }
       ]
     },
@@ -17396,29 +17414,35 @@
       "name": "白色弧面圆垂边雨棚条",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/awning_white/awning_white.blend",
-      "source_sha256": "f2b84843db995d42ddab7f7cec80b02d40df92069d08bc826b5fa774c720da5c",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/awning_white/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/awning_white/awning_white.blend",
+      "source_sha256": "211cf1a00a27085c2d33dd56e49a8e178c08783578a2ff1a4085cde43796508d",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/awning_white/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "db2de839a30822666dfd41bc157424e6146197bdf64c242124571122b2425de0",
+      "geometry_fingerprint": "5d61c8cc358fd67abb6ee2145afc633568f0e824487cfe3772ca5d3fb3c484f2",
       "consumer_features": [
         "SEA-ASSET"
       ],
       "category": "building/structure",
-      "source_group": "facility",
+      "source_group": "structure",
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/awning_white/awning_white.blend",
           "source_sha256": "6d698d36d23fc9fa52b492c3ff6efe5fc0532452d21de0e3044a73bcb6607f1b",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/awning_white/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/awning_white/awning_white.blend",
+          "source_sha256": "f2b84843db995d42ddab7f7cec80b02d40df92069d08bc826b5fa774c720da5c",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/awning_white/asset_manifest.json"
         }
       ]
     },
@@ -17427,10 +17451,10 @@
       "name": "黄色球头护栏立柱",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/rail_post/rail_post.blend",
-      "source_sha256": "c74b6bbe9f3d6fccf0ea51b7b5a1d30a622a3525dcd54fa61012cb0a3d6f31e0",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/rail_post/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/rail_post/rail_post.blend",
+      "source_sha256": "be01c26fea89970b4f0fa5b2526d70cce1a1bfba8af9c615e4757ffaaa623975",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/rail_post/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
@@ -17439,17 +17463,23 @@
         "SEA-ASSET"
       ],
       "category": "building/structure",
-      "source_group": "facility",
+      "source_group": "structure",
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/rail_post/rail_post.blend",
           "source_sha256": "43b9fe7703fe88989cfb5f000834bb6385a2b2a36a1dd7f01da46c1d3009ffc8",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/rail_post/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/rail_post/rail_post.blend",
+          "source_sha256": "c74b6bbe9f3d6fccf0ea51b7b5a1d30a622a3525dcd54fa61012cb0a3d6f31e0",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/rail_post/asset_manifest.json"
         }
       ]
     },
@@ -17457,7 +17487,7 @@
       "asset_id": "SEA-SCENE-FSH-RAIL-ARC",
       "name": "双道弧形黄色栏杆",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/rail_arc/rail_arc.blend",
       "source_sha256": "f67554df8d0cdd53e8b548151f19410731f6898ea01b1f00d29b16694c8bec58",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/rail_arc/asset_manifest.json",
@@ -17474,7 +17504,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17489,10 +17519,10 @@
       "name": "轮胎护舷和挂绳",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/tire/tire.blend",
-      "source_sha256": "8badbfd772afbd0ed621631bf342825c58bea6c6922288a5e01d20a4c9c1850d",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/tire/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/tire/tire.blend",
+      "source_sha256": "16001252753a16fd5a32298413748da9de85e1d969ce7a587b6690dba6973a64",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/tire/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
@@ -17501,17 +17531,23 @@
         "SEA-ASSET"
       ],
       "category": "building/structure",
-      "source_group": "facility",
+      "source_group": "structure",
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/tire/tire.blend",
           "source_sha256": "2d8a159a15984b7ce1b88ac04913af11138ee3186819816a3ab67891d8e2196b",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/tire/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/tire/tire.blend",
+          "source_sha256": "8badbfd772afbd0ed621631bf342825c58bea6c6922288a5e01d20a4c9c1850d",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/tire/asset_manifest.json"
         }
       ]
     },
@@ -17520,10 +17556,10 @@
       "name": "红白救生圈和系绳",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/life_ring/life_ring.blend",
-      "source_sha256": "3a58d05b8a9c83d1da1b0fa0e08ba95e1f3bdd7ace2c537e0a4ec91c7da5c946",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/life_ring/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/life_ring/life_ring.blend",
+      "source_sha256": "038c6cc931480414a4d6a576155120800633842115e13cfccfea1dad0d7b5f2d",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/life_ring/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
@@ -17532,17 +17568,23 @@
         "SEA-ASSET"
       ],
       "category": "building/structure",
-      "source_group": "facility",
+      "source_group": "structure",
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/life_ring/life_ring.blend",
           "source_sha256": "cacd1a39dffde2ff2cff33cc00de1e7cb5583a7278cf84adc0f0ceb23b9d1a85",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/life_ring/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/life_ring/life_ring.blend",
+          "source_sha256": "3a58d05b8a9c83d1da1b0fa0e08ba95e1f3bdd7ace2c537e0a4ec91c7da5c946",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/life_ring/asset_manifest.json"
         }
       ]
     },
@@ -17551,10 +17593,10 @@
       "name": "平台至动力层爬梯",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/ladder/ladder.blend",
-      "source_sha256": "34110b6b9b666701fe905996266bf5079a670dfeabbf402eca8fb2b47c23b9e6",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/ladder/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/ladder/ladder.blend",
+      "source_sha256": "e3233a46e8f5c23b93fe475d61d27a7f18e413fb707f4d6baddd30d46a69c179",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/ladder/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
@@ -17563,17 +17605,23 @@
         "SEA-ASSET"
       ],
       "category": "building/structure",
-      "source_group": "facility",
+      "source_group": "structure",
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/ladder/ladder.blend",
           "source_sha256": "81c91283eab2e295a5d523652fa62112b959bbc424fdfae3b8cfe71507da452b",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/ladder/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/ladder/ladder.blend",
+          "source_sha256": "34110b6b9b666701fe905996266bf5079a670dfeabbf402eca8fb2b47c23b9e6",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/ladder/asset_manifest.json"
         }
       ]
     },
@@ -17582,324 +17630,14 @@
       "name": "米黄圆柱穹顶主控",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/controller/controller.blend",
-      "source_sha256": "288a6ffc9b9fc7e43300ffcff29529f53d63a77fb5cd3c3b48b1cb7323990499",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/controller/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/controller/controller.blend",
+      "source_sha256": "93f8a49efae5b4cb330bcae063b3d0c0747fc41a3f17535b9c670a0f2d8b6a8a",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/controller/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "5b90dc56dbf78b8e7a0140a344de6adc8340793fb0c41ffb0695891a2cc6bebf",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/controller/controller.blend",
-          "source_sha256": "6f8b64da56458190bfb3f424a91bb51c1e9ddacc7653ac02e23e5303272714aa",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/controller/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-SPOTLIGHT",
-      "name": "黑色射灯及叉形支架",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/spotlight/spotlight.blend",
-      "source_sha256": "2df2f8f1f09a7e10e7532a3505e4f826618a770ca10f2ad780b214ab7c701293",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/spotlight/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "7ba7c32256d3c3d4d976b614af8e96502305c6659f3ddfcc80184e925686253a",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/spotlight/spotlight.blend",
-          "source_sha256": "ac183a8fc6acd66e94429c06b2ef7025cad24fe8630a9179070d0323f0709932",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/spotlight/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-ROOF-PIPE",
-      "name": "弯折管线与阀门",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/roof_pipe/roof_pipe.blend",
-      "source_sha256": "8dc05288f2132e3604a4014bed35fd81878a14a02ef720538622594219f253d7",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/roof_pipe/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "7c339301b07e3909a0f99b4246fe424c661e6d635e0ac6cdfec05fddbf64e0c1",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/roof_pipe/roof_pipe.blend",
-          "source_sha256": "227280cbf88e8020209101c2ff41afafbf77688f36069bdc8885a57f09f5678f",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/roof_pipe/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
-      "name": "带合页电气箱",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/electrical_box/electrical_box.blend",
-      "source_sha256": "6e67d370595b73f64080eef98f18999d602b5b7f0398e1335c4c22775811fd1d",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/electrical_box/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "359fa045728bf53a4062f599c14e478b988b48328d0b7fbf6bdcfaac04b6b39c",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/electrical_box/electrical_box.blend",
-          "source_sha256": "5408c02f5ec2d3955b19522218a5c8d26ea7709cbfb9a7e3c3e8fa3c3566805a",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/electrical_box/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-BEACON",
-      "name": "屋面橙色信号灯",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/beacon/beacon.blend",
-      "source_sha256": "ee3bb3bbfac8a6dfcfb22ea814672bb6d67b12d3dad1fd620d1b45ba039194db",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/beacon/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "e7f1e545568bc034ab61c7066c65f7497c0ee7c35168b540547f8b9435318cdc",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/beacon/beacon.blend",
-          "source_sha256": "41c88b8decbf5cf56fb833d9450fb8b1f1da743875f8db8c46b43de3a7ecb940",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/beacon/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-ENGINE",
-      "name": "中央悬浮主推进舱",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/engine/engine.blend",
-      "source_sha256": "c4ea30760aa864a3462d696b8c4e72aaa76a065faf21a1c1ed7193936d7bc92f",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/engine/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "755b1861e73c839acf7a4d657fde58ac0504aff55635f76c26f9ce982b7c0032",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/engine/engine.blend",
-          "source_sha256": "0ba19adb19d48eab6dc6cbccc742926e64219921910fbf64dfa40d5c5a9c3df4",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/engine/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-ENGINE-GLOW",
-      "name": "主喷口发光内芯",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/engine_glow/engine_glow.blend",
-      "source_sha256": "6f452409b5b3ed825d6ed334b515aaa062b1a08848c2af4b8af4a2c3be97d876",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/engine_glow/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "47810f613b4001481909a711aa935cb499ca8a269f6cd5f686d1dec79bf43884",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/engine_glow/engine_glow.blend",
-          "source_sha256": "d31f3d8d6a3012cdd058109eb484ddb15f29139a78aa5d2534d0f523f33f9ce4",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/engine_glow/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-FLOAT-POD",
-      "name": "橙色球形辅助浮舱",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/float_pod/float_pod.blend",
-      "source_sha256": "7ad4fb88697206efac49e837f8093c44549816d0c5ee34e954206467e6efcdd4",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/float_pod/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "f73196ff06e8ff031c3f394ffd26e000b0e0a8f1bddac977dc956e55398bb254",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/float_pod/float_pod.blend",
-          "source_sha256": "fdf256d85185b3b4ed7f05ca95475c65f3cb020ae768ded7fc389ff775fccd36",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/float_pod/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-AUX-NOZZLE",
-      "name": "小型辅助推进器",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/aux_nozzle/aux_nozzle.blend",
-      "source_sha256": "8ad7ca7d268f7758af6dc8ffbaf1f0bd4f405d5c154ebc7a559c1700a4f7d2f4",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/aux_nozzle/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "07b1d266b0aba3f573235d59c97660cb8426f8c430a9d20b1bcd4fb72195019e",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/aux_nozzle/aux_nozzle.blend",
-          "source_sha256": "ce27903ee7fc911cc4a1ec1d6d68ff2259af3e832755228b90799a37d78a28b5",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/aux_nozzle/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-AUX-GLOW",
-      "name": "辅助喷口发光内芯",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/aux_glow/aux_glow.blend",
-      "source_sha256": "3d4d4fdef38850784bbe368d959254ee2a38c6827ffe377c0a9b70fca25d1bd4",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/aux_glow/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "a2966c31d642e902ed708cebdf034774dbe598742cc04e25b3dd1794b796dac7",
-      "consumer_features": [
-        "SEA-ASSET"
-      ],
-      "category": "building/structure",
-      "source_group": "facility",
-      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "placement_layer": "above_water",
-      "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
-      "source_history": [
-        {
-          "version": "v001",
-          "source": "art_source/scenes/floating_shop/v001/component_packages/aux_glow/aux_glow.blend",
-          "source_sha256": "f95d0606aba399d4bd391778b5a9e80a75a6b33f44a237e94e9434682272b816",
-          "manifest": "art_source/scenes/floating_shop/v001/component_packages/aux_glow/asset_manifest.json"
-        }
-      ]
-    },
-    {
-      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
-      "name": "底盘辐射支臂及管线",
-      "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/under_brace/under_brace.blend",
-      "source_sha256": "87539ef8eb976423594bd8743dc7a37a0ce585f090781b322ec3cf63edbb033d",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/under_brace/asset_manifest.json",
-      "version": "v002",
-      "runtime_path": null,
-      "prefab": null,
-      "license": "pending_user_reference_rights_review",
-      "geometry_fingerprint": "627c75f0a808155a2bdc596973ede17c9c31275ce546dc0abacdd04c48ca3954",
+      "geometry_fingerprint": "43bbe2fa630f22a653145734991f21a4b00ed6ca432dfcdd3c39a8ec3aa9589f",
       "consumer_features": [
         "SEA-ASSET"
       ],
@@ -17908,13 +17646,389 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/controller/controller.blend",
+          "source_sha256": "6f8b64da56458190bfb3f424a91bb51c1e9ddacc7653ac02e23e5303272714aa",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/controller/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/controller/controller.blend",
+          "source_sha256": "288a6ffc9b9fc7e43300ffcff29529f53d63a77fb5cd3c3b48b1cb7323990499",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/controller/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-SPOTLIGHT",
+      "name": "黑色射灯及叉形支架",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/spotlight/spotlight.blend",
+      "source_sha256": "ddbff36a1b6ff3a1caae36a14efb6727b2cdf65a86727205bac129195b91eeb3",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/spotlight/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7ba7c32256d3c3d4d976b614af8e96502305c6659f3ddfcc80184e925686253a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/spotlight/spotlight.blend",
+          "source_sha256": "ac183a8fc6acd66e94429c06b2ef7025cad24fe8630a9179070d0323f0709932",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/spotlight/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/spotlight/spotlight.blend",
+          "source_sha256": "2df2f8f1f09a7e10e7532a3505e4f826618a770ca10f2ad780b214ab7c701293",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/spotlight/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ROOF-PIPE",
+      "name": "弯折管线与阀门",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/roof_pipe/roof_pipe.blend",
+      "source_sha256": "aad2d683d56e182e5092bbe612351a725e3c97e29327885d348094ad0d5e3d46",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/roof_pipe/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7c339301b07e3909a0f99b4246fe424c661e6d635e0ac6cdfec05fddbf64e0c1",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/roof_pipe/roof_pipe.blend",
+          "source_sha256": "227280cbf88e8020209101c2ff41afafbf77688f36069bdc8885a57f09f5678f",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/roof_pipe/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/roof_pipe/roof_pipe.blend",
+          "source_sha256": "8dc05288f2132e3604a4014bed35fd81878a14a02ef720538622594219f253d7",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/roof_pipe/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ELECTRICAL-BOX",
+      "name": "带合页电气箱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/electrical_box/electrical_box.blend",
+      "source_sha256": "c77b2f6eb15f6aeb8f57f9c4132c8b966ac6afd77449ea832267c2e2bd588bd2",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/electrical_box/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "359fa045728bf53a4062f599c14e478b988b48328d0b7fbf6bdcfaac04b6b39c",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/electrical_box/electrical_box.blend",
+          "source_sha256": "5408c02f5ec2d3955b19522218a5c8d26ea7709cbfb9a7e3c3e8fa3c3566805a",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/electrical_box/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/electrical_box/electrical_box.blend",
+          "source_sha256": "6e67d370595b73f64080eef98f18999d602b5b7f0398e1335c4c22775811fd1d",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/electrical_box/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-BEACON",
+      "name": "屋面橙色信号灯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/beacon/beacon.blend",
+      "source_sha256": "454cd7578274bdf6c8c083fce5de49105f2da25e60f7aadcc4ec8b723a4b64ee",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/beacon/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "e7f1e545568bc034ab61c7066c65f7497c0ee7c35168b540547f8b9435318cdc",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/beacon/beacon.blend",
+          "source_sha256": "41c88b8decbf5cf56fb833d9450fb8b1f1da743875f8db8c46b43de3a7ecb940",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/beacon/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/beacon/beacon.blend",
+          "source_sha256": "ee3bb3bbfac8a6dfcfb22ea814672bb6d67b12d3dad1fd620d1b45ba039194db",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/beacon/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ENGINE",
+      "name": "中央悬浮主推进舱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/engine/engine.blend",
+      "source_sha256": "d8d2caa09320bc6c377b7d3ba7b1bac09ccc8443916ce26ffe78177f02013ddd",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/engine/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "755b1861e73c839acf7a4d657fde58ac0504aff55635f76c26f9ce982b7c0032",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/engine/engine.blend",
+          "source_sha256": "0ba19adb19d48eab6dc6cbccc742926e64219921910fbf64dfa40d5c5a9c3df4",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/engine/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/engine/engine.blend",
+          "source_sha256": "c4ea30760aa864a3462d696b8c4e72aaa76a065faf21a1c1ed7193936d7bc92f",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/engine/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ENGINE-GLOW",
+      "name": "主喷口发光内芯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/engine_glow/engine_glow.blend",
+      "source_sha256": "29ff5d6ca68b7afe84ed7654304d75643e5b3f9bd2f5008bf6100dc3f59fec26",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/engine_glow/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "47810f613b4001481909a711aa935cb499ca8a269f6cd5f686d1dec79bf43884",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/engine_glow/engine_glow.blend",
+          "source_sha256": "d31f3d8d6a3012cdd058109eb484ddb15f29139a78aa5d2534d0f523f33f9ce4",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/engine_glow/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/engine_glow/engine_glow.blend",
+          "source_sha256": "6f452409b5b3ed825d6ed334b515aaa062b1a08848c2af4b8af4a2c3be97d876",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/engine_glow/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-FLOAT-POD",
+      "name": "橙色球形辅助浮舱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/float_pod/float_pod.blend",
+      "source_sha256": "084f14e8d43d25e4b79fed30af8d32c351913dd5d85c58d14f1b7b0ab7e04e9f",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/float_pod/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "f73196ff06e8ff031c3f394ffd26e000b0e0a8f1bddac977dc956e55398bb254",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/float_pod/float_pod.blend",
+          "source_sha256": "fdf256d85185b3b4ed7f05ca95475c65f3cb020ae768ded7fc389ff775fccd36",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/float_pod/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/float_pod/float_pod.blend",
+          "source_sha256": "7ad4fb88697206efac49e837f8093c44549816d0c5ee34e954206467e6efcdd4",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/float_pod/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-AUX-NOZZLE",
+      "name": "小型辅助推进器",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/aux_nozzle/aux_nozzle.blend",
+      "source_sha256": "bf59d55fa9e526196a39cd1fba78b9d07a9b8c62a720a3321744b5c2cc1cfb58",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/aux_nozzle/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "07b1d266b0aba3f573235d59c97660cb8426f8c430a9d20b1bcd4fb72195019e",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/aux_nozzle/aux_nozzle.blend",
+          "source_sha256": "ce27903ee7fc911cc4a1ec1d6d68ff2259af3e832755228b90799a37d78a28b5",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/aux_nozzle/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/aux_nozzle/aux_nozzle.blend",
+          "source_sha256": "8ad7ca7d268f7758af6dc8ffbaf1f0bd4f405d5c154ebc7a559c1700a4f7d2f4",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/aux_nozzle/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-AUX-GLOW",
+      "name": "辅助喷口发光内芯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/aux_glow/aux_glow.blend",
+      "source_sha256": "f9be1b75b31cb6a948658359b3e26d107972c74d9111305aedb0771ffce595e5",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/aux_glow/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "a2966c31d642e902ed708cebdf034774dbe598742cc04e25b3dd1794b796dac7",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": [
+        {
+          "version": "v001",
+          "source": "art_source/scenes/floating_shop/v001/component_packages/aux_glow/aux_glow.blend",
+          "source_sha256": "f95d0606aba399d4bd391778b5a9e80a75a6b33f44a237e94e9434682272b816",
+          "manifest": "art_source/scenes/floating_shop/v001/component_packages/aux_glow/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/aux_glow/aux_glow.blend",
+          "source_sha256": "3d4d4fdef38850784bbe368d959254ee2a38c6827ffe377c0a9b70fca25d1bd4",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/aux_glow/asset_manifest.json"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-UNDER-BRACE",
+      "name": "底盘辐射支臂及管线",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/under_brace/under_brace.blend",
+      "source_sha256": "1f5ba7ddf6a8b42116d9c885d44bf1050fff8f2b1212b66dc55e5bd6579d5d8a",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/under_brace/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "549a63ae5f574df2ee284a505d461a8a4fca085af38f2d54d77cd87cef74be17",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/under_brace/under_brace.blend",
           "source_sha256": "407e62dd95ebecccc4e9d00686ac30d1ba4ca142cfeb899a74acad33e33ab1db",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/under_brace/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/under_brace/under_brace.blend",
+          "source_sha256": "87539ef8eb976423594bd8743dc7a37a0ce585f090781b322ec3cf63edbb033d",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/under_brace/asset_manifest.json"
         }
       ]
     },
@@ -17923,10 +18037,10 @@
       "name": "悬挂橙色配重柱",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/counterweight/counterweight.blend",
-      "source_sha256": "39b2d54672691b510bb79ee86d6ab83bfd8327da4a3668c62767b5d1780fd212",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/counterweight/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/counterweight/counterweight.blend",
+      "source_sha256": "2f4f01e9e7c013b902462d46c49c5c6c554073a364be9080cf015abac8c7d741",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/counterweight/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
@@ -17935,17 +18049,23 @@
         "SEA-ASSET"
       ],
       "category": "building/structure",
-      "source_group": "facility",
+      "source_group": "structure",
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/counterweight/counterweight.blend",
           "source_sha256": "e1726c9e77bf807f1a1262b1952f98dc6ec49a4e3074b6afa65a4d3a501dd9f0",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/counterweight/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/counterweight/counterweight.blend",
+          "source_sha256": "39b2d54672691b510bb79ee86d6ab83bfd8327da4a3668c62767b5d1780fd212",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/counterweight/asset_manifest.json"
         }
       ]
     },
@@ -17953,7 +18073,7 @@
       "asset_id": "SEA-SCENE-FSH-POSTCARD-RACK",
       "name": "双面明信片旋转架",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/postcard_rack/postcard_rack.blend",
       "source_sha256": "6445f7d50b683c9b9d4029433c417c49c594935d91b487d0b3d4bb5bcd196ba3",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/postcard_rack/asset_manifest.json",
@@ -17970,7 +18090,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -17984,7 +18104,7 @@
       "asset_id": "SEA-SCENE-FSH-MAILBOX",
       "name": "红色邮筒",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/mailbox/mailbox.blend",
       "source_sha256": "e6990320fdaf5eaf5e15ceeb5f357df9f0a170a06d0e145fb4de26af0ac63f12",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/mailbox/asset_manifest.json",
@@ -18001,7 +18121,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -18015,7 +18135,7 @@
       "asset_id": "SEA-SCENE-FSH-ICE-BOX",
       "name": "白色ICE冷藏箱",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/ice_box/ice_box.blend",
       "source_sha256": "7f71e22aa4eb7412a21ea346710ebe4b79ab677784778373a32708136bfa21bf",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/ice_box/asset_manifest.json",
@@ -18032,7 +18152,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -18046,7 +18166,7 @@
       "asset_id": "SEA-SCENE-FSH-VENDING",
       "name": "黄色投币售货装置",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/vending/vending.blend",
       "source_sha256": "4e71bed430fb7020509632132b0e85b963a206b1112c2377b32008a383d26802",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/vending/asset_manifest.json",
@@ -18063,7 +18183,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -18077,7 +18197,7 @@
       "asset_id": "SEA-SCENE-FSH-SHELF",
       "name": "店内三层陈列架",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/shelf/shelf.blend",
       "source_sha256": "771667f8145060ecda956fe957c934130d4c1b0aebc0c56b4c134f4ea77ebaa9",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/shelf/asset_manifest.json",
@@ -18094,7 +18214,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -18108,7 +18228,7 @@
       "asset_id": "SEA-SCENE-FSH-BOTTLE",
       "name": "彩色饮料瓶组",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/bottle/bottle.blend",
       "source_sha256": "b53b36f29aaf0828dbd97b381ec0a4c9118c10e977269f30c194709dbb076ada",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/bottle/asset_manifest.json",
@@ -18125,7 +18245,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -18139,7 +18259,7 @@
       "asset_id": "SEA-SCENE-FSH-GIFT",
       "name": "礼品盒与玩偶陈列组",
       "domain": "scenes",
-      "stage": "source_verified_runtime_pending",
+      "stage": "historical_source_retained",
       "source": "art_source/scenes/floating_shop/v002/component_packages/gift/gift.blend",
       "source_sha256": "120b60652f39ffa2e5a6bc56dcdcb9bb77acc7a5c399de542e88a0b27c29139c",
       "manifest": "art_source/scenes/floating_shop/v002/component_packages/gift/asset_manifest.json",
@@ -18156,7 +18276,7 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003已不再引用本组件（矩形封闭立面取消门窗与零售陈列）；v002源与独立包保留作历史，不计入当前装配，也不代表已通过游戏验收。",
       "source_history": [
         {
           "version": "v001",
@@ -18171,10 +18291,10 @@
       "name": "米白圆陶盆",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/pot/pot.blend",
-      "source_sha256": "a505fb43a0fcd3fb657a94c53d2813a52452c0c4c45b3dbdd7c2f5be2ff85c58",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/pot/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/pot/pot.blend",
+      "source_sha256": "353d91049cc6a56b8899c524b5799267ae8fe003171024a63df4a0879007513f",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/pot/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
@@ -18183,17 +18303,23 @@
         "SEA-ASSET"
       ],
       "category": "building/structure",
-      "source_group": "facility",
+      "source_group": "structure",
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/pot/pot.blend",
           "source_sha256": "2621b3720c038c9831f73bd4cc7a63084f264ed8aa0c9f8e000d4d00a9343650",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/pot/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/pot/pot.blend",
+          "source_sha256": "a505fb43a0fcd3fb657a94c53d2813a52452c0c4c45b3dbdd7c2f5be2ff85c58",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/pot/asset_manifest.json"
         }
       ]
     },
@@ -18202,10 +18328,10 @@
       "name": "饱满宽叶盆栽",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/foliage/foliage.blend",
-      "source_sha256": "9e2411623e65e1e5e4017c5fdb3a34f0e9a97bb120d12438adb9e388c1c4aa2b",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/foliage/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/foliage/foliage.blend",
+      "source_sha256": "0da4c4c809d4c6d6137c6c75bf7d573c0a04fefe765d5fc50efe79b1f9a4e2ad",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/foliage/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
@@ -18218,13 +18344,19 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/foliage/foliage.blend",
           "source_sha256": "8721f0d9e257817c589e1de897a266760d4bd56787c620ce4b540873302da387",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/foliage/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/foliage/foliage.blend",
+          "source_sha256": "9e2411623e65e1e5e4017c5fdb3a34f0e9a97bb120d12438adb9e388c1c4aa2b",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/foliage/asset_manifest.json"
         }
       ]
     },
@@ -18233,10 +18365,10 @@
       "name": "小簇暖黄花",
       "domain": "scenes",
       "stage": "source_verified_runtime_pending",
-      "source": "art_source/scenes/floating_shop/v002/component_packages/flowers/flowers.blend",
-      "source_sha256": "fb6ddf4d7478e743a7b1ba6ef215bf1d2b7d7dd50a96cf558774ee27ed44f151",
-      "manifest": "art_source/scenes/floating_shop/v002/component_packages/flowers/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/flowers/flowers.blend",
+      "source_sha256": "3509a962979d5b2d59fd9d8876912b343528ff12559fa1bff1a390dfa07a3457",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/flowers/asset_manifest.json",
+      "version": "v003",
       "runtime_path": null,
       "prefab": null,
       "license": "pending_user_reference_rights_review",
@@ -18249,13 +18381,19 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "海上悬浮商铺v002；平台宽3米/2.5倍，正面护栏开口；39独立包重开、源级检查通过，运行接入pending。",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/component_packages/flowers/flowers.blend",
           "source_sha256": "3c9107ceac429b4cb7b7483f5b02b3461aa999508f5f84c077e9219ff76b3a7d",
           "manifest": "art_source/scenes/floating_shop/v001/component_packages/flowers/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/component_packages/flowers/flowers.blend",
+          "source_sha256": "fb6ddf4d7478e743a7b1ba6ef215bf1d2b7d7dd50a96cf558774ee27ed44f151",
+          "manifest": "art_source/scenes/floating_shop/v002/component_packages/flowers/asset_manifest.json"
         }
       ]
     },
@@ -18264,10 +18402,10 @@
       "name": "海上悬浮商铺",
       "domain": "scenes",
       "stage": "source_runtime_verified_provenance_pending",
-      "source": "art_source/scenes/floating_shop/v002/floating_shop.blend",
-      "source_sha256": "e13931520f13e5ea13d6e18bb3f1e28300a7d5bcf02a8a6651c2230191662a31",
-      "manifest": "art_source/scenes/floating_shop/v002/asset_manifest.json",
-      "version": "v002",
+      "source": "art_source/scenes/floating_shop/v003/floating_shop.blend",
+      "source_sha256": "a731ec3cb44d7b86e4935af8c1bd339d8ce14a195496ec7092bed3086834a3a3",
+      "manifest": "art_source/scenes/floating_shop/v003/asset_manifest.json",
+      "version": "v003",
       "runtime_path": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
       "prefab": "godot/scenes/facilities/floating_shop.tscn",
       "license": "pending_user_reference_rights_review",
@@ -18280,20 +18418,26 @@
       "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
       "placement_layer": "above_water",
       "scope": "scene_local",
-      "note": "v002 环廊3.0米、正面护栏开口约3.43米、门前1.95米通路无阻挡；39组件/248实例已烘成4个材质角色的单一GLB（669345三角面、50.4MB，无内嵌贴图，运行时以色板材质覆盖）。由World/SeaStructures/floating_shop实例摆放在阳光房主体正南50米海面，甲板顶面与家园甲板同高（水面+0.26米）。行走、泊位、商店交互、参考图商业授权与用户最终美术验收仍pending。",
+      "note": "v003 矩形4:3底座（20×15米）与封闭主体（12×9米），低坡矩形屋顶、方形主控箱，取消原店门/玻璃橱窗/店内陈列；32组件/273实例烘成4个材质角色的单一GLB（429474三角面、32.4MB，无内嵌贴图，运行时按暖木色板材质覆盖）。由World/SeaStructures/floating_shop实例摆放在阳光房主体正南50米海面，甲板顶面=水面+0.26米、0.22米实板板底+0.04米；水面阻挡按新矩形几何派生。行走、泊位、商店交互、参考图商业授权与用户最终美术验收仍pending。",
       "source_history": [
         {
           "version": "v001",
           "source": "art_source/scenes/floating_shop/v001/floating_shop.blend",
           "source_sha256": "5e2496eb74c1c5fe32737623fa0d2bde0b5d98500fee60cd8dd6ff3a7a3c7ea3",
           "manifest": "art_source/scenes/floating_shop/v001/asset_manifest.json"
+        },
+        {
+          "version": "v002",
+          "source": "art_source/scenes/floating_shop/v002/floating_shop.blend",
+          "source_sha256": "e13931520f13e5ea13d6e18bb3f1e28300a7d5bcf02a8a6651c2230191662a31",
+          "manifest": "art_source/scenes/floating_shop/v002/asset_manifest.json"
         }
       ],
-      "runtime_sha256": "b792c06cb4db97c4c1c53fc1623067c852a05fbecf168e906b7fa28c9e27dad1",
-      "prefab_sha256": "3671e0da17e7159a0fbfccfcb7c7597606de068ad1eb5dbc40cd2c90207c4911",
-      "runtime_version": "v002",
+      "runtime_sha256": "025772c217d37126c7b7e4662f98acb1a80fee36f545d444353df52f63b2db80",
+      "prefab_sha256": "1c85bd279d57dee93116b8391934f59f4066d9abaaa3ecde03c25cc6d8e7a390",
+      "runtime_version": "v003",
       "runtime_scope": "single_surface_assembly",
-      "triangles": 669345,
+      "triangles": 429474,
       "classification": {
         "category": "building",
         "subcategory": "shop",
@@ -18305,16 +18449,232 @@
       ],
       "front_axis": "-Y (Blender) = +Z (Godot)",
       "footprint": [
-        18.5,
-        18.1125
+        20.500139,
+        15.500139
       ],
-      "height": 7.525,
+      "height": 9.170335,
       "collision": {
         "walkable_deck": false,
         "water_blocker": "derived_from_geometry",
         "note": "甲板与环廊尚无 WalkArea 与泊位，玩家暂不可登船靠泊；水面阻挡由 BlockerSet 派生"
       },
       "interactive": false
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-BENCH",
+      "name": "甲板长木凳",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/bench/bench.blend",
+      "source_sha256": "c967d364d7c071f58a83e94f99bf1e825f7b2ec8c165bd24ed7e1a003a60a88e",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/bench/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d3ddf688e640a20cc62a8d453f44b45675e54d14aa5c25154a10113db8b12b70",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": []
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-BOLLARD",
+      "name": "系泊双耳柱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/bollard/bollard.blend",
+      "source_sha256": "8322508b151170bce9cf1720010a24ae15d144d1dd658af5061c76bee7764c48",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/bollard/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "e3d67c6b7d2d42dc61815889853a6e9a77e811b792dd1c067e172e03961bed7e",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": []
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-CARGO-CRATE",
+      "name": "防水货箱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/cargo_crate/cargo_crate.blend",
+      "source_sha256": "609da71b465c78bf868ebe52607804b5450b01f28d6b85319bf33496f791583d",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/cargo_crate/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d02287b934c580644e1ab426f869f43783bf024ea37a7de749a1ac9b8a75d851",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": []
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-CORNER-POST",
+      "name": "青绿建筑角柱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/corner_post/corner_post.blend",
+      "source_sha256": "7c7b48c3ffb647acaa3968dc9af1638ca48f954f2bf4d65a7d5d6678b596ab89",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/corner_post/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "638426cbcf7b13f175960ecaea11400625c6f9435886dd1a19f3b0d0562d2dc4",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": []
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-PLINTH",
+      "name": "青绿矩形墙脚",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/plinth/plinth.blend",
+      "source_sha256": "64c22a302db8a6208bdab7e166560957ae2ddab208fa0ddc21cfd34b51a50754",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/plinth/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "4816ed933e454dae27e8f883241eba72a14abd984886ce52aec28f1eff0e3bd3",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": []
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-RAIL-STRAIGHT",
+      "name": "直线双道黄色栏杆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/rail_straight/rail_straight.blend",
+      "source_sha256": "0408d10fb505af1960ee5c2d39a239b2e2d4482115c0d3bb62e4555393f09082",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/rail_straight/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "040076ebcdd7f1a9dbcc4d10a7e99e5fe985e2d8467d16505936fb8313b953db",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": []
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-ROOF-VENT",
+      "name": "矩形百叶通风盒",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/roof_vent/roof_vent.blend",
+      "source_sha256": "2ecaf5fd8beea7477ec0e1e47917414964e6f26355060e6dc546c618dfdbd8c3",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/roof_vent/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "0ba7c1c85af1a7a7f0630f9413de15cbe98061e8e692824c9724d21592070364",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": []
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-SIGN-PANEL",
+      "name": "海上补给站矩形铭牌",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/sign_panel/sign_panel.blend",
+      "source_sha256": "c4873f28a439b6a3353b6481b93f47fa23175620ac0638cb16d8dfd1a1e3784e",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/sign_panel/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "e65e3e17403ccd946775a3f5e7971155079e93da59d1c24b60a87eb70df672c7",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": []
+    },
+    {
+      "asset_id": "SEA-SCENE-FSH-WALL-PANEL",
+      "name": "奶油色封闭横缝墙板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/floating_shop/v003/component_packages/wall_panel/wall_panel.blend",
+      "source_sha256": "158fc2e851f93ae6d42bb1644cca0e2282ba701777bb6d51d5e97927ec43a451",
+      "manifest": "art_source/scenes/floating_shop/v003/component_packages/wall_panel/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "335d12bb9ff8bc8eb58863c9c138785f80c883abcfcac8dca56161fedb2296ba",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "building/structure",
+      "source_group": "structure",
+      "facility_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "placement_layer": "above_water",
+      "scope": "scene_local",
+      "note": "海上悬浮商铺v003；32组件/273实例已逐包重开、源级检查通过，矩形底座与封闭立面取代旧店门橱窗陈列，色板为阳光房暖木变体，运行接入见装配行。",
+      "source_history": []
     }
   ]
 }

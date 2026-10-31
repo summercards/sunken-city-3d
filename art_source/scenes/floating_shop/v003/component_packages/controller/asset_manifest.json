@@ -1,0 +1,41 @@
+{
+  "key": "controller",
+  "asset_id": "SEA-SCENE-FSH-CONTROLLER",
+  "name": "矩形主控机箱与灰盖",
+  "family": "controller",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-CONTROLLER",
+  "root": "controller_ROOT",
+  "bounds_size": [
+    2.6500000953674316,
+    1.899999976158142,
+    1.034999966621399
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/controller/controller.blend",
+  "geometry_fingerprint": "43bbe2fa630f22a653145734991f21a4b00ed6ca432dfcdd3c39a8ec3aa9589f",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 1044,
+  "triangles": 1960,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "93f8a49efae5b4cb330bcae063b3d0c0747fc41a3f17535b9c670a0f2d8b6a8a",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-CONTROLLER",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

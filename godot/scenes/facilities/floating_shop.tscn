@@ -14,9 +14,19 @@ asset_id = "SEA-SCENE-FSH-ASSEMBLY"
 role = "shop"
 metadata/asset_id = "SEA-SCENE-FSH-ASSEMBLY"
 metadata/classification = "building/shop"
-metadata/triangles = 669345
+metadata/triangles = 429474
 metadata/front_godot = Vector3(0, 0, 1)
 metadata/deck_top_local = 2.514
+metadata/deck_shape = "rounded_rectangle"
+metadata/deck_size_xz = Vector2(20, 15)
+metadata/source_version = "v003"
+metadata/storefront_windows = 0
+metadata/storefront_doors = 0
+metadata/single_storey_clear_height = 4.866335
+metadata/slab_thickness = 0.22
+metadata/column_width = 0.5175
+metadata/plank_width = 0.893551
+metadata/door_frame_reference_height = 3.070845
 
 [node name="Visual" parent="." instance=ExtResource("model")]
 

@@ -1,0 +1,41 @@
+{
+  "key": "sign_panel",
+  "asset_id": "SEA-SCENE-FSH-SIGN-PANEL",
+  "name": "海上补给站矩形铭牌",
+  "family": "sign",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-SIGN-PANEL",
+  "root": "sign_panel_ROOT",
+  "bounds_size": [
+    5.599999904632568,
+    0.25450000166893005,
+    0.8999999761581421
+  ],
+  "authored_origin_shift": [
+    0.0,
+    -0.03724999725818634,
+    0.0
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/sign_panel/sign_panel.blend",
+  "geometry_fingerprint": "e65e3e17403ccd946775a3f5e7971155079e93da59d1c24b60a87eb70df672c7",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "version": "v003",
+  "polygons": 18687,
+  "triangles": 33305,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "source_sha256": "c4873f28a439b6a3353b6481b93f47fa23175620ac0638cb16d8dfd1a1e3784e",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-SIGN-PANEL",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

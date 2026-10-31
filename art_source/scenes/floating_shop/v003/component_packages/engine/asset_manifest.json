@@ -1,0 +1,42 @@
+{
+  "key": "engine",
+  "asset_id": "SEA-SCENE-FSH-ENGINE",
+  "name": "中央悬浮推进器",
+  "category": "building/structure",
+  "source_group": "structure",
+  "family": "engine",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "scope": "scene_local",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-ENGINE",
+  "root": "engine_ROOT",
+  "bounds_size": [
+    3.240000009536743,
+    3.240000009536743,
+    1.9500000476837158
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    -0.020000003278255463
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/engine/engine.blend",
+  "geometry_fingerprint": "755b1861e73c839acf7a4d657fde58ac0504aff55635f76c26f9ce982b7c0032",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 1,
+  "polygons": 7128,
+  "triangles": 14736,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-ENGINE",
+  "stage": "source_verified_runtime_pending",
+  "source_sha256": "d8d2caa09320bc6c377b7d3ba7b1bac09ccc8443916ce26ffe78177f02013ddd",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}

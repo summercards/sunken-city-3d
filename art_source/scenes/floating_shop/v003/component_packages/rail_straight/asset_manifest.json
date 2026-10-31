@@ -1,0 +1,40 @@
+{
+  "key": "rail_straight",
+  "asset_id": "SEA-SCENE-FSH-RAIL-STRAIGHT",
+  "name": "直线双道黄色栏杆",
+  "family": "rail",
+  "category": "building/structure",
+  "source_group": "structure",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotation": "full Euler XYZ",
+  "triangle_budget": null,
+  "collection": "SEA-SCENE-FSH-RAIL-STRAIGHT",
+  "root": "rail_straight_ROOT",
+  "bounds_size": [
+    2.0,
+    0.09000009298324585,
+    0.5970001220703125
+  ],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.42799997329711914
+  ],
+  "component_source": "art_source/scenes/floating_shop/v003/component_packages/rail_straight/rail_straight.blend",
+  "geometry_fingerprint": "040076ebcdd7f1a9dbcc4d10a7e99e5fe985e2d8467d16505936fb8313b953db",
+  "collision_owner": "Godot wrapper pending",
+  "instances": 28,
+  "version": "v003",
+  "polygons": 228,
+  "triangles": 504,
+  "materials": [
+    "SEA_Metal"
+  ],
+  "source_sha256": "0408d10fb505af1960ee5c2d39a239b2e2d4482115c0d3bb62e4555393f09082",
+  "stage": "source_verified_runtime_pending",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-FSH-RAIL-STRAIGHT",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+}
