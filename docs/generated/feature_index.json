@@ -285,7 +285,11 @@
       "status": "implemented",
       "owner": "BuildingService / BuildingWorld / BuildingController",
       "code_paths": [
-        "godot/src/building"
+        "godot/src/building",
+        "godot/assets/data/building_kit.json",
+        "godot/scenes/buildables/kit",
+        "godot/assets/models/building_kit",
+        "godot/assets/materials/building_kit"
       ],
       "verification": [
         "building",
@@ -311,7 +315,9 @@
         "visual-building-simulate",
         "visual-kit-uv",
         "visual-recipe-cards",
-        "character-space-save"
+        "character-space-save",
+        "building-decoupling",
+        "building-perf"
       ]
     },
     {

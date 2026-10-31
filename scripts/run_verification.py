@@ -48,6 +48,10 @@ TESTS.update({
     'building-simulate': ('tests/test_building_simulate.gd', r'\[building-simulate\] \d+ checks, 0 failures'),
     # 同一模拟的真实渲染版：给合成后的房子与摆件台各抓一张图。
     'visual-building-simulate': ('tests/test_building_simulate.gd', r'\[building-simulate\] \d+ checks, 0 failures'),
+    # 维护边界：目录共享对象被改写可被发现、查询返回副本、不反向依赖单例/测试。
+    'building-decoupling': ('tests/test_building_decoupling.gd', r'\[building-decoupling\] \d+ checks, 0 failures'),
+    # 性能门禁：吸附求解保持近线性，且与参考实现逐项一致（SEA-BUILDING-R24）。
+    'building-perf': ('tests/test_building_perf.gd', r'\[building-perf\] \d+ checks, 0 failures'),
     'building-kit': ('tests/test_building_kit.gd', r'\[building-kit\] \d+ checks, 0 failures'),
     'visual-building-kit': ('tests/test_building_kit.gd', r'\[building-kit\] \d+ checks, 0 failures'),
     'ocean-pickups': ('tests/test_ocean_pickups.gd', r'\[ocean-pickups\] \d+ checks, 0 failures'),

@@ -37,6 +37,48 @@ const LEGACY_RECIPES := {
 		"visual":"planter", "role":"planter", "blocks_actor":false, "rotatable":true, "movable":true, "removable":true}
 }
 static var RECIPES: Dictionary = _load_recipes()
+## Content baseline taken at load time. `RECIPES` is a shared mutable Dictionary
+## (GDScript has no read-only container), so anything holding a reference could
+## rewrite costs or footprints for every consumer at once: the card price, the
+## amount charged, and the world projection all read the same object. The
+## signature covers the definition fields only; `active` is a runtime switch and
+## is deliberately excluded so pinning content off does not read as corruption.
+static var _baseline: Dictionary = _signature(RECIPES)
+static func _signature(recipes: Dictionary) -> Dictionary:
+	var result: Dictionary={}
+	for kind: String in recipes:
+		var entry: Dictionary=(recipes[kind] as Dictionary).duplicate(true)
+		# Placement and support are derived at load time, so they stay in the
+		# signature: a wrong derivation is exactly the drift worth catching.
+		entry.erase("active")
+		result[kind]=JSON.stringify(_canonical(entry))
+	return result
+## Integer and float spellings of the same number are the same content. Without
+## this, re-entering a cost as 2 after reading 2.0 would report phantom drift.
+static func _canonical(value: Variant) -> Variant:
+	if value is Dictionary:
+		var mapped: Dictionary={}
+		for key in value: mapped[key]=_canonical(value[key])
+		return mapped
+	if value is Array:
+		var listed: Array=[]
+		for item in value: listed.append(_canonical(item))
+		return listed
+	if value is int: return float(value)
+	return value
+## Returns "" while the catalog still matches the file it was loaded from, or a
+## human-readable list of what changed. Gateways call this so a stray write to
+## the shared table fails loudly instead of silently repricing the game.
+static func verify_content() -> String:
+	var now: Dictionary=_signature(RECIPES)
+	var drift: Array[String]=[]
+	for kind: String in _baseline:
+		if not now.has(kind): drift.append(kind+" 被移除"); continue
+		if str(now[kind])!=str(_baseline[kind]): drift.append(kind+" 定义被改写")
+	for kind: String in now:
+		if not _baseline.has(kind): drift.append(kind+" 被新增")
+	if drift.is_empty(): return ""
+	return "建造目录与源文件不一致："+", ".join(drift)
 static func _load_recipes() -> Dictionary:
 	var result: Dictionary=LEGACY_RECIPES.duplicate(true)
 	var data: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/building_kit.json"))
@@ -132,10 +174,56 @@ static func contact_length(a: Rect2, b: Rect2) -> float:
 	return 0.0
 ## Longest seam with the finished platform union, the fixed base included.
 static func platform_contact(rect: Rect2, rows: Array) -> float:
+	return contact_against(rect,support_tiles(rows))
+## Same measurement against an already materialised tile list. Support tiles are
+## rebuilt on every call, so the snap solver passes its own list instead of
+## rebuilding the union once per candidate.
+static func contact_against(rect: Rect2, surfaces: Array) -> float:
 	var best:=0.0
-	for tile: Rect2 in support_tiles(rows):
+	for tile: Rect2 in surfaces:
 		best=maxf(best,contact_length(rect,tile))
 	return best
+
+## Spatial index over the finished platform union. Snapping used to re-scan the
+## whole union for every candidate, which is why preview cost grew with the cube
+## of the platform count (45 boards: 163 ms per cursor move). The index is built
+## once per snap and makes neighbour lookups local.
+##
+## Edge lists are kept split by role on purpose: `starts` holds rectangle
+## minimums and `ends` holds maximums, because a flush neighbour is found by
+## `start + extent/2` or `end - extent/2` — mixing the two would quietly add
+## solutions the original solver never produced.
+const INDEX_CELL := 4.0
+static func build_index(surfaces: Array) -> Dictionary:
+	var starts_x: Dictionary={};var ends_x: Dictionary={}
+	var starts_z: Dictionary={};var ends_z: Dictionary={}
+	var buckets: Dictionary={}
+	for tile: Rect2 in surfaces:
+		starts_x[tile.position.x]=true;ends_x[tile.end.x]=true
+		starts_z[tile.position.y]=true;ends_z[tile.end.y]=true
+		for bx in range(int(floor(tile.position.x/INDEX_CELL)),int(floor(tile.end.x/INDEX_CELL))+1):
+			for bz in range(int(floor(tile.position.y/INDEX_CELL)),int(floor(tile.end.y/INDEX_CELL))+1):
+				var key:=Vector2i(bx,bz)
+				if not buckets.has(key): buckets[key]=[]
+				buckets[key].append(tile)
+	var index: Dictionary={"tiles":surfaces,"buckets":buckets}
+	for pair in [["starts_x",starts_x],["ends_x",ends_x],["starts_z",starts_z],["ends_z",ends_z]]:
+		var sorted: Array=pair[1].keys()
+		sorted.sort()
+		index[pair[0]]=sorted
+	return index
+## Tiles that could possibly touch `rect`, from the buckets it covers. Used for
+## overlap and seam tests so a candidate only inspects its own neighbourhood.
+static func neighbours(index: Dictionary, rect: Rect2) -> Array:
+	var buckets: Dictionary=index.buckets
+	var seen: Dictionary={}
+	var out: Array=[]
+	for bx in range(int(floor(rect.position.x/INDEX_CELL)),int(floor(rect.end.x/INDEX_CELL))+1):
+		for bz in range(int(floor(rect.position.y/INDEX_CELL)),int(floor(rect.end.y/INDEX_CELL))+1):
+			for tile: Rect2 in buckets.get(Vector2i(bx,bz),[]):
+				if seen.has(tile): continue
+				seen[tile]=true;out.append(tile)
+	return out
 static func overlaps_any(rect: Rect2, surfaces: Array) -> bool:
 	for tile: Rect2 in surfaces:
 		var overlap: Rect2=rect.grow(-0.002).intersection(tile)
@@ -159,33 +247,56 @@ static func snap_foundation(kind: String,point: Vector2,turn: int,rows: Array,fr
 		if clear: return free
 	var best: Dictionary={}
 	var best_score:=INF
+	var index:=build_index(surfaces)
+	# One ordered copy of every tile corner: [start, end, start, end, …] in the
+	# same order the old inner loop produced them. Reusing this keeps tie-breaks
+	# identical — several positions can be equally near the cursor, and the first
+	# one wins, so a sorted set would silently pick a different board placement.
+	var corner_x: Array=[]
+	var corner_z: Array=[]
+	for tile: Rect2 in surfaces:
+		corner_x.append(tile.position.x);corner_x.append(tile.end.x)
+		corner_z.append(tile.position.y);corner_z.append(tile.end.y)
+	# The slid positions depend only on the corner list and the candidate span,
+	# never on which edge is being attached, so the two orientations are resolved
+	# once instead of once per edge per tile.
+	var raws_vertical: Array=unique_slide_positions(corner_z,extent.y/2)
+	var raws_horizontal: Array=unique_slide_positions(corner_x,extent.x/2)
+	var half:=extent/2
 	for tile: Rect2 in surfaces:
 		for side in 4:
 			var vertical:=side<2
 			var edge: float=(tile.position.x if side==0 else tile.end.x) if vertical else (tile.position.y if side==2 else tile.end.y)
-			var span: float=extent.y if vertical else extent.x
-			var seen: Dictionary={}
-			for other: Rect2 in surfaces:
-				for raw: float in [(other.position.y if vertical else other.position.x)+span/2,
-						(other.end.y if vertical else other.end.x)-span/2]:
-					var key:=int(round(raw*100.0))
-					if seen.has(key): continue
-					seen[key]=true
-					var request: Dictionary=free.duplicate()
-					if vertical:
-						request.px=edge-(extent.x/2) if side==0 else edge+(extent.x/2)
-						request.pz=raw
-					else:
-						request.px=raw
-						request.pz=edge-(extent.y/2) if side==2 else edge+(extent.y/2)
-					var rect:=Rect2(Vector2(request.px,request.pz)-extent/2,extent)
-					if platform_contact(rect,rows)<JOIN_MIN: continue
-					if overlaps_any(rect,surfaces): continue
-					var score:=rect_distance(rect,point)
-					if score<best_score-0.0005:
-						best_score=score;best=request
+			var fixed: float=(edge-half.x) if side==0 else ((edge+half.x) if side==1 else ((edge-half.y) if side==2 else (edge+half.y)))
+			for raw: float in (raws_vertical if vertical else raws_horizontal):
+				var center: Vector2=(Vector2(fixed,raw) if vertical else Vector2(raw,fixed))
+				var rect:=Rect2(center-half,extent)
+				# Distance is cheaper than the seam/overlap tests and is the value
+				# the result is ranked by, so a candidate that cannot win is dropped
+				# before touching the spatial index.
+				var near: float=rect_distance(rect,point)
+				if near>=best_score-0.0005: continue
+				var local: Array=neighbours(index,rect)
+				if contact_against(rect,local)<JOIN_MIN: continue
+				if overlaps_any(rect,local): continue
+				best_score=near
+				best={"kind":kind,"px":center.x,"pz":center.y,"py":0.0,"x":0,"z":0,"support":"","turn":turn}
 	if not best.is_empty(): return best
 	return free
+## Flush positions along one axis: a candidate edge lands on `corner + span/2`
+## for a start corner and `corner - span/2` for an end corner. Duplicates are
+## dropped in first-seen order so the cheapest equally-near candidate is still
+## the one that wins.
+static func unique_slide_positions(corners: Array, half_span: float) -> Array:
+	var seen: Dictionary={}
+	var out: Array=[]
+	for i in corners.size():
+		var raw: float=float(corners[i])+((half_span) if i%2==0 else (-half_span))
+		var key:=int(round(raw*100.0))
+		if seen.has(key): continue
+		seen[key]=true
+		out.append(raw)
+	return out
 ## True when `rect` lies entirely inside the union of `tiles`.
 ## Sweeps every vertical slice between tile edges, so a seam between two
 ## neighbouring decks counts as covered and a gap never does.

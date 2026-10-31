@@ -14,7 +14,11 @@
   "status": "implemented",
   "owner": "BuildingService / BuildingWorld / BuildingController",
   "code_paths": [
-    "godot/src/building"
+    "godot/src/building",
+    "godot/assets/data/building_kit.json",
+    "godot/scenes/buildables/kit",
+    "godot/assets/models/building_kit",
+    "godot/assets/materials/building_kit"
   ],
   "verification": [
     "building",
@@ -40,7 +44,9 @@
     "visual-building-simulate",
     "visual-kit-uv",
     "visual-recipe-cards",
-    "character-space-save"
+    "character-space-save",
+    "building-decoupling",
+    "building-perf"
   ]
 }
 ```
@@ -57,7 +63,20 @@
 | SEA-BUILDING-R08 | 已实现；木板顶面/吃水厚度不变，小型培养土按目录尺寸投影 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R09 | 已实现；细条保留，全部木板参与状态，近景泡沫预算不再限制布局 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R10 | 已实现；岸上接近与船上航行到位、停稳才扣费、取消清意图 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
-| SEA-BUILDING-R16 | 固定六格与DIY双尺寸可踩踏，成熟蔬菜穿越状态不变；站格保存恢复和外缘阻挡通过 | [种植区通行实测](../../development/2026-10-29_walk_on_planters.md) |
+| SEA-BUILDING-R11 | 已实现；竣工摆件可搬移，保留实例ID/plot_id/作物/浇水/生长/收获次数，不收费 | [海上自由建造交付](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R12 | 已实现；木板与空种植区可拆回，全额原子退款；有作物/施工中/桥板/当前泊位拒绝 | 同上 |
+| SEA-BUILDING-R13 | 已实现；派生`built:实例ID:方向`登陆ID，独立平台可航行登陆、由当前登陆点返船 | 同上 |
+| SEA-BUILDING-R14 | 已实现；目录声明category/role/support/footprint/visual，服务按平台-框架-装饰三类识别 | [平台归一交付](../../development/2026-10-31_platform_join_classes.md) |
+| SEA-BUILDING-R15 | 已实现；4MiB布局/8MiB整档预算在扣费前拒绝，虚影与水线为表现预算非上限 | [海上自由建造交付](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R16 | 已实现；固定六格与DIY双尺寸可踩踏，成熟蔬菜穿越状态不变；站格保存恢复和外缘阻挡通过 | [种植区通行实测](../../development/2026-10-29_walk_on_planters.md) |
+| SEA-BUILDING-R17 | 已实现；上岸提示12米/最多4个、100px投影间距，稳定ID复用对象与悬停状态 | [稀疏提示交付](../../development/2026-10-30_sparse_landing_markers.md) |
+| SEA-BUILDING-R18 | 已实现；目录集中声明22件内容与尺寸/成本/工期/挂点，停用退出菜单但保留旧实例 | [模块化套件交付](../../development/2026-10-30_modular_building_kit.md) |
+| SEA-BUILDING-R19 | 已实现；12结构独立成件，2米模数、2.8米层高，墙柱顶供挂点，门洞保通路 | 同上 |
+| SEA-BUILDING-R20 | 已实现；楼梯坡度代理接二层，屋顶不产生行走面，二层摆件按`py`分层且读档回二层 | 同上 |
+| SEA-BUILDING-R21 | 已实现；10摆件独立成件，两灯真实暖光、箱子共享仓库、水桶补水，风车风铃仅动画 | 同上 |
+| SEA-BUILDING-R22 | 已实现；三种平台共用边对齐吸附与0.6米接缝，岸上不可隔空起板、船上可另起 | [平台归一交付](../../development/2026-10-31_platform_join_classes.md) |
+| SEA-BUILDING-R23 | 已实现；12框架全部拼装、真实胶囊通行与上楼、10摆件落新平台、整档存读一致 | [全模板模拟交付](../../development/2026-10-31_full_template_simulation.md) |
+| SEA-BUILDING-R24 | 已实现；吸附求解从 O(n³) 改为近线性，45块板 163ms→2.2ms，1620条基准逐行一致 | [性能审计](../../development/2026-10-31_building_performance.md) |
 
 实施与验证记录：[本轮交付](../../development/2026-10-28_building_delivery.md)。
 
@@ -163,3 +182,20 @@ R13的实际登陆边、航行/登岸/返船和存档格式保留，改动仅是
 模拟首轮 21 项失败中 18 项是夹具写错（漏加世界原点、世界/局部坐标混比、木料设 4000 超出 40×24 上限），已逐条记录以免误判为产品问题。其中“背包满时回收整笔失败并保留物件”是 R12 既定语义，非缺陷。
 
 本轮收尾：`building-simulate` 191项、`kit-safety` 75项、`building` 30项、`building-join` 37项、`building-open-rules` 122项、`building-space` 18项、`building-integration` 53项、`building-kit` 121项、`building-restart` 11+5项、`building-approach` 18项、`ground-space` 33项、`character-space-save` 10项全部0失败/退出0。
+
+## 2026-10-31 解耦与可独立维护审计
+
+用户询问本功能文档账本与程序模块是否解耦、能否独立维护。结构层合格（依赖单向、装配集中15端口、查询回副本、条款与账本行由`requirements==covered`强制对齐）；修掉两处登记缺陷与一处无守卫契约。
+
+| 项目 | 结论 | 处理 |
+|---|---|---|
+| 内容目录共享可变对象 | `Catalog.RECIPES`是`static var Dictionary`，卡片价格/扣费/投影共读同一对象，外部改价删条目无人察觉 | 新增`Catalog.verify_content()`内容指纹，改定义/删条目/加条目均报差项，`active`开关不算腐化；`building-decoupling`守 |
+| `code_paths`漏登记 | 只写`godot/src/building`，漏`building_kit.json`、22预制体、44 GLB、4材质 | 已补齐四项 |
+| 账本总表覆盖 | 原只到R16，R11–R15与R17–R23散在日期段落 | 已收全R01–R23共23条 |
+| `validate_snapshot`字符串自引用 | `load("res://src/building/building_service.gd")`，改文件名编译期查不到 | 新增扫描6个文件的`load`路径存在性断言；第一版守卫失效（只查文件存在），已加强并反向注入验证 |
+| `hud.gd`取`material_shop.PRICE` | UI反向依赖功能实现，但仅一个`const`，定价职责本属本模块 | 判定可接受，登记为已知依赖 |
+| 目录硬读`FileAccess` | 无法注入替身，缺失只能`assert`崩 | 设计取舍，代价已记录 |
+
+`building-decoupling` 62项0失败：内容指纹可检测、查询返回副本、不依赖`Economy`/`GameState`/`Zones`/`res://tests/`、每条配方经公开API可解析、全部字符串式`load`路径有效。
+
+完整评估见[解耦审计](../../development/2026-10-31_building_decoupling_audit.md)。
