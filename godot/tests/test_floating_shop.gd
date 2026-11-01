@@ -202,3 +202,17 @@ func _check_placement() -> void:
 	for offset in [Vector2(-8.7, -6.2), Vector2(8.7, -6.2), Vector2(-8.7, 6.2), Vector2(8.7, 6.2)]:
 		check(not main._is_open_water(shop_center.x + offset.x, shop_center.z + offset.y),
 			"rectangular deck corner blocks boats " + str(offset))
+
+	# 吃水线白沫（SEA-OCEAN-R23）：浮店整块浮在水面上方，几何切不出截面，
+	# 必须由它的占地轮廓补进岸线图，否则新加进去的模型在水面上一点白纹都没有。
+	# 这里量的是距线图：贴着甲板外沿应该接近 0，甲板内部与远处海面必须远离。
+	var shore = main.water_node.shoreline
+	check(shore != null and shore.segments.size() > 0, "shoreline atlas is built for the live scene")
+	if shore != null:
+		var near_edge: float = shore.distance_at(Vector2(shop_center.x + 9.0, shop_center.z))
+		var open_water: float = shore.distance_at(Vector2(shop_center.x + 40.0, shop_center.z + 40.0))
+		var inside: float = shore.distance_at(Vector2(shop_center.x, shop_center.z))
+		check(near_edge < 0.6, "water touching the shop hull gets a contact line (d=%.2f)" % near_edge)
+		check(open_water > 4.0, "open water away from the shop stays clear (d=%.2f)" % open_water)
+		check(inside > 2.0, "deck interior is not painted as a contact band (d=%.2f)" % inside)
+		evidence.contacts = {"near_edge": near_edge, "open_water": open_water, "inside": inside}

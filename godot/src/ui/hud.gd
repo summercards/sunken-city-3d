@@ -387,6 +387,10 @@ func _refresh_panel() -> void:
 		"plot_options":
 			_panel.show_detail(economy.farm.spec(_context_plot).get("name","种植格"),true)
 			preload("res://src/ui/plot_action_panel.gd").build(_tab_body,economy.farm,economy.inventory,_context_plot,func(action,crop): _farm_action(func() -> Dictionary: return _plot_command.call(action,crop)))
+		"fishery_options":
+			_panel.show_detail("渔场改造",true)
+			preload("res://src/ui/fishery_panel.gd").build(_tab_body,economy,func() -> void:
+				_farm_action(func() -> Dictionary: return _fishery_command.call()))
 		"plant": _panel.show_detail("种植日记");_refresh_plant()
 		"build": _panel.show_detail("建造计划");_refresh_build()
 		"storage": _panel.show_detail("背包与仓储");_refresh_storage()
@@ -651,7 +655,7 @@ func _refresh_plant() -> void:
 	if economy.farm == null: return
 	var farm = economy.farm
 	_tab_body.add_child(_label("第 %d 天 · 水壶 %d/%d · 瓶盖 %d" % [farm.day, farm.watering_can, farm.WATER_CAPACITY, economy.coins], 12, INK))
-	var rest := _row("每天07:00生长 · 睡觉后06:00醒来", "睡到06:00", true)
+	var rest := _row("睡一觉即换天：浇过水的作物醒来长一天，07:00 出货箱收货", "睡到06:00", true)
 	rest.button.pressed.connect(func() -> void: rest_requested.emit())
 	_tab_body.add_child(rest.box)
 	var refill := _row("岸上补给 · 免费淡水", "补满水壶", true)
@@ -866,11 +870,18 @@ func show_dialogue(speaker: String, text: String) -> void:
 
 var _context_plot := ""
 var _plot_command: Callable
+## 渔场改造页的动作（2026-11-01 SEA-AQUA-R04）。
+var _fishery_command: Callable
 
 func open_plot(plot_id: String, command: Callable) -> void:
 	_context_plot = plot_id
 	_plot_command = command
 	open_tab("plot_options")
+
+## 打开「渔场改造」页。与种植页同一张卡片、同一套行列表。
+func open_aqua_upgrade(command: Callable) -> void:
+	_fishery_command = command
+	open_tab("fishery_options")
 
 func _pocket_options(id: String) -> Array:
 	var options: Array=[]

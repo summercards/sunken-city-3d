@@ -38,9 +38,17 @@ static func schemas() -> Dictionary:
 			"inventory":inventory(),"warehouse":inventory(),"ship_level":integer(1,3),
 			"tracked_goal":string,"site_levels":map(integer(1,3)),"facilities":map(boolean),
 			"site_work":map(object({"left":number(),"total":number(0.001)},["left","total"])),
-			"farm":object({"version":integer(1,2),"day":integer(1),"watering_can":integer(0,12),"selected_crop":string,
+			# `grow_day` 是生长水位线（SEA-FARM-R14），2026-11-01 新增；不进 required，
+			# 旧档缺它时由 FarmModel 按 `day` 起步。
+			"farm":object({"version":integer(1,3),"day":integer(1),"grow_day":integer(1),"watering_can":integer(0,12),"selected_crop":string,
 				"plots":map(object({"crop":string,"remaining":number(),"total":number(),"water":number(0,1),"harvests":integer()},["crop","remaining","total","water","harvests"]))},["version","day","watering_can","selected_crop","plots"]),
-			"orders":object({"slots":list_of(object({"uid":string,"order":string,"left":number(),"refill":number()}),3)},["slots"])},["inventory","warehouse","ship_level","tracked_goal","site_levels","facilities","site_work","farm","orders","daily_loop"]),
+			"orders":object({"slots":list_of(object({"uid":string,"order":string,"left":number(),"refill":number()}),3)},["slots"]),
+			# SEA-ENERGY：体力上限/当前值与「今天上限减半」的惩罚标记。
+			# 不进 required —— 加体力之前的旧档没有这个字段，读进来按满体力起步。
+			"energy":object({"version":integer(1,1),"current":number(0,10000),"maximum":number(1,10000),"pending_half":boolean},["version","current","maximum"]),
+			# SEA-AQUA：家园补给站是否已改成渔场。同样不进 required（旧档=没升过）。
+			"fishery":object({"version":integer(1,1),"unlocked":boolean},["version","unlocked"])},
+			["inventory","warehouse","ship_level","tracked_goal","site_levels","facilities","site_work","farm","orders","daily_loop"]),
 		"game":object({"zone":string,"landing":string,"mode":integer(0,3),"far_sea":boolean,"boat":boat,"player":vector},["zone","landing","mode","far_sea","boat","player"]),
 		"pickups":object({"reset":boolean,"crates":list_of(object({"id":integer(1),"slot":string,"kind":{"type":"string","enum":["crate","planks","barrel"]},"base":{"type":"array","sizes":[3],"items":number(-1.0e9,1.0e9)},"phase":number(),"yaw":number()},["id","kind","base","phase","yaw"]),128),
 			"schools":list_of(object({"id":integer(1),"slot":string,"base":{"type":"array","sizes":[3],"items":number(-1.0e9,1.0e9)},"phase":number(),"count":integer(1,12)},["id","base","phase","count"]),128),

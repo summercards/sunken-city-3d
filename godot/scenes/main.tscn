@@ -136,6 +136,10 @@ instance_id = "home_submerged/flat_annex"
 transform = Transform3D(2.128904, 0, 0, 0, 1, 0, 0, 0, 1.197455, -5.7989664, -16.727169, 18.78206)
 instance_id = "home_submerged/flat_annex"
 
+[node name="rear_slab2" parent="World/UnderwaterScenery" unique_id=1946718210 instance=ExtResource("32_sub_rear_slab")]
+transform = Transform3D(-1.7861015, 0, -0.16108665, 0, 1.4399998, 0, 0.07171103, 0, -2.8442059, 12.23344, -30.105717, 27.89568)
+instance_id = "home_submerged/rear_slab"
+
 [node name="rear_slab" parent="World/UnderwaterScenery" unique_id=1478200406 instance=ExtResource("32_sub_rear_slab")]
 transform = Transform3D(0.035241533, 0, -2.116315, 0, 1.1999999, 0, 1.5008235, 0, 0.049694173, -8.477363, -27.362999, 0.37824583)
 instance_id = "home_submerged/rear_slab"
@@ -143,7 +147,7 @@ instance_id = "home_submerged/rear_slab"
 [node name="SeaStructures" type="Node3D" parent="World" unique_id=1826540311]
 
 [node name="floating_shop" parent="World/SeaStructures" unique_id=1826540312 instance=ExtResource("33_floating_shop")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.158, -1.134, 51.813)
+transform = Transform3D(-0.2076603, 0, -1.7574136, -0.1392592, 2.4054115, 0.027053408, 1.3635194, 0.24566996, -0.26488626, 69.91094, -18.097904, 46.376625)
 
 [node name="Gameplay" type="Node3D" parent="World" unique_id=1251468208]
 

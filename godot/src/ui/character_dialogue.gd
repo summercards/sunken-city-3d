@@ -30,3 +30,9 @@ func show_line(speaker: String, text: String) -> void:
 	line_label.text = text
 	panel.position = Vector2((get_viewport().get_visible_rect().size.x-640)/2,get_viewport().get_visible_rect().size.y-240)
 	panel.show()
+
+## 由调用方收掉台词（体力见底那句由 Main 定时收起，不等玩家点「继续」）。
+func close_line() -> void:
+	if not panel.visible: return
+	panel.hide()
+	closed.emit()

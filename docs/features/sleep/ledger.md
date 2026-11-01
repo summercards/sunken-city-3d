@@ -28,10 +28,16 @@
 | SEA-SLEEP-R01 | 已实现，专项与实景回归 | [本轮实测](../../development/2026-10-28_sleep_cycle_delivery.md) |
 | SEA-SLEEP-R02 | 已实现，专项与实景回归 | [本轮实测](../../development/2026-10-28_sleep_cycle_delivery.md) |
 | SEA-SLEEP-R03 | 已改为圆形收幕/黑幕晨间提示/圆形开幕，保留输入与存档锁定 | [本轮实测](../../development/2026-10-28_sleep_iris.md) |
-| SEA-SLEEP-R04 | 已实现，专项与实景回归 | [本轮实测](../../development/2026-10-28_sleep_cycle_delivery.md) |
+| SEA-SLEEP-R04 | 已实现，专项与实景回归；卖货仍在07:00，生长自2026-11-01起改为醒来即换天（SEA-FARM-R14） | [本轮实测](../../development/2026-10-28_sleep_cycle_delivery.md) |
 
 2026-10-28：独立流程、门口点击、23:00自动睡觉、06:00醒来、过渡存档保护；不新增美术源。
 
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-SLEEP-R05 | 已实现，真实渲染检查收拢/全黑/晨间/展开阶段及圆心、边角遮黑、UI恢复 | [本轮实测](../../development/2026-10-28_sleep_iris.md) |
+
+## 2026-11-01 黑幕文字停留
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SLEEP-R06 | 已实现；入睡文字淡入0.45秒/停2.4秒/淡出0.45秒，起床文字淡入0.45秒/停2.6秒/淡出0.45秒，实测全黑后1.6秒仍完整可见 | [本轮交付](../../development/2026-11-01_energy_fishery_and_join.md) |

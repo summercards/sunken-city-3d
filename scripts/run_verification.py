@@ -139,8 +139,21 @@ TESTS.update({
     # 拖拽整理与购买数量的真实渲染：数量选择器长什么样、拖拽手感如何。
     'visual-pocket-drag-buy': ('tools/capture_pocket_drag_buy.gd', r'\[pocket-ui\] \d+ checks, 0 failures'),
     'visual-pocket-bubbles': ('tests/test_pocket_bubbles.gd', r'\[pocket-bubbles\].*0 failures'),
+    # 作物按「天」结算：睡一觉就是一天，醒来那一帧就是新状态，07:00 不能长第二遍。
+    # 现场反馈过一次「12:00 浇水、次日 06:00 醒来还是昨天的状态」，所以这条量时刻不量数值。
+    'farm-day-change': ('tests/test_farm_day_change.gd', r'\[farm-day-change\] \d+ checks, 0 failures'),
     'sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
+    # 黑幕文字要停得够久：两段文字各自至少 2 秒、淡入淡出不少于 0.4 秒。
+    # 只认常量不够，测试里还实测「全黑后 1.6 秒仍完整可见」。
     'visual-sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
+    # 体力：行为扣费、疲劳提醒、见底强制休息、次日减半、右下角体力条与存档往返。
+    'energy': ('tests/test_energy.gd', r'\[energy\] \d+ checks, 0 failures'),
+    'visual-energy': ('tests/test_energy.gd', r'\[energy\] \d+ checks, 0 failures'),
+    # 家园补给站升级为渔场：入口、成本（木板 100 / 鱼 50）、背包+仓库付款、存档。
+    'fishery': ('tests/test_fishery.gd', r'\[fishery\] \d+ checks, 0 failures'),
+    'visual-fishery': ('tests/test_fishery.gd', r'\[fishery\] \d+ checks, 0 failures'),
+    # 固定浮台自己的水下底座不能挡住扩建：四面接板、原平台仍受保护、泊位那侧原因要说清。
+    'building-base-neighbors': ('tests/test_building_base_neighbors.gd', r'\[base-neighbors\] \d+ checks, 0 failures'),
     'visual-plot-shipping': ('tests/test_plot_shipping_loop.gd', r'\[plot-shipping\].*0 failures'),
     'initial-planters': ('tests/test_initial_planters.gd', r'\[initial-planters\] \d+ checks, 0 failures'),
     'visual-initial-planters': ('tests/test_initial_planters.gd', r'\[initial-planters\] \d+ checks, 0 failures'),

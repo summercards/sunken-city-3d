@@ -38,6 +38,10 @@ func note(piece: String, what: String, value) -> void:
 
 func build(kind: String,x: float,z: float,support: String="",height: float=0.0) -> String:
 	var before: int=econ.count("wood")
+	# 这条模拟一次性要建 12 框架 + 10 摆件，会撞上体力上限（SEA-ENERGY 之后
+	# 每件 4 点，一天 100 点）。它测的是拼装与承载，不是体力经济，
+	# 所以每次放置前把体力回满 —— 体力本身的账在 test_energy.gd 里单独验。
+	econ.energy.refill()
 	var result: Dictionary=main.building.begin({"kind":kind,"px":x+SHIFT.x,"pz":z+SHIFT.y,
 		"py":height,"support":support,"turn":0,"origin":"boat"})
 	var spent: int=before-econ.count("wood")

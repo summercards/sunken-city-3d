@@ -203,17 +203,28 @@ func begin(request: Dictionary) -> Dictionary:
 	if not Catalog.enabled(str(request.get("kind",""))): return {"ok":false,"reason":"该配方已停用"}
 	var reason := can_place(request)
 	if reason!="": return {"ok":false,"reason":reason}
+	var tired := _energy_blocked("build")
+	if tired!="": return {"ok":false,"reason":tired}
 	var recipe: Dictionary=Catalog.RECIPES[request.kind]
 	_committing=true
 	if not _ports.pay.call(recipe.cost.duplicate(true)):
 		_committing=false
 		return {"ok":false,"reason":"材料不足，请拾取浮木或到商店买土壤"}
+	_spend_energy("build")
 	var item := _record(request,"built_%d"%_next_id,float(recipe.seconds))
 	_next_id+=1
 	_rows.append(item);_index(item)
 	_committing=false
 	changed.emit()
 	return {"ok":true,"id":item.id}
+
+## 体力预检与扣费（SEA-ENERGY）。端口没接就没有体力系统，建造照常跑。
+func _energy_blocked(action: String) -> String:
+	if not _ports.has("energy_reason") or not _ports.energy_reason.is_valid(): return ""
+	return str(_ports.energy_reason.call(action))
+
+func _spend_energy(action: String) -> void:
+	if _ports.has("spend_energy") and _ports.spend_energy.is_valid(): _ports.spend_energy.call(action)
 
 func can_move(id: String, request: Dictionary) -> String:
 	var item: Dictionary=_by_id.get(id,{})
@@ -230,7 +241,10 @@ func move(id: String, request: Dictionary) -> Dictionary:
 	if _committing: return {"ok":false,"reason":"正在提交建造"}
 	var reason:=can_move(id,request)
 	if reason!="": return {"ok":false,"reason":reason}
+	var tired:=_energy_blocked("move")
+	if tired!="": return {"ok":false,"reason":tired}
 	_committing=true
+	_spend_energy("move")
 	var target: Dictionary=_by_id[id]
 	var candidate:=target.duplicate(true)
 	candidate.merge(request,true)
@@ -268,12 +282,15 @@ func remove(id: String) -> Dictionary:
 	var reason:=can_remove(id)
 	if reason!="": return {"ok":false,"reason":reason}
 	if not _ports.has("refund") or not _ports.refund.is_valid(): return {"ok":false,"reason":"回收材料服务未就绪"}
+	var tired:=_energy_blocked("remove")
+	if tired!="": return {"ok":false,"reason":tired}
 	var item: Dictionary=_by_id[id]
 	var cost: Dictionary=Catalog.RECIPES[item.kind].cost.duplicate(true)
 	_committing=true
 	if not _ports.refund.call(cost):
 		_committing=false
 		return {"ok":false,"reason":"背包空间不足，请先整理再回收"}
+	_spend_energy("remove")
 	_rows.erase(item);_reindex()
 	_committing=false
 	changed.emit()

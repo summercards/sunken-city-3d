@@ -77,6 +77,7 @@
 | SEA-BUILDING-R22 | 已实现；三种平台共用边对齐吸附与0.6米接缝，岸上不可隔空起板、船上可另起 | [平台归一交付](../../development/2026-10-31_platform_join_classes.md) |
 | SEA-BUILDING-R23 | 已实现；12框架全部拼装、真实胶囊通行与上楼、10摆件落新平台、整档存读一致 | [全模板模拟交付](../../development/2026-10-31_full_template_simulation.md) |
 | SEA-BUILDING-R24 | 已实现；吸附求解从 O(n³) 改为近线性，45块板 163ms→2.2ms，1620条基准逐行一致 | [性能审计](../../development/2026-10-31_building_performance.md) |
+| SEA-BUILDING-R25 | 已实现；固定浮台的水下底座不再算「既有建筑」，浅水养殖台四面均可接板（28 项 0 失败） | [底座阻挡修复](../../development/2026-11-01_energy_fishery_and_join.md) |
 
 实施与验证记录：[本轮交付](../../development/2026-10-28_building_delivery.md)。
 

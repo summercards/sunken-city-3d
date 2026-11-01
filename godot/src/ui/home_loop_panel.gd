@@ -48,7 +48,7 @@ static func build(body: VBoxContainer, tab: String, economy: Node, perform: Call
 			var hint := Label.new()
 			hint.text = "尚无出货。先捕鱼或收获，再把物品放进来。"
 			body.add_child(hint)
-	row(body,"岸上休息 · 醒来06:00，收货07:00","睡到06:00",rest)
+	row(body,"岸上休息 · 醒来06:00（作物当天已长），收货07:00","睡到06:00",rest)
 
 static func row(body: VBoxContainer, text: String, action: String, callback: Callable, enabled := true) -> void:
 	var box := HBoxContainer.new()

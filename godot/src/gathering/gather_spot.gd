@@ -35,6 +35,9 @@ const KINDS := {
 
 var available := true
 var cooldown_left := 0.0
+## SEA-ENERGY：可选体力端口，签名 (action: String) -> String。
+## 采集点不认识体力表，只在按下之前问一句「现在还能干这活吗」。
+var energy_reason: Callable
 
 var _prop: Node3D
 var _prop_mat: StandardMaterial3D
@@ -135,6 +138,9 @@ func blocked_reason() -> String:
 		return "还要 %.0f 秒才能再采" % maxf(cooldown_left, 0.0)
 	if requires_site != "" and construction.site_level(requires_site) < requires_level:
 		return "需要 %s 升到 %d 级" % [str(construction.SITES.get(requires_site, {}).get("name", requires_site)), requires_level]
+	if energy_reason.is_valid():
+		var tired := str(energy_reason.call("gather"))
+		if tired != "": return tired
 	return ""
 
 

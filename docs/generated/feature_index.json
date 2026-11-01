@@ -427,7 +427,8 @@
         "initial-planters",
         "visual-initial-planters",
         "harvest-receive",
-        "visual-harvest-receive"
+        "visual-harvest-receive",
+        "farm-day-change"
       ]
     },
     {
@@ -623,6 +624,31 @@
       ]
     },
     {
+      "feature_id": "SEA-ENERGY",
+      "name": "体力与疲劳",
+      "group": "生活",
+      "dependencies": [
+        "SEA-SLEEP"
+      ],
+      "spec": "docs/features/energy/spec.md",
+      "ledger": "docs/features/energy/ledger.md",
+      "status": "implemented",
+      "owner": "EnergyModel",
+      "code_paths": [
+        "godot/src/energy/energy_service.gd",
+        "godot/src/ui/stamina_bar.gd",
+        "godot/src/ui/corner_hud.gd",
+        "godot/src/economy/economy.gd",
+        "godot/src/time/sleep_cycle.gd"
+      ],
+      "verification": [
+        "energy",
+        "visual-energy",
+        "sleep-cycle",
+        "building-base-neighbors"
+      ]
+    },
+    {
       "feature_id": "SEA-WEATHER",
       "name": "天气",
       "group": "生活",
@@ -655,10 +681,16 @@
       ],
       "spec": "docs/features/aqua/spec.md",
       "ledger": "docs/features/aqua/ledger.md",
-      "status": "planned",
-      "owner": "规划：AquacultureService",
-      "code_paths": [],
-      "verification": []
+      "status": "partial",
+      "owner": "规划：AquacultureService / 渔场升级段：FisheryModel",
+      "code_paths": [
+        "godot/src/aqua/fishery_service.gd",
+        "godot/src/ui/fishery_panel.gd"
+      ],
+      "verification": [
+        "fishery",
+        "visual-fishery"
+      ]
     },
     {
       "feature_id": "SEA-QUEST",

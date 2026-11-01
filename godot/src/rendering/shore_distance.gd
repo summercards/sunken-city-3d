@@ -12,12 +12,17 @@ var _level := 1.12
 var _region := Rect2()
 var _field := PackedFloat32Array()
 
-func rebuild(roots: Array, level: float, resolution := RESOLUTION, region := Rect2()) -> void:
+func rebuild(roots: Array, level: float, resolution := RESOLUTION, region := Rect2(), outline_rects: Array = []) -> void:
 	var started := Time.get_ticks_msec()
 	segments.clear()
 	_segment_scale.clear()
 	_triangles.clear()
 	_level = level
+	# 漂浮在水面上方的结构（甲板底面高出水面几厘米）切不出几何截面：
+	# 竖直方向没有任何一个面跨过水面，于是整块东西一点白沫都没有。
+	# 它们改成「把占地轮廓的**外沿**当作种子线段」——距线图本来就是无符号距离场，
+	# 播种后内部点离最近边线远、外圈贴一圈，与几何截面出来的效果一致。
+	_append_outline_union(outline_rects)
 	_region = region
 	for node in roots: _visit(node)
 	if segments.is_empty():
@@ -77,6 +82,50 @@ func rebuild(roots: Array, level: float, resolution := RESOLUTION, region := Rec
 	texture = ImageTexture.create_from_image(img)
 	print("[shore-atlas] resolution=",resolution," build_ms=",Time.get_ticks_msec()-started)
 	_triangles.clear()
+
+
+## 把一组占地矩形的**外轮廓**边作为距离场种子。
+##
+## 直接逐块播种会把每块的四条边都算进去：并集内部那些接缝外一圈全是「贴边」，
+## 泡沫就会像棋盘一样铺满整块甲板。这里只保留「另一侧没有别人」的边 ——
+## 也就是真实的并集外沿。27 块矩形、每块 4 条边，代价可以忽略。
+func _append_outline_union(rects: Array) -> void:
+	if rects.is_empty(): return
+	var scale := 0.8
+	var whole := Rect2()
+	var first := true
+	for raw: Rect2 in rects:
+		if not raw.has_area(): continue
+		whole = raw if first else whole.merge(raw)
+		first = false
+	if not whole.has_area(): return
+	scale = clampf(maxf(whole.size.x, whole.size.y) * 0.05, 0.12, 1.0)
+	for index in rects.size():
+		var area: Rect2 = rects[index]
+		if not area.has_area(): continue
+		var p := area.position
+		var e := area.end
+		# [起点, 终点, 内侧法线]
+		var edges := [
+			[p, Vector2(e.x, p.y), Vector2(0.0, 1.0)],
+			[Vector2(e.x, p.y), e, Vector2(-1.0, 0.0)],
+			[e, Vector2(p.x, e.y), Vector2(0.0, -1.0)],
+			[Vector2(p.x, e.y), p, Vector2(1.0, 0.0)],
+		]
+		for edge: Array in edges:
+			var a: Vector2 = edge[0]
+			var b: Vector2 = edge[1]
+			# 内侧法线往里挪 6 厘米取样：压到别人身上说明这条边在并集内部。
+			var mid := (a + b) * 0.5 - (edge[2] as Vector2) * 0.06
+			var covered := false
+			for other_index in rects.size():
+				if other_index == index: continue
+				var other: Rect2 = rects[other_index]
+				if other.grow(-0.01).has_point(mid): covered = true; break
+			if covered: continue
+			segments.append(Vector4(a.x, a.y, b.x, b.y))
+			_segment_scale.append(scale)
+
 
 func bind(mat: ShaderMaterial) -> void:
 	mat.set_shader_parameter("shore_distance", texture)

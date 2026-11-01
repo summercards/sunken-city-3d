@@ -32,6 +32,9 @@ var crops := {}
 var selected_crop := "lettuce"
 var states := {}
 var day := 1
+## 生长水位线（SEA-FARM-R14）：已经生长推进到的日历日。同一天只长一次。
+## 与 `day` 分开存：`day` 只是日历显示，会被世界时钟覆盖；这条只由生长写入。
+var grow_day := 1
 var watering_can := WATER_CAPACITY
 
 func _ready() -> void:
@@ -166,7 +169,10 @@ func plant(plot_id: String, crop_id: String) -> Dictionary:
 	if not is_empty(plot_id): return {"blocked":"这格已经种上了"}
 	var c := crop_def(crop_id)
 	if c.is_empty(): return {"blocked":"没有这种作物"}
+	var tired := _energy_reason("plant")
+	if tired != "": return {"blocked":tired}
 	if not ports.pay.call({str(c.seed):1}): return {"blocked":"缺少" + crop_name(crop_id) + "种子"}
+	_spend_energy("plant")
 	var days := grow_days(crop_id)
 	states[plot_id] = {"crop":crop_id,"remaining":float(days),"total":float(days),"water":0.0,"harvests":0}
 	planted.emit(plot_id,crop_id)
@@ -181,7 +187,10 @@ func water(plot_id: String) -> Dictionary:
 	# 水壶见底不是死路：`hint` 让界面把这一格换成「补水并浇水」，
 	# 否则三颗气泡全灰，玩家站在一格缺水作物前什么都做不了。
 	if watering_can <= 0: return {"blocked":"水壶空了，先补水","hint":"refill"}
+	var tired := _energy_reason("water")
+	if tired != "": return {"blocked":tired}
 	watering_can -= 1
+	_spend_energy("water")
 	_state(plot_id).water = 1.0
 	watered.emit(plot_id)
 	plots_changed.emit()
@@ -195,7 +204,10 @@ func harvest(plot_id: String) -> Dictionary:
 	var reward := yield_of(crop_id)
 	reason = _inventory_full(reward)
 	if reason != "": return {"blocked":reason}
+	var tired := _energy_reason("harvest")
+	if tired != "": return {"blocked":tired}
 	ports.give.call(reward)
+	_spend_energy("harvest")
 	var st := _state(plot_id)
 	st.harvests = int(st.get("harvests",0)) + 1
 	var c := crop_def(crop_id)
@@ -214,6 +226,21 @@ func harvest(plot_id: String) -> Dictionary:
 func tick(_delta: float) -> void:
 	pass
 
+## 换天时生长一次（SEA-FARM-R14）。
+##
+## `calendar_day` 是调用方给的日历日（读世界时钟或读档）。**同一天只长一次**：
+## 水位线 `grow_day` 记到哪天为止，重复调用直接跳过。这一条是「按天算」的保证 ——
+## 以前生长挂在 07:00 的出货结算上，玩家 06:00 醒来看到的是昨天的状态，
+## 要等到 07:00 才翻页；现在换成「醒来即换天」，07:00 只结钱。
+##
+## 不能拿 `day` 当水位线：`sync_calendar_day` 会用世界日覆盖它，
+## 一旦结算先跑，生长就会被静默跳过。
+func advance_to_day(calendar_day: int, accessible_only := false) -> Dictionary:
+	if calendar_day <= grow_day:
+		return {"day":day,"grew":0,"ready":0,"skipped":true}
+	grow_day = calendar_day
+	return advance_day(accessible_only)
+
 func advance_day(accessible_only := false) -> Dictionary:
 	var grew := 0
 	var ready := 0
@@ -228,6 +255,7 @@ func advance_day(accessible_only := false) -> Dictionary:
 				became_ready.emit(id,str(st.crop))
 		st.water = 0.0
 	day += 1
+	grow_day = maxi(grow_day, day)
 	day_changed.emit(day)
 	plots_changed.emit()
 	return {"day":day,"grew":grew,"ready":ready}
@@ -273,6 +301,14 @@ func sell_produce() -> Dictionary:
 	ports.give.call({"coins":income})
 	return {"message":"出售农产品 · 瓶盖 +%d" % income,"income":income}
 
+## 体力预检与扣费（SEA-ENERGY）。端口没接就等于没有体力系统，种植照常跑。
+func _energy_reason(action: String) -> String:
+	if ports == null or not ports.energy_reason.is_valid(): return ""
+	return str(ports.energy_reason.call(action))
+
+func _spend_energy(action: String) -> void:
+	if ports != null and ports.spend_energy.is_valid(): ports.spend_energy.call(action)
+
 func _inventory_full(reward: Dictionary) -> String:
 	# 使用整笔奖励的背包副本试装，避免多个产物各自检查通过却合起来放不下。
 	var trial = load("res://src/inventory/inventory.gd").new()
@@ -282,11 +318,14 @@ func _inventory_full(reward: Dictionary) -> String:
 	return ""
 
 func to_dict() -> Dictionary:
-	return {"version":2,"day":day,"watering_can":watering_can,"selected_crop":selected_crop,"plots":states.duplicate(true)}
+	return {"version":3,"day":day,"grow_day":grow_day,"watering_can":watering_can,"selected_crop":selected_crop,"plots":states.duplicate(true)}
 
 func from_dict(data: Dictionary) -> void:
 	states.clear()
 	day = maxi(1,int(data.get("day",1)))
+	# 旧档没有 `grow_day`：按「存档时的日历日已经长过」起步，
+	# 否则读档后第一次换天会把同一天再长一遍。
+	grow_day = maxi(1,int(data.get("grow_day",day)))
 	watering_can = clampi(int(data.get("watering_can",WATER_CAPACITY)),0,WATER_CAPACITY)
 	for row in specs: states[str(row.id)] = _empty_state()
 	var saved: Dictionary = data.get("plots",{})

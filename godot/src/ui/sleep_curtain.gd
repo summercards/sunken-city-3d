@@ -3,6 +3,12 @@ extends CanvasLayer
 signal phase_changed(phase: String)
 const CLOSE_SECONDS := 0.85
 const OPEN_SECONDS := 1.05
+## 两段黑幕文字的停留时长（2026-11-01 需求：原 0.3 / 0.65 秒太快，看不清）。
+## 淡入与淡出也相应放长到 0.4 秒以上，慢慢亮起来、慢慢灭掉，读起来才不突兀。
+const COVER_FADE := 0.45
+const COVER_HOLD := 2.4
+const MORNING_FADE := 0.45
+const MORNING_HOLD := 2.6
 var focus_query: Callable
 var shade: ColorRect
 var caption: Label
@@ -71,18 +77,18 @@ func cover(text: String) -> void:
 	await tween.finished
 	_set_phase("closed")
 	tween = create_tween()
-	tween.tween_property(caption,"modulate:a",1.0,0.18)
-	tween.tween_interval(0.3)
-	tween.tween_property(caption,"modulate:a",0.0,0.18)
+	tween.tween_property(caption,"modulate:a",1.0,COVER_FADE)
+	tween.tween_interval(COVER_HOLD)
+	tween.tween_property(caption,"modulate:a",0.0,COVER_FADE)
 	await tween.finished
 
 func uncover(text: String) -> void:
 	caption.text = text
 	_set_phase("morning")
 	var tween := create_tween()
-	tween.tween_property(caption,"modulate:a",1.0,0.2)
-	tween.tween_interval(0.65)
-	tween.tween_property(caption,"modulate:a",0.0,0.2)
+	tween.tween_property(caption,"modulate:a",1.0,MORNING_FADE)
+	tween.tween_interval(MORNING_HOLD)
+	tween.tween_property(caption,"modulate:a",0.0,MORNING_FADE)
 	await tween.finished
 	# The wake command has moved both player and camera while the screen was black.
 	_sample_focus()

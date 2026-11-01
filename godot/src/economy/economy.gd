@@ -47,6 +47,10 @@ var tracked_goal: String:
 	get: return goals.tracked_goal
 	set(value): goals.tracked_goal = value
 var inventory: RefCounted
+## 体力与疲劳（SEA-ENERGY）。状态归 EnergyModel，这里只装配与转发自动。
+var energy = preload("res://src/energy/energy_service.gd").new()
+## 家园补给站 → 渔场的升级状态（SEA-AQUA）。只拥有「升没升过」这一位。
+var fishery = preload("res://src/aqua/fishery_service.gd").new()
 ## 种植规则与状态（Node 子节点，天然跟场景树同生共死）。
 ## 故意不加静态类型：FarmModel 的方法（plant/tick/to_dict）在 Node 基类上不存在，
 ## 标成 Node 会让编译器拒绝调用。
@@ -121,6 +125,8 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	inventory = InventoryLib.new()
+	energy.name = "Energy"
+	add_child(energy)
 	_configure_services()
 	inventory.changed.connect(_on_inventory_changed)
 	inventory.capacity_changed.connect(func(_u: int, _c: int) -> void: resources_changed.emit())
@@ -134,9 +140,13 @@ func _ready() -> void:
 	farm_ports.give = give
 	farm_ports.has_greenhouse = func() -> bool: return not Scope.minimal() and facility_unlocked("greenhouse")
 	farm_ports.access_reason = _farm_access_reason
+	farm_ports.spend_energy = energy.spend
+	farm_ports.energy_reason = energy.reason
 	farm.configure(farm_ports)
 	daily.inventory = inventory
-	daily.grow = func() -> Dictionary: return farm.advance_day(true)
+	# 生长水位线归 FarmModel：同一天只长一次，所以「醒来换天」和「07:00 结算」两条路
+	# 都调它也不会多长。——SEA-FARM-R14
+	daily.grow = func(day: int) -> Dictionary: return farm.advance_to_day(day,true)
 	daily.sync_day = farm.sync_calendar_day
 	daily.changed.connect(func(): resources_changed.emit())
 	farm.name = "Farm"
@@ -327,12 +337,12 @@ func upgrade_ship() -> Dictionary:
 ## ---- 存档 -------------------------------------------------------------------
 
 func to_dict() -> Dictionary:
-	var data := {"inventory":inventory.to_dict(),"warehouse":storage.to_dict(),"farm":farm.to_dict(),"orders":orders.to_dict(),"daily_loop":daily.to_dict()}
+	var data := {"inventory":inventory.to_dict(),"warehouse":storage.to_dict(),"farm":farm.to_dict(),"orders":orders.to_dict(),"daily_loop":daily.to_dict(),"energy":energy.to_dict(),"fishery":fishery.to_dict()}
 	for owner in [construction,facility,ship,goals]: data.merge(owner.to_dict())
 	return data
 
 func snapshot_event_sources() -> Array:
-	return [self,inventory,daily,daily.cargo,storage,storage.warehouse,construction,facility,ship,goals,farm,orders]
+	return [self,inventory,daily,daily.cargo,storage,storage.warehouse,construction,facility,ship,goals,farm,orders,energy,fishery]
 
 func publish_restored() -> void:
 	# State is already complete across every feature; these are refreshes, not rewards.
@@ -344,12 +354,16 @@ func publish_restored() -> void:
 	storage.warehouse.changed.emit("",0)
 	resources_changed.emit()
 	sites_changed.emit()
+	energy.changed.emit(energy.current,energy.maximum)
+	fishery.changed.emit()
 
 func from_dict(data: Dictionary) -> void:
 	inventory.from_dict(data.get("inventory",{}))
 	storage.from_dict(data.get("warehouse",{"capacity":48}))
 	for owner in [construction,facility,ship,goals]: owner.from_dict(data)
 	farm.from_dict(data.get("farm",{}))
+	energy.from_dict(data.get("energy",{}))
+	fishery.from_dict(data.get("fishery",{}))
 	orders.from_dict(data.get("orders",{}))
 	daily.from_dict(data.get("daily_loop",{}))
 	resources_changed.emit()
@@ -426,6 +440,12 @@ func _configure_services() -> void:
 	goals.SITES = SITES.duplicate(true)
 	goals.FACILITIES = FACILITIES.duplicate(true)
 	salvage.configure({"give":give})
+	# 渔场升级按「背包 + 仓库」一起算，与建造材料同一条口径：
+	# 100 块木板塞不进 24 格背包，只认背包等于永远升不了。
+	fishery.configure({"count":storage.construction_count,
+		"pay":storage.construction_pay,
+		"missing_text":storage.construction_missing_text})
+	fishery.changed.connect(func(): resources_changed.emit())
 	construction.sites_changed.connect(func(): sites_changed.emit())
 	facility.sites_changed.connect(func(): sites_changed.emit())
 	construction.site_work_started.connect(func(id, seconds): site_work_started.emit(id, seconds))

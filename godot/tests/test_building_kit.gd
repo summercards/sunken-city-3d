@@ -4,6 +4,7 @@ const SHIFT:=Vector2(180,160)
 var checks:=0
 var failures:=0
 var main
+var econ
 func _init() -> void: call_deferred("run")
 func check(ok: bool,label: String) -> void:
 	checks+=1
@@ -12,6 +13,9 @@ func check(ok: bool,label: String) -> void:
 ## fresh test platform at an arbitrary spot; the on-foot join rule is covered by
 ## test_building_join.gd, which exercises the real approach path.
 func build(kind: String,x: float,z: float,support: String="",height: float=0.0,origin: String="boat") -> String:
+	# 这条用例要把 22 件挨个建一遍（SEA-ENERGY 之后每件 4 点体力，一天只有 100），
+	# 它测的是承载与拼装，不是体力经济：每次放置前回满，体力本身由 test_energy.gd 验。
+	if econ != null: econ.energy.refill()
 	var result: Dictionary=main.building.begin({"kind":kind,"px":x+SHIFT.x,"pz":z+SHIFT.y,"py":height,"support":support,"turn":0,"origin":origin})
 	check(result.get("ok",false),"build "+kind+": "+str(result.get("reason","")))
 	if not result.get("ok",false): return ""
@@ -19,7 +23,7 @@ func build(kind: String,x: float,z: float,support: String="",height: float=0.0,o
 func run() -> void:
 	main=load("res://scenes/main.tscn").instantiate();root.add_child(main)
 	main._autosave_on=false;main.set_process(false);main.cam.set_process(false)
-	var econ=root.get_node("Economy");econ.set_process(false);econ.inventory.set_count("wood",2000)
+	econ=root.get_node("Economy");econ.set_process(false);econ.inventory.set_count("wood",2000)
 	var structures:=0;var decorations:=0
 	for kind: String in Catalog.RECIPES:
 		if not Catalog.is_kit(kind): continue

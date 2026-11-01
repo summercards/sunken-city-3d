@@ -25,6 +25,12 @@
 
 ## 当前可玩版本：太阳房最小生活循环（2026-10-27）
 
+2026-11-01 作物按天结算：反馈「12:00 浇水、次日 06:00 醒来还是昨天已浇的状态，要等到 07:00 之后才翻页」。实测确认两处叠加：睡觉流程自己的生长调用被 `if not Scope.minimal()` 挡掉（默认范围就命中，等于睡觉从不推进作物），唯一还生长的路径是 07:00 出货结算，于是「换天」被绑在「收货」这个无关钟点上。现改为 `FarmModel.advance_to_day(calendar_day)` 唯一换天入口，带 `grow_day` 水位线同一天只长一次；醒来睁眼即新状态，07:00 结算再调是空操作，自然时间跨过 07:00 仍长一天、不来两天。缺水仍停长。水位线单独存档（`farm.grow_day`，v3，旧档按 `day` 起步），读档重进同日不重长。R02/R11 的「07:00 生长」由本条取代，SLEEP-R04 收窄为只约束卖货在 07:00。归 SEA-FARM-R14。[交付与实测](docs/development/2026-11-01_farm_day_change.md)。
+
+2026-11-01 漂浮结构吃水线：新加进世界的海上结构在水面上没有白色波纹。查明不是泡沫参数，而是岸线图只在「几何与水面相交」处切截面 —— 浮店整块浮在水面上方（甲板底面 +0.04 米），一段截面都切不出来，而船的水面阻挡早就收录了它，于是「船知道它存在、水不知道」。现在把 `World/SeaStructures` 的占地轮廓作为显式种子交给岸线距线图，且只在并集外沿播种（相邻两块共用的边不播种，否则每块甲板内部会冒出一道道白线）；数据来源优先结构自己 `BlockerSet` 派生的轮廓。归 SEA-OCEAN-R24。[交付与实测](docs/development/2026-11-01_energy_fishery_and_join.md)。
+
+2026-11-01 体力 · 过场文字 · 扩建阻挡 · 渔场改造：①睡觉/起床黑幕上的两句话改为淡入0.45秒、停留2.4/2.6秒、淡出0.45秒（原0.3/0.65秒读不完），圆幕合拢与打开的节奏不变，归SEA-SLEEP-R06。②新增体力功能（SEA-ENERGY，参考《星露谷物语》）：新局100点，播种2/浇水1/收获1/建造4/拆回3/搬移3/采集3/打捞3，均在结算成功之后扣；低于25%提一次「有点累了」，归零先播「啊，太累了，今天需要休息了。」再走同一套黑幕过场，第二天上限减半为50、次日正常入睡恢复100；体力条常驻右下角（圆按钮上方），奶油底槽+青绿填充，低于25%转琥珀、归零转珊瑚。③浅水养殖台三处「无法拼接」查明是平台自己的水下底座在水面线生成的阻挡与平台轮廓等大、和木板网格不同步，贴着平台接必然重叠0.2米；现在只放行与固定平台轮廓相交的阻挡，四面可接，原有平台本体与泊位/上下船通道照旧受保护，归SEA-BUILDING-R25。④家园补给站木牌气泡新增「升级为渔场」，成本木板100+鱼50，按背包与保管仓库合并计数扣费，改造页沿用种植页行列表；升级后木牌改名「渔场」并在平台插旗作临时标记，状态进存档、读档恢复，归SEA-AQUA-R04/R05（养殖生态本身仍为规划）。[交付与实测](docs/development/2026-11-01_energy_fishery_and_join.md)。
+
 2026-10-30细节修订：海鸥只在06:00–18:00出现，过了18:00整群收起且停止动画计算，时段只读唯一WorldClock；点击浮木/鱼群后的打捞巡航到站不再把船头拧回出发朝向（`sail_to`新增`align_at_arrival`，靠泊语义不变）；面板与模态的屏幕右下角收成一枚动物森友会式圆关闭键（奶白圆片、深棕描边、手绘粗叉、逆时针歪约6°，62px贴角），原「返回Esc/选择Enter」两枚胶囊移除，键盘路径保留。归SEA-AMBIENT-R05 / SEA-PICKUP-R15 / SEA-UI-R47。[交付与实测](docs/development/2026-10-30_detail_fixes.md)。
 
 2026-10-30模块化家园建造：新增12种独立结构组件和10种生活摆件，4×4浮台为4米见方；统一2米模数、2.8米层高，墙/柱承载挂点、楼梯与二层楼板按真实空间拼接。目录控制配方启用/停用，手册分类分页；停用不损坏已建实例和旧档。两种油灯真实照明、木箱共享仓库、水桶补水，其余摆件按明确装饰功能维护。范围归SEA-BUILDING，资产归SEA-ASSET，三维移动执行归SEA-MOVE；物品、水壶和仓库仍归原所有者。[设计、内容明细与交付](docs/development/2026-10-30_modular_building_kit.md)。
@@ -385,8 +391,9 @@
 | <a id="sea-resident"></a>SEA-RESIDENT | 居民与生活行为 | 生活 | SEA-WORLD, SEA-BUILD | [文档](docs/features/resident/spec.md) | [账本](docs/features/resident/ledger.md) | 规划中 |
 | <a id="sea-time"></a>SEA-TIME | 世界时间 | 生活 | SEA-WORLD | [文档](docs/features/time/spec.md) | [账本](docs/features/time/ledger.md) | 已实现待完整验收 |
 | <a id="sea-sleep"></a>SEA-SLEEP | 睡觉与次日醒来 | 生活 | SEA-TIME、SEA-MOVE、SEA-INTERACT | [文档](docs/features/sleep/spec.md) | [账本](docs/features/sleep/ledger.md) | 已实现待完整验收 |
+| <a id="sea-energy"></a>SEA-ENERGY | 体力与疲劳 | 生活 | SEA-SLEEP | [文档](docs/features/energy/spec.md) | [账本](docs/features/energy/ledger.md) | 已实现待完整验收 |
 | <a id="sea-weather"></a>SEA-WEATHER | 天气 | 生活 | SEA-TIME、SEA-WORLD | [文档](docs/features/weather/spec.md) | [账本](docs/features/weather/ledger.md) | 已实现待完整验收 |
-| <a id="sea-aqua"></a>SEA-AQUA | 浅水养殖 | 经营 | SEA-WORLD, SEA-INVENTORY | [文档](docs/features/aqua/spec.md) | [账本](docs/features/aqua/ledger.md) | 规划中 |
+| <a id="sea-aqua"></a>SEA-AQUA | 浅水养殖 | 经营 | SEA-WORLD, SEA-INVENTORY | [文档](docs/features/aqua/spec.md) | [账本](docs/features/aqua/ledger.md) | 部分实现 |
 | <a id="sea-quest"></a>SEA-QUEST | 任务成就与区域复兴 | 成长 | SEA-GOAL, SEA-WORLD | [文档](docs/features/quest/spec.md) | [账本](docs/features/quest/ledger.md) | 规划中 |
 | <a id="sea-ui"></a>SEA-UI | HUD 与菜单反馈 | 表现 | SEA-INTERACT, SEA-INVENTORY | [文档](docs/features/ui/spec.md) | [账本](docs/features/ui/ledger.md) | 部分实现 |
 | <a id="sea-ocean"></a>SEA-OCEAN | 水面与光照渲染 | 表现 | SEA-WORLD | [文档](docs/features/ocean/spec.md) | [账本](docs/features/ocean/ledger.md) | 部分实现 |

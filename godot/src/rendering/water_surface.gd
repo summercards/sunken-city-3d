@@ -195,9 +195,9 @@ func _make_grid() -> ArrayMesh:
 	result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	return result
 
-func rebuild_shoreline(roots: Array, region := Rect2()) -> void:
+func rebuild_shoreline(roots: Array, region := Rect2(), outline_rects: Array = []) -> void:
 	shoreline = preload("res://src/rendering/shore_distance.gd").new()
-	shoreline.rebuild(roots, global_position.y, 1536, region)
+	shoreline.rebuild(roots, global_position.y, 1536, region, outline_rects)
 	# 每套已登记的方案都要拿到同一张距线图：只绑当前那套，切过去就没泡沫了。
 	if schemes.is_empty():
 		shoreline.bind(material_override as ShaderMaterial)

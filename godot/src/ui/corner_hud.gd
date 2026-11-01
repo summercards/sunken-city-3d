@@ -3,6 +3,7 @@ extends Control
 const Cozy = preload("res://src/ui/cozy_ui.gd")
 const Art = preload("res://src/ui/illustrated_icons.gd")
 const Scope = preload("res://src/core/play_scope.gd")
+const StaminaBar = preload("res://src/ui/stamina_bar.gd")
 signal requested(command: String)
 var font: Font
 var status: PanelContainer
@@ -15,6 +16,8 @@ var menu_button: Button
 var popup: PanelContainer
 var buttons := {}
 var expanded := false
+## 右下角体力条：压在「锁定视角」那颗圆按钮上方，任一状态下常驻。
+var stamina
 
 func _ready() -> void:
 	set_meta("cozy_skip",true)
@@ -32,6 +35,7 @@ func _ready() -> void:
 	actions=HBoxContainer.new();actions.name="CameraFollow";add_child(actions)
 	var follow:=_launcher("follow","锁定角色视角");actions.add_child(follow);buttons.follow=follow
 	follow.pressed.connect(func(): requested.emit("follow"))
+	stamina=StaminaBar.new();add_child(stamina)
 	toolbar=Control.new();toolbar.mouse_filter=Control.MOUSE_FILTER_IGNORE;add_child(toolbar)
 	menu_button=_launcher("menu","菜单");menu_button.position=Vector2(92,0)
 	toolbar.add_child(menu_button);menu_button.pressed.connect(func(): set_expanded(not expanded))
@@ -83,7 +87,15 @@ func place(extent: Vector2) -> void:
 	status.position=Vector2(24,extent.y-status.size.y*fit-24)
 	actions.scale=Vector2.ONE*fit
 	actions.position=extent-Vector2(72*fit+28,72*fit+28)
+	# 体力条右对齐到同一侧边距，压在圆按钮上方 12px（圆按钮 72px 见方）。
+	if stamina != null:
+		stamina.scale = Vector2.ONE*fit
+		stamina.position = Vector2(extent.x - StaminaBar.WIDTH*fit - 28,
+			extent.y - (72*fit+28) - StaminaBar.HEIGHT*fit - 12*fit)
 	toolbar.scale=Vector2.ONE*fit;toolbar.position=Vector2(extent.x-164*fit-28,28)
+
+func set_stamina(current: float, maximum: float) -> void:
+	if stamina != null: stamina.set_values(current, maximum)
 
 func set_follow_locked(on: bool) -> void:
 	buttons.follow.selected=on

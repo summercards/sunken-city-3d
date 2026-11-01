@@ -14,6 +14,10 @@ const TABLE := "res://assets/data/gather_spots.json"
 
 const ConstructionDependency = preload("res://src/construction/construction_service.gd")
 var construction: ConstructionDependency
+## SEA-ENERGY：可选端口，签名 (action: String) -> String。
+## 交给每个采集点自己问，体力不够时按住 E 就直接被拦下，
+## 不会出现「采掉了却没进包」。
+var energy_reason: Callable
 var spots: Array = []
 
 func to_dict() -> Dictionary:
@@ -50,6 +54,7 @@ func build(path := TABLE) -> void:
 		var spot: Node3D = GatherSpotLib.new()
 		spot.name = "Spot_%s" % str(row.get("id", "unnamed"))
 		spot.construction = construction
+		spot.energy_reason = energy_reason
 		spot.setup(row)
 		spot.set_meta("zone", str(row.get("zone", "")))
 		add_child(spot)

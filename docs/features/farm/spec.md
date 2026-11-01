@@ -114,3 +114,21 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 | SEA-FARM-R13 | 气泡选择收获、E交互和正式FarmPlot.perform均在Farm成功结算后，经FarmPlot→FarmField的acted事件，把原返回的crop/reward交给SEA-MOVE播放举高收包动作；一次成功只播放一次。接近和长按准备阶段不得提前展示成功实物，满包/未成熟/取消不产生成功表现。奖励仍由Farm调用库存注入端口在原业务时点结算，动画完成/取消不得再次发奖或撤回，番茄续茬、成长、水分、收获数量和存档结构不变。 |
 
 动作细节归SEA-MOVE-R14，实物副本归SEA-CROP-R14。种植与浇水也统一从成功acted事件触发表现，移除气泡命令与长按开始的重复播放路径。直接调用无场景Farm规则仍可独立使用，不依赖角色或动画。详见[本轮交付](../../development/2026-10-30_harvest_receive_animation.md)。
+
+## 2026-11-01 作物按「天」结算：睡一觉就是一天
+
+现场反馈：中午 12:00 浇水，第二天早上 06:00 醒来，看到的还是「今日已浇 · 还需 3 天」，非要等到 07:00（用户的原话是「到 12 点才更新」）才翻页 —— 和牧场物语、《星露谷物语》那种「睡一觉就换天」的手感不一致。
+
+实测定位到两处：①睡觉流程里的生长调用被 `if not Scope.minimal()` 挡掉了，而默认就是 minimal 范围，**相当于默认配置下睡觉根本不推进作物**；②唯一还在生长的路径是 07:00 的出货结算（`DailyShipping.observe`），于是「换天」被绑在了「收货」这个和种植无关的钟点上。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-FARM-R14 | 生长以**日历日**为单位，睡觉醒来那一刻就换天 —— 玩家在 06:00 睁开眼睛时，作物的剩余天数、湿度与外观阶段必须已经是新一天的状态，不得等到 07:00 或任何其它钟点。实现口径：`FarmModel.advance_to_day(calendar_day)` 是唯一换天入口，自带水位线 `grow_day`（同一天只长一次，重复调用是空操作）；`Main._wake_at_home` 在全黑段用世界时钟的日调用它；07:00 的 `DailyShipping.observe` 也调同一个入口，因此「自然时间跨过 07:00」这条旧路径仍然长一天，且两条路径叠加不会长出两天。缺水仍停长（醒来只清湿度、不扣天数）。水位线进存档（`farm.grow_day`，v3），旧档缺它时按存档日起步，读档重进同一天不得再长。R02/R11 中的「07:00 生长」表述由本条取代为「醒来即生长」，07:00 只保留出货结算。 |
+
+### 为什么水位线和 `day` 分开存
+
+`FarmModel.day` 只是日历显示，会随读档/世界时钟被 `sync_calendar_day` 覆盖。如果拿它当水位线，「07:00 结算先跑、随后 sync 覆盖 day」会把当天的生长静默跳过。所以 `grow_day` 只由生长写入，`day` 只由日历写入。
+
+### 验收
+
+统一 runner 的 `farm-day-change`（23 项）：醒来那一帧 `remaining` 已减、湿度已清、状态文案已换、可见阶段已进；07:00 结算不重复；醒来立刻浇水不会被多长一天；不睡觉让时间跨过 07:00 仍长一天；缺水日不长；读档与旧档都不得重长。回归 `farming`、`minimum-loop`、`visual-plot-shipping`、`initial-planters`、`walk-on-planters`、`building-integration` 通过。见[本轮交付](../../development/2026-11-01_farm_day_change.md)。

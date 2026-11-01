@@ -50,6 +50,11 @@ func run() -> void:
 	var clock=main.world_clock
 	var sleep=main.sleep_cycle
 	main.sleep_curtain.phase_changed.connect(func(value: String): iris_phases.append(value))
+	# SEA-SLEEP-R06：黑幕上那两句话要停得够久（2026-11-01 反馈原来 0.3 / 0.65 秒）。
+	# 只断言常量不够 —— 真正要守的是「玩家来得及读完」，所以下面还实测停留时长。
+	check(main.sleep_curtain.COVER_HOLD>=2.0,"night caption hold is at least 2 s")
+	check(main.sleep_curtain.MORNING_HOLD>=2.0,"morning caption hold is at least 2 s")
+	check(main.sleep_curtain.COVER_FADE>=0.4 and main.sleep_curtain.MORNING_FADE>=0.4,"caption fades are gentle, not abrupt")
 	var economy=root.get_node("Economy")
 	var saves=preload("res://src/save/save_game.gd")
 	var checkpoint=main._zone_nodes.zone1.get_node("Objects/SleepCheckpoint")
@@ -106,8 +111,14 @@ func run() -> void:
 	var closed: Image=await iris_snapshot("sleep-iris-closed")
 	if closed!=null:
 		check(closed.get_pixel(1,1).get_luminance()<0.002 and closed.get_pixel(closed.get_width()-2,closed.get_height()-2).get_luminance()<0.002,"full black covers opposite corners")
+	# 黑幕文字必须「停得住」：全黑之后 1.6 秒还完整可见，不能一闪而过。
+	await create_timer(1.6).timeout
+	check(main.sleep_curtain.caption.modulate.a>=0.99 and main.sleep_curtain.phase=="closed","night caption stays fully readable 1.6 s after the screen goes black")
+	check(main.sleep_curtain.caption.text!="","night caption has text to read")
 	await wait_phase("morning")
 	check(clock.day==day+1 and main.sleep_curtain.openness==0.0,"06:00 and home change behind closed iris")
+	await create_timer(1.6).timeout
+	check(main.sleep_curtain.caption.modulate.a>=0.99 and main.sleep_curtain.phase=="morning","morning caption stays fully readable 1.6 s, then the iris opens")
 	await create_timer(0.25).timeout
 	await iris_snapshot("sleep-iris-morning")
 	await wait_phase("opening")

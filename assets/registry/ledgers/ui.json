@@ -86,9 +86,9 @@
       "domain": "ui",
       "stage": "runtime_verified_reused_license_pending",
       "source": "godot/src/ui/corner_hud.gd",
-      "source_sha256": "c1bb2cb1c5019112ad214a500667a58059534b7b6e6f1cd60e20cf1989ff8dda",
+      "source_sha256": "ac11061591fd22110ae1c9c6834bd6fce9ef20a885f5559b2e1e373e6271d998",
       "manifest": "assets/registry/manifests/ui_hud_corners_001.json",
-      "version": "v002",
+      "version": "v003",
       "runtime_path": "godot/src/ui/corner_hud.gd",
       "license": "project-authored layout; font SIL-OFL-1.1; reused handdrawn icons pending_provider_terms_review",
       "consumer_features": [
@@ -97,11 +97,18 @@
         "SEA-FARM",
         "SEA-TIME",
         "SEA-CAMERA",
-        "SEA-BUILDING"
+        "SEA-BUILDING",
+        "SEA-ENERGY"
       ],
-      "verification": "docs/development/2026-10-28_building_delivery.md",
-      "note": "本轮程序化排版和图标；复用UI-FONT-LXGW975YUAN-SC-700、UI-ACTION-HANDDRAWN-001与UI-POCKET-HANDDRAWN-001。既有图片源与授权pending不变。 v002仅按用户后续要求改月日显示占位、瓶盖28px、右下角色定位圆图标和移除停止行动；既有图像与授权不变。；2026-10-29 SEA-BUILDING新增设置右侧第八个建造入口，visual-building真实鼠标与渲染通过。",
+      "verification": "docs/development/2026-11-01_energy_fishery_and_join.md",
+      "note": "本轮程序化排版和图标；复用UI-FONT-LXGW975YUAN-SC-700、UI-ACTION-HANDDRAWN-001与UI-POCKET-HANDDRAWN-001。既有图片源与授权pending不变。 v002仅按用户后续要求改月日显示占位、瓶盖28px、右下角色定位圆图标和移除停止行动；既有图像与授权不变。；2026-10-29 SEA-BUILDING新增设置右侧第八个建造入口，visual-building真实鼠标与渲染通过。 v003：右下角加体力条（SEA-ENERGY-R06），压在锁定视角圆按钮上方 12px、右对齐同一边距；新增 godot/src/ui/stamina_bar.gd 复用同一套奶油/青绿配色。原有排版与图标不变。",
       "previous_sources": [
+        {
+          "source": "godot/src/ui/corner_hud.gd",
+          "source_sha256": "c1bb2cb1c5019112ad214a500667a58059534b7b6e6f1cd60e20cf1989ff8dda",
+          "version": "v002",
+          "verification": "docs/development/2026-10-28_building_delivery.md"
+        },
         {
           "source": "godot/src/ui/corner_hud.gd",
           "source_sha256": "4098523212cd585a7c0f30215b019bd4a5554ba8182fbe327a323e89e83db521",

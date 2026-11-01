@@ -28,7 +28,8 @@
     "initial-planters",
     "visual-initial-planters",
     "harvest-receive",
-    "visual-harvest-receive"
+    "visual-harvest-receive",
+    "farm-day-change"
   ]
 }
 ```
@@ -126,3 +127,11 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-FARM-R11 | 已实现；相关专项通过，详细范围以交付记录为准 | [本轮交付](../../development/2026-10-28_building_delivery.md) |
+
+## 2026-11-01 作物按「天」结算
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-FARM-R14 | 已实现；`advance_to_day(calendar_day)` 为唯一换天入口并带 `grow_day` 水位线，醒来即生长、07:00 不重复、缺水停长、读档与旧档均不重长（23 项 0 失败） | [本轮交付](../../development/2026-11-01_farm_day_change.md) |
+
+修订说明：本条取代 R02/R11 中「07:00 生长」的时机表述 —— 生长改为在睡觉醒来那一刻发生，07:00 只保留出货结算。R02 的「只推进一次已浇水作物」「缺水只停长」两件事不变，只是时刻提前。

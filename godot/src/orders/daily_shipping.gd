@@ -39,7 +39,7 @@ func observe(clock: Dictionary) -> void:
 	var morning := day if float(clock.hour) >= preload("res://src/time/day_schedule.gd").MORNING_HOUR else day-1
 	if _last_morning < 0:
 		_last_morning = morning
-		sync_day.call(day)
+		if sync_day.is_valid(): sync_day.call(day)
 		return
 	if morning <= _last_morning: return
 	_busy = true
@@ -52,9 +52,10 @@ func observe(clock: Dictionary) -> void:
 	inventory.add("coins",income)
 	_last_morning = morning
 	_receipt = {"day":day,"income":income,"items":items}
-	# A skipped interval has no additional watering; only the first dawn can grow.
-	grow.call()
-	sync_day.call(day)
+	# 生长按「日历日」结算（SEA-FARM-R14）：把当天日期交给种植模块，
+	# 它自己保证同一天只长一次。醒来时已经长过的那一天，这里就是空操作。
+	if grow.is_valid(): grow.call(day)
+	if sync_day.is_valid(): sync_day.call(day)
 	inventory.set_block_signals(blocked)
 	_busy = false
 	inventory.changed.emit("coins",income)

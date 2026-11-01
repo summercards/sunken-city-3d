@@ -134,6 +134,27 @@ func run() -> void:
 	atlas.rebuild([shore_root], 1.12, 128)
 	check(atlas.segments.size() == 8 and atlas.distance_at(Vector2(5, 0)) > 2.5,
 		"thin decoration merged into a building cannot seed spurious foam circles")
+	# SEA-OCEAN-R23：整块浮在水面上方的结构切不出截面（竖直方向没有任何面跨过水面），
+	# 必须能靠显式占地轮廓补上吃水线，否则新加进去的漂浮模型在水面上像贴纸。
+	var floating := BoxMesh.new()
+	floating.size = Vector3(6, 2, 6)
+	block.mesh = floating
+	block.position = Vector3(0, 1.12 + 0.3 + 1.0, 0)   # 底面高出水面 0.3 米
+	block.rotation = Vector3.ZERO
+	atlas.rebuild([shore_root], 1.12, 128)
+	check(atlas.segments.is_empty(), "a solid floating above the water cuts no waterline by itself")
+	atlas.rebuild([], 1.12, 128, Rect2(), [Rect2(Vector2(-3, -3), Vector2(6, 6))])
+	check(atlas.segments.size() == 4, "explicit footprint seeds the four outer edges")
+	check(atlas.distance_at(Vector2(3.0, 0)) < 0.35, "floating deck edge now has a waterline")
+	check(atlas.distance_at(Vector2(8.0, 0)) > 4.0, "water away from the deck stays clear")
+	# 相邻两块轮廓只在并集外沿播种：内部那条接缝不能变成一道白线。
+	var pair := [Rect2(Vector2(0, 0), Vector2(4, 4)), Rect2(Vector2(4, 0), Vector2(4, 4))]
+	atlas.rebuild([], 1.12, 128, Rect2(), pair)
+	check(atlas.segments.size() == 6, "touching footprints keep only the union outline, not the shared seam")
+	check(atlas.distance_at(Vector2(6.0, 2.0)) > 1.0, "inside of the union is not painted as a contact band")
+	block.mesh = merged_mesh
+	block.position = Vector3.ZERO
+	atlas.rebuild([shore_root], 1.12, 128)
 	shore_root.queue_free()
 	water.queue_free()
 	wake.queue_free()

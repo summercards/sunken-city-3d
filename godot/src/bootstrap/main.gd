@@ -80,6 +80,8 @@ var salvage_panel = null
 var salvage_winch: Node3D
 ## 码头订单板：世界里的板子 + 面板。规则在 `Economy.orders`（OrderBoard）。
 var trade_board: Node3D
+## 渔场升级后插在平台上的临时标记旗（SEA-AQUA-R04/R05）。null = 还没升级。
+var _fishery_flag: Node3D
 var order_panel = null
 ## 航线预览（虚线 + 终点环）与水面寻路栅格（第一次开船时才建，约 10ms）。
 var ribbon: Node3D
@@ -174,6 +176,11 @@ var weather_view: Node2D
 var daylight_rig
 var sleep_cycle: Node
 var sleep_curtain: CanvasLayer
+## 「体力见底」的强制休息正在进行（台词 → 黑幕过场）。期间吞掉全部输入，
+## 也不再重复触发第二遍。SEA-ENERGY-R04。
+var _exhausted_rest := false
+## 黑幕里那句「啊，太累了…」停留多久再收幕（秒）。
+const EXHAUSTED_LINE_SECONDS := 2.6
 var _sleep_ui_layers: Array = []
 var _sleep_calendar_visible := false
 var _calendar_label: Label
@@ -779,6 +786,14 @@ func _warm_water_shapes() -> void:
 	_water_shapes()
 
 
+## 水面接触轮廓：区块内的地形靠岸线图（几何真的跨过水面才有截面），
+## 而**漂浮在水平面上方**的结构（甲板底面高出水面几厘米）永远切不出截面，
+## 于是整块东西一点白色波纹都没有，读起来像贴纸浮在图上。
+##
+## 这里把这类结构的占地并进运行时接触矩形（着色器里逐像素算距离，
+## 不需要重烘岸线图），与玩家自建木板走同一条通路。
+## 数据来源优先用结构自己的水面阻挡矩形（`BlockerSet` 从几何派生的真实轮廓），
+## 没有阻挡时退回它的可行走矩形，再取总包围盒。
 func _water_shapes() -> Array:
 	if not _shore_shapes.is_empty():
 		return _shore_shapes
@@ -902,7 +917,71 @@ func _set_shore_uniforms() -> void:
 	# Slice actual visible scene geometry at sea level; no hand-authored shore boxes.
 	var shore_region: Rect2 = get_node("Camera").pan_bounds.grow(24.0)
 	var shore_roots: Array = [_zone_nodes["zone1"],_zone_nodes["zone5"]] if Scope.minimal() else [get_node("World/Environment"),get_node("World/Zones")]
-	water_node.rebuild_shoreline(shore_roots,shore_region)
+	# 区块之外的海上结构也要有吃水线（SEA-OCEAN-R23）。
+	#
+	# `World/SeaStructures` 里的东西没有 ZoneScene：船的水面阻挡早就单独收集了
+	# （`_water_shapes()`），但岸线图只扫 zone 根节点 —— 于是「船知道这块东西
+	# 存在，水却不知道」。新加进去的模型因此一点白色波纹都没有，在水面上像贴纸。
+	#
+	# 这里不能只把根节点塞进 `shore_roots`：漂浮结构是**整块浮在水平面上方**的
+	# （甲板底面高出水面几厘米），竖直方向没有任何面跨过水面，几何切片切不出东西
+	# （实测：塞进去之后切面反而从 9950 降到 2978）。所以改成把它的占地轮廓
+	# 作为显式种子交给距线图，与几何截面走同一张图、同一套泡沫。
+	var structures := get_node_or_null("World/SeaStructures")
+	var outlines: Array = []
+	if structures != null:
+		for item in structures.get_children():
+			outlines.append_array(_structure_outline(item))
+		var extent := _subtree_xz_bounds(structures)
+		if extent.has_area(): shore_region = shore_region.merge(extent)
+	water_node.rebuild_shoreline(shore_roots,shore_region,outlines)
+
+
+## 一个海上结构在水面处的占地轮廓（世界 XZ）。
+##
+## 优先用 `BlockerSet` 从几何派生的阶梯条带（真实外沿，随模型替换与旋转跟随）；
+## 还没派生过就现算一次；结构没有可派生几何时退回它的可行走矩形（环廊贴着甲板边）。
+func _structure_outline(item: Node) -> Array:
+	var blocks: Array = item.get("water_block_rects") if "water_block_rects" in item else []
+	if blocks.is_empty() and item.has_method("rebuild_blockers"):
+		item.rebuild_blockers(WATER_LEVEL,1.6)
+		blocks = item.get("water_block_rects") if "water_block_rects" in item else []
+	var result: Array = []
+	for rect: Rect2 in blocks: result.append(rect)
+	if not result.is_empty(): return result
+	var stack: Array = [item]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		if "rects" in node and node.get("rects") is Array:
+			var offset: Vector3 = (node as Node3D).global_position
+			for rect: Rect2 in node.get("rects"):
+				result.append(Rect2(Vector2(rect.position.x+offset.x,rect.position.y+offset.z),rect.size))
+		stack.append_array(node.get_children())
+	return result
+
+
+## 一棵子树里所有可见网格的世界 XZ 包围盒。只用来定岸线取样范围。
+func _subtree_xz_bounds(root: Node) -> Rect2:
+	var result := Rect2()
+	var first := true
+	var stack: Array = [root]
+	while not stack.is_empty():
+		var node: Node = stack.pop_back()
+		if node is Node3D and not (node as Node3D).is_visible_in_tree(): continue
+		var box := AABB()
+		var has := false
+		if node is MeshInstance3D and (node as MeshInstance3D).mesh != null:
+			box = (node as Node3D).global_transform * (node as MeshInstance3D).get_aabb()
+			has = true
+		elif node is MultiMeshInstance3D and (node as MultiMeshInstance3D).multimesh != null:
+			box = (node as Node3D).global_transform * (node as MultiMeshInstance3D).get_aabb()
+			has = true
+		if has:
+			var part := Rect2(Vector2(box.position.x,box.position.z),Vector2(box.size.x,box.size.z))
+			result = part if first else result.merge(part)
+			first = false
+		stack.append_array(node.get_children())
+	return result
 
 
 func _setup_boat() -> void:
@@ -1050,6 +1129,7 @@ func _setup_gather() -> void:
 		gather.name = "GatherField"
 		add_child(gather)
 	gather.construction = Economy.construction
+	gather.energy_reason = Economy.energy.reason
 	gather.build()
 	gather.collected.connect(_on_gathered)
 	gather.blocked.connect(func(reason: String) -> void:
@@ -1229,6 +1309,32 @@ func _setup_trade() -> void:
 			if order_panel != null and order_panel.is_open():
 				order_panel.refresh())
 	_bind_supply_counter()
+	# 渔场升级：改完立刻换牌子文案，并在平台上插一面旗做可见标记。
+	Economy.fishery.changed.connect(_on_fishery_changed)
+	_on_fishery_changed()
+
+
+## 家园补给站 → 渔场（SEA-AQUA-R04）。只转发一次命令，规则在 FisheryModel。
+func _upgrade_fishery() -> Dictionary:
+	return Economy.fishery.upgrade()
+
+
+## 升级状态一变就同步世界的表现：木牌改称「渔场」，平台上多一面旗。
+##
+## 本轮没有正式的渔场美术，旗帜是**明确的临时标记**（复用建造组件里的旗），
+## 不是假装渔场已经做完；养殖、投苗、收成仍按 SEA-AQUA-R06 之后另做。
+func _on_fishery_changed() -> void:
+	var unlocked: bool = Economy.fishery.unlocked
+	if trade_board != null and Scope.minimal():
+		trade_board.label = "渔场 · 商店 / 仓库 / 出货箱" if unlocked else "家园补给站 · 商店 / 仓库 / 出货箱"
+	if not unlocked or _fishery_flag != null: return
+	var zone: Node = _zone_nodes.get("zone1")
+	if zone == null: return
+	var flag: Node3D = load("res://scenes/buildables/kit/flag.tscn").instantiate()
+	flag.name = "FisheryFlag"
+	flag.position = Vector3(-15.6, 1.33, 12.9)
+	zone.get_node("Objects").add_child(flag)
+	_fishery_flag = flag
 
 
 ## 海上补给站：正面招牌下的交互点 → 打开补给页。
@@ -1626,6 +1732,13 @@ func _setup_hud() -> void:
 	# 背包满时只提示一次，连着刷同一句会盖住别的反馈。
 	Economy.overflow.connect(func(id: String, amount: int) -> void:
 		hud.toast("背包已满 · %s×%d 没能装下" % [ItemDB.label(id), amount], 3.0))
+	# 体力条（SEA-ENERGY）：右下角常驻，体力每次变动直接推给角标 HUD。
+	Economy.energy.changed.connect(func(current: float, maximum: float) -> void:
+		hud.corner.set_stamina(current, maximum))
+	hud.corner.set_stamina(Economy.energy.current, Economy.energy.maximum)
+	Economy.energy.tired.connect(func() -> void:
+		hud.toast("有点累了 · 回家睡一觉会好起来", 3.0))
+	Economy.energy.exhausted.connect(_on_energy_exhausted)
 
 
 ## 所有按钮和快捷键共享命令入口，取消不留下待执行动作。
@@ -1943,10 +2056,18 @@ func _finish_pick() -> void:
 	_pick_left = 0.0
 	var got := false
 	if props != null:
+		# 打捞也是一份体力活：结算前先问一句，够体力才收，收完再扣。
+		# 扣在「成功那一条路」上，捞空了不会白掉体力。
+		var tired: String = Economy.energy.reason("pickup")
+		if tired != "":
+			hud.toast(tired, 3.0)
+			if pickup_progress != null: pickup_progress.clear()
+			return
 		if str(pick.get("type", "")) == "fish":
 			got = props.collect_fish(pick.item)
 		else:
 			got = not props.collect_crate(pick.item).is_empty()
+		if got: Economy.energy.spend("pickup")
 	if pickup_progress != null:
 		if got:
 			pickup_progress.complete()
@@ -2044,12 +2165,16 @@ func _on_fish_collected(_label: String) -> void:
 
 
 ## 采集点进账：统一走背包，装不下的部分会被拦下并提示。
+##
+## 体力的拦截在 `GatherSpot.blocked_reason()` 里就已经发生（按住 E 直接提示），
+## 这里只在真的收下之后扣费，采空/放不下都不会白掉体力。
 func _on_gathered(kind: String, amount: int, label: String, _spot: Node3D) -> void:
 	var added: Dictionary = Economy.give({kind: amount})
 	var got := int(added.get(kind, 0))
 	if got <= 0:
 		hud.toast("背包装不下 %s" % label)
 		return
+	Economy.energy.spend("gather")
 	var icon := ItemDB.icon(kind)
 	hud.toast("%s  %s +%d" % [icon, label, got])
 
@@ -2151,6 +2276,23 @@ func _rest_for_day() -> void:
 		hud.toast("请在岸上站定后休息")
 		return
 	sleep_cycle.request()
+
+
+## 体力归零：先念一句，再走黑幕过场。
+##
+## 顺序固定成「台词 → 收幕」，不是「收幕 → 台词」：玩家是在做某件事的半路上
+## 突然动不了的，需要先被告知发生了什么，黑幕才有意义。台词期间输入被吞
+## （`input_blocked()`），避免玩家在等过场时把角色又拖走。
+func _on_energy_exhausted() -> void:
+	if _title_active or _exhausted_rest or sleep_cycle.busy: return
+	_exhausted_rest = true
+	_cancel_action()
+	hud.show_dialogue("我", "啊，太累了，今天需要休息了。")
+	await get_tree().create_timer(EXHAUSTED_LINE_SECONDS).timeout
+	if hud.dialogue != null and hud.dialogue.has_method("close_line"): hud.dialogue.close_line()
+	if not sleep_cycle.busy:
+		await sleep_cycle.request_forced()
+	_exhausted_rest = false
 
 
 func _on_upgrade_ship() -> void:
@@ -2296,7 +2438,7 @@ func _probe_flicker(first: Image, dir: String) -> void:
 	print("[flicker] captured a/b %s" % str(second.get_size()))
 
 func input_blocked() -> bool:
-	return _title_active or (sleep_cycle != null and sleep_cycle.busy) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
+	return _title_active or _exhausted_rest or (sleep_cycle != null and sleep_cycle.busy) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
 
 func _setup_actor_controller() -> void:
 	actor_controller.mode_changed.connect(GameState.set_mode)
@@ -2374,7 +2516,8 @@ func _setup_building() -> void:
 	boundary.active_landing_query=func(): return GameState.landing_id if actor_controller.mode()==0 else ""
 	building.configure({"eligibility":boundary.eligibility,"space_reason":boundary.space_reason,
 		"layout_reason":_construction_layout_reason,"pay":Economy.inventory.pay,"refund":_construction_refund,
-		"capacity_reason":_construction_capacity_reason})
+		"capacity_reason":_construction_capacity_reason,
+		"energy_reason":Economy.energy.reason,"spend_energy":Economy.energy.spend})
 	building_world.configure(building,_zone_nodes.zone5.walk_areas[0],farm_field,_bind_constructed_plot,func():
 		navigation.invalidate()
 		props.ocean.invalidate()
@@ -2482,7 +2625,20 @@ func _construction_capacity_reason(rows: Array) -> String:
 	return "存档已达到安全容量，请先整理已有建造" if JSON.stringify(snapshot,"\t").to_utf8_buffer().size()>SaveGameLib.MAX_BYTES-65536 else ""
 
 func _construction_obstacles() -> Array:
-	var result: Array=_water_shapes().duplicate()
+	var result: Array=[]
+	var catalog = preload("res://src/building/building_catalog.gd")
+	# 脚下这块固定浮台自身的水下底座不是「别人家的建筑」（SEA-BUILDING-R25）。
+	#
+	# 底座从水面线往下沉了十几米，它的水面阻挡矩形正好跟平台轮廓一样大；
+	# 而木板网格 2.15×2.575 与平台 6.45×5.15 不同步，贴着平台接的新格子必然
+	# 与底座矩形重叠 0.2 米左右 —— 结果就是四面都报「这里有既有建筑」，
+	# 只剩原本已经拼好的那一侧能接，等于把扩建堵死。
+	# 平台自己在建造判定里已经由「必须贴边」管住（`_platform_join_reason`），
+	# 这里把与它重叠的阻挡全部放行；远处别的区块、别的建筑照旧拦。
+	var base := Rect2(Vector2(catalog.ORIGIN.x,catalog.ORIGIN.z)+catalog.BASE.position,catalog.BASE.size)
+	for shape in _water_shapes():
+		if _shape_overlaps(shape,base): continue
+		result.append(shape)
 	for zone in _zone_nodes.values():
 		if zone.zone_id=="zone5": continue
 		for ground in zone.walk_areas:
@@ -2490,6 +2646,22 @@ func _construction_obstacles() -> Array:
 				var point: Vector3=ground.to_global(Vector3(rect.position.x,0,rect.position.y))
 				result.append(Rect2(Vector2(point.x,point.z),rect.size))
 	return result
+
+
+## 水面阻挡项（矩形或 {x,z,hx,hz,round} 形状）是否压到给定矩形。
+static func _shape_overlaps(shape: Variant, area: Rect2) -> bool:
+	if shape is Rect2:
+		return (shape as Rect2).grow(-0.01).intersects(area.grow(-0.01))
+	if shape is Dictionary:
+		var data: Dictionary = shape
+		var centre := Vector2(float(data.get("x",0)),float(data.get("z",0)))
+		var hx := float(data.get("hx",0))
+		var hz := float(data.get("hz",hx))
+		if bool(data.get("round",false)):
+			var nearest := Vector2(clampf(centre.x,area.position.x,area.end.x),clampf(centre.y,area.position.y,area.end.y))
+			return nearest.distance_squared_to(centre) < hx*hx
+		return Rect2(centre-Vector2(hx,hz),Vector2(hx,hz)*2).grow(-0.01).intersects(area.grow(-0.01))
+	return false
 
 func _construction_protected() -> Array:
 	var result: Array=[]
@@ -2727,6 +2899,11 @@ func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 			var tab := str(service[0])
 			options.append({"id":tab,"icon":str(service[1]),"label":str(service[2]),"command":func(): _approach_command(spot,func() -> Dictionary:
 				hud.open_tab(tab);return {"event":"service_opened"})})
+		# 升级为渔场（SEA-AQUA-R04）：走「先走过去、再开面板」，与商店/仓库完全同一条动线。
+		var fishery_reason: String = Economy.fishery.reason()
+		options.append({"id":"fishery","icon":"fish","label":"升级为渔场","blocked":fishery_reason,
+			"command":func(): _approach_command(spot,func() -> Dictionary:
+				hud.open_aqua_upgrade(_upgrade_fishery);return {"event":"fishery_opened"})})
 	else:
 		var icon := "hand"
 		if spot.is_in_group("shipping_boxes"): icon="shipping"
@@ -2851,7 +3028,7 @@ func _setup_sleep() -> void:
 	sleep_cycle.return_home = _wake_at_home
 	sleep_cycle.woke.connect(func(_snapshot):
 		_restore_sleep_ui()
-		hud.toast("早上好 · 07:00 作物生长、出货箱收货",4.0)
+		hud.toast("早上好 · 作物已长一天 · 07:00 出货箱收货",4.0)
 		if _autosave_on: save_game("",true))
 	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").sleep_requested.connect(_rest_for_day)
 
@@ -2895,4 +3072,10 @@ func _wake_at_home() -> void:
 	markers.set_highlight("zone1")
 	daylight_rig.apply(world_clock.query().hour)
 	_calendar_label.text = world_clock.query().text + " · " + weather_service.query().label
-	if not Scope.minimal(): Economy.farm.advance_day()
+	# 体力在完全遮黑的这一段里结算：正常睡回满，被体力逼着睡则今天上限减半。
+	Economy.energy.after_sleep(sleep_cycle.forced)
+	# 换天即生长（SEA-FARM-R14）：作物在玩家看不见的黑幕里长一天，醒来就是新状态。
+	# 以前挂在 07:00 的出货结算上，玩家 06:00 醒来看到的还是「昨天已浇、天数没动」，
+	# 要多等一个游戏小时才翻页 —— 与牧场/星露谷那种「睡一觉就过一天」不符。
+	# `advance_to_day` 以日历日为水位线，同一天只长一次，07:00 的结算再调是空操作。
+	if Economy.farm != null: Economy.farm.advance_to_day(world_clock.day)
