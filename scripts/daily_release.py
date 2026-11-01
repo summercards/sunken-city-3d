@@ -184,8 +184,27 @@ def git_step(result):
         result['git']['push_ok'] = False
 
 
+def rebase_in_progress():
+    """工作区是否停在未完成的 rebase 中间态（冲突未解决）。"""
+    for name in ('rebase-merge', 'rebase-apply'):
+        code, out = run(['git', 'rev-parse', '--git-path', name], 30)
+        if code != 0:
+            continue
+        path = Path(out.strip())
+        if not path.is_absolute():
+            path = ROOT / path
+        if path.exists():
+            return True
+    return False
+
+
 def try_push(remote, branch, timeout, result):
-    """推送一次；non-fast-forward 自动 rebase 重试一次，绝不 force。"""
+    """推送一次；non-fast-forward 自动 rebase 重试一次，绝不 force。
+
+    pull --rebase 遇冲突会停在中间态并返回非 0。此时绝不能继续导出发布：
+    半 rebase 的工作区可能带着冲突标记，那样打出来的包不可信。abort 恢复
+    到 rebase 前（本地提交保留），记 rebase_conflict 由主流程中止全流程。
+    """
     code, out = run(['git', 'push', remote, branch], timeout)
     if code == 0:
         return True, out
@@ -193,9 +212,15 @@ def try_push(remote, branch, timeout, result):
     rejected = 'non-fast-forward' in text or 'rejected' in text or 'fetch first' in text
     if not rejected:
         return False, out
-    run(['git', 'pull', '--rebase', remote, branch], timeout)
-    code, out = run(['git', 'push', remote, branch], timeout)
+    pull_code, pull_out = run(['git', 'pull', '--rebase', remote, branch], timeout)
     result['git']['rebased'] = True
+    if pull_code != 0 or rebase_in_progress():
+        run(['git', 'rebase', '--abort'], timeout)
+        result['git']['rebase_conflict'] = True
+        tail = '\n'.join((pull_out or '').strip().splitlines()[-6:])
+        return False, (f'{out}\n--- pull --rebase (code {pull_code}) ---\n{tail}\n'
+                       '[rebase 冲突，已 abort；本地提交保留，需人工解决]')
+    code, out = run(['git', 'push', remote, branch], timeout)
     return code == 0, out
 
 
@@ -426,8 +451,13 @@ def main():
         if not result['git'].get('push_ok'):
             result['problems'].append('git 推送失败')
 
+    # rebase 冲突时工作区处于半成品状态，导出与发布必须整体跳过。
+    blocked = bool(result['git'].get('rebase_conflict'))
+    if blocked:
+        result['problems'].append('git rebase 冲突，已中止导出与发布（工作区已恢复，需人工解决后重跑）')
+
     godot = find_godot()
-    if not args.no_export:
+    if not args.no_export and not blocked:
         if not godot:
             result['problems'].append('找不到 godot 可执行文件')
             log('找不到 godot，跳过导出')
@@ -454,14 +484,14 @@ def main():
             else:
                 check_pack_assets(result, WIN_DIR / 'sea.pck', 'windows')
 
-    if (WEB_DIR / 'index.html').exists() and (WIN_DIR / 'sea.exe').exists():
+    if not blocked and (WEB_DIR / 'index.html').exists() and (WIN_DIR / 'sea.exe').exists():
         log('打包 Windows zip')
         if not zip_windows(result):
             result['problems'].append('Windows 打包失败')
-    else:
+    elif not blocked:
         result['problems'].append('缺少导出产物，跳过打包')
 
-    if not args.skip_publish:
+    if not args.skip_publish and not blocked:
         publish_py = find_publish()
         if not publish_py:
             result['problems'].append('找不到 publish.py')
