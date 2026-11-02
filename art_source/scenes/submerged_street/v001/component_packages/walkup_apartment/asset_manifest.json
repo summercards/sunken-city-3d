@@ -1,0 +1,40 @@
+{
+  "asset_id": "SEA-SCENE-SUBMERGED-STREET-WALKUP",
+  "name": "水下景观·普通公寓楼",
+  "suite": "submerged_street",
+  "version": "v001",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SUBMERGED-STREET-WALKUP",
+  "source": "art_source/scenes/submerged_street/v001/component_packages/walkup_apartment/walkup_apartment.blend",
+  "source_sha256": "6edd6154d9df0e3e2f19089758fcfd4cfdca56226ea6022df1d6a566634f897d",
+  "master": "art_source/scenes/submerged_street/v001/submerged_street.blend",
+  "master_sha256": "f14dc7b5c0e6f9039a5d2e8c229e639abb3b8433d5e19934eb9f167f21830afe",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "palette_sha256": "269a182f8d62c2b88f4ef0a0ab9e4e6ff0dcb6b0be7a0f0b4bb68a440b6bb283",
+  "building_class": "underwater",
+  "category": "underwater_scenic_building",
+  "stage": "source_verified_runtime_integration_pending",
+  "triangles": 1332,
+  "triangle_budget": 1800,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "emission": false,
+  "collision": false,
+  "interactive": false,
+  "license": "user_text_brief; mcdonalds trademark and reference rights pending review",
+  "note": "Purely decorative sunken-street building. No collision, walk area, landing, interaction, production or save field.",
+  "runtime_path": "godot/assets/models/scenery/submerged_street/walkup_apartment/walkup_apartment.glb",
+  "runtime_sha256": "2d0f0b47d6c8b1d488036299cb0aa319efd99c340570256c8bdb1eb455e51961",
+  "export_manifest": "art_source/scenes/submerged_street/v001/export_manifest.json",
+  "optimized_source": "art_source/scenes/submerged_street/v001/export/v001/submerged_street_optimized.blend",
+  "optimized_sha256": "8052ee4b9abf0f23a8722ff8ed05cbb80d53bff2d5c06f234e4d8e14a7aaed69",
+  "verification": [
+    "sea-work/submerged_street_v001/selfcheck_report.json"
+  ],
+  "classification": {
+    "category": "decoration",
+    "subcategory": "underwater_buildings"
+  }
+}

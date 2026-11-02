@@ -1,0 +1,55 @@
+{
+  "asset_id": "SEA-SCENE-SUBMERGED-STREET-ASSEMBLY",
+  "name": "阳光房水下街景-十栋独立装配",
+  "domain": "scenes",
+  "suite": "submerged_street",
+  "scope": "scene_local",
+  "building_class": "underwater",
+  "stage": "source_verified_runtime_integration_pending",
+  "source": "art_source/scenes/submerged_street/v001/submerged_street.blend",
+  "source_sha256": "f14dc7b5c0e6f9039a5d2e8c229e639abb3b8433d5e19934eb9f167f21830afe",
+  "manifest": "art_source/scenes/submerged_street/v001/asset_manifest.json",
+  "version": "v001",
+  "category": "underwater_scenery_assembly",
+  "classification": {
+    "category": "decoration",
+    "subcategory": "underwater_buildings"
+  },
+  "license": "user_text_brief; mcdonalds trademark and reference rights pending review",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "verification": [
+    "sea-work/submerged_street_v001/selfcheck_report.json"
+  ],
+  "status": "reference_only",
+  "placement_owner": "unassigned: main.tscn World/UnderwaterScenery is the intended owner",
+  "collision": false,
+  "interactive": false,
+  "note": "Grouping record for the ten buildings. component_instances.json is a traceable reference layout only; no formal TSCN instantiates it yet.",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SUBMERGED-STREET-ASSEMBLY",
+  "dependencies": [
+    "SEA-SCENE-SUBMERGED-STREET-VIADUCT",
+    "SEA-SCENE-SUBMERGED-STREET-L-APARTMENT",
+    "SEA-SCENE-SUBMERGED-STREET-FOOD-TRUCK",
+    "SEA-SCENE-SUBMERGED-STREET-QUICK-SERVE",
+    "SEA-SCENE-SUBMERGED-STREET-HIGHRISE",
+    "SEA-SCENE-SUBMERGED-STREET-TRAFFIC-LIGHT",
+    "SEA-SCENE-SUBMERGED-STREET-UTILITY-POLES",
+    "SEA-SCENE-SUBMERGED-STREET-HIGHWAY-SIGN",
+    "SEA-SCENE-SUBMERGED-STREET-CONSTRUCTION",
+    "SEA-SCENE-SUBMERGED-STREET-WALKUP"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "palette_sha256": "269a182f8d62c2b88f4ef0a0ab9e4e6ff0dcb6b0be7a0f0b4bb68a440b6bb283",
+  "component_plan": "art_source/scenes/submerged_street/v001/component_plan.json",
+  "component_instances": "art_source/scenes/submerged_street/v001/component_instances.json",
+  "export_manifest": "art_source/scenes/submerged_street/v001/export_manifest.json",
+  "design_brief": "art_source/scenes/submerged_street/v001/design_brief.md",
+  "selfcheck": [
+    "sea-work/submerged_street_v001/selfcheck_report.json"
+  ],
+  "style_reference_source": "art_source/scenes/bloom_lower_building/v002/bloom_lower_building.blend",
+  "style_reference_sha256": "d4883f5b91e973a59f5a0275ff0d587c176c3c74124dcfea4024ab800f4929ff"
+}

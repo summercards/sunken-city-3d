@@ -153,6 +153,13 @@
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
     },
     {
+      "path": "godot/assets/data/avatar_catalog.json",
+      "bytes": 12795,
+      "sha256": "93e0576935808ad34c973d9689427604f8dd2fdf1109e5696ed51ec36a751b5a",
+      "asset_id": "SEA-CHAR-AVATAR-001",
+      "status": "runtime_component_verified"
+    },
+    {
       "path": "godot/assets/data/build_sites.json",
       "bytes": 755,
       "sha256": "04c841251402e249fce0ee02deb78a8a6bbd40fc2ce7b378137ff124c0a71dfb",
@@ -160,6 +167,13 @@
       "status": "legacy_runtime_path_recorded_asset_registration_pending",
       "previous_sha256": "03da3ebbfb1eec9846e651c30b7f6f427cec4886df689c496658058d4c69de03",
       "note": "v004模型/行走/泊位已审阅变更"
+    },
+    {
+      "path": "godot/assets/data/building_kit.json",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 14411,
+      "sha256": "0ac23b47607e1cb8bef6074a700196c9a0085ecda6124ce533a01f86d17b6aad"
     },
     {
       "path": "godot/assets/data/crops.json",
@@ -266,6 +280,70 @@
       "sha256": "faa6c9df652116dde789d351359f3d7e5d2285a2b2a1f04a2d7244df706d5ea9",
       "asset_id": null,
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/materials/building_kit/emission.tres",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 371,
+      "sha256": "cc19f3d6e9f1a58f7303b6b308d49a742b3b6b62b54706d5c7ef6cee31195dd5"
+    },
+    {
+      "path": "godot/assets/materials/building_kit/gloss.tres",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 245,
+      "sha256": "eb2c523fa152094076736bf21fe62b9ba6fc3649e78a4b4ee13697e096ba7be1"
+    },
+    {
+      "path": "godot/assets/materials/building_kit/matte.tres",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 244,
+      "sha256": "5e848d26ed5b2d626c2999de8adeab2ce0fbf6af7ab5eaece581554c8c580eb2"
+    },
+    {
+      "path": "godot/assets/materials/building_kit/metal.tres",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 261,
+      "sha256": "04056d0e5c4f3ee4634d17f34bd15fa9f34dc7750be09fb49f93238be12fd605"
+    },
+    {
+      "path": "godot/assets/materials/fishery/matte.tres",
+      "bytes": 298,
+      "sha256": "a41161dcad89696215b33cfdb179255ae29c4fce0720ed7937295f648ab11c56",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/materials/floating_shop/emission.tres",
+      "bytes": 470,
+      "sha256": "e33b107a0f9d62a1933d4c4cdf60ee4b1a6a545d9aa8a7d0a513022944061df5",
+      "status": "runtime_path_recorded_asset_registration_pending",
+      "note": "浮店专用暖木色板材质覆盖（v003）；店内吊灯/串灯用此槽"
+    },
+    {
+      "path": "godot/assets/materials/floating_shop/gloss.tres",
+      "bytes": 427,
+      "sha256": "a0a36282592a6ac979475a6c2b66265d8baeed89fd518319ce9e79265b4b63c2",
+      "status": "runtime_path_recorded_asset_registration_pending",
+      "note": "v003零售细修：Gloss由不透明釉面改回透明玻璃（transparency=1, alpha=0.13, roughness=0.05）"
+    },
+    {
+      "path": "godot/assets/materials/floating_shop/matte.tres",
+      "bytes": 338,
+      "sha256": "8f29705f83e2ec007cdc11077371baae1a48e7981a11ac8a1498280923268d53",
+      "status": "runtime_path_recorded_asset_registration_pending",
+      "note": "浮店专用暖木色板材质覆盖（v003）"
+    },
+    {
+      "path": "godot/assets/materials/floating_shop/metal.tres",
+      "bytes": 355,
+      "sha256": "dc3058b724a6434cbd97c370feb6202562968071f3a9974e7f4d5f1e85b28438",
+      "status": "runtime_path_recorded_asset_registration_pending",
+      "note": "浮店专用暖木色板材质覆盖（v003）；货箱盖改走本槽"
     },
     {
       "path": "godot/assets/materials/models/baked_t0_1000.tres",
@@ -511,6 +589,160 @@
       "sha256": "263ff62b3a0e56cf79d6ae1ae3e05c30aa4cb519f17001e168a2c738211fdc57",
       "asset_id": "SEA-SCENE-SKIFF-ROPE-COIL",
       "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/building_kit/beam/beam.glb",
+      "asset_id": "SEA-KIT-BEAM",
+      "status": "runtime_component_verified",
+      "bytes": 16700,
+      "sha256": "44cb4fb1e0224b76dc2258738c431ec57bffb7d206bc4e76b004115970a724b7"
+    },
+    {
+      "path": "godot/assets/models/building_kit/door_frame/door_frame.glb",
+      "asset_id": "SEA-KIT-DOOR-FRAME",
+      "status": "runtime_component_verified",
+      "bytes": 24284,
+      "sha256": "578561efb769089c6f3314cd1fac52b0e8171df7687b9b65be37ee63427f76b0"
+    },
+    {
+      "path": "godot/assets/models/building_kit/flag/flag.glb",
+      "asset_id": "SEA-KIT-FLAG",
+      "status": "runtime_component_verified",
+      "bytes": 28332,
+      "sha256": "b23302473ff00f15caa6245e7220ba4ea250db26dbbb1d955aadd3d8b45ae6f7"
+    },
+    {
+      "path": "godot/assets/models/building_kit/flower_pot/flower_pot.glb",
+      "asset_id": "SEA-KIT-FLOWER-POT",
+      "status": "runtime_component_verified",
+      "bytes": 227508,
+      "sha256": "af96bf72cae0169bc1f14249802bbcd09122e8dab14339007ba3fad2e3009ea2"
+    },
+    {
+      "path": "godot/assets/models/building_kit/lamp_post/lamp_post.glb",
+      "asset_id": "SEA-KIT-LAMP-POST",
+      "status": "runtime_component_verified",
+      "bytes": 130064,
+      "sha256": "6362c113951f87b7733a8f5425dce95afc8fd8118e6710c0ab8f1e0b4f4200d3"
+    },
+    {
+      "path": "godot/assets/models/building_kit/oil_lamp/oil_lamp.glb",
+      "asset_id": "SEA-KIT-OIL-LAMP",
+      "status": "runtime_component_verified",
+      "bytes": 102248,
+      "sha256": "f6185ee3cc0dbd93e0d9cb606d0a9e053f850809f2e69b8158f4d6919e08a3b6"
+    },
+    {
+      "path": "godot/assets/models/building_kit/post/post.glb",
+      "asset_id": "SEA-KIT-POST",
+      "status": "runtime_component_verified",
+      "bytes": 9156,
+      "sha256": "a88dd83390a8364461dc9fe1bf77af65fae4ecc593aee5cdcb2f25e250cd9a3d"
+    },
+    {
+      "path": "godot/assets/models/building_kit/raft_2x4/raft_2x4.glb",
+      "asset_id": "SEA-KIT-RAFT-2X4",
+      "status": "runtime_component_verified",
+      "bytes": 76892,
+      "sha256": "fd7d4c8f17b3439d037815f5027430f931ed3504fd8e3b3eacf75433864868dd"
+    },
+    {
+      "path": "godot/assets/models/building_kit/raft_4x4/raft_4x4.glb",
+      "asset_id": "SEA-KIT-RAFT-4X4",
+      "status": "runtime_component_verified",
+      "bytes": 138564,
+      "sha256": "fd24541146987b0a44e609dc7d00797d60e6f6101dd4b231cc10ed3452a062ed"
+    },
+    {
+      "path": "godot/assets/models/building_kit/railing/railing.glb",
+      "asset_id": "SEA-KIT-RAILING",
+      "status": "runtime_component_verified",
+      "bytes": 56148,
+      "sha256": "0068d3f3c16b9b8819d7fe69e80b2e002f7693586339856b743e22c3a8704560"
+    },
+    {
+      "path": "godot/assets/models/building_kit/roof_flat/roof_flat.glb",
+      "asset_id": "SEA-KIT-ROOF-FLAT",
+      "status": "runtime_component_verified",
+      "bytes": 137352,
+      "sha256": "80c43d688ebd1c690d193a239523518068521b05586b87fe77fd4d95b89a7480"
+    },
+    {
+      "path": "godot/assets/models/building_kit/roof_slope/roof_slope.glb",
+      "asset_id": "SEA-KIT-ROOF-SLOPE",
+      "status": "runtime_component_verified",
+      "bytes": 109828,
+      "sha256": "c12ddb13c38a8ebf1c1eb851fd74bda49b2920b05fa905d35c82a31507196362"
+    },
+    {
+      "path": "godot/assets/models/building_kit/stairs/stairs.glb",
+      "asset_id": "SEA-KIT-STAIRS",
+      "status": "runtime_component_verified",
+      "bytes": 145076,
+      "sha256": "d100da2be16c4656e46c68651ae0696337460a3d0e596c65abffde373493c030"
+    },
+    {
+      "path": "godot/assets/models/building_kit/stool/stool.glb",
+      "asset_id": "SEA-KIT-STOOL",
+      "status": "runtime_component_verified",
+      "bytes": 58768,
+      "sha256": "d15d886335c161bf541bb70cbdf2adf33774ab9e5b1ff813593de9403ff53f2f"
+    },
+    {
+      "path": "godot/assets/models/building_kit/storage_crate/storage_crate.glb",
+      "asset_id": "SEA-KIT-STORAGE-CRATE",
+      "status": "runtime_component_verified",
+      "bytes": 54564,
+      "sha256": "44471f6bfb804a64c4b1b1fdf43d91d737840fdcc19f3d5aa41bf356fa08e9af"
+    },
+    {
+      "path": "godot/assets/models/building_kit/table/table.glb",
+      "asset_id": "SEA-KIT-TABLE",
+      "status": "runtime_component_verified",
+      "bytes": 39432,
+      "sha256": "692960b61a4b7fbbdc018936aa8362f07bc2a0692721f1947e12f91ec1b7b731"
+    },
+    {
+      "path": "godot/assets/models/building_kit/upper_floor/upper_floor.glb",
+      "asset_id": "SEA-KIT-UPPER-FLOOR",
+      "status": "runtime_component_verified",
+      "bytes": 61904,
+      "sha256": "4a97ec3d5100283a506d53c5976c280ecaae831d9cb23d5b16d4e6187e63bd14"
+    },
+    {
+      "path": "godot/assets/models/building_kit/wall/wall.glb",
+      "asset_id": "SEA-KIT-WALL",
+      "status": "runtime_component_verified",
+      "bytes": 54480,
+      "sha256": "454ee3f9458a33ed3a7e8713fd15e885bda7ee9a3bc29bd364635c5a6fc38180"
+    },
+    {
+      "path": "godot/assets/models/building_kit/water_barrel/water_barrel.glb",
+      "asset_id": "SEA-KIT-WATER-BARREL",
+      "status": "runtime_component_verified",
+      "bytes": 59660,
+      "sha256": "4b15480337b1abc08544be9c706d0f577861e6a9b7a008e9978224fc6d2781ff"
+    },
+    {
+      "path": "godot/assets/models/building_kit/wind_chime/wind_chime.glb",
+      "asset_id": "SEA-KIT-WIND-CHIME",
+      "status": "runtime_component_verified",
+      "bytes": 113656,
+      "sha256": "2f121575e48dafd0e3ff2be3da92b33ce4b8092d45b662618e456ea3ef1afb34"
+    },
+    {
+      "path": "godot/assets/models/building_kit/windmill/windmill.glb",
+      "asset_id": "SEA-KIT-WINDMILL",
+      "status": "runtime_component_verified",
+      "bytes": 59564,
+      "sha256": "e06616f1d2271fa1d3648fc82489ed8beaac37f96a0aff1e03eb21f47e9ed5df"
+    },
+    {
+      "path": "godot/assets/models/building_kit/window_wall/window_wall.glb",
+      "asset_id": "SEA-KIT-WINDOW-WALL",
+      "status": "runtime_component_verified",
+      "bytes": 47016,
+      "sha256": "df6603856b241329b29e8e18039bdeeb615838acbb4bc4afedd054ac4c6f017c"
     },
     {
       "path": "godot/assets/models/crops/lettuce/stage_0_seed.glb",
@@ -770,6 +1002,14 @@
       "sha256": "44cd8ae905d0d18ca588af405848a0cc0f7ba2af105bc7a1d69c43762b478379",
       "asset_id": "SEA-SCENE-BLB-ASSEMBLY",
       "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
+      "bytes": 39142852,
+      "sha256": "404c7790f765c451ec03acd94310a605f79158bba6650d083e5a489f92ece747",
+      "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "v003零售细修+立体字x1.5：44组件/296实例烘成4个材质角色合一（520185三角面、39142852字节）；逐字挤深0.12米、三色、COLD DRINKS 右倾3.2°；无内嵌贴图"
     },
     {
       "path": "godot/assets/models/facilities/legacy_home/base_solar_cabin_core.glb",
@@ -1335,6 +1575,187 @@
       "note": "Reviewed v008 timber/daypart change"
     },
     {
+      "path": "godot/assets/models/fishery/bait_table/bait_table.glb",
+      "bytes": 113336,
+      "sha256": "27f509ea96dd1c3aed610adfe848bfec213617e223c750456b2453ceacbde959",
+      "asset_id": "SEA-FISHERY-BAIT-TABLE",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/bait_table/bait_table.glb.import",
+      "bytes": 1217,
+      "sha256": "6c3c221211c3ece61e4f9fe18df16b5829c428d5df6fa8adcc50549e497a2d12",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/buoy/buoy.glb",
+      "bytes": 67632,
+      "sha256": "71e8fbef90ffdf14e2c2222bdb8dbba53cd943b38577957bd902169934aec96f",
+      "asset_id": "SEA-FISHERY-BUOY",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/buoy/buoy.glb.import",
+      "bytes": 1193,
+      "sha256": "8fdbf50e9640329da5ae471909cc47e9d7cc64be9c49de1d19df72744251cb28",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/creel/creel.glb",
+      "bytes": 143220,
+      "sha256": "812c1f2a1e6d7d8818141fb3c5b85b2a2d2f4ca2cad0d34d74f99f3104b29f81",
+      "asset_id": "SEA-FISHERY-CREEL",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/creel/creel.glb.import",
+      "bytes": 1197,
+      "sha256": "97083c7a54fd5b3a1f02db31bc7d8422c3bf726ad04f952f398b5ebe0496225f",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/drying_rack/drying_rack.glb",
+      "bytes": 152752,
+      "sha256": "01505b0191462cff88d3387c6a2d969f070a3d248a845d2ed8fc0fef9c37bed7",
+      "asset_id": "SEA-FISHERY-DRYING-RACK",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/drying_rack/drying_rack.glb.import",
+      "bytes": 1221,
+      "sha256": "4f5de8b29375b48625fcca58800d8ab044c365b2ac673255a4f6d0a8f84667e9",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/fish/fish.glb",
+      "bytes": 108436,
+      "sha256": "9eca0b180182a129216c8f4777b7422c327768d018a997ab51b0b7d8b7772b17",
+      "asset_id": "SEA-FISHERY-FISH",
+      "status": "retired_from_fishery_assembly",
+      "note": "源和独立包保留，正式设施已改用SEA-DECO-ANIMAL-FISH-SCHOOL。"
+    },
+    {
+      "path": "godot/assets/models/fishery/fish/fish.glb.import",
+      "bytes": 1193,
+      "sha256": "d31484f4a533b3ed713ab65004e51791008f993d0fda944ad3b5a1edf996c8f3",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/marker_buoy/marker_buoy.glb",
+      "bytes": 90600,
+      "sha256": "c1d70c475849eb2d352027eef02121abe388a1292fb553a1f07d4d9f3dc626da",
+      "asset_id": "SEA-FISHERY-MARKER-BUOY",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/marker_buoy/marker_buoy.glb.import",
+      "bytes": 1221,
+      "sha256": "121da1c08642cfaac49901070875ea3b87077e67417f4593f3e1cd921989a9cd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/net_corner/net_corner.glb",
+      "bytes": 42220,
+      "sha256": "9701a3b9b25c77b67197216c3bac58dab7f54f7e795bef855b545edda6222c61",
+      "asset_id": "SEA-FISHERY-NET-CORNER",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/net_corner/net_corner.glb.import",
+      "bytes": 1216,
+      "sha256": "6ff990151daf795f209ff8a335c5ee1a157c40fe38405a6a7cdc8bd405ffa03b",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/net_panel/net_panel.glb",
+      "bytes": 43420,
+      "sha256": "c8b00d525588c9a8e7da7feb135e7972ad3024e35f4ebb9c9fcd6a89f768a24d",
+      "asset_id": "SEA-FISHERY-NET-PANEL",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/net_panel/net_panel.glb.import",
+      "bytes": 1213,
+      "sha256": "5d851fa686f10b6bc8333b905e2f36a26a34cd796d747be9ac4d9af0277379c5",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/pebbles/pebbles.glb",
+      "bytes": 48612,
+      "sha256": "2fe0fd0277b3b990e85a156227ed8bd6dd853a267a8af113eef102b062173e17",
+      "asset_id": "SEA-FISHERY-PEBBLES",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/pebbles/pebbles.glb.import",
+      "bytes": 1204,
+      "sha256": "e8857552032185d2d4dd8c617d75de9d5b45829472202010fa9f0d92a368c8aa",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/reeds/reeds.glb",
+      "bytes": 57744,
+      "sha256": "66379eb9dd7a7f516cdbdd576183e59c4bcd1e4d911bc8cd6b67e333e27f245d",
+      "asset_id": "SEA-FISHERY-REEDS",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/reeds/reeds.glb.import",
+      "bytes": 1196,
+      "sha256": "b5c1f99e5cdc6b6b32e51218ea26182116996ddd68a8cb1b95a0293e85b93b6c",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/shore/shore.glb",
+      "bytes": 56532,
+      "sha256": "9e96e840ce7488178c21ffaab44ecaeded9aa85a11535b14d28d329d0c7081ff",
+      "asset_id": "SEA-FISHERY-SHORE",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/shore/shore.glb.import",
+      "bytes": 1197,
+      "sha256": "55d299437064081c881e8cd1e42bf29cc4cc1f83cf0ba19729b6e9408dac8dbe",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
+      "path": "godot/assets/models/fishery/turf/turf.glb",
+      "bytes": 59424,
+      "sha256": "ceabd61fa0a7d7dd44f44bcf63f7597f128dbd1fb5773282742117c3894fe069",
+      "asset_id": "SEA-FISHERY-TURF",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/fishery/turf/turf.glb.import",
+      "bytes": 1192,
+      "sha256": "711063923574e177514caddd299c566bc1d3b676a0a18d5ffdfd58125ecfb0c1",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
       "path": "godot/assets/models/scenery/submerged_neighborhood/flat_annex/flat_annex.glb",
       "bytes": 35052,
       "sha256": "3a3e0f7b6ed62d445dbe3fc506c52abd6724527d311407a5e912e892b5216745",
@@ -1375,6 +1796,76 @@
       "sha256": "76c857a2ade93249d90f81c10d2ef44a2db66dd78c922e0123da90887360e6b3",
       "asset_id": "SEA-SCENE-SUBMERGED-TERRACED-TOWER",
       "status": "source_runtime_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/broken_viaduct/broken_viaduct.glb",
+      "bytes": 113220,
+      "sha256": "ad4d7e8371e232249fbd6881cce9b5cbbe1ea52cbfff2ad987775425595c4ab7",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-VIADUCT",
+      "status": "source_verified_runtime_integration_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/construction_shell/construction_shell.glb",
+      "bytes": 138680,
+      "sha256": "8db278fe4306accafc4d0991da7f2cebc378d1c4dc460b2561904ff7751e60bc",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-CONSTRUCTION",
+      "status": "source_verified_runtime_integration_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/food_truck/food_truck.glb",
+      "bytes": 67356,
+      "sha256": "306e4f5b625a551198b82c67df77886d524725c3986eff147466748be983c9b0",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-FOOD-TRUCK",
+      "status": "source_verified_runtime_integration_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/highrise_apartment/highrise_apartment.glb",
+      "bytes": 90408,
+      "sha256": "abf7783e5acd57b1d0657a01f4c10836cf85f6c4c4fece53142ad3dce4a5bf9d",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-HIGHRISE",
+      "status": "source_verified_runtime_integration_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/highway_sign/highway_sign.glb",
+      "bytes": 45984,
+      "sha256": "6e723e59c39b2c8a1c19600b1449ac1d1710362005e0b2f8dabc7b9b1ab09bca",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-HIGHWAY-SIGN",
+      "status": "source_verified_runtime_integration_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/l_apartment_fire_escape/l_apartment_fire_escape.glb",
+      "bytes": 121408,
+      "sha256": "6e8113a6e4311cf96107a780858055f7a706fa5c9a8e138f49a4750eed13e1ae",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-L-APARTMENT",
+      "status": "source_verified_runtime_integration_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/mcdonalds_restaurant/mcdonalds_restaurant.glb",
+      "bytes": 78064,
+      "sha256": "42f672fdedfb7492f2b3e6a96ca15228fbc95c14330d4b4f182014df4d021c92",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-QUICK-SERVE",
+      "status": "source_verified_runtime_integration_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/traffic_light/traffic_light.glb",
+      "bytes": 45192,
+      "sha256": "6ee0cce7004f363c0d646ba40d6de1ea6d5b42b69869b8b3023660ff64da34ec",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-TRAFFIC-LIGHT",
+      "status": "source_verified_runtime_integration_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/utility_poles/utility_poles.glb",
+      "bytes": 54648,
+      "sha256": "310d45cbeb99bc41e145e0761af197779736941c83a91602d460a3f2775dd071",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-UTILITY-POLES",
+      "status": "source_verified_runtime_integration_pending"
+    },
+    {
+      "path": "godot/assets/models/scenery/submerged_street/walkup_apartment/walkup_apartment.glb",
+      "bytes": 97656,
+      "sha256": "2d0f0b47d6c8b1d488036299cb0aa319efd99c340570256c8bdb1eb455e51961",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-WALKUP",
+      "status": "source_verified_runtime_integration_pending"
     },
     {
       "path": "godot/assets/models/underwater/basin/basin.glb",
@@ -2485,6 +2976,14 @@
       "note": "Reviewed v008 timber/daypart change"
     },
     {
+      "path": "godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import",
+      "bytes": 997,
+      "sha256": "2b69d8ca49a5fd0536d2f8e28ab07a97a8dfa7f97d340df165435689dd770809",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+    },
+    {
       "path": "godot/assets/textures/shared/sea_cozy_8x8_512.png",
       "bytes": 5695,
       "sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
@@ -2786,195 +3285,11 @@
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
     },
     {
-      "path": "godot/scenes/buildables/wood_deck.tscn",
-      "bytes": 243,
-      "sha256": "49216f96c9c28ac7816ac74080504854fc92ea79f3dc45b2399afbf02c91f5a8",
-      "asset_id": "SEA-BUILDING-WOOD-DECK",
-      "status": "runtime_component_verified"
-    },
-    {
-      "path": "godot/scenes/decorations/underwater/buildings/flat_annex.tscn",
-      "bytes": 1030,
-      "sha256": "8a708a40eea7eac13d6a3dc588a318a491f7bdf088ef1897ae870e26e992de67",
-      "asset_id": "SEA-SCENE-SUBMERGED-FLAT-ANNEX",
-      "status": "source_runtime_verified_provenance_pending",
-      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
-    },
-    {
-      "path": "godot/scenes/decorations/underwater/buildings/rear_slab.tscn",
-      "bytes": 1026,
-      "sha256": "3903632144feb3c9731d8e1196df1638034321fc3ee249d9f7790ad0f50ce3b7",
-      "asset_id": "SEA-SCENE-SUBMERGED-REAR-SLAB",
-      "status": "source_runtime_verified_provenance_pending",
-      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
-    },
-    {
-      "path": "godot/scenes/decorations/underwater/buildings/rounded_tower.tscn",
-      "bytes": 1045,
-      "sha256": "0cb58805221ce4dbc523b00ed33fd9bad3fda13b4d9e8631d0247bd22ecf4119",
-      "asset_id": "SEA-SCENE-SUBMERGED-ROUNDED-TOWER",
-      "status": "source_runtime_verified_provenance_pending",
-      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
-    },
-    {
-      "path": "godot/scenes/decorations/underwater/buildings/slender_tower.tscn",
-      "bytes": 1045,
-      "sha256": "9f22009db5f920eb4d82093e07698e222ddad3723b88fee60baf1eca10da54cb",
-      "asset_id": "SEA-SCENE-SUBMERGED-SLENDER-TOWER",
-      "status": "source_runtime_verified_provenance_pending",
-      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
-    },
-    {
-      "path": "godot/scenes/decorations/underwater/buildings/stepped_lowrise.tscn",
-      "bytes": 1048,
-      "sha256": "53d4d01fb4df98a6fa90e66b52c615ba0c4bf4f80c8e0741aa643de107300407",
-      "asset_id": "SEA-SCENE-SUBMERGED-STEPPED-LOWRISE",
-      "status": "source_runtime_verified_provenance_pending",
-      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
-    },
-    {
-      "path": "godot/scenes/decorations/underwater/buildings/terraced_tower.tscn",
-      "bytes": 1049,
-      "sha256": "e6f5da52444892602dd9fc379f23a05a330701f08c70370e85b3038cd4de2781",
-      "asset_id": "SEA-SCENE-SUBMERGED-TERRACED-TOWER",
-      "status": "source_runtime_verified_provenance_pending",
-      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
-    },
-    {
-      "path": "godot/scenes/decorations/underwater/neighborhood.tscn",
-      "bytes": 2086,
-      "sha256": "52bfb69ca2ead82f381797e216fcbd69c4f368c76a0b5ba298edd9dd45f9abb2",
-      "asset_id": "SEA-SCENE-SUBMERGED-ASSEMBLY",
-      "status": "reference_only_not_instanced",
-      "note": "六栋的正式摆放由 godot/scenes/main.tscn 的 World/UnderwaterScenery 拥有"
-    },
-    {
-      "path": "godot/scenes/props/reference_skiff.tscn",
-      "bytes": 14784,
-      "sha256": "9db25b317c8e9905d94ddab2d997149423f852a660e2209a191cbe7940802b2e",
-      "asset_id": "SEA-SCENE-SKIFF-ASSEMBLY",
-      "status": "source_runtime_verified_provenance_pending"
-    },
-    {
-      "path": "godot/src/building/deck_visual.gd",
-      "bytes": 1074,
-      "sha256": "bedb33953f15271bb02d6a41333185fca54aadef4fbbc69f81092fc32d5a03d2",
-      "asset_id": "SEA-BUILDING-WOOD-DECK",
-      "status": "runtime_component_verified"
-    },
-    {
-      "path": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
-      "bytes": 14884594,
-      "sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",
-      "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
-      "status": "runtime_integrated_verified"
-    },
-    {
-      "path": "godot/scenes/facilities/salvage_station.tscn",
-      "bytes": 742,
-      "sha256": "67480411ccda8257ead6315188fa3b5c92f983766eaef0fa38bfe1428c935074",
-      "asset_id": "SEA-REF-FACILITY-SALVAGE-STATION",
-      "status": "runtime_integrated_verified"
-    },
-    {
-      "path": "godot/shaders/runtime_water_contacts.gdshaderinc",
-      "bytes": 591,
-      "sha256": "2294f62ca4e8aef2dd2b98c81921fb3bab1e62b7915bf36ce2389a7619836b4d",
-      "asset_id": null,
-      "status": "runtime_resource_verified"
-    },
-    {
-      "path": "godot/shaders/ocean_foam.gdshaderinc",
-      "bytes": 5063,
-      "sha256": "edc0b43a91ffb98e605c8aa4e9886d90d393c3e6683b3beb23e7de09f10a69f0",
-      "asset_id": null,
-      "status": "runtime_resource_verified"
-    },
-    {
-      "path": "godot/shaders/water_absorption.gdshader",
-      "bytes": 18348,
-      "sha256": "40bdba6b66c25134922dd84e22cea83d81d419a641f05d0fdf7db3f6809e5228",
-      "asset_id": null,
-      "status": "runtime_resource_verified"
-    },
-    {
-      "path": "godot/src/rendering/water_surface.gd",
-      "bytes": 8482,
-      "sha256": "e557d447d353144370b84e15b5fceb945005130de772ba2349c910013290f017",
-      "asset_id": null,
-      "status": "runtime_resource_verified"
-    },
-    {
-      "path": "godot/src/player/animation/item_receive.gd",
-      "bytes": 5715,
-      "sha256": "871240aa6ea737e7d4e59ee88a001ab868233b9c8a63c11c8d7c2d7c31f1d2ab",
-      "asset_id": "SEA-CHAR-RECEIVE-001",
-      "status": "runtime_component_verified",
-      "previous_sha256": "5135c97a86141e34cb45c9ea51f3e9ee7074856410efa4a2468a36ca4ad52281",
-      "note": "v003 骨骼连续四肢适配：姿势控制仅改节点/骨骼长度，不再写分段网格；举物绕开头部，2.4秒/奖励边界及双腕支持实测。"
-    },
-    {
-      "path": "godot/assets/models/building_kit/raft_4x4/raft_4x4.glb",
-      "asset_id": "SEA-KIT-RAFT-4X4",
-      "status": "runtime_component_verified",
-      "bytes": 138564,
-      "sha256": "fd24541146987b0a44e609dc7d00797d60e6f6101dd4b231cc10ed3452a062ed"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/raft_4x4.tscn",
-      "asset_id": "SEA-KIT-RAFT-4X4",
-      "status": "runtime_component_verified",
-      "bytes": 435,
-      "sha256": "9afee01b2cb57dcde9a36e272bbb9e06934d1ab7455638473c1937af3b9c564f"
-    },
-    {
-      "path": "godot/assets/models/building_kit/raft_2x4/raft_2x4.glb",
-      "asset_id": "SEA-KIT-RAFT-2X4",
-      "status": "runtime_component_verified",
-      "bytes": 76892,
-      "sha256": "fd7d4c8f17b3439d037815f5027430f931ed3504fd8e3b3eacf75433864868dd"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/raft_2x4.tscn",
-      "asset_id": "SEA-KIT-RAFT-2X4",
-      "status": "runtime_component_verified",
-      "bytes": 435,
-      "sha256": "9e50bcbe3b717e7c340d31527896cfb32841adb37f6aa191c947dabbef03a872"
-    },
-    {
-      "path": "godot/assets/models/building_kit/wall/wall.glb",
-      "asset_id": "SEA-KIT-WALL",
-      "status": "runtime_component_verified",
-      "bytes": 54480,
-      "sha256": "454ee3f9458a33ed3a7e8713fd15e885bda7ee9a3bc29bd364635c5a6fc38180"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/wall.tscn",
-      "asset_id": "SEA-KIT-WALL",
+      "path": "godot/scenes/buildables/kit/beam.tscn",
+      "asset_id": "SEA-KIT-BEAM",
       "status": "runtime_component_verified",
       "bytes": 419,
-      "sha256": "d8dd82b205f347119eb1c3cd5650b314a66621aa6a70ea32b5fd2f253db4d271"
-    },
-    {
-      "path": "godot/assets/models/building_kit/window_wall/window_wall.glb",
-      "asset_id": "SEA-KIT-WINDOW-WALL",
-      "status": "runtime_component_verified",
-      "bytes": 47016,
-      "sha256": "df6603856b241329b29e8e18039bdeeb615838acbb4bc4afedd054ac4c6f017c"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/window_wall.tscn",
-      "asset_id": "SEA-KIT-WINDOW-WALL",
-      "status": "runtime_component_verified",
-      "bytes": 447,
-      "sha256": "891bc4b3c8f64c55ea12917aac0d0d0b0e218a2a5d7f4742264f64f5bf46f219"
-    },
-    {
-      "path": "godot/assets/models/building_kit/door_frame/door_frame.glb",
-      "asset_id": "SEA-KIT-DOOR-FRAME",
-      "status": "runtime_component_verified",
-      "bytes": 24284,
-      "sha256": "578561efb769089c6f3314cd1fac52b0e8171df7687b9b65be37ee63427f76b0"
+      "sha256": "444b72685898aab34a2f9502d39ef18f1e5d233311348e93fda55fb305749634"
     },
     {
       "path": "godot/scenes/buildables/kit/door_frame.tscn",
@@ -2984,151 +3299,11 @@
       "sha256": "34cac88c2e5bc285639733bfdac57e29db50972516df38bdcec61c71d0d33b1d"
     },
     {
-      "path": "godot/assets/models/building_kit/post/post.glb",
-      "asset_id": "SEA-KIT-POST",
+      "path": "godot/scenes/buildables/kit/flag.tscn",
+      "asset_id": "SEA-KIT-FLAG",
       "status": "runtime_component_verified",
-      "bytes": 9156,
-      "sha256": "a88dd83390a8364461dc9fe1bf77af65fae4ecc593aee5cdcb2f25e250cd9a3d"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/post.tscn",
-      "asset_id": "SEA-KIT-POST",
-      "status": "runtime_component_verified",
-      "bytes": 419,
-      "sha256": "c87341080f32d4ab2e011b7fda8b4f1f66dd46178e4a1348f00b33d2bc276375"
-    },
-    {
-      "path": "godot/assets/models/building_kit/beam/beam.glb",
-      "asset_id": "SEA-KIT-BEAM",
-      "status": "runtime_component_verified",
-      "bytes": 16700,
-      "sha256": "44cb4fb1e0224b76dc2258738c431ec57bffb7d206bc4e76b004115970a724b7"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/beam.tscn",
-      "asset_id": "SEA-KIT-BEAM",
-      "status": "runtime_component_verified",
-      "bytes": 419,
-      "sha256": "444b72685898aab34a2f9502d39ef18f1e5d233311348e93fda55fb305749634"
-    },
-    {
-      "path": "godot/assets/models/building_kit/railing/railing.glb",
-      "asset_id": "SEA-KIT-RAILING",
-      "status": "runtime_component_verified",
-      "bytes": 56148,
-      "sha256": "0068d3f3c16b9b8819d7fe69e80b2e002f7693586339856b743e22c3a8704560"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/railing.tscn",
-      "asset_id": "SEA-KIT-RAILING",
-      "status": "runtime_component_verified",
-      "bytes": 431,
-      "sha256": "93e60f84d361c0dda382b7472d905c58003a855ee11a8a43879aae8871a76ab5"
-    },
-    {
-      "path": "godot/assets/models/building_kit/stairs/stairs.glb",
-      "asset_id": "SEA-KIT-STAIRS",
-      "status": "runtime_component_verified",
-      "bytes": 145076,
-      "sha256": "d100da2be16c4656e46c68651ae0696337460a3d0e596c65abffde373493c030"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/stairs.tscn",
-      "asset_id": "SEA-KIT-STAIRS",
-      "status": "runtime_component_verified",
-      "bytes": 427,
-      "sha256": "5fffdc37c182354c52b612795db637663cc0568e692b7ff68760a5fab3122224"
-    },
-    {
-      "path": "godot/assets/models/building_kit/upper_floor/upper_floor.glb",
-      "asset_id": "SEA-KIT-UPPER-FLOOR",
-      "status": "runtime_component_verified",
-      "bytes": 61904,
-      "sha256": "4a97ec3d5100283a506d53c5976c280ecaae831d9cb23d5b16d4e6187e63bd14"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/upper_floor.tscn",
-      "asset_id": "SEA-KIT-UPPER-FLOOR",
-      "status": "runtime_component_verified",
-      "bytes": 447,
-      "sha256": "f58b67b2edde2327677e5451fae28f952bfbc8724b1f96bdd4bb97dc429428d9"
-    },
-    {
-      "path": "godot/assets/models/building_kit/roof_slope/roof_slope.glb",
-      "asset_id": "SEA-KIT-ROOF-SLOPE",
-      "status": "runtime_component_verified",
-      "bytes": 109828,
-      "sha256": "c12ddb13c38a8ebf1c1eb851fd74bda49b2920b05fa905d35c82a31507196362"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/roof_slope.tscn",
-      "asset_id": "SEA-KIT-ROOF-SLOPE",
-      "status": "runtime_component_verified",
-      "bytes": 443,
-      "sha256": "5c15eaa578183caa9b1e15cce27e6aa30941336223f7a80a265d8a78b4de3ee3"
-    },
-    {
-      "path": "godot/assets/models/building_kit/roof_flat/roof_flat.glb",
-      "asset_id": "SEA-KIT-ROOF-FLAT",
-      "status": "runtime_component_verified",
-      "bytes": 137352,
-      "sha256": "80c43d688ebd1c690d193a239523518068521b05586b87fe77fd4d95b89a7480"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/roof_flat.tscn",
-      "asset_id": "SEA-KIT-ROOF-FLAT",
-      "status": "runtime_component_verified",
-      "bytes": 439,
-      "sha256": "3352029876a3ece225e30043c26a5788ff1a40257b1f60c47a17885199b8bd61"
-    },
-    {
-      "path": "godot/assets/models/building_kit/oil_lamp/oil_lamp.glb",
-      "asset_id": "SEA-KIT-OIL-LAMP",
-      "status": "runtime_component_verified",
-      "bytes": 102248,
-      "sha256": "f6185ee3cc0dbd93e0d9cb606d0a9e053f850809f2e69b8158f4d6919e08a3b6"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/oil_lamp.tscn",
-      "asset_id": "SEA-KIT-OIL-LAMP",
-      "status": "runtime_component_verified",
-      "bytes": 430,
-      "sha256": "91609fbaa87f30ef9bc30e1655c32ed3a77d26ec823acdbeedb8a7a200ec93f3"
-    },
-    {
-      "path": "godot/assets/models/building_kit/lamp_post/lamp_post.glb",
-      "asset_id": "SEA-KIT-LAMP-POST",
-      "status": "runtime_component_verified",
-      "bytes": 130064,
-      "sha256": "6362c113951f87b7733a8f5425dce95afc8fd8118e6710c0ab8f1e0b4f4200d3"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/lamp_post.tscn",
-      "asset_id": "SEA-KIT-LAMP-POST",
-      "status": "runtime_component_verified",
-      "bytes": 434,
-      "sha256": "95d8fef68f1dbaa974c70a5377dfa8064ba7f1b42a423f561577519ce30a93ec"
-    },
-    {
-      "path": "godot/assets/models/building_kit/windmill/windmill.glb",
-      "asset_id": "SEA-KIT-WINDMILL",
-      "status": "runtime_component_verified",
-      "bytes": 59564,
-      "sha256": "e06616f1d2271fa1d3648fc82489ed8beaac37f96a0aff1e03eb21f47e9ed5df"
-    },
-    {
-      "path": "godot/scenes/buildables/kit/windmill.tscn",
-      "asset_id": "SEA-KIT-WINDMILL",
-      "status": "runtime_component_verified",
-      "bytes": 430,
-      "sha256": "74ba2172611a51c87dd7037dd5f78c1e607add5facdd79db9ad817cae01d6317"
-    },
-    {
-      "path": "godot/assets/models/building_kit/flower_pot/flower_pot.glb",
-      "asset_id": "SEA-KIT-FLOWER-POT",
-      "status": "runtime_component_verified",
-      "bytes": 227508,
-      "sha256": "af96bf72cae0169bc1f14249802bbcd09122e8dab14339007ba3fad2e3009ea2"
+      "bytes": 414,
+      "sha256": "04b742d650b063dc8892180a7bfb2253c92bd02d13e8a62ed47ccda91dea80e3"
     },
     {
       "path": "godot/scenes/buildables/kit/flower_pot.tscn",
@@ -3138,67 +3313,67 @@
       "sha256": "ca8f9177219dca9a91a51b016f1e25331ec019b63f36b671b2c71072578507f5"
     },
     {
-      "path": "godot/assets/models/building_kit/storage_crate/storage_crate.glb",
-      "asset_id": "SEA-KIT-STORAGE-CRATE",
+      "path": "godot/scenes/buildables/kit/lamp_post.tscn",
+      "asset_id": "SEA-KIT-LAMP-POST",
       "status": "runtime_component_verified",
-      "bytes": 54564,
-      "sha256": "44471f6bfb804a64c4b1b1fdf43d91d737840fdcc19f3d5aa41bf356fa08e9af"
+      "bytes": 434,
+      "sha256": "95d8fef68f1dbaa974c70a5377dfa8064ba7f1b42a423f561577519ce30a93ec"
     },
     {
-      "path": "godot/scenes/buildables/kit/storage_crate.tscn",
-      "asset_id": "SEA-KIT-STORAGE-CRATE",
+      "path": "godot/scenes/buildables/kit/oil_lamp.tscn",
+      "asset_id": "SEA-KIT-OIL-LAMP",
       "status": "runtime_component_verified",
-      "bytes": 450,
-      "sha256": "4b2dc43f08f812d0085d72965cd19f580d63826c965d73e044841e5d312ce132"
+      "bytes": 430,
+      "sha256": "91609fbaa87f30ef9bc30e1655c32ed3a77d26ec823acdbeedb8a7a200ec93f3"
     },
     {
-      "path": "godot/assets/models/building_kit/water_barrel/water_barrel.glb",
-      "asset_id": "SEA-KIT-WATER-BARREL",
+      "path": "godot/scenes/buildables/kit/post.tscn",
+      "asset_id": "SEA-KIT-POST",
       "status": "runtime_component_verified",
-      "bytes": 59660,
-      "sha256": "4b15480337b1abc08544be9c706d0f577861e6a9b7a008e9978224fc6d2781ff"
+      "bytes": 419,
+      "sha256": "c87341080f32d4ab2e011b7fda8b4f1f66dd46178e4a1348f00b33d2bc276375"
     },
     {
-      "path": "godot/scenes/buildables/kit/water_barrel.tscn",
-      "asset_id": "SEA-KIT-WATER-BARREL",
+      "path": "godot/scenes/buildables/kit/raft_2x4.tscn",
+      "asset_id": "SEA-KIT-RAFT-2X4",
       "status": "runtime_component_verified",
-      "bytes": 446,
-      "sha256": "6311f4a14d213ca3f4acead6a8db9867e2106946f445e48aa3a7a9f0d4b07ac3"
+      "bytes": 435,
+      "sha256": "9e50bcbe3b717e7c340d31527896cfb32841adb37f6aa191c947dabbef03a872"
     },
     {
-      "path": "godot/assets/models/building_kit/flag/flag.glb",
-      "asset_id": "SEA-KIT-FLAG",
+      "path": "godot/scenes/buildables/kit/raft_4x4.tscn",
+      "asset_id": "SEA-KIT-RAFT-4X4",
       "status": "runtime_component_verified",
-      "bytes": 28332,
-      "sha256": "b23302473ff00f15caa6245e7220ba4ea250db26dbbb1d955aadd3d8b45ae6f7"
+      "bytes": 435,
+      "sha256": "9afee01b2cb57dcde9a36e272bbb9e06934d1ab7455638473c1937af3b9c564f"
     },
     {
-      "path": "godot/scenes/buildables/kit/flag.tscn",
-      "asset_id": "SEA-KIT-FLAG",
+      "path": "godot/scenes/buildables/kit/railing.tscn",
+      "asset_id": "SEA-KIT-RAILING",
       "status": "runtime_component_verified",
-      "bytes": 414,
-      "sha256": "04b742d650b063dc8892180a7bfb2253c92bd02d13e8a62ed47ccda91dea80e3"
+      "bytes": 431,
+      "sha256": "93e60f84d361c0dda382b7472d905c58003a855ee11a8a43879aae8871a76ab5"
     },
     {
-      "path": "godot/assets/models/building_kit/table/table.glb",
-      "asset_id": "SEA-KIT-TABLE",
+      "path": "godot/scenes/buildables/kit/roof_flat.tscn",
+      "asset_id": "SEA-KIT-ROOF-FLAT",
       "status": "runtime_component_verified",
-      "bytes": 39432,
-      "sha256": "692960b61a4b7fbbdc018936aa8362f07bc2a0692721f1947e12f91ec1b7b731"
+      "bytes": 439,
+      "sha256": "3352029876a3ece225e30043c26a5788ff1a40257b1f60c47a17885199b8bd61"
     },
     {
-      "path": "godot/scenes/buildables/kit/table.tscn",
-      "asset_id": "SEA-KIT-TABLE",
+      "path": "godot/scenes/buildables/kit/roof_slope.tscn",
+      "asset_id": "SEA-KIT-ROOF-SLOPE",
       "status": "runtime_component_verified",
-      "bytes": 418,
-      "sha256": "376dae5f2434bb25ea1f21cbe481c1b97d5be7f7b37a1081f83c69b31cb05aa9"
+      "bytes": 443,
+      "sha256": "5c15eaa578183caa9b1e15cce27e6aa30941336223f7a80a265d8a78b4de3ee3"
     },
     {
-      "path": "godot/assets/models/building_kit/stool/stool.glb",
-      "asset_id": "SEA-KIT-STOOL",
+      "path": "godot/scenes/buildables/kit/stairs.tscn",
+      "asset_id": "SEA-KIT-STAIRS",
       "status": "runtime_component_verified",
-      "bytes": 58768,
-      "sha256": "d15d886335c161bf541bb70cbdf2adf33774ab9e5b1ff813593de9403ff53f2f"
+      "bytes": 427,
+      "sha256": "5fffdc37c182354c52b612795db637663cc0568e692b7ff68760a5fab3122224"
     },
     {
       "path": "godot/scenes/buildables/kit/stool.tscn",
@@ -3208,11 +3383,39 @@
       "sha256": "465155d7f70818722cfbd8ed8aa159bd75ce27186744d2e64ea7579854c48904"
     },
     {
-      "path": "godot/assets/models/building_kit/wind_chime/wind_chime.glb",
-      "asset_id": "SEA-KIT-WIND-CHIME",
+      "path": "godot/scenes/buildables/kit/storage_crate.tscn",
+      "asset_id": "SEA-KIT-STORAGE-CRATE",
       "status": "runtime_component_verified",
-      "bytes": 113656,
-      "sha256": "2f121575e48dafd0e3ff2be3da92b33ce4b8092d45b662618e456ea3ef1afb34"
+      "bytes": 450,
+      "sha256": "4b2dc43f08f812d0085d72965cd19f580d63826c965d73e044841e5d312ce132"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/table.tscn",
+      "asset_id": "SEA-KIT-TABLE",
+      "status": "runtime_component_verified",
+      "bytes": 418,
+      "sha256": "376dae5f2434bb25ea1f21cbe481c1b97d5be7f7b37a1081f83c69b31cb05aa9"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/upper_floor.tscn",
+      "asset_id": "SEA-KIT-UPPER-FLOOR",
+      "status": "runtime_component_verified",
+      "bytes": 447,
+      "sha256": "f58b67b2edde2327677e5451fae28f952bfbc8724b1f96bdd4bb97dc429428d9"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/wall.tscn",
+      "asset_id": "SEA-KIT-WALL",
+      "status": "runtime_component_verified",
+      "bytes": 419,
+      "sha256": "d8dd82b205f347119eb1c3cd5650b314a66621aa6a70ea32b5fd2f253db4d271"
+    },
+    {
+      "path": "godot/scenes/buildables/kit/water_barrel.tscn",
+      "asset_id": "SEA-KIT-WATER-BARREL",
+      "status": "runtime_component_verified",
+      "bytes": 446,
+      "sha256": "6311f4a14d213ca3f4acead6a8db9867e2106946f445e48aa3a7a9f0d4b07ac3"
     },
     {
       "path": "godot/scenes/buildables/kit/wind_chime.tscn",
@@ -3222,357 +3425,25 @@
       "sha256": "ff1b3acb451dd7f7464378531affed5652ee1e9ec8b90b9c18ae3cf9b24f9822"
     },
     {
-      "path": "godot/src/building/building_catalog.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 22659,
-      "sha256": "479d056f3d652d792cd5a037b160c3a1f589e334b009b4de0ac80fdeb2f5bac5",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+      "path": "godot/scenes/buildables/kit/windmill.tscn",
+      "asset_id": "SEA-KIT-WINDMILL",
+      "status": "runtime_component_verified",
+      "bytes": 430,
+      "sha256": "74ba2172611a51c87dd7037dd5f78c1e607add5facdd79db9ad817cae01d6317"
     },
     {
-      "path": "godot/src/building/building_service.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 17192,
-      "sha256": "1ad7d1ad245725526c786e24ef2cda2f6742981e352c2371dbccf3f7dbea915a",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+      "path": "godot/scenes/buildables/kit/window_wall.tscn",
+      "asset_id": "SEA-KIT-WINDOW-WALL",
+      "status": "runtime_component_verified",
+      "bytes": 447,
+      "sha256": "891bc4b3c8f64c55ea12917aac0d0d0b0e218a2a5d7f4742264f64f5bf46f219"
     },
     {
-      "path": "godot/src/building/building_space.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 9719,
-      "sha256": "071a5e4d38d96d61d66b7dc60d0419c85d521bf7e7fba355cbbbc00051f7593a",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/building/building_boundary.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 7289,
-      "sha256": "6c9506363f4350df439a5a1fa95ea56fa6bca28ebc958aa85f23d9057b2f8c49",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/building/building_world.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 13911,
-      "sha256": "2ec79dbed34be4342f3dd06e99e8089cc06d0a0ef197cc180b0d24d375399ac4",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/building/building_access.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 11158,
-      "sha256": "04dd9e2772df80f0b8a936c47d830d05bcd766761a7ff09926b45fca7f406248",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/building/building_controller.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 29661,
-      "sha256": "1e12afbdc7a2cd0fd94f564323bd6007432c29fb638b3f2c327a5b1063c51d8a",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/building/building_book.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 6506,
-      "sha256": "e7f02f055cf58423898fb8cc9e8d8abe8100f3f3092da3d4d3414cf8bd1cd8d2",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/building/assembly_rules.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 8383,
-      "sha256": "65b0893690781a866332e5c62e4edf05034737e6edaaac0bd5d5893c01ebfa57",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/building/assembly_surfaces.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 8634,
-      "sha256": "0f3fad87e7c0982279770d333b713aea7c78d8f9a669245ebf132b655601168c",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/building/kit_visual.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 2738,
-      "sha256": "d2cc12782f87824639b9caabbb4694dae679f205f7eb3ec9f0bb7f794b15e54f"
-    },
-    {
-      "path": "godot/src/bootstrap/main.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 148978,
-      "sha256": "513f82af998dcbdfd13722cf77677216db78708a03340d16137defd68d40d1fd",
-      "note": "组合根保留海上补给站装配；2026-11-02浮木巡航停位及打捞范围改读SeaProps公开分档查询（SEA-PICKUP-R18）；同日P面板第四页「测试」注入端口与_debug_set_clock（SEA-TOOL）；reset_save归档后回开局并写新档（SEA-SAVE-R14）；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。 2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。；2026-11-02 SEA-AQUA-R10/R11、SEA-UI-R48：屏幕圆按钮与地点仅建造/收获，定点审阅与当前实测。 2026-11-02 SEA-AVATAR/SEA-ONBOARDING接线；与已登记原哈希精确匹配的173802隔离副本逐行核对，仅本次角色/开场改动；保存、重置与移动动作回归见交付。",
-      "previous_sha256": "052bfe5f68f49180ee526fcdca14a165d2d0ac26355d7c82965a0e662faca7a3"
-    },
-    {
-      "path": "godot/src/navigation/walk_area.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 10335,
-      "sha256": "d86ad84c65bd4c0a72c2a9cee4d546e30f7033f3015f82abb410c5f08e5e727e",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/navigation/ground_space.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 14957,
-      "sha256": "5165d02a88601ce5b0a7d150f274663b7d41aea669259e90631633899a5390d3",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
-    },
-    {
-      "path": "godot/src/player/actions/walk_action.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 2902,
-      "sha256": "917bdf1624e6815e6c15eeb19e65adcb3bc486851cfb55c6403ce8a9e580013d"
-    },
-    {
-      "path": "godot/assets/data/building_kit.json",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 14411,
-      "sha256": "0ac23b47607e1cb8bef6074a700196c9a0085ecda6124ce533a01f86d17b6aad"
-    },
-    {
-      "path": "godot/assets/materials/building_kit/emission.tres",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 371,
-      "sha256": "cc19f3d6e9f1a58f7303b6b308d49a742b3b6b62b54706d5c7ef6cee31195dd5"
-    },
-    {
-      "path": "godot/assets/materials/building_kit/gloss.tres",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 245,
-      "sha256": "eb2c523fa152094076736bf21fe62b9ba6fc3649e78a4b4ee13697e096ba7be1"
-    },
-    {
-      "path": "godot/assets/materials/building_kit/matte.tres",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 244,
-      "sha256": "5e848d26ed5b2d626c2999de8adeab2ce0fbf6af7ab5eaece581554c8c580eb2"
-    },
-    {
-      "path": "godot/assets/materials/building_kit/metal.tres",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 261,
-      "sha256": "04056d0e5c4f3ee4634d17f34bd15fa9f34dc7750be09fb49f93238be12fd605"
-    },
-    {
-      "path": "godot/src/building/recipe_card.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 3617,
-      "sha256": "ede9e3953f1056b5e758bd375b1a3f9fe520374fb0e3420bdb218cb8633e2c9a"
-    },
-    {
-      "path": "godot/src/building/recipe_thumbnail.gd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "bytes": 4118,
-      "sha256": "e7ddd080e6228681450792b2eed15a24f48fd4c0801e2ec32d5e53ba79dbcef9"
-    },
-    {
-      "path": "godot/assets/models/facilities/floating_shop/floating_shop.glb",
-      "bytes": 39142852,
-      "sha256": "404c7790f765c451ec03acd94310a605f79158bba6650d083e5a489f92ece747",
-      "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "status": "source_runtime_verified_provenance_pending",
-      "note": "v003零售细修+立体字x1.5：44组件/296实例烘成4个材质角色合一（520185三角面、39142852字节）；逐字挤深0.12米、三色、COLD DRINKS 右倾3.2°；无内嵌贴图"
-    },
-    {
-      "path": "godot/scenes/facilities/floating_shop.tscn",
-      "bytes": 4108,
-      "sha256": "c086d7ab3b131b748eb10028af14b342fbd05ee2f545bf9badbb5906283e730e",
-      "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
-      "status": "source_runtime_verified_provenance_pending",
-      "note": "v003零售细修：storefront_windows=4（陈列面，非入口）、retail_displays=8、interior_lamps=5、立体字元数据 sign_lettering/sign_palette（x1.5）"
-    },
-    {
-      "path": "godot/assets/materials/floating_shop/matte.tres",
-      "bytes": 338,
-      "sha256": "8f29705f83e2ec007cdc11077371baae1a48e7981a11ac8a1498280923268d53",
-      "status": "runtime_path_recorded_asset_registration_pending",
-      "note": "浮店专用暖木色板材质覆盖（v003）"
-    },
-    {
-      "path": "godot/assets/materials/floating_shop/metal.tres",
-      "bytes": 355,
-      "sha256": "dc3058b724a6434cbd97c370feb6202562968071f3a9974e7f4d5f1e85b28438",
-      "status": "runtime_path_recorded_asset_registration_pending",
-      "note": "浮店专用暖木色板材质覆盖（v003）；货箱盖改走本槽"
-    },
-    {
-      "path": "godot/assets/materials/floating_shop/gloss.tres",
-      "bytes": 427,
-      "sha256": "a0a36282592a6ac979475a6c2b66265d8baeed89fd518319ce9e79265b4b63c2",
-      "status": "runtime_path_recorded_asset_registration_pending",
-      "note": "v003零售细修：Gloss由不透明釉面改回透明玻璃（transparency=1, alpha=0.13, roughness=0.05）"
-    },
-    {
-      "path": "godot/assets/materials/floating_shop/emission.tres",
-      "bytes": 470,
-      "sha256": "e33b107a0f9d62a1933d4c4cdf60ee4b1a6a545d9aa8a7d0a513022944061df5",
-      "status": "runtime_path_recorded_asset_registration_pending",
-      "note": "浮店专用暖木色板材质覆盖（v003）；店内吊灯/串灯用此槽"
-    },
-    {
-      "path": "godot/assets/models/fishery/shore/shore.glb",
-      "bytes": 56532,
-      "sha256": "9e96e840ce7488178c21ffaab44ecaeded9aa85a11535b14d28d329d0c7081ff",
-      "asset_id": "SEA-FISHERY-SHORE",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/turf/turf.glb",
-      "bytes": 59424,
-      "sha256": "ceabd61fa0a7d7dd44f44bcf63f7597f128dbd1fb5773282742117c3894fe069",
-      "asset_id": "SEA-FISHERY-TURF",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/pebbles/pebbles.glb",
-      "bytes": 48612,
-      "sha256": "2fe0fd0277b3b990e85a156227ed8bd6dd853a267a8af113eef102b062173e17",
-      "asset_id": "SEA-FISHERY-PEBBLES",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/reeds/reeds.glb",
-      "bytes": 57744,
-      "sha256": "66379eb9dd7a7f516cdbdd576183e59c4bcd1e4d911bc8cd6b67e333e27f245d",
-      "asset_id": "SEA-FISHERY-REEDS",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/drying_rack/drying_rack.glb",
-      "bytes": 152752,
-      "sha256": "01505b0191462cff88d3387c6a2d969f070a3d248a845d2ed8fc0fef9c37bed7",
-      "asset_id": "SEA-FISHERY-DRYING-RACK",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/creel/creel.glb",
-      "bytes": 143220,
-      "sha256": "812c1f2a1e6d7d8818141fb3c5b85b2a2d2f4ca2cad0d34d74f99f3104b29f81",
-      "asset_id": "SEA-FISHERY-CREEL",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/bait_table/bait_table.glb",
-      "bytes": 113336,
-      "sha256": "27f509ea96dd1c3aed610adfe848bfec213617e223c750456b2453ceacbde959",
-      "asset_id": "SEA-FISHERY-BAIT-TABLE",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/buoy/buoy.glb",
-      "bytes": 67632,
-      "sha256": "71e8fbef90ffdf14e2c2222bdb8dbba53cd943b38577957bd902169934aec96f",
-      "asset_id": "SEA-FISHERY-BUOY",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/marker_buoy/marker_buoy.glb",
-      "bytes": 90600,
-      "sha256": "c1d70c475849eb2d352027eef02121abe388a1292fb553a1f07d4d9f3dc626da",
-      "asset_id": "SEA-FISHERY-MARKER-BUOY",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/net_panel/net_panel.glb",
-      "bytes": 43420,
-      "sha256": "c8b00d525588c9a8e7da7feb135e7972ad3024e35f4ebb9c9fcd6a89f768a24d",
-      "asset_id": "SEA-FISHERY-NET-PANEL",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/net_corner/net_corner.glb",
-      "bytes": 42220,
-      "sha256": "9701a3b9b25c77b67197216c3bac58dab7f54f7e795bef855b545edda6222c61",
-      "asset_id": "SEA-FISHERY-NET-CORNER",
-      "status": "runtime_component_verified_provenance_pending"
-    },
-    {
-      "path": "godot/assets/models/fishery/fish/fish.glb",
-      "bytes": 108436,
-      "sha256": "9eca0b180182a129216c8f4777b7422c327768d018a997ab51b0b7d8b7772b17",
-      "asset_id": "SEA-FISHERY-FISH",
-      "status": "retired_from_fishery_assembly",
-      "note": "源和独立包保留，正式设施已改用SEA-DECO-ANIMAL-FISH-SCHOOL。"
-    },
-    {
-      "path": "godot/scenes/facilities/wild_fishery.tscn",
-      "bytes": 11803,
-      "sha256": "1b63497a8a165c88c66e97edc1744a9d6b92e07ae06bb8ed67679d30891b042d",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。"
-    },
-    {
-      "path": "godot/scenes/zones/zone1_home_harbor.tscn",
-      "bytes": 8441,
-      "sha256": "86a371b8a45594e5f877d9d68be7334bc8198f8dd904d412564f47f35c274040",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。"
-    },
-    {
-      "path": "godot/src/aqua/fishery_visual.gd",
-      "bytes": 3808,
-      "sha256": "996cbe54026f3157b5714b98b5acbfa6827e07f1432ad3a0545c7217c83795bf",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。；2026-11-02复验：定点核对新增water_layer/water_layer_role导出声明，保留跨水线元数据，当前渔场专项通过。"
-    },
-    {
-      "path": "godot/src/ui/fishery_panel.gd",
-      "bytes": 1570,
-      "sha256": "2d4dcac8824fa17ad588c0bd5c9b19e1da73f66cfa457a0399b311c53ffbdb11",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；SEA-AQUA-R09：改造页显示每4小时3鱼/上限24/点击收获规则，实测接入。；2026-11-02 SEA-AQUA-R10/R11、SEA-UI-R48：屏幕圆按钮与地点仅建造/收获，定点审阅与当前实测。"
-    },
-    {
-      "path": "godot/assets/materials/fishery/matte.tres",
-      "bytes": 298,
-      "sha256": "a41161dcad89696215b33cfdb179255ae29c4fce0720ed7937295f648ab11c56",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
-    },
-    {
-      "path": "godot/tools/fishery_palette_import.gd",
-      "bytes": 490,
-      "sha256": "f8f587ae20071eefdc08166be0038097ae318a48d648a8585022eb49189ec728",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
-    },
-    {
-      "path": "godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import",
-      "bytes": 997,
-      "sha256": "2b69d8ca49a5fd0536d2f8e28ab07a97a8dfa7f97d340df165435689dd770809",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/buildables/wood_deck.tscn",
+      "bytes": 243,
+      "sha256": "49216f96c9c28ac7816ac74080504854fc92ea79f3dc45b2399afbf02c91f5a8",
+      "asset_id": "SEA-BUILDING-WOOD-DECK",
+      "status": "runtime_component_verified"
     },
     {
       "path": "godot/scenes/components/fishery/bait_table.tscn",
@@ -3671,100 +3542,126 @@
       "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
     },
     {
-      "path": "godot/assets/models/fishery/bait_table/bait_table.glb.import",
-      "bytes": 1217,
-      "sha256": "6c3c221211c3ece61e4f9fe18df16b5829c428d5df6fa8adcc50549e497a2d12",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/decorations/underwater/buildings/flat_annex.tscn",
+      "bytes": 1030,
+      "sha256": "8a708a40eea7eac13d6a3dc588a318a491f7bdf088ef1897ae870e26e992de67",
+      "asset_id": "SEA-SCENE-SUBMERGED-FLAT-ANNEX",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
     },
     {
-      "path": "godot/assets/models/fishery/buoy/buoy.glb.import",
-      "bytes": 1193,
-      "sha256": "8fdbf50e9640329da5ae471909cc47e9d7cc64be9c49de1d19df72744251cb28",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/decorations/underwater/buildings/rear_slab.tscn",
+      "bytes": 1026,
+      "sha256": "3903632144feb3c9731d8e1196df1638034321fc3ee249d9f7790ad0f50ce3b7",
+      "asset_id": "SEA-SCENE-SUBMERGED-REAR-SLAB",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
     },
     {
-      "path": "godot/assets/models/fishery/creel/creel.glb.import",
-      "bytes": 1197,
-      "sha256": "97083c7a54fd5b3a1f02db31bc7d8422c3bf726ad04f952f398b5ebe0496225f",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/decorations/underwater/buildings/rounded_tower.tscn",
+      "bytes": 1045,
+      "sha256": "0cb58805221ce4dbc523b00ed33fd9bad3fda13b4d9e8631d0247bd22ecf4119",
+      "asset_id": "SEA-SCENE-SUBMERGED-ROUNDED-TOWER",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
     },
     {
-      "path": "godot/assets/models/fishery/drying_rack/drying_rack.glb.import",
-      "bytes": 1221,
-      "sha256": "4f5de8b29375b48625fcca58800d8ab044c365b2ac673255a4f6d0a8f84667e9",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/decorations/underwater/buildings/slender_tower.tscn",
+      "bytes": 1045,
+      "sha256": "9f22009db5f920eb4d82093e07698e222ddad3723b88fee60baf1eca10da54cb",
+      "asset_id": "SEA-SCENE-SUBMERGED-SLENDER-TOWER",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
     },
     {
-      "path": "godot/assets/models/fishery/fish/fish.glb.import",
-      "bytes": 1193,
-      "sha256": "d31484f4a533b3ed713ab65004e51791008f993d0fda944ad3b5a1edf996c8f3",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/decorations/underwater/buildings/stepped_lowrise.tscn",
+      "bytes": 1048,
+      "sha256": "53d4d01fb4df98a6fa90e66b52c615ba0c4bf4f80c8e0741aa643de107300407",
+      "asset_id": "SEA-SCENE-SUBMERGED-STEPPED-LOWRISE",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
     },
     {
-      "path": "godot/assets/models/fishery/marker_buoy/marker_buoy.glb.import",
-      "bytes": 1221,
-      "sha256": "121da1c08642cfaac49901070875ea3b87077e67417f4593f3e1cd921989a9cd",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/decorations/underwater/buildings/terraced_tower.tscn",
+      "bytes": 1049,
+      "sha256": "e6f5da52444892602dd9fc379f23a05a330701f08c70370e85b3038cd4de2781",
+      "asset_id": "SEA-SCENE-SUBMERGED-TERRACED-TOWER",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "正式摆放实例位于 main.tscn 的 World/UnderwaterScenery"
     },
     {
-      "path": "godot/assets/models/fishery/net_corner/net_corner.glb.import",
-      "bytes": 1216,
-      "sha256": "6ff990151daf795f209ff8a335c5ee1a157c40fe38405a6a7cdc8bd405ffa03b",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/decorations/underwater/neighborhood.tscn",
+      "bytes": 2086,
+      "sha256": "52bfb69ca2ead82f381797e216fcbd69c4f368c76a0b5ba298edd9dd45f9abb2",
+      "asset_id": "SEA-SCENE-SUBMERGED-ASSEMBLY",
+      "status": "reference_only_not_instanced",
+      "note": "六栋的正式摆放由 godot/scenes/main.tscn 的 World/UnderwaterScenery 拥有"
     },
     {
-      "path": "godot/assets/models/fishery/net_panel/net_panel.glb.import",
-      "bytes": 1213,
-      "sha256": "5d851fa686f10b6bc8333b905e2f36a26a34cd796d747be9ac4d9af0277379c5",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/facilities/floating_shop.tscn",
+      "bytes": 4108,
+      "sha256": "c086d7ab3b131b748eb10028af14b342fbd05ee2f545bf9badbb5906283e730e",
+      "asset_id": "SEA-SCENE-FSH-ASSEMBLY",
+      "status": "source_runtime_verified_provenance_pending",
+      "note": "v003零售细修：storefront_windows=4（陈列面，非入口）、retail_displays=8、interior_lamps=5、立体字元数据 sign_lettering/sign_palette（x1.5）"
     },
     {
-      "path": "godot/assets/models/fishery/pebbles/pebbles.glb.import",
-      "bytes": 1204,
-      "sha256": "e8857552032185d2d4dd8c617d75de9d5b45829472202010fa9f0d92a368c8aa",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/facilities/salvage_station.tscn",
+      "bytes": 742,
+      "sha256": "67480411ccda8257ead6315188fa3b5c92f983766eaef0fa38bfe1428c935074",
+      "asset_id": "SEA-REF-FACILITY-SALVAGE-STATION",
+      "status": "runtime_integrated_verified"
     },
     {
-      "path": "godot/assets/models/fishery/reeds/reeds.glb.import",
-      "bytes": 1196,
-      "sha256": "b5c1f99e5cdc6b6b32e51218ea26182116996ddd68a8cb1b95a0293e85b93b6c",
+      "path": "godot/scenes/facilities/wild_fishery.tscn",
+      "bytes": 11803,
+      "sha256": "1b63497a8a165c88c66e97edc1744a9d6b92e07ae06bb8ed67679d30891b042d",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。"
     },
     {
-      "path": "godot/assets/models/fishery/shore/shore.glb.import",
-      "bytes": 1197,
-      "sha256": "55d299437064081c881e8cd1e42bf29cc4cc1f83cf0ba19729b6e9408dac8dbe",
-      "asset_id": null,
-      "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "path": "godot/scenes/props/reference_skiff.tscn",
+      "bytes": 14784,
+      "sha256": "9db25b317c8e9905d94ddab2d997149423f852a660e2209a191cbe7940802b2e",
+      "asset_id": "SEA-SCENE-SKIFF-ASSEMBLY",
+      "status": "source_runtime_verified_provenance_pending"
     },
     {
-      "path": "godot/assets/models/fishery/turf/turf.glb.import",
-      "bytes": 1192,
-      "sha256": "711063923574e177514caddd299c566bc1d3b676a0a18d5ffdfd58125ecfb0c1",
+      "path": "godot/scenes/zones/zone1_home_harbor.tscn",
+      "bytes": 8441,
+      "sha256": "86a371b8a45594e5f877d9d68be7334bc8198f8dd904d412564f47f35c274040",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。"
+    },
+    {
+      "path": "godot/shaders/avatar_limb.gdshader",
+      "bytes": 758,
+      "sha256": "8244fa8a57769d082141e6a525abc730e16b97c3fb5f0e7766040206544fe6df",
+      "asset_id": "SEA-CHAR-RIG-001",
+      "status": "runtime_component_verified"
+    },
+    {
+      "path": "godot/shaders/ocean_foam.gdshaderinc",
+      "bytes": 5063,
+      "sha256": "edc0b43a91ffb98e605c8aa4e9886d90d393c3e6683b3beb23e7de09f10a69f0",
+      "asset_id": null,
+      "status": "runtime_resource_verified"
+    },
+    {
+      "path": "godot/shaders/runtime_water_contacts.gdshaderinc",
+      "bytes": 591,
+      "sha256": "2294f62ca4e8aef2dd2b98c81921fb3bab1e62b7915bf36ce2389a7619836b4d",
+      "asset_id": null,
+      "status": "runtime_resource_verified"
+    },
+    {
+      "path": "godot/shaders/water_absorption.gdshader",
+      "bytes": 18348,
+      "sha256": "40bdba6b66c25134922dd84e22cea83d81d419a641f05d0fdf7db3f6809e5228",
+      "asset_id": null,
+      "status": "runtime_resource_verified"
     },
     {
       "path": "godot/src/aqua/fishery_harvest.gd",
@@ -3775,12 +3672,123 @@
       "note": "；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。；2026-11-02 SEA-AQUA-R10/R11、SEA-UI-R48：屏幕圆按钮与地点仅建造/收获，定点审阅与当前实测。"
     },
     {
+      "path": "godot/src/aqua/fishery_visual.gd",
+      "bytes": 3808,
+      "sha256": "996cbe54026f3157b5714b98b5acbfa6827e07f1432ad3a0545c7217c83795bf",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。；2026-11-02复验：定点核对新增water_layer/water_layer_role导出声明，保留跨水线元数据，当前渔场专项通过。"
+    },
+    {
+      "path": "godot/src/avatar/avatar_limb_skinning.gd",
+      "bytes": 10162,
+      "sha256": "35018f90eb210f44494f0a9a4522496edd7ea661307082f20d6ad1e0d8f6bfbb",
+      "asset_id": "SEA-CHAR-RIG-001",
+      "status": "runtime_component_verified"
+    },
+    {
+      "path": "godot/src/bootstrap/main.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 148978,
+      "sha256": "513f82af998dcbdfd13722cf77677216db78708a03340d16137defd68d40d1fd",
+      "note": "组合根保留海上补给站装配；2026-11-02浮木巡航停位及打捞范围改读SeaProps公开分档查询（SEA-PICKUP-R18）；同日P面板第四页「测试」注入端口与_debug_set_clock（SEA-TOOL）；reset_save归档后回开局并写新档（SEA-SAVE-R14）；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。 2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。；2026-11-02 SEA-AQUA-R10/R11、SEA-UI-R48：屏幕圆按钮与地点仅建造/收获，定点审阅与当前实测。 2026-11-02 SEA-AVATAR/SEA-ONBOARDING接线；与已登记原哈希精确匹配的173802隔离副本逐行核对，仅本次角色/开场改动；保存、重置与移动动作回归见交付。",
+      "previous_sha256": "052bfe5f68f49180ee526fcdca14a165d2d0ac26355d7c82965a0e662faca7a3"
+    },
+    {
+      "path": "godot/src/building/assembly_rules.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 8383,
+      "sha256": "65b0893690781a866332e5c62e4edf05034737e6edaaac0bd5d5893c01ebfa57",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/assembly_surfaces.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 8634,
+      "sha256": "0f3fad87e7c0982279770d333b713aea7c78d8f9a669245ebf132b655601168c",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/building_access.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 11158,
+      "sha256": "04dd9e2772df80f0b8a936c47d830d05bcd766761a7ff09926b45fca7f406248",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/building_book.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 6506,
+      "sha256": "e7f02f055cf58423898fb8cc9e8d8abe8100f3f3092da3d4d3414cf8bd1cd8d2",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/building_boundary.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 7289,
+      "sha256": "6c9506363f4350df439a5a1fa95ea56fa6bca28ebc958aa85f23d9057b2f8c49",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/building_catalog.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 22659,
+      "sha256": "479d056f3d652d792cd5a037b160c3a1f589e334b009b4de0ac80fdeb2f5bac5",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/building_controller.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 29661,
+      "sha256": "1e12afbdc7a2cd0fd94f564323bd6007432c29fb638b3f2c327a5b1063c51d8a",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
       "path": "godot/src/building/building_pointer.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
       "bytes": 3417,
       "sha256": "723c8e6b6525266211dd91575f9d5820ae15a7f055264fc276f67e23ca91e7c3",
       "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/building_service.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 17192,
+      "sha256": "1ad7d1ad245725526c786e24ef2cda2f6742981e352c2371dbccf3f7dbea915a",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/building_space.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 9719,
+      "sha256": "071a5e4d38d96d61d66b7dc60d0419c85d521bf7e7fba355cbbbc00051f7593a",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/building_world.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 13911,
+      "sha256": "2ec79dbed34be4342f3dd06e99e8089cc06d0a0ef197cc180b0d24d375399ac4",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/src/building/deck_visual.gd",
+      "bytes": 1074,
+      "sha256": "bedb33953f15271bb02d6a41333185fca54aadef4fbbc69f81092fc32d5a03d2",
+      "asset_id": "SEA-BUILDING-WOOD-DECK",
+      "status": "runtime_component_verified"
     },
     {
       "path": "godot/src/building/demolition_tool.gd",
@@ -3791,20 +3799,25 @@
       "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
     },
     {
-      "path": "godot/src/ui/hud.gd",
+      "path": "godot/src/building/kit_visual.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 47136,
-      "sha256": "6646932a160de673170c5fcd9f64b65b1626cd7f0584fc7bdf2af2dcba87c268",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+      "bytes": 2738,
+      "sha256": "d2cc12782f87824639b9caabbb4694dae679f205f7eb3ec9f0bb7f794b15e54f"
     },
     {
-      "path": "godot/src/ui/fishery_marker.gd",
+      "path": "godot/src/building/recipe_card.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 2115,
-      "sha256": "4928cc8d9c93d04010a4a18729b82b24e978d785ed79193cabe5f6682cef5281",
-      "note": "；2026-11-02 SEA-AQUA-R10/R11、SEA-UI-R48：屏幕圆按钮与地点仅建造/收获，定点审阅与当前实测。"
+      "bytes": 3617,
+      "sha256": "ede9e3953f1056b5e758bd375b1a3f9fe520374fb0e3420bdb218cb8633e2c9a"
+    },
+    {
+      "path": "godot/src/building/recipe_thumbnail.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 4118,
+      "sha256": "e7ddd080e6228681450792b2eed15a24f48fd4c0801e2ec32d5e53ba79dbcef9"
     },
     {
       "path": "godot/src/interaction/hover_card.gd",
@@ -3815,25 +3828,82 @@
       "note": "；2026-11-02 SEA-AQUA-R10/R11、SEA-UI-R48：屏幕圆按钮与地点仅建造/收获，定点审阅与当前实测。"
     },
     {
-      "path": "godot/assets/data/avatar_catalog.json",
-      "bytes": 12795,
-      "sha256": "93e0576935808ad34c973d9689427604f8dd2fdf1109e5696ed51ec36a751b5a",
-      "asset_id": "SEA-CHAR-AVATAR-001",
-      "status": "runtime_component_verified"
+      "path": "godot/src/navigation/ground_space.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 14957,
+      "sha256": "5165d02a88601ce5b0a7d150f274663b7d41aea669259e90631633899a5390d3",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
     },
     {
-      "path": "godot/src/avatar/avatar_limb_skinning.gd",
-      "bytes": 10162,
-      "sha256": "35018f90eb210f44494f0a9a4522496edd7ea661307082f20d6ad1e0d8f6bfbb",
-      "asset_id": "SEA-CHAR-RIG-001",
-      "status": "runtime_component_verified"
+      "path": "godot/src/navigation/walk_area.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 10335,
+      "sha256": "d86ad84c65bd4c0a72c2a9cee4d546e30f7033f3015f82abb410c5f08e5e727e",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
     },
     {
-      "path": "godot/shaders/avatar_limb.gdshader",
-      "bytes": 758,
-      "sha256": "8244fa8a57769d082141e6a525abc730e16b97c3fb5f0e7766040206544fe6df",
-      "asset_id": "SEA-CHAR-RIG-001",
-      "status": "runtime_component_verified"
+      "path": "godot/src/player/actions/walk_action.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 2902,
+      "sha256": "917bdf1624e6815e6c15eeb19e65adcb3bc486851cfb55c6403ce8a9e580013d"
+    },
+    {
+      "path": "godot/src/player/animation/item_receive.gd",
+      "bytes": 5715,
+      "sha256": "871240aa6ea737e7d4e59ee88a001ab868233b9c8a63c11c8d7c2d7c31f1d2ab",
+      "asset_id": "SEA-CHAR-RECEIVE-001",
+      "status": "runtime_component_verified",
+      "previous_sha256": "5135c97a86141e34cb45c9ea51f3e9ee7074856410efa4a2468a36ca4ad52281",
+      "note": "v003 骨骼连续四肢适配：姿势控制仅改节点/骨骼长度，不再写分段网格；举物绕开头部，2.4秒/奖励边界及双腕支持实测。"
+    },
+    {
+      "path": "godot/src/rendering/water_surface.gd",
+      "bytes": 8482,
+      "sha256": "e557d447d353144370b84e15b5fceb945005130de772ba2349c910013290f017",
+      "asset_id": null,
+      "status": "runtime_resource_verified"
+    },
+    {
+      "path": "godot/src/ui/fishery_marker.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 2115,
+      "sha256": "4928cc8d9c93d04010a4a18729b82b24e978d785ed79193cabe5f6682cef5281",
+      "note": "；2026-11-02 SEA-AQUA-R10/R11、SEA-UI-R48：屏幕圆按钮与地点仅建造/收获，定点审阅与当前实测。"
+    },
+    {
+      "path": "godot/src/ui/fishery_panel.gd",
+      "bytes": 1570,
+      "sha256": "2d4dcac8824fa17ad588c0bd5c9b19e1da73f66cfa457a0399b311c53ffbdb11",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；SEA-AQUA-R09：改造页显示每4小时3鱼/上限24/点击收获规则，实测接入。；2026-11-02 SEA-AQUA-R10/R11、SEA-UI-R48：屏幕圆按钮与地点仅建造/收获，定点审阅与当前实测。"
+    },
+    {
+      "path": "godot/src/ui/fonts/LXGW975YuanSC-700W.ttf",
+      "bytes": 14884594,
+      "sha256": "f392de4cba941f3c44c7770cfed7ac3c658b46b7e3a4b2546fe155010109d403",
+      "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
+      "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/src/ui/hud.gd",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "bytes": 47136,
+      "sha256": "6646932a160de673170c5fcd9f64b65b1626cd7f0584fc7bdf2af2dcba87c268",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+    },
+    {
+      "path": "godot/tools/fishery_palette_import.gd",
+      "bytes": 490,
+      "sha256": "f8f587ae20071eefdc08166be0038097ae318a48d648a8585022eb49189ec728",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
     }
   ]
 }

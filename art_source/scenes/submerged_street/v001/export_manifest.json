@@ -1,0 +1,821 @@
+{
+  "schema": "sea.scene_export_manifest",
+  "kit": "submerged_street",
+  "version": "v001",
+  "source": "art_source/scenes/submerged_street/v001/submerged_street.blend",
+  "source_sha256": "f14dc7b5c0e6f9039a5d2e8c229e639abb3b8433d5e19934eb9f167f21830afe",
+  "optimized_source": "art_source/scenes/submerged_street/v001/export/v001/submerged_street_optimized.blend",
+  "optimized_sha256": "8052ee4b9abf0f23a8722ff8ed05cbb80d53bff2d5c06f234e4d8e14a7aaed69",
+  "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
+  "palette_sha256": "269a182f8d62c2b88f4ef0a0ab9e4e6ff0dcb6b0be7a0f0b4bb68a440b6bb283",
+  "protected_sources_unchanged": true,
+  "cleanup_operations": [
+    "merge duplicate vertices at 1e-6 m",
+    "dissolve degenerate edges at 1e-7 m",
+    "remove isolated vertices",
+    "recalculate outward normals"
+  ],
+  "cleanup": [
+    {
+      "key": "broken_viaduct",
+      "triangles_before": 1544,
+      "triangles_after": 1484,
+      "vertices_before": 912,
+      "vertices_after": 876,
+      "faces_before": 832,
+      "faces_after": 802
+    },
+    {
+      "key": "l_apartment_fire_escape",
+      "triangles_before": 1676,
+      "triangles_after": 1676,
+      "vertices_before": 1292,
+      "vertices_after": 1292,
+      "faces_before": 864,
+      "faces_after": 864
+    },
+    {
+      "key": "food_truck",
+      "triangles_before": 960,
+      "triangles_after": 960,
+      "vertices_before": 564,
+      "vertices_after": 564,
+      "faces_before": 430,
+      "faces_after": 430
+    },
+    {
+      "key": "mcdonalds_restaurant",
+      "triangles_before": 1048,
+      "triangles_after": 1048,
+      "vertices_before": 636,
+      "vertices_after": 636,
+      "faces_before": 546,
+      "faces_after": 546
+    },
+    {
+      "key": "highrise_apartment",
+      "triangles_before": 1214,
+      "triangles_after": 1214,
+      "vertices_before": 968,
+      "vertices_after": 965,
+      "faces_before": 639,
+      "faces_after": 639
+    },
+    {
+      "key": "traffic_light",
+      "triangles_before": 634,
+      "triangles_after": 634,
+      "vertices_before": 360,
+      "vertices_after": 358,
+      "faces_before": 293,
+      "faces_after": 293
+    },
+    {
+      "key": "utility_poles",
+      "triangles_before": 810,
+      "triangles_after": 810,
+      "vertices_before": 475,
+      "vertices_after": 471,
+      "faces_before": 336,
+      "faces_after": 336
+    },
+    {
+      "key": "highway_sign",
+      "triangles_before": 596,
+      "triangles_after": 596,
+      "vertices_before": 348,
+      "vertices_after": 348,
+      "faces_before": 328,
+      "faces_after": 328
+    },
+    {
+      "key": "construction_shell",
+      "triangles_before": 1882,
+      "triangles_after": 1882,
+      "vertices_before": 1120,
+      "vertices_after": 1120,
+      "faces_before": 1029,
+      "faces_after": 1029
+    },
+    {
+      "key": "walkup_apartment",
+      "triangles_before": 1332,
+      "triangles_after": 1332,
+      "vertices_before": 936,
+      "vertices_after": 936,
+      "faces_before": 682,
+      "faces_after": 682
+    }
+  ],
+  "fidelity": [
+    {
+      "view": "front",
+      "source_mean_rgb": [
+        0.374401,
+        0.491593,
+        0.51513
+      ],
+      "optimized_mean_rgb": [
+        0.374404,
+        0.491595,
+        0.515132
+      ],
+      "max_channel_delta": 0.0008
+    },
+    {
+      "view": "top",
+      "source_mean_rgb": [
+        0.374821,
+        0.487853,
+        0.516175
+      ],
+      "optimized_mean_rgb": [
+        0.374826,
+        0.487857,
+        0.516177
+      ],
+      "max_channel_delta": 0.0013
+    }
+  ],
+  "components": [
+    {
+      "key": "broken_viaduct",
+      "name": "水下景观·断掉的高架桥",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-VIADUCT",
+      "semantic_family": "elevated_road",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        26.0,
+        8.0,
+        7.2
+      ],
+      "floors": 0,
+      "triangle_budget": 2000,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -46.0,
+        0.0,
+        4.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "shell": "snow",
+        "deck": "cloud",
+        "road": "slate",
+        "rail": "steel",
+        "rebar": "coral",
+        "pier": "plaster",
+        "stripe": "yellow"
+      },
+      "damage": "middle span collapsed, exposed rebar, broken parapet ends, spalled piers",
+      "polygons": 832,
+      "triangles": 1544,
+      "parts": 67,
+      "bounds_min": [
+        -13.2,
+        -4.0327,
+        0.0
+      ],
+      "bounds_max": [
+        13.2,
+        4.0327,
+        7.1619
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-VIADUCT",
+      "triangles_before": 1544,
+      "triangles_after": 1544,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/broken_viaduct/broken_viaduct.blend",
+      "package_sha256": "7851ad2446a3c1ccbc803d8b7c7bb4ade1b9fc0c5ccdb9609d4725e08637d002",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/broken_viaduct/broken_viaduct.glb",
+      "runtime_sha256": "ad4d7e8371e232249fbd6881cce9b5cbbe1ea52cbfff2ad987775425595c4ab7",
+      "exported_triangles": 1544,
+      "glb_bytes": 113220
+    },
+    {
+      "key": "l_apartment_fire_escape",
+      "name": "水下景观·破旧公寓楼（L 形＋消防梯）",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-L-APARTMENT",
+      "semantic_family": "walkup_L",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        14.0,
+        13.0,
+        13.2
+      ],
+      "floors": 5,
+      "triangle_budget": 2200,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -56.0,
+        0.0,
+        -20.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "shell": "plaster",
+        "trim": "cream",
+        "glass": "solar",
+        "glass_dark": "deepblue",
+        "fire_escape": "steel",
+        "scar": "coral",
+        "roof": "snow"
+      },
+      "damage": "plaster loss patches, missing window frames, one broken fire-escape tread, parapet bites",
+      "polygons": 864,
+      "triangles": 1676,
+      "parts": 177,
+      "bounds_min": [
+        -8.0744,
+        -7.0225,
+        0.0
+      ],
+      "bounds_max": [
+        8.0744,
+        7.0225,
+        13.21
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-L-APARTMENT",
+      "triangles_before": 1676,
+      "triangles_after": 1676,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/l_apartment_fire_escape/l_apartment_fire_escape.blend",
+      "package_sha256": "ae38963a86eb954b97630d9c25bf7b2646d02308bf751674ea05d14ec70ec18e",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/l_apartment_fire_escape/l_apartment_fire_escape.glb",
+      "runtime_sha256": "6e8113a6e4311cf96107a780858055f7a706fa5c9a8e138f49a4750eed13e1ae",
+      "exported_triangles": 1676,
+      "glb_bytes": 121408
+    },
+    {
+      "key": "food_truck",
+      "name": "水下景观·快餐车",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-FOOD-TRUCK",
+      "semantic_family": "street_vehicle",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        6.4,
+        2.6,
+        3.2
+      ],
+      "floors": 0,
+      "triangle_budget": 1000,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -36.0,
+        0.0,
+        -5.0
+      ],
+      "rotation_y_degrees": 12,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "body": "cream",
+        "stripe": "coral",
+        "awning": "aqua",
+        "wheel": "rubber",
+        "hub": "steel",
+        "glass": "solar",
+        "menu": "gold"
+      },
+      "damage": "body listed 3 degrees, awning torn corner, one flat tyre, serving hatch empty",
+      "polygons": 430,
+      "triangles": 960,
+      "parts": 41,
+      "bounds_min": [
+        -3.064,
+        -1.7402,
+        0.0
+      ],
+      "bounds_max": [
+        3.064,
+        1.7402,
+        3.5804
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-FOOD-TRUCK",
+      "triangles_before": 960,
+      "triangles_after": 960,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/food_truck/food_truck.blend",
+      "package_sha256": "24a923b09da5ad225411bd6f5c1fe2e2caf661bcf477c90478afa45cb1858e53",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/food_truck/food_truck.glb",
+      "runtime_sha256": "306e4f5b625a551198b82c67df77886d524725c3986eff147466748be983c9b0",
+      "exported_triangles": 960,
+      "glb_bytes": 67356
+    },
+    {
+      "key": "mcdonalds_restaurant",
+      "name": "水下景观·快餐连锁餐厅",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-QUICK-SERVE",
+      "semantic_family": "quick_serve",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        12.0,
+        9.0,
+        6.6
+      ],
+      "floors": 2,
+      "triangle_budget": 1600,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -40.0,
+        0.0,
+        -19.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "shell": "cream",
+        "roof": "red_dark",
+        "arch_sign": "gold",
+        "glass": "solar",
+        "trim": "white",
+        "scar": "coral"
+      },
+      "damage": "mansard tiles missing in a wedge, twin arch sign missing its right leg, all glazing dark",
+      "polygons": 546,
+      "triangles": 1048,
+      "parts": 51,
+      "bounds_min": [
+        -6.0,
+        -5.0,
+        0.0
+      ],
+      "bounds_max": [
+        6.0,
+        5.0,
+        6.913
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-QUICK-SERVE",
+      "triangles_before": 1048,
+      "triangles_after": 1048,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/mcdonalds_restaurant/mcdonalds_restaurant.blend",
+      "package_sha256": "a757451f527dbe78e07d07e440d13ad10a2f32a678b46154f41625e9b409577c",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/mcdonalds_restaurant/mcdonalds_restaurant.glb",
+      "runtime_sha256": "42f672fdedfb7492f2b3e6a96ca15228fbc95c14330d4b4f182014df4d021c92",
+      "exported_triangles": 1048,
+      "glb_bytes": 78064
+    },
+    {
+      "key": "highrise_apartment",
+      "name": "水下景观·高层公寓楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-HIGHRISE",
+      "semantic_family": "tower_slab",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        9.0,
+        9.0,
+        26.2
+      ],
+      "floors": 10,
+      "triangle_budget": 2000,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -62.0,
+        0.0,
+        -38.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "shell": "white",
+        "band": "snow",
+        "glass": "deepblue",
+        "glass_alt": "ocean",
+        "balcony": "cream",
+        "roof": "steel",
+        "scar": "gray"
+      },
+      "damage": "top corner collapsed, vertical water stains, two floors of blown-out glazing",
+      "polygons": 639,
+      "triangles": 1214,
+      "parts": 130,
+      "bounds_min": [
+        -4.55,
+        -4.975,
+        0.0
+      ],
+      "bounds_max": [
+        4.55,
+        4.975,
+        28.8
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-HIGHRISE",
+      "triangles_before": 1214,
+      "triangles_after": 1214,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/highrise_apartment/highrise_apartment.blend",
+      "package_sha256": "fdff5f94b0e4254f96062401823933272b4176ab3e3fe4de414820a7b1fd4edf",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/highrise_apartment/highrise_apartment.glb",
+      "runtime_sha256": "abf7783e5acd57b1d0657a01f4c10836cf85f6c4c4fece53142ad3dce4a5bf9d",
+      "exported_triangles": 1214,
+      "glb_bytes": 90408
+    },
+    {
+      "key": "traffic_light",
+      "name": "水下景观·红绿灯",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-TRAFFIC-LIGHT",
+      "semantic_family": "street_furniture",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        3.8,
+        0.4,
+        5.6
+      ],
+      "floors": 0,
+      "triangle_budget": 700,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -27.0,
+        0.0,
+        -2.0
+      ],
+      "rotation_y_degrees": 24,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "pole": "steel",
+        "head": "slate",
+        "lens_stop": "red",
+        "lens_wait": "yellow",
+        "lens_go": "leaf",
+        "pedestrian": "leaf_dark",
+        "cable": "rubber"
+      },
+      "damage": "head tilted 8 degrees, one cable hanging free, pedestrian lens cracked",
+      "polygons": 293,
+      "triangles": 634,
+      "parts": 21,
+      "bounds_min": [
+        -1.9201,
+        -0.395,
+        0.0
+      ],
+      "bounds_max": [
+        1.9201,
+        0.395,
+        5.48
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-TRAFFIC-LIGHT",
+      "triangles_before": 634,
+      "triangles_after": 634,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/traffic_light/traffic_light.blend",
+      "package_sha256": "37e609262bf32e26bead77031d368144bfbdf098dca8b4de5a9c49e062a6c275",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/traffic_light/traffic_light.glb",
+      "runtime_sha256": "6ee0cce7004f363c0d646ba40d6de1ea6d5b42b69869b8b3023660ff64da34ec",
+      "exported_triangles": 634,
+      "glb_bytes": 45192
+    },
+    {
+      "key": "utility_poles",
+      "name": "水下景观·电线杆和电线",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-UTILITY-POLES",
+      "semantic_family": "street_furniture",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        10.0,
+        0.6,
+        8.6
+      ],
+      "floors": 0,
+      "triangle_budget": 900,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -24.0,
+        0.0,
+        3.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "pole": "wood_dark",
+        "crossarm": "wood_mid",
+        "insulator": "ice",
+        "transformer": "gray",
+        "wire": "slate",
+        "plate": "white"
+      },
+      "damage": "one crossarm missing, transformer tilted, two wires snapped and hanging",
+      "polygons": 336,
+      "triangles": 810,
+      "parts": 35,
+      "bounds_min": [
+        -4.9,
+        -1.1,
+        0.0
+      ],
+      "bounds_max": [
+        4.9,
+        1.1,
+        8.2
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-UTILITY-POLES",
+      "triangles_before": 810,
+      "triangles_after": 810,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/utility_poles/utility_poles.blend",
+      "package_sha256": "bb7638e7d551e10247083bcb0267c315ba40ce4ca86c78bfdfffbe6174ab47b2",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/utility_poles/utility_poles.glb",
+      "runtime_sha256": "310d45cbeb99bc41e145e0761af197779736941c83a91602d460a3f2775dd071",
+      "exported_triangles": 810,
+      "glb_bytes": 54648
+    },
+    {
+      "key": "highway_sign",
+      "name": "水下景观·高速公路路牌",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-HIGHWAY-SIGN",
+      "semantic_family": "overhead_gantry",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        9.0,
+        1.2,
+        7.0
+      ],
+      "floors": 0,
+      "triangle_budget": 900,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -22.0,
+        0.0,
+        -6.0
+      ],
+      "rotation_y_degrees": 90,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "post": "steel",
+        "panel": "forest",
+        "text": "snow",
+        "border": "white",
+        "rust": "coral"
+      },
+      "damage": "right post leans 4 degrees, panel corner missing, lettering eroded to pale blocks",
+      "polygons": 328,
+      "triangles": 596,
+      "parts": 25,
+      "bounds_min": [
+        -4.65,
+        -0.56,
+        0.0
+      ],
+      "bounds_max": [
+        4.65,
+        0.56,
+        7.0
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-HIGHWAY-SIGN",
+      "triangles_before": 596,
+      "triangles_after": 596,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/highway_sign/highway_sign.blend",
+      "package_sha256": "8f40a71c95cfa84ff4bad2116e4df38440f054dabd6fdb09b0e963c72f5a1ecc",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/highway_sign/highway_sign.glb",
+      "runtime_sha256": "6e723e59c39b2c8a1c19600b1449ac1d1710362005e0b2f8dabc7b9b1ab09bca",
+      "exported_triangles": 596,
+      "glb_bytes": 45984
+    },
+    {
+      "key": "construction_shell",
+      "name": "水下景观·施工中的大楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-CONSTRUCTION",
+      "semantic_family": "framed_shell",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        12.0,
+        10.0,
+        17.2
+      ],
+      "floors": 5,
+      "triangle_budget": 2400,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -28.0,
+        0.0,
+        -32.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "frame": "plaster",
+        "column": "snow",
+        "slab": "cloud",
+        "scaffold": "ochre",
+        "tarp": "aqua",
+        "rebar": "coral",
+        "core": "gray"
+      },
+      "damage": "two floors without slabs, scaffold partly collapsed, dust net torn, rebar forest on top",
+      "polygons": 1029,
+      "triangles": 1882,
+      "parts": 86,
+      "bounds_min": [
+        -5.82,
+        -5.659,
+        0.0
+      ],
+      "bounds_max": [
+        5.82,
+        5.659,
+        16.5053
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-CONSTRUCTION",
+      "triangles_before": 1882,
+      "triangles_after": 1882,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/construction_shell/construction_shell.blend",
+      "package_sha256": "1dbca66d80119d7f3ceeee54dbbbd4ed7e7e64a4b53ac5f66fe085a748ea0d68",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/construction_shell/construction_shell.glb",
+      "runtime_sha256": "8db278fe4306accafc4d0991da7f2cebc378d1c4dc460b2561904ff7751e60bc",
+      "exported_triangles": 1882,
+      "glb_bytes": 138680
+    },
+    {
+      "key": "walkup_apartment",
+      "name": "水下景观·普通公寓楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-WALKUP",
+      "semantic_family": "walkup_plain",
+      "category": "underwater_scenic_building",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "size_blender_xyz": [
+        9.0,
+        8.0,
+        10.6
+      ],
+      "floors": 4,
+      "triangle_budget": 1800,
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "front_axis": "+Y",
+      "allowed_rotation": "Euler XYZ",
+      "placement_godot": [
+        -46.0,
+        0.0,
+        -37.0
+      ],
+      "rotation_y_degrees": 0,
+      "collision": "none",
+      "interactive": false,
+      "color_roles": {
+        "shell": "white",
+        "balcony": "cream",
+        "glass": "ocean",
+        "glass_alt": "solar",
+        "ac": "silver",
+        "roof": "snow",
+        "rail": "steel"
+      },
+      "damage": "balcony soffits chipped, AC units hanging, one window blackened, drying rod bare",
+      "polygons": 682,
+      "triangles": 1332,
+      "parts": 110,
+      "bounds_min": [
+        -4.5,
+        -4.485,
+        0.0
+      ],
+      "bounds_max": [
+        4.5,
+        4.485,
+        10.94
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "emission": false,
+      "collection": "SEA-SCENE-SUBMERGED-STREET-WALKUP",
+      "triangles_before": 1332,
+      "triangles_after": 1332,
+      "package": "art_source/scenes/submerged_street/v001/component_packages/walkup_apartment/walkup_apartment.blend",
+      "package_sha256": "6edd6154d9df0e3e2f19089758fcfd4cfdca56226ea6022df1d6a566634f897d",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/walkup_apartment/walkup_apartment.glb",
+      "runtime_sha256": "2d0f0b47d6c8b1d488036299cb0aa319efd99c340570256c8bdb1eb455e51961",
+      "exported_triangles": 1332,
+      "glb_bytes": 97656
+    }
+  ],
+  "note": "Optimization only welds and cleans; it does not decimate. Triangle counts are reported before and after, and equal counts are expected, not a failure."
+}

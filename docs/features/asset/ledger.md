@@ -407,3 +407,9 @@ SEA-ASSET-R15/R16/R17/R24/R33–R40：海上用途计入surface与amphibious，�
 ## 2026-11-02 共用风格与水层差异路由（R06/R07/R40）
 
 已在同一场景Skill增加先判building_class的流程，水上／水下各自加载一份差异附件，水下明确复用共用尺寸／比例／倒角／色板而不另复制数值。水线偏移移入水上差异；水下无碰撞／阻挡／行走／功能／岸线。项目与用户级五文件同步，独立海底场景排除；未修改资产、模型或运行场景。[本轮记录](../../development/2026-11-02_skill_water_class_branches.md)。
+
+## 2026-11-02 水下街景十栋（当前实测）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R42 | 源级完成：`submerged_street/v001` 十栋独立纯景观建筑，10 组件计划冻结后才建几何；11 行账本（10 栋 + 1 条 reference_only 装配）登记为 `building_class=underwater`、`stage=source_verified_runtime_integration_pending`。风格基准取自海下基座逐面实测（米白 82.3%／深蓝玻璃 7.2%／无近黑）；整包实测象牙 76.4%、近黑 3.6%、合计 11696 三角面，逐栋 ≤ 预算。Blender 内自检 0 失败（逐面 UV 面积与单格安全区、单层 PaletteUV、三角色材质无自发光、底心原点与恒等变换、无近黑大面、无共面 z-fighting）。10 独立包重开复核并导出无内嵌贴图 GLB。 | [交付、缺陷清单与门禁](../../development/2026-11-02_submerged_street.md)；`sea-work/submerged_street_v001/selfcheck_report.json`。**pending**：Godot PackedScene 与 main.tscn 摆位、碰撞/岸线审查、水下真实渲染、双拱商标与参考授权、用户美术验收 |
