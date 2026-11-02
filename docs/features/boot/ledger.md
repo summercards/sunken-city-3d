@@ -89,3 +89,9 @@ Main 保留场景装配、输入路由、跨功能流程及兼容转发；行走
 | SEA-BOOT-R05 | 已实现；保持角度的房屋上移、按钮右移、三分辨率原生布局，白天/夜间/清晨存档冷启动与实际点击入场光照连续核验 | [本轮交付](../../development/2026-10-28_title_composition_saved_time.md) |
 
 开始机位只在TitleCamera临时接管，不改变玩家存档姿态；未修改光照时段参数、资产资源或存档格式。当前整体功能状态保持原状，目标设备等边界见交付记录。
+
+## 2026-11-02 新旅程与角色档案
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-BOOT-R06 | 已接入，专项与回归以本轮记录为准 | `avatar-restart / onboarding / visual-avatar / framework-integration`；[交付](../../development/2026-11-02_avatar_and_arrival.md) |

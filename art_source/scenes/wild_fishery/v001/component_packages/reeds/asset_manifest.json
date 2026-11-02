@@ -1,0 +1,75 @@
+{
+  "asset_id": "SEA-FISHERY-REEDS",
+  "name": "饱满芦苇",
+  "domain": "scenes",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-FISHERY-REEDS",
+  "version": "v001",
+  "source": "art_source/scenes/wild_fishery/v001/component_packages/reeds/reeds.blend",
+  "source_sha256": "e54d712020a7742c9c2cf8a3b85b2162beedcffcbf114317522ea58b066b2143",
+  "collection": "SEA-FISHERY-REEDS",
+  "origin": "bottom_center",
+  "front_axis": "Blender +Y / Godot -Z",
+  "bounds_blender_m": {
+    "min": [
+      -0.4319864511489868,
+      -0.18454143404960632,
+      0.0
+    ],
+    "max": [
+      0.4319864511489868,
+      0.18454143404960632,
+      1.0509992837905884
+    ]
+  },
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_uv": "sole UV0 / PaletteUV / eight-pixel safe inset",
+  "geometry_fingerprint": "c9c010dff57dd6f114b37fabae12d7e9015c95e6395ade0852b00b9a2a1ba4f6",
+  "collision": "visual_only; enclosure blocking belongs to assembly",
+  "runtime_path": "godot/assets/models/fishery/reeds/reeds.glb",
+  "runtime_sha256": "66379eb9dd7a7f516cdbdd576183e59c4bcd1e4d911bc8cd6b67e333e27f245d",
+  "prefab": "godot/scenes/components/fishery/reeds.tscn",
+  "optimized": "art_source/scenes/wild_fishery/v001/export/v001/wild_fishery_optimized_v001.blend",
+  "optimization_manifest": "art_source/scenes/wild_fishery/v001/export/v001/optimization_manifest.json",
+  "optimization": {
+    "asset_id": "SEA-FISHERY-REEDS",
+    "key": "reeds",
+    "triangles_before": 852,
+    "triangles_after": 852,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "merge_distance_m": 1e-06,
+      "degenerate_distance_m": 1e-07,
+      "planar_dissolve_angle_rad": 0.002,
+      "cleanup_elements_removed": 156,
+      "uv_reprojected_to_original_cell": true,
+      "source_mesh_count": 12,
+      "runtime_mesh_count": 1,
+      "merged_within_single_component_only": true
+    },
+    "bounds": {
+      "min": [
+        -0.4319864511489868,
+        -0.18454143404960632,
+        0.0
+      ],
+      "max": [
+        0.4319864511489868,
+        0.18454143404960632,
+        1.0509992837905884
+      ]
+    },
+    "budget_triangles": 12000,
+    "budget_source": "task-authored performance target; not a user-supplied cap",
+    "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+    "zero_reduction_reason": "no safely redundant geometry after cleanup"
+  },
+  "source_hash_unchanged": true,
+  "runtime_integrated": true,
+  "runtime_validation_report": "D:\\projects\\sea-work\\verification\\20261102-140048-fishery-component-final-2c64bb\\report.json",
+  "license": "pending_user_reference_rights_review",
+  "category": "flora",
+  "reuse": "scene_local"
+}

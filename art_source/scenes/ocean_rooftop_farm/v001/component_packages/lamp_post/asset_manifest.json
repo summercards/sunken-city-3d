@@ -1,0 +1,38 @@
+{
+  "key": "lamp_post",
+  "asset_id": "SEA-SCENE-ORF-LAMP-POST",
+  "name": "弯臂屋顶灯具",
+  "category": "fixture",
+  "component_family": "lighting",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-LAMP-POST",
+  "root": "lamp_post_组件根",
+  "bounds_size": [
+    0.3848332166671753,
+    0.9274166226387024,
+    2.623796224594116
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/lamp_post/lamp_post.blend",
+  "geometry_fingerprint": "37a7a4ee4eece76f08877197706124cdc60b2e3c08db73a5abf66d6ce4b17a5c",
+  "instances": 4,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 392,
+  "source_sha256": "04232cf51eefb95217f8b93d999fafde097e22ee68ddf194f9128a1a9f13fdb5",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-LAMP-POST"
+}

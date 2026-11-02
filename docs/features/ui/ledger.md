@@ -105,6 +105,8 @@
 
 ## 验证记录
 
+2026-11-02建造输入适配：HUD新增注入的`owned_modal_camera_query`与`camera_modal()`，只在建造书本收起、拆除确认未打开时放行镜头；角色/世界业务输入仍保持原模态阻断。独立锤子按钮、指针、悬停轮廓及默认否确认由SEA-BUILDING表现层拥有，不复制退款规则。实际滚轮放置时可用、确认时锁定，鼠标是/否与跨分辨率控件专项通过。[建造交付与实测](../../development/2026-11-02_building_surface_and_demolition.md)。
+
 入口：`python3 scripts/run_verification.py click management`；纸背板装配见 `python3 scripts/run_verification.py visual-paper-fit`；世界浮层纯文字见 `python3 scripts/run_verification.py visual-world-text`。
 
 本轮实测结果统一见 [工程拆分记录](../../development/2026-10-23_feature_split.md)，该记录标明每项测试、退出码、日志与未执行项。历史验证不自动升级为本次通过。与本功能目标相关但未被现有测试覆盖的条款仍保持待核验。
@@ -291,3 +293,17 @@ HUD增加公开表现入口set_follow_locked(bool)，Main查询OrbitCam.follow_e
 | SEA-UI-R47 实现注记 | 外层 `_hints` 从 `HBoxContainer` 改为普通 `Control`：Godot `Container.fit_child_in_rect` 会把子节点旋转归零，放进 HBox 的按钮永远摆不出那 6°。改动后 `_hints` 的 position/visible 调用点（`set_external_modal`、`_toggle_panel`、`island_menu`）全部保持原样 | `close-hint` 第一条「只剩一枚按钮」与 rotation 断言同时覆盖这一点；[坑位记录](../../development/2026-10-30_detail_fixes.md) |
 
 2026-10-30建造手册卡片修订（R41）：BuildingBook/RecipeCard只展示目录与发送选择；RecipeThumbnail从实际组件渲染并缓存图片，最新PaletteUV修复后重新实测。卡片不显示描述、工期或独立“选择建造”按钮。见[交付](../../development/2026-10-30_modular_building_kit.md)及[机器证据](../../development/2026-10-30_modular_building_verification.json)。
+
+## 渔场圆按钮（2026-11-02）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-UI-R48 | FisheryMarker屏幕绘制复用原圆按钮和白色鱼剪影，移除3D图片/文字与重复悬浮图标；点击转发接近/收获 | fishery-production / visual-fishery-production；[交付](../../development/2026-11-02_fishery_round_button.md) |
+
+R48本轮真实渲染36项、headless33项、操作气泡回归59项全部通过，鼠标按下/抬起确实触发按钮与实际收获；原生近景已检查。文档同步受并行水层资产登记阻挡，未批量接纳其他哈希。
+
+## 2026-11-02 新旅程与角色档案
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R49 | 已接入，专项与回归以本轮记录为准 | `avatar / visual-avatar`；[交付](../../development/2026-11-02_avatar_and_arrival.md) |

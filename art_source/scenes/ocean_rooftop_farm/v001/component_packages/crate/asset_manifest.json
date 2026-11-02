@@ -1,0 +1,38 @@
+{
+  "key": "crate",
+  "asset_id": "SEA-SCENE-ORF-CRATE",
+  "name": "木储物箱",
+  "category": "fixture",
+  "component_family": "storage",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-CRATE",
+  "root": "crate_组件根",
+  "bounds_size": [
+    0.8999999761581421,
+    0.824999988079071,
+    0.8700000047683716
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/crate/crate.blend",
+  "geometry_fingerprint": "688bbaa7ad504995d4943ae5cf548f81dc2ea735617b2671d97fb83aa5dbfef4",
+  "instances": 3,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 48,
+  "source_sha256": "37a7ceafab88dd603fcf0297e6f17cb0fbbc718cc67c9766a77f206f322dacaa",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-CRATE"
+}

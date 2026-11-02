@@ -80,8 +80,11 @@ var salvage_panel = null
 var salvage_winch: Node3D
 ## 码头订单板：世界里的板子 + 面板。规则在 `Economy.orders`（OrderBoard）。
 var trade_board: Node3D
-## 渔场升级后插在平台上的临时标记旗（SEA-AQUA-R04/R05）。null = 还没升级。
-var _fishery_flag: Node3D
+## Authored fishery projection, driven only by FisheryModel.unlocked.
+var _fishery_visual: Node3D
+var _fishery_harvest: Node3D
+var _fishery_marker: CanvasLayer
+var _fishery_schools: Node3D
 var order_panel = null
 ## 航线预览（虚线 + 终点环）与水面寻路栅格（第一次开船时才建，约 10ms）。
 var ribbon: Node3D
@@ -194,6 +197,9 @@ func _apply_cozy_ui() -> void:
 	CozyUI.apply_tree(self)
 
 var start_screen: CanvasLayer
+var avatar_profile = preload("res://src/avatar/avatar_profile.gd").new()
+var avatar_session: Node
+var arrival_flow: Node
 var title_camera = preload("res://src/camera/title_camera.gd").new()
 var _title_active := false
 var _title_layers: Array = []
@@ -249,6 +255,7 @@ func _ready() -> void:
 	_setup_sleep()
 	_setup_building()
 	_setup_save_registry()
+	_setup_avatar()
 	# 水面阻挡要遍历所有组件的三角形（五个区块合计约 0.5s）。放到一帧后再算，
 	# 免得第一次点水面时忽然卡一下；算完 _shore_shapes 就固定，运行期只做查询。
 	call_deferred("_warm_water_shapes")
@@ -552,6 +559,81 @@ func load_game(path := "") -> Dictionary:
 	return res
 
 
+## 重置存档：把这一局退回开局，**旧进度改名归档后保留**。
+##
+## 三步，顺序不能换：
+##   1. 归档旧档（改名，不删除）。失败就整件事取消 —— 不归档就重置等于烧桥。
+##   2. 内存回到开局：用注册表在装配时抓下的 `defaults()` 走同一套 restore。
+##      这里**不能**用「重载场景」代替：Economy / GameState 是 Autoload，
+##      重载主场景它们不会重建，背包还是旧的 —— 那个做法只是看起来干净。
+##   3. 立刻写一份新档。不写的话，玩家重置完直接退出，下次启动又读回旧进度，
+##      观感就是「重置没生效」。
+##
+## 恢复走 `save_registry.restore()`，和读档同一条路：先校验全部模块再改任何
+## 模块，中间事件被屏蔽，最后发一次 `restored` —— 所以 HUD、相机、昼夜、
+## 海面浮标都按原来的接线自动跟上。
+func reset_save(path := "") -> Dictionary:
+	if dive != null and dive.active:
+		hud.toast("潜水时不能重置存档，先上浮")
+		return {"ok": false, "reason": "潜水时不能重置存档"}
+	if save_registry.is_busy():
+		hud.toast("正在结算或过场，稍等一下再重置")
+		return {"ok": false, "reason": "正在结算或过场"}
+	var target := path if path != "" else _save_path
+	var archived: Dictionary = SaveGameLib.archive(target)
+	if not archived.get("ok", false):
+		hud.toast(str(archived.get("reason", "重置失败")))
+		print("[save] reset %s aborted: %s" % [target, archived.get("reason", "")])
+		return archived
+	var fresh: Dictionary = save_registry.defaults()
+	var res: Dictionary = save_registry.restore(fresh)
+	if not res.get("ok", false):
+		# 内存没改成，旧档也已经挪走了 —— 把归档放回去，别留一个「档没了」的现场。
+		var restored: bool = _unarchive(target, archived)
+		hud.toast("重置失败：%s%s" % [res.get("reason", ""), "" if restored else "（旧档在 %s）" % _archive_hint(archived)])
+		print("[save] reset %s restore failed: %s" % [target, res.get("reason", "")])
+		return res
+	# 旧档已经归档，之前因为读档失败上的保护要撤掉，否则新档写不进去。
+	_save_protected = false
+	_autosave_on = true
+	_autosave_left = AUTOSAVE_SECONDS
+	var wrote: Dictionary = save_game(target, true)
+	var where := _archive_hint(archived)
+	# 也把水壶补满：开局状态本来就是满的，但 `_after_restore` 只在人在岸上时补，
+	# 重置后可能还在船上 —— 不补的话第一天就带着一个空水壶开局。
+	if Economy.farm != null:
+		Economy.farm.refill()
+	if wrote.get("ok", false):
+		hud.toast("已重置存档 · 回到第一天早晨%s" % where, 4.0)
+	else:
+		hud.toast("已重置，但新存档写入失败：%s" % str(wrote.get("reason", "")), 5.0)
+	print("[save] reset %s ok (archived %d file(s), new save %s)" % [
+		target, (archived.get("files", []) as Array).size(), "ok" if wrote.get("ok", false) else wrote.get("reason", "")])
+	return {"ok": wrote.get("ok", false), "reason": str(wrote.get("reason", "")), "archived": archived.get("files", [])}
+
+
+## 归档文件的存放位置，给提示语用。取文件名而不是全路径：
+## `user://` 的真实路径很长，一屏提示塞不下，写全了反而看不清。
+func _archive_hint(archived: Dictionary) -> String:
+	var files: Array = archived.get("files", [])
+	if files.is_empty():
+		return ""
+	return " · 旧进度已备份为 %s" % String(files[0]).get_file()
+
+
+## 把归档挪回原槽位。只在「归档成功、内存恢复失败」这一种情况下用。
+func _unarchive(target: String, archived: Dictionary) -> bool:
+	var files: Array = archived.get("files", [])
+	var mark := String(archived.get("mark", ""))
+	var ok := true
+	for item in files:
+		var from := String(item)
+		var to := from.replace("_pre_reset-" + mark, "")
+		if DirAccess.rename_absolute(ProjectSettings.globalize_path(from), ProjectSettings.globalize_path(to)) != OK:
+			ok = false
+	return ok
+
+
 func _setup_lights() -> void:
 	var holder := get_node_or_null("World/Lights")
 	if holder != null:
@@ -798,9 +880,9 @@ func _warm_water_shapes() -> void:
 ## 不需要重烘岸线图），与玩家自建木板走同一条通路。
 ## 数据来源优先用结构自己的水面阻挡矩形（`BlockerSet` 从几何派生的真实轮廓），
 ## 没有阻挡时退回它的可行走矩形，再取总包围盒。
-func _water_shapes() -> Array:
+func _water_shapes(fishery_state: Variant = null) -> Array:
 	if not _shore_shapes.is_empty():
-		return _shore_shapes
+		return _shore_shapes + (_fishery_visual.water_shapes(fishery_state) if _fishery_visual != null else [])
 	_collect_water_shapes(get_node_or_null("World/Zones"))
 	# 区块之外的海上结构物（World/SeaStructures）同样挡船：它们没有 ZoneScene，
 	# 但有自己的 BlockerSet 与 rebuild_blockers，这里走同一个入口。
@@ -814,7 +896,7 @@ func _water_shapes() -> Array:
 			FileAccess.get_file_as_string("res://assets/baked/shore.json"))
 		if legacy is Dictionary and legacy.has("shapes"):
 			_shore_shapes = legacy.shapes
-	return _shore_shapes
+	return _shore_shapes + (_fishery_visual.water_shapes(fishery_state) if _fishery_visual != null else [])
 
 
 ## 把一棵子树里每个带 rebuild_blockers 的节点派生成的水面矩形并进 _shore_shapes。
@@ -1294,9 +1376,9 @@ func _setup_trade() -> void:
 			trade_board.setup(rows[0])
 			add_child(trade_board)
 	if trade_board != null:
-		trade_board.opened.connect(_open_orders)
+		trade_board.opened.connect(_open_fishery_construction)
 
-	if trade_board != null: trade_board.order_model = Economy.orders
+	if trade_board != null: trade_board.order_model = null
 	order_panel = get_node_or_null("OrderPanel")
 	if order_panel == null:
 		order_panel = OrderPanelScript.new()
@@ -1313,7 +1395,19 @@ func _setup_trade() -> void:
 			if order_panel != null and order_panel.is_open():
 				order_panel.refresh())
 	_bind_supply_counter()
-	# 渔场升级：改完立刻换牌子文案，并在平台上插一面旗做可见标记。
+	var fishery_zone: Node3D = _zone_nodes.get("zone1")
+	_fishery_visual = fishery_zone.get_node("Models/WildFishery")
+	_fishery_visual.configure(fishery_zone,fishery_zone.get_node("WalkAreas/Walk_zone1_salvage"),fishery_zone.get_node("Models/绞盘打捞台/salvage_station/绞盘打捞台-海上区域-01_001"),water_node)
+	_fishery_visual.projection_changed.connect(_on_fishery_projection_changed)
+	_fishery_schools = fishery_zone.get_node("FisherySchools")
+	for school in _fishery_schools.get_children(): school.set_water(water_node)
+	_fishery_harvest = fishery_zone.get_node("Objects/FisheryHarvest")
+	_fishery_harvest.configure(Economy.fishery,_harvest_fishery)
+	_fishery_marker = preload("res://src/ui/fishery_marker.gd").new()
+	add_child(_fishery_marker)
+	_fishery_marker.configure(cam,_fishery_harvest,func() -> Dictionary: return {"pending":Economy.fishery.pending},func() -> bool: return not input_blocked() and not dive.active and not cam.panning)
+	_fishery_marker.harvest_requested.connect(_request_fishery_harvest)
+	# Upgrade state projects the authored shore and net; no duplicate business owner.
 	Economy.fishery.changed.connect(_on_fishery_changed)
 	_on_fishery_changed()
 
@@ -1322,23 +1416,46 @@ func _setup_trade() -> void:
 func _upgrade_fishery() -> Dictionary:
 	return Economy.fishery.upgrade()
 
+func _open_fishery_construction(_board: Node3D) -> void:
+	if not Economy.fishery.unlocked:
+		actor_controller.complete_interaction()
+		hud.open_aqua_upgrade(_upgrade_fishery)
 
-## 升级状态一变就同步世界的表现：木牌改称「渔场」，平台上多一面旗。
-##
-## 本轮没有正式的渔场美术，旗帜是**明确的临时标记**（复用建造组件里的旗），
-## 不是假装渔场已经做完；养殖、投苗、收成仍按 SEA-AQUA-R06 之后另做。
+func _request_fishery_harvest() -> void:
+	if input_blocked(): return
+	var reason: String = Economy.fishery.harvest_reason()
+	if reason == "": reason = _land_reach_reason(_fishery_harvest)
+	if reason != "":
+		hud.toast(reason)
+		return
+	_approach_command(_fishery_harvest,_harvest_fishery)
+
+func _harvest_fishery() -> Dictionary:
+	var result: Dictionary = Economy.fishery.harvest()
+	if result.has("fish"):
+		pickup_progress.receive({"fish":int(result.fish)})
+		hud.toast(str(result.message))
+	return result
+
+## Upgrade/restore swaps only the authorized surface; the utility pole stays intact.
 func _on_fishery_changed() -> void:
 	var unlocked: bool = Economy.fishery.unlocked
-	if trade_board != null and Scope.minimal():
-		trade_board.label = "渔场 · 商店 / 仓库 / 出货箱" if unlocked else "家园补给站 · 商店 / 仓库 / 出货箱"
-	if not unlocked or _fishery_flag != null: return
-	var zone: Node = _zone_nodes.get("zone1")
-	if zone == null: return
-	var flag: Node3D = load("res://scenes/buildables/kit/flag.tscn").instantiate()
-	flag.name = "FisheryFlag"
-	flag.position = Vector3(-15.6, 1.33, 12.9)
-	zone.get_node("Objects").add_child(flag)
-	_fishery_flag = flag
+	if trade_board != null:
+		trade_board.visible = not unlocked
+		trade_board.label = "渔场 · 待建"
+		trade_board.verb = "建造渔场"
+	if _fishery_visual != null: _fishery_visual.apply_upgrade(unlocked)
+	if _fishery_schools != null: _fishery_schools.visible = unlocked
+	if _fishery_harvest != null: _fishery_harvest.refresh()
+	if _fishery_marker != null: _fishery_marker.refresh()
+
+func _on_fishery_projection_changed() -> void:
+	navigation.invalidate()
+	Zones.bind_scene(_zone_nodes.zone1)
+	_reach_cache.clear()
+	if props != null:
+		props.ocean.invalidate()
+		props.sync_population(world_clock.query(),boat.position)
 
 
 ## 海上补给站：正面招牌下的交互点 → 打开补给页。
@@ -1823,6 +1940,16 @@ func _on_click_command(command: String) -> void:
 		"load":
 			_cancel_action()
 			load_game()
+		"reset":
+			# 确认页由暂停菜单负责；走到这里已经是「确认过」的那一次点击。
+			_cancel_action()
+			var result := reset_save()
+			if result.get("ok",false):
+				_begin_title()
+				start_screen.root_control.hide()
+				_enter_game()
+		"appearance":
+			_begin_avatar_edit()
 		"camera":
 			if hud.is_panel_open(): hud.toggle_panel()
 			grade.set_open(false)
@@ -2487,7 +2614,7 @@ func _setup_actor_controller() -> void:
 	actor_controller.mode_changed.connect(GameState.set_mode)
 	actor_controller.configure(player,boat,self,interactor,{"landing":_current_landing,"zone":func(): return _zone_nodes.get(GameState.current_zone),"notify":func(text): hud.toast(text),"input_blocked":input_blocked})
 	GameState.mode_changed.connect(actor_controller.reconcile_mode)
-	cam.input_blocked = input_blocked
+	cam.input_blocked = func(): return _title_active or _exhausted_rest or (sleep_cycle!=null and sleep_cycle.busy) or hud.camera_modal() or (salvage_panel!=null and salvage_panel.is_open()) or (order_panel!=null and order_panel.is_open()) or (cam_panel!=null and cam_panel.is_open()) or (grade!=null and grade.visible)
 	player.rowing_query = boat.rowing_state
 	boat.speed_multiplier = func() -> float: return 1.15 if Economy.ship_level>=3 else 1.0
 	Economy.ship.upgraded.connect(func(_level): GameState.far_sea_unlocked=true)
@@ -2510,6 +2637,8 @@ func _setup_calendar() -> void:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/world_time.json"))
 	world_clock.configure(config.get("clock",{}))
 	world_clock.changed.connect(func(snapshot: Dictionary): props.sync_population(snapshot,boat.position))
+	Economy.fishery.observe(world_clock.query())
+	world_clock.changed.connect(Economy.fishery.observe)
 	if Scope.minimal():
 		Economy.daily.observe(world_clock.query())
 		world_clock.changed.connect(Economy.daily.observe)
@@ -2579,6 +2708,7 @@ func _setup_building() -> void:
 	building_controller=preload("res://src/building/building_controller.gd").new();add_child(building_controller)
 	building_controller.configure(building,building_world,cam,hud,Economy.inventory.all,actor_controller.cancel,
 		_construction_stand_point,_construction_walk,_construction_actor_state)
+	building_controller.demolition.launcher_visibility_query=func(): return not _title_active and not get_tree().paused and not _exhausted_rest and (sleep_cycle==null or not sleep_cycle.busy) and (building_controller.active or not hud.is_modal()) and actor_controller.mode()!=3
 	hud.material_shop=preload("res://src/building/material_shop.gd").new();hud.material_shop.inventory=Economy.inventory
 
 func _bind_constructed_plot(plot: Node3D) -> void:
@@ -2726,11 +2856,12 @@ func _restore_building(data: Dictionary) -> void:
 	building_world.sync()
 
 func _validate_building_world(snapshot: Dictionary) -> String:
-	return validate_world_state(snapshot.game,snapshot.building.instances)
+	return validate_world_state(snapshot.game,snapshot.building.instances,bool(snapshot.economy.get("fishery",{}).get("unlocked",false)))
 
 func _setup_save_registry() -> void:
 	save_registry.busy_query = func(): return Economy.daily.is_settling() or sleep_cycle.busy or building.busy()
 	var schemas: Dictionary = preload("res://src/save/save_schema.gd").schemas()
+	save_registry.register("profile",avatar_profile.to_dict,avatar_profile.from_dict,schemas.profile,avatar_profile.to_dict(),avatar_profile.validate_snapshot,[avatar_profile])
 	save_registry.snapshot_validator = _validate_building_world
 	save_registry.register("building",building.to_dict,_restore_building,schemas.building,building.to_dict(),building.validate_snapshot,[building])
 	var owners := {"economy":Economy,"gather":gather,"pickups":props,"dive":dive,"salvage":Economy.salvage,"time":world_clock,"weather":weather_service}
@@ -2748,6 +2879,9 @@ func capture_world_state() -> Dictionary:
 
 func restore_world_state(data: Dictionary) -> void:
 	data = data.duplicate(true)
+	# Economy is already applied while owner signals are blocked. Build its
+	# matching support before restoring the actor onto the upgraded shore.
+	_on_fishery_changed()
 	if Scope.minimal() and not Scope.zone_enabled(str(data.get("zone","zone1"))):
 		data.merge({"zone":"zone1","landing":"main","mode":1,"boat":[],"player":[]},true)
 	_cancel_pending_pick()
@@ -2771,6 +2905,9 @@ func restore_world_state(data: Dictionary) -> void:
 		if ground != null:
 			var support: Vector3 = ground.surface_point(saved_point)
 			data.player = [support.x,support.y,support.z]
+		elif zone_id=="zone1" and _fishery_visual != null and Economy.fishery.unlocked and _fishery_visual.supports(saved_point,false):
+			var recovered: Vector2 = _zone_nodes.zone1.get_node("WalkAreas/Walk_zone1_salvage").clamp_point(saved_point.x,saved_point.z)
+			data.player = [recovered.x,1.33,recovered.y]
 		elif zone_id=="zone5" and building_world.has_method("closest_walk_point"):
 			var recovered: Vector3=building_world.closest_walk_point(Vector3(saved_player[0],saved_player[1],saved_player[2]))
 			if recovered.is_finite(): data.player=[recovered.x,recovered.y,recovered.z]
@@ -2778,8 +2915,10 @@ func restore_world_state(data: Dictionary) -> void:
 	GameState.enter_zone(zone_id)
 
 func _after_restore() -> void:
+	player.apply_appearance(avatar_profile.query().appearance)
 	props.sync_population(world_clock.query(),boat.position)
 	if Scope.minimal(): Economy.daily.observe(world_clock.query())
+	Economy.fishery.observe(world_clock.query())
 	Economy.publish_restored()
 	_sync_zone_levels()
 	cam.restore_follow(player)
@@ -2792,7 +2931,7 @@ func _exit_tree() -> void:
 	save_registry.clear()
 	navigation.shape_query = Callable()
 
-func validate_world_state(data: Dictionary, layout: Variant = null) -> String:
+func validate_world_state(data: Dictionary, layout: Variant = null, fishery_state: Variant = null) -> String:
 	var landing: String=str(data.get("landing","main"))
 	if building_access!=null and building_access.is_dynamic(landing):
 		if str(data.get("zone",""))!="zone5" or building_access.landing_data(landing,building.query() if layout==null else layout).is_empty():
@@ -2804,11 +2943,16 @@ func validate_world_state(data: Dictionary, layout: Variant = null) -> String:
 		if zone_id=="zone5" and layout!=null:
 			if not building_world.contains_saved(Vector3(pos[0],pos[1],pos[2]),layout): return "Saved player is outside constructed ground"
 		else:
-			var area = _zone_nodes[zone_id].area_at(Vector3(pos[0],pos[1],pos[2]),0.5)
-			if area==null: return "Saved player is outside walkable ground"
+			var point := Vector3(pos[0],pos[1],pos[2])
+			var area = _zone_nodes[zone_id].area_at(point,0.5)
+			var fishery_owned: bool = zone_id=="zone1" and _fishery_visual != null and (_fishery_visual.ISLAND.has_point(Vector2(point.x,point.z)) or _fishery_visual.supports(point,false))
+			if fishery_owned:
+				var active: bool = Economy.fishery.unlocked if fishery_state==null else bool(fishery_state)
+				if not _fishery_visual.supports(point,active) and not (active and _fishery_visual.supports(point,false)): return "Saved player is outside fishery ground"
+			elif area==null: return "Saved player is outside walkable ground"
 	var pose: Array = data.get("boat",[])
 	var candidate_nav = preload("res://src/navigation/water_navigation.gd").new()
-	candidate_nav.shape_query=func(): return _water_shapes()+building_world.water_shapes(building.query() if layout==null else layout)
+	candidate_nav.shape_query=func(): return _water_shapes(fishery_state)+building_world.water_shapes(building.query() if layout==null else layout)
 	if pose.size()==4 and not candidate_nav.is_geometric_water(float(pose[0]),float(pose[2])): return "Saved boat is outside navigable water"
 	return ""
 
@@ -2828,12 +2972,20 @@ func _apply_play_scope() -> void:
 	trade_board.order_model = null
 	var supply_landing = _zone_nodes["zone1"].landing_point("salvage")
 	trade_board.position = supply_landing.stand_position()+Vector3(-1.6,0,-1.2)
-	trade_board.label = "家园补给站 · 商店 / 仓库 / 出货箱"
-	trade_board.verb = "打开"
+	trade_board.label = "渔场 · 待建"
+	trade_board.verb = "建造渔场"
 	# Camera remains locked; P is an available lighting/debug tool in this scope.
 	cam_panel.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _begin_title() -> void:
+	_suspend_for_avatar_or_title()
+	title_camera.begin(cam)
+	start_screen = preload("res://src/ui/start_screen.gd").new()
+	start_screen.name = "StartScreen"
+	add_child(start_screen)
+	start_screen.start_requested.connect(_enter_game)
+
+func _suspend_for_avatar_or_title() -> void:
 	_title_active = true
 	daylight_rig.apply(world_clock.query().hour)
 	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").hide()
@@ -2847,31 +2999,68 @@ func _begin_title() -> void:
 	_title_props = {"visible":props.visible,"process_mode":props.process_mode}
 	props.hide()
 	props.process_mode = Node.PROCESS_MODE_DISABLED
-	title_camera.begin(cam)
-	start_screen = preload("res://src/ui/start_screen.gd").new()
-	start_screen.name = "StartScreen"
-	add_child(start_screen)
-	start_screen.start_requested.connect(_enter_game)
 
 func _enter_game() -> void:
 	if not _title_active: return
+	if avatar_session.active(): return
+	if not _save_protected and not avatar_profile.query().completed:
+		if is_instance_valid(start_screen): start_screen.process_mode=Node.PROCESS_MODE_DISABLED
+		arrival_flow.begin(cam)
+		return
 	var transition := create_tween()
 	transition.tween_method(func(value: float): title_camera.blend(cam,value),0.0,1.0,1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	transition.tween_callback(func():
 		title_camera.finish(cam)
-		for entry in _title_layers:
-			entry.node.visible = entry.visible
-			entry.node.process_mode = entry.process_mode
-		_title_layers.clear()
-		props.visible = _title_props.visible
-		props.process_mode = _title_props.process_mode
-		_title_props.clear()
-		_title_active = false
-		_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").show()
-		daylight_rig.apply(world_clock.query().hour)
-		Economy.ticking = _title_economy_ticking
-		start_screen.queue_free()
-		start_screen = null)
+		_resume_after_avatar_or_title())
+
+func _resume_after_avatar_or_title() -> void:
+	for entry in _title_layers:
+		if not is_instance_valid(entry.node): continue
+		entry.node.visible = entry.visible
+		entry.node.process_mode = entry.process_mode
+	_title_layers.clear()
+	props.visible = _title_props.visible
+	props.process_mode = _title_props.process_mode
+	_title_props.clear()
+	_title_active = false
+	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").show()
+	daylight_rig.apply(world_clock.query().hour)
+	Economy.ticking = _title_economy_ticking
+	if is_instance_valid(start_screen): start_screen.queue_free()
+	start_screen = null
+
+func _setup_avatar() -> void:
+	avatar_profile.changed.connect(func(): player.apply_appearance(avatar_profile.query().appearance))
+	avatar_session=preload("res://src/avatar/avatar_session.gd").new()
+	avatar_session.name="AvatarSession"
+	avatar_session.profile=avatar_profile; avatar_session.player=player; avatar_session.camera=cam
+	avatar_session.save=func(): return save_game("",true)
+	add_child(avatar_session)
+	avatar_session.finished.connect(func(saved: bool):
+		_resume_after_avatar_or_title()
+		if saved: hud.toast(("你好，%s。海上的新生活开始了！" if avatar_session.first_creation else "已保存你的新模样，%s。") % avatar_profile.query().name,4.0))
+	arrival_flow=preload("res://src/onboarding/arrival_flow.gd").new()
+	arrival_flow.name="ArrivalFlow"; arrival_flow.session=avatar_session
+	arrival_flow.release_title_camera=func(): title_camera.finish(cam)
+	arrival_flow.place_at_dock=_place_new_traveler
+	add_child(arrival_flow)
+
+func _place_new_traveler() -> void:
+	var landing = _zone_nodes.zone1.landing_point("main")
+	var pos: Vector3=landing.stand_position()
+	actor_controller.restore_pose({"mode":0,"player":[pos.x,pos.y,pos.z]})
+	# Look back along the dock: camera stays inside its railings, sea behind actor.
+	player.rotation=Vector3(0,PI,0)
+	GameState.landing_id="main"; GameState.enter_zone("zone1")
+	cam.restore_follow(player); cam.apply_pose()
+
+func _begin_avatar_edit() -> void:
+	if avatar_session.active() or actor_controller.mode()==3: return
+	_cancel_action()
+	cam_panel.set_open(false); grade.set_open(false)
+	if hud.is_panel_open(): hud.toggle_panel()
+	_suspend_for_avatar_or_title()
+	avatar_session.begin(false)
 
 
 func _open_plot_options(plot_id: String) -> void:
@@ -2937,16 +3126,14 @@ func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 					"command":func(): _queue_refill_and_water(spot)})
 			else:
 				options.append({"id":"water","icon":"water","label":"浇水","blocked":reason,"command":func(): _queue_plot_action(spot,"water","")})
-	elif spot == trade_board and Scope.minimal():
-		for service in [["shop","shop","商店"],["storage","bag","仓库"],["shipping","shipping","出货箱"]]:
-			var tab := str(service[0])
-			options.append({"id":tab,"icon":str(service[1]),"label":str(service[2]),"command":func(): _approach_command(spot,func() -> Dictionary:
-				hud.open_tab(tab);return {"event":"service_opened"})})
-		# 升级为渔场（SEA-AQUA-R04）：走「先走过去、再开面板」，与商店/仓库完全同一条动线。
-		var fishery_reason: String = Economy.fishery.reason()
-		options.append({"id":"fishery","icon":"fish","label":"升级为渔场","blocked":fishery_reason,
-			"command":func(): _approach_command(spot,func() -> Dictionary:
-				hud.open_aqua_upgrade(_upgrade_fishery);return {"event":"fishery_opened"})})
+	elif spot == _fishery_harvest or spot == trade_board:
+		if spot == _fishery_harvest:
+			options.append({"id":"harvest","icon":"fish","label":"收获鱼类","caption":"收获 ×%d" % Economy.fishery.pending,
+				"blocked":Economy.fishery.harvest_reason(),"command":func(): _approach_command(spot,_harvest_fishery)})
+		elif not Economy.fishery.unlocked:
+			options.append({"id":"fishery","icon":"fish","label":"建造渔场","blocked":Economy.fishery.reason(),
+				"command":func(): _approach_command(spot,func() -> Dictionary:
+					hud.open_aqua_upgrade(_upgrade_fishery);return {"event":"fishery_opened"})})
 	else:
 		var icon := "hand"
 		if spot.is_in_group("shipping_boxes"): icon="shipping"

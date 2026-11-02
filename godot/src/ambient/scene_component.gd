@@ -7,6 +7,11 @@ signal interaction_requested(instance_id: String, action: String)
 @export var asset_id := ""
 @export_enum("building", "upgrade_attachment", "furnishing", "decoration") var component_kind := "building"
 @export var subcategory := ""
+## 水层归属：这个件在水面以上、跨水线、还是整个沉在水下。
+## 规则见 docs/standards/水层分类与空间职责.md；空串表示未登记，由 water-layer 专项报错。
+@export_enum("surface", "amphibious", "submerged", "backdrop", "none") var water_layer := ""
+## entity=独立承担空间义务；part=跟着所属实体走；none=不是空间资产。
+@export_enum("entity", "part", "none") var water_layer_role := ""
 @export var movable := false
 @export var attachment_slot := ""
 ## Authored default is visible; designers may assign an unlock tier without changing rules.
@@ -18,6 +23,7 @@ func set_upgrade_level(level: int) -> void:
 func describe() -> Dictionary:
 	return {"instance_id":instance_id,"facility_id":facility_id,"asset_id":asset_id,
 		"attachment_slot":attachment_slot,"category":component_kind,"subcategory":subcategory,"movable":movable,
+		"water_layer":water_layer,"water_layer_role":water_layer_role,
 		"actions":PackedStringArray(["inspect", "relocate"]) if movable else PackedStringArray(["inspect"])}
 
 func request_interaction(action: String) -> bool:

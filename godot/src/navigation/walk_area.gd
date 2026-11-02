@@ -18,6 +18,9 @@ extends Node3D
 ## Optional local-space 3D triangles for slopes and stacked floors. Existing
 ## authored rectangles remain the compatibility input for the current content.
 @export var surface_triangles := PackedVector3Array()
+## Optional physical footprint when surface_triangles already represents safe
+## actor centres. Keeps upper decks and ramps from being inset twice.
+var physical_surface_triangles := PackedVector3Array()
 ## Ground boundary edges intentionally joined by another sloped surface.
 var open_surface_junctions: Array=[]
 var ground_space: Node3D
@@ -213,6 +216,11 @@ func surface_faces() -> PackedVector3Array:
 		if (faces[i+1]-faces[i]).cross(faces[i+2]-faces[i]).y < 0.0:
 			var temp := faces[i+1]
 			faces[i+1] = faces[i+2]; faces[i+2] = temp
+	return faces
+
+func physical_faces() -> PackedVector3Array:
+	var faces:=PackedVector3Array()
+	for point in physical_surface_triangles: faces.append(to_global(point))
 	return faces
 
 func surface_point(point: Vector3) -> Vector3:

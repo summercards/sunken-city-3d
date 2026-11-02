@@ -25,6 +25,55 @@
       ]
     },
     {
+      "feature_id": "SEA-AVATAR",
+      "name": "角色档案与外观定制",
+      "group": "角色",
+      "dependencies": [
+        "SEA-MOVE",
+        "SEA-SAVE",
+        "SEA-UI"
+      ],
+      "spec": "docs/features/avatar/spec.md",
+      "ledger": "docs/features/avatar/ledger.md",
+      "status": "implemented",
+      "owner": "AvatarProfile / AvatarCatalog / AvatarSession",
+      "code_paths": [
+        "godot/src/avatar",
+        "godot/assets/data/avatar_catalog.json",
+        "godot/shaders/avatar_limb.gdshader",
+        "art_source/characters/avatar/v002/rig_contract.json"
+      ],
+      "verification": [
+        "avatar",
+        "avatar-restart",
+        "visual-avatar",
+        "avatar-proportions",
+        "visual-avatar-proportions",
+        "avatar-skinning",
+        "visual-avatar-skinning"
+      ]
+    },
+    {
+      "feature_id": "SEA-ONBOARDING",
+      "name": "新旅程码头开场",
+      "group": "生活",
+      "dependencies": [
+        "SEA-AVATAR",
+        "SEA-CAMERA"
+      ],
+      "spec": "docs/features/onboarding/spec.md",
+      "ledger": "docs/features/onboarding/ledger.md",
+      "status": "implemented",
+      "owner": "ArrivalFlow / 注入场景端口",
+      "code_paths": [
+        "godot/src/onboarding"
+      ],
+      "verification": [
+        "onboarding",
+        "visual-avatar"
+      ]
+    },
+    {
       "feature_id": "SEA-WORLD",
       "name": "区块与世界装配",
       "group": "世界",
@@ -44,6 +93,7 @@
         "godot/assets/data/zones.json"
       ],
       "verification": [
+        "water-layer",
         "submerged-neighborhood",
         "visual-submerged-neighborhood",
         "selftest",
@@ -56,7 +106,9 @@
         "visual-plot-shipping",
         "visual-home-lighting",
         "sea-supply",
-        "sea-supply-probe"
+        "sea-supply-probe",
+        "fishery-environment",
+        "visual-fishery-environment"
       ]
     },
     {
@@ -323,7 +375,10 @@
         "visual-recipe-cards",
         "character-space-save",
         "building-decoupling",
-        "building-perf"
+        "building-perf",
+        "building-surfaces",
+        "visual-building-surfaces",
+        "building-demolition"
       ]
     },
     {
@@ -686,14 +741,21 @@
       "spec": "docs/features/aqua/spec.md",
       "ledger": "docs/features/aqua/ledger.md",
       "status": "partial",
-      "owner": "规划：AquacultureService / 渔场升级段：FisheryModel",
+      "owner": "FisheryModel / FisheryVisual / FisheryHarvest / FisheryMarker；第五区特殊养殖仍规划",
       "code_paths": [
         "godot/src/aqua/fishery_service.gd",
+        "godot/src/aqua/fishery_visual.gd",
+        "godot/src/aqua/fishery_harvest.gd",
+        "godot/src/ui/fishery_marker.gd",
         "godot/src/ui/fishery_panel.gd"
       ],
       "verification": [
         "fishery",
-        "visual-fishery"
+        "visual-fishery",
+        "fishery-environment",
+        "visual-fishery-environment",
+        "fishery-production",
+        "visual-fishery-production"
       ]
     },
     {
@@ -834,7 +896,11 @@
         "minimum-loop",
         "visual-plot-shipping",
         "sleep-cycle",
-        "wood-bundles"
+        "wood-bundles",
+        "save-reset",
+        "visual-save-reset",
+        "fishery-environment",
+        "visual-fishery-environment"
       ]
     },
     {
@@ -881,6 +947,7 @@
         "tools/blender"
       ],
       "verification": [
+        "water-layer",
         "submerged-neighborhood",
         "visual-submerged-neighborhood",
         "reference-skiff",
@@ -893,7 +960,9 @@
         "visual-kit-uv",
         "building-kit",
         "floating-shop",
-        "sea-supply"
+        "sea-supply",
+        "fishery-environment",
+        "visual-fishery-environment"
       ]
     },
     {

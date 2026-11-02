@@ -1,0 +1,38 @@
+{
+  "key": "main_field",
+  "asset_id": "SEA-SCENE-ORF-MAIN-FIELD",
+  "name": "主农田土垄与木分隔",
+  "category": "fixture",
+  "component_family": "planting",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-MAIN-FIELD",
+  "root": "main_field_组件根",
+  "bounds_size": [
+    11.0600004196167,
+    8.050000190734863,
+    0.26999998092651367
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/main_field/main_field.blend",
+  "geometry_fingerprint": "06fa45821cf16a9354c790b0dfb548a68994486d1437766fb3ab69bfdd7d8b51",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 120,
+  "source_sha256": "a1d2a7062a3e34d14207761b8242b15e37566f44a07528c34e63efe49e28aa51",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-MAIN-FIELD"
+}

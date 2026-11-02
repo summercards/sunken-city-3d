@@ -103,3 +103,19 @@ Zones.far_sea_query 为只读资格回调；Main 汇集场景形状并注入 Wat
 | 条款 ID | 规则 |
 |---|---|
 | SEA-WORLD-R14 | 允许 `World/SeaStructures` 下的结构物**显式**成为一个最小区块，前提是它同时满足区块的那几条接口：`zone_id` 非空、`walk_areas` 提供 WalkArea、`landing_points()` 提供 LandingPoint、`area_at()` / `ground_space` 可查询、`Zones.bind_scene()` 能回填 landings/walk。`main._setup_scene()` 先扫 `World/Zones`，再扫 `World/SeaStructures` 里带 `zone_id` 的节点并入同一张 `_zone_nodes`；重复 id 直接报错，不静默覆盖。<br>边界：这类结构物不放进 `World/Zones`，不带 Plants / StaticBatch / 建造等级（父类成员保持 null），也不参与「有植物的生活区」相关流程。`zones.json` 只保留区块身份、取景与说明，`walk` / `landings` 由场景绑定在运行时填写——不允许出现第二份可编辑的地面数据。<br>首个实例：海上悬浮商铺（`sea_supply`），见 [补给站接入记录](../../development/2026-10-31_sea_supply_station.md)。 |
+
+## 2026-11-02 渔场升级空间投影
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORLD-R15 | zone1稳定引用独立wild_fishery.tscn，升级后只替换原打捞台地上视觉，原电线杆/花、海下基础和泊位三点不动。岸坪WalkArea按原真实木板占地和新陈设生成，复用GroundSpace导航/胶囊边界；不把围网水面当陆地。水域占用随升级状态变化并失效导航与资源缓存；原泊位与围网外可航，围网内船及随机资源不可进入。旧未升级恢复原视觉/矩形；新旧角色位置恢复按候选状态建立对应地面，渔场和家园其他手改场景不重生成。 |
+
+[范围与实测](../../development/2026-11-02_wild_fishery.md)。
+
+## 2026-11-02 水层义务由装配侧实测
+
+两类职责登记归资产（SEA-ASSET-R40），**义务必须在场景里兑现**：水上设施提供活动面与阻挡，水下建筑／基座不提供任何空间或玩法功能。规范全文见 [水层分类与空间职责](../../standards/水层分类与空间职责.md)。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-WORLD-R16 | 仅海上主场景适用本条，独立海底／潜水场景不在本次分类内。海上场景装配按building_class承担两类职责：水上功能设施由对应所有者提供真实活动面／泊位、角色及船只阻挡和已定义功能；水下观赏建筑及海下基座只渲染，任何层级不得生成物理碰撞、角色／船阻挡、导航障碍、WalkArea／LandingPoint、交互、资源产出、玩法状态或岸线种子。水上父总成可以包含underwater子件，派生几何必须显式排除这些子树，不能以同属一栋楼而混入。未分段的跨水线视觉源须记录pending，不能仅改分类当作完成接入。旧water_layer为兼容装配描述；water-layer旧专项的漏声明与metadata缺口仍待补齐，当前通过不等于新职责完整验收。运行验收通过统一runner隔离数据，分别记录水上空间一致、水下无功能、拒绝漏声明及真实渲染结果。 |

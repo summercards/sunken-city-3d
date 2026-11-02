@@ -76,9 +76,18 @@ static func walk_rects(base: Array, rows: Array, fixed: Array=[], radius: float=
 	for rect: Rect2 in fixed: cuts.append(rect.grow(radius))
 	for row in rows:
 		if Catalog.is_furnishing(str(row.kind)) and Catalog.blocks_actor(str(row.kind)) and Catalog.elevation(row)<0.5:
-			for blocker: Rect2 in preload("res://src/building/assembly_surfaces.gd").blockers(row): cuts.append(blocker.grow(radius))
-		if row.left<=0 and Catalog.RECIPES[row.kind].get("profile","")=="stairs": cuts.append(Catalog.plot_rect(row))
+			for blocker: Rect2 in blocker_rects(row): cuts.append(blocker.grow(radius))
+		if row.left<=0 and Catalog.elevation(row)<.5 and Catalog.RECIPES[row.kind].get("profile","")=="stairs": cuts.append(Catalog.plot_rect(row))
 	return cut_all(result,cuts)
+
+static func blocker_rects(row: Dictionary) -> Array:
+	if str(Catalog.RECIPES[row.kind].get("profile",""))!="door": return [Catalog.footprint_rect(row)]
+	var result: Array=[]
+	for x in [-.79,.79]:
+		var center:=Catalog.footprint_rect(row).get_center()+Vector2(x,0).rotated(-float(row.turn)*PI/2)
+		var extent:=Vector2(.42,.16) if int(row.turn)%2==0 else Vector2(.16,.42)
+		result.append(Rect2(center-extent/2,extent))
+	return result
 
 static func contains(rect: Rect2, p: Vector2) -> bool:
 	return p.x>=rect.position.x-EPS and p.x<=rect.end.x+EPS and p.y>=rect.position.y-EPS and p.y<=rect.end.y+EPS

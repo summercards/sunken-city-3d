@@ -11,7 +11,7 @@ static func build(body: VBoxContainer, economy: Node, perform: Callable) -> void
 	var title := Label.new()
 	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	title.custom_minimum_size.x = 570
-	title.text = "家园补给站 · 改造成渔场\n把这块平台改成渔场：木板 100、鱼 50。改完之后这里就是渔场，养殖与收成随后开放。"
+	title.text = "建造渔场\n整理岸坪，搭起围网和浮漂，让游鱼聚在水中。建造需要木板 100、鱼 50。每4小时积累3条鱼，最多24条；到渔场点击收获，装进背包。"
 	body.add_child(title)
 	var parts: Array[String] = []
 	for id in fishery.COST:
@@ -25,4 +25,4 @@ static func build(body: VBoxContainer, economy: Node, perform: Callable) -> void
 		Rows.row(body, "这里已经是渔场了", "已完成", func() -> void: pass, false)
 		return
 	var reason := str(fishery.reason())
-	Rows.row(body, "改造成渔场" if reason == "" else reason, "改造成渔场", perform, reason == "")
+	Rows.row(body, "建造渔场" if reason == "" else reason, "建造渔场", perform, reason == "")

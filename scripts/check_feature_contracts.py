@@ -10,6 +10,19 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 STATUS = {'planned': '规划中', 'partial': '部分实现', 'implemented': '已实现待完整验收',
           'verified': '已验收', 'blocked': '受阻'}
+# Water layer classification. The rule table lives in tools/apply_water_layer.py;
+# this gate only checks that the ledger still agrees with it (docs/standards/水层分类与空间职责.md).
+WATER_LAYERS = {'surface', 'amphibious', 'submerged', 'backdrop', 'none'}
+WATER_ROLES = {'entity', 'part', 'none'}
+
+
+def water_layer_rules():
+    import importlib.util
+    path = ROOT / 'tools/apply_water_layer.py'
+    spec = importlib.util.spec_from_file_location('water_layer_rules', path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def hash_matches(path, expected):
@@ -146,13 +159,72 @@ def check(sync=False):
             if ref == 'outputs' or ref.startswith('outputs/'): continue
             require((ROOT / 'godot' / ref).exists(), str(p.relative_to(ROOT)) + ': missing resource ' + ref)
     index = json.loads((ROOT / 'assets/registry/ledger_index.json').read_text())
+    classification_rules = water_layer_rules()
+    classify_layer = classification_rules.classify
     asset_ids, source_rows = set(), []
     for domain, route in index['domains'].items():
         book = json.loads((ROOT / route['ledger']).read_text())
+        if domain == 'scenes':
+            require(book.get('building_classification') == classification_rules.CLASSIFICATION_HEADER,
+                    'scenes: two-class building policy is missing or stale')
+            view_routes = route.get('building_views', {})
+            require(set(view_routes) == classification_rules.BUILDING_CLASSES,
+                    'scenes: route exactly the above_water / underwater ledger views')
+            for name, view in classification_rules.building_views(book[route['asset_key']], route['ledger']).items():
+                target_view = ROOT / view_routes.get(name, '__missing_building_view__')
+                require(target_view.is_file(), 'scenes: missing building view ' + name)
+                if target_view.is_file():
+                    require(json.loads(target_view.read_text()) == view,
+                            'scenes: stale building view ' + name + '; run tools/apply_water_layer.py')
         for asset in book[route['asset_key']]:
             aid = asset['asset_id']
             require(aid not in asset_ids, 'duplicate AssetID ' + aid); asset_ids.add(aid)
             require(asset['domain'] == domain, aid + ': wrong domain')
+            # Water layer: present, well-formed, and still matching the family table.
+            # Only the scenes domain puts things in the water; crops, UI and audio
+            # ledgers may leave the fields out but must not use junk values.
+            layer, role = asset.get('water_layer'), asset.get('water_layer_role')
+            if domain == 'scenes':
+                building_class = asset.get('building_class')
+                require('building_class' in asset and
+                        (building_class is None or isinstance(building_class, str) and
+                         building_class in classification_rules.BUILDING_CLASSES),
+                        aid + ': building_class must be above_water / underwater, or null for non-buildings/out-of-scope assets')
+                try:
+                    expected_class = classification_rules.classify_building_asset(asset)
+                except KeyError:
+                    expected_class = '__unknown_family__'
+                require(building_class == expected_class, aid + ': building responsibility class disagrees with policy')
+                if building_class == 'underwater':
+                    for flag in ['interactive', 'blocks_actor', 'blocks_water',
+                                 'walkable', 'has_landing', 'navigation_obstacle',
+                                 'resource_output', 'gameplay_state', 'shoreline_source',
+                                 'walk_areas', 'landing_points', 'water_shapes',
+                                 'navigation_obstacles', 'interactions', 'production', 'save_fields']:
+                        require(not asset.get(flag), aid + ': underwater visual asset declares forbidden ' + flag)
+                    collision = asset.get('collision')
+                    if not isinstance(collision, dict):
+                        require(not collision, aid + ': underwater visual asset declares forbidden collision')
+                    if isinstance(collision, dict):
+                        for flag in ['enabled', 'blocks_actor', 'blocks_water', 'walkable_deck']:
+                            require(not collision.get(flag), aid + ': underwater collision declares ' + flag)
+                require(layer in WATER_LAYERS, aid + ': missing/invalid water_layer')
+                require(role in WATER_ROLES, aid + ': missing/invalid water_layer_role')
+                require((layer == 'none') == (role == 'none'),
+                        aid + ': water_layer none and water_layer_role none must agree')
+                require('placement_layer' not in asset,
+                        aid + ': legacy placement_layer replaced by water_layer')
+                try:
+                    expected = classify_layer(aid)
+                except KeyError:
+                    expected = None
+                require(expected == (layer, role),
+                        aid + f': water layer {layer}/{role} disagrees with family table '
+                              f'{expected}; update tools/apply_water_layer.py first')
+            else:
+                require(layer is None or layer in WATER_LAYERS, aid + ': invalid water_layer')
+                require(role is None or role in WATER_ROLES, aid + ': invalid water_layer_role')
+            # Independent seabed gameplay is outside this two-class surface-world policy.
             source = ROOT / asset['source']
             require(source.is_file(), aid + ': missing source')
             if source.is_file(): require(hash_matches(source, asset['source_sha256']), aid + ': source hash drift')

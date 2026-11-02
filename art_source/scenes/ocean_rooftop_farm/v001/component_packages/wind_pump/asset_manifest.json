@@ -1,0 +1,38 @@
+{
+  "key": "wind_pump",
+  "asset_id": "SEA-SCENE-ORF-WIND-PUMP",
+  "name": "多叶风力装置",
+  "category": "fixture",
+  "component_family": "energy",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-WIND-PUMP",
+  "root": "wind_pump_组件根",
+  "bounds_size": [
+    2.120000123977661,
+    1.3550000190734863,
+    4.639999866485596
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/wind_pump/wind_pump.blend",
+  "geometry_fingerprint": "d8387854e366c7f1efa8933b4c756101b541aa21c1eebb1a58a5d1ced4fe2546",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 212,
+  "source_sha256": "e558010f14e48e8bbb5624a1548cd5d06aec26c24a4722ee841fd61dc89e51f4",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-WIND-PUMP"
+}

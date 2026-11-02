@@ -84,3 +84,9 @@
 | SEA-CAMERA-R09 | follow模式按真实角色高度加0.7m跟随，不再被旧target.y≤10夹住；manual仍保留0–10m观察高度。原角度、FOV、距离、阻尼、缩放、手动接管、UI阻断及开始镜头不变。 |
 
 [本轮交付](../../development/2026-10-29_character_physics_framework.md)。
+
+## 2026-11-02 新旅程与角色档案
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-CAMERA-R10 | 未完成新档由独立ArrivalCamera在1.8秒内从标题拉近码头人物，向海取景避开栏杆，保留右侧编辑区；创建/编辑完成或取消后1秒恢复此前Transform/FOV/near/处理模式。日常OrbitCam参数不重写，外观旋转仅作用表现根。 |

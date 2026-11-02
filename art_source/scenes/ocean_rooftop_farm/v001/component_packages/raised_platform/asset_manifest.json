@@ -1,0 +1,38 @@
+{
+  "key": "raised_platform",
+  "asset_id": "SEA-SCENE-ORF-RAISED-PLATFORM",
+  "name": "左后抬高设备平台",
+  "category": "structure",
+  "component_family": "platform",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-RAISED-PLATFORM",
+  "root": "raised_platform_组件根",
+  "bounds_size": [
+    8.0,
+    7.0,
+    3.3999998569488525
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/raised_platform/raised_platform.blend",
+  "geometry_fingerprint": "7bfdd9b8d16d10bf7640a6f3f1d7aa08e1012ab4e4a9a32c61ce1b2fa847188b",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 72,
+  "source_sha256": "210ff703cc5b3d98fbfc230ca4d3240969f16062b878d4b11193b46e8d08ea7e",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-RAISED-PLATFORM"
+}

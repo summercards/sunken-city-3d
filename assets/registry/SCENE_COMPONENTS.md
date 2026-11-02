@@ -10,13 +10,14 @@
 | 建筑升级附件 | 植物 | 原42种植物与太阳房/基座花叶分别登记，276个当前场景实例，读取建筑等级 |
 | 摆件 | 可移动家具 | 太阳房13类、25实例；独立实例根，接口发交互请求 |
 | 装饰 | 水面植物 | 24片荷叶，独立组件和摆放清单 |
-| 装饰 | 水下纯景观建筑 | 阳光房周围六栋独立楼体，单栋导出三角面≤1000，无碰撞/互动/资源；正式布局 `godot/scenes/decorations/underwater/neighborhood.tscn` |
+| 建筑 | 水下观赏建筑 | building_class=underwater；含海下基座及六种观赏楼，无碰撞／阻挡／互动／资源／可走面；六种楼在main.tscn的World/UnderwaterScenery摆8实例，neighborhood.tscn仅作参考 |
 | 装饰 | 动物 | 7只飞鸟、海面下3群鱼、潜水7群鱼、1头巡游鲸；无资源产出 |
 | 船只 | 基础船与附属件 | reference_skiff：12组件、44实例，基础黄白木船、双桨、船外机和行李；正式入口 [reference_skiff.tscn](../../godot/scenes/props/reference_skiff.tscn)，行为仍由Boat拥有 |
-| 建筑 | 商店（海上结构物） | 海上悬浮商铺 `SEA-SCENE-FSH-ASSEMBLY`，v003 为 4:3 矩形底座与立面：44组件/296实例烘成4材质角色单一GLB（520185三角面），正面4个玻璃橱窗（陈列面，门仍为0）+ GIFTS/COLD DRINKS 广告牌（立体字逐字挤出0.12米、三色、COLD DRINKS 右倾3.2°、整组为定稿字号的1.5倍） + 环廊外部摆件 + 店内货架与装饰灯；预制体 [floating_shop.tscn](../../godot/scenes/facilities/floating_shop.tscn)，正式摆放 `main.tscn` 的 `World/SeaStructures/floating_shop`（阳光房主体正南50米）。自 2026-10-31 起它同时是自己那个最小区块 `sea_supply`：四条环廊可走（封闭主体内不可走）、一个泊位、招牌下有一个补给入口；v002 的圆形壳体与店门组件仍标历史保留，零售摆件/广告牌/玻璃已在 v003 重建并复核 |
+| 建筑 | 商店（海上结构物） | 海上悬浮商铺 `SEA-SCENE-FSH-ASSEMBLY`，v003 为 4:3 矩形底座与立面：44组件/296实例烘成4材质角色单一GLB（520185三角面），正面4个玻璃橱窗（陈列面，门仍为0）+ GIFTS/COLD DRINKS 广告牌（立体字逐字挤出0.12米、三色、COLD DRINKS 右倾3.2°、整组为定稿字号的1.5倍） + 环廊外部摆件 + 店内货架与装饰灯；预制体 [floating_shop.tscn](../../godot/scenes/facilities/floating_shop.tscn)，正式摆放 `main.tscn` 的 `World/SeaStructures/floating_shop`（设计目标为阳光房主体正南50米；当前偏移、水线及靠泊故障见[清点审计](../../docs/development/2026-11-02_surface_building_inventory_audit.md)）。自 2026-10-31 起它同时是自己那个最小区块 `sea_supply`：四条环廊可走（封闭主体内不可走）、一个泊位、招牌下有一个补给入口；v002 的圆形壳体与店门组件仍标历史保留，零售摆件/广告牌/玻璃已在 v003 重建并复核 |
 
 ## 维护规则
 
+- **建筑职责先登记**：以building_class只分above_water（水上功能）与underwater（水下观赏，含基座），非建筑为null。两类入口见[建筑账本导航](BUILDING_CLASSES.md)。水上设施拥有活动面、泊位、阻挡及已定义功能；水下所有件只渲染，无碰撞／阻挡／导航／可走面／交互／产出／玩法状态／岸线来源。旧water_layer／water_layer_role仅作装配描述，不增加建筑类。分类与只读视图由tools/apply_water_layer.py同步，规范见[两类职责](../../docs/standards/水层分类与空间职责.md)，当前运行待验项见功能账本。
 - 修改组件模型：进入对应 prefab；修改单个太阳房/基座实例：进入该套件 instances.json，以已保存 instance_id 定位，不靠重排数组产生新ID。
 - 升级植物使用 facility_id / attachment_slot / unlock_level；可移动家具只提供 inspect / relocate 请求，正式移动编辑器与存档事务后续由玩法实现。
 - 叶片摆放源为 godot/assets/data/lily_components.json；旧zone2网格的840三角面仅运行时精确退役，原GLB不改。zone1旧叶片随旧房替换已不在可见模型中，本轮恢复9片。

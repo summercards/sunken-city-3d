@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" path="res://scenes/decorations/surface_animals.tscn" id="animals"]
 
 [node name="Environment" type="Node3D"]
+metadata/water_layer = "backdrop"
+metadata/water_layer_role = "entity"
 
 [node name="StaticBatch" type="Node3D" parent="."]
 script = ExtResource("1_batch")

@@ -1,0 +1,484 @@
+{
+  "date": "2026-11-02",
+  "features": [
+    "SEA-AVATAR-R14",
+    "SEA-MOVE-R17"
+  ],
+  "run_dir": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d",
+  "results": {
+    "avatar-skinning": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\avatar-skinning.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/avatar-skinning",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_skinning.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-avatar-skinning": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\visual-avatar-skinning.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/visual-avatar-skinning",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_avatar_skinning.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-avatar-proportions": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\visual-avatar-proportions.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/visual-avatar-proportions",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_avatar_proportions.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "avatar": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\avatar.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/avatar-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "avatar-restart": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\avatar-restart.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/avatar-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_restart.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "onboarding": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\onboarding.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/onboarding",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_onboarding.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "character-motor": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\character-motor.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/character-motor",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_character_motor.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "actor-presentation": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\actor-presentation.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/actor-presentation",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_actor_presentation.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "harvest-receive": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\harvest-receive.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/harvest-receive",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_harvest_receive.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-avatar": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\visual-avatar.log",
+      "user_data_name": "sea-verification/20261102-201548-avatar-skin-delivery-c9a28d/visual-avatar",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tools/capture_avatar.gd",
+        "--",
+        "--skip-title"
+      ]
+    }
+  },
+  "all_runtime_passed": true,
+  "rig": {
+    "bone_count": 21,
+    "bones": [
+      {
+        "id": "root",
+        "parent": -1,
+        "rest_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "arm.L.upper",
+        "parent": 0,
+        "rest_origin": [
+          -0.162000000476837,
+          0.806249976158142,
+          0.0
+        ]
+      },
+      {
+        "id": "arm.L.lower",
+        "parent": 1,
+        "rest_origin": [
+          0.0,
+          -0.172000005841255,
+          0.0
+        ]
+      },
+      {
+        "id": "arm.L.tip",
+        "parent": 2,
+        "rest_origin": [
+          0.0,
+          -0.177375003695488,
+          0.00600000005215406
+        ]
+      },
+      {
+        "id": "arm.L.upper_skin",
+        "parent": 1,
+        "rest_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "arm.L.lower_skin",
+        "parent": 2,
+        "rest_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "arm.R.upper",
+        "parent": 0,
+        "rest_origin": [
+          0.162000000476837,
+          0.806249976158142,
+          0.0
+        ]
+      },
+      {
+        "id": "arm.R.lower",
+        "parent": 6,
+        "rest_origin": [
+          0.0,
+          -0.172000005841255,
+          0.0
+        ]
+      },
+      {
+        "id": "arm.R.tip",
+        "parent": 7,
+        "rest_origin": [
+          0.0,
+          -0.177375003695488,
+          0.00600000005215406
+        ]
+      },
+      {
+        "id": "arm.R.upper_skin",
+        "parent": 6,
+        "rest_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "arm.R.lower_skin",
+        "parent": 7,
+        "rest_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "leg.L.upper",
+        "parent": 0,
+        "rest_origin": [
+          -0.084925003349781,
+          0.419999986886978,
+          0.0
+        ]
+      },
+      {
+        "id": "leg.L.lower",
+        "parent": 11,
+        "rest_origin": [
+          0.0,
+          -0.202500000596046,
+          0.0
+        ]
+      },
+      {
+        "id": "leg.L.tip",
+        "parent": 12,
+        "rest_origin": [
+          0.0,
+          -0.182500004768372,
+          0.025000000372529
+        ]
+      },
+      {
+        "id": "leg.L.upper_skin",
+        "parent": 11,
+        "rest_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "leg.L.lower_skin",
+        "parent": 12,
+        "rest_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "leg.R.upper",
+        "parent": 0,
+        "rest_origin": [
+          0.084925003349781,
+          0.419999986886978,
+          0.0
+        ]
+      },
+      {
+        "id": "leg.R.lower",
+        "parent": 16,
+        "rest_origin": [
+          0.0,
+          -0.202500000596046,
+          0.0
+        ]
+      },
+      {
+        "id": "leg.R.tip",
+        "parent": 17,
+        "rest_origin": [
+          0.0,
+          -0.182500004768372,
+          0.025000000372529
+        ]
+      },
+      {
+        "id": "leg.R.upper_skin",
+        "parent": 16,
+        "rest_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "leg.R.lower_skin",
+        "parent": 17,
+        "rest_origin": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "checks": 92,
+    "failures": 0,
+    "limbs": {
+      "arm.L": {
+        "closed": true,
+        "connected": true,
+        "surfaces": 1,
+        "triangles": 1248,
+        "vertices": 626,
+        "weights_per_vertex": 4
+      },
+      "arm.R": {
+        "closed": true,
+        "connected": true,
+        "surfaces": 1,
+        "triangles": 1248,
+        "vertices": 626,
+        "weights_per_vertex": 4
+      },
+      "leg.L": {
+        "closed": true,
+        "connected": true,
+        "surfaces": 1,
+        "triangles": 1056,
+        "vertices": 530,
+        "weights_per_vertex": 4
+      },
+      "leg.R": {
+        "closed": true,
+        "connected": true,
+        "surfaces": 1,
+        "triangles": 1056,
+        "vertices": 530,
+        "weights_per_vertex": 4
+      }
+    },
+    "renderer": "Windows"
+  },
+  "static": {
+    "feature_contracts_sync": {
+      "passed": true,
+      "exit_code": 0,
+      "features": 39,
+      "source_assets": 626,
+      "runtime_hashes": 517,
+      "issues": 0
+    },
+    "feature_contracts_check": {
+      "passed": true,
+      "exit_code": 0,
+      "issues": 0
+    },
+    "architecture": {
+      "passed": true,
+      "exit_code": 0,
+      "independent_services": 17,
+      "issues": 0
+    },
+    "diff_whitespace": {
+      "passed": true,
+      "exit_code": 0
+    }
+  },
+  "expected_faults": [],
+  "unexecuted": [
+    "mobile/touch/gamepad hardware",
+    "manual long-duration wear/pose combinations",
+    "exported build platform validation"
+  ],
+  "art_review": "agent inspected actual straight/bent and elbow/knee close-ups, then all six existing action renders; user requested self-verification",
+  "gpu_bone_only_changed_pixels": 2507
+}

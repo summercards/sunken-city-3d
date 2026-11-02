@@ -1,0 +1,39 @@
+{
+  "asset_id": "SEA-CHAR-RIG-001",
+  "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-RIG-001",
+  "version": "v001",
+  "source": "godot/src/avatar/avatar_limb_skinning.gd",
+  "runtime_path": "godot/src/avatar/avatar_limb_skinning.gd",
+  "authored_files": [
+    {
+      "path": "godot/src/avatar/avatar_limb_skinning.gd",
+      "sha256": "35018f90eb210f44494f0a9a4522496edd7ea661307082f20d6ad1e0d8f6bfbb"
+    },
+    {
+      "path": "godot/shaders/avatar_limb.gdshader",
+      "sha256": "8244fa8a57769d082141e6a525abc730e16b97c3fb5f0e7766040206544fe6df"
+    },
+    {
+      "path": "godot/src/avatar/avatar_dimensions.gd",
+      "sha256": "1a45335da153a4df2904e419aa81bc67ef6cc5e07c24ead6d6fa2e937baba251"
+    },
+    {
+      "path": "godot/src/player/character.gd",
+      "sha256": "42d8fbded8797e8b5b6f52fa565de91c910fe78537fe1768ec7a7e09d9a5e6ad"
+    },
+    {
+      "path": "art_source/characters/avatar/v002/rig_contract.json",
+      "sha256": "4c5d340b1fa663758c31de214b6d4296686de21d4e08b671cfb8eb024f9e0185"
+    },
+    {
+      "path": "art_source/characters/avatar/v002/joint_request.png",
+      "sha256": "4a78108ae4cfda6cdb44e5ae46abee09765227b4a38690889f9db6118512eba1"
+    }
+  ],
+  "source_type": "project-authored Godot procedural Skeleton3D + indexed ArrayMesh + Skin; no Blender/GLB claimed",
+  "rig_contract": "art_source/characters/avatar/v002/rig_contract.json",
+  "coordinate_system": "+Y up, +Z forward, metres, root scale 1",
+  "animation_driver": "registered action samples -> non-rendering pose controls -> Skeleton3D bone poses -> GPU skinning",
+  "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
+  "self_verification": "closed/connected/manifold, weights, bone-only GPU deformation, 0-120deg, pose/render/profile regressions"
+}

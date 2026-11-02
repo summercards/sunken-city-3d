@@ -1,0 +1,38 @@
+{
+  "key": "roof_tiles",
+  "asset_id": "SEA-SCENE-ORF-ROOF-TILES",
+  "name": "大块破损屋顶地砖",
+  "category": "structure",
+  "component_family": "roof_tile",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 60000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-ROOF-TILES",
+  "root": "roof_tiles_组件根",
+  "bounds_size": [
+    35.91999816894531,
+    23.920000076293945,
+    0.15000000596046448
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/roof_tiles/roof_tiles.blend",
+  "geometry_fingerprint": "132e16f93d14bf0692e7d01159907e4f7d899d34340268e08b450206265a1ae6",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 2846,
+  "source_sha256": "47106aa501f5407eba33c879457a84f164c621837a713254bf179db7cc1cd26f",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-ROOF-TILES"
+}

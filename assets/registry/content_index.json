@@ -152,6 +152,32 @@
         "wind_chime"
       ],
       "note": "配方ID唯一源；active控制新建，旧档定义不因停用删除。"
+    },
+    {
+      "owner": "SEA-AVATAR",
+      "path": "godot/assets/data/avatar_catalog.json",
+      "collection_key": "slots",
+      "ids": [
+        "skin",
+        "hair_style",
+        "hair_color",
+        "eyes",
+        "eye_color",
+        "brows",
+        "nose",
+        "mouth",
+        "blush",
+        "top",
+        "top_color",
+        "bottom",
+        "bottom_color",
+        "shoes",
+        "shoe_color",
+        "hat",
+        "hat_color",
+        "glasses"
+      ],
+      "note": "稳定槽位ID；各选项ID在槽位内唯一，扩展需保留既有ID。"
     }
   ]
 }

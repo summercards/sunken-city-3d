@@ -1,0 +1,75 @@
+{
+  "asset_id": "SEA-FISHERY-BUOY",
+  "name": "双色圆浮漂",
+  "domain": "scenes",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-FISHERY-BUOY",
+  "version": "v001",
+  "source": "art_source/scenes/wild_fishery/v001/component_packages/buoy/buoy.blend",
+  "source_sha256": "fc9bb14cbac5f9bf0f04f35115f0f02c8a8950962da244d53668049b0bfea436",
+  "collection": "SEA-FISHERY-BUOY",
+  "origin": "bottom_center",
+  "front_axis": "Blender +Y / Godot -Z",
+  "bounds_blender_m": {
+    "min": [
+      -0.3149999976158142,
+      -0.3149999976158142,
+      0.0
+    ],
+    "max": [
+      0.3149999976158142,
+      0.3149999976158142,
+      0.7249999642372131
+    ]
+  },
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_uv": "sole UV0 / PaletteUV / eight-pixel safe inset",
+  "geometry_fingerprint": "554ee4a8a4ac70d34ad70c05b42af03fdbd6fc5be52b6333dcfebb8e35df460f",
+  "collision": "visual_only; enclosure blocking belongs to assembly",
+  "runtime_path": "godot/assets/models/fishery/buoy/buoy.glb",
+  "runtime_sha256": "71e8fbef90ffdf14e2c2222bdb8dbba53cd943b38577957bd902169934aec96f",
+  "prefab": "godot/scenes/components/fishery/buoy.tscn",
+  "optimized": "art_source/scenes/wild_fishery/v001/export/v001/wild_fishery_optimized_v001.blend",
+  "optimization_manifest": "art_source/scenes/wild_fishery/v001/export/v001/optimization_manifest.json",
+  "optimization": {
+    "asset_id": "SEA-FISHERY-BUOY",
+    "key": "buoy",
+    "triangles_before": 1008,
+    "triangles_after": 1008,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "merge_distance_m": 1e-06,
+      "degenerate_distance_m": 1e-07,
+      "planar_dissolve_angle_rad": 0.002,
+      "cleanup_elements_removed": 0,
+      "uv_reprojected_to_original_cell": true,
+      "source_mesh_count": 3,
+      "runtime_mesh_count": 1,
+      "merged_within_single_component_only": true
+    },
+    "bounds": {
+      "min": [
+        -0.3149999976158142,
+        -0.3149999976158142,
+        0.0
+      ],
+      "max": [
+        0.3149999976158142,
+        0.3149999976158142,
+        0.7249999642372131
+      ]
+    },
+    "budget_triangles": 12000,
+    "budget_source": "task-authored performance target; not a user-supplied cap",
+    "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+    "zero_reduction_reason": "no safely redundant geometry after cleanup"
+  },
+  "source_hash_unchanged": true,
+  "runtime_integrated": true,
+  "runtime_validation_report": "D:\\projects\\sea-work\\verification\\20261102-140048-fishery-component-final-2c64bb\\report.json",
+  "license": "pending_user_reference_rights_review",
+  "category": "water",
+  "reuse": "scene_local"
+}

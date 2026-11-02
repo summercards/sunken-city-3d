@@ -8,6 +8,8 @@
 metadata/asset_id = "SEA-SCENE-SBR-ASSEMBLY"
 metadata/front_godot = Vector3(0, 0, 1)
 metadata/deck_height = 2.15
+metadata/water_layer = "surface"
+metadata/water_layer_role = "part"
 [node name="后部方形建筑" parent="." instance=ExtResource("rear_building")]
 [node name="前部倾斜太阳能房" parent="." instance=ExtResource("solar_room")]
 [node name="前方可行动平台-酒红" parent="." instance=ExtResource("front_platform")]

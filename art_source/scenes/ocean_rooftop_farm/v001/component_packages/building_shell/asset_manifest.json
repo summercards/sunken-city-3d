@@ -1,0 +1,38 @@
+{
+  "key": "building_shell",
+  "asset_id": "SEA-SCENE-ORF-BUILDING-SHELL",
+  "name": "混凝土楼体与水平层线",
+  "category": "structure",
+  "component_family": "building",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-BUILDING-SHELL",
+  "root": "building_shell_组件根",
+  "bounds_size": [
+    35.910003662109375,
+    23.860000610351562,
+    25.3799991607666
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/building_shell/building_shell.blend",
+  "geometry_fingerprint": "43b27daea231a1bc4deaf814538e71d35d33e7a767317bfab0ebe1363341bc1e",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 180,
+  "source_sha256": "880a2ed25b9705ed95e29f79dd7002a629ec0cd6ed4d684632386057d3738341",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-BUILDING-SHELL"
+}

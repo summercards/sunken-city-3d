@@ -1,7 +1,7 @@
 {
   "schema": "sea.building.dimensions",
   "version": "2026-10-31",
-  "scope": "与正式阳光房同族的海上生活建筑；特殊层级可显式登记不同尺寸，不能改变既有建筑",
+  "scope": "海上主场景同族水上功能建筑、水下观赏楼及基座共用；独立海底场景排除；特殊尺寸显式登记例外，既有资产不反改",
   "reference_facility": "SEA-REF-FACILITY-SOLAR-CABIN",
   "reference_source_version": "sunny_bloom_retreat/v008",
   "units": "metres at final runtime scale; not unscaled Blender source",
@@ -25,6 +25,49 @@
     "surface_above_water": 0.26,
     "slab_bottom_above_water": 0.04
   },
+  "bevels": {
+    "units": "metres; source_width is the Blender value before instance basis, runtime_width multiplies the horizontal basis 1.725",
+    "segments_all": 3,
+    "source_evidence": "v008 blend has zero BEVEL modifiers; widths recovered by rebuilding same-size cubes, matching triangle count 188 (unique match for 3 segments) and scaling the median face width linearly",
+    "rule": "source_width = k * min_edge_source; k in [0.10, 0.30] for structure, k ~= 0.43 for thin boards, never above half the board thickness",
+    "profiles": {
+      "roof_cap": 0.095,
+      "upper_room": 0.08,
+      "parapet": 0.07,
+      "main_column": 0.055,
+      "platform_board": 0.05456,
+      "dock_board": 0.05456,
+      "porch_return": 0.045,
+      "canopy_post": 0.032,
+      "terrace_board": 0.026311,
+      "concrete_strip": 0.02567,
+      "lantern": 0.025
+    },
+    "runtime_widths": {
+      "main_column": 0.094875,
+      "platform_board": 0.094118,
+      "parapet": 0.12075,
+      "board_thickness_limit_note": "platform board bevel 0.05456 x 2 = 0.1092 must stay under slab 0.127536; below 0.109 board thickness the same bevel gets clamped flat"
+    },
+    "cross_project": {
+      "floating_shop": {
+        "main": 0.035,
+        "thin_rod": 0.008,
+        "board": 0.025,
+        "large": 0.07,
+        "segments": 3
+      },
+      "wild_fishery": {
+        "main": 0.045,
+        "segments": 3
+      },
+      "building_kit": {
+        "thin_rod": 0.008,
+        "segments": 2
+      }
+    },
+    "doc": "docs/standards/阳光房尺寸与倒角基准.md"
+  },
   "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
   "palette_runtime": "godot/assets/textures/shared/sea_cabin_timber_8x8_512.png",
   "evidence": "docs/development/2026-10-31_sunroom_dimension_probe.json",
@@ -34,5 +77,63 @@
     "upper decorative posts differ from full ground-floor columns",
     "bridge and terrace board widths are measured variants; main platform standard is the default",
     "source instance scale differs in XYZ; never multiply all source sizes by a guessed uniform factor"
-  ]
+  ],
+  "authoring_defaults": {
+    "version": "2026-11-02",
+    "precision_decimal_places": 1,
+    "priority": "SKILL.md one-decimal authoring defaults; measurements remain historical evidence",
+    "units": "large_dimensions_metres_small_details_centimetres",
+    "metres": {
+      "ground_clear_height": 4.9,
+      "ground_floor_to_floor": 5.1,
+      "slab_thickness": 0.2,
+      "main_column_width": 0.5,
+      "main_column_depth": 0.5,
+      "door_frame_outer_height": 3.1,
+      "door_frame_outer_width": 1.8,
+      "upper_decorative_column_width": 0.4,
+      "upper_decorative_column_height": 3.1,
+      "surface_above_water": 0.3,
+      "slab_bottom_above_water": 0.1
+    },
+    "centimetres": {
+      "platform_board_width": 89.4,
+      "platform_board_gap": 2.6,
+      "platform_board_pitch": 92.0,
+      "bridge_board_width": 75.0,
+      "terrace_board_width": 78.0
+    },
+    "bevels_final_centimetres": {
+      "main_column": 9.5,
+      "platform_board": 9.4,
+      "dock_board": 9.4,
+      "roof_cap": 16.4,
+      "parapet": 12.1,
+      "canopy_post": 5.5,
+      "porch_return": 7.8,
+      "terrace_board": 4.5,
+      "concrete_strip": 4.4,
+      "thin_rod_reference": 0.8
+    },
+    "bevel_segments_default": 3,
+    "caveats": [
+      "door outer bounds are not a clear passage",
+      "building kit remains its existing separate specification",
+      "existing assets and runtime waterlines unchanged",
+      "bevel must remain below half the smallest component thickness"
+    ],
+    "applies_to_building_classes": [
+      "above_water",
+      "underwater"
+    ],
+    "class_differences": {
+      "above_water": "references/above-water.md",
+      "underwater": "references/underwater-scenery.md"
+    },
+    "field_scope": {
+      "shared": "all defaults except the two waterline offsets",
+      "surface_above_water": "above_water near-water platform only",
+      "slab_bottom_above_water": "above_water near-water platform only"
+    }
+  }
 }

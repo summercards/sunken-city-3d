@@ -1,0 +1,38 @@
+{
+  "key": "trellis",
+  "asset_id": "SEA-SCENE-ORF-TRELLIS",
+  "name": "细杆攀爬架",
+  "category": "fixture",
+  "component_family": "planting",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-TRELLIS",
+  "root": "trellis_组件根",
+  "bounds_size": [
+    1.5672730207443237,
+    0.06727296859025955,
+    2.5799999237060547
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/trellis/trellis.blend",
+  "geometry_fingerprint": "aff8fe9ed0ba66f0aa2001be8367033c45ff15da404e41cc7c3c995699701e85",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 264,
+  "source_sha256": "e056b9ed3ec3c2bd416284aa10d3d2c3a9c29202ef1d151faf15417b23cfeee4",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-TRELLIS"
+}

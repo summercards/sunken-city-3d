@@ -196,6 +196,8 @@ func _render() -> void:
 			button("resume","继续今天的生活",close_menu,Cozy.GOLD)
 			button("save","记下今天的进度",func(): command_requested.emit("save"))
 			button("load","读取上次的记录",func(): show_menu("load"))
+			button("appearance","我的模样 · 姓名与外观",func(): close_menu();command_requested.emit("appearance"))
+			button("reset","重新开始（重置存档）",func(): show_menu("reset"))
 			button("settings","偏好设置",func(): show_menu("settings"))
 			button("help","操作小手册",func(): show_menu("help"))
 			button("quit","结束今天的旅程",func(): show_menu("quit"))
@@ -203,6 +205,16 @@ func _render() -> void:
 			_title.text="回到上一次记录？";_subtitle.text="尚未保存的进度会被替换。潜水时需要先上浮。"
 			button("cancel","再想一想",back,Cozy.GOLD)
 			button("confirm_load","读取记录",func(): close_menu();command_requested.emit("load"))
+		"reset":
+			# 破坏性动作单开一页，并把「旧进度会备份」写在按钮旁边 ——
+			# 玩家敢按的前提是知道丢了还能捞回来。
+			_title.text="要从头开始吗？";_subtitle.text="进度会退回第一天早晨。旧记录先备份成一份文件，不会直接删掉。"
+			button("cancel","再想一想",back,Cozy.GOLD)
+			var confirm := button("confirm_reset","确认重置存档",func(): close_menu();command_requested.emit("reset"),Cozy.CORAL)
+			# `button()` 的 tint 只用来取色、不直接改样式（所有页共用同一套奶油皮肤）。
+			# 这一枚是破坏性动作，单独给它珊瑚底：两枚按钮同款米色时，
+			# 「确认」看起来和「取消」一样安全，这本身就误导。
+			confirm.add_theme_stylebox_override("normal",Cozy.surface(Cozy.CORAL,24))
 		"quit":
 			_title.text="今天就到这里吗？";_subtitle.text="离开前记得保存。潜水或打捞时，请先回到安全状态。"
 			button("cancel","再待一会儿",back,Cozy.GOLD)

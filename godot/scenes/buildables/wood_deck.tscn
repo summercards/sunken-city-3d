@@ -2,3 +2,5 @@
 [ext_resource type="Script" path="res://src/building/deck_visual.gd" id="1"]
 [node name="WoodDeck" type="Node3D"]
 script = ExtResource("1")
+metadata/water_layer = "surface"
+metadata/water_layer_role = "entity"

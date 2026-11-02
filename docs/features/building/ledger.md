@@ -8,6 +8,8 @@
 
 [主文档](../../../GDD_V1.0.md#sea-building) · [设计](spec.md)
 
+**2026-11-02最新交付：状态implemented（已实现待完整验收）。** 用户最新要求已覆盖旧基础层/四角柱限制：梯顶可直接接普通木板和浮台并续建，上层可放结构、种植与家具；增加自由摆位和可关吸附、独立锤子拆除按钮及是/否确认。上轮6项审计反例已修复，保留历史报告以便追溯。[本轮交付与边界](../../development/2026-11-02_building_surface_and_demolition.md) · [机器记录](../../development/2026-11-02_building_surface_and_demolition_verification.json)。未宣称触屏/手柄或任意规模与层数完整验收。
+
 ```json
 {
   "feature_id": "SEA-BUILDING",
@@ -48,39 +50,45 @@
     "visual-recipe-cards",
     "character-space-save",
     "building-decoupling",
-    "building-perf"
+    "building-perf",
+    "building-surfaces",
+    "visual-building-surfaces",
+    "building-demolition"
   ]
 }
 ```
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
-| SEA-BUILDING-R01 | 已实现；25配方分类/分页卡片，每卡图片+名字+消耗；搬移/拆回与虚影理由保留，鼠标78项通过 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R01 | 已实现；手册分类卡片保留，建造/搬移均有目标虚影和拒绝原因；拆除独立锤子与确认 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
 | SEA-BUILDING-R02 | 已实现；稀疏无圈数网格、船上独立基础、实际建筑与泊位保护 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R03 | 已实现；保持原费用/工期，新增小型配方，拒绝/重复/取消不收费 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
-| SEA-BUILDING-R04 | 已实现；承载并集、跨缝、双尺寸、旋转、0.1/0.01米摆位 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
-| SEA-BUILDING-R05 | 已实现；0.22米角色宽度、连接/操作点保护、船阻挡和水线增量 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
-| SEA-BUILDING-R06 | 已实现；移除54上限、支撑顺序无关校验、65实例跨进程恢复及旧边缘迁移 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
+| SEA-BUILDING-R04 | 已修复；新旧摆件共用同高间距/承载，0.1/0.01米自由摆位，混合搬移在提交前拒绝不合法间距 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R05 | 已修复；同源三维通路检查，家具切口共享顶点，阻止拆桥/唯一返程梯及封路；水线仅水面平台 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R06 | 已修复；全部记录同时参与几何校验、顺序无关；平台与培养土py进JSON，旧坐标不重排 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
 | SEA-BUILDING-R07 | 已实现；无全局纯规则、提交锁、容量/支付/退款注入及回调重入拒绝 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R08 | 已实现；木板顶面/吃水厚度不变，小型培养土按目录尺寸投影 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R09 | 已实现；细条保留，全部木板参与状态，近景泡沫预算不再限制布局 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R10 | 已实现；岸上接近与船上航行到位、停稳才扣费、取消清意图 | [本轮实测](../../development/2026-10-29_open_ocean_building.md) |
-| SEA-BUILDING-R11 | 已实现；竣工摆件可搬移，保留实例ID/plot_id/作物/浇水/生长/收获次数，不收费 | [海上自由建造交付](../../development/2026-10-29_open_ocean_building.md) |
-| SEA-BUILDING-R12 | 已实现；木板与空种植区可拆回，全额原子退款；有作物/施工中/桥板/当前泊位拒绝 | 同上 |
+| SEA-BUILDING-R11 | 已修复；搬移继承高度并显示目标虚影，二层种植状态/ID保留；取消不改变原物 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R12 | 已实现；独立锤子→悬停轮廓→是/否确认→接近重验与全额原子退款；角色/作物/依附/三维通路保护 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
 | SEA-BUILDING-R13 | 已实现；派生`built:实例ID:方向`登陆ID，独立平台可航行登陆、由当前登陆点返船 | 同上 |
 | SEA-BUILDING-R14 | 已实现；目录声明category/role/support/footprint/visual，服务按平台-框架-装饰三类识别 | [平台归一交付](../../development/2026-10-31_platform_join_classes.md) |
 | SEA-BUILDING-R15 | 已实现；4MiB布局/8MiB整档预算在扣费前拒绝，虚影与水线为表现预算非上限 | [海上自由建造交付](../../development/2026-10-29_open_ocean_building.md) |
 | SEA-BUILDING-R16 | 已实现；固定六格与DIY双尺寸可踩踏，成熟蔬菜穿越状态不变；站格保存恢复和外缘阻挡通过 | [种植区通行实测](../../development/2026-10-29_walk_on_planters.md) |
 | SEA-BUILDING-R17 | 已实现；上岸提示12米/最多4个、100px投影间距，稳定ID复用对象与悬停状态 | [稀疏提示交付](../../development/2026-10-30_sparse_landing_markers.md) |
 | SEA-BUILDING-R18 | 已实现；目录集中声明22件内容与尺寸/成本/工期/挂点，停用退出菜单但保留旧实例 | [模块化套件交付](../../development/2026-10-30_modular_building_kit.md) |
-| SEA-BUILDING-R19 | 已实现；12结构独立成件，2米模数、2.8米层高，墙柱顶供挂点，门洞保通路 | 同上 |
-| SEA-BUILDING-R20 | 已实现；楼梯坡度代理接二层，屋顶不产生行走面，二层摆件按`py`分层且读档回二层 | 同上 |
+| SEA-BUILDING-R19 | 已实现新口径；结构在实际平台平面自由摆位，上层墙/栏杆/新楼梯可用；平台不再要求四角柱齐 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R20 | 已修复；梯顶直接续普通木板/浮台，真实胶囊上二层、家具跨缝导航、上层种植与JSON恢复通过 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
 | SEA-BUILDING-R21 | 已实现；10摆件独立成件，两灯真实暖光、箱子共享仓库、水桶补水，风车风铃仅动画 | 同上 |
-| SEA-BUILDING-R22 | 已实现；三种平台共用边对齐吸附与0.6米接缝，岸上不可隔空起板、船上可另起 | [平台归一交付](../../development/2026-10-31_platform_join_classes.md) |
-| SEA-BUILDING-R23 | 已实现；12框架全部拼装、真实胶囊通行与上楼、10摆件落新平台、整档存读一致 | [全模板模拟交付](../../development/2026-10-31_full_template_simulation.md) |
-| SEA-BUILDING-R24 | 已实现；吸附求解从 O(n³) 改为近线性，45块板 163ms→2.2ms，1620条基准逐行一致 | [性能审计](../../development/2026-10-31_building_performance.md) |
+| SEA-BUILDING-R22 | 已扩展；普通木板/两种浮台/旧二层板统一按高度接边，梯顶提供新平面起点，独立海面仍须乘船 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R23 | 已修复并补验；原模板与新增二层家具切口、自由组合和实际胶囊通行均有本轮证据 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R24 | 已修正门禁；夹具逐块验证成功并实测9/25/45/100块，纯吸附近线性；不外推完整GPU帧率 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
 | SEA-BUILDING-R25 | 已实现；固定浮台的水下底座不再算「既有建筑」，浅水养殖台四面均可接板（28 项 0 失败） | [底座阻挡修复](../../development/2026-11-01_energy_fishery_and_join.md) |
-| SEA-BUILDING-R26 | 已实现；模式常驻指引、三维目标选取与轮廓，地点资格拒绝明确指路，真实鼠标拆回与原子退款验证 | [兼容修复与实测](../../development/2026-11-02_building_save_compatibility.md) |
+| SEA-BUILDING-R26 | 已修复；实际网格点选保留门洞，管理选取独立于水平投射，目标轮廓/名称/原因及确认明确 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R27 | 已实现；四种平台梯顶续建，同高度承载/上层墙栏杆种植家具；5.6米继续衍生有纯规则证据 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R28 | 已实现；自由0.1/0.01米、G辅助吸附、U/H选层、搬移虚影、实际镜头滚轮与确认锁定通过 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R29 | 已实现；专用锤子按钮/指针、悬停轮廓、默认否、是/否鼠标与Esc层级，取消无修改、确认仅退款一次 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
 
 2026-11-02 R02/R06/R22补验：玩家副本25实例及作物恢复，旧自由浮台可继续接木板；新显式坐标木板与旧网格混合存读、三维点选拆回各39项/0失败。R11/R12真实鼠标29项、卡片108项、65实例跨进程70+8项及原有拼装/通行回归全部退出0，非预期引擎错误0。[本轮交付与过程失败](../../development/2026-11-02_building_save_compatibility.md)。
 

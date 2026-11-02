@@ -1,0 +1,46 @@
+{
+  "asset_id": "SEA-CHAR-AVATAR-001",
+  "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-AVATAR-001",
+  "source": "godot/src/avatar/avatar_visual.gd",
+  "runtime_path": "godot/src/avatar/avatar_visual.gd",
+  "version": "v002",
+  "source_type": "original procedural Godot source; no Blender/GLB",
+  "authored_files": [
+    {
+      "path": "godot/src/avatar/avatar_visual.gd",
+      "sha256": "cf4e84b76186f08eb4d3dee1ba1afbe13e1ccb93e454c383e453504da7735bad"
+    },
+    {
+      "path": "godot/src/player/character.gd",
+      "sha256": "42d8fbded8797e8b5b6f52fa565de91c910fe78537fe1768ec7a7e09d9a5e6ad"
+    },
+    {
+      "path": "godot/assets/data/avatar_catalog.json",
+      "sha256": "93e0576935808ad34c973d9689427604f8dd2fdf1109e5696ed51ec36a751b5a"
+    },
+    {
+      "path": "godot/shaders/avatar_cloth.gdshader",
+      "sha256": "e6b08e2d2648b0075c60b7c9b7d68e0db92dcd61168dda0df6f4bcb884131755"
+    },
+    {
+      "path": "godot/src/avatar/avatar_dimensions.gd",
+      "sha256": "1a45335da153a4df2904e419aa81bc67ef6cc5e07c24ead6d6fa2e937baba251"
+    },
+    {
+      "path": "art_source/characters/avatar/v001/reference_proportions.png",
+      "sha256": "94960a5147f6f6dcff007b195eb11079ffb6f7594fac8d79b1ce174e436b17ba"
+    },
+    {
+      "path": "art_source/characters/avatar/v001/reference_contract.json",
+      "sha256": "1990d7f33789fe58a8a873e060f9fd496b558200e4c259183b9e44c848cb7be6"
+    }
+  ],
+  "units": "metres / +Y up / +Z forward / root scale 1",
+  "consumer": "Character + AvatarSession",
+  "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
+  "user_art_acceptance": "self_verified_per_user_instruction_2026-11-02",
+  "self_verification": "six projected anatomy ratios within 5%; original reference, three-quarter/front/side and gameplay/editor renders inspected",
+  "external_game_assets_used": false,
+  "skeleton_asset_id": "SEA-CHAR-RIG-001",
+  "rig_contract": "art_source/characters/avatar/v002/rig_contract.json"
+}

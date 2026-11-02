@@ -20,13 +20,15 @@ const CATEGORY_DECORATION := "decoration"
 ## A seam a body must be able to cross. Wider than the 0.44 m actor, so a
 ## rounded corner or a 0.2 m post beside it never closes the join.
 const JOIN_MIN := 0.6
+const LAYER_HEIGHT := 2.8
+const LEVEL_EPS := 0.002
 ## Placement and rendering both consume these roles. Adding a new furnishing
 ## means adding a recipe and its projection, not another layout state owner.
 const LEGACY_RECIPES := {
 	"deck":{"name":"拼接木板", "cost":{"wood":6}, "seconds":3.0,
 		"description":"接出平台，或乘船在空旷海面开始新平台。", "category":CATEGORY_PLATFORM,
 		"placement":"ocean_grid", "support":"water", "footprint":TILE, "visual":"deck",
-		"role":"deck", "rotatable":false, "movable":false, "removable":true},
+		"role":"deck", "rotatable":true, "movable":false, "removable":true},
 	"planter":{"name":"培养土种植区", "cost":{"wood":3,"soil":2}, "seconds":4.0,
 		"description":"在整片木面自由摆放，可搬移、旋转与回收。", "category":CATEGORY_DECORATION,
 		"placement":"deck_surface", "support":"finished_deck", "footprint":PLOT_EXTENT,
@@ -81,6 +83,7 @@ static func verify_content() -> String:
 	return "建造目录与源文件不一致："+", ".join(drift)
 static func _load_recipes() -> Dictionary:
 	var result: Dictionary=LEGACY_RECIPES.duplicate(true)
+	result.planter.height=0.35;result.planter_small.height=0.35
 	var data: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/building_kit.json"))
 	assert(data is Dictionary and data.get("schema")==1,"Invalid building content catalog")
 	for raw: Dictionary in data.modules:
@@ -91,8 +94,9 @@ static func _load_recipes() -> Dictionary:
 		# A raft is a platform, not a frame: it carries bodies and joins other
 		# platforms edge-to-edge, exactly like the legacy 2.15x2.575 board.
 		# Walls, posts, beams and roofs are frames; furniture is decoration.
-		if raw.profile=="foundation":
+		if raw.profile in ["foundation","floor"]:
 			definition.category=CATEGORY_PLATFORM
+			definition.role="deck"
 			definition.support="water"
 			definition.placement="platform_edge"
 		elif str(raw.category)=="decoration":
@@ -117,6 +121,9 @@ static func category(kind: String) -> String:
 static func enabled(kind: String) -> bool: return bool(RECIPES.get(kind,{}).get("active",true))
 static func position_rect(row: Dictionary) -> Rect2: return footprint_rect(row)
 static func elevation(row: Dictionary) -> float: return float(row.get("py",0.0))
+static func same_level(a: float,b: float) -> bool: return absf(a-b)<=LEVEL_EPS
+static func valid_level(height: float) -> bool:
+	return is_finite(height) and height>=-LEVEL_EPS and height<=100000.0 and absf(height-snappedf(height,LAYER_HEIGHT))<=LEVEL_EPS
 static func is_furnishing(kind: String) -> bool:
 	# Anything mounted on a finished platform: frames and loose furniture.
 	return RECIPES.has(kind) and not is_platform(kind)
@@ -141,7 +148,7 @@ static func footprint_rect(row: Dictionary) -> Rect2:
 ## Historical boards keep their exact integer grid. Edge-joined boards carry
 ## an explicit position, so extending an old off-grid raft never moves the raft.
 static func grid_deck(row: Dictionary) -> bool:
-	return str(row.get("kind",""))=="deck" and not bool(row.get("positioned",false))
+	return str(row.get("kind",""))=="deck" and not bool(row.get("positioned",false)) and same_level(elevation(row),0.0)
 static func cell_at(point: Vector2) -> Vector2i:
 	var cell := (point-BASE.position)/TILE
 	return Vector2i(int(floor(cell.x)),int(floor(cell.y)))
@@ -149,15 +156,48 @@ static func polygon(rect: Rect2) -> PackedVector2Array:
 	return PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
 ## Footprint of every finished deck, as one continuous wooden surface.
 static func deck_tiles(rows: Array) -> Array:
+	return platform_tiles_at_level(rows,0.0,false)
+static func support_tiles(rows: Array) -> Array:
+	return platform_tiles_at_level(rows,0.0)
+static func platform_rows_at_level(rows: Array,height: float,finished_only: bool=true) -> Array:
 	var result: Array=[]
 	for item in rows:
-		if not is_deck(str(item.kind)) or float(item.left)>0: continue
-		result.append(footprint_rect(item))
+		if is_platform(str(item.kind)) and same_level(elevation(item),height) and (not finished_only or float(item.left)<=0.0): result.append(item)
 	return result
-static func support_tiles(rows: Array) -> Array:
-	var result:=deck_tiles(rows)
-	result.append(BASE)
+static func platform_tiles_at_level(rows: Array,height: float,include_base: bool=true,finished_only: bool=true) -> Array:
+	var result: Array=[]
+	for item in platform_rows_at_level(rows,height,finished_only): result.append(footprint_rect(item))
+	if include_base and same_level(height,0.0): result.append(BASE)
 	return result
+static func placement_levels(rows: Array) -> Array[float]:
+	var result: Array[float]=[0.0]
+	for item in rows:
+		if float(item.left)>0.0: continue
+		var height:=elevation(item)
+		if str(RECIPES[item.kind].get("profile",""))=="stairs": height+=LAYER_HEIGHT
+		elif not is_platform(str(item.kind)): continue
+		var exists:=false
+		for known in result:
+			if same_level(known,height): exists=true;break
+		if not exists: result.append(height)
+	result.sort()
+	return result
+static func stairs_top_edge(row: Dictionary) -> Array[Vector2]:
+	var extent: Vector2=RECIPES[row.kind].footprint
+	var at:=footprint_rect(row).get_center()
+	var angle: float=-float(row.get("turn",0))*PI/2
+	return [at+Vector2(-extent.x/2,-extent.y/2).rotated(angle),at+Vector2(extent.x/2,-extent.y/2).rotated(angle)]
+static func stairs_top_contact(rect: Rect2,row: Dictionary) -> float:
+	if str(RECIPES[row.kind].get("profile",""))!="stairs" or float(row.left)>0.0: return 0.0
+	var edge:=stairs_top_edge(row)
+	var middle: Vector2=(edge[0]+edge[1])/2
+	var outward:=Vector2(0,-1).rotated(-float(row.get("turn",0))*PI/2)
+	if (rect.get_center()-middle).dot(outward)<=0.0: return 0.0
+	if absf(edge[0].x-edge[1].x)<0.01:
+		if minf(absf(rect.position.x-middle.x),absf(rect.end.x-middle.x))>0.02: return 0.0
+		return maxf(0.0,minf(rect.end.y,maxf(edge[0].y,edge[1].y))-maxf(rect.position.y,minf(edge[0].y,edge[1].y)))
+	if minf(absf(rect.position.y-middle.y),absf(rect.end.y-middle.y))>0.02: return 0.0
+	return maxf(0.0,minf(rect.end.x,maxf(edge[0].x,edge[1].x))-maxf(rect.position.x,minf(edge[0].x,edge[1].x)))
 static func fixed_support() -> Dictionary:
 	return {"id":"@base","kind":"fixed_base","left":0.0}
 
@@ -177,8 +217,12 @@ static func contact_length(a: Rect2, b: Rect2) -> float:
 	if absf(x)<=0.02 and z>0.02: return z
 	return 0.0
 ## Longest seam with the finished platform union, the fixed base included.
-static func platform_contact(rect: Rect2, rows: Array) -> float:
-	return contact_against(rect,support_tiles(rows))
+static func platform_contact(rect: Rect2, rows: Array,height: float=0.0,include_stairs: bool=true) -> float:
+	var result:=contact_against(rect,platform_tiles_at_level(rows,height))
+	if include_stairs:
+		for row in rows:
+			if str(RECIPES[row.kind].get("profile",""))=="stairs" and same_level(elevation(row)+LAYER_HEIGHT,height): result=maxf(result,stairs_top_contact(rect,row))
+	return result
 ## Same measurement against an already materialised tile list. Support tiles are
 ## rebuilt on every call, so the snap solver passes its own list instead of
 ## rebuilding the union once per candidate.
@@ -233,7 +277,8 @@ static func overlaps_any(rect: Rect2, surfaces: Array) -> bool:
 		var overlap: Rect2=rect.grow(-0.002).intersection(tile)
 		if overlap.size.x>0.001 and overlap.size.y>0.001: return true
 	return false
-static func snap_deck(point: Vector2, rows: Array, free_water: bool=false) -> Dictionary:
+static func snap_deck(point: Vector2, rows: Array, free_water: bool=false,height: float=0.0,snap_step: float=0.1,edge_assist: bool=true,turn: int=0) -> Dictionary:
+	if not same_level(height,0.0) or not edge_assist or turn!=0: return snap_foundation("deck",point,turn,rows,free_water,height,snap_step,edge_assist)
 	var cell:=cell_at(point)
 	var grid: Dictionary={"kind":"deck","x":cell.x,"z":cell.y,"px":0.0,"pz":0.0,"turn":0,"support":""}
 	var surfaces:=support_tiles(rows)
@@ -245,19 +290,29 @@ static func snap_deck(point: Vector2, rows: Array, free_water: bool=false) -> Di
 	# A distant shore click keeps its red ocean-grid preview instead of moving
 	# the cursor's target all the way back to the nearest island.
 	if near>maxf(TILE.x,TILE.y)*1.5: return grid
-	return snap_foundation("deck",point,0,rows,free_water)
+	return snap_foundation("deck",point,0,rows,free_water,height,snap_step,edge_assist)
 ## Platforms only join edge to edge. Each candidate is generated by laying one
 ## raft edge flush against an existing platform edge, then sliding it along that
 ## edge until one of its own edges lines up with a neighbour's corner. Free
 ## integer-metre positions are only for a raft that joins nothing, which the
 ## boat unlocks; on foot a platform must touch the surface it extends.
-static func snap_foundation(kind: String,point: Vector2,turn: int,rows: Array,free_water: bool=false) -> Dictionary:
+static func snap_foundation(kind: String,point: Vector2,turn: int,rows: Array,free_water: bool=false,height: float=0.0,snap_step: float=0.1,edge_assist: bool=true) -> Dictionary:
 	var extent:=platform_extent(kind,turn)
-	var free: Dictionary={"kind":kind,"px":snappedf(point.x,2.0),"pz":snappedf(point.y,2.0),
-		"py":0.0,"x":0,"z":0,"support":"","turn":turn}
+	var step:=clampf(snap_step,0.01,0.1)
+	var free: Dictionary={"kind":kind,"px":snappedf(point.x,step),"pz":snappedf(point.y,step),
+		"py":height,"x":0,"z":0,"support":"","turn":turn}
 	if kind=="deck": free.positioned=true
-	var surfaces:=support_tiles(rows)
-	if free_water:
+	if not edge_assist: return free
+	var surfaces:=platform_tiles_at_level(rows,height)
+	var stairs: Array=[]
+	# Degenerate rectangles contribute only the stair's high edge as a snap
+	# guide. They never add support area or cover a hole in a platform.
+	for row in rows:
+		if str(RECIPES[row.kind].get("profile",""))!="stairs" or float(row.left)>0 or not same_level(elevation(row)+LAYER_HEIGHT,height): continue
+		stairs.append(row)
+		var edge:=stairs_top_edge(row)
+		surfaces.append(Rect2(Vector2(minf(edge[0].x,edge[1].x),minf(edge[0].y,edge[1].y)),Vector2(absf(edge[0].x-edge[1].x),absf(edge[0].y-edge[1].y))))
+	if free_water and same_level(height,0.0):
 		var lone:=Rect2(Vector2(free.px,free.pz)-extent/2,extent)
 		var clear:=not overlaps_any(lone,surfaces)
 		for tile: Rect2 in surfaces:
@@ -295,10 +350,13 @@ static func snap_foundation(kind: String,point: Vector2,turn: int,rows: Array,fr
 				var near: float=rect_distance(rect,point)
 				if near>=best_score-0.0005: continue
 				var local: Array=neighbours(index,rect)
-				if contact_against(rect,local)<JOIN_MIN: continue
+				var contact:=contact_against(rect,local)
+				if contact<JOIN_MIN:
+					for stair in stairs: contact=maxf(contact,stairs_top_contact(rect,stair))
+				if contact<JOIN_MIN: continue
 				if overlaps_any(rect,local): continue
 				best_score=near
-				best={"kind":kind,"px":center.x,"pz":center.y,"py":0.0,"x":0,"z":0,"support":"","turn":turn}
+				best={"kind":kind,"px":center.x,"pz":center.y,"py":height,"x":0,"z":0,"support":"","turn":turn}
 				if kind=="deck": best.positioned=true
 	if not best.is_empty(): return best
 	return free

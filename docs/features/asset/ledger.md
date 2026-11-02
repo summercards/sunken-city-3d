@@ -17,6 +17,7 @@
     "tools/blender"
   ],
   "verification": [
+    "water-layer",
     "submerged-neighborhood",
     "visual-submerged-neighborhood",
     "reference-skiff",
@@ -29,7 +30,9 @@
     "visual-kit-uv",
     "building-kit",
     "floating-shop",
-    "sea-supply"
+    "sea-supply",
+    "fishery-environment",
+    "visual-fishery-environment"
   ]
 }
 ```
@@ -69,6 +72,7 @@
 | SEA-ASSET-R23 | 已建立分类路由；未核验资产保持 pending | ledger_index.json 与7个独立类型分账本；[框架交付记录](../../development/2026-10-27_modular_framework.md) |
 | SEA-ASSET-R24 | 运行组件拆分及账本完成；旧建筑合并网格内未辨识的陈设仍标待语义拆分 | 独立建筑包装13个、原植物组件42种、太阳房活动家具25实例、荷叶24实例、飞鸟/鱼群/鲸组件；见本轮记录 |
 | SEA-ASSET-R25 | 基座放大与落水贴合已接入；专项通过，跨功能失败项经基线对照归为既有 | 海下白色基座顶板 11.20×12.42 → 16.24×17.77（X1.450/Z1.431），顶面四边各超出上层建筑0.40；平台下移0.30、板底水面+0.04、基座顶面与板底齐平；704实景检查与装饰/组件/最小循环检查通过，[记录](../../development/2026-10-27_solar_cabin_base_scale_and_waterline.md) |
+| SEA-ASSET-R41 | 八层独立Blender源、44组件/302实例、44独立包、五视图和两级源验证通过；45条资产已登记；Godot/碰撞/导航/授权/最终美术验收pending | 47320项检查，6130个母版面PaletteUV核验，115208多边形/233672三角面；无农作物、太阳能板、人物、动物或海洋背景；旧地砖和建筑破损细节完成。[制作与验收记录](../../development/2026-11-02_ocean_rooftop_farm.md) |
 
 ## 资源与调用入口
 
@@ -102,7 +106,7 @@
 
 ## 遗留与下一步
 
-首批登记现有 43 个独立组件；其他运行资源建立路径归属，生产级 AssetID 补登作为明确债务。
+场景分账本现567行；两类职责登记已完成，运行接入、授权、新职责全子树验收和旧检查覆盖漏洞仍待完成。资产行数不代表独立建筑数量。
 
 ## 变更记录
 
@@ -359,3 +363,47 @@ SEA-ASSET-R34当前源为[v002](../../../art_source/scenes/floating_shop/v002/fl
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-ASSET-R37 | 三块广告牌的立体字重做：逐字挤出 0.10 米、圆角 0.027 米（原只有 0.007 / 0.0025，等于贴纸）；字号 SEA SUPPLY 0.62、GIFTS 0.66、COLD DRINKS 两行 0.74 / 0.30。三块牌各有主色：深蓝 / 红 / 青绿，其中红与青绿为本轮新增。排版按实测字宽逐字定位，允许超出奶黄面板；侧牌在 `max_width` 内**等比**缩放，绝不做单轴压扁（压扁会把笔画拉细，正是"不够饱满"的来源）。COLD DRINKS 绕 Y 轴右倾 3.2°。随后整组再放大 1.5 倍（挤深 0.12 米、字号 0.93/0.99/0.80/0.17），三块牌实测文字包围盒首尾相接不重叠，牌角图标缩至 0.74 倍让位而非删除。侧牌面板由 3.02 米加宽到 3.30 米给字腾地方，仍在 12 米墙 3.2 米空档内。外壳、尺寸、摆放、水线一律未动。`floating-shop` 37 项、`sea-supply` 37 项、`visual-floating-shop` 16 项均 0 失败。 | [零售细修记录](../../development/2026-10-31_floating_shop_retail_detail.md)、[装配清单](../../../art_source/scenes/floating_shop/v003/asset_manifest.json) |
+
+## 2026-11-02 野外渔场
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R38 | 12组件/78实例、12独立Blend包、32301源级检查及skill验证器12包通过；原源不变、独立优化/12独立GLB与PackedScene、39逻辑/43真实渲染通过，13条资产已登记（参考授权pending） | [本轮交付](../../development/2026-11-02_wild_fishery.md)；fishery-environment / visual-fishery-environment |
+
+## 渔场复用鱼群修订（2026-11-02）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-ASSET-R39 | 正式设施64实例与独立彩色鱼群20条已接入；不改Blender制作源，旧定制鱼登记退出装配，鱼群复用同一AssetID | fishery-environment / visual-fishery-production；[交付](../../development/2026-11-02_fishery_production.md) |
+| SEA-ASSET-R40 | 两类职责文档与资产登记完成，运行完整验收pending：567行含building_class，水上322／水下129／非建筑／范围外null 116；两个派生视图只引用AssetID。独立太阳能花屋总成角色改entity，BLB基座兼容角色与TSCN对齐part；基座／底框／水下舱件独立归水下观赏 | [两类入口](../../../assets/registry/BUILDING_CLASSES.md)、[职责规范](../../standards/水层分类与空间职责.md)、[本轮证据](../../development/2026-11-02_building_two_class_contract.md)。旧water_layer保留装配兼容，不是额外职责类；源／运行哈希及制作阶段未改。旧water-layer覆盖缺口、浮店空间故障及跨水线源分段继续pending |
+
+
+## 2026-11-02 海上建筑清点与账本审计（当前实测）
+
+SEA-ASSET-R15/R16/R17/R24/R33–R40：海上用途计入surface与amphibious，共339条资产行；正式场景8条设施总成对应7个地点（打捞台／野外渔场同址升级），另4套建筑源未接入、13种可建结构另计。太阳能花屋完整源误标part、BLB基座账本entity与TSCN part不一致、水层规范表与工具的LHL／种植件／家具例外不一致，均登记待修；不改分类、源、场景或哈希。浮店位置及水线旧问题本轮再次复现：floating-shop 41项5失败、sea-supply 37项8失败；water-layer 104项及真实截图脚本16项虽全绿，存在漏检，不能据此签当前可用／美术验收。原历史通过保留为历史事实，以本次审计说明当前边界。详见[清单、问题与当前验证](../../development/2026-11-02_surface_building_inventory_audit.md)。
+
+## 2026-11-02 建筑职责两类整理（最新口径）
+
+本轮按用户最新要求，把建筑职责收为水上功能／水下观赏两类，基座明确只观赏。新增主字段building_class与两类AssetID视图；旧amphibious／backdrop只作为历史装配／显示描述。前次审计S03完整花屋误标、S04基座角色不一致、S05规范表冲突已在本轮登记及文档层修正；S01浮店和S02运行检查漏洞未通过本轮文档整理冒充修复。实际源模型分段／标高及完整运行职责仍pending。
+
+详见[本轮整理、静态校验与未执行项](../../development/2026-11-02_building_two_class_contract.md)。
+
+范围补充：本轮仅海上主场景；“水下”只指该场景的观赏楼与基座。独立海底／潜水场景另行处理，不按本契约撤销其功能。43项未确认海上归属的独立塔区参考组件不进入两类视图；范围外不等于第三类建筑。
+
+本轮最终静态验收：同步／复核均0问题；8项非法声明拒绝用例及海底范围排除用例通过，322／129两视图互斥完整。源／运行路径、哈希、阶段、授权保持；2377个运行／源支持文件未变。未运行Godot或真实渲染，新职责运行完整验收仍pending。[结果](../../development/2026-11-02_building_two_class_contract.md)。
+
+## 2026-11-02 Skill尺寸基准取整（R06/R07）
+
+已将一位小数的新制作基准直接写入项目sea-scene-component-authoring的SKILL.md：净高4.9米、层高5.1米、柱截面0.5米、楼板0.2米、门外包围3.1×1.8米，倒角与板缝用厘米一位小数。项目与用户级Skill及两份尺寸附件同步；原实测、模型、运行水线与资产哈希保持。适用范围与拼接套件／独立海底例外已写明。[本轮记录](../../development/2026-11-02_skill_building_baseline_rounding.md)。
+
+本轮Skill校验：项目／用户副本quick_validate均退出0，三文件逐字节一致；原历史测量保持。功能契约sync及复核已执行，但被并发R41缺承接及main.gd运行哈希漂移阻断，未据此覆盖他人条款或刷新哈希，详见本轮记录。
+
+## 并发计划条款承接补齐（2026-11-02）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R41 | 已登记设计计划；制作、源级验收与运行接入证据待该条款交付回填。本行仅补齐计划承接，不将角色创建验证用于农场资产验收 | [本功能设计](spec.md)；海上屋顶农场专属交付与商业授权、用户美术验收pending |
+
+## 2026-11-02 共用风格与水层差异路由（R06/R07/R40）
+
+已在同一场景Skill增加先判building_class的流程，水上／水下各自加载一份差异附件，水下明确复用共用尺寸／比例／倒角／色板而不另复制数值。水线偏移移入水上差异；水下无碰撞／阻挡／行走／功能／岸线。项目与用户级五文件同步，独立海底场景排除；未修改资产、模型或运行场景。[本轮记录](../../development/2026-11-02_skill_water_class_branches.md)。

@@ -4,4 +4,6 @@
 [node name="oil_lamp" type="Node3D"]
 script = ExtResource("1")
 content_id = "oil_lamp"
+metadata/water_layer = "none"
+metadata/water_layer_role = "none"
 [node name="Model" parent="." instance=ExtResource("2")]

@@ -1,0 +1,38 @@
+{
+  "key": "facade_column",
+  "asset_id": "SEA-SCENE-ORF-FACADE-COLUMN",
+  "name": "外挑混凝土结构柱",
+  "category": "structure",
+  "component_family": "building",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-FACADE-COLUMN",
+  "root": "facade_column_组件根",
+  "bounds_size": [
+    1.7999999523162842,
+    0.9325000047683716,
+    25.3799991607666
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/facade_column/facade_column.blend",
+  "geometry_fingerprint": "3ce041bd223d9c193450eb776ea86edb4ade51f60fbb81a99c198ee7125bf18e",
+  "instances": 5,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 48,
+  "source_sha256": "89a33feacbcfa5e722ce464c36b6168785685d448655582a392f441b77c1e74e",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-FACADE-COLUMN"
+}

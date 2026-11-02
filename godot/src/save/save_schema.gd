@@ -29,6 +29,7 @@ static func schemas() -> Dictionary:
 	var boat := vector.duplicate(true)
 	boat.sizes = [0,4]
 	return {
+		"profile":object({}),
 		# No gameplay instance limit. The storage layer's byte budget and the
 		# building admission policy protect actual serialized capacity together.
 		"building":object({"version":integer(1,1),"next_id":{"type":"integer","min":1},
@@ -47,7 +48,8 @@ static func schemas() -> Dictionary:
 			# 不进 required —— 加体力之前的旧档没有这个字段，读进来按满体力起步。
 			"energy":object({"version":integer(1,1),"current":number(0,10000),"maximum":number(1,10000),"pending_half":boolean},["version","current","maximum"]),
 			# SEA-AQUA：家园补给站是否已改成渔场。同样不进 required（旧档=没升过）。
-			"fishery":object({"version":integer(1,1),"unlocked":boolean},["version","unlocked"])},
+			"fishery":object({"version":integer(1,2),"unlocked":boolean,"pending":integer(0,24),
+				"observed_hour":number(-1,1.0e12),"next_hour":number(-1,1.0e12)},["version","unlocked"])},
 			["inventory","warehouse","ship_level","tracked_goal","site_levels","facilities","site_work","farm","orders","daily_loop"]),
 		"game":object({"zone":string,"landing":string,"mode":integer(0,3),"far_sea":boolean,"boat":boat,"player":vector},["zone","landing","mode","far_sea","boat","player"]),
 		"pickups":object({"reset":boolean,"crates":list_of(object({"id":integer(1),"slot":string,"kind":{"type":"string","enum":["crate","planks","barrel"]},"wood_amount":integer(2,16),"base":{"type":"array","sizes":[3],"items":number(-1.0e9,1.0e9)},"phase":number(),"yaw":number()},["id","kind","base","phase","yaw"]),128),
@@ -64,9 +66,15 @@ static func validate(data: Dictionary) -> String:
 	if version_error != "": return version_error
 	var rules := schemas()
 	for id in rules:
+		if id == "profile" and not data.has(id): continue # explicit legacy policy at restore/decode
 		if not data.has(id): return "Missing module: " + id
 		var error: String = preload("res://src/core/record_contract.gd").check(data[id],rules[id],id)
 		if error != "": return error
+	if data.has("profile"):
+		var profile_error: String=preload("res://src/avatar/avatar_profile.gd").validate_snapshot(data.profile)
+		if profile_error!="": return profile_error
+	var fishery_error: String = preload("res://src/aqua/fishery_service.gd").validate_snapshot(data.economy.get("fishery",{}),(int(data.time.day)-1)*24.0+float(data.time.seconds)/3600.0)
+	if fishery_error != "": return fishery_error
 	var building_error: String=preload("res://src/building/building_service.gd").validate_snapshot(data.building)
 	if building_error!="": return building_error
 	var dynamic_ids: Dictionary={}

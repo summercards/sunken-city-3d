@@ -1,0 +1,38 @@
+{
+  "key": "roof_hatch",
+  "asset_id": "SEA-SCENE-ORF-ROOF-HATCH",
+  "name": "屋顶检修入口",
+  "category": "fixture",
+  "component_family": "access",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-ROOF-HATCH",
+  "root": "roof_hatch_组件根",
+  "bounds_size": [
+    1.350000023841858,
+    1.100000023841858,
+    0.6700000166893005
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/roof_hatch/roof_hatch.blend",
+  "geometry_fingerprint": "eeabb411bdea01f226ff5a10f0a670fbe44d6aff4eb9500490c8b13f61a86ae6",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 68,
+  "source_sha256": "acac442f4a81fa30dee1fead76cb4429238db2e047e09a5144a0f0f23eb46bb1",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-ROOF-HATCH"
+}

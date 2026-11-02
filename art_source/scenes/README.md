@@ -42,6 +42,10 @@
 - [制作与源级验收记录](../../docs/development/2026-10-30_liberty_lighthouse.md)。预览及验证在工程外 `sea-work/liberty_lighthouse/`，制作工具在 `tools/blender/liberty_lighthouse/`。
 - 本轮只交付 Blender 原始文件和组件包；Godot 导入、碰撞、导航、商业授权与用户最终美术验收 pending。不是已运行的游戏建筑。
 
+## 八层海上屋顶农场（2026-11-02）
+
+[独立套件与打开说明](ocean_rooftop_farm/README.md)：44 个组件、302 个实例；八层楼体、旧地砖、破损立面、空农田，无作物和太阳能板。44 独立包、公共 PaletteUV、通用材质验证和五视图通过；Godot、碰撞、导航、授权和用户最终美术验收 pending。
+
 ## 可复现工具
 
 脚本位于 `tools/blender/solar_flower_house/`，仅处理本套新资产：

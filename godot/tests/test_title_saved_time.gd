@@ -40,6 +40,7 @@ func run() -> void:
 	main._autosave_on=false
 	var clock: Dictionary=main.world_clock.to_dict()
 	check(main._title_active and main.start_screen!=null,"cold boot shows start screen")
+	check(main.avatar_profile.query().completed,"saved-time fixture is a completed player profile")
 	var saved_clock: Dictionary=expected.snapshot.time
 	check(int(clock.day)==int(saved_clock.day) and float(clock.seconds)==float(saved_clock.seconds)
 		and float(clock.day_length)==float(saved_clock.day_length),"cold boot restores saved day and exact clock")
@@ -75,9 +76,11 @@ func run() -> void:
 	main.world_clock.paused=true
 	var button: Button=main.start_screen.start_button
 	var point: Vector2=button.get_global_transform_with_canvas()*(button.size*0.5)
+	var motion:=InputEventMouseMotion.new();motion.position=point;root.push_input(motion,true);await process_frame
 	for pressed in [true,false]:
 		var click:=InputEventMouseButton.new();click.button_index=MOUSE_BUTTON_LEFT;click.position=point;click.pressed=pressed
 		root.push_input(click,true);await process_frame
+	check(main.start_screen._entering,"actual start click reaches the start button")
 	var continuous:=true
 	for i in 130:
 		await process_frame

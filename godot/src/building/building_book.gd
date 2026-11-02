@@ -32,9 +32,9 @@ func _ready() -> void:
 	var next:=_button("›",Vector2(236,637),Vector2(40,36));next.pressed.connect(func(): page+=1;refresh())
 	page_label=_label("",Vector2(82,642),19);page_label.size=Vector2(150,24);page_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 	var move:=_button("搬移  M",Vector2(644,637),Vector2(116,36));move.pressed.connect(func(): selected.emit("move"));recipe_buttons.move=move
-	var remove:=_button("拆回  Delete",Vector2(774,637),Vector2(130,36));remove.pressed.connect(func(): selected.emit("remove"));recipe_buttons.remove=remove
+	var remove:=_button("拆除  Delete",Vector2(774,637),Vector2(130,36));remove.pressed.connect(func(): selected.emit("remove"));recipe_buttons.remove=remove
 	move.tooltip_text="进入搬移模式：左键选择自建摆件，再选择新位置；保留作物状态。"
-	remove.tooltip_text="进入拆回模式：左键选择自建物件，走近后拆回并返还材料；先清空作物和承载物。"
+	remove.tooltip_text="进入拆除模式：锤子悬停高亮自建物件，点击后确认是或否；确认并通过安全检查后全额返还材料。"
 	counts=_label("",Vector2(323,643),16)
 	refresh()
 func _cost_text(kind: String) -> String:

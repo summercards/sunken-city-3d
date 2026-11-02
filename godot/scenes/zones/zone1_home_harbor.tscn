@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b151fysgrdciy" path="res://src/ambient/plant_field.gd" id="4_plants"]
 [ext_resource type="PackedScene" path="res://scenes/props/farm_plot_single.tscn" id="farm_prefab"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/salvage_station.tscn" id="independent_salvage"]
+[ext_resource type="PackedScene" path="res://scenes/facilities/wild_fishery.tscn" id="fishery_upgrade"]
 [ext_resource type="Script" uid="uid://bgt2ik1wbg2yi" path="res://src/navigation/landing_point.gd" id="landing_script"]
 [ext_resource type="Script" uid="uid://1sfliqvrp6is" path="res://src/orders/shipping_box.gd" id="shipping_script"]
 [ext_resource type="PackedScene" path="res://scenes/components/solar_cabin/cooler.tscn" id="shipping_visual"]
@@ -16,10 +17,15 @@
 [ext_resource type="PackedScene" uid="uid://nmkpgyf8hb2" path="res://assets/models/zones/zone1_home_harbor/units/unit_02.glb" id="unit_unit_02"]
 [ext_resource type="PackedScene" uid="uid://ggmtkvl0vp85" path="res://assets/models/zones/zone1_home_harbor/units/unit_03.glb" id="unit_unit_03"]
 
+[ext_resource type="PackedScene" path="res://scenes/decorations/animals/fish_school.tscn" id="fishery_school"]
+[ext_resource type="Script" path="res://src/aqua/fishery_harvest.gd" id="fishery_harvest"]
+
 [node name="Zone1HomeHarbor" type="Node3D" unique_id=1223767158]
 script = ExtResource("1_zone")
 zone_id = "zone1"
 zone_label = "sea"
+water_layer = "amphibious"
+water_layer_role = "entity"
 
 [node name="StaticBatch" type="Node3D" parent="." unique_id=1733389319]
 script = ExtResource("2_batch")
@@ -50,6 +56,9 @@ visible = false
 
 [node name="绞盘打捞台" parent="Models" unique_id=1558224747 instance=ExtResource("independent_salvage")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4.15)
+
+[node name="WildFishery" parent="Models" instance=ExtResource("fishery_upgrade")]
+position = Vector3(-13.0339488983, 1.33, 12.7458000183)
 
 [node name="WalkAreas" type="Node3D" parent="." unique_id=1912354651]
 
@@ -131,3 +140,41 @@ label = "太阳房 · 睡觉"
 verb = "睡到早上 06:00"
 priority = 4
 hold_time = 0.15
+
+[node name="FisherySchools" type="Node3D" parent="."]
+visible = false
+metadata/visual_only = true
+[node name="West" parent="FisherySchools" instance=ExtResource("fishery_school")]
+position = Vector3(-21.35, 1.12, 20.7)
+instance_id = "fishery/fish/west"
+palette = "surface"
+profile = "flat"
+palette_index = 0
+orbit_radius = Vector2(1.45, 1.0)
+spread_radius = 1.45
+swim_speed = 0.26
+ride_water = true
+submerge_min = 0.55
+submerge_max = 1.35
+size_scale = 0.5
+count = 10
+seed_value = 71
+[node name="East" parent="FisherySchools" instance=ExtResource("fishery_school")]
+position = Vector3(-17.1, 1.12, 21.25)
+instance_id = "fishery/fish/east"
+palette = "surface"
+profile = "flat"
+palette_index = 1
+orbit_radius = Vector2(1.6, 1.15)
+spread_radius = 1.68
+swim_speed = 0.24
+ride_water = true
+submerge_min = 0.6
+submerge_max = 1.5
+size_scale = 0.5
+count = 10
+phase = 2.0
+seed_value = 72
+[node name="FisheryHarvest" type="Node3D" parent="Objects"]
+position = Vector3(-13.2, 1.33, 11.4)
+script = ExtResource("fishery_harvest")

@@ -1,0 +1,6351 @@
+{
+  "schema": "sea.scene.instances",
+  "up_axis": "Z",
+  "front_axis": "-Y",
+  "godot_mapping": "(x,y,z)->(x,z,-y)",
+  "revision": "r2",
+  "instances": [
+    {
+      "name": "building_shell_01",
+      "key": "building_shell",
+      "asset_id": "SEA-SCENE-ORF-BUILDING-SHELL",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "roof_deck_01",
+      "key": "roof_deck",
+      "asset_id": "SEA-SCENE-ORF-ROOF-DECK",
+      "position": [
+        0,
+        0,
+        25.380000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_column_01",
+      "key": "facade_column",
+      "asset_id": "SEA-SCENE-ORF-FACADE-COLUMN",
+      "position": [
+        -16.5,
+        -12.3,
+        0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "damaged_column_01",
+      "key": "damaged_column",
+      "asset_id": "SEA-SCENE-ORF-DAMAGED-COLUMN",
+      "position": [
+        -8.3,
+        -12.3,
+        0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_column_02",
+      "key": "facade_column",
+      "asset_id": "SEA-SCENE-ORF-FACADE-COLUMN",
+      "position": [
+        0,
+        -12.3,
+        0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "damaged_column_02",
+      "key": "damaged_column",
+      "asset_id": "SEA-SCENE-ORF-DAMAGED-COLUMN",
+      "position": [
+        8.3,
+        -12.3,
+        0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_column_03",
+      "key": "facade_column",
+      "asset_id": "SEA-SCENE-ORF-FACADE-COLUMN",
+      "position": [
+        16.5,
+        -12.3,
+        0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_column_04",
+      "key": "facade_column",
+      "asset_id": "SEA-SCENE-ORF-FACADE-COLUMN",
+      "position": [
+        -18.05,
+        4.5,
+        0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        0.75,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_column_05",
+      "key": "facade_column",
+      "asset_id": "SEA-SCENE-ORF-FACADE-COLUMN",
+      "position": [
+        18.05,
+        4.5,
+        0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        0.75,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "parapet_01",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -16,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_01",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -16,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_02",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -12,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_02",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -12,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_03",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -8,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_03",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -8,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_04",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -4,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_04",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -4,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_05",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        0,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_05",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        0,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_06",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        4,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_06",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        4,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_07",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        8,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_07",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        8,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_08",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        12,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_08",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        12,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_09",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        16,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_09",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        16,
+        -11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_10",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -16,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_10",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -16,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_11",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -12,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_11",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -12,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_12",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -8,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_12",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -8,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_13",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -4,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_13",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -4,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_14",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        0,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_14",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        0,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_15",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        4,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_15",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        4,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_16",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        8,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_16",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        8,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_17",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        12,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_17",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        12,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_18",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        16,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_18",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        16,
+        11.83,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_19",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -17.83,
+        -10,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_19",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -17.83,
+        -10,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_20",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -17.83,
+        -6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_20",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -17.83,
+        -6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_21",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -17.83,
+        -2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_21",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -17.83,
+        -2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_22",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -17.83,
+        2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_22",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -17.83,
+        2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_23",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -17.83,
+        6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_23",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -17.83,
+        6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_24",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        -17.83,
+        10,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_24",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -17.83,
+        10,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_25",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        17.83,
+        -10,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_25",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        17.83,
+        -10,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_26",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        17.83,
+        -6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_26",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        17.83,
+        -6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_27",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        17.83,
+        -2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_27",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        17.83,
+        -2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_28",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        17.83,
+        2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_28",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        17.83,
+        2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_29",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        17.83,
+        6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_29",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        17.83,
+        6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "parapet_30",
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF-PARAPET",
+      "position": [
+        17.83,
+        10,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "railing_segment_30",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        17.83,
+        10,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "raised_platform_01",
+      "key": "raised_platform",
+      "asset_id": "SEA-SCENE-ORF-RAISED-PLATFORM",
+      "position": [
+        -12,
+        7,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "upper_room_01",
+      "key": "upper_room",
+      "asset_id": "SEA-SCENE-ORF-UPPER-ROOM",
+      "position": [
+        -12,
+        8,
+        29.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "metal_ladder_01",
+      "key": "metal_ladder",
+      "asset_id": "SEA-SCENE-ORF-METAL-LADDER",
+      "position": [
+        -12,
+        3.28,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "clothesline_01",
+      "key": "clothesline",
+      "asset_id": "SEA-SCENE-ORF-CLOTHESLINE",
+      "position": [
+        -14.6,
+        6.8,
+        29.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "railing_segment_31",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -14,
+        10.35,
+        29.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "railing_segment_32",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -10,
+        10.35,
+        29.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "railing_segment_33",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -8.15,
+        7,
+        29.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "railing_segment_34",
+      "key": "railing_segment",
+      "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+      "position": [
+        -15.85,
+        8.5,
+        29.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "equipment_box_01",
+      "key": "equipment_box",
+      "asset_id": "SEA-SCENE-ORF-EQUIPMENT-BOX",
+      "position": [
+        -9.3,
+        9.3,
+        29.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "pipe_run_01",
+      "key": "pipe_run",
+      "asset_id": "SEA-SCENE-ORF-PIPE-RUN",
+      "position": [
+        -15.75,
+        3.55,
+        25.65
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "small_lean_to_01",
+      "key": "small_lean_to",
+      "asset_id": "SEA-SCENE-ORF-SMALL-LEAN-TO",
+      "position": [
+        -14.4,
+        1.65,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "tool_shed_01",
+      "key": "tool_shed",
+      "asset_id": "SEA-SCENE-ORF-TOOL-SHED",
+      "position": [
+        -4.7,
+        7.4,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "shed_roof_01",
+      "key": "shed_roof",
+      "asset_id": "SEA-SCENE-ORF-SHED-ROOF",
+      "position": [
+        -4.7,
+        7.4,
+        28.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "round_table_01",
+      "key": "round_table",
+      "asset_id": "SEA-SCENE-ORF-ROUND-TABLE",
+      "position": [
+        -3.7,
+        3.65,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "chair_01",
+      "key": "chair",
+      "asset_id": "SEA-SCENE-ORF-CHAIR",
+      "position": [
+        -4.65,
+        3.35,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.55
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "chair_02",
+      "key": "chair",
+      "asset_id": "SEA-SCENE-ORF-CHAIR",
+      "position": [
+        -2.75,
+        3.85,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.85
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "greenhouse_frame_01",
+      "key": "greenhouse_frame",
+      "asset_id": "SEA-SCENE-ORF-GREENHOUSE-FRAME",
+      "position": [
+        6.0,
+        6.1,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "greenhouse_panels_01",
+      "key": "greenhouse_panels",
+      "asset_id": "SEA-SCENE-ORF-GREENHOUSE-PANELS",
+      "position": [
+        6.0,
+        6.1,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "water_tower_frame_01",
+      "key": "water_tower_frame",
+      "asset_id": "SEA-SCENE-ORF-WATER-TOWER-FRAME",
+      "position": [
+        14,
+        8,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "water_tank_01",
+      "key": "water_tank",
+      "asset_id": "SEA-SCENE-ORF-WATER-TANK",
+      "position": [
+        14,
+        8,
+        30.1
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "wind_pump_01",
+      "key": "wind_pump",
+      "asset_id": "SEA-SCENE-ORF-WIND-PUMP",
+      "position": [
+        10.6,
+        8.7,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "equipment_box_02",
+      "key": "equipment_box",
+      "asset_id": "SEA-SCENE-ORF-EQUIPMENT-BOX",
+      "position": [
+        15.6,
+        5.1,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "raised_bed_01",
+      "key": "raised_bed",
+      "asset_id": "SEA-SCENE-ORF-RAISED-BED",
+      "position": [
+        -4.7,
+        -3.8,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "raised_bed_02",
+      "key": "raised_bed",
+      "asset_id": "SEA-SCENE-ORF-RAISED-BED",
+      "position": [
+        -4.7,
+        -9.0,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "main_field_01",
+      "key": "main_field",
+      "asset_id": "SEA-SCENE-ORF-MAIN-FIELD",
+      "position": [
+        8.0,
+        -6.4,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "trellis_01",
+      "key": "trellis",
+      "asset_id": "SEA-SCENE-ORF-TRELLIS",
+      "position": [
+        2.35,
+        -6.2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "water_trough_01",
+      "key": "water_trough",
+      "asset_id": "SEA-SCENE-ORF-WATER-TROUGH",
+      "position": [
+        14.7,
+        -6.2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "small_field_01",
+      "key": "small_field",
+      "asset_id": "SEA-SCENE-ORF-SMALL-FIELD",
+      "position": [
+        0.1,
+        3.05,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "chicken_coop_01",
+      "key": "chicken_coop",
+      "asset_id": "SEA-SCENE-ORF-CHICKEN-COOP",
+      "position": [
+        -14.3,
+        -7.8,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.18
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "low_fence_01",
+      "key": "low_fence",
+      "asset_id": "SEA-SCENE-ORF-LOW-FENCE",
+      "position": [
+        -15.5,
+        -10.9,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "low_fence_02",
+      "key": "low_fence",
+      "asset_id": "SEA-SCENE-ORF-LOW-FENCE",
+      "position": [
+        -12.5,
+        -10.9,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "low_fence_03",
+      "key": "low_fence",
+      "asset_id": "SEA-SCENE-ORF-LOW-FENCE",
+      "position": [
+        -9.5,
+        -10.9,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "low_fence_04",
+      "key": "low_fence",
+      "asset_id": "SEA-SCENE-ORF-LOW-FENCE",
+      "position": [
+        -17.0,
+        -8.8,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "low_fence_05",
+      "key": "low_fence",
+      "asset_id": "SEA-SCENE-ORF-LOW-FENCE",
+      "position": [
+        -17.0,
+        -5.8,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "low_fence_06",
+      "key": "low_fence",
+      "asset_id": "SEA-SCENE-ORF-LOW-FENCE",
+      "position": [
+        -17.0,
+        -2.8,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "grass_patch_01",
+      "key": "grass_patch",
+      "asset_id": "SEA-SCENE-ORF-GRASS-PATCH",
+      "position": [
+        -12,
+        -5.2,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.6,
+        1.4,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "grass_patch_02",
+      "key": "grass_patch",
+      "asset_id": "SEA-SCENE-ORF-GRASS-PATCH",
+      "position": [
+        -15,
+        -1.5,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.2,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "grass_patch_03",
+      "key": "grass_patch",
+      "asset_id": "SEA-SCENE-ORF-GRASS-PATCH",
+      "position": [
+        -10.3,
+        -9.0,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "grass_patch_04",
+      "key": "grass_patch",
+      "asset_id": "SEA-SCENE-ORF-GRASS-PATCH",
+      "position": [
+        -9.8,
+        0.2,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.2,
+        0.8,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "grass_patch_05",
+      "key": "grass_patch",
+      "asset_id": "SEA-SCENE-ORF-GRASS-PATCH",
+      "position": [
+        15.4,
+        -1.7,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.7,
+        1.1,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "grass_patch_06",
+      "key": "grass_patch",
+      "asset_id": "SEA-SCENE-ORF-GRASS-PATCH",
+      "position": [
+        1.0,
+        9.5,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.1,
+        0.7,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "grass_patch_07",
+      "key": "grass_patch",
+      "asset_id": "SEA-SCENE-ORF-GRASS-PATCH",
+      "position": [
+        -1.5,
+        -1.0,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.7,
+        0.8,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "stepping_stone_01",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        0.1548782428620419,
+        -10.7,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.14357781322298982
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_02",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -0.07400537160851492,
+        -9.84,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.005689672018998254
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_03",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        0.137676872483136,
+        -8.979999999999999,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.13888596086235686
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_04",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        0.045498641344659446,
+        -8.12,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.00030362842238290666
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_05",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        0.05812607391015501,
+        -7.26,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.004172913589599814
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_06",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -0.06046154810108384,
+        -6.3999999999999995,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.128647729393393
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_07",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        0.15964622242445656,
+        -5.539999999999999,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.037477015429155075
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_08",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -0.03071153650098496,
+        -4.68,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.00771395736817454
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_09",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -0.0718280592604151,
+        -3.8199999999999994,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.08345147312795095
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_10",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        0.12134720161272641,
+        -2.959999999999999,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.0871381225110067
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_11",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -0.1251508253003817,
+        -2.0999999999999996,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.1436018468954182
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_12",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        0.04361300070383434,
+        -1.2400000000000002,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.14639374390284263
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_13",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        0.0700112215534282,
+        -0.379999999999999,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.07071463292782523
+      ],
+      "scale": [
+        1.05,
+        1.1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_14",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -8.0,
+        1.0035468491323292,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.1600200941484261
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_15",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -7.2,
+        1.2072451688729866,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.12330715964676797
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_16",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -6.4,
+        1.0631114096390157,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.06747302240427921
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_17",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -5.6,
+        1.0618073551447598,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.17606853962978214
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_18",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -4.8,
+        1.1480373005851154,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.08854910920143988
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_19",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -4.0,
+        1.1878924800749895,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.23342031586445772
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_20",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        -3.1999999999999993,
+        1.1764375835764247,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.02816846175291393
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_21",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        1.1,
+        0.40651829985261334,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.17586147586357678
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_22",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        1.82,
+        0.5090560423830013,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.004677825195658458
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_23",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        2.54,
+        0.5138584005015329,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.013882152900543537
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_24",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        3.2600000000000002,
+        0.5173198738868905,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.07665052038076467
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_25",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        3.98,
+        0.5432926779610266,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.11407050069468702
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "stepping_stone_26",
+      "key": "stepping_stone",
+      "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+      "position": [
+        4.699999999999999,
+        0.4400032641657313,
+        25.619999999999997
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.06483071461641965
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "wood_walkway_01",
+      "key": "wood_walkway",
+      "asset_id": "SEA-SCENE-ORF-WOOD-WALKWAY",
+      "position": [
+        -8.15,
+        -8.8,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "wood_walkway_02",
+      "key": "wood_walkway",
+      "asset_id": "SEA-SCENE-ORF-WOOD-WALKWAY",
+      "position": [
+        -8.15,
+        -8.020000000000001,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "wood_walkway_03",
+      "key": "wood_walkway",
+      "asset_id": "SEA-SCENE-ORF-WOOD-WALKWAY",
+      "position": [
+        -8.15,
+        -7.24,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "wood_walkway_04",
+      "key": "wood_walkway",
+      "asset_id": "SEA-SCENE-ORF-WOOD-WALKWAY",
+      "position": [
+        -8.15,
+        -6.460000000000001,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "wood_walkway_05",
+      "key": "wood_walkway",
+      "asset_id": "SEA-SCENE-ORF-WOOD-WALKWAY",
+      "position": [
+        -8.15,
+        -5.680000000000001,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "roof_hatch_01",
+      "key": "roof_hatch",
+      "asset_id": "SEA-SCENE-ORF-ROOF-HATCH",
+      "position": [
+        -9.3,
+        1.0,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "crate_01",
+      "key": "crate",
+      "asset_id": "SEA-SCENE-ORF-CRATE",
+      "position": [
+        -6.9,
+        5.2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.12
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "crate_02",
+      "key": "crate",
+      "asset_id": "SEA-SCENE-ORF-CRATE",
+      "position": [
+        -7.0,
+        4.3,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -0.08
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "crate_03",
+      "key": "crate",
+      "asset_id": "SEA-SCENE-ORF-CRATE",
+      "position": [
+        -15.7,
+        0.1,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.15
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "barrel_01",
+      "key": "barrel",
+      "asset_id": "SEA-SCENE-ORF-BARREL",
+      "position": [
+        -6.9,
+        8.7,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "barrel_02",
+      "key": "barrel",
+      "asset_id": "SEA-SCENE-ORF-BARREL",
+      "position": [
+        -13.5,
+        0.1,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "barrel_03",
+      "key": "barrel",
+      "asset_id": "SEA-SCENE-ORF-BARREL",
+      "position": [
+        15.7,
+        9.8,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "planter_pot_01",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        -6.5,
+        6.2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_01",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        -6.5,
+        6.2,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_02",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        -2.1,
+        6.4,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_02",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        -2.1,
+        6.4,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_03",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        -13.5,
+        -6.5,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_03",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        -13.5,
+        -6.5,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_04",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        -8.0,
+        -2.0,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_04",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        -8.0,
+        -2.0,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_05",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        3.0,
+        1.0,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_05",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        3.0,
+        1.0,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_06",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        8.8,
+        1.0,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_06",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        8.8,
+        1.0,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_07",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        15.8,
+        -10.5,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_07",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        15.8,
+        -10.5,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_08",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        -16.3,
+        10.4,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_08",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        -16.3,
+        10.4,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_09",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        -12.2,
+        -12.35,
+        3.62
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_09",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        -12.2,
+        -12.35,
+        3.62
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_10",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        4.1,
+        -9.35,
+        3.62
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_10",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        4.1,
+        -9.35,
+        3.62
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "planter_pot_11",
+      "key": "planter_pot",
+      "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+      "position": [
+        12.2,
+        -6.35,
+        3.62
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "potted_plant_11",
+      "key": "potted_plant",
+      "asset_id": "SEA-SCENE-ORF-POTTED-PLANT",
+      "position": [
+        12.2,
+        -6.35,
+        3.62
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ],
+      "category": "flora"
+    },
+    {
+      "name": "lamp_post_01",
+      "key": "lamp_post",
+      "asset_id": "SEA-SCENE-ORF-LAMP-POST",
+      "position": [
+        -17.0,
+        -10.6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "lamp_post_02",
+      "key": "lamp_post",
+      "asset_id": "SEA-SCENE-ORF-LAMP-POST",
+      "position": [
+        17.0,
+        -10.6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "lamp_post_03",
+      "key": "lamp_post",
+      "asset_id": "SEA-SCENE-ORF-LAMP-POST",
+      "position": [
+        -17.0,
+        10.6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "lamp_post_04",
+      "key": "lamp_post",
+      "asset_id": "SEA-SCENE-ORF-LAMP-POST",
+      "position": [
+        17.0,
+        10.6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        3.141592653589793
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "pipe_run_02",
+      "key": "pipe_run",
+      "asset_id": "SEA-SCENE-ORF-PIPE-RUN",
+      "position": [
+        17.95,
+        -7.8,
+        0.2
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1.3,
+        1.3,
+        2.8
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "pipe_run_03",
+      "key": "pipe_run",
+      "asset_id": "SEA-SCENE-ORF-PIPE-RUN",
+      "position": [
+        -8.0,
+        3.6,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0.2
+      ],
+      "scale": [
+        1,
+        1,
+        1.2
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "broken_window_01",
+      "key": "broken_window",
+      "asset_id": "SEA-SCENE-ORF-BROKEN-WINDOW",
+      "position": [
+        4.1,
+        -11.91,
+        3.92
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "broken_window_02",
+      "key": "broken_window",
+      "asset_id": "SEA-SCENE-ORF-BROKEN-WINDOW",
+      "position": [
+        -12.2,
+        -11.91,
+        13.520000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "broken_window_03",
+      "key": "broken_window",
+      "asset_id": "SEA-SCENE-ORF-BROKEN-WINDOW",
+      "position": [
+        17.88,
+        0,
+        16.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "broken_window_04",
+      "key": "broken_window",
+      "asset_id": "SEA-SCENE-ORF-BROKEN-WINDOW",
+      "position": [
+        12.2,
+        -11.91,
+        19.92
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "roof_tiles_01",
+      "key": "roof_tiles",
+      "asset_id": "SEA-SCENE-ORF-ROOF-TILES",
+      "position": [
+        0,
+        0,
+        25.6
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_weathering_01",
+      "key": "facade_weathering",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WEATHERING",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "floor_slab_01",
+      "key": "floor_slab",
+      "asset_id": "SEA-SCENE-ORF-FLOOR-SLAB",
+      "position": [
+        0,
+        0,
+        0.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_01",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -12.2,
+        -11.91,
+        0.72
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_01",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -12.2,
+        -12.35,
+        0.18
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_02",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -4.1,
+        -11.91,
+        0.72
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_02",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -4.1,
+        -12.35,
+        0.18
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_03",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        4.1,
+        -11.91,
+        0.72
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_03",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        4.1,
+        -12.35,
+        0.18
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_04",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        12.2,
+        -11.91,
+        0.72
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_04",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        12.2,
+        -12.35,
+        0.18
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_05",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        -7.0,
+        0.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_06",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        0,
+        0.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_07",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        7.0,
+        0.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_08",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        -7.0,
+        0.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_09",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        0,
+        0.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_10",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        7.0,
+        0.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "floor_slab_02",
+      "key": "floor_slab",
+      "asset_id": "SEA-SCENE-ORF-FLOOR-SLAB",
+      "position": [
+        0,
+        0,
+        3.2
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_11",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -12.2,
+        -11.91,
+        3.92
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_05",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -12.2,
+        -12.35,
+        3.3800000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_12",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -4.1,
+        -11.91,
+        3.92
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_06",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -4.1,
+        -12.35,
+        3.3800000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "balcony_07",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        4.1,
+        -12.35,
+        3.3800000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_13",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        12.2,
+        -11.91,
+        3.92
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_08",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        12.2,
+        -12.35,
+        3.3800000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_14",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        -7.0,
+        3.95
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_15",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        0,
+        3.95
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_16",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        7.0,
+        3.95
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_17",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        -7.0,
+        3.95
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_18",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        0,
+        3.95
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_19",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        7.0,
+        3.95
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "floor_slab_03",
+      "key": "floor_slab",
+      "asset_id": "SEA-SCENE-ORF-FLOOR-SLAB",
+      "position": [
+        0,
+        0,
+        6.4
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_20",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -12.2,
+        -11.91,
+        7.12
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_09",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -12.2,
+        -12.35,
+        6.58
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_21",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -4.1,
+        -11.91,
+        7.12
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_10",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -4.1,
+        -12.35,
+        6.58
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_22",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        4.1,
+        -11.91,
+        7.12
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_11",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        4.1,
+        -12.35,
+        6.58
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_23",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        12.2,
+        -11.91,
+        7.12
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_12",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        12.2,
+        -12.35,
+        6.58
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_24",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        -7.0,
+        7.15
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_25",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        0,
+        7.15
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_26",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        7.0,
+        7.15
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_27",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        -7.0,
+        7.15
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_28",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        0,
+        7.15
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_29",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        7.0,
+        7.15
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "floor_slab_04",
+      "key": "floor_slab",
+      "asset_id": "SEA-SCENE-ORF-FLOOR-SLAB",
+      "position": [
+        0,
+        0,
+        9.600000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_30",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -12.2,
+        -11.91,
+        10.320000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_13",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -12.2,
+        -12.35,
+        9.780000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_31",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -4.1,
+        -11.91,
+        10.320000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_14",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -4.1,
+        -12.35,
+        9.780000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_32",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        4.1,
+        -11.91,
+        10.320000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_15",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        4.1,
+        -12.35,
+        9.780000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_33",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        12.2,
+        -11.91,
+        10.320000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_16",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        12.2,
+        -12.35,
+        9.780000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_34",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        -7.0,
+        10.350000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_35",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        0,
+        10.350000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_36",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        7.0,
+        10.350000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_37",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        -7.0,
+        10.350000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_38",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        0,
+        10.350000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_39",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        7.0,
+        10.350000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "floor_slab_05",
+      "key": "floor_slab",
+      "asset_id": "SEA-SCENE-ORF-FLOOR-SLAB",
+      "position": [
+        0,
+        0,
+        12.8
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "balcony_17",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -12.2,
+        -12.35,
+        12.98
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_40",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -4.1,
+        -11.91,
+        13.520000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_18",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -4.1,
+        -12.35,
+        12.98
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_41",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        4.1,
+        -11.91,
+        13.520000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_19",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        4.1,
+        -12.35,
+        12.98
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_42",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        12.2,
+        -11.91,
+        13.520000000000001
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_20",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        12.2,
+        -12.35,
+        12.98
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_43",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        -7.0,
+        13.55
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_44",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        0,
+        13.55
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_45",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        7.0,
+        13.55
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_46",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        -7.0,
+        13.55
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_47",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        0,
+        13.55
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_48",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        7.0,
+        13.55
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "floor_slab_06",
+      "key": "floor_slab",
+      "asset_id": "SEA-SCENE-ORF-FLOOR-SLAB",
+      "position": [
+        0,
+        0,
+        16.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_49",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -12.2,
+        -11.91,
+        16.72
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_21",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -12.2,
+        -12.35,
+        16.18
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_50",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -4.1,
+        -11.91,
+        16.72
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_22",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -4.1,
+        -12.35,
+        16.18
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_51",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        4.1,
+        -11.91,
+        16.72
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_23",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        4.1,
+        -12.35,
+        16.18
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_52",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        12.2,
+        -11.91,
+        16.72
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_24",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        12.2,
+        -12.35,
+        16.18
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_53",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        -7.0,
+        16.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_54",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        0,
+        16.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_55",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        7.0,
+        16.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_56",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        -7.0,
+        16.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_57",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        7.0,
+        16.75
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "floor_slab_07",
+      "key": "floor_slab",
+      "asset_id": "SEA-SCENE-ORF-FLOOR-SLAB",
+      "position": [
+        0,
+        0,
+        19.200000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_58",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -12.2,
+        -11.91,
+        19.92
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_25",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -12.2,
+        -12.35,
+        19.380000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_59",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -4.1,
+        -11.91,
+        19.92
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_26",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -4.1,
+        -12.35,
+        19.380000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_60",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        4.1,
+        -11.91,
+        19.92
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_27",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        4.1,
+        -12.35,
+        19.380000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "balcony_28",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        12.2,
+        -12.35,
+        19.380000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_61",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        -7.0,
+        19.950000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_62",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        0,
+        19.950000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_63",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        7.0,
+        19.950000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_64",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        -7.0,
+        19.950000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_65",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        0,
+        19.950000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_66",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        7.0,
+        19.950000000000003
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "floor_slab_08",
+      "key": "floor_slab",
+      "asset_id": "SEA-SCENE-ORF-FLOOR-SLAB",
+      "position": [
+        0,
+        0,
+        22.400000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_67",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -12.2,
+        -11.91,
+        23.12
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_29",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -12.2,
+        -12.35,
+        22.580000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_68",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -4.1,
+        -11.91,
+        23.12
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_30",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        -4.1,
+        -12.35,
+        22.580000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_69",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        4.1,
+        -11.91,
+        23.12
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_31",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        4.1,
+        -12.35,
+        22.580000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_70",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        12.2,
+        -11.91,
+        23.12
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "balcony_32",
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF-BALCONY",
+      "position": [
+        12.2,
+        -12.35,
+        22.580000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "structure"
+    },
+    {
+      "name": "facade_window_71",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        -7.0,
+        23.150000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_72",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        0,
+        23.150000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_73",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        -17.88,
+        7.0,
+        23.150000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        -1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_74",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        -7.0,
+        23.150000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_75",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        0,
+        23.150000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "facade_window_76",
+      "key": "facade_window",
+      "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+      "position": [
+        17.88,
+        7.0,
+        23.150000000000002
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        1.5707963267948966
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "pipe_run_facade_extra_1",
+      "key": "pipe_run",
+      "asset_id": "SEA-SCENE-ORF-PIPE-RUN",
+      "position": [
+        -17.200000762939453,
+        -12.0,
+        0.4000000059604645
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.2,
+        1.2,
+        2.4
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "pipe_run_facade_extra_2",
+      "key": "pipe_run",
+      "asset_id": "SEA-SCENE-ORF-PIPE-RUN",
+      "position": [
+        16.700000762939453,
+        -12.0,
+        6.5
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "category": "fixture"
+    },
+    {
+      "name": "pipe_run_facade_extra_3",
+      "key": "pipe_run",
+      "asset_id": "SEA-SCENE-ORF-PIPE-RUN",
+      "position": [
+        -1.399999976158142,
+        -12.0,
+        15.0
+      ],
+      "rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        1.6
+      ],
+      "category": "fixture"
+    }
+  ]
+}

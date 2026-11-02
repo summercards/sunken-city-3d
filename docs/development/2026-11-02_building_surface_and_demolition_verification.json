@@ -1,0 +1,1930 @@
+{
+  "feature_id": "SEA-BUILDING",
+  "date": "2026-11-02",
+  "timezone": "Asia/Shanghai",
+  "requirements": [
+    "R27",
+    "R28",
+    "R29"
+  ],
+  "status": "implemented_pending_device_and_scale_verification",
+  "player_data_isolated": true,
+  "runner": "scripts/run_verification.py",
+  "new_checks": [
+    "building-surfaces",
+    "visual-building-surfaces",
+    "building-demolition"
+  ],
+  "results": {
+    "kit-safety": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\kit-safety.log",
+      "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/kit-safety",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_kit_safety.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "75",
+          "0"
+        ]
+      ],
+      "run": "20261102-153618-building-surface-final-specialists-bab57c"
+    },
+    "building-perf": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\building-perf.log",
+      "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/building-perf",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_perf.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "239",
+          "0"
+        ]
+      ],
+      "run": "20261102-153618-building-surface-final-specialists-bab57c"
+    },
+    "building-surfaces": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-154741-building-surface-snap-toggle-final-7b593b\\building-surfaces.log",
+      "user_data_name": "sea-verification/20261102-154741-building-surface-snap-toggle-final-7b593b/building-surfaces",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-154741-building-surface-snap-toggle-final-7b593b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_surfaces.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "80",
+          "0"
+        ]
+      ],
+      "run": "20261102-154741-building-surface-snap-toggle-final-7b593b"
+    },
+    "visual-building-surfaces": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\visual-building-surfaces.log",
+      "user_data_name": "sea-verification/20261102-154550-building-surface-final-height-input-52a8ea/visual-building-surfaces",
+      "renderer": "real",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_building_surfaces.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "78",
+          "0"
+        ]
+      ],
+      "run": "20261102-154550-building-surface-final-height-input-52a8ea"
+    },
+    "building-simulate": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\building-simulate.log",
+      "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/building-simulate",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_simulate.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "191",
+          "0"
+        ]
+      ],
+      "run": "20261102-153618-building-surface-final-specialists-bab57c"
+    },
+    "building-save-compat": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\building-save-compat.log",
+      "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/building-save-compat",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_save_compat.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "35",
+          "0"
+        ]
+      ],
+      "run": "20261102-153937-building-surface-final-verified-1346ff"
+    },
+    "visual-building-diy": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\visual-building-diy.log",
+      "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/visual-building-diy",
+      "renderer": "real",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_building_diy_visual.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "30",
+          "0"
+        ]
+      ],
+      "run": "20261102-153937-building-surface-final-verified-1346ff"
+    },
+    "building-ocean": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\building-ocean.log",
+      "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/building-ocean",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_ocean.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "30",
+          "0"
+        ]
+      ],
+      "run": "20261102-153618-building-surface-final-specialists-bab57c"
+    },
+    "building": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "30",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-open-rules": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-open-rules.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-open-rules",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_rules.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "122",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-join": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-join.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-join",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_join.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "37",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-space": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-space.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-space",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_space.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "18",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-integration": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-integration.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-integration",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_integration.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "53",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-seed": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-seed.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_restart.gd",
+        "--",
+        "--skip-title",
+        "--building-seed"
+      ],
+      "assertions": [
+        [
+          "5",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-restart": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-restart.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_restart.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "11",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-open-seed": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-open-seed.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-open-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_restart.gd",
+        "--",
+        "--skip-title",
+        "--building-open-seed"
+      ],
+      "assertions": [
+        [
+          "70",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-open-restart": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-open-restart.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-open-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_restart.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "8",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-approach": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-approach.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-approach",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_approach.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "18",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "ground-space": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\ground-space.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/ground-space",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_ground_space.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "33",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "character-space-save": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\character-space-save.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/character-space-save",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_character_space_save.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "10",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-base-neighbors": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-base-neighbors.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-base-neighbors",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_base_neighbors.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "28",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-decoupling": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-decoupling.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-decoupling",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_decoupling.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "62",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "energy": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\energy.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/energy",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_energy.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "37",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "minimum-loop": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\minimum-loop.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/minimum-loop",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_minimum_loop.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "141",
+          "0"
+        ]
+      ],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "save-corrupt-seed": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\save-corrupt-seed.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/protection",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_corrupt_seed.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "save-protection": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\save-protection.log",
+      "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/protection",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_protection.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [],
+      "run": "20261102-153733-building-surface-final-integration-b4f27c"
+    },
+    "building-kit": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\building-kit.log",
+      "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/building-kit",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_kit.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "121",
+          "0"
+        ]
+      ],
+      "run": "20261102-153937-building-surface-final-verified-1346ff"
+    },
+    "building-demolition": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\building-demolition.log",
+      "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/building-demolition",
+      "renderer": "headless",
+      "command": [
+        "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_demolition.gd",
+        "--",
+        "--skip-title"
+      ],
+      "assertions": [
+        [
+          "34",
+          "0"
+        ]
+      ],
+      "run": "20261102-153937-building-surface-final-verified-1346ff"
+    }
+  },
+  "runs": [
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\report.json",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "results": {
+        "kit-safety": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\kit-safety.log",
+          "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/kit-safety",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_kit_safety.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "75",
+              "0"
+            ]
+          ],
+          "run": "20261102-153618-building-surface-final-specialists-bab57c"
+        },
+        "building-perf": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\building-perf.log",
+          "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/building-perf",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_perf.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "239",
+              "0"
+            ]
+          ],
+          "run": "20261102-153618-building-surface-final-specialists-bab57c"
+        },
+        "building-surfaces": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\building-surfaces.log",
+          "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/building-surfaces",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_surfaces.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "63",
+              "0"
+            ]
+          ],
+          "run": "20261102-153618-building-surface-final-specialists-bab57c"
+        },
+        "visual-building-surfaces": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\visual-building-surfaces.log",
+          "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/visual-building-surfaces",
+          "renderer": "real",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_surfaces.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "63",
+              "0"
+            ]
+          ],
+          "run": "20261102-153618-building-surface-final-specialists-bab57c"
+        },
+        "building-kit": {
+          "exit_code": 1,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL structure preview freely snaps by 0.1m on a legacy board"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\building-kit.log",
+          "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/building-kit",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_kit.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "building-simulate": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\building-simulate.log",
+          "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/building-simulate",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_simulate.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "191",
+              "0"
+            ]
+          ],
+          "run": "20261102-153618-building-surface-final-specialists-bab57c"
+        },
+        "building-save-compat": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\building-save-compat.log",
+          "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/building-save-compat",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_save_compat.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "35",
+              "0"
+            ]
+          ],
+          "run": "20261102-153618-building-surface-final-specialists-bab57c"
+        },
+        "visual-building-diy": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\visual-building-diy.log",
+          "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/visual-building-diy",
+          "renderer": "real",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_diy_visual.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "30",
+              "0"
+            ]
+          ],
+          "run": "20261102-153618-building-surface-final-specialists-bab57c"
+        },
+        "building-ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\building-ocean.log",
+          "user_data_name": "sea-verification/20261102-153618-building-surface-final-specialists-bab57c/building-ocean",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153618-building-surface-final-specialists-bab57c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_ocean.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "30",
+              "0"
+            ]
+          ],
+          "run": "20261102-153618-building-surface-final-specialists-bab57c"
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\report.json",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "results": {
+        "building": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "30",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-open-rules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-open-rules.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-open-rules",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_open_rules.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "122",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-join": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-join.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-join",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_join.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "37",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-space": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-space.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-space",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_space.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "18",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-integration.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-integration",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_integration.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "53",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-seed.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_restart.gd",
+            "--",
+            "--skip-title",
+            "--building-seed"
+          ],
+          "assertions": [
+            [
+              "5",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-restart.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_restart.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "11",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-open-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-open-seed.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-open-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_open_restart.gd",
+            "--",
+            "--skip-title",
+            "--building-open-seed"
+          ],
+          "assertions": [
+            [
+              "70",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-open-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-open-restart.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-open-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_open_restart.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "8",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-approach": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-approach.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-approach",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_approach.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "18",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "ground-space": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\ground-space.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/ground-space",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_ground_space.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "33",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "character-space-save": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\character-space-save.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/character-space-save",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_character_space_save.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "10",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-base-neighbors": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-base-neighbors.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-base-neighbors",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_base_neighbors.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "28",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "building-decoupling": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\building-decoupling.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/building-decoupling",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_decoupling.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "62",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "energy": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\energy.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/energy",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_energy.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "37",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "141",
+              "0"
+            ]
+          ],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "save-corrupt-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\save-corrupt-seed.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/protection",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_corrupt_seed.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        },
+        "save-protection": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\save-protection.log",
+          "user_data_name": "sea-verification/20261102-153733-building-surface-final-integration-b4f27c/protection",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153733-building-surface-final-integration-b4f27c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_protection.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [],
+          "run": "20261102-153733-building-surface-final-integration-b4f27c"
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\report.json",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "results": {
+        "building-surfaces": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\building-surfaces.log",
+          "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/building-surfaces",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_surfaces.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "73",
+              "0"
+            ]
+          ],
+          "run": "20261102-153937-building-surface-final-verified-1346ff"
+        },
+        "visual-building-surfaces": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\visual-building-surfaces.log",
+          "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/visual-building-surfaces",
+          "renderer": "real",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_surfaces.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "73",
+              "0"
+            ]
+          ],
+          "run": "20261102-153937-building-surface-final-verified-1346ff"
+        },
+        "building-kit": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\building-kit.log",
+          "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/building-kit",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_kit.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "121",
+              "0"
+            ]
+          ],
+          "run": "20261102-153937-building-surface-final-verified-1346ff"
+        },
+        "building-save-compat": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\building-save-compat.log",
+          "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/building-save-compat",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_save_compat.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "35",
+              "0"
+            ]
+          ],
+          "run": "20261102-153937-building-surface-final-verified-1346ff"
+        },
+        "visual-building-diy": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\visual-building-diy.log",
+          "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/visual-building-diy",
+          "renderer": "real",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_diy_visual.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "30",
+              "0"
+            ]
+          ],
+          "run": "20261102-153937-building-surface-final-verified-1346ff"
+        },
+        "building-demolition": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\building-demolition.log",
+          "user_data_name": "sea-verification/20261102-153937-building-surface-final-verified-1346ff/building-demolition",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-153937-building-surface-final-verified-1346ff\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_demolition.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "34",
+              "0"
+            ]
+          ],
+          "run": "20261102-153937-building-surface-final-verified-1346ff"
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261102-154315-building-surface-disk-and-hover-final-01a111\\report.json",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "results": {
+        "visual-building-surfaces": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-154315-building-surface-disk-and-hover-final-01a111\\visual-building-surfaces.log",
+          "user_data_name": "sea-verification/20261102-154315-building-surface-disk-and-hover-final-01a111/visual-building-surfaces",
+          "renderer": "real",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-154315-building-surface-disk-and-hover-final-01a111\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_surfaces.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "73",
+              "0"
+            ]
+          ],
+          "run": "20261102-154315-building-surface-disk-and-hover-final-01a111"
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\report.json",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "results": {
+        "building-surfaces": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\building-surfaces.log",
+          "user_data_name": "sea-verification/20261102-154550-building-surface-final-height-input-52a8ea/building-surfaces",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_surfaces.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "78",
+              "0"
+            ]
+          ],
+          "run": "20261102-154550-building-surface-final-height-input-52a8ea"
+        },
+        "visual-building-surfaces": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\visual-building-surfaces.log",
+          "user_data_name": "sea-verification/20261102-154550-building-surface-final-height-input-52a8ea/visual-building-surfaces",
+          "renderer": "real",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_surfaces.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "78",
+              "0"
+            ]
+          ],
+          "run": "20261102-154550-building-surface-final-height-input-52a8ea"
+        }
+      }
+    },
+    {
+      "path": "D:\\projects\\sea-work\\verification\\20261102-154741-building-surface-snap-toggle-final-7b593b\\report.json",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "results": {
+        "building-surfaces": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-154741-building-surface-snap-toggle-final-7b593b\\building-surfaces.log",
+          "user_data_name": "sea-verification/20261102-154741-building-surface-snap-toggle-final-7b593b/building-surfaces",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-154741-building-surface-snap-toggle-final-7b593b\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_surfaces.gd",
+            "--",
+            "--skip-title"
+          ],
+          "assertions": [
+            [
+              "80",
+              "0"
+            ]
+          ],
+          "run": "20261102-154741-building-surface-snap-toggle-final-7b593b"
+        }
+      }
+    }
+  ],
+  "source_sha256": {
+    "godot/src/building/building_catalog.gd": "479d056f3d652d792cd5a037b160c3a1f589e334b009b4de0ac80fdeb2f5bac5",
+    "godot/src/building/building_service.gd": "1ad7d1ad245725526c786e24ef2cda2f6742981e352c2371dbccf3f7dbea915a",
+    "godot/src/building/building_space.gd": "071a5e4d38d96d61d66b7dc60d0419c85d521bf7e7fba355cbbbc00051f7593a",
+    "godot/src/building/building_boundary.gd": "6c9506363f4350df439a5a1fa95ea56fa6bca28ebc958aa85f23d9057b2f8c49",
+    "godot/src/building/building_world.gd": "2ec79dbed34be4342f3dd06e99e8089cc06d0a0ef197cc180b0d24d375399ac4",
+    "godot/src/building/building_access.gd": "04dd9e2772df80f0b8a936c47d830d05bcd766761a7ff09926b45fca7f406248",
+    "godot/src/building/building_controller.gd": "1e12afbdc7a2cd0fd94f564323bd6007432c29fb638b3f2c327a5b1063c51d8a",
+    "godot/src/building/building_book.gd": "e7f02f055cf58423898fb8cc9e8d8abe8100f3f3092da3d4d3414cf8bd1cd8d2",
+    "godot/src/building/assembly_rules.gd": "65b0893690781a866332e5c62e4edf05034737e6edaaac0bd5d5893c01ebfa57",
+    "godot/src/building/assembly_surfaces.gd": "0f3fad87e7c0982279770d333b713aea7c78d8f9a669245ebf132b655601168c",
+    "godot/src/building/building_pointer.gd": "723c8e6b6525266211dd91575f9d5820ae15a7f055264fc276f67e23ca91e7c3",
+    "godot/src/building/demolition_tool.gd": "c26b1ffeb628f97410b96e97fe9bb5e7e0639f7efa184a1d59c6c1b612cc069f",
+    "godot/src/navigation/walk_area.gd": "d86ad84c65bd4c0a72c2a9cee4d546e30f7033f3015f82abb410c5f08e5e727e",
+    "godot/src/navigation/ground_space.gd": "5165d02a88601ce5b0a7d150f274663b7d41aea669259e90631633899a5390d3",
+    "godot/src/ui/hud.gd": "6646932a160de673170c5fcd9f64b65b1626cd7f0584fc7bdf2af2dcba87c268",
+    "godot/src/bootstrap/main.gd": "984337eea8d8b6615ccf2b8871a713cb62a0d15f9fa4d9038612bbf03b891908"
+  },
+  "unexecuted": [
+    "touch",
+    "gamepad",
+    "low-end GPU",
+    "full 100/200-platform renderer stress",
+    "arbitrary height and coordinate combinations"
+  ],
+  "scope_notes": [
+    "Actual capsule and Main integration cover base to second floor; 5.6m stair extension is a pure rule test.",
+    "Hover screenshot freezes the helper process and supplies the controller target position because synthetic input does not warp the OS pointer. Confirmation screenshots use normal actual mouse event dispatch.",
+    "No visual-* acceptance uses headless renderer. Former counterexample probes were replaced by positive regressions; not reported as product passes."
+  ],
+  "process_failures": [
+    {
+      "run": "20261102-152234-building-surfaces-first-f6136b",
+      "reason": "GDScript structural_joint missing explicit bool; fixed. Old UI size fixture expected requested Window size despite content scaling; now tests actual viewport."
+    },
+    {
+      "run": "20261102-152257-building-surfaces-compile-6e9b43",
+      "reason": "integration timeout35 under concurrent initialization, later original integration passed at120; no error whitelisting."
+    },
+    {
+      "run": "20261102-152540-building-surface-end-to-end-7d0500",
+      "reason": "first stair approach sampled too coarsely, subsequent fixture rebuilt under actor; first corrected in product, second corrected actor context."
+    },
+    {
+      "run": "20261102-152700-building-surface-no-cycle-8079c4",
+      "reason": "same pre-approach-fix snapshot; runtime source dependency also simplified to keep geometry helpers acyclic."
+    },
+    {
+      "run": "20261102-152823-building-surface-stair-approach-c3e928",
+      "reason": "new nav cuts contained near-duplicate float coordinates; normalized, removed degenerates. Upper planter still used ground operation-point branch; fixed. Stair safety fixture lacked ground landing; added actual ground landing."
+    },
+    {
+      "run": "20261102-153045-building-surface-regression-a81675",
+      "reason": "unused grid request fields/extreme saved grid regression fixed; old four-post/integer-grid/direct-demolition expectations updated to new user contract; named legacy supports still protected."
+    },
+    {
+      "run": "20261102-153233-building-surface-rules-regression-b1cd1e",
+      "reason": "kit-safety old four-corner expectations; subsequent named-support protections and stair-surface positive fixtures pass."
+    },
+    {
+      "run": "20261102-153618-building-surface-final-specialists-bab57c",
+      "reason": "kit preview still used artificial platform endpoints; removed platform pseudo-sockets and prefer actual under-cursor support; later building-kit passes."
+    },
+    {
+      "run": "20261102-153828-building-surface-final-ui-2d7c92",
+      "reason": "low-angle management selection exited before mesh test because construction plane was above camera; management pick now independent of plane."
+    }
+  ],
+  "passed_check_count": 28,
+  "screenshots": [
+    "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\project\\outputs\\building-surface-two-floors.png",
+    "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\project\\outputs\\building-surface-move-ghost.png",
+    "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\project\\outputs\\building-surface-hammer-highlight.png",
+    "D:\\projects\\sea-work\\verification\\20261102-154550-building-surface-final-height-input-52a8ea\\project\\outputs\\building-surface-demolition-confirm.png"
+  ],
+  "runtime_registry_update_scope": [
+    "godot/src/building/building_catalog.gd",
+    "godot/src/building/building_service.gd",
+    "godot/src/building/building_space.gd",
+    "godot/src/building/building_boundary.gd",
+    "godot/src/building/building_world.gd",
+    "godot/src/building/building_access.gd",
+    "godot/src/building/building_controller.gd",
+    "godot/src/building/building_book.gd",
+    "godot/src/building/assembly_rules.gd",
+    "godot/src/building/assembly_surfaces.gd",
+    "godot/src/building/building_pointer.gd",
+    "godot/src/building/demolition_tool.gd",
+    "godot/src/navigation/walk_area.gd",
+    "godot/src/navigation/ground_space.gd",
+    "godot/src/ui/hud.gd",
+    "godot/src/bootstrap/main.gd"
+  ],
+  "runtime_registry_note": "Only named reviewed code paths above updated. No art-source, GLB, texture or unknown import hashes rebaselined.",
+  "static_checks": {
+    "feature_contracts_sync": {
+      "exit_code": 0,
+      "passed": true,
+      "log": "D:\\projects\\sea-work\\building-surface-20261102\\feature_contracts_sync-delivery.log",
+      "output": "PASS: 37 features, 578 source assets, 512 runtime resource hashes; 0 issues\n"
+    },
+    "feature_contracts_ordinary": {
+      "exit_code": 0,
+      "passed": true,
+      "log": "D:\\projects\\sea-work\\building-surface-20261102\\feature_contracts_ordinary-delivery.log",
+      "output": "PASS: 37 features, 578 source assets, 512 runtime resource hashes; 0 issues\n"
+    },
+    "architecture": {
+      "exit_code": 0,
+      "passed": true,
+      "log": "D:\\projects\\sea-work\\building-surface-20261102\\architecture-delivery.log",
+      "output": "PASS: architecture boundaries; 17 independent rule/storage services; 0 issues\n"
+    }
+  }
+}

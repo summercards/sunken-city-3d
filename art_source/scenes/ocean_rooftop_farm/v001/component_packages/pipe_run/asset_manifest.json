@@ -1,0 +1,38 @@
+{
+  "key": "pipe_run",
+  "asset_id": "SEA-SCENE-ORF-PIPE-RUN",
+  "name": "弯曲外露管道",
+  "category": "fixture",
+  "component_family": "utility",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-PIPE-RUN",
+  "root": "pipe_run_组件根",
+  "bounds_size": [
+    0.2800000011920929,
+    1.080350399017334,
+    2.6902260780334473
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/pipe_run/pipe_run.blend",
+  "geometry_fingerprint": "649353fa2b46362d672a183155e882dc0b9d989ee6f52065cafc3c3ce6d4deed",
+  "instances": 6,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 160,
+  "source_sha256": "4edc7abbf20337eee4016bd024198f624436ba7862cbb3a32d930610c5b27e13",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-PIPE-RUN"
+}

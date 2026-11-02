@@ -3,6 +3,7 @@ extends Node3D
 const Catalog = preload("res://src/building/building_catalog.gd")
 const World = preload("res://src/building/building_world.gd")
 const ThinBar = preload("res://src/ui/thin_progress_bar.gd")
+const Pointer = preload("res://src/building/building_pointer.gd")
 const ARRIVE := 0.8
 const WAIT_LIMIT := 8.0
 ## A rendering budget, never a construction limit.
@@ -49,6 +50,10 @@ var _frontier_refresh_left := 0.0
 var _rows_cache: Array = []
 var _working_ids: Array[String] = []
 var _render_recipe := ""
+var demolition: Control
+var manual_level := false
+var snap_assist := true
+var _mesh_faces: Dictionary={}
 
 func configure(model: RefCounted, projection: Node3D, view: Camera3D, ui: CanvasLayer, items: Callable, cancel: Callable, stand: Callable = Callable(), approach: Callable = Callable(), actor: Callable = Callable()) -> void:
 	service=model; world=projection; camera=view; hud=ui
@@ -63,6 +68,11 @@ func configure(model: RefCounted, projection: Node3D, view: Camera3D, ui: Canvas
 	book=preload("res://src/building/building_book.gd").new()
 	book.inventory_query=items; overlay.add_child(book); book.hide()
 	book.selected.connect(select_recipe); book.closed.connect(close)
+	demolition=preload("res://src/building/demolition_tool.gd").new();overlay.add_child(demolition)
+	demolition.requested.connect(open_demolition)
+	demolition.confirmed.connect(_confirm_demolition)
+	demolition.cancelled.connect(close)
+	hud.owned_modal_camera_query=allows_camera
 	guide=Panel.new();guide.set_meta("cozy_skip",true);guide.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	var paper:=StyleBoxFlat.new();paper.bg_color=Color("#f4ecd7");paper.set_corner_radius_all(16)
 	paper.set_border_width_all(2);paper.border_color=Color("#b49a70")
@@ -82,11 +92,13 @@ func configure(model: RefCounted, projection: Node3D, view: Camera3D, ui: Canvas
 func open() -> void:
 	cancel_actor.call(); _clear_pending(); hud.close_card(); hud.set_external_modal(true,false)
 	active=true; recipe=""; moving_id=""; hovered_id=""
+	demolition.set_active(false);manual_level=false;_inherit_actor_level()
 	book.refresh(); book.show(); hint.hide();guide.hide();selection_outline.hide(); _clear_ghosts(); _place_book()
 
 func close() -> void:
 	if not pending.is_empty(): cancel_actor.call()
 	active=false; recipe=""; preview={}; moving_id=""; hovered_id=""; precision_held=false
+	demolition.set_active(false)
 	book.hide(); hint.hide();guide.hide();selection_outline.hide(); _clear_ghosts(); hud.set_external_modal(false,false); _clear_pending()
 	var focused:=get_viewport().gui_get_focus_owner()
 	if focused!=null and book.is_ancestor_of(focused): focused.release_focus()
@@ -98,6 +110,7 @@ func select_recipe(kind: String) -> void:
 	if Catalog.RECIPES.has(kind) and not Catalog.enabled(kind): hud.toast("该内容已停用");return
 	if not pending.is_empty(): cancel_actor.call()
 	_clear_pending(); moving_id=""; hovered_id=""; preview={}
+	demolition.set_active(kind=="remove")
 	recipe=kind; book.hide();guide.show(); hint.show(); _refresh_ghosts(); update_preview(get_viewport().get_mouse_position())
 	var focused:=get_viewport().gui_get_focus_owner()
 	if focused!=null and book.is_ancestor_of(focused): focused.release_focus()
@@ -105,7 +118,37 @@ func select_recipe(kind: String) -> void:
 func show_book() -> void:
 	if not pending.is_empty(): cancel_actor.call()
 	_clear_pending(); moving_id=""; hovered_id=""; preview={}; recipe=""
+	demolition.set_active(false)
 	_clear_ghosts(); book.refresh(); book.show(); hint.hide();guide.hide();selection_outline.hide()
+
+func open_demolition() -> void:
+	if active and recipe=="remove": close();return
+	open();select_recipe("remove")
+
+func _confirm_demolition(id: String) -> void:
+	if not active or recipe!="remove": return
+	var item: Dictionary=service.row(id)
+	if item.is_empty(): hud.toast("物件已经不存在");return
+	_request_action(item,"remove",id)
+
+func allows_camera() -> bool:
+	return active and not book.visible and not demolition.confirmation_open()
+
+func _inherit_actor_level() -> void:
+	if not actor_state.is_valid(): return
+	var state: Dictionary=actor_state.call()
+	var point: Vector3=state.get("position",Catalog.ORIGIN)
+	if int(state.get("mode",0))==0: build_level=maxi(0,roundi((point.y-Catalog.ORIGIN.y)/Catalog.LAYER_HEIGHT))
+	else: build_level=0
+
+func _cycle_level() -> void:
+	var levels: Array=Catalog.placement_levels(_rows_cache)
+	var current_height:=float(build_level)*Catalog.LAYER_HEIGHT
+	var index:=0
+	for i in levels.size():
+		if is_equal_approx(float(levels[i]),current_height): index=i;break
+	build_level=roundi(float(levels[(index+1)%levels.size()])/Catalog.LAYER_HEIGHT)
+	manual_level=true;_preview_cache.clear()
 
 func _place_book() -> void:
 	var viewport:=get_viewport().get_visible_rect().size
@@ -182,14 +225,22 @@ func _refresh_ghosts() -> void:
 			candidate_ghosts.append({"node":node})
 
 func _point(screen: Vector2) -> Vector3:
-	var origin:=camera.project_ray_origin(screen); var direction:=camera.project_ray_normal(screen)
-	if absf(direction.y)<0.0001: return Vector3.INF
-	var level:=float(build_level)*2.8
 	var kind:=str(service.row(moving_id).get("kind",recipe)) if moving_id!="" else recipe
-	if Catalog.is_platform(kind): level=0.0
-	if Catalog.is_kit(kind) and Catalog.RECIPES[kind].placement=="top": level=2.8
-	var distance: float=(Catalog.ORIGIN.y+level-origin.y)/direction.y
-	return origin+direction*distance if distance>0 else Vector3.INF
+	var height:=float(build_level)*Catalog.LAYER_HEIGHT
+	if not manual_level:
+		height=Pointer.surface_height(screen,camera,_rows_cache,height,Catalog.is_platform(kind))
+		if kind=="upper_floor" and height<.1:
+			var levels:=Catalog.placement_levels(_rows_cache)
+			if levels.size()>1: height=float(levels[-1])
+		# Roofs and beams can connect at actual wall/post tops.
+		if Catalog.is_kit(kind) and str(Catalog.RECIPES[kind].get("placement",""))=="top":
+			for item in _rows_cache:
+				if item.left>0 or str(Catalog.RECIPES[item.kind].get("profile","")) not in ["post","wall","window","door","beam"]: continue
+				var top:=Catalog.elevation(item)+float(Catalog.RECIPES[item.kind].height)
+				var probe:=Pointer.plane_point(screen,camera,top)
+				if probe.is_finite() and Catalog.footprint_rect(item).grow(1.0).has_point(Vector2(probe.x-Catalog.ORIGIN.x,probe.z-Catalog.ORIGIN.z)):
+					height=top-(float(Catalog.RECIPES[kind].height) if kind=="beam" else 0.0);break
+	return Pointer.plane_point(screen,camera,height)
 
 ## The boat carries the material, so only it may start a lone platform.
 func _afloat() -> bool:
@@ -198,48 +249,36 @@ func _afloat() -> bool:
 	return int(state.get("mode",0)) in [1,2]
 
 func _deck_request(local: Vector2) -> Dictionary:
-	var request:=Catalog.snap_deck(local,_rows_cache,_afloat())
+	var request:=Catalog.snap_deck(local,_rows_cache,_afloat(),float(build_level)*Catalog.LAYER_HEIGHT,0.01 if precision_held else 0.1,snap_assist,turn)
 	request.origin="boat" if _afloat() else "shore"
 	return request
 
-func _furnishing_request(local: Vector2) -> Dictionary:
+func _furnishing_request(local: Vector2,height: float=NAN) -> Dictionary:
 	var step:=0.01 if precision_held or Input.is_physical_key_pressed(KEY_SHIFT) else 0.1
 	var kind:=str(service.row(moving_id).get("kind","planter")) if moving_id!="" else recipe
 	var request: Dictionary={"kind":kind,"x":0,"z":0,"px":snappedf(local.x,step),"pz":snappedf(local.y,step),
-		"turn":turn,"support":"","snap_step":step,"origin":"boat" if _afloat() else "shore"}
-	if Catalog.is_kit(kind):
-		var definition: Dictionary=Catalog.RECIPES[kind]
-		request.py=float(build_level)*2.8
-		if definition.group=="structure":
-			# Legacy boards have fractional metre origins. Their sockets establish
-			# the local module grid instead of forcing the ocean's integer phase.
-			var anchor:=Vector2.ZERO;var closest:=INF
-			for tile: Rect2 in Catalog.support_tiles(_rows_cache):
-				var clamped:=Vector2(clampf(local.x,tile.position.x,tile.end.x),clampf(local.y,tile.position.y,tile.end.y))
-				var distance:=local.distance_squared_to(clamped)
-				if distance<closest: closest=distance;anchor=tile.get_center()
-			request.px=anchor.x+snappedf(local.x-anchor.x,1.0);request.pz=anchor.y+snappedf(local.y-anchor.y,1.0);request.py=0.0
-		if definition.placement=="top":
-			request.py=2.6 if definition.profile=="beam" else 2.8
-			var bearings: Array=preload("res://src/building/assembly_rules.gd").bearing_ids(request,_rows_cache)
-			if not bearings.is_empty(): request.support=bearings[0]
-			return request
+		"py":height if is_finite(height) else float(build_level)*Catalog.LAYER_HEIGHT,"turn":turn,"support":"","snap_step":step,"origin":"boat" if _afloat() else "shore"}
 	if moving_id!="": request.exclude_id=moving_id
-	var footprint: Rect2=Catalog.plot_rect(request)
-	var best_distance:=INF
-	if float(request.get("py",0))<.5 and Catalog.BASE.grow(.05).intersects(footprint):
-		request.support="@base";best_distance=Catalog.BASE.get_center().distance_squared_to(local)-1000.0
-	for item in _rows_cache:
-		if item.left>0: continue
-		if float(request.get("py",0))>0.5:
-			if Catalog.RECIPES[item.kind].get("profile","")!="floor": continue
-		elif not Catalog.is_deck(str(item.kind)): continue
-		var rect: Rect2=Catalog.footprint_rect(item)
-		if not rect.grow(0.4).intersects(footprint): continue
-		var distance: float=rect.get_center().distance_squared_to(local)
-		if rect.has_point(local): distance-=1000.0
-		if distance<best_distance: best_distance=distance; request.support=item.id
-	if not Catalog.is_kit(kind) and step>=0.1 and request.support!="": request=service.snap_planter(request)
+	# All components use the same free surface placement. No forced metre grid.
+	# Nearby structural endpoints are an optional alignment aid.
+	if snap_assist and not precision_held and Catalog.is_frame(kind):
+		var best:=.18
+		for item in _rows_cache:
+			if item.left>0 or not Catalog.is_frame(str(item.kind)) or not Catalog.same_level(Catalog.elevation(item),float(request.py)): continue
+			for point in preload("res://src/building/assembly_rules.gd").joint_points(item):
+				var own_points: Array=preload("res://src/building/assembly_rules.gd").joint_points(request)
+				for own: Vector2 in own_points:
+					var distance:=own.distance_to(point)
+					if distance<best:
+						request.px+=point.x-own.x;request.pz+=point.y-own.y;best=distance
+	var supports:=preload("res://src/building/assembly_rules.gd").support_ids(request,_rows_cache)
+	if not supports.is_empty():
+		request.support=supports[0]
+		for id: String in supports:
+			var item: Dictionary=service.row(id) if id!="@base" else {}
+			var rect: Rect2=Catalog.BASE if id=="@base" else Catalog.footprint_rect(item)
+			if rect.has_point(local): request.support=id;break
+	if snap_assist and not Catalog.is_kit(kind) and step>=0.1 and request.support!="": request=service.snap_planter(request)
 	return request
 
 func _item_at(local: Vector2,only_furnishing:=false) -> Dictionary:
@@ -263,10 +302,16 @@ func _item_under_cursor(screen: Vector2) -> Dictionary:
 	var direction:=camera.project_ray_normal(screen)
 	var best: Dictionary={};var distance:=INF
 	for item in _rows_cache:
-		var hit: Variant=_selection_box(item).intersects_ray(origin,direction)
-		if hit is Vector3:
-			var near: float=origin.distance_squared_to(hit)
+		var node: Node3D=world.node_for(str(item.id)) if world.has_method("node_for") else null
+		if node!=null:
+			var near:=Pointer.mesh_hit(origin,direction,node,_mesh_faces)
 			if near<distance: distance=near;best=item
+		else:
+			var hit: Variant=_selection_box(item).intersects_ray(origin,direction)
+			if hit is Vector3:
+				var near:=origin.distance_squared_to(hit)
+				if near<distance: distance=near;best=item
+
 	return best
 
 func _highlight(item: Dictionary, invalid: bool) -> void:
@@ -346,14 +391,18 @@ func _preview_reason(request: Dictionary,operation: String,id: String) -> String
 
 func update_preview(screen: Vector2) -> void:
 	preview={}; hovered_id=""
-	var point:=_point(screen)
+	if demolition.confirmation_open(): return
+	var selecting: bool=recipe=="remove" or (recipe=="move" and moving_id=="")
+	var point: Vector3=Catalog.ORIGIN if selecting else _point(screen)
 	if not point.is_finite(): return
 	var local:=Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)
 	var operation:="build"; var reason:=""
 	if Catalog.is_kit(recipe) and Catalog.is_deck(recipe):
-		preview=Catalog.snap_foundation(recipe,local,turn,_rows_cache,_afloat())
-	elif recipe=="deck": preview=_deck_request(local)
-	elif _is_furnishing(recipe): preview=_furnishing_request(local)
+		preview=Catalog.snap_foundation(recipe,local,turn,_rows_cache,_afloat(),point.y-Catalog.ORIGIN.y,0.01 if precision_held else 0.1,snap_assist)
+	elif recipe=="deck":
+		preview=Catalog.snap_deck(local,_rows_cache,_afloat(),point.y-Catalog.ORIGIN.y,0.01 if precision_held else 0.1,snap_assist,turn)
+		preview.origin="boat" if _afloat() else "shore"
+	elif _is_furnishing(recipe): preview=_furnishing_request(local,point.y-Catalog.ORIGIN.y)
 	elif recipe=="move":
 		operation="move"
 		if moving_id=="":
@@ -361,7 +410,7 @@ func update_preview(screen: Vector2) -> void:
 			reason="将鼠标移到自建摆件，左键选取，再左键选择新位置"
 			if not preview.is_empty():
 				reason="点击选取，再选择新位置" if Catalog.RECIPES[preview.kind].get("movable",false) else "此构件不能搬移，请先安全拆回再重新建造"
-		else: preview=_furnishing_request(local)
+		else: preview=_furnishing_request(local,point.y-Catalog.ORIGIN.y)
 	elif recipe=="remove":
 		operation="remove"; preview=_item_under_cursor(screen); hovered_id=str(preview.get("id",""))
 		if preview.is_empty(): reason="将鼠标移到自建木板、浮台或摆件，左键拆回并返还材料"
@@ -369,7 +418,7 @@ func update_preview(screen: Vector2) -> void:
 		reason=_preview_reason(preview,operation,moving_id if operation=="move" else hovered_id)
 	var label:="点击施工"
 	if operation=="move": label="点击放到新位置 · 不消耗材料"
-	elif operation=="remove": label="点击拆回 · 全额返还材料"
+	elif operation=="remove": label="点击选择 · 确认后拆除并返还材料"
 	if reason!="": label=reason
 	var context_reason: String=service.context_reason()
 	if context_reason!="": label=context_reason+"；请先关闭手册前往自建平台，或乘船靠近"
@@ -379,23 +428,24 @@ func update_preview(screen: Vector2) -> void:
 	elif recipe=="move" and moving_id!="": controls="R 旋转 · Shift 精细摆放 · Esc 取消选取"
 	elif recipe=="remove": controls="先收获作物、搬走承载物、离开待拆木板 · 右键返回手册 · Esc退出"
 	elif recipe=="move": controls="保留作物和生长状态 · 平台与固定设施不能搬移 · 右键返回手册 · Esc退出"
-	guide_title.text="拆回模式 · 左键选择物件" if recipe=="remove" else ("搬移模式 · "+("选择新位置" if moving_id!="" else "选择摆件") if recipe=="move" else "建造模式")
-	hint.text=label+"\n"+controls+" · U 楼层 "+str(build_level+1)
+	guide_title.text="拆除模式 · 左键选择物件" if recipe=="remove" else ("搬移模式 · "+("选择新位置" if moving_id!="" else "选择摆件") if recipe=="move" else "建造模式")
+	if recipe=="remove":
+		hint.text=label+"\n左键选取 → 是 / 否确认 · 右键手册 · Esc退出 · 中键旋转 / 滚轮缩放"
+	else: hint.text=label+"\n"+controls+" · U选层 / H自动 · G吸附"+("开" if snap_assist else "关")+" · 中键旋转 / 滚轮缩放"
 	if operation in ["move","remove"] and moving_id=="": _highlight(preview,reason!="" and not reason.begins_with("点击选取"))
 	else: _highlight({},false)
 	for entry in candidate_ghosts:
-		var selected: bool=_is_furnishing(recipe) or (not preview.is_empty() and entry.has("request") and entry.request.x==preview.get("x") and entry.request.z==preview.get("z"))
-		entry.node.visible=recipe=="deck" or not preview.is_empty()
-		if _is_furnishing(recipe) and not preview.is_empty(): entry.node.position=world.position_for(preview); entry.node.rotation.y=turn*PI/2
-		_color(entry.node,reason!="" if selected else bool(entry.get("invalid",false)),selected)
-	if recipe not in ["move","remove"] and not _is_furnishing(recipe) and not preview.is_empty():
-		var ghost:=_ghost(str(preview.kind)); ghost.visible=true; ghost.position=world.position_for(preview)
-		ghost.rotation.y=int(preview.get("turn",0))*PI/2
-		_color(ghost,reason!="" and not (recipe=="move" and moving_id==""),true)
+		entry.node.visible=recipe=="deck" and Catalog.same_level(Catalog.elevation(preview),0.0) and moving_id==""
+		_color(entry.node,bool(entry.get("invalid",false)),false)
+	if not preview.is_empty() and (operation=="build" or (operation=="move" and moving_id!="")):
+		var ghost:=_ghost(str(preview.kind));ghost.show();ghost.position=world.position_for(preview)
+		ghost.rotation.y=int(preview.get("turn",0))*PI/2;_color(ghost,reason!="",true)
 	elif focus_ghost!=null: focus_ghost.hide()
+	if recipe=="remove": demolition.set_target(preview,reason)
 
 func handle_input(event: InputEvent) -> bool:
 	if not active: return false
+	if demolition.handle_input(event): return true
 	if event is InputEventKey:
 		if event.physical_keycode in [KEY_F5,KEY_F9]: return false
 		if event.physical_keycode==KEY_SHIFT:
@@ -409,7 +459,9 @@ func handle_input(event: InputEvent) -> bool:
 				_clear_pending(); moving_id=""; preview={}; _preview_cache.clear()
 			else: close()
 		elif event.physical_keycode==KEY_R: turn=(turn+1)%4; _preview_cache.clear()
-		elif event.physical_keycode==KEY_U: build_level=1-build_level;_preview_cache.clear()
+		elif event.physical_keycode==KEY_U: _cycle_level()
+		elif event.physical_keycode==KEY_G: snap_assist=not snap_assist;_preview_cache.clear()
+		elif event.physical_keycode==KEY_H: manual_level=false;_preview_cache.clear()
 		elif event.physical_keycode==KEY_M: select_recipe("move")
 		elif event.physical_keycode==KEY_DELETE: select_recipe("remove")
 		else: return false
@@ -421,16 +473,20 @@ func handle_input(event: InputEvent) -> bool:
 			return true
 		if event.button_index!=MOUSE_BUTTON_LEFT: return false
 		if event.pressed:
-			if guide.visible and guide.get_global_rect().has_point(event.position): return true
+			if (guide.visible and guide.get_global_rect().has_point(event.position)) or demolition.is_ui_point(event.position): return true
 			precision_held=event.shift_pressed or Input.is_physical_key_pressed(KEY_SHIFT)
 			_preview_cache.clear(); update_preview(event.position)
 			if not preview.is_empty():
 				if recipe=="move" and moving_id=="":
 					if float(preview.left)>0: hud.toast("施工完成后才能搬移")
 					elif not Catalog.RECIPES[preview.kind].get("movable",false): hud.toast("此构件不能搬移，请先安全拆回再重新建造")
-					else: moving_id=preview.id; turn=int(preview.turn); preview={}; _preview_cache.clear()
+					else:
+						moving_id=preview.id;turn=int(preview.turn);build_level=roundi(Catalog.elevation(preview)/Catalog.LAYER_HEIGHT);manual_level=true;preview={};_preview_cache.clear();_refresh_ghosts()
 				elif recipe=="move": _request_action(preview,"move",moving_id)
-				elif recipe=="remove": _request_action(preview,"remove",hovered_id)
+				elif recipe=="remove":
+					var reason:=_preview_reason(preview,"remove",hovered_id)
+					if reason!="": hud.toast(reason)
+					else: demolition.ask(preview,Catalog.RECIPES[preview.kind].cost)
 				else: _request_build(preview)
 			elif recipe in ["move","remove"]: hud.toast("请点击自建物件；原有平台和固定设施不能拆回或搬移")
 		return true

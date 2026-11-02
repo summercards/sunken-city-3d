@@ -10,5 +10,10 @@
   "dependencies": [
     "godot/src/ambient/animal_mesh.gd"
   ],
-  "note": "运行组件登记；来源授权和交互玩法验收分别记录。"
+  "note": "运行组件登记；来源授权和交互玩法验收分别记录。",
+  "fishery_consumer": {
+    "scene": "godot/scenes/zones/zone1_home_harbor.tscn",
+    "node": "FisherySchools",
+    "note": "独立复用surface/flat鱼群；与设施模型和奖励状态分离。"
+  }
 }

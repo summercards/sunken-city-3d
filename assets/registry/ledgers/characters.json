@@ -10,9 +10,9 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/player/animation/item_receive.gd",
-      "source_sha256": "8b08f26c14d3f080855a78a5e2ff1ee6e040194ba71cdc2848a9d0467493455b",
+      "source_sha256": "871240aa6ea737e7d4e59ee88a001ab868233b9c8a63c11c8d7c2d7c31f1d2ab",
       "manifest": "assets/registry/manifests/sea-char-receive-001.json",
-      "version": "v001",
+      "version": "v003",
       "runtime_path": "godot/src/player/animation/item_receive.gd",
       "license": "project_authored_procedural_motion_and_satchel",
       "consumer_features": [
@@ -23,8 +23,46 @@
         "category": "character_animation",
         "subcategory": "receive_item"
       },
-      "verification": "docs/development/2026-10-30_harvest_receive_animation.md",
-      "note": "基于sea已有程序节点角色新增表现；角色整体旧资产来源登记仍pending，本条不补签整体角色。复用三种作物成熟网格，原作物源级未执行项保留。"
+      "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
+      "note": "四肢改为连续封闭网格和原生Skeleton3D/Skin；保留外观ID/碰撞/动作生命周期，旧节点仅作不可见姿势控制；实测详见本轮交付。",
+      "previous_source_sha256": "5135c97a86141e34cb45c9ea51f3e9ee7074856410efa4a2468a36ca4ad52281"
+    },
+    {
+      "asset_id": "SEA-CHAR-AVATAR-001",
+      "name": "原创模块化海上旅人",
+      "domain": "characters",
+      "stage": "runtime_component_verified",
+      "source": "godot/src/avatar/avatar_visual.gd",
+      "source_sha256": "cf4e84b76186f08eb4d3dee1ba1afbe13e1ccb93e454c383e453504da7735bad",
+      "manifest": "assets/registry/manifests/sea-char-avatar-001.json",
+      "version": "v002",
+      "runtime_path": "godot/src/avatar/avatar_visual.gd",
+      "license": "project_authored_original_procedural_geometry_and_UI",
+      "consumer_features": [
+        "SEA-AVATAR",
+        "SEA-ONBOARDING"
+      ],
+      "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
+      "note": "四肢改为连续封闭网格和原生Skeleton3D/Skin；保留外观ID/碰撞/动作生命周期，旧节点仅作不可见姿势控制；实测详见本轮交付。",
+      "previous_source_sha256": "4c3acda2c8bd2bbef18dffa217ff72c0f3b8acaa1bdc238c2e4f0c08fd23afa2"
+    },
+    {
+      "asset_id": "SEA-CHAR-RIG-001",
+      "name": "旅人连续四肢蒙皮骨骼",
+      "domain": "characters",
+      "stage": "runtime_component_verified",
+      "source": "godot/src/avatar/avatar_limb_skinning.gd",
+      "source_sha256": "35018f90eb210f44494f0a9a4522496edd7ea661307082f20d6ad1e0d8f6bfbb",
+      "manifest": "assets/registry/manifests/sea-char-rig-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/avatar/avatar_limb_skinning.gd",
+      "license": "project_authored_procedural_skeleton_mesh_skin_and_shader",
+      "consumer_features": [
+        "SEA-AVATAR",
+        "SEA-MOVE"
+      ],
+      "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
+      "note": "21骨骼；四张各自封闭连通的手臂/腿网格；真实GPU蒙皮及原动作采样适配，4权重通道，肘膝0–120度专项与近景自行验收。"
     }
   ]
 }

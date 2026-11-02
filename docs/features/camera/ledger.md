@@ -107,3 +107,9 @@ SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、�
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-CAMERA-R08 | 已实现；远处相机目标不被旧边界夹回，真实海上施工近景通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
+
+## 2026-11-02 新旅程与角色档案
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-CAMERA-R10 | 已接入，专项与回归以本轮记录为准 | `onboarding / visual-avatar`；[交付](../../development/2026-11-02_avatar_and_arrival.md) |

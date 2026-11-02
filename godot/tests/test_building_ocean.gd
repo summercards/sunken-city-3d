@@ -41,7 +41,7 @@ func run() -> void:
 	main.cam.target=Vector3(500,1.48,500);main.cam._clamp_target()
 	check(main.cam.target.x==500 and main.cam.target.z==500,"camera can follow distant construction")
 	main._debug_teleport("zone5")
-	var request: Dictionary={"kind":"deck","x":40,"z":40}
+	var request: Dictionary={"kind":"deck","x":40,"z":40,"origin":"boat"}
 	var center: Vector3=main.building_world.position_for(request)
 	main.boat.place_at(center+Vector3(-10,-0.36,0),0)
 	main.actor_controller.restore_pose({"mode":1})

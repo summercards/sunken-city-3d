@@ -17,6 +17,8 @@
 metadata/status = "reference_only_not_instanced"
 
 metadata/placement_owner = "godot/scenes/main.tscn 的 World/UnderwaterScenery"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "entity"
 
 [node name="terraced_tower" parent="." instance=ExtResource("terraced_tower")]
 

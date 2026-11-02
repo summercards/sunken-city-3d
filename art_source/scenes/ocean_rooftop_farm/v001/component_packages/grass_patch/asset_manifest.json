@@ -1,0 +1,38 @@
+{
+  "key": "grass_patch",
+  "asset_id": "SEA-SCENE-ORF-GRASS-PATCH",
+  "name": "圆润低矮草地",
+  "category": "flora",
+  "component_family": "ground_cover",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-GRASS-PATCH",
+  "root": "grass_patch_组件根",
+  "bounds_size": [
+    3.299999713897705,
+    2.299999952316284,
+    0.32999998331069946
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/grass_patch/grass_patch.blend",
+  "geometry_fingerprint": "15e2aa90778bf90e7f5ca2e7144b198f8ddd85a98577033e04279375e091c784",
+  "instances": 7,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 672,
+  "source_sha256": "7c371de32fd39334332a57f829d6c22cc2061fb93e2bb79e7ca5301843ec74d2",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-GRASS-PATCH"
+}

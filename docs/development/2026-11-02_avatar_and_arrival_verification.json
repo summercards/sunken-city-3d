@@ -1,0 +1,720 @@
+{
+  "date": "2026-11-02",
+  "features": [
+    "SEA-AVATAR",
+    "SEA-ONBOARDING"
+  ],
+  "runs": {
+    "integration": {
+      "report": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\report.json",
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c",
+      "results": {
+        "avatar": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\avatar.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/avatar-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_avatar.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "avatar-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\avatar-restart.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/avatar-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_avatar_restart.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "onboarding": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\onboarding.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/onboarding",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_onboarding.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "save-reset": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\save-reset.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/save-reset",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_reset.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "save-corrupt-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\save-corrupt-seed.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/protection",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_corrupt_seed.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "save-protection": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\save-protection.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/protection",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_protection.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "save-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\save-seed.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_seed.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "framework-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\framework-integration.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_framework_integration.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "character-motor": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\character-motor.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/character-motor",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_character_motor.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "actor-presentation": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\actor-presentation.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/actor-presentation",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_actor_presentation.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "harvest-receive": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\harvest-receive.log",
+          "user_data_name": "sea-verification/20261102-185754-avatar-integration-b35b6c/harvest-receive",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185754-avatar-integration-b35b6c\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_harvest_receive.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    "latest_onboarding": {
+      "report": "D:\\projects\\sea-work\\verification\\20261102-185956-avatar-final-3e24a4\\report.json",
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261102-185956-avatar-final-3e24a4",
+      "results": {
+        "onboarding": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-185956-avatar-final-3e24a4\\onboarding.log",
+          "user_data_name": "sea-verification/20261102-185956-avatar-final-3e24a4/onboarding",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-185956-avatar-final-3e24a4\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_onboarding.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    },
+    "latest_visual": {
+      "report": "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc\\report.json",
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc",
+      "results": {
+        "visual-avatar": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc\\visual-avatar.log",
+          "user_data_name": "sea-verification/20261102-190320-avatar-visual-accepted-3cf0fc/visual-avatar",
+          "renderer": "real",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tools/capture_avatar.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "title-clock-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc\\title-clock-seed.log",
+          "user_data_name": "sea-verification/20261102-190320-avatar-visual-accepted-3cf0fc/title-clock",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc\\project",
+            "--headless",
+            "--script",
+            "res://tests/seed_title_clock.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-title-screen-day": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc\\visual-title-screen-day.log",
+          "user_data_name": "sea-verification/20261102-190320-avatar-visual-accepted-3cf0fc/title-clock",
+          "renderer": "real",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_saved_time.gd",
+            "--",
+            "--title-fixture=day"
+          ]
+        },
+        "visual-title-screen-night": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc\\visual-title-screen-night.log",
+          "user_data_name": "sea-verification/20261102-190320-avatar-visual-accepted-3cf0fc/title-clock",
+          "renderer": "real",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-190320-avatar-visual-accepted-3cf0fc\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_saved_time.gd",
+            "--",
+            "--title-fixture=night"
+          ]
+        }
+      }
+    },
+    "latest_dawn": {
+      "report": "D:\\projects\\sea-work\\verification\\20261102-190531-avatar-dawn-input-4c3161\\report.json",
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261102-190531-avatar-dawn-input-4c3161",
+      "results": {
+        "title-clock-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-190531-avatar-dawn-input-4c3161\\title-clock-seed.log",
+          "user_data_name": "sea-verification/20261102-190531-avatar-dawn-input-4c3161/title-clock",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-190531-avatar-dawn-input-4c3161\\project",
+            "--headless",
+            "--script",
+            "res://tests/seed_title_clock.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-title-screen-dawn": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-190531-avatar-dawn-input-4c3161\\visual-title-screen-dawn.log",
+          "user_data_name": "sea-verification/20261102-190531-avatar-dawn-input-4c3161/title-clock",
+          "renderer": "real",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-190531-avatar-dawn-input-4c3161\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_title_saved_time.gd",
+            "--",
+            "--title-fixture=dawn"
+          ]
+        }
+      }
+    },
+    "reference_proportions_final": {
+      "report": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\report.json",
+      "run_dir": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac",
+      "results": {
+        "visual-avatar-proportions": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\visual-avatar-proportions.log",
+          "user_data_name": "sea-verification/20261102-192735-avatar-reference-acceptance-8096ac/visual-avatar-proportions",
+          "renderer": "real",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_avatar_proportions.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "avatar": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\avatar.log",
+          "user_data_name": "sea-verification/20261102-192735-avatar-reference-acceptance-8096ac/avatar-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_avatar.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "avatar-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\avatar-restart.log",
+          "user_data_name": "sea-verification/20261102-192735-avatar-reference-acceptance-8096ac/avatar-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_avatar_restart.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "onboarding": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\onboarding.log",
+          "user_data_name": "sea-verification/20261102-192735-avatar-reference-acceptance-8096ac/onboarding",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_onboarding.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "character-motor": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\character-motor.log",
+          "user_data_name": "sea-verification/20261102-192735-avatar-reference-acceptance-8096ac/character-motor",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_character_motor.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "actor-presentation": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\actor-presentation.log",
+          "user_data_name": "sea-verification/20261102-192735-avatar-reference-acceptance-8096ac/actor-presentation",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_actor_presentation.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "harvest-receive": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\harvest-receive.log",
+          "user_data_name": "sea-verification/20261102-192735-avatar-reference-acceptance-8096ac/harvest-receive",
+          "renderer": "headless",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_harvest_receive.gd",
+            "--",
+            "--skip-title"
+          ]
+        },
+        "visual-avatar": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\visual-avatar.log",
+          "user_data_name": "sea-verification/20261102-192735-avatar-reference-acceptance-8096ac/visual-avatar",
+          "renderer": "real",
+          "command": [
+            "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-192735-avatar-reference-acceptance-8096ac\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tools/capture_avatar.gd",
+            "--",
+            "--skip-title"
+          ]
+        }
+      }
+    }
+  },
+  "unexecuted": [
+    "storage power loss and physical disk failure",
+    "touch/gamepad/mobile devices",
+    "manual OS Chinese IME candidate flow",
+    "release package"
+  ],
+  "static": {
+    "architecture": {
+      "exit_code": 0,
+      "passed": true,
+      "issues": 0,
+      "independent_services": 17
+    },
+    "feature_contracts_sync": {
+      "exit_code": 0,
+      "passed": true,
+      "features": 39,
+      "source_assets": 580,
+      "runtime_hashes": 515,
+      "issues": 0
+    },
+    "feature_contracts_check": {
+      "exit_code": 0,
+      "passed": true,
+      "issues": 0
+    }
+  },
+  "all_selected_runtime_checks_passed": true,
+  "reference_proportions": {
+    "checks": 10,
+    "failures": 0,
+    "measured_mesh_ratios": {
+      "face_width_over_face_height": 1.51602831013839,
+      "foot_span_over_face_width": 0.381795989028047,
+      "leg_length_over_face_height": 0.922577267833713,
+      "shoulder_span_over_face_width": 0.587625073018039,
+      "torso_length_over_face_height": 0.821386411292885,
+      "torso_width_over_face_width": 0.424650866975697
+    },
+    "note": "Mesh vertices measured after projection at fixed matching 3/4 camera. Anatomy ignores hat/hair and bag, which are separate accessories.",
+    "reference": {
+      "image_size": [
+        230.0,
+        350.0
+      ],
+      "landmarks_pixels": {
+        "chin": [
+          121.0,
+          172.0
+        ],
+        "face_bottom": [
+          114.0,
+          172.0
+        ],
+        "foot_left": [
+          95.0,
+          307.0
+        ],
+        "foot_right": [
+          144.0,
+          307.0
+        ],
+        "hat_top": [
+          114.0,
+          39.0
+        ],
+        "head_left": [
+          48.0,
+          126.0
+        ],
+        "head_right": [
+          177.0,
+          126.0
+        ],
+        "head_top": [
+          114.0,
+          88.0
+        ],
+        "hip": [
+          118.0,
+          241.0
+        ],
+        "shoulder": [
+          110.0,
+          170.0
+        ],
+        "shoulder_left": [
+          75.0,
+          181.0
+        ],
+        "shoulder_right": [
+          150.0,
+          181.0
+        ],
+        "sole": [
+          108.0,
+          317.0
+        ],
+        "torso_left": [
+          90.0,
+          205.0
+        ],
+        "torso_right": [
+          144.0,
+          205.0
+        ]
+      },
+      "measurement_note": "Visible silhouette manually marked on a 230x350 low-resolution 3/4 image; ±3px landmark uncertainty. Exclude hat/hair protrusions, bag and outfit accessories from anatomy measurements. Face height is the forehead/hairline-to-chin band, not the hat crown. Shoulder excludes the bent left forearm; torso excludes white sleeves.",
+      "provenance": "User-supplied screenshot 2026-11-02, proportions reference only; external game image not included in runtime/export. Commercial rights to the reference not asserted.",
+      "reference_image": "art_source/characters/avatar/v001/reference_proportions.png",
+      "targets": {
+        "face_width_over_face_height": {
+          "tolerance": 0.076785,
+          "value": 1.5357
+        },
+        "foot_span_over_face_width": {
+          "tolerance": 0.01899,
+          "value": 0.3798
+        },
+        "leg_length_over_face_height": {
+          "tolerance": 0.04524,
+          "value": 0.9048
+        },
+        "shoulder_span_over_face_width": {
+          "tolerance": 0.0290697674418605,
+          "value": 0.581395348837209
+        },
+        "torso_length_over_face_height": {
+          "tolerance": 0.04107,
+          "value": 0.8214
+        },
+        "torso_width_over_face_width": {
+          "tolerance": 0.0209302325581395,
+          "value": 0.418604651162791
+        }
+      },
+      "version": 1.0
+    },
+    "renderer": "Windows",
+    "reference_sha256": "94960a5147f6f6dcff007b195eb11079ffb6f7594fac8d79b1ce174e436b17ba",
+    "max_relative_error_percent": 1.964773191170747
+  },
+  "art_acceptance": "Agent self-verification completed as explicitly requested by user against supplied reference."
+}

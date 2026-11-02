@@ -4,4 +4,6 @@
 [node name="storage_crate" type="Node3D"]
 script = ExtResource("1")
 content_id = "storage_crate"
+metadata/water_layer = "none"
+metadata/water_layer_role = "none"
 [node name="Model" parent="." instance=ExtResource("2")]

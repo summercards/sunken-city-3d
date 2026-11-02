@@ -1,0 +1,11 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://assets/models/fishery/marker_buoy/marker_buoy.glb" id="visual"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+[node name="marker_buoy" type="Node3D"]
+metadata/asset_id = "SEA-FISHERY-MARKER-BUOY"
+metadata/asset_version = "v001"
+metadata/component_key = "marker_buoy"
+[node name="Visual" parent="." instance=ExtResource("visual")]
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "none"

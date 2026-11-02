@@ -1,0 +1,38 @@
+{
+  "key": "upper_room",
+  "asset_id": "SEA-SCENE-ORF-UPPER-ROOM",
+  "name": "平台顶部居住小间",
+  "category": "structure",
+  "component_family": "room",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-UPPER-ROOM",
+  "root": "upper_room_组件根",
+  "bounds_size": [
+    3.75,
+    3.25,
+    2.830000162124634
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/upper_room/upper_room.blend",
+  "geometry_fingerprint": "a5692e7ad275da4d1e7b467149c13a153502cd7d4681189f4176b4ca99e42f97",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 132,
+  "source_sha256": "fbd7b5331a34aa7a2dfa1301e9e3faa9fa5d7b3dae370db35ed482c8266b155f",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-UPPER-ROOM"
+}

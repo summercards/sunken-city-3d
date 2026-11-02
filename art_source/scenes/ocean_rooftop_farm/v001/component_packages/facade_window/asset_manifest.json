@@ -1,0 +1,38 @@
+{
+  "key": "facade_window",
+  "asset_id": "SEA-SCENE-ORF-FACADE-WINDOW",
+  "name": "蓝玻璃混凝土窗框",
+  "category": "fixture",
+  "component_family": "facade",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-FACADE-WINDOW",
+  "root": "facade_window_组件根",
+  "bounds_size": [
+    2.2799999713897705,
+    0.48000001907348633,
+    1.7000000476837158
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/facade_window/facade_window.blend",
+  "geometry_fingerprint": "60148e9a58d7b5a1356aa28f55ce059330700cb0bfa38cc7c9964a986ebf2ea5",
+  "instances": 76,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 66,
+  "source_sha256": "ab3800e4c7a3d94b24508a1667d23b895105b796d1f480bbfffb81d7a69487ae",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-FACADE-WINDOW"
+}

@@ -4,7 +4,11 @@
   "domains": {
     "scenes": {
       "ledger": "assets/registry/ledgers/scenes.json",
-      "asset_key": "assets"
+      "asset_key": "assets",
+      "building_views": {
+        "above_water": "assets/registry/views/buildings_above_water.json",
+        "underwater": "assets/registry/views/buildings_underwater.json"
+      }
     },
     "ui": {
       "ledger": "assets/registry/ledgers/ui.json",

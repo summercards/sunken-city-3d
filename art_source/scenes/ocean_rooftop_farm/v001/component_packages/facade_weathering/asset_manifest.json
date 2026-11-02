@@ -1,0 +1,38 @@
+{
+  "key": "facade_weathering",
+  "asset_id": "SEA-SCENE-ORF-FACADE-WEATHERING",
+  "name": "楼体大面积剥落裂缝与水渍",
+  "category": "structure",
+  "component_family": "building_damage",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 60000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-FACADE-WEATHERING",
+  "root": "facade_weathering_组件根",
+  "bounds_size": [
+    33.97200012207031,
+    22.568912506103516,
+    24.625
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/facade_weathering/facade_weathering.blend",
+  "geometry_fingerprint": "1a9ef25972b456ae6d55603bf94a508d77ecf0d521de84c4687a433e09432a3c",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 588,
+  "source_sha256": "27358af337c35b19ec2cf0bd4c9ce9dd53805a979a845ea9a6396ce7f9f79303",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-FACADE-WEATHERING"
+}

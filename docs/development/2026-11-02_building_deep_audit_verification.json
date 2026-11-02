@@ -1,0 +1,1582 @@
+{
+  "date": "2026-11-02",
+  "timezone": "Asia/Shanghai",
+  "feature_id": "SEA-BUILDING",
+  "conclusion": "partial: 6 reproduced functional defects, 3 P1 and 3 P2; basic positive regressions pass.",
+  "product_code_modified_by_audit": false,
+  "player_save_used_for_testing": false,
+  "runner": "scripts/run_verification.py",
+  "runs": [
+    {
+      "kind": "initial_unmodified_snapshot",
+      "path": "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\report.json",
+      "note": "Five rule checks passed; approach failed due concurrent save compilation; integration interrupted; remaining checks not executed.",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "working_tree": " M godot/scenes/zones/zone1_home_harbor.tscn\n M godot/src/bootstrap/main.gd\n M godot/src/save/save_game.gd\n M godot/src/ui/island_menu.gd\n M godot/tests/test_fishery.gd\n M scripts/run_verification.py\n?? art_source/scenes/wild_fishery/v001/export/\n?? godot/assets/materials/fishery/\n?? godot/assets/models/fishery/\n?? godot/scenes/components/fishery/\n?? godot/scenes/facilities/wild_fishery.tscn\n?? godot/src/aqua/fishery_visual.gd\n?? godot/tests/test_fishery_environment.gd\n?? godot/tools/fishery_palette_import.gd\n?? tools/blender/fishery/assemble_runtime.py\n?? tools/blender/fishery/optimize_export.py\n",
+      "results": {
+        "building": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\building.log",
+          "user_data_name": "sea-verification/20261102-135344-building-deep-audit-261e5f/building",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "30",
+              "0"
+            ]
+          ],
+          "log_sha256": "aa549f3ae3add28d40b9213b8309e3d5bca084398a31bece8bd8f3251ce66972"
+        },
+        "kit-safety": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\kit-safety.log",
+          "user_data_name": "sea-verification/20261102-135344-building-deep-audit-261e5f/kit-safety",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_kit_safety.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "75",
+              "0"
+            ]
+          ],
+          "log_sha256": "401687bbdd035d6db081d7a928e3c930041508a0d75c30eb7c26b1e4974492ed"
+        },
+        "building-join": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\building-join.log",
+          "user_data_name": "sea-verification/20261102-135344-building-deep-audit-261e5f/building-join",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_join.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "37",
+              "0"
+            ]
+          ],
+          "log_sha256": "813c3aacaeaf5c5d8f8b7efb0b023c68d742a7f175dd1bbd8ab894ffa68bfe3a"
+        },
+        "building-open-rules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\building-open-rules.log",
+          "user_data_name": "sea-verification/20261102-135344-building-deep-audit-261e5f/building-open-rules",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_open_rules.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "122",
+              "0"
+            ]
+          ],
+          "log_sha256": "420e68dfe3bd755f7d53c8d7061981d177dd0367e3dd4f9077348bea68cd8476"
+        },
+        "building-space": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\building-space.log",
+          "user_data_name": "sea-verification/20261102-135344-building-deep-audit-261e5f/building-space",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_space.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "18",
+              "0"
+            ]
+          ],
+          "log_sha256": "cb1875fc0354875ed9da5b5489e2f7e7a47c5b65fd97a332588bb7ddb6cbbc0d"
+        },
+        "building-approach": {
+          "exit_code": 0,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "SCRIPT ERROR: Parse Error: Cannot infer the type of \"from\" variable because the value doesn't have a set type.",
+            "SCRIPT ERROR: Compile Error: Failed to compile depended scripts.",
+            "ERROR: Failed to load script \"res://src/bootstrap/main.gd\" with error \"Compilation failed\".",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'encode' in base 'GDScript'.",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'encode' in base 'GDScript'.",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'encode' in base 'GDScript'.",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'encode' in base 'GDScript'.",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'encode' in base 'GDScript'.",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'encode' in base 'GDScript'.",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'encode' in base 'GDScript'.",
+            "SCRIPT ERROR: Invalid call. Nonexistent function 'encode' in base 'GDScript'."
+          ],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\building-approach.log",
+          "user_data_name": "sea-verification/20261102-135344-building-deep-audit-261e5f/building-approach",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135344-building-deep-audit-261e5f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_approach.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "18",
+              "0"
+            ]
+          ],
+          "log_sha256": "c6cf8fa03cf560c1cb7bada9b1b3fdfac1f5ecde98fc08315b85fac3765a5f55"
+        }
+      }
+    },
+    {
+      "kind": "rules_unmodified",
+      "path": "D:\\projects\\sea-work\\verification\\20261102-135549-building-deep-audit-rules-ff78e8\\report.json",
+      "note": "Original decoupling and performance gate. Actual board counts in original performance test are 5/12/21.",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "working_tree": " M docs/features/aqua/ledger.md\n M docs/features/aqua/spec.md\n M docs/features/asset/ledger.md\n M docs/features/asset/spec.md\n M docs/features/save/ledger.md\n M docs/features/save/spec.md\n M docs/features/world/ledger.md\n M docs/features/world/spec.md\n M godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\n M godot/scenes/zones/zone1_home_harbor.tscn\n M godot/src/bootstrap/main.gd\n M godot/src/save/save_game.gd\n M godot/src/ui/island_menu.gd\n M godot/tests/test_fishery.gd\n M scripts/run_verification.py\n?? art_source/scenes/wild_fishery/v001/export/\n?? docs/development/2026-11-02_wild_fishery.md\n?? godot/assets/materials/fishery/\n?? godot/assets/models/fishery/\n?? godot/scenes/components/fishery/\n?? godot/scenes/facilities/wild_fishery.tscn\n?? godot/src/aqua/fishery_visual.gd\n?? godot/tests/test_fishery_environment.gd\n?? godot/tests/test_save_reset.gd\n?? godot/tools/fishery_palette_import.gd\n?? tools/blender/fishery/assemble_runtime.py\n?? tools/blender/fishery/optimize_export.py\n",
+      "results": {
+        "building-decoupling": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135549-building-deep-audit-rules-ff78e8\\building-decoupling.log",
+          "user_data_name": "sea-verification/20261102-135549-building-deep-audit-rules-ff78e8/building-decoupling",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135549-building-deep-audit-rules-ff78e8\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_decoupling.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "62",
+              "0"
+            ]
+          ],
+          "log_sha256": "8f4da07f0610e742274e9cd711314342fe04193ff52c412af928360b6b419d8b"
+        },
+        "building-perf": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135549-building-deep-audit-rules-ff78e8\\building-perf.log",
+          "user_data_name": "sea-verification/20261102-135549-building-deep-audit-rules-ff78e8/building-perf",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135549-building-deep-audit-rules-ff78e8\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_perf.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "7",
+              "0"
+            ]
+          ],
+          "log_sha256": "fb21c17576152e6a4d002f44d2dd505d75850ed0941fad0776b0488a98820c6c"
+        }
+      }
+    },
+    {
+      "kind": "diagnostic_candidate",
+      "path": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\report.json",
+      "note": "Isolated save archive type annotation repaired only in copied project. Not acceptance of unmodified source. Ocean timed out on stale origin-less test fixture.",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "working_tree": " M docs/features/aqua/ledger.md\n M docs/features/aqua/spec.md\n M docs/features/asset/ledger.md\n M docs/features/asset/spec.md\n M docs/features/save/ledger.md\n M docs/features/save/spec.md\n M docs/features/world/ledger.md\n M docs/features/world/spec.md\n M godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\n M godot/scenes/zones/zone1_home_harbor.tscn\n M godot/src/bootstrap/main.gd\n M godot/src/save/save_game.gd\n M godot/src/ui/island_menu.gd\n M godot/tests/test_fishery.gd\n M scripts/run_verification.py\n?? art_source/scenes/wild_fishery/v001/export/\n?? docs/development/2026-11-02_wild_fishery.md\n?? godot/assets/materials/fishery/\n?? godot/assets/models/fishery/\n?? godot/scenes/components/fishery/\n?? godot/scenes/facilities/wild_fishery.tscn\n?? godot/src/aqua/fishery_visual.gd\n?? godot/tests/test_fishery_environment.gd\n?? godot/tests/test_save_reset.gd\n?? godot/tools/fishery_palette_import.gd\n?? tools/blender/fishery/assemble_runtime.py\n?? tools/blender/fishery/optimize_export.py\n",
+      "results": {
+        "building-approach": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-approach.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-approach",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_approach.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "18",
+              "0"
+            ]
+          ],
+          "log_sha256": "0b4b7055de04c347fbc34e744b1c30801bca3cd2afcc0ebbc225bb64bf024d0e"
+        },
+        "building-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-integration.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-integration",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_integration.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "53",
+              "0"
+            ]
+          ],
+          "log_sha256": "0a9737eec8b3d5d9dd3e5a24edef2e53dbbf89cb47eadeacb6231f7602983a23"
+        },
+        "building-kit": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-kit.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-kit",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_kit.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "121",
+              "0"
+            ]
+          ],
+          "log_sha256": "b3bd8630eeef7bcca9cd3094ffb8785842f25a31fa31bf863aeb1f4c137a99da"
+        },
+        "building-simulate": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-simulate.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-simulate",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_simulate.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "191",
+              "0"
+            ]
+          ],
+          "log_sha256": "d31f41290829c9bb862e248ddd635ce16b19fa435ba31fc9f16fa27e6c37f9da"
+        },
+        "building-save-compat": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-save-compat.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-save-compat",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_save_compat.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "34",
+              "0"
+            ]
+          ],
+          "log_sha256": "c17e0ce1b9d594c40912b92d1ce5c571e43604acb66c3fdd877959f49dc632cc"
+        },
+        "building-ocean": {
+          "exit_code": 124,
+          "passed": false,
+          "expected_errors": [],
+          "unexpected_errors": [
+            "FAIL independent ocean foundation is legal",
+            "FAIL boat approaches before building"
+          ],
+          "completion_marker": false,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-ocean.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-ocean",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_ocean.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [],
+          "log_sha256": "fd9d75c5d3a1fe4af0d406f935fc4940ce923d441bd7ec3c9673f9d506dc9e1a"
+        },
+        "building-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-seed.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_restart.gd",
+            "--",
+            "--skip-title",
+            "--building-seed"
+          ],
+          "checks_and_failures": [
+            [
+              "5",
+              "0"
+            ]
+          ],
+          "log_sha256": "e819651ff7f3c1a3af231964deb01a57ecc45b57414aa0e1e933f21790d902d4"
+        },
+        "building-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-restart.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_restart.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "11",
+              "0"
+            ]
+          ],
+          "log_sha256": "e621d24612520c52a562264e9e1100cca02abad9ef7f968a97c58cc11c121e6e"
+        },
+        "building-open-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-open-seed.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-open-restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_open_restart.gd",
+            "--",
+            "--skip-title",
+            "--building-open-seed"
+          ],
+          "checks_and_failures": [
+            [
+              "70",
+              "0"
+            ]
+          ],
+          "log_sha256": "dadb45b6aa3b9c6e9028c23c14a3024c50dd04f462520100ac6d21a29afd8ea8"
+        },
+        "building-open-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-open-restart.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-open-restart",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_open_restart.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "8",
+              "0"
+            ]
+          ],
+          "log_sha256": "f16342ccce6bc79a04c62123362f718821c7c510c5887b28828038c64386a952"
+        },
+        "ground-space": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\ground-space.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/ground-space",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_ground_space.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "33",
+              "0"
+            ]
+          ],
+          "log_sha256": "52bb6a1aeb77049218ceb0663c98d42370c539aa6eb1632f607dedc30dd17737"
+        },
+        "character-space-save": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\character-space-save.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/character-space-save",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_character_space_save.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "10",
+              "0"
+            ]
+          ],
+          "log_sha256": "5db48fac0008abb452076fc9cea1a329692ba593ff4f313c88942101f2b9aa00"
+        },
+        "building-base-neighbors": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\building-base-neighbors.log",
+          "user_data_name": "sea-verification/20261102-135646-building-audit-diagnostic-candidate-8d9fce/building-base-neighbors",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135646-building-audit-diagnostic-candidate-8d9fce\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_base_neighbors.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "28",
+              "0"
+            ]
+          ],
+          "log_sha256": "cb356ff295e79bad2d39da985e1988213fd563bcdbbae3d2b9ade4a8092c1624"
+        }
+      },
+      "DIAGNOSTIC_CANDIDATE.json": {
+        "purpose": "Continue building audit past an unrelated concurrent save archive type inference error.",
+        "patch_in_isolated_copy_only": false,
+        "path": "src/save/save_game.gd",
+        "replacement": "var from := path + suffix -> var from: String = path + suffix",
+        "source_sha256": "36fad3c6609349f80786101ed369b5d94d1480b669b49d62150fa6bd9716fdf7",
+        "candidate_sha256": "36fad3c6609349f80786101ed369b5d94d1480b669b49d62150fa6bd9716fdf7",
+        "acceptance_of_unmodified_tree": false
+      }
+    },
+    {
+      "kind": "diagnostic_visual",
+      "path": "D:\\projects\\sea-work\\verification\\20261102-135724-building-audit-visual-diagnostic-160894\\report.json",
+      "note": "Same explicit copy-only compile repair; four real-renderer checks. Screenshots inspected.",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "working_tree": " M docs/features/aqua/ledger.md\n M docs/features/aqua/spec.md\n M docs/features/asset/ledger.md\n M docs/features/asset/spec.md\n M docs/features/save/ledger.md\n M docs/features/save/spec.md\n M docs/features/world/ledger.md\n M docs/features/world/spec.md\n M godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\n M godot/scenes/zones/zone1_home_harbor.tscn\n M godot/src/aqua/fishery_service.gd\n M godot/src/bootstrap/main.gd\n M godot/src/save/save_game.gd\n M godot/src/ui/fishery_panel.gd\n M godot/src/ui/island_menu.gd\n M godot/tests/test_fishery.gd\n M scripts/run_verification.py\n?? art_source/scenes/wild_fishery/v001/export/\n?? docs/development/2026-11-02_wild_fishery.md\n?? godot/assets/materials/fishery/\n?? godot/assets/models/fishery/\n?? godot/scenes/components/fishery/\n?? godot/scenes/facilities/wild_fishery.tscn\n?? godot/src/aqua/fishery_visual.gd\n?? godot/tests/test_fishery_environment.gd\n?? godot/tests/test_save_reset.gd\n?? godot/tools/fishery_palette_import.gd\n?? tools/blender/fishery/assemble_runtime.py\n?? tools/blender/fishery/optimize_export.py\n",
+      "results": {
+        "visual-building-diy": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135724-building-audit-visual-diagnostic-160894\\visual-building-diy.log",
+          "user_data_name": "sea-verification/20261102-135724-building-audit-visual-diagnostic-160894/visual-building-diy",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135724-building-audit-visual-diagnostic-160894\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_diy_visual.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "29",
+              "0"
+            ]
+          ],
+          "log_sha256": "62fc62376ef05f7e14f19285d736fb08e15960c997b614029a5585d7d329d655"
+        },
+        "visual-building-simulate": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135724-building-audit-visual-diagnostic-160894\\visual-building-simulate.log",
+          "user_data_name": "sea-verification/20261102-135724-building-audit-visual-diagnostic-160894/visual-building-simulate",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135724-building-audit-visual-diagnostic-160894\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_simulate.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "191",
+              "0"
+            ]
+          ],
+          "log_sha256": "ec68e0faf46790b5c3f685682f1dc7dd842aea17a79f9f9207f4d8dc7fbc39b1"
+        },
+        "visual-recipe-cards": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135724-building-audit-visual-diagnostic-160894\\visual-recipe-cards.log",
+          "user_data_name": "sea-verification/20261102-135724-building-audit-visual-diagnostic-160894/visual-recipe-cards",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135724-building-audit-visual-diagnostic-160894\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tools/capture_recipe_cards.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "108",
+              "0"
+            ]
+          ],
+          "log_sha256": "f94fe135142bec1c774e279c8b58e8e382f3ac7dd3d05fe256641ec6a02ccc30"
+        },
+        "visual-building-save-compat": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135724-building-audit-visual-diagnostic-160894\\visual-building-save-compat.log",
+          "user_data_name": "sea-verification/20261102-135724-building-audit-visual-diagnostic-160894/visual-building-save-compat",
+          "renderer": "real",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135724-building-audit-visual-diagnostic-160894\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_save_compat.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "34",
+              "0"
+            ]
+          ],
+          "log_sha256": "a6164859670d36cbc6d9e205f9b285252d8a7d7ca6e77b4fdc94aa99f3e403b9"
+        }
+      },
+      "DIAGNOSTIC_CANDIDATE.json": {
+        "purpose": "Continue building audit past an unrelated concurrent save archive type inference error.",
+        "patch_in_isolated_copy_only": false,
+        "path": "src/save/save_game.gd",
+        "replacement": "var from := path + suffix -> var from: String = path + suffix",
+        "source_sha256": "36fad3c6609349f80786101ed369b5d94d1480b669b49d62150fa6bd9716fdf7",
+        "candidate_sha256": "36fad3c6609349f80786101ed369b5d94d1480b669b49d62150fa6bd9716fdf7",
+        "acceptance_of_unmodified_tree": false
+      }
+    },
+    {
+      "kind": "final_unmodified_snapshot",
+      "path": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\report.json",
+      "note": "Fresh copy after concurrent save compilation repair; no audit patch to product or tests; all results are current regression evidence, not exhaustive combination acceptance.",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "working_tree": " M docs/features/aqua/ledger.md\n M docs/features/aqua/spec.md\n M docs/features/asset/ledger.md\n M docs/features/asset/spec.md\n M docs/features/save/ledger.md\n M docs/features/save/spec.md\n M docs/features/world/ledger.md\n M docs/features/world/spec.md\n M godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\n M godot/scenes/zones/zone1_home_harbor.tscn\n M godot/src/aqua/fishery_service.gd\n M godot/src/bootstrap/main.gd\n M godot/src/save/save_game.gd\n M godot/src/ui/fishery_panel.gd\n M godot/src/ui/island_menu.gd\n M godot/tests/test_fishery.gd\n M scripts/run_verification.py\n M tools/blender/fishery/verify_source.py\n?? art_source/scenes/wild_fishery/v001/export/\n?? docs/development/2026-11-02_wild_fishery.md\n?? docs/development/assets/2026-11-02_save_reset_1_pause.png\n?? docs/development/assets/2026-11-02_save_reset_2_confirm.png\n?? godot/assets/materials/fishery/\n?? godot/assets/models/fishery/\n?? godot/scenes/components/fishery/\n?? godot/scenes/facilities/wild_fishery.tscn\n?? godot/src/aqua/fishery_visual.gd\n?? godot/tests/test_fishery_environment.gd\n?? godot/tests/test_save_reset.gd\n?? godot/tools/capture_save_reset.gd\n?? godot/tools/fishery_palette_import.gd\n?? tools/blender/fishery/assemble_runtime.py\n?? tools/blender/fishery/optimize_export.py\n?? tools/blender/fishery/register.py\n",
+      "results": {
+        "building-approach": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-approach.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-approach",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_approach.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "18",
+              "0"
+            ]
+          ],
+          "log_sha256": "2ccfdf179c1c3679f68600af11391c89e16dcdbe41c273154a8f2db93e77247e"
+        },
+        "building-integration": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-integration.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-integration",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_integration.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "53",
+              "0"
+            ]
+          ],
+          "log_sha256": "1f9b01f0dc5db7f604802839019aaade68bf895f8b0e5f594000f01880deb005"
+        },
+        "building-kit": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-kit.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-kit",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_kit.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "121",
+              "0"
+            ]
+          ],
+          "log_sha256": "335fd79fb0ed3cce195d4379635568b3a195f8fdfbd812a812bc8781668d2758"
+        },
+        "building-simulate": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-simulate.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-simulate",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_simulate.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "191",
+              "0"
+            ]
+          ],
+          "log_sha256": "89ee720771014949aca69863808a853eba4794b0126ec61cd7dc854119d04a20"
+        },
+        "building-save-compat": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-save-compat.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-save-compat",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_save_compat.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "34",
+              "0"
+            ]
+          ],
+          "log_sha256": "eb53e50c7e8a088cbeda7ba7a6ff79e4238c9000f758ca3f251f981f5d9a3ed0"
+        },
+        "building-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-seed.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_restart.gd",
+            "--",
+            "--skip-title",
+            "--building-seed"
+          ],
+          "checks_and_failures": [
+            [
+              "5",
+              "0"
+            ]
+          ],
+          "log_sha256": "8317779507a19b7caf3e02ef74efa6833b1fe7ab1e628071d695b709d08a13df"
+        },
+        "building-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-restart.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_restart.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "11",
+              "0"
+            ]
+          ],
+          "log_sha256": "43058b99395014b2b982bb9e7f5aca98fecb9d19be0158e3e4cd4dc25936f25c"
+        },
+        "building-open-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-open-seed.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-open-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_open_restart.gd",
+            "--",
+            "--skip-title",
+            "--building-open-seed"
+          ],
+          "checks_and_failures": [
+            [
+              "70",
+              "0"
+            ]
+          ],
+          "log_sha256": "096f6d9ac090c0927f17980a448c8c65dfe4446abd10879265ef141f045ec1ca"
+        },
+        "building-open-restart": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-open-restart.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-open-restart",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_open_restart.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "8",
+              "0"
+            ]
+          ],
+          "log_sha256": "3345044ca8cfb4d5fc3aff3edf92f6cefe55a2bd22dcfe6a6080210007797485"
+        },
+        "ground-space": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\ground-space.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/ground-space",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_ground_space.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "33",
+              "0"
+            ]
+          ],
+          "log_sha256": "52bb6a1aeb77049218ceb0663c98d42370c539aa6eb1632f607dedc30dd17737"
+        },
+        "character-space-save": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\character-space-save.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/character-space-save",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_character_space_save.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "10",
+              "0"
+            ]
+          ],
+          "log_sha256": "a0c9852dc12fdaac6e5b60e95c1f21184c4246ddb9ec484e9f54e39d1255fd23"
+        },
+        "building-base-neighbors": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\building-base-neighbors.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/building-base-neighbors",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_base_neighbors.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "28",
+              "0"
+            ]
+          ],
+          "log_sha256": "daae454a59997a7ffff0b22b0d830c5ed84fd35ef9106d528c250960d899a6d7"
+        },
+        "energy": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\energy.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/energy",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_energy.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "37",
+              "0"
+            ]
+          ],
+          "log_sha256": "7d87e15e85413f796f6ca25e02d594fcd2591f9d4f21b153c889cd97e8afce36"
+        },
+        "minimum-loop": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\minimum-loop.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/minimum-loop",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_minimum_loop.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "141",
+              "0"
+            ]
+          ],
+          "log_sha256": "da969698b72ff76740b01b17ca5533cfac0c3b04a3482ee6760bdb7c77c1a702"
+        },
+        "save-corrupt-seed": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\save-corrupt-seed.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/protection",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_corrupt_seed.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [],
+          "log_sha256": "84c016552968058afd9b9dab249dadf2ba5b1402ce631defb848dfa889e6d544"
+        },
+        "save-protection": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\save-protection.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/protection",
+          "renderer": "headless",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_save_protection.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [],
+          "log_sha256": "4de26593d103e8bf957980fa94a89564ed791088b17ee5c4b2b3dfdf01a69477"
+        },
+        "visual-building-diy": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\visual-building-diy.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/visual-building-diy",
+          "renderer": "real",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_diy_visual.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "29",
+              "0"
+            ]
+          ],
+          "log_sha256": "eef18dddac5e9a7e9127145b4aa4e38048001c1a391ff43b62dab77cb973c466"
+        },
+        "visual-building-simulate": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\visual-building-simulate.log",
+          "user_data_name": "sea-verification/20261102-140034-building-audit-current-final-b54d9f/visual-building-simulate",
+          "renderer": "real",
+          "command": [
+            "I:\\下载\\Godot_v4.7.2-stable_win64.exe\\Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140034-building-audit-current-final-b54d9f\\project",
+            "--resolution",
+            "1280x800",
+            "--fixed-fps",
+            "60",
+            "--script",
+            "res://tests/test_building_simulate.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "191",
+              "0"
+            ]
+          ],
+          "log_sha256": "5423ec623e94a5f9af8a8793103926b62d616cbf9ecdfcd3ad7c5b35c97afa25"
+        }
+      }
+    },
+    {
+      "kind": "ocean_fixture_diagnostic",
+      "path": "D:\\projects\\sea-work\\verification\\20261102-140059-building-audit-ocean-fixture-f44d2a\\report.json",
+      "note": "Only isolated test fixture receives origin=boat, matching real controller. Original repository ocean test remains stale.",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "working_tree": " M assets/registry/runtime_resource_inventory.json\n M docs/features/aqua/ledger.md\n M docs/features/aqua/spec.md\n M docs/features/asset/ledger.md\n M docs/features/asset/spec.md\n M docs/features/save/ledger.md\n M docs/features/save/spec.md\n M docs/features/world/ledger.md\n M docs/features/world/spec.md\n M docs/generated/feature_index.json\n M godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\n M godot/scenes/zones/zone1_home_harbor.tscn\n M godot/src/aqua/fishery_service.gd\n M godot/src/bootstrap/main.gd\n M godot/src/save/save_game.gd\n M godot/src/ui/fishery_panel.gd\n M godot/src/ui/island_menu.gd\n M godot/tests/test_fishery.gd\n M scripts/run_verification.py\n M tools/blender/fishery/verify_source.py\n?? art_source/scenes/wild_fishery/v001/export/\n?? docs/development/2026-11-02_save_reset.md\n?? docs/development/2026-11-02_wild_fishery.md\n?? docs/development/assets/2026-11-02_save_reset_1_pause.png\n?? docs/development/assets/2026-11-02_save_reset_2_confirm.png\n?? godot/assets/materials/fishery/\n?? godot/assets/models/fishery/\n?? godot/scenes/components/fishery/\n?? godot/scenes/facilities/wild_fishery.tscn\n?? godot/src/aqua/fishery_visual.gd\n?? godot/tests/test_fishery_environment.gd\n?? godot/tests/test_save_reset.gd\n?? godot/tools/capture_save_reset.gd\n?? godot/tools/fishery_palette_import.gd\n?? tools/blender/fishery/assemble_runtime.py\n?? tools/blender/fishery/optimize_export.py\n?? tools/blender/fishery/register.py\n",
+      "results": {
+        "building-ocean": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-140059-building-audit-ocean-fixture-f44d2a\\building-ocean.log",
+          "user_data_name": "sea-verification/20261102-140059-building-audit-ocean-fixture-f44d2a/building-ocean",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-140059-building-audit-ocean-fixture-f44d2a\\project",
+            "--headless",
+            "--script",
+            "res://tests/test_building_ocean.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "30",
+              "0"
+            ]
+          ],
+          "log_sha256": "e800ca0fcf43535cd9cd0a079d1094ee99ae667a78e47a0a288dfbba07769deb"
+        }
+      },
+      "DIAGNOSTIC_FIXTURE.json": {
+        "path": "tests/test_building_ocean.gd",
+        "test_fixture_only": true,
+        "replacement": [
+          "{\"kind\":\"deck\",\"x\":40,\"z\":40}",
+          "{\"kind\":\"deck\",\"x\":40,\"z\":40,\"origin\":\"boat\"}"
+        ],
+        "reason": "R22 requires explicit boat origin; BuildingController._deck_request supplies it in the game.",
+        "acceptance_of_original_test": false
+      }
+    },
+    {
+      "kind": "counterexample_save_and_actual_performance",
+      "path": "D:\\projects\\sea-work\\verification\\20261102-135921-building-audit-rules-adee25\\report.json",
+      "note": "15 counterexample assertions plus performance fixture validation; pass means bug reproduced, not product accepted.",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "working_tree": " M docs/features/aqua/ledger.md\n M docs/features/aqua/spec.md\n M docs/features/asset/ledger.md\n M docs/features/asset/spec.md\n M docs/features/save/ledger.md\n M docs/features/save/spec.md\n M docs/features/world/ledger.md\n M docs/features/world/spec.md\n M godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\n M godot/scenes/zones/zone1_home_harbor.tscn\n M godot/src/aqua/fishery_service.gd\n M godot/src/bootstrap/main.gd\n M godot/src/save/save_game.gd\n M godot/src/ui/fishery_panel.gd\n M godot/src/ui/island_menu.gd\n M godot/tests/test_fishery.gd\n M scripts/run_verification.py\n?? art_source/scenes/wild_fishery/v001/export/\n?? docs/development/2026-11-02_wild_fishery.md\n?? godot/assets/materials/fishery/\n?? godot/assets/models/fishery/\n?? godot/scenes/components/fishery/\n?? godot/scenes/facilities/wild_fishery.tscn\n?? godot/src/aqua/fishery_visual.gd\n?? godot/tests/test_fishery_environment.gd\n?? godot/tests/test_save_reset.gd\n?? godot/tools/capture_save_reset.gd\n?? godot/tools/fishery_palette_import.gd\n?? tools/blender/fishery/assemble_runtime.py\n?? tools/blender/fishery/optimize_export.py\n?? tools/blender/fishery/register.py\n",
+      "results": {
+        "audit-rules": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135921-building-audit-rules-adee25\\audit-rules.log",
+          "user_data_name": "sea-verification/20261102-135921-building-audit-rules-adee25/audit-rules",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135921-building-audit-rules-adee25\\project",
+            "--headless",
+            "--script",
+            "res://tools/audit_rules.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "198",
+              "0"
+            ]
+          ],
+          "log_sha256": "81111efe04205343f0269d41fe2447b66e757a2f5dae262ab3447014aef4969e"
+        }
+      }
+    },
+    {
+      "kind": "counterexample_upstairs",
+      "path": "D:\\projects\\sea-work\\verification\\20261102-135826-building-depth-upper-bridge-776071\\report.json",
+      "note": "19 counterexample assertions using real NavigationServer; pass means bugs reproduced, not product accepted.",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "working_tree": " M docs/features/aqua/ledger.md\n M docs/features/aqua/spec.md\n M docs/features/asset/ledger.md\n M docs/features/asset/spec.md\n M docs/features/save/ledger.md\n M docs/features/save/spec.md\n M docs/features/world/ledger.md\n M docs/features/world/spec.md\n M godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\n M godot/scenes/zones/zone1_home_harbor.tscn\n M godot/src/aqua/fishery_service.gd\n M godot/src/bootstrap/main.gd\n M godot/src/save/save_game.gd\n M godot/src/ui/fishery_panel.gd\n M godot/src/ui/island_menu.gd\n M godot/tests/test_fishery.gd\n M scripts/run_verification.py\n?? art_source/scenes/wild_fishery/v001/export/\n?? docs/development/2026-11-02_wild_fishery.md\n?? godot/assets/materials/fishery/\n?? godot/assets/models/fishery/\n?? godot/scenes/components/fishery/\n?? godot/scenes/facilities/wild_fishery.tscn\n?? godot/src/aqua/fishery_visual.gd\n?? godot/tests/test_fishery_environment.gd\n?? godot/tests/test_save_reset.gd\n?? godot/tools/fishery_palette_import.gd\n?? tools/blender/fishery/assemble_runtime.py\n?? tools/blender/fishery/optimize_export.py\n?? tools/blender/fishery/register.py\n",
+      "results": {
+        "audit-upper-bridge": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135826-building-depth-upper-bridge-776071\\audit-upper-bridge.log",
+          "user_data_name": "sea-verification/20261102-135826-building-depth-upper-bridge-776071/audit-upper-bridge",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135826-building-depth-upper-bridge-776071\\project",
+            "--headless",
+            "--script",
+            "res://tests/audit_upper_bridge.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "19",
+              "0"
+            ]
+          ],
+          "log_sha256": "67f8b005fe93aa64b95c892e1f94e505ac590725221567e07ad42872d22316b0"
+        }
+      },
+      "audit-source-hashes.json": {
+        "src/building/building_service.gd": "16ec4edb97e02af556ff2d1279ca4e5020fc8f6beebb8e90fbdd7b3d7e249a94",
+        "src/building/building_boundary.gd": "91197e78898ca318e7c6203bc55ad73d15119da71c57f5c6c9062093b5a0d3fd",
+        "src/building/assembly_rules.gd": "0db42ef1f4c2cae4f48ba40f63e8ed82ba014d179704cac249ae8b0131e40af8",
+        "src/building/assembly_surfaces.gd": "970ce636690243432fbb67837d16a375d4079435cc1a183e80c7618b84c5dbb5",
+        "src/building/building_space.gd": "d2399fabfdd7db50fb44da52bb951fcdb2b4d7421f14e1653c0f0347d67d3324",
+        "src/building/building_catalog.gd": "b10a5efff59fccbcd757ddb7da8d2a654ff47caa1aaa44e447535e0ec1070168",
+        "src/navigation/ground_space.gd": "74e9441fd99e47fb3fa365d528e8bd46dfe22b7b483cbcf479b4e4a8bd15f415",
+        "assets/data/building_kit.json": "0ac23b47607e1cb8bef6074a700196c9a0085ecda6124ce533a01f86d17b6aad",
+        "tests/audit_upper_bridge.gd": "08f4625723694301ee97115b4754dd134938a56d319491bb6c566ebb78526b03"
+      }
+    },
+    {
+      "kind": "counterexample_controller",
+      "path": "D:\\projects\\sea-work\\verification\\20261102-135842-building-controller-audit-00ab70\\report.json",
+      "note": "19 assertions for controller/HUD/camera; pass means bugs reproduced. Stub projection, not full Main GUI.",
+      "head": "f353f24fa0ca188c9a5e5d5c97b659086ad80681",
+      "working_tree": " M docs/features/aqua/ledger.md\n M docs/features/aqua/spec.md\n M docs/features/asset/ledger.md\n M docs/features/asset/spec.md\n M docs/features/save/ledger.md\n M docs/features/save/spec.md\n M docs/features/world/ledger.md\n M docs/features/world/spec.md\n M godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\n M godot/scenes/zones/zone1_home_harbor.tscn\n M godot/src/aqua/fishery_service.gd\n M godot/src/bootstrap/main.gd\n M godot/src/save/save_game.gd\n M godot/src/ui/fishery_panel.gd\n M godot/src/ui/island_menu.gd\n M godot/tests/test_fishery.gd\n M scripts/run_verification.py\n?? art_source/scenes/wild_fishery/v001/export/\n?? docs/development/2026-11-02_wild_fishery.md\n?? godot/assets/materials/fishery/\n?? godot/assets/models/fishery/\n?? godot/scenes/components/fishery/\n?? godot/scenes/facilities/wild_fishery.tscn\n?? godot/src/aqua/fishery_visual.gd\n?? godot/tests/test_fishery_environment.gd\n?? godot/tests/test_save_reset.gd\n?? godot/tools/fishery_palette_import.gd\n?? tools/blender/fishery/assemble_runtime.py\n?? tools/blender/fishery/optimize_export.py\n?? tools/blender/fishery/register.py\n",
+      "results": {
+        "building": {
+          "exit_code": 0,
+          "passed": true,
+          "expected_errors": [],
+          "unexpected_errors": [],
+          "completion_marker": true,
+          "log": "D:\\projects\\sea-work\\verification\\20261102-135842-building-controller-audit-00ab70\\building.log",
+          "user_data_name": "sea-verification/20261102-135842-building-controller-audit-00ab70/building",
+          "renderer": "headless",
+          "command": [
+            "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+            "--path",
+            "D:\\projects\\sea-work\\verification\\20261102-135842-building-controller-audit-00ab70\\project",
+            "--headless",
+            "--script",
+            "res://tests/building_controller_audit.gd",
+            "--",
+            "--skip-title"
+          ],
+          "checks_and_failures": [
+            [
+              "20",
+              "0"
+            ]
+          ],
+          "log_sha256": "62e4eb47ab80e4d0a1f1f7b69af79a5d63658d7a0aea29e53cbd7d7f0b3c687b"
+        }
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "BUILD-AUDIT-01",
+      "priority": "P1",
+      "requirements": [
+        "R04",
+        "R06",
+        "R11"
+      ],
+      "summary": "Moving kit lamp near legacy planter accepts an unsaveable/order-dependent layout."
+    },
+    {
+      "id": "BUILD-AUDIT-02",
+      "priority": "P1",
+      "requirements": [
+        "R05",
+        "R20",
+        "R23"
+      ],
+      "summary": "Furniture cut creates mismatched upper-floor navigation seams despite a 0.955m clear passage."
+    },
+    {
+      "id": "BUILD-AUDIT-03",
+      "priority": "P1",
+      "requirements": [
+        "R05",
+        "R12",
+        "R20"
+      ],
+      "summary": "Removing intermediate upper bridge floor is allowed and disconnects actor from stairs."
+    },
+    {
+      "id": "BUILD-AUDIT-04",
+      "priority": "P2",
+      "requirements": [
+        "R01",
+        "R11",
+        "R26"
+      ],
+      "summary": "Move destination has no visible ghost or outline."
+    },
+    {
+      "id": "BUILD-AUDIT-05",
+      "priority": "P2",
+      "requirements": [
+        "R20"
+      ],
+      "summary": "Planter selected at upper level is actually built on ground level."
+    },
+    {
+      "id": "BUILD-AUDIT-06",
+      "priority": "P2",
+      "requirements": [
+        "R26"
+      ],
+      "summary": "Management ray hits full door-frame AABB through visible aperture instead of furniture behind it."
+    }
+  ],
+  "additional_ux_limits": [
+    "Camera input blocked during placement",
+    "Selected upper furnishing does not inherit build_level"
+  ],
+  "actual_snap_performance_ms": {
+    "9": 0.20194444444444,
+    "25": 0.45875,
+    "45": 0.84744444444444,
+    "100": 1.84672222222222
+  },
+  "performance_scope": "Median of three round-mean pure snapping timings. Not complete game frame time or GPU benchmark.",
+  "unexecuted": [
+    "touch/gamepad",
+    "low-end GPU",
+    "100/200-platform full rendering stress",
+    "exhaustive rotations and far coordinates",
+    "physical capsule crossing furniture-cut seam",
+    "long human play session",
+    "full locked fixed-building upgrade suite"
+  ],
+  "process_failures": [
+    {
+      "run": "environment_setup_before_first_report",
+      "result": "runner failed before testing: GBK decode of UTF-8 project; rerun with Python UTF-8 mode"
+    },
+    {
+      "run": "20261102-135344-building-deep-audit-261e5f",
+      "result": "save_game.gd:136 concurrent archive function parse error; no expected-error whitelist; integration interrupted"
+    },
+    {
+      "run": "20261102-135633-building-controller-audit",
+      "result": "probe class named Projection collided with built-in; fixture corrected"
+    },
+    {
+      "run": "20261102-135643-building-controller-audit",
+      "result": "move destination probe overlapped fixture post; corrected to empty legal space"
+    },
+    {
+      "run": "20261102-135706-building-depth-upper-bridge-544874",
+      "result": "assumption that first upstairs crate should keep navigation failed; led to separate verified seam bug"
+    },
+    {
+      "run": "20261102-135712-building-audit-rules",
+      "result": "probe actor left on disconnected base; corrected actor position"
+    }
+  ],
+  "final_unmodified_regression_count": 18,
+  "final_unmodified_regressions_passed": true,
+  "static_checks": {
+    "before_sync": {
+      "feature_contracts": "2 issues: main runtime hash drift + stale derived index",
+      "architecture": "PASS; 17 services, 0 issues"
+    },
+    "intermediate_pass": {
+      "feature_contracts_sync": {
+        "exit_code": 0,
+        "passed": true,
+        "features": 37,
+        "source_assets": 578,
+        "runtime_hashes": 508,
+        "issues": 0
+      },
+      "feature_contracts_ordinary": {
+        "exit_code": 0,
+        "passed": true,
+        "features": 37,
+        "source_assets": 578,
+        "runtime_hashes": 508,
+        "issues": 0
+      },
+      "architecture": {
+        "exit_code": 0,
+        "services": 17,
+        "issues": 0
+      },
+      "git_diff_check": {
+        "exit_code": 0,
+        "whitespace_errors": 0
+      }
+    },
+    "final": {
+      "feature_contracts_sync": {
+        "exit_code": 1,
+        "passed": false,
+        "log": "D:\\projects\\sea-work\\building-audit-20261102\\feature_contracts_sync-final.log",
+        "output": "FAIL: runtime hash drift: godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\nFAIL: runtime hash drift: godot/assets/models/fishery/bait_table/bait_table.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/buoy/buoy.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/creel/creel.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/drying_rack/drying_rack.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/fish/fish.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/marker_buoy/marker_buoy.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/net_corner/net_corner.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/net_panel/net_panel.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/pebbles/pebbles.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/reeds/reeds.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/shore/shore.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/turf/turf.glb.import\nFAIL: 37 features, 578 source assets, 508 runtime resource hashes; 13 issues\n"
+      },
+      "feature_contracts_ordinary": {
+        "exit_code": 1,
+        "passed": false,
+        "log": "D:\\projects\\sea-work\\building-audit-20261102\\feature_contracts_ordinary-final.log",
+        "output": "FAIL: runtime hash drift: godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import\nFAIL: runtime hash drift: godot/assets/models/fishery/bait_table/bait_table.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/buoy/buoy.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/creel/creel.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/drying_rack/drying_rack.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/fish/fish.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/marker_buoy/marker_buoy.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/net_corner/net_corner.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/net_panel/net_panel.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/pebbles/pebbles.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/reeds/reeds.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/shore/shore.glb.import\nFAIL: runtime hash drift: godot/assets/models/fishery/turf/turf.glb.import\nFAIL: 37 features, 578 source assets, 508 runtime resource hashes; 13 issues\n"
+      },
+      "architecture": {
+        "exit_code": 0,
+        "passed": true,
+        "log": "D:\\projects\\sea-work\\building-audit-20261102\\architecture-final.log",
+        "output": "PASS: architecture boundaries; 17 independent rule/storage services; 0 issues\n"
+      }
+    },
+    "final_note": "Concurrent import metadata changes after an intermediate zero-issue run. No hashes rebaselined by this audit. Exact final observation is in the captured commands."
+  }
+}

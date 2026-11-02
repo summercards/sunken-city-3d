@@ -56,8 +56,8 @@ func run() -> void:
 	main.cam.global_position=main.trade_board.global_position+Vector3(-8,12,14)
 	main.cam.look_at(main.trade_board.global_position)
 	main._open_spot_bubbles(main.trade_board)
-	check(menu.entries.size()==3,"supply counter offers three service bubbles")
-	await shot("three-service-bubbles")
+	check(menu.entries.size()==1 and menu.entries[0].id=="fishery","fishery counter offers only construction")
+	await shot("fishery-build-bubble")
 	await click(Vector2(1550,700))
 	await create_timer(0.25).timeout
 	check(not menu.active and main.actor_controller.auto_target==null,"outside click closes without moving or executing")

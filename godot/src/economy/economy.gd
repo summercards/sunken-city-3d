@@ -444,7 +444,8 @@ func _configure_services() -> void:
 	# 100 块木板塞不进 24 格背包，只认背包等于永远升不了。
 	fishery.configure({"count":storage.construction_count,
 		"pay":storage.construction_pay,
-		"missing_text":storage.construction_missing_text})
+		"missing_text":storage.construction_missing_text,
+		"can_receive":inventory.can_add,"receive":inventory.add_all})
 	fishery.changed.connect(func(): resources_changed.emit())
 	construction.sites_changed.connect(func(): sites_changed.emit())
 	facility.sites_changed.connect(func(): sites_changed.emit())

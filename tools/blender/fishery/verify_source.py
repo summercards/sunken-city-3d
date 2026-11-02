@@ -56,7 +56,7 @@ def render_views(prefix):
  views={'oblique':(-18,-23,22),'back':(12,13,16),'side':(-27,-1,8),'top':(-5,-4,34),'shore_close':(-8,-9,10)}
  for name,pos in views.items():
   aim=Vector((0,0,.2)) if name=='shore_close' else target
-  cam.location=pos;cam.rotation_euler=(aim-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.ortho_scale=10 if name=='shore_close' else 24
+  cam.location=pos;cam.rotation_euler=(aim-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.ortho_scale=10 if name=='shore_close' else (29 if name=='top' else 24)
   scene.render.filepath=str(W/(prefix+'_'+name+'.png'));bpy.ops.render.render(write_still=True)
 bpy.ops.wm.open_mainfile(filepath=str(D/'wild_fishery.blend'))
 families={}

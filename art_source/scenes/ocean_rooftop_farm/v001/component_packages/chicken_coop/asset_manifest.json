@@ -1,0 +1,38 @@
+{
+  "key": "chicken_coop",
+  "asset_id": "SEA-SCENE-ORF-CHICKEN-COOP",
+  "name": "空家禽木棚舍",
+  "category": "fixture",
+  "component_family": "shelter",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-CHICKEN-COOP",
+  "root": "chicken_coop_组件根",
+  "bounds_size": [
+    1.899999976158142,
+    1.590715765953064,
+    1.6151238679885864
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/chicken_coop/chicken_coop.blend",
+  "geometry_fingerprint": "f2761e49f48a9e67d7515c0888633fb7b50e43af48a3263e944458317ff8d37d",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 212,
+  "source_sha256": "5084886eb8776d4bee7200fc9d6f47c327f9d37e34660c956640986d8f85f6ac",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-CHICKEN-COOP"
+}

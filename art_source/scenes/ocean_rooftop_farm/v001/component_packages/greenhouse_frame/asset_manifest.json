@@ -1,0 +1,38 @@
+{
+  "key": "greenhouse_frame",
+  "asset_id": "SEA-SCENE-ORF-GREENHOUSE-FRAME",
+  "name": "温室金属框架与入口",
+  "category": "structure",
+  "component_family": "greenhouse",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-GREENHOUSE-FRAME",
+  "root": "greenhouse_frame_组件根",
+  "bounds_size": [
+    5.000000953674316,
+    9.130000114440918,
+    3.8550002574920654
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/greenhouse_frame/greenhouse_frame.blend",
+  "geometry_fingerprint": "9b8be075bbe8231dd370309a937552639b568b16fd0a93a48b7f7ff5aa9c7e0b",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 1244,
+  "source_sha256": "19ac80f08729099e751624bce93bcf98ff63858566e25665e69c12bebc3cf257",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-GREENHOUSE-FRAME"
+}

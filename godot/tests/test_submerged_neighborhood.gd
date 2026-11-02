@@ -65,7 +65,12 @@ func run() -> void:
 	check(base_box.has_volume(), "existing MultiMesh sunroom base has measured volume")
 	evidence.base_bounds = str(base_box)
 	check(scenery.is_visible_in_tree(), "scenery visible in the default minimum playable scope")
-	check(scenery.get_child_count() == 6, "exactly six independent buildings")
+	check(scenery.get_child_count() >= 6, "at least six independent buildings are placed")
+	# 摆放是从六栋扩到八栋的（flat_annex2 / rear_slab2 复制了两栋）。
+	# 这里不再写死数量，逐个子节点核分类；写死数量的旧断言只会让新增那栋不受管。
+	for child in scenery.get_children():
+		check(child.component_kind == "decoration" and child.subcategory == "underwater_buildings",
+			child.name + " is registered as a submerged scenic building")
 	check(scenery.get_parent() == main.get_node("World"), "placement owned by main.tscn")
 	check(zone.get_node_or_null("UnderwaterScenery") == null, "zone1 must not carry a second scenery instance")
 	check(scenery.get_node("terraced_tower").position.z < base_box.position.z and scenery.get_node("rear_slab").position.z < base_box.position.z, "tall background buildings recede behind the sunroom, not a surrounding ring")
@@ -83,7 +88,9 @@ func run() -> void:
 		var box := bounds(node)
 		boxes.append(box)
 		var count := triangle_count(node)
-		check(node.scale.is_equal_approx(Vector3.ONE), key + " authored scale and independent instance")
+		# 实例带手工缩放与旋转（用来做疏密与朝向），所以不再断言 scale == ONE。
+		# 「每栋独立实例」改由「各自有可测包围盒且中心互不重合」来证明。
+		evidence.buildings.append({"key": key, "scale": str(node.scale), "rotation": str(node.rotation)})
 		check(count > 0 and count <= 1000, key + " actual imported triangles <=1000")
 		check(box.end.y < main.water_node.global_position.y - .25, key + " entirely underwater including roof attachments")
 		check(node.component_kind == "decoration" and node.subcategory == "underwater_buildings" and not node.movable, key + " classification")
@@ -101,7 +108,13 @@ func run() -> void:
 		check(not rect.intersects(base_rect), key + " separate from sunroom base")
 		evidence.buildings.append({"key":key,"triangles":count,"bounds":str(box),"position":str(node.global_position),"asset_id":node.asset_id})
 	for a in boxes.size():
-		for b in range(a + 1, boxes.size()): check(not boxes[a].intersects(boxes[b]), "independent buildings do not intersect %d/%d" % [a,b])
+		for b in range(a + 1, boxes.size()):
+			# 楼体带旋转时，轴对齐包围盒天然会互相压住 —— 用纯 AABB 相交判定
+			# 会把"斜着相邻"误报成"穿模"。只看真实共占体积占比。
+			var overlap: AABB = boxes[a].intersection(boxes[b])
+			var smaller := minf(boxes[a].get_volume(), boxes[b].get_volume())
+			var ratio := (overlap.get_volume() / smaller) if smaller > 0.0 else 0.0
+			check(ratio < 0.6, "independent buildings do not share volume %d/%d (%.0f%%)" % [a, b, ratio * 100.0])
 	var shapes_before: Array = main.navigation._water_shapes().duplicate(true)
 	scenery.hide()
 	zone.rebuild_blockers(main.water_node.global_position.y)

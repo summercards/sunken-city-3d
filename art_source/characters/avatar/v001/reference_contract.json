@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "reference_image": "art_source/characters/avatar/v001/reference_proportions.png",
+  "provenance": "User-supplied screenshot 2026-11-02, proportions reference only; external game image not included in runtime/export. Commercial rights to the reference not asserted.",
+  "image_size": [
+    230,
+    350
+  ],
+  "landmarks_pixels": {
+    "hat_top": [
+      114,
+      39
+    ],
+    "sole": [
+      108,
+      317
+    ],
+    "chin": [
+      121,
+      172
+    ],
+    "hip": [
+      118,
+      241
+    ],
+    "shoulder": [
+      110,
+      170
+    ],
+    "head_left": [
+      48,
+      126
+    ],
+    "head_right": [
+      177,
+      126
+    ],
+    "head_top": [
+      114,
+      88
+    ],
+    "face_bottom": [
+      114,
+      172
+    ],
+    "torso_left": [
+      90,
+      205
+    ],
+    "torso_right": [
+      144,
+      205
+    ],
+    "shoulder_left": [
+      75,
+      181
+    ],
+    "shoulder_right": [
+      150,
+      181
+    ],
+    "foot_left": [
+      95,
+      307
+    ],
+    "foot_right": [
+      144,
+      307
+    ]
+  },
+  "measurement_note": "Visible silhouette manually marked on a 230x350 low-resolution 3/4 image; ±3px landmark uncertainty. Exclude hat/hair protrusions, bag and outfit accessories from anatomy measurements. Face height is the forehead/hairline-to-chin band, not the hat crown. Shoulder excludes the bent left forearm; torso excludes white sleeves.",
+  "targets": {
+    "face_width_over_face_height": {
+      "value": 1.5357,
+      "tolerance": 0.076785
+    },
+    "shoulder_span_over_face_width": {
+      "value": 0.5813953488372093,
+      "tolerance": 0.029069767441860468
+    },
+    "torso_width_over_face_width": {
+      "value": 0.4186046511627907,
+      "tolerance": 0.020930232558139538
+    },
+    "leg_length_over_face_height": {
+      "value": 0.9048,
+      "tolerance": 0.04524
+    },
+    "torso_length_over_face_height": {
+      "value": 0.8214,
+      "tolerance": 0.04107
+    },
+    "foot_span_over_face_width": {
+      "value": 0.3798,
+      "tolerance": 0.018990000000000003
+    }
+  }
+}

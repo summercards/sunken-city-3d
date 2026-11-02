@@ -1,0 +1,38 @@
+{
+  "key": "broken_window",
+  "asset_id": "SEA-SCENE-ORF-BROKEN-WINDOW",
+  "name": "破裂玻璃与木板封窗",
+  "category": "fixture",
+  "component_family": "facade_damage",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 60000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-BROKEN-WINDOW",
+  "root": "broken_window_组件根",
+  "bounds_size": [
+    2.1500000953674316,
+    0.36000001430511475,
+    1.7000000476837158
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/broken_window/broken_window.blend",
+  "geometry_fingerprint": "5b4dd1d823ce20d6e85bb9461582c3682bbfa40141c6c00cf260a710254a696d",
+  "instances": 4,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 76,
+  "source_sha256": "b0660f283959cfcc25765bb38fd7f6bd7903fb74b14ca52a2dfa319459adf3a6",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-BROKEN-WINDOW"
+}

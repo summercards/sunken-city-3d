@@ -266,7 +266,7 @@ func run() -> void:
 	else:
 		check(false,"free upper prop was expected to be reclaimable")
 	check(main.building.validate_snapshot(main.building.to_dict())=="","layout stays valid after reclaim")
-	check(not main.building.begin({"kind":"upper_floor","px":19+SHIFT.x,"pz":2+SHIFT.y,"py":2.8,
+	check(not main.building.begin({"kind":"upper_floor","px":400+SHIFT.x,"pz":400+SHIFT.y,"py":2.8,
 		"turn":0,"support":""}).ok,"an upper floor without bearings is refused")
 	check(not main.building.begin({"kind":"oil_lamp","px":19.6+SHIFT.x,"pz":-1+SHIFT.y,"py":2.8,
 		"turn":0,"support":""}).ok,"a second-floor prop without a floor is refused")

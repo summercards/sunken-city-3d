@@ -1,0 +1,11 @@
+[gd_scene format=3]
+[ext_resource type="PackedScene" path="res://assets/models/fishery/drying_rack/drying_rack.glb" id="visual"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+[node name="drying_rack" type="Node3D"]
+metadata/asset_id = "SEA-FISHERY-DRYING-RACK"
+metadata/asset_version = "v001"
+metadata/component_key = "drying_rack"
+[node name="Visual" parent="." instance=ExtResource("visual")]
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "none"

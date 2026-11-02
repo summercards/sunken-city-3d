@@ -18,12 +18,29 @@
 - 本页状态摘要由 `python3 scripts/check_feature_contracts.py --sync` 从功能账本更新；禁止在两处手工维护不同进度。
 - 第一版按完整行为闭环划分功能。例如种植含播种、浇水、生长、收获，各步骤有独立设计条款；后续若升级为独立功能，先在本页拆 FeatureID，再拆文件。
 - 目标设计与当前实现分别保留；已有代码不能自动取代用户目标，旧完成度百分比不代表当前状态。
+- 本次分类只管理海上主场景，独立海底／潜水场景另外处理。海上场景建筑职责只有水上功能建筑与水下观赏建筑两类；海下基座归水下，只负责观赏，不提供任何阻挡、活动区域或玩法功能。以[两类账本入口](assets/registry/BUILDING_CLASSES.md)及职责规范为准。
 
 [功能导航](#feature-control) · [模块接口与状态机](docs/architecture/module_contracts.md) · [场景组件分类](assets/registry/SCENE_COMPONENTS.md) · [工程约定](docs/standards/工程管理规范.md) · [本次拆分记录](docs/development/2026-10-23_feature_split.md) · [拆分前完整主文档](docs/archive/pre_split_20261023/GDD_V1.0.md)
 
 ---
 
 ## 当前可玩版本：太阳房最小生活循环（2026-10-27）
+
+2026-11-02连续四肢骨骼：按用户红框问题，把手臂/手和腿/脚分别做成连续闭合网格，肘膝去掉独立球关节与分段封口；原生21骨Skeleton3D/Skin渐变蒙皮弯曲，换装仍消费同一外观ID。原动作输出姿势、骨骼适配层唯一驱动变形，碰撞与经营保持；拓扑、权重、骨骼单独GPU变形、0–120°截面、六种动作及近景自行验收。归SEA-AVATAR-R14、SEA-MOVE-R17。[交付与证据](docs/development/2026-11-02_avatar_limb_skinning.md)。
+
+2026-11-02新旅程与角色定制：新档点击开始后，人物站在主泊位边，镜头拉近，依次取名、搭配外观和确认旅人证，成功保存后返回日常生活。独立SEA-AVATAR（角色档案/18槽位95选项/纯表现/DIY设计ID端口）与SEA-ONBOARDING（码头流程/镜头/输入生命周期）各有设计和账本；旧无档案存档兼容为已完成旅人，暂停菜单「我的模样」可随时修改并保存。角色按用户指定截图冻结六项比例并自行量测/目视验收，界面沿用奶油/青绿圆体视觉。未来绘图编辑与外部模型导入尚未制作；当前保存、冷启动、取消/重试和真实输入/三分辨率验证见[交付](docs/development/2026-11-02_avatar_and_arrival.md)。
+
+2026-11-02梯顶续建与锤子拆除：按用户最新要求，木板/浮台/旧二层板统一为带高度的平台，楼梯顶部可直接接板续建，上层可放墙、栏杆、种植区、家具及新楼梯；结构改0.1/0.01米自由摆位、G辅助吸附开关、U/H选层。右上独立锤子按钮进入拆除模式，悬停轮廓、是/否确认后才接近重验退款。修复前次审计6项缺陷，保留旧档坐标；任意层数/设备性能未作完整验收。归SEA-BUILDING-R27–R29及相关原条款。[本轮实现、实景与实测](docs/development/2026-11-02_building_surface_and_demolition.md)。
+
+2026-11-02建造深度审计：25配方及原正向样板具备，当前18项建造/生活集成与真实渲染回归通过，但新增组合探针确认6项缺陷：混合摆件搬移后不可保存、二层家具接缝断导航、拆二层桥切断返程、搬移缺目标虚影、培养土选二层实际建在一层、门洞管理点选误命中。SEA-BUILDING账本据此改为partial，未把正向绿项当作完整验收。二层墙/栏杆与桌面承载仍不在当前能力内。[逐条审计、体验与证据](docs/development/2026-11-02_building_deep_audit.md)。
+
+2026-11-02渔场入口再修订：收获鱼的3D图标/文字改为与原操作气泡同款的屏幕圆按钮（青绿底、奶油边、白色鱼剪影），避开海面切边；该处仅保留未建造时“建造渔场”和建成后“收获鱼类”，商店/仓库/出货箱从此地点移除。原建造成本、每4小时3鱼/上限24与存读规则保留。归SEA-AQUA-R04/R10/R11、SEA-UI-R48。[本轮交付](docs/development/2026-11-02_fishery_round_button.md)。
+
+2026-11-02渔场鱼群与产出修订：围网内改用现有彩色海面鱼群，两群各10条，独立于设施模型；升级后旧木牌隐藏，原处显示鱼图标与收获数量。每4游戏小时自动积累3条鱼，最多24条，点击收获进入背包；背包满保留储量，睡觉跨时结算，存读不重复发鱼。该地点菜单按上条最新要求只保留建造与收获。投苗/投喂和特殊养殖仍为规划。归SEA-AQUA-R07/R09/R10、SEA-ASSET-R39、SEA-SAVE-R16。[设计与实测](docs/development/2026-11-02_fishery_production.md)。
+
+2026-11-02野外渔场美术与通行：沿用家园补给站木牌的100木板+50鱼升级，将原木板实际占地改为圆角沙土岸坪，配置圆石、草苔、蒲草、晾鱼架、鱼篓和饵料台；电线杆、花束与原泊位保持。前侧红框水域布置水下菱形围网与双色圆浮漂（鱼群按上条最新修订独立复用）。12类Blender组件按公共色板/PaletteUV制作，经独立优化后逐件GLB和PackedScene导入。升级与读档同步切换模型、可行走岸坪及围网水域占用，围网水面不可走、船和随机资源避让；投苗、投喂仍属原规划；周期产鱼见上条。归SEA-AQUA-R05–R08 / SEA-ASSET-R38 / SEA-WORLD-R15 / SEA-SAVE-R15。[设计、模型与实测](docs/development/2026-11-02_wild_fishery.md)。
+
+2026-11-02 重置存档：暂停菜单新增「重新开始（重置存档）」，独立确认页默认焦点在「再想一想」。重置不删文件 —— 主档与 `.bak` 一起改名归档成 `<槽位名>_pre_reset-<时间戳>.json`，旧进度仍能用同一个 `SaveGame.read()` 打开；随后用注册表 `defaults()` 走同一条 restore 回开局，并立刻写一份新档（否则重置完退出又会读回旧进度）。存档格式、版本号与迁移链未改。归 SEA-SAVE-R14。[交付与实测](docs/development/2026-11-02_save_reset.md)。
 
 2026-11-02 建造旧档兼容与拆回反馈：旧木板网格和自由浮台坐标保留；新木板在网格无法贴边时按实际平台边缘拼接，显式坐标随原v4存档恢复。搬移/拆回增加常驻操作指引、三维目标轮廓和返回手册按钮；人在阳光房时明确提示前往自建平台或乘船靠近。归SEA-BUILDING-R22/R26、SEA-SAVE-R13。[修复与实测](docs/development/2026-11-02_building_save_compatibility.md)。
 
@@ -142,6 +159,8 @@
 2026-10-29拾取流程与进度：海上拾取改为三阶段状态机 **IDLE → SAILING → GATHERING** —— 点击浮木/鱼群后船划过去，**航行段没有任何进度**（赶路不是打捞）；**船停稳且目标在范围内（浮木 2.2 米 / 鱼群 3.2 米）才开始打捞**，打捞计时（浮木 1.2 秒 / 鱼群 1.6 秒）其间**角色头顶**出现 76×6 px 细进度条、按时间从 0 走到 1，**走满那一刻才结算**（原先到站瞬收）。停稳但够不着（如半路被岸线挡住）直接作废，不对空气打捞；自己划到浮木旁同样要捞 1.2 秒，`try_pickup` 瞬收路径已删除。条**必须挂角色、不挂目标**：镜头跟着角色走，目标容易偏出取景框，挂目标的条会随之一整条消失。取消、改道、靠岸、读档、入睡立即清阶段收条；背包满等失败立即收条不闪假满格。同轮把建造施工条从 `ProgressBar`（实际渲染约 20 px，由 `cozy_ui.surface()` 的 content margin 撑高，改 `size` 无效）换成同一份自绘细条 92×8 px，拾取与建造共用 `godot/src/ui/thin_progress_bar.gd`。航速、奖励、掉率与存档结构未改动。关联SEA-PICKUP-R09/R10 / SEA-BUILDING-R09 / SEA-UI-R42；[交付与实测](docs/development/2026-10-29_pickup_progress_bar.md)。
 
 2026-10-28水下光纹最新修订：建筑上的大块斑驳改为稀疏、淡的卡通十字波纹贴图；屋顶/立面独立投射，共用两套水面及昼夜权重。关联SEA-OCEAN-R21；[贴图与实景验证](docs/development/2026-10-28_cartoon_cross_ripple.md)。
+
+2026-11-02建筑分类整理（最新口径）：仅海上主场景建筑按职责分“水上功能建筑”与“水下观赏建筑（含海下基座）”，独立海底／潜水场景不包含在内，正式字段为building_class。水上设施拥有行走、泊位、阻挡及已定义功能；水下建筑／基座只观赏，不得有碰撞、角色／船只阻挡、导航、可走面、交互、产出、玩法状态或岸线来源。跨水线与远景只保留为装配／显示信息，不是额外建筑类别；复合设施必须排除水下子树派生空间。场景主账本567行已分类为水上322、水下129、非建筑／范围外116，两类只读视图由同一主记录生成；登记不代表模型分段或运行完整验收完成，浮店等既有故障仍pending。归SEA-ASSET-R40／SEA-WORLD-R16。[两类账本入口](assets/registry/BUILDING_CLASSES.md) · [职责规范](docs/standards/水层分类与空间职责.md) · [本轮整理](docs/development/2026-11-02_building_two_class_contract.md)。
 
 2026-10-28：按水下参考图新增阳光房周围六栋独立纯景观建筑，每栋实际导出三角面不超过1000，归入装饰/水下建筑。布局按左侧弧楼、退后的高楼与窄楼、前方不同距离的低屋顶形成疏密和斜向水道；正式TSCN持有摆放。水下光斑改为柔和浅色聚光，双水面8时段实测，消除压黑屋顶的人工斑块。原阳光房海下基座独立维护，水下景观无互动、资源产出、碰撞或船只阻挡。关联SEA-ASSET-R29/SEA-WORLD-R10/SEA-OCEAN-R21；[制作与验证](docs/development/2026-10-28_submerged_neighborhood.md)。
 
@@ -373,6 +392,8 @@
 | FeatureID | 功能 | 所属系统 | 前置功能 | 独立文档 | 独立账本 | 状态摘要 |
 |---|---|---|---|---|---|---|
 | <a id="sea-boot"></a>SEA-BOOT | 启动与会话装配 | 基础 | — | [文档](docs/features/boot/spec.md) | [账本](docs/features/boot/ledger.md) | 部分实现 |
+| <a id="sea-avatar"></a>SEA-AVATAR | 角色档案与外观定制 | 角色 | SEA-MOVE, SEA-SAVE, SEA-UI | [文档](docs/features/avatar/spec.md) | [账本](docs/features/avatar/ledger.md) | 已实现待完整验收 |
+| <a id="sea-onboarding"></a>SEA-ONBOARDING | 新旅程码头开场 | 生活 | SEA-AVATAR, SEA-CAMERA | [文档](docs/features/onboarding/spec.md) | [账本](docs/features/onboarding/ledger.md) | 已实现待完整验收 |
 | <a id="sea-world"></a>SEA-WORLD | 区块与世界装配 | 世界 | SEA-BOOT | [文档](docs/features/world/spec.md) | [账本](docs/features/world/ledger.md) | 部分实现 |
 | <a id="sea-move"></a>SEA-MOVE | 角色移动与上下船 | 3C | SEA-WORLD | [文档](docs/features/move/spec.md) | [账本](docs/features/move/ledger.md) | 部分实现 |
 | <a id="sea-nav"></a>SEA-NAV | 航行与靠泊 | 3C | SEA-WORLD, SEA-MOVE | [文档](docs/features/nav/spec.md) | [账本](docs/features/nav/ledger.md) | 部分实现 |

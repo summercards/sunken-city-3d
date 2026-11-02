@@ -11,6 +11,8 @@ instance_id = "facility/solar_cabin"
 facility_id = "solar_cabin"
 asset_id = "SEA-REF-FACILITY-SOLAR-CABIN"
 metadata/asset_id = "SEA-REF-FACILITY-SOLAR-CABIN"
+water_layer = "amphibious"
+water_layer_role = "entity"
 
 [node name="太阳能木屋-海上区域" parent="." unique_id=1369370690 instance=ExtResource("surface")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.77, 0)

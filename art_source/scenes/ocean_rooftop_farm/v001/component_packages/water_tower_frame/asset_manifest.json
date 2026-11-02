@@ -1,0 +1,38 @@
+{
+  "key": "water_tower_frame",
+  "asset_id": "SEA-SCENE-ORF-WATER-TOWER-FRAME",
+  "name": "水塔立柱与斜撑",
+  "category": "structure",
+  "component_family": "water",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-WATER-TOWER-FRAME",
+  "root": "water_tower_frame_组件根",
+  "bounds_size": [
+    3.450000047683716,
+    3.450000047683716,
+    4.514311790466309
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/water_tower_frame/water_tower_frame.blend",
+  "geometry_fingerprint": "41291b37350e5ec7e4b579d6a44c662832ab8d1cffc22eb954c37fbceb34b542",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 364,
+  "source_sha256": "44ca89cf0524d2d07fc3bf786064280eaaabb5f68dace417e53225c225c92758",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-WATER-TOWER-FRAME"
+}

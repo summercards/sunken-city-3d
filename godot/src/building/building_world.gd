@@ -80,7 +80,7 @@ func sync() -> void:
 		else:
 			node=ghost_planter(str(item.kind))
 			node.rotation.y=int(item.turn)*PI/2
-		node.name=item.id;node.position=position_for(item)
+		node.name=item.id;node.position=position_for(item);node.rotation.y=int(item.turn)*PI/2
 		add_child(node);_nodes[item.id]=node;_completed[item.id]=done
 		node.set_meta("building_instance_id",str(item.id))
 		if Catalog.role(str(item.kind))=="planter" and done:
@@ -108,6 +108,7 @@ func _sync_assembly(rows: Array) -> void:
 		zone.walk_areas.append(_assembly_walk)
 		zone.ground_space.configure(zone.walk_areas)
 	_assembly_walk.surface_triangles=preload("res://src/building/assembly_surfaces.gd").faces(rows)
+	_assembly_walk.physical_surface_triangles=preload("res://src/building/assembly_surfaces.gd").faces(rows,0.0)
 	area.open_surface_junctions.clear()
 	for row in rows:
 		if row.left<=0 and Catalog.RECIPES[row.kind].get("profile","")=="stairs":
@@ -129,7 +130,7 @@ func approach_points(item: Dictionary) -> Array[Vector3]:
 	if Catalog.elevation(item)>.5 and _assembly_walk!=null:
 		var result: Array[Vector3]=[]
 		var at:=position_for(item)
-		for offset: Vector3 in [Vector3(0,0,.7),Vector3(0,0,-.7),Vector3(.7,0,0),Vector3(-.7,0,0)]:
+		for offset: Vector3 in [Vector3.ZERO,Vector3(0,0,.7),Vector3(0,0,-.7),Vector3(.7,0,0),Vector3(-.7,0,0)]:
 			var point: Vector3=_assembly_walk.surface_point(at+offset)
 			if point.is_finite() and absf(point.y-at.y)<.3: result.append(point)
 		return result
@@ -151,6 +152,29 @@ func closest_walk_point(point: Vector3, max_distance: float=INF) -> Vector3:
 	return Vector3.INF if nearest==Vector2.INF else Catalog.ORIGIN+Vector3(nearest.x,0,nearest.y)
 
 func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, request: Dictionary={}) -> Vector3:
+	# Construction is height-aware. Search the live 3D surface near the target,
+	# including the stair top before the first upper board has been built.
+	if center.y>Catalog.ORIGIN.y+.5 and _assembly_walk!=null:
+		var zone: Node3D=area.get_parent().get_parent()
+		var best_3d:=Vector3.INF;var best_score:=INF
+		var probes_3d: Array[Vector3]=[]
+		for dx in [-2.0,-1.0,0.0,1.0,2.0]:
+			for dz in [-2.0,-1.0,0.0,1.0,2.0]:
+				probes_3d.append(center+Vector3(dx,0,dz))
+		for row in service.query():
+			if row.left>0 or Catalog.RECIPES[row.kind].get("profile","")!="stairs": continue
+			var edge:=Catalog.stairs_top_edge(row)
+			var middle: Vector2=(edge[0]+edge[1])/2
+			var inward:=Vector2(0,.035).rotated(-float(row.turn)*PI/2)
+			probes_3d.append(Catalog.ORIGIN+Vector3(middle.x+inward.x,Catalog.elevation(row)+Catalog.LAYER_HEIGHT,middle.y+inward.y))
+		for probe: Vector3 in probes_3d:
+			var point: Vector3=_assembly_walk.surface_point(probe)
+			if not point.is_finite() or absf(point.y-center.y)>.4 or point.distance_to(center)>max_distance: continue
+			if not request.is_empty() and Catalog.is_furnishing(str(request.get("kind",""))) and Catalog.blocks_actor(str(request.get("kind",""))) and Catalog.footprint_rect(request).grow(.22).has_point(Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)): continue
+			if zone.ground_space.route(actor,point).is_empty(): continue
+			var rank:=actor.distance_to(point)+point.distance_to(center)*.2
+			if rank<best_score: best_score=rank;best_3d=point
+		if best_3d.is_finite(): return best_3d
 	if actor.y>Catalog.ORIGIN.y+0.5 and _assembly_walk!=null:
 		for offset: Vector3 in [Vector3(1,0,0),Vector3(-1,0,0),Vector3(0,0,1),Vector3(0,0,-1)]:
 			var candidate: Vector3=_assembly_walk.surface_point(center+offset)
@@ -188,7 +212,7 @@ func water_shapes(saved: Variant = null) -> Array:
 	var rows: Array=service.query() if saved==null else saved
 	var result: Array=[]
 	for item in rows:
-		if not Catalog.is_deck(str(item.kind)): continue
+		if not Catalog.is_deck(str(item.kind)) or not Catalog.same_level(Catalog.elevation(item),0.0): continue
 		# Reserve water as soon as work starts, so a boat cannot enter during construction.
 		var rect:=Catalog.footprint_rect(item)
 		var p:=rect.get_center()+Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
@@ -197,7 +221,7 @@ func water_shapes(saved: Variant = null) -> Array:
 func contact_rects() -> Array:
 	var result: Array=[]
 	for item in service.query():
-		if not Catalog.is_deck(str(item.kind)) or item.left>0: continue
+		if not Catalog.is_deck(str(item.kind)) or item.left>0 or not Catalog.same_level(Catalog.elevation(item),0.0): continue
 		var rect:=Catalog.footprint_rect(item)
 		var center:=rect.get_center()+Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
 		result.append(Vector4(center.x,center.y,rect.size.x/2,rect.size.y/2))

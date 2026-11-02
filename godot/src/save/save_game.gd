@@ -103,14 +103,53 @@ static func decode(text: String) -> Dictionary:
 		doc.economy.daily_loop = {"version":1,"cargo":{"capacity":48,"counts":{}},"last_morning":-1,"receipt":{}}
 	if version<4: doc.building=preload("res://src/building/building_service.gd").empty_snapshot()
 	doc.version=VERSION
+	if not doc.has("profile"): doc.profile=preload("res://src/avatar/avatar_profile.gd").fresh(true)
 	var error := Schema.validate(doc)
 	if error!="": return {"ok":false,"reason":error}
 	return {"ok":true,"reason":"","snapshot":doc,"version":VERSION,"migrated":version<VERSION}
 
 static func restore(host: Node, snapshot: Dictionary) -> Dictionary:
+	snapshot=snapshot.duplicate(true)
+	if not snapshot.has("profile"): snapshot.profile=preload("res://src/avatar/avatar_profile.gd").fresh(true)
 	var error := Schema.validate(snapshot)
 	if error!="": return {"ok":false,"reason":error}
 	return host.save_registry.restore(snapshot)
+
+
+## 把某个槽位的主档与备份**改名归档**，不是删除。
+##
+## 重置存档是玩家亲手执行的破坏性动作，但「亲手执行」不等于「愿意永久丢掉」。
+## 改名之后：`read()` 按原槽位路径找不到任何东西（等于全新开局），而旧进度仍
+## 留在磁盘上、还能用同一个 `read()` 打开 —— 想找回只改文件名就行。
+##
+## 归档名用 `_pre_reset-<时间戳>` 而不是盖掉 `.bak`：`.bak` 是「上一次写盘」的
+## 单份回滚点，会被下一次写盘顶掉；归档必须留在写盘循环之外，否则重置完再存
+## 一次档，旧进度就真没了。
+##
+## 返回 `files` 是已经归档出去的实际路径，调用方据此告诉玩家备份在哪。
+static func archive(path: String, stamp := "") -> Dictionary:
+	var base := path.get_basename()
+	var ext := path.get_extension()
+	var tail := "." + ext if ext != "" else ""
+	var mark := stamp if stamp != "" else Time.get_datetime_string_from_system().replace(":", "").replace("T", "-")
+	var moved: Array[String] = []
+	# 主档与备份都归档；`.tmp` 不碰 —— 那是没写完的中间产物，没有保留价值，
+	# 下一次 write 会直接截断它。
+	for suffix in ["", ".bak"]:
+		var from: String = path + String(suffix)
+		if not FileAccess.file_exists(from):
+			continue
+		var to := "%s_pre_reset-%s%s%s" % [base, mark, tail, suffix]
+		if DirAccess.rename_absolute(ProjectSettings.globalize_path(from), ProjectSettings.globalize_path(to)) != OK:
+			# 中途失败要如实报错，并把已经挪走的那份放回去 —— 只归档一半的槽位
+			# 比不归档更糟：主档没了、备份还在，下次启动会「莫名回退」。
+			for done in moved:
+				var undo := String(done).replace("_pre_reset-" + mark, "")
+				DirAccess.rename_absolute(ProjectSettings.globalize_path(done), ProjectSettings.globalize_path(undo))
+			return {"ok":false,"reason":"旧存档无法归档，重置已取消","files":[]}
+		moved.append(to)
+	return {"ok":true,"reason":"","files":moved,"mark":mark}
+
 
 static func _write_text(path: String, text: String) -> bool:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))

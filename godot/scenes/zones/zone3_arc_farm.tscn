@@ -21,6 +21,8 @@ script = ExtResource("1_zone")
 zone_id = "zone3"
 zone_label = "圆弧农场"
 geometry_source = "scene"
+water_layer = "amphibious"
+water_layer_role = "entity"
 
 [node name="StaticBatch" type="Node3D" parent="."]
 script = ExtResource("2_batch")

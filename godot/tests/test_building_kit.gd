@@ -53,7 +53,7 @@ func run() -> void:
 		main.building_controller.recipe="wall"
 		main.building_controller._rows_cache=main.building.query()
 		var old_wall: Dictionary=main.building_controller._furnishing_request(Vector2(4.3,-1.2875))
-		check(is_equal_approx(old_wall.pz,-1.2875) and old_wall.support==old_result.id and main.building.geometry_reason(old_wall)=="","structure preview uses legacy board module origin")
+		check(is_equal_approx(old_wall.pz,-1.3) and old_wall.support==old_result.id and main.building.geometry_reason(old_wall)=="","structure preview freely snaps by 0.1m on a legacy board")
 		main.building_controller.recipe=""
 		var on_old: Dictionary=main.building.begin({"kind":"oil_lamp","px":4.3,"pz":-1.28,"py":0,"support":old_result.id,"turn":0})
 		check(on_old.get("ok",false),"old constructed board really accepts a new lamp")

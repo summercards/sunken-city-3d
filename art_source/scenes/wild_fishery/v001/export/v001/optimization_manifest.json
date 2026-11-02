@@ -1,0 +1,411 @@
+{
+  "schema": "sea.scene.optimization",
+  "role": "optimized",
+  "source": "art_source/scenes/wild_fishery/v001/wild_fishery.blend",
+  "optimized": "art_source/scenes/wild_fishery/v001/export/v001/wild_fishery_optimized_v001.blend",
+  "source_sha256_before": "d0832e700e1d179b7cc8725cb2899047b2dd9787669ebbaaafbb1d9b1dacc3db",
+  "source_sha256_after": "d0832e700e1d179b7cc8725cb2899047b2dd9787669ebbaaafbb1d9b1dacc3db",
+  "optimized_sha256": "30280f20f90e6c969caba4729fd3d982447cfac9f7fede44f8688af970e95175",
+  "palette_sha256_before": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "palette_sha256_after": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "components": [
+    {
+      "asset_id": "SEA-FISHERY-SHORE",
+      "key": "shore",
+      "triangles_before": 888,
+      "triangles_after": 832,
+      "reduction_ratio": 0.06306306306306306,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 56,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 2,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -3.1700496673583984,
+          -2.6500000953674316,
+          0.0
+        ],
+        "max": [
+          3.1700496673583984,
+          2.6500000953674316,
+          0.36000001430511475
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": null
+    },
+    {
+      "asset_id": "SEA-FISHERY-TURF",
+      "key": "turf",
+      "triangles_before": 824,
+      "triangles_after": 824,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 0,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 6,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.4599999785423279,
+          -0.3199999928474426,
+          0.0
+        ],
+        "max": [
+          0.4599999785423279,
+          0.3199999928474426,
+          0.16499999165534973
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    },
+    {
+      "asset_id": "SEA-FISHERY-PEBBLES",
+      "key": "pebbles",
+      "triangles_before": 672,
+      "triangles_after": 672,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 0,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 3,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.4099999964237213,
+          -0.24870000779628754,
+          0.0
+        ],
+        "max": [
+          0.4099999964237213,
+          0.24870000779628754,
+          0.2667999863624573
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    },
+    {
+      "asset_id": "SEA-FISHERY-REEDS",
+      "key": "reeds",
+      "triangles_before": 852,
+      "triangles_after": 852,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 156,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 12,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.4319864511489868,
+          -0.18454143404960632,
+          0.0
+        ],
+        "max": [
+          0.4319864511489868,
+          0.18454143404960632,
+          1.0509992837905884
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    },
+    {
+      "asset_id": "SEA-FISHERY-DRYING-RACK",
+      "key": "drying_rack",
+      "triangles_before": 2248,
+      "triangles_after": 2248,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 0,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 14,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.8499999642372131,
+          -0.20999999344348907,
+          0.0
+        ],
+        "max": [
+          0.8499999642372131,
+          0.20999999344348907,
+          1.6299999952316284
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    },
+    {
+      "asset_id": "SEA-FISHERY-CREEL",
+      "key": "creel",
+      "triangles_before": 2116,
+      "triangles_after": 2116,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 26,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 6,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.36500000953674316,
+          -0.36500000953674316,
+          0.0
+        ],
+        "max": [
+          0.36500000953674316,
+          0.36500000953674316,
+          0.925000011920929
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    },
+    {
+      "asset_id": "SEA-FISHERY-BAIT-TABLE",
+      "key": "bait_table",
+      "triangles_before": 1632,
+      "triangles_after": 1632,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 0,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 8,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.5400000214576721,
+          -0.36000001430511475,
+          0.0
+        ],
+        "max": [
+          0.5400000214576721,
+          0.36000001430511475,
+          1.1349999904632568
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    },
+    {
+      "asset_id": "SEA-FISHERY-BUOY",
+      "key": "buoy",
+      "triangles_before": 1008,
+      "triangles_after": 1008,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 0,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 3,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.3149999976158142,
+          -0.3149999976158142,
+          0.0
+        ],
+        "max": [
+          0.3149999976158142,
+          0.3149999976158142,
+          0.7249999642372131
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    },
+    {
+      "asset_id": "SEA-FISHERY-MARKER-BUOY",
+      "key": "marker_buoy",
+      "triangles_before": 1384,
+      "triangles_after": 1352,
+      "reduction_ratio": 0.023121387283236993,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 32,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 5,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.3725000023841858,
+          -0.3149999976158142,
+          0.0
+        ],
+        "max": [
+          0.3725000023841858,
+          0.3149999976158142,
+          1.3249999284744263
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": null
+    },
+    {
+      "asset_id": "SEA-FISHERY-NET-PANEL",
+      "key": "net_panel",
+      "triangles_before": 648,
+      "triangles_after": 648,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 18,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 17,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -1.0183849334716797,
+          -0.07000000029802322,
+          0.0
+        ],
+        "max": [
+          1.0183849334716797,
+          0.07000000029802322,
+          2.193148612976074
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    },
+    {
+      "asset_id": "SEA-FISHERY-NET-CORNER",
+      "key": "net_corner",
+      "triangles_before": 628,
+      "triangles_after": 628,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 18,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 16,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.7254915833473206,
+          -0.07000000029802322,
+          0.0
+        ],
+        "max": [
+          0.7254915833473206,
+          0.07000000029802322,
+          2.192997694015503
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    },
+    {
+      "asset_id": "SEA-FISHERY-FISH",
+      "key": "fish",
+      "triangles_before": 1520,
+      "triangles_after": 1520,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "merge_distance_m": 1e-06,
+        "degenerate_distance_m": 1e-07,
+        "planar_dissolve_angle_rad": 0.002,
+        "cleanup_elements_removed": 0,
+        "uv_reprojected_to_original_cell": true,
+        "source_mesh_count": 11,
+        "runtime_mesh_count": 1,
+        "merged_within_single_component_only": true
+      },
+      "bounds": {
+        "min": [
+          -0.25,
+          -0.4000000059604645,
+          0.0
+        ],
+        "max": [
+          0.25,
+          0.4000000059604645,
+          0.38999998569488525
+        ]
+      },
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+      "zero_reduction_reason": "no safely redundant geometry after cleanup"
+    }
+  ],
+  "fidelity_status": "passed_same_camera_source_optimized_front_back_side_top_shore",
+  "fidelity_evidence": "D:\\projects\\sea-work\\wild_fishery\\v001\\optimization_fidelity.json"
+}

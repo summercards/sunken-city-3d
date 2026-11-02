@@ -1,8 +1,17 @@
 # 角色表现契约
 
-## 当前正式Godot角色（2026-10-30）
+## 当前正式Godot角色（2026-11-02）
 
-运行消费者为`godot/src/player/character.gd`，继承CharacterMotor；`scenes/main.tscn`启动后由Main/ActorController接线。碰撞及人物根移动由CharacterMotor/ActorController拥有，表现使用BodyPivot、HeadLook、双肩→双肘、双髋→双膝的现有程序节点，不是Blender骨骼角色。
+**最新四肢契约：** 身体/头部仍使用既有表现容器，四肢已改原生Skeleton3D+Skin。BodyPivot下LimbSkeleton拥有21骨和4张连续闭合ArrayMesh；肩肘/髋膝节点只提供不可见姿势输入，旧分段胶囊、关节球、独立手脚实体已移除。每条手臂含手、每条腿含脚在同一连通网格内；袖口/裤脚/鞋底仅为同网格的着色分区。实际资产SEA-CHAR-RIG-001，节点、骨名和绑定见art_source/characters/avatar/v002/rig_contract.json。参见[本次骨骼交付](development/2026-11-02_avatar_limb_skinning.md)。
+
+
+新增独立SEA-AVATAR：程序模型由`godot/src/avatar/avatar_visual.gd`与`avatar_catalog.json`制作，按用户指定图冻结宽头脸/窄肩腰/腿脚比例；18槽位/95选项，颜色和几何分开，服装条纹通过贴身材质生成。帽子遮盖高发髻，不删除所选发型ID；脱帽恢复。面部/服装/配饰均为原创程序几何，无动物之森现成资产。旧单一橙色角色外观已替换，原节点动作、工具、挎包和潜水装备仍由既有消费者拥有。
+
+米制、根缩放1、+Y上/+Z前；胶囊0.22米/1.30米不变。头部中心1.015米，基础脸部含耳宽约0.73米、头脸高0.44米；无帽发顶约1.26米，礼帽顶约1.39米。肩半宽0.162米、髋高0.42米；静止尺寸表同时供腕部求解使用。制作源直接在Godot，可维护Blender母版不适用于本次程序角色；没有声称制作或审计Blend/GLB。新生产ID `SEA-CHAR-AVATAR-001`，旧动作`SEA-CHAR-RECEIVE-001`原样复用。功能根与碰撞资源前后相同，动作回归见[本轮交付](development/2026-11-02_avatar_and_arrival.md)。
+
+以下保留2026-10-30动作基线，旧帽顶/整体登记pending描述仅针对当时单一外观；现时外观以本节和SEA-AVATAR文档为准。
+
+运行消费者为`godot/src/player/character.gd`，继承CharacterMotor；`scenes/main.tscn`启动后由Main/ActorController接线。碰撞及人物根移动由CharacterMotor/ActorController拥有，动作保留BodyPivot、HeadLook、双肩→双肘、双髋→双膝作为姿势控制，四肢由新Skeleton3D/Skin真实蒙皮；本次为Godot程序骨骼，不是Blender导出骨架。
 
 创作/运行尺寸沿用现有米制、根缩放1、+Y上/+Z前，胶囊半径0.22m/高1.30m；帽顶约1.35m。没有本次角色Blend/GLB或骨架ID，原角色整体生产登记仍pending，不套用ShellStorm2双母版或1.5m契约。
 
@@ -26,3 +35,5 @@
 - 保持现有海面走路、划船、工具动作的肩髋控制。高细分仅限主角，场景模型不变。
 
 验证：tests/character-animation.cjs 检查速度倾角、左右膝相位差、出水关节和装备恢复，并输出前游、悬停、下潜、上浮近景。tests/diving-regression.cjs 验证完整潜水玩法和岸边/船上恢复。
+
+2026-11-02用户指定图修订：原图和人工标点位于art_source/characters/avatar/v001；六项实际网格投影与等高对照、正面、侧面自验由avatar-proportions/visual-avatar-proportions提供。以本次比例追加验收替代此前通用头身估计，详见SEA-AVATAR-R13和本轮交付。

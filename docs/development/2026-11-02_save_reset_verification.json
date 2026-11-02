@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-02",
+  "features": [
+    "SEA-SAVE"
+  ],
+  "command": "python3 scripts/run_verification.py save-reset visual-save-reset save-protection",
+  "note": "隔离用户目录运行，不触及玩家槽位。渲染证据见 assets/2026-11-02_save_reset_*.png。save-protection 在本轮一并 PASS（另一份 run 20261102-140504）。",
+  "results": {
+    "save-reset": {
+      "exit_code": 0,
+      "passed": true,
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-140625-verification-f175b3\\save-reset.log",
+      "renderer": "headless"
+    },
+    "visual-save-reset": {
+      "exit_code": 0,
+      "passed": true,
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-140625-verification-f175b3\\visual-save-reset.log",
+      "renderer": "real"
+    }
+  }
+}

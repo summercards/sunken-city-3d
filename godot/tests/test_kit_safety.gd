@@ -61,7 +61,7 @@ func run() -> void:
 	check(Assembly.reason(row("upper_floor",7,100,100,"built_2",2.8),floor_fixture)!="","duplicate upper floor denied")
 	check(Assembly.reason(row("oil_lamp",7,100,100,"built_6",2.8),floor_fixture)=="","upper floor supports a real furnishing")
 	var incomplete: Array=floor_fixture.duplicate(true);incomplete.remove_at(4);incomplete.remove_at(incomplete.size()-1)
-	check(Assembly.reason(floor_row,incomplete)!="","three columns cannot support four floor corners")
+	check(Assembly.reason(floor_row,incomplete)=="","surface rule no longer requires four corner columns")
 	var rotated_beam_fixture:=supports([Vector2(100,99),Vector2(100,101)])
 	check(Assembly.reason(row("beam",4,100,100,"built_2",2.6,1),rotated_beam_fixture)=="","rotated beam uses rotated end sockets")
 	check(Assembly.reason(row("beam",4,100,100,"built_2",0,1),rotated_beam_fixture)!="","beam cannot float at ground socket height")

@@ -1,0 +1,38 @@
+{
+  "key": "damaged_column",
+  "asset_id": "SEA-SCENE-ORF-DAMAGED-COLUMN",
+  "name": "剥落露筋混凝土结构柱",
+  "category": "structure",
+  "component_family": "building_damage",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 60000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-DAMAGED-COLUMN",
+  "root": "damaged_column_组件根",
+  "bounds_size": [
+    1.7999999523162842,
+    1.0087765455245972,
+    25.3799991607666
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/damaged_column/damaged_column.blend",
+  "geometry_fingerprint": "28cd9ddf5e07bc805d62d9966f52f0b09148d2c29183c8d7a5e0d075e543a44a",
+  "instances": 2,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 642,
+  "source_sha256": "017587d83380b67a6cfa5ce2b8837ec070516a1bbc41dda1500e149ea7b5ca95",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-DAMAGED-COLUMN"
+}

@@ -1,0 +1,28 @@
+{
+  "asset_id": "SEA-UI-AVATAR-001",
+  "asset_ledger": "assets/registry/ledgers/ui.json#SEA-UI-AVATAR-001",
+  "source": "godot/src/avatar/avatar_editor.gd",
+  "runtime_path": "godot/src/avatar/avatar_editor.gd",
+  "version": "v001",
+  "source_type": "original procedural Godot source; no Blender/GLB",
+  "authored_files": [
+    {
+      "path": "godot/src/avatar/avatar_editor.gd",
+      "sha256": "9854bf84a09d041c75df9bbd93131c8c3f2ed9f51b786a553790d92c29bf3688"
+    },
+    {
+      "path": "godot/src/avatar/avatar_session.gd",
+      "sha256": "0442fbe0a39ff539680dbe0047ccf501ea267452ed980c057d8ad6e9ed14550b"
+    },
+    {
+      "path": "godot/src/onboarding/arrival_camera.gd",
+      "sha256": "de0c3532c4b220ac9fe5ad411d6aea910d350aa4f1690bbfe5cb0537655c4296"
+    }
+  ],
+  "units": "1600x1000 responsive logical canvas",
+  "consumer": "Character + AvatarSession",
+  "verification": "docs/development/2026-11-02_avatar_and_arrival.md",
+  "user_art_acceptance": "self_verified_per_user_instruction_2026-11-02",
+  "self_verification": "six projected anatomy ratios within 5%; original reference, three-quarter/front/side and gameplay/editor renders inspected",
+  "external_game_assets_used": false
+}

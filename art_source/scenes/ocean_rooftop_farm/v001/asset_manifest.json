@@ -1,0 +1,68 @@
+{
+  "schema": "sea.scene.assembly_manifest",
+  "asset_id": "SEA-SCENE-ORF-ASSEMBLY",
+  "name": "八层海上屋顶农场",
+  "source": "art_source/scenes/ocean_rooftop_farm/v001/ocean_rooftop_farm.blend",
+  "source_sha256": "060a3c4d6b4fe7027c88a64f9fe3b83fd39350b795a1005db6f88c2f3152e7be",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-ASSEMBLY",
+  "version": "v001",
+  "category": "scene_assembly",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review",
+  "component_catalog": "component_catalog.json",
+  "component_instances": "component_instances.json",
+  "reference": "reference.jpg",
+  "reference_sha256": "fa3bac9a21373741c51fcb55364fef96ea138f9f5fca5c8f1dbc6e6f3cfe38b3",
+  "component_count": 44,
+  "instance_count": 302,
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_asset_id": "SEA-PALETTE-CABIN-TIMBER-64",
+  "metrics": {
+    "components": 44,
+    "instances": 302,
+    "floors": 8,
+    "uv_faces_checked": 6130,
+    "expanded_polygons": 115208,
+    "expanded_triangles": 233672
+  },
+  "excluded": [
+    "crops",
+    "solar panels",
+    "people",
+    "animals",
+    "ocean/background"
+  ],
+  "visual_review": {
+    "status": "source_views_reviewed_user_art_acceptance_pending",
+    "views": [
+      {
+        "name": "beauty",
+        "path": "D:\\projects\\sea-work\\ocean_rooftop_farm\\v001\\beauty.png"
+      },
+      {
+        "name": "roof_detail",
+        "path": "D:\\projects\\sea-work\\ocean_rooftop_farm\\v001\\roof_detail.png"
+      },
+      {
+        "name": "top",
+        "path": "D:\\projects\\sea-work\\ocean_rooftop_farm\\v001\\top.png"
+      },
+      {
+        "name": "facade_detail",
+        "path": "D:\\projects\\sea-work\\ocean_rooftop_farm\\v001\\facade_detail.png"
+      },
+      {
+        "name": "building_only",
+        "path": "D:\\projects\\sea-work\\ocean_rooftop_farm\\v001\\building_only.png"
+      }
+    ],
+    "refinements_compared": [
+      "八层连续立面与屋顶标高",
+      "三米大块旧地砖与裂缝/缺角/磨损",
+      "墙皮剥落/露筋/破窗/封窗木板/外露管线",
+      "空田垄、无作物、无太阳能板"
+    ]
+  }
+}

@@ -129,7 +129,9 @@ func run() -> void:
 		await physics_frame; await physics_frame
 		var empty: Dictionary = main.building.row(empty_result.id)
 		var refund_wood: int = econ.count("wood"); var refund_soil: int = econ.count("soil")
-		await click(main.cam.unproject_position(main.building_world.position_for(empty))); await wait_action()
+		await click(main.cam.unproject_position(main.building_world.position_for(empty)))
+		check(controller.demolition.confirmation_open() and not main.building.row(empty_result.id).is_empty(),"mouse selection waits for explicit demolition confirmation")
+		await button(controller.demolition.yes_button);await wait_action()
 		check(main.building.row(empty_result.id).is_empty(),"mouse removes empty furnishing")
 		check(econ.count("wood") == refund_wood+2 and econ.count("soil") == refund_soil+1,"remove refunds full recipe atomically")
 	controller.select_recipe("deck")

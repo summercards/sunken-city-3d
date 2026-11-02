@@ -153,3 +153,15 @@ SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-MOVE-R15 | 已实现；实际胶囊走楼梯到2.8米二层、根快照恢复仍在二层、角色所在楼梯/楼板拆除保护通过；GroundSpace及character-space-save回归通过，真实画面同向 | [本轮记录](../../development/2026-10-30_modular_building_kit.md)及[机器证据](../../development/2026-10-30_modular_building_verification.json) |
+
+## 2026-11-02 新旅程与角色档案
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-MOVE-R16 | 已接入，专项与回归以本轮记录为准 | `avatar / character-motor / actor-presentation / harvest-receive`；[交付](../../development/2026-11-02_avatar_and_arrival.md) |
+
+## 2026-11-02 连续四肢骨骼适配
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-MOVE-R17 | 已接真实骨骼及连续蒙皮；步行/划船/播种/浇水/获物/游泳与取消/恢复当前专项分别验收 | [本轮交付与实测](../../development/2026-11-02_avatar_limb_skinning.md) |

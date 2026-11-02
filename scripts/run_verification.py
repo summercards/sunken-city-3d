@@ -39,6 +39,9 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'building-demolition': ('tests/test_building_demolition.gd', r'\[building-demolition\] \d+ checks, 0 failures'),
+    'building-surfaces': ('tests/test_building_surfaces.gd', r'\[building-surfaces\] \d+ checks, 0 failures'),
+    'visual-building-surfaces': ('tests/test_building_surfaces.gd', r'\[building-surfaces\] \d+ checks, 0 failures'),
     'visual-recipe-cards': ('tools/capture_recipe_cards.gd', r'\[recipe-cards\] \d+ checks, 0 failures'),
     'visual-kit-uv': ('tools/capture_kit_uv.gd', r'\[kit-uv\] \d+ checks, 0 failures'),
     'kit-safety': ('tests/test_kit_safety.gd', r'\[kit-safety\] \d+ checks, 0 failures'),
@@ -112,6 +115,10 @@ TESTS.update({
     'visual-building': ('tests/test_building_visual.gd', r'\[visual-building\] \d+ checks, 0 failures'),
     'visual-build-approach': ('tools/capture_build_approach.gd', r'\[shot\] done'),
     'visual-submerged-water-light': ('tests/test_submerged_water_light.gd', r'\[submerged-water-light\] \d+ checks, 0 failures'),
+    # 水层专项：水上必须有活动区域与水面阻挡，水下必须无阻挡无碰撞无交互且整体低于水面。
+    # 规则出处 docs/standards/水层分类与空间职责.md；按节点自己声明的 water_layer 派生，
+    # 不再依赖 test_submerged_neighborhood 里那份写死的六栋名字列表。
+    'water-layer': ('tests/test_water_layer.gd', r'\[water-layer\] \d+ checks, 0 failures'),
     'submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
     'visual-submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
     'reference-skiff': ('tests/test_reference_skiff.gd', r'\[reference-skiff\] \d+ checks, 0 failures'),
@@ -155,7 +162,11 @@ TESTS.update({
     'visual-energy': ('tests/test_energy.gd', r'\[energy\] \d+ checks, 0 failures'),
     # 家园补给站升级为渔场：入口、成本（木板 100 / 鱼 50）、背包+仓库付款、存档。
     'fishery': ('tests/test_fishery.gd', r'\[fishery\] \d+ checks, 0 failures'),
+    'fishery-production': ('tests/test_fishery_production.gd', r'\[fishery-production\] \d+ checks, 0 failures'),
+    'visual-fishery-production': ('tests/test_fishery_production.gd', r'\[fishery-production\] \d+ checks, 0 failures'),
     'fishery-site': ('tools/probe_fishery_site.gd', r'\[fishery-site\] \d+ checks, 0 failures'),
+    'fishery-environment': ('tests/test_fishery_environment.gd', r'\[fishery-environment\] \d+ checks, 0 failures'),
+    'visual-fishery-environment': ('tests/test_fishery_environment.gd', r'\[fishery-environment\] \d+ checks, 0 failures'),
     'visual-fishery-site': ('tools/probe_fishery_site.gd', r'\[fishery-site\] \d+ checks, 0 failures'),
     'visual-fishery': ('tests/test_fishery.gd', r'\[fishery\] \d+ checks, 0 failures'),
     # 固定浮台自己的水下底座不能挡住扩建：四面接板、原平台仍受保护、泊位那侧原因要说清。
@@ -214,6 +225,19 @@ TESTS.update({
     # 落到各自所有者上；「测试页不锁昼夜预览」也在这一支里量 —— 锁着预览改时刻，
     # 状态变了但画面不动，看起来就像工具坏了。
     'test-tools': ('tests/test_test_tools.gd', r'\[test-tools\] \d+ checks, 0 failures'),
+    # SEA-SAVE-R14：重置存档。三件事必须同时成立 —— 内存回开局、磁盘也是开局、
+    # 旧进度仍可读回。只看前两条的话，把旧档删掉也能全绿。
+    'avatar-skinning': ('tests/test_avatar_skinning.gd', r'\[avatar-skinning\] \d+ checks, 0 failures'),
+    'visual-avatar-skinning': ('tests/test_avatar_skinning.gd', r'\[avatar-skinning\] \d+ checks, 0 failures'),
+    'avatar-proportions': ('tests/test_avatar_proportions.gd', r'\[avatar-proportions\] \d+ checks, 0 failures'),
+    'visual-avatar-proportions': ('tests/test_avatar_proportions.gd', r'\[avatar-proportions\] \d+ checks, 0 failures'),
+    'avatar': ('tests/test_avatar.gd', r'\[avatar\] \d+ checks, 0 failures'),
+    'avatar-restart': ('tests/test_avatar_restart.gd', r'\[avatar-restart\] \d+ checks, 0 failures'),
+    'onboarding': ('tests/test_onboarding.gd', r'\[onboarding\] \d+ checks, 0 failures'),
+    'visual-avatar': ('tools/capture_avatar.gd', r'\[avatar-render\] \d+ checks, 0 failures'),
+    'save-reset': ('tests/test_save_reset.gd', r'\[save-reset\] \d+ checks, 0 failures'),
+    # 重置存档的两屏：暂停菜单入口 + 确认页。只抓图，确认那一下归 save-reset。
+    'visual-save-reset': ('tools/capture_save_reset.gd', r'\[save-reset-render\] 0 failures'),
 })
 EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
 
@@ -334,6 +358,10 @@ def main():
     run_dir = work / 'verification' / (dt.datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + label + '-' + uuid.uuid4().hex[:6])
     run_dir.mkdir(parents=True)
     project, user_name = isolated_project(run_dir)
+    if any(n in checks for n in ['avatar-proportions','visual-avatar-proportions']):
+        reference = ROOT / 'art_source/characters/avatar/v001'
+        shutil.copy2(reference / 'reference_proportions.png', project / 'outputs/avatar-reference.png')
+        shutil.copy2(reference / 'reference_contract.json', project / 'outputs/avatar-reference-contract.json')
     full_config = (project / 'project.godot').read_text()
     report = {'label': label, 'run_dir': str(run_dir), 'user_data_name': user_name,
               'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
@@ -359,7 +387,8 @@ def main():
     for name in checks:
         config = re.sub(r'\[autoload\].*?(?=\n\[|\Z)', '', full_config, flags=re.S) if name in ['modules','framework-modules','building','kit-safety'] else full_config
         # Only intentional cross-process cases share a slot. Every other check starts fresh.
-        group = ('building-open-restart' if name in ['building-open-seed','building-open-restart'] else
+        group = ('avatar-restart' if name in ['avatar','avatar-restart'] else
+                 'building-open-restart' if name in ['building-open-seed','building-open-restart'] else
                  'building-restart' if name in ['building-seed','building-restart'] else
                  'title-clock' if name == 'title-clock-seed' or name in title_cases else
                  'restart' if name in ['save-seed', 'framework-integration'] else

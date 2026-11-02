@@ -1,0 +1,247 @@
+{
+  "asset_id": "SEA-CHAR-RIG-001",
+  "version": 1,
+  "owner": "SEA-AVATAR / SEA-MOVE",
+  "units": "metres",
+  "up": "+Y",
+  "forward": "+Z",
+  "root_scale": [
+    1,
+    1,
+    1
+  ],
+  "bone_count": 21,
+  "bones": [
+    {
+      "id": "root",
+      "parent": -1,
+      "rest_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "arm.L.upper",
+      "parent": 0,
+      "rest_origin": [
+        -0.162000000476837,
+        0.806249976158142,
+        0.0
+      ]
+    },
+    {
+      "id": "arm.L.lower",
+      "parent": 1,
+      "rest_origin": [
+        0.0,
+        -0.172000005841255,
+        0.0
+      ]
+    },
+    {
+      "id": "arm.L.tip",
+      "parent": 2,
+      "rest_origin": [
+        0.0,
+        -0.177375003695488,
+        0.00600000005215406
+      ]
+    },
+    {
+      "id": "arm.L.upper_skin",
+      "parent": 1,
+      "rest_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "arm.L.lower_skin",
+      "parent": 2,
+      "rest_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "arm.R.upper",
+      "parent": 0,
+      "rest_origin": [
+        0.162000000476837,
+        0.806249976158142,
+        0.0
+      ]
+    },
+    {
+      "id": "arm.R.lower",
+      "parent": 6,
+      "rest_origin": [
+        0.0,
+        -0.172000005841255,
+        0.0
+      ]
+    },
+    {
+      "id": "arm.R.tip",
+      "parent": 7,
+      "rest_origin": [
+        0.0,
+        -0.177375003695488,
+        0.00600000005215406
+      ]
+    },
+    {
+      "id": "arm.R.upper_skin",
+      "parent": 6,
+      "rest_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "arm.R.lower_skin",
+      "parent": 7,
+      "rest_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "leg.L.upper",
+      "parent": 0,
+      "rest_origin": [
+        -0.084925003349781,
+        0.419999986886978,
+        0.0
+      ]
+    },
+    {
+      "id": "leg.L.lower",
+      "parent": 11,
+      "rest_origin": [
+        0.0,
+        -0.202500000596046,
+        0.0
+      ]
+    },
+    {
+      "id": "leg.L.tip",
+      "parent": 12,
+      "rest_origin": [
+        0.0,
+        -0.182500004768372,
+        0.025000000372529
+      ]
+    },
+    {
+      "id": "leg.L.upper_skin",
+      "parent": 11,
+      "rest_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "leg.L.lower_skin",
+      "parent": 12,
+      "rest_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "leg.R.upper",
+      "parent": 0,
+      "rest_origin": [
+        0.084925003349781,
+        0.419999986886978,
+        0.0
+      ]
+    },
+    {
+      "id": "leg.R.lower",
+      "parent": 16,
+      "rest_origin": [
+        0.0,
+        -0.202500000596046,
+        0.0
+      ]
+    },
+    {
+      "id": "leg.R.tip",
+      "parent": 17,
+      "rest_origin": [
+        0.0,
+        -0.182500004768372,
+        0.025000000372529
+      ]
+    },
+    {
+      "id": "leg.R.upper_skin",
+      "parent": 16,
+      "rest_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "leg.R.lower_skin",
+      "parent": 17,
+      "rest_origin": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "limbs": {
+    "arm.L": {
+      "closed": true,
+      "connected": true,
+      "surfaces": 1,
+      "triangles": 1248,
+      "vertices": 626,
+      "weights_per_vertex": 4
+    },
+    "arm.R": {
+      "closed": true,
+      "connected": true,
+      "surfaces": 1,
+      "triangles": 1248,
+      "vertices": 626,
+      "weights_per_vertex": 4
+    },
+    "leg.L": {
+      "closed": true,
+      "connected": true,
+      "surfaces": 1,
+      "triangles": 1056,
+      "vertices": 530,
+      "weights_per_vertex": 4
+    },
+    "leg.R": {
+      "closed": true,
+      "connected": true,
+      "surfaces": 1,
+      "triangles": 1056,
+      "vertices": 530,
+      "weights_per_vertex": 4
+    }
+  },
+  "skin_channels": 4,
+  "max_nonzero_influences": 2,
+  "pose_driver": "legacy action poses -> non-rendering Node3D controls -> Skeleton3D; real render only via weighted meshes",
+  "geometry": "One indexed closed connected surface per entire arm including hand and per entire leg including foot; no separate elbow/knee solids.",
+  "source": "godot/src/avatar/avatar_limb_skinning.gd",
+  "shader": "godot/shaders/avatar_limb.gdshader",
+  "collider": "CharacterMotor radius 0.22m height 1.30m unchanged",
+  "evidence_run": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d"
+}

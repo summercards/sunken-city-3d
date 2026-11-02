@@ -1,0 +1,75 @@
+{
+  "asset_id": "SEA-FISHERY-DRYING-RACK",
+  "name": "渔具晾架",
+  "domain": "scenes",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-FISHERY-DRYING-RACK",
+  "version": "v001",
+  "source": "art_source/scenes/wild_fishery/v001/component_packages/drying_rack/drying_rack.blend",
+  "source_sha256": "0208a40704dc1508785de389aed5952a8825fe1f3b02592124b1794832a14821",
+  "collection": "SEA-FISHERY-DRYING-RACK",
+  "origin": "bottom_center",
+  "front_axis": "Blender +Y / Godot -Z",
+  "bounds_blender_m": {
+    "min": [
+      -0.8499999642372131,
+      -0.20999999344348907,
+      0.0
+    ],
+    "max": [
+      0.8499999642372131,
+      0.20999999344348907,
+      1.6299999952316284
+    ]
+  },
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_uv": "sole UV0 / PaletteUV / eight-pixel safe inset",
+  "geometry_fingerprint": "b5cf3ecbfc1ea10034faabe771b1ae41bd27fe205e88acfe695a2848876dbc51",
+  "collision": "land prop footprint",
+  "runtime_path": "godot/assets/models/fishery/drying_rack/drying_rack.glb",
+  "runtime_sha256": "01505b0191462cff88d3387c6a2d969f070a3d248a845d2ed8fc0fef9c37bed7",
+  "prefab": "godot/scenes/components/fishery/drying_rack.tscn",
+  "optimized": "art_source/scenes/wild_fishery/v001/export/v001/wild_fishery_optimized_v001.blend",
+  "optimization_manifest": "art_source/scenes/wild_fishery/v001/export/v001/optimization_manifest.json",
+  "optimization": {
+    "asset_id": "SEA-FISHERY-DRYING-RACK",
+    "key": "drying_rack",
+    "triangles_before": 2248,
+    "triangles_after": 2248,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "merge_distance_m": 1e-06,
+      "degenerate_distance_m": 1e-07,
+      "planar_dissolve_angle_rad": 0.002,
+      "cleanup_elements_removed": 0,
+      "uv_reprojected_to_original_cell": true,
+      "source_mesh_count": 14,
+      "runtime_mesh_count": 1,
+      "merged_within_single_component_only": true
+    },
+    "bounds": {
+      "min": [
+        -0.8499999642372131,
+        -0.20999999344348907,
+        0.0
+      ],
+      "max": [
+        0.8499999642372131,
+        0.20999999344348907,
+        1.6299999952316284
+      ]
+    },
+    "budget_triangles": 12000,
+    "budget_source": "task-authored performance target; not a user-supplied cap",
+    "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+    "zero_reduction_reason": "no safely redundant geometry after cleanup"
+  },
+  "source_hash_unchanged": true,
+  "runtime_integrated": true,
+  "runtime_validation_report": "D:\\projects\\sea-work\\verification\\20261102-140048-fishery-component-final-2c64bb\\report.json",
+  "license": "pending_user_reference_rights_review",
+  "category": "fixture",
+  "reuse": "scene_local"
+}

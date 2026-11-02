@@ -1,0 +1,38 @@
+{
+  "key": "small_lean_to",
+  "asset_id": "SEA-SCENE-ORF-SMALL-LEAN-TO",
+  "name": "左侧蓝色斜顶棚屋",
+  "category": "structure",
+  "component_family": "shed",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-SMALL-LEAN-TO",
+  "root": "small_lean_to_组件根",
+  "bounds_size": [
+    3.3499999046325684,
+    2.8279361724853516,
+    2.40043044090271
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/small_lean_to/small_lean_to.blend",
+  "geometry_fingerprint": "5f22eaae0e961b37f02408b73da9455e1c12b778f68e6e9e82f7a8ad959345fd",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 264,
+  "source_sha256": "0869d42d8bb0251e12604467092ecf7ef883851c89a51b015050edbd59c074b4",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-SMALL-LEAN-TO"
+}

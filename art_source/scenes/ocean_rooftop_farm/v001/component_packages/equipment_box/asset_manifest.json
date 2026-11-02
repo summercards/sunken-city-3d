@@ -1,0 +1,38 @@
+{
+  "key": "equipment_box",
+  "asset_id": "SEA-SCENE-ORF-EQUIPMENT-BOX",
+  "name": "圆角设备箱",
+  "category": "fixture",
+  "component_family": "equipment",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-EQUIPMENT-BOX",
+  "root": "equipment_box_组件根",
+  "bounds_size": [
+    1.1200000047683716,
+    0.8400000333786011,
+    0.9200000166893005
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/equipment_box/equipment_box.blend",
+  "geometry_fingerprint": "09cf0056c93d638efb656f2679479b701d8a56dd4da7065fe8b240e80c02791c",
+  "instances": 2,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 36,
+  "source_sha256": "b5525c45b58b9f21781d4c7ac4ab2c8c49f0d62bad7b5718a2dc4886045076f9",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-EQUIPMENT-BOX"
+}

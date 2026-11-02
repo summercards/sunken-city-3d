@@ -4,6 +4,8 @@
 
 `ledger_index.json` 是域到分账本的路由表，总索引不含资产行。场景域分账本为 `ledgers/scenes.json`，每个 AssetID 只出现一次。
 
+建筑按职责只分[水上功能建筑／水下观赏建筑（含基座）](BUILDING_CLASSES.md)两类：主字段building_class；两类视图由总索引domains.scenes.building_views路由，均只引用主账本AssetID。原water_layer仅作装配描述，跨水线和远景不再是额外建筑职责类。水下只观赏，不得有碰撞、阻挡、行走、交互或玩法功能。
+
 - `current_source_index.json` 从场景分账本提取源定位，不允许作为第二份可编辑资产主表。
 - `runtime_resource_inventory.json` 登记已有运行文件路径、大小与哈希；这些路径尚未全部补齐生产级 AssetID，明确标注 pending。
 - `content_index.json` 指向各功能唯一内容定义，记录 ID 集合和所有者，不复制物品价格或作物数值。
@@ -48,3 +50,5 @@
 - `godot/assets/data/crops.json` 的 ContentIndex 所有权由 `SEA-FARM` 转为 `SEA-CROP`；数值仍被种植规则查询，不复制第二份。
 
 原 `SEA-FARM-SOIL-CELL` 保留，但描述改为「木框培养土」，不再声称承载作物模型。
+
+2026-11-02：两类职责整理已登记。资产维护后运行 `python tools/apply_water_layer.py` 同步分类和视图，再运行功能契约sync／复核；无需改动既有源哈希或运行哈希。[本轮记录](../../docs/development/2026-11-02_building_two_class_contract.md)。

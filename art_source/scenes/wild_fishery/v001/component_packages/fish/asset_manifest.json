@@ -1,0 +1,77 @@
+{
+  "asset_id": "SEA-FISHERY-FISH",
+  "name": "圆润浅水鱼",
+  "domain": "scenes",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-FISHERY-FISH",
+  "version": "v001",
+  "source": "art_source/scenes/wild_fishery/v001/component_packages/fish/fish.blend",
+  "source_sha256": "f7f91692c90fceb46e5696e6db819ded2a2d4abba19dd5589b7ed6c2150c4b52",
+  "collection": "SEA-FISHERY-FISH",
+  "origin": "bottom_center",
+  "front_axis": "Blender +Y / Godot -Z",
+  "bounds_blender_m": {
+    "min": [
+      -0.25,
+      -0.4000000059604645,
+      0.0
+    ],
+    "max": [
+      0.25,
+      0.4000000059604645,
+      0.38999998569488525
+    ]
+  },
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_uv": "sole UV0 / PaletteUV / eight-pixel safe inset",
+  "geometry_fingerprint": "4dd05442cfa77b3555b6d10c87d73511420b7cdf8bfa67f2ce9663208c302b15",
+  "collision": "visual_only; enclosure blocking belongs to assembly",
+  "runtime_path": "godot/assets/models/fishery/fish/fish.glb",
+  "runtime_sha256": "9eca0b180182a129216c8f4777b7422c327768d018a997ab51b0b7d8b7772b17",
+  "prefab": "godot/scenes/components/fishery/fish.tscn",
+  "optimized": "art_source/scenes/wild_fishery/v001/export/v001/wild_fishery_optimized_v001.blend",
+  "optimization_manifest": "art_source/scenes/wild_fishery/v001/export/v001/optimization_manifest.json",
+  "optimization": {
+    "asset_id": "SEA-FISHERY-FISH",
+    "key": "fish",
+    "triangles_before": 1520,
+    "triangles_after": 1520,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "merge_distance_m": 1e-06,
+      "degenerate_distance_m": 1e-07,
+      "planar_dissolve_angle_rad": 0.002,
+      "cleanup_elements_removed": 0,
+      "uv_reprojected_to_original_cell": true,
+      "source_mesh_count": 11,
+      "runtime_mesh_count": 1,
+      "merged_within_single_component_only": true
+    },
+    "bounds": {
+      "min": [
+        -0.25,
+        -0.4000000059604645,
+        0.0
+      ],
+      "max": [
+        0.25,
+        0.4000000059604645,
+        0.38999998569488525
+      ]
+    },
+    "budget_triangles": 12000,
+    "budget_source": "task-authored performance target; not a user-supplied cap",
+    "retained_faces": "all nondegenerate back/bottom faces retained; enclosure and land may be viewed from below",
+    "zero_reduction_reason": "no safely redundant geometry after cleanup"
+  },
+  "source_hash_unchanged": true,
+  "runtime_integrated": true,
+  "runtime_validation_report": "D:\\projects\\sea-work\\verification\\20261102-140048-fishery-component-final-2c64bb\\report.json",
+  "license": "pending_user_reference_rights_review",
+  "category": "animal",
+  "reuse": "scene_local",
+  "runtime_usage": "retired_from_wild_fishery_assembly",
+  "replacement_asset_id": "SEA-DECO-ANIMAL-FISH-SCHOOL"
+}

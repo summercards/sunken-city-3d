@@ -19,6 +19,10 @@ const GroundSpace = preload("res://src/navigation/ground_space.gd")
 
 @export var zone_id := ""
 @export var zone_label := ""
+## 水层归属。区块与海上结构物一律是空间实体，所以这里只有层没有 role。
+## 规则见 docs/standards/水层分类与空间职责.md；空串表示未登记，由 water-layer 专项报错。
+@export_enum("surface", "amphibious", "submerged", "backdrop") var water_layer := ""
+@export var water_layer_role := "entity"
 ## 静态几何来源：
 ##   scene —— Models 节点里的 glb 实例（场景资产，默认，可手动编辑）
 ##   baked —— assets/zones/*/instances.bin（实例批次，回退/对比用）

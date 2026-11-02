@@ -69,39 +69,26 @@ func geometry_reason(request: Dictionary, strict_join: bool=true) -> String:
 	var rotation: Variant=request.get("turn",0)
 	if not (rotation is int or rotation is float) or not is_finite(float(rotation)) or rotation!=floor(rotation) or rotation<0 or rotation>3:
 		return "朝向无效"
-	if Catalog.is_kit(kind):
-		var geometry:=Assembly.reason(request,query())
-		if geometry!="": return geometry
-		return _platform_join_reason(request) if strict_join else ""
-	if kind=="deck":
-		var shape:=Catalog.footprint_rect(request)
-		if shape.grow(-0.001).intersects(Catalog.BASE): return "这里是原有平台"
-		for other in _rows:
-			if Catalog.is_deck(str(other.kind)) and Catalog.footprint_rect(other).grow(-0.001).intersects(shape): return "这里已有木板、浮台或正在施工"
-		return _platform_join_reason(request) if strict_join else ""
-	var support: Dictionary=Catalog.fixed_support() if str(request.get("support",""))=="@base" else _by_id.get(str(request.get("support","")),{})
-	if support.is_empty() or (str(support.id)!="@base" and not Catalog.is_deck(str(support.kind))) or support.left>0: return "请放在已完成的新木板上"
-	var rect := Catalog.plot_rect(request)
-	if not (Catalog.BASE if str(support.id)=="@base" else Catalog.footprint_rect(support)).intersects(rect): return "请选择脚下的支撑木板"
-	if not Catalog.covered(rect.grow(Catalog.PLANTER_MARGIN),Catalog.support_tiles(_rows)): return "种植区超出了木板边缘"
-	var excluded := str(request.get("exclude_id",""))
-	for item in _rows:
-		if item.id==excluded or Catalog.is_deck(str(item.kind)): continue
-		if Catalog.elevation(item)>0.5: continue
-		if Catalog.plot_rect(item).grow(0.02).intersects(rect): return "摆件不能重叠"
-	return ""
+	var geometry_request:=request
+	if grid:
+		geometry_request=request.duplicate();geometry_request.px=0.0;geometry_request.pz=0.0;geometry_request.support=""
+	var geometry:=Assembly.reason(geometry_request,query(),strict_join)
+	if geometry!="": return geometry
+	return _platform_join_reason(request) if strict_join else ""
 
 ## A platform extends the surface it touches: it has to be walked to. Only the
 ## boat, which carried the material there, may start one in open water.
 func _platform_join_reason(request: Dictionary) -> String:
 	if not Catalog.is_deck(str(request.get("kind",""))): return ""
-	if str(request.get("origin","shore"))=="boat": return ""
+	if str(request.get("origin","shore"))=="boat" and Catalog.same_level(Catalog.elevation(request),0.0): return ""
 	var own:=str(request.get("exclude_id",""))
 	var rows: Array=[]
 	for item in _rows:
 		if str(item.id)!=own: rows.append(item)
-	if Catalog.platform_contact(Catalog.footprint_rect(request),rows)>=Catalog.JOIN_MIN: return ""
-	return "浮台要接在已有平台边上；要单独起一块，请乘船到那片海面"
+	if Catalog.platform_contact(Catalog.footprint_rect(request),rows,Catalog.elevation(request))>=Catalog.JOIN_MIN: return ""
+	# Historical upper floors can still use their actual wall/post support.
+	if not Assembly.bearing_ids(request,rows).is_empty(): return ""
+	return "木板要接在同层平台边或楼梯顶部；独立海面起点请乘船施工"
 
 func _record(request: Dictionary, id: String, seconds: float) -> Dictionary:
 	# Only consume fields that geometry validated for this placement kind.
@@ -109,15 +96,16 @@ func _record(request: Dictionary, id: String, seconds: float) -> Dictionary:
 	# reach numeric conversions or turn into an unsaveable committed record.
 	if Catalog.is_kit(str(request.kind)):
 		return {"id":id,"kind":str(request.kind),"x":0,"z":0,"px":float(request.px),"pz":float(request.pz),"py":float(request.get("py",0)),"turn":int(request.get("turn",0)),"support":str(request.get("support","")),"left":seconds}
+	var result: Dictionary
 	if str(request.kind)=="deck":
 		if not Catalog.grid_deck(request):
-			return {"id":id,"kind":"deck","x":0,"z":0,"positioned":true,
-				"px":float(request.px),"pz":float(request.pz),"turn":0,"support":"","left":seconds}
-		return {"id":id,"kind":"deck","x":int(request.x),"z":int(request.z),
-			"px":0.0,"pz":0.0,"turn":0,"support":"","left":seconds}
-	return {"id":id,"kind":str(request.kind),"x":0,"z":0,
-		"px":float(request.px),"pz":float(request.pz),"turn":int(request.get("turn",0)),
-		"support":str(request.support),"left":seconds}
+			result={"id":id,"kind":"deck","x":0,"z":0,"positioned":true,"px":float(request.px),"pz":float(request.pz),"turn":int(request.get("turn",0)),"support":"","left":seconds}
+		else:
+			result={"id":id,"kind":"deck","x":int(request.x),"z":int(request.z),"px":0.0,"pz":0.0,"turn":0,"support":"","left":seconds}
+	else:
+		result={"id":id,"kind":str(request.kind),"x":0,"z":0,"px":float(request.px),"pz":float(request.pz),"turn":int(request.get("turn",0)),"support":str(request.support),"left":seconds}
+	if request.has("py") or not Catalog.same_level(Catalog.elevation(request),0.0): result.py=Catalog.elevation(request)
+	return result
 
 func _proposed(request: Dictionary, operation: String, id: String) -> Array:
 	var result: Array=[]
@@ -174,7 +162,7 @@ func snap_planter(request: Dictionary) -> Dictionary:
 	var rotation: Variant=request.get("turn",0)
 	if not (rotation is float or rotation is int) or not is_finite(float(rotation)) or rotation!=floor(rotation) or rotation<0 or rotation>3:
 		return request.duplicate()
-	if Catalog.covered(Catalog.plot_rect(request).grow(Catalog.PLANTER_MARGIN),_finished_tiles): return request.duplicate()
+	if Catalog.covered(Catalog.plot_rect(request).grow(Catalog.PLANTER_MARGIN),Catalog.platform_tiles_at_level(_rows,Catalog.elevation(request))): return request.duplicate()
 	var base:=Vector2(float(request.px),float(request.pz))
 	var best: Dictionary={}
 	var best_distance:=INF
@@ -261,13 +249,15 @@ func can_remove(id: String) -> String:
 		var rect:=Catalog.footprint_rect(item)
 		for other in _rows:
 			if Catalog.is_deck(str(other.kind)): continue
-			if other.support==id or Catalog.plot_rect(other).grow(Catalog.PLANTER_MARGIN).intersects(rect):
+			if other.support==id or (Catalog.same_level(Catalog.elevation(other),Catalog.elevation(item)) and Catalog.plot_rect(other).grow(Catalog.PLANTER_MARGIN).intersects(rect)):
 				return "先搬走木板上的摆件，再回收木板"
 	var remaining: Array=[]
 	for other in _rows:
-		if other.id!=id: remaining.append(other)
+		if other.id!=id:
+			if str(other.support)==id and Catalog.is_platform(str(other.kind)): return "先拆除依附在此构件上的楼板"
+			remaining.append(other)
 	for other in remaining:
-		if Catalog.is_kit(str(other.kind)) and Assembly.reason(other,remaining)!="": return "先拆除依附在此构件上的结构或摆件"
+		if not Catalog.is_platform(str(other.kind)) and Assembly.reason(other,remaining,false)!="": return "先拆除依附在此构件上的结构或摆件"
 	var request: Dictionary=item.duplicate(true)
 	request.operation="remove"
 	return _layout_reason(request,"remove",id)
@@ -338,17 +328,10 @@ static func validate_snapshot(data: Dictionary) -> String:
 		if not suffix.is_valid_int() or raw.id!="built_%d"%int(suffix) or int(suffix)<1 or int(suffix)>=sequence or ids.has(raw.id):
 			return "Invalid building identity"
 		ids[raw.id]=true
-		if raw.kind=="deck" or (Catalog.is_kit(str(raw.kind)) and Catalog.is_deck(str(raw.kind))):
-			if validator.geometry_reason(raw,false)!="" or raw.support!="": return "Invalid building deck or overlap"
-			validator._rows.append(raw.duplicate(true))
-			validator._index(validator._rows[-1])
-		else: furnishings.append(raw)
-	var pending: Array=furnishings.duplicate()
-	while not pending.is_empty():
-		var progressed:=false
-		for raw in pending.duplicate():
-			if validator.geometry_reason(raw,false)!="": continue
-			validator._rows.append(raw.duplicate(true));validator._index(validator._rows[-1])
-			pending.erase(raw);progressed=true
-		if not progressed: return "Invalid building support or overlap"
+		if raw.has("py"):
+			var height: Variant=raw.py
+			if not (height is float or height is int) or not is_finite(float(height)): return "Invalid building height"
+		validator._rows.append(raw.duplicate(true))
+	for raw in validator._rows:
+		if validator.geometry_reason(raw,false)!="": return "Invalid building support or overlap"
 	return ""

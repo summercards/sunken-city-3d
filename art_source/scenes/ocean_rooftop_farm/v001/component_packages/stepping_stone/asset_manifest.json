@@ -1,0 +1,38 @@
+{
+  "key": "stepping_stone",
+  "asset_id": "SEA-SCENE-ORF-STEPPING-STONE",
+  "name": "不规则厚石板",
+  "category": "fixture",
+  "component_family": "path",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-STEPPING-STONE",
+  "root": "stepping_stone_组件根",
+  "bounds_size": [
+    0.7200000286102295,
+    0.5199999809265137,
+    0.11999999731779099
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/stepping_stone/stepping_stone.blend",
+  "geometry_fingerprint": "f7853ae794063535d6aa2b8a67200ee637b660f02733efe86410587db5b530c9",
+  "instances": 26,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 12,
+  "source_sha256": "36f3865d21491059270f873850a4509ace60f9aaf002e0fa4baf569ba12bddb5",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-STEPPING-STONE"
+}

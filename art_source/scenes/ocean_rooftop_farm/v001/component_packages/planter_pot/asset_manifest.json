@@ -1,0 +1,38 @@
+{
+  "key": "planter_pot",
+  "asset_id": "SEA-SCENE-ORF-PLANTER-POT",
+  "name": "厚边陶土花盆",
+  "category": "fixture",
+  "component_family": "pot",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-PLANTER-POT",
+  "root": "planter_pot_组件根",
+  "bounds_size": [
+    0.7400000095367432,
+    0.7400000095367432,
+    0.5600000023841858
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/planter_pot/planter_pot.blend",
+  "geometry_fingerprint": "6e5c440e06e77638e6fc914a6da260ea5830d4248042a843d8e3f4016059a319",
+  "instances": 11,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 276,
+  "source_sha256": "4e0a198e169a686e7712e5c18390f7e1df7fb5be5a64228f448831179681fc03",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-PLANTER-POT"
+}

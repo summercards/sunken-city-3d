@@ -56,10 +56,11 @@
       "consumer_features": [
         "SEA-UI",
         "SEA-INTERACT",
-        "SEA-INVENTORY"
+        "SEA-INVENTORY",
+        "SEA-AQUA"
       ],
       "verification": "docs/development/2026-10-28_pocket_action_bubbles.md",
-      "note": "用户指定gpt-image-2原创建图，参考图未入包；图标接入验证与授权pending分开登记。挖掘等图标预留，不增加未实现玩法。"
+      "note": "用户指定gpt-image-2原创建图，参考图未入包；图标接入验证与授权pending分开登记。挖掘等图标预留，不增加未实现玩法。 2026-11-02：渔场屏幕收获按钮复用原action_fish白色剪影与action_bubble样式，不改图片源。"
     },
     {
       "asset_id": "UI-POCKET-HANDDRAWN-001",
@@ -135,6 +136,24 @@
       ],
       "verification": "docs/development/2026-10-28_corner_hud_notebook.md",
       "note": "本轮程序化排版和图标；复用UI-FONT-LXGW975YUAN-SC-700、UI-ACTION-HANDDRAWN-001与UI-POCKET-HANDDRAWN-001。既有图片源与授权pending不变。"
+    },
+    {
+      "asset_id": "SEA-UI-AVATAR-001",
+      "name": "旅人创建与外观编辑界面",
+      "domain": "ui",
+      "stage": "runtime_component_verified",
+      "source": "godot/src/avatar/avatar_editor.gd",
+      "source_sha256": "9854bf84a09d041c75df9bbd93131c8c3f2ed9f51b786a553790d92c29bf3688",
+      "manifest": "assets/registry/manifests/sea-ui-avatar-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/avatar/avatar_editor.gd",
+      "license": "project_authored_original_procedural_geometry_and_UI",
+      "consumer_features": [
+        "SEA-AVATAR",
+        "SEA-ONBOARDING"
+      ],
+      "verification": "docs/development/2026-11-02_avatar_and_arrival.md",
+      "note": "原创程序源；用户提供游戏截图仅作比例参考，不进入运行或导出包，参考图商业授权未主张。按六项网格投影比例逐项5%阈值自验。字体与场景资产沿用各自登记。"
     }
   ]
 }

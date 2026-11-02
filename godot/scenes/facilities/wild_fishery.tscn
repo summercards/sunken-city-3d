@@ -1,0 +1,191 @@
+[gd_scene format=3]
+[ext_resource type="Script" path="res://src/aqua/fishery_visual.gd" id="script"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/shore.tscn" id="shore"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/turf.tscn" id="turf"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/pebbles.tscn" id="pebbles"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/reeds.tscn" id="reeds"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/drying_rack.tscn" id="drying_rack"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/creel.tscn" id="creel"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/bait_table.tscn" id="bait_table"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/buoy.tscn" id="buoy"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/marker_buoy.tscn" id="marker_buoy"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/net_panel.tscn" id="net_panel"]
+[ext_resource type="PackedScene" path="res://scenes/components/fishery/net_corner.tscn" id="net_corner"]
+[node name="WildFishery" type="Node3D"]
+script = ExtResource("script")
+visible = false
+metadata/asset_id = "SEA-FISHERY-ASSEMBLY"
+metadata/asset_version = "v001"
+water_layer = "amphibious"
+water_layer_role = "entity"
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "none"
+[node name="Land" type="Node3D" parent="."]
+[node name="Flora" type="Node3D" parent="."]
+[node name="Water" type="Node3D" parent="."]
+[node name="shore_000" parent="Land" instance=ExtResource("shore")]
+position = Vector3(0.000000000, -0.360000014, 0.000000000)
+[node name="drying_rack_001" parent="Land" instance=ExtResource("drying_rack")]
+position = Vector3(-2.116051102, 0.000000000, -1.645800018)
+rotation = Vector3(0, 0.130000000, 0)
+[node name="bait_table_002" parent="Land" instance=ExtResource("bait_table")]
+position = Vector3(2.383948898, 0.000000000, 1.404199982)
+rotation = Vector3(0, -0.120000000, 0)
+[node name="creel_003" parent="Land" instance=ExtResource("creel")]
+position = Vector3(-2.266051102, 0.000000000, 1.804199982)
+rotation = Vector3(0, 0.100000000, 0)
+[node name="creel_004" parent="Land" instance=ExtResource("creel")]
+position = Vector3(-1.536051102, 0.000000000, 2.054199982)
+rotation = Vector3(0, 0.100000000, 0)
+[node name="turf_005" parent="Flora" instance=ExtResource("turf")]
+position = Vector3(-2.666051102, -0.030000000, -2.045800018)
+rotation = Vector3(0, 0.921877544, 0)
+[node name="turf_006" parent="Flora" instance=ExtResource("turf")]
+position = Vector3(-1.766051102, -0.030000000, -2.145800018)
+rotation = Vector3(0, -1.472451638, 0)
+[node name="turf_007" parent="Flora" instance=ExtResource("turf")]
+position = Vector3(2.633948898, -0.030000000, -1.945800018)
+rotation = Vector3(0, 0.757710981, 0)
+[node name="turf_008" parent="Flora" instance=ExtResource("turf")]
+position = Vector3(2.633948898, -0.030000000, 2.154199982)
+rotation = Vector3(0, 1.556730479, 0)
+[node name="turf_009" parent="Flora" instance=ExtResource("turf")]
+position = Vector3(-2.616051102, -0.030000000, 2.154199982)
+rotation = Vector3(0, 1.091005818, 0)
+[node name="turf_010" parent="Flora" instance=ExtResource("turf")]
+position = Vector3(-0.766051102, -0.030000000, 2.254199982)
+rotation = Vector3(0, -0.342735487, 0)
+[node name="turf_011" parent="Flora" instance=ExtResource("turf")]
+position = Vector3(-2.666051102, -0.030000000, 0.054199982)
+rotation = Vector3(0, -1.358364368, 0)
+[node name="pebbles_012" parent="Flora" instance=ExtResource("pebbles")]
+position = Vector3(-2.766051102, -0.030000000, -0.845800018)
+rotation = Vector3(0, 1.153056618, 0)
+[node name="pebbles_013" parent="Flora" instance=ExtResource("pebbles")]
+position = Vector3(-2.766051102, -0.030000000, 1.704199982)
+rotation = Vector3(0, -0.851753243, 0)
+[node name="pebbles_014" parent="Flora" instance=ExtResource("pebbles")]
+position = Vector3(2.733948898, -0.030000000, -2.095800018)
+rotation = Vector3(0, 0.694825028, 0)
+[node name="pebbles_015" parent="Flora" instance=ExtResource("pebbles")]
+position = Vector3(1.533948898, -0.030000000, 2.254199982)
+rotation = Vector3(0, -0.993490289, 0)
+[node name="pebbles_016" parent="Flora" instance=ExtResource("pebbles")]
+position = Vector3(-0.866051102, -0.030000000, -2.245800018)
+rotation = Vector3(0, 0.491257982, 0)
+[node name="reeds_017" parent="Flora" instance=ExtResource("reeds")]
+position = Vector3(-2.616051102, -0.020000000, -1.995800018)
+rotation = Vector3(0, -0.157388517, 0)
+[node name="reeds_018" parent="Flora" instance=ExtResource("reeds")]
+position = Vector3(2.633948898, -0.020000000, -2.045800018)
+rotation = Vector3(0, -0.801785325, 0)
+[node name="reeds_019" parent="Flora" instance=ExtResource("reeds")]
+position = Vector3(-2.566051102, -0.020000000, 2.154199982)
+rotation = Vector3(0, -0.005346057, 0)
+[node name="net_panel_020" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-10.166051102, -2.563148613, 3.054199982)
+[node name="net_panel_021" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-8.166051102, -2.563148613, 3.054199982)
+[node name="net_panel_022" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-6.166051102, -2.563148613, 3.054199982)
+[node name="net_panel_023" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-4.166051102, -2.563148613, 3.054199982)
+[node name="net_panel_024" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-2.166051102, -2.563148613, 3.054199982)
+[node name="net_corner_025" parent="Water" instance=ExtResource("net_corner")]
+position = Vector3(-0.666051102, -2.562997694, 3.554199982)
+rotation = Vector3(0, -0.785398163, 0)
+[node name="net_panel_026" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-0.166051102, -2.563148613, 5.054199982)
+rotation = Vector3(0, -1.570796327, 0)
+[node name="net_panel_027" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-0.166051102, -2.563148613, 7.054199982)
+rotation = Vector3(0, -1.570796327, 0)
+[node name="net_panel_028" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-0.166051102, -2.563148613, 9.054199982)
+rotation = Vector3(0, -1.570796327, 0)
+[node name="net_panel_029" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-0.166051102, -2.563148613, 11.054199982)
+rotation = Vector3(0, -1.570796327, 0)
+[node name="net_corner_030" parent="Water" instance=ExtResource("net_corner")]
+position = Vector3(-0.666051102, -2.562997694, 12.554199982)
+rotation = Vector3(0, -2.356194490, 0)
+[node name="net_panel_031" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-2.166051102, -2.563148613, 13.054199982)
+rotation = Vector3(0, -3.141592654, 0)
+[node name="net_panel_032" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-4.166051102, -2.563148613, 13.054199982)
+rotation = Vector3(0, -3.141592654, 0)
+[node name="net_panel_033" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-6.166051102, -2.563148613, 13.054199982)
+rotation = Vector3(0, -3.141592654, 0)
+[node name="net_panel_034" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-8.166051102, -2.563148613, 13.054199982)
+rotation = Vector3(0, -3.141592654, 0)
+[node name="net_panel_035" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-10.166051102, -2.563148613, 13.054199982)
+rotation = Vector3(0, -3.141592654, 0)
+[node name="net_corner_036" parent="Water" instance=ExtResource("net_corner")]
+position = Vector3(-11.666051102, -2.562997694, 12.554199982)
+rotation = Vector3(0, 2.356194490, 0)
+[node name="net_panel_037" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-12.166051102, -2.563148613, 11.054199982)
+rotation = Vector3(0, 1.570796327, 0)
+[node name="net_panel_038" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-12.166051102, -2.563148613, 9.054199982)
+rotation = Vector3(0, 1.570796327, 0)
+[node name="net_panel_039" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-12.166051102, -2.563148613, 7.054199982)
+rotation = Vector3(0, 1.570796327, 0)
+[node name="net_panel_040" parent="Water" instance=ExtResource("net_panel")]
+position = Vector3(-12.166051102, -2.563148613, 5.054199982)
+rotation = Vector3(0, 1.570796327, 0)
+[node name="net_corner_041" parent="Water" instance=ExtResource("net_corner")]
+position = Vector3(-11.666051102, -2.562997694, 3.554199982)
+rotation = Vector3(0, 0.785398163, 0)
+[node name="float_042" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-11.166051102, -0.440000000, 3.054199982)
+[node name="float_043" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-9.166051102, -0.440000000, 3.054199982)
+[node name="float_044" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-7.166051102, -0.440000000, 3.054199982)
+[node name="float_045" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-5.166051102, -0.440000000, 3.054199982)
+[node name="float_046" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-3.166051102, -0.440000000, 3.054199982)
+[node name="float_047" parent="Water" instance=ExtResource("marker_buoy")]
+position = Vector3(-1.166051102, -0.440000000, 3.054199982)
+[node name="float_048" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-0.166051102, -0.440000000, 4.054199982)
+[node name="float_049" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-0.166051102, -0.440000000, 6.054199982)
+[node name="float_050" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-0.166051102, -0.440000000, 8.054199982)
+[node name="float_051" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-0.166051102, -0.440000000, 10.054199982)
+[node name="float_052" parent="Water" instance=ExtResource("marker_buoy")]
+position = Vector3(-0.166051102, -0.440000000, 12.054199982)
+[node name="float_053" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-1.166051102, -0.440000000, 13.054199982)
+[node name="float_054" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-3.166051102, -0.440000000, 13.054199982)
+[node name="float_055" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-5.166051102, -0.440000000, 13.054199982)
+[node name="float_056" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-7.166051102, -0.440000000, 13.054199982)
+[node name="float_057" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-9.166051102, -0.440000000, 13.054199982)
+[node name="float_058" parent="Water" instance=ExtResource("marker_buoy")]
+position = Vector3(-11.166051102, -0.440000000, 13.054199982)
+[node name="float_059" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-12.166051102, -0.440000000, 12.054199982)
+[node name="float_060" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-12.166051102, -0.440000000, 10.054199982)
+[node name="float_061" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-12.166051102, -0.440000000, 8.054199982)
+[node name="float_062" parent="Water" instance=ExtResource("buoy")]
+position = Vector3(-12.166051102, -0.440000000, 6.054199982)
+[node name="float_063" parent="Water" instance=ExtResource("marker_buoy")]
+position = Vector3(-12.166051102, -0.440000000, 4.054199982)

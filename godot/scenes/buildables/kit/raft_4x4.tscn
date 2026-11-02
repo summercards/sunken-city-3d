@@ -4,4 +4,6 @@
 [node name="raft_4x4" type="Node3D"]
 script = ExtResource("1")
 content_id = "raft_4x4"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "entity"
 [node name="Model" parent="." instance=ExtResource("2")]

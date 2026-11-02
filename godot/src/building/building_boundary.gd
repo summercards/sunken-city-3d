@@ -28,6 +28,7 @@ func space_reason(request: Dictionary) -> String:
 			if absf(actor.y-Catalog.ORIGIN.y-Catalog.elevation(request))<0.5 and Catalog.plot_rect(request).grow(Space.RADIUS).has_point(Vector2(actor.x-Catalog.ORIGIN.x,actor.z-Catalog.ORIGIN.z)):
 				return "请先让出摆件的位置"
 		return ""
+	if not Catalog.same_level(Catalog.elevation(request),0.0): return ""
 	var rect:=Catalog.footprint_rect(request)
 	rect.position+=Vector2(Catalog.ORIGIN.x,Catalog.ORIGIN.z)
 	if boat_query.is_valid():
@@ -79,14 +80,16 @@ func _layout_reason_now(before: Array, after: Array, request: Dictionary, contex
 	var at: Vector3=context.position
 	var local:=Vector2(at.x-Catalog.ORIGIN.x,at.z-Catalog.ORIGIN.z)
 	if operation=="remove" and Catalog.is_deck(str(request.kind)) and int(context.get("mode",0))==0:
-		if Catalog.footprint_rect(request).grow(Space.RADIUS).has_point(local): return "请先离开这块木板，再回收"
+		if absf(at.y-Catalog.ORIGIN.y-Catalog.elevation(request))<.5 and Catalog.footprint_rect(request).grow(Space.RADIUS).has_point(local): return "请先离开这块木板，再回收"
 		if active_landing_query.is_valid():
 			var landing_id:=str(active_landing_query.call())
 			if landing_id.begins_with("built:"+id+":"): return "这块木板是当前上下船位置，请先上船或换个泊位"
 	if operation=="begin" and Catalog.is_deck(str(request.kind)): return ""
+	var safety: String=load("res://src/building/assembly_surfaces.gd").safety_reason(before,after,at-Catalog.ORIGIN,int(context.get("mode",0))==0,[Catalog.BASE])
+	if safety!="": return safety
+	if Catalog.elevation(request)>.5: return ""
 	if Catalog.is_kit(str(request.kind)):
 		if operation=="remove" and preload("res://src/building/assembly_surfaces.gd").contains(at-Catalog.ORIGIN,[request]): return "请先离开楼梯或二层楼板"
-		if operation=="remove" and Catalog.RECIPES[request.kind].get("profile","")=="stairs" and at.y>Catalog.ORIGIN.y+.5 and int(context.get("mode",0))==0: return "请先下楼，再回收楼梯"
 		var old_ground: Array=world.walk_rects(before)
 		var new_ground: Array=world.walk_rects(after)
 		if Catalog.RECIPES[request.kind].get("profile","")!="stairs":

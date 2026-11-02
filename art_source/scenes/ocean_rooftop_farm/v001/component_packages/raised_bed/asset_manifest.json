@@ -1,0 +1,38 @@
+{
+  "key": "raised_bed",
+  "asset_id": "SEA-SCENE-ORF-RAISED-BED",
+  "name": "木框高架菜床",
+  "category": "fixture",
+  "component_family": "planting",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-RAISED-BED",
+  "root": "raised_bed_组件根",
+  "bounds_size": [
+    5.5,
+    4.0,
+    0.47999998927116394
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/raised_bed/raised_bed.blend",
+  "geometry_fingerprint": "5fdae3c0f93e8d566fa4dc9d9c7575795dc7588dfdb6582625829712da1516c5",
+  "instances": 2,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 60,
+  "source_sha256": "fd60c8189ce1149f1056665e5ef32932e12ddf2ca82a066700f5e8836ac99d1d",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-RAISED-BED"
+}

@@ -51,7 +51,7 @@ func landing_data(id: String, rows: Variant = null, walk_override: Variant = nul
 	var item: Dictionary={}
 	var occupied: Dictionary={}
 	for row in records:
-		if not Catalog.is_deck(str(row.kind)): continue
+		if not Catalog.is_deck(str(row.kind)) or not Catalog.same_level(Catalog.elevation(row),0.0): continue
 		if Catalog.grid_deck(row): occupied[Vector2i(int(row.x),int(row.z))]=true
 		if row.id==parts[1] and float(row.left)<=0.0: item=row
 	if item.is_empty(): return {}
@@ -116,7 +116,7 @@ func refresh_markers() -> void:
 	var live_walk: Array=world.area.rects
 	var near_decks: Array=[]
 	for row in rows:
-		if not Catalog.is_deck(str(row.kind)) or float(row.left)>0: continue
+		if not Catalog.is_deck(str(row.kind)) or float(row.left)>0 or not Catalog.same_level(Catalog.elevation(row),0.0): continue
 		var center: Vector3=world.position_for(row)
 		row=row.duplicate();row.distance=Vector2(center.x-boat.position.x,center.z-boat.position.z).length_squared()
 		near_decks.append(row)
@@ -193,7 +193,7 @@ func pick_landing(screen: Vector2) -> Dictionary:
 	var rows: Array=service.query()
 	var live_walk: Array=world.area.rects
 	for row in rows:
-		if not Catalog.is_deck(str(row.kind)) or row.left>0 or not Catalog.footprint_rect(row).has_point(local): continue
+		if not Catalog.is_deck(str(row.kind)) or row.left>0 or not Catalog.same_level(Catalog.elevation(row),0.0) or not Catalog.footprint_rect(row).has_point(local): continue
 		var choices: Array=[]
 		for side in 4:
 			var data:=landing_data("built:%s:%d"%[row.id,side],rows,live_walk)

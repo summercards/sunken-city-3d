@@ -6,6 +6,8 @@ func run() -> void:
 	root.get_node("Economy").ticking=false
 	main.world_clock.paused=true
 	var ok:=true
+	# This fixture represents an existing player continuing a game, not creation.
+	ok=main.avatar_profile.commit(main.avatar_profile.query()).ok
 	for entry in [["day",4,9.0],["night",4,21.25],["dawn",5,6.0]]:
 		main.world_clock.from_dict({"day":entry[1],"seconds":entry[2]*3600.0,"day_length":1200.0})
 		var result: Dictionary=main.save_game("user://title-clock-"+entry[0]+".json",true)

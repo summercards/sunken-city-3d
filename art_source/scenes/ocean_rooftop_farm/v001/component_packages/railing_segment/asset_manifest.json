@@ -1,0 +1,38 @@
+{
+  "key": "railing_segment",
+  "asset_id": "SEA-SCENE-ORF-RAILING-SEGMENT",
+  "name": "圆管金属防护栏杆",
+  "category": "fixture",
+  "component_family": "railing",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-RAILING-SEGMENT",
+  "root": "railing_segment_组件根",
+  "bounds_size": [
+    4.0,
+    0.09600000083446503,
+    1.1250001192092896
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/railing_segment/railing_segment.blend",
+  "geometry_fingerprint": "754b6063f775cd88de8652e5f658bf25e2bfb949c1655d2f32de38db1ba369db",
+  "instances": 34,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 220,
+  "source_sha256": "4600b6ecd507bf5052728255dc3486a9603df8ff900e2b485011fed35ae4a37e",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-RAILING-SEGMENT"
+}

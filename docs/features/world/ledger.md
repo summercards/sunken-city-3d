@@ -20,6 +20,7 @@
     "godot/assets/data/zones.json"
   ],
   "verification": [
+    "water-layer",
     "submerged-neighborhood",
     "visual-submerged-neighborhood",
     "selftest",
@@ -32,7 +33,9 @@
     "visual-plot-shipping",
     "visual-home-lighting",
     "sea-supply",
-    "sea-supply-probe"
+    "sea-supply-probe",
+    "fishery-environment",
+    "visual-fishery-environment"
   ]
 }
 ```
@@ -173,3 +176,25 @@ SEA-WORLD-R09：箱子直接挂到Objects/ShippingBox，(1.05,1.38,15.15)；实�
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-WORLD-R14 | 已实现并接入：`World/SeaStructures/floating_shop` 声明 `zone_id=sea_supply`，`main._setup_scene()` 扫完 `World/Zones` 后再把带 zone_id 的结构物并入同一张 `_zone_nodes`（重复 id 报错）；`zones.json` 只保留身份与取景，`walk`/`landings` 由 `Zones.bind_scene()` 在运行时回填；结构物不带 Plants/StaticBatch/建造等级。`Scope.zone_enabled` 把 `sea_supply` 列入最小游玩范围内。 | `sea-supply` 37 项 0 失败、`sea-supply-probe` 探针记录登记/甲板/泊位实测值；[接入记录](../../development/2026-10-31_sea_supply_station.md) |
+
+## 2026-11-02 渔场空间与存读
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-WORLD-R15 | 已接入候选升级状态、岸坪支持与围网水域投影；39项逻辑/43项真实渲染通过，真实胶囊/原泊位/坏档拒绝及新旧档往返已实测 | [本轮交付](../../development/2026-11-02_wild_fishery.md)；fishery-environment |
+| SEA-WORLD-R16 | 新两类职责契约已整理；运行完整验收pending。水上设施承接活动面／泊位／阻挡／功能；水下观赏建筑及海下基座的全部子树不得承担空间或玩法。账本与只读视图已登记；既有water-layer 104项通过仅为旧声明专项，不代签新契约 | [职责规范](../../standards/水层分类与空间职责.md)、[本轮整理](../../development/2026-11-02_building_two_class_contract.md)。后续须补漏声明拒绝、属性／metadata读取、全水下子树无功能及复合设施排除派生；浮店位置／靠泊仍pending |
+
+
+## 2026-11-02 海上设施装配审计（当前实测）
+
+SEA-WORLD-R01/R08/R13/R14/R15/R16：正式资源中7个独立海上设施地点、8条总成（渔场与打捞台同址分阶段）；默认范围纳入阳光房、打捞台／渔场、浅水台、浮店四处，zone2/3/4保留隐藏。浮店main实例原点(69.91094,-18.097904,46.376625)，带旋转／缩放，与设计位置、水线及行走投影不符；该transform与HEAD一致。当前floating-shop 41项5失败、sea-supply 37项8失败，船位Y=-12.4096；R13/R14已有接口接入，但当前空间可用性不通过。R15的fishery-environment 42项通过。R16通用专项104项通过仍漏检：空水层节点被collect跳过，打捞台空导出属性遮住metadata声明，账本与TSCN角色未对读；真实截图脚本16项通过也未阻止水下浮店画面。以上只登记审计事实，未改正式摆放；详情及未执行项见[本轮清点与证据](../../development/2026-11-02_surface_building_inventory_audit.md)。
+
+## 2026-11-02 建筑职责两类整理（最新口径）
+
+用户最新边界已落实为SEA-WORLD-R16现行契约：水上总成可组合水下视觉件，但不得从水下基座／观赏楼生成行走、登陆、碰撞、导航／船阻挡、交互、产出、玩法状态或岸线。仅整理契约／账本，未移动正式实例、未改模型或业务行为；所有运行缺口保留pending，历史专项结果不自动升级。
+
+详见[本轮整理、静态校验与未执行项](../../development/2026-11-02_building_two_class_contract.md)。
+
+范围补充：本轮仅海上主场景；“水下”只指该场景的观赏楼与基座。独立海底／潜水场景另行处理，不按本契约撤销其功能。43项未确认海上归属的独立塔区参考组件不进入两类视图；范围外不等于第三类建筑。
+
+本轮最终静态验收：同步／复核均0问题；8项非法声明拒绝用例及海底范围排除用例通过，322／129两视图互斥完整。源／运行路径、哈希、阶段、授权保持；2377个运行／源支持文件未变。未运行Godot或真实渲染，新职责运行完整验收仍pending。[结果](../../development/2026-11-02_building_two_class_contract.md)。

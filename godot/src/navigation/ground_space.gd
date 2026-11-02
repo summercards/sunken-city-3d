@@ -83,6 +83,8 @@ func rebuild(_area: Node3D = null) -> void:
 			# the physical support only. Its exact nav mesh is deliberately not
 			# eroded a second time or rasterised across the intervening ocean.
 			floor_faces = _expanded_floor(area, faces)
+			if area.has_method("physical_faces") and not area.physical_surface_triangles.is_empty():
+				floor_faces = _upward_faces(area.physical_faces())
 			_add_region(_exact_rect_mesh(area, faces))
 		else:
 			baked_faces.append_array(faces)
@@ -241,8 +243,21 @@ static func _exact_rect_mesh(area: Node3D, faces: PackedVector3Array) -> Navigat
 	mesh.cell_size = 0.05
 	mesh.cell_height = 0.02
 	if area.rects.is_empty():
-		mesh.vertices = faces
-		for i in range(0,faces.size()-2,3): mesh.add_polygon(PackedInt32Array([i,i+1,i+2]))
+		# Reuse identical vertices across cut rectangles and adjacent tiles.
+		# Shared edges are the contract for the exact (unbaked) navigation mesh.
+		var vertices:=PackedVector3Array()
+		var indices: Dictionary={}
+		var polygons: Array[PackedInt32Array]=[]
+		for i in range(0,faces.size()-2,3):
+			if (faces[i+1]-faces[i]).cross(faces[i+2]-faces[i]).length_squared()<0.0000000001: continue
+			var polygon:=PackedInt32Array()
+			for j in 3:
+				var point: Vector3=faces[i+j].snapped(Vector3.ONE*EPS)
+				if not indices.has(point): indices[point]=vertices.size();vertices.append(point)
+				polygon.append(indices[point])
+			if polygon[0]!=polygon[1] and polygon[0]!=polygon[2] and polygon[1]!=polygon[2]: polygons.append(polygon)
+		mesh.vertices=vertices
+		for polygon in polygons: mesh.add_polygon(polygon)
 		return mesh
 	# Sparse coordinate partition, not an ocean-sized raster. All rectangles
 	# share cut vertices, so partial tile seams connect in the engine mesh.

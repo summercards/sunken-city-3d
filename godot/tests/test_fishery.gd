@@ -2,8 +2,8 @@ extends SceneTree
 ## SEA-AQUA-R04：家园补给站升级为渔场。
 ##
 ## 只验收「升级操作」这一段：入口（木牌气泡）、成本（木板 100 / 鱼 50）、
-## 背包与仓库合并付款、拒绝路径、可见变化（牌子改名 + 平台插旗）、存档往返。
-## 养殖/投苗/收成不在本轮（R06 起），测试里也不假装它们存在。
+## 背包与仓库合并付款、拒绝路径、正式渔区显隐、存档往返。
+## 养殖/投苗/收成不在该升级专项；模型/空间另由fishery-environment覆盖。
 var checks := 0
 var failures := 0
 var main
@@ -46,7 +46,7 @@ func run() -> void:
 	# --- 默认未升级 ---
 	check(not economy.fishery.unlocked, "supply station starts as a supply station")
 	check(str(economy.fishery.reason()).contains("木板"), "locked reason names the missing wood")
-	check(str(main.trade_board.label).contains("补给站"), "board reads 家园补给站 before upgrading")
+	check(main.trade_board.label=="渔场 · 待建", "board advertises only fishery construction before upgrading")
 
 	# --- 入口长在木牌的气泡上 ---
 	main.actor_controller.disembark.execute(main.actor_controller, main._current_landing().stand_position())
@@ -56,7 +56,7 @@ func run() -> void:
 	main._open_spot_bubbles(main.trade_board)
 	await process_frame
 	var labels := bubble_labels()
-	check(labels.has("升级为渔场"), "supply board offers an upgrade bubble " + str(labels))
+	check(labels==["建造渔场"], "fishery board offers only its construction bubble " + str(labels))
 	main.hud.world_actions.close(true)
 
 	# --- 材料不足：拒绝且不扣料 ---
@@ -89,8 +89,8 @@ func run() -> void:
 	check(economy.fishery.unlocked, "station is now a fishery")
 	check(economy.count("wood") + economy.warehouse.count("wood") == 0, "100 boards are consumed")
 	check(economy.count("fish") == 0, "50 fish are consumed")
-	check(str(main.trade_board.label).contains("渔场"), "board renames itself to 渔场")
-	check(main._fishery_flag != null and is_instance_valid(main._fishery_flag), "platform gets a visible flag marker")
+	check(not main.trade_board.visible and main._fishery_harvest.visible, "upgraded board is replaced by the harvest interaction")
+	check(main._fishery_visual != null and main._fishery_visual.visible, "platform gets its authored shore, net and floats")
 	check(str(economy.fishery.reason()).contains("已经是渔场"), "second upgrade is refused with a clear reason")
 	await shot("res://outputs/fishery-upgraded.png")
 
@@ -103,7 +103,7 @@ func run() -> void:
 	check(not economy.fishery.unlocked, "fixture resets the live flag")
 	check(preload("res://src/save/save_game.gd").restore(main, saved.snapshot).get("ok", false), "restore applies the fishery")
 	check(economy.fishery.unlocked, "restored save unlocks the fishery again")
-	check(str(main.trade_board.label).contains("渔场"), "restored save renames the board")
+	check(not main.trade_board.visible and main._fishery_harvest.visible, "restored save replaces the board with harvest interaction")
 
 	# 旧档（没有 fishery 字段）读成「没升过」，不报错。
 	var legacy: Dictionary = saved.snapshot.duplicate(true)

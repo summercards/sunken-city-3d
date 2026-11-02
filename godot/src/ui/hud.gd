@@ -9,6 +9,7 @@ var material_shop: RefCounted
 var owned_modal_query: Callable
 var owned_modal_close: Callable
 var owned_modal_input: Callable
+var owned_modal_camera_query: Callable
 var corner: Control
 var notebook: Control
 const EconomyDependency = preload("res://src/economy/economy.gd")
@@ -839,6 +840,11 @@ func _add_goal_button(id: String) -> void:
 
 func is_modal() -> bool:
 	return _panel_open or _external_modal or (corner!=null and corner.expanded) or (world_actions != null and world_actions.is_open()) or (menu != null and menu.visible and get_tree().paused)
+
+func camera_modal() -> bool:
+	if owned_modal_camera_query.is_valid() and owned_modal_camera_query.call():
+		return _panel_open or (menu!=null and menu.active)
+	return is_modal()
 
 func refresh_after_restore() -> void:
 	refresh_view()

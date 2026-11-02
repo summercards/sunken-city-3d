@@ -25,12 +25,15 @@ func model() -> RefCounted:
 		"layout_reason":func(_b:Array,_a:Array,_r:Dictionary): return ""})
 	return s
 func layout(side: int) -> Array:
+	return layout_count(side*side,side)
+func layout_count(count: int,side: int) -> Array:
 	var s:=model()
-	for x in side:
-		for z in side:
-			s.begin({"kind":"raft_4x4","px":float(x)*4.0,"pz":float(z)*4.0,
-				"py":0.0,"turn":0,"support":"","origin":"boat"})
+	for i in count:
+		var made: Dictionary=s.begin({"kind":"raft_4x4","px":100+float(i%side)*4.0,"pz":100+float(i/side)*4.0,
+			"py":0.0,"turn":0,"support":"","origin":"boat"})
+		check(made.ok,"performance fixture creates platform "+str(i))
 	s.tick(30.0)
+	check(s.query().size()==count,"performance fixture has exact count "+str(count))
 	return s.query()
 
 ## Reference solver: the pre-index shape — every candidate formed from scratch and
@@ -73,7 +76,7 @@ func reference(kind: String,point: Vector2,turn: int,rows: Array) -> Dictionary:
 	return best if not best.is_empty() else fallback
 
 func measure(rows: Array,times: int) -> float:
-	var probe:=Vector2(-3.3,1.7)
+	var probe:=Vector2(96.7,101.7)
 	Catalog.snap_foundation("raft_4x4",probe,0,rows,false)
 	var start:=Time.get_ticks_usec()
 	for i in times:
@@ -88,8 +91,8 @@ func run() -> void:
 		var rows:=layout(side)
 		for kind in ["raft_4x4","raft_2x4","deck"]:
 			for turn in 2:
-				var cursor:=Vector2(-4.0,-4.0)
-				while cursor.x<float(side)*4.0+6.0:
+				var cursor:=Vector2(96.0,96.0)
+				while cursor.x<100+float(side)*4.0+6.0:
 					compared+=1
 					var got: Dictionary=Catalog.snap_foundation(kind,cursor,turn,rows,false)
 					var want: Dictionary=reference(kind,cursor,turn,rows)
@@ -113,13 +116,13 @@ func run() -> void:
 	# 3. Cost curve. A cubic solver at 45 boards needs 163 ms; the budget below
 	#    leaves generous headroom for slower machines while still failing loudly.
 	var shapes: Array=[]
-	for side in [3,4,5]:
-		var rows:=layout(side)
+	for count in [9,25,45,100]:
+		var rows:=layout_count(count,ceili(sqrt(float(count))))
 		shapes.append({"boards":rows.size(),"ms":measure(rows,24)})
 	print("[perf] 吸附求解耗时：")
 	for shape in shapes: print("[perf]   %2d 块板  %.3f ms"%[int(shape.boards),float(shape.ms)])
 	var biggest: float=float(shapes[-1].ms)
-	check(biggest<12.0,"45-board snap stays inside one 60fps budget slice (%.2f ms)"%biggest)
+	check(biggest<12.0,"actual 100-board snap stays inside frame budget (%.2f ms)"%biggest)
 	# Growing 25 -> 45 boards must not explode. Linear would be ~4x; give it 12x
 	# before calling it a regression, because a single machine hiccup is not a bug.
 	var smallest: float=maxf(float(shapes[0].ms),0.001)

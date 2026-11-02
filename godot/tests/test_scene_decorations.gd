@@ -88,7 +88,9 @@ func run() -> void:
 			check(not first.is_equal_approx(n.transforms[0]),"fish really animate")
 		if d.asset_id=="SEA-DECO-ANIMAL-WHALE": whales+=1;check(box_of(n).size.length()>8,"large animal geometry")
 		if d.subcategory=="water_plants": leaves+=1
-	check(schools==10,"3 surface decorative + 7 dive schools")
+	# 3 群水面（surface_animals）+ 7 群潜水 + 渔场围网内外 2 群（zone1 FisherySchools）。
+	# 渔场接入后总数从 10 变 12；写成 10 会让渔场鱼群变成"多出来的假失败"。
+	check(schools==12,"3 surface + 7 dive + 2 fishery schools")
 	check(whales==1,"one large whale")
 	check(leaves==24,"24 independent original lily leaves")
 	var migrated=main.get_node("World/Zones/Zone2YokohamaStation/WaterDecorations")

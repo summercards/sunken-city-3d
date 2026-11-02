@@ -1,0 +1,38 @@
+{
+  "key": "balcony",
+  "asset_id": "SEA-SCENE-ORF-BALCONY",
+  "name": "混凝土栏板阳台",
+  "category": "structure",
+  "component_family": "facade",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-BALCONY",
+  "root": "balcony_组件根",
+  "bounds_size": [
+    5.0,
+    1.3129916191101074,
+    0.8799999952316284
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/balcony/balcony.blend",
+  "geometry_fingerprint": "46fedd4df7e0be2c2599bb63c20dd5ef281e2c678e0d9043ce148e0669cf07a5",
+  "instances": 32,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 78,
+  "source_sha256": "22f0e6dfc55b672d352a847d619fb7f3f09dce3c9ebaa695b35823187cbb9106",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-BALCONY"
+}

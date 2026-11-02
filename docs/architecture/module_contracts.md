@@ -143,3 +143,21 @@ UI的owned_modal_query/close/input为独立手册和预览提供注入的模态�
 | `WalkArea.open_surface_junctions` / `WalkAction` | 显式坡面接缝避免生成封口边界；三维路线沿实际胶囊执行，路径中间引导容差不改变终点契约。 |
 
 首批限制：基础层/二层，不开放第三层、竖梯、风力发电或风铃音效。业务与技术验证分别记录在[本轮交付](../development/2026-10-30_modular_building_kit.md)。
+
+## 2026-11-02 新旅程与角色定制
+
+- `AvatarProfile`唯一拥有已提交`profile`快照；`query()`深拷贝，`commit(draft)`验证并发`changed`。UI只编辑独立草稿，`AvatarSession`协调提交/整局写盘；写失败回滚档案并保留预览和可重试草稿。
+- `AvatarCatalog`读取稳定槽位/选项ID，`AvatarVisual`只接收appearance，不访问Main/Economy；保留角色功能根、碰撞、肩肘髋膝及原动作采样。未知ID保留于档案、表现采用槽位默认值。
+- `AvatarEditor`只发preview/save/cancel/rotate意图。`AvatarSession`注入profile/player/camera/save Callable，`ArrivalFlow`注入放到真实泊位和交还标题相机的Callable。独立目录不反向引用bootstrap或经营服务。
+- 根存档保持v4，新增`profile.version=1`，缺失profile仅在decode及直接restore入口明确迁移为已完成旅人；已有但损坏profile必须拒绝。SnapshotRegistry注册profile并屏蔽恢复中间信号，最终由_after_restore统一投影外观。
+- `design_refs`只预留稳定设计ID，`extensions`保留扩展元数据，完整profile限制16KiB；当前没有图案创作/外部文件加载/分享实现。扩展设计仓库独立拥有纹理，档案只引用。
+
+独立设计与台账：[角色档案](../features/avatar/spec.md)、[码头开场](../features/onboarding/spec.md)；[本轮证据](../development/2026-11-02_avatar_and_arrival.md)。
+
+用户指定比例修订：AvatarDimensions唯一拥有新基体的肩/肘/髋/膝静止尺寸，Character建节点与ItemReceive腕部求解共用；层级和生命周期保持，获物2.4秒/1.60米顶点与奖励边界保留。AvatarVisual只改网格；比例不写碰撞和玩法根。指定参考由SEA-AVATAR-R13管理。
+
+## 2026-11-02 四肢连续网格与骨骼
+
+AvatarLimbSkinning（Skeleton3D）拥有4张连续封闭索引网格、Skin绑定和21骨姿势；AvatarVisual只传入稳定外观选项，shader负责袖口/裤脚/鞋底分色。原动作采样器不改网格或奖励，继续输出肩肘/髋膝不可见控制，Character在采样完成后一次sync_visual_pose，LimbSkeleton同步控制骨和独立伸长辅助骨，GPU完成变形。辅助骨不向下一旋转控制骨传递非均匀缩放，避免长臂获物姿势剪切。
+
+四肢网格只在构造时生成，换装不重建骨骼/顶点权重，运行期不以CPU逐顶点改网格。deformed_points为只读验收/量测端口，不在生产_process中调用。保存仍只有profile稳定ID，恢复重置控制姿势并投影骨骼，不持久化临时蒙皮姿态；碰撞和根位移所有者不变。[独立契约](../features/avatar/spec.md)与[本轮证据](../development/2026-11-02_avatar_limb_skinning.md)。

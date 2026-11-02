@@ -11,6 +11,8 @@ subcategory = "underwater_buildings"
 movable = false
 metadata/asset_id = "SEA-SCENE-SUBMERGED-REAR-SLAB"
 metadata/triangle_budget = 1000
+water_layer = "submerged"
+water_layer_role = "entity"
 [node name="Visual" parent="." instance=ExtResource("model")]
 surface_material_override/0 = ExtResource("palette")
 [node name="Blockers" type="Node3D" parent="."]

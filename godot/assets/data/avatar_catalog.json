@@ -1,0 +1,635 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "id": "skin",
+      "label": "肤色",
+      "slots": [
+        "skin"
+      ]
+    },
+    {
+      "id": "hair",
+      "label": "头发",
+      "slots": [
+        "hair_style",
+        "hair_color"
+      ]
+    },
+    {
+      "id": "eyes",
+      "label": "眼睛",
+      "slots": [
+        "eyes",
+        "eye_color",
+        "brows"
+      ]
+    },
+    {
+      "id": "face",
+      "label": "五官",
+      "slots": [
+        "nose",
+        "mouth",
+        "blush"
+      ]
+    },
+    {
+      "id": "top",
+      "label": "上装",
+      "slots": [
+        "top",
+        "top_color"
+      ]
+    },
+    {
+      "id": "bottom",
+      "label": "下装",
+      "slots": [
+        "bottom",
+        "bottom_color"
+      ]
+    },
+    {
+      "id": "shoes",
+      "label": "鞋子",
+      "slots": [
+        "shoes",
+        "shoe_color"
+      ]
+    },
+    {
+      "id": "extras",
+      "label": "配饰",
+      "slots": [
+        "hat",
+        "hat_color",
+        "glasses"
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "id": "skin",
+      "label": "海风亲吻的肤色",
+      "default": "peach",
+      "options": [
+        {
+          "id": "porcelain",
+          "label": "瓷白",
+          "color": "#ffe5d0"
+        },
+        {
+          "id": "peach",
+          "label": "蜜桃",
+          "color": "#f5cbaa"
+        },
+        {
+          "id": "honey",
+          "label": "蜜糖",
+          "color": "#dfaa7b"
+        },
+        {
+          "id": "tan",
+          "label": "小麦",
+          "color": "#bb825c"
+        },
+        {
+          "id": "umber",
+          "label": "可可",
+          "color": "#895a43"
+        },
+        {
+          "id": "deep",
+          "label": "深棕",
+          "color": "#593d34"
+        }
+      ]
+    },
+    {
+      "id": "hair_style",
+      "label": "选一个喜欢的发型",
+      "default": "bob",
+      "options": [
+        {
+          "id": "crop",
+          "label": "清爽短发"
+        },
+        {
+          "id": "side",
+          "label": "侧分短发"
+        },
+        {
+          "id": "bob",
+          "label": "圆圆波波头"
+        },
+        {
+          "id": "wave",
+          "label": "柔软卷发"
+        },
+        {
+          "id": "bun",
+          "label": "高高丸子头"
+        },
+        {
+          "id": "twin",
+          "label": "双团子"
+        }
+      ]
+    },
+    {
+      "id": "hair_color",
+      "label": "头发的颜色",
+      "default": "chestnut",
+      "options": [
+        {
+          "id": "chestnut",
+          "label": "栗棕",
+          "color": "#664432"
+        },
+        {
+          "id": "black",
+          "label": "墨黑",
+          "color": "#302d35"
+        },
+        {
+          "id": "cocoa",
+          "label": "可可",
+          "color": "#8d6145"
+        },
+        {
+          "id": "gold",
+          "label": "麦金",
+          "color": "#d9b565"
+        },
+        {
+          "id": "silver",
+          "label": "银灰",
+          "color": "#c4c5c0"
+        },
+        {
+          "id": "rose",
+          "label": "莓粉",
+          "color": "#ca8490"
+        },
+        {
+          "id": "ocean",
+          "label": "海蓝",
+          "color": "#648eab"
+        },
+        {
+          "id": "mint",
+          "label": "薄荷",
+          "color": "#91b59a"
+        }
+      ]
+    },
+    {
+      "id": "eyes",
+      "label": "眼睛的形状",
+      "default": "round",
+      "options": [
+        {
+          "id": "round",
+          "label": "圆亮眼"
+        },
+        {
+          "id": "oval",
+          "label": "杏仁眼"
+        },
+        {
+          "id": "sleepy",
+          "label": "悠闲眼"
+        },
+        {
+          "id": "smile",
+          "label": "笑眯眯"
+        }
+      ]
+    },
+    {
+      "id": "eye_color",
+      "label": "眼睛的颜色",
+      "default": "brown",
+      "options": [
+        {
+          "id": "brown",
+          "label": "栗子",
+          "color": "#654634"
+        },
+        {
+          "id": "black",
+          "label": "深墨",
+          "color": "#33303b"
+        },
+        {
+          "id": "blue",
+          "label": "湖蓝",
+          "color": "#548aa0"
+        },
+        {
+          "id": "green",
+          "label": "苔绿",
+          "color": "#71895a"
+        },
+        {
+          "id": "amber",
+          "label": "琥珀",
+          "color": "#b78d4a"
+        },
+        {
+          "id": "violet",
+          "label": "紫藤",
+          "color": "#927da8"
+        }
+      ]
+    },
+    {
+      "id": "brows",
+      "label": "眉毛",
+      "default": "soft",
+      "options": [
+        {
+          "id": "soft",
+          "label": "柔和"
+        },
+        {
+          "id": "straight",
+          "label": "平直"
+        },
+        {
+          "id": "arch",
+          "label": "弯弯"
+        }
+      ]
+    },
+    {
+      "id": "nose",
+      "label": "鼻子",
+      "default": "button",
+      "options": [
+        {
+          "id": "button",
+          "label": "小圆鼻"
+        },
+        {
+          "id": "oval",
+          "label": "椭圆鼻"
+        },
+        {
+          "id": "tiny",
+          "label": "小巧鼻"
+        }
+      ]
+    },
+    {
+      "id": "mouth",
+      "label": "嘴巴",
+      "default": "smile",
+      "options": [
+        {
+          "id": "smile",
+          "label": "小微笑"
+        },
+        {
+          "id": "wide",
+          "label": "大微笑"
+        },
+        {
+          "id": "calm",
+          "label": "平静"
+        },
+        {
+          "id": "oh",
+          "label": "圆圆嘴"
+        }
+      ]
+    },
+    {
+      "id": "blush",
+      "label": "脸颊",
+      "default": "peach",
+      "options": [
+        {
+          "id": "peach",
+          "label": "蜜桃腮红"
+        },
+        {
+          "id": "freckles",
+          "label": "小雀斑"
+        },
+        {
+          "id": "none",
+          "label": "清清爽爽"
+        }
+      ]
+    },
+    {
+      "id": "top",
+      "label": "上装款式",
+      "default": "stripe",
+      "options": [
+        {
+          "id": "tee",
+          "label": "日常短袖"
+        },
+        {
+          "id": "stripe",
+          "label": "海风条纹"
+        },
+        {
+          "id": "sailor",
+          "label": "水手领"
+        },
+        {
+          "id": "vest",
+          "label": "衬衫马甲"
+        }
+      ]
+    },
+    {
+      "id": "top_color",
+      "label": "上装的颜色",
+      "default": "seafoam",
+      "options": [
+        {
+          "id": "seafoam",
+          "label": "海沫绿",
+          "color": "#72b8a6"
+        },
+        {
+          "id": "sunset",
+          "label": "落日橙",
+          "color": "#e6a068"
+        },
+        {
+          "id": "cream",
+          "label": "奶油白",
+          "color": "#f5e5ba"
+        },
+        {
+          "id": "blue",
+          "label": "晴空蓝",
+          "color": "#7daaca"
+        },
+        {
+          "id": "rose",
+          "label": "珊瑚粉",
+          "color": "#d9929b"
+        },
+        {
+          "id": "lilac",
+          "label": "丁香紫",
+          "color": "#afa0c6"
+        },
+        {
+          "id": "navy",
+          "label": "海军蓝",
+          "color": "#486879"
+        },
+        {
+          "id": "sage",
+          "label": "鼠尾草",
+          "color": "#9eae81"
+        },
+        {
+          "id": "plum",
+          "label": "烟紫",
+          "color": "#635b6d"
+        }
+      ]
+    },
+    {
+      "id": "bottom",
+      "label": "下装款式",
+      "default": "shorts",
+      "options": [
+        {
+          "id": "shorts",
+          "label": "轻便短裤"
+        },
+        {
+          "id": "trousers",
+          "label": "休闲长裤"
+        }
+      ]
+    },
+    {
+      "id": "bottom_color",
+      "label": "下装的颜色",
+      "default": "navy",
+      "options": [
+        {
+          "id": "seafoam",
+          "label": "海沫绿",
+          "color": "#72b8a6"
+        },
+        {
+          "id": "sunset",
+          "label": "落日橙",
+          "color": "#e6a068"
+        },
+        {
+          "id": "cream",
+          "label": "奶油白",
+          "color": "#f5e5ba"
+        },
+        {
+          "id": "blue",
+          "label": "晴空蓝",
+          "color": "#7daaca"
+        },
+        {
+          "id": "rose",
+          "label": "珊瑚粉",
+          "color": "#d9929b"
+        },
+        {
+          "id": "lilac",
+          "label": "丁香紫",
+          "color": "#afa0c6"
+        },
+        {
+          "id": "navy",
+          "label": "海军蓝",
+          "color": "#486879"
+        },
+        {
+          "id": "sage",
+          "label": "鼠尾草",
+          "color": "#9eae81"
+        },
+        {
+          "id": "plum",
+          "label": "烟紫",
+          "color": "#635b6d"
+        }
+      ]
+    },
+    {
+      "id": "shoes",
+      "label": "鞋子款式",
+      "default": "sneakers",
+      "options": [
+        {
+          "id": "sneakers",
+          "label": "帆布鞋"
+        },
+        {
+          "id": "boots",
+          "label": "软软短靴"
+        },
+        {
+          "id": "dress",
+          "label": "小皮鞋"
+        }
+      ]
+    },
+    {
+      "id": "shoe_color",
+      "label": "鞋子的颜色",
+      "default": "cream",
+      "options": [
+        {
+          "id": "seafoam",
+          "label": "海沫绿",
+          "color": "#72b8a6"
+        },
+        {
+          "id": "sunset",
+          "label": "落日橙",
+          "color": "#e6a068"
+        },
+        {
+          "id": "cream",
+          "label": "奶油白",
+          "color": "#f5e5ba"
+        },
+        {
+          "id": "blue",
+          "label": "晴空蓝",
+          "color": "#7daaca"
+        },
+        {
+          "id": "rose",
+          "label": "珊瑚粉",
+          "color": "#d9929b"
+        },
+        {
+          "id": "lilac",
+          "label": "丁香紫",
+          "color": "#afa0c6"
+        },
+        {
+          "id": "navy",
+          "label": "海军蓝",
+          "color": "#486879"
+        },
+        {
+          "id": "sage",
+          "label": "鼠尾草",
+          "color": "#9eae81"
+        },
+        {
+          "id": "plum",
+          "label": "烟紫",
+          "color": "#635b6d"
+        }
+      ]
+    },
+    {
+      "id": "hat",
+      "label": "帽子",
+      "default": "none",
+      "options": [
+        {
+          "id": "none",
+          "label": "不戴帽子"
+        },
+        {
+          "id": "bucket",
+          "label": "渔夫帽"
+        },
+        {
+          "id": "beanie",
+          "label": "针织帽"
+        },
+        {
+          "id": "fedora",
+          "label": "窄边礼帽"
+        }
+      ]
+    },
+    {
+      "id": "hat_color",
+      "label": "帽子的颜色",
+      "default": "sunset",
+      "options": [
+        {
+          "id": "seafoam",
+          "label": "海沫绿",
+          "color": "#72b8a6"
+        },
+        {
+          "id": "sunset",
+          "label": "落日橙",
+          "color": "#e6a068"
+        },
+        {
+          "id": "cream",
+          "label": "奶油白",
+          "color": "#f5e5ba"
+        },
+        {
+          "id": "blue",
+          "label": "晴空蓝",
+          "color": "#7daaca"
+        },
+        {
+          "id": "rose",
+          "label": "珊瑚粉",
+          "color": "#d9929b"
+        },
+        {
+          "id": "lilac",
+          "label": "丁香紫",
+          "color": "#afa0c6"
+        },
+        {
+          "id": "navy",
+          "label": "海军蓝",
+          "color": "#486879"
+        },
+        {
+          "id": "sage",
+          "label": "鼠尾草",
+          "color": "#9eae81"
+        },
+        {
+          "id": "plum",
+          "label": "烟紫",
+          "color": "#635b6d"
+        }
+      ]
+    },
+    {
+      "id": "glasses",
+      "label": "眼镜",
+      "default": "none",
+      "options": [
+        {
+          "id": "none",
+          "label": "不戴眼镜"
+        },
+        {
+          "id": "round",
+          "label": "圆框眼镜"
+        },
+        {
+          "id": "square",
+          "label": "方圆眼镜"
+        }
+      ]
+    }
+  ]
+}

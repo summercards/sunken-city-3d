@@ -25,7 +25,11 @@
     "minimum-loop",
     "visual-plot-shipping",
     "sleep-cycle",
-    "wood-bundles"
+    "wood-bundles",
+    "save-reset",
+    "visual-save-reset",
+    "fishery-environment",
+    "visual-fishery-environment"
   ]
 }
 ```
@@ -128,3 +132,28 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
 |---|---|---|
 | SEA-SAVE-R10 | 已实现；65实例含带作物搬移的独立海上平台70+8项跨进程恢复，旧档边缘迁移5+11项通过 | [本轮交付](../../development/2026-10-29_open_ocean_building.md) |
+
+## 2026-11-02 渔场空间与存读
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SAVE-R15 | 已接入候选升级状态、岸坪支持与围网水域投影；39项逻辑/43项真实渲染通过，真实胶囊/原泊位/坏档拒绝及新旧档往返已实测 | [本轮交付](../../development/2026-11-02_wild_fishery.md)；fishery-environment |
+
+## 2026-11-02 重置存档
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SAVE-R14 | 已实现；暂停菜单独立确认页 → 归档 → 注册表回开局 → 立即写新档；旧档归档为 `_pre_reset-<时间戳>.json` | `save-reset` 27项、`visual-save-reset` 5项0失败；[交付](../../development/2026-11-02_save_reset.md) |
+
+新增接口：`SaveGame.archive(path, stamp)`（改名归档，返回 `files`/`mark`，失败整体回滚）；
+`Main.reset_save(path := "")`（归档 → `save_registry.defaults()` + `restore()` → `save_game()`）。
+命令 `reset` 走既有的 `_on_click_command` 路由，暂停菜单确认页负责防误触。
+存档格式、版本号与迁移链**未改**：重置产出的就是一份普通 v4 开局档，仍然走 `SaveGame.read()`。
+
+| SEA-SAVE-R16 | 已接入周期储量与下次产鱼时刻，v1兼容、v2坏档拒绝与重复钟点由fishery-production专项核验 | [本轮交付](../../development/2026-11-02_fishery_production.md) |
+
+## 2026-11-02 新旅程与角色档案
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SAVE-R17 | 已接入，专项与回归以本轮记录为准 | `avatar / avatar-restart / onboarding / save-reset / save-protection`；[交付](../../development/2026-11-02_avatar_and_arrival.md) |

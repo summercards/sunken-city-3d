@@ -1,0 +1,38 @@
+{
+  "key": "floor_slab",
+  "asset_id": "SEA-SCENE-ORF-FLOOR-SLAB",
+  "name": "厚圆角混凝土楼板",
+  "category": "structure",
+  "component_family": "building",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-FLOOR-SLAB",
+  "root": "floor_slab_组件根",
+  "bounds_size": [
+    36.0,
+    24.0,
+    0.2199999988079071
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/floor_slab/floor_slab.blend",
+  "geometry_fingerprint": "c6df240b8baedaef16c074cceee22c2f6bb4b52b895f6de13d8647d91476a3e5",
+  "instances": 8,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 12,
+  "source_sha256": "7ca7c5f3e2ab05d9f2777f8f782c74e609bd5b03b74e98ebb75e7ce8a6e61d3e",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-FLOOR-SLAB"
+}

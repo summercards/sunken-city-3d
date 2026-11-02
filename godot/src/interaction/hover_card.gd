@@ -303,6 +303,7 @@ func _pick(screen: Vector2, include_barred := false) -> Dictionary:
 		var spot: Node3D = raw
 		if spot == null or not is_instance_valid(spot) or not spot.is_visible_in_tree():
 			continue
+		if spot.get_meta("screen_button_owned",false): continue
 		# 图标贴在热区锚点上，和判定、编辑器预览用同一个位置。菜箱是贴地的格子，
 		# 抬高少一点；其余物件抬到物体上半身，避免图标被自己挡住。
 		var base: Vector3 = spot.focus_position()

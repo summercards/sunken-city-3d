@@ -1,0 +1,38 @@
+{
+  "key": "tool_shed",
+  "asset_id": "SEA-SCENE-ORF-TOOL-SHED",
+  "name": "中央工具房墙体与木门",
+  "category": "structure",
+  "component_family": "shed",
+  "origin": "bottom_center",
+  "front_axis": "Blender -Y / Godot +Z",
+  "allowed_rotation": "full Euler XYZ on instances",
+  "scope": "scene_local",
+  "collision": "visual source only; future facility assembly owns projection",
+  "budget_triangles": 40000,
+  "budget_source": "task-authored component ceiling, not a user-supplied cap",
+  "collection": "SEA-SCENE-ORF-TOOL-SHED",
+  "root": "tool_shed_组件根",
+  "bounds_size": [
+    4.597499847412109,
+    3.7750000953674316,
+    3.049999952316284
+  ],
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v001/component_packages/tool_shed/tool_shed.blend",
+  "geometry_fingerprint": "c36d8ab1228538e7d15d421967f1bf1f40d9373cd70390dc9eaf51e098a90d18",
+  "instances": 1,
+  "materials": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "collision_owner": "future above-water facility assembly; source visual only",
+  "triangles": 224,
+  "source_sha256": "bced3f06a064f2ae1976634a75ae86d5c88f0d6b2fd0088ad59f916dcb7563a4",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "version": "v001",
+  "stage": "source_verified_runtime_pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF-TOOL-SHED"
+}
