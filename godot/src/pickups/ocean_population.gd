@@ -10,6 +10,8 @@ const MORNING := preload("res://src/time/day_schedule.gd").MORNING_SECONDS / 360
 var cycle := -1
 var now := 0.0
 var missing: Dictionary = {}
+var harvested: Dictionary = {}
+var wood_yields: Dictionary = {}
 var _cells: Dictionary = {}
 var _center := Vector2i(2147483647, 2147483647)
 var _desired: Dictionary = {}
@@ -24,6 +26,8 @@ func observe(clock: Dictionary) -> bool:
 	if next_cycle != cycle:
 		cycle = next_cycle
 		missing.clear()
+		harvested.clear()
+		wood_yields.clear()
 		_cells.clear()
 		_dirty = true
 	for slot in missing.keys():
@@ -36,7 +40,15 @@ func collect(slot: String, fish: bool, rng: RandomNumberGenerator) -> void:
 	# Morning renews the whole population. Within a day wood gets a separate,
 	# independently drawn delay; fish has no same-day replacement.
 	missing[slot] = cycle * 24.0 + MORNING if fish else now + rng.randf_range(6.0, 10.0)
+	if not fish:
+		harvested[slot] = int(harvested.get(slot, 0)) + 1
+		wood_yields.erase(slot)
 	_dirty = true
+
+func wood_amount(point: Vector2, slot: String) -> int:
+	if not wood_yields.has(slot):
+		wood_yields[slot] = preload("res://src/pickups/wood_bundle.gd").for_slot(point, slot, cycle, int(harvested.get(slot, 0)))
+	return int(wood_yields[slot])
 
 func invalidate() -> void:
 	_cells.clear()
@@ -75,6 +87,24 @@ func _make_cell(cell: Vector2i, wood_count: int, fish_count: int, clear: Callabl
 	var quota := floori(scaled / 100.0)
 	if posmod(cell.x + 3*cell.y + cycle, 10) < (scaled % 100) / 10.0: quota += 1
 	for i in range(quota, outside.size()): result.erase(outside[i])
+	# Keep the old fish layout, then move only wood whose larger silhouette
+	# would cross a shoreline. This stream cannot perturb the fish RNG.
+	for slot in result.keys():
+		if result[slot].fish or not clear.is_valid() or clear.call(result[slot].point, false): continue
+		var rng := RandomNumberGenerator.new()
+		rng.seed = (str(slot) + ":wood-clearance:" + str(cycle)).hash()
+		var placed := false
+		for attempt in 160:
+			var point := Vector2(cell) * CELL_SIZE + Vector2(rng.randf_range(5, CELL_SIZE-5), rng.randf_range(5, CELL_SIZE-5))
+			if HOME_WATER.has_point(point) or not clear.call(point, false): continue
+			var separated := true
+			for other in result:
+				if other != slot and point.distance_to(result[other].point) < 9.0: separated = false; break
+			if not separated: continue
+			result[slot].point = point
+			placed = true
+			break
+		if not placed: result.erase(slot)
 	if cell == HOME_CELL:
 		_add_home_wood(result, wood_count, fish_count, clear)
 	return result
@@ -114,7 +144,9 @@ func _make_base_cell(cell: Vector2i, wood_count: int, fish_count: int, clear: Ca
 			for attempt in 100:
 				# A 5m border also separates populations across adjacent cells.
 				var point := Vector2(cell) * CELL_SIZE + Vector2(rng.randf_range(5, CELL_SIZE-5), rng.randf_range(5, CELL_SIZE-5))
-				if clear.is_valid() and not clear.call(point, kind == "fish"): continue
+				# Third argument requests the historical layout footprint. Final
+				# wood placement above uses the new maximum-sized footprint.
+				if clear.is_valid() and not clear.call(point, kind == "fish", true): continue
 				var separated := true
 				for other in points:
 					if point.distance_to(other) < 9.0: separated = false; break
@@ -125,15 +157,27 @@ func _make_base_cell(cell: Vector2i, wood_count: int, fish_count: int, clear: Ca
 	return result
 
 func to_dict() -> Dictionary:
-	return {"version":1, "cycle":cycle, "now":now, "missing":missing.duplicate(true)}
+	return {"version":1, "cycle":cycle, "now":now, "missing":missing.duplicate(true), "harvested":harvested.duplicate(true), "wood_yields":wood_yields.duplicate(true)}
 
 func from_dict(data: Dictionary) -> void:
 	cycle = int(data.cycle)
 	now = float(data.now)
 	missing = data.missing.duplicate(true)
+	harvested = data.get("harvested", {}).duplicate(true)
+	wood_yields = data.get("wood_yields", {}).duplicate(true)
+	# JSON decodes numbers as floats; keep semantic integer maps canonical,
+	# including unloaded slots that have no live entity to normalize them.
+	for values in [harvested, wood_yields]:
+		for slot in values: values[slot] = int(values[slot])
 	invalidate()
 
 static func validate_snapshot(data: Dictionary) -> String:
+	for slot in data.get("harvested", {}).keys() + data.get("wood_yields", {}).keys():
+		var parts := str(slot).split(":")
+		if parts.size() != 4 or not parts[0].is_valid_int() or not parts[1].is_valid_int() or not parts[3].is_valid_int(): return "Invalid wood generation slot"
+		if parts[2] != "wood" or int(parts[3]) < 0 or int(parts[3]) >= 9: return "Invalid wood generation kind"
+	for slot in data.get("wood_yields", {}):
+		if preload("res://src/pickups/wood_bundle.gd").tier(int(data.wood_yields[slot])) < 0 or data.missing.has(slot): return "Invalid cached wood yield"
 	for slot in data.missing:
 		var parts := str(slot).split(":")
 		if parts.size() != 4: return "Invalid ocean resource slot"

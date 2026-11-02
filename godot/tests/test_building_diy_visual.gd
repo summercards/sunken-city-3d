@@ -13,6 +13,8 @@ func check(ok: bool,label: String) -> void:
 	if not ok: failures += 1; printerr("FAIL ",label)
 
 func click(screen: Vector2) -> void:
+	var motion:=InputEventMouseMotion.new();motion.position=screen
+	root.push_input(motion,true);await process_frame
 	for pressed in [true,false]:
 		var event := InputEventMouseButton.new()
 		event.button_index = MOUSE_BUTTON_LEFT; event.position = screen; event.pressed = pressed
@@ -62,8 +64,10 @@ func run() -> void:
 	check(controller.book.recipe_buttons.has("planter_small"),"compact furnishing in book")
 	check(controller.book.recipe_buttons.has("move") and controller.book.recipe_buttons.has("remove"),"management operations in book")
 	await shot("book")
+	await button(controller.book.category_buttons.planting)
+	check(controller.book.category=="planting" and controller.book.recipe_buttons.planter_small.is_visible_in_tree(),"planting tab exposes compact furnishing card")
 	await button(controller.book.recipe_buttons.planter_small)
-	check(controller.recipe == "planter_small" and not controller.book.visible,"mouse selects compact furnishing")
+	check(controller.recipe == "planter_small" and not controller.book.visible,"mouse selects compact furnishing: recipe="+controller.recipe+" category="+controller.book.category+" book="+str(controller.book.visible))
 	var source := Catalog.ORIGIN+Vector3(4.3,0,-1.2875)
 	var precision_point := source+Vector3(0.027,0,0.033)
 	controller.update_preview(main.cam.unproject_position(precision_point))

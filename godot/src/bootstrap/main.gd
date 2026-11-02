@@ -405,6 +405,10 @@ func _ready() -> void:
 			grade.set_water_scheme("absorption")
 			grade.set_open(true)
 			grade.set_tab("water")
+		if a == "--test" and grade != null:
+			# 调试：直接打开「测试」页（加资源/改时间/换天气），截图核对用。
+			grade.set_open(true)
+			grade.set_tab("test")
 		if a.begins_with("--grant="):
 			# 调试：给物品（截图/演示用）。格式 --grant=wood:12,parts:5
 			for pair in a.trim_prefix("--grant=").split(","):
@@ -1645,6 +1649,45 @@ func _setup_grade() -> void:
 		grade = ColorGradeScript.new()
 		grade.name = "ColorGrade"
 		add_child(grade)
+	# 面板的「测试」页（SEA-TOOL）不会自己去摸 Economy / 世界时间 / 天气 ——
+	# 那几个状态各有所有者，测试工具只拿到一份端口。缺哪个，页面就把那一组禁用。
+	grade.set_test_ports({
+		"catalog": Callable(self, "_debug_catalog"),
+		"count": func(id: String) -> int: return Economy.count(id),
+		"give": func(amounts: Dictionary) -> void: Economy.give(amounts),
+		"clock": func() -> Dictionary: return world_clock.query(),
+		"set_time": Callable(self, "_debug_set_clock"),
+		"weather": func() -> String: return weather_service.kind,
+		"set_weather": func(kind: String) -> bool: return weather_service.set_weather(kind),
+		"energy": func() -> Dictionary: return {"current": Economy.energy.current, "maximum": Economy.energy.maximum},
+		"refill_energy": func() -> void: Economy.energy.refill(),
+	})
+
+
+## 测试页的可加物品清单。直接读物品表，不另立一份「测试专用资源列表」——
+## 表里加了新物品，这一页下次打开就有了。
+func _debug_catalog() -> Array:
+	var rows := []
+	for id in ItemDB.all_ids():
+		var item: Dictionary = ItemDB.get_item(id)
+		rows.append({"id": str(id), "label": str(item.get("label", id))})
+	return rows
+
+
+## 测试页的时间入口（SEA-TOOL-R03）。
+##
+## 只改 WorldClock 已经存在的两个公开字段，然后照常广播一次变化事件 ——
+## 07:00 晨次结算、HUD 日历、昼夜与天气表现都由原来的订阅者接着处理。
+## 这里**没有**第二条时间实现，也没有新增存档字段：存档照旧从 clock 取快照。
+func _debug_set_clock(day: int, seconds: float) -> void:
+	var next_day := maxi(1, day)
+	var next_seconds := fposmod(seconds, 86400.0)
+	var jumped: bool = next_day != int(world_clock.day)
+	world_clock.day = next_day
+	world_clock.seconds = next_seconds
+	if jumped:
+		world_clock.day_changed.emit(next_day)
+	world_clock.changed.emit(world_clock.query())
 
 
 func _setup_props() -> void:
@@ -2002,7 +2045,7 @@ func _handle_prop_click(prop: Dictionary) -> void:
 	else:
 		var crate: Dictionary = prop.item
 		var target2: Vector3 = crate.base
-		var goal2 := target2 + Vector3(1.4, 0, 0)
+		var goal2 := target2 + Vector3(props.crate_reach(crate) - 0.8, 0, 0)
 		var path2 := plan_route_to(goal2.x, goal2.z)
 		if path2.is_empty():
 			goal2=target2
@@ -2079,7 +2122,7 @@ func _finish_pick() -> void:
 ##
 ## 必须查这一下：船半路被岸线挡住也会「停」，那时候离目标还有几十米，
 ## 不校验就会在原地对着空气捞 1.2 秒，然后什么都没收到。
-## 浮木沿用结算原本的 2.2 米，鱼群用 props 自己的捕捞半径。
+## 浮木按该束尺寸取范围，鱼群用 props 自己的捕捞半径。
 func _pick_in_reach() -> bool:
 	if props == null: return false
 	var item: Dictionary = _pending_pick.get("item", {})
@@ -2090,7 +2133,7 @@ func _pick_in_reach() -> bool:
 	var d: float = Vector2(root.position.x - boat.position.x,
 		root.position.z - boat.position.z).length()
 	var reach: float = props.FISH_PICKUP_RADIUS \
-		if str(_pending_pick.get("type", "")) == "fish" else 2.2
+		if str(_pending_pick.get("type", "")) == "fish" else props.crate_reach(item)
 	return d <= reach
 
 

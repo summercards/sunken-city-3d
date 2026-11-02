@@ -42,6 +42,7 @@ var _next_id := 1
 var _t := 0.0
 var _rng := RandomNumberGenerator.new()
 const FishVisual = preload("res://src/pickups/fish_school_visual.gd")
+const WoodBundle = preload("res://src/pickups/wood_bundle.gd")
 # Existing web snapshot positions, recovered from environment and zone geom 751 pairs.
 const WEB_ANCHORS = [Vector2(18.50664, -23.00175), Vector2(-13.04740, -9.35030), Vector2(44.09835, 17.45034), Vector2(43.61626, -31.29347), Vector2(-45.09357, -47.52166), Vector2(-20.83852, 9.64335), Vector2(29.22829, 15.19535)]
 var water_surface: MeshInstance3D
@@ -70,7 +71,10 @@ func _spawn_crate(point := Vector2.INF, slot := "") -> void:
 		return
 	var roll := _rng.randf()
 	var kind := "planks" if planks_only else ("crate" if roll < 0.5 else ("planks" if roll < 0.8 else "barrel"))
-	var root := _build_crate_mesh(kind)
+	var amount := 3
+	if kind == "planks":
+		amount = ocean.wood_amount(p, slot) if ocean_enabled else WoodBundle.draw(p, _rng)
+	var root := _build_crate_mesh(kind, amount)
 	root.position = Vector3(p.x, WATER_LEVEL, p.y)
 	root.get_node("Ring").material_override.set_shader_parameter("phase", p.x * 0.7 + p.y * 0.3)
 	add_child(root)
@@ -78,6 +82,7 @@ func _spawn_crate(point := Vector2.INF, slot := "") -> void:
 		"id":_next_id,
 		"slot":slot,
 		"kind": kind,
+		"wood_amount": amount,
 		"root": root,
 		"base": Vector3(p.x, WATER_LEVEL, p.y),
 		"phase": _rng.randf() * TAU,
@@ -87,7 +92,7 @@ func _spawn_crate(point := Vector2.INF, slot := "") -> void:
 	_next_id += 1
 
 
-func _build_crate_mesh(kind: String) -> Node3D:
+func _build_crate_mesh(kind: String, amount := 3) -> Node3D:
 	var g := Node3D.new()
 	g.name = "DriftCrate"
 	var box := BoxMesh.new()
@@ -99,21 +104,17 @@ func _build_crate_mesh(kind: String) -> Node3D:
 	cyl.radial_segments = 12
 
 	if kind == "planks":
-		for i in 3:
-			var mi := MeshInstance3D.new()
-			mi.mesh = cyl
-			mi.material_override = _flat(Color("#b98b61") if i % 2 else Color("#cba97c"))
-			mi.position = Vector3((i - 1) * 0.26, 0.04 + i * 0.02, 0)
-			mi.rotation.x = PI * 0.5
-			mi.scale = Vector3(0.12, 1.5 - i * 0.18, 0.12)
-			g.add_child(mi)
-		for z in [0.45, -0.45]:
-			var strap := MeshInstance3D.new()
-			strap.mesh = box
-			strap.material_override = _flat(Color("#8d7a5a"))
-			strap.position = Vector3(0, 0.13, z)
-			strap.scale = Vector3(0.9, 0.05, 0.08)
-			g.add_child(strap)
+		# The accepted three-log small bundle is the visual master for all tiers.
+		# Copy it twice/three times, with small offsets and no scale changes.
+		var template := _build_small_wood_bundle(box, cyl)
+		var layout := WoodBundle.arrangement(amount)
+		for index in layout.size():
+			var unit: Node3D = template if index == 0 else template.duplicate()
+			unit.name = "Bundle%02d" % index
+			var placement: Vector4 = layout[index]
+			unit.position = Vector3(placement.x, placement.y, placement.z)
+			unit.rotation = Vector3(0, placement.w, 0)
+			g.add_child(unit)
 	elif kind == "barrel":
 		var body := MeshInstance3D.new()
 		body.mesh = cyl
@@ -160,10 +161,34 @@ func _build_crate_mesh(kind: String) -> Node3D:
 		label.scale = Vector3(0.20, 0.12, 0.03)
 		g.add_child(label)
 
-	var ring := FishVisual.make_ripple(1.12, 0.0)
+	var ring_radius := float(WoodBundle.profile(amount).ring) if kind == "planks" else 1.12
+	var ring := FishVisual.make_ripple(ring_radius, 0.0)
 	ring.name = "Ring"
 	g.add_child(ring)
 	return g
+
+func _build_small_wood_bundle(box: BoxMesh, cyl: CylinderMesh) -> Node3D:
+	var unit := Node3D.new()
+	# Preserve the exact small bundle from the user's reference, including
+	# individual log dimensions, end offsets, colours and the two straps.
+	for i in 3:
+		var log_mesh := MeshInstance3D.new()
+		log_mesh.name = "Log%02d" % i
+		log_mesh.mesh = cyl
+		log_mesh.material_override = _flat(Color("#b98b61") if i % 2 else Color("#cba97c"))
+		log_mesh.position = Vector3((i * 0.5 - 0.5) * 0.50, 0.07 + i * 0.015, sin(i * 2.4) * 0.12)
+		log_mesh.rotation = Vector3(PI * 0.5, 0, sin(i * 1.7) * 0.045)
+		log_mesh.scale = Vector3(0.10, 1.50 * (0.85 + 0.15 * absf(cos(i * 1.9))), 0.10)
+		unit.add_child(log_mesh)
+	for index in 2:
+		var strap := MeshInstance3D.new()
+		strap.name = "Strap%02d" % index
+		strap.mesh = box
+		strap.material_override = _flat(Color("#8d7a5a"))
+		strap.position = Vector3(0,0.13,0.405 if index == 0 else -0.405)
+		strap.scale = Vector3(0.76,0.04,0.065)
+		unit.add_child(strap)
+	return unit
 
 
 # ---------------------------------------------------------------- 鱼群
@@ -323,7 +348,7 @@ func _process(delta: float) -> void:
 ## `nearest_crate(pos, PICKUP_RADIUS)`，它只查不结算。
 func collect_crate(crate: Dictionary) -> Dictionary:
 	if not crates.has(crate): return {}
-	var spec: Dictionary = CRATE_KINDS.get(crate.kind, CRATE_KINDS.crate)
+	var spec := crate_spec(crate)
 	for key in spec.reward:
 		if can_receive.is_valid() and not can_receive.call(key,int(spec.reward[key])):
 			blocked.emit("背包已满，浮木留在水上")
@@ -337,6 +362,14 @@ func collect_crate(crate: Dictionary) -> Dictionary:
 		give_resource.call(key, int(spec.reward[key]))
 	collected.emit(crate.kind, spec.label, spec.reward)
 	return {"label": spec.label, "reward": spec.reward}
+
+static func crate_spec(crate: Dictionary) -> Dictionary:
+	if str(crate.kind) != "planks": return CRATE_KINDS.get(crate.kind, CRATE_KINDS.crate).duplicate(true)
+	var amount := int(crate.get("wood_amount", 3))
+	return {"label": WoodBundle.profile(amount).label, "reward": {"wood": amount}}
+
+static func crate_reach(crate: Dictionary) -> float:
+	return float(WoodBundle.profile(int(crate.get("wood_amount", 3))).reach) if str(crate.kind) == "planks" else 2.2
 
 
 func collect_fish(school: Dictionary) -> bool:
@@ -365,6 +398,17 @@ func pick(screen_pos: Vector2, cam: Camera3D, radius := 26.0) -> Dictionary:
 			continue
 		var sp: Vector2 = cam.unproject_position(root.global_position + Vector3.UP * 0.4)
 		var d: float = sp.distance_to(screen_pos)
+		# Project the actual model envelope: large bundles are easier to click,
+		# including their outer logs, without turning the water ring into a button.
+		if c.kind == "planks":
+			var ray_start := cam.project_ray_origin(screen_pos)
+			var ray_end := ray_start + cam.project_ray_normal(screen_pos) * cam.far
+			for part in root.find_children("Log*", "MeshInstance3D", true, false):
+				var local_start: Vector3 = part.to_local(ray_start)
+				var local_end: Vector3 = part.to_local(ray_end)
+				if part.get_aabb().intersects_segment(local_start, local_end) != null:
+					d = 0.0
+					break
 		if d < best_d:
 			best_d = d
 			best = {"type": "crate", "item": c, "screen": sp}
@@ -388,8 +432,9 @@ func nearest_crate(pos: Vector3, radius := 12.0) -> Dictionary:
 	for c in crates:
 		var root: Node3D = c.root
 		var d: float = Vector2(root.position.x - pos.x, root.position.z - pos.z).length()
-		if d < best_d:
-			best_d = d
+		var adjusted := d - (crate_reach(c) - 2.2)
+		if adjusted < best_d:
+			best_d = adjusted
 			best = c
 	return best
 
@@ -408,7 +453,10 @@ func nearest_school(pos: Vector3, radius := 12.0) -> Dictionary:
 func to_dict() -> Dictionary:
 	var cargo: Array=[]
 	var fish: Array=[]
-	for c in crates: cargo.append({"id":c.id,"slot":c.get("slot",""),"kind":c.kind,"base":[c.base.x,c.base.y,c.base.z],"phase":c.phase,"yaw":c.yaw})
+	for c in crates:
+		var item := {"id":c.id,"slot":c.get("slot",""),"kind":c.kind,"base":[c.base.x,c.base.y,c.base.z],"phase":c.phase,"yaw":c.yaw}
+		if c.kind == "planks": item.wood_amount = int(c.get("wood_amount", 3))
+		cargo.append(item)
 	for c in schools: fish.append({"id":c.id,"slot":c.get("slot",""),"base":[c.base.x,c.base.y,c.base.z],"phase":c.phase,"count":c.fish.size()})
 	var result := {"crates":cargo,"schools":fish,"pending":_pending.duplicate(),"pending_fish":_pending_fish.duplicate(),"rng":str(_rng.state),"fish_rng":str(_fish_rng.state),"next_id":_next_id,"anchor":_anchor_index,"elapsed":_t}
 	if ocean_enabled: result.ocean = ocean.to_dict()
@@ -427,11 +475,12 @@ func from_dict(data: Dictionary) -> void:
 		build()
 		return
 	for c in data.get("crates",[]):
-		var mesh := _build_crate_mesh(str(c.kind))
+		var amount := int(c.get("wood_amount", 3))
+		var mesh := _build_crate_mesh(str(c.kind), amount)
 		var base := Vector3(c.base[0],c.base[1],c.base[2])
 		mesh.position=base
 		add_child(mesh)
-		crates.append({"id":int(c.id),"slot":str(c.get("slot","")),"kind":str(c.kind),"base":base,"phase":float(c.phase),"yaw":float(c.yaw),"root":mesh,"ring":mesh.get_node_or_null("Ring")})
+		crates.append({"id":int(c.id),"slot":str(c.get("slot","")),"kind":str(c.kind),"wood_amount":amount,"base":base,"phase":float(c.phase),"yaw":float(c.yaw),"root":mesh,"ring":mesh.get_node_or_null("Ring")})
 	for c in data.get("schools",[]):
 		var mesh := FishVisual.new()
 		mesh.name="FishSchool"
@@ -444,7 +493,12 @@ func from_dict(data: Dictionary) -> void:
 	_rng.state=int(data.rng);_fish_rng.state=int(data.fish_rng)
 	_next_id=int(data.next_id);_anchor_index=int(data.anchor);_t=float(data.elapsed)
 	if ocean_enabled:
-		if data.has("ocean"): ocean.from_dict(data.ocean)
+		if data.has("ocean"):
+			ocean.from_dict(data.ocean)
+			# Live legacy bundles retain their original three units even after
+			# streaming out. Only a real harvest/morning creates a new quantity.
+			for c in crates:
+				if c.kind == "planks": ocean.wood_yields[str(c.slot)] = int(c.wood_amount)
 		else: _legacy_population = data.duplicate(true)
 		_pending.clear(); _pending_fish.clear()
 	else: apply_population_scope()
@@ -465,6 +519,9 @@ func sync_population(clock: Dictionary, focus: Vector3) -> void:
 		for kind in ["wood", "fish"]:
 			var count: int = crate_count if kind == "wood" else school_count
 			var live: Array = _legacy_population.get("crates" if kind == "wood" else "schools", [])
+			if kind == "wood":
+				for index in mini(live.size(), count):
+					ocean.wood_yields["0:0:wood:%d" % index] = int(live[index].get("wood_amount", 3))
 			for index in range(mini(live.size(), count), count):
 				ocean.collect("%d:%d:%s:%d" % [home.x,home.y,kind,index], kind == "fish", _rng)
 		_legacy_population.clear()
@@ -487,11 +544,17 @@ func sync_population(clock: Dictionary, focus: Vector3) -> void:
 		if target.fish: _spawn_school(target.point, slot)
 		else: _spawn_crate(target.point, slot)
 
-func _ocean_point_clear(point: Vector2, fish: bool) -> bool:
+func _ocean_point_clear(point: Vector2, fish: bool, historical_layout := false) -> bool:
 	# Include the resource's drift/swim radius, so its visible geometry stays out
 	# of fixed buildings, new platforms and closed water, not just its anchor.
-	var margin := 2.8 if fish else 1.0
-	for offset in [Vector2.ZERO, Vector2(margin,0),Vector2(-margin,0),Vector2(0,margin),Vector2(0,-margin)]:
+	var margin := 2.8 if fish else (1.0 if historical_layout else WoodBundle.clearance())
+	var offsets := [Vector2.ZERO, Vector2(margin,0),Vector2(-margin,0),Vector2(0,margin),Vector2(0,-margin)]
+	if not fish and not historical_layout:
+		# Fill the envelope, including corners; sampling only the four axes
+		# misses narrow new platforms cutting across a diagonal.
+		for y in range(-3, 4):
+			for x in range(-3, 4): offsets.append(Vector2(x, y) * margin / 3.0)
+	for offset in offsets:
 		var p: Vector2 = point + offset
 		if water_point_clear.is_valid() and not water_point_clear.call(p): return false
 		if _is_land(p.x,p.y): return false

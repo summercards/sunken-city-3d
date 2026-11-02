@@ -364,7 +364,7 @@ func _pick(screen: Vector2, include_barred := false) -> Dictionary:
 					best = {"type": "prop", "hit": ph, "screen": ph.screen, "world": Vector3.ZERO,
 						"title": "海面鱼群", "sub": "点击驶近", "warn": false}
 				else:
-					var spec: Dictionary = PropsScript.CRATE_KINDS.get(ph.item.kind, PropsScript.CRATE_KINDS.crate)
+					var spec: Dictionary = PropsScript.crate_spec(ph.item)
 					var bits := PackedStringArray()
 					for k in spec.reward.keys():
 						bits.append("%d %s" % [int(spec.reward[k]), _item_label(str(k))])

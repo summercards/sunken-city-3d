@@ -315,6 +315,8 @@
         "ground-space",
         "kit-safety",
         "building-join",
+        "building-save-compat",
+        "visual-building-save-compat",
         "building-simulate",
         "visual-building-simulate",
         "visual-kit-uv",
@@ -500,6 +502,8 @@
         "minimum-loop",
         "ocean-pickups",
         "wood-density",
+        "wood-bundles",
+        "visual-wood-bundles",
         "visual-ocean-pickups",
         "progress-bars"
       ]
@@ -825,9 +829,12 @@
         "framework-modules",
         "framework-integration",
         "save-protection",
+        "building-save-compat",
+        "visual-building-save-compat",
         "minimum-loop",
         "visual-plot-shipping",
-        "sleep-cycle"
+        "sleep-cycle",
+        "wood-bundles"
       ]
     },
     {
@@ -911,6 +918,30 @@
         "framework-integration",
         "save-protection",
         "visual-weather"
+      ]
+    },
+    {
+      "feature_id": "SEA-TOOL",
+      "name": "测试工具（P 面板测试页）",
+      "group": "工程",
+      "dependencies": [
+        "SEA-INVENTORY",
+        "SEA-TIME",
+        "SEA-WEATHER",
+        "SEA-ENERGY"
+      ],
+      "spec": "docs/features/tool/spec.md",
+      "ledger": "docs/features/tool/ledger.md",
+      "status": "implemented",
+      "owner": "ColorGradePanel（入口）/ TestToolsPage（页面）；状态仍归 SEA-INVENTORY、SEA-TIME、SEA-WEATHER、SEA-ENERGY",
+      "code_paths": [
+        "godot/src/debug/test_tools_page.gd",
+        "godot/src/rendering/color_grade_panel.gd",
+        "godot/src/bootstrap/main.gd",
+        "godot/tests/test_test_tools.gd"
+      ],
+      "verification": [
+        "test-tools"
       ]
     },
     {

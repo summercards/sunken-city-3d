@@ -35,7 +35,7 @@ static func support_cells(rows: Array) -> Dictionary:
 	for x in 3:
 		for z in 2: cells[Vector2i(x,z)]=true
 	for row in rows:
-		if Catalog.is_deck(str(row.kind)) and float(row.left)<=0.0: cells[Vector2i(int(row.x),int(row.z))]=true
+		if Catalog.grid_deck(row) and float(row.left)<=0.0: cells[Vector2i(int(row.x),int(row.z))]=true
 	return cells
 
 static func exterior_cuts(rows: Array, radius: float) -> Array:

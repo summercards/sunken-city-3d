@@ -24,6 +24,11 @@ var pending_age := 0.0
 var book: Control
 var overlay: Control
 var hint: Label
+var guide: Panel
+var guide_title: Label
+var guide_back: Button
+var selection_outline: MeshInstance3D
+var _outline_key := ""
 var preview_root: Node3D
 var canvas: CanvasLayer
 var active := false
@@ -58,12 +63,16 @@ func configure(model: RefCounted, projection: Node3D, view: Camera3D, ui: Canvas
 	book=preload("res://src/building/building_book.gd").new()
 	book.inventory_query=items; overlay.add_child(book); book.hide()
 	book.selected.connect(select_recipe); book.closed.connect(close)
-	hint=Label.new(); hint.add_theme_font_override("font",book.font)
-	hint.add_theme_font_size_override("font_size",21)
-	hint.add_theme_color_override("font_color",Color("#fff2ca"))
-	hint.add_theme_color_override("font_shadow_color",Color("#364b48"))
-	hint.add_theme_constant_override("shadow_offset_x",2); hint.add_theme_constant_override("shadow_offset_y",2)
-	hint.mouse_filter=Control.MOUSE_FILTER_IGNORE; overlay.add_child(hint); hint.hide()
+	guide=Panel.new();guide.set_meta("cozy_skip",true);guide.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	var paper:=StyleBoxFlat.new();paper.bg_color=Color("#f4ecd7");paper.set_corner_radius_all(16)
+	paper.set_border_width_all(2);paper.border_color=Color("#b49a70")
+	guide.add_theme_stylebox_override("panel",paper);overlay.add_child(guide);guide.hide()
+	guide_title=book._label("",Vector2(18,10),23,guide)
+	guide_back=book._button("返回手册",Vector2.ZERO,Vector2(126,34),guide)
+	guide_back.pressed.connect(show_book)
+	hint=book._label("",Vector2(18,48),19,guide)
+	hint.mouse_filter=Control.MOUSE_FILTER_IGNORE;hint.hide()
+	selection_outline=MeshInstance3D.new();add_child(selection_outline);selection_outline.hide()
 	service.changed.connect(_layout_changed)
 	_cache_layout()
 	service.completed.connect(func(id):
@@ -73,34 +82,38 @@ func configure(model: RefCounted, projection: Node3D, view: Camera3D, ui: Canvas
 func open() -> void:
 	cancel_actor.call(); _clear_pending(); hud.close_card(); hud.set_external_modal(true,false)
 	active=true; recipe=""; moving_id=""; hovered_id=""
-	book.refresh(); book.show(); hint.hide(); _clear_ghosts(); _place_book()
+	book.refresh(); book.show(); hint.hide();guide.hide();selection_outline.hide(); _clear_ghosts(); _place_book()
 
 func close() -> void:
 	if not pending.is_empty(): cancel_actor.call()
 	active=false; recipe=""; preview={}; moving_id=""; hovered_id=""; precision_held=false
-	book.hide(); hint.hide(); _clear_ghosts(); hud.set_external_modal(false,false); _clear_pending()
+	book.hide(); hint.hide();guide.hide();selection_outline.hide(); _clear_ghosts(); hud.set_external_modal(false,false); _clear_pending()
 	var focused:=get_viewport().gui_get_focus_owner()
 	if focused!=null and book.is_ancestor_of(focused): focused.release_focus()
 
 func select_recipe(kind: String) -> void:
 	var reason: String=service.context_reason()
-	if reason!="": hud.toast(reason); return
+	if reason!="" and kind not in ["move","remove"]: hud.toast(reason); return
 	if not Catalog.RECIPES.has(kind) and kind not in ["move","remove"]: return
 	if Catalog.RECIPES.has(kind) and not Catalog.enabled(kind): hud.toast("该内容已停用");return
 	if not pending.is_empty(): cancel_actor.call()
 	_clear_pending(); moving_id=""; hovered_id=""; preview={}
-	recipe=kind; book.hide(); hint.show(); _refresh_ghosts(); update_preview(get_viewport().get_mouse_position())
+	recipe=kind; book.hide();guide.show(); hint.show(); _refresh_ghosts(); update_preview(get_viewport().get_mouse_position())
+	var focused:=get_viewport().gui_get_focus_owner()
+	if focused!=null and book.is_ancestor_of(focused): focused.release_focus()
 
 func show_book() -> void:
 	if not pending.is_empty(): cancel_actor.call()
 	_clear_pending(); moving_id=""; hovered_id=""; preview={}; recipe=""
-	_clear_ghosts(); book.refresh(); book.show(); hint.hide()
+	_clear_ghosts(); book.refresh(); book.show(); hint.hide();guide.hide();selection_outline.hide()
 
 func _place_book() -> void:
 	var viewport:=get_viewport().get_visible_rect().size
 	var fit:=minf(1.0,minf((viewport.x-48)/book.size.x,(viewport.y-80)/book.size.y))
 	book.scale=Vector2.ONE*fit; book.position=(viewport-book.size*fit)/2
-	hint.position=Vector2(34,viewport.y-100); hint.size=Vector2(maxf(200,viewport.x-70),80)
+	guide.position=Vector2(28,22);guide.size=Vector2(minf(960,viewport.x-160),132)
+	guide_back.position=Vector2(guide.size.x-144,10)
+	hint.size=Vector2(guide.size.x-36,78)
 	hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 
 func _layout_changed() -> void:
@@ -185,9 +198,9 @@ func _afloat() -> bool:
 	return int(state.get("mode",0)) in [1,2]
 
 func _deck_request(local: Vector2) -> Dictionary:
-	return {"kind":"deck","x":int(floor((local.x-Catalog.BASE.position.x)/Catalog.TILE.x)),
-		"z":int(floor((local.y-Catalog.BASE.position.y)/Catalog.TILE.y)),"px":0.0,"pz":0.0,"turn":0,
-		"support":"","origin":"boat" if _afloat() else "shore"}
+	var request:=Catalog.snap_deck(local,_rows_cache,_afloat())
+	request.origin="boat" if _afloat() else "shore"
+	return request
 
 func _furnishing_request(local: Vector2) -> Dictionary:
 	var step:=0.01 if precision_held or Input.is_physical_key_pressed(KEY_SHIFT) else 0.1
@@ -235,6 +248,46 @@ func _item_at(local: Vector2,only_furnishing:=false) -> Dictionary:
 		if _is_furnishing(item.kind) and absf(Catalog.elevation(item)-build_level*2.8)<0.5 and Catalog.plot_rect(item).has_point(local): return item
 		if not only_furnishing and Catalog.is_deck(str(item.kind)) and Catalog.footprint_rect(item).has_point(local): deck=item
 	return deck
+
+func _selection_box(item: Dictionary) -> AABB:
+	var rect:=Catalog.footprint_rect(item)
+	var platform:=Catalog.is_deck(str(item.kind))
+	var bottom: float=Catalog.ORIGIN.y+Catalog.elevation(item)-(0.5 if platform else 0.0)
+	var height: float=0.53 if platform else float(Catalog.RECIPES[item.kind].get("height",0.35))
+	return AABB(Vector3(rect.position.x+Catalog.ORIGIN.x,bottom,rect.position.y+Catalog.ORIGIN.z),Vector3(rect.size.x,maxf(height,.15),rect.size.y))
+
+## Select the visible volume, including walls, lamps and upper-floor pieces.
+## Projecting every click onto the ground made their bodies impossible to hit.
+func _item_under_cursor(screen: Vector2) -> Dictionary:
+	var origin:=camera.project_ray_origin(screen)
+	var direction:=camera.project_ray_normal(screen)
+	var best: Dictionary={};var distance:=INF
+	for item in _rows_cache:
+		var hit: Variant=_selection_box(item).intersects_ray(origin,direction)
+		if hit is Vector3:
+			var near: float=origin.distance_squared_to(hit)
+			if near<distance: distance=near;best=item
+	return best
+
+func _highlight(item: Dictionary, invalid: bool) -> void:
+	selection_outline.visible=not item.is_empty()
+	if item.is_empty(): return
+	var key:=str(item.id)+str(_revision)+str(invalid)
+	if key==_outline_key: return
+	_outline_key=key
+	var box:=_selection_box(item).grow(.025)
+	var lines:=ImmediateMesh.new()
+	var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.albedo_color=Color("#e4765b") if invalid else Color("#86e4b6")
+	lines.surface_begin(Mesh.PRIMITIVE_LINES,material)
+	for corner in 8:
+		var a:=box.position+box.size*Vector3(corner&1,(corner>>1)&1,(corner>>2)&1)
+		for axis in [1,2,4]:
+			if corner&axis: continue
+			var other: int=corner|axis
+			lines.surface_add_vertex(a)
+			lines.surface_add_vertex(box.position+box.size*Vector3(other&1,(other>>1)&1,(other>>2)&1))
+	lines.surface_end();selection_outline.mesh=lines
 
 func _size_ghost(node: Node3D,kind: String) -> void:
 	var request: Dictionary={"kind":kind,"px":0.0,"pz":0.0,"turn":0}
@@ -304,29 +357,38 @@ func update_preview(screen: Vector2) -> void:
 	elif recipe=="move":
 		operation="move"
 		if moving_id=="":
-			preview=_item_at(local,true); hovered_id=str(preview.get("id",""))
-			reason="选择要搬移的培养土；作物与生长状态保留" if preview.is_empty() else "点击选取培养土，再选择新位置"
+			preview=_item_under_cursor(screen); hovered_id=str(preview.get("id",""))
+			reason="将鼠标移到自建摆件，左键选取，再左键选择新位置"
+			if not preview.is_empty():
+				reason="点击选取，再选择新位置" if Catalog.RECIPES[preview.kind].get("movable",false) else "此构件不能搬移，请先安全拆回再重新建造"
 		else: preview=_furnishing_request(local)
 	elif recipe=="remove":
-		operation="remove"; preview=_item_at(local); hovered_id=str(preview.get("id",""))
-		if preview.is_empty(): reason="选择要拆回的木板或空培养土"
+		operation="remove"; preview=_item_under_cursor(screen); hovered_id=str(preview.get("id",""))
+		if preview.is_empty(): reason="将鼠标移到自建木板、浮台或摆件，左键拆回并返还材料"
 	if not preview.is_empty() and not (recipe=="move" and moving_id==""):
 		reason=_preview_reason(preview,operation,moving_id if operation=="move" else hovered_id)
 	var label:="点击施工"
 	if operation=="move": label="点击放到新位置 · 不消耗材料"
 	elif operation=="remove": label="点击拆回 · 全额返还材料"
 	if reason!="": label=reason
+	var context_reason: String=service.context_reason()
+	if context_reason!="": label=context_reason+"；请先关闭手册前往自建平台，或乘船靠近"
+	if not preview.is_empty() and operation in ["move","remove"]: label=str(Catalog.RECIPES[preview.kind].name)+" · "+label
 	var controls:="R 旋转 · Shift 精细摆放 · 右键 手册 · Esc 退出"
 	if recipe=="deck": controls="可持续扩建，也可乘船在空海面新建 · 右键 手册 · Esc 退出"
 	elif recipe=="move" and moving_id!="": controls="R 旋转 · Shift 精细摆放 · Esc 取消选取"
-	elif recipe=="remove": controls="有作物、承载摆件或切断通路时拒绝 · 右键 手册 · Esc 退出"
+	elif recipe=="remove": controls="先收获作物、搬走承载物、离开待拆木板 · 右键返回手册 · Esc退出"
+	elif recipe=="move": controls="保留作物和生长状态 · 平台与固定设施不能搬移 · 右键返回手册 · Esc退出"
+	guide_title.text="拆回模式 · 左键选择物件" if recipe=="remove" else ("搬移模式 · "+("选择新位置" if moving_id!="" else "选择摆件") if recipe=="move" else "建造模式")
 	hint.text=label+"\n"+controls+" · U 楼层 "+str(build_level+1)
+	if operation in ["move","remove"] and moving_id=="": _highlight(preview,reason!="" and not reason.begins_with("点击选取"))
+	else: _highlight({},false)
 	for entry in candidate_ghosts:
 		var selected: bool=_is_furnishing(recipe) or (not preview.is_empty() and entry.has("request") and entry.request.x==preview.get("x") and entry.request.z==preview.get("z"))
 		entry.node.visible=recipe=="deck" or not preview.is_empty()
 		if _is_furnishing(recipe) and not preview.is_empty(): entry.node.position=world.position_for(preview); entry.node.rotation.y=turn*PI/2
 		_color(entry.node,reason!="" if selected else bool(entry.get("invalid",false)),selected)
-	if not _is_furnishing(recipe) and not preview.is_empty():
+	if recipe not in ["move","remove"] and not _is_furnishing(recipe) and not preview.is_empty():
 		var ghost:=_ghost(str(preview.kind)); ghost.visible=true; ghost.position=world.position_for(preview)
 		ghost.rotation.y=int(preview.get("turn",0))*PI/2
 		_color(ghost,reason!="" and not (recipe=="move" and moving_id==""),true)
@@ -359,15 +421,18 @@ func handle_input(event: InputEvent) -> bool:
 			return true
 		if event.button_index!=MOUSE_BUTTON_LEFT: return false
 		if event.pressed:
+			if guide.visible and guide.get_global_rect().has_point(event.position): return true
 			precision_held=event.shift_pressed or Input.is_physical_key_pressed(KEY_SHIFT)
 			_preview_cache.clear(); update_preview(event.position)
 			if not preview.is_empty():
 				if recipe=="move" and moving_id=="":
 					if float(preview.left)>0: hud.toast("施工完成后才能搬移")
+					elif not Catalog.RECIPES[preview.kind].get("movable",false): hud.toast("此构件不能搬移，请先安全拆回再重新建造")
 					else: moving_id=preview.id; turn=int(preview.turn); preview={}; _preview_cache.clear()
 				elif recipe=="move": _request_action(preview,"move",moving_id)
 				elif recipe=="remove": _request_action(preview,"remove",hovered_id)
 				else: _request_build(preview)
+			elif recipe in ["move","remove"]: hud.toast("请点击自建物件；原有平台和固定设施不能拆回或搬移")
 		return true
 	return false
 
@@ -419,7 +484,7 @@ func _sync_pending(delta: float) -> void:
 func tick(delta: float) -> void:
 	service.tick(delta); _place_book(); _sync_pending(delta)
 	if active and not book.visible:
-		if service.context_reason()!="": close()
+		if service.context_reason()!="" and recipe not in ["move","remove"]: close()
 		elif pending.is_empty():
 			_frontier_refresh_left-=delta
 			if recipe=="deck" and _frontier_refresh_left<=0: _refresh_ghosts()

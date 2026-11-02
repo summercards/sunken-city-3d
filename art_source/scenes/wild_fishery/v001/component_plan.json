@@ -1,0 +1,310 @@
+{
+  "schema": "sea.scene.component_plan",
+  "version": "v001",
+  "status": "frozen_before_geometry",
+  "scene_id": "wild_fishery",
+  "feature_id": "SEA-AQUA",
+  "asset_ledger": "assets/registry/ledgers/scenes.json",
+  "scene_design_docs": [
+    "GDD_V1.0.md",
+    "docs/features/aqua/spec.md",
+    "docs/features/asset/spec.md"
+  ],
+  "scope": "home_supply upgrade visuals; original wooden footprint only, protected utility pole unchanged; forward water net and floats",
+  "reference": {
+    "source": "user screenshot",
+    "sha256": "9010cad69cdb210fc41a28ad292a03a43c342d884dc93ec79759bc129125c5e4",
+    "archive": "D:\\projects\\sea-work\\wild_fishery\\v001\\user_reference.png",
+    "license": "pending_user_reference_rights_review"
+  },
+  "style": "Plump cartoon style, rounded shapes, fuller forms, soft geometry, cute proportions, simplified forms, reduced tiny details, clean silhouettes, light volumetric modeling, playful toy-like look",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_palette": "res://assets/textures/shared/sea_cabin_timber_8x8_512.png",
+  "coordinate_mapping": "Blender(x,y,z)->Godot(x,z,-y)",
+  "dimensions_assumption": {
+    "source": "D:\\projects\\sea-work\\verification\\20261102-112536-fishery-deck-contract-bda758\\project\\outputs\\fishery-site.json",
+    "source_sha256": "a24f215c88f0af46ba26bbe5fcb956fbeac17618a370d827bd5e6463cd93e13b",
+    "island_bounds_xz": [
+      -16.2039985657,
+      -9.863899231,
+      10.0958003998,
+      15.3957996368
+    ],
+    "surface_y": 1.33,
+    "island_size": [
+      6.3400993347,
+      5.3
+    ],
+    "island_center": [
+      -13.0339488983,
+      1.33,
+      12.7458000183
+    ],
+    "pen_bounds_xz": [
+      -25.2,
+      -13.2,
+      15.8,
+      25.8
+    ],
+    "pen_corner_chamfer": 1.0,
+    "net_top_y": 0.96,
+    "net_bottom_y": -1.24,
+    "water_y": 1.12,
+    "walk_rule": "support and paths remain within original deck footprint; keep original board and landing anchor; props excluded from walk domain",
+    "building_scale_exception": "existing landing surface 1.33m is retained rather than raising it to the general cabin 1.38m baseline"
+  },
+  "protected_files": {
+    "godot\\assets\\models\\facilities\\legacy_home\\salvage_station.glb": "fd88ce36e4ee0ce3da44bd1076d2fc379c3478c13b837dea3649b7f5db855192",
+    "godot\\scenes\\facilities\\salvage_station.tscn": "0dfec0a8d02362e87977e63e42efc886149dfae365072a9e9693a2a56f88be77",
+    "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+  },
+  "protected_runtime_node": {
+    "bounds": {
+      "max": [
+        -7.98288345336914,
+        11.8947601318359,
+        19.0330123901367
+      ],
+      "min": [
+        -12.8974409103394,
+        -22.1249465942383,
+        11.6401071548462
+      ]
+    },
+    "local_position": [
+      2.20000004768372,
+      0.0,
+      2.40000009536743
+    ],
+    "mesh": "res://assets/models/facilities/legacy_home/salvage_station.glb::ArrayMesh_rhn1r",
+    "path": "/root/Main/World/Zones/Zone1HomeHarbor/Models/绞盘打捞台/salvage_station/PoleAndFlowers",
+    "position": [
+      -2.79999995231628,
+      0.0,
+      6.55000019073486
+    ],
+    "type": "MeshInstance3D"
+  },
+  "geometry_budget": {
+    "maximum_expanded_triangles": 120000,
+    "source": "task-authored performance target"
+  },
+  "components": [
+    {
+      "key": "shore",
+      "name": "沙土圆角岸坪",
+      "asset_id": "SEA-FISHERY-SHORE",
+      "component_family": "terrain",
+      "category": "structure",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "turf",
+      "name": "软草苔簇",
+      "asset_id": "SEA-FISHERY-TURF",
+      "component_family": "ground_cover",
+      "category": "flora",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "pebbles",
+      "name": "圆石组",
+      "asset_id": "SEA-FISHERY-PEBBLES",
+      "component_family": "shore_rocks",
+      "category": "flora",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "reeds",
+      "name": "饱满芦苇",
+      "asset_id": "SEA-FISHERY-REEDS",
+      "component_family": "shore_plants",
+      "category": "flora",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "drying_rack",
+      "name": "渔具晾架",
+      "asset_id": "SEA-FISHERY-DRYING-RACK",
+      "component_family": "fishing_furniture",
+      "category": "fixture",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "land prop footprint",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "creel",
+      "name": "圆肚鱼篓",
+      "asset_id": "SEA-FISHERY-CREEL",
+      "component_family": "fishing_container",
+      "category": "fixture",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "land prop footprint",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "bait_table",
+      "name": "饵料工作台",
+      "asset_id": "SEA-FISHERY-BAIT-TABLE",
+      "component_family": "fishing_workbench",
+      "category": "fixture",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "land prop footprint",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "buoy",
+      "name": "双色圆浮漂",
+      "asset_id": "SEA-FISHERY-BUOY",
+      "component_family": "water_float",
+      "category": "water",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "marker_buoy",
+      "name": "标记旗浮漂",
+      "asset_id": "SEA-FISHERY-MARKER-BUOY",
+      "component_family": "water_float",
+      "category": "water",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "net_panel",
+      "name": "直段水下网",
+      "asset_id": "SEA-FISHERY-NET-PANEL",
+      "component_family": "net_panel",
+      "category": "water",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "net_corner",
+      "name": "转角水下网",
+      "asset_id": "SEA-FISHERY-NET-CORNER",
+      "component_family": "net_panel",
+      "category": "water",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    },
+    {
+      "key": "fish",
+      "name": "圆润浅水鱼",
+      "asset_id": "SEA-FISHERY-FISH",
+      "component_family": "ambient_fish",
+      "category": "animal",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local"
+    }
+  ]
+}

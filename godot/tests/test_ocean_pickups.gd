@@ -48,8 +48,9 @@ func run() -> void:
 	var crate: Dictionary = props.crates[0]
 	var wood_slot: String = crate.slot
 	var before: int = economy.count("wood")
-	check(not props.collect_crate(crate).is_empty() and economy.count("wood")==before+3,"wood commits once and emits reward")
-	check(props.collect_crate(crate).is_empty() and economy.count("wood")==before+3,"stale crate cannot pay twice")
+	var amount: int = crate.wood_amount
+	check(not props.collect_crate(crate).is_empty() and economy.count("wood")==before+amount,"wood commits its displayed yield once and emits reward")
+	check(props.collect_crate(crate).is_empty() and economy.count("wood")==before+amount,"stale crate cannot pay twice")
 	var due: float = props.ocean.missing[wood_slot]
 	check(due>=13 and due<=17,"wood waits 6-10 GAME hours, not wall seconds")
 	props._process(90)

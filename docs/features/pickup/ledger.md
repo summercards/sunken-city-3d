@@ -22,6 +22,8 @@
     "minimum-loop",
     "ocean-pickups",
     "wood-density",
+    "wood-bundles",
+    "visual-wood-bundles",
     "visual-ocean-pickups",
     "progress-bars"
   ]
@@ -39,6 +41,17 @@
 | SEA-PICKUP-R05 | 已实现并专项核验 | [框架交付记录](../../development/2026-10-27_modular_framework.md)；[模块接口约定](../../architecture/module_contracts.md) |
 | SEA-PICKUP-R06 | 已实现并专项核验 | [边界补强记录](../../development/2026-10-27_framework_boundary_hardening.md) |
 | SEA-PICKUP-R07 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
+
+## 2026-11-02 三档浮木
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-PICKUP-R16 | 已实现并本次专项通过：每束奖励整数2–3／7–9／12–16，查询／实际入包／浮层同源；最新外观按档位复制1／2／3个小束，奖励不变 | `wood-bundles`34项0失败；[小束复制修订](../../development/2026-11-02_wood_bundle_copies.md) |
+| SEA-PICKUP-R17 | 已实现并本轮专项通过：固定阳光房占地中心、45–150米连续概率，近处大档1%／外圈20%，维持6束家园和外海30%密度 | 近／外圈各20000次抽样；`wood-density`16项、`ocean-pickups`48项0失败 |
+| SEA-PICKUP-R18 | 已实现并本次真实渲染通过：保留最小三根绑带小束，复制为中档2束错开堆叠、大档3束略微散开，单元尺寸／材质相同；水纹与范围小幅递增、嵌套单元的木头均可点 | `wood-bundles`34项、`visual-wood-bundles`36项0失败；[最新修订与截图](../../development/2026-11-02_wood_bundle_copies.md) |
+| SEA-PICKUP-R19 | 已实现并本轮专项通过：持久化当前数量和补货代次，读档／区块回访稳定，采后才重抽；含无ocean字段旧档，旧束保持3 | `wood-bundles`33项、`ocean-pickups`48项；字段契约SEA-SAVE-R12 |
+
+当前查询新增 `crate_spec(crate)`（该束显示名与实际reward）与 `crate_reach(crate)`（分档范围）；调用方不得再从统一CRATE_KINDS.planks推断所有束的奖励。程序模型沿用现有路径，无新生产AssetID；旧运行道具资产补登仍pending。
 
 ## 资源与调用入口
 

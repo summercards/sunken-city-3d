@@ -44,6 +44,8 @@ TESTS.update({
     'kit-safety': ('tests/test_kit_safety.gd', r'\[kit-safety\] \d+ checks, 0 failures'),
     # 平台只有一类：旧板与两种浮台必须贴边拼、接缝可走、不能隔空起板（SEA-BUILDING-R22）。
     'building-join': ('tests/test_building_join.gd', r'\[building-join\] \d+ checks, 0 failures'),
+    'building-save-compat': ('tests/test_building_save_compat.gd', r'\[building-save-compat\] \d+ checks, 0 failures'),
+    'visual-building-save-compat': ('tests/test_building_save_compat.gd', r'\[building-save-compat\] \d+ checks, 0 failures'),
     # 全模板玩家模拟：12 框架全部拼装、真实胶囊通行与上楼、10 摆件落新平台、整档存读（SEA-BUILDING-R23）。
     'building-simulate': ('tests/test_building_simulate.gd', r'\[building-simulate\] \d+ checks, 0 failures'),
     # 同一模拟的真实渲染版：给合成后的房子与摆件台各抓一张图。
@@ -56,6 +58,8 @@ TESTS.update({
     'visual-building-kit': ('tests/test_building_kit.gd', r'\[building-kit\] \d+ checks, 0 failures'),
     'ocean-pickups': ('tests/test_ocean_pickups.gd', r'\[ocean-pickups\] \d+ checks, 0 failures'),
     'wood-density': ('tests/test_wood_density.gd', r'\[wood-density\] \d+ checks, 0 failures'),
+    'wood-bundles': ('tests/test_wood_bundles.gd', r'\[wood-bundles\] \d+ checks, 0 failures'),
+    'visual-wood-bundles': ('tests/test_wood_bundles.gd', r'\[wood-bundles\] \d+ checks, 0 failures'),
     'visual-ocean-pickups': ('tools/capture_ocean_pickups.gd', r'\[ocean-pickups-render\] \d+ checks, 0 failures'),
     'walk-on-planters': ('tests/test_walk_on_planters.gd', r'\[walk-on-planters\] \d+ checks, 0 failures'),
     'visual-walk-on-planters': ('tests/test_walk_on_planters.gd', r'\[walk-on-planters\] \d+ checks, 0 failures'),
@@ -151,6 +155,8 @@ TESTS.update({
     'visual-energy': ('tests/test_energy.gd', r'\[energy\] \d+ checks, 0 failures'),
     # 家园补给站升级为渔场：入口、成本（木板 100 / 鱼 50）、背包+仓库付款、存档。
     'fishery': ('tests/test_fishery.gd', r'\[fishery\] \d+ checks, 0 failures'),
+    'fishery-site': ('tools/probe_fishery_site.gd', r'\[fishery-site\] \d+ checks, 0 failures'),
+    'visual-fishery-site': ('tools/probe_fishery_site.gd', r'\[fishery-site\] \d+ checks, 0 failures'),
     'visual-fishery': ('tests/test_fishery.gd', r'\[fishery\] \d+ checks, 0 failures'),
     # 固定浮台自己的水下底座不能挡住扩建：四面接板、原平台仍受保护、泊位那侧原因要说清。
     'building-base-neighbors': ('tests/test_building_base_neighbors.gd', r'\[base-neighbors\] \d+ checks, 0 failures'),
@@ -204,6 +210,10 @@ TESTS.update({
     # SEA-NAV-R11：150m 可航区横跨可航区常量、几何硬界、相机范围、存档回位四处，
     # 单独改任一处都不会报错，只会让「船能开多远」在雷达图和实际上不一致。
     'sail-bounds': ('tests/test_sail_bounds.gd', r'\[sail-bounds\] \d+ checks, 0 failures'),
+    # SEA-TOOL：P 面板「测试」页。加资源 / 跳时间 / 换天气 / 回体力必须真的是
+    # 落到各自所有者上；「测试页不锁昼夜预览」也在这一支里量 —— 锁着预览改时刻，
+    # 状态变了但画面不动，看起来就像工具坏了。
+    'test-tools': ('tests/test_test_tools.gd', r'\[test-tools\] \d+ checks, 0 failures'),
 })
 EXPECTED_JSON_ERROR = 'ERROR: Parse JSON failed. Error at line 0: Expected key'
 

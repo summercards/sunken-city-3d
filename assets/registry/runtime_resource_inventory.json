@@ -354,7 +354,7 @@
     {
       "path": "godot/assets/materials/ocean_sky.tres",
       "bytes": 423,
-      "sha256": "be9bcc0c5d6af66ac4536029f8a46491a126c04f17c58b8abd1e6991a3dd88b4",
+      "sha256": "8dcd9e58d5225960eff6d04b0b9de0f0028d35e96d9de3c71f76e6fa21f754d1",
       "asset_id": null,
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
     },
@@ -3223,22 +3223,22 @@
       "path": "godot/src/building/building_catalog.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 8146,
-      "sha256": "a1cc66690500dea687231f4b5b821eb8edcf0dca761c0929d870f1aca40cf159"
+      "bytes": 18800,
+      "sha256": "b54ae4754c243e447e280673a3398c911b0c2876beef76920706f946c3534dc3"
     },
     {
       "path": "godot/src/building/building_service.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 16507,
-      "sha256": "12a2f47a341dbb38b32e7ec6032e2a8f79d655137f490c0c04e7ef099a0c09eb"
+      "bytes": 18031,
+      "sha256": "ca0918dae3ac1647112dc3626136708cd81cbb455c725dc14a0156a4df0103e2"
     },
     {
       "path": "godot/src/building/building_space.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 9301,
-      "sha256": "c44e56c5c6d357dcf391e1d3470251fec09b9cb8fe8e43c1eadb90409f911841"
+      "bytes": 9101,
+      "sha256": "b1713343f24b07db461c05cb1f8d4c89048e630703781447a076cea790b4d55a"
     },
     {
       "path": "godot/src/building/building_boundary.gd",
@@ -3251,29 +3251,29 @@
       "path": "godot/src/building/building_world.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 12131,
-      "sha256": "d3f5a7efc8be4526ae73a204b470de961a10ad6c6f7ce14f6152c4dc404c1a94"
+      "bytes": 11851,
+      "sha256": "334ad8b892ae3e93be564fa0de6912ceaab8d79918843977ce72621432ad8f63"
     },
     {
       "path": "godot/src/building/building_access.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 10963,
-      "sha256": "3c659d9aa8d55facb377fab6af56788cc4bca2773ca596cb3fa3f8779f5d17c9"
+      "bytes": 10774,
+      "sha256": "0f8f64b3b8b089452ceb12ef1972fb19290764deee74d9d2d3afe0a795327440"
     },
     {
       "path": "godot/src/building/building_controller.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 22956,
-      "sha256": "0b996de7f1cda51c1348d91fe56ead2767844e874e43acdc74ffc06e212d1d55"
+      "bytes": 26746,
+      "sha256": "16cffeed12e7b9cad921fb2d169a81226fa2a374e8f6ba8a42bfbf52c61e95bb"
     },
     {
       "path": "godot/src/building/building_book.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 5124,
-      "sha256": "38b3b59c39443fb2a5298cc90e689a02d0493cee4142f9dd0abba974994d4a57"
+      "bytes": 6387,
+      "sha256": "e21b10872c46397302dccea4137551f7ca47b143bf764eaf96d3ba60971936f7"
     },
     {
       "path": "godot/src/building/assembly_rules.gd",
@@ -3300,9 +3300,9 @@
       "path": "godot/src/bootstrap/main.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 125937,
-      "sha256": "b4ccd0863dcd5952edeec3f266ca90c2d12ec3e1e4b21ffd6fd703da1a3dd4d6",
-      "note": "组合根新增 _register_sea_structures（结构物最小区块登记）与 _bind_supply_counter（补给入口接既有商店页）"
+      "bytes": 138598,
+      "sha256": "a9d01b08c52e7d1ae6c40b40ab92d2df5c671b77a5435cd9ed12bec81eefd42e",
+      "note": "组合根保留海上补给站装配；2026-11-02浮木巡航停位及打捞范围改读SeaProps公开分档查询（SEA-PICKUP-R18）；同日P面板第四页「测试」注入端口与_debug_set_clock（SEA-TOOL）"
     },
     {
       "path": "godot/src/navigation/walk_area.gd",

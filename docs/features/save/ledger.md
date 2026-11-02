@@ -20,9 +20,12 @@
     "framework-modules",
     "framework-integration",
     "save-protection",
+    "building-save-compat",
+    "visual-building-save-compat",
     "minimum-loop",
     "visual-plot-shipping",
-    "sleep-cycle"
+    "sleep-cycle",
+    "wood-bundles"
   ]
 }
 ```
@@ -46,7 +49,17 @@
 |---|---|---|
 | SEA-SAVE-R11 | 已实现；v4可选ocean扩展，远处资源/截止时间磁盘往返、旧缺失数量迁移、负冷却和坏槽位恢复前拒绝 | `ocean-pickups`43项通过；[本轮交付](../../development/2026-10-30_ocean_pickups.md) |
 
+## 2026-11-02 浮木数量存读
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SAVE-R12 | 已实现并本轮专项通过：v4／ocean版本1可选wood_amount、harvested、wood_yields；旧束按3并保留回访，含无ocean旧档；校验范围空档/类型/槽位/缓存冲突且恢复前拒绝，磁盘恢复规范化未加载槽位的整数缓存 | `wood-bundles`33项、`wood-density`16项、`ocean-pickups`48项0失败；[交付](../../development/2026-11-02_wood_bundles.md) |
+
 ## 资源与调用入口
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-SAVE-R13 | 已实现；旧档布局坐标和作物保留，新贴边木板显式坐标经正式SaveGame磁盘往返；布尔标记与有限数值严格校验 | [兼容修复与实测](../../development/2026-11-02_building_save_compatibility.md) |
 
 - [godot/src/save](../../../godot/src/save)
 

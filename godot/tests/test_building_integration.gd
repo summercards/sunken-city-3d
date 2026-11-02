@@ -16,7 +16,8 @@ func run() -> void:
 		check(c.kind=="planks" and main.navigation.is_open_water(c.base.x,c.base.z),"timber pickup uses legal water")
 	var crate: Dictionary=main.props.crates[0]
 	var before: int=econ.count("wood")
-	check(not main.props.collect_crate(crate).is_empty() and econ.count("wood")==before+3,"pickup enters inventory")
+	var amount: int=crate.wood_amount
+	check(not main.props.collect_crate(crate).is_empty() and econ.count("wood")==before+amount,"pickup enters inventory with the bundle's actual yield")
 	check(main.props.collect_crate(crate).is_empty(),"pickup cannot repeat")
 	var sailing_crate: Dictionary=main.props.crates[0]
 	var sailing_wood: int=econ.count("wood")
@@ -32,7 +33,7 @@ func run() -> void:
 	check(not main.boat.starts_sailing() and econ.count("wood")==sailing_wood,"arrival starts gathering without instant reward")
 	# 打捞走完才结算（浮木 1.2 秒，这里给 2 秒余量）。
 	for i in 120: main._process(1.0/60)
-	check(econ.count("wood")==sailing_wood+3,"gathering completion picks up driftwood")
+	check(econ.count("wood")==sailing_wood+int(sailing_crate.wood_amount),"gathering completion picks up the bundle's actual yield")
 	var bag: Dictionary=econ.inventory.to_dict()
 	econ.inventory.from_dict({"capacity":1,"counts":{"parts":30}})
 	var population: int=main.props.crates.size()

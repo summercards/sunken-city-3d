@@ -1,0 +1,554 @@
+{
+  "date": "2026-11-02",
+  "features": [
+    "SEA-BUILDING",
+    "SEA-SAVE"
+  ],
+  "player_fixture": {
+    "path": "D:\\projects\\sea-work\\investigations\\2026-11-02-building-save\\player-save.json",
+    "sha256": "adf946f57ffb52dcbbaf5904b8b9db27f40dbabfe6fe0f0fa0df383d1543e2af",
+    "mode": "read-only copy; original slot never written by this task"
+  },
+  "results": {
+    "building": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-join": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-join.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-join",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_join.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-open-rules": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-open-rules.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-open-rules",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_rules.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-space": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-space.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-space",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_space.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-integration": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-integration.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-integration",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_integration.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-seed": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-seed.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_restart.gd",
+        "--",
+        "--skip-title",
+        "--building-seed"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-restart": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-restart.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_restart.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-open-seed": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\building-open-seed.log",
+      "user_data_name": "sea-verification/20261102-105322-building-save-final-c0767a/building-open-restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_restart.gd",
+        "--",
+        "--skip-title",
+        "--building-open-seed"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\report.json"
+    },
+    "building-open-restart": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\building-open-restart.log",
+      "user_data_name": "sea-verification/20261102-105322-building-save-final-c0767a/building-open-restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_restart.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\report.json"
+    },
+    "building-approach": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-approach.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-approach",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_approach.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-kit": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-kit.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-kit",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_kit.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-simulate": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-simulate.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-simulate",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_simulate.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-perf": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-perf.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-perf",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_perf.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "building-decoupling": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\building-decoupling.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/building-decoupling",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_decoupling.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "save-corrupt-seed": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\save-corrupt-seed.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/protection",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_corrupt_seed.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "save-protection": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\save-protection.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/protection",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_protection.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "save-seed": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\save-seed.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_seed.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "framework-integration": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\framework-integration.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/restart",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_framework_integration.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "character-space-save": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\character-space-save.log",
+      "user_data_name": "sea-verification/20261102-104952-building-save-regression-15ae13/character-space-save",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_character_space_save.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-104952-building-save-regression-15ae13\\report.json"
+    },
+    "visual-building-diy": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-105045-building-ui-regression-6f02fe\\visual-building-diy.log",
+      "user_data_name": "sea-verification/20261102-105045-building-ui-regression-6f02fe/visual-building-diy",
+      "renderer": "real",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-105045-building-ui-regression-6f02fe\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_building_diy_visual.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-105045-building-ui-regression-6f02fe\\report.json"
+    },
+    "visual-recipe-cards": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-105045-building-ui-regression-6f02fe\\visual-recipe-cards.log",
+      "user_data_name": "sea-verification/20261102-105045-building-ui-regression-6f02fe/visual-recipe-cards",
+      "renderer": "real",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-105045-building-ui-regression-6f02fe\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tools/capture_recipe_cards.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-105045-building-ui-regression-6f02fe\\report.json"
+    },
+    "building-save-compat": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\building-save-compat.log",
+      "user_data_name": "sea-verification/20261102-105322-building-save-final-c0767a/building-save-compat",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_save_compat.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\report.json"
+    },
+    "visual-building-save-compat": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\visual-building-save-compat.log",
+      "user_data_name": "sea-verification/20261102-105322-building-save-final-c0767a/visual-building-save-compat",
+      "renderer": "real",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_building_save_compat.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\report.json"
+    },
+    "energy": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\energy.log",
+      "user_data_name": "sea-verification/20261102-105322-building-save-final-c0767a/energy",
+      "renderer": "headless",
+      "command": [
+        "I:/下载/Godot_v4.7.2-stable_win64.exe/Godot_v4.7.2-stable_win64.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_energy.gd",
+        "--",
+        "--skip-title"
+      ],
+      "report": "D:\\projects\\sea-work\\verification\\20261102-105322-building-save-final-c0767a\\report.json"
+    }
+  },
+  "expected_fault_scenarios": [
+    "save-protection: corrupt/truncated saves, future main and future backup must reject without overwriting",
+    "building-save-compat: malformed position marker, nonfinite position, duplicate placement must reject"
+  ],
+  "unexpected_engine_errors": 0,
+  "not_executed": [
+    "touchscreen",
+    "gamepad",
+    "power-loss",
+    "release-platform filesystem",
+    "arbitrary future recipe geometry migration"
+  ],
+  "historical_failed_runs": [
+    "20261102-104438-building-compat-actions-dc1b7c",
+    "20261102-104510-building-compat-actions2-27fe33",
+    "20261102-104732-building-compat-final-actions-e7f871",
+    "20261102-104922-building-compat-acceptance-a56b4a",
+    "20261102-104952-building-save-regression-15ae13: building-open-seed/restart superseded after correcting boat-origin and energy fixture"
+  ],
+  "structure_checks": {
+    "feature_sync": "PASS: 36 features, 565 source assets, 465 runtime hashes, 0 issues",
+    "feature_check": "PASS: 0 issues",
+    "architecture": "PASS: 17 independent services, 0 issues"
+  },
+  "hash_review": "D:\\projects\\sea-work\\investigations\\2026-11-02-building-save\\runtime-hash-review.json"
+}

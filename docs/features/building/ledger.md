@@ -40,6 +40,8 @@
     "ground-space",
     "kit-safety",
     "building-join",
+    "building-save-compat",
+    "visual-building-save-compat",
     "building-simulate",
     "visual-building-simulate",
     "visual-kit-uv",
@@ -78,6 +80,9 @@
 | SEA-BUILDING-R23 | 已实现；12框架全部拼装、真实胶囊通行与上楼、10摆件落新平台、整档存读一致 | [全模板模拟交付](../../development/2026-10-31_full_template_simulation.md) |
 | SEA-BUILDING-R24 | 已实现；吸附求解从 O(n³) 改为近线性，45块板 163ms→2.2ms，1620条基准逐行一致 | [性能审计](../../development/2026-10-31_building_performance.md) |
 | SEA-BUILDING-R25 | 已实现；固定浮台的水下底座不再算「既有建筑」，浅水养殖台四面均可接板（28 项 0 失败） | [底座阻挡修复](../../development/2026-11-01_energy_fishery_and_join.md) |
+| SEA-BUILDING-R26 | 已实现；模式常驻指引、三维目标选取与轮廓，地点资格拒绝明确指路，真实鼠标拆回与原子退款验证 | [兼容修复与实测](../../development/2026-11-02_building_save_compatibility.md) |
+
+2026-11-02 R02/R06/R22补验：玩家副本25实例及作物恢复，旧自由浮台可继续接木板；新显式坐标木板与旧网格混合存读、三维点选拆回各39项/0失败。R11/R12真实鼠标29项、卡片108项、65实例跨进程70+8项及原有拼装/通行回归全部退出0，非预期引擎错误0。[本轮交付与过程失败](../../development/2026-11-02_building_save_compatibility.md)。
 
 实施与验证记录：[本轮交付](../../development/2026-10-28_building_delivery.md)。
 

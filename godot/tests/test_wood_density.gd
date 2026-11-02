@@ -58,6 +58,8 @@ func run() -> void:
 	# cell, and a collected home slot. Loading must apply density immediately,
 	# while keeping that slot's remaining cooldown and the player's inventory.
 	var dense: Dictionary=current.duplicate(true)
+	dense.pickups.ocean.erase("wood_yields")
+	dense.pickups.ocean.erase("harvested")
 	dense.pickups.crates=[]
 	var center: Vector2i=Population.cell_at(Vector2(main.boat.position.x,main.boat.position.z))
 	var next_id: int=int(dense.pickups.next_id)

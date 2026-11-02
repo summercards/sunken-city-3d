@@ -1,0 +1,437 @@
+{
+  "schema": "sea.scene.components",
+  "components": [
+    {
+      "key": "shore",
+      "name": "沙土圆角岸坪",
+      "asset_id": "SEA-FISHERY-SHORE",
+      "component_family": "terrain",
+      "category": "structure",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-SHORE",
+      "root": "SEA-FISHERY-SHORE_Root",
+      "bounds": {
+        "min": [
+          -3.1700496673583984,
+          -2.6500000953674316,
+          0.0
+        ],
+        "max": [
+          3.1700496673583984,
+          2.6500000953674316,
+          0.36000001430511475
+        ]
+      },
+      "triangles": 888,
+      "polygons": 396,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/shore/shore.blend",
+      "source_sha256": "cfa3314e3dfe7f1ef6739e3fbd5efe12dc55c434057ce56f0fc1852192610141"
+    },
+    {
+      "key": "turf",
+      "name": "软草苔簇",
+      "asset_id": "SEA-FISHERY-TURF",
+      "component_family": "ground_cover",
+      "category": "flora",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-TURF",
+      "root": "SEA-FISHERY-TURF_Root",
+      "bounds": {
+        "min": [
+          -0.4599999785423279,
+          -0.3199999928474426,
+          0.0
+        ],
+        "max": [
+          0.4599999785423279,
+          0.3199999928474426,
+          0.16499999165534973
+        ]
+      },
+      "triangles": 824,
+      "polygons": 488,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/turf/turf.blend",
+      "source_sha256": "103543bb43d4e9956d2a65fb85d620c3ee09f886c34bf3a6776b442e94dce05a"
+    },
+    {
+      "key": "pebbles",
+      "name": "圆石组",
+      "asset_id": "SEA-FISHERY-PEBBLES",
+      "component_family": "shore_rocks",
+      "category": "flora",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-PEBBLES",
+      "root": "SEA-FISHERY-PEBBLES_Root",
+      "bounds": {
+        "min": [
+          -0.4099999964237213,
+          -0.24870000779628754,
+          0.0
+        ],
+        "max": [
+          0.4099999964237213,
+          0.24870000779628754,
+          0.2667999863624573
+        ]
+      },
+      "triangles": 672,
+      "polygons": 384,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/pebbles/pebbles.blend",
+      "source_sha256": "5a0cc7ce75fd529a453058bdfd95aafcbdd0c108c36a360fd048e4d336ec2c73"
+    },
+    {
+      "key": "reeds",
+      "name": "饱满芦苇",
+      "asset_id": "SEA-FISHERY-REEDS",
+      "component_family": "shore_plants",
+      "category": "flora",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-REEDS",
+      "root": "SEA-FISHERY-REEDS_Root",
+      "bounds": {
+        "min": [
+          -0.4319864511489868,
+          -0.18454143404960632,
+          0.0
+        ],
+        "max": [
+          0.4319864511489868,
+          0.18454143404960632,
+          1.0509992837905884
+        ]
+      },
+      "triangles": 852,
+      "polygons": 486,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/reeds/reeds.blend",
+      "source_sha256": "e54d712020a7742c9c2cf8a3b85b2162beedcffcbf114317522ea58b066b2143"
+    },
+    {
+      "key": "drying_rack",
+      "name": "渔具晾架",
+      "asset_id": "SEA-FISHERY-DRYING-RACK",
+      "component_family": "fishing_furniture",
+      "category": "fixture",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "land prop footprint",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-DRYING-RACK",
+      "root": "SEA-FISHERY-DRYING-RACK_Root",
+      "bounds": {
+        "min": [
+          -0.8499999642372131,
+          -0.20999999344348907,
+          0.0
+        ],
+        "max": [
+          0.8499999642372131,
+          0.20999999344348907,
+          1.6299999952316284
+        ]
+      },
+      "triangles": 2248,
+      "polygons": 1168,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/drying_rack/drying_rack.blend",
+      "source_sha256": "0208a40704dc1508785de389aed5952a8825fe1f3b02592124b1794832a14821"
+    },
+    {
+      "key": "creel",
+      "name": "圆肚鱼篓",
+      "asset_id": "SEA-FISHERY-CREEL",
+      "component_family": "fishing_container",
+      "category": "fixture",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "land prop footprint",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-CREEL",
+      "root": "SEA-FISHERY-CREEL_Root",
+      "bounds": {
+        "min": [
+          -0.36500000953674316,
+          -0.36500000953674316,
+          0.0
+        ],
+        "max": [
+          0.36500000953674316,
+          0.36500000953674316,
+          0.925000011920929
+        ]
+      },
+      "triangles": 2116,
+      "polygons": 1024,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/creel/creel.blend",
+      "source_sha256": "b8af01809d4aa2914e4a8b53031a0df075b96c921bc9e9441966511d653d48a4"
+    },
+    {
+      "key": "bait_table",
+      "name": "饵料工作台",
+      "asset_id": "SEA-FISHERY-BAIT-TABLE",
+      "component_family": "fishing_workbench",
+      "category": "fixture",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "land prop footprint",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-BAIT-TABLE",
+      "root": "SEA-FISHERY-BAIT-TABLE_Root",
+      "bounds": {
+        "min": [
+          -0.5400000214576721,
+          -0.36000001430511475,
+          0.0
+        ],
+        "max": [
+          0.5400000214576721,
+          0.36000001430511475,
+          1.1349999904632568
+        ]
+      },
+      "triangles": 1632,
+      "polygons": 816,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/bait_table/bait_table.blend",
+      "source_sha256": "c2c143939b3853c6255e49720f89b8b0f66b0ec7c7465b54b3534ec1282d9555"
+    },
+    {
+      "key": "buoy",
+      "name": "双色圆浮漂",
+      "asset_id": "SEA-FISHERY-BUOY",
+      "component_family": "water_float",
+      "category": "water",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-BUOY",
+      "root": "SEA-FISHERY-BUOY_Root",
+      "bounds": {
+        "min": [
+          -0.3149999976158142,
+          -0.3149999976158142,
+          0.0
+        ],
+        "max": [
+          0.3149999976158142,
+          0.3149999976158142,
+          0.7249999642372131
+        ]
+      },
+      "triangles": 1008,
+      "polygons": 496,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/buoy/buoy.blend",
+      "source_sha256": "fc9bb14cbac5f9bf0f04f35115f0f02c8a8950962da244d53668049b0bfea436"
+    },
+    {
+      "key": "marker_buoy",
+      "name": "标记旗浮漂",
+      "asset_id": "SEA-FISHERY-MARKER-BUOY",
+      "component_family": "water_float",
+      "category": "water",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-MARKER-BUOY",
+      "root": "SEA-FISHERY-MARKER-BUOY_Root",
+      "bounds": {
+        "min": [
+          -0.3725000023841858,
+          -0.3149999976158142,
+          0.0
+        ],
+        "max": [
+          0.3725000023841858,
+          0.3149999976158142,
+          1.3249999284744263
+        ]
+      },
+      "triangles": 1384,
+      "polygons": 680,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/marker_buoy/marker_buoy.blend",
+      "source_sha256": "2113ace475e6eebc0b186aa6c7872dbdbd168f2bdb4bbf1c1f26c38ded629fd4"
+    },
+    {
+      "key": "net_panel",
+      "name": "直段水下网",
+      "asset_id": "SEA-FISHERY-NET-PANEL",
+      "component_family": "net_panel",
+      "category": "water",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-NET-PANEL",
+      "root": "SEA-FISHERY-NET-PANEL_Root",
+      "bounds": {
+        "min": [
+          -1.0183849334716797,
+          -0.07000000029802322,
+          0.0
+        ],
+        "max": [
+          1.0183849334716797,
+          0.07000000029802322,
+          2.193148612976074
+        ]
+      },
+      "triangles": 648,
+      "polygons": 318,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/net_panel/net_panel.blend",
+      "source_sha256": "a5de9bd2243d61c3ad8d421c533604ab8290a19ecf590d085a9d78770813120e"
+    },
+    {
+      "key": "net_corner",
+      "name": "转角水下网",
+      "asset_id": "SEA-FISHERY-NET-CORNER",
+      "component_family": "net_panel",
+      "category": "water",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-NET-CORNER",
+      "root": "SEA-FISHERY-NET-CORNER_Root",
+      "bounds": {
+        "min": [
+          -0.7254915833473206,
+          -0.07000000029802322,
+          0.0
+        ],
+        "max": [
+          0.7254915833473206,
+          0.07000000029802322,
+          2.192997694015503
+        ]
+      },
+      "triangles": 628,
+      "polygons": 310,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/net_corner/net_corner.blend",
+      "source_sha256": "88b1c52cebd3587ba4927248293dbc3b2cd2a2a0536997772d7aee151caa9403"
+    },
+    {
+      "key": "fish",
+      "name": "圆润浅水鱼",
+      "asset_id": "SEA-FISHERY-FISH",
+      "component_family": "ambient_fish",
+      "category": "animal",
+      "origin": "bottom_center",
+      "front_axis": "Blender +Y / Godot -Z",
+      "root_scale": [
+        1,
+        1,
+        1
+      ],
+      "collision": "visual_only; enclosure blocking belongs to assembly",
+      "budget_triangles": 12000,
+      "budget_source": "task-authored performance target; not a user-supplied cap",
+      "reuse": "scene_local",
+      "collection": "SEA-FISHERY-FISH",
+      "root": "SEA-FISHERY-FISH_Root",
+      "bounds": {
+        "min": [
+          -0.25,
+          -0.4000000059604645,
+          0.0
+        ],
+        "max": [
+          0.25,
+          0.4000000059604645,
+          0.38999998569488525
+        ]
+      },
+      "triangles": 1520,
+      "polygons": 896,
+      "component_blend": "art_source/scenes/wild_fishery/v001/component_packages/fish/fish.blend",
+      "source_sha256": "f7f91692c90fceb46e5696e6db819ded2a2d4abba19dd5589b7ed6c2150c4b52"
+    }
+  ]
+}

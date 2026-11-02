@@ -30,6 +30,10 @@
 /godot/.godot/
 /godot/outputs/
 
+# Godot 运行时用户数据（日志、Vulkan 管线缓存、临时状态 ~13MB）
+# 正常位置在 %APPDATA%\Godot，这份是某次以 godot/ 为工作目录启动时误生成的
+/godot/Godot/
+
 # 水面调参的迭代截图与成片（约 150 MB，用 capture_water_showcase.gd 重生成）
 /outputs/ocean-absorption/
 

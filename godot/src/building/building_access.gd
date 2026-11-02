@@ -52,12 +52,12 @@ func landing_data(id: String, rows: Variant = null, walk_override: Variant = nul
 	var occupied: Dictionary={}
 	for row in records:
 		if not Catalog.is_deck(str(row.kind)): continue
-		occupied[Vector2i(int(row.x),int(row.z))]=true
+		if Catalog.grid_deck(row): occupied[Vector2i(int(row.x),int(row.z))]=true
 		if row.id==parts[1] and float(row.left)<=0.0: item=row
 	if item.is_empty(): return {}
 	var direction: Vector2i=DIRECTIONS[side]
 	var neighbor:=Vector2i(int(item.x),int(item.z))+direction
-	if item.kind=="deck" and (occupied.has(neighbor) or Catalog.base_cell(neighbor.x,neighbor.y)): return {}
+	if Catalog.grid_deck(item) and (occupied.has(neighbor) or Catalog.base_cell(neighbor.x,neighbor.y)): return {}
 	var rect: Rect2=Catalog.footprint_rect(item)
 	var center:=rect.get_center()
 	var normal:=Vector2(direction)

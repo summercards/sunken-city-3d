@@ -19,8 +19,13 @@ func run() -> void:
 		main.actor_controller.restore_pose({"mode":1})
 		for x in range(50,58):
 			for z in range(20,28):
-				var result: Dictionary=main.building.begin({"kind":"deck","x":x,"z":z})
-				check(result.ok,"large ocean deck accepted "+str(Vector2i(x,z)))
+				# Storage stress fixture: explicit boat origin, with energy restored
+				# between pieces. Energy spending has its own verification suite.
+				economy.energy.refill()
+				var result: Dictionary=main.building.begin({"kind":"deck","x":x,"z":z,"origin":"boat"})
+				check(result.ok,"large ocean deck accepted "+str(Vector2i(x,z))+": "+str(result.get("reason","")))
+				if not result.ok:
+					main.queue_free();await process_frame;quit(1);return
 				main.building.tick(3.0)
 		var point:=Catalog.tile_rect(51,21).get_center()
 		var planted: Dictionary=main.building.begin({"kind":"planter_small","support":"built_10","px":point.x,"pz":point.y})

@@ -26,10 +26,9 @@ func row(id: String) -> Dictionary:
 
 func _index(item: Dictionary) -> void:
 	_by_id[item.id]=item
-	if item.kind!="deck" and Catalog.is_deck(str(item.kind)) and float(item.left)<=0: _finished_tiles.append(Catalog.footprint_rect(item))
-	if item.kind=="deck":
+	if Catalog.is_deck(str(item.kind)) and float(item.left)<=0: _finished_tiles.append(Catalog.footprint_rect(item))
+	if Catalog.grid_deck(item):
 		_deck_cells[Vector2i(int(item.x),int(item.z))]=item
-		if float(item.left)<=0.0: _finished_tiles.append(Catalog.tile_rect(int(item.x),int(item.z)))
 func _reindex() -> void:
 	_by_id.clear();_deck_cells.clear();_finished_tiles.clear()
 	for item in _rows: _index(item)
@@ -59,12 +58,14 @@ func candidates() -> Array:
 func geometry_reason(request: Dictionary, strict_join: bool=true) -> String:
 	var kind := str(request.get("kind",""))
 	if not Catalog.RECIPES.has(kind): return "未知配方"
-	for key in (["x","z"] if kind=="deck" else ["px","pz"]):
+	if request.has("positioned") and (kind!="deck" or not request.positioned is bool): return "木板定位格式无效"
+	var grid:=Catalog.grid_deck(request)
+	for key in (["x","z"] if grid else ["px","pz"]):
 		var value: Variant=request.get(key)
 		if not (value is int or value is float) or not is_finite(float(value)): return "位置格式无效"
-		if kind=="deck" and float(value)!=floor(float(value)): return "木板必须对齐拼接网格"
+		if grid and float(value)!=floor(float(value)): return "木板必须对齐拼接网格"
 		# Vector2i keys must never silently wrap an extreme untrusted integer.
-		if kind=="deck" and (float(value)<-2147483648.0 or float(value)>2147483647.0): return "位置超出数值精度"
+		if grid and (float(value)<-2147483648.0 or float(value)>2147483647.0): return "位置超出数值精度"
 	var rotation: Variant=request.get("turn",0)
 	if not (rotation is int or rotation is float) or not is_finite(float(rotation)) or rotation!=floor(rotation) or rotation<0 or rotation>3:
 		return "朝向无效"
@@ -73,20 +74,11 @@ func geometry_reason(request: Dictionary, strict_join: bool=true) -> String:
 		if geometry!="": return geometry
 		return _platform_join_reason(request) if strict_join else ""
 	if kind=="deck":
+		var shape:=Catalog.footprint_rect(request)
+		if shape.grow(-0.001).intersects(Catalog.BASE): return "这里是原有平台"
 		for other in _rows:
-			if Catalog.is_deck(str(other.kind)) and other.kind!="deck" and Catalog.footprint_rect(other).grow(-0.001).intersects(Catalog.tile_rect(int(request.x),int(request.z))): return "这里已有浮台"
-		var x:=int(request.x)
-		var z:=int(request.z)
-		if Catalog.base_cell(x,z): return "这里是原有平台"
-		if _deck_cells.has(Vector2i(x,z)): return "这里已有木板或正在施工"
-		# A new board extends the deck it touches. The boat is the only way to
-		# start a platform where nothing can be walked to.
-		if strict_join and str(request.get("origin","shore"))!="boat":
-			for direction in [Vector2i.LEFT,Vector2i.RIGHT,Vector2i.UP,Vector2i.DOWN]:
-				var next: Vector2i=Vector2i(x,z)+direction
-				if Catalog.base_cell(next.x,next.y) or _deck_cells.has(next): return ""
-			return "木板要接在已有平台边上；要单独起一块，请乘船到那片海面"
-		return ""
+			if Catalog.is_deck(str(other.kind)) and Catalog.footprint_rect(other).grow(-0.001).intersects(shape): return "这里已有木板、浮台或正在施工"
+		return _platform_join_reason(request) if strict_join else ""
 	var support: Dictionary=Catalog.fixed_support() if str(request.get("support",""))=="@base" else _by_id.get(str(request.get("support","")),{})
 	if support.is_empty() or (str(support.id)!="@base" and not Catalog.is_deck(str(support.kind))) or support.left>0: return "请放在已完成的新木板上"
 	var rect := Catalog.plot_rect(request)
@@ -118,6 +110,9 @@ func _record(request: Dictionary, id: String, seconds: float) -> Dictionary:
 	if Catalog.is_kit(str(request.kind)):
 		return {"id":id,"kind":str(request.kind),"x":0,"z":0,"px":float(request.px),"pz":float(request.pz),"py":float(request.get("py",0)),"turn":int(request.get("turn",0)),"support":str(request.get("support","")),"left":seconds}
 	if str(request.kind)=="deck":
+		if not Catalog.grid_deck(request):
+			return {"id":id,"kind":"deck","x":0,"z":0,"positioned":true,
+				"px":float(request.px),"pz":float(request.pz),"turn":0,"support":"","left":seconds}
 		return {"id":id,"kind":"deck","x":int(request.x),"z":int(request.z),
 			"px":0.0,"pz":0.0,"turn":0,"support":"","left":seconds}
 	return {"id":id,"kind":str(request.kind),"x":0,"z":0,
@@ -331,6 +326,7 @@ static func validate_snapshot(data: Dictionary) -> String:
 			return "Transient building command cannot be saved as layout"
 		for key in ["id","kind","support"]:
 			if not raw.get(key) is String: return "Missing building string: "+key
+		if raw.has("positioned") and (raw.kind!="deck" or not raw.positioned is bool): return "Invalid positioned board"
 		for key in ["x","z","px","pz","turn","left"]:
 			var value: Variant=raw.get(key)
 			if not (value is float or value is int) or not is_finite(float(value)): return "Invalid building number: "+key

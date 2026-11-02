@@ -1,0 +1,1372 @@
+{
+  "plane": "Blender XY",
+  "up": "+Z",
+  "mapping": "(x,y,z)->(x,z,-y)",
+  "world_origin_godot": [
+    -13.0339488983,
+    1.33,
+    12.7458000183
+  ],
+  "instances": [
+    {
+      "instance_id": "shore_000",
+      "key": "shore",
+      "position_godot_world": [
+        -13.0339488983,
+        0.9699999856948853,
+        12.7458000183
+      ],
+      "position_blender": [
+        0.0,
+        -0.0,
+        -0.36000001430511475
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "land"
+    },
+    {
+      "instance_id": "drying_rack_001",
+      "key": "drying_rack",
+      "position_godot_world": [
+        -15.15,
+        1.33,
+        11.1
+      ],
+      "position_blender": [
+        -2.116051197052002,
+        1.645799994468689,
+        0.0
+      ],
+      "yaw_radians": 0.13,
+      "scale": 1,
+      "group": "land"
+    },
+    {
+      "instance_id": "bait_table_002",
+      "key": "bait_table",
+      "position_godot_world": [
+        -10.65,
+        1.33,
+        14.15
+      ],
+      "position_blender": [
+        2.383948802947998,
+        -1.4041999578475952,
+        0.0
+      ],
+      "yaw_radians": -0.12,
+      "scale": 1,
+      "group": "land"
+    },
+    {
+      "instance_id": "creel_003",
+      "key": "creel",
+      "position_godot_world": [
+        -15.3,
+        1.33,
+        14.55
+      ],
+      "position_blender": [
+        -2.2660510540008545,
+        -1.8041999340057373,
+        0.0
+      ],
+      "yaw_radians": 0.1,
+      "scale": 1,
+      "group": "land"
+    },
+    {
+      "instance_id": "creel_004",
+      "key": "creel",
+      "position_godot_world": [
+        -14.57,
+        1.33,
+        14.8
+      ],
+      "position_blender": [
+        -1.5360511541366577,
+        -2.0541999340057373,
+        0.0
+      ],
+      "yaw_radians": 0.1,
+      "scale": 1,
+      "group": "land"
+    },
+    {
+      "instance_id": "turf_005",
+      "key": "turf",
+      "position_godot_world": [
+        -15.7,
+        1.3,
+        10.7
+      ],
+      "position_blender": [
+        -2.666051149368286,
+        2.045799970626831,
+        -0.029999999329447746
+      ],
+      "yaw_radians": 0.9218775441388227,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "turf_006",
+      "key": "turf",
+      "position_godot_world": [
+        -14.8,
+        1.3,
+        10.6
+      ],
+      "position_blender": [
+        -1.7660510540008545,
+        2.1458001136779785,
+        -0.029999999329447746
+      ],
+      "yaw_radians": -1.4724516375316776,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "turf_007",
+      "key": "turf",
+      "position_godot_world": [
+        -10.4,
+        1.3,
+        10.8
+      ],
+      "position_blender": [
+        2.633948802947998,
+        1.9458000659942627,
+        -0.029999999329447746
+      ],
+      "yaw_radians": 0.7577109814322718,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "turf_008",
+      "key": "turf",
+      "position_godot_world": [
+        -10.4,
+        1.3,
+        14.9
+      ],
+      "position_blender": [
+        2.633948802947998,
+        -2.1542000770568848,
+        -0.029999999329447746
+      ],
+      "yaw_radians": 1.5567304786374079,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "turf_009",
+      "key": "turf",
+      "position_godot_world": [
+        -15.65,
+        1.3,
+        14.9
+      ],
+      "position_blender": [
+        -2.616051197052002,
+        -2.1542000770568848,
+        -0.029999999329447746
+      ],
+      "yaw_radians": 1.0910058176056623,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "turf_010",
+      "key": "turf",
+      "position_godot_world": [
+        -13.8,
+        1.3,
+        15.0
+      ],
+      "position_blender": [
+        -0.7660511136054993,
+        -2.254199981689453,
+        -0.029999999329447746
+      ],
+      "yaw_radians": -0.34273548659130704,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "turf_011",
+      "key": "turf",
+      "position_godot_world": [
+        -15.7,
+        1.3,
+        12.8
+      ],
+      "position_blender": [
+        -2.666051149368286,
+        -0.054199982434511185,
+        -0.029999999329447746
+      ],
+      "yaw_radians": -1.3583643676320158,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "pebbles_012",
+      "key": "pebbles",
+      "position_godot_world": [
+        -15.8,
+        1.3,
+        11.9
+      ],
+      "position_blender": [
+        -2.7660510540008545,
+        0.8458000421524048,
+        -0.029999999329447746
+      ],
+      "yaw_radians": 1.1530566180089639,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "pebbles_013",
+      "key": "pebbles",
+      "position_godot_world": [
+        -15.8,
+        1.3,
+        14.45
+      ],
+      "position_blender": [
+        -2.7660510540008545,
+        -1.704200029373169,
+        -0.029999999329447746
+      ],
+      "yaw_radians": -0.851753242809524,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "pebbles_014",
+      "key": "pebbles",
+      "position_godot_world": [
+        -10.3,
+        1.3,
+        10.65
+      ],
+      "position_blender": [
+        2.7339489459991455,
+        2.0957999229431152,
+        -0.029999999329447746
+      ],
+      "yaw_radians": 0.6948250284393094,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "pebbles_015",
+      "key": "pebbles",
+      "position_godot_world": [
+        -11.5,
+        1.3,
+        15.0
+      ],
+      "position_blender": [
+        1.5339488983154297,
+        -2.254199981689453,
+        -0.029999999329447746
+      ],
+      "yaw_radians": -0.9934902887137711,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "pebbles_016",
+      "key": "pebbles",
+      "position_godot_world": [
+        -13.9,
+        1.3,
+        10.5
+      ],
+      "position_blender": [
+        -0.8660510778427124,
+        2.245800018310547,
+        -0.029999999329447746
+      ],
+      "yaw_radians": 0.49125798154142464,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "reeds_017",
+      "key": "reeds",
+      "position_godot_world": [
+        -15.65,
+        1.31,
+        10.75
+      ],
+      "position_blender": [
+        -2.616051197052002,
+        1.9958000183105469,
+        -0.019999999552965164
+      ],
+      "yaw_radians": -0.15738851664743958,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "reeds_018",
+      "key": "reeds",
+      "position_godot_world": [
+        -10.4,
+        1.31,
+        10.7
+      ],
+      "position_blender": [
+        2.633948802947998,
+        2.045799970626831,
+        -0.019999999552965164
+      ],
+      "yaw_radians": -0.8017853249127525,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "reeds_019",
+      "key": "reeds",
+      "position_godot_world": [
+        -15.6,
+        1.31,
+        14.9
+      ],
+      "position_blender": [
+        -2.5660510063171387,
+        -2.1542000770568848,
+        -0.019999999552965164
+      ],
+      "yaw_radians": -0.0053460574743979805,
+      "scale": 1,
+      "group": "flora"
+    },
+    {
+      "instance_id": "net_panel_020",
+      "key": "net_panel",
+      "position_godot_world": [
+        -23.2,
+        -1.2331486129760743,
+        15.8
+      ],
+      "position_blender": [
+        -10.166050910949707,
+        -3.0541999340057373,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -0.0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_021",
+      "key": "net_panel",
+      "position_godot_world": [
+        -21.2,
+        -1.2331486129760743,
+        15.8
+      ],
+      "position_blender": [
+        -8.166050910949707,
+        -3.0541999340057373,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -0.0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_022",
+      "key": "net_panel",
+      "position_godot_world": [
+        -19.2,
+        -1.2331486129760743,
+        15.8
+      ],
+      "position_blender": [
+        -6.166050910949707,
+        -3.0541999340057373,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -0.0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_023",
+      "key": "net_panel",
+      "position_godot_world": [
+        -17.2,
+        -1.2331486129760743,
+        15.8
+      ],
+      "position_blender": [
+        -4.166050910949707,
+        -3.0541999340057373,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -0.0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_024",
+      "key": "net_panel",
+      "position_godot_world": [
+        -15.2,
+        -1.2331486129760743,
+        15.8
+      ],
+      "position_blender": [
+        -2.166051149368286,
+        -3.0541999340057373,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -0.0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_corner_025",
+      "key": "net_corner",
+      "position_godot_world": [
+        -13.7,
+        -1.232997694015503,
+        16.3
+      ],
+      "position_blender": [
+        -0.6660510897636414,
+        -3.5541999340057373,
+        -2.562997579574585
+      ],
+      "yaw_radians": -0.7853981633974483,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_026",
+      "key": "net_panel",
+      "position_godot_world": [
+        -13.2,
+        -1.2331486129760743,
+        17.8
+      ],
+      "position_blender": [
+        -0.16605110466480255,
+        -5.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -1.5707963267948966,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_027",
+      "key": "net_panel",
+      "position_godot_world": [
+        -13.2,
+        -1.2331486129760743,
+        19.8
+      ],
+      "position_blender": [
+        -0.16605110466480255,
+        -7.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -1.5707963267948966,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_028",
+      "key": "net_panel",
+      "position_godot_world": [
+        -13.2,
+        -1.2331486129760743,
+        21.8
+      ],
+      "position_blender": [
+        -0.16605110466480255,
+        -9.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -1.5707963267948966,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_029",
+      "key": "net_panel",
+      "position_godot_world": [
+        -13.2,
+        -1.2331486129760743,
+        23.8
+      ],
+      "position_blender": [
+        -0.16605110466480255,
+        -11.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -1.5707963267948966,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_corner_030",
+      "key": "net_corner",
+      "position_godot_world": [
+        -13.7,
+        -1.232997694015503,
+        25.3
+      ],
+      "position_blender": [
+        -0.6660510897636414,
+        -12.554200172424316,
+        -2.562997579574585
+      ],
+      "yaw_radians": -2.356194490192345,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_031",
+      "key": "net_panel",
+      "position_godot_world": [
+        -15.2,
+        -1.2331486129760743,
+        25.8
+      ],
+      "position_blender": [
+        -2.166051149368286,
+        -13.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -3.141592653589793,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_032",
+      "key": "net_panel",
+      "position_godot_world": [
+        -17.2,
+        -1.2331486129760743,
+        25.8
+      ],
+      "position_blender": [
+        -4.166050910949707,
+        -13.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -3.141592653589793,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_033",
+      "key": "net_panel",
+      "position_godot_world": [
+        -19.2,
+        -1.2331486129760743,
+        25.8
+      ],
+      "position_blender": [
+        -6.166050910949707,
+        -13.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -3.141592653589793,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_034",
+      "key": "net_panel",
+      "position_godot_world": [
+        -21.2,
+        -1.2331486129760743,
+        25.8
+      ],
+      "position_blender": [
+        -8.166050910949707,
+        -13.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -3.141592653589793,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_035",
+      "key": "net_panel",
+      "position_godot_world": [
+        -23.2,
+        -1.2331486129760743,
+        25.8
+      ],
+      "position_blender": [
+        -10.166050910949707,
+        -13.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": -3.141592653589793,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_corner_036",
+      "key": "net_corner",
+      "position_godot_world": [
+        -24.7,
+        -1.232997694015503,
+        25.3
+      ],
+      "position_blender": [
+        -11.666050910949707,
+        -12.554200172424316,
+        -2.562997579574585
+      ],
+      "yaw_radians": 2.356194490192345,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_037",
+      "key": "net_panel",
+      "position_godot_world": [
+        -25.2,
+        -1.2331486129760743,
+        23.8
+      ],
+      "position_blender": [
+        -12.166050910949707,
+        -11.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": 1.5707963267948966,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_038",
+      "key": "net_panel",
+      "position_godot_world": [
+        -25.2,
+        -1.2331486129760743,
+        21.8
+      ],
+      "position_blender": [
+        -12.166050910949707,
+        -9.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": 1.5707963267948966,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_039",
+      "key": "net_panel",
+      "position_godot_world": [
+        -25.2,
+        -1.2331486129760743,
+        19.8
+      ],
+      "position_blender": [
+        -12.166050910949707,
+        -7.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": 1.5707963267948966,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_panel_040",
+      "key": "net_panel",
+      "position_godot_world": [
+        -25.2,
+        -1.2331486129760743,
+        17.8
+      ],
+      "position_blender": [
+        -12.166050910949707,
+        -5.054200172424316,
+        -2.5631484985351562
+      ],
+      "yaw_radians": 1.5707963267948966,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "net_corner_041",
+      "key": "net_corner",
+      "position_godot_world": [
+        -24.7,
+        -1.232997694015503,
+        16.3
+      ],
+      "position_blender": [
+        -11.666050910949707,
+        -3.5541999340057373,
+        -2.562997579574585
+      ],
+      "yaw_radians": 0.7853981633974483,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_042",
+      "key": "buoy",
+      "position_godot_world": [
+        -24.2,
+        0.89,
+        15.8
+      ],
+      "position_blender": [
+        -11.166050910949707,
+        -3.0541999340057373,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_043",
+      "key": "buoy",
+      "position_godot_world": [
+        -22.2,
+        0.89,
+        15.8
+      ],
+      "position_blender": [
+        -9.166050910949707,
+        -3.0541999340057373,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_044",
+      "key": "buoy",
+      "position_godot_world": [
+        -20.2,
+        0.89,
+        15.8
+      ],
+      "position_blender": [
+        -7.166050910949707,
+        -3.0541999340057373,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_045",
+      "key": "buoy",
+      "position_godot_world": [
+        -18.2,
+        0.89,
+        15.8
+      ],
+      "position_blender": [
+        -5.166050910949707,
+        -3.0541999340057373,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_046",
+      "key": "buoy",
+      "position_godot_world": [
+        -16.2,
+        0.89,
+        15.8
+      ],
+      "position_blender": [
+        -3.166051149368286,
+        -3.0541999340057373,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_047",
+      "key": "marker_buoy",
+      "position_godot_world": [
+        -14.2,
+        0.89,
+        15.8
+      ],
+      "position_blender": [
+        -1.1660511493682861,
+        -3.0541999340057373,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_048",
+      "key": "buoy",
+      "position_godot_world": [
+        -13.2,
+        0.89,
+        16.8
+      ],
+      "position_blender": [
+        -0.16605110466480255,
+        -4.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_049",
+      "key": "buoy",
+      "position_godot_world": [
+        -13.2,
+        0.89,
+        18.8
+      ],
+      "position_blender": [
+        -0.16605110466480255,
+        -6.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_050",
+      "key": "buoy",
+      "position_godot_world": [
+        -13.2,
+        0.89,
+        20.8
+      ],
+      "position_blender": [
+        -0.16605110466480255,
+        -8.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_051",
+      "key": "buoy",
+      "position_godot_world": [
+        -13.2,
+        0.89,
+        22.8
+      ],
+      "position_blender": [
+        -0.16605110466480255,
+        -10.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_052",
+      "key": "marker_buoy",
+      "position_godot_world": [
+        -13.2,
+        0.89,
+        24.8
+      ],
+      "position_blender": [
+        -0.16605110466480255,
+        -12.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_053",
+      "key": "buoy",
+      "position_godot_world": [
+        -14.2,
+        0.89,
+        25.8
+      ],
+      "position_blender": [
+        -1.1660511493682861,
+        -13.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_054",
+      "key": "buoy",
+      "position_godot_world": [
+        -16.2,
+        0.89,
+        25.8
+      ],
+      "position_blender": [
+        -3.166051149368286,
+        -13.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_055",
+      "key": "buoy",
+      "position_godot_world": [
+        -18.2,
+        0.89,
+        25.8
+      ],
+      "position_blender": [
+        -5.166050910949707,
+        -13.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_056",
+      "key": "buoy",
+      "position_godot_world": [
+        -20.2,
+        0.89,
+        25.8
+      ],
+      "position_blender": [
+        -7.166050910949707,
+        -13.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_057",
+      "key": "buoy",
+      "position_godot_world": [
+        -22.2,
+        0.89,
+        25.8
+      ],
+      "position_blender": [
+        -9.166050910949707,
+        -13.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_058",
+      "key": "marker_buoy",
+      "position_godot_world": [
+        -24.2,
+        0.89,
+        25.8
+      ],
+      "position_blender": [
+        -11.166050910949707,
+        -13.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_059",
+      "key": "buoy",
+      "position_godot_world": [
+        -25.2,
+        0.89,
+        24.8
+      ],
+      "position_blender": [
+        -12.166050910949707,
+        -12.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_060",
+      "key": "buoy",
+      "position_godot_world": [
+        -25.2,
+        0.89,
+        22.8
+      ],
+      "position_blender": [
+        -12.166050910949707,
+        -10.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_061",
+      "key": "buoy",
+      "position_godot_world": [
+        -25.2,
+        0.89,
+        20.8
+      ],
+      "position_blender": [
+        -12.166050910949707,
+        -8.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_062",
+      "key": "buoy",
+      "position_godot_world": [
+        -25.2,
+        0.89,
+        18.8
+      ],
+      "position_blender": [
+        -12.166050910949707,
+        -6.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "float_063",
+      "key": "marker_buoy",
+      "position_godot_world": [
+        -25.2,
+        0.89,
+        16.8
+      ],
+      "position_blender": [
+        -12.166050910949707,
+        -4.054200172424316,
+        -0.4399999976158142
+      ],
+      "yaw_radians": 0,
+      "scale": 1,
+      "group": "water"
+    },
+    {
+      "instance_id": "swimmer_064",
+      "key": "fish",
+      "position_godot_world": [
+        -18.462969277632006,
+        0.35,
+        20.8
+      ],
+      "position_blender": [
+        -5.429020404815674,
+        -8.054200172424316,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 0.0,
+      "scale": 0.9,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_065",
+      "key": "fish",
+      "position_godot_world": [
+        -20.14130622516639,
+        0.35,
+        21.46331846734121
+      ],
+      "position_blender": [
+        -7.107357501983643,
+        -8.71751880645752,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 2.399963,
+      "scale": 1.0,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_066",
+      "key": "fish",
+      "position_godot_world": [
+        -19.055918719036008,
+        0.35,
+        19.537122658641042
+      ],
+      "position_blender": [
+        -6.021969795227051,
+        -6.791322708129883,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 4.799926,
+      "scale": 1.1,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_067",
+      "key": "fish",
+      "position_godot_world": [
+        -18.013543154561436,
+        0.35,
+        21.990400497945984
+      ],
+      "position_blender": [
+        -4.9795942306518555,
+        -9.244600296020508,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 7.199889000000001,
+      "scale": 1.2000000000000002,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_068",
+      "key": "fish",
+      "position_godot_world": [
+        -21.377292628125424,
+        0.35,
+        20.503745888162506
+      ],
+      "position_blender": [
+        -8.343343734741211,
+        -7.757946014404297,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 9.599852,
+      "scale": 0.9,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_069",
+      "key": "fish",
+      "position_godot_world": [
+        -17.137480193583627,
+        0.35,
+        19.790761846005765
+      ],
+      "position_blender": [
+        -4.103531360626221,
+        -7.044961929321289,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 11.999815,
+      "scale": 1.0,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_070",
+      "key": "fish",
+      "position_godot_world": [
+        -19.8898694776059,
+        0.35,
+        22.77407244613161
+      ],
+      "position_blender": [
+        -6.855920791625977,
+        -10.02827262878418,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 14.399778000000001,
+      "scale": 1.1,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_071",
+      "key": "fish",
+      "position_godot_world": [
+        -20.5156667308771,
+        0.35,
+        18.851364407091168
+      ],
+      "position_blender": [
+        -7.481718063354492,
+        -6.105564594268799,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 16.799741,
+      "scale": 1.2000000000000002,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_072",
+      "key": "fish",
+      "position_godot_world": [
+        -16.34553637998993,
+        0.35,
+        21.601876607833432
+      ],
+      "position_blender": [
+        -3.3115875720977783,
+        -8.85607624053955,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 19.199704,
+      "scale": 0.9,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_073",
+      "key": "fish",
+      "position_godot_world": [
+        -22.169589225753267,
+        0.35,
+        21.74293111523788
+      ],
+      "position_blender": [
+        -9.135640144348145,
+        -8.99713134765625,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 21.599667,
+      "scale": 1.0,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_074",
+      "key": "fish",
+      "position_godot_world": [
+        -17.76846757155654,
+        0.35,
+        18.446830802936447
+      ],
+      "position_blender": [
+        -4.734518527984619,
+        -5.701030731201172,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 23.99963,
+      "scale": 1.1,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_075",
+      "key": "fish",
+      "position_godot_world": [
+        -18.142120232211546,
+        0.35,
+        23.394351963677888
+      ],
+      "position_blender": [
+        -5.108171463012695,
+        -10.648551940917969,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 26.399593,
+      "scale": 1.2000000000000002,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_076",
+      "key": "fish",
+      "position_godot_world": [
+        -22.388441308426323,
+        0.35,
+        19.37864986978944
+      ],
+      "position_blender": [
+        -9.3544921875,
+        -6.63284969329834,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 28.799556000000003,
+      "scale": 0.9,
+      "group": "fish"
+    },
+    {
+      "instance_id": "swimmer_077",
+      "key": "fish",
+      "position_godot_world": [
+        -15.459603831102376,
+        0.35,
+        20.167440526461636
+      ],
+      "position_blender": [
+        -2.425654888153076,
+        -7.421640396118164,
+        -0.9800000190734863
+      ],
+      "yaw_radians": 31.199519000000002,
+      "scale": 1.0,
+      "group": "fish"
+    }
+  ],
+  "pen_outline_godot_xz": [
+    [
+      -24.2,
+      15.8
+    ],
+    [
+      -14.2,
+      15.8
+    ],
+    [
+      -13.2,
+      16.8
+    ],
+    [
+      -13.2,
+      24.8
+    ],
+    [
+      -14.2,
+      25.8
+    ],
+    [
+      -24.2,
+      25.8
+    ],
+    [
+      -25.2,
+      24.8
+    ],
+    [
+      -25.2,
+      16.8
+    ]
+  ]
+}

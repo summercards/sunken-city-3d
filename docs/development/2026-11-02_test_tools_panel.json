@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-02",
+  "features": [
+    "SEA-TOOL",
+    "SEA-UI"
+  ],
+  "command": "python3 scripts/run_verification.py test-tools lighting-params modules daylight",
+  "note": "隔离用户目录运行，不触及玩家槽位；headless。真实渲染证据见 assets/2026-11-02_test_tools_*.png",
+  "results": {
+    "test-tools": {
+      "exit_code": 0,
+      "passed": true,
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-121204-verification-04ef57\\test-tools.log"
+    },
+    "lighting-params": {
+      "exit_code": 0,
+      "passed": true,
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-121204-verification-04ef57\\lighting-params.log"
+    },
+    "modules": {
+      "exit_code": 0,
+      "passed": true,
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-121204-verification-04ef57\\modules.log"
+    },
+    "daylight": {
+      "exit_code": 0,
+      "passed": true,
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261102-121204-verification-04ef57\\daylight.log"
+    }
+  }
+}

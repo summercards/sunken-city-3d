@@ -45,7 +45,7 @@ func fixed_occupied_rects() -> Array:
 	return result
 func node_for(id: String) -> Node3D: return _nodes.get(id)
 func position_for(row: Dictionary) -> Vector3:
-	var p: Vector2=Catalog.tile_rect(row.x,row.z).get_center() if row.kind=="deck" else Vector2(row.px,row.pz)
+	var p: Vector2=Catalog.footprint_rect(row).get_center()
 	return Catalog.ORIGIN+Vector3(p.x,Catalog.elevation(row),p.y)
 func sync() -> void:
 	revision+=1

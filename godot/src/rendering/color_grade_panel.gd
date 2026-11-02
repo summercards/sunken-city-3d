@@ -1,6 +1,6 @@
 extends CanvasLayer
 class_name ColorGradePanel
-## 运行期调试面板（P 键开关），三页：
+## 运行期调试面板（P 键开关），四页：
 ##
 ##   滤镜 —— 整幅画面的最终调色，改的是 `WorldEnvironment` 上那个 Environment：
 ##           曝光 → tonemap_exposure，亮度/对比度/饱和度 → adjustment_*。
@@ -10,10 +10,14 @@ class_name ColorGradePanel
 ##   水面 —— `assets/materials/water.tres` 上所有还能改的参数，按着色器的
 ##           group 分成水体 / 表面细节 / 天空反射 / 太阳高光 / 波纹 / 泡沫 /
 ##           波浪几何 / 输出。清单在 `water_params.gd`，这里只负责生成控件。
+##   测试 —— 加货币与资源、跳时间、换天气、回体力（SEA-TOOL）。控件在
+##           `src/debug/test_tools_page.gd`，入口由主场景注入端口。这一页不碰
+##           调色，也不属于画面表现：它是给人做验证用的，不是玩法的入口。
 ##
-## 三页都遵守同一套约定：拖动即时生效、可一键复位、可复制、可写回资源文件、
+## 前三页遵守同一套约定：拖动即时生效、可一键复位、可复制、可写回资源文件、
 ## 数值记在 `user://` 下（`filter.cfg` / `water.cfg`），下次启动还是你调好的样子 ——
-## 不然每次重启都要重调一遍。
+## 不然每次重启都要重调一遍。第四页（测试）不在这套约定里：它改的是这一局的
+## 运行状态，不写任何资源文件，也不落存档。
 ##
 ## 场景里的默认值来自资源文件本身，所以「复位」回到的是那份文件的值，
 ## 不是硬编码的数字。
@@ -27,6 +31,7 @@ const ParamsLib = preload("res://src/rendering/water_params.gd")
 const ParamsLibAbs = preload("res://src/rendering/water_params_absorption.gd")
 const LightParamsLib = preload("res://src/rendering/light_params.gd")
 const SlotsLib = preload("res://src/rendering/daylight_slots.gd")
+const TestPageScript = preload("res://src/debug/test_tools_page.gd")
 
 const CFG_PATH := "user://filter.cfg"
 const WATER_CFG_PATH := "user://water.cfg"
@@ -75,6 +80,7 @@ const CFG_SIG_KEY := "__mat_sig"
 const TAB_FILTER := "filter"
 const TAB_LIGHT := "light"
 const TAB_WATER := "water"
+const TAB_TEST := "test"
 
 const EXPOSURE_MIN := 0.4
 const EXPOSURE_MAX := 2.0
@@ -136,6 +142,11 @@ var _light_scroll: ScrollContainer
 var _water_wrap: VBoxContainer
 var _water_body: VBoxContainer
 var _water_scroll: ScrollContainer
+## 「测试」页（SEA-TOOL）。控件全在那个脚本里 —— 这一页是工具，不是调色参数，
+## 塞进本文件只会让「面板只管画面」这条职责变模糊。
+var _test_wrap: VBoxContainer
+## 故意不加静态类型：TestToolsPage 的 bind/refresh 在 VBoxContainer 基类上不存在。
+var _test_page = null
 var _status: Label
 ## `_flash` 的回报要压住 `_refresh_status()` 的常规提示几秒。
 ## 状态栏每帧都会被常规提示重写，回报一出场就被冲掉 —— 用户点了「写入」
@@ -230,8 +241,7 @@ func set_open(open: bool) -> void:
 		_slot_season = String(snap.season)
 		_slot_weather = String(snap.weather)
 		_slot = String(snap.slot)
-		_preview_held = true
-		_hold_preview()
+		_sync_preview_hold()
 		_refresh_slot_buttons()
 		_sync_light()
 		_ensure_water()
@@ -245,6 +255,20 @@ func set_open(open: bool) -> void:
 		_save_cfg()
 		_save_light_cfg()
 		_save_water_cfg()
+
+
+## 面板开着时要不要把画面锁在「选中组合」上。
+##
+## 调色三页要锁：不锁的话游戏时间一往前走，刚调好的那一段就被下一段盖住。
+## 测试页必须松：那一页改的就是真实时刻与天气，锁着预览等于改完看不见。
+func _sync_preview_hold() -> void:
+	_preview_held = visible and _tab != TAB_TEST
+	if _preview_held:
+		_hold_preview()
+		return
+	var rig = _daylight()
+	if rig != null:
+		rig.clear_preview()
 
 
 ## 当前游戏处在哪个 (季节, 天气, 时段)。面板打开时以它为默认选中项 ——
@@ -1119,6 +1143,7 @@ func _build() -> void:
 	_tab_buttons[TAB_FILTER] = _tab_button("滤镜", TAB_FILTER, tabs)
 	_tab_buttons[TAB_LIGHT] = _tab_button("光照", TAB_LIGHT, tabs)
 	_tab_buttons[TAB_WATER] = _tab_button("水面", TAB_WATER, tabs)
+	_tab_buttons[TAB_TEST] = _tab_button("测试", TAB_TEST, tabs)
 	var close := _button("关闭", func() -> void: set_open(false))
 	close.custom_minimum_size = Vector2(46, 24)
 	close.size_flags_horizontal = Control.SIZE_SHRINK_END
@@ -1142,6 +1167,12 @@ func _build() -> void:
 	_water_wrap.visible = false
 	_body.add_child(_water_wrap)
 	_build_water()
+
+	_test_wrap = VBoxContainer.new()
+	_test_wrap.add_theme_constant_override("separation", 6)
+	_test_wrap.visible = false
+	_body.add_child(_test_wrap)
+	_build_test()
 
 	_status = _label("P 开关 · 拖动即时生效，数值会记住", 9, Color(0.62, 0.80, 0.86, 0.85))
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -1452,6 +1483,29 @@ func _build_water() -> void:
 	buttons.add_child(_button("复制参数", _on_water_copy))
 	_save_button = _button("写入 %s" % _mat_file_name(), _on_water_save)
 	buttons.add_child(_save_button)
+
+
+## 测试页。整页只有一行挂载代码，控件与动作都在 `test_tools_page.gd`。
+func _build_test() -> void:
+	_test_page = TestPageScript.new()
+	_test_page.name = "TestTools"
+	_test_wrap.add_child(_test_page)
+
+
+## 主场景在装配时把「加物品 / 改时刻 / 换天气 / 回体力」的入口注进来。
+##
+## 面板本身不认识 Economy、WorldClock、WeatherService —— 那些状态各有所有者。
+## 这里只转发一个字典，缺哪项那一组按钮就禁用（页面自己会说「未接线」），
+## 于是面板在没有主场景的验证工程里也能安全实例化。
+func set_test_ports(ports: Dictionary) -> void:
+	if _test_page == null:
+		return
+	_test_page.bind(ports)
+
+
+## 验收入口：把测试页本身交出去，好让脚本按「用户点那几个按钮」的同一条路走一遍。
+func test_tools():
+	return _test_page
 
 
 ## 顶部一行：两套水之间切换。切换会重建下面整页控件。
@@ -2256,11 +2310,15 @@ func _set_tab(id: String) -> void:
 		_light_wrap.visible = id == TAB_LIGHT
 	if _water_wrap != null:
 		_water_wrap.visible = id == TAB_WATER
+	if _test_wrap != null:
+		_test_wrap.visible = id == TAB_TEST
 	# 侧栏三页都显示：它标的是「当前选中的时段」，而这个面板里随时段走的东西
 	# 不止光照页 —— 滤镜页的对比度、水面页的海水色与反射都归昼夜装置管。
 	# 只在一页显示的话，另外两页的滑杆看起来是全局的，实际却被时变覆盖。
 	if _side != null:
-		_side.visible = true
+		# 测试页不显示侧栏：那十五条按钮标的是「面板预览用哪一段」，而测试页
+		# 改的是真实时刻与天气。两套摆在一起，按下去哪一个才是真的分不清。
+		_side.visible = id != TAB_TEST
 		if _sync_side.is_valid():
 			# 面板刚变可见时 rect 还没结算，等一帧再贴上去。
 			_sync_side.call_deferred()
@@ -2272,6 +2330,12 @@ func _set_tab(id: String) -> void:
 		return
 	_tab_applied = id
 	_flash_hold = 0
+	# 换页要重新确认「画面锁不锁」：调色三页锁，测试页松。
+	_sync_preview_hold()
+	if id == TAB_TEST and _test_page != null:
+		# 这一页显示的物品数量会被外面改（采集、交易、时间跳转后的结算），
+		# 进页先对一次，别让人看到上一次的旧数。
+		_test_page.refresh()
 	_refresh_status()
 
 
@@ -2287,6 +2351,10 @@ func _refresh_status() -> void:
 		_status.text = "%s · 海水色与反射只改这一段，波形泡沫仍是全局%s" % [where, extra]
 	elif _tab == TAB_LIGHT:
 		_status.text = "%s · 只改这一段，关闭面板回到实际时刻%s" % [where, extra]
+	elif _tab == TAB_TEST:
+		# 这一页不按「季节 / 天气 / 时段」分库，写的是当前这一局的运行状态，
+		# 所以不套 `where` —— 印上去只会让人以为改的是某一段偏移。
+		_status.text = "测试工具 · 点格子加资源，改动立即生效；不写资源文件、不加存档字段"
 	else:
 		_status.text = "%s · 对比度只改这一段，曝光/亮度/饱和度全局%s" % [where, extra]
 
