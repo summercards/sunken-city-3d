@@ -1,0 +1,56 @@
+{
+  "asset_id": "SEA-CHAR-FACE-001",
+  "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-FACE-001",
+  "version": "v003",
+  "source": "godot/src/avatar/avatar_face.gd",
+  "runtime_path": "godot/src/avatar/avatar_face.gd",
+  "authored_files": [
+    {
+      "path": "godot/src/avatar/avatar_face.gd",
+      "sha256": "77ebe8ccaadf782eedaa3a712ea57af76029f7a236e04331decfd4bc60fba9f0"
+    },
+    {
+      "path": "godot/assets/textures/avatar/blush_soft.png",
+      "sha256": "d28071387735492316730e8361a044f5a732f9429a2fd9a34bd4510a5a0b2ef0"
+    },
+    {
+      "path": "godot/assets/textures/avatar/freckles.png",
+      "sha256": "87d282f129a11a9fc76b52c2002ddda317ec954c74f39f8a6ec55933c3ce2f5c"
+    },
+    {
+      "path": "godot/assets/textures/avatar/stubble.png",
+      "sha256": "825c39f76b5f8369d825b0d2b004435ec0464c4f6396a2bfc765b5e145f36fc9"
+    },
+    {
+      "path": "tools/author_avatar_face_textures.py",
+      "sha256": "be843ef5395bf4902dd55fe94566393404a2a53a7e88d133aea029cd7fa5096f"
+    },
+    {
+      "path": "godot/assets/textures/avatar/graphic_eyes.png",
+      "sha256": "84a68e30fc40f0a69c827b7344195eef71a0be6b19c3ccddf1fae0c3e28cae4e"
+    },
+    {
+      "path": "godot/shaders/avatar_eye.gdshader",
+      "sha256": "7d0382c6ddc348e5172f307e6f6d1ed5b5b1de45ef67a2eb6280d35d14fc44f9"
+    },
+    {
+      "path": "art_source/characters/avatar/v004/graphic_eye_source.png",
+      "sha256": "ae834145336a9c2cdc05947ace2a59e4cb9dfc205801cc3abd31e34260ba2193"
+    },
+    {
+      "path": "art_source/characters/avatar/v004/graphic_eye_manifest.json",
+      "sha256": "ad2fd37e2feea46f7f1de48e8417e0abe68e029bf7988fc7c0bc1d8d9cc694ce"
+    },
+    {
+      "path": "tools/prepare_avatar_graphic_atlas.py",
+      "sha256": "1246a112e5ae2d99eb5a8ca60f8a844d3233556f12548ef49ce618849962f3c2"
+    }
+  ],
+  "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
+  "source_type": "original generated eye artwork + transparent atlas extraction + Godot curved facial mesh/shader; no copied reference pixels",
+  "units": "metres / +Y up / +Z forward / root scale 1",
+  "external_game_assets_used": false,
+  "self_verification": "actual mesh and skinned vertices, mixed extremes, dense action samples, real renderer and real UI input",
+  "texture_source": "art_source/characters/avatar/v004/graphic_eye_source.png",
+  "mouth_asset_id": "SEA-CHAR-MOUTH-001"
+}

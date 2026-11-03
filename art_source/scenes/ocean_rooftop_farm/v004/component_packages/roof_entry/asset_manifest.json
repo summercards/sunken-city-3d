@@ -1,0 +1,32 @@
+{
+  "key": "roof_entry",
+  "name": "消防梯屋顶开放入口",
+  "category": "structure",
+  "component_family": "entry",
+  "asset_id": "SEA-SCENE-ORF2-ROOF_ENTRY",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "ORF3_组件_roof_entry",
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/roof_entry/roof_entry.blend",
+  "bounds_size_m": [
+    2.1000003814697266,
+    2.5,
+    1.4450008869171143
+  ],
+  "instance_count": 1,
+  "source_version": "v004",
+  "geometry_fingerprint": "e93ed2be617479f0b0e5f0612fdb4cd4f73e2d28053751a1e73b6e7e470abaa9",
+  "source_sha256": "81f571aa3d0e1f6783bd0cb7dbed44d02653ed6b39687a5ccd741f1f7b3c7be0",
+  "schema": "sea.scene.component_manifest",
+  "version": "v004",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review"
+}

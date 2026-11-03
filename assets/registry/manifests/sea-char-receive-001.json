@@ -3,7 +3,7 @@
   "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-RECEIVE-001",
   "source": "godot/src/player/animation/item_receive.gd",
   "runtime_path": "godot/src/player/animation/item_receive.gd",
-  "version": "v003",
+  "version": "v006",
   "animation": {
     "id": "harvesting",
     "duration": 2.4,
@@ -31,7 +31,7 @@
   "authored_files": [
     {
       "path": "godot/src/player/animation/item_receive.gd",
-      "sha256": "871240aa6ea737e7d4e59ee88a001ab868233b9c8a63c11c8d7c2d7c31f1d2ab"
+      "sha256": "f39fac5f8bdd40111caaa77dccd441c835c23405bde9020a6d737312abe64d5e"
     },
     {
       "path": "godot/src/player/animation/harvesting_action.gd",
@@ -44,6 +44,10 @@
     {
       "path": "godot/src/avatar/avatar_dimensions.gd",
       "sha256": "1a45335da153a4df2904e419aa81bc67ef6cc5e07c24ead6d6fa2e937baba251"
+    },
+    {
+      "path": "godot/src/player/animation/idle_action.gd",
+      "sha256": "3db4532be77d7a64d85e0d2a225807802cebec2cea7c33f0595825bf6b86aff6"
     }
   ],
   "reused_assets": [
@@ -52,7 +56,7 @@
     "SEA-CROP-PUMPKIN"
   ],
   "source_type": "existing sea procedural node model; no Blender/GLB change",
-  "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
+  "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
   "checks": [
     "actor-presentation",
     "harvest-receive",

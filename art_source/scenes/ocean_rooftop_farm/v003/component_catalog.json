@@ -1,0 +1,1063 @@
+{
+  "components": [
+    {
+      "key": "shell",
+      "asset_id": "SEA-SCENE-ORF2-SHELL",
+      "name": "灰色混凝土塔楼墙壳",
+      "category": "structure",
+      "component_family": "shell",
+      "collection": "ORF2_组件_shell.001",
+      "bounds_size_m": [
+        41.79999923706055,
+        25.600000381469727,
+        59.599998474121094
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/shell/shell.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "abc92a02d1e0d6d61a0f63bb40171d77c0bdf98f5cc667f7368b94f02ccf9b44",
+      "source_version": "v003",
+      "source_sha256": "91b8e2c9c0f0971d4ba783bccbf0bd6ead52b93e7c1b2266fdb7382a68274181"
+    },
+    {
+      "key": "slab",
+      "asset_id": "SEA-SCENE-ORF2-SLAB",
+      "name": "密集楼层楼板",
+      "category": "structure",
+      "component_family": "slab",
+      "collection": "ORF2_组件_slab.001",
+      "bounds_size_m": [
+        46.599998474121094,
+        28.200000762939453,
+        0.30000001192092896
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 12,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/slab/slab.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "a6c6831beb7bc5dcfc74d5147737596c1c29f115c0690f3addd4e7caa9c6e2b3",
+      "source_version": "v003",
+      "source_sha256": "8fed698b1ea214d0f5a1f547e74e3a6f48f71addc65885348389343db7e27c44"
+    },
+    {
+      "key": "pier",
+      "asset_id": "SEA-SCENE-ORF2-PIER",
+      "name": "厚实混凝土结构柱",
+      "category": "structure",
+      "component_family": "pier",
+      "collection": "ORF2_组件_pier.001",
+      "bounds_size_m": [
+        3.0999999046325684,
+        1.5579999685287476,
+        59.79999923706055
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 14,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/pier/pier.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "1b10ba7fdadae32b18f06b41cd3e3a682cfd322e2bb650d2987247d410778e06",
+      "source_version": "v003",
+      "source_sha256": "ee6f2aef78aeee412958987f13601e0f628a605efc4bbb99462396672e23dbde"
+    },
+    {
+      "key": "window",
+      "asset_id": "SEA-SCENE-ORF2-WINDOW",
+      "name": "深蓝双联窗",
+      "category": "fixture",
+      "component_family": "window",
+      "collection": "ORF2_组件_window.001",
+      "bounds_size_m": [
+        6.0,
+        0.5,
+        3.0
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 51,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window/window.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "2b3357f25623e9ed1a39815a73f3a822d1c890d0975068441e49b07bb7b9cc42",
+      "source_version": "v003",
+      "source_sha256": "bdef073d2d89343df6464d386bd45f62ec74dcac0f77b7ac7e709f2e4a80f2c9"
+    },
+    {
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF2-BALCONY",
+      "name": "崩角生活阳台",
+      "category": "structure",
+      "component_family": "balcony",
+      "collection": "ORF2_组件_balcony.001",
+      "bounds_size_m": [
+        12.0,
+        2.4000000953674316,
+        1.340000033378601
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 36,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/balcony/balcony.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "dfa9de1194009359136dcab27d0fca2d16ba395ef42802c9232af4b990b88b91",
+      "source_version": "v003",
+      "source_sha256": "b7aae16089bd37290b57efccb17121bd0fb3676092828656a8722704f5cd8528"
+    },
+    {
+      "key": "weather",
+      "asset_id": "SEA-SCENE-ORF2-WEATHER",
+      "name": "混凝土剥落与裂纹",
+      "category": "structure",
+      "component_family": "weather",
+      "collection": "ORF2_组件_weather.001",
+      "bounds_size_m": [
+        4.209866523742676,
+        0.053999997675418854,
+        3.998276472091675
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 25,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/weather/weather.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "dd158aa51a2d3969561a1007d344cbd524a6f96dfa5d1ce0353fe2e5abfd5bba",
+      "source_version": "v003",
+      "source_sha256": "0b63b6ba4cba07593a8a67d7b8b5932ca8a6fcdb0b84a95fe6e343ba6079a11d"
+    },
+    {
+      "key": "roof",
+      "asset_id": "SEA-SCENE-ORF2-ROOF",
+      "name": "农场屋面基层",
+      "category": "structure",
+      "component_family": "roof",
+      "collection": "ORF2_组件_roof.001",
+      "bounds_size_m": [
+        49.599998474121094,
+        33.599998474121094,
+        0.6499999761581421
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof/roof.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "620552f044367857f65ef2bf9e8482e52fcb9ad368dc9871e9948cae0af61a46",
+      "source_version": "v003",
+      "source_sha256": "2c6dc71c2926dd750d369233f66907a07c7610caca366b72cb3a57d28c9a0522"
+    },
+    {
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF2-PARAPET",
+      "name": "青苔破损女儿墙",
+      "category": "structure",
+      "component_family": "parapet",
+      "collection": "ORF2_组件_parapet.001",
+      "bounds_size_m": [
+        3.9000000953674316,
+        1.2060000896453857,
+        1.1175000667572021
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 37,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/parapet/parapet.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "a8b7fce18c87b5e0361a49fc535dd8a05cc6f9c1abfbd03e74dd7100c4365947",
+      "source_version": "v003",
+      "source_sha256": "64383e9a14a99a68aef2f6bd59f2ddcd149c2cfe1951a9aa4ad509c2590a0c82"
+    },
+    {
+      "key": "rail",
+      "asset_id": "SEA-SCENE-ORF2-RAIL",
+      "name": "歪斜锈蚀栏杆",
+      "category": "fixture",
+      "component_family": "rail",
+      "collection": "ORF2_组件_rail.001",
+      "bounds_size_m": [
+        3.8448524475097656,
+        0.21870917081832886,
+        1.1056064367294312
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 43,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/rail/rail.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "a57b42f7d4f76f316041ce3f4094edb71a8cef31044ef5167f1b5e2a0f9521fd",
+      "source_version": "v003",
+      "source_sha256": "45ae261fcb41e3627b049932d5db48bef5e3f35ef963bcdc8e398d281d6bfc98"
+    },
+    {
+      "key": "grass",
+      "asset_id": "SEA-SCENE-ORF2-GRASS",
+      "name": "半野生草皮",
+      "category": "flora",
+      "component_family": "ground_cover",
+      "collection": "ORF2_组件_grass.001",
+      "bounds_size_m": [
+        3.266967535018921,
+        2.8224387168884277,
+        0.19999989867210388
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 90,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/grass/grass.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "b268a8c7efac2bda47ff0d982f7450f78d6c148bf09065288f0b96de6236066b",
+      "source_version": "v003",
+      "source_sha256": "383176e885c121bc58e67589908ab7d40082a19652bfdbb16abcd6674afb1d97"
+    },
+    {
+      "key": "tuft",
+      "asset_id": "SEA-SCENE-ORF2-TUFT",
+      "name": "丛生野草",
+      "category": "flora",
+      "component_family": "grass",
+      "collection": "ORF2_组件_tuft.001",
+      "bounds_size_m": [
+        0.3076266050338745,
+        0.304082453250885,
+        0.43624669313430786
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 160,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/tuft/tuft.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "d35da45c92c97700a50030997418f900032ba2acf3c1809ec5da3770023e3734",
+      "source_version": "v003",
+      "source_sha256": "ed8c7873f937ebba3200d6548c0c1eb92a49d58cefa883e4202d24a66a903b34"
+    },
+    {
+      "key": "vine",
+      "asset_id": "SEA-SCENE-ORF2-VINE",
+      "name": "墙角下垂藤蔓",
+      "category": "flora",
+      "component_family": "vine",
+      "collection": "ORF2_组件_vine.001",
+      "bounds_size_m": [
+        0.8199999928474426,
+        0.14000000059604645,
+        1.904513955116272
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 24,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/vine/vine.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "f4b48d9dd2c31511361f7aad65efda9bd906eec70b84f49d930981b4c750d53c",
+      "source_version": "v003",
+      "source_sha256": "a47ccc871d01fdd4e5a48429ff5c5fbf6d702362dfc8a3541c9d5a6eae074d5f"
+    },
+    {
+      "key": "platform",
+      "asset_id": "SEA-SCENE-ORF2-PLATFORM",
+      "name": "左后抬高生活区",
+      "category": "structure",
+      "component_family": "platform",
+      "collection": "ORF2_组件_platform.001",
+      "bounds_size_m": [
+        10.399999618530273,
+        9.399999618530273,
+        5.852499961853027
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/platform/platform.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "23721427c64f1117faf8d349e219fa85f521fbe9d55f2f70365ac0f3b69a92a3",
+      "source_version": "v003",
+      "source_sha256": "48e27541eeec983083961a8d96a89027913a2a29440d9d8d6e83933553d9054a"
+    },
+    {
+      "key": "room",
+      "asset_id": "SEA-SCENE-ORF2-ROOM",
+      "name": "平台顶部小间",
+      "category": "structure",
+      "component_family": "room",
+      "collection": "ORF2_组件_room.001",
+      "bounds_size_m": [
+        3.9000000953674316,
+        3.299999952316284,
+        3.108499765396118
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/room/room.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "2d911288b811e10bd35436e11711577eb9e3882d4a870a3309b85d49f1387de5",
+      "source_version": "v003",
+      "source_sha256": "2d96a312d25eb3974deb3c9bf8a395353975217a45b2026fd9c0f3e816b36db3"
+    },
+    {
+      "key": "ladder",
+      "asset_id": "SEA-SCENE-ORF2-LADDER",
+      "name": "锈蚀外挂爬梯",
+      "category": "fixture",
+      "component_family": "ladder",
+      "collection": "ORF2_组件_ladder.001",
+      "bounds_size_m": [
+        1.0814050436019897,
+        0.22070249915122986,
+        5.800000190734863
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/ladder/ladder.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "446610a98b9fcb9401dd5e4875072e3245ca921ade4ab5175df2fe10d2128439",
+      "source_version": "v003",
+      "source_sha256": "50ded7f11c857b15a1d962fdb164ade665f2bedb328d2191ab381c02dc2a947e"
+    },
+    {
+      "key": "line",
+      "asset_id": "SEA-SCENE-ORF2-LINE",
+      "name": "晾衣架与衣物",
+      "category": "fixture",
+      "component_family": "drying",
+      "collection": "ORF2_组件_line.001",
+      "bounds_size_m": [
+        3.7801036834716797,
+        0.18010392785072327,
+        2.5999999046325684
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 5,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/line/line.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "80e29c8ed696ee1b017ae58bc4ffe1ae0559fd950348694067b7e29683e2ed32",
+      "source_version": "v003",
+      "source_sha256": "1b42f34a5d70f36ac2b7eb6727fe49c39ddbc9ec0179bb7392ea6f7821c6f49b"
+    },
+    {
+      "key": "shed",
+      "asset_id": "SEA-SCENE-ORF2-SHED",
+      "name": "红铁皮顶工具棚",
+      "category": "fixture",
+      "component_family": "shed",
+      "collection": "ORF2_组件_shed.001",
+      "bounds_size_m": [
+        4.569999694824219,
+        3.4464681148529053,
+        3.5677754878997803
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/shed/shed.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "d5d90c3a1129fff645b1ac70e6bf2694c25728032eeccfc459df6dc38f6450b5",
+      "source_version": "v003",
+      "source_sha256": "8fd2050ea7004c8e1b7e0f46fedf3c1f2112036dd284f333681a418393da102b"
+    },
+    {
+      "key": "coop",
+      "asset_id": "SEA-SCENE-ORF2-COOP",
+      "name": "蓝色空鸡舍",
+      "category": "fixture",
+      "component_family": "coop",
+      "collection": "ORF2_组件_coop.001",
+      "bounds_size_m": [
+        3.338876724243164,
+        2.3499999046325684,
+        2.2443642616271973
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/coop/coop.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "834a62a3891336c19f2d6f1a0d08d516256d13de4519c451c2f6099873af93c4",
+      "source_version": "v003",
+      "source_sha256": "1d83790b6da30c4eb3b5ab4566d1f23cc58400016dda66f0d12acc5262a686d2"
+    },
+    {
+      "key": "fence",
+      "asset_id": "SEA-SCENE-ORF2-FENCE",
+      "name": "断裂歪斜木围栏",
+      "category": "fixture",
+      "component_family": "fence",
+      "collection": "ORF2_组件_fence.001",
+      "bounds_size_m": [
+        3.327802896499634,
+        0.18133148550987244,
+        0.9782809615135193
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 6,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/fence/fence.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "1e15b53d7ec5a085cb30d0a752b5c2e218fd9631a353667d67908840c9b07c43",
+      "source_version": "v003",
+      "source_sha256": "fba74af5e0f41ab8a366a812ced81a4417c17ea7300d36d3a6a2c7931452ad8f"
+    },
+    {
+      "key": "greenhouse",
+      "asset_id": "SEA-SCENE-ORF2-GREENHOUSE",
+      "name": "缺片透明温室",
+      "category": "fixture",
+      "component_family": "greenhouse",
+      "collection": "ORF2_组件_greenhouse.001",
+      "bounds_size_m": [
+        6.170032024383545,
+        4.182504653930664,
+        3.6852362155914307
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 2,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/greenhouse/greenhouse.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "df12a9870aa49e3fa9da61094d7abb33bbf83b90864afd9af84d5e92bdd90aaa",
+      "source_version": "v003",
+      "source_sha256": "2d79fc480aadff3ac44d6fed70ed012f7cf887cdd73514a425ad282010d0749a"
+    },
+    {
+      "key": "tank",
+      "asset_id": "SEA-SCENE-ORF2-TANK",
+      "name": "木支撑锈蚀水塔",
+      "category": "fixture",
+      "component_family": "tank",
+      "collection": "ORF2_组件_tank.001",
+      "bounds_size_m": [
+        3.119999885559082,
+        3.119999885559082,
+        6.013270854949951
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/tank/tank.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "38f3741dc65fa0988f7ee2b066ae04b5d99541e2d4e449e27aaad5b8c393590b",
+      "source_version": "v003",
+      "source_sha256": "e35a8befca0369f88a7eafaf1c192c41d9419b7a32af413754b998c0e86c3ab3"
+    },
+    {
+      "key": "wind",
+      "asset_id": "SEA-SCENE-ORF2-WIND",
+      "name": "小型偏斜风车",
+      "category": "fixture",
+      "component_family": "wind",
+      "collection": "ORF2_组件_wind.001",
+      "bounds_size_m": [
+        1.6659388542175293,
+        0.3149999976158142,
+        4.232644557952881
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/wind/wind.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "7ab4fa0eb183a47d2cd46e5ebd283d021c2e9483323c70d4356d4b74673ccd98",
+      "source_version": "v003",
+      "source_sha256": "14e9469ef7c8552410d5d43db198e6ca9d0175684efc22e126bc310206282deb"
+    },
+    {
+      "key": "solar",
+      "asset_id": "SEA-SCENE-ORF2-SOLAR",
+      "name": "锈框太阳能板",
+      "category": "fixture",
+      "component_family": "solar",
+      "collection": "ORF2_组件_solar.001",
+      "bounds_size_m": [
+        2.0999999046325684,
+        1.0451738834381104,
+        1.0085455179214478
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 8,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/solar/solar.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "695994a597cad64a757cc3c60848b1231b0635b1c6e7d45c50c1394951237062",
+      "source_version": "v003",
+      "source_sha256": "0198a941a11210df941c5912644ed5f4e3b4762f3942b2dd11223fd3773b19dc"
+    },
+    {
+      "key": "bed",
+      "asset_id": "SEA-SCENE-ORF2-BED",
+      "name": "老化木框菜床",
+      "category": "fixture",
+      "component_family": "bed",
+      "collection": "ORF2_组件_bed.001",
+      "bounds_size_m": [
+        6.37999963760376,
+        4.265030860900879,
+        0.5
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 3,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/bed/bed.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "63bf75ac345971724981ffa17489a297e867705a0597b26bf620357c943beab1",
+      "source_version": "v003",
+      "source_sha256": "27ca90a394779561d36d42c27377e6a96b14164afe9f448fbfae6ee15b171229"
+    },
+    {
+      "key": "field",
+      "asset_id": "SEA-SCENE-ORF2-FIELD",
+      "name": "条垄主农田",
+      "category": "fixture",
+      "component_family": "field",
+      "collection": "ORF2_组件_field.001",
+      "bounds_size_m": [
+        16.15999984741211,
+        8.199999809265137,
+        0.3500000238418579
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/field/field.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "6f69453e039f4d125eaf897753a4e2d0fc24e2fd294ebffd7b690ea9029409e6",
+      "source_version": "v003",
+      "source_sha256": "7f28448c67b802fc2e9fbaeedd6c4358252b5c788db1fbd3d78224eb94e948cd"
+    },
+    {
+      "key": "cabbage",
+      "asset_id": "SEA-SCENE-ORF2-CABBAGE",
+      "name": "饱满宽叶菜",
+      "category": "flora",
+      "component_family": "crop",
+      "collection": "ORF2_组件_cabbage.001",
+      "bounds_size_m": [
+        0.7400000095367432,
+        0.7555256485939026,
+        0.4199998378753662
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 64,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/cabbage/cabbage.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "d80b993267106081ebdf1326f7e878a0861014e856f39a7ae46c9e6b5b3bdb15",
+      "source_version": "v003",
+      "source_sha256": "f475b7853d6c6601606997723376c4e354a12cb6c8f7462c1f9c96f6f2a77423"
+    },
+    {
+      "key": "seedling",
+      "asset_id": "SEA-SCENE-ORF2-SEEDLING",
+      "name": "双叶幼苗",
+      "category": "flora",
+      "component_family": "crop",
+      "collection": "ORF2_组件_seedling.001",
+      "bounds_size_m": [
+        0.6000000238418579,
+        0.20000000298023224,
+        0.37999996542930603
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 54,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/seedling/seedling.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "1721ec7d9fb7f6841511be797d904394f7738c43554d0542a14eb2b11ce3044d",
+      "source_version": "v003",
+      "source_sha256": "780d0dc8a07c127c20f9aa8f6f3f7cbf1c72a1af2141a39890ade11a77950c56"
+    },
+    {
+      "key": "tomato",
+      "asset_id": "SEA-SCENE-ORF2-TOMATO",
+      "name": "攀爬果蔬",
+      "category": "flora",
+      "component_family": "crop",
+      "collection": "ORF2_组件_tomato.001",
+      "bounds_size_m": [
+        0.8335689306259155,
+        0.7796485424041748,
+        1.5499999523162842
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 23,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/tomato/tomato.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "3afe8c039cc10d536728b8c31c01c5bd0494421c36ecfc9ef3d65a5b5ffc8c9a",
+      "source_version": "v003",
+      "source_sha256": "6f88caaa893db201b0ecffe7e701a6f3fbb5b2e29f34242fc9587cfd961f85da"
+    },
+    {
+      "key": "stone",
+      "asset_id": "SEA-SCENE-ORF2-STONE",
+      "name": "厚实不规则踏石",
+      "category": "fixture",
+      "component_family": "path",
+      "collection": "ORF2_组件_stone.001",
+      "bounds_size_m": [
+        1.0719618797302246,
+        0.7651994228363037,
+        0.14999282360076904
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 45,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stone/stone.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "5fc74932a53f8bf359e6a7be921a2306d402a3f8099d7477338b4be633ce8afa",
+      "source_version": "v003",
+      "source_sha256": "3ca5701b423421b3a8b7246ccd9c56481c010d46dad46fd7d4d200564d31e376"
+    },
+    {
+      "key": "plank",
+      "asset_id": "SEA-SCENE-ORF2-PLANK",
+      "name": "旧木步道板",
+      "category": "fixture",
+      "component_family": "path",
+      "collection": "ORF2_组件_plank.001",
+      "bounds_size_m": [
+        1.600000023841858,
+        0.6499999761581421,
+        0.1599999964237213
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 24,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/plank/plank.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "1e9c34811787ae36bb263861453916234c9000518b6f89d2dbf93e8625ff33a0",
+      "source_version": "v003",
+      "source_sha256": "2210e02d8d90ac180173b064d1001b232f043787e97be474b70dcc4a427c7153"
+    },
+    {
+      "key": "compost",
+      "asset_id": "SEA-SCENE-ORF2-COMPOST",
+      "name": "变形堆肥箱",
+      "category": "fixture",
+      "component_family": "compost",
+      "collection": "ORF2_组件_compost.001",
+      "bounds_size_m": [
+        2.119999885559082,
+        1.7916343212127686,
+        1.2999999523162842
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/compost/compost.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "98a465b0f868cfa8e726ba8341f536a094388302f4116ccc805a5053f361c0cf",
+      "source_version": "v003",
+      "source_sha256": "309c85471ba6e80a31f15dc6a7343f2d08366cc975c28488c26fe0e73878d173"
+    },
+    {
+      "key": "pot",
+      "asset_id": "SEA-SCENE-ORF2-POT",
+      "name": "崩口厚边花盆",
+      "category": "fixture",
+      "component_family": "pot",
+      "collection": "ORF2_组件_pot.001",
+      "bounds_size_m": [
+        0.8600000143051147,
+        0.8600000143051147,
+        0.7099999785423279
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 12,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/pot/pot.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "7b1ff6a1883621c3699ec5d7515a74455524014d95a94591ee6892c9f6d24ad5",
+      "source_version": "v003",
+      "source_sha256": "2d790dc582fed7d0c877f35ae2f0f87d6fa0a0e7f47396688f218c64536d1041"
+    },
+    {
+      "key": "plant",
+      "asset_id": "SEA-SCENE-ORF2-PLANT",
+      "name": "宽厚盆栽叶簇",
+      "category": "flora",
+      "component_family": "plant",
+      "collection": "ORF2_组件_plant.001",
+      "bounds_size_m": [
+        0.8099140524864197,
+        0.7947999238967896,
+        0.1799999177455902
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 12,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/plant/plant.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "ea8620f1cf19ab1af931fdfa0749a52955f536b39508cc42f04098e376210a60",
+      "source_version": "v003",
+      "source_sha256": "35793f9b972ef18175ccb02876c2138da604fa14192b72e3f1ed5fb9fa7955d1"
+    },
+    {
+      "key": "pipe",
+      "asset_id": "SEA-SCENE-ORF2-PIPE",
+      "name": "老化屋顶管线",
+      "category": "fixture",
+      "component_family": "utility",
+      "collection": "ORF2_组件_pipe.001",
+      "bounds_size_m": [
+        3.0943422317504883,
+        0.18418535590171814,
+        2.189971923828125
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 2,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/pipe/pipe.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "bd03b231fc9566f9bb3eb2182cbd743dbb4dfd1918a3d563ca002a8643eccfcc",
+      "source_version": "v003",
+      "source_sha256": "7f074de379a7ad3ff86f262f35cadd4ac71f05fc9ffc73d36f82b4b9904244c9"
+    },
+    {
+      "key": "table",
+      "asset_id": "SEA-SCENE-ORF2-TABLE",
+      "name": "圆桌",
+      "category": "fixture",
+      "component_family": "table",
+      "collection": "ORF2_组件_table.001",
+      "bounds_size_m": [
+        1.7999999523162842,
+        1.7999999523162842,
+        0.8999999761581421
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 1,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/table/table.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "085e5b1374fec99b69bdf1b7925306b9431596493d3a53b0aa4774ec6f04ff64",
+      "source_version": "v003",
+      "source_sha256": "aad0be0477d646ab8ddcff5d766a721024260f55ab78703d0a79a57c93eaf147"
+    },
+    {
+      "key": "chair",
+      "asset_id": "SEA-SCENE-ORF2-CHAIR",
+      "name": "旧木椅",
+      "category": "fixture",
+      "component_family": "chair",
+      "collection": "ORF2_组件_chair.001",
+      "bounds_size_m": [
+        0.6499999761581421,
+        0.6549999713897705,
+        1.225000023841858
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 2,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/chair/chair.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "69bf59c608a38a766003c71046a2e414979754ec307112ed044dc9d766ddd7d8",
+      "source_version": "v003",
+      "source_sha256": "499b54d872c28c12c0950e22ace4e92a1dead45da6190accf9b03fcd6a7c7902"
+    },
+    {
+      "key": "crate",
+      "asset_id": "SEA-SCENE-ORF2-CRATE",
+      "name": "储物木箱",
+      "category": "fixture",
+      "component_family": "crate",
+      "collection": "ORF2_组件_crate.001",
+      "bounds_size_m": [
+        0.8999999761581421,
+        0.8400000333786011,
+        0.800000011920929
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 3,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/crate/crate.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "7d0aeb11b735b144c7edd47e34f9c128fb0374f23ed74938badafe49b15b0521",
+      "source_version": "v003",
+      "source_sha256": "e10f64e6a656f5b42990ee327a669476f83057412b28e3ae77e487424c98e86e"
+    },
+    {
+      "key": "barrel",
+      "asset_id": "SEA-SCENE-ORF2-BARREL",
+      "name": "锈箍储物桶",
+      "category": "fixture",
+      "component_family": "barrel",
+      "collection": "ORF2_组件_barrel.001",
+      "bounds_size_m": [
+        0.8299999833106995,
+        0.8299999833106995,
+        0.8999999761581421
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 2,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/barrel/barrel.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "470edb5842d702cd9528cd59d290efa2682f710cb95500972b78597a835c3d0a",
+      "source_version": "v003",
+      "source_sha256": "8cb57c8dba0bc74e67a4e15c83f78d5b4513d8a4eb85c43527e6f7ad541070c3"
+    },
+    {
+      "key": "lamp",
+      "asset_id": "SEA-SCENE-ORF2-LAMP",
+      "name": "弯臂屋顶灯",
+      "category": "fixture",
+      "component_family": "lamp",
+      "collection": "ORF2_组件_lamp.001",
+      "bounds_size_m": [
+        0.8350000381469727,
+        0.36000001430511475,
+        2.5493197441101074
+      ],
+      "front_axis": "-Y",
+      "origin": "bottom_center",
+      "instance_count": 4,
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/lamp/lamp.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "geometry_fingerprint": "5f545a5555286abbcd8c306a022554093498aef873df34183ef077bd3ce0d124",
+      "source_version": "v003",
+      "source_sha256": "0c58a215440ed515336c3e336b1f826af8524586401cf6c68736069d205bf444"
+    },
+    {
+      "key": "window_cracked",
+      "name": "裂纹缺角玻璃窗",
+      "category": "fixture",
+      "component_family": "window",
+      "asset_id": "SEA-SCENE-ORF2-WINDOW_CRACKED",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "variant_axis": "damage_state",
+      "variant_value": "window_cracked",
+      "variant_reason": "intact/cracked/missing glass and boarded states from user reference",
+      "collection": "ORF3_组件_window_cracked",
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_cracked/window_cracked.blend",
+      "bounds_size_m": [
+        6.0,
+        0.5,
+        3.0
+      ],
+      "instance_count": 45,
+      "source_version": "v003",
+      "geometry_fingerprint": "fe7a13f4eeb76734b71b8b6a35d46080a989f672c4064c8cd21f4a8ea2dacfe9",
+      "source_sha256": "30238375525b251031d6358e4ac94df105413a5675e2631486c77e9eb39c7bc9"
+    },
+    {
+      "key": "window_broken",
+      "name": "缺片木板封窗",
+      "category": "fixture",
+      "component_family": "window",
+      "asset_id": "SEA-SCENE-ORF2-WINDOW_BROKEN",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "variant_axis": "damage_state",
+      "variant_value": "window_broken",
+      "variant_reason": "intact/cracked/missing glass and boarded states from user reference",
+      "collection": "ORF3_组件_window_broken",
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_broken/window_broken.blend",
+      "bounds_size_m": [
+        6.0,
+        0.7245817184448242,
+        3.0
+      ],
+      "instance_count": 48,
+      "source_version": "v003",
+      "geometry_fingerprint": "9a82c807f405a5938f4c6a32b465a6377927b4f95035eca6aa6aa2424015af23",
+      "source_sha256": "b3db65dcc45a6cd875f2979aec12c311f9dd239fa75afbdd481f4a15b6ed8b3a"
+    },
+    {
+      "key": "moss_cluster",
+      "name": "成片不规则苔藓",
+      "category": "flora",
+      "component_family": "moss",
+      "asset_id": "SEA-SCENE-ORF2-MOSS_CLUSTER",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "ORF3_组件_moss_cluster",
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/moss_cluster/moss_cluster.blend",
+      "bounds_size_m": [
+        2.6868300437927246,
+        0.0,
+        0.6424129009246826
+      ],
+      "instance_count": 11,
+      "source_version": "v003",
+      "geometry_fingerprint": "645043db39fb2372b507a5f88341c2bb0774decf45b59c7d58226ead9c07ddfb",
+      "source_sha256": "00b4f70cd50529ece73f7e237bce60583c133c97afc88ffe79517d30f41a1a77"
+    },
+    {
+      "key": "stair_flight",
+      "name": "消防梯标准半层梯段",
+      "category": "structure",
+      "component_family": "fire_stair",
+      "asset_id": "SEA-SCENE-ORF2-STAIR_FLIGHT",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "ORF3_组件_stair_flight",
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_flight/stair_flight.blend",
+      "bounds_size_m": [
+        1.681983232498169,
+        4.379999160766602,
+        3.705932855606079
+      ],
+      "instance_count": 6,
+      "source_version": "v003",
+      "geometry_fingerprint": "f810c1a03fa15d0ae907f72a752684e3e274c0c3a4697aaaf838ef009a6a6fb6",
+      "source_sha256": "434e57d01980d4d93cad14c7b9c2b03f88b34266974684be5cef9fd1ffe97e2b"
+    },
+    {
+      "key": "stair_landing",
+      "name": "消防梯折返休息平台",
+      "category": "structure",
+      "component_family": "fire_landing",
+      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "ORF3_组件_stair_landing",
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing/stair_landing.blend",
+      "bounds_size_m": [
+        4.20145320892334,
+        1.8000000715255737,
+        1.399999976158142
+      ],
+      "instance_count": 6,
+      "source_version": "v003",
+      "geometry_fingerprint": "7353fcc70c2e50fc43aae73e39a2c9247a58986ccb5e622e9aaf8d7c516121d8",
+      "source_sha256": "687a359b1f7b23716eb47fc0eb1230119d06146b6b54c9b968171c9afe2abda6"
+    },
+    {
+      "key": "roof_entry",
+      "name": "消防梯屋顶开放入口",
+      "category": "structure",
+      "component_family": "entry",
+      "asset_id": "SEA-SCENE-ORF2-ROOF_ENTRY",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "ORF3_组件_roof_entry",
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof_entry/roof_entry.blend",
+      "bounds_size_m": [
+        2.1000003814697266,
+        2.5,
+        1.4450008869171143
+      ],
+      "instance_count": 1,
+      "source_version": "v003",
+      "geometry_fingerprint": "e93ed2be617479f0b0e5f0612fdb4cd4f73e2d28053751a1e73b6e7e470abaa9",
+      "source_sha256": "399065bb1f33aaa62fd04833c8e87afe910555ce4db680e92f88b5b8e0f97d0b"
+    },
+    {
+      "key": "stair_landing_open",
+      "name": "消防梯开放入口平台",
+      "category": "structure",
+      "component_family": "fire_landing",
+      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING_OPEN",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collection": "ORF3_组件_stair_landing_open",
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing_open/stair_landing_open.blend",
+      "bounds_size_m": [
+        3.300363302230835,
+        1.8000000715255737,
+        1.399999976158142
+      ],
+      "instance_count": 1,
+      "source_version": "v003",
+      "variant_axis": "edge_opening",
+      "variant_value": "roof_entry",
+      "variant_reason": "roof bridge must pass through building-side edge",
+      "geometry_fingerprint": "b384b3777df94f3c1809b44033b01fafb80755e38dd7773100caf6ba00a2bc6e",
+      "source_sha256": "cb56169d2bf2ba6ff2efce8fa0aa512b2651c223b18d179944c8ed669f0ae1c7"
+    },
+    {
+      "key": "broken_flight",
+      "name": "下挂断裂消防梯残段",
+      "asset_id": "SEA-SCENE-ORF2-BROKEN_FLIGHT",
+      "category": "structure",
+      "component_family": "fire_stair",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/broken_flight/broken_flight.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "source_version": "v003",
+      "collection": "ORF3_组件_broken_flight",
+      "instance_count": 1,
+      "bounds_size_m": [
+        1.753164291381836,
+        1.7809998989105225,
+        3.644052505493164
+      ],
+      "geometry_fingerprint": "11febcd5f9a6f1b2f4aa11dfe4a4626b948f4a5595356bcf4140b431f369053b",
+      "source_sha256": "2b41d040d4dd50ae0fcc453990388eb08b396665553aee390bc912ff87d2c29c"
+    },
+    {
+      "key": "turf_core",
+      "name": "屋顶中央草皮基底",
+      "asset_id": "SEA-SCENE-ORF2-TURF_CORE",
+      "category": "flora",
+      "component_family": "ground_cover",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/turf_core/turf_core.blend",
+      "collision_owner": "future_Godot_wrapper_pending",
+      "source_version": "v003",
+      "collection": "ORF3_组件_turf_core",
+      "instance_count": 1,
+      "bounds_size_m": [
+        44.400001525878906,
+        28.399999618530273,
+        0.05000000074505806
+      ],
+      "geometry_fingerprint": "ac02cc031e1051ab7219a97155bc5fc6c144ba8794dd76983a583b875ec97c0a",
+      "source_sha256": "151830a06673fd322fe75999d3458ec93f01ca35a3df9075a373701564f6f1f0"
+    }
+  ]
+}

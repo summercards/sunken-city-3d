@@ -21792,11 +21792,11 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/broken_viaduct/broken_viaduct.blend",
-      "source_sha256": "7851ad2446a3c1ccbc803d8b7c7bb4ade1b9fc0c5ccdb9609d4725e08637d002",
+      "source_sha256": "f5fd6cd4ee4125687120fe9adc4847004c938acb284f2de444e92111468a076d",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/broken_viaduct/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/broken_viaduct/broken_viaduct.glb",
-      "runtime_sha256": "ad4d7e8371e232249fbd6881cce9b5cbbe1ea52cbfff2ad987775425595c4ab7",
+      "runtime_sha256": "70c9283662131227f94a5639caae3e86ff72a7391b697f807b927bb7b379059a",
       "category": "underwater_scenic_building",
       "classification": {
         "category": "decoration",
@@ -21810,21 +21810,21 @@
       "verification": [
         "sea-work/submerged_street_v001/selfcheck_report.json"
       ],
-      "triangles": 1544,
-      "polygons": 832,
+      "triangles": 1744,
+      "polygons": 948,
       "triangle_budget": 2000,
       "origin": "bottom_center",
       "front_axis": "+Y",
       "bounds_blender": {
         "min": [
           -13.2,
-          -4.0327,
+          -4.0302,
           0.0
         ],
         "max": [
           13.2,
-          4.0327,
-          7.1619
+          4.0302,
+          7.1919
         ]
       },
       "material_roles": [
@@ -21849,11 +21849,11 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/l_apartment_fire_escape/l_apartment_fire_escape.blend",
-      "source_sha256": "ae38963a86eb954b97630d9c25bf7b2646d02308bf751674ea05d14ec70ec18e",
+      "source_sha256": "7a3d408c7eb37771b30cc5f6c7d223ed969ed36735fe8722a20bbb29d14d016d",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/l_apartment_fire_escape/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/l_apartment_fire_escape/l_apartment_fire_escape.glb",
-      "runtime_sha256": "6e8113a6e4311cf96107a780858055f7a706fa5c9a8e138f49a4750eed13e1ae",
+      "runtime_sha256": "187cb0b8d33301445e9172ccb402a40a97c73fa020b3c8b17831c833e9969feb",
       "category": "underwater_scenic_building",
       "classification": {
         "category": "decoration",
@@ -21867,8 +21867,8 @@
       "verification": [
         "sea-work/submerged_street_v001/selfcheck_report.json"
       ],
-      "triangles": 1676,
-      "polygons": 864,
+      "triangles": 1988,
+      "polygons": 1015,
       "triangle_budget": 2200,
       "origin": "bottom_center",
       "front_axis": "+Y",
@@ -21881,12 +21881,13 @@
         "max": [
           8.0744,
           7.0225,
-          13.21
+          14.72
         ]
       },
       "material_roles": [
         "SEA_Gloss",
-        "SEA_Matte"
+        "SEA_Matte",
+        "SEA_Metal"
       ],
       "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
       "source_optimization_manifest": "art_source/scenes/submerged_street/v001/export_manifest.json",
@@ -21907,7 +21908,7 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/food_truck/food_truck.blend",
-      "source_sha256": "24a923b09da5ad225411bd6f5c1fe2e2caf661bcf477c90478afa45cb1858e53",
+      "source_sha256": "bc6edc40771d549ebed9de7da9385eec15bfa98990a74eb808860d1b88ebd567",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/food_truck/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/food_truck/food_truck.glb",
@@ -21966,7 +21967,7 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/mcdonalds_restaurant/mcdonalds_restaurant.blend",
-      "source_sha256": "a757451f527dbe78e07d07e440d13ad10a2f32a678b46154f41625e9b409577c",
+      "source_sha256": "025de2ba7d226b4039fa188ade74f989b46ed3d8acb72ea734e32be2566a8d8a",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/mcdonalds_restaurant/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/mcdonalds_restaurant/mcdonalds_restaurant.glb",
@@ -22025,7 +22026,7 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/highrise_apartment/highrise_apartment.blend",
-      "source_sha256": "fdff5f94b0e4254f96062401823933272b4176ab3e3fe4de414820a7b1fd4edf",
+      "source_sha256": "334566554d30594bbde14a437b5f1f8cda9669559d647276ee04cd9689b3546c",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/highrise_apartment/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/highrise_apartment/highrise_apartment.glb",
@@ -22084,7 +22085,7 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/traffic_light/traffic_light.blend",
-      "source_sha256": "37e609262bf32e26bead77031d368144bfbdf098dca8b4de5a9c49e062a6c275",
+      "source_sha256": "ac3978c6d58d3555ef49d14520829cf74339b0943323900b1c928c608710af92",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/traffic_light/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/traffic_light/traffic_light.glb",
@@ -22142,7 +22143,7 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/utility_poles/utility_poles.blend",
-      "source_sha256": "bb7638e7d551e10247083bcb0267c315ba40ce4ca86c78bfdfffbe6174ab47b2",
+      "source_sha256": "b88e43037a5738f1f185d792777cd85c48faf83cb144e39f3a3a38f1fd9bc536",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/utility_poles/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/utility_poles/utility_poles.glb",
@@ -22200,7 +22201,7 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/highway_sign/highway_sign.blend",
-      "source_sha256": "8f40a71c95cfa84ff4bad2116e4df38440f054dabd6fdb09b0e963c72f5a1ecc",
+      "source_sha256": "e043712a60236632151be843f62e69147967a926a8ea9581ff49716059e24cba",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/highway_sign/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/highway_sign/highway_sign.glb",
@@ -22258,7 +22259,7 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/construction_shell/construction_shell.blend",
-      "source_sha256": "1dbca66d80119d7f3ceeee54dbbbd4ed7e7e64a4b53ac5f66fe085a748ea0d68",
+      "source_sha256": "ef57208a4883b5e40813b7ff6fca66ba63bf4014ebcd9e9090d24753b31cfe98",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/construction_shell/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/construction_shell/construction_shell.glb",
@@ -22315,11 +22316,11 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/component_packages/walkup_apartment/walkup_apartment.blend",
-      "source_sha256": "6edd6154d9df0e3e2f19089758fcfd4cfdca56226ea6022df1d6a566634f897d",
+      "source_sha256": "11c8e5a0e1e49df7310c2ea57d4010233a1d8c1f6da93b5d14892d334541aad8",
       "manifest": "art_source/scenes/submerged_street/v001/component_packages/walkup_apartment/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/assets/models/scenery/submerged_street/walkup_apartment/walkup_apartment.glb",
-      "runtime_sha256": "2d0f0b47d6c8b1d488036299cb0aa319efd99c340570256c8bdb1eb455e51961",
+      "runtime_sha256": "d70ead5af6f16a7c32828078eff0b94da857ce69a9c29db9967fa9cf7eafc494",
       "category": "underwater_scenic_building",
       "classification": {
         "category": "decoration",
@@ -22333,8 +22334,8 @@
       "verification": [
         "sea-work/submerged_street_v001/selfcheck_report.json"
       ],
-      "triangles": 1332,
-      "polygons": 682,
+      "triangles": 1642,
+      "polygons": 832,
       "triangle_budget": 1800,
       "origin": "bottom_center",
       "front_axis": "+Y",
@@ -22347,7 +22348,7 @@
         "max": [
           4.5,
           4.485,
-          10.94
+          12.5
         ]
       },
       "material_roles": [
@@ -22374,7 +22375,7 @@
       "water_layer_role": "entity",
       "stage": "source_verified_runtime_integration_pending",
       "source": "art_source/scenes/submerged_street/v001/submerged_street.blend",
-      "source_sha256": "f14dc7b5c0e6f9039a5d2e8c229e639abb3b8433d5e19934eb9f167f21830afe",
+      "source_sha256": "3b728b6099248a7e2b710c3293d1add353955dd76a624d85ce1e37560572e563",
       "manifest": "art_source/scenes/submerged_street/v001/asset_manifest.json",
       "version": "v001",
       "category": "underwater_scenery_assembly",
@@ -22395,6 +22396,1798 @@
       "collision": false,
       "interactive": false,
       "note": "Grouping record for the ten buildings. component_instances.json is a traceable reference layout only; no formal TSCN instantiates it yet."
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-SHELL",
+      "name": "灰色混凝土塔楼墙壳",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/shell/shell.blend",
+      "source_sha256": "91b8e2c9c0f0971d4ba783bccbf0bd6ead52b93e7c1b2266fdb7382a68274181",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/shell/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "abc92a02d1e0d6d61a0f63bb40171d77c0bdf98f5cc667f7368b94f02ccf9b44",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/shell/shell.blend",
+          "source_sha256": "1239a3e92355f49b124c29a554b8756d927bfb123afab6951d0f749b5ea68496",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/shell/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-SLAB",
+      "name": "密集楼层楼板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/slab/slab.blend",
+      "source_sha256": "8fed698b1ea214d0f5a1f547e74e3a6f48f71addc65885348389343db7e27c44",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/slab/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "a6c6831beb7bc5dcfc74d5147737596c1c29f115c0690f3addd4e7caa9c6e2b3",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/slab/slab.blend",
+          "source_sha256": "9820f4422cb421ea434a56899a972b1b451d7e99f9c5d00d8ee71e7c87e690f9",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/slab/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PIER",
+      "name": "厚实混凝土结构柱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/pier/pier.blend",
+      "source_sha256": "ee6f2aef78aeee412958987f13601e0f628a605efc4bbb99462396672e23dbde",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/pier/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "1b10ba7fdadae32b18f06b41cd3e3a682cfd322e2bb650d2987247d410778e06",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/pier/pier.blend",
+          "source_sha256": "180179e459c5d081e5a0eb38db6f524a9bfed4cf221415fa338ee3f068fab740",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/pier/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WINDOW",
+      "name": "深蓝双联窗",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window/window.blend",
+      "source_sha256": "bdef073d2d89343df6464d386bd45f62ec74dcac0f77b7ac7e709f2e4a80f2c9",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "2b3357f25623e9ed1a39815a73f3a822d1c890d0975068441e49b07bb7b9cc42",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/window/window.blend",
+          "source_sha256": "5793a4edc59876abc35af5f1acc40144f9b84f5972f1562fe4a619af71234edb",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/window/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-BALCONY",
+      "name": "崩角生活阳台",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/balcony/balcony.blend",
+      "source_sha256": "b7aae16089bd37290b57efccb17121bd0fb3676092828656a8722704f5cd8528",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/balcony/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "dfa9de1194009359136dcab27d0fca2d16ba395ef42802c9232af4b990b88b91",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/balcony/balcony.blend",
+          "source_sha256": "82d442941549307ff1fb1250170675a8a190f942bd656ce4b3958449d912512f",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/balcony/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WEATHER",
+      "name": "混凝土剥落与裂纹",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/weather/weather.blend",
+      "source_sha256": "0b63b6ba4cba07593a8a67d7b8b5932ca8a6fcdb0b84a95fe6e343ba6079a11d",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/weather/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "dd158aa51a2d3969561a1007d344cbd524a6f96dfa5d1ce0353fe2e5abfd5bba",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/weather/weather.blend",
+          "source_sha256": "9d0c97dbe248bcf4d10b74fefff3a958797cad5c1520cc402c70b97c6919bcc2",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/weather/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-ROOF",
+      "name": "农场屋面基层",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof/roof.blend",
+      "source_sha256": "2c6dc71c2926dd750d369233f66907a07c7610caca366b72cb3a57d28c9a0522",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "620552f044367857f65ef2bf9e8482e52fcb9ad368dc9871e9948cae0af61a46",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/roof/roof.blend",
+          "source_sha256": "8539de8c3816c1b40f720ecff9658f5b88a53efd57db2929b703812512951ab3",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/roof/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PARAPET",
+      "name": "青苔破损女儿墙",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/parapet/parapet.blend",
+      "source_sha256": "64383e9a14a99a68aef2f6bd59f2ddcd149c2cfe1951a9aa4ad509c2590a0c82",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/parapet/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "a8b7fce18c87b5e0361a49fc535dd8a05cc6f9c1abfbd03e74dd7100c4365947",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/parapet/parapet.blend",
+          "source_sha256": "2d8df72ecde5bba4a08922992a7103a60c8a51772e6eab833cd85b3991baffd6",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/parapet/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-RAIL",
+      "name": "歪斜锈蚀栏杆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/rail/rail.blend",
+      "source_sha256": "45ae261fcb41e3627b049932d5db48bef5e3f35ef963bcdc8e398d281d6bfc98",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/rail/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "a57b42f7d4f76f316041ce3f4094edb71a8cef31044ef5167f1b5e2a0f9521fd",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/rail/rail.blend",
+          "source_sha256": "8edf948a5c4c26d9398f1499970ec934a702c5926e5bb3787772f2f3ca838450",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/rail/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-GRASS",
+      "name": "半野生草皮",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/grass/grass.blend",
+      "source_sha256": "383176e885c121bc58e67589908ab7d40082a19652bfdbb16abcd6674afb1d97",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/grass/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "b268a8c7efac2bda47ff0d982f7450f78d6c148bf09065288f0b96de6236066b",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/grass/grass.blend",
+          "source_sha256": "41a775f48852dcbbf5ea53aa624553314c9a41dc7d58ee8dddbe4a7112f765af",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/grass/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-TUFT",
+      "name": "丛生野草",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/tuft/tuft.blend",
+      "source_sha256": "ed8c7873f937ebba3200d6548c0c1eb92a49d58cefa883e4202d24a66a903b34",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/tuft/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d35da45c92c97700a50030997418f900032ba2acf3c1809ec5da3770023e3734",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/tuft/tuft.blend",
+          "source_sha256": "9716012331adbeb346259d69869da346ad2749668c4b4ccb63415612f3cd2ca3",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/tuft/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-VINE",
+      "name": "墙角下垂藤蔓",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/vine/vine.blend",
+      "source_sha256": "a47ccc871d01fdd4e5a48429ff5c5fbf6d702362dfc8a3541c9d5a6eae074d5f",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/vine/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "f4b48d9dd2c31511361f7aad65efda9bd906eec70b84f49d930981b4c750d53c",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/vine/vine.blend",
+          "source_sha256": "a0e2e9599755ea7c86161f901d14aa7d2faa0cb15fc00e3603ad80125e1552e8",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/vine/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PLATFORM",
+      "name": "左后抬高生活区",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/platform/platform.blend",
+      "source_sha256": "48e27541eeec983083961a8d96a89027913a2a29440d9d8d6e83933553d9054a",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/platform/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "23721427c64f1117faf8d349e219fa85f521fbe9d55f2f70365ac0f3b69a92a3",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/platform/platform.blend",
+          "source_sha256": "176250ffc1ec9964f8cb272d99511eefa51a37521d24ef4234238649745f88b8",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/platform/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-ROOM",
+      "name": "平台顶部小间",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/room/room.blend",
+      "source_sha256": "2d96a312d25eb3974deb3c9bf8a395353975217a45b2026fd9c0f3e816b36db3",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/room/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "2d911288b811e10bd35436e11711577eb9e3882d4a870a3309b85d49f1387de5",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/room/room.blend",
+          "source_sha256": "680daaefbcd33befcef7135c93bd7e003af7c4aafd7a1c225e821a3bc68010ba",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/room/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-LADDER",
+      "name": "锈蚀外挂爬梯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/ladder/ladder.blend",
+      "source_sha256": "50ded7f11c857b15a1d962fdb164ade665f2bedb328d2191ab381c02dc2a947e",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/ladder/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "446610a98b9fcb9401dd5e4875072e3245ca921ade4ab5175df2fe10d2128439",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/ladder/ladder.blend",
+          "source_sha256": "0bc230e5d7adf6e6533fc2c7616acb4bd21a8b3d96ecee32076f6050b253beff",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/ladder/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-LINE",
+      "name": "晾衣架与衣物",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/line/line.blend",
+      "source_sha256": "1b42f34a5d70f36ac2b7eb6727fe49c39ddbc9ec0179bb7392ea6f7821c6f49b",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/line/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "80e29c8ed696ee1b017ae58bc4ffe1ae0559fd950348694067b7e29683e2ed32",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/line/line.blend",
+          "source_sha256": "95c23ecc151ab9e4a2aa1bcfbdf742c94eb7196b13445c8fcfa933c1ef6b9f05",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/line/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-SHED",
+      "name": "红铁皮顶工具棚",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/shed/shed.blend",
+      "source_sha256": "8fd2050ea7004c8e1b7e0f46fedf3c1f2112036dd284f333681a418393da102b",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/shed/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d5d90c3a1129fff645b1ac70e6bf2694c25728032eeccfc459df6dc38f6450b5",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/shed/shed.blend",
+          "source_sha256": "e033a699928e1ce89ff4af3593d1026a99d64fc7352450c43e76d9059201bcb8",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/shed/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-COOP",
+      "name": "蓝色空鸡舍",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/coop/coop.blend",
+      "source_sha256": "1d83790b6da30c4eb3b5ab4566d1f23cc58400016dda66f0d12acc5262a686d2",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/coop/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "834a62a3891336c19f2d6f1a0d08d516256d13de4519c451c2f6099873af93c4",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/coop/coop.blend",
+          "source_sha256": "f889595a9f672d43609bc4382ed6665a1a08065f1dbc81d8f33cd75ce97413a4",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/coop/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-FENCE",
+      "name": "断裂歪斜木围栏",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/fence/fence.blend",
+      "source_sha256": "fba74af5e0f41ab8a366a812ced81a4417c17ea7300d36d3a6a2c7931452ad8f",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/fence/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "1e15b53d7ec5a085cb30d0a752b5c2e218fd9631a353667d67908840c9b07c43",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/fence/fence.blend",
+          "source_sha256": "8bff3224acbb95fa1d63b01e7599a95b3293644c4fa1c98ad949769b010dee19",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/fence/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-GREENHOUSE",
+      "name": "缺片透明温室",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/greenhouse/greenhouse.blend",
+      "source_sha256": "2d79fc480aadff3ac44d6fed70ed012f7cf887cdd73514a425ad282010d0749a",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/greenhouse/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "df12a9870aa49e3fa9da61094d7abb33bbf83b90864afd9af84d5e92bdd90aaa",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/greenhouse/greenhouse.blend",
+          "source_sha256": "9cbf6be83678d4e910873ffecd2a554f668d36734dc4f61ed6518f966ff9fc71",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/greenhouse/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-TANK",
+      "name": "木支撑锈蚀水塔",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/tank/tank.blend",
+      "source_sha256": "e35a8befca0369f88a7eafaf1c192c41d9419b7a32af413754b998c0e86c3ab3",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/tank/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "38f3741dc65fa0988f7ee2b066ae04b5d99541e2d4e449e27aaad5b8c393590b",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/tank/tank.blend",
+          "source_sha256": "720307b409ba6d07e14f79241db81fa9ad2ec30a86678800defd2f60b92438b7",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/tank/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WIND",
+      "name": "小型偏斜风车",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/wind/wind.blend",
+      "source_sha256": "14e9469ef7c8552410d5d43db198e6ca9d0175684efc22e126bc310206282deb",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/wind/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7ab4fa0eb183a47d2cd46e5ebd283d021c2e9483323c70d4356d4b74673ccd98",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/wind/wind.blend",
+          "source_sha256": "62d2a24d795ef5456ac536ae6f2f9737c141f70d061740fd2f3afe36413806f5",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/wind/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-SOLAR",
+      "name": "锈框太阳能板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/solar/solar.blend",
+      "source_sha256": "0198a941a11210df941c5912644ed5f4e3b4762f3942b2dd11223fd3773b19dc",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/solar/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "695994a597cad64a757cc3c60848b1231b0635b1c6e7d45c50c1394951237062",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/solar/solar.blend",
+          "source_sha256": "46a3432a4ad3f4d3cb8263d31b994c04b00e92ff00db33b090b702d187a65719",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/solar/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-BED",
+      "name": "老化木框菜床",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/bed/bed.blend",
+      "source_sha256": "27ca90a394779561d36d42c27377e6a96b14164afe9f448fbfae6ee15b171229",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/bed/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "63bf75ac345971724981ffa17489a297e867705a0597b26bf620357c943beab1",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/bed/bed.blend",
+          "source_sha256": "26a40a2926e8804c05e79d6281eeebfc58deaa3e83acb595ee3a2abea56c9f05",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/bed/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-FIELD",
+      "name": "条垄主农田",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/field/field.blend",
+      "source_sha256": "7f28448c67b802fc2e9fbaeedd6c4358252b5c788db1fbd3d78224eb94e948cd",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/field/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "6f69453e039f4d125eaf897753a4e2d0fc24e2fd294ebffd7b690ea9029409e6",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/field/field.blend",
+          "source_sha256": "7153fae3fca2b9e19387687dc0b62d408913214a7536a7117c50cc3e70af642a",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/field/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-CABBAGE",
+      "name": "饱满宽叶菜",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/cabbage/cabbage.blend",
+      "source_sha256": "f475b7853d6c6601606997723376c4e354a12cb6c8f7462c1f9c96f6f2a77423",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/cabbage/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "d80b993267106081ebdf1326f7e878a0861014e856f39a7ae46c9e6b5b3bdb15",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/cabbage/cabbage.blend",
+          "source_sha256": "3f176328aa609d24a83fcdab258a563a239e0549323e684bdab8b6235dad89a0",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/cabbage/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-SEEDLING",
+      "name": "双叶幼苗",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/seedling/seedling.blend",
+      "source_sha256": "780d0dc8a07c127c20f9aa8f6f3f7cbf1c72a1af2141a39890ade11a77950c56",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/seedling/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "1721ec7d9fb7f6841511be797d904394f7738c43554d0542a14eb2b11ce3044d",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/seedling/seedling.blend",
+          "source_sha256": "a440899907afe25f60963db5d2395a3517ea42f83dc9b8bc5c9003768b3dc3b1",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/seedling/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-TOMATO",
+      "name": "攀爬果蔬",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/tomato/tomato.blend",
+      "source_sha256": "6f88caaa893db201b0ecffe7e701a6f3fbb5b2e29f34242fc9587cfd961f85da",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/tomato/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "3afe8c039cc10d536728b8c31c01c5bd0494421c36ecfc9ef3d65a5b5ffc8c9a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/tomato/tomato.blend",
+          "source_sha256": "a3031f6836268ec9e106d6fa321aa0f72e760b4f81d40887da93be5199441f37",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/tomato/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STONE",
+      "name": "厚实不规则踏石",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stone/stone.blend",
+      "source_sha256": "3ca5701b423421b3a8b7246ccd9c56481c010d46dad46fd7d4d200564d31e376",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stone/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "5fc74932a53f8bf359e6a7be921a2306d402a3f8099d7477338b4be633ce8afa",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/stone/stone.blend",
+          "source_sha256": "11ff4919b5552b442c6e6bab0ff1b5a5ff333451347486fb0ef237c371976dda",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/stone/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PLANK",
+      "name": "旧木步道板",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/plank/plank.blend",
+      "source_sha256": "2210e02d8d90ac180173b064d1001b232f043787e97be474b70dcc4a427c7153",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/plank/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "1e9c34811787ae36bb263861453916234c9000518b6f89d2dbf93e8625ff33a0",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/plank/plank.blend",
+          "source_sha256": "b961de38ffe6a93fb60cf8103124c503928c10247bbdcddd24edc83bb0332307",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/plank/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-COMPOST",
+      "name": "变形堆肥箱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/compost/compost.blend",
+      "source_sha256": "309c85471ba6e80a31f15dc6a7343f2d08366cc975c28488c26fe0e73878d173",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/compost/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "98a465b0f868cfa8e726ba8341f536a094388302f4116ccc805a5053f361c0cf",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/compost/compost.blend",
+          "source_sha256": "1e2d82f6478d2bb56f459b9e497a27fb956bbe27c2432129e8814dc4e2e02a74",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/compost/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-POT",
+      "name": "崩口厚边花盆",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/pot/pot.blend",
+      "source_sha256": "2d790dc582fed7d0c877f35ae2f0f87d6fa0a0e7f47396688f218c64536d1041",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/pot/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7b1ff6a1883621c3699ec5d7515a74455524014d95a94591ee6892c9f6d24ad5",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/pot/pot.blend",
+          "source_sha256": "358bfa6a9a56fb700b182b93d2527db13d082f666bdc98ceb11bdae9df897c9a",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/pot/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PLANT",
+      "name": "宽厚盆栽叶簇",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/plant/plant.blend",
+      "source_sha256": "35793f9b972ef18175ccb02876c2138da604fa14192b72e3f1ed5fb9fa7955d1",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/plant/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "ea8620f1cf19ab1af931fdfa0749a52955f536b39508cc42f04098e376210a60",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/plant/plant.blend",
+          "source_sha256": "0d3197dc77e68924080ece9edb8e859a2e0fc12a5c70155c2a2157ef5b749a8f",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/plant/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PIPE",
+      "name": "老化屋顶管线",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/pipe/pipe.blend",
+      "source_sha256": "7f074de379a7ad3ff86f262f35cadd4ac71f05fc9ffc73d36f82b4b9904244c9",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/pipe/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "bd03b231fc9566f9bb3eb2182cbd743dbb4dfd1918a3d563ca002a8643eccfcc",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/pipe/pipe.blend",
+          "source_sha256": "f3f427aa7ce57b333a8f80633e517febd06f0c50ab97788db1f6f27663bdbe51",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/pipe/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-TABLE",
+      "name": "圆桌",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/table/table.blend",
+      "source_sha256": "aad0be0477d646ab8ddcff5d766a721024260f55ab78703d0a79a57c93eaf147",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/table/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "085e5b1374fec99b69bdf1b7925306b9431596493d3a53b0aa4774ec6f04ff64",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/table/table.blend",
+          "source_sha256": "79147eea7b6a3c76a02d2322e1c5fddc90d59b671d75e9d9148467904ac2f6df",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/table/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-CHAIR",
+      "name": "旧木椅",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/chair/chair.blend",
+      "source_sha256": "499b54d872c28c12c0950e22ace4e92a1dead45da6190accf9b03fcd6a7c7902",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/chair/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "69bf59c608a38a766003c71046a2e414979754ec307112ed044dc9d766ddd7d8",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/chair/chair.blend",
+          "source_sha256": "42cc96606da40ed90de7e7c1ae1d0fe7ca772cbce3c3be4faf88b30a2d7aba9e",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/chair/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-CRATE",
+      "name": "储物木箱",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/crate/crate.blend",
+      "source_sha256": "e10f64e6a656f5b42990ee327a669476f83057412b28e3ae77e487424c98e86e",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/crate/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7d0aeb11b735b144c7edd47e34f9c128fb0374f23ed74938badafe49b15b0521",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/crate/crate.blend",
+          "source_sha256": "1a0bb327d01609815dd246680c9bf25f2c9c101fa0ca2200126166f29cd369e8",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/crate/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-BARREL",
+      "name": "锈箍储物桶",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/barrel/barrel.blend",
+      "source_sha256": "8cb57c8dba0bc74e67a4e15c83f78d5b4513d8a4eb85c43527e6f7ad541070c3",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/barrel/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "470edb5842d702cd9528cd59d290efa2682f710cb95500972b78597a835c3d0a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/barrel/barrel.blend",
+          "source_sha256": "57f81bcef11036cdb44f516312df971e76ab0c241bc4eaffab71b0e729d70bb8",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/barrel/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-LAMP",
+      "name": "弯臂屋顶灯",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/lamp/lamp.blend",
+      "source_sha256": "0c58a215440ed515336c3e336b1f826af8524586401cf6c68736069d205bf444",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/lamp/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "5f545a5555286abbcd8c306a022554093498aef873df34183ef077bd3ce0d124",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/lamp/lamp.blend",
+          "source_sha256": "110513a16f874a50909d20df708b03cf28f9906e621d8e98ca0cd675c43ba95d",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/component_packages/lamp/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WINDOW_CRACKED",
+      "name": "裂纹缺角玻璃窗",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_cracked/window_cracked.blend",
+      "source_sha256": "30238375525b251031d6358e4ac94df105413a5675e2631486c77e9eb39c7bc9",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_cracked/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "fe7a13f4eeb76734b71b8b6a35d46080a989f672c4064c8cd21f4a8ea2dacfe9",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WINDOW_BROKEN",
+      "name": "缺片木板封窗",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_broken/window_broken.blend",
+      "source_sha256": "b3db65dcc45a6cd875f2979aec12c311f9dd239fa75afbdd481f4a15b6ed8b3a",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_broken/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "9a82c807f405a5938f4c6a32b465a6377927b4f95035eca6aa6aa2424015af23",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "fixture",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-MOSS_CLUSTER",
+      "name": "成片不规则苔藓",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/moss_cluster/moss_cluster.blend",
+      "source_sha256": "00b4f70cd50529ece73f7e237bce60583c133c97afc88ffe79517d30f41a1a77",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/moss_cluster/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "645043db39fb2372b507a5f88341c2bb0774decf45b59c7d58226ead9c07ddfb",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STAIR_FLIGHT",
+      "name": "消防梯标准半层梯段",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_flight/stair_flight.blend",
+      "source_sha256": "434e57d01980d4d93cad14c7b9c2b03f88b34266974684be5cef9fd1ffe97e2b",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_flight/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "f810c1a03fa15d0ae907f72a752684e3e274c0c3a4697aaaf838ef009a6a6fb6",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING",
+      "name": "消防梯折返休息平台",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing/stair_landing.blend",
+      "source_sha256": "687a359b1f7b23716eb47fc0eb1230119d06146b6b54c9b968171c9afe2abda6",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "7353fcc70c2e50fc43aae73e39a2c9247a58986ccb5e622e9aaf8d7c516121d8",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-ROOF_ENTRY",
+      "name": "消防梯屋顶开放入口",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof_entry/roof_entry.blend",
+      "source_sha256": "399065bb1f33aaa62fd04833c8e87afe910555ce4db680e92f88b5b8e0f97d0b",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof_entry/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "e93ed2be617479f0b0e5f0612fdb4cd4f73e2d28053751a1e73b6e7e470abaa9",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING_OPEN",
+      "name": "消防梯开放入口平台",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing_open/stair_landing_open.blend",
+      "source_sha256": "cb56169d2bf2ba6ff2efce8fa0aa512b2651c223b18d179944c8ed669f0ae1c7",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing_open/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "b384b3777df94f3c1809b44033b01fafb80755e38dd7773100caf6ba00a2bc6e",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-BROKEN_FLIGHT",
+      "name": "下挂断裂消防梯残段",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/broken_flight/broken_flight.blend",
+      "source_sha256": "2b41d040d4dd50ae0fcc453990388eb08b396665553aee390bc912ff87d2c29c",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/broken_flight/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "11febcd5f9a6f1b2f4aa11dfe4a4626b948f4a5595356bcf4140b431f369053b",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "structure",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-TURF_CORE",
+      "name": "屋顶中央草皮基底",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/turf_core/turf_core.blend",
+      "source_sha256": "151830a06673fd322fe75999d3458ec93f01ca35a3df9075a373701564f6f1f0",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/turf_core/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": "ac02cc031e1051ab7219a97155bc5fc6c144ba8794dd76983a583b875ec97c0a",
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "flora",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "part",
+      "scope": "scene_local",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "海上屋顶农场 v003 48组件；厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差、不均苔藓及上三层消防梯修订；源级与技能级验证门禁通过。"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-ASSEMBLY",
+      "name": "六十米海上屋顶农场 v003",
+      "domain": "scenes",
+      "stage": "source_verified_runtime_pending",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/ocean_rooftop_farm_v003.blend",
+      "source_sha256": "c93032de62ba6d8c17360bc70ad974e604a384e21b2c0975509dd2fad6e37e07",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/asset_manifest.json",
+      "version": "v003",
+      "runtime_path": null,
+      "prefab": null,
+      "license": "pending_user_reference_rights_review",
+      "geometry_fingerprint": null,
+      "consumer_features": [
+        "SEA-ASSET"
+      ],
+      "category": "scene_assembly",
+      "building_class": "above_water",
+      "water_layer": "surface",
+      "water_layer_role": "entity",
+      "scope": "scene_local",
+      "runtime_status": "pending",
+      "source_verification": "passed_source_and_skill_verification",
+      "verification_pending": [
+        "Godot",
+        "collision",
+        "navigation",
+        "commercial_authorization",
+        "final_art_review"
+      ],
+      "note": "v003 基于 v002 的稳定 AssetID 更新；不修改 v002 源文件和源哈希记录基线；未接入 Godot。",
+      "previous_sources": [
+        {
+          "source": "art_source/scenes/ocean_rooftop_farm/v002/ocean_rooftop_farm_v002.blend",
+          "source_sha256": "cee7465802dcb9767affd0c2cc20b7ce6329fae31990455628c0c96392955c7d",
+          "manifest": "art_source/scenes/ocean_rooftop_farm/v002/asset_manifest.json",
+          "version": "v002"
+        }
+      ]
     }
   ]
 }

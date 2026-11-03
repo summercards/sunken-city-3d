@@ -8,6 +8,11 @@ var _chains: Dictionary = {}
 var _mesh_data: Dictionary = {}
 var _skin: Skin
 var _appearance: Dictionary = {}
+var _girth := 1.0
+var _arm_girth := 1.0
+
+func set_girth(value: float, arms: float=-1.0) -> void:
+	_girth=value; _arm_girth=value if arms<0.0 else arms
 
 func configure(actor) -> void:
 	name="LimbSkeleton"
@@ -38,7 +43,8 @@ func _bone(id: String, parent: int, rest: Transform3D) -> int:
 	var bone:=get_bone_count(); add_bone(id); set_bone_parent(bone,parent); set_bone_rest(bone,rest); return bone
 
 func sync_pose() -> void:
-	for chain in _chains.values():
+	for id in _chains:
+		var chain: Dictionary=_chains[id]
 		var upper: Node3D=chain.controls[0].get_ref()
 		var lower: Node3D=chain.controls[1].get_ref()
 		var tip: Node3D=chain.controls[2].get_ref()
@@ -46,8 +52,9 @@ func sync_pose() -> void:
 		set_bone_pose(chain.upper,upper.transform)
 		set_bone_pose(chain.lower,lower.transform)
 		set_bone_pose(chain.tip,tip.transform)
-		set_bone_pose_scale(chain.upper_skin,Vector3(1,absf(lower.position.y)/chain.lengths.x,1))
-		set_bone_pose_scale(chain.lower_skin,Vector3(1,absf(tip.position.y)/chain.lengths.y,1))
+		var girth:=_arm_girth if str(id).begins_with("arm") else _girth
+		set_bone_pose_scale(chain.upper_skin,Vector3(girth,absf(lower.position.y)/chain.lengths.x,girth))
+		set_bone_pose_scale(chain.lower_skin,Vector3(girth,absf(tip.position.y)/chain.lengths.y,girth))
 
 func apply_appearance(raw: Dictionary) -> void:
 	_appearance=Catalog.effective(raw)
@@ -105,9 +112,9 @@ func _build_limb(id: String) -> void:
 		var start:=vertices.size()
 		var prev: Vector4=profile[maxi(0,i-1)]; var next: Vector4=profile[mini(profile.size()-1,i+1)]
 		var step:=maxf(next.x-prev.x,0.0001)
+		# A straight bone segment has a straight rest centreline. Curvature is
+		# produced only by the elbow's local skin weights, never by an S offset.
 		var side_offset:=0.0
-		if id.begins_with("arm"):
-			side_offset=float(chain.side)*(-0.024*(1.0-smoothstep(-0.02,0.045,p.x))+0.018*smoothstep(0.0,0.05,p.x)*(1.0-smoothstep(0.105,chain.lengths.x,p.x)))
 		for j in count:
 			var angle:=TAU*j/SIDES
 			vertices.append(origin+Vector3(side_offset+cos(angle)*p.y,-p.x,p.w+sin(angle)*p.z))

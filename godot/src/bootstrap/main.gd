@@ -2915,7 +2915,7 @@ func restore_world_state(data: Dictionary) -> void:
 	GameState.enter_zone(zone_id)
 
 func _after_restore() -> void:
-	player.apply_appearance(avatar_profile.query().appearance)
+	player.apply_avatar(avatar_profile.query())
 	props.sync_population(world_clock.query(),boat.position)
 	if Scope.minimal(): Economy.daily.observe(world_clock.query())
 	Economy.fishery.observe(world_clock.query())
@@ -3030,7 +3030,7 @@ func _resume_after_avatar_or_title() -> void:
 	start_screen = null
 
 func _setup_avatar() -> void:
-	avatar_profile.changed.connect(func(): player.apply_appearance(avatar_profile.query().appearance))
+	avatar_profile.changed.connect(func(): player.apply_avatar(avatar_profile.query()))
 	avatar_session=preload("res://src/avatar/avatar_session.gd").new()
 	avatar_session.name="AvatarSession"
 	avatar_session.profile=avatar_profile; avatar_session.player=player; avatar_session.camera=cam

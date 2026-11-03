@@ -1,0 +1,69 @@
+{
+  "schema": "sea.scene.assembly_manifest",
+  "asset_id": "SEA-SCENE-ORF2-ASSEMBLY",
+  "name": "六十米海上屋顶农场 v003",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF2-ASSEMBLY",
+  "source": "art_source/scenes/ocean_rooftop_farm/v003/ocean_rooftop_farm_v003.blend",
+  "source_sha256": "c93032de62ba6d8c17360bc70ad974e604a384e21b2c0975509dd2fad6e37e07",
+  "version": "v003",
+  "category": "scene_assembly",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "runtime_status": "pending",
+  "source_verification": "passed_source_and_skill_verification",
+  "license": "pending_user_reference_rights_review",
+  "component_catalog": "component_catalog.json",
+  "component_plan": "component_plan.json",
+  "component_instances": "component_instances.json",
+  "reference": "reference.jpg",
+  "component_count": 48,
+  "instance_count": 895,
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_asset_id": "SEA-PALETTE-CABIN-TIMBER-64",
+  "metrics": {
+    "components": 48,
+    "instances": 895,
+    "floors": 12,
+    "floor_height_m": 5.0,
+    "building_xy_m": [
+      48,
+      32
+    ],
+    "roof_top_z_m": 60.0
+  },
+  "excluded": [
+    "animals",
+    "people",
+    "sea",
+    "sky",
+    "distant_buildings",
+    "background_geometry"
+  ],
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "navigation",
+    "commercial_authorization",
+    "final_art_review"
+  ],
+  "visual_review": {
+    "status": "views_reviewed_source_and_skill_verification_passed",
+    "views": [
+      "01_reference_roof.png",
+      "02_fire_escape_full.png",
+      "03_roof_entry.png",
+      "04_facade_detail.png",
+      "05_top_plan.png"
+    ]
+  },
+  "revision_summary": [
+    "厚外挑无草水泥边台 49.6x33.6x0.65m",
+    "深凹窗、宽主柱、intact/cracked/broken 三种窗状态",
+    "坡顶高差与不均苔藓",
+    "粗杆直径 0.18-0.2m，金属 metallic 0.15、roughness 0.82",
+    "消防梯仅保留45至60米上三层6段，下挂残梯，取消地面连续通行",
+    "屋顶入口删除共面桥面，边对边接承接板顶59.97m"
+  ],
+  "note": "v003 基于 v002 的稳定 AssetID 更新；不修改 v002 源文件和源哈希记录基线；未接入 Godot。"
+}

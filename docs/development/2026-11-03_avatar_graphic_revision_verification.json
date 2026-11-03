@@ -1,0 +1,159 @@
+{
+  "date": "2026-11-03",
+  "revision": "r5",
+  "superseded_by": "docs/development/2026-11-03_avatar_shape_and_mouth_verification.json",
+  "results": {
+    "avatar-customization": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-100603-avatar-graphic-final-clearance-2b0ee0\\avatar-customization.log",
+      "user_data_name": "sea-verification/20261103-100603-avatar-graphic-final-clearance-2b0ee0/avatar-customization",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-100603-avatar-graphic-final-clearance-2b0ee0\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_customization.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "harvest-receive": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-100603-avatar-graphic-final-clearance-2b0ee0\\harvest-receive.log",
+      "user_data_name": "sea-verification/20261103-100603-avatar-graphic-final-clearance-2b0ee0/harvest-receive",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-100603-avatar-graphic-final-clearance-2b0ee0\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_harvest_receive.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "avatar-graphic": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-100021-avatar-graphic-delivery-visual-d770cb\\avatar-graphic.log",
+      "user_data_name": "sea-verification/20261103-100021-avatar-graphic-delivery-visual-d770cb/avatar-graphic",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-100021-avatar-graphic-delivery-visual-d770cb\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_graphic.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-avatar-graphic": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-100021-avatar-graphic-delivery-visual-d770cb\\visual-avatar-graphic.log",
+      "user_data_name": "sea-verification/20261103-100021-avatar-graphic-delivery-visual-d770cb/visual-avatar-graphic",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-100021-avatar-graphic-delivery-visual-d770cb\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_avatar_graphic.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-avatar-customization": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-100648-avatar-graphic-final-triview-ui-b29c80\\visual-avatar-customization.log",
+      "user_data_name": "sea-verification/20261103-100648-avatar-graphic-final-triview-ui-b29c80/visual-avatar-customization",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-100648-avatar-graphic-final-triview-ui-b29c80\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tools/capture_avatar_customization.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-avatar-skinning": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-100850-avatar-graphic-final-action-render-7c6614\\visual-avatar-skinning.log",
+      "user_data_name": "sea-verification/20261103-100850-avatar-graphic-final-action-render-7c6614/visual-avatar-skinning",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-100850-avatar-graphic-final-action-render-7c6614\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_avatar_skinning.gd",
+        "--",
+        "--skip-title"
+      ]
+    },
+    "visual-harvest-receive": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-100850-avatar-graphic-final-action-render-7c6614\\visual-harvest-receive.log",
+      "user_data_name": "sea-verification/20261103-100850-avatar-graphic-final-action-render-7c6614/visual-harvest-receive",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-100850-avatar-graphic-final-action-render-7c6614\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_harvest_receive.gd",
+        "--",
+        "--skip-title"
+      ]
+    }
+  }
+}

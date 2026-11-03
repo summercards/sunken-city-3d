@@ -29,7 +29,8 @@ for o in [o for o in STAGE.objects if o.type == 'LIGHT']:
     bpy.data.objects.remove(o, do_unlink=True)
 for name, rot, energy in (('主阳', (math.radians(50), 0, math.radians(34)), 3.0),
                           ('侧补', (math.radians(66), 0, math.radians(196)), 1.35),
-                          ('背补', (math.radians(74), 0, math.radians(96)), 0.7)):
+                          ('背补', (math.radians(74), 0, math.radians(96)), 0.7),
+                          ('正面补', (math.radians(80), 0, 0), 0.85)):
     d = bpy.data.lights.new(name, 'SUN')
     d.energy = energy
     d.angle = 0.2

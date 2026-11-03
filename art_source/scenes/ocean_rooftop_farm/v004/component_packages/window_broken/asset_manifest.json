@@ -1,0 +1,35 @@
+{
+  "key": "window_broken",
+  "name": "缺片木板封窗",
+  "category": "fixture",
+  "component_family": "window",
+  "asset_id": "SEA-SCENE-ORF2-WINDOW_BROKEN",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "variant_axis": "damage_state",
+  "variant_value": "window_broken",
+  "variant_reason": "intact/cracked/missing glass and boarded states from user reference",
+  "collection": "ORF3_组件_window_broken",
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/window_broken/window_broken.blend",
+  "bounds_size_m": [
+    6.0,
+    0.7245817184448242,
+    3.0
+  ],
+  "instance_count": 48,
+  "source_version": "v004",
+  "geometry_fingerprint": "9a82c807f405a5938f4c6a32b465a6377927b4f95035eca6aa6aa2424015af23",
+  "source_sha256": "3b694137cc59a3342178ee5b2a739c71fea7df68d57b113659768697782fa72b",
+  "schema": "sea.scene.component_manifest",
+  "version": "v004",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review"
+}

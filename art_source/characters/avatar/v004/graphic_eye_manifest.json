@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "source": "art_source/characters/avatar/v004/graphic_eye_source.png",
+  "runtime": "godot/assets/textures/avatar/graphic_eyes.png",
+  "columns": 4,
+  "rows": 3,
+  "tile_size": 256,
+  "ids": [
+    "round",
+    "oval",
+    "sleepy",
+    "smile",
+    "almond",
+    "wide",
+    "soft",
+    "cat",
+    "sparkle",
+    "dot",
+    "lidded",
+    "bright"
+  ],
+  "style": "original thick graphic ink / white sclera; no specular pupil highlights",
+  "generation": "built-in image generation; reference style described in text; no copied game pixels",
+  "processing": "regular grid crop, largest alpha-connected symbol extraction, aspect-preserving resample and transparent padding",
+  "animation": "per-eye shader aperture/blink and gaze; independent expression driver; fixed curved mesh"
+}

@@ -2,6 +2,13 @@
   "version": 1,
   "groups": [
     {
+      "id": "body",
+      "label": "体型",
+      "slots": [
+        "body_type"
+      ]
+    },
+    {
       "id": "skin",
       "label": "肤色",
       "slots": [
@@ -13,7 +20,9 @@
       "label": "头发",
       "slots": [
         "hair_style",
-        "hair_color"
+        "hair_color",
+        "fringe",
+        "hair_accessory"
       ]
     },
     {
@@ -31,7 +40,9 @@
       "slots": [
         "nose",
         "mouth",
-        "blush"
+        "blush",
+        "beard",
+        "beard_color"
       ]
     },
     {
@@ -107,6 +118,29 @@
       ]
     },
     {
+      "id": "body_type",
+      "label": "身体的轮廓",
+      "default": "balanced",
+      "options": [
+        {
+          "id": "balanced",
+          "label": "匀称"
+        },
+        {
+          "id": "pear",
+          "label": "梨形"
+        },
+        {
+          "id": "athletic",
+          "label": "健朗"
+        },
+        {
+          "id": "soft",
+          "label": "柔和"
+        }
+      ]
+    },
+    {
       "id": "hair_style",
       "label": "选一个喜欢的发型",
       "default": "bob",
@@ -134,6 +168,38 @@
         {
           "id": "twin",
           "label": "双团子"
+        },
+        {
+          "id": "ponytail",
+          "label": "轻盈马尾"
+        },
+        {
+          "id": "high_ponytail",
+          "label": "高马尾"
+        },
+        {
+          "id": "low_ponytail",
+          "label": "低马尾"
+        },
+        {
+          "id": "long",
+          "label": "披肩长发"
+        },
+        {
+          "id": "curly",
+          "label": "蓬松卷发"
+        },
+        {
+          "id": "braid",
+          "label": "麻花辫"
+        },
+        {
+          "id": "undercut",
+          "label": "两侧清爽"
+        },
+        {
+          "id": "pixie",
+          "label": "精灵短发"
         }
       ]
     },
@@ -185,6 +251,48 @@
       ]
     },
     {
+      "id": "fringe",
+      "label": "刘海",
+      "default": "auto",
+      "options": [
+        {
+          "id": "auto",
+          "label": "随发型"
+        },
+        {
+          "id": "side",
+          "label": "侧扫刘海"
+        },
+        {
+          "id": "straight",
+          "label": "齐刘海"
+        },
+        {
+          "id": "open",
+          "label": "露额头"
+        }
+      ]
+    },
+    {
+      "id": "hair_accessory",
+      "label": "发饰",
+      "default": "none",
+      "options": [
+        {
+          "id": "none",
+          "label": "不加发饰"
+        },
+        {
+          "id": "ribbon",
+          "label": "小蝴蝶结"
+        },
+        {
+          "id": "band",
+          "label": "发带"
+        }
+      ]
+    },
+    {
       "id": "eyes",
       "label": "眼睛的形状",
       "default": "round",
@@ -195,7 +303,7 @@
         },
         {
           "id": "oval",
-          "label": "杏仁眼"
+          "label": "椭圆眼"
         },
         {
           "id": "sleepy",
@@ -204,6 +312,38 @@
         {
           "id": "smile",
           "label": "笑眯眯"
+        },
+        {
+          "id": "almond",
+          "label": "细杏眼"
+        },
+        {
+          "id": "wide",
+          "label": "惊喜眼"
+        },
+        {
+          "id": "soft",
+          "label": "温柔眼"
+        },
+        {
+          "id": "cat",
+          "label": "猫咪眼"
+        },
+        {
+          "id": "sparkle",
+          "label": "粗线亮眼"
+        },
+        {
+          "id": "dot",
+          "label": "豆豆眼"
+        },
+        {
+          "id": "lidded",
+          "label": "半睁眼"
+        },
+        {
+          "id": "bright",
+          "label": "明亮眼"
         }
       ]
     },
@@ -289,19 +429,67 @@
       "options": [
         {
           "id": "smile",
-          "label": "小微笑"
+          "label": "弯弯微笑"
         },
         {
           "id": "wide",
-          "label": "大微笑"
+          "label": "大大微笑"
         },
         {
           "id": "calm",
-          "label": "平静"
+          "label": "平静横线"
         },
         {
           "id": "oh",
-          "label": "圆圆嘴"
+          "label": "惊讶圆嘴"
+        },
+        {
+          "id": "open",
+          "label": "开怀笑"
+        },
+        {
+          "id": "grin",
+          "label": "露齿笑"
+        },
+        {
+          "id": "frown",
+          "label": "小烦恼"
+        },
+        {
+          "id": "smirk",
+          "label": "俏皮歪笑"
+        },
+        {
+          "id": "cat",
+          "label": "弯弯W嘴"
+        },
+        {
+          "id": "joy",
+          "label": "欢呼"
+        },
+        {
+          "id": "laugh",
+          "label": "哈哈笑"
+        },
+        {
+          "id": "pout",
+          "label": "抿嘴"
+        },
+        {
+          "id": "fang",
+          "label": "小虎牙"
+        },
+        {
+          "id": "tongue",
+          "label": "吐舌"
+        },
+        {
+          "id": "kiss",
+          "label": "嘟嘟嘴"
+        },
+        {
+          "id": "zigzag",
+          "label": "紧张波浪"
         }
       ]
     },
@@ -321,6 +509,80 @@
         {
           "id": "none",
           "label": "清清爽爽"
+        }
+      ]
+    },
+    {
+      "id": "beard",
+      "label": "胡子",
+      "default": "none",
+      "options": [
+        {
+          "id": "none",
+          "label": "清爽无胡"
+        },
+        {
+          "id": "stubble",
+          "label": "淡淡胡茬"
+        },
+        {
+          "id": "moustache",
+          "label": "小八字胡"
+        },
+        {
+          "id": "goatee",
+          "label": "山羊胡"
+        },
+        {
+          "id": "full",
+          "label": "环脸胡"
+        }
+      ]
+    },
+    {
+      "id": "beard_color",
+      "label": "胡子的颜色",
+      "default": "chestnut",
+      "options": [
+        {
+          "id": "chestnut",
+          "label": "栗棕",
+          "color": "#664432"
+        },
+        {
+          "id": "black",
+          "label": "墨黑",
+          "color": "#302d35"
+        },
+        {
+          "id": "cocoa",
+          "label": "可可",
+          "color": "#8d6145"
+        },
+        {
+          "id": "gold",
+          "label": "麦金",
+          "color": "#d9b565"
+        },
+        {
+          "id": "silver",
+          "label": "银灰",
+          "color": "#c4c5c0"
+        },
+        {
+          "id": "rose",
+          "label": "莓粉",
+          "color": "#ca8490"
+        },
+        {
+          "id": "ocean",
+          "label": "海蓝",
+          "color": "#648eab"
+        },
+        {
+          "id": "mint",
+          "label": "薄荷",
+          "color": "#91b59a"
         }
       ]
     },
@@ -630,6 +892,98 @@
           "label": "方圆眼镜"
         }
       ]
+    }
+  ],
+  "morphs": [
+    {
+      "id": "body_build",
+      "label": "胖瘦",
+      "group": "body",
+      "min": 0,
+      "max": 1,
+      "default": 0.5,
+      "low_label": "纤细",
+      "high_label": "圆润"
+    },
+    {
+      "id": "head_size",
+      "label": "头部大小",
+      "group": "body",
+      "min": 0,
+      "max": 1,
+      "default": 0.5,
+      "low_label": "小巧",
+      "high_label": "饱满"
+    },
+    {
+      "id": "head_width",
+      "label": "头部横向比例",
+      "group": "body",
+      "min": 0,
+      "max": 1,
+      "default": 0.5,
+      "low_label": "收窄",
+      "high_label": "展开"
+    },
+    {
+      "id": "arm_girth",
+      "label": "手臂粗细",
+      "group": "body",
+      "min": 0,
+      "max": 1,
+      "default": 0.5,
+      "low_label": "纤细",
+      "high_label": "饱满"
+    },
+    {
+      "id": "leg_length",
+      "label": "腿长与胯位",
+      "group": "body",
+      "min": 0,
+      "max": 1,
+      "default": 0.5,
+      "low_label": "短腿低胯",
+      "high_label": "修长高胯"
+    },
+    {
+      "id": "eye_spacing",
+      "label": "眼睛距离",
+      "group": "eyes",
+      "min": 0,
+      "max": 1,
+      "default": 0.5,
+      "low_label": "靠近",
+      "high_label": "分开"
+    },
+    {
+      "id": "hair_length",
+      "label": "头发长度",
+      "group": "hair",
+      "min": 0,
+      "max": 1,
+      "default": 0.5,
+      "low_label": "短一些",
+      "high_label": "长一些"
+    },
+    {
+      "id": "hair_volume",
+      "label": "头发蓬松度",
+      "group": "hair",
+      "min": 0,
+      "max": 1,
+      "default": 0.5,
+      "low_label": "服帖",
+      "high_label": "蓬松"
+    },
+    {
+      "id": "hair_sweep",
+      "label": "发丝方向",
+      "group": "hair",
+      "min": 0,
+      "max": 1,
+      "default": 0.5,
+      "low_label": "向左",
+      "high_label": "向右"
     }
   ]
 }

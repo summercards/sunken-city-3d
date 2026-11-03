@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "feature": "SEA-AVATAR",
+  "design_revision": "r4",
+  "date": "2026-11-03",
+  "source_type": "Godot procedural geometry and original deterministic PNG masks",
+  "profile_version": 1,
+  "root_save_version": 4,
+  "default_reference": "art_source/characters/avatar/v001/reference_contract.json",
+  "rig_contract": "art_source/characters/avatar/v002/rig_contract.json",
+  "morphs": {
+    "body_build": {"range": [0, 1], "default": 0.5, "width_factor": [0.82, 1.0, 1.30], "depth_factor": [0.88, 1.0, 1.28], "limb_radius_factor": [0.86, 1.0, 1.17]},
+    "head_size": {"range": [0, 1], "default": 0.5, "factor": [0.88, 1.12], "pivot_y_formula": "1.015 + 0.22 * (factor - 1)"},
+    "eye_spacing": {"range": [0, 1], "default": 0.5, "native_eye_center_abs_x": [0.070, 0.105]},
+    "hair_length": {"range": [0, 1], "default": 0.5},
+    "hair_volume": {"range": [0, 1], "default": 0.5},
+    "hair_sweep": {"range": [0, 1], "default": 0.5}
+  },
+  "body_types": ["balanced", "pear", "athletic", "soft"],
+  "new_optional_appearance_slots": ["body_type", "beard", "beard_color", "fringe", "hair_accessory"],
+  "new_assets": ["SEA-CHAR-FACE-001", "SEA-CHAR-HAIR-001", "SEA-CHAR-SHAPE-001"],
+  "safety": {
+    "character_root_and_collision": "unchanged; capsule radius 0.22m and height 1.30m",
+    "skin_layer": "conformal ellipsoid grids with normal offset; real RGBA blush/freckles/stubble masks",
+    "head_accessories": "share the same head transform; glasses follow eye spacing; hat-compatible hair crown",
+    "long_hair": "lower tails routed behind torso/tank envelope",
+    "actions": "morph-aware shoulders, rest wrists, girth bone helpers and independent left-hand retreat around torso",
+    "bags": "outside shirt and behind the hanging hand; strap follows current shirt surface"
+  },
+  "maintenance": {
+    "catalogue_source": "tools/author_avatar_catalog.py",
+    "texture_source": "tools/author_avatar_face_textures.py",
+    "dimensions": "godot/src/avatar/avatar_morphology.gd",
+    "verification": ["avatar-customization", "visual-avatar-customization", "avatar", "avatar-restart", "avatar-skinning", "visual-avatar-proportions", "harvest-receive"]
+  },
+  "future_diy": "parameterized hair is implemented; free painting, imported geometry and online sharing remain separate future features"
+}

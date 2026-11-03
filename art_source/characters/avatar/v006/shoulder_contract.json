@@ -1,0 +1,70 @@
+{
+  "version": 3,
+  "reference_image": "art_source/characters/avatar/v006/shoulder_reference.png",
+  "provenance": "User shoulder-root red lines 2026-11-03: narrower and lower attachment. The head/feet alignment is used only to estimate shoulder centres, no game pixels enter runtime.",
+  "supersedes": "art_source/characters/avatar/v005/shape_contract.json",
+  "measurement_note": "Latest request: full limbs, narrower shoulder/neck, moderately flared hem, lower pelvis and shorter legs. Guard ranges below are intentional design ranges, not an exact scale trace of an animal reference.",
+  "targets": {
+    "face_width_over_face_height": {
+      "value": 1.48,
+      "tolerance": 0.18
+    },
+    "shoulder_span_over_face_width": {
+      "value": 0.59,
+      "tolerance": 0.1
+    },
+    "torso_width_over_face_width": {
+      "value": 0.54,
+      "tolerance": 0.09
+    },
+    "leg_length_over_face_height": {
+      "value": 0.79,
+      "tolerance": 0.09
+    },
+    "torso_length_over_face_height": {
+      "value": 0.97,
+      "tolerance": 0.13
+    },
+    "foot_span_over_face_width": {
+      "value": 0.43,
+      "tolerance": 0.07
+    }
+  },
+  "morphs": {
+    "head_width": [
+      0.82,
+      1.08
+    ],
+    "arm_girth_multiplier": [
+      0.85,
+      1.43
+    ],
+    "leg_length_multiplier": [
+      0.74,
+      0.98
+    ]
+  },
+  "default_shape": "upper chest/neck narrow, lower torso moderately flared, fuller limbs; static pelvis y=.3661m; foot sole stays ground",
+  "shoulder_root_target": {
+    "body_build": 1.0,
+    "arm_girth": 0.5,
+    "abs_x_metres": 0.145,
+    "x_tolerance": 0.015,
+    "y_metres": 0.741,
+    "y_tolerance": 0.01,
+    "reference_pixels": {
+      "body_center_x": 235,
+      "left_shoulder_center": [
+        190,
+        200
+      ],
+      "left_hand_center": [
+        134,
+        297
+      ],
+      "sole_y": 421
+    },
+    "pixel_scale_estimate": 300,
+    "note": "Actual skinned ring centres extrapolated to the shoulder; no root-scale/camera compensation."
+  }
+}

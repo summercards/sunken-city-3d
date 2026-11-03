@@ -3,9 +3,9 @@
   "kit": "submerged_street",
   "version": "v001",
   "source": "art_source/scenes/submerged_street/v001/submerged_street.blend",
-  "source_sha256": "f14dc7b5c0e6f9039a5d2e8c229e639abb3b8433d5e19934eb9f167f21830afe",
+  "source_sha256": "3b728b6099248a7e2b710c3293d1add353955dd76a624d85ce1e37560572e563",
   "optimized_source": "art_source/scenes/submerged_street/v001/export/v001/submerged_street_optimized.blend",
-  "optimized_sha256": "8052ee4b9abf0f23a8722ff8ed05cbb80d53bff2d5c06f234e4d8e14a7aaed69",
+  "optimized_sha256": "5a3c915a98436ae0e80afe01db9bb2d4d2c3888c4cb0758e0c05a6646fdd14af",
   "palette": "art_source/shared/palettes/sea_cabin_muted_8x8_512.png",
   "palette_sha256": "269a182f8d62c2b88f4ef0a0ab9e4e6ff0dcb6b0be7a0f0b4bb68a440b6bb283",
   "protected_sources_unchanged": true,
@@ -18,21 +18,21 @@
   "cleanup": [
     {
       "key": "broken_viaduct",
-      "triangles_before": 1544,
-      "triangles_after": 1484,
-      "vertices_before": 912,
-      "vertices_after": 876,
-      "faces_before": 832,
-      "faces_after": 802
+      "triangles_before": 1744,
+      "triangles_after": 1684,
+      "vertices_before": 1024,
+      "vertices_after": 988,
+      "faces_before": 948,
+      "faces_after": 918
     },
     {
       "key": "l_apartment_fire_escape",
-      "triangles_before": 1676,
-      "triangles_after": 1676,
-      "vertices_before": 1292,
-      "vertices_after": 1292,
-      "faces_before": 864,
-      "faces_after": 864
+      "triangles_before": 1988,
+      "triangles_after": 1988,
+      "vertices_before": 1478,
+      "vertices_after": 1478,
+      "faces_before": 1015,
+      "faces_after": 1015
     },
     {
       "key": "food_truck",
@@ -99,42 +99,42 @@
     },
     {
       "key": "walkup_apartment",
-      "triangles_before": 1332,
-      "triangles_after": 1332,
-      "vertices_before": 936,
-      "vertices_after": 936,
-      "faces_before": 682,
-      "faces_after": 682
+      "triangles_before": 1642,
+      "triangles_after": 1642,
+      "vertices_before": 1118,
+      "vertices_after": 1118,
+      "faces_before": 832,
+      "faces_after": 832
     }
   ],
   "fidelity": [
     {
       "view": "front",
       "source_mean_rgb": [
-        0.374401,
-        0.491593,
-        0.51513
+        0.48496,
+        0.574922,
+        0.596475
       ],
       "optimized_mean_rgb": [
-        0.374404,
-        0.491595,
-        0.515132
+        0.484961,
+        0.574922,
+        0.596475
       ],
-      "max_channel_delta": 0.0008
+      "max_channel_delta": 0.0001
     },
     {
       "view": "top",
       "source_mean_rgb": [
-        0.374821,
-        0.487853,
-        0.516175
+        0.448326,
+        0.53021,
+        0.55213
       ],
       "optimized_mean_rgb": [
-        0.374826,
-        0.487857,
-        0.516177
+        0.44833,
+        0.530213,
+        0.552132
       ],
-      "max_channel_delta": 0.0013
+      "max_channel_delta": 0.001
     }
   ],
   "components": [
@@ -161,9 +161,9 @@
       "front_axis": "+Y",
       "allowed_rotation": "Euler XYZ",
       "placement_godot": [
-        -46.0,
+        -72.0,
         0.0,
-        4.0
+        -25.6
       ],
       "rotation_y_degrees": 0,
       "collision": "none",
@@ -178,32 +178,32 @@
         "stripe": "yellow"
       },
       "damage": "middle span collapsed, exposed rebar, broken parapet ends, spalled piers",
-      "polygons": 832,
-      "triangles": 1544,
-      "parts": 67,
+      "polygons": 948,
+      "triangles": 1744,
+      "parts": 73,
       "bounds_min": [
         -13.2,
-        -4.0327,
+        -4.0302,
         0.0
       ],
       "bounds_max": [
         13.2,
-        4.0327,
-        7.1619
+        4.0302,
+        7.1919
       ],
       "material_roles": [
         "SEA_Matte"
       ],
       "emission": false,
       "collection": "SEA-SCENE-SUBMERGED-STREET-VIADUCT",
-      "triangles_before": 1544,
-      "triangles_after": 1544,
+      "triangles_before": 1744,
+      "triangles_after": 1744,
       "package": "art_source/scenes/submerged_street/v001/component_packages/broken_viaduct/broken_viaduct.blend",
-      "package_sha256": "7851ad2446a3c1ccbc803d8b7c7bb4ade1b9fc0c5ccdb9609d4725e08637d002",
+      "package_sha256": "f5fd6cd4ee4125687120fe9adc4847004c938acb284f2de444e92111468a076d",
       "runtime_path": "godot/assets/models/scenery/submerged_street/broken_viaduct/broken_viaduct.glb",
-      "runtime_sha256": "ad4d7e8371e232249fbd6881cce9b5cbbe1ea52cbfff2ad987775425595c4ab7",
-      "exported_triangles": 1544,
-      "glb_bytes": 113220
+      "runtime_sha256": "70c9283662131227f94a5639caae3e86ff72a7391b697f807b927bb7b379059a",
+      "exported_triangles": 1744,
+      "glb_bytes": 128248
     },
     {
       "key": "l_apartment_fire_escape",
@@ -230,7 +230,7 @@
       "placement_godot": [
         -56.0,
         0.0,
-        -20.0
+        -13.0
       ],
       "rotation_y_degrees": 0,
       "collision": "none",
@@ -245,9 +245,9 @@
         "roof": "snow"
       },
       "damage": "plaster loss patches, missing window frames, one broken fire-escape tread, parapet bites",
-      "polygons": 864,
-      "triangles": 1676,
-      "parts": 177,
+      "polygons": 1015,
+      "triangles": 1988,
+      "parts": 191,
       "bounds_min": [
         -8.0744,
         -7.0225,
@@ -256,22 +256,23 @@
       "bounds_max": [
         8.0744,
         7.0225,
-        13.21
+        14.72
       ],
       "material_roles": [
         "SEA_Gloss",
-        "SEA_Matte"
+        "SEA_Matte",
+        "SEA_Metal"
       ],
       "emission": false,
       "collection": "SEA-SCENE-SUBMERGED-STREET-L-APARTMENT",
-      "triangles_before": 1676,
-      "triangles_after": 1676,
+      "triangles_before": 1988,
+      "triangles_after": 1988,
       "package": "art_source/scenes/submerged_street/v001/component_packages/l_apartment_fire_escape/l_apartment_fire_escape.blend",
-      "package_sha256": "ae38963a86eb954b97630d9c25bf7b2646d02308bf751674ea05d14ec70ec18e",
+      "package_sha256": "7a3d408c7eb37771b30cc5f6c7d223ed969ed36735fe8722a20bbb29d14d016d",
       "runtime_path": "godot/assets/models/scenery/submerged_street/l_apartment_fire_escape/l_apartment_fire_escape.glb",
-      "runtime_sha256": "6e8113a6e4311cf96107a780858055f7a706fa5c9a8e138f49a4750eed13e1ae",
-      "exported_triangles": 1676,
-      "glb_bytes": 121408
+      "runtime_sha256": "187cb0b8d33301445e9172ccb402a40a97c73fa020b3c8b17831c833e9969feb",
+      "exported_triangles": 1988,
+      "glb_bytes": 143964
     },
     {
       "key": "food_truck",
@@ -298,7 +299,7 @@
       "placement_godot": [
         -36.0,
         0.0,
-        -5.0
+        -26.0
       ],
       "rotation_y_degrees": 12,
       "collision": "none",
@@ -336,7 +337,7 @@
       "triangles_before": 960,
       "triangles_after": 960,
       "package": "art_source/scenes/submerged_street/v001/component_packages/food_truck/food_truck.blend",
-      "package_sha256": "24a923b09da5ad225411bd6f5c1fe2e2caf661bcf477c90478afa45cb1858e53",
+      "package_sha256": "bc6edc40771d549ebed9de7da9385eec15bfa98990a74eb808860d1b88ebd567",
       "runtime_path": "godot/assets/models/scenery/submerged_street/food_truck/food_truck.glb",
       "runtime_sha256": "306e4f5b625a551198b82c67df77886d524725c3986eff147466748be983c9b0",
       "exported_triangles": 960,
@@ -365,9 +366,9 @@
       "front_axis": "+Y",
       "allowed_rotation": "Euler XYZ",
       "placement_godot": [
-        -40.0,
+        -39.0,
         0.0,
-        -19.0
+        -15.0
       ],
       "rotation_y_degrees": 0,
       "collision": "none",
@@ -404,7 +405,7 @@
       "triangles_before": 1048,
       "triangles_after": 1048,
       "package": "art_source/scenes/submerged_street/v001/component_packages/mcdonalds_restaurant/mcdonalds_restaurant.blend",
-      "package_sha256": "a757451f527dbe78e07d07e440d13ad10a2f32a678b46154f41625e9b409577c",
+      "package_sha256": "025de2ba7d226b4039fa188ade74f989b46ed3d8acb72ea734e32be2566a8d8a",
       "runtime_path": "godot/assets/models/scenery/submerged_street/mcdonalds_restaurant/mcdonalds_restaurant.glb",
       "runtime_sha256": "42f672fdedfb7492f2b3e6a96ca15228fbc95c14330d4b4f182014df4d021c92",
       "exported_triangles": 1048,
@@ -433,9 +434,9 @@
       "front_axis": "+Y",
       "allowed_rotation": "Euler XYZ",
       "placement_godot": [
-        -62.0,
+        -58.0,
         0.0,
-        -38.0
+        -36.0
       ],
       "rotation_y_degrees": 0,
       "collision": "none",
@@ -473,7 +474,7 @@
       "triangles_before": 1214,
       "triangles_after": 1214,
       "package": "art_source/scenes/submerged_street/v001/component_packages/highrise_apartment/highrise_apartment.blend",
-      "package_sha256": "fdff5f94b0e4254f96062401823933272b4176ab3e3fe4de414820a7b1fd4edf",
+      "package_sha256": "334566554d30594bbde14a437b5f1f8cda9669559d647276ee04cd9689b3546c",
       "runtime_path": "godot/assets/models/scenery/submerged_street/highrise_apartment/highrise_apartment.glb",
       "runtime_sha256": "abf7783e5acd57b1d0657a01f4c10836cf85f6c4c4fece53142ad3dce4a5bf9d",
       "exported_triangles": 1214,
@@ -502,9 +503,9 @@
       "front_axis": "+Y",
       "allowed_rotation": "Euler XYZ",
       "placement_godot": [
-        -27.0,
+        -30.0,
         0.0,
-        -2.0
+        -21.2
       ],
       "rotation_y_degrees": 24,
       "collision": "none",
@@ -541,7 +542,7 @@
       "triangles_before": 634,
       "triangles_after": 634,
       "package": "art_source/scenes/submerged_street/v001/component_packages/traffic_light/traffic_light.blend",
-      "package_sha256": "37e609262bf32e26bead77031d368144bfbdf098dca8b4de5a9c49e062a6c275",
+      "package_sha256": "ac3978c6d58d3555ef49d14520829cf74339b0943323900b1c928c608710af92",
       "runtime_path": "godot/assets/models/scenery/submerged_street/traffic_light/traffic_light.glb",
       "runtime_sha256": "6ee0cce7004f363c0d646ba40d6de1ea6d5b42b69869b8b3023660ff64da34ec",
       "exported_triangles": 634,
@@ -570,9 +571,9 @@
       "front_axis": "+Y",
       "allowed_rotation": "Euler XYZ",
       "placement_godot": [
-        -24.0,
+        -26.0,
         0.0,
-        3.0
+        -26.0
       ],
       "rotation_y_degrees": 0,
       "collision": "none",
@@ -608,7 +609,7 @@
       "triangles_before": 810,
       "triangles_after": 810,
       "package": "art_source/scenes/submerged_street/v001/component_packages/utility_poles/utility_poles.blend",
-      "package_sha256": "bb7638e7d551e10247083bcb0267c315ba40ce4ca86c78bfdfffbe6174ab47b2",
+      "package_sha256": "b88e43037a5738f1f185d792777cd85c48faf83cb144e39f3a3a38f1fd9bc536",
       "runtime_path": "godot/assets/models/scenery/submerged_street/utility_poles/utility_poles.glb",
       "runtime_sha256": "310d45cbeb99bc41e145e0761af197779736941c83a91602d460a3f2775dd071",
       "exported_triangles": 810,
@@ -637,9 +638,9 @@
       "front_axis": "+Y",
       "allowed_rotation": "Euler XYZ",
       "placement_godot": [
-        -22.0,
+        -18.5,
         0.0,
-        -6.0
+        -26.0
       ],
       "rotation_y_degrees": 90,
       "collision": "none",
@@ -674,7 +675,7 @@
       "triangles_before": 596,
       "triangles_after": 596,
       "package": "art_source/scenes/submerged_street/v001/component_packages/highway_sign/highway_sign.blend",
-      "package_sha256": "8f40a71c95cfa84ff4bad2116e4df38440f054dabd6fdb09b0e963c72f5a1ecc",
+      "package_sha256": "e043712a60236632151be843f62e69147967a926a8ea9581ff49716059e24cba",
       "runtime_path": "godot/assets/models/scenery/submerged_street/highway_sign/highway_sign.glb",
       "runtime_sha256": "6e723e59c39b2c8a1c19600b1449ac1d1710362005e0b2f8dabc7b9b1ab09bca",
       "exported_triangles": 596,
@@ -703,9 +704,9 @@
       "front_axis": "+Y",
       "allowed_rotation": "Euler XYZ",
       "placement_godot": [
-        -28.0,
+        -34.0,
         0.0,
-        -32.0
+        -37.0
       ],
       "rotation_y_degrees": 0,
       "collision": "none",
@@ -741,7 +742,7 @@
       "triangles_before": 1882,
       "triangles_after": 1882,
       "package": "art_source/scenes/submerged_street/v001/component_packages/construction_shell/construction_shell.blend",
-      "package_sha256": "1dbca66d80119d7f3ceeee54dbbbd4ed7e7e64a4b53ac5f66fe085a748ea0d68",
+      "package_sha256": "ef57208a4883b5e40813b7ff6fca66ba63bf4014ebcd9e9090d24753b31cfe98",
       "runtime_path": "godot/assets/models/scenery/submerged_street/construction_shell/construction_shell.glb",
       "runtime_sha256": "8db278fe4306accafc4d0991da7f2cebc378d1c4dc460b2561904ff7751e60bc",
       "exported_triangles": 1882,
@@ -770,9 +771,9 @@
       "front_axis": "+Y",
       "allowed_rotation": "Euler XYZ",
       "placement_godot": [
-        -46.0,
+        -47.0,
         0.0,
-        -37.0
+        -35.5
       ],
       "rotation_y_degrees": 0,
       "collision": "none",
@@ -787,9 +788,9 @@
         "rail": "steel"
       },
       "damage": "balcony soffits chipped, AC units hanging, one window blackened, drying rod bare",
-      "polygons": 682,
-      "triangles": 1332,
-      "parts": 110,
+      "polygons": 832,
+      "triangles": 1642,
+      "parts": 123,
       "bounds_min": [
         -4.5,
         -4.485,
@@ -798,7 +799,7 @@
       "bounds_max": [
         4.5,
         4.485,
-        10.94
+        12.5
       ],
       "material_roles": [
         "SEA_Gloss",
@@ -807,14 +808,14 @@
       ],
       "emission": false,
       "collection": "SEA-SCENE-SUBMERGED-STREET-WALKUP",
-      "triangles_before": 1332,
-      "triangles_after": 1332,
+      "triangles_before": 1642,
+      "triangles_after": 1642,
       "package": "art_source/scenes/submerged_street/v001/component_packages/walkup_apartment/walkup_apartment.blend",
-      "package_sha256": "6edd6154d9df0e3e2f19089758fcfd4cfdca56226ea6022df1d6a566634f897d",
+      "package_sha256": "11c8e5a0e1e49df7310c2ea57d4010233a1d8c1f6da93b5d14892d334541aad8",
       "runtime_path": "godot/assets/models/scenery/submerged_street/walkup_apartment/walkup_apartment.glb",
-      "runtime_sha256": "2d0f0b47d6c8b1d488036299cb0aa319efd99c340570256c8bdb1eb455e51961",
-      "exported_triangles": 1332,
-      "glb_bytes": 97656
+      "runtime_sha256": "d70ead5af6f16a7c32828078eff0b94da857ce69a9c29db9967fa9cf7eafc494",
+      "exported_triangles": 1642,
+      "glb_bytes": 119036
     }
   ],
   "note": "Optimization only welds and cleans; it does not decimate. Triangle counts are reported before and after, and equal counts are expected, not a failure."

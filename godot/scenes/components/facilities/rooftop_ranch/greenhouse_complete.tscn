@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/components/greenhouse_complete/greenhouse_complete.glb" id="model"]
+[ext_resource type="Script" path="res://src/ambient/scene_component.gd" id="contract"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/gloss.tres" id="sea_gloss"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/matte.tres" id="sea_matte"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/metal.tres" id="sea_metal"]
+
+[node name="greenhouse_complete" instance=ExtResource("model")]
+script = ExtResource("contract")
+asset_id = "SEA-SCENE-ORF2-GREENHOUSE_COMPLETE"
+instance_id = "rooftop_ranch/greenhouse_complete"
+facility_id = "rooftop_ranch"
+component_kind = "decoration"
+subcategory = "greenhouse_upgrade"
+water_layer = "amphibious"
+water_layer_role = "part"
+movable = false
+metadata/asset_id = "SEA-SCENE-ORF2-GREENHOUSE_COMPLETE"
+metadata/building_class = "above_water"
+metadata/source_version = "v004"
+metadata/component_key = "greenhouse_complete"
+metadata/blocker_mode = "none"
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "none"
+blocks_water = true
+cell = 0.4
+
+[node name="ORF4_温室_升级后_完整设施_0_001" parent="."]
+surface_material_override/0 = ExtResource("sea_matte")
+
+[node name="ORF4_温室_升级后_完整设施_1_001" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")
+
+[node name="ORF4_温室_升级后_完整设施_2_001" parent="."]
+surface_material_override/0 = ExtResource("sea_gloss")
+
+[node name="ORF4_温室_升级后_完整设施_3_001" parent="."]
+surface_material_override/0 = ExtResource("sea_gloss")
+
+[node name="ORF4_温室_升级后_完整设施_4_001" parent="."]
+surface_material_override/0 = ExtResource("sea_gloss")
+
+[node name="ORF4_温室_升级后_完整设施_5_001" parent="."]
+surface_material_override/0 = ExtResource("sea_gloss")
+
+[node name="ORF4_温室_升级后_完整设施_6_001" parent="."]
+surface_material_override/0 = ExtResource("sea_matte")
+
+[node name="ORF4_温室_升级后_完整设施_7_001" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")
+
+[node name="ORF4_温室_升级后_完整设施_8_001" parent="."]
+surface_material_override/0 = ExtResource("sea_gloss")
+
+[node name="ORF4_温室_升级后_完整设施_9_001" parent="."]
+surface_material_override/0 = ExtResource("sea_gloss")
+
+[node name="ORF4_温室_升级后_完整设施_10_001" parent="."]
+surface_material_override/0 = ExtResource("sea_gloss")
+
+[node name="ORF4_温室_升级后_完整设施_11_001" parent="."]
+surface_material_override/0 = ExtResource("sea_gloss")

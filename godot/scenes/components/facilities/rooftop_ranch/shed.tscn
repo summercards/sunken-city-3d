@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/components/shed/shed.glb" id="model"]
+[ext_resource type="Script" path="res://src/ambient/scene_component.gd" id="contract"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/matte.tres" id="sea_matte"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/metal.tres" id="sea_metal"]
+
+[node name="shed" instance=ExtResource("model")]
+script = ExtResource("contract")
+asset_id = "SEA-SCENE-ORF2-SHED"
+instance_id = "rooftop_ranch/shed"
+facility_id = "rooftop_ranch"
+component_kind = "decoration"
+subcategory = "shed"
+water_layer = "amphibious"
+water_layer_role = "part"
+movable = false
+metadata/asset_id = "SEA-SCENE-ORF2-SHED"
+metadata/building_class = "above_water"
+metadata/source_version = "v004"
+metadata/component_key = "shed"
+metadata/blocker_mode = "none"
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "none"
+blocks_water = true
+cell = 0.4
+
+[node name="ORF2_红铁皮顶工具棚_0_001" parent="."]
+surface_material_override/0 = ExtResource("sea_matte")
+
+[node name="ORF2_红铁皮顶工具棚_1_001" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")

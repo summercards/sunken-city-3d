@@ -143,17 +143,18 @@
       "domain": "ui",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_editor.gd",
-      "source_sha256": "9854bf84a09d041c75df9bbd93131c8c3f2ed9f51b786a553790d92c29bf3688",
+      "source_sha256": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a",
       "manifest": "assets/registry/manifests/sea-ui-avatar-001.json",
-      "version": "v001",
+      "version": "v004",
       "runtime_path": "godot/src/avatar/avatar_editor.gd",
       "license": "project_authored_original_procedural_geometry_and_UI",
       "consumer_features": [
         "SEA-AVATAR",
         "SEA-ONBOARDING"
       ],
-      "verification": "docs/development/2026-11-02_avatar_and_arrival.md",
-      "note": "原创程序源；用户提供游戏截图仅作比例参考，不进入运行或导出包，参考图商业授权未主张。按六项网格投影比例逐项5%阈值自验。字体与场景资产沿用各自登记。"
+      "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
+      "note": "r6 按用户最新红线：饱满A形躯干/低胯短腿、独立头横宽和臂粗、16嘴型贴图、下移帽子；原档案兼容，当前专项和真实渲染见交付。",
+      "previous_source_sha256": "cfcf544c3ad511bb0c4b7ae1c8b30094e9fe24c24cfba63d433f44817b1c6901"
     }
   ]
 }

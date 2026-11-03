@@ -1,0 +1,61 @@
+{
+  "schema": "sea.scene.assembly_manifest",
+  "asset_id": "SEA-SCENE-ORF2-ASSEMBLY",
+  "name": "六十米海上屋顶农场 v002",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF2-ASSEMBLY",
+  "source": "art_source/scenes/ocean_rooftop_farm/v002/ocean_rooftop_farm_v002.blend",
+  "source_sha256": "cee7465802dcb9767affd0c2cc20b7ce6329fae31990455628c0c96392955c7d",
+  "version": "v002",
+  "category": "scene_assembly",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "runtime_status": "pending",
+  "source_verification": "passed_independent_reopen_130_checks_and_skill_validator",
+  "license": "pending_user_reference_rights_review",
+  "component_catalog": "component_catalog.json",
+  "component_plan": "component_plan.json",
+  "component_instances": "component_instances.json",
+  "reference": "reference.jpg",
+  "reference_sha256": "fa3bac9a21373741c51fcb55364fef96ea138f9f5fca5c8f1dbc6e6f3cfe38b3",
+  "component_count": 39,
+  "instance_count": 913,
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_asset_id": "SEA-PALETTE-CABIN-TIMBER-64",
+  "metrics": {
+    "components": 39,
+    "instances": 913,
+    "floors": 12,
+    "floor_height_m": 5.0,
+    "building_xy_m": [
+      48,
+      32
+    ],
+    "roof_top_z_m": 60.0
+  },
+  "excluded": [
+    "animals",
+    "people",
+    "sea",
+    "sky",
+    "distant_buildings",
+    "background_geometry"
+  ],
+  "verification_pending": [
+    "Godot",
+    "collision",
+    "commercial_authorization",
+    "final_art_review"
+  ],
+  "visual_review": {
+    "status": "four_views_reviewed_final_user_art_acceptance_pending",
+    "views": [
+      "01_reference_roof.png",
+      "02_full_building.png",
+      "03_top_plan.png",
+      "04_greenhouse_detail.png"
+    ],
+    "expanded_triangles": 681399
+  },
+  "note": "新建 v002；不覆盖 ocean_rooftop_farm/v001，不含动物、人物、海面或背景；包含草地、作物、太阳能组件。"
+}

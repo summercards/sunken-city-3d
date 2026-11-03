@@ -55,7 +55,8 @@ func run() -> void:
 	main._board_player()
 	state.set_mode(state.Mode.ON_BOAT)
 	main._pending_pick = {"type":"crate"}
-	main._on_destination("zone3")
+	# 2026-11-03：zone3 已按范围要求从 main.tscn 移除，改用仍安装的浅水养殖台验证同一条逻辑。
+	main._on_destination("zone5")
 	check(main.boat.starts_sailing() and main._pending_pick.is_empty(),"新航线取消旧拾取")
 	main._on_destination("zone2")
 	check(main.boat._to_zone=="zone2","航行途中改道")
@@ -63,7 +64,12 @@ func run() -> void:
 	check(not main.boat.starts_sailing(),"取消停止航行")
 	economy.give({"wood":100,"parts":100,"coins":1000,"rope":100,"glass":100})
 	main._on_focus_site("home_cabin")
-	check(main._auto_target==main.build_field.find("home_cabin"),"建造菜单前往并自动交付")
+	# 默认最小范围按 SEA-WORLD-R08 关闭建造交互，这时命令应当明确不生效；
+	# 显式 --full-world 才走「前往并自动交付」。两条都要断言，不能只认一条。
+	if preload("res://src/core/play_scope.gd").minimal():
+		check(main._auto_target == null, "最小范围内建造前往被关闭")
+	else:
+		check(main._auto_target==main.build_field.find("home_cabin"),"建造菜单前往并自动交付")
 	main._cancel_action()
 	main.dive.dive(main.boat.position,"test")
 	main.dive.phase = "swim"

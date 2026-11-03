@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/world/submerged_street_building.gd" id="contract"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+[ext_resource type="PackedScene" path="res://assets/models/scenery/submerged_street/highrise_apartment/highrise_apartment.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/submerged_street/matte.tres" id="matte"]
+[ext_resource type="Material" path="res://assets/materials/submerged_street/metal.tres" id="metal"]
+[ext_resource type="Material" path="res://assets/materials/submerged_street/gloss.tres" id="gloss"]
+
+[node name="水下景观·高层公寓楼" type="Node3D"]
+script = ExtResource("contract")
+asset_id = "SEA-SCENE-SUBMERGED-STREET-HIGHRISE"
+component_kind = "decoration"
+subcategory = "underwater_buildings"
+movable = false
+metadata/asset_id = "SEA-SCENE-SUBMERGED-STREET-HIGHRISE"
+metadata/triangle_budget = 2000
+metadata/source_suite = "submerged_street"
+water_layer = "submerged"
+water_layer_role = "entity"
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="highrise_apartment" parent="Visual" index="0"]
+surface_material_override/0 = ExtResource("matte")
+surface_material_override/1 = ExtResource("gloss")
+surface_material_override/2 = ExtResource("metal")
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "none"
+blocks_water = false

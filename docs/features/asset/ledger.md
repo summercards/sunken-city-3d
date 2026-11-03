@@ -43,6 +43,12 @@
 |---|---|---|
 | SEA-ASSET-R28 | 12组件/44实例、12独立包、公共PaletteUV及四视图通过；已接入正式Boat，参考商业权属pending | 源级46589检查、11697面/22888三角面，优化导出22695三角面；新船专项、实景、灯光及装饰回归见[交付记录](../../development/2026-10-28_reference_skiff.md)。全世界surface/selftest有1+4项既有失败，新旧Boat单文件对照一致，不记为全通过。 |
 
+## 2026-11-03 顶层牧场接入（SEA-ASSET-R41 · v004 运行侧）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-ASSET-R41 · v004 运行接入 | v004 已按 02b 完成「优化另存 → 独立重开 → 逐组件导出」，45 个组件各自一份稳定 GLB（`godot/assets/models/facilities/rooftop_ranch/components/<key>/<key>.glb`），持久优化件在 `art_source/scenes/ocean_rooftop_farm/v004/export/v004/*_optimized.blend`，源 Blend／组件包／公共色板哈希前后不变。Godot 侧建 45 个稳定组件 PackedScene 与总成 `godot/scenes/facilities/rooftop_ranch.tscn`，以「顶层牧场」接入 `main.tscn`。**本轮修掉一个真实缺陷**：组件 GLB 自带 StandardMaterial3D，若不在 `.tscn` 里序列化 `surface_material_override`，游戏内整栋楼是纯白无材质（首次实拍已复现）。现按 GLB 语义名（`SEA_Matte`／`SEA_Metal`／`SEA_Gloss`／`SEA_Emission`）逐 surface 写入公共色板材质覆盖，实拍确认混凝土灰、深色哑光消防梯、蓝色窗、绿草皮均正确。三角面优化 10498 → 10492（仅 `stair_landing_open` 去掉 1 个零面积面，其余零变化）。 | 导出清单 `art_source/scenes/ocean_rooftop_farm/v004/export/v004/export_manifest.json`；导入材质绑定 `godot/tools/rooftop_ranch_palette_import.gd`；实拍 `godot/outputs/rooftop_ranch_{sea,boarding,roof}.png`。**pending**：资产登记表（`register_v004.py` 尚未执行，账本行仍按上一节 pending 口径）、商业授权、用户最终美术验收。 |
+
 ## 设计承接与实施条目
 
 | 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
@@ -72,7 +78,7 @@
 | SEA-ASSET-R23 | 已建立分类路由；未核验资产保持 pending | ledger_index.json 与7个独立类型分账本；[框架交付记录](../../development/2026-10-27_modular_framework.md) |
 | SEA-ASSET-R24 | 运行组件拆分及账本完成；旧建筑合并网格内未辨识的陈设仍标待语义拆分 | 独立建筑包装13个、原植物组件42种、太阳房活动家具25实例、荷叶24实例、飞鸟/鱼群/鲸组件；见本轮记录 |
 | SEA-ASSET-R25 | 基座放大与落水贴合已接入；专项通过，跨功能失败项经基线对照归为既有 | 海下白色基座顶板 11.20×12.42 → 16.24×17.77（X1.450/Z1.431），顶面四边各超出上层建筑0.40；平台下移0.30、板底水面+0.04、基座顶面与板底齐平；704实景检查与装饰/组件/最小循环检查通过，[记录](../../development/2026-10-27_solar_cabin_base_scale_and_waterline.md) |
-| SEA-ASSET-R41 | 八层独立Blender源、44组件/302实例、44独立包、五视图和两级源验证通过；45条资产已登记；Godot/碰撞/导航/授权/最终美术验收pending | 47320项检查，6130个母版面PaletteUV核验，115208多边形/233672三角面；无农作物、太阳能板、人物、动物或海洋背景；旧地砖和建筑破损细节完成。[制作与验收记录](../../development/2026-11-02_ocean_rooftop_farm.md) |
+| SEA-ASSET-R41 | 当前目标为 v003，48组件/895实例/48独立包；稳定 `SEA-SCENE-ORF2-*` ID 沿用，主源为 `art_source/scenes/ocean_rooftop_farm/v003/ocean_rooftop_farm_v003.blend`；v002 源与哈希基线不改；源验证文档状态先保持 pending，Godot/碰撞/导航/授权/最终美术验收仍 pending | 已通过 MCP 完成并保存：厚外挑无草水泥边台49.6×33.6×0.65米、深凹窗/宽主柱/三种破损窗、坡顶高差、不均苔藓；粗杆0.18–0.2米，金属 metallic 0.15/roughness 0.82；消防梯仅45–60米上三层6段及下挂残梯，屋顶入口删除共面桥面并以59.97米承接板边对边连接。登记门禁要求 `source_verification.json` 与 `skill_verification.json` 均 passed 且主源哈希匹配；脚本为 `tools/blender/ocean_rooftop_farm/register_v003.py`。 |
 
 ## 资源与调用入口
 
@@ -402,7 +408,8 @@ SEA-ASSET-R15/R16/R17/R24/R33–R40：海上用途计入surface与amphibious，�
 
 | 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
 |---|---|---|
-| SEA-ASSET-R41 | 已登记设计计划；制作、源级验收与运行接入证据待该条款交付回填。本行仅补齐计划承接，不将角色创建验证用于农场资产验收 | [本功能设计](spec.md)；海上屋顶农场专属交付与商业授权、用户美术验收pending |
+| SEA-ASSET-R41 | v003 已完成制作、独立重开与登记；48组件/895实例，稳定 `SEA-SCENE-ORF2-*` ID 沿用，v002 源与哈希基线保持不变。源级166项零失败、48组件包技能验证全部passed，主源哈希匹配后已更新49条主记录并保留previous_sources。Godot/碰撞/导航/商业授权/用户最终美术验收仍 pending | 主源 `art_source/scenes/ocean_rooftop_farm/v003/ocean_rooftop_farm_v003.blend`；验证目录 `D:/projects/sea-work/ocean_rooftop_farm/v003/`；登记脚本 `tools/blender/ocean_rooftop_farm/register_v003.py`。已通过 MCP 完成并保存厚外挑无草水泥边台、深凹窗/宽主柱/三种破损窗、坡顶高差、不均苔藓、粗杆及低金属材质修订；消防梯仅保留45–60米上三层6段和下挂残梯，屋顶入口采用59.97米承接板边对边连接。 |
+| SEA-ASSET-R41 · v004 | pending：已准备45组件 catalog 与两组四状态升级元数据，但尚未登记。移除 `bed`/`field`/`cabbage`/`seedling`/`tomato`/`greenhouse`/`tank` 七类；历史作物、菜床、农田记录不删除、不刷新哈希；旧 greenhouse/tank 保留 v003 源路径并待标记 `superseded_by`。主源为 `art_source/scenes/ocean_rooftop_farm/v004/ocean_rooftop_farm_v004.blend`；四个状态各自独立包，socket 共底心 Z=60.05，默认 `unbuilt`，`game_logic_pending`；基础建筑不含四态，预期独立 `SEA-SCENE-ORF2-BASE-BUILDING` 且不计catalog，主总成仍 `SEA-SCENE-ORF2-ASSEMBLY`。已清除范围为屋顶菜畦/作物/主屋顶6太阳能，保留上层露台2太阳能。登记套件预计45包＋主总成＋base building=47条；执行脚本默认只预检，不执行登记。 | 执行门禁：`D:/projects/sea-work/ocean_rooftop_farm/v004/source_verification.json` 与 `skill_verification.json` 必须均 `passed`，主源及每包哈希必须匹配；严格校验当前账本与来源索引待替换49条旧源哈希，漂移即报错不掩盖。`ledger_index` 与 `current_source_index` 分开维护，保留非本任务索引行和 `previous_sources`。当前 v004 登记、Godot/碰撞/导航/升级逻辑/商业授权/用户最终美术验收均 pending。 |
 
 ## 2026-11-02 共用风格与水层差异路由（R06/R07/R40）
 
@@ -413,3 +420,4 @@ SEA-ASSET-R15/R16/R17/R24/R33–R40：海上用途计入surface与amphibious，�
 | 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
 |---|---|---|
 | SEA-ASSET-R42 | 源级完成：`submerged_street/v001` 十栋独立纯景观建筑，10 组件计划冻结后才建几何；11 行账本（10 栋 + 1 条 reference_only 装配）登记为 `building_class=underwater`、`stage=source_verified_runtime_integration_pending`。风格基准取自海下基座逐面实测（米白 82.3%／深蓝玻璃 7.2%／无近黑）；整包实测象牙 76.4%、近黑 3.6%、合计 11696 三角面，逐栋 ≤ 预算。Blender 内自检 0 失败（逐面 UV 面积与单格安全区、单层 PaletteUV、三角色材质无自发光、底心原点与恒等变换、无近黑大面、无共面 z-fighting）。10 独立包重开复核并导出无内嵌贴图 GLB。 | [交付、缺陷清单与门禁](../../development/2026-11-02_submerged_street.md)；`sea-work/submerged_street_v001/selfcheck_report.json`。**pending**：Godot PackedScene 与 main.tscn 摆位、碰撞/岸线审查、水下真实渲染、双拱商标与参考授权、用户美术验收 |
+| SEA-ASSET-R43 | 接入与返工完成：十栋已在 `main.tscn` 的 `World/UnderwaterStreet`，专项 `test_submerged_street.gd` 476 项断言 0 失败（headless 与真实渲染各一次），已登记进 `run_verification.py`。高度改为屋顶对齐水面；按接入后真实观感返工 9 处（屋面光板补屋顶设备、底层窗与门共面渲染成黑块、桥底梁跨断口悬空、塌落桥面无支撑、瓦砾浮在水中、路牌取景斜视、街面人视装不下、渲染无海床、材质覆盖层级错位）。新增渲染像素级黑块断言后又抓出普通公寓门一处，修完最差一张纯黑占比 0.077%。三角面 12518，象牙 77.5%／近黑 3.4%。 | [交付与返工记录](../../development/2026-11-03_submerged_street_integration.md)；`sea-work/submerged_street_v001/selfcheck_report.json`、`godot/outputs/submerged-street-*.png`。**pending**：街区互穿阻挡是否加视觉碰撞、最终水下后期（雾／焦散）观感、双拱商标与参考授权、用户美术验收 |

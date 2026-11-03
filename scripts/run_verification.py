@@ -120,6 +120,10 @@ TESTS.update({
     # 不再依赖 test_submerged_neighborhood 里那份写死的六栋名字列表。
     'water-layer': ('tests/test_water_layer.gd', r'\[water-layer\] \d+ checks, 0 failures'),
     'submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
+    # 沉没街景十栋（SEA-ASSET-R42）：材质必须序列化在预制体里、逐 surface 角色对得上、
+    # 全部低于水面、不与家园/横滨站/现有六栋穿模、不影响航线与岸线。
+    'submerged-street': ('tests/test_submerged_street.gd', r'\[submerged-street\] \d+ checks, 0 failures'),
+    'visual-submerged-street': ('tests/test_submerged_street.gd', r'\[submerged-street\] \d+ checks, 0 failures'),
     'visual-submerged-neighborhood': ('tests/test_submerged_neighborhood.gd', r'\[submerged-neighborhood\] \d+ checks, 0 failures'),
     'reference-skiff': ('tests/test_reference_skiff.gd', r'\[reference-skiff\] \d+ checks, 0 failures'),
     'visual-reference-skiff': ('tests/test_reference_skiff.gd', r'\[reference-skiff\] \d+ checks, 0 failures'),
@@ -129,6 +133,8 @@ TESTS.update({
     'sunroom-body-probe': ('tools/probe_sunroom_body.gd', r'\[sunroom-probe\] '),
     # 海上补给站：浮店作为最小区块，涵盖登记/甲板/泊位/上岸/柜台/存档校验。
     'sea-supply': ('tests/test_sea_supply.gd', r'\[sea-supply\] \d+ checks, 0 failures'),
+    # 顶层牧场：水面压在保留段最下面那层消防梯平台下 0.26 米，六段折返梯真实连通楼顶。
+    'rooftop-ranch': ('tests/test_rooftop_ranch.gd', r'\[rooftop-ranch\] \d+ checks, 0 failures'),
     'floating-shop': ('tests/test_floating_shop.gd', r'\[floating-shop\] \d+ checks, 0 failures'),
     'building-scale-reference': ('tools/probe_building_scale.gd', r'\[building-scale-reference\] \d+ rows, 0 failures'),
     'visual-floating-shop': ('tools/capture_floating_shop.gd', r'\[floating-shop-render\] \d+ checks, 0 failures'),
@@ -227,6 +233,11 @@ TESTS.update({
     'test-tools': ('tests/test_test_tools.gd', r'\[test-tools\] \d+ checks, 0 failures'),
     # SEA-SAVE-R14：重置存档。三件事必须同时成立 —— 内存回开局、磁盘也是开局、
     # 旧进度仍可读回。只看前两条的话，把旧档删掉也能全绿。
+    'avatar-customization': ('tests/test_avatar_customization.gd', r'\[avatar-customization\] \d+ checks, 0 failures'),
+    'avatar-graphic': ('tests/test_avatar_graphic.gd', r'\[avatar-graphic\] \d+ checks, 0 failures'),
+    'visual-avatar-graphic': ('tests/test_avatar_graphic.gd', r'\[avatar-graphic\] \d+ checks, 0 failures'),
+    'visual-avatar-shoulders': ('tools/capture_avatar_shoulders.gd', r'\[avatar-shoulders\] \d+ checks, 0 failures'),
+    'visual-avatar-customization': ('tools/capture_avatar_customization.gd', r'\[avatar-customization-render\] \d+ checks, 0 failures'),
     'avatar-skinning': ('tests/test_avatar_skinning.gd', r'\[avatar-skinning\] \d+ checks, 0 failures'),
     'visual-avatar-skinning': ('tests/test_avatar_skinning.gd', r'\[avatar-skinning\] \d+ checks, 0 failures'),
     'avatar-proportions': ('tests/test_avatar_proportions.gd', r'\[avatar-proportions\] \d+ checks, 0 failures'),
@@ -359,9 +370,9 @@ def main():
     run_dir.mkdir(parents=True)
     project, user_name = isolated_project(run_dir)
     if any(n in checks for n in ['avatar-proportions','visual-avatar-proportions']):
-        reference = ROOT / 'art_source/characters/avatar/v001'
-        shutil.copy2(reference / 'reference_proportions.png', project / 'outputs/avatar-reference.png')
-        shutil.copy2(reference / 'reference_contract.json', project / 'outputs/avatar-reference-contract.json')
+        reference = ROOT / 'art_source/characters/avatar/v006'
+        shutil.copy2(reference / 'shoulder_reference.png', project / 'outputs/avatar-reference.png')
+        shutil.copy2(reference / 'shoulder_contract.json', project / 'outputs/avatar-reference-contract.json')
     full_config = (project / 'project.godot').read_text()
     report = {'label': label, 'run_dir': str(run_dir), 'user_data_name': user_name,
               'head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),

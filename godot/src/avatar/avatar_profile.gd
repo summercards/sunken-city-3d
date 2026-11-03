@@ -2,10 +2,23 @@ extends RefCounted
 ## The sole writer of committed identity; editors own separate disposable drafts.
 signal changed
 const Catalog = preload("res://src/avatar/avatar_catalog.gd")
+# These original v1 keys remain required. Later slots have explicit defaults so
+# an intact old record stays valid, while a truncated original record is rejected.
+const ORIGINAL_SLOTS := ["skin","hair_style","hair_color","eyes","eye_color","brows","nose","mouth","blush","top","top_color","bottom","bottom_color","shoes","shoe_color","hat","hat_color","glasses"]
+const ORIGINAL_MORPHS := ["body_build","head_size","eye_spacing","hair_length","hair_volume","hair_sweep"]
 var _profile: Dictionary = fresh()
 
 static func fresh(completed := false) -> Dictionary:
-	return {"version":1,"name":"旅人","completed":completed,"appearance":Catalog.defaults(),"design_refs":{},"extensions":{}}
+	return {"version":1,"name":"旅人","completed":completed,"appearance":Catalog.defaults(),"morphs":Catalog.morph_defaults(),"design_refs":{},"extensions":{}}
+
+static func normalize(value: Dictionary) -> Dictionary:
+	var result := value.duplicate(true)
+	for id in Catalog.defaults():
+		if not result.appearance.has(id): result.appearance[id] = Catalog.defaults()[id]
+	if not result.has("morphs"): result.morphs = Catalog.morph_defaults()
+	for id in Catalog.morph_defaults():
+		if not result.morphs.has(id): result.morphs[id] = Catalog.morph_defaults()[id]
+	return result
 
 static func name_error(value: String) -> String:
 	var cleaned := value.strip_edges()
@@ -26,20 +39,28 @@ static func validate_snapshot(value: Variant) -> String:
 	if error != "": return error
 	if value.name != value.name.strip_edges(): return "角色名字首尾不能有空格"
 	if not value.appearance is Dictionary or not value.design_refs is Dictionary or not value.extensions is Dictionary: return "外观或 DIY 数据格式错误"
-	for id in Catalog.defaults():
+	for id in ORIGINAL_SLOTS:
 		if not value.appearance.has(id): return "外观缺少 " + id
 	for id in value.appearance:
 		if not (id is String or id is StringName) or not value.appearance[id] is String or value.appearance[id].length() > 80: return "外观 ID 格式错误"
 	for id in value.design_refs:
 		if not id in Catalog.defaults() or not value.design_refs[id] is String or value.design_refs[id].length() > 128: return "DIY 引用格式错误"
 		if not value.design_refs[id].begins_with("design:") or value.design_refs[id].contains("..") or value.design_refs[id].contains("\\"): return "DIY 必须引用设计 ID"
+	if value.has("morphs"):
+		if not value.morphs is Dictionary: return "形体参数必须为对象"
+		for id in ORIGINAL_MORPHS:
+			if not value.morphs.has(id): return "形体参数缺少 " + id
+		for id in value.morphs:
+			var amount: Variant = value.morphs[id]
+			if not id is String or not (amount is float or amount is int) or not is_finite(float(amount)) or amount < 0 or amount > 1:
+				return "形体参数必须为 0–1 的有限数值"
 	if JSON.stringify(value).to_utf8_buffer().size() > 16384: return "角色档案超过 16 KiB"
 	return ""
 
 func query() -> Dictionary: return _profile.duplicate(true)
 func to_dict() -> Dictionary: return query()
 func from_dict(value: Dictionary) -> void:
-	_profile = value.duplicate(true)
+	_profile = normalize(value)
 	changed.emit()
 
 func commit(draft: Dictionary) -> Dictionary:

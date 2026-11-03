@@ -1,0 +1,38 @@
+{
+  "key": "stair_landing",
+  "name": "消防梯折返休息平台",
+  "category": "structure",
+  "component_family": "fire_landing",
+  "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "ORF3_组件_stair_landing",
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing/stair_landing.blend",
+  "bounds_size_m": [
+    4.20145320892334,
+    1.8000000715255737,
+    1.399999976158142
+  ],
+  "instance_count": 6,
+  "source_version": "v003",
+  "geometry_fingerprint": "7353fcc70c2e50fc43aae73e39a2c9247a58986ccb5e622e9aaf8d7c516121d8",
+  "source_sha256": "687a359b1f7b23716eb47fc0eb1230119d06146b6b54c9b968171c9afe2abda6",
+  "schema": "sea.scene.component_manifest",
+  "version": "v003",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF2-STAIR_LANDING",
+  "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing/stair_landing.blend",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source_verification": "passed_source_and_skill_verification"
+}

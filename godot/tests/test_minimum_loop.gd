@@ -27,8 +27,10 @@ func run() -> void:
 		main.hud._activate(id)
 	check(not main.hud.is_panel_open(),"locked apps cannot open")
 	check(not main.hud._panel.tiles.grade.disabled,"P debug tool stays available in minimal scope")
-	for id in ["zone2","zone3","zone4"]:
-		check(not main._zone_nodes[id].visible and not root.get_node("Zones").is_unlocked(id),"hidden and blocked "+id)
+	# 2026-11-03 范围修订：横滨铁道放进默认范围；圆弧农场与远海街町从 main.tscn 移除。
+	check(main._zone_nodes.has("zone2") and main._zone_nodes.zone2.visible,"横滨铁道在默认范围显示")
+	for id in ["zone3","zone4"]:
+		check(not main._zone_nodes.has(id),"按最新范围移除 "+id)
 	check(main._is_open_water(500,500),"unobstructed ocean is open beyond the former home boundary")
 	check(main.props.schools.size()>0 and main.props.crates.size()>6 and main.props.crates.size()<=54,"fishing and driftwood cover the active open sea cells")
 	for school in main.props.schools:

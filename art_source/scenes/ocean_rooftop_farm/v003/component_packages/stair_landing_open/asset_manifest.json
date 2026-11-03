@@ -1,0 +1,41 @@
+{
+  "key": "stair_landing_open",
+  "name": "消防梯开放入口平台",
+  "category": "structure",
+  "component_family": "fire_landing",
+  "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING_OPEN",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "ORF3_组件_stair_landing_open",
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing_open/stair_landing_open.blend",
+  "bounds_size_m": [
+    3.300363302230835,
+    1.8000000715255737,
+    1.399999976158142
+  ],
+  "instance_count": 1,
+  "source_version": "v003",
+  "variant_axis": "edge_opening",
+  "variant_value": "roof_entry",
+  "variant_reason": "roof bridge must pass through building-side edge",
+  "geometry_fingerprint": "b384b3777df94f3c1809b44033b01fafb80755e38dd7773100caf6ba00a2bc6e",
+  "source_sha256": "cb56169d2bf2ba6ff2efce8fa0aa512b2651c223b18d179944c8ed669f0ae1c7",
+  "schema": "sea.scene.component_manifest",
+  "version": "v003",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF2-STAIR_LANDING_OPEN",
+  "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing_open/stair_landing_open.blend",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source_verification": "passed_source_and_skill_verification"
+}

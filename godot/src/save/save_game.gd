@@ -106,6 +106,7 @@ static func decode(text: String) -> Dictionary:
 	if not doc.has("profile"): doc.profile=preload("res://src/avatar/avatar_profile.gd").fresh(true)
 	var error := Schema.validate(doc)
 	if error!="": return {"ok":false,"reason":error}
+	doc.profile=preload("res://src/avatar/avatar_profile.gd").normalize(doc.profile)
 	return {"ok":true,"reason":"","snapshot":doc,"version":VERSION,"migrated":version<VERSION}
 
 static func restore(host: Node, snapshot: Dictionary) -> Dictionary:
@@ -113,6 +114,7 @@ static func restore(host: Node, snapshot: Dictionary) -> Dictionary:
 	if not snapshot.has("profile"): snapshot.profile=preload("res://src/avatar/avatar_profile.gd").fresh(true)
 	var error := Schema.validate(snapshot)
 	if error!="": return {"ok":false,"reason":error}
+	snapshot.profile=preload("res://src/avatar/avatar_profile.gd").normalize(snapshot.profile)
 	return host.save_registry.restore(snapshot)
 
 

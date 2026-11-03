@@ -1,0 +1,23 @@
+{
+  "asset_id": "SEA-CHAR-SHAPE-001",
+  "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-SHAPE-001",
+  "version": "v004",
+  "source": "godot/src/avatar/avatar_morphology.gd",
+  "runtime_path": "godot/src/avatar/avatar_morphology.gd",
+  "authored_files": [
+    {
+      "path": "godot/src/avatar/avatar_morphology.gd",
+      "sha256": "d6410d69084c48825560178b6ad01158c2411b3804fe885fea59faf91c390c44"
+    },
+    {
+      "path": "art_source/characters/avatar/v006/shoulder_contract.json",
+      "sha256": "14815a9e58ed5d5d2152f4ed52ab26ec9b2fe305b9d673c2ab8539fa75eaf34b"
+    }
+  ],
+  "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
+  "source_type": "original Godot procedural source and deterministic Pillow-authored PNG masks; no Blender/GLB",
+  "units": "metres / +Y up / +Z forward / root scale 1",
+  "external_game_assets_used": false,
+  "self_verification": "actual mesh and skinned vertices, mixed extremes, dense action samples, real renderer and real UI input",
+  "shoulder_contract": "art_source/characters/avatar/v006/shoulder_contract.json"
+}

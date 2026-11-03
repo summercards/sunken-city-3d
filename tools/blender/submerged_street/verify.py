@@ -39,6 +39,8 @@ for c in PAL_JSON['cells']:
     LUM[c['name']] = 0.2126 * r + 0.7152 * g + 0.0722 * b
 DARK_FACE_AREA_LIMIT = 2.0      # m2
 DARK_LUMINANCE_LIMIT = 0.34     # below this a colour reads near-black under shade
+BLACK_PIXEL_LIMIT = 0.0015      # 0.15% of a render may be pure black (antialiasing only)
+BLACK_SHARES = {}
 
 
 fails = []
@@ -222,7 +224,7 @@ for item in CAT:
                  material_roles=sorted(slots), uv_layers=[l.name for l in me.uv_layers],
                  bounds_min=[round(v, 4) for v in lo], bounds_max=[round(v, 4) for v in hi],
                  size=[round(hi[i] - lo[i], 3) for i in range(3)],
-                 plan_size=item['size_blender_xyz'],
+                 plan_size=item['size_blender_xyz'], rotation_y_degrees=item['rotation_y_degrees'],
                  color_shares=shares, color_cells=per_cell[:8],
                  faces_multi_cell=multi, faces_zero_area_uv=tiny, faces_outside_margin=outside,
                  near_black_large_faces=dark_faces, coincident_face_groups=len(zfight),
@@ -269,7 +271,8 @@ for o in [o for o in bpy.data.collections['展示支持_不导出'].objects if o
     bpy.data.objects.remove(o, do_unlink=True)
 for name, rot, energy, angle in (('主阳', (math.radians(50), 0, math.radians(34)), 3.0, 0.12),
                                  ('侧补', (math.radians(66), 0, math.radians(196)), 1.35, 0.35),
-                                 ('背补', (math.radians(74), 0, math.radians(96)), 0.7, 0.5)):
+                                 ('背补', (math.radians(74), 0, math.radians(96)), 0.7, 0.5),
+                                 ('正面补', (math.radians(80), 0, 0), 0.85, 0.6)):
     d = bpy.data.lights.new(name, 'SUN')
     d.energy = energy
     d.angle = angle
@@ -289,6 +292,22 @@ def fit_scale(width, height, res, margin=1.06):
     return max(width, height * aspect) * margin
 
 
+def black_share(path):
+    """Fraction of pure-black pixels in the rendered subject.
+
+    Face-level audit cannot catch two panels that are coplanar in a *different* plane:
+    the L-apartment entrance had a window pane 0.3 m in front of the door, which renders
+    as a solid black rectangle while every palette/UV check still passes. Reading the
+    actual pixels is the only way to catch that, so each shot is screened here.
+    """
+    img = bpy.data.images.load(str(path))
+    w, h = img.size
+    px = img.pixels[:]
+    dark = sum(1 for i in range(0, len(px), 4) if max(px[i], px[i + 1], px[i + 2]) < 0.02)
+    bpy.data.images.remove(img)
+    return dark / float(w * h)
+
+
 def shoot(name, pos, target, scale, res=(1200, 900)):
     S.render.resolution_x, S.render.resolution_y = res
     cam.data.type = 'ORTHO'
@@ -297,6 +316,10 @@ def shoot(name, pos, target, scale, res=(1200, 900)):
     path = OUT / (name + '.png')
     S.render.filepath = str(path)
     bpy.ops.render.render(write_still=True)
+    share = black_share(path)
+    BLACK_SHARES[name] = round(share, 5)
+    check(share <= BLACK_PIXEL_LIMIT, '%s: %.3f%% of the frame is pure black (limit %.2f%%)'
+          % (name, share * 100, BLACK_PIXEL_LIMIT * 100))
     report['renders'].append(path.relative_to(W.parent).as_posix())
     return path
 
@@ -308,8 +331,18 @@ for b in report['buildings']:
     for other in instances.values():
         other.hide_render = (other is not inst)
     target = base + Vector((0, 0, sz * 0.46))
+    # Frame each building from its own front-left, not from the world axis: the street
+    # placement turns some pieces (sign 90 deg, truck/light 12-24 deg), and a world-fixed
+    # camera then photographs them nearly edge-on — the gantry read as a leaning billboard.
+    yaw = math.radians(float(b.get('rotation_y_degrees', 0.0)))
+    # The pieces face -Y locally. Turn the camera 24 deg off that face normal so the
+    # elevation stays readable; a wider swing flattens the gantry into a diagonal sliver.
+    fx, fy = math.sin(yaw), -math.cos(yaw)
+    a = math.radians(-24.0)
+    off = Vector((fx * math.cos(a) - fy * math.sin(a),
+                  fx * math.sin(a) + fy * math.cos(a), 0.42)).normalized()
     scale = fit_scale(max(sx, sy) * 1.10 + 1.0, sz * 1.10 + 1.0, (1200, 900))
-    shoot(b['key'] + '_three_quarter', target + Vector((0.62, -0.78, 0.36)).normalized() * 80, target, scale)
+    shoot(b['key'] + '_three_quarter', target + off * 80, target, scale)
     shoot(b['key'] + '_top', base + Vector((0.001, 0.001, 80)), base,
           fit_scale(sx * 1.1, sy * 1.1, (1200, 900)))
 for other in instances.values():
@@ -326,33 +359,56 @@ shoot('street_overview', centre + Vector((44, -66, 46)), centre,
       fit_scale(span_x, span_y, (1500, 1000), 1.20))
 shoot('street_plan', centre + Vector((0.001, -0.001, 90)), Vector((cx, -cz, 0)),
       fit_scale(span_x - 6, span_y - 4, (1400, 1000), 1.16))
-# eye-level street view uses a perspective camera so the street reads at human height
-pts = []
-for o in instances.values():
-    pts.extend([o.matrix_world @ Vector(c) for c in o.instance_collection.objects[0].bound_box])
-blo = Vector([min(p[i] for p in pts) for i in range(3)])
-bhi = Vector([max(p[i] for p in pts) for i in range(3)])
-bc = (blo + bhi) / 2
+# Eye-level views are shot in two halves. The street now runs about 67 m, and one 30 mm
+# frame cannot hold that from street level without turning the buildings into scenery —
+# so each half gets its own camera, and each half is independently checked for framing.
+def instance_bounds(objs):
+    pts = []
+    for o in objs:
+        pts.extend([o.matrix_world @ Vector(c) for c in o.instance_collection.objects[0].bound_box])
+    lo = Vector([min(p[i] for p in pts) for i in range(3)])
+    hi = Vector([max(p[i] for p in pts) for i in range(3)])
+    return lo, hi
+
+
+west = [o for k, o in instances.items() if any(t in k for t in ('VIADUCT', 'L-APARTMENT', 'HIGHRISE'))]
+east = [o for k, o in instances.items()
+        if any(t in k for t in ('MCDONALDS', 'FOOD-TRUCK', 'TRAFFIC-LIGHT', 'UTILITY-POLES', 'HIGHWAY-SIGN',
+                                'CONSTRUCTION', 'WALKUP'))]
 cam.data.type = 'PERSP'
 cam.data.lens = 30
 S.render.resolution_x, S.render.resolution_y = 1500, 800
-cam.location = Vector((bc.x + 6.0, blo.y - 30.0, 4.5))
-aim = Vector((bc.x, bc.y, bhi.z * 0.42))
-cam.rotation_euler = (aim - cam.location).to_track_quat('-Z', 'Y').to_euler()
-bpy.context.view_layer.update()
-for probe in (bc, Vector((bhi.x, bc.y, blo.z)), Vector((blo.x, bc.y, blo.z))):
-    ndc = world_to_camera_view(S, cam, probe)
-    check(-0.02 <= ndc.x <= 1.02 and 0.02 <= ndc.y <= 1.02,
-          'street_low framing misses subject point %s at %s' % (tuple(round(v, 1) for v in probe), tuple(round(v, 3) for v in ndc)))
-S.render.filepath = str(OUT / 'street_low.png')
-bpy.ops.render.render(write_still=True)
-report['renders'].append((OUT / 'street_low.png').relative_to(W.parent).as_posix())
+for name, objs in (('street_low', west), ('street_low_east', east)):
+    for o in instances.values():
+        o.hide_render = (o not in objs)
+    blo_, bhi_ = instance_bounds(objs)
+    bc_ = (blo_ + bhi_) / 2
+    cam.location = Vector((bc_.x + 4.0, blo_.y - 34.0, 4.2))
+    aim = Vector((bc_.x, bc_.y, bhi_.z * 0.40))
+    cam.rotation_euler = (aim - cam.location).to_track_quat('-Z', 'Y').to_euler()
+    bpy.context.view_layer.update()
+    probes = [Vector((x, y, z)) for x in (blo_.x, bhi_.x) for y in (blo_.y, bhi_.y) for z in (blo_.z, bhi_.z)]
+    for probe in probes[::2] + [Vector((bc_.x, bc_.y, bhi_.z))]:
+        ndc = world_to_camera_view(S, cam, probe)
+        check(-0.06 <= ndc.x <= 1.06 and 0.02 <= ndc.y <= 1.02,
+              '%s framing misses point %s at %s'
+              % (name, tuple(round(v, 1) for v in probe), tuple(round(v, 3) for v in ndc)))
+    S.render.filepath = str(OUT / (name + '.png'))
+    bpy.ops.render.render(write_still=True)
+    share = black_share(OUT / (name + '.png'))
+    BLACK_SHARES[name] = round(share, 5)
+    check(share <= BLACK_PIXEL_LIMIT, '%s: %.3f%% of the frame is pure black (limit %.2f%%)'
+          % (name, share * 100, BLACK_PIXEL_LIMIT * 100))
+    report['renders'].append((OUT / (name + '.png')).relative_to(W.parent).as_posix())
+for o in instances.values():
+    o.hide_render = False
 
 shoot('street_reverse', centre + Vector((-40, 52, 30)), centre,
       fit_scale(span_x, span_y, (1500, 1000), 1.20))
 
 report['checks'] = {'failures': fails, 'failure_count': len(fails), 'passed': not fails,
-                    'notes': notes}
+                    'notes': notes, 'black_pixel_share': BLACK_SHARES,
+                    'black_pixel_limit': BLACK_PIXEL_LIMIT}
 W.mkdir(parents=True, exist_ok=True)
 (W / 'selfcheck_report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 print('\n=== SELF CHECK ===')

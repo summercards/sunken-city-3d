@@ -12,6 +12,8 @@ static func minimal() -> bool:
 	return not OS.get_cmdline_user_args().has("--full-world")
 static func zone_enabled(id: String) -> bool:
 	# 海上补给站是家园动线上的固定设施（阳光房正南 50 米），不属于远海内容。
-	return not minimal() or id in ["zone1", "zone5", "sea_supply"]
+	# 横滨铁道按 2026-11-03 要求放进默认范围；顶层牧场是同一批接入的海上高层农场。
+	# 圆弧农场与远海街町已按「只保留横滨」从 main.tscn 移除，不在此列。
+	return not minimal() or id in ["zone1", "zone2", "zone5", "sea_supply", "rooftop_ranch"]
 static func command_enabled(id: String) -> bool:
 	return not minimal() or id not in ["build", "dive", "lamp", "hook", "camera", "orders", "salvage", "rise", "descend"]

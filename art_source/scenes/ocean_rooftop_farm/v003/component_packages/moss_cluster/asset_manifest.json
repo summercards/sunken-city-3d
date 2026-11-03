@@ -1,0 +1,38 @@
+{
+  "key": "moss_cluster",
+  "name": "成片不规则苔藓",
+  "category": "flora",
+  "component_family": "moss",
+  "asset_id": "SEA-SCENE-ORF2-MOSS_CLUSTER",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "ORF3_组件_moss_cluster",
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/moss_cluster/moss_cluster.blend",
+  "bounds_size_m": [
+    2.6868300437927246,
+    0.0,
+    0.6424129009246826
+  ],
+  "instance_count": 11,
+  "source_version": "v003",
+  "geometry_fingerprint": "645043db39fb2372b507a5f88341c2bb0774decf45b59c7d58226ead9c07ddfb",
+  "source_sha256": "00b4f70cd50529ece73f7e237bce60583c133c97afc88ffe79517d30f41a1a77",
+  "schema": "sea.scene.component_manifest",
+  "version": "v003",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF2-MOSS_CLUSTER",
+  "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/moss_cluster/moss_cluster.blend",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source_verification": "passed_source_and_skill_verification"
+}

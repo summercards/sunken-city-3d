@@ -10,9 +10,9 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/player/animation/item_receive.gd",
-      "source_sha256": "871240aa6ea737e7d4e59ee88a001ab868233b9c8a63c11c8d7c2d7c31f1d2ab",
+      "source_sha256": "f39fac5f8bdd40111caaa77dccd441c835c23405bde9020a6d737312abe64d5e",
       "manifest": "assets/registry/manifests/sea-char-receive-001.json",
-      "version": "v003",
+      "version": "v006",
       "runtime_path": "godot/src/player/animation/item_receive.gd",
       "license": "project_authored_procedural_motion_and_satchel",
       "consumer_features": [
@@ -23,9 +23,9 @@
         "category": "character_animation",
         "subcategory": "receive_item"
       },
-      "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
-      "note": "四肢改为连续封闭网格和原生Skeleton3D/Skin；保留外观ID/碰撞/动作生命周期，旧节点仅作不可见姿势控制；实测详见本轮交付。",
-      "previous_source_sha256": "5135c97a86141e34cb45c9ea51f3e9ee7074856410efa4a2468a36ca4ad52281"
+      "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
+      "note": "r6 按用户最新红线：饱满A形躯干/低胯短腿、独立头横宽和臂粗、16嘴型贴图、下移帽子；原档案兼容，当前专项和真实渲染见交付。",
+      "previous_source_sha256": "7ebf4331c860ee7b5dadd041cc57b43be7b4612a9293a5b66a254c8d472ca957"
     },
     {
       "asset_id": "SEA-CHAR-AVATAR-001",
@@ -33,18 +33,18 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_visual.gd",
-      "source_sha256": "cf4e84b76186f08eb4d3dee1ba1afbe13e1ccb93e454c383e453504da7735bad",
+      "source_sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604",
       "manifest": "assets/registry/manifests/sea-char-avatar-001.json",
-      "version": "v002",
+      "version": "v006",
       "runtime_path": "godot/src/avatar/avatar_visual.gd",
       "license": "project_authored_original_procedural_geometry_and_UI",
       "consumer_features": [
         "SEA-AVATAR",
         "SEA-ONBOARDING"
       ],
-      "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
-      "note": "四肢改为连续封闭网格和原生Skeleton3D/Skin；保留外观ID/碰撞/动作生命周期，旧节点仅作不可见姿势控制；实测详见本轮交付。",
-      "previous_source_sha256": "4c3acda2c8bd2bbef18dffa217ff72c0f3b8acaa1bdc238c2e4f0c08fd23afa2"
+      "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
+      "note": "r7 按用户最新红线内收/降低肩口，平顺颈胸、袖口与腋下；标准胖体肩根间距0.28937m、高0.74125m，骨架静止绑定和存档格式保持；本轮实际网格/渲染/动作验证。",
+      "previous_source_sha256": "0e5dd2e9056e9585d4537c3af3c031d9abae96ffd5fc55d43b2bc483f5a4d1c5"
     },
     {
       "asset_id": "SEA-CHAR-RIG-001",
@@ -52,17 +52,107 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_limb_skinning.gd",
-      "source_sha256": "35018f90eb210f44494f0a9a4522496edd7ea661307082f20d6ad1e0d8f6bfbb",
+      "source_sha256": "43550b216d752f190658f4b2a4ebd2fb03d947ab4714269a649392b70308f5ca",
       "manifest": "assets/registry/manifests/sea-char-rig-001.json",
-      "version": "v001",
+      "version": "v005",
       "runtime_path": "godot/src/avatar/avatar_limb_skinning.gd",
       "license": "project_authored_procedural_skeleton_mesh_skin_and_shader",
       "consumer_features": [
         "SEA-AVATAR",
         "SEA-MOVE"
       ],
-      "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
-      "note": "21骨骼；四张各自封闭连通的手臂/腿网格；真实GPU蒙皮及原动作采样适配，4权重通道，肘膝0–120度专项与近景自行验收。"
+      "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
+      "note": "r7 按用户最新红线内收/降低肩口，平顺颈胸、袖口与腋下；标准胖体肩根间距0.28937m、高0.74125m，骨架静止绑定和存档格式保持；本轮实际网格/渲染/动作验证。",
+      "previous_source_sha256": "34a8403ac342472baea634007c8215fabe91ee022945743a691283f00973011e"
+    },
+    {
+      "asset_id": "SEA-CHAR-FACE-001",
+      "name": "曲面五官与透明脸颊贴图",
+      "domain": "characters",
+      "stage": "runtime_component_verified",
+      "source": "godot/src/avatar/avatar_face.gd",
+      "source_sha256": "77ebe8ccaadf782eedaa3a712ea57af76029f7a236e04331decfd4bc60fba9f0",
+      "manifest": "assets/registry/manifests/sea-char-face-001.json",
+      "version": "v003",
+      "runtime_path": "godot/src/avatar/avatar_face.gd",
+      "license": "project_authored_procedural_mesh_and_texture",
+      "consumer_features": [
+        "SEA-AVATAR"
+      ],
+      "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
+      "note": "r6 按用户最新红线：饱满A形躯干/低胯短腿、独立头横宽和臂粗、16嘴型贴图、下移帽子；原档案兼容，当前专项和真实渲染见交付。",
+      "previous_source_sha256": "2a859b3b881bb93f5c629f2943b753904b4549c7340fad5a73aee53c1e9e9bba"
+    },
+    {
+      "asset_id": "SEA-CHAR-HAIR-001",
+      "name": "模块化发型与参数DIY",
+      "domain": "characters",
+      "stage": "runtime_component_verified",
+      "source": "godot/src/avatar/avatar_hair.gd",
+      "source_sha256": "1619921b95b12acfdf5e25e08cd0a90076b053c8b138538e7e0db0130b69315d",
+      "manifest": "assets/registry/manifests/sea-char-hair-001.json",
+      "version": "v001",
+      "runtime_path": "godot/src/avatar/avatar_hair.gd",
+      "license": "project_authored_procedural_mesh_and_texture",
+      "consumer_features": [
+        "SEA-AVATAR"
+      ],
+      "verification": "docs/development/2026-11-03_avatar_customization.md",
+      "note": "独立可维护的Godot程序源/自制透明遮罩；未使用外部游戏资产，未声称Blender或GLB产物。"
+    },
+    {
+      "asset_id": "SEA-CHAR-SHAPE-001",
+      "name": "旅人有界形体适配",
+      "domain": "characters",
+      "stage": "runtime_component_verified",
+      "source": "godot/src/avatar/avatar_morphology.gd",
+      "source_sha256": "d6410d69084c48825560178b6ad01158c2411b3804fe885fea59faf91c390c44",
+      "manifest": "assets/registry/manifests/sea-char-shape-001.json",
+      "version": "v004",
+      "runtime_path": "godot/src/avatar/avatar_morphology.gd",
+      "license": "project_authored_procedural_mesh_and_texture",
+      "consumer_features": [
+        "SEA-AVATAR"
+      ],
+      "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
+      "note": "r7 按用户最新红线内收/降低肩口，平顺颈胸、袖口与腋下；标准胖体肩根间距0.28937m、高0.74125m，骨架静止绑定和存档格式保持；本轮实际网格/渲染/动作验证。",
+      "previous_source_sha256": "b7225805936e57d751d70e87e3f0b3ee64433d89dc00adede79e9e1257069491"
+    },
+    {
+      "asset_id": "SEA-CHAR-EXPRESSION-001",
+      "name": "旅人图形表情与自然眨眼",
+      "domain": "characters",
+      "stage": "runtime_component_verified",
+      "source": "godot/src/avatar/avatar_expression.gd",
+      "source_sha256": "cc9ef5700aac6a9872e20194ae9108ee9a1c2db5e360a5b5f9f17c38c254f662",
+      "manifest": "assets/registry/manifests/sea-char-expression-001.json",
+      "version": "v002",
+      "runtime_path": "godot/src/avatar/avatar_expression.gd",
+      "license": "project_authored_animation_adapter_and_generated_graphic_texture",
+      "consumer_features": [
+        "SEA-AVATAR",
+        "SEA-MOVE"
+      ],
+      "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
+      "note": "r6 按用户最新红线：饱满A形躯干/低胯短腿、独立头横宽和臂粗、16嘴型贴图、下移帽子；原档案兼容，当前专项和真实渲染见交付。",
+      "previous_source_sha256": "07431739074e6914bd3fe76294b521f34f9b0d8fc40bfb807fb3aec8ba787a5d"
+    },
+    {
+      "asset_id": "SEA-CHAR-MOUTH-001",
+      "name": "旅人16款图形嘴型贴图",
+      "domain": "characters",
+      "stage": "runtime_component_verified",
+      "source": "godot/assets/textures/avatar/graphic_mouths.png",
+      "source_sha256": "da4242204e4f010fa790f67bba54d1afc96289e4934207952f48711a9a3b7966",
+      "manifest": "assets/registry/manifests/sea-char-mouth-001.json",
+      "version": "v001",
+      "runtime_path": "godot/assets/textures/avatar/graphic_mouths.png",
+      "license": "original_generated_artwork_and_project_authored_atlas_shader",
+      "consumer_features": [
+        "SEA-AVATAR"
+      ],
+      "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
+      "note": "原4嘴型ID保留，16款大块图形嘴型；透明曲面贴片，情绪切帧与开合，不复制参考游戏像素。"
     }
   ]
 }

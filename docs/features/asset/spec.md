@@ -200,7 +200,29 @@ R07/R34/R35后续校尺要求：同族海上建筑以正式阳光房v008的最�
 
 | 条款 ID | 规则与验收 |
 |---|---|
-| SEA-ASSET-R41 | 按本轮屋顶农场参考图独立制作 `ocean_rooftop_farm/v001`，归类为水上功能建筑候选。主屋顶36×24米、外轮廓约38×26米；按用户最新修订为**八层可见楼体**、3.2米层高。保留左后8×7米抬高平台及上层小间、中央红褐双坡工具房、9×5米独立温室、总高9米高架水塔、风力设备、前部空高架菜床与11×8米空主农田、步道/休息/储物/家禽棚舍设施。**按后续明确要求删除全部农作物与太阳能板**，排除人物、动物、海洋及其他背景。屋顶采用约3米级大块旧地砖，含缺角、裂缝、翘边、污渍与局部裸露基层；楼体、柱、窗、工具房和小间补充剥落、露筋、裂口、木板封窗、管道与锈蚀。采用Plump cartoon饱满卡通风格，冻结不超过50类组件，共用暖木8×8色板、唯一PaletteUV、最多四材质角色、真实倒角、母版Collection和独立包；建筑/固定设施/花草分离。通过Blender MCP在活跃会话制作并渲染参考镜头、俯视、近景和建筑分离视图，对照参考修正后保存重开验收。仅登记Blender源级完成；Godot、碰撞、导航、实际玩法功能、商业授权和用户最终美术验收另行登记。 |
+| SEA-ASSET-R41 | 海上屋顶农场当前登记目标为 `ocean_rooftop_farm/v003`，继续归类为水上功能建筑候选；v001/v002 源、稳定 AssetID 与历史哈希保持不变。v003 固定主文件 `art_source/scenes/ocean_rooftop_farm/v003/ocean_rooftop_farm_v003.blend`，48 个组件沿用 `SEA-SCENE-ORF2-*` 稳定 ID，并新增 `window_cracked`、`window_broken`、`moss_cluster`、`stair_flight`、`stair_landing`、`roof_entry`、`stair_landing_open`、`broken_flight`、`turf_core` 九个组件。按图修正 49.6×33.6×0.65 米厚外挑无草水泥边台、深凹窗、宽主柱、三种破损窗、坡顶高差与不均苔藓；粗杆直径 0.18–0.2 米，金属统一低 metallic 0.15、roughness 0.82。消防梯仅保留 45–60 米上三层 6 段及下挂残梯，取消从地面连续通行；屋顶入口删除共面桥面，边对边接承接板顶 59.97 米。继续排除人物、动物、海洋、天空、远景建筑及其他背景几何，保持公共色板、PaletteUV、最多四材质角色、真实倒角、母版 Collection 与独立组件包。仅登记 Blender 源级完成；登记必须同时满足 `source_verification.json`、`skill_verification.json` 为 passed 且主源哈希匹配，Godot、碰撞、导航、实际玩法功能、商业授权和用户最终美术验收另行登记；当前源验证文档状态先记为 pending。 |
+
+### SEA-ASSET-R41 · v002 登记补充
+
+`ocean_rooftop_farm/v002` 是独立新套件，旧 `v001` 源、AssetID 和哈希保持不变，不覆盖、不更新。v002 计划冻结 39 个组件，水上楼体占地 48×32 米，12 层、每层 5 米、屋顶标高 60 米；包含草地、作物与太阳能组件，排除动物、人物、海面、天空、远景建筑及其他背景几何。组件与总成统一使用 `SEA-SCENE-ORF2-*` 独立 AssetID，登记脚本为 `tools/blender/ocean_rooftop_farm/register_v002.py`。
+
+登记执行前必须确认主源最终稳定；工具执行时才计算 v002 主源和组件源哈希，并要求独立重开主源及39个组件包的130项检查、通用技能验证实际通过。已完成源级验证后仅提升 `source_verification`；Godot、碰撞、商业授权和最终用户美术验收仍保持 `pending`，不得以登记替代运行接入。本轮最终913实例，全部实例求值后681399三角面，四视图已对照参考修正。
+
+### SEA-ASSET-R41 · v003 登记补充
+
+`ocean_rooftop_farm/v003` 是在 v002 稳定 AssetID 上做的当前修订；不更新 v002 源文件、源哈希记录基线或其他资产。主文件为 `art_source/scenes/ocean_rooftop_farm/v003/ocean_rooftop_farm_v003.blend`，组件总数 48（原39＋9个新组件），稳定 ID 仍为 `SEA-SCENE-ORF2-*`。本轮按图完成厚外挑无草水泥边台 49.6×33.6×0.65 米、深凹窗/宽主柱/三种破损窗、坡顶高差、不均苔藓，粗杆直径 0.18–0.2 米；金属统一低 metallic 0.15、roughness 0.82。消防梯仅保留 45–60 米上三层 6 段及下挂残梯，取消地面连续通行；屋顶入口删除原共面桥面，边对边接承接板顶 59.97 米。脚本为 `tools/blender/ocean_rooftop_farm/register_v003.py`。
+
+登记脚本必须先确认 `D:/projects/sea-work/ocean_rooftop_farm/v003/source_verification.json` 与 `skill_verification.json` 均为 `passed: true`，并核对 v003 主源哈希匹配；否则拒绝写入账本与来源索引。源验证文档当前状态保持 `pending`，Godot、碰撞、导航、商业授权和最终用户美术验收仍保持 `pending`，不得以登记替代运行接入。
+
+### SEA-ASSET-R41 · v004 登记准备（pending）
+
+`ocean_rooftop_farm/v004` 是当前待登记修订。主源为 `art_source/scenes/ocean_rooftop_farm/v004/ocean_rooftop_farm_v004.blend`，catalog 冻结为45个组件；旧 v003 的48组件中移除 `bed`、`field`、`cabbage`、`seedling`、`tomato`、`greenhouse`、`tank` 七类，旧作物／菜床／农田记录不删除、不刷新哈希。`greenhouse` 与 `tank` 的旧登记保留 v003 源路径并标记 `superseded_by`，分别指向两组四状态中的两个状态；其余无关 AssetID 保持稳定。
+
+四个新增状态必须各自使用 `component_packages/<key>/<key>.blend` 独立源包，升级组及状态关系只由 `upgrade_states.json` 描述：`greenhouse`、`water_tower` 各含 `unbuilt`／`complete`，两组 socket 共底心定位 `Z=60.05`，默认状态为 `unbuilt`，`game_logic_pending`。基础建筑导出不含四个状态；预期另有 `base_building.blend` 独立登记为 `SEA-SCENE-ORF2-BASE-BUILDING`，但不计入该assembly的45组件catalog。主总成AssetID维持 `SEA-SCENE-ORF2-ASSEMBLY`。
+
+按范围清理屋顶红框菜畦、作物和主屋顶6块太阳能，保留未圈出的上层露台2块太阳能。登记套件为45个组件包＋主总成＋base building，共47条记录。`ledger_index.json` 仅负责账本路由，`current_source_index.json` 独立维护来源索引；执行时保留所有非本任务索引行，不全量重算，并为新状态写入 `upgrade_family`／`upgrade_state`、pair链接和 `game_logic_pending`，保留 `previous_sources`。
+
+`tools/blender/ocean_rooftop_farm/register_v004.py` 默认只做门禁预检，禁止无确认写入。执行前必须确认 `D:/projects/sea-work/ocean_rooftop_farm/v004/source_verification.json` 与 `skill_verification.json` 均为 `passed: true`，主源及45个组件包哈希逐一匹配，并严格复核当前账本与来源索引中待替换的49条旧 ORF2 源哈希；任何漂移都必须报错并拒绝登记。当前 v004 登记、Godot／碰撞／导航／实际升级逻辑、商业授权和用户最终美术验收均为 `pending`，不得以登记替代运行接入。
 
 ## 2026-11-02 场景Skill一位小数制作基准（R06/R07）
 同族海上生活建筑的新制作按[项目Skill](../../../.agents/skills/sea-scene-component-authoring/SKILL.md)内默认值执行，大尺寸以米、小倒角／板缝以厘米保留一位小数；高精度测量留作溯源。尺寸、源／运行倒角口径、净门洞区别、拼接套件例外及海底范围排除直接写入Skill，项目与用户级安装的Skill和尺寸附件同步。现有模型与运行水线不因取整修改。
@@ -214,5 +236,6 @@ R07/R34/R35后续校尺要求：同族海上建筑以正式阳光房v008的最�
 | 条款 ID | 规则与验收 |
 |---|---|
 | SEA-ASSET-R42 | 按用户文字清单制作 `submerged_street/v001`：断掉的高架桥、L形＋消防梯的破旧公寓楼、快餐车、双拱招牌快餐连锁餐厅、高层公寓楼、红绿灯、电线杆和电线、高速公路路牌、施工中的大楼、普通公寓楼，共十栋独立纯景观建筑。<br>· **风格基准不是目测**：先对阳光房海下基座 `bloom_lower_building/v002` 全部 22 个网格逐面采样 `PaletteUV` 并按面积累计，得到米白三色 82.3%、深蓝玻璃 7.2%、钢灰 1.0%、暖点缀 2.0%、无近黑；十栋按同一分配。<br>· **尺度例外**：层高 2.6 米、窗台 0.4、窗带 1.0、窗宽 1.35、板厚 0.2、承重柱 0.4 米，取自同一份基座实例清单（1.72 源单位节距 × 2.5/1.5/1.5 适配）。这与 SKILL 里 5.1 米层高／0.5 米柱的阳光房水上默认值不同，属用户明确要求按底座比例风格的**登记例外**，不改 SKILL 默认值与其他套件。<br>· 冻结 10 项组件计划后才建几何；公共暖木 8×8 色板外链唯一、`Closest`、不打包；每面 PaletteUV 有面积且完整落在单格 8 像素安全区内；材质仅 `SEA_Matte`/`SEA_Metal`/`SEA_Gloss`，无自发光（废弃街景夜间不得自发亮）。<br>· 逐栋三角面断言 ≤ 预算（预算 700–2400，实测合计 11696），原点在真实包络底心，变换恒等，独立包重开复核，GLB 无内嵌图片且 `PaletteUV` 为 `TEXCOORD_0`。<br>· 自检含两项从实际缺陷反推的检查：单面 >2 m² 且亮度 <0.34 判近黑大面；共面重合面组判 z-fighting。<br>· `building_class=underwater`，全子树无碰撞、可走面、泊位、导航障碍、交互、产出、玩法状态、岸线来源。<br>· 参考图为用户文字清单，双拱标志属商标范畴；授权与商标审核 pending，Godot 摆位／碰撞审查／水下真实渲染／用户美术验收均 pending。 |
+| SEA-ASSET-R43 | 沉没街景十栋接入 Godot 主场景并完成观感返工。<br>· **接入**：10 个材质 `.tres` 按 GLB 内 glTF material 名对角色（不靠顺序假设），10 个 `PackedScene` 挂在 `main.tscn` 的 `World/UnderwaterStreet`；位置同时满足四条约束（不压 Zone2 横滨站、不压 Zone1 家园、不压现有六栋水下景观、落在相机可达范围内）。<br>· **高度按屋顶对齐水面**，与现有六栋水下景观同一带：每栋屋脊落在水面下方 1.45 米，底板随自身高度下沉；不允许底板齐平（会让 3.6–16.5 米高的楼顶面沉到水下 11–21 米而完全不可见）。越高越深这条关系写成断言。<br>· **材质覆盖必须落在真正的 `MeshInstance3D`**：写成可编辑子节点再持 `surface_material_override/N`；写在 `Visual` 这类 Node3D 上时，单 surface 旧资产会被引擎占位重映射救回、2–3 个 surface 整组失效，故按逐 surface 校验。<br>· **屋面不得是光板**：水下俯视是街区的主要观看方式，成品屋面须带楼梯间、水塔、空调、通气管等构筑（塌落／拆除类除外）。<br>· **渲染像素级黑块断言**：逐张渲染统计纯黑像素占比 ≤0.15%。逐面 UV／材质审计抓不到"两块板在不同平面共面"的情况（底层窗与门重叠渲染成黑方块，面审计全部合规），只有读像素才成立。<br>· 逐栋取景按实例自身朝向，街面人视按段取景并各自做框内断言；纯景观职责不变，三角面合计 12518，逐栋 ≤ 预算。
 
 [本轮交付、缺陷清单与门禁结果](../../development/2026-11-02_submerged_street.md)。

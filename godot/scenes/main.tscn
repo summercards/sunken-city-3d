@@ -19,20 +19,13 @@
 [ext_resource type="Script" uid="uid://dnmfdu5fimx56" path="res://src/player/character.gd" id="17_character"]
 [ext_resource type="PackedScene" uid="uid://boy2dafsw0fsf" path="res://scenes/zones/zone1_home_harbor.tscn" id="20_zone1"]
 [ext_resource type="PackedScene" path="res://scenes/zones/zone2_yokohama_station.tscn" id="21_zone2"]
-[ext_resource type="PackedScene" path="res://scenes/zones/zone3_arc_farm.tscn" id="22_zone3"]
-[ext_resource type="PackedScene" path="res://scenes/zones/zone4_far_shore.tscn" id="23_zone4"]
 [ext_resource type="PackedScene" path="res://scenes/zones/zone5_aqua_platform.tscn" id="24_zone5"]
 [ext_resource type="Script" uid="uid://bnmvsw7hxisaf" path="res://src/rendering/water_surface.gd" id="25_ocean"]
 [ext_resource type="Script" uid="uid://dg16a2540iktn" path="res://src/rendering/boat_wake.gd" id="26_wake"]
-[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/terraced_tower.tscn" id="27_sub_terraced_tower"]
-[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/rounded_tower.tscn" id="28_sub_rounded_tower"]
-[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/slender_tower.tscn" id="29_sub_slender_tower"]
-[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/stepped_lowrise.tscn" id="30_sub_stepped_lowrise"]
-[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/flat_annex.tscn" id="31_sub_flat_annex"]
-[ext_resource type="PackedScene" path="res://scenes/decorations/underwater/buildings/rear_slab.tscn" id="32_sub_rear_slab"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/floating_shop.tscn" id="33_floating_shop"]
+[ext_resource type="PackedScene" path="res://scenes/facilities/rooftop_ranch.tscn" id="34_ranch"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_fv21b"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_5poiv"]
 _surfaces = [{
 "aabb": AABB(-640, 0, -640, 1280, 1e-05, 1280),
 "format": 34359742471,
@@ -91,7 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12, 0)
 material_override = ExtResource("15_water")
 cast_shadow = 0
 extra_cull_margin = 2.0
-mesh = SubResource("ArrayMesh_fv21b")
+mesh = SubResource("ArrayMesh_5poiv")
 script = ExtResource("25_ocean")
 ocean_waves = PackedVector4Array(0.94, 0.34, 0.16, 12, -0.42, 0.91, 0.085, 7.6, 0.72, -0.69, 0.0325, 4.9, -0.85, -0.53, 0.0105, 2.55)
 
@@ -104,50 +97,15 @@ script = ExtResource("26_wake")
 
 [node name="Zone2YokohamaStation" parent="World/Zones" unique_id=1975188993 instance=ExtResource("21_zone2")]
 
-[node name="Zone3ArcFarm" parent="World/Zones" unique_id=1998055952 instance=ExtResource("22_zone3")]
-
-[node name="Zone4FarShore" parent="World/Zones" unique_id=1303000698 instance=ExtResource("23_zone4")]
-
 [node name="Zone5AquaPlatform" parent="World/Zones" unique_id=366632112 instance=ExtResource("24_zone5")]
-
-[node name="UnderwaterScenery" type="Node3D" parent="World" unique_id=1478200331]
-
-[node name="terraced_tower" parent="World/UnderwaterScenery" unique_id=1478200401 instance=ExtResource("27_sub_terraced_tower")]
-transform = Transform3D(1.2972144, -0.109194055, -0.61986125, 0.14394581, 0.98403764, -0.0687831, 0.830498, 0, 0.98012775, 30.17171, -19.394762, -28.943344)
-instance_id = "home_submerged/terraced_tower"
-
-[node name="rounded_tower" parent="World/UnderwaterScenery" unique_id=1478200402 instance=ExtResource("28_sub_rounded_tower")]
-transform = Transform3D(-1.5957636, 0, -0.6830726, 0, 1.1182024, 0, 0.6984135, 0, -1.5607119, -12.64131, -25.511404, -16.185486)
-instance_id = "home_submerged/rounded_tower"
-
-[node name="slender_tower" parent="World/UnderwaterScenery" unique_id=1478200403 instance=ExtResource("29_sub_slender_tower")]
-transform = Transform3D(1.5624714, 0, 0, 0, 1, 0, 0, 0, 1.5551654, -1.2, -18.662874, -9.2)
-instance_id = "home_submerged/slender_tower"
-
-[node name="stepped_lowrise" parent="World/UnderwaterScenery" unique_id=1478200404 instance=ExtResource("30_sub_stepped_lowrise")]
-transform = Transform3D(-1.2814827, 0, -1.1990949, 0, 1.7550005, 0, 1.1990949, 0, -1.2814827, 0.2, -24.96325, -19.143696)
-instance_id = "home_submerged/stepped_lowrise"
-
-[node name="flat_annex2" parent="World/UnderwaterScenery" unique_id=1770527324 instance=ExtResource("31_sub_flat_annex")]
-transform = Transform3D(1.982467, 0, -0.937215, 0, 1, 0, 1.7120997, 0, 1.0852157, 26.721878, -16.416988, -2.2457771)
-instance_id = "home_submerged/flat_annex_2"
-
-[node name="flat_annex" parent="World/UnderwaterScenery" unique_id=1478200405 instance=ExtResource("31_sub_flat_annex")]
-transform = Transform3D(2.128904, 0, 0, 0, 1, 0, 0, 0, 1.197455, -5.7989664, -16.727169, 18.78206)
-instance_id = "home_submerged/flat_annex"
-
-[node name="rear_slab2" parent="World/UnderwaterScenery" unique_id=1946718210 instance=ExtResource("32_sub_rear_slab")]
-transform = Transform3D(-1.7861015, 0, -0.16108665, 0, 1.4399998, 0, 0.07171103, 0, -2.8442059, 12.23344, -30.105717, 27.89568)
-instance_id = "home_submerged/rear_slab_2"
-
-[node name="rear_slab" parent="World/UnderwaterScenery" unique_id=1478200406 instance=ExtResource("32_sub_rear_slab")]
-transform = Transform3D(0.035241533, 0, -2.116315, 0, 1.1999999, 0, 1.5008235, 0, 0.049694173, -8.477363, -27.362999, 0.37824583)
-instance_id = "home_submerged/rear_slab"
 
 [node name="SeaStructures" type="Node3D" parent="World" unique_id=1826540311]
 
 [node name="floating_shop" parent="World/SeaStructures" unique_id=1826540312 instance=ExtResource("33_floating_shop")]
 transform = Transform3D(-0.2076603, 0, -1.7574136, -0.1392592, 2.4054115, 0.027053408, 1.3635194, 0.24566996, -0.26488626, 69.91094, -18.097904, 46.376625)
+
+[node name="rooftop_ranch" parent="World/SeaStructures" instance=ExtResource("34_ranch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, -43.42, -52)
 
 [node name="Gameplay" type="Node3D" parent="World" unique_id=1251468208]
 

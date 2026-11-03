@@ -12,6 +12,22 @@ static func defaults() -> Dictionary:
 	for slot in data().slots: result[slot.id] = slot.default
 	return result
 
+static func morph_definitions() -> Array:
+	return data().get("morphs",[])
+
+static func morph_defaults() -> Dictionary:
+	var result := {}
+	for entry in morph_definitions(): result[entry.id] = entry.default
+	return result
+
+static func effective_morphs(raw: Dictionary) -> Dictionary:
+	var result := morph_defaults()
+	for id in result:
+		var value: Variant = raw.get(id,result[id])
+		if (value is float or value is int) and is_finite(float(value)):
+			result[id] = clampf(float(value),0.0,1.0)
+	return result
+
 static func options(id: String) -> Array:
 	for slot in data().slots:
 		if slot.id == id: return slot.options

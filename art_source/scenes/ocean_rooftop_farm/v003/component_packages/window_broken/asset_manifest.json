@@ -1,0 +1,41 @@
+{
+  "key": "window_broken",
+  "name": "缺片木板封窗",
+  "category": "fixture",
+  "component_family": "window",
+  "asset_id": "SEA-SCENE-ORF2-WINDOW_BROKEN",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "variant_axis": "damage_state",
+  "variant_value": "window_broken",
+  "variant_reason": "intact/cracked/missing glass and boarded states from user reference",
+  "collection": "ORF3_组件_window_broken",
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_broken/window_broken.blend",
+  "bounds_size_m": [
+    6.0,
+    0.7245817184448242,
+    3.0
+  ],
+  "instance_count": 48,
+  "source_version": "v003",
+  "geometry_fingerprint": "9a82c807f405a5938f4c6a32b465a6377927b4f95035eca6aa6aa2424015af23",
+  "source_sha256": "b3db65dcc45a6cd875f2979aec12c311f9dd239fa75afbdd481f4a15b6ed8b3a",
+  "schema": "sea.scene.component_manifest",
+  "version": "v003",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF2-WINDOW_BROKEN",
+  "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_broken/window_broken.blend",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source_verification": "passed_source_and_skill_verification"
+}

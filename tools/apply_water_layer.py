@@ -61,6 +61,7 @@ FAMILIES = [
     ('SEA-REF-FACILITY-', 'amphibious', 'entity'),
     ('SEA-SCENE-FSH-', 'amphibious', 'assembly'),
     ('SEA-FISHERY-', 'amphibious', 'assembly'),
+    ('SEA-SCENE-ORF2-', 'surface', 'assembly'),
     ('SEA-SCENE-ORF-', 'surface', 'assembly'),
     ('SEA-SCENE-SBR-', 'surface', 'part'),
     ('SEA-SCENE-SOLAR-', 'surface', 'part'),

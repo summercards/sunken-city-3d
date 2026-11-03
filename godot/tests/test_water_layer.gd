@@ -157,7 +157,16 @@ func run() -> void:
 
 	# 每层至少有一个实体被真正检查过，否则「全绿」可能只是场景里没有这种东西。
 	check(seen["surface"] + seen["amphibious"] > 0, "at least one above-water entity is placed in main")
-	check(seen["submerged"] > 0, "at least one submerged entity is placed in main")
+	# 2026-11-03：水下景观与街景已按范围要求从 main.tscn 移除（预制体与源保留）。
+	# 「必须至少有一栋水下」这条旧断言会逼着人往主场景里塞东西，所以改成一致性检查：
+	# 没有水下实体时，主场景必须确实没有挂载任何水下分组，而不是漏挂。
+	var underwater_groups := main.get_node_or_null("World/UnderwaterScenery") != null \
+		or main.get_node_or_null("World/UnderwaterStreet") != null
+	if seen["submerged"] > 0:
+		check(true, "submerged entities are placed and checked")
+	else:
+		check(not underwater_groups,
+			"no submerged entity is placed, and main.tscn mounts no underwater group either")
 
 	var file := FileAccess.open("res://outputs/water-layer.json", FileAccess.WRITE)
 	if file != null:

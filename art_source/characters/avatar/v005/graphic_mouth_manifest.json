@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "source": "art_source/characters/avatar/v005/graphic_mouth_source.png",
+  "runtime": "godot/assets/textures/avatar/graphic_mouths.png",
+  "columns": 4,
+  "rows": 4,
+  "tile_size": 256,
+  "ids": [
+    "smile",
+    "wide",
+    "calm",
+    "oh",
+    "open",
+    "grin",
+    "frown",
+    "smirk",
+    "cat",
+    "joy",
+    "laugh",
+    "pout",
+    "fang",
+    "tongue",
+    "kiss",
+    "zigzag"
+  ],
+  "style": "original thick graphic ink / white sclera; large chunky shapes",
+  "generation": "built-in image generation; reference style described in text; no copied game pixels",
+  "processing": "regular grid crop, largest alpha-connected symbol extraction, aspect-preserving resample and transparent padding",
+  "animation": "per-mouth shader aperture and expression frame selection; independent expression driver; fixed curved mesh"
+}

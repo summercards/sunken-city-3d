@@ -1,0 +1,38 @@
+{
+  "key": "stair_flight",
+  "name": "消防梯标准半层梯段",
+  "category": "structure",
+  "component_family": "fire_stair",
+  "asset_id": "SEA-SCENE-ORF2-STAIR_FLIGHT",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collection": "ORF3_组件_stair_flight",
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_flight/stair_flight.blend",
+  "bounds_size_m": [
+    1.681983232498169,
+    4.379999160766602,
+    3.705932855606079
+  ],
+  "instance_count": 6,
+  "source_version": "v003",
+  "geometry_fingerprint": "f810c1a03fa15d0ae907f72a752684e3e274c0c3a4697aaaf838ef009a6a6fb6",
+  "source_sha256": "434e57d01980d4d93cad14c7b9c2b03f88b34266974684be5cef9fd1ffe97e2b",
+  "schema": "sea.scene.component_manifest",
+  "version": "v003",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-ORF2-STAIR_FLIGHT",
+  "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_flight/stair_flight.blend",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "source_verification": "passed_source_and_skill_verification"
+}

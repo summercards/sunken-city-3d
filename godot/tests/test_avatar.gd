@@ -28,6 +28,7 @@ func run() -> void:
 	for good in ["小海","Sea 12","旅人·风","十二个字十二个字十二个字"]: check(Profile.name_error(good)=="","accept name "+good)
 	var baseline: Dictionary=profile.query()
 	for field in baseline:
+		if field=="morphs": continue # Optional extension on intact original v1 profiles.
 		var broken:=baseline.duplicate(true); broken.erase(field)
 		check(Profile.validate_snapshot(broken)!="","reject missing field "+field)
 	for broken in [[],null,{"version":2}, {"appearance":[]}]: check(Profile.validate_snapshot(broken)!="","reject malformed profile")
@@ -57,6 +58,8 @@ func run() -> void:
 	main._begin_avatar_edit(); await wait_phase("editing")
 	editor=main.avatar_session.editor
 	editor.draft.name="海风小满"; editor.draft.appearance.hair_style="twin"; editor.draft.appearance.skin="honey"; editor.draft.appearance.glasses="round"
+	editor.draft.morphs.merge({"body_build":0.8,"head_size":0.7,"eye_spacing":0.3,"hair_length":1.0,"hair_volume":0.6,"hair_sweep":0.2},true)
+	editor.draft.appearance.fringe="side"; editor.draft.appearance.beard="moustache"; editor.draft.appearance.hair_accessory="ribbon"
 	editor.draft.design_refs={"top":"design:future/sea-001"}; editor.draft.extensions={"diy":{"revision":7,"tags":["sea"]}}
 	var expected: Dictionary=editor.draft.duplicate(true); expected.completed=true
 	var real_save: Callable=main.avatar_session.save

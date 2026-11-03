@@ -41,6 +41,7 @@ const TAB_BUILD := "build"
 const TAB_PLANT := "plant"
 const DESTINATIONS := [
 	{"id":"zone1","name":"太阳房 · 家园"},{"id":"zone2","name":"横滨铁道"},
+	{"id":"rooftop_ranch","name":"顶层牧场"},
 	{"id":"zone3","name":"圆弧农场"},{"id":"zone5","name":"浅水养殖"},{"id":"zone4","name":"远海街町"}]
 var _font: Font
 var _root: Control

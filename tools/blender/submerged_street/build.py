@@ -236,6 +236,36 @@ def quad(name, center, u, w, h, color, role='matte', nrm=None):
     return add(name, verts, [(0, 1, 2, 3)], color, role, recalc=False)
 
 
+def roof_kit(px, py, top, w, d, variant=0, tank='silver', bulk='sand'):
+    """Roof plant: stair head, water tank on legs, condensers, vent stack.
+
+    The street is read mostly from above through about 1.5 m of water, so the roof
+    plane is the most-seen face of every building. A bare slab there turns the whole
+    neighbourhood into anonymous pale tiles (that is exactly how the first Godot
+    surface render looked), so every roof that is meant to be finished carries kit.
+    """
+    sx = 1 if variant % 2 == 0 else -1
+    bx('楼梯间', (px - sx * w * 0.19, py + d * 0.14, top + 0.72), (2.1, 1.8, 1.4), bulk, bevel=0.03)
+    quad('楼梯间门', (px - sx * w * 0.19, py + d * 0.14 - 0.91, top + 0.55), (1, 0), 0.85, 1.05,
+         'wood_mid', 'matte', (0, -1, 0))
+    # tank on four legs, offset from the stair head
+    tx, ty = px + sx * w * 0.26, py - d * 0.2
+    for lx, ly in ((-0.42, -0.42), (0.42, -0.42), (0.42, 0.42), (-0.42, 0.42)):
+        poly_tube('水箱腿', [(tx + lx, ty + ly, top), (tx + lx, ty + ly, top + 0.55)], 0.045, 'steel', sides=4)
+    bx('水箱底盘', (tx, ty, top + 0.58), (1.15, 1.15, 0.1), 'steel', role='metal')
+    cy('水箱', (tx, ty, top + 1.12), 0.5, 1.0, tank, role='metal', n=10)
+    cy('水箱盖', (tx, ty, top + 1.66), 0.54, 0.1, 'steel', role='metal', n=10)
+    # two condensers against the parapet, one with its grille facing out
+    for i, ox in enumerate((-w * 0.3, -w * 0.3 + 0.95)):
+        bx('屋面空调_%d' % i, (px + ox, py - d * 0.33, top + 0.28), (0.8, 0.55, 0.52), 'silver',
+           role='metal', bevel=0.02)
+        quad('空调格栅_%d' % i, (px + ox, py - d * 0.33 - 0.29, top + 0.28), (1, 0), 0.62, 0.36,
+             'gray', 'metal', (0, -1, 0))
+    # vent stack and a short aerial
+    cy('通气管', (px + sx * w * 0.3, py + d * 0.3, top + 0.3), 0.11, 0.6, 'steel', role='metal', n=8)
+    cy('天线杆', (px + sx * w * 0.36, py + d * 0.16, top + 0.95), 0.035, 1.9, 'steel', role='metal', n=5)
+
+
 def plate(name, outline, y0, y1, color, role='matte', bevel=0.0, seg=1):
     """Solid plate from a 2D outline in the XZ plane, extruded from y0 to y1.
 
@@ -321,10 +351,16 @@ def build_broken_viaduct():
         bx('断口块_右_%d' % j, (3.3 + dx, dy, 5.95 + dz), (hx * 2, hy * 2, hz * 2), shell,
            rot=(0, 0, -0.05 * (j + 1)))
     bx('断口_左碎块', (-2.2, 1.2, 5.45), (1.1, 1.6, 0.6), shell, bevel=0.05, rot=(0.22, 0.1, 0.12))
-    # collapsed middle span
-    bx('塌落桥面', (0.4, 0.2, 2.9), (5.6, 7.2, 0.45), shell, bevel=0.09, rot=(0, 0.32, 0.06))
-    bx('塌落路面', (0.4, 0.2, 3.15), (5.2, 7.0, 0.06), road, rot=(0, 0.32, 0.06))
-    bx('塌落护栏', (0.3, -3.2, 3.55), (5.0, 0.2, 0.75), rail, rot=(0, 0.32, 0.06))
+    # Collapsed middle span. It has to bear on something: suspended in open water it read
+    # as a floating plate, so it now leans onto a rubble mound that reaches the seabed.
+    bx('塌落桥面', (0.4, 0.2, 2.35), (5.6, 7.2, 0.45), shell, bevel=0.09, rot=(0, 0.42, 0.06))
+    bx('塌落路面', (0.4, 0.2, 2.6), (5.2, 7.0, 0.06), road, rot=(0, 0.42, 0.06))
+    bx('塌落护栏', (0.3, -3.2, 3.0), (5.0, 0.2, 0.75), rail, rot=(0, 0.42, 0.06))
+    # The mound the span came to rest on. It is built under the LOW end (+X, because the
+    # span is rotated about Y) and its top stops just below the deck underside — the first
+    # pass stacked the slabs tall enough to poke through the road surface.
+    for i, (mx, mz, mw) in enumerate(((2.4, 0.32, 3.6), (2.2, 0.85, 3.0), (2.0, 1.30, 2.4))):
+        bx('塌落堆_%d' % i, (mx, 0.2, mz), (mw, 5.2, mz * 2), shell, bevel=0.05, rot=(0, 0.05 * i, 0.03 * i))
     # exposed rebar from both broken ends and the dropped slab
     for i in range(6):
         y = -3.0 + i * 1.2
@@ -340,15 +376,18 @@ def build_broken_viaduct():
             bx('护栏压顶_%s%d' % (arm, side), ((x0 + x1) / 2, sy * 3.7, 7.02), (x1 - x0 - 0.5, 0.3, 0.12), 'white')
         # one missing parapet run per side reads as damage
     bx('缺护栏残块', (-4.4, 3.55, 6.6), (0.9, 0.24, 0.85), shell, bevel=0.03, rot=(0, 0, 0.12))
-    # deck underside beams, seen from below when swimming
-    for i in range(4):
-        bx('梁_%d' % i, (-9.4 + i * 4.2, 0, 5.56), (0.6, 7.4, 0.55), 'cloud')
+    # Deck underside beams, seen from below when swimming. They must stay inside the
+    # intact arms: a fixed pitch put two of them across the gap, where they hung in
+    # mid-air and read as detached bars.
+    for i, bxx in enumerate((-11.6, -8.4, -5.2, 5.4, 8.6, 11.4)):
+        bx('梁_%d' % i, (bxx, 0, 5.56), (0.6, 7.4, 0.55), 'cloud')
     # road furniture: two lane posts, one fallen
     bx('车道柱直', (-11.4, 3.2, 6.55), (0.12, 0.12, 0.9), 'yellow')
     bx('车道柱倒', (-6.2, -3.0, 6.34), (0.12, 0.9, 0.12), 'yellow', rot=(0, 0, 0.4))
-    # rubble in the gap
-    for i, (x, y, s) in enumerate(((-1.4, 2.4, 0.9), (0.9, -2.6, 1.2), (1.8, 1.9, 0.7), (-0.6, -1.4, 0.6))):
-        bx('瓦砾_%d' % i, (x, y, 0.45), (s, s * 0.8, s * 0.7), shell, bevel=0.04, rot=(0.3, 0, i * 0.5))
+    # rubble along the seabed under the break
+    for i, (x, y, s) in enumerate(((-3.4, 2.4, 0.9), (2.6, -2.6, 1.2), (3.4, 1.9, 0.7), (2.2, 2.6, 0.6),
+                                   (-3.0, -2.2, 0.65))):
+        bx('瓦砾_%d' % i, (x, y, s * 0.35), (s, s * 0.8, s * 0.7), shell, bevel=0.04, rot=(0.3, 0, i * 0.5))
 
 
 def build_l_apartment_fire_escape():
@@ -361,7 +400,8 @@ def build_l_apartment_fire_escape():
     for f in range(1, 6):
         z = f * FH
         prism('层间线脚_%d' % f, [(x * 1.02, y * 1.02) for x, y in poly], z - 0.06, 0.16, trim)
-    prism('屋面', [(x * 1.03, y * 1.03) for x, y in poly], H, 0.22, 'snow', bevel=0.06)
+    prism('屋面', [(x * 1.03, y * 1.03) for x, y in poly], H, 0.22, 'stone', bevel=0.06)
+    roof_kit(2.0, -2.45, H + 0.22, 8.8, 7.4, variant=1)
     # parapet, with bites taken out of two runs
     edges = [(poly[i], poly[(i + 1) % len(poly)]) for i in range(len(poly))]
     for i, (a, b) in enumerate(edges):
@@ -373,7 +413,10 @@ def build_l_apartment_fire_escape():
         ang = math.atan2(v.y, v.x)
         bx('女儿墙_%d' % i, (c.x, c.y, H + 0.36), (v.length - 0.3, 0.22, 0.5), trim, bevel=0.04, rot=(0, 0, ang))
     # windows: front (-Y), east (+X), north wing (+Y), west (-X)
-    win_row('前窗', (-6.6, -6.5), (6.6, -6.5), (0, -1), 0.0, 5, FH, 7, glass, glassd, skip={(0, 2), (3, 5)})
+    # (0, 5) is skipped because that column lands on the entrance door: a window pane drawn
+    # in the same plane as the door z-fights and renders as a solid black rectangle.
+    win_row('前窗', (-6.6, -6.5), (6.6, -6.5), (0, -1), 0.0, 5, FH, 7, glass, glassd,
+            skip={(0, 2), (0, 5), (3, 5)})
     win_row('东窗', (7.0, -6.2), (7.0, 1.3), (1, 0), 0.0, 5, FH, 3, glass, glassd, skip={(2, 1)})
     win_row('北窗', (-1.2, 6.5), (-6.8, 6.5), (0, 1), 0.0, 5, FH, 3, glass, glassd)
     win_row('西窗', (-7.0, 6.2), (-7.0, -6.2), (-1, 0), 0.0, 5, FH, 6, glass, glassd, skip={(4, 4)})
@@ -762,7 +805,7 @@ def build_construction_shell():
 def build_walkup_apartment():
     """Four floors, ivory shell, three balcony bays, hanging AC units."""
     shell, balcony, glass = 'white', 'cream', 'ocean'
-    glass2, ac, roofc, rail = 'solar', 'silver', 'snow', 'steel'
+    glass2, ac, roofc, rail = 'solar', 'silver', 'sand', 'steel'
     FH, FLOORS = 2.6, 4
     H = FH * FLOORS
     poly = [(-4.3, -3.8), (4.3, -3.8), (4.3, 3.8), (-4.3, 3.8)]
@@ -770,6 +813,7 @@ def build_walkup_apartment():
     for f in range(1, FLOORS):
         bx('层间线脚_%d' % f, (0, 0, f * FH - 0.04), (8.7, 7.7, 0.14), balcony)
     prism('屋面', [(x * 1.02, y * 1.02) for x, y in poly], H, 0.2, roofc, bevel=0.05)
+    roof_kit(0.0, 0.3, H + 0.2, 8.6, 6.6, variant=0, tank='lightgray', bulk='cream')
     for i, (a, b) in enumerate((((-4.3, -3.9), (4.3, -3.9)), ((4.4, -3.8), (4.4, 3.8)),
                                 ((4.3, 3.9), (-4.3, 3.9)), ((-4.4, 3.8), (-4.4, -3.8)))):
         if i == 0 and True:
@@ -783,7 +827,10 @@ def build_walkup_apartment():
     win_row('东窗', (4.3, -3.4), (4.3, 3.4), (1, 0), 0.0, FLOORS, FH, 2, glass, glass2)
     win_row('西窗', (-4.3, 3.4), (-4.3, -3.4), (-1, 0), 0.0, FLOORS, FH, 2, glass, glass2, skip={(1, 0)})
     # front: three bays of balconies on floors 2-4, windows on floor 1
-    win_row('前窗底', (-3.9, -3.8), (3.9, -3.8), (0, -1), 0.0, 1, FH, 4, glass, glass2)
+    # columns 1 and 2 sit on the entrance bay: panes coplanar with the door z-fight and
+    # render as solid black, so they are skipped and the door gets the opening instead.
+    win_row('前窗底', (-3.9, -3.8), (3.9, -3.8), (0, -1), 0.0, 1, FH, 4, glass, glass2,
+            skip={(0, 1), (0, 2)})
     for f in (1, 2, 3):
         for c in (-2.6, 0.0, 2.6):
             bx('阳台板_%d_%d' % (f, int(c * 10)), (c, -4.35, f * FH + 0.08), (2.3, 1.2, 0.16), balcony)
@@ -939,6 +986,22 @@ for name, loc, power, size in (('主光', (-22, -30, 46), 26000, 26), ('补光',
     STAGE.objects.link(lo_)
     lo_.location = loc
     lo_.rotation_euler = (Vector((0, 0, 6)) - Vector(loc)).to_track_quat('-Z', 'Y').to_euler()
+# Stage-only seabed. Without it every render reads as blocks drifting in blue, and small
+# pieces (rubble, bases) look like they float. It lives in 展示支持_不导出, so it is never
+# packaged or exported — the Godot scene owns the real seabed.
+# It is built through the same add() path as the buildings, so it carries PaletteUV and
+# the shared role material — that keeps the palette/material audit strict for everything
+# in the file instead of carving out an exception for stage geometry.
+_SEABED_CUR = bpy.data.collections.new('海床_展示_临时')
+CUR[0] = _SEABED_CUR
+# Blue-grey silt, not pale sand: a bright plane this large bounces so much light that the
+# whole frame bleaches out and the ivory walls lose their value separation from the ground.
+seabed = add('海床_展示', [(-160, -160, 0), (160, -160, 0), (160, 160, 0), (-160, 160, 0)], [(0, 1, 2, 3)],
+             'gray', 'matte')
+STAGE.objects.link(seabed)
+_SEABED_CUR.objects.unlink(seabed)
+bpy.data.collections.remove(_SEABED_CUR)
+
 cam = bpy.data.cameras.new('固定参考镜头')
 cam_o = bpy.data.objects.new('固定参考镜头', cam)
 STAGE.objects.link(cam_o)

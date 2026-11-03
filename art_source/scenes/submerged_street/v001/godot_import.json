@@ -1,0 +1,238 @@
+{
+  "schema": "sea.godot_import",
+  "kit": "submerged_street",
+  "version": "v001",
+  "owner_scene": "godot/scenes/main.tscn#World/UnderwaterStreet",
+  "group": "UnderwaterStreet",
+  "group_offset": {
+    "x": -9.0,
+    "z": 45.0
+  },
+  "top_alignment": {
+    "water_y": 1.12,
+    "target_roof_y": -0.32999999999999985,
+    "rule": "每栋屋顶落在水面下方 1.45 米；底板高度 = 屋顶落点 - 该栋实测高度"
+  },
+  "reason": "十栋整体西移 9 米、南移 45 米，避开 Zone2 横滨站与 Zone1 家园、避开现有六栋水下景观。高度按屋顶对齐水面：每栋屋脊落在水面 y=1.12 下方 1.45 米，底板随高度下沉，与现有六栋同一带（它们的顶面在 -1.1 到 -3.7）。",
+  "materials": {
+    "matte": "godot/assets/materials/submerged_street/matte.tres",
+    "metal": "godot/assets/materials/submerged_street/metal.tres",
+    "gloss": "godot/assets/materials/submerged_street/gloss.tres"
+  },
+  "palette": "res://assets/textures/shared/sea_cabin_muted_8x8_512.png",
+  "components": [
+    {
+      "key": "broken_viaduct",
+      "name": "水下景观·断掉的高架桥",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-VIADUCT",
+      "height": 7.1919,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/broken_viaduct.tscn",
+      "mesh_node": "broken_viaduct",
+      "prefab_sha256": "540d51236964196f6083a616c9c5c50a0c00590694b4dcabe27922f25abe263a",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/broken_viaduct/broken_viaduct.glb",
+      "roles": [
+        "matte"
+      ],
+      "triangle_budget": 2000,
+      "placement": [
+        -72.0,
+        0.0,
+        -25.6
+      ],
+      "rotation_y_degrees": 0
+    },
+    {
+      "key": "l_apartment_fire_escape",
+      "name": "水下景观·破旧公寓楼（L 形＋消防梯）",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-L-APARTMENT",
+      "height": 14.72,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/l_apartment_fire_escape.tscn",
+      "mesh_node": "l_apartment_fire_escape",
+      "prefab_sha256": "bd55dabf8df9fad1ab7c8d1a350d45d6eea167ca1dac7b042fa59e25fcf35f4f",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/l_apartment_fire_escape/l_apartment_fire_escape.glb",
+      "roles": [
+        "matte",
+        "metal",
+        "gloss"
+      ],
+      "triangle_budget": 2200,
+      "placement": [
+        -56.0,
+        0.0,
+        -13.0
+      ],
+      "rotation_y_degrees": 0
+    },
+    {
+      "key": "food_truck",
+      "name": "水下景观·快餐车",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-FOOD-TRUCK",
+      "height": 3.5804,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/food_truck.tscn",
+      "mesh_node": "food_truck",
+      "prefab_sha256": "e6fcbf0dedf9755c258017853854ab9931d7bd58faa6ef29e2af8a5971f3226a",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/food_truck/food_truck.glb",
+      "roles": [
+        "matte",
+        "gloss",
+        "metal"
+      ],
+      "triangle_budget": 1000,
+      "placement": [
+        -36.0,
+        0.0,
+        -26.0
+      ],
+      "rotation_y_degrees": 12
+    },
+    {
+      "key": "mcdonalds_restaurant",
+      "name": "水下景观·快餐连锁餐厅",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-QUICK-SERVE",
+      "height": 6.913,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/mcdonalds_restaurant.tscn",
+      "mesh_node": "mcdonalds_restaurant",
+      "prefab_sha256": "eef49c5161ee7749f71c7feff5bd851d8a51922c5ccbde179a7bb6727bbd848a",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/mcdonalds_restaurant/mcdonalds_restaurant.glb",
+      "roles": [
+        "matte",
+        "gloss",
+        "metal"
+      ],
+      "triangle_budget": 1600,
+      "placement": [
+        -39.0,
+        0.0,
+        -15.0
+      ],
+      "rotation_y_degrees": 0
+    },
+    {
+      "key": "highrise_apartment",
+      "name": "水下景观·高层公寓楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-HIGHRISE",
+      "height": 28.8,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/highrise_apartment.tscn",
+      "mesh_node": "highrise_apartment",
+      "prefab_sha256": "c525b53adb8e60adeb12dd508ed9dd18d26977edc64a0268fc948bcf552f4ca1",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/highrise_apartment/highrise_apartment.glb",
+      "roles": [
+        "matte",
+        "gloss",
+        "metal"
+      ],
+      "triangle_budget": 2000,
+      "placement": [
+        -58.0,
+        0.0,
+        -36.0
+      ],
+      "rotation_y_degrees": 0
+    },
+    {
+      "key": "traffic_light",
+      "name": "水下景观·红绿灯",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-TRAFFIC-LIGHT",
+      "height": 5.48,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/traffic_light.tscn",
+      "mesh_node": "traffic_light",
+      "prefab_sha256": "0f67597d49dd1006cc9bd0d609a27987b65130224880b64a4e5503fd461ae18b",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/traffic_light/traffic_light.glb",
+      "roles": [
+        "matte",
+        "metal"
+      ],
+      "triangle_budget": 700,
+      "placement": [
+        -30.0,
+        0.0,
+        -21.2
+      ],
+      "rotation_y_degrees": 24
+    },
+    {
+      "key": "utility_poles",
+      "name": "水下景观·电线杆和电线",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-UTILITY-POLES",
+      "height": 8.2,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/utility_poles.tscn",
+      "mesh_node": "utility_poles",
+      "prefab_sha256": "1963bc1d743e463ab8c6fb646415b7700894e8f1ebd4d132760b3dcb78c85f4b",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/utility_poles/utility_poles.glb",
+      "roles": [
+        "matte",
+        "metal"
+      ],
+      "triangle_budget": 900,
+      "placement": [
+        -26.0,
+        0.0,
+        -26.0
+      ],
+      "rotation_y_degrees": 0
+    },
+    {
+      "key": "highway_sign",
+      "name": "水下景观·高速公路路牌",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-HIGHWAY-SIGN",
+      "height": 7.0,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/highway_sign.tscn",
+      "mesh_node": "highway_sign",
+      "prefab_sha256": "1e469012720517bf46b3fe501d7b149aadbc652f773faa98e808968a6a3b963a",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/highway_sign/highway_sign.glb",
+      "roles": [
+        "metal",
+        "matte"
+      ],
+      "triangle_budget": 900,
+      "placement": [
+        -18.5,
+        0.0,
+        -26.0
+      ],
+      "rotation_y_degrees": 90
+    },
+    {
+      "key": "construction_shell",
+      "name": "水下景观·施工中的大楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-CONSTRUCTION",
+      "height": 16.5053,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/construction_shell.tscn",
+      "mesh_node": "construction_shell",
+      "prefab_sha256": "8c917dc9e3b91935532d59b22e539cadc3646fbb87e49b95954fc55da930f045",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/construction_shell/construction_shell.glb",
+      "roles": [
+        "matte"
+      ],
+      "triangle_budget": 2400,
+      "placement": [
+        -34.0,
+        0.0,
+        -37.0
+      ],
+      "rotation_y_degrees": 0
+    },
+    {
+      "key": "walkup_apartment",
+      "name": "水下景观·普通公寓楼",
+      "asset_id": "SEA-SCENE-SUBMERGED-STREET-WALKUP",
+      "height": 12.5,
+      "prefab": "godot/scenes/decorations/underwater/street/buildings/walkup_apartment.tscn",
+      "mesh_node": "walkup_apartment",
+      "prefab_sha256": "37409eb0e95a9299cbf51bc92a557fd0965445e2fdbad513acb74718f9074348",
+      "runtime_path": "godot/assets/models/scenery/submerged_street/walkup_apartment/walkup_apartment.glb",
+      "roles": [
+        "matte",
+        "metal",
+        "gloss"
+      ],
+      "triangle_budget": 1800,
+      "placement": [
+        -47.0,
+        0.0,
+        -35.5
+      ],
+      "rotation_y_degrees": 0
+    }
+  ]
+}

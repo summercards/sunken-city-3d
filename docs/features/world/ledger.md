@@ -40,14 +40,22 @@
 }
 ```
 
+
+## 2026-11-03 默认世界范围：只保留横滨 + 新增顶层牧场（R08 / R01 修订）
+
+按用户明确要求压缩默认主场景，并接入这一轮新做的海上高层农场。
+
 ## 设计承接与实施条目
 
-| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
 |---|---|---|
+| SEA-WORLD-R08 | 默认最小范围的 `zone_enabled` 改为 `zone1`／`zone2`／`zone5`／`sea_supply`／`rooftop_ranch`。横滨铁道从「默认隐藏」转为默认显示；圆弧屋顶农场（zone3）与远海街町（zone4）的实例、以及水下景观六栋与沉没街景十栋，全部从 `main.tscn` 移除。**场景文件、预制体、源、账本与哈希一律保留**，随时可加回，不是删除资产。`World/Zones` 现装三块生活区（家园／横滨／浅水养殖），`World/SeaStructures` 装浮店与顶层牧场。 | 主场景 `godot/scenes/main.tscn`；范围开关 `godot/src/core/play_scope.gd`；`godot/tests/test_minimum_loop.gd`、`godot/tests/integration/selftest.gd` 已同步为「已安装区块＝zone1/zone2/zone5」；水下两套专项在未安装时改为验预制体本身（预算／序列化材质／水下职责），不再要求主场景挂载。**pending**：用户对「移除后水面视野变空」的观感确认。 |
 | SEA-WORLD-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R05 | 部分实现：zone1 已由组件派生并清理空阻挡；其余区块已接入同一机制，但 zone2/zone3 的行走矩形仍为旧手工数据 | `visual-blockers` 空阻挡 0、漏阻挡 zone1 2.4%；zone4 接缝 12.9% 待区块重做。水下基座改由组件声明 mode=none、水面阻挡只从「海上区域」派生，解除 zone1↔zone5 2.6m 水道的隐形墙（航路 42.7m→11.2m）。 [交付记录](../../development/2026-10-26_sea_scene_blockers.md)、[水下基座](../../development/2026-10-29_submerged_base_water_blocker.md) |
+| SEA-WORLD-R17 | 新增区块 `rooftop_ranch`（顶层牧场）：`zones.json` 只留区块身份与取景，`landings`／`walk` 由 `Zones.bind_scene` 在运行时从场景回填；场景 `godot/scenes/facilities/rooftop_ranch.tscn`，摆位于 `World/SeaStructures/rooftop_ranch`，在家园东南约 60 米开阔海面。水面按用户红线标定：保留段最下面那层消防梯平台甲板 44.80 在水面上 0.26 米；船停该平台外沿，沿六段折返梯上行 15.2 米到 60.0 米楼顶。 | 专项 `godot/tests/test_rooftop_ranch.gd`（已登记 `run_verification.py` 的 `rooftop-ranch`）；实拍 `godot/outputs/rooftop_ranch_{sea,boarding,roof}.png`。**pending**：温室／水塔的升级消耗与产出规则（本轮只做互斥视觉切换，不新增经济逻辑）、碰撞与导航的最终美术验收。 |
+/2026-10-26_sea_scene_blockers.md)、[水下基座](../../development/2026-10-29_submerged_base_water_blocker.md) |
 | SEA-WORLD-R04 | 本轮表现与专项通过 | 环境静态鱼、尾鳍、圆环和点击圆盘退役；漂流物旧透明环退役，桶身金属环保留；源烘焙文件未修改，9 个区块 GLB 仅退役匹配的旧装饰三角索引。 [交付记录](../../development/2026-10-23_sea_visual_style.md) |
 | SEA-WORLD-R06 | 区域及导航注入端口保留；本轮增加zone_enabled_query | [模块框架](../../development/2026-10-27_modular_framework.md) |
 | SEA-WORLD-R07 | 本批实现并验证 | 15片旧荷叶精确退役840三角面，恢复另9片；独立组件与航路专项见本轮记录 |

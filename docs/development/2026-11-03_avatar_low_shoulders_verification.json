@@ -1,0 +1,244 @@
+{
+  "date": "2026-11-03",
+  "feature": "SEA-AVATAR-R25",
+  "revision": "r7",
+  "results": {
+    "avatar-customization": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-110417-avatar-shoulder-r7-accepted-matrix-5e24a4\\avatar-customization.log",
+      "user_data_name": "sea-verification/20261103-110417-avatar-shoulder-r7-accepted-matrix-5e24a4/avatar-customization",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-110417-avatar-shoulder-r7-accepted-matrix-5e24a4\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_customization.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 3559,
+      "failures": 0
+    },
+    "avatar-graphic": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\avatar-graphic.log",
+      "user_data_name": "sea-verification/20261103-110728-avatar-shoulder-r7-current-integration-98a348/avatar-graphic",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_graphic.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 389,
+      "failures": 0
+    },
+    "avatar": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\avatar.log",
+      "user_data_name": "sea-verification/20261103-110728-avatar-shoulder-r7-current-integration-98a348/avatar-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 192,
+      "failures": 0
+    },
+    "avatar-restart": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\avatar-restart.log",
+      "user_data_name": "sea-verification/20261103-110728-avatar-shoulder-r7-current-integration-98a348/avatar-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_restart.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 8,
+      "failures": 0
+    },
+    "actor-presentation": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\actor-presentation.log",
+      "user_data_name": "sea-verification/20261103-110728-avatar-shoulder-r7-current-integration-98a348/actor-presentation",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_actor_presentation.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 31,
+      "failures": 0
+    },
+    "harvest-receive": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\harvest-receive.log",
+      "user_data_name": "sea-verification/20261103-110728-avatar-shoulder-r7-current-integration-98a348/harvest-receive",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-110728-avatar-shoulder-r7-current-integration-98a348\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_harvest_receive.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 80,
+      "failures": 0
+    },
+    "visual-avatar-shoulders": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-110615-avatar-shoulder-r7-current-views-9bd473\\visual-avatar-shoulders.log",
+      "user_data_name": "sea-verification/20261103-110615-avatar-shoulder-r7-current-views-9bd473/visual-avatar-shoulders",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-110615-avatar-shoulder-r7-current-views-9bd473\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tools/capture_avatar_shoulders.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 31,
+      "failures": 0
+    },
+    "visual-avatar-proportions": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-110905-avatar-shoulder-r7-current-proportions-268531\\visual-avatar-proportions.log",
+      "user_data_name": "sea-verification/20261103-110905-avatar-shoulder-r7-current-proportions-268531/visual-avatar-proportions",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-110905-avatar-shoulder-r7-current-proportions-268531\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_avatar_proportions.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 13,
+      "failures": 0
+    }
+  },
+  "expected_faults": [
+    "invalid snapshot rejection before restore",
+    "simulated save failure retains draft and rolls back committed profile"
+  ],
+  "unexpected_runtime_errors": [],
+  "unexecuted": [
+    "full continuous/cartesian exhaustive combinations",
+    "touch",
+    "controller",
+    "low-end devices",
+    "export pack",
+    "power failure"
+  ],
+  "static_global_gate": {
+    "passed": false,
+    "issues": [
+      "SEA-SCENE-ORF-ASSEMBLY: source hash drift",
+      "runtime hash drift: godot/assets/materials/ocean_sky.tres"
+    ],
+    "note": "Existing non-avatar asset drift; hashes left untouched."
+  },
+  "total_checks": 4303,
+  "geometry": {
+    "fat_shoulder_span_m": 0.2893728,
+    "fat_shoulder_y_m": 0.74125,
+    "previous_span_m": 0.4304,
+    "previous_y_m": 0.80625,
+    "measured_from": "actual skinned .005/.025 ring centreline extrapolated to socket; wrists from skinned ring"
+  },
+  "source_hashes": {
+    "godot/src/avatar/avatar_morphology.gd": "d6410d69084c48825560178b6ad01158c2411b3804fe885fea59faf91c390c44",
+    "godot/src/avatar/avatar_visual.gd": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604",
+    "godot/src/player/character.gd": "b13ea4092cc82ec1d17c4e9e6d65d763e572b8be2b140f67e1aab829df803e04",
+    "art_source/characters/avatar/v006/shoulder_contract.json": "14815a9e58ed5d5d2152f4ed52ab26ec9b2fe305b9d673c2ab8539fa75eaf34b"
+  },
+  "rejected_runs": [
+    {
+      "run": "20261103-105616-avatar-shoulder-r7-matrix-3df3cb",
+      "failures": 2,
+      "reason": "0.12 initial reach had one >8mm penetration point per arm in two fat-body cases; side chest refined without changing shoulder target or tolerance"
+    },
+    {
+      "run": "20261103-105940-avatar-shoulder-r7-final-matrix-a75091",
+      "failures": 2,
+      "reason": "same initial-reach issue before final side-chest refinement"
+    }
+  ],
+  "owned_manifest_checks": {
+    "files": 21,
+    "failures": 0
+  },
+  "architecture": {
+    "passed": true,
+    "services": 17
+  }
+}

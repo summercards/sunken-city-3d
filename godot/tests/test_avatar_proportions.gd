@@ -90,7 +90,7 @@ func run() -> void:
 	var ui:=Control.new(); ui.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); root.add_child(ui)
 	var background:=ColorRect.new(); background.color=Color("#fff9e8"); background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT); ui.add_child(background)
 	ui.add_child(label("用户参考 · 原图",Vector2(55,35),28))
-	ui.add_child(label("实际角色 · 同角度比例验收",Vector2(490,35),28))
+	ui.add_child(label("实际角色 · 最新轮廓验收",Vector2(490,35),28))
 	var reference:=TextureRect.new(); reference.texture=ImageTexture.create_from_image(Image.load_from_file("res://outputs/avatar-reference.png"))
 	reference.position=Vector2(40,125); reference.size=Vector2(368,560); reference.expand_mode=TextureRect.EXPAND_IGNORE_SIZE; reference.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED; ui.add_child(reference)
 	var container:=SubViewportContainer.new(); container.position=Vector2(455,85); container.size=Vector2(740,730); ui.add_child(container)
@@ -100,7 +100,7 @@ func run() -> void:
 	environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR; environment.ambient_light_color=Color.WHITE; environment.ambient_light_energy=0.65; env.environment=environment; world.add_child(env)
 	var light:=DirectionalLight3D.new(); light.rotation_degrees=Vector3(-45,-25,0); light.light_energy=0.75; world.add_child(light)
 	actor=preload("res://src/player/character.gd").new(); world.add_child(actor); actor.build(); actor.set_process(false); actor._reset_action_pose()
-	var appearance:=Catalog.defaults(); appearance.merge({"hair_style":"crop","hair_color":"black","top":"vest","top_color":"plum","bottom":"trousers","bottom_color":"navy","shoes":"dress","shoe_color":"navy","hat":"fedora","hat_color":"plum","blush":"none"},true)
+	var appearance:=Catalog.defaults()
 	actor.apply_appearance(appearance)
 	# The reference has no bag. This separate accessory is excluded only in the
 	# anatomy plate; the subsequent gameplay/editor captures include the real bag.

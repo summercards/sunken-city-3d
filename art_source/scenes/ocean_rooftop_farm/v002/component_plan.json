@@ -1,0 +1,772 @@
+{
+  "schema": "sea.scene.component_plan",
+  "version": "v002",
+  "status": "frozen_before_final_geometry",
+  "reference_sha256": "fa3bac9a21373741c51fcb55364fef96ea138f9f5fca5c8f1dbc6e6f3cfe38b3",
+  "reference": "reference.jpg",
+  "previous_source_used": false,
+  "building_class": "above_water",
+  "feature_id": "SEA-ASSET",
+  "design_clause": "SEA-ASSET-R41",
+  "loaded_difference": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "palette": "art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "component_budget": {
+    "limit": 50,
+    "planned": 39,
+    "remaining": 11
+  },
+  "dimensions": {
+    "building_xy_m": [
+      48,
+      32
+    ],
+    "roof_top_z_m": 60.0,
+    "floors": 12,
+    "floor_height_m": 5.0,
+    "parapet_wh_m": [
+      1.2,
+      1.1
+    ],
+    "greenhouse_m": [
+      6,
+      4,
+      3.6
+    ],
+    "tank_height_m": 6.0,
+    "tank_diameter_m": 3.0,
+    "shed_m": [
+      4,
+      3,
+      3.1
+    ],
+    "coop_m": [
+      3,
+      2,
+      2.1
+    ]
+  },
+  "exceptions": [
+    "Roof 60m follows latest user text, 5m x12 floors replaces default 5.1m; no scale applied to other assets.",
+    "Large tower slab thickness 0.3m; ordinary roof slabs 0.2m.",
+    "Reference greenhouse depth interpreted as 4m text; arranged as two contiguous 6x4 modules to recover elongated reference silhouette.",
+    "Procedural draft was discarded before final component authoring; no claim that failed draft passed plan-first gate."
+  ],
+  "excluded": [
+    "animals",
+    "people",
+    "sea",
+    "sky",
+    "distant_buildings",
+    "background_geometry"
+  ],
+  "components": [
+    {
+      "key": "shell",
+      "asset_id": "SEA-SCENE-ORF2-SHELL",
+      "name": "灰色混凝土塔楼墙壳",
+      "category": "structure",
+      "component_family": "shell",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "slab",
+      "asset_id": "SEA-SCENE-ORF2-SLAB",
+      "name": "密集楼层楼板",
+      "category": "structure",
+      "component_family": "slab",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "pier",
+      "asset_id": "SEA-SCENE-ORF2-PIER",
+      "name": "厚实混凝土结构柱",
+      "category": "structure",
+      "component_family": "pier",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "window",
+      "asset_id": "SEA-SCENE-ORF2-WINDOW",
+      "name": "深蓝双联窗",
+      "category": "fixture",
+      "component_family": "window",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "balcony",
+      "asset_id": "SEA-SCENE-ORF2-BALCONY",
+      "name": "崩角生活阳台",
+      "category": "structure",
+      "component_family": "balcony",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "weather",
+      "asset_id": "SEA-SCENE-ORF2-WEATHER",
+      "name": "混凝土剥落与裂纹",
+      "category": "structure",
+      "component_family": "weather",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "roof",
+      "asset_id": "SEA-SCENE-ORF2-ROOF",
+      "name": "农场屋面基层",
+      "category": "structure",
+      "component_family": "roof",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-ORF2-PARAPET",
+      "name": "青苔破损女儿墙",
+      "category": "structure",
+      "component_family": "parapet",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "rail",
+      "asset_id": "SEA-SCENE-ORF2-RAIL",
+      "name": "歪斜锈蚀栏杆",
+      "category": "fixture",
+      "component_family": "rail",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "grass",
+      "asset_id": "SEA-SCENE-ORF2-GRASS",
+      "name": "半野生草皮",
+      "category": "flora",
+      "component_family": "ground_cover",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "tuft",
+      "asset_id": "SEA-SCENE-ORF2-TUFT",
+      "name": "丛生野草",
+      "category": "flora",
+      "component_family": "grass",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "vine",
+      "asset_id": "SEA-SCENE-ORF2-VINE",
+      "name": "墙角下垂藤蔓",
+      "category": "flora",
+      "component_family": "vine",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "platform",
+      "asset_id": "SEA-SCENE-ORF2-PLATFORM",
+      "name": "左后抬高生活区",
+      "category": "structure",
+      "component_family": "platform",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "room",
+      "asset_id": "SEA-SCENE-ORF2-ROOM",
+      "name": "平台顶部小间",
+      "category": "structure",
+      "component_family": "room",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "ladder",
+      "asset_id": "SEA-SCENE-ORF2-LADDER",
+      "name": "锈蚀外挂爬梯",
+      "category": "fixture",
+      "component_family": "ladder",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "line",
+      "asset_id": "SEA-SCENE-ORF2-LINE",
+      "name": "晾衣架与衣物",
+      "category": "fixture",
+      "component_family": "drying",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "shed",
+      "asset_id": "SEA-SCENE-ORF2-SHED",
+      "name": "红铁皮顶工具棚",
+      "category": "fixture",
+      "component_family": "shed",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "coop",
+      "asset_id": "SEA-SCENE-ORF2-COOP",
+      "name": "蓝色空鸡舍",
+      "category": "fixture",
+      "component_family": "coop",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "fence",
+      "asset_id": "SEA-SCENE-ORF2-FENCE",
+      "name": "断裂歪斜木围栏",
+      "category": "fixture",
+      "component_family": "fence",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "greenhouse",
+      "asset_id": "SEA-SCENE-ORF2-GREENHOUSE",
+      "name": "缺片透明温室",
+      "category": "fixture",
+      "component_family": "greenhouse",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "tank",
+      "asset_id": "SEA-SCENE-ORF2-TANK",
+      "name": "木支撑锈蚀水塔",
+      "category": "fixture",
+      "component_family": "tank",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "wind",
+      "asset_id": "SEA-SCENE-ORF2-WIND",
+      "name": "小型偏斜风车",
+      "category": "fixture",
+      "component_family": "wind",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "solar",
+      "asset_id": "SEA-SCENE-ORF2-SOLAR",
+      "name": "锈框太阳能板",
+      "category": "fixture",
+      "component_family": "solar",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "bed",
+      "asset_id": "SEA-SCENE-ORF2-BED",
+      "name": "老化木框菜床",
+      "category": "fixture",
+      "component_family": "bed",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "field",
+      "asset_id": "SEA-SCENE-ORF2-FIELD",
+      "name": "条垄主农田",
+      "category": "fixture",
+      "component_family": "field",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "cabbage",
+      "asset_id": "SEA-SCENE-ORF2-CABBAGE",
+      "name": "饱满宽叶菜",
+      "category": "flora",
+      "component_family": "crop",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "seedling",
+      "asset_id": "SEA-SCENE-ORF2-SEEDLING",
+      "name": "双叶幼苗",
+      "category": "flora",
+      "component_family": "crop",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "tomato",
+      "asset_id": "SEA-SCENE-ORF2-TOMATO",
+      "name": "攀爬果蔬",
+      "category": "flora",
+      "component_family": "crop",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "stone",
+      "asset_id": "SEA-SCENE-ORF2-STONE",
+      "name": "厚实不规则踏石",
+      "category": "fixture",
+      "component_family": "path",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "plank",
+      "asset_id": "SEA-SCENE-ORF2-PLANK",
+      "name": "旧木步道板",
+      "category": "fixture",
+      "component_family": "path",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "compost",
+      "asset_id": "SEA-SCENE-ORF2-COMPOST",
+      "name": "变形堆肥箱",
+      "category": "fixture",
+      "component_family": "compost",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "pot",
+      "asset_id": "SEA-SCENE-ORF2-POT",
+      "name": "崩口厚边花盆",
+      "category": "fixture",
+      "component_family": "pot",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "plant",
+      "asset_id": "SEA-SCENE-ORF2-PLANT",
+      "name": "宽厚盆栽叶簇",
+      "category": "flora",
+      "component_family": "plant",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "pipe",
+      "asset_id": "SEA-SCENE-ORF2-PIPE",
+      "name": "老化屋顶管线",
+      "category": "fixture",
+      "component_family": "utility",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "table",
+      "asset_id": "SEA-SCENE-ORF2-TABLE",
+      "name": "圆桌",
+      "category": "fixture",
+      "component_family": "table",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "chair",
+      "asset_id": "SEA-SCENE-ORF2-CHAIR",
+      "name": "旧木椅",
+      "category": "fixture",
+      "component_family": "chair",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "crate",
+      "asset_id": "SEA-SCENE-ORF2-CRATE",
+      "name": "储物木箱",
+      "category": "fixture",
+      "component_family": "crate",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "barrel",
+      "asset_id": "SEA-SCENE-ORF2-BARREL",
+      "name": "锈箍储物桶",
+      "category": "fixture",
+      "component_family": "barrel",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    },
+    {
+      "key": "lamp",
+      "asset_id": "SEA-SCENE-ORF2-LAMP",
+      "name": "弯臂屋顶灯",
+      "category": "fixture",
+      "component_family": "lamp",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "budget_triangles": 50000,
+      "collision_owner": "future_Godot_wrapper_pending"
+    }
+  ]
+}

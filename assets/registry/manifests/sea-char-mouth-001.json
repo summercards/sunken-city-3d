@@ -1,0 +1,34 @@
+{
+  "asset_id": "SEA-CHAR-MOUTH-001",
+  "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-MOUTH-001",
+  "version": "v001",
+  "source": "godot/assets/textures/avatar/graphic_mouths.png",
+  "runtime_path": "godot/assets/textures/avatar/graphic_mouths.png",
+  "authored_files": [
+    {
+      "path": "godot/assets/textures/avatar/graphic_mouths.png",
+      "sha256": "da4242204e4f010fa790f67bba54d1afc96289e4934207952f48711a9a3b7966"
+    },
+    {
+      "path": "godot/shaders/avatar_mouth.gdshader",
+      "sha256": "1d1193894ffba165736d0bb9524172af99aeba170c5a0d4a347dade5a42ec110"
+    },
+    {
+      "path": "tools/prepare_avatar_mouth_atlas.py",
+      "sha256": "53ddc7d9b3fbb7f08bdcdeb8640d45c5ac734fb023e51f9a6ab65f47f6d867ab"
+    },
+    {
+      "path": "art_source/characters/avatar/v005/graphic_mouth_source.png",
+      "sha256": "47feb8a95ceefc5abdac700d0746e86ee24a7882464ba5c2a2d205b6edb594bf"
+    },
+    {
+      "path": "art_source/characters/avatar/v005/graphic_mouth_manifest.json",
+      "sha256": "1569adda5ded75d6a42225c69d276a2bd533e497d256c37686eaa6b9b3b72e4a"
+    }
+  ],
+  "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
+  "tiles": 16,
+  "layout": "4x4; 256px tiles; 1024x1024 RGBA",
+  "source_type": "original generated mouth sheet; largest-alpha-component extraction, transparent padding, shader animation",
+  "consumer": "AvatarFace + AvatarExpression"
+}

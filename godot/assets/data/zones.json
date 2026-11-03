@@ -522,5 +522,33 @@
     "harbor": [],
     "scene_binding": "World/SeaStructures/floating_shop",
     "note": "walk/landings 由场景绑定在运行时填写（Zones.bind_scene），这里只保留区块身份与取景；不是第二份地面数据。"
+  },
+  {
+    "id": "rooftop_ranch",
+    "name": "顶层牧场",
+    "role": "facility",
+    "purpose": "海面以上的废弃高层塔楼：船靠消防梯平台后，沿折返梯登顶的半野生农场；温室与水塔是两组独立升级件",
+    "unlock": null,
+    "origin": [
+      46,
+      -43.42,
+      -52
+    ],
+    "camera": [
+      46,
+      -0.5,
+      -52
+    ],
+    "hover": [
+      46,
+      12.0,
+      -52
+    ],
+    "site": null,
+    "landings": [],
+    "walk": [],
+    "harbor": [],
+    "scene_binding": "World/SeaStructures/rooftop_ranch",
+    "note": "walk/landings 由场景绑定在运行时填写（Zones.bind_scene）；水面在本地 44.54，靠泊甲板 44.80，楼顶 60.00。"
   }
 ]

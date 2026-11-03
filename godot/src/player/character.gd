@@ -14,6 +14,8 @@ const Hair := Color("#55372f")
 const HairLight := Color("#79503a")
 const Lip := Color("#bd786f")
 const Dimensions = preload("res://src/avatar/avatar_dimensions.gd")
+const AvatarCatalog = preload("res://src/avatar/avatar_catalog.gd")
+const Morphology = preload("res://src/avatar/avatar_morphology.gd")
 
 var body_pivot: Node3D
 var head_pivot: Node3D
@@ -31,12 +33,38 @@ var mask: Node3D
 var limb_skinning
 
 var _avatar_visual = preload("res://src/avatar/avatar_visual.gd").new()
+var _avatar_morphs := AvatarCatalog.morph_defaults()
+var _avatar_factors := Morphology.factors(_avatar_morphs,AvatarCatalog.defaults())
 
 func apply_appearance(appearance: Dictionary) -> void:
-	if body_pivot != null: _avatar_visual.apply(self,appearance)
+	apply_avatar({"appearance":appearance,"morphs":_avatar_morphs})
+
+func apply_avatar(profile: Dictionary) -> void:
+	_avatar_morphs=AvatarCatalog.effective_morphs(profile.get("morphs",{}))
+	var appearance: Dictionary=profile.get("appearance",AvatarCatalog.defaults())
+	_avatar_factors=Morphology.factors(_avatar_morphs,appearance)
+	if body_pivot != null:
+		_avatar_visual.apply(self,appearance,_avatar_morphs,_avatar_factors)
+		Morphology.apply(self,_avatar_factors)
+		set_meta("avatar_morphs",_avatar_morphs.duplicate(true))
+
+func avatar_shoulder(side: int) -> Vector3: return Morphology.shoulder(side,_avatar_factors)
+func avatar_rest_hand(side: int) -> Vector3: return Morphology.rest_hand(side,_avatar_factors)
+func avatar_portrait_scale() -> float:
+	return maxf(1.0,float(_avatar_factors.head)*float(_avatar_factors.head_width)/0.95)
+func avatar_arm_front_clearance() -> float:
+	return 0.16+maxf(0.0,float(_avatar_factors.head)-1.0)*0.65+maxf(0.0,float(_avatar_factors.head_width)-0.95)*0.55+maxf(0.0,float(_avatar_factors.arm)-1.35)*0.12
+func avatar_geometry_report() -> Dictionary:
+	return {"factors":_avatar_factors.duplicate(true),"morphs":_avatar_morphs.duplicate(true),"face":_avatar_visual.face_metrics(),"hair":_avatar_visual.hair_metrics()}
 
 func set_preview_yaw(value: float) -> void:
 	if body_pivot != null: body_pivot.rotation.y = value
+
+func preview_expression(id: String, duration:=2.8) -> void:
+	_avatar_visual.expression.preview(id,duration)
+	_avatar_visual.expression.sample(_t,_action,action_progress(),0.0)
+
+func expression_state() -> Dictionary: return _avatar_visual.expression.query()
 
 var _t := 0.0
 var _rowing := false
@@ -103,7 +131,8 @@ func build() -> void:
 	mask.name = "DiveMask"
 	mask.visible = false
 	head_pivot.add_child(mask)
-	_blob(mask, Rubber, Vector3(0, 0.013, 0.19), Vector3(0.204, 0.102, 0.06), sphere)
+	mask.scale=Dimensions.HEAD_SCALE
+	preload("res://src/avatar/avatar_face.gd").new().build_dive_mask(mask)
 	apply_appearance(preload("res://src/avatar/avatar_catalog.gd").defaults())
 
 
@@ -249,12 +278,16 @@ func _reset_action_pose() -> void:
 	for joint in [body_pivot,head_pivot,left_arm,right_arm,left_elbow,right_elbow,left_leg,right_leg,left_knee,right_knee]:
 		joint.rotation = Vector3.ZERO
 	body_pivot.position.y = 0.0
-	left_arm.position = Dimensions.shoulder(-1)
-	right_arm.position = Dimensions.shoulder(1)
+	left_arm.position = avatar_shoulder(-1)
+	right_arm.position = avatar_shoulder(1)
 	left_arm.scale = Vector3.ONE
 	right_arm.scale = Vector3.ONE
-	_item_receive.set_arm_length(left_arm,left_elbow,1.0)
-	_item_receive.set_arm_length(right_arm,right_elbow,1.0)
+	left_elbow.rotation.z=-Morphology.REST_ELBOW_OUT
+	right_elbow.rotation.z=Morphology.REST_ELBOW_OUT
+	left_arm.rotation.z=-float(_avatar_factors.arm_rest)
+	right_arm.rotation.z=float(_avatar_factors.arm_rest)
+	_item_receive.set_arm_length(left_arm,left_elbow,float(_avatar_factors.arm_length))
+	_item_receive.set_arm_length(right_arm,right_elbow,float(_avatar_factors.arm_length))
 	_last_action = ""
 	sync_visual_pose()
 
@@ -280,6 +313,9 @@ func _process(delta: float) -> void:
 		_reset_action_pose()
 		_last_action = _action
 	_actions[_action].sample(self,delta)
+	var visible_progress:=action_progress()
+	if not playback.is_empty(): visible_progress=clampf((float(playback.elapsed)+delta)/float(playback.duration),0.0,1.0)
+	_avatar_visual.expression.sample(_t,_action,visible_progress,delta)
 	if not playback.is_empty():
 		var completed: Dictionary = _action_playback.advance(delta)
 		_farm_action_left = _action_playback.remaining()

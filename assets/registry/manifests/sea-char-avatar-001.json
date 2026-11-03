@@ -3,20 +3,20 @@
   "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-AVATAR-001",
   "source": "godot/src/avatar/avatar_visual.gd",
   "runtime_path": "godot/src/avatar/avatar_visual.gd",
-  "version": "v002",
+  "version": "v006",
   "source_type": "original procedural Godot source; no Blender/GLB",
   "authored_files": [
     {
       "path": "godot/src/avatar/avatar_visual.gd",
-      "sha256": "cf4e84b76186f08eb4d3dee1ba1afbe13e1ccb93e454c383e453504da7735bad"
+      "sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604"
     },
     {
       "path": "godot/src/player/character.gd",
-      "sha256": "42d8fbded8797e8b5b6f52fa565de91c910fe78537fe1768ec7a7e09d9a5e6ad"
+      "sha256": "b13ea4092cc82ec1d17c4e9e6d65d763e572b8be2b140f67e1aab829df803e04"
     },
     {
       "path": "godot/assets/data/avatar_catalog.json",
-      "sha256": "93e0576935808ad34c973d9689427604f8dd2fdf1109e5696ed51ec36a751b5a"
+      "sha256": "b82b29d22e6ee5556076f21381289b3d0085101773687bfe083543cf773e9f8e"
     },
     {
       "path": "godot/shaders/avatar_cloth.gdshader",
@@ -33,14 +33,40 @@
     {
       "path": "art_source/characters/avatar/v001/reference_contract.json",
       "sha256": "1990d7f33789fe58a8a873e060f9fd496b558200e4c259183b9e44c848cb7be6"
+    },
+    {
+      "path": "godot/src/avatar/avatar_catalog.gd",
+      "sha256": "c7e24d8860a9d4d4b231630bd590c9c3a78158bb4841cabcea2ad3785b7d3f28"
+    },
+    {
+      "path": "godot/src/avatar/avatar_profile.gd",
+      "sha256": "300a59664522a19a9d50115f6471269b7598ad91ec3a33615ca1fe57455bcc46"
+    },
+    {
+      "path": "art_source/characters/avatar/v003/customization_contract.json",
+      "sha256": "a515a029d57db17ac5d7d3bdd60ac554b8f8a1b64838476a7d77861f168923a0"
+    },
+    {
+      "path": "art_source/characters/avatar/v005/shape_contract.json",
+      "sha256": "68d5e13d2ff1e1c84ffb93dfb66afbe7bc864a3063400661d87710ba92ba7ebf"
+    },
+    {
+      "path": "art_source/characters/avatar/v006/shoulder_contract.json",
+      "sha256": "14815a9e58ed5d5d2152f4ed52ab26ec9b2fe305b9d673c2ab8539fa75eaf34b"
+    },
+    {
+      "path": "art_source/characters/avatar/v006/shoulder_reference.png",
+      "sha256": "17f3e12f7100602782b96ac83857ed6f1b567ca65d7945a5ad7563dc7794dde9"
     }
   ],
   "units": "metres / +Y up / +Z forward / root scale 1",
   "consumer": "Character + AvatarSession",
-  "verification": "docs/development/2026-11-02_avatar_limb_skinning.md",
+  "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
   "user_art_acceptance": "self_verified_per_user_instruction_2026-11-02",
   "self_verification": "six projected anatomy ratios within 5%; original reference, three-quarter/front/side and gameplay/editor renders inspected",
   "external_game_assets_used": false,
   "skeleton_asset_id": "SEA-CHAR-RIG-001",
-  "rig_contract": "art_source/characters/avatar/v002/rig_contract.json"
+  "rig_contract": "art_source/characters/avatar/v002/rig_contract.json",
+  "expression_asset_id": "SEA-CHAR-EXPRESSION-001",
+  "shoulder_contract": "art_source/characters/avatar/v006/shoulder_contract.json"
 }

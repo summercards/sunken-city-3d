@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/components/stair_landing/stair_landing.glb" id="model"]
+[ext_resource type="Script" path="res://src/ambient/scene_component.gd" id="contract"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/metal.tres" id="sea_metal"]
+
+[node name="stair_landing" instance=ExtResource("model")]
+script = ExtResource("contract")
+asset_id = "SEA-SCENE-ORF2-STAIR_LANDING"
+instance_id = "rooftop_ranch/stair_landing"
+facility_id = "rooftop_ranch"
+component_kind = "building"
+subcategory = "fire_landing"
+water_layer = "amphibious"
+water_layer_role = "part"
+movable = false
+metadata/asset_id = "SEA-SCENE-ORF2-STAIR_LANDING"
+metadata/building_class = "above_water"
+metadata/source_version = "v004"
+metadata/component_key = "stair_landing"
+metadata/blocker_mode = "auto"
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "auto"
+blocks_water = true
+cell = 0.4
+
+[node name="ORF3_消防梯折返休息平台_1_001" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")

@@ -40,10 +40,21 @@
       "code_paths": [
         "godot/src/avatar",
         "godot/assets/data/avatar_catalog.json",
+        "godot/assets/textures/avatar",
         "godot/shaders/avatar_limb.gdshader",
-        "art_source/characters/avatar/v002/rig_contract.json"
+        "art_source/characters/avatar/v002/rig_contract.json",
+        "art_source/characters/avatar/v003/customization_contract.json",
+        "art_source/characters/avatar/v005/shape_contract.json",
+        "art_source/characters/avatar/v006/shoulder_contract.json",
+        "godot/shaders/avatar_eye.gdshader",
+        "godot/shaders/avatar_mouth.gdshader"
       ],
       "verification": [
+        "avatar-graphic",
+        "visual-avatar-graphic",
+        "visual-avatar-shoulders",
+        "avatar-customization",
+        "visual-avatar-customization",
         "avatar",
         "avatar-restart",
         "visual-avatar",

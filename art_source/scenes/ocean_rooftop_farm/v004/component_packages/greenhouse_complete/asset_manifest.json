@@ -1,0 +1,37 @@
+{
+  "key": "greenhouse_complete",
+  "name": "温室_升级后_完整设施",
+  "asset_id": "SEA-SCENE-ORF2-GREENHOUSE_COMPLETE",
+  "category": "fixture",
+  "component_family": "greenhouse_upgrade",
+  "variant_axis": "upgrade_state",
+  "variant_value": "complete",
+  "variant_reason": "independent before/after visual models for future upgrade swap",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collision_owner": "future_Godot_upgrade_wrapper_pending",
+  "building_class": "above_water",
+  "collection": "ORF4_组件_greenhouse_complete",
+  "component_source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/greenhouse_complete/greenhouse_complete.blend",
+  "source_version": "v004",
+  "bounds_size_m": [
+    6.381387710571289,
+    8.142499923706055,
+    3.8371963500976562
+  ],
+  "instance_count": 1,
+  "geometry_fingerprint": "9477b61a4ea33fbdd2688bc565e891645a35b7b17e2d52fcb18d7b52792dced1",
+  "source_sha256": "e04841c9fb02dffaba6c862cc4341f83872430ec95c181ccb4d1610f84b19c71",
+  "schema": "sea.scene.component_manifest",
+  "version": "v004",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "runtime_status": "pending",
+  "license": "pending_user_reference_rights_review"
+}

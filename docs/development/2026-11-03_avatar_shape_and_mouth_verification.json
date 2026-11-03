@@ -1,0 +1,360 @@
+{
+  "date": "2026-11-03",
+  "feature": "SEA-AVATAR",
+  "revision": "r6",
+  "results": {
+    "avatar-customization": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\avatar-customization.log",
+      "user_data_name": "sea-verification/20261103-102653-avatar-r6-final-matrix-cad6f3/avatar-customization",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_customization.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 3559,
+      "failures": 0
+    },
+    "avatar": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\avatar.log",
+      "user_data_name": "sea-verification/20261103-102653-avatar-r6-final-matrix-cad6f3/avatar-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 192,
+      "failures": 0
+    },
+    "avatar-restart": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\avatar-restart.log",
+      "user_data_name": "sea-verification/20261103-102653-avatar-r6-final-matrix-cad6f3/avatar-restart",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_restart.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 8,
+      "failures": 0
+    },
+    "avatar-skinning": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\avatar-skinning.log",
+      "user_data_name": "sea-verification/20261103-102653-avatar-r6-final-matrix-cad6f3/avatar-skinning",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_skinning.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 80,
+      "failures": 0
+    },
+    "character-motor": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\character-motor.log",
+      "user_data_name": "sea-verification/20261103-102653-avatar-r6-final-matrix-cad6f3/character-motor",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_character_motor.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 42,
+      "failures": 0
+    },
+    "actor-presentation": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\actor-presentation.log",
+      "user_data_name": "sea-verification/20261103-102653-avatar-r6-final-matrix-cad6f3/actor-presentation",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_actor_presentation.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 31,
+      "failures": 0
+    },
+    "harvest-receive": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\harvest-receive.log",
+      "user_data_name": "sea-verification/20261103-102653-avatar-r6-final-matrix-cad6f3/harvest-receive",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_harvest_receive.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 80,
+      "failures": 0
+    },
+    "onboarding": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\onboarding.log",
+      "user_data_name": "sea-verification/20261103-102653-avatar-r6-final-matrix-cad6f3/onboarding",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102653-avatar-r6-final-matrix-cad6f3\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_onboarding.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 23,
+      "failures": 0
+    },
+    "visual-avatar-customization": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102704-avatar-r6-final-ui-motion-7e0566\\visual-avatar-customization.log",
+      "user_data_name": "sea-verification/20261103-102704-avatar-r6-final-ui-motion-7e0566/visual-avatar-customization",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102704-avatar-r6-final-ui-motion-7e0566\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tools/capture_avatar_customization.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 368,
+      "failures": 0
+    },
+    "visual-avatar-skinning": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102704-avatar-r6-final-ui-motion-7e0566\\visual-avatar-skinning.log",
+      "user_data_name": "sea-verification/20261103-102704-avatar-r6-final-ui-motion-7e0566/visual-avatar-skinning",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102704-avatar-r6-final-ui-motion-7e0566\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_avatar_skinning.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 92,
+      "failures": 0
+    },
+    "avatar-graphic": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102747-avatar-r6-final-design-0d094b\\avatar-graphic.log",
+      "user_data_name": "sea-verification/20261103-102747-avatar-r6-final-design-0d094b/avatar-graphic",
+      "renderer": "headless",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102747-avatar-r6-final-design-0d094b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_avatar_graphic.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 383,
+      "failures": 0
+    },
+    "visual-avatar-graphic": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102747-avatar-r6-final-design-0d094b\\visual-avatar-graphic.log",
+      "user_data_name": "sea-verification/20261103-102747-avatar-r6-final-design-0d094b/visual-avatar-graphic",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102747-avatar-r6-final-design-0d094b\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_avatar_graphic.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 452,
+      "failures": 0
+    },
+    "visual-avatar-proportions": {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "log": "D:\\projects\\sea-work\\verification\\20261103-102747-avatar-r6-final-design-0d094b\\visual-avatar-proportions.log",
+      "user_data_name": "sea-verification/20261103-102747-avatar-r6-final-design-0d094b/visual-avatar-proportions",
+      "renderer": "real",
+      "command": [
+        "I:\\Godot_v4.6.3-stable_win64.exe\\Godot_v4.6.3-stable_win64_console.exe",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261103-102747-avatar-r6-final-design-0d094b\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_avatar_proportions.gd",
+        "--",
+        "--skip-title"
+      ],
+      "checks": 13,
+      "failures": 0
+    }
+  },
+  "expected_faults": [
+    "invalid snapshots are intentionally rejected without restoring any state",
+    "simulated disk-save failure retains draft and rolls committed identity back"
+  ],
+  "unexpected_runtime_errors": [],
+  "unexecuted": [
+    "touch",
+    "controller",
+    "low-end devices",
+    "export pack",
+    "power failure",
+    "full continuous/cartesian exhaustive combinations"
+  ],
+  "static_global_gate": {
+    "passed": false,
+    "issues": [
+      "SEA-SCENE-ORF-ASSEMBLY: source hash drift",
+      "runtime hash drift: godot/assets/materials/ocean_sky.tres"
+    ],
+    "note": "Concurrent non-avatar assets; their hashes were not refreshed."
+  },
+  "total_checks": 5323,
+  "source_hashes": {
+    "godot/src/avatar/avatar_catalog.gd": "c7e24d8860a9d4d4b231630bd590c9c3a78158bb4841cabcea2ad3785b7d3f28",
+    "godot/src/avatar/avatar_dimensions.gd": "1a45335da153a4df2904e419aa81bc67ef6cc5e07c24ead6d6fa2e937baba251",
+    "godot/src/avatar/avatar_editor.gd": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a",
+    "godot/src/avatar/avatar_expression.gd": "cc9ef5700aac6a9872e20194ae9108ee9a1c2db5e360a5b5f9f17c38c254f662",
+    "godot/src/avatar/avatar_face.gd": "77ebe8ccaadf782eedaa3a712ea57af76029f7a236e04331decfd4bc60fba9f0",
+    "godot/src/avatar/avatar_hair.gd": "1619921b95b12acfdf5e25e08cd0a90076b053c8b138538e7e0db0130b69315d",
+    "godot/src/avatar/avatar_limb_skinning.gd": "43550b216d752f190658f4b2a4ebd2fb03d947ab4714269a649392b70308f5ca",
+    "godot/src/avatar/avatar_morphology.gd": "76a26c91946dcb43d1350b91f1d561f93526c3abd25e9098eb8e03eda677ae94",
+    "godot/src/avatar/avatar_profile.gd": "300a59664522a19a9d50115f6471269b7598ad91ec3a33615ca1fe57455bcc46",
+    "godot/src/avatar/avatar_session.gd": "4d3ae7f18ac329abd6f23c961693eddc2fc95060da5bc1975c41372ed88b6a2a",
+    "godot/src/avatar/avatar_visual.gd": "0e5dd2e9056e9585d4537c3af3c031d9abae96ffd5fc55d43b2bc483f5a4d1c5",
+    "godot/src/player/character.gd": "1ff59d45a5c9add9d68526f5d0001af32cabf2ae521d3db07f68462d5c1320e2",
+    "godot/src/player/animation/item_receive.gd": "f39fac5f8bdd40111caaa77dccd441c835c23405bde9020a6d737312abe64d5e",
+    "godot/src/onboarding/arrival_camera.gd": "cd40077507e64713a54210eabc07fd163a87d68400e3cab8013abe2078620d9e",
+    "godot/assets/data/avatar_catalog.json": "b82b29d22e6ee5556076f21381289b3d0085101773687bfe083543cf773e9f8e"
+  },
+  "historical_r5_failures_and_fixes": [
+    "initial static sleeve gap at thin shape",
+    "old torso convex-hull probe false positives, replaced by actual triangle section/depth",
+    "eye/mouth generated atlas neighbour fragments extracted by alpha component",
+    "frame15 arm/head contact fixed by shared release-front margin",
+    "carry/hat brim contact fixed by actual headwear front envelope"
+  ],
+  "owned_asset_manifest_checks": {
+    "files": 44,
+    "failures": 0
+  },
+  "architecture": {
+    "services": 17,
+    "passed": true
+  },
+  "post_validation_formatting": "Removed one trailing blank line from avatar_visual.gd only; no semantic change."
+}

@@ -595,7 +595,11 @@ func _test_zones_scene() -> void:
 	_ok("World/Zones 存在", zones_root != null)
 	if zones_root == null:
 		return
-	_ok("五个区块场景实例", zones_root.get_child_count() == 5, str(zones_root.get_child_count()))
+	# 2026-11-03：圆弧农场与远海街町按用户要求从 main.tscn 移除（场景文件保留），
+	# 默认装的是家园、横滨铁道、浅水养殖台三块。
+	const INSTALLED_LIFE_ZONES := ["zone1", "zone2", "zone5"]
+	_ok("已安装区块场景实例", zones_root.get_child_count() == INSTALLED_LIFE_ZONES.size(),
+		str(zones_root.get_child_count()))
 	var seen := {}
 	for zone in zones_root.get_children():
 		seen[zone.zone_id] = true
@@ -650,7 +654,10 @@ func _test_zones_scene() -> void:
 				_ok("%s 有可行动区域" % zid.id, bound.walk_areas.size() > 0)
 				_ok("%s 有泊位" % zid.id, bound.landing_points().size() > 0)
 			continue
-		_ok("%s 场景已装配" % zid.id, seen.has(zid.id))
+		if zid.id in INSTALLED_LIFE_ZONES:
+			_ok("%s 场景已装配" % zid.id, seen.has(zid.id))
+		else:
+			_ok("%s 未安装（保留场景与数据，不参与默认世界）" % zid.id, not seen.has(zid.id))
 
 
 ## glb 资产：清单、文件、顶点数与包围盒都要对得上烘焙。

@@ -1,0 +1,29 @@
+{
+  "schema": "sea.scene.base_assembly",
+  "asset_id": "SEA-SCENE-ORF2-BASE-BUILDING",
+  "name": "楼顶农场_普通草皮基础楼体",
+  "source": "art_source/scenes/ocean_rooftop_farm/v004/base_building.blend",
+  "source_sha256": "1f29626308b0e92932c92da4e2ff057c746ba68e235058951e7484f006636572",
+  "version": "v004",
+  "origin": "bottom_center",
+  "origin_world_reference": [
+    1.622939109802246,
+    -0.2849998474121094,
+    0.0
+  ],
+  "bounds_size_m": [
+    52.951881408691406,
+    34.290000915527344,
+    68.60491180419922
+  ],
+  "instances": 740,
+  "excluded_upgrade_asset_ids": [
+    "SEA-SCENE-ORF2-GREENHOUSE_COMPLETE",
+    "SEA-SCENE-ORF2-GREENHOUSE_UNBUILT",
+    "SEA-SCENE-ORF2-WATER_TOWER_COMPLETE",
+    "SEA-SCENE-ORF2-WATER_TOWER_UNBUILT"
+  ],
+  "contains_upgrade_states": false,
+  "runtime_status": "pending_no_Godot_import",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+}
