@@ -1,0 +1,738 @@
+{
+  "schema": "sea.upgrade_asset_states",
+  "source_only": true,
+  "default_state": "unbuilt",
+  "pairs": [
+    {
+      "upgrade_id": "ORF-UPGRADE-GREENHOUSE",
+      "family": "greenhouse",
+      "socket_world_blender": [
+        7.0,
+        7.5,
+        60.05
+      ],
+      "socket_world_godot": [
+        7.0,
+        60.05,
+        -7.5
+      ],
+      "local_pivot": "bottom_center",
+      "placement_rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "placement_scale": [
+        1,
+        1,
+        1
+      ],
+      "default_state": "unbuilt",
+      "states": {
+        "unbuilt": {
+          "asset_id": "SEA-SCENE-ORF2-GREENHOUSE_UNBUILT",
+          "component_key": "greenhouse_unbuilt",
+          "instance_name": "ORF4_温室_升级前_待建木料堆",
+          "collection": "ORF4_greenhouse_unbuilt",
+          "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/greenhouse_unbuilt/greenhouse_unbuilt.blend"
+        },
+        "complete": {
+          "asset_id": "SEA-SCENE-ORF2-GREENHOUSE_COMPLETE",
+          "component_key": "greenhouse_complete",
+          "instance_name": "ORF4_温室_升级后_完整设施",
+          "collection": "ORF4_greenhouse_complete",
+          "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/greenhouse_complete/greenhouse_complete.blend"
+        }
+      },
+      "state_switch": "mutually_exclusive_replace_only",
+      "runtime_logic": "pending_no_cost_or_production_rules_changed",
+      "socket_local_to_base_blender": [
+        5.377060890197754,
+        7.784999847412109,
+        60.04999923706055
+      ]
+    },
+    {
+      "upgrade_id": "ORF-UPGRADE-WATER_TOWER",
+      "family": "water_tower",
+      "socket_world_blender": [
+        17.807464599609375,
+        10.0,
+        60.05
+      ],
+      "socket_world_godot": [
+        17.807464599609375,
+        60.05,
+        -10.0
+      ],
+      "local_pivot": "bottom_center",
+      "placement_rotation_euler_xyz": [
+        0,
+        0,
+        0
+      ],
+      "placement_scale": [
+        1,
+        1,
+        1
+      ],
+      "default_state": "unbuilt",
+      "states": {
+        "unbuilt": {
+          "asset_id": "SEA-SCENE-ORF2-WATER_TOWER_UNBUILT",
+          "component_key": "water_tower_unbuilt",
+          "instance_name": "ORF4_水塔_升级前_卧放罐体与木支架材料",
+          "collection": "ORF4_water_tower_unbuilt",
+          "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/water_tower_unbuilt/water_tower_unbuilt.blend"
+        },
+        "complete": {
+          "asset_id": "SEA-SCENE-ORF2-WATER_TOWER_COMPLETE",
+          "component_key": "water_tower_complete",
+          "instance_name": "ORF4_水塔_升级后_已搭建",
+          "collection": "ORF4_water_tower_complete",
+          "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/water_tower_complete/water_tower_complete.blend"
+        }
+      },
+      "state_switch": "mutually_exclusive_replace_only",
+      "runtime_logic": "pending_no_cost_or_production_rules_changed",
+      "socket_local_to_base_blender": [
+        16.184524536132812,
+        10.28499984741211,
+        60.04999923706055
+      ]
+    }
+  ],
+  "constraints": [
+    "Only one state for each family may be visible/exported at runtime",
+    "Building base export excludes all four upgrade state meshes",
+    "Completed greenhouse comprises both old greenhouse modules, zero crop meshes",
+    "Water tower state models have no tall erected beams before upgrade"
+  ],
+  "removed_instances": [
+    {
+      "name": "ORF2_实例_greenhouse",
+      "key": "greenhouse"
+    },
+    {
+      "name": "ORF2_实例_greenhouse.001",
+      "key": "greenhouse"
+    },
+    {
+      "name": "ORF2_实例_tank",
+      "key": "tank"
+    },
+    {
+      "name": "ORF2_实例_solar.002",
+      "key": "solar"
+    },
+    {
+      "name": "ORF2_实例_solar.003",
+      "key": "solar"
+    },
+    {
+      "name": "ORF2_实例_solar.004",
+      "key": "solar"
+    },
+    {
+      "name": "ORF2_实例_solar.005",
+      "key": "solar"
+    },
+    {
+      "name": "ORF2_实例_solar.006",
+      "key": "solar"
+    },
+    {
+      "name": "ORF2_实例_solar.007",
+      "key": "solar"
+    },
+    {
+      "name": "ORF2_实例_field",
+      "key": "field"
+    },
+    {
+      "name": "ORF2_实例_bed",
+      "key": "bed"
+    },
+    {
+      "name": "ORF2_实例_bed.001",
+      "key": "bed"
+    },
+    {
+      "name": "ORF2_实例_bed.002",
+      "key": "bed"
+    },
+    {
+      "name": "ORF2_实例_cabbage",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.001",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.002",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.003",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.004",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.005",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.006",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.007",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.008",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.009",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.010",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.011",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.012",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.013",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.014",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.015",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.016",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.017",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.018",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.019",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.020",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.021",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.022",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.023",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_seedling",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.001",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.002",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.003",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.004",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.005",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.006",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.007",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.008",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.009",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.010",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.011",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.012",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.013",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.014",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.015",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.016",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.017",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.018",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.019",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.020",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.021",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.022",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.023",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_tomato",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.001",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.002",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.003",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.004",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.005",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.006",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.007",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_cabbage.024",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.025",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.026",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.027",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.028",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.029",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.030",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.031",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.032",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.033",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.034",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.035",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.036",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.037",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.038",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.039",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_seedling.024",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.025",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.026",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.027",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.028",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.029",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.030",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.031",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_cabbage.040",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.041",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.042",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.043",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.044",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.045",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.046",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.047",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.048",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.049",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.050",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.051",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.052",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.053",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.054",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.055",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_seedling.032",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.033",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.034",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.035",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.036",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.037",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.038",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.039",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_cabbage.056",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.057",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.058",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.059",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.060",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.061",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.062",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_cabbage.063",
+      "key": "cabbage"
+    },
+    {
+      "name": "ORF2_实例_tomato.008",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.009",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.010",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.011",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.012",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.013",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.014",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.015",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.016",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.017",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.018",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.019",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.020",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.021",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_tomato.022",
+      "key": "tomato"
+    },
+    {
+      "name": "ORF2_实例_seedling.040",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.041",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.042",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.043",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.044",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.045",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.046",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.047",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.048",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.049",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.050",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.051",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.052",
+      "key": "seedling"
+    },
+    {
+      "name": "ORF2_实例_seedling.053",
+      "key": "seedling"
+    }
+  ],
+  "removed_orphan_irrigation": [
+    "ORF2_实例_pipe.001"
+  ],
+  "base_building_source": "base_building.blend",
+  "base_origin_world_reference": [
+    1.622939109802246,
+    -0.2849998474121094,
+    0.0
+  ]
+}

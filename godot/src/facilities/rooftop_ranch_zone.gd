@@ -3,10 +3,10 @@ extends "res://src/world/zone_scene.gd"
 ## 顶层牧场：视觉升级状态 + 楼顶与消防梯的行走/物理支撑。
 ## 不拥有经济、生产或存档规则，只把「能不能站、能不能走上去」做成真实数据。
 ##
-## 水面位置按用户红线标定：图中红框是保留段消防梯最下面的一层平台，
-## 该平台甲板 44.80 就在水面（44.54）上方 0.26 米 —— 和码头/浮店的登船高差一致。
-## 船靠这一层平台上人，沿六段折返梯走 15.2 米上到 60 米的楼顶农场；
-## 平台下方的断梯残段沉在水里，只作视觉残骸，不承诺可走。
+## 水面位置按用户红线标定：现在只保留一段消防梯，
+## 该段下端平台甲板 44.80 对齐水面（44.80），视觉甲板厚度向上留 0.26 米供角色站立。
+## 整楼包装根下沉到 -43.68：1.12 - 44.80 = -43.68。
+## 船靠这一个平台上人；平台以上不再有来回折返梯，楼顶暂不承诺从该段连续可达。
 
 @export_enum("unbuilt", "complete") var greenhouse_upgrade_state := "unbuilt":
 	set(value):
@@ -19,10 +19,10 @@ extends "res://src/world/zone_scene.gd"
 		_apply_upgrade_state()
 
 ## —— 楼体本地标高（米，+Y 向上）——
-const WATER_LOCAL_Y := 44.54      ## 水面；世界高度 1.12
-const BOARD_DECK_Y := 44.80       ## 上岸口：保留段最下面那层平台甲板
+const WATER_LOCAL_Y := 44.80      ## 水面穿过单段消防梯下端平台；世界高度 1.12
+const BOARD_DECK_Y := 45.06       ## 甲板可站高度：视觉平台厚度向上 0.26m
 const ROOF_Y := 60.00             ## 楼顶草皮面
-const BRIDGE_Y := 59.90           ## 顶层平台到楼顶的入口板
+const BRIDGE_Y := 59.90           ## 历史值，仅保留元数据兼容
 
 ## 六段折返梯：lane A/B 两条梯道交替，每段升 2.5 米，合 15 米。
 ## low/high 两端都落在相邻平台的甲板边上，接缝共边，不留悬空。
@@ -63,10 +63,23 @@ const ROOF_CUTS := [
 ]
 
 func _ready() -> void:
+	_hide_extra_stairs()
 	_author_walk_surfaces()
 	_author_roof_obstacles()
 	super._ready()
 	_apply_upgrade_state()
+
+## v005 只露出一段消防梯：保留水面平台、第一段梯段和上端小平台。
+## 其余几何在运行包装中隐藏；Blender v005 源也同步保留同一段。
+func _hide_extra_stairs() -> void:
+	var models := get_node_or_null("Models")
+	if models == null:
+		return
+	for child in models.get_children():
+		var n := String(child.name)
+		var keep := n in ["ORF3_实例_stair_flight.018", "ORF3_实例_stair_landing.019"]
+		if n.begins_with("ORF3_实例_stair_flight.") or n.begins_with("ORF3_实例_stair_landing.") or n == "ORF3_实例_stair_landing.024" or n == "ORF3_实例_roof_entry":
+			child.visible = keep
 
 func set_greenhouse_upgrade_state(state: String, instant := false) -> void:
 	if state != "unbuilt" and state != "complete":
@@ -102,22 +115,17 @@ func _author_walk_surfaces() -> void:
 	if area == null:
 		return
 	var faces := PackedVector3Array()
-	for deck: Dictionary in LANDING_DECKS:
-		_add_rect(faces, deck.x0, deck.z0, deck.x1, deck.z1, deck.y)
-	for run: Dictionary in STAIR_RUNS:
-		_add_ramp(faces, run.x0, run.x1, run.low_z, run.high_z, run.low_y, run.high_y)
-	# 顶层开放平台到楼顶的入口板（真件 roof_entry 跨在屋檐上），做成连续斜板：
-	# 高端必须正好压在屋檐边（x=23.5）且高度等于楼顶 60.0 —— 差 0.06 米就会被
-	# GroundSpace 的边界墙判定成台阶并封死，表现就是「走到梯顶迈不进楼顶」。
-	_add_ramp_x(faces, -5.10, -2.70, 24.80, ROOF_MAX_X, 59.80, ROOF_Y)
-	for piece: Array in _roof_pieces():
-		_add_rect(faces, piece[0], piece[1], piece[2], piece[3], ROOF_Y)
+	# v005 只保留水面以上的一段消防梯：下端平台 44.80 → 单段梯 → 上端平台 47.30。
+	# 楼顶不再与这段消防梯宣称连通；WalkArea 严格跟随当前可见模型。
+	_add_rect(faces, 23.90, -4.80, 28.10, -3.00, BOARD_DECK_Y)
+	_add_ramp(faces, 24.16, 25.84, -3.00, 1.20, BOARD_DECK_Y, 47.56)
+	_add_rect(faces, 23.90, 1.20, 28.10, 3.00, 47.56)
 	faces = _upward(faces)
 	area.surface_triangles = faces
 	area.physical_surface_triangles = faces
-	area.surface_y = global_position.y + ROOF_Y
+	area.surface_y = global_position.y + 47.56
 	area.span_min = global_position.y + WATER_LOCAL_Y
-	area.span_max = global_position.y + ROOF_Y + 0.30
+	area.span_max = global_position.y + 47.86
 
 ## 楼顶矩形减去被实体占掉的部分，切成若干可走矩形。
 func _roof_pieces() -> Array:

@@ -1,0 +1,3589 @@
+{
+  "schema": "sea.scene.02b_component_export",
+  "asset_id": "SEA-SCENE-ORF2-EXPORT-V004",
+  "name": "ocean_rooftop_farm v004 02b 独立组件导出",
+  "source_version": "v005",
+  "catalog_count": 45,
+  "catalog_independent": true,
+  "whole_building_glb_substitute": false,
+  "upgrade_states_are_independent_assets": true,
+  "upgrade_state_keys": [
+    "greenhouse_unbuilt",
+    "greenhouse_complete",
+    "water_tower_unbuilt",
+    "water_tower_complete"
+  ],
+  "source_sha256_before": {
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\ocean_rooftop_farm_v004.blend": "db8f685507eb8f7f152fc77911349508d984d904d9b6ecc1be19f6fdfed836ca",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\base_building.blend": "1f29626308b0e92932c92da4e2ff057c746ba68e235058951e7484f006636572",
+    "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\shell\\shell.blend": "8018c0efd6a0c6ccac34fd7725fa805e4f017128f899b9c69aad9cb8755078f3",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\slab\\slab.blend": "05f709a3c0eb40a6b3424d7a09d1a24d6345a6349c991697163c787ccb82e51e",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\pier\\pier.blend": "559eaad9aca334e74c974b3c1f383bbc2f1a54be04ef597821d4f47ac8160860",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\window\\window.blend": "2e98199186fd404219a40f073a2d1698103cfc0a9f89ddc97a3932dae0076c91",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\balcony\\balcony.blend": "848d76a58ddda607378bd60504d35021403854106e235765f631f0f65ef4fb15",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\weather\\weather.blend": "f3e423cc8134ca9a44904e2d2c2cff4d1ba7ced2f255d74db51e1f899174ad7e",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\roof\\roof.blend": "224dad2db2c2e6aa43894e158ad2ff1d61c9d74337328c7504cb5afa8958f4b9",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\parapet\\parapet.blend": "ca2a51bf469137c18e64a1285cec784149db5d6110f1cc78a3b484faf10211bf",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\rail\\rail.blend": "d917e2fb121f8d48db4b1011b924c349bddab9f640232dc42405b5231f49b6ee",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\grass\\grass.blend": "e76b32f4e4ba5afd2dde41ee936837356ec56c16e678eb4f16005505c069f9e0",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\tuft\\tuft.blend": "0891a9b1786ddd7ecd4cd1980d26cd328cc27aa7f27453abf3e8754bc7eb7170",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\vine\\vine.blend": "ec8271aa6fc235be2f0602255abaed80a66e37bda49f689636c7966e8cf9079f",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\platform\\platform.blend": "aff6462b43ffc10ced566b9aeaddf3719eb54dcad4ce51cc9d220ddde1e71af5",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\room\\room.blend": "078a314da1ccb9e8b9f0f0ebd2a660787c31a5f61fe713f6dd652dee1ecd44f7",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\ladder\\ladder.blend": "7d0098f199a42e533f11f3fde4e63280367828cb3826f7966426f1c0d7b1142d",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\line\\line.blend": "97e9953af9016f78df0ea1728fc6095a8af3a160d4582a863d44801d217a1b27",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\shed\\shed.blend": "ebf449cee6fdc34efe0eefdcb4ea060898a3be5e9fc97cee11eadeb2c224e721",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\coop\\coop.blend": "1165d5888f2918cec79622c334fd1d675bf3a338ee85d6201429495b227f8e37",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\fence\\fence.blend": "c12520181f33b5e893f6911ed23a977c4413c5207012c126b11a7c237731b608",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\wind\\wind.blend": "be7c58f1a762732d306cd471a45d2c5ad2badb910bd6f1a4ae5396070213b6b4",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\solar\\solar.blend": "32fbdfe9b65990dd0f5a5a7cac61d91bb98cb1eebb2e6271f84ca7a537335aa1",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\stone\\stone.blend": "71047f57936c56178d789bc66f34945eb076e82e50315647da9cb52b78ecb60a",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\plank\\plank.blend": "dccf889a75b020ffe2e38f711f8b6e23874608edbf782da5d73ddebe3f719b88",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\compost\\compost.blend": "881a663d2448563cd61ad80a95c080c262c51a6033e23a13d5f3290be159338d",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\pot\\pot.blend": "7cb3ea45b39fa3830eb0ad387af7841f46f3d16e04d661a8e7bb451ab81da482",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\plant\\plant.blend": "d94711e30881cc434de979dc3ffd42404f4807fe02d66420583f4e666e583f96",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\pipe\\pipe.blend": "8c45b5af81ef3ccf813bc8893240f2df5de8daa69ac9f44bbf11d0f2efe9a456",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\table\\table.blend": "4a1ffb072b22864df868e60f7145b59730b240a5d1fc0b57b04f0b99e4b63c85",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\chair\\chair.blend": "94837a02e97bd35201e9637ea1be8686e425a197a0810dd790e4b76c62ee562c",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\crate\\crate.blend": "cf577ff6da02f55226466e63a8ff2b96f6a54d97a8c3e1f3725b83ab9bca0b9f",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\barrel\\barrel.blend": "7c4b1ea8d31de25e9eae1617167361cd125ea3eaf87bdfb6408f777ac090ba6c",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\lamp\\lamp.blend": "945376980c189d143f650ac397868cc93e3e01c95cd9e8410e86015ab7e8d848",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\window_cracked\\window_cracked.blend": "338047a5ea05602d34bd7e188006352e58cfcfcc1aa90c0161890f09418af5e6",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\window_broken\\window_broken.blend": "3b694137cc59a3342178ee5b2a739c71fea7df68d57b113659768697782fa72b",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\moss_cluster\\moss_cluster.blend": "64d6d7bd13b04222c521ea19151e7d9acc9c4689064af5bbfafbb4aaec84f53c",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\stair_flight\\stair_flight.blend": "81f0ee08929b85fe443fe932a43f4dbb42f458f3d497e123b726abf9a41ed900",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\stair_landing\\stair_landing.blend": "cdd4f3033927f4459dd1cb5231d6b2dac3470d34a4037ea1d14dc3ab19e92b16",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\roof_entry\\roof_entry.blend": "81f571aa3d0e1f6783bd0cb7dbed44d02653ed6b39687a5ccd741f1f7b3c7be0",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\stair_landing_open\\stair_landing_open.blend": "7aa0745e750548b38befa07f2f8b0241c1a0fec6d4d787ef63cc8b36e83f5e04",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\broken_flight\\broken_flight.blend": "fa25c2933c28cbf293232d89780a6c72248abd6447b7ed6ebcb7ea42e8938c2b",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\turf_core\\turf_core.blend": "f46f0686ae6134b118d3532ff2ea8e982c288d6e5916f8435cbc3b11b44b2d0f",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\greenhouse_unbuilt\\greenhouse_unbuilt.blend": "416c9e2d4eb2c35f5e6c544dd471d970d6574d4e2986789d08471ffad392a047",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\greenhouse_complete\\greenhouse_complete.blend": "e04841c9fb02dffaba6c862cc4341f83872430ec95c181ccb4d1610f84b19c71",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\water_tower_unbuilt\\water_tower_unbuilt.blend": "b8ba8536c04877b6336851d2a0d2c301ebe5a5181c7c1cbd24a4f29403cf28fd",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\water_tower_complete\\water_tower_complete.blend": "a49771c3878fd3af1c2b3dc755a04575b8af4bdacb99c9b76b4e2267aa94d4ae"
+  },
+  "source_sha256_after": {
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\ocean_rooftop_farm_v004.blend": "db8f685507eb8f7f152fc77911349508d984d904d9b6ecc1be19f6fdfed836ca",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\base_building.blend": "1f29626308b0e92932c92da4e2ff057c746ba68e235058951e7484f006636572",
+    "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\shell\\shell.blend": "8018c0efd6a0c6ccac34fd7725fa805e4f017128f899b9c69aad9cb8755078f3",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\slab\\slab.blend": "05f709a3c0eb40a6b3424d7a09d1a24d6345a6349c991697163c787ccb82e51e",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\pier\\pier.blend": "559eaad9aca334e74c974b3c1f383bbc2f1a54be04ef597821d4f47ac8160860",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\window\\window.blend": "2e98199186fd404219a40f073a2d1698103cfc0a9f89ddc97a3932dae0076c91",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\balcony\\balcony.blend": "848d76a58ddda607378bd60504d35021403854106e235765f631f0f65ef4fb15",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\weather\\weather.blend": "f3e423cc8134ca9a44904e2d2c2cff4d1ba7ced2f255d74db51e1f899174ad7e",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\roof\\roof.blend": "224dad2db2c2e6aa43894e158ad2ff1d61c9d74337328c7504cb5afa8958f4b9",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\parapet\\parapet.blend": "ca2a51bf469137c18e64a1285cec784149db5d6110f1cc78a3b484faf10211bf",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\rail\\rail.blend": "d917e2fb121f8d48db4b1011b924c349bddab9f640232dc42405b5231f49b6ee",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\grass\\grass.blend": "e76b32f4e4ba5afd2dde41ee936837356ec56c16e678eb4f16005505c069f9e0",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\tuft\\tuft.blend": "0891a9b1786ddd7ecd4cd1980d26cd328cc27aa7f27453abf3e8754bc7eb7170",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\vine\\vine.blend": "ec8271aa6fc235be2f0602255abaed80a66e37bda49f689636c7966e8cf9079f",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\platform\\platform.blend": "aff6462b43ffc10ced566b9aeaddf3719eb54dcad4ce51cc9d220ddde1e71af5",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\room\\room.blend": "078a314da1ccb9e8b9f0f0ebd2a660787c31a5f61fe713f6dd652dee1ecd44f7",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\ladder\\ladder.blend": "7d0098f199a42e533f11f3fde4e63280367828cb3826f7966426f1c0d7b1142d",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\line\\line.blend": "97e9953af9016f78df0ea1728fc6095a8af3a160d4582a863d44801d217a1b27",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\shed\\shed.blend": "ebf449cee6fdc34efe0eefdcb4ea060898a3be5e9fc97cee11eadeb2c224e721",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\coop\\coop.blend": "1165d5888f2918cec79622c334fd1d675bf3a338ee85d6201429495b227f8e37",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\fence\\fence.blend": "c12520181f33b5e893f6911ed23a977c4413c5207012c126b11a7c237731b608",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\wind\\wind.blend": "be7c58f1a762732d306cd471a45d2c5ad2badb910bd6f1a4ae5396070213b6b4",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\solar\\solar.blend": "32fbdfe9b65990dd0f5a5a7cac61d91bb98cb1eebb2e6271f84ca7a537335aa1",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\stone\\stone.blend": "71047f57936c56178d789bc66f34945eb076e82e50315647da9cb52b78ecb60a",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\plank\\plank.blend": "dccf889a75b020ffe2e38f711f8b6e23874608edbf782da5d73ddebe3f719b88",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\compost\\compost.blend": "881a663d2448563cd61ad80a95c080c262c51a6033e23a13d5f3290be159338d",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\pot\\pot.blend": "7cb3ea45b39fa3830eb0ad387af7841f46f3d16e04d661a8e7bb451ab81da482",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\plant\\plant.blend": "d94711e30881cc434de979dc3ffd42404f4807fe02d66420583f4e666e583f96",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\pipe\\pipe.blend": "8c45b5af81ef3ccf813bc8893240f2df5de8daa69ac9f44bbf11d0f2efe9a456",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\table\\table.blend": "4a1ffb072b22864df868e60f7145b59730b240a5d1fc0b57b04f0b99e4b63c85",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\chair\\chair.blend": "94837a02e97bd35201e9637ea1be8686e425a197a0810dd790e4b76c62ee562c",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\crate\\crate.blend": "cf577ff6da02f55226466e63a8ff2b96f6a54d97a8c3e1f3725b83ab9bca0b9f",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\barrel\\barrel.blend": "7c4b1ea8d31de25e9eae1617167361cd125ea3eaf87bdfb6408f777ac090ba6c",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\lamp\\lamp.blend": "945376980c189d143f650ac397868cc93e3e01c95cd9e8410e86015ab7e8d848",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\window_cracked\\window_cracked.blend": "338047a5ea05602d34bd7e188006352e58cfcfcc1aa90c0161890f09418af5e6",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\window_broken\\window_broken.blend": "3b694137cc59a3342178ee5b2a739c71fea7df68d57b113659768697782fa72b",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\moss_cluster\\moss_cluster.blend": "64d6d7bd13b04222c521ea19151e7d9acc9c4689064af5bbfafbb4aaec84f53c",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\stair_flight\\stair_flight.blend": "81f0ee08929b85fe443fe932a43f4dbb42f458f3d497e123b726abf9a41ed900",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\stair_landing\\stair_landing.blend": "cdd4f3033927f4459dd1cb5231d6b2dac3470d34a4037ea1d14dc3ab19e92b16",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\roof_entry\\roof_entry.blend": "81f571aa3d0e1f6783bd0cb7dbed44d02653ed6b39687a5ccd741f1f7b3c7be0",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\stair_landing_open\\stair_landing_open.blend": "7aa0745e750548b38befa07f2f8b0241c1a0fec6d4d787ef63cc8b36e83f5e04",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\broken_flight\\broken_flight.blend": "fa25c2933c28cbf293232d89780a6c72248abd6447b7ed6ebcb7ea42e8938c2b",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\turf_core\\turf_core.blend": "f46f0686ae6134b118d3532ff2ea8e982c288d6e5916f8435cbc3b11b44b2d0f",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\greenhouse_unbuilt\\greenhouse_unbuilt.blend": "416c9e2d4eb2c35f5e6c544dd471d970d6574d4e2986789d08471ffad392a047",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\greenhouse_complete\\greenhouse_complete.blend": "e04841c9fb02dffaba6c862cc4341f83872430ec95c181ccb4d1610f84b19c71",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\water_tower_unbuilt\\water_tower_unbuilt.blend": "b8ba8536c04877b6336851d2a0d2c301ebe5a5181c7c1cbd24a4f29403cf28fd",
+    "D:\\projects\\sea\\art_source\\scenes\\ocean_rooftop_farm\\v004\\component_packages\\water_tower_complete\\water_tower_complete.blend": "a49771c3878fd3af1c2b3dc755a04575b8af4bdacb99c9b76b4e2267aa94d4ae"
+  },
+  "all_protected_sources_unchanged": true,
+  "palette": {
+    "source": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+    "sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+    "sampling": "Closest",
+    "mipmap": false,
+    "embedded_in_glb": false
+  },
+  "optimized_directory": "art_source/scenes/ocean_rooftop_farm/v004/export/v004",
+  "runtime_directory": "godot/assets/models/facilities/rooftop_ranch",
+  "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y)",
+  "export_settings": {
+    "export_yup": true,
+    "export_image_format": "NONE",
+    "export_apply": false,
+    "export_animations": false
+  },
+  "runtime_verified": false,
+  "godot_import_status": "pending_import_only; export is not game acceptance",
+  "components": [
+    {
+      "asset_id": "SEA-SCENE-ORF2-SHELL",
+      "key": "shell",
+      "name": "灰色混凝土塔楼墙壳",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/shell/shell.blend",
+      "source_sha256_before": "8018c0efd6a0c6ccac34fd7725fa805e4f017128f899b9c69aad9cb8755078f3",
+      "source_sha256_after": "8018c0efd6a0c6ccac34fd7725fa805e4f017128f899b9c69aad9cb8755078f3",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/shell_optimized.blend",
+      "optimized_sha256": "1c8879add8b2248145d8f0e993b4c09b76d59c855615ffe2f40e1537a5168f43",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/shell/shell.glb",
+      "glb_sha256": "0a40d6d4c963a79def5533fa3bfa450d8bd33a012cbd2867c08b17b6d09bc3e4",
+      "triangles_before": 12,
+      "triangles_after": 12,
+      "exported_triangles": 12,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -20.899999618530273,
+          -12.800000190734863,
+          0.0
+        ],
+        "high": [
+          20.899999618530273,
+          12.800000190734863,
+          59.599998474121094
+        ],
+        "size": [
+          41.79999923706055,
+          25.600000381469727,
+          59.599998474121094
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 2152,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 12,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-SLAB",
+      "key": "slab",
+      "name": "密集楼层楼板",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/slab/slab.blend",
+      "source_sha256_before": "05f709a3c0eb40a6b3424d7a09d1a24d6345a6349c991697163c787ccb82e51e",
+      "source_sha256_after": "05f709a3c0eb40a6b3424d7a09d1a24d6345a6349c991697163c787ccb82e51e",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/slab_optimized.blend",
+      "optimized_sha256": "aa0797291f8978d4acbb6d88d9fd2c2e8f721116e55b3a22b4a660abb35ab85a",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/slab/slab.glb",
+      "glb_sha256": "47df1b2b6410d2adfe84bbe93b28fdf05411a34733dadba8472735be69e8b70d",
+      "triangles_before": 12,
+      "triangles_after": 12,
+      "exported_triangles": 12,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -23.299999237060547,
+          -14.100000381469727,
+          0.0
+        ],
+        "high": [
+          23.299999237060547,
+          14.100000381469727,
+          0.30000001192092896
+        ],
+        "size": [
+          46.599998474121094,
+          28.200000762939453,
+          0.30000001192092896
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 2132,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 12,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PIER",
+      "key": "pier",
+      "name": "厚实混凝土结构柱",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/pier/pier.blend",
+      "source_sha256_before": "559eaad9aca334e74c974b3c1f383bbc2f1a54be04ef597821d4f47ac8160860",
+      "source_sha256_after": "559eaad9aca334e74c974b3c1f383bbc2f1a54be04ef597821d4f47ac8160860",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/pier_optimized.blend",
+      "optimized_sha256": "303abfbd0cb49504d9ed7e3842681b683290c9a0527c313a383395908165ef16",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/pier/pier.glb",
+      "glb_sha256": "d608d10f5c77204197d1e3d1cfb52d154e047f4ed7a995a3b9c81bd6fa7ebe6b",
+      "triangles_before": 37,
+      "triangles_after": 37,
+      "exported_triangles": 37,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.5499999523162842,
+          -0.7789999842643738,
+          0.0
+        ],
+        "high": [
+          1.5499999523162842,
+          0.7789999842643738,
+          59.79999923706055
+        ],
+        "size": [
+          3.0999999046325684,
+          1.5579999685287476,
+          59.79999923706055
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 3420,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 37,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WINDOW",
+      "key": "window",
+      "name": "深蓝双联窗",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/window/window.blend",
+      "source_sha256_before": "2e98199186fd404219a40f073a2d1698103cfc0a9f89ddc97a3932dae0076c91",
+      "source_sha256_after": "2e98199186fd404219a40f073a2d1698103cfc0a9f89ddc97a3932dae0076c91",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/window_optimized.blend",
+      "optimized_sha256": "d87d2b33bc6626d7e5cebc3601960545d4e0ce4fc44e80022af3a11021f8e58b",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/window/window.glb",
+      "glb_sha256": "bb7851e98c97d26a2d33ef7c79e74c29b393abb007d502d4de98c6f03c621dba",
+      "triangles_before": 120,
+      "triangles_after": 120,
+      "exported_triangles": 120,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -3.0,
+          -0.25,
+          0.0
+        ],
+        "high": [
+          3.0,
+          0.25,
+          3.0
+        ],
+        "size": [
+          6.0,
+          0.5,
+          3.0
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 10748,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 120,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-BALCONY",
+      "key": "balcony",
+      "name": "崩角生活阳台",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/balcony/balcony.blend",
+      "source_sha256_before": "848d76a58ddda607378bd60504d35021403854106e235765f631f0f65ef4fb15",
+      "source_sha256_after": "848d76a58ddda607378bd60504d35021403854106e235765f631f0f65ef4fb15",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/balcony_optimized.blend",
+      "optimized_sha256": "af1f25b5fcf73117f0a92e5c037b3385c967b76c2369cee9ac1fba17163492a2",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/balcony/balcony.glb",
+      "glb_sha256": "7a0ad8646fe9199b70fdb79c19ad9f471b989e2f5bb2ac52724eb28abbd83096",
+      "triangles_before": 221,
+      "triangles_after": 221,
+      "exported_triangles": 221,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -6.0,
+          -1.2000000476837158,
+          0.0
+        ],
+        "high": [
+          6.0,
+          1.2000000476837158,
+          1.340000033378601
+        ],
+        "size": [
+          12.0,
+          2.4000000953674316,
+          1.340000033378601
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 16288,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 221,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WEATHER",
+      "key": "weather",
+      "name": "混凝土剥落与裂纹",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/weather/weather.blend",
+      "source_sha256_before": "f3e423cc8134ca9a44904e2d2c2cff4d1ba7ced2f255d74db51e1f899174ad7e",
+      "source_sha256_after": "f3e423cc8134ca9a44904e2d2c2cff4d1ba7ced2f255d74db51e1f899174ad7e",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/weather_optimized.blend",
+      "optimized_sha256": "d5ac9dfdd3d96e79123248c481e64e54646e0b59198017afbc4ac8ac6081bd4f",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/weather/weather.glb",
+      "glb_sha256": "e9380ba9b3c3361f5e026f6dca0c7514aa0673ed878a67c7c106e13d4c869091",
+      "triangles_before": 320,
+      "triangles_after": 320,
+      "exported_triangles": 320,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -2.104933261871338,
+          -0.027000000700354576,
+          0.0
+        ],
+        "high": [
+          2.104933261871338,
+          0.026999998837709427,
+          3.998276472091675
+        ],
+        "size": [
+          4.209866523742676,
+          0.053999999538064,
+          3.998276472091675
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 20452,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 320,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-ROOF",
+      "key": "roof",
+      "name": "农场屋面基层",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/roof/roof.blend",
+      "source_sha256_before": "224dad2db2c2e6aa43894e158ad2ff1d61c9d74337328c7504cb5afa8958f4b9",
+      "source_sha256_after": "224dad2db2c2e6aa43894e158ad2ff1d61c9d74337328c7504cb5afa8958f4b9",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/roof_optimized.blend",
+      "optimized_sha256": "960ce26c127eb8e21670440cfb4dae712d8e563164c2bf520d45cb48953df0a5",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/roof/roof.glb",
+      "glb_sha256": "ced2ece74413c736fe0520debcd692e15791fccb6fd91785c2c229b35d9a4474",
+      "triangles_before": 12,
+      "triangles_after": 12,
+      "exported_triangles": 12,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -24.799999237060547,
+          -16.799999237060547,
+          0.0
+        ],
+        "high": [
+          24.799999237060547,
+          16.799999237060547,
+          0.6499999761581421
+        ],
+        "size": [
+          49.599998474121094,
+          33.599998474121094,
+          0.6499999761581421
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 2132,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 12,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PARAPET",
+      "key": "parapet",
+      "name": "青苔破损女儿墙",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/parapet/parapet.blend",
+      "source_sha256_before": "ca2a51bf469137c18e64a1285cec784149db5d6110f1cc78a3b484faf10211bf",
+      "source_sha256_after": "ca2a51bf469137c18e64a1285cec784149db5d6110f1cc78a3b484faf10211bf",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/parapet_optimized.blend",
+      "optimized_sha256": "7befe45dd29e3e732ba1f5619ce1f5b540da00a4091a5886384822efb16e39ab",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/parapet/parapet.glb",
+      "glb_sha256": "397358177ee80d3a4cd057ab9359cdf99c3ce390429c11dab5748ecacd759bca",
+      "triangles_before": 29,
+      "triangles_after": 29,
+      "exported_triangles": 29,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.9500000476837158,
+          -0.6030000448226929,
+          0.0
+        ],
+        "high": [
+          1.9500000476837158,
+          0.6030000448226929,
+          1.1175000667572021
+        ],
+        "size": [
+          3.9000000953674316,
+          1.2060000896453857,
+          1.1175000667572021
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 3244,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 29,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-RAIL",
+      "key": "rail",
+      "name": "歪斜锈蚀栏杆",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/rail/rail.blend",
+      "source_sha256_before": "d917e2fb121f8d48db4b1011b924c349bddab9f640232dc42405b5231f49b6ee",
+      "source_sha256_after": "d917e2fb121f8d48db4b1011b924c349bddab9f640232dc42405b5231f49b6ee",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/rail_optimized.blend",
+      "optimized_sha256": "65743ed0051d2d460ec280b5abe72ba03356e27f060e377c340b52c93df120cf",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/rail/rail.glb",
+      "glb_sha256": "8c9b2d452bb2083cdd9628fe47009ff451a14cebb079d43c8f6ad8e5ec49925a",
+      "triangles_before": 112,
+      "triangles_after": 112,
+      "exported_triangles": 112,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.9224262237548828,
+          -0.10935458540916443,
+          0.0
+        ],
+        "high": [
+          1.9224262237548828,
+          0.10935458540916443,
+          1.1056064367294312
+        ],
+        "size": [
+          3.8448524475097656,
+          0.21870917081832886,
+          1.1056064367294312
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 8276,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 112,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-GRASS",
+      "key": "grass",
+      "name": "半野生草皮",
+      "category": "flora",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/grass/grass.blend",
+      "source_sha256_before": "e76b32f4e4ba5afd2dde41ee936837356ec56c16e678eb4f16005505c069f9e0",
+      "source_sha256_after": "e76b32f4e4ba5afd2dde41ee936837356ec56c16e678eb4f16005505c069f9e0",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/grass_optimized.blend",
+      "optimized_sha256": "9656d04073a62e963599c0fa967e84f9171ea68fbcceb3aaae816b29a3ddf5b1",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/grass/grass.glb",
+      "glb_sha256": "b23119e15c633966f6d14438eeb7291c018b360126e4db774f30c76cb492a8df",
+      "triangles_before": 325,
+      "triangles_after": 325,
+      "exported_triangles": 325,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.6334837675094604,
+          -1.4112193584442139,
+          0.0
+        ],
+        "high": [
+          1.6334837675094604,
+          1.4112193584442139,
+          0.19999989867210388
+        ],
+        "size": [
+          3.266967535018921,
+          2.8224387168884277,
+          0.19999989867210388
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 24012,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 325,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-TUFT",
+      "key": "tuft",
+      "name": "丛生野草",
+      "category": "flora",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/tuft/tuft.blend",
+      "source_sha256_before": "0891a9b1786ddd7ecd4cd1980d26cd328cc27aa7f27453abf3e8754bc7eb7170",
+      "source_sha256_after": "0891a9b1786ddd7ecd4cd1980d26cd328cc27aa7f27453abf3e8754bc7eb7170",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/tuft_optimized.blend",
+      "optimized_sha256": "23bfbe5aefd5bfcdde4ba1b020501e0811315fb71d9a8e278ab01c0567b4b505",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/tuft/tuft.glb",
+      "glb_sha256": "d89f7e26b2aaa165c7969ea67415851833234e19944fbec60182fd0ee7d44b2d",
+      "triangles_before": 448,
+      "triangles_after": 448,
+      "exported_triangles": 448,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.15381330251693726,
+          -0.1520412266254425,
+          0.0
+        ],
+        "high": [
+          0.15381330251693726,
+          0.1520412266254425,
+          0.43624669313430786
+        ],
+        "size": [
+          0.3076266050338745,
+          0.304082453250885,
+          0.43624669313430786
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 32712,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 448,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-VINE",
+      "key": "vine",
+      "name": "墙角下垂藤蔓",
+      "category": "flora",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/vine/vine.blend",
+      "source_sha256_before": "ec8271aa6fc235be2f0602255abaed80a66e37bda49f689636c7966e8cf9079f",
+      "source_sha256_after": "ec8271aa6fc235be2f0602255abaed80a66e37bda49f689636c7966e8cf9079f",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/vine_optimized.blend",
+      "optimized_sha256": "0ff1de35296b86e5391078610ccae0d0e85249161bb5e036a39650e5897f406d",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/vine/vine.glb",
+      "glb_sha256": "37197e0aa84acfb9777ad07827f09c03c2398cf751ab69c6a1acae6d99a03a30",
+      "triangles_before": 852,
+      "triangles_after": 852,
+      "exported_triangles": 852,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.4099999964237213,
+          -0.07000000029802322,
+          0.0
+        ],
+        "high": [
+          0.4099999964237213,
+          0.07000000029802322,
+          1.904513955116272
+        ],
+        "size": [
+          0.8199999928474426,
+          0.14000000059604645,
+          1.904513955116272
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 59856,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 852,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PLATFORM",
+      "key": "platform",
+      "name": "左后抬高生活区",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/platform/platform.blend",
+      "source_sha256_before": "aff6462b43ffc10ced566b9aeaddf3719eb54dcad4ce51cc9d220ddde1e71af5",
+      "source_sha256_after": "aff6462b43ffc10ced566b9aeaddf3719eb54dcad4ce51cc9d220ddde1e71af5",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/platform_optimized.blend",
+      "optimized_sha256": "d272ae8a46e7971b63ab9b06807199b8346357290d06ef454948d6bdf9007a03",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/platform/platform.glb",
+      "glb_sha256": "647f3250e715ed07a737b4f3efb2f9abcc3fa2ceaa80ce4ef9302db9687e6fb9",
+      "triangles_before": 71,
+      "triangles_after": 71,
+      "exported_triangles": 71,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -5.199999809265137,
+          -4.699999809265137,
+          0.0
+        ],
+        "high": [
+          5.199999809265137,
+          4.699999809265137,
+          5.852499961853027
+        ],
+        "size": [
+          10.399999618530273,
+          9.399999618530273,
+          5.852499961853027
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 5664,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 71,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-ROOM",
+      "key": "room",
+      "name": "平台顶部小间",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/room/room.blend",
+      "source_sha256_before": "078a314da1ccb9e8b9f0f0ebd2a660787c31a5f61fe713f6dd652dee1ecd44f7",
+      "source_sha256_after": "078a314da1ccb9e8b9f0f0ebd2a660787c31a5f61fe713f6dd652dee1ecd44f7",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/room_optimized.blend",
+      "optimized_sha256": "1193cf31cc053ccecf9c9b45daa03981dd5463e6c6e7199e0f4f0e9e23016e9e",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/room/room.glb",
+      "glb_sha256": "7711dff96976d467d4d68b2bfc25b12bd8b14a815cd6983e3a826ab5f115ded1",
+      "triangles_before": 48,
+      "triangles_after": 48,
+      "exported_triangles": 48,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.9500000476837158,
+          -1.649999976158142,
+          0.0
+        ],
+        "high": [
+          1.9500000476837158,
+          1.649999976158142,
+          3.108499765396118
+        ],
+        "size": [
+          3.9000000953674316,
+          3.299999952316284,
+          3.108499765396118
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 4708,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 48,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-LADDER",
+      "key": "ladder",
+      "name": "锈蚀外挂爬梯",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/ladder/ladder.blend",
+      "source_sha256_before": "7d0098f199a42e533f11f3fde4e63280367828cb3826f7966426f1c0d7b1142d",
+      "source_sha256_after": "7d0098f199a42e533f11f3fde4e63280367828cb3826f7966426f1c0d7b1142d",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/ladder_optimized.blend",
+      "optimized_sha256": "9eeec67ce7e4aeef23dc128ac6096938d7a9109e8fda689b8398dd049c8ec745",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/ladder/ladder.glb",
+      "glb_sha256": "b9e563a227ae65356d8155eb3a4ca14f06a9a08167504fe2ade3ae1ecf04c035",
+      "triangles_before": 448,
+      "triangles_after": 448,
+      "exported_triangles": 448,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.5407025218009949,
+          -0.11035124957561493,
+          0.0
+        ],
+        "high": [
+          0.5407025218009949,
+          0.11035124957561493,
+          5.800000190734863
+        ],
+        "size": [
+          1.0814050436019897,
+          0.22070249915122986,
+          5.800000190734863
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 28736,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 448,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-LINE",
+      "key": "line",
+      "name": "晾衣架与衣物",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/line/line.blend",
+      "source_sha256_before": "97e9953af9016f78df0ea1728fc6095a8af3a160d4582a863d44801d217a1b27",
+      "source_sha256_after": "97e9953af9016f78df0ea1728fc6095a8af3a160d4582a863d44801d217a1b27",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/line_optimized.blend",
+      "optimized_sha256": "55ce74f47ae648cacc7fa1dbd16e966469e04de2e1a52ab35571ddb893783a92",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/line/line.glb",
+      "glb_sha256": "0d4c44e69145e83aaaa665e3363f27ce365f599ee8c833f8c8474937caa72af3",
+      "triangles_before": 108,
+      "triangles_after": 108,
+      "exported_triangles": 108,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.8900518417358398,
+          -0.09005196392536163,
+          0.0
+        ],
+        "high": [
+          1.8900518417358398,
+          0.09005196392536163,
+          2.5999999046325684
+        ],
+        "size": [
+          3.7801036834716797,
+          0.18010392785072327,
+          2.5999999046325684
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 9312,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 108,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-SHED",
+      "key": "shed",
+      "name": "红铁皮顶工具棚",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/shed/shed.blend",
+      "source_sha256_before": "ebf449cee6fdc34efe0eefdcb4ea060898a3be5e9fc97cee11eadeb2c224e721",
+      "source_sha256_after": "ebf449cee6fdc34efe0eefdcb4ea060898a3be5e9fc97cee11eadeb2c224e721",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/shed_optimized.blend",
+      "optimized_sha256": "1b326baa1ec7f00bed2caf6c0ada730ee0ca52df8b711e5d77c8c47e094797a2",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/shed/shed.glb",
+      "glb_sha256": "05ac327acf0db6c6b8b6531577b0ef7e9d4187d95fec1a03b47fdc6b4d46fb0a",
+      "triangles_before": 564,
+      "triangles_after": 564,
+      "exported_triangles": 564,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -2.2849998474121094,
+          -1.7232340574264526,
+          0.0
+        ],
+        "high": [
+          2.2849998474121094,
+          1.7232340574264526,
+          3.5677754878997803
+        ],
+        "size": [
+          4.569999694824219,
+          3.4464681148529053,
+          3.5677754878997803
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 38984,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 564,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-COOP",
+      "key": "coop",
+      "name": "蓝色空鸡舍",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/coop/coop.blend",
+      "source_sha256_before": "1165d5888f2918cec79622c334fd1d675bf3a338ee85d6201429495b227f8e37",
+      "source_sha256_after": "1165d5888f2918cec79622c334fd1d675bf3a338ee85d6201429495b227f8e37",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/coop_optimized.blend",
+      "optimized_sha256": "76b48a0e789cdebc4e77ed070154637b249261cc890e922ccdb013adda377460",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/coop/coop.glb",
+      "glb_sha256": "e1fd7aed18abbb2eb85e56797c83d3be95fef176dc186271f1158fe08f5c2a7e",
+      "triangles_before": 48,
+      "triangles_after": 48,
+      "exported_triangles": 48,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.669438362121582,
+          -1.1749999523162842,
+          0.0
+        ],
+        "high": [
+          1.669438362121582,
+          1.1749999523162842,
+          2.2443642616271973
+        ],
+        "size": [
+          3.338876724243164,
+          2.3499999046325684,
+          2.2443642616271973
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 5856,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 48,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-FENCE",
+      "key": "fence",
+      "name": "断裂歪斜木围栏",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/fence/fence.blend",
+      "source_sha256_before": "c12520181f33b5e893f6911ed23a977c4413c5207012c126b11a7c237731b608",
+      "source_sha256_after": "c12520181f33b5e893f6911ed23a977c4413c5207012c126b11a7c237731b608",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/fence_optimized.blend",
+      "optimized_sha256": "d4b8695d7a9b2ae5d6385568744b4f0969dbe5d71ec04f5a10c92ea24175e2d8",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/fence/fence.glb",
+      "glb_sha256": "d4759d9cbe14c16337e8424ad664a498a4c0df02c7123f9229ed855e93ae75b8",
+      "triangles_before": 196,
+      "triangles_after": 196,
+      "exported_triangles": 196,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.663901448249817,
+          -0.09066574275493622,
+          0.0
+        ],
+        "high": [
+          1.663901448249817,
+          0.09066574275493622,
+          0.9782809615135193
+        ],
+        "size": [
+          3.327802896499634,
+          0.18133148550987244,
+          0.9782809615135193
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 13292,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 196,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WIND",
+      "key": "wind",
+      "name": "小型偏斜风车",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/wind/wind.blend",
+      "source_sha256_before": "be7c58f1a762732d306cd471a45d2c5ad2badb910bd6f1a4ae5396070213b6b4",
+      "source_sha256_after": "be7c58f1a762732d306cd471a45d2c5ad2badb910bd6f1a4ae5396070213b6b4",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/wind_optimized.blend",
+      "optimized_sha256": "4cdeaf15c8a2c0a2837f71244389ad61f3457a24965f5ca1a8ef1fbaa4878dd4",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/wind/wind.glb",
+      "glb_sha256": "205eba121e53d79b404fff98cc2be5621e56e92a049b0ca98e7402890d1a8127",
+      "triangles_before": 152,
+      "triangles_after": 152,
+      "exported_triangles": 152,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.8329694271087646,
+          -0.1574999988079071,
+          0.0
+        ],
+        "high": [
+          0.8329694271087646,
+          0.1574999988079071,
+          4.232644557952881
+        ],
+        "size": [
+          1.6659388542175293,
+          0.3149999976158142,
+          4.232644557952881
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 11588,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 152,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-SOLAR",
+      "key": "solar",
+      "name": "锈框太阳能板",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/solar/solar.blend",
+      "source_sha256_before": "32fbdfe9b65990dd0f5a5a7cac61d91bb98cb1eebb2e6271f84ca7a537335aa1",
+      "source_sha256_after": "32fbdfe9b65990dd0f5a5a7cac61d91bb98cb1eebb2e6271f84ca7a537335aa1",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/solar_optimized.blend",
+      "optimized_sha256": "884146f48219d7c51a3bbbfbb88b4816ca34fb05cb519c0d188f3bc7bfdacb21",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/solar/solar.glb",
+      "glb_sha256": "161b65122096b60529e817c0b4f934554f836f84fd783527c9d56b3b4d0383dd",
+      "triangles_before": 196,
+      "triangles_after": 196,
+      "exported_triangles": 196,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.0499999523162842,
+          -0.5225869417190552,
+          0.0
+        ],
+        "high": [
+          1.0499999523162842,
+          0.5225869417190552,
+          1.0085455179214478
+        ],
+        "size": [
+          2.0999999046325684,
+          1.0451738834381104,
+          1.0085455179214478
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 15264,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 196,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STONE",
+      "key": "stone",
+      "name": "厚实不规则踏石",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/stone/stone.blend",
+      "source_sha256_before": "71047f57936c56178d789bc66f34945eb076e82e50315647da9cb52b78ecb60a",
+      "source_sha256_after": "71047f57936c56178d789bc66f34945eb076e82e50315647da9cb52b78ecb60a",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/stone_optimized.blend",
+      "optimized_sha256": "8657d1589ee5e835a7f90ea7971fcddf036643adec83012adfcb563022dc8439",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/stone/stone.glb",
+      "glb_sha256": "440d26466b92e00b30e2da22a20bde89b4cac505d1ea71c3d268eea0e7f6a662",
+      "triangles_before": 12,
+      "triangles_after": 12,
+      "exported_triangles": 12,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.5359809398651123,
+          -0.38259971141815186,
+          0.0
+        ],
+        "high": [
+          0.5359809398651123,
+          0.38259971141815186,
+          0.14999282360076904
+        ],
+        "size": [
+          1.0719618797302246,
+          0.7651994228363037,
+          0.14999282360076904
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 2192,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 12,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PLANK",
+      "key": "plank",
+      "name": "旧木步道板",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/plank/plank.blend",
+      "source_sha256_before": "dccf889a75b020ffe2e38f711f8b6e23874608edbf782da5d73ddebe3f719b88",
+      "source_sha256_after": "dccf889a75b020ffe2e38f711f8b6e23874608edbf782da5d73ddebe3f719b88",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/plank_optimized.blend",
+      "optimized_sha256": "02b4f022e303a202b7be530f0800577b941128c5276e6d7e4067fa7bd12ca032",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/plank/plank.glb",
+      "glb_sha256": "5f2abbddeabf5ac7016cb5ac9b1dd94d46eb97b499b6271899133f15f376f5e5",
+      "triangles_before": 12,
+      "triangles_after": 12,
+      "exported_triangles": 12,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.800000011920929,
+          -0.32499998807907104,
+          0.0
+        ],
+        "high": [
+          0.800000011920929,
+          0.32499998807907104,
+          0.1599999964237213
+        ],
+        "size": [
+          1.600000023841858,
+          0.6499999761581421,
+          0.1599999964237213
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 2180,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 12,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-COMPOST",
+      "key": "compost",
+      "name": "变形堆肥箱",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/compost/compost.blend",
+      "source_sha256_before": "881a663d2448563cd61ad80a95c080c262c51a6033e23a13d5f3290be159338d",
+      "source_sha256_after": "881a663d2448563cd61ad80a95c080c262c51a6033e23a13d5f3290be159338d",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/compost_optimized.blend",
+      "optimized_sha256": "991f86f20b50709f54e60e0e27204f70bc8e65bc8c8b6fbc00334b200949cf48",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/compost/compost.glb",
+      "glb_sha256": "634e833cbf91e1673071dc59a362193b44117b661fa511809fae2601b3b3ea67",
+      "triangles_before": 132,
+      "triangles_after": 132,
+      "exported_triangles": 132,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.059999942779541,
+          -0.8958171606063843,
+          0.0
+        ],
+        "high": [
+          1.059999942779541,
+          0.8958171606063843,
+          1.2999999523162842
+        ],
+        "size": [
+          2.119999885559082,
+          1.7916343212127686,
+          1.2999999523162842
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 10596,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 132,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-POT",
+      "key": "pot",
+      "name": "崩口厚边花盆",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/pot/pot.blend",
+      "source_sha256_before": "7cb3ea45b39fa3830eb0ad387af7841f46f3d16e04d661a8e7bb451ab81da482",
+      "source_sha256_after": "7cb3ea45b39fa3830eb0ad387af7841f46f3d16e04d661a8e7bb451ab81da482",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/pot_optimized.blend",
+      "optimized_sha256": "2e4db7e45240265215df6570781c582f1f8ef5eee8a0b2cf44e5cc56b21305c7",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/pot/pot.glb",
+      "glb_sha256": "f8052a336cf718e2db48f2f06a0650e1a753711b0478c08eba0d652cdba86fba",
+      "triangles_before": 180,
+      "triangles_after": 180,
+      "exported_triangles": 180,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.4300000071525574,
+          -0.4300000071525574,
+          0.0
+        ],
+        "high": [
+          0.4300000071525574,
+          0.4300000071525574,
+          0.7099999785423279
+        ],
+        "size": [
+          0.8600000143051147,
+          0.8600000143051147,
+          0.7099999785423279
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 11648,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 180,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PLANT",
+      "key": "plant",
+      "name": "宽厚盆栽叶簇",
+      "category": "flora",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/plant/plant.blend",
+      "source_sha256_before": "d94711e30881cc434de979dc3ffd42404f4807fe02d66420583f4e666e583f96",
+      "source_sha256_after": "d94711e30881cc434de979dc3ffd42404f4807fe02d66420583f4e666e583f96",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/plant_optimized.blend",
+      "optimized_sha256": "176b2d955880f16e3996f774903cb1a35e144618f0e77aea3de6763767f4f7b9",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/plant/plant.glb",
+      "glb_sha256": "1778a1eecd3d89af9cdf612dea532720ce9814f03e7820a83ccfc22d3940708c",
+      "triangles_before": 512,
+      "triangles_after": 512,
+      "exported_triangles": 512,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.40495702624320984,
+          -0.3973999619483948,
+          0.0
+        ],
+        "high": [
+          0.40495702624320984,
+          0.3973999619483948,
+          0.1799999177455902
+        ],
+        "size": [
+          0.8099140524864197,
+          0.7947999238967896,
+          0.1799999177455902
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 37208,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 512,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-PIPE",
+      "key": "pipe",
+      "name": "老化屋顶管线",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/pipe/pipe.blend",
+      "source_sha256_before": "8c45b5af81ef3ccf813bc8893240f2df5de8daa69ac9f44bbf11d0f2efe9a456",
+      "source_sha256_after": "8c45b5af81ef3ccf813bc8893240f2df5de8daa69ac9f44bbf11d0f2efe9a456",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/pipe_optimized.blend",
+      "optimized_sha256": "949548f1430d501da8b8c860ea4d155b86eb1882fb3dc7a6899fc20344d2556a",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/pipe/pipe.glb",
+      "glb_sha256": "2b47d18aa481f520f64f3ff32b182d9533143f5a5830fa37b96768d78caab664",
+      "triangles_before": 84,
+      "triangles_after": 84,
+      "exported_triangles": 84,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.5471711158752441,
+          -0.09209267795085907,
+          0.0
+        ],
+        "high": [
+          1.5471711158752441,
+          0.09209267795085907,
+          2.189971923828125
+        ],
+        "size": [
+          3.0943422317504883,
+          0.18418535590171814,
+          2.189971923828125
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 6572,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 84,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-TABLE",
+      "key": "table",
+      "name": "圆桌",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/table/table.blend",
+      "source_sha256_before": "4a1ffb072b22864df868e60f7145b59730b240a5d1fc0b57b04f0b99e4b63c85",
+      "source_sha256_after": "4a1ffb072b22864df868e60f7145b59730b240a5d1fc0b57b04f0b99e4b63c85",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/table_optimized.blend",
+      "optimized_sha256": "a356d53d01f82e04b4932d2b4ea9a658ca758ed1d7dba0925335556e605a5889",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/table/table.glb",
+      "glb_sha256": "a758b5695ee216c3d5a465b3f77856c999456cba7a07ac3f94fdcf3cbd31aaed",
+      "triangles_before": 120,
+      "triangles_after": 120,
+      "exported_triangles": 120,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.8999999761581421,
+          -0.8999999761581421,
+          0.0
+        ],
+        "high": [
+          0.8999999761581421,
+          0.8999999761581421,
+          0.8999999761581421
+        ],
+        "size": [
+          1.7999999523162842,
+          1.7999999523162842,
+          0.8999999761581421
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 8196,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 120,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-CHAIR",
+      "key": "chair",
+      "name": "旧木椅",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/chair/chair.blend",
+      "source_sha256_before": "94837a02e97bd35201e9637ea1be8686e425a197a0810dd790e4b76c62ee562c",
+      "source_sha256_after": "94837a02e97bd35201e9637ea1be8686e425a197a0810dd790e4b76c62ee562c",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/chair_optimized.blend",
+      "optimized_sha256": "51e39caf6f8dac456007687a3492f4a2e40c7451d14e40f0ca3c2934d1457677",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/chair/chair.glb",
+      "glb_sha256": "8775827268f6ef60fbbe8f6acb1aadccc05820b7b051687e7688d92876333464",
+      "triangles_before": 136,
+      "triangles_after": 136,
+      "exported_triangles": 136,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.32499998807907104,
+          -0.32749998569488525,
+          0.0
+        ],
+        "high": [
+          0.32499998807907104,
+          0.32749998569488525,
+          1.225000023841858
+        ],
+        "size": [
+          0.6499999761581421,
+          0.6549999713897705,
+          1.225000023841858
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 9836,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 136,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-CRATE",
+      "key": "crate",
+      "name": "储物木箱",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/crate/crate.blend",
+      "source_sha256_before": "cf577ff6da02f55226466e63a8ff2b96f6a54d97a8c3e1f3725b83ab9bca0b9f",
+      "source_sha256_after": "cf577ff6da02f55226466e63a8ff2b96f6a54d97a8c3e1f3725b83ab9bca0b9f",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/crate_optimized.blend",
+      "optimized_sha256": "c8a1c10033473d29f58964b1653d125734aba53d24c2ff67792e1c471c7b8256",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/crate/crate.glb",
+      "glb_sha256": "bcf45d1bfe1657dd175400761d1a8ef048109142ba6020e84a3429bc7d12b532",
+      "triangles_before": 36,
+      "triangles_after": 36,
+      "exported_triangles": 36,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.44999998807907104,
+          -0.42000001668930054,
+          0.0
+        ],
+        "high": [
+          0.44999998807907104,
+          0.42000001668930054,
+          0.800000011920929
+        ],
+        "size": [
+          0.8999999761581421,
+          0.8400000333786011,
+          0.800000011920929
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 3860,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 36,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-BARREL",
+      "key": "barrel",
+      "name": "锈箍储物桶",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/barrel/barrel.blend",
+      "source_sha256_before": "7c4b1ea8d31de25e9eae1617167361cd125ea3eaf87bdfb6408f777ac090ba6c",
+      "source_sha256_after": "7c4b1ea8d31de25e9eae1617167361cd125ea3eaf87bdfb6408f777ac090ba6c",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/barrel_optimized.blend",
+      "optimized_sha256": "8039ff89cb61369e4f938f5cea7b217f3f1dc4d5d3c35a459f8ea398e6dd16cb",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/barrel/barrel.glb",
+      "glb_sha256": "7fa31c924bbac8502f344d9355b031c55f3e901fb1fa3c896ab68ecf35659ebb",
+      "triangles_before": 180,
+      "triangles_after": 180,
+      "exported_triangles": 180,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.41499999165534973,
+          -0.41499999165534973,
+          0.0
+        ],
+        "high": [
+          0.41499999165534973,
+          0.41499999165534973,
+          0.8999999761581421
+        ],
+        "size": [
+          0.8299999833106995,
+          0.8299999833106995,
+          0.8999999761581421
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 12868,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 180,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-LAMP",
+      "key": "lamp",
+      "name": "弯臂屋顶灯",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/lamp/lamp.blend",
+      "source_sha256_before": "945376980c189d143f650ac397868cc93e3e01c95cd9e8410e86015ab7e8d848",
+      "source_sha256_after": "945376980c189d143f650ac397868cc93e3e01c95cd9e8410e86015ab7e8d848",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/lamp_optimized.blend",
+      "optimized_sha256": "880f80e05d568d453c8e2948ab368401567b338c6e924d7983803caf85c19d90",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/lamp/lamp.glb",
+      "glb_sha256": "841a13cfcf5debc47d3004b8d49fce93029db2d09f9f1f0638f61c733e0e5d16",
+      "triangles_before": 164,
+      "triangles_after": 164,
+      "exported_triangles": 164,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.41750001907348633,
+          -0.18000000715255737,
+          0.0
+        ],
+        "high": [
+          0.41750001907348633,
+          0.18000000715255737,
+          2.5493197441101074
+        ],
+        "size": [
+          0.8350000381469727,
+          0.36000001430511475,
+          2.5493197441101074
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Emission",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 13176,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 164,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal",
+          "ORF2_FINAL_SEA_Emission"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WINDOW_CRACKED",
+      "key": "window_cracked",
+      "name": "裂纹缺角玻璃窗",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/window_cracked/window_cracked.blend",
+      "source_sha256_before": "338047a5ea05602d34bd7e188006352e58cfcfcc1aa90c0161890f09418af5e6",
+      "source_sha256_after": "338047a5ea05602d34bd7e188006352e58cfcfcc1aa90c0161890f09418af5e6",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/window_cracked_optimized.blend",
+      "optimized_sha256": "43c02a98972053a22e8dfcc20394e4792d3d1d04830b5afe132ad2a6b39affb9",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/window_cracked/window_cracked.glb",
+      "glb_sha256": "ce964d2707563617e62ba1cd7528f2e6a874e5eea5f4a74843bf6fc909c3e0de",
+      "triangles_before": 196,
+      "triangles_after": 196,
+      "exported_triangles": 196,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -3.0,
+          -0.25,
+          0.0
+        ],
+        "high": [
+          3.0,
+          0.25,
+          3.0
+        ],
+        "size": [
+          6.0,
+          0.5,
+          3.0
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 15288,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 196,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WINDOW_BROKEN",
+      "key": "window_broken",
+      "name": "缺片木板封窗",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/window_broken/window_broken.blend",
+      "source_sha256_before": "3b694137cc59a3342178ee5b2a739c71fea7df68d57b113659768697782fa72b",
+      "source_sha256_after": "3b694137cc59a3342178ee5b2a739c71fea7df68d57b113659768697782fa72b",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/window_broken_optimized.blend",
+      "optimized_sha256": "5aa0768b3813da2c9c9556eafc058cedb5219c8af91ae79448036f7f9f93b128",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/window_broken/window_broken.glb",
+      "glb_sha256": "8e6637d8ad174fbf27acfc062995915a7ccf2fea03c9e7ea3553ed1b7a92de4a",
+      "triangles_before": 208,
+      "triangles_after": 208,
+      "exported_triangles": 208,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -3.0,
+          -0.3622908592224121,
+          0.0
+        ],
+        "high": [
+          3.0,
+          0.3622908592224121,
+          3.0
+        ],
+        "size": [
+          6.0,
+          0.7245817184448242,
+          3.0
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 16144,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 208,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-MOSS_CLUSTER",
+      "key": "moss_cluster",
+      "name": "成片不规则苔藓",
+      "category": "flora",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/moss_cluster/moss_cluster.blend",
+      "source_sha256_before": "64d6d7bd13b04222c521ea19151e7d9acc9c4689064af5bbfafbb4aaec84f53c",
+      "source_sha256_after": "64d6d7bd13b04222c521ea19151e7d9acc9c4689064af5bbfafbb4aaec84f53c",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/moss_cluster_optimized.blend",
+      "optimized_sha256": "c3db7a7a8640fdf7e3c082b8716e0a598ab56ae08919fc5bec9b7e0a084bf7ed",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/moss_cluster/moss_cluster.glb",
+      "glb_sha256": "3ba534fb8f46f645b0d49bdfcb163e9541efc5ac88b843aa7be510282e50b232",
+      "triangles_before": 75,
+      "triangles_after": 75,
+      "exported_triangles": 75,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.3434150218963623,
+          0.0,
+          0.0
+        ],
+        "high": [
+          1.3434150218963623,
+          0.0,
+          0.6424129009246826
+        ],
+        "size": [
+          2.6868300437927246,
+          0.0,
+          0.6424129009246826
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 5100,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 75,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STAIR_FLIGHT",
+      "key": "stair_flight",
+      "name": "消防梯标准半层梯段",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/stair_flight/stair_flight.blend",
+      "source_sha256_before": "81f0ee08929b85fe443fe932a43f4dbb42f458f3d497e123b726abf9a41ed900",
+      "source_sha256_after": "81f0ee08929b85fe443fe932a43f4dbb42f458f3d497e123b726abf9a41ed900",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/stair_flight_optimized.blend",
+      "optimized_sha256": "4076e6a9ad59b8164a7596695c52d3625b012e1fcec6962298356760bd44f795",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/stair_flight/stair_flight.glb",
+      "glb_sha256": "e73eb7169ab7c545eafe4cdabe3f9608862b56c56c5ba4801c646088b5448171",
+      "triangles_before": 560,
+      "triangles_after": 560,
+      "exported_triangles": 560,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.8409916162490845,
+          -2.189999580383301,
+          0.0
+        ],
+        "high": [
+          0.8409916162490845,
+          2.189999580383301,
+          3.705932855606079
+        ],
+        "size": [
+          1.681983232498169,
+          4.379999160766602,
+          3.705932855606079
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 37068,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 560,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING",
+      "key": "stair_landing",
+      "name": "消防梯折返休息平台",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/stair_landing/stair_landing.blend",
+      "source_sha256_before": "cdd4f3033927f4459dd1cb5231d6b2dac3470d34a4037ea1d14dc3ab19e92b16",
+      "source_sha256_after": "cdd4f3033927f4459dd1cb5231d6b2dac3470d34a4037ea1d14dc3ab19e92b16",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/stair_landing_optimized.blend",
+      "optimized_sha256": "421d2d51271ce6149198562f60bd20c6dbeda59b180e0faf53d1a641349b0f5d",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/stair_landing/stair_landing.glb",
+      "glb_sha256": "2b7bea1b5ffcdc619f6c20bcb67b6046052f10b5d3fc411359b02a0143774021",
+      "triangles_before": 292,
+      "triangles_after": 292,
+      "exported_triangles": 292,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -2.10072660446167,
+          -0.9000000357627869,
+          0.0
+        ],
+        "high": [
+          2.10072660446167,
+          0.9000000357627869,
+          1.399999976158142
+        ],
+        "size": [
+          4.20145320892334,
+          1.8000000715255737,
+          1.399999976158142
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 19324,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 292,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-ROOF_ENTRY",
+      "key": "roof_entry",
+      "name": "消防梯屋顶开放入口",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/roof_entry/roof_entry.blend",
+      "source_sha256_before": "81f571aa3d0e1f6783bd0cb7dbed44d02653ed6b39687a5ccd741f1f7b3c7be0",
+      "source_sha256_after": "81f571aa3d0e1f6783bd0cb7dbed44d02653ed6b39687a5ccd741f1f7b3c7be0",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/roof_entry_optimized.blend",
+      "optimized_sha256": "6ea853abab492941ded4079e71b1fde71c6eeb4d38fe230ba5b2770d6bec8d70",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/roof_entry/roof_entry.glb",
+      "glb_sha256": "59384481d65f002722019ab84cf2842a639dc64a69d2c8961363d69b2b1226d3",
+      "triangles_before": 236,
+      "triangles_after": 236,
+      "exported_triangles": 236,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.0500001907348633,
+          -1.25,
+          0.0
+        ],
+        "high": [
+          1.0500001907348633,
+          1.25,
+          1.4450008869171143
+        ],
+        "size": [
+          2.1000003814697266,
+          2.5,
+          1.4450008869171143
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 16764,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 236,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING_OPEN",
+      "key": "stair_landing_open",
+      "name": "消防梯开放入口平台",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/stair_landing_open/stair_landing_open.blend",
+      "source_sha256_before": "7aa0745e750548b38befa07f2f8b0241c1a0fec6d4d787ef63cc8b36e83f5e04",
+      "source_sha256_after": "7aa0745e750548b38befa07f2f8b0241c1a0fec6d4d787ef63cc8b36e83f5e04",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/stair_landing_open_optimized.blend",
+      "optimized_sha256": "24b98e05e28caf754d916944dc1648a5d61f88b4ce548278ede8945920342e2e",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/stair_landing_open/stair_landing_open.glb",
+      "glb_sha256": "572808dff9fbadce5a552c983846319236635603a230c181b88aec19ea09b6cc",
+      "triangles_before": 180,
+      "triangles_after": 174,
+      "exported_triangles": 174,
+      "reduction_ratio": 0.03333333333333333,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 1,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理仅移除可证明退化或同向重复面；其余几何为可见面、阴影面或受 UV/材质边界保护而保留。",
+      "bounds_blender": {
+        "low": [
+          -1.6501816511154175,
+          -0.9000000357627869,
+          0.0
+        ],
+        "high": [
+          1.6501816511154175,
+          0.9000000357627869,
+          1.399999976158142
+        ],
+        "size": [
+          3.300363302230835,
+          1.8000000715255737,
+          1.399999976158142
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 12216,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 174,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-BROKEN_FLIGHT",
+      "key": "broken_flight",
+      "name": "下挂断裂消防梯残段",
+      "category": "structure",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/broken_flight/broken_flight.blend",
+      "source_sha256_before": "fa25c2933c28cbf293232d89780a6c72248abd6447b7ed6ebcb7ea42e8938c2b",
+      "source_sha256_after": "fa25c2933c28cbf293232d89780a6c72248abd6447b7ed6ebcb7ea42e8938c2b",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/broken_flight_optimized.blend",
+      "optimized_sha256": "519908aa1f4901dc88584db07237d79908be0e7d2b40689c68bdb3809a7ac33e",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/broken_flight/broken_flight.glb",
+      "glb_sha256": "6edf70a41c9c1f875d586ba24a9f53ada8048f0ed80aa35f5b8c0fecb3684e15",
+      "triangles_before": 172,
+      "triangles_after": 172,
+      "exported_triangles": 172,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -0.876582145690918,
+          -0.8904999494552612,
+          0.0
+        ],
+        "high": [
+          0.876582145690918,
+          0.890500009059906,
+          3.644052505493164
+        ],
+        "size": [
+          1.753164291381836,
+          1.7809999585151672,
+          3.644052505493164
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 12460,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 172,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-TURF_CORE",
+      "key": "turf_core",
+      "name": "屋顶中央草皮基底",
+      "category": "flora",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/turf_core/turf_core.blend",
+      "source_sha256_before": "f46f0686ae6134b118d3532ff2ea8e982c288d6e5916f8435cbc3b11b44b2d0f",
+      "source_sha256_after": "f46f0686ae6134b118d3532ff2ea8e982c288d6e5916f8435cbc3b11b44b2d0f",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/turf_core_optimized.blend",
+      "optimized_sha256": "b9fa08c6ba102dce08f7024f620d763e3ecabf03997ba2b6d52573dadbfe9203",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/turf_core/turf_core.glb",
+      "glb_sha256": "c5a8ec80c7ad5a58493cb5475cdc11029fc1c815ede75084065e307894bf2c06",
+      "triangles_before": 12,
+      "triangles_after": 12,
+      "exported_triangles": 12,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -22.200000762939453,
+          -14.199999809265137,
+          0.0
+        ],
+        "high": [
+          22.200000762939453,
+          14.199999809265137,
+          0.05000000074505806
+        ],
+        "size": [
+          44.400001525878906,
+          28.399999618530273,
+          0.05000000074505806
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 2156,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 12,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-GREENHOUSE_UNBUILT",
+      "key": "greenhouse_unbuilt",
+      "name": "温室_升级前_待建木料堆",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/greenhouse_unbuilt/greenhouse_unbuilt.blend",
+      "source_sha256_before": "416c9e2d4eb2c35f5e6c544dd471d970d6574d4e2986789d08471ffad392a047",
+      "source_sha256_after": "416c9e2d4eb2c35f5e6c544dd471d970d6574d4e2986789d08471ffad392a047",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/greenhouse_unbuilt_optimized.blend",
+      "optimized_sha256": "ad81a6963ca07ee1b366c61f82464bf392d4a42e4362734c70e5862eb66e4c45",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/greenhouse_unbuilt/greenhouse_unbuilt.glb",
+      "glb_sha256": "7b5e5c764d98d1484ce3a916f427b1b3796e3d936a0dfe2104f0fb14e0a59b16",
+      "triangles_before": 204,
+      "triangles_after": 204,
+      "exported_triangles": 204,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -2.353102684020996,
+          -1.5580103397369385,
+          0.0
+        ],
+        "high": [
+          2.353102684020996,
+          1.5580103397369385,
+          0.8779546022415161
+        ],
+        "size": [
+          4.706205368041992,
+          3.116020679473877,
+          0.8779546022415161
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 15640,
+        "meshes": 1,
+        "nodes": 1,
+        "triangles": 204,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-GREENHOUSE_COMPLETE",
+      "key": "greenhouse_complete",
+      "name": "温室_升级后_完整设施",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/greenhouse_complete/greenhouse_complete.blend",
+      "source_sha256_before": "e04841c9fb02dffaba6c862cc4341f83872430ec95c181ccb4d1610f84b19c71",
+      "source_sha256_after": "e04841c9fb02dffaba6c862cc4341f83872430ec95c181ccb4d1610f84b19c71",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/greenhouse_complete_optimized.blend",
+      "optimized_sha256": "f74a1cad59757c96e389f4a714edb27033da858e11cf4f4e1919028148ce84e2",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/greenhouse_complete/greenhouse_complete.glb",
+      "glb_sha256": "42a752d9f7e87fc9de495a212bd7960160a740a0a94ed2ce8cdf3021a603641e",
+      "triangles_before": 1240,
+      "triangles_after": 1240,
+      "exported_triangles": 1240,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -3.1906936168670654,
+          -4.071249961853027,
+          0.0
+        ],
+        "high": [
+          3.1906938552856445,
+          4.071249961853027,
+          3.8371963500976562
+        ],
+        "size": [
+          6.38138747215271,
+          8.142499923706055,
+          3.8371963500976562
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Gloss",
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 90344,
+        "meshes": 12,
+        "nodes": 12,
+        "triangles": 1240,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal",
+          "ORF2_FINAL_SEA_Gloss"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WATER_TOWER_UNBUILT",
+      "key": "water_tower_unbuilt",
+      "name": "水塔_升级前_卧放罐体与木支架材料",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/water_tower_unbuilt/water_tower_unbuilt.blend",
+      "source_sha256_before": "b8ba8536c04877b6336851d2a0d2c301ebe5a5181c7c1cbd24a4f29403cf28fd",
+      "source_sha256_after": "b8ba8536c04877b6336851d2a0d2c301ebe5a5181c7c1cbd24a4f29403cf28fd",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/water_tower_unbuilt_optimized.blend",
+      "optimized_sha256": "aaddf78e9c07fdb77c45f23c0d2ea73d95990b03ec3f4e8a17516d53e8b6ac24",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/water_tower_unbuilt/water_tower_unbuilt.glb",
+      "glb_sha256": "4a28641adde55690688e8d1b8dcd53c7fb825f5479557fc455bb55598f70d80b",
+      "triangles_before": 464,
+      "triangles_after": 464,
+      "exported_triangles": 464,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.8404064178466797,
+          -2.5012803077697754,
+          0.0
+        ],
+        "high": [
+          1.8404064178466797,
+          2.5012803077697754,
+          2.8499996662139893
+        ],
+        "size": [
+          3.6808128356933594,
+          5.002560615539551,
+          2.8499996662139893
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 30000,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 464,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WATER_TOWER_COMPLETE",
+      "key": "water_tower_complete",
+      "name": "水塔_升级后_已搭建",
+      "category": "fixture",
+      "source_version": "v004",
+      "source": "art_source/scenes/ocean_rooftop_farm/v004/component_packages/water_tower_complete/water_tower_complete.blend",
+      "source_sha256_before": "a49771c3878fd3af1c2b3dc755a04575b8af4bdacb99c9b76b4e2267aa94d4ae",
+      "source_sha256_after": "a49771c3878fd3af1c2b3dc755a04575b8af4bdacb99c9b76b4e2267aa94d4ae",
+      "optimized": "art_source/scenes/ocean_rooftop_farm/v004/export/v004/water_tower_complete_optimized.blend",
+      "optimized_sha256": "896955e214c2e3cbea2f7a2e09b6feaec5d478afc3eddc1cf27d96ce7c19ac58",
+      "glb": "godot/assets/models/facilities/rooftop_ranch/components/water_tower_complete/water_tower_complete.glb",
+      "glb_sha256": "a92b47a408dbefa7e5039d358b289ec629776ddee6562fb5c63e437998bc5eee",
+      "triangles_before": 760,
+      "triangles_after": 760,
+      "exported_triangles": 760,
+      "reduction_ratio": 0.0,
+      "budget": null,
+      "budget_reason": "用户未提供逐组件三角预算；未虚构预算，按保真优先执行安全清理。",
+      "operations": [
+        "remove zero-area faces (area <= 1e-12m²)",
+        "remove exact same-winding duplicate faces only; reversed faces retained for silhouette/back-face fidelity",
+        "check coincident vertices without merging because PaletteUV/material seams are protected",
+        "check coplanar subdivisions without dissolving across UV/material/hard-edge boundaries",
+        "retain all visible faces, object transforms, origins and PaletteUV islands"
+      ],
+      "operation_counts": {
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "vertices_merged_or_removed": 0,
+        "coplanar_faces_dissolved": 0,
+        "unused_vertices_removed": 0
+      },
+      "zero_change_reason": "清理命中为零；源组件无可安全移除的重复/退化几何，保留全部可见轮廓、背面、材质边界与 PaletteUV。",
+      "bounds_blender": {
+        "low": [
+          -1.6719341278076172,
+          -1.5599994659423828,
+          0.0
+        ],
+        "high": [
+          1.67193603515625,
+          1.5599994659423828,
+          6.093475341796875
+        ],
+        "size": [
+          3.343870162963867,
+          3.1199989318847656,
+          6.093475341796875
+        ]
+      },
+      "origin": "bottom_center",
+      "front_axis_blender": "-Y",
+      "coordinate_mapping": "Blender (x,y,z) -> Godot (x,z,-y); GLTF export_yup=True",
+      "material_names": [
+        "ORF2_FINAL_SEA_Matte",
+        "ORF2_FINAL_SEA_Metal"
+      ],
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "palette_sampling": "Closest; no mipmap; external only; no embedded image",
+      "palette_images_in_optimized": [
+        "D:/projects/sea/art_source/shared/palettes/sea_cabin_timber_8x8_512.png"
+      ],
+      "glb_stats": {
+        "bytes": 48656,
+        "meshes": 2,
+        "nodes": 2,
+        "triangles": 760,
+        "images": 0,
+        "materials": [
+          "ORF2_FINAL_SEA_Matte",
+          "ORF2_FINAL_SEA_Metal"
+        ]
+      },
+      "independent_reopen": true,
+      "runtime_verified": false,
+      "godot_import_status": "pending_import_only"
+    }
+  ],
+  "source_blend": "art_source/scenes/ocean_rooftop_farm/v005/ocean_rooftop_farm_v005.blend",
+  "notes": [
+    "v005: large structural pier voids added as geometry; only one exposed fire-stair flight and lower landing retained above water."
+  ]
+}

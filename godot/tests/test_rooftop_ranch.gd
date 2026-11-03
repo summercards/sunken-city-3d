@@ -1,18 +1,14 @@
 extends SceneTree
-## 顶层牧场验收：主场景里的真实区块 + 真实角色链路。
+## 顶层牧场 v005 验收：主场景里的真实区块 + 水面以上单段消防梯。
 ##
-## 钉住四件事，任何一件坏了这块农场就退回「看得见、上不去」的景观：
-##   1) 水面位置按用户红线：保留段最下面那层消防梯平台（甲板 44.80）在水面上 0.26 米，
-##      船正好停在这层平台的外沿，人从这里上船/下船；
-##   2) 六段折返梯 + 七层平台 + 入口板 + 楼顶真的连成一片可行走面，不是一段段悬空；
-##   3) 楼顶被抬高露台、棚屋、鸡舍、温室、水塔占掉的地方不是地面（既挖走路面，也有物理阻挡）；
-##   4) 真实角色按正式链路：靠泊 → 上岸 → 走 15 米楼梯 → 到楼顶草地，而不是只断言路径存在。
+## 钉住四件事：水线、单段梯、上岸点、模型与 WalkArea 一致。
+## v005 明确不把水下楼层、剩余消防梯或楼顶路线伪造成可行走。
 
 const RANCH_SCENE := "res://scenes/facilities/rooftop_ranch.tscn"
-const ROOT_Y := -43.42
+const ROOT_Y := -43.68
 const WATER_Y := 1.12
 const BOARD_DECK_Y := 1.38
-const ROOF_WORLD_Y := 16.58
+const UPPER_DECK_WORLD_Y := 3.88
 const MAIN_INSTANCE := Vector3(46.0, ROOT_Y, -52.0)
 
 var checks := 0
@@ -50,7 +46,7 @@ func run() -> void:
 	_check_roof_cutouts()
 	_test_independent_upgrades()
 	_check_boat_park_clearance()
-	await _test_capsule_climb()
+	await _test_capsule_single_flight()
 	await _test_formal_flow()
 	_finish()
 
@@ -69,45 +65,26 @@ func _check_waterline() -> void:
 	check(edge.global_position.x > stand.x, "上船边在平台外沿一侧")
 	check(absf(edge.global_position.y - BOARD_DECK_Y) < 0.05, "上船边与甲板同高")
 
-## 可行走面：六段梯 + 七层平台 + 入口板 + 楼顶，全部用本地三角形表达。
+## 可行走面：只覆盖水面以上的一段梯、下平台和上平台；与可见模型严格一致。
 func _check_walk_surface() -> void:
-	check(area.surface_triangles.size() >= 90, "行走面覆盖七层平台、六段梯、入口板和楼顶")
-	check(absf(area.surface_y - ROOF_WORLD_Y) < 0.05, "surface_y 是楼顶的世界高度")
+	check(area.surface_triangles.size() == 18, "行走面只有下平台、单段斜梯和上平台")
+	check(absf(area.surface_y - UPPER_DECK_WORLD_Y) < 0.05, "surface_y 是单段消防梯上平台高度")
 	var entry: Vector3 = area.get_node("Landing_main").stand_position()
-	var lawn: Vector3 = area.surface_point(Vector3(MAIN_INSTANCE.x, ROOF_WORLD_Y, MAIN_INSTANCE.z))
-	check(entry.is_finite() and lawn.is_finite(), "上岸口与楼顶都有有效支撑点")
-	var path: Array[Vector3] = area.path_between(entry, lawn)
-	check(path.size() >= 6, "上岸口到楼顶的路径穿过楼梯节点（%d 点）" % path.size())
-	if path.is_empty():
-		return
-	var climbed := false
-	for point: Vector3 in path:
-		if point.y > entry.y + 8.0 and point.y < lawn.y - 0.5:
-			climbed = true
-			break
-	check(climbed, "路径中段确实在爬楼梯，而不是绕到楼顶")
+	var upper: Vector3 = area.surface_point(Vector3(MAIN_INSTANCE.x + 26.0, UPPER_DECK_WORLD_Y, MAIN_INSTANCE.z + 2.0))
+	check(entry.is_finite() and upper.is_finite(), "上下两个平台都有有效支撑点")
+	var path: Array[Vector3] = area.path_between(entry, upper)
+	check(path.size() >= 3 and path.size() <= 20, "上岸口到单段梯上平台路径长度正确（%d 点）" % path.size())
+	check(upper.y > entry.y + 1.5 and upper.y < entry.y + 3.0, "单段梯确实只上升约 2.5 米")
+	# 不能把水塔屋顶等高处伪造成可走面。
+	check(not area.surface_point(Vector3(MAIN_INSTANCE.x, UPPER_DECK_WORLD_Y + 10.0, MAIN_INSTANCE.z)).is_finite(), "楼顶高处没有被伪造为通行面")
 
-## 楼顶挖洞：抬高露台、棚屋、鸡舍、温室、水塔压住的地方不能当地面。
+## v005 楼顶不在当前可行走范围，相关缺口不参与本轮通行判定。
 func _check_roof_cutouts() -> void:
-	## 本地 +Z 在世界上仍是 +Z（区块只平移不旋转），所以世界点 = 原点 + 本地偏移。
-	var cuts := [
-		["抬高露台", Vector3(MAIN_INSTANCE.x - 16.0, ROOF_WORLD_Y, MAIN_INSTANCE.z + 8.0)],
-		["棚屋", Vector3(MAIN_INSTANCE.x - 7.0, ROOF_WORLD_Y, MAIN_INSTANCE.z + 9.0)],
-		["鸡舍", Vector3(MAIN_INSTANCE.x - 17.0, ROOF_WORLD_Y, MAIN_INSTANCE.z + 0.9)],
-		["温室", Vector3(MAIN_INSTANCE.x + 7.0, ROOF_WORLD_Y, MAIN_INSTANCE.z - 7.5)],
-		["水塔", Vector3(MAIN_INSTANCE.x + 18.2, ROOF_WORLD_Y, MAIN_INSTANCE.z - 10.0)],
-	]
-	for row: Array in cuts:
-		var point: Vector3 = row[1]
-		check(not area.contains_world(point.x, point.z), "楼顶挖掉了%s占地" % row[0])
-	var obstacles := ranch.get_node_or_null("ActorObstacles")
+	var obstacles: Node = ranch.get_node_or_null("ActorObstacles")
 	check(obstacles != null, "角色物理阻挡已建立")
-	if obstacles != null:
-		for id in ["UpperTerrace", "Shed", "Coop", "Greenhouse", "WaterTower"]:
-			check(obstacles.get_node_or_null(id) != null, "%s 有角色物理阻挡" % id)
-	# 空地仍然可走：楼顶北侧与南侧各取一点。
-	check(area.contains_world(MAIN_INSTANCE.x, MAIN_INSTANCE.z + 13.0), "楼顶北侧空草地仍可走")
-	check(area.contains_world(MAIN_INSTANCE.x - 5.0, MAIN_INSTANCE.z + 6.0), "楼顶西侧草地仍可走")
+	# 仍要求可见的单段上平台与其 WalkArea 对齐。
+	check(area.contains_world(MAIN_INSTANCE.x + 26.0, MAIN_INSTANCE.z + 2.0), "单段消防梯上平台可走")
+	check(not area.surface_point(Vector3(MAIN_INSTANCE.x, UPPER_DECK_WORLD_Y + 10.0, MAIN_INSTANCE.z)).is_finite(), "楼顶不属于当前WalkArea")
 
 func _test_independent_upgrades() -> void:
 	var greenhouse_unbuilt := ranch.get_node("Models/ORF4_温室_升级前_待建木料堆")
@@ -131,24 +108,22 @@ func _check_boat_park_clearance() -> void:
 	var edge: Vector3 = area.get_node("Landing_main/DockEdge").global_position
 	check(Vector2(edge.x - park.x, edge.z - park.z).length() < 2.0, "上船边紧邻船位")
 
-## 真实胶囊沿路径爬上去：位移要真实发生，终点要落在楼顶。
-func _test_capsule_climb() -> void:
+## 真实胶囊走完这一段：不能把后续不存在的楼梯当作通行目标。
+func _test_capsule_single_flight() -> void:
 	var entry: Vector3 = area.get_node("Landing_main").stand_position()
-	var lawn: Vector3 = area.surface_point(Vector3(MAIN_INSTANCE.x, ROOF_WORLD_Y, MAIN_INSTANCE.z))
-	var path: Array[Vector3] = area.path_between(entry, lawn)
+	var upper: Vector3 = area.surface_point(Vector3(MAIN_INSTANCE.x + 26.0, UPPER_DECK_WORLD_Y, MAIN_INSTANCE.z + 2.0))
+	var path: Array[Vector3] = area.path_between(entry, upper)
+	check(not path.is_empty(), "单段消防梯有可走路径")
 	if path.is_empty():
-		check(false, "胶囊爬楼前需要一条路径")
 		return
 	var capsule := Character.new()
 	root.add_child(capsule)
 	capsule.ensure_body()
-	# 从甲板上方 0.3 米落下，避免出生就嵌进地板里把整个移动判定卡死。
 	capsule.global_position = entry + Vector3.UP * 0.30
 	capsule.set_grounded_motion(true)
 	await physics_frame
-	var start := capsule.global_position
 	var moved := 0.0
-	for i in 6000:
+	for i in 1800:
 		if path.is_empty():
 			break
 		var target: Vector3 = path[0]
@@ -160,10 +135,9 @@ func _test_capsule_climb() -> void:
 		var before := capsule.global_position
 		capsule.move_ground(step, 1.0 / 60.0)
 		moved += capsule.global_position.distance_to(before)
-	check(moved > 5.0, "胶囊沿楼梯真实移动了（%.1f 米）" % moved)
-	check(capsule.global_position.y > ROOF_WORLD_Y - 1.0, "胶囊爬到了楼顶高度（y=%.2f）" % capsule.global_position.y)
-	check(capsule.global_position.distance_to(lawn) < 1.2,
-		"胶囊落在楼顶草地（差 %.2f 米）" % capsule.global_position.distance_to(lawn))
+	check(moved > 2.0, "胶囊沿单段消防梯真实移动了（%.1f 米）" % moved)
+	check(capsule.global_position.y > entry.y + 1.5 and capsule.global_position.y < upper.y + 0.8,
+		"胶囊停在单段消防梯上平台高度（y=%.2f）" % capsule.global_position.y)
 	capsule.queue_free()
 	await process_frame
 
@@ -187,15 +161,18 @@ func _test_formal_flow() -> void:
 	var landed: Vector3 = main.player.global_position
 	check(landed.distance_to(stand) < 1.0, "角色站到了上岸平台（差 %.2f 米）" % landed.distance_to(stand))
 	check(absf(landed.y - BOARD_DECK_Y) < 0.4, "角色在上岸平台的高度上（y=%.2f）" % landed.y)
-	var lawn: Vector3 = area.surface_point(Vector3(MAIN_INSTANCE.x, ROOF_WORLD_Y, MAIN_INSTANCE.z))
-	check(main.actor_controller.start_walk(area, lawn), "从平台可以走上楼顶")
-	for i in 6000:
+	var upper: Vector3 = area.surface_point(Vector3(MAIN_INSTANCE.x + 26.0, UPPER_DECK_WORLD_Y, MAIN_INSTANCE.z + 2.0))
+	check(main.actor_controller.start_walk(area, upper), "角色可以走完露出水面的单段消防梯")
+	for i in 1800:
 		main.actor_controller.tick(1.0 / 60.0)
 		if not main.actor_controller.walking():
 			break
 	var top: Vector3 = main.player.global_position
-	check(top.y > ROOF_WORLD_Y - 1.0, "角色顺着消防梯走到了楼顶（y=%.2f）" % top.y)
-	check(top.distance_to(lawn) < 1.5, "角色落在楼顶草地上（差 %.2f 米）" % top.distance_to(lawn))
+	check(top.y > stand.y + 1.5 and top.y < upper.y + 0.8,
+		"角色停在单段消防梯上平台（y=%.2f）" % top.y)
+	# 楼顶没有外接可走梯，正式链路必须拒绝直接跳到楼顶。
+	var roof_probe: Vector3 = area.surface_point(Vector3(MAIN_INSTANCE.x, UPPER_DECK_WORLD_Y + 10.0, MAIN_INSTANCE.z))
+	check(not roof_probe.is_finite(), "未露出的楼顶不被误判为可走")
 
 func _finish() -> void:
 	if is_instance_valid(main):

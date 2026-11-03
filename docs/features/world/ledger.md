@@ -1,55 +1,10 @@
-# SEA-WORLD · 区块与世界装配 · 独立账本
 
-[主文档中控](../../../GDD_V1.0.md#sea-world) · [功能文档](spec.md)
-
-## 登记头
-
-以下为本功能状态的唯一编辑源；主文档状态摘要与机器索引由工具读取本页汇总。`partial` 不代表失败，`planned` 不代表已有实现。
-
-```json
-{
-  "feature_id": "SEA-WORLD",
-  "status": "partial",
-  "owner": "Zones / ZoneScene",
-  "code_paths": [
-    "godot/src/world",
-    "godot/src/navigation/ground_space.gd",
-    "godot/src/navigation/actor_collision_body.gd",
-    "godot/scenes/zones",
-    "godot/scenes/world",
-    "godot/assets/data/zones.json"
-  ],
-  "verification": [
-    "water-layer",
-    "submerged-neighborhood",
-    "visual-submerged-neighborhood",
-    "selftest",
-    "surface",
-    "visual-sea-style",
-    "visual-blockers",
-    "decorations",
-    "visual-decorations",
-    "minimum-loop",
-    "visual-plot-shipping",
-    "visual-home-lighting",
-    "sea-supply",
-    "sea-supply-probe",
-    "fishery-environment",
-    "visual-fishery-environment"
-  ]
-}
-```
-
-
-## 2026-11-03 默认世界范围：只保留横滨 + 新增顶层牧场（R08 / R01 修订）
-
-按用户明确要求压缩默认主场景，并接入这一轮新做的海上高层农场。
-
-## 设计承接与实施条目
+## 2026-11-04 顶层牧场 v005：大块破败、下沉与单段消防梯
 
 | 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
 |---|---|---|
-| SEA-WORLD-R08 | 默认最小范围的 `zone_enabled` 改为 `zone1`／`zone2`／`zone5`／`sea_supply`／`rooftop_ranch`。横滨铁道从「默认隐藏」转为默认显示；圆弧屋顶农场（zone3）与远海街町（zone4）的实例、以及水下景观六栋与沉没街景十栋，全部从 `main.tscn` 移除。**场景文件、预制体、源、账本与哈希一律保留**，随时可加回，不是删除资产。`World/Zones` 现装三块生活区（家园／横滨／浅水养殖），`World/SeaStructures` 装浮店与顶层牧场。 | 主场景 `godot/scenes/main.tscn`；范围开关 `godot/src/core/play_scope.gd`；`godot/tests/test_minimum_loop.gd`、`godot/tests/integration/selftest.gd` 已同步为「已安装区块＝zone1/zone2/zone5」；水下两套专项在未安装时改为验预制体本身（预算／序列化材质／水下职责），不再要求主场景挂载。**pending**：用户对「移除后水面视野变空」的观感确认。 |
+| SEA-WORLD-R17 · v005 | 按用户反馈修订：柱体不再只靠裂纹和小贴片，改为 6 组真实 Boolean 大块缺损，单组约 1.3–1.7m 宽、2.1–3.65m 高，直接从柱体网格挖空；布尔面统一回到 `PaletteUV` 与公共材质，去掉默认 Material 和共面内里盒，避免粉绿调试色、黑白颗粒与 z-fighting。整楼根节点下沉到 `root_y=-43.68`，水面 `y=1.12`，单段消防梯下平台甲板与水面关系：`1.38 - 1.12 = 0.26m`。消防梯只保留水面以上一段：下平台 → 单段斜梯 → 上平台；其余折返梯、屋顶入口和高层平台在源与运行包装中隐藏。WalkArea 只含 3 个面片，角色胶囊实走通过；不再宣称从该段梯直达楼顶。 | Blender 源：`art_source/scenes/ocean_rooftop_farm/v005/ocean_rooftop_farm_v005.blend`；柱体稳定运行 GLB：`godot/assets/models/facilities/rooftop_ranch/components/pier/pier.glb`；运行包装：`godot/scenes/facilities/rooftop_ranch.tscn`、`godot/src/facilities/rooftop_ranch_zone.gd`；专项 `rooftop-ranch`：**PASS**。实拍：`sea`、`single_stair`、`single_stair_side`、`pier_damage_final`、`roof`。**pending**：其余全工程 selftest 仍有历史失败；温室／水塔升级经济规则未实现。 |
+ | 默认最小范围的 `zone_enabled` 改为 `zone1`／`zone2`／`zone5`／`sea_supply`／`rooftop_ranch`。横滨铁道从「默认隐藏」转为默认显示；圆弧屋顶农场（zone3）与远海街町（zone4）的实例、以及水下景观六栋与沉没街景十栋，全部从 `main.tscn` 移除。**场景文件、预制体、源、账本与哈希一律保留**，随时可加回，不是删除资产。`World/Zones` 现装三块生活区（家园／横滨／浅水养殖），`World/SeaStructures` 装浮店与顶层牧场。 | 主场景 `godot/scenes/main.tscn`；范围开关 `godot/src/core/play_scope.gd`；`godot/tests/test_minimum_loop.gd`、`godot/tests/integration/selftest.gd` 已同步为「已安装区块＝zone1/zone2/zone5」；水下两套专项在未安装时改为验预制体本身（预算／序列化材质／水下职责），不再要求主场景挂载。**pending**：用户对「移除后水面视野变空」的观感确认。 |
 | SEA-WORLD-R01 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R02 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-WORLD-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |

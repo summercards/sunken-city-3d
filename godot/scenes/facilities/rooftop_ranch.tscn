@@ -57,24 +57,25 @@ water_layer = "amphibious"
 water_layer_role = "entity"
 geometry_source = "scene"
 metadata/asset_id = "SEA-SCENE-ORF2-ROOFTOP-RANCH-V004"
-metadata/asset_version = "v004"
+metadata/asset_version = "v005"
 metadata/building_class = "above_water"
-metadata/source_manifest = "art_source/scenes/ocean_rooftop_farm/v004/export/v004/export_manifest.json"
+metadata/source_manifest = "art_source/scenes/ocean_rooftop_farm/v005/export/v005/export_manifest.json"
 metadata/component_instances = 744
 metadata/component_catalog = 45
-metadata/root_y = -43.42
+metadata/root_y = -43.68
 metadata/water_y = 1.12
-metadata/platform_top_blender_m = 44.8
+metadata/platform_top_blender_m = 44.80
 metadata/platform_top_godot_m = 1.38
 metadata/coordinate_mapping = "Blender (x,y,z) -> Godot (x,z,-y)"
 metadata/default_upgrade_state = "unbuilt"
 metadata/upgrade_logic = "visual_switch_only_no_cost_or_production"
-metadata/entrance_local = Vector3(27.2, 44.8, -3.9)
+metadata/entrance_local = Vector3(26.0, 45.06, -3.9)
 metadata/entrance_world_y = 1.38
-metadata/roof_entry_local = Vector3(23.9, 59.9, -3.9)
-metadata/boat_park_local = Vector3(29.9, 44.54, -3.9)
+metadata/roof_entry_local = Vector3(26.0, 47.30, -3.9)
+metadata/boat_park_local = Vector3(29.9, 44.80, -3.9)
 metadata/boat_park_world_y = 1.12
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -43.42, 0)
+metadata/stair_mode = "single_exposed_flight_above_water"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -43.68, 0)
 
 [node name="Models" type="Node3D" parent="."]
 [node name="ORF2_实例_shell" parent="Models" instance=ExtResource("c0")]
@@ -578,10 +579,12 @@ transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.00
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_FLIGHT"
 metadata/source_instance = "ORF3_实例_stair_flight.018"
 [node name="ORF3_实例_stair_flight.019" parent="Models" instance=ExtResource("c35")]
+visible = false
 transform = Transform3D(-1.000000000, 0.000000000, 0.000000087, 0.000000000, 1.000000000, 0.000000000, -0.000000087, 0.000000000, -1.000000000, 27.000000000, 47.471405029, 0.899999619)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_FLIGHT"
 metadata/source_instance = "ORF3_实例_stair_flight.019"
 [node name="ORF3_实例_stair_landing.018" parent="Models" instance=ExtResource("c36")]
+visible = false
 transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 26.000000000, 47.299999237, -2.099999905)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_LANDING"
 metadata/source_instance = "ORF3_实例_stair_landing.018"
@@ -590,42 +593,52 @@ transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.00
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_LANDING"
 metadata/source_instance = "ORF3_实例_stair_landing.019"
 [node name="ORF3_实例_stair_flight.020" parent="Models" instance=ExtResource("c35")]
+visible = false
 transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 25.000000000, 49.971405029, 0.900000334)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_FLIGHT"
 metadata/source_instance = "ORF3_实例_stair_flight.020"
 [node name="ORF3_实例_stair_flight.021" parent="Models" instance=ExtResource("c35")]
+visible = false
 transform = Transform3D(-1.000000000, 0.000000000, 0.000000087, 0.000000000, 1.000000000, 0.000000000, -0.000000087, 0.000000000, -1.000000000, 27.000000000, 52.471405029, 0.899999619)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_FLIGHT"
 metadata/source_instance = "ORF3_实例_stair_flight.021"
 [node name="ORF3_实例_stair_landing.020" parent="Models" instance=ExtResource("c36")]
+visible = false
 transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 26.000000000, 52.299999237, -2.099999905)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_LANDING"
 metadata/source_instance = "ORF3_实例_stair_landing.020"
 [node name="ORF3_实例_stair_landing.021" parent="Models" instance=ExtResource("c36")]
+visible = false
 transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 26.000000000, 49.799999237, 3.900000095)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_LANDING"
 metadata/source_instance = "ORF3_实例_stair_landing.021"
 [node name="ORF3_实例_stair_flight.022" parent="Models" instance=ExtResource("c35")]
+visible = false
 transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 25.000000000, 54.971405029, 0.900000334)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_FLIGHT"
 metadata/source_instance = "ORF3_实例_stair_flight.022"
 [node name="ORF3_实例_stair_flight.023" parent="Models" instance=ExtResource("c35")]
+visible = false
 transform = Transform3D(-1.000000000, 0.000000000, 0.000000087, 0.000000000, 1.000000000, 0.000000000, -0.000000087, 0.000000000, -1.000000000, 27.000000000, 57.471405029, 0.899999619)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_FLIGHT"
 metadata/source_instance = "ORF3_实例_stair_flight.023"
 [node name="ORF3_实例_stair_landing.022" parent="Models" instance=ExtResource("c36")]
+visible = false
 transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 26.000000000, 57.299999237, -2.099999905)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_LANDING"
 metadata/source_instance = "ORF3_实例_stair_landing.022"
 [node name="ORF3_实例_stair_landing.023" parent="Models" instance=ExtResource("c36")]
+visible = false
 transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 26.000000000, 54.799999237, 3.900000095)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_LANDING"
 metadata/source_instance = "ORF3_实例_stair_landing.023"
 [node name="ORF3_实例_stair_landing.024" parent="Models" instance=ExtResource("c38")]
+visible = false
 transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 26.450544357, 59.799999237, 3.900000095)
 metadata/asset_id = "SEA-SCENE-ORF2-STAIR_LANDING_OPEN"
 metadata/source_instance = "ORF3_实例_stair_landing.024"
 [node name="ORF3_实例_roof_entry" parent="Models" instance=ExtResource("c37")]
+visible = false
 transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.000000000, 23.900001526, 59.849998474, 3.900000095)
 metadata/asset_id = "SEA-SCENE-ORF2-ROOF_ENTRY"
 metadata/source_instance = "ORF3_实例_roof_entry"
@@ -3069,7 +3082,7 @@ body_radius = 0.38
 surface_triangles = PackedVector3Array()
 
 [node name="Landing_main" type="Marker3D" parent="WalkAreas/Walk_rooftop_ranch_access"]
-position = Vector3(27.2, 44.8, -3.9)
+position = Vector3(26.0, 45.06, -3.9)
 script = ExtResource("landing")
 landing_id = "main"
 landing_label = "顶层牧场上岸入口"

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="PackedScene" path="res://assets/models/facilities/rooftop_ranch/components/pier/pier.glb" id="model"]
 [ext_resource type="Script" path="res://src/ambient/scene_component.gd" id="contract"]
 [ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
 [ext_resource type="Material" path="res://assets/materials/floating_shop/matte.tres" id="sea_matte"]
+[ext_resource type="Material" path="res://assets/materials/floating_shop/metal.tres" id="sea_metal"]
 
 [node name="pier" instance=ExtResource("model")]
 script = ExtResource("contract")
@@ -17,7 +18,7 @@ water_layer_role = "part"
 movable = false
 metadata/asset_id = "SEA-SCENE-ORF2-PIER"
 metadata/building_class = "above_water"
-metadata/source_version = "v004"
+metadata/source_version = "v005"
 metadata/component_key = "pier"
 metadata/blocker_mode = "auto"
 
@@ -29,3 +30,28 @@ cell = 0.4
 
 [node name="ORF3_厚实混凝土结构柱_0_001" parent="."]
 surface_material_override/0 = ExtResource("sea_matte")
+
+[node name="ORF5_柱体大块崩缺_p0" parent="."]
+surface_material_override/0 = ExtResource("sea_matte")
+[node name="ORF5_柱体大块崩缺_p1" parent="."]
+surface_material_override/0 = ExtResource("sea_matte")
+[node name="ORF5_柱体大块崩缺_p2" parent="."]
+surface_material_override/0 = ExtResource("sea_matte")
+[node name="ORF5_柱体大块崩缺_p3" parent="."]
+surface_material_override/0 = ExtResource("sea_matte")
+[node name="ORF5_柱体大块崩缺_p4" parent="."]
+surface_material_override/0 = ExtResource("sea_matte")
+[node name="ORF5_柱体大块崩缺_p5" parent="."]
+surface_material_override/0 = ExtResource("sea_matte")
+[node name="ORF5_柱体崩口内里_p0" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")
+[node name="ORF5_柱体崩口内里_p1" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")
+[node name="ORF5_柱体崩口内里_p2" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")
+[node name="ORF5_柱体崩口内里_p3" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")
+[node name="ORF5_柱体崩口内里_p4" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")
+[node name="ORF5_柱体崩口内里_p5" parent="."]
+surface_material_override/0 = ExtResource("sea_metal")
