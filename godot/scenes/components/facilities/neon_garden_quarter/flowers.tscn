@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/neon_garden_quarter/flowers/flowers.glb" id="visual"]
+
+[node name="flowers" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-043"
+metadata/asset_version = "v003"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

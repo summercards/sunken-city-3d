@@ -1,0 +1,37 @@
+{
+  "key": "rubble",
+  "name": "大块混凝土残片",
+  "asset_id": "SEA-SCENE-NGQ-008",
+  "category": "architecture",
+  "family": "damage",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_08_大块混凝土残片",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    1.7697031497955322,
+    0.9889166355133057,
+    0.4593738317489624
+  ],
+  "author_origin_shift": [
+    0.30012109875679016,
+    -0.0023881494998931885,
+    -0.02968691475689411
+  ],
+  "mesh_objects": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/rubble/rubble.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/rubble/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "fb53cefb42d7533bd050a2a95e1a973ecb48ceee4c402d086bb6c8a688ad985b",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-008",
+  "geometry_fingerprint": "385ba4c11e3b8f037515b26c304fe5aa0c78635ab5146438d4d658e7228ae033",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

@@ -1,0 +1,38 @@
+{
+  "key": "round_damaged",
+  "name": "弧形楼大缺口层",
+  "asset_id": "SEA-SCENE-NGQ-049",
+  "category": "architecture",
+  "family": "round_storey",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 55000,
+  "collection": "NGQ_49_弧形楼大缺口层",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    9.460000038146973,
+    18.46000099182129,
+    5.100000381469727
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 158,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v002/component_packages/round_damaged/round_damaged.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v002/component_packages/round_damaged/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "987542f3d00c45ad0d62b2aa67f3c56ea2df25000065f612ba8a603b81565dc8",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-049",
+  "geometry_fingerprint": "93222c5dd161854afc77edc451c6f1d7c2dc48a39aa75147ca603ba3709b0441",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\source_verification.json"
+}

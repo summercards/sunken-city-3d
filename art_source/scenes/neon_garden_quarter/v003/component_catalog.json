@@ -1,0 +1,1865 @@
+{
+  "schema": "sea.component_catalog",
+  "components": [
+    {
+      "key": "street_deck",
+      "name": "连续街巷平台",
+      "asset_id": "SEA-SCENE-NGQ-001",
+      "category": "architecture",
+      "family": "platform",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_01_连续街巷平台",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        30.0,
+        29.0,
+        0.21249999105930328
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 8,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_deck/street_deck.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_deck/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-001",
+      "source_sha256": "13881e6058e4f8712db9d514edab0d45a632631a78cb29179c983ded314964c8",
+      "geometry_fingerprint": "b3a532d1c0b2ec640bf5ed78d5855b09b0879abad7b9318f5d4b827138d5f050",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "left_storey",
+      "name": "左侧店屋标准层",
+      "asset_id": "SEA-SCENE-NGQ-002",
+      "category": "architecture",
+      "family": "left_storey",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_02_左侧店屋标准层",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        9.25,
+        18.450000762939453,
+        5.100000381469727
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 53,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_storey/left_storey.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_storey/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-002",
+      "source_sha256": "77aa954293181e0c37b86cc7265c1131eb6eb6d4174084edfbe81a389c91278d",
+      "geometry_fingerprint": "2ba27ae91e244ba275c9f88e0a1d351e711fc54616e31af9805ba1f2108bf584",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "back_storey",
+      "name": "后街农园楼标准层",
+      "asset_id": "SEA-SCENE-NGQ-003",
+      "category": "architecture",
+      "family": "back_storey",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_03_后街农园楼标准层",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        9.25,
+        8.450000762939453,
+        5.100000381469727
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 35,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/back_storey/back_storey.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/back_storey/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-003",
+      "source_sha256": "57cb141efbddca2bfad92167fdd060acaf39575f4161c8044c05892a3a54617f",
+      "geometry_fingerprint": "32da523cdd432fbdb6f987c95df3c9afb810504e908e92dee2d3b73eb3440868",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "round_storey",
+      "name": "完整弧角楼标准层",
+      "asset_id": "SEA-SCENE-NGQ-004",
+      "category": "architecture",
+      "family": "round_storey",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 45000,
+      "collection": "NGQ_04_右侧圆角酒楼标准层",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        9.460000038146973,
+        18.46000099182129,
+        5.100000381469727
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 164,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_storey/round_storey.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_storey/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-004",
+      "source_sha256": "0031475bc187b5ce7cbf5526ed0044b7e289ec03c41eccbad41008b410fb2f44",
+      "geometry_fingerprint": "e1319ee7d598c22aae10d2e7eab980f0cdfd0ecb822d7a5b309a61aa93b5b132",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "roof_room",
+      "name": "完整屋顶楼梯间",
+      "asset_id": "SEA-SCENE-NGQ-005",
+      "category": "architecture",
+      "family": "rooftop",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_05_完整屋顶楼梯间",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        4.099999904632568,
+        3.7750000953674316,
+        3.320000171661377
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.03750002384185791,
+        0.0
+      ],
+      "mesh_objects": 4,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_room/roof_room.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_room/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-005",
+      "source_sha256": "53c049fd909b57eb00c588bce014ca6a3f0875bb55bf1e6792ae33ab5a800451",
+      "geometry_fingerprint": "a7640a441dff78d5b1133cc89f03fed4f929ed772b82a3756e59975459c45079",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "parapet",
+      "name": "完整圆角女儿墙",
+      "asset_id": "SEA-SCENE-NGQ-006",
+      "category": "architecture",
+      "family": "parapet",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_06_完整圆角女儿墙",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        3.1500000953674316,
+        0.5,
+        1.25
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/parapet/parapet.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/parapet/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-006",
+      "source_sha256": "3cfb031869cb0e96a9eb5a518ec6aae1a53d594f17398ffb433c29b38341e714",
+      "geometry_fingerprint": "060adfbfe6fc3d78339c62a927cb8e6ad176759782ee5e9e38cb1806552a3bd6",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "broken_parapet",
+      "name": "大块断裂女儿墙",
+      "asset_id": "SEA-SCENE-NGQ-007",
+      "category": "architecture",
+      "family": "parapet",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_07_大块断裂女儿墙",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        3.0255584716796875,
+        0.5,
+        1.1983747482299805
+      ],
+      "author_origin_shift": [
+        -0.01277923583984375,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 3,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/broken_parapet/broken_parapet.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/broken_parapet/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-007",
+      "source_sha256": "132eeef55cfc6e6fc226875e6f9d48f3b2b4dd542d67300b1bb166885c90e62e",
+      "geometry_fingerprint": "f22a189213aaae1572a0ef3814ec8bf384615154d7db334bc70e60000b93dc8b",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "rubble",
+      "name": "大块混凝土残片",
+      "asset_id": "SEA-SCENE-NGQ-008",
+      "category": "architecture",
+      "family": "damage",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_08_大块混凝土残片",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.7697031497955322,
+        0.9889166355133057,
+        0.4593738317489624
+      ],
+      "author_origin_shift": [
+        0.30012109875679016,
+        -0.0023881494998931885,
+        -0.02968691475689411
+      ],
+      "mesh_objects": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/rubble/rubble.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/rubble/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-008",
+      "source_sha256": "c7660d9c127a41ee31f73f86a51b8789b0e1f08e59d2120d7e065f69fc436848",
+      "geometry_fingerprint": "385ba4c11e3b8f037515b26c304fe5aa0c78635ab5146438d4d658e7228ae033",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "stair_flight",
+      "name": "实体折返楼梯梯段",
+      "asset_id": "SEA-SCENE-NGQ-010",
+      "category": "architecture",
+      "family": "stair",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_10_实体折返楼梯梯段",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.0299999713897705,
+        3.9150002002716064,
+        3.549999952316284
+      ],
+      "author_origin_shift": [
+        0.0,
+        1.8200000524520874,
+        0.0
+      ],
+      "mesh_objects": 25,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_flight/stair_flight.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_flight/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-010",
+      "source_sha256": "7415f3f98ae9f4f7a8d2777f327e41e19d08caec909784bbdf8a6b00d4229873",
+      "geometry_fingerprint": "8a18abba02c420d0e500993999fc320f9dca5d71d5c431e299cfff5372fa037d",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "stair_landing",
+      "name": "楼梯转角平台",
+      "asset_id": "SEA-SCENE-NGQ-011",
+      "category": "architecture",
+      "family": "stair",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_11_楼梯转角平台",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        4.400000095367432,
+        2.0,
+        0.20000000298023224
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 1,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_landing/stair_landing.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_landing/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-011",
+      "source_sha256": "700fe2018c39caac4c324f635c9bfdfe48a112a57d197b8d92bdf18f2f9c7ad7",
+      "geometry_fingerprint": "1b6927c9f2d2f1b3caa365d138224e85b78d9ece6c2f73cb06ea89180bb551ad",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "guardrail",
+      "name": "厚实通道栏杆",
+      "asset_id": "SEA-SCENE-NGQ-012",
+      "category": "fixtures",
+      "family": "rail",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_12_厚实通道栏杆",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        3.0,
+        0.14000000059604645,
+        1.2400000095367432
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 5,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/guardrail/guardrail.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/guardrail/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-012",
+      "source_sha256": "a5934c5e955eb92de35ab5367c7f3ba706908b6c06f95b7ae339c24959c8d681",
+      "geometry_fingerprint": "f13e4d66804e64888247261209143f8c5a440abe01fbe50fed368c9617ac761d",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "double_door",
+      "name": "双扇店门",
+      "asset_id": "SEA-SCENE-NGQ-013",
+      "category": "fixtures",
+      "family": "door",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_13_双扇店门",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.7999999523162842,
+        0.38999998569488525,
+        3.0999999046325684
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.10499998927116394,
+        0.0
+      ],
+      "mesh_objects": 7,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/double_door/double_door.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/double_door/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-013",
+      "source_sha256": "870d2302dd016d654776c96f8e4031e629f176e386e990c9ac6ce051453e3fa3",
+      "geometry_fingerprint": "91e8c6e7b5dca175ea74358a9c24cc88bd30b042bfae93d937d027b9fb9956e2",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "window_pair",
+      "name": "凹窗双联窗",
+      "asset_id": "SEA-SCENE-NGQ-014",
+      "category": "fixtures",
+      "family": "window",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_14_凹窗双联窗",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.9000000953674316,
+        0.6499999761581421,
+        2.7899999618530273
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.09999999403953552,
+        -0.09000000357627869
+      ],
+      "mesh_objects": 8,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_pair/window_pair.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_pair/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-014",
+      "source_sha256": "9a8f052880cbab3409dae689915384bee0bd5ce817c16396c63d168bbfa1b44e",
+      "geometry_fingerprint": "202e8076e23f3f01e1347a0e17d6b0c1e5694117f63098d4542cc82f03788f78",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "window_broken",
+      "name": "破损缺角双联窗",
+      "asset_id": "SEA-SCENE-NGQ-015",
+      "category": "fixtures",
+      "family": "window",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_15_破损缺角双联窗",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.9000000953674316,
+        0.6499999761581421,
+        2.7899999618530273
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.09999999403953552,
+        -0.09000000357627869
+      ],
+      "mesh_objects": 8,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_broken/window_broken.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_broken/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-015",
+      "source_sha256": "84114ce0327d5fac26834ed9e282beacadb2de93bbc90ab4615e3d76c0236bf1",
+      "geometry_fingerprint": "809abc1c8632da0cd1409891003b571c18681be52ef0b4aad37d922a47a190f8",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "shop_awning",
+      "name": "暖色店铺雨棚",
+      "asset_id": "SEA-SCENE-NGQ-018",
+      "category": "fixtures",
+      "family": "awning",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_18_暖色店铺雨棚",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        3.4000000953674316,
+        1.522000789642334,
+        0.9506065845489502
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.013999611139297485,
+        -0.07984951883554459
+      ],
+      "mesh_objects": 4,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/shop_awning/shop_awning.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/shop_awning/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-018",
+      "source_sha256": "32367ae4d003135ab5c3ca6b39b235f4de23b6cf32e322b7f2b001e1129c7a8b",
+      "geometry_fingerprint": "42df50d2279efe6897269ccd1c11fe788f16aedc9af97b5a05204e950c849db2",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "aircon",
+      "name": "厚边空调外机",
+      "asset_id": "SEA-SCENE-NGQ-019",
+      "category": "fixtures",
+      "family": "utility",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_19_厚边空调外机",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.7999999523162842,
+        0.9149999618530273,
+        1.2999999523162842
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.08249998092651367,
+        0.0
+      ],
+      "mesh_objects": 9,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/aircon/aircon.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/aircon/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-019",
+      "source_sha256": "96b8346629178e15b55f930273053e91a745afda7888e3e8ffc0a7002198a961",
+      "geometry_fingerprint": "eddfc8e145325c650274d2d55576399f265b8c8e9ccd2b8de9dc915b8dcca8b2",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "water_tank",
+      "name": "屋顶圆柱水箱",
+      "asset_id": "SEA-SCENE-NGQ-020",
+      "category": "fixtures",
+      "family": "utility",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_20_屋顶圆柱水箱",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.539518356323242,
+        2.5399999618530273,
+        3.0
+      ],
+      "author_origin_shift": [
+        -0.00024080276489257812,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 5,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/water_tank/water_tank.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/water_tank/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-020",
+      "source_sha256": "bd6d055bd8f1be9bbc809b4a7509bc41b6c5e0d8ff19cc07192bf82066dee33a",
+      "geometry_fingerprint": "81d67a177dfe0dad4fd33e37b854fa7826a30ff474dfa69c60cf45dce44b0276",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "drainpipe",
+      "name": "粗排水管",
+      "asset_id": "SEA-SCENE-NGQ-021",
+      "category": "fixtures",
+      "family": "utility",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_21_粗排水管",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        0.36000001430511475,
+        0.4620097279548645,
+        5.05364465713501
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.11118170619010925,
+        -0.07682212442159653
+      ],
+      "mesh_objects": 3,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/drainpipe/drainpipe.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/drainpipe/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-021",
+      "source_sha256": "4920011c587f3d15aec02d95d4af6333ba6457bfb517b2628f4d3ceff64ab6e8",
+      "geometry_fingerprint": "4fbf8c4a46c67513c5b248bd38250abd31837d4823bef9e12e0e898606fdb1a9",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "street_lamp",
+      "name": "弯臂街灯",
+      "asset_id": "SEA-SCENE-NGQ-022",
+      "category": "fixtures",
+      "family": "lighting",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_22_弯臂街灯",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        0.7799423336982727,
+        1.389971137046814,
+        3.5
+      ],
+      "author_origin_shift": [
+        0.20000001788139343,
+        -0.5949855446815491,
+        0.0
+      ],
+      "mesh_objects": 3,
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_lamp/street_lamp.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_lamp/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-022",
+      "source_sha256": "3445e5e26d5d47fa1d0c05906e3c9739061c394eb9c55e6936406c54df94dd8e",
+      "geometry_fingerprint": "6d20ecc2dee3f8c5230dbd447ea037aa9675c64b470473c6f0157c205e864347",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "lantern",
+      "name": "饱满旧灯笼",
+      "asset_id": "SEA-SCENE-NGQ-023",
+      "category": "fixtures",
+      "family": "lighting",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_23_饱满旧灯笼",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.3795127868652344,
+        0.7894428372383118,
+        1.348433256149292
+      ],
+      "author_origin_shift": [
+        0.1897563934326172,
+        0.03472140431404114,
+        -0.023700613528490067
+      ],
+      "mesh_objects": 3,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/lantern/lantern.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/lantern/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-023",
+      "source_sha256": "ce0084e67ade7da904b8503a0f82d7acddee99ba06497fbd23a0e1b529d9721d",
+      "geometry_fingerprint": "f4bae9129858cae46b085b3c92d7dfdee43256f0ab1c422f4564ce69bd54e29e",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "bar_poster",
+      "name": "BAR PSY艺术招贴",
+      "asset_id": "SEA-SCENE-NGQ-024",
+      "category": "signage",
+      "family": "art_advert",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_24_BAR PSY艺术招贴",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.509999990463257,
+        0.3700000047683716,
+        5.190919876098633
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.05500000715255737,
+        -0.07999999821186066
+      ],
+      "mesh_objects": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/bar_poster/bar_poster.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/bar_poster/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-024",
+      "source_sha256": "13c533a397033d5a4c1d888a269f6b79ff0e2f1bc795ca5713bfa37d5c496396",
+      "geometry_fingerprint": "d61a29d50ab193a0ecaca15120c5eb52496e47a6d124698cf086ad42b93538a4",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "portrait_poster",
+      "name": "怀旧人像招贴",
+      "asset_id": "SEA-SCENE-NGQ-025",
+      "category": "signage",
+      "family": "art_advert",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_25_怀旧人像招贴",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        4.759999752044678,
+        0.3700000047683716,
+        4.430286407470703
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.05500000715255737,
+        -0.07999999821186066
+      ],
+      "mesh_objects": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/portrait_poster/portrait_poster.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/portrait_poster/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-025",
+      "source_sha256": "7028697a63890ec23e3a82f2c12272e6d8a7274bf27ced9bbcc4e9b20ff7106f",
+      "geometry_fingerprint": "c1581d0bd41acc90e1cad20c3647973bba2e7ed53804ee10ce49e3f3e785aa45",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "drink_poster",
+      "name": "复古饮料广告",
+      "asset_id": "SEA-SCENE-NGQ-026",
+      "category": "signage",
+      "family": "art_advert",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_26_复古饮料广告",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        3.56000018119812,
+        0.3700000047683716,
+        4.409290790557861
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.05500000715255737,
+        -0.07999999821186066
+      ],
+      "mesh_objects": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/drink_poster/drink_poster.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/drink_poster/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-026",
+      "source_sha256": "0b1cf8b489f705b20746b135fb61ae04953745c66c2d1be08334a518e34ef8c7",
+      "geometry_fingerprint": "895fb0eb46519cdebd2f7488d51fb87fdd59af6e0af8c00669308e48d6d7044d",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "charcoal_sign",
+      "name": "沿完整弧面安装的破损炭火招牌",
+      "asset_id": "SEA-SCENE-NGQ-027",
+      "category": "signage",
+      "family": "shop_identity",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 65000,
+      "collection": "NGQ_27_弧面炭火广告大牌",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        4.619361400604248,
+        4.506481647491455,
+        10.050000190734863
+      ],
+      "author_origin_shift": [
+        -2.3407609462738037,
+        -2.415283441543579,
+        0.0
+      ],
+      "mesh_objects": 9,
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/charcoal_sign/charcoal_sign.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/charcoal_sign/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-027",
+      "source_sha256": "819d6ea76a15b1d7d0f0358d6fd709726aa4e722b1692c5796bc7211afb22fc6",
+      "geometry_fingerprint": "30b3f18052cdc552502fe31ce7a9501ccea11d332121aa0810b8e6b20a186f2b",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "tavern_sign",
+      "name": "海道酒场厚字招牌",
+      "asset_id": "SEA-SCENE-NGQ-028",
+      "category": "signage",
+      "family": "shop_identity",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 65000,
+      "collection": "NGQ_28_海道酒场厚字招牌",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.5,
+        0.7372269630432129,
+        10.800000190734863
+      ],
+      "author_origin_shift": [
+        0.0,
+        1.4901161193847656e-08,
+        0.0
+      ],
+      "mesh_objects": 5,
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/tavern_sign/tavern_sign.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/tavern_sign/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-028",
+      "source_sha256": "aa563adf2984871b9b2201c64bc761e06783b3f4792c65d5e818fa71aab7b95c",
+      "geometry_fingerprint": "87abc6cbd09c3dd950caae79c0600e3690199c3957a1e9a7191092e1c23d50cb",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "restaurant_neon",
+      "name": "餐厅饱满立体霓虹字",
+      "asset_id": "SEA-SCENE-NGQ-029",
+      "category": "signage",
+      "family": "shop_identity",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 65000,
+      "collection": "NGQ_29_餐厅饱满立体霓虹字",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.850000023841858,
+        0.6892741322517395,
+        11.600000381469727
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 6,
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/restaurant_neon/restaurant_neon.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/restaurant_neon/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-029",
+      "source_sha256": "ce8dfdbb108b63f51030b5ffd0bd88174019f78a8fbd5ee5abc1b39e5442c040",
+      "geometry_fingerprint": "459382bb42630972df02c708aa48541dbf49ff5a9626f5b6ae33ec92b3bacb69",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "route_board",
+      "name": "钏路方形路牌",
+      "asset_id": "SEA-SCENE-NGQ-030",
+      "category": "signage",
+      "family": "wayfinding",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_30_钏路方形路牌",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.1600000858306885,
+        0.3700000047683716,
+        3.2847957611083984
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.05500000715255737,
+        -0.07999999821186066
+      ],
+      "mesh_objects": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/route_board/route_board.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/route_board/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-030",
+      "source_sha256": "3ac839af37920aaf3e1670b2e8408112d0933563bd49f70a322896da2a262b75",
+      "geometry_fingerprint": "e045bc5c22a4d3b032e5e3ac5e9fb6fec2a347de9cd774f37fa1a32c56745a5c",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "menu_board",
+      "name": "黑底粉笔菜单",
+      "asset_id": "SEA-SCENE-NGQ-031",
+      "category": "signage",
+      "family": "menu",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_31_黑底粉笔菜单",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        3.4600000381469727,
+        0.3700000047683716,
+        3.5075411796569824
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.05500000715255737,
+        -0.07999999821186066
+      ],
+      "mesh_objects": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/menu_board/menu_board.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/menu_board/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-031",
+      "source_sha256": "99650b1826b1fd233b9fdc605a4fb31522ac34cef705e7f733ce48e2d9e3294c",
+      "geometry_fingerprint": "a6ab3ea44d0e5cb71c266f1e8c6b69144058f9ad9bc6bcd2fdfe89fbac20e272",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "round_sign",
+      "name": "69圆形吊牌",
+      "asset_id": "SEA-SCENE-NGQ-032",
+      "category": "signage",
+      "family": "wayfinding",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 65000,
+      "collection": "NGQ_32_69圆形吊牌",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.5,
+        0.27000001072883606,
+        2.5
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.015000004321336746,
+        0.0
+      ],
+      "mesh_objects": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_sign/round_sign.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_sign/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-032",
+      "source_sha256": "6aa899d3f21e3c8c72c7f1ee4458b62558865f7d9fcf7028cd4c7e75d8544280",
+      "geometry_fingerprint": "52fdd34b2f89076fd87069aeb2d40ce20a72dbd2e84c21174684aaadb652a1e8",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "small_placard",
+      "name": "小店招贴牌",
+      "asset_id": "SEA-SCENE-NGQ-033",
+      "category": "signage",
+      "family": "menu",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_33_小店招贴牌",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.409999966621399,
+        0.3700000047683716,
+        2.571673631668091
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.05500000715255737,
+        -0.07999999821186066
+      ],
+      "mesh_objects": 6,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/small_placard/small_placard.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/small_placard/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-033",
+      "source_sha256": "b0de17099eb3c0da325c58981f746f6961acfd43226535a8686001b5d32ad2e1",
+      "geometry_fingerprint": "a921420ba979456648b377a6887659bc7961a8cabb455f64ce59ca70f98de086",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "trellis",
+      "name": "屋顶番茄粗竹支架",
+      "asset_id": "SEA-SCENE-NGQ-034",
+      "category": "fixtures",
+      "family": "garden_support",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_34_屋顶番茄粗竹支架",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.9000000953674316,
+        0.18998293578624725,
+        3.204019784927368
+      ],
+      "author_origin_shift": [
+        0.050000011920928955,
+        0.02499999850988388,
+        -0.0020098716486245394
+      ],
+      "mesh_objects": 5,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/trellis/trellis.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/trellis/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-034",
+      "source_sha256": "bad144b86fbd4a304f0c2869a40b12c0d789bc8410d06ba77e6d822a2cf0e634",
+      "geometry_fingerprint": "41f4423d0f8883277af9a7c47209e4ed9ded62743bdef807e6180d9ab875e5ae",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "crop_bed",
+      "name": "带土菜畦",
+      "asset_id": "SEA-SCENE-NGQ-035",
+      "category": "fixtures",
+      "family": "garden_support",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_35_带土菜畦",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.799999952316284,
+        5.470000267028809,
+        0.36000001430511475
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 5,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/crop_bed/crop_bed.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/crop_bed/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-035",
+      "source_sha256": "4b2a3d11c8be19d0afc981f5f2d27824608a2d49589666d42a35291a19a91ebd",
+      "geometry_fingerprint": "a18a1369a5909398cc27ef3b199fc4bc16c48415efa90141d33d890766de7cb0",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "planter",
+      "name": "长条花箱",
+      "asset_id": "SEA-SCENE-NGQ-036",
+      "category": "fixtures",
+      "family": "garden_support",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_36_长条花箱",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.5,
+        0.8999999761581421,
+        0.9600000381469727
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 2,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/planter/planter.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/planter/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-036",
+      "source_sha256": "a65bbf8c5aa7a7eac7a621aaa238e7aab456b607e0f2ed6b5c0de67a943f0492",
+      "geometry_fingerprint": "3d1275af5db23ab4622d15aee94c8197ccea309431a77ccc7adde6ef71b3d62f",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "cabbage",
+      "name": "饱满卷叶甘蓝",
+      "asset_id": "SEA-SCENE-NGQ-037",
+      "category": "plants",
+      "family": "crop",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_37_饱满卷叶甘蓝",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.4031765460968018,
+        1.4031765460968018,
+        0.7199999690055847
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.03999999910593033
+      ],
+      "mesh_objects": 9,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/cabbage/cabbage.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/cabbage/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": null,
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-037",
+      "source_sha256": "31340811d69db76db15eb2419679e921f6e1f6f220d72a1090a8cd1dde544bcb",
+      "geometry_fingerprint": "83554cb519b58e677612d1fd8fb567229618849fecff14b91f4d1d35a9ddc75d",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "tomato",
+      "name": "结果番茄植株",
+      "asset_id": "SEA-SCENE-NGQ-038",
+      "category": "plants",
+      "family": "crop",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_38_结果番茄植株",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.2027153968811035,
+        1.9840668439865112,
+        2.6249406337738037
+      ],
+      "author_origin_shift": [
+        0.007036089897155762,
+        -0.013948380947113037,
+        -0.002289680065587163
+      ],
+      "mesh_objects": 25,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/tomato/tomato.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/tomato/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": null,
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-038",
+      "source_sha256": "e0454b6648f84941eb1bd1d6367e92bccaff1e4e4cbe31e0e34d1e474ee19906",
+      "geometry_fingerprint": "f6e8a68eaead3377eeafc1ae38f58f8944dadfa0e2d3d7df57cda4f2d99ec076",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "herb",
+      "name": "圆叶蔬菜簇",
+      "asset_id": "SEA-SCENE-NGQ-039",
+      "category": "plants",
+      "family": "crop",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_39_圆叶蔬菜簇",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.3314800262451172,
+        1.1853055953979492,
+        0.7150072455406189
+      ],
+      "author_origin_shift": [
+        0.07599136233329773,
+        -0.07323986291885376,
+        0.028562678024172783
+      ],
+      "mesh_objects": 7,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/herb/herb.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/herb/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": null,
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-039",
+      "source_sha256": "c641c7f64dd2b025a3ee2de90e8aa32c4dbbf0ec5275fb0fbadbd668f74db956",
+      "geometry_fingerprint": "e2a8edd374c0cd3cc280f4555ef8fd6ae903333c15bcb5ec016d1539ca644765",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "broadleaf",
+      "name": "宽叶观赏草",
+      "asset_id": "SEA-SCENE-NGQ-040",
+      "category": "plants",
+      "family": "foliage",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_40_宽叶观赏草",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        2.3675856590270996,
+        2.2346725463867188,
+        1.2972315549850464
+      ],
+      "author_origin_shift": [
+        0.14257901906967163,
+        0.17055660486221313,
+        0.008094601333141327
+      ],
+      "mesh_objects": 9,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/broadleaf/broadleaf.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/broadleaf/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": null,
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-040",
+      "source_sha256": "a128e17a4413104aada86981e9e895dcdc1530d56ede8975090e6c70ddc88886",
+      "geometry_fingerprint": "3e32f65459ee20a06f9bea2a73dc366f52259fd58106111508b17f591b8fd0ca",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "vine",
+      "name": "成串宽叶藤蔓",
+      "asset_id": "SEA-SCENE-NGQ-041",
+      "category": "plants",
+      "family": "climbing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_41_成串宽叶藤蔓",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.001123309135437,
+        0.4879295825958252,
+        3.2141895294189453
+      ],
+      "author_origin_shift": [
+        0.0,
+        -0.09282240271568298,
+        -0.009214427322149277
+      ],
+      "mesh_objects": 13,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/vine/vine.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/vine/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": null,
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-041",
+      "source_sha256": "713004aaa99c59a141d81bf9fdad47fccaf75d0933525fc98ecbd2c039ece918",
+      "geometry_fingerprint": "c826ae4dfaa480fb7f18f59e0b4c1b54e5b62dd2b2f76dbb28e05c9e1afeb4db",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "hanging_bush",
+      "name": "垂挂灌木团",
+      "asset_id": "SEA-SCENE-NGQ-042",
+      "category": "plants",
+      "family": "climbing",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_42_垂挂灌木团",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.9754607677459717,
+        2.2700564861297607,
+        1.0834531784057617
+      ],
+      "author_origin_shift": [
+        -0.024461179971694946,
+        0.025541067123413086,
+        0.18345454335212708
+      ],
+      "mesh_objects": 15,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/hanging_bush/hanging_bush.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/hanging_bush/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": null,
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-042",
+      "source_sha256": "bd654f305f11fe28f3059b912eaea4b4338f32bc404fb82ffdf12e842878040d",
+      "geometry_fingerprint": "3d01d467865a87d491b8c52b5a65f30a6a4f1d98d6b541e7f13363e0b4fb5179",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "flowers",
+      "name": "粉白成簇花朵",
+      "asset_id": "SEA-SCENE-NGQ-043",
+      "category": "plants",
+      "family": "flower",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_43_粉白成簇花朵",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.3089771270751953,
+        1.1829012632369995,
+        0.80391526222229
+      ],
+      "author_origin_shift": [
+        0.03142330050468445,
+        -0.030374526977539062,
+        0.0
+      ],
+      "mesh_objects": 35,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/flowers/flowers.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/flowers/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": null,
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-043",
+      "source_sha256": "497b813b79ea0083e4ac44a756e02921608006800752eafe8f0c1021773b9137",
+      "geometry_fingerprint": "dc87e566381dbd9e5503552eb0e41769410c451dded9fb099f62a68fe99bcd1a",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "grass",
+      "name": "饱满长叶草簇",
+      "asset_id": "SEA-SCENE-NGQ-044",
+      "category": "plants",
+      "family": "foliage",
+      "building_class": null,
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_44_饱满长叶草簇",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        1.151997447013855,
+        1.0969619750976562,
+        1.3887356519699097
+      ],
+      "author_origin_shift": [
+        0.026662766933441162,
+        -0.0882096141576767,
+        -0.010259117931127548
+      ],
+      "mesh_objects": 9,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/grass/grass.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/grass/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": null,
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-044",
+      "source_sha256": "0bb28e6fe5385f9c2a0a9ac984bcf5fc03cb29114e0e9a035d38a62d39464c8c",
+      "geometry_fingerprint": "10cb77d167cf31da298a73347e5c1c45da3b2fd9bc21f9a1ff55f154318f09c7",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "roof_soil",
+      "name": "菜园双坡实体屋顶",
+      "asset_id": "SEA-SCENE-NGQ-045",
+      "category": "architecture",
+      "family": "garden_roof",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_45_农园屋顶土坪",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        21.200000762939453,
+        6.180471420288086,
+        2.8420820236206055
+      ],
+      "author_origin_shift": [
+        0.0,
+        -1.1997641324996948,
+        -0.24208199977874756
+      ],
+      "mesh_objects": 17,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_soil/roof_soil.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_soil/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "source_sha256": "b704dce68d6f5b90ca35ba7ca638e9a0e674d4bff960498fd0770ad958d7f258",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-045",
+      "geometry_fingerprint": "87f8477b91607adcf35377c51532a02b516d5e182b0e4d7e3c1fd36b8ea46a1c",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "utility_cable",
+      "name": "粗电缆及墙支架",
+      "asset_id": "SEA-SCENE-NGQ-046",
+      "category": "fixtures",
+      "family": "service",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "NGQ_46_粗电缆及墙支架",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        6.199999809265137,
+        0.5,
+        0.815000057220459
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.09999999403953552,
+        0.08500000834465027
+      ],
+      "mesh_objects": 3,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/utility_cable/utility_cable.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/utility_cable/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-046",
+      "source_sha256": "585c0cba043169be63edfda808788cbcd8fda5069514135a02ff69b81487b930",
+      "geometry_fingerprint": "7c999a085d1d97c8f19e77bb58a973011e7f37762b8645bb57b3ce425043bccd",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "garden_bridge",
+      "name": "两楼间菜园承重连接桥",
+      "asset_id": "SEA-SCENE-NGQ-047",
+      "category": "architecture",
+      "family": "garden_bridge",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 55000,
+      "collection": "NGQ_47_两楼间菜园承重连接桥",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        21.600000381469727,
+        8.739999771118164,
+        1.2000000476837158
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 10,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/garden_bridge/garden_bridge.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/garden_bridge/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "source_sha256": "c2a92ab5d356e075d202b2a0e73d7d6d7844c958c57d678a11053d341d29eaa0",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-047",
+      "geometry_fingerprint": "bb1ee8302b87171f4f494fec68a02ff878d0eff924374c500f39e070be3f82e0",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "round_roof",
+      "name": "同轮廓弧形楼顶",
+      "asset_id": "SEA-SCENE-NGQ-048",
+      "category": "architecture",
+      "family": "round_roof",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 55000,
+      "collection": "NGQ_48_同轮廓弧形楼顶",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        9.118854522705078,
+        18.118854522705078,
+        1.4199999570846558
+      ],
+      "author_origin_shift": [
+        -0.05942726135253906,
+        -0.05942726135253906,
+        0.0
+      ],
+      "mesh_objects": 7,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_roof/round_roof.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_roof/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-048",
+      "source_sha256": "ebbb10adc6545788ae29415890af41cc94ed3d2dd8ac4372cc86aff5b80404a4",
+      "geometry_fingerprint": "f43e8931174fc597cd8000362ac6888794dc9e79c9573871e22b6014be76bf98",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "round_damaged",
+      "name": "弧形楼大缺口层",
+      "asset_id": "SEA-SCENE-NGQ-049",
+      "category": "architecture",
+      "family": "round_storey",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 55000,
+      "collection": "NGQ_49_弧形楼大缺口层",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        9.460000038146973,
+        18.46000099182129,
+        5.100000381469727
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 158,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_damaged/round_damaged.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_damaged/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-049",
+      "source_sha256": "458814ee2d041e0e51e454584a64b98279e917831c52b132f1598bd17b0214fc",
+      "geometry_fingerprint": "93222c5dd161854afc77edc451c6f1d7c2dc48a39aa75147ca603ba3709b0441",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "round_ruin",
+      "name": "弧形楼断梁露空层",
+      "asset_id": "SEA-SCENE-NGQ-050",
+      "category": "architecture",
+      "family": "round_storey",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 55000,
+      "collection": "NGQ_50_弧形楼断梁露空层",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        9.460000038146973,
+        18.46000099182129,
+        5.100000381469727
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 143,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_ruin/round_ruin.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_ruin/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "source_sha256": "d1bf7826aef403a7df8447ee2fe820ff6eddd16559b53cf488499db8fc94eb4e",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-050",
+      "geometry_fingerprint": "419873f8c42d1d9ac8e0761adc7c0f498143722dbe4a80d6e183a8c70af61cdd",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "left_damaged",
+      "name": "左楼真实断墙缺角层",
+      "asset_id": "SEA-SCENE-NGQ-051",
+      "category": "architecture",
+      "family": "left_storey",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 55000,
+      "collection": "NGQ_51_左楼真实断墙缺角层",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        9.25,
+        18.450000762939453,
+        5.100000381469727
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mesh_objects": 58,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_damaged/left_damaged.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_damaged/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-051",
+      "source_sha256": "9a1bb36b507be22afe3f2d300030e0856ebd8034e5071112cce28f72462d962f",
+      "geometry_fingerprint": "fad61e185cacda5ed51b0da5f88b06d56c60fd0fd46cb593f7a2b7fed0452cfa",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "sign_bracket",
+      "name": "招牌实体挂架",
+      "asset_id": "SEA-SCENE-NGQ-052",
+      "category": "fixtures",
+      "family": "sign_support",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 55000,
+      "collection": "NGQ_52_招牌实体挂架",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        0.30000001192092896,
+        1.0116909742355347,
+        1.2000000476837158
+      ],
+      "author_origin_shift": [
+        0.0,
+        0.35415446758270264,
+        0.0
+      ],
+      "mesh_objects": 3,
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/sign_bracket/sign_bracket.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/sign_bracket/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-052",
+      "source_sha256": "37263c40bcc6f8113f5aead975c4f3e51abe7010bc2a1a46ac202714f7c40adf",
+      "geometry_fingerprint": "96848da196ac059acea99ec5ec541db0c7ce1aca2fda48229a62c62e5cf06c36",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    },
+    {
+      "key": "fractured_ground",
+      "name": "按建筑轮廓收边的破损街巷地面",
+      "asset_id": "SEA-SCENE-NGQ-053",
+      "category": "architecture",
+      "family": "street_ground",
+      "building_class": "above_water",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "triangle_budget": 55000,
+      "collection": "NGQ_53_按建筑轮廓收边的破损街巷地面",
+      "scope": "scene_local",
+      "bounds_size_m": [
+        41.70000076293945,
+        29.195232391357422,
+        0.23999999463558197
+      ],
+      "author_origin_shift": [
+        3.8500003814697266,
+        3.702383041381836,
+        0.0
+      ],
+      "mesh_objects": 17,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/fractured_ground/fractured_ground.blend",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/fractured_ground/asset_manifest.json",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_verified_runtime_pending",
+      "collision_responsibility": "facility_projection_pending",
+      "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+      "source_sha256": "467581bcc7685cb74000fb286368b4a7a19db33432dd1d14fa96c95231ed3962",
+      "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-053",
+      "geometry_fingerprint": "f75c663b0867a5e40e7a763369c5b0b435d8332f004f1942aaedb25e04db4657",
+      "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+    }
+  ]
+}

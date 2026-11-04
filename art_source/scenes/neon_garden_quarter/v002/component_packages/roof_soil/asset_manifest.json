@@ -1,0 +1,37 @@
+{
+  "key": "roof_soil",
+  "name": "农园屋顶土坪",
+  "asset_id": "SEA-SCENE-NGQ-045",
+  "category": "architecture",
+  "family": "garden_roof",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_45_农园屋顶土坪",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    9.0,
+    8.0,
+    0.3799999952316284
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v002/component_packages/roof_soil/roof_soil.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v002/component_packages/roof_soil/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-045",
+  "source_sha256": "4306d4e17b2599e2e0cc1e280343f1ac5dc5bc9cc691e09446f1da277eb25c08",
+  "geometry_fingerprint": "78e4a21d477f45458484304609b9194ca107937cf377c668a7b009992242c473",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\source_verification.json"
+}

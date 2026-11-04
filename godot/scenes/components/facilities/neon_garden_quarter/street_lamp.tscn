@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/neon_garden_quarter/street_lamp/street_lamp.glb" id="visual"]
+
+[node name="street_lamp" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-022"
+metadata/asset_version = "v003"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

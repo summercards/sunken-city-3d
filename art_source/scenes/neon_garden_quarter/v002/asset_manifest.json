@@ -1,0 +1,133 @@
+{
+  "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
+  "name": "霓虹花园街区·水上建筑群结构修订",
+  "category": "building_assembly",
+  "source": "art_source/scenes/neon_garden_quarter/v002/neon_garden_quarter.blend",
+  "source_sha256": "96d8a72ab7fe77d26736bae0e439e9e6aaef4213c8af62c71961d7c878daeec2",
+  "manifest": "art_source/scenes/neon_garden_quarter/v002/asset_manifest.json",
+  "component_count": 50,
+  "instance_count": 439,
+  "polygons": 428984,
+  "triangles": 831208,
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "poster_asset_id": "SEA-SCENE-NGQ-POSTER-ATLAS",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "domain": "scenes",
+  "suite": "neon_garden_quarter",
+  "scope": "scene_local",
+  "version": "v002",
+  "stage": "source_verified_runtime_integration_pending",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "license": "pending_user_supplied_reference",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "verification": [
+    "docs/development/2026-11-05_neon_garden_quarter_v002.md",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\source_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\structure_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\skill_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\visual_review.json"
+  ],
+  "runtime_path": null,
+  "collision": "runtime_pending",
+  "navigation": "runtime_pending",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/neon_garden_quarter/v001/neon_garden_quarter.blend",
+      "source_sha256": "80740cab18db996054c32abe7c54c3c3c4415bfda882190bad1086b7281f0507",
+      "manifest": "art_source/scenes/neon_garden_quarter/v001/asset_manifest.json",
+      "version": "v001"
+    }
+  ],
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-ASSEMBLY",
+  "component_plan": "component_plan.json",
+  "catalog": "component_catalog.json",
+  "instances": "component_instances.json",
+  "sign_mounts": "mounting_manifest.json",
+  "revision_contract": {
+    "bridge": {
+      "center": [
+        0,
+        0,
+        25.8
+      ],
+      "span_x": [
+        -4.7,
+        4.7
+      ],
+      "depth_y": [
+        -4.2,
+        4.2
+      ],
+      "slab_m": 0.2,
+      "beam_depth_m": 1.0,
+      "garden_moves_from_rear_roof": true,
+      "street_void_below": true
+    },
+    "right_building": {
+      "center_xy": [
+        8,
+        1
+      ],
+      "radius_m": 4.0,
+      "arc_center_local": [
+        -0.5,
+        -5
+      ],
+      "footprint_m": [
+        9,
+        18
+      ],
+      "storeys": 7,
+      "one_continuous_rounded_footprint": true,
+      "no_applied_arc_window_or_balcony": true
+    },
+    "damage": "actual removed wall / beam / slab volumes, sparse large debris; bent broken signs, fallen extinguished lanterns",
+    "ground": "building-shaped foundations and split street paving, no intact rectangular exhibition plinth",
+    "signage": "host / mounting socket and bracket for every suspended sign; local full Euler tilt retained"
+  },
+  "branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "reference_sha256": "19d36746df69693bb869a2c7ed0135271b0d0a82cb6c80431fb20552f770c839",
+  "poster_exception": {
+    "reason": "user explicitly requires image-2 recreation of poster paintings",
+    "roles": [
+      "SEA_Matte",
+      "SEA_Metal",
+      "SEA_Gloss",
+      "SEA_Emission"
+    ],
+    "poster_uv": "PosterUV used only by designated printed surfaces; PaletteUV remains active and valid",
+    "poster_mask": "named mesh float attribute PosterMask",
+    "atlas": "../v001/textures/poster_atlas.png"
+  },
+  "source_bounds": {
+    "polygons": 428984,
+    "triangles": 831208,
+    "visible_instances": 439,
+    "bounds_min": [
+      -17.0,
+      -11.60073184967041,
+      0.10000000149011612
+    ],
+    "bounds_max": [
+      12.931004524230957,
+      18.42500114440918,
+      39.52000045776367
+    ]
+  },
+  "pending": [
+    "runtime integration",
+    "collision",
+    "navigation",
+    "landing",
+    "reference commercial rights"
+  ]
+}

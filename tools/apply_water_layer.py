@@ -63,6 +63,7 @@ FAMILIES = [
     ('SEA-FISHERY-', 'amphibious', 'assembly'),
     ('SEA-SCENE-ORF2-', 'surface', 'assembly'),
     ('SEA-SCENE-ORF-', 'surface', 'assembly'),
+    ('SEA-SCENE-NGQ-', 'surface', 'assembly'),
     ('SEA-SCENE-SBR-', 'surface', 'part'),
     ('SEA-SCENE-SOLAR-', 'surface', 'part'),
     ('SEA-SCENE-BLB-', 'submerged', 'part'),
@@ -96,6 +97,9 @@ KIT_FURNITURE = {
 
 
 def classify(asset_id):
+    # NGQ independent vegetation and print artwork have no building-space duty.
+    if asset_id in {f'SEA-SCENE-NGQ-{n:03d}' for n in range(37, 45)} | {'SEA-SCENE-NGQ-POSTER-ATLAS'}:
+        return 'none', 'none'
     if asset_id == 'SEA-SCENE-SOLAR-FLOWER-HOUSE':
         return 'surface', 'entity'
     if asset_id in KIT_FURNITURE:

@@ -1,0 +1,37 @@
+{
+  "key": "left_storey",
+  "name": "左侧店屋标准层",
+  "asset_id": "SEA-SCENE-NGQ-002",
+  "category": "architecture",
+  "family": "storey",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_02_左侧店屋标准层",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    9.25,
+    18.450000762939453,
+    5.100000381469727
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 53,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/left_storey/left_storey.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/left_storey/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "6a0d49dc7a61daab7c38f22f0758bb35d57dba3712a61357e6401762334cf849",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-002",
+  "geometry_fingerprint": "2ba27ae91e244ba275c9f88e0a1d351e711fc54616e31af9805ba1f2108bf584",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

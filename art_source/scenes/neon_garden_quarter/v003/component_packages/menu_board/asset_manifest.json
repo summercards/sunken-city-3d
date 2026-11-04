@@ -1,0 +1,37 @@
+{
+  "key": "menu_board",
+  "name": "黑底粉笔菜单",
+  "asset_id": "SEA-SCENE-NGQ-031",
+  "category": "signage",
+  "family": "menu",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_31_黑底粉笔菜单",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    3.4600000381469727,
+    0.3700000047683716,
+    3.5075411796569824
+  ],
+  "author_origin_shift": [
+    0.0,
+    -0.05500000715255737,
+    -0.07999999821186066
+  ],
+  "mesh_objects": 6,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/menu_board/menu_board.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/menu_board/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-031",
+  "source_sha256": "99650b1826b1fd233b9fdc605a4fb31522ac34cef705e7f733ce48e2d9e3294c",
+  "geometry_fingerprint": "a6ab3ea44d0e5cb71c266f1e8c6b69144058f9ad9bc6bcd2fdfe89fbac20e272",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+}

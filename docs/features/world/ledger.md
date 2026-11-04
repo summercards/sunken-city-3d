@@ -49,7 +49,13 @@
 | SEA-WORLD-R08 · 11-04 再修订 | 用户把编辑器里打开的 `main.tscn` 与游戏画面对比后指出：编辑器里那片密集城市在游戏内根本不出现。核查确认有两类「存在但永不显示」的建筑几何，已从场景删除：<br>① `World/Environment/StaticBatch` —— 旧网页版城市烘焙，`bake.json` 记 249136 个实例、141 批次，`assets/world/environment/instances.bin` 15.9MB；默认 minimal 范围每次启动被 `main.gd` 的 `_apply_play_scope()` 直接 `hide()`，只有 `--full-world` 才会亮。删除后 `environment.tscn` 只剩 `Animals`，`load_steps` 4→2。<br>② 家园 zone1 的 `Models/detail`、`unit_01`、`unit_02`、`unit_03` —— 四栋旧海面楼体，TSCN 内自带 `visible = false`，连同 4 条 `ext_resource` 一并移除。<br>**保留**：横滨铁道 zone2（用户明确要求显示）、zone1、zone5、浮店、顶层牧场。<br>**保留且不动**（按运行状态切换，不属于本类）：海底地图 `Underwater`、角色表情与 `DiveMask`、`ClickReticle`／`RouteRibbon`／`SalvageWinch`（minimal 关闭的交互件）、顶层牧场温室／水塔升级态（spec R17 要求默认显示未建造）、未建渔场 `WildFishery`。烘焙源与 GLB 一律保留，可回退。 | 主场景 `godot/scenes/world/environment.tscn`、`godot/scenes/zones/zone1_home_harbor.tscn`。连带修复两处依赖：`godot/tests/test_solar_cabin_asset.gd` 的断言由「四栋旧楼已隐藏」改为「已从场景移除」；`godot/tools/capture_sea_style.gd` 改 `get_node_or_null`，节点缺失时跳过历史烘焙去重检查。<br>**实测**：改前改后 `selftest` 均为 490 passed / 24 failed；`visual-solar-cabin` 均为 703 checks / 4 failures。两组失败逐项对照确认是存量问题，非本次引入。<br>**真实渲染**（隐藏 UI 后截图）：开场镜头、高空全景、俯视、zone2、顶层牧场、浮店六处，删除前后画面一致，保留下来的建筑与水面泡沫无缺失、无破洞。证据在 `sea-work/scope/11_opening_clean.png` 等 6 张。<br>**副作用已确认**：岸线几何切片由 801 段变为 10060 段。原因是 zone1 那四栋隐藏楼体原先仍参与 `_set_shore_uniforms()` 的几何切片（`shore_roots=[zone1,zone5]`），`visible=false` 不使其退出切片；移除后回到 `water_surface.gd` 注释记录的正常量级（约 9950）。删除 `StaticBatch` 与段数变化无关——单独回滚该项后段数不变，已隔离验证。 |
 
 
-## 2026-11-04 顶层牧场 v005：大块破败、下沉与单段消防梯
+## 2026-11-04 顶层牧场 v006：整楼下沉、原顶部梯段登顶（最新口径）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-WORLD-R17 · v006 | 已纠正v005误读：所有原消防梯局部变换保持并恢复显示，整楼根Y=-55.92（水面仍1.12），较v005再沉12.24m；原顶部下平台57.30落在世界1.38，经末段57.30→59.80及原入口登顶60.05/世界4.13，屋顶距水面3.01m。低层楼体/楼梯自然沉水。通行按真实GLB修正Z方向、草皮厚度及屋顶实体占地，正式角色可上岸→末段→屋顶→返平台。柱体破损网格/UV保留，不重导GLB。 | 隔离rooftop-ranch、ranch-deck-probe通过；真实visual-rooftop-ranch与minimum-loop/water-layer/click通过（退出0）。源独立重开：14个梯/平台/入口矩阵与v004一致，柱损与全部网格数据和v005一致。详见[本轮纠正与证据](../../development/2026-11-02_ocean_rooftop_farm.md#2026-11-04-v006纠正整楼沉没不移动消防梯)。最终专项61项0失败。工程契约同步仍受源/索引/运行哈希与内容ID共6项阻塞，无参数复核另报派生索引过期；没有批量刷新登记掩盖差异。未复验全工程selftest，升级经济规则/授权/登记仍pending。 |
+
+## 2026-11-04 顶层牧场 v005：大块破败、下沉与单段消防梯（历史误读，被v006取代）
 
 | 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
 |---|---|---|
@@ -215,3 +221,22 @@ SEA-WORLD-R01/R08/R13/R14/R15/R16：正式资源中7个独立海上设施地点�
 范围补充：本轮仅海上主场景；“水下”只指该场景的观赏楼与基座。独立海底／潜水场景另行处理，不按本契约撤销其功能。43项未确认海上归属的独立塔区参考组件不进入两类视图；范围外不等于第三类建筑。
 
 本轮最终静态验收：同步／复核均0问题；8项非法声明拒绝用例及海底范围排除用例通过，322／129两视图互斥完整。源／运行路径、哈希、阶段、授权保持；2377个运行／源支持文件未变。未运行Godot或真实渲染，新职责运行完整验收仍pending。[结果](../../development/2026-11-02_building_two_class_contract.md)。
+
+## 2026-11-04 顶层牧场装饰悬空纠偏
+
+| 对应条款 | 当前实施与证据 | 边界 |
+|---|---|---|
+| SEA-WORLD-R17 | 已修复150个装饰实例（24藤蔓/11苔藓/90草丛/25立面破损）origin被scale重复相乘及缩放轴转换错误；定点恢复源布局，650个非目标块、45个GLB及源文件哈希保持。隔离rooftop-ranch **525项0失败**，含实际包络/贴边高度及原正式登顶往返；visual-rooftop-ranch真实渲染退出0，全景/女儿墙近景已查看无红框天空悬浮件。minimum-loop和water-layer当前回归退出0。 | 不改水线、楼梯、上岸点/通行规则，不重导几何、不隐藏装饰；未复验全工程selftest。详见[本轮修复](../../development/2026-11-02_ocean_rooftop_farm.md#2026-11-04-v006-装饰悬空修复)，完整before/after与锁区证据在工程外transform_audit.json。 |
+
+## 2026-11-04 顶层牧场全量悬空自检与栏杆分层校验
+
+| 对应条款 | 当前实施与证据 | 边界 |
+|---|---|---|
+| SEA-WORLD-R17 | 扫描全部744个Models实例、45个GLB和源实例集合。发现并修正2个非装饰旋转基转换漂移：鸡舍`ORF2_实例_coop`与水下断梯`ORF3_下挂断裂消防梯`，只改两行Transform，未改源/GLB/水线/楼梯。新增主屋顶栏杆与抬高露台栏杆分层检查：主屋顶栏杆检查女儿墙顶部，抬高露台栏杆检查平台实体正面积重叠与外伸方向；序列化栏杆实际43段，全部覆盖。最终隔离`20261104-231319-full-ranch-self-audit-final-6ee970`：牧场**655 checks, 0 failures**；visual-rooftop-ranch、minimum-loop、water-layer均退出0。 | 红框构件实际属于主屋顶/抬高露台两组栏杆，不是同一高度规则；不以屋顶主包络错误判定抬高平台外伸。未复验全工程selftest。旋转修复审计在工程外`rotation_drift_audit.json`。 |
+
+
+## 2026-11-05 霓虹花园街区东侧接入
+
+| 对应条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-WORLD-R18 | 主场景街区锚点 (156.149682, 1.12, 2.473711)。真实太阳房主体取样测得正东 150 米。航线、基础阻挡、街口泊位、真实角色上岸与步行通过，水层及最小流程通过。 | [摆位与运行证据](../../development/2026-11-05_neon_garden_quarter_v003.md) |

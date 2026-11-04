@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/neon_garden_quarter/route_board/route_board.glb" id="visual"]
+
+[node name="route_board" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-030"
+metadata/asset_version = "v003"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

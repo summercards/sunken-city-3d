@@ -1,0 +1,38 @@
+{
+  "key": "lantern",
+  "name": "饱满旧灯笼",
+  "asset_id": "SEA-SCENE-NGQ-023",
+  "category": "fixtures",
+  "family": "lighting",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_23_饱满旧灯笼",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    0.9519999623298645,
+    0.9450333118438721,
+    1.4600000381469727
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.020000003278255463
+  ],
+  "mesh_objects": 7,
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/lantern/lantern.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/lantern/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "03565f6740656ecd99ac61539294e9e0cdcdfa67eef77c01fa730fdc8a2c39e6",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-023",
+  "geometry_fingerprint": "777e6eaabda8f13c9dd30c7cb3f35ca8da3f5dd573588f3594e22cb2514b1878",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

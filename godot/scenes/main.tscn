@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://dg16a2540iktn" path="res://src/rendering/boat_wake.gd" id="26_wake"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/floating_shop.tscn" id="33_floating_shop"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/rooftop_ranch.tscn" id="34_ranch"]
+[ext_resource type="PackedScene" path="res://scenes/facilities/neon_garden_quarter.tscn" id="35_neon_garden"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_5poiv"]
 _surfaces = [{
@@ -106,6 +107,9 @@ transform = Transform3D(-0.2076603, 0, -1.7574136, -0.1392592, 2.4054115, 0.0270
 
 [node name="rooftop_ranch" parent="World/SeaStructures" instance=ExtResource("34_ranch")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, -55.92, -52)
+
+[node name="neon_garden_quarter" parent="World/SeaStructures" instance=ExtResource("35_neon_garden")]
+position = Vector3(156.149682, 1.12, 2.473711)
 
 [node name="Gameplay" type="Node3D" parent="World" unique_id=1251468208]
 

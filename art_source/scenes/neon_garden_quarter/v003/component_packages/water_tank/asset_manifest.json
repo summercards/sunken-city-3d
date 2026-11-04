@@ -1,0 +1,37 @@
+{
+  "key": "water_tank",
+  "name": "屋顶圆柱水箱",
+  "asset_id": "SEA-SCENE-NGQ-020",
+  "category": "fixtures",
+  "family": "utility",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_20_屋顶圆柱水箱",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    2.539518356323242,
+    2.5399999618530273,
+    3.0
+  ],
+  "author_origin_shift": [
+    -0.00024080276489257812,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 5,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/water_tank/water_tank.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/water_tank/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-020",
+  "source_sha256": "bd6d055bd8f1be9bbc809b4a7509bc41b6c5e0d8ff19cc07192bf82066dee33a",
+  "geometry_fingerprint": "81d67a177dfe0dad4fd33e37b854fa7826a30ff474dfa69c60cf45dce44b0276",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "arc_window",
+  "name": "转角连续弧形窗",
+  "asset_id": "SEA-SCENE-NGQ-016",
+  "category": "fixtures",
+  "family": "window",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_16_转角连续弧形窗",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    2.819999933242798,
+    2.819999933242798,
+    2.8299999237060547
+  ],
+  "author_origin_shift": [
+    -1.3300000429153442,
+    -1.3300000429153442,
+    0.0
+  ],
+  "mesh_objects": 8,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/arc_window/arc_window.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/arc_window/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "377356d71e8501300a6d2c5204bf6042bad657288fd8cb8fa46100ff5ec8deb7",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-016",
+  "geometry_fingerprint": "f207e7570a9d0758f8db1ed8c2c9b066136e8a2ceec6b76b96729291ad6a6ce4",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

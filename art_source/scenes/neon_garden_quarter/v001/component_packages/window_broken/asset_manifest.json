@@ -1,0 +1,38 @@
+{
+  "key": "window_broken",
+  "name": "破损缺角双联窗",
+  "asset_id": "SEA-SCENE-NGQ-015",
+  "category": "fixtures",
+  "family": "window",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_15_破损缺角双联窗",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    2.9000000953674316,
+    0.6499999761581421,
+    2.7899999618530273
+  ],
+  "author_origin_shift": [
+    0.0,
+    -0.09999999403953552,
+    -0.09000000357627869
+  ],
+  "mesh_objects": 8,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/window_broken/window_broken.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/window_broken/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "f7d10bfb51646c6e522e032c56c60280bb6d40ccc3f11fa78b859398c1fc48c1",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-015",
+  "geometry_fingerprint": "809abc1c8632da0cd1409891003b571c18681be52ef0b4aad37d922a47a190f8",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

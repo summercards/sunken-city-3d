@@ -1,0 +1,37 @@
+{
+  "key": "stair_landing",
+  "name": "楼梯转角平台",
+  "asset_id": "SEA-SCENE-NGQ-011",
+  "category": "architecture",
+  "family": "stair",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_11_楼梯转角平台",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    4.400000095367432,
+    2.0,
+    0.20000000298023224
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 1,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/stair_landing/stair_landing.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/stair_landing/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "d48d16ad31dc501aeb262b1fe8f15f4f10ac76487937202075826ccbb45ed7c1",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-011",
+  "geometry_fingerprint": "1b6927c9f2d2f1b3caa365d138224e85b78d9ece6c2f73cb06ea89180bb551ad",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

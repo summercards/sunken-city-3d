@@ -1,0 +1,36 @@
+{
+  "asset_id": "SEA-SCENE-NGQ-POSTER-ATLAS",
+  "name": "霓虹花园街区-image2八幅广告图集",
+  "domain": "scenes",
+  "suite": "neon_garden_quarter",
+  "category": "signage_texture",
+  "scope": "scene_local",
+  "building_class": null,
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "source": "art_source/scenes/neon_garden_quarter/v001/textures/poster_atlas.png",
+  "source_sha256": "070416ffca0657b3faf43bea5b5950818b060dbe7d35804828dc5cc578c0893e",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/textures/asset_manifest.json",
+  "version": "v001",
+  "stage": "source_verified_runtime_integration_pending",
+  "license": "pending_user_supplied_reference",
+  "generator": "gpt-image-2",
+  "image_size": [
+    2048,
+    2048
+  ],
+  "atlas_layout": {
+    "columns": 4,
+    "rows": 2
+  },
+  "reference_sha256": "33781c986197fa7191b16fdeacbaed76f78a3a45dc41068909b60aabc160e231",
+  "prompt": "art_source/scenes/neon_garden_quarter/v001/textures/image2_prompt.txt",
+  "verification": [
+    "docs/development/2026-11-04_neon_garden_quarter.md",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\skill_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\visual_review.json"
+  ],
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-POSTER-ATLAS",
+  "usage": "Only printed surfaces; explicit PosterUV and PosterMask, main palette remains external."
+}

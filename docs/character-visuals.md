@@ -41,3 +41,7 @@ SEA-MOVE-R18 / SEA-NAV-R13：运行消费者仍为Character→rowing_action→Li
 验证：tests/character-animation.cjs 检查速度倾角、左右膝相位差、出水关节和装备恢复，并输出前游、悬停、下潜、上浮近景。tests/diving-regression.cjs 验证完整潜水玩法和岸边/船上恢复。
 
 2026-11-02用户指定图修订：原图和人工标点位于art_source/characters/avatar/v001；六项实际网格投影与等高对照、正面、侧面自验由avatar-proportions/visual-avatar-proportions提供。以本次比例追加验收替代此前通用头身估计，详见SEA-AVATAR-R13和本轮交付。
+
+## 2026-11-04 追加：自然握桨与连续肘轴
+
+用户指出上一轮到点后手臂仍扭转。SEA-MOVE-R19 / SEA-NAV-R14覆盖旧参数：中排坐点不动，桨轴与桨架沿角色+Z方向前移19cm到z=0.55m，握点完整周期在肩前。`rowing_action.pose_arm`令上下臂共用由两骨弯曲面得到的肘轴，禁止按世界X正负强制翻轴；前臂仅绕共同肘轴屈伸，当前体型臂长保持。必须同时检查关节角、相邻采样轴连续性、实际手掌距离及正式近景，不能只以手掌对齐判自然。骨骼/网格/绑定和表现唯一写入者不变。[本轮修正与证据](development/2026-11-04_rowing_arm_direction.md)。

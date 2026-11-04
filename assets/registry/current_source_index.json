@@ -3973,10 +3973,394 @@
       "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/lamp/asset_manifest.json"
     },
     {
+      "asset_id": "SEA-SCENE-ORF2-WINDOW_CRACKED",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_cracked/window_cracked.blend",
+      "source_sha256": "30238375525b251031d6358e4ac94df105413a5675e2631486c77e9eb39c7bc9",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_cracked/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-WINDOW_BROKEN",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_broken/window_broken.blend",
+      "source_sha256": "b3db65dcc45a6cd875f2979aec12c311f9dd239fa75afbdd481f4a15b6ed8b3a",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_broken/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-MOSS_CLUSTER",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/moss_cluster/moss_cluster.blend",
+      "source_sha256": "00b4f70cd50529ece73f7e237bce60583c133c97afc88ffe79517d30f41a1a77",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/moss_cluster/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STAIR_FLIGHT",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_flight/stair_flight.blend",
+      "source_sha256": "434e57d01980d4d93cad14c7b9c2b03f88b34266974684be5cef9fd1ffe97e2b",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_flight/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing/stair_landing.blend",
+      "source_sha256": "687a359b1f7b23716eb47fc0eb1230119d06146b6b54c9b968171c9afe2abda6",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-ROOF_ENTRY",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof_entry/roof_entry.blend",
+      "source_sha256": "399065bb1f33aaa62fd04833c8e87afe910555ce4db680e92f88b5b8e0f97d0b",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof_entry/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING_OPEN",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing_open/stair_landing_open.blend",
+      "source_sha256": "cb56169d2bf2ba6ff2efce8fa0aa512b2651c223b18d179944c8ed669f0ae1c7",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing_open/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-BROKEN_FLIGHT",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/broken_flight/broken_flight.blend",
+      "source_sha256": "2b41d040d4dd50ae0fcc453990388eb08b396665553aee390bc912ff87d2c29c",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/broken_flight/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-ORF2-TURF_CORE",
+      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/turf_core/turf_core.blend",
+      "source_sha256": "151830a06673fd322fe75999d3458ec93f01ca35a3df9075a373701564f6f1f0",
+      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/turf_core/asset_manifest.json"
+    },
+    {
       "asset_id": "SEA-SCENE-ORF2-ASSEMBLY",
       "source": "art_source/scenes/ocean_rooftop_farm/v003/ocean_rooftop_farm_v003.blend",
       "source_sha256": "c93032de62ba6d8c17360bc70ad974e604a384e21b2c0975509dd2fad6e37e07",
       "manifest": "art_source/scenes/ocean_rooftop_farm/v003/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-001",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_deck/street_deck.blend",
+      "source_sha256": "13881e6058e4f8712db9d514edab0d45a632631a78cb29179c983ded314964c8",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_deck/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-002",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_storey/left_storey.blend",
+      "source_sha256": "77aa954293181e0c37b86cc7265c1131eb6eb6d4174084edfbe81a389c91278d",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_storey/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/back_storey/back_storey.blend",
+      "source_sha256": "57cb141efbddca2bfad92167fdd060acaf39575f4161c8044c05892a3a54617f",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/back_storey/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-004",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_storey/round_storey.blend",
+      "source_sha256": "0031475bc187b5ce7cbf5526ed0044b7e289ec03c41eccbad41008b410fb2f44",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_storey/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-005",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_room/roof_room.blend",
+      "source_sha256": "53c049fd909b57eb00c588bce014ca6a3f0875bb55bf1e6792ae33ab5a800451",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_room/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-006",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/parapet/parapet.blend",
+      "source_sha256": "3cfb031869cb0e96a9eb5a518ec6aae1a53d594f17398ffb433c29b38341e714",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/parapet/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-007",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/broken_parapet/broken_parapet.blend",
+      "source_sha256": "132eeef55cfc6e6fc226875e6f9d48f3b2b4dd542d67300b1bb166885c90e62e",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/broken_parapet/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-008",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/rubble/rubble.blend",
+      "source_sha256": "c7660d9c127a41ee31f73f86a51b8789b0e1f08e59d2120d7e065f69fc436848",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/rubble/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-009",
+      "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/wall_scar/wall_scar.blend",
+      "source_sha256": "fba61fcf0d3efa43defda39eaf06ecbed93b89543cb718a64157224717a54258",
+      "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/wall_scar/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-010",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_flight/stair_flight.blend",
+      "source_sha256": "7415f3f98ae9f4f7a8d2777f327e41e19d08caec909784bbdf8a6b00d4229873",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_flight/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-011",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_landing/stair_landing.blend",
+      "source_sha256": "700fe2018c39caac4c324f635c9bfdfe48a112a57d197b8d92bdf18f2f9c7ad7",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_landing/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-012",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/guardrail/guardrail.blend",
+      "source_sha256": "a5934c5e955eb92de35ab5367c7f3ba706908b6c06f95b7ae339c24959c8d681",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/guardrail/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-013",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/double_door/double_door.blend",
+      "source_sha256": "870d2302dd016d654776c96f8e4031e629f176e386e990c9ac6ce051453e3fa3",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/double_door/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-014",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_pair/window_pair.blend",
+      "source_sha256": "9a8f052880cbab3409dae689915384bee0bd5ce817c16396c63d168bbfa1b44e",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_pair/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-015",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_broken/window_broken.blend",
+      "source_sha256": "84114ce0327d5fac26834ed9e282beacadb2de93bbc90ab4615e3d76c0236bf1",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_broken/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-016",
+      "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/arc_window/arc_window.blend",
+      "source_sha256": "377356d71e8501300a6d2c5204bf6042bad657288fd8cb8fa46100ff5ec8deb7",
+      "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/arc_window/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-017",
+      "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/round_balcony/round_balcony.blend",
+      "source_sha256": "6fd1e8e38f2ff38325ff0ea9bf86b2108e04dd0e80f2d87d8c923725cdd5434d",
+      "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/round_balcony/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-018",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/shop_awning/shop_awning.blend",
+      "source_sha256": "32367ae4d003135ab5c3ca6b39b235f4de23b6cf32e322b7f2b001e1129c7a8b",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/shop_awning/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-019",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/aircon/aircon.blend",
+      "source_sha256": "96b8346629178e15b55f930273053e91a745afda7888e3e8ffc0a7002198a961",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/aircon/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-020",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/water_tank/water_tank.blend",
+      "source_sha256": "bd6d055bd8f1be9bbc809b4a7509bc41b6c5e0d8ff19cc07192bf82066dee33a",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/water_tank/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-021",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/drainpipe/drainpipe.blend",
+      "source_sha256": "4920011c587f3d15aec02d95d4af6333ba6457bfb517b2628f4d3ceff64ab6e8",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/drainpipe/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-022",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_lamp/street_lamp.blend",
+      "source_sha256": "3445e5e26d5d47fa1d0c05906e3c9739061c394eb9c55e6936406c54df94dd8e",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_lamp/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-023",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/lantern/lantern.blend",
+      "source_sha256": "ce0084e67ade7da904b8503a0f82d7acddee99ba06497fbd23a0e1b529d9721d",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/lantern/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-024",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/bar_poster/bar_poster.blend",
+      "source_sha256": "13c533a397033d5a4c1d888a269f6b79ff0e2f1bc795ca5713bfa37d5c496396",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/bar_poster/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-025",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/portrait_poster/portrait_poster.blend",
+      "source_sha256": "7028697a63890ec23e3a82f2c12272e6d8a7274bf27ced9bbcc4e9b20ff7106f",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/portrait_poster/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-026",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/drink_poster/drink_poster.blend",
+      "source_sha256": "0b1cf8b489f705b20746b135fb61ae04953745c66c2d1be08334a518e34ef8c7",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/drink_poster/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-030",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/route_board/route_board.blend",
+      "source_sha256": "3ac839af37920aaf3e1670b2e8408112d0933563bd49f70a322896da2a262b75",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/route_board/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-031",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/menu_board/menu_board.blend",
+      "source_sha256": "99650b1826b1fd233b9fdc605a4fb31522ac34cef705e7f733ce48e2d9e3294c",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/menu_board/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-033",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/small_placard/small_placard.blend",
+      "source_sha256": "b0de17099eb3c0da325c58981f746f6961acfd43226535a8686001b5d32ad2e1",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/small_placard/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-027",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/charcoal_sign/charcoal_sign.blend",
+      "source_sha256": "819d6ea76a15b1d7d0f0358d6fd709726aa4e722b1692c5796bc7211afb22fc6",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/charcoal_sign/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-028",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/tavern_sign/tavern_sign.blend",
+      "source_sha256": "aa563adf2984871b9b2201c64bc761e06783b3f4792c65d5e818fa71aab7b95c",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/tavern_sign/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-029",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/restaurant_neon/restaurant_neon.blend",
+      "source_sha256": "ce8dfdbb108b63f51030b5ffd0bd88174019f78a8fbd5ee5abc1b39e5442c040",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/restaurant_neon/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-032",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_sign/round_sign.blend",
+      "source_sha256": "6aa899d3f21e3c8c72c7f1ee4458b62558865f7d9fcf7028cd4c7e75d8544280",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_sign/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-034",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/trellis/trellis.blend",
+      "source_sha256": "bad144b86fbd4a304f0c2869a40b12c0d789bc8410d06ba77e6d822a2cf0e634",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/trellis/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-035",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/crop_bed/crop_bed.blend",
+      "source_sha256": "4b2a3d11c8be19d0afc981f5f2d27824608a2d49589666d42a35291a19a91ebd",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/crop_bed/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-036",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/planter/planter.blend",
+      "source_sha256": "a65bbf8c5aa7a7eac7a621aaa238e7aab456b607e0f2ed6b5c0de67a943f0492",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/planter/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-037",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/cabbage/cabbage.blend",
+      "source_sha256": "31340811d69db76db15eb2419679e921f6e1f6f220d72a1090a8cd1dde544bcb",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/cabbage/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-038",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/tomato/tomato.blend",
+      "source_sha256": "e0454b6648f84941eb1bd1d6367e92bccaff1e4e4cbe31e0e34d1e474ee19906",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/tomato/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-039",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/herb/herb.blend",
+      "source_sha256": "c641c7f64dd2b025a3ee2de90e8aa32c4dbbf0ec5275fb0fbadbd668f74db956",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/herb/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-040",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/broadleaf/broadleaf.blend",
+      "source_sha256": "a128e17a4413104aada86981e9e895dcdc1530d56ede8975090e6c70ddc88886",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/broadleaf/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-041",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/vine/vine.blend",
+      "source_sha256": "713004aaa99c59a141d81bf9fdad47fccaf75d0933525fc98ecbd2c039ece918",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/vine/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-042",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/hanging_bush/hanging_bush.blend",
+      "source_sha256": "bd654f305f11fe28f3059b912eaea4b4338f32bc404fb82ffdf12e842878040d",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/hanging_bush/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-043",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/flowers/flowers.blend",
+      "source_sha256": "497b813b79ea0083e4ac44a756e02921608006800752eafe8f0c1021773b9137",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/flowers/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-044",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/grass/grass.blend",
+      "source_sha256": "0bb28e6fe5385f9c2a0a9ac984bcf5fc03cb29114e0e9a035d38a62d39464c8c",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/grass/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-045",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_soil/roof_soil.blend",
+      "source_sha256": "b704dce68d6f5b90ca35ba7ca638e9a0e674d4bff960498fd0770ad958d7f258",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_soil/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-046",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/utility_cable/utility_cable.blend",
+      "source_sha256": "585c0cba043169be63edfda808788cbcd8fda5069514135a02ff69b81487b930",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/utility_cable/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
+      "source": "art_source/scenes/neon_garden_quarter/v003/neon_garden_quarter.blend",
+      "source_sha256": "21ed2babec3228569f61b120e2528a55ec7150ae0711a4daa0077e0a08d855a2",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-POSTER-ATLAS",
+      "source": "art_source/scenes/neon_garden_quarter/v001/textures/poster_atlas.png",
+      "source_sha256": "070416ffca0657b3faf43bea5b5950818b060dbe7d35804828dc5cc578c0893e",
+      "manifest": "art_source/scenes/neon_garden_quarter/v001/textures/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-047",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/garden_bridge/garden_bridge.blend",
+      "source_sha256": "c2a92ab5d356e075d202b2a0e73d7d6d7844c958c57d678a11053d341d29eaa0",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/garden_bridge/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-048",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_roof/round_roof.blend",
+      "source_sha256": "ebbb10adc6545788ae29415890af41cc94ed3d2dd8ac4372cc86aff5b80404a4",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_roof/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-049",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_damaged/round_damaged.blend",
+      "source_sha256": "458814ee2d041e0e51e454584a64b98279e917831c52b132f1598bd17b0214fc",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_damaged/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-050",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_ruin/round_ruin.blend",
+      "source_sha256": "d1bf7826aef403a7df8447ee2fe820ff6eddd16559b53cf488499db8fc94eb4e",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_ruin/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-051",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_damaged/left_damaged.blend",
+      "source_sha256": "9a1bb36b507be22afe3f2d300030e0856ebd8034e5071112cce28f72462d962f",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_damaged/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-052",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/sign_bracket/sign_bracket.blend",
+      "source_sha256": "37263c40bcc6f8113f5aead975c4f3e51abe7010bc2a1a46ac202714f7c40adf",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/sign_bracket/asset_manifest.json"
+    },
+    {
+      "asset_id": "SEA-SCENE-NGQ-053",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/fractured_ground/fractured_ground.blend",
+      "source_sha256": "467581bcc7685cb74000fb286368b4a7a19db33432dd1d14fa96c95231ed3962",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/fractured_ground/asset_manifest.json"
     },
     {
       "asset_id": "UI-FONT-LXGW975YUAN-SC-700",
@@ -4091,60 +4475,6 @@
       "source": "art_source/crops/pumpkin/v001/pumpkin_v001.blend",
       "source_sha256": "4e9374628bce45681147f66e3db296a58b27412b1315979947105fd1d7845bef",
       "manifest": "assets/registry/manifests/sea-crop-pumpkin.json"
-    },
-    {
-      "asset_id": "SEA-SCENE-ORF2-WINDOW_CRACKED",
-      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_cracked/window_cracked.blend",
-      "source_sha256": "30238375525b251031d6358e4ac94df105413a5675e2631486c77e9eb39c7bc9",
-      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_cracked/asset_manifest.json"
-    },
-    {
-      "asset_id": "SEA-SCENE-ORF2-WINDOW_BROKEN",
-      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_broken/window_broken.blend",
-      "source_sha256": "b3db65dcc45a6cd875f2979aec12c311f9dd239fa75afbdd481f4a15b6ed8b3a",
-      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/window_broken/asset_manifest.json"
-    },
-    {
-      "asset_id": "SEA-SCENE-ORF2-MOSS_CLUSTER",
-      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/moss_cluster/moss_cluster.blend",
-      "source_sha256": "00b4f70cd50529ece73f7e237bce60583c133c97afc88ffe79517d30f41a1a77",
-      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/moss_cluster/asset_manifest.json"
-    },
-    {
-      "asset_id": "SEA-SCENE-ORF2-STAIR_FLIGHT",
-      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_flight/stair_flight.blend",
-      "source_sha256": "434e57d01980d4d93cad14c7b9c2b03f88b34266974684be5cef9fd1ffe97e2b",
-      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_flight/asset_manifest.json"
-    },
-    {
-      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING",
-      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing/stair_landing.blend",
-      "source_sha256": "687a359b1f7b23716eb47fc0eb1230119d06146b6b54c9b968171c9afe2abda6",
-      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing/asset_manifest.json"
-    },
-    {
-      "asset_id": "SEA-SCENE-ORF2-ROOF_ENTRY",
-      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof_entry/roof_entry.blend",
-      "source_sha256": "399065bb1f33aaa62fd04833c8e87afe910555ce4db680e92f88b5b8e0f97d0b",
-      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/roof_entry/asset_manifest.json"
-    },
-    {
-      "asset_id": "SEA-SCENE-ORF2-STAIR_LANDING_OPEN",
-      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing_open/stair_landing_open.blend",
-      "source_sha256": "cb56169d2bf2ba6ff2efce8fa0aa512b2651c223b18d179944c8ed669f0ae1c7",
-      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/stair_landing_open/asset_manifest.json"
-    },
-    {
-      "asset_id": "SEA-SCENE-ORF2-BROKEN_FLIGHT",
-      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/broken_flight/broken_flight.blend",
-      "source_sha256": "2b41d040d4dd50ae0fcc453990388eb08b396665553aee390bc912ff87d2c29c",
-      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/broken_flight/asset_manifest.json"
-    },
-    {
-      "asset_id": "SEA-SCENE-ORF2-TURF_CORE",
-      "source": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/turf_core/turf_core.blend",
-      "source_sha256": "151830a06673fd322fe75999d3458ec93f01ca35a3df9075a373701564f6f1f0",
-      "manifest": "art_source/scenes/ocean_rooftop_farm/v003/component_packages/turf_core/asset_manifest.json"
     }
   ]
 }

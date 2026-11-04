@@ -1,0 +1,2285 @@
+{
+  "version": "v003",
+  "protected_sources": {
+    "art_source/scenes/neon_garden_quarter/v003/neon_garden_quarter.blend": "21ed2babec3228569f61b120e2528a55ec7150ae0711a4daa0077e0a08d855a2",
+    "art_source/shared/palettes/sea_cabin_timber_8x8_512.png": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+    "art_source/scenes/neon_garden_quarter/v001/textures/poster_atlas.png": "070416ffca0657b3faf43bea5b5950818b060dbe7d35804828dc5cc578c0893e"
+  },
+  "components": [
+    {
+      "key": "street_deck",
+      "asset_id": "SEA-SCENE-NGQ-001",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_deck/street_deck.blend",
+      "source_sha256_before": "13881e6058e4f8712db9d514edab0d45a632631a78cb29179c983ded314964c8",
+      "source_sha256_after": "13881e6058e4f8712db9d514edab0d45a632631a78cb29179c983ded314964c8",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/street_deck_optimized.blend",
+      "optimized_sha256": "e8f891debb0e202e5219d19d249588985ec58424f745e1e5a03fe672641d7f1b",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/street_deck/street_deck.glb",
+      "glb_sha256": "d2a6a99ca1083d7cad2c958ec8bbe72416008bc7c1943314095a410c7e3257a7",
+      "triangles_before": 1504,
+      "triangles_after": 1504,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 8,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -15.0,
+          -14.5,
+          0.0
+        ],
+        [
+          15.0,
+          14.5,
+          0.21249999105930328
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/street_deck.tscn"
+    },
+    {
+      "key": "left_storey",
+      "asset_id": "SEA-SCENE-NGQ-002",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_storey/left_storey.blend",
+      "source_sha256_before": "77aa954293181e0c37b86cc7265c1131eb6eb6d4174084edfbe81a389c91278d",
+      "source_sha256_after": "77aa954293181e0c37b86cc7265c1131eb6eb6d4174084edfbe81a389c91278d",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/left_storey_optimized.blend",
+      "optimized_sha256": "3d919614463c14ff87eeda44dd9eba7ae11186fcafb3763d49a26d357396be68",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/left_storey/left_storey.glb",
+      "glb_sha256": "d25b08c34f36fa220b65cebc36ff2453421d9b625c43fe77c68a43485737bd19",
+      "triangles_before": 9964,
+      "triangles_after": 9964,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 53,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -4.625,
+          -9.225000381469727,
+          0.0
+        ],
+        [
+          4.625,
+          9.225000381469727,
+          5.100000381469727
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/left_storey.tscn"
+    },
+    {
+      "key": "back_storey",
+      "asset_id": "SEA-SCENE-NGQ-003",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/back_storey/back_storey.blend",
+      "source_sha256_before": "57cb141efbddca2bfad92167fdd060acaf39575f4161c8044c05892a3a54617f",
+      "source_sha256_after": "57cb141efbddca2bfad92167fdd060acaf39575f4161c8044c05892a3a54617f",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/back_storey_optimized.blend",
+      "optimized_sha256": "16c86472ad029073efc11373b3fd0589b2edba7c4065462bf9d4dcee92bfbecf",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/back_storey/back_storey.glb",
+      "glb_sha256": "a88a5e50acd05208fd834de87f233948a8053228375fccb10f290c1e75c4968c",
+      "triangles_before": 6580,
+      "triangles_after": 6580,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 35,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -4.625,
+          -4.225000381469727,
+          0.0
+        ],
+        [
+          4.625,
+          4.225000381469727,
+          5.100000381469727
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/back_storey.tscn"
+    },
+    {
+      "key": "round_storey",
+      "asset_id": "SEA-SCENE-NGQ-004",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_storey/round_storey.blend",
+      "source_sha256_before": "0031475bc187b5ce7cbf5526ed0044b7e289ec03c41eccbad41008b410fb2f44",
+      "source_sha256_after": "0031475bc187b5ce7cbf5526ed0044b7e289ec03c41eccbad41008b410fb2f44",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/round_storey_optimized.blend",
+      "optimized_sha256": "de33683291e32efd0f10463d1e60e707807ca14c317adbd37bb1b90d82b2c4e6",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/round_storey/round_storey.glb",
+      "glb_sha256": "20bf7695e8ab1f1d78de0302b3729f826432b0b9559f816f0771dc9c924d7260",
+      "triangles_before": 33936,
+      "triangles_after": 33936,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 164,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -4.730000019073486,
+          -9.230000495910645,
+          0.0
+        ],
+        [
+          4.730000019073486,
+          9.230000495910645,
+          5.100000381469727
+        ]
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "budget": 45000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/round_storey.tscn"
+    },
+    {
+      "key": "roof_room",
+      "asset_id": "SEA-SCENE-NGQ-005",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_room/roof_room.blend",
+      "source_sha256_before": "53c049fd909b57eb00c588bce014ca6a3f0875bb55bf1e6792ae33ab5a800451",
+      "source_sha256_after": "53c049fd909b57eb00c588bce014ca6a3f0875bb55bf1e6792ae33ab5a800451",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/roof_room_optimized.blend",
+      "optimized_sha256": "bc123a0d72a3abfd3f3596cefa01eb962ee6a372dda89f5b5b90300953eee076",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/roof_room/roof_room.glb",
+      "glb_sha256": "aa0f65750762d127293379bae251516d095f38b3319be847bf68703be1241257",
+      "triangles_before": 752,
+      "triangles_after": 752,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 4,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -2.049999952316284,
+          -1.8875000476837158,
+          0.0
+        ],
+        [
+          2.049999952316284,
+          1.8875000476837158,
+          3.320000171661377
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/roof_room.tscn"
+    },
+    {
+      "key": "parapet",
+      "asset_id": "SEA-SCENE-NGQ-006",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/parapet/parapet.blend",
+      "source_sha256_before": "3cfb031869cb0e96a9eb5a518ec6aae1a53d594f17398ffb433c29b38341e714",
+      "source_sha256_after": "3cfb031869cb0e96a9eb5a518ec6aae1a53d594f17398ffb433c29b38341e714",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/parapet_optimized.blend",
+      "optimized_sha256": "37824d7b164b8a3c5f80bdbb5a18a7f17806853f4fcc315a91317fd354feefe8",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/parapet/parapet.glb",
+      "glb_sha256": "b715849b5ded3fb3877fa65e9cc3ec450452923a90c9c1067c8d45fb73f250db",
+      "triangles_before": 376,
+      "triangles_after": 376,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 2,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.5750000476837158,
+          -0.25,
+          0.0
+        ],
+        [
+          1.5750000476837158,
+          0.25,
+          1.25
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/parapet.tscn"
+    },
+    {
+      "key": "broken_parapet",
+      "asset_id": "SEA-SCENE-NGQ-007",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/broken_parapet/broken_parapet.blend",
+      "source_sha256_before": "132eeef55cfc6e6fc226875e6f9d48f3b2b4dd542d67300b1bb166885c90e62e",
+      "source_sha256_after": "132eeef55cfc6e6fc226875e6f9d48f3b2b4dd542d67300b1bb166885c90e62e",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/broken_parapet_optimized.blend",
+      "optimized_sha256": "6495c566d643ebd6b446b69d167dc874a6f8c7f3dabca13c7e898293b80ae4ca",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/broken_parapet/broken_parapet.glb",
+      "glb_sha256": "323b5590337b9e2b06e3f25e9c9ea111da4eecc0df7ff7f6f9c9a2797f2b6f14",
+      "triangles_before": 564,
+      "triangles_after": 564,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 3,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.5127792358398438,
+          -0.25,
+          0.0
+        ],
+        [
+          1.5127792358398438,
+          0.25,
+          1.1983747482299805
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/broken_parapet.tscn"
+    },
+    {
+      "key": "rubble",
+      "asset_id": "SEA-SCENE-NGQ-008",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/rubble/rubble.blend",
+      "source_sha256_before": "c7660d9c127a41ee31f73f86a51b8789b0e1f08e59d2120d7e065f69fc436848",
+      "source_sha256_after": "c7660d9c127a41ee31f73f86a51b8789b0e1f08e59d2120d7e065f69fc436848",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/rubble_optimized.blend",
+      "optimized_sha256": "4351797d471de303f1d36b33ce5b986823d6b3fe0bdcd399482944338a744ce9",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/rubble/rubble.glb",
+      "glb_sha256": "1bae7e25ca904ff35c1dd531c5febeafb73a45fbcbc362b3eda2c7d6496fd97d",
+      "triangles_before": 424,
+      "triangles_after": 424,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 2,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.8848515748977661,
+          -0.49445831775665283,
+          0.0
+        ],
+        [
+          0.8848515748977661,
+          0.49445831775665283,
+          0.4593738317489624
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/rubble.tscn"
+    },
+    {
+      "key": "stair_flight",
+      "asset_id": "SEA-SCENE-NGQ-010",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_flight/stair_flight.blend",
+      "source_sha256_before": "7415f3f98ae9f4f7a8d2777f327e41e19d08caec909784bbdf8a6b00d4229873",
+      "source_sha256_after": "7415f3f98ae9f4f7a8d2777f327e41e19d08caec909784bbdf8a6b00d4229873",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/stair_flight_optimized.blend",
+      "optimized_sha256": "6370e4cc32ca7f234080ce62d9954857d5b27fb84aab84838fc3fbdec150e441",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/stair_flight/stair_flight.glb",
+      "glb_sha256": "bbb85702960b76e8f5a61d2136b4669e3a0f11295fc06c9fcfdfdef56d099176",
+      "triangles_before": 3100,
+      "triangles_after": 3100,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 25,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.0149999856948853,
+          -1.9575001001358032,
+          0.0
+        ],
+        [
+          1.0149999856948853,
+          1.9575001001358032,
+          3.549999952316284
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/stair_flight.tscn"
+    },
+    {
+      "key": "stair_landing",
+      "asset_id": "SEA-SCENE-NGQ-011",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/stair_landing/stair_landing.blend",
+      "source_sha256_before": "700fe2018c39caac4c324f635c9bfdfe48a112a57d197b8d92bdf18f2f9c7ad7",
+      "source_sha256_after": "700fe2018c39caac4c324f635c9bfdfe48a112a57d197b8d92bdf18f2f9c7ad7",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/stair_landing_optimized.blend",
+      "optimized_sha256": "c2646b284a92076b68888dc12e5ecb83057508b5c28ba79a7c7d85a03fc0124c",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/stair_landing/stair_landing.glb",
+      "glb_sha256": "ff479be9a73142344e7f35e0447b7f431f71d276215318fa17d955ddfee40e1b",
+      "triangles_before": 188,
+      "triangles_after": 188,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 1,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -2.200000047683716,
+          -1.0,
+          0.0
+        ],
+        [
+          2.200000047683716,
+          1.0,
+          0.20000000298023224
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/stair_landing.tscn"
+    },
+    {
+      "key": "guardrail",
+      "asset_id": "SEA-SCENE-NGQ-012",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/guardrail/guardrail.blend",
+      "source_sha256_before": "a5934c5e955eb92de35ab5367c7f3ba706908b6c06f95b7ae339c24959c8d681",
+      "source_sha256_after": "a5934c5e955eb92de35ab5367c7f3ba706908b6c06f95b7ae339c24959c8d681",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/guardrail_optimized.blend",
+      "optimized_sha256": "db4ec600da9555ad211c40c505d7484e02ab7c8b0ec25f6a35920855de50734e",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/guardrail/guardrail.glb",
+      "glb_sha256": "fd6cd6fb2452b280aff543a70e5a1b9b0bcccd671ad182976c9077903c72fdd7",
+      "triangles_before": 940,
+      "triangles_after": 940,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 5,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.5,
+          -0.07000000029802322,
+          0.0
+        ],
+        [
+          1.5,
+          0.07000000029802322,
+          1.2400000095367432
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/guardrail.tscn"
+    },
+    {
+      "key": "double_door",
+      "asset_id": "SEA-SCENE-NGQ-013",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/double_door/double_door.blend",
+      "source_sha256_before": "870d2302dd016d654776c96f8e4031e629f176e386e990c9ac6ce051453e3fa3",
+      "source_sha256_after": "870d2302dd016d654776c96f8e4031e629f176e386e990c9ac6ce051453e3fa3",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/double_door_optimized.blend",
+      "optimized_sha256": "7df850c11ee901fb09c24e107c7e043e631c289258e4676e12eb51b78925db38",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/double_door/double_door.glb",
+      "glb_sha256": "ec2fa220a955737542b42dcfb58c8dc5e7e6e62b378bfb772d45ea6244ac6946",
+      "triangles_before": 1316,
+      "triangles_after": 1316,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 7,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -0.8999999761581421,
+          -0.19499999284744263,
+          0.0
+        ],
+        [
+          0.8999999761581421,
+          0.19499999284744263,
+          3.0999999046325684
+        ]
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/double_door.tscn"
+    },
+    {
+      "key": "window_pair",
+      "asset_id": "SEA-SCENE-NGQ-014",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_pair/window_pair.blend",
+      "source_sha256_before": "9a8f052880cbab3409dae689915384bee0bd5ce817c16396c63d168bbfa1b44e",
+      "source_sha256_after": "9a8f052880cbab3409dae689915384bee0bd5ce817c16396c63d168bbfa1b44e",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/window_pair_optimized.blend",
+      "optimized_sha256": "30d6caff4166383ac28d7cee9659417518973e03d8a328fab9bf330c884043eb",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/window_pair/window_pair.glb",
+      "glb_sha256": "5df7b42e001007f3fb8cf7afe0a880f1dc8a579b80f5c65b32fee48644d7667b",
+      "triangles_before": 1504,
+      "triangles_after": 1504,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 8,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -1.4500000476837158,
+          -0.32499998807907104,
+          0.0
+        ],
+        [
+          1.4500000476837158,
+          0.32499998807907104,
+          2.7899999618530273
+        ]
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/window_pair.tscn"
+    },
+    {
+      "key": "window_broken",
+      "asset_id": "SEA-SCENE-NGQ-015",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/window_broken/window_broken.blend",
+      "source_sha256_before": "84114ce0327d5fac26834ed9e282beacadb2de93bbc90ab4615e3d76c0236bf1",
+      "source_sha256_after": "84114ce0327d5fac26834ed9e282beacadb2de93bbc90ab4615e3d76c0236bf1",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/window_broken_optimized.blend",
+      "optimized_sha256": "71818fb883e7720134f66c4f90cb9450689b8f990434cc2b453918c080d3cd14",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/window_broken/window_broken.glb",
+      "glb_sha256": "60abf9e0c8f1a8f8774e95bba6bf9d4041084ba339bab5883cbdfc240da1c072",
+      "triangles_before": 1320,
+      "triangles_after": 1320,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 8,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -1.4500000476837158,
+          -0.32499998807907104,
+          0.0
+        ],
+        [
+          1.4500000476837158,
+          0.32499998807907104,
+          2.7899999618530273
+        ]
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/window_broken.tscn"
+    },
+    {
+      "key": "shop_awning",
+      "asset_id": "SEA-SCENE-NGQ-018",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/shop_awning/shop_awning.blend",
+      "source_sha256_before": "32367ae4d003135ab5c3ca6b39b235f4de23b6cf32e322b7f2b001e1129c7a8b",
+      "source_sha256_after": "32367ae4d003135ab5c3ca6b39b235f4de23b6cf32e322b7f2b001e1129c7a8b",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/shop_awning_optimized.blend",
+      "optimized_sha256": "bcb16d524abd7bc758c8282c6e73aac28f0c7523001a922c8d51f253bf8b117a",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/shop_awning/shop_awning.glb",
+      "glb_sha256": "53d5392e96bc245c3334e966b816f19ec59bda4947bbd821105a9cb7df7a7532",
+      "triangles_before": 432,
+      "triangles_after": 432,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 4,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.7000000476837158,
+          -0.761000394821167,
+          0.0
+        ],
+        [
+          1.7000000476837158,
+          0.761000394821167,
+          0.9506065845489502
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/shop_awning.tscn"
+    },
+    {
+      "key": "aircon",
+      "asset_id": "SEA-SCENE-NGQ-019",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/aircon/aircon.blend",
+      "source_sha256_before": "96b8346629178e15b55f930273053e91a745afda7888e3e8ffc0a7002198a961",
+      "source_sha256_after": "96b8346629178e15b55f930273053e91a745afda7888e3e8ffc0a7002198a961",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/aircon_optimized.blend",
+      "optimized_sha256": "b2be6d820fe986c7f2e62dedbd03a573ae5b09bb40d908b0736086faccb6b2b1",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/aircon/aircon.glb",
+      "glb_sha256": "0cf8905d477d8444c9882c79aaf6675ffa74badcbaa2b9c23c429828f6f84bbe",
+      "triangles_before": 1648,
+      "triangles_after": 1648,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 9,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.8999999761581421,
+          -0.45749998092651367,
+          0.0
+        ],
+        [
+          0.8999999761581421,
+          0.45749998092651367,
+          1.2999999523162842
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/aircon.tscn"
+    },
+    {
+      "key": "water_tank",
+      "asset_id": "SEA-SCENE-NGQ-020",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/water_tank/water_tank.blend",
+      "source_sha256_before": "bd6d055bd8f1be9bbc809b4a7509bc41b6c5e0d8ff19cc07192bf82066dee33a",
+      "source_sha256_after": "bd6d055bd8f1be9bbc809b4a7509bc41b6c5e0d8ff19cc07192bf82066dee33a",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/water_tank_optimized.blend",
+      "optimized_sha256": "8a5af5625cc5dfcc7e296e6f0acfd831ce02df1358ff782e04cf2d4989bd219b",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/water_tank/water_tank.glb",
+      "glb_sha256": "4b391f1fd10684c26487f31e25a30bbee8d3a4f09a721082bdc92a50422e0641",
+      "triangles_before": 1516,
+      "triangles_after": 1516,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 5,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.269759178161621,
+          -1.2699999809265137,
+          0.0
+        ],
+        [
+          1.269759178161621,
+          1.2699999809265137,
+          3.0
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/water_tank.tscn"
+    },
+    {
+      "key": "drainpipe",
+      "asset_id": "SEA-SCENE-NGQ-021",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/drainpipe/drainpipe.blend",
+      "source_sha256_before": "4920011c587f3d15aec02d95d4af6333ba6457bfb517b2628f4d3ceff64ab6e8",
+      "source_sha256_after": "4920011c587f3d15aec02d95d4af6333ba6457bfb517b2628f4d3ceff64ab6e8",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/drainpipe_optimized.blend",
+      "optimized_sha256": "7c4fd9834de2cf3bded8f82b6e154252bbbc1ace7cbf4cba518cf990889ea775",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/drainpipe/drainpipe.glb",
+      "glb_sha256": "84e5353b977828027e817a0a1a0998f153c6e697cb82e10e2875ae30f4634cfa",
+      "triangles_before": 436,
+      "triangles_after": 436,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 3,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.18000000715255737,
+          -0.23100486397743225,
+          0.0
+        ],
+        [
+          0.18000000715255737,
+          0.23100486397743225,
+          5.05364465713501
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/drainpipe.tscn"
+    },
+    {
+      "key": "street_lamp",
+      "asset_id": "SEA-SCENE-NGQ-022",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_lamp/street_lamp.blend",
+      "source_sha256_before": "3445e5e26d5d47fa1d0c05906e3c9739061c394eb9c55e6936406c54df94dd8e",
+      "source_sha256_after": "3445e5e26d5d47fa1d0c05906e3c9739061c394eb9c55e6936406c54df94dd8e",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/street_lamp_optimized.blend",
+      "optimized_sha256": "09e5f5e39c34c28f289144009d95cf7308ae2fc669e1584161c9b2660bfdd05d",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/street_lamp/street_lamp.glb",
+      "glb_sha256": "ec07dfa4df9df6d700aac70f5d40130f64c908f185e8f0c7cb1e023f46ae7271",
+      "triangles_before": 348,
+      "triangles_after": 348,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 3,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -0.38997119665145874,
+          -0.694985568523407,
+          0.0
+        ],
+        [
+          0.38997116684913635,
+          0.694985568523407,
+          3.5
+        ]
+      ],
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/street_lamp.tscn"
+    },
+    {
+      "key": "lantern",
+      "asset_id": "SEA-SCENE-NGQ-023",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/lantern/lantern.blend",
+      "source_sha256_before": "ce0084e67ade7da904b8503a0f82d7acddee99ba06497fbd23a0e1b529d9721d",
+      "source_sha256_after": "ce0084e67ade7da904b8503a0f82d7acddee99ba06497fbd23a0e1b529d9721d",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/lantern_optimized.blend",
+      "optimized_sha256": "213849c312672f9be5a624a9c8216745ce870e53d3f497abe38c23876ef09af4",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/lantern/lantern.glb",
+      "glb_sha256": "ed0139a353c13873cdc8df8df7b9bbbdb368fb4e82596ca6b69b313c1a9d0a7c",
+      "triangles_before": 552,
+      "triangles_after": 552,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 3,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.6897563934326172,
+          -0.3947214186191559,
+          0.0
+        ],
+        [
+          0.6897563934326172,
+          0.3947214186191559,
+          1.348433256149292
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/lantern.tscn"
+    },
+    {
+      "key": "bar_poster",
+      "asset_id": "SEA-SCENE-NGQ-024",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/bar_poster/bar_poster.blend",
+      "source_sha256_before": "13c533a397033d5a4c1d888a269f6b79ff0e2f1bc795ca5713bfa37d5c496396",
+      "source_sha256_after": "13c533a397033d5a4c1d888a269f6b79ff0e2f1bc795ca5713bfa37d5c496396",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/bar_poster_optimized.blend",
+      "optimized_sha256": "a4bd777b5634dd12ffd5e7ad33b8cac2c93340f84a15421d0dad7a0128227523",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/bar_poster/bar_poster.glb",
+      "glb_sha256": "5027f71c03873e1b6e4ca62f182add8d70c5f857ec7a0c8c7041965ed45006ec",
+      "triangles_before": 976,
+      "triangles_after": 976,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 6,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -1.2549999952316284,
+          -0.1850000023841858,
+          0.0
+        ],
+        [
+          1.2549999952316284,
+          0.1850000023841858,
+          5.190919876098633
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Poster"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/bar_poster.tscn"
+    },
+    {
+      "key": "portrait_poster",
+      "asset_id": "SEA-SCENE-NGQ-025",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/portrait_poster/portrait_poster.blend",
+      "source_sha256_before": "7028697a63890ec23e3a82f2c12272e6d8a7274bf27ced9bbcc4e9b20ff7106f",
+      "source_sha256_after": "7028697a63890ec23e3a82f2c12272e6d8a7274bf27ced9bbcc4e9b20ff7106f",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/portrait_poster_optimized.blend",
+      "optimized_sha256": "c77bf9c8280981e180e5ab0b59f293f9895fefef6bd9b9501d06a1b4a3035c3d",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/portrait_poster/portrait_poster.glb",
+      "glb_sha256": "2aad8e8b60e8f15247b2d06dc99f74561625ef00930884ee57a52f190b5502e2",
+      "triangles_before": 976,
+      "triangles_after": 976,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 6,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -2.379999876022339,
+          -0.1850000023841858,
+          0.0
+        ],
+        [
+          2.379999876022339,
+          0.1850000023841858,
+          4.430286407470703
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Poster"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/portrait_poster.tscn"
+    },
+    {
+      "key": "drink_poster",
+      "asset_id": "SEA-SCENE-NGQ-026",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/drink_poster/drink_poster.blend",
+      "source_sha256_before": "0b1cf8b489f705b20746b135fb61ae04953745c66c2d1be08334a518e34ef8c7",
+      "source_sha256_after": "0b1cf8b489f705b20746b135fb61ae04953745c66c2d1be08334a518e34ef8c7",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/drink_poster_optimized.blend",
+      "optimized_sha256": "55a972590d5b8cfcb8638e2f4743c45bd7d1d9ce3f927c3856865e2836c192b9",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/drink_poster/drink_poster.glb",
+      "glb_sha256": "2fea0676e914b0797595533d4760945977d2af20aa4753835b3cee26870a5628",
+      "triangles_before": 976,
+      "triangles_after": 976,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 6,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -1.78000009059906,
+          -0.1850000023841858,
+          0.0
+        ],
+        [
+          1.78000009059906,
+          0.1850000023841858,
+          4.409290790557861
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Poster"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/drink_poster.tscn"
+    },
+    {
+      "key": "charcoal_sign",
+      "asset_id": "SEA-SCENE-NGQ-027",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/charcoal_sign/charcoal_sign.blend",
+      "source_sha256_before": "819d6ea76a15b1d7d0f0358d6fd709726aa4e722b1692c5796bc7211afb22fc6",
+      "source_sha256_after": "819d6ea76a15b1d7d0f0358d6fd709726aa4e722b1692c5796bc7211afb22fc6",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/charcoal_sign_optimized.blend",
+      "optimized_sha256": "fb128ad8b431f888b8987f9892215bf1f2f3ca6441f4c1c3bac33f0fc8273388",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/charcoal_sign/charcoal_sign.glb",
+      "glb_sha256": "37b4e0b91d0c9451dad9f7a3147c343313a4f852fd927495eec8ce0b54b4ff5e",
+      "triangles_before": 8039,
+      "triangles_after": 8038,
+      "reduction_ratio": 0.00012439358129120537,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 1,
+        "loose_edges": 5,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 9,
+      "mesh_objects_after": 3,
+      "bounds": [
+        [
+          -2.309680700302124,
+          -2.2532408237457275,
+          0.0
+        ],
+        [
+          2.309680700302124,
+          2.2532408237457275,
+          10.050000190734863
+        ]
+      ],
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte",
+        "SEA_Poster"
+      ],
+      "budget": 65000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/charcoal_sign.tscn"
+    },
+    {
+      "key": "tavern_sign",
+      "asset_id": "SEA-SCENE-NGQ-028",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/tavern_sign/tavern_sign.blend",
+      "source_sha256_before": "aa563adf2984871b9b2201c64bc761e06783b3f4792c65d5e818fa71aab7b95c",
+      "source_sha256_after": "aa563adf2984871b9b2201c64bc761e06783b3f4792c65d5e818fa71aab7b95c",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/tavern_sign_optimized.blend",
+      "optimized_sha256": "c6ed5995ca058741edbf97f768f253bf45d3e13eeefed478d84a95b7bcfcd87c",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/tavern_sign/tavern_sign.glb",
+      "glb_sha256": "b6687c643badbf7578890b9f0d505aeedd0adcc4728a2bf146b2bd6f3659b1c7",
+      "triangles_before": 5973,
+      "triangles_after": 5973,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 7,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 5,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -1.25,
+          -0.36861348152160645,
+          0.0
+        ],
+        [
+          1.25,
+          0.36861348152160645,
+          10.800000190734863
+        ]
+      ],
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "budget": 65000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/tavern_sign.tscn"
+    },
+    {
+      "key": "restaurant_neon",
+      "asset_id": "SEA-SCENE-NGQ-029",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/restaurant_neon/restaurant_neon.blend",
+      "source_sha256_before": "ce8dfdbb108b63f51030b5ffd0bd88174019f78a8fbd5ee5abc1b39e5442c040",
+      "source_sha256_after": "ce8dfdbb108b63f51030b5ffd0bd88174019f78a8fbd5ee5abc1b39e5442c040",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/restaurant_neon_optimized.blend",
+      "optimized_sha256": "58f125fd249f9c89cbc165f2118c769a8078bda64a476ba1897ba419edcbf95e",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/restaurant_neon/restaurant_neon.glb",
+      "glb_sha256": "e7052b9513e514c7086c936eed7c33bfdf0ac78ee843cf94496ed9d739e469fc",
+      "triangles_before": 1664,
+      "triangles_after": 1664,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 6,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -0.925000011920929,
+          -0.34463706612586975,
+          0.0
+        ],
+        [
+          0.925000011920929,
+          0.34463706612586975,
+          11.600000381469727
+        ]
+      ],
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte"
+      ],
+      "budget": 65000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/restaurant_neon.tscn"
+    },
+    {
+      "key": "route_board",
+      "asset_id": "SEA-SCENE-NGQ-030",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/route_board/route_board.blend",
+      "source_sha256_before": "3ac839af37920aaf3e1670b2e8408112d0933563bd49f70a322896da2a262b75",
+      "source_sha256_after": "3ac839af37920aaf3e1670b2e8408112d0933563bd49f70a322896da2a262b75",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/route_board_optimized.blend",
+      "optimized_sha256": "6c1faad62f6c2d26677983bad1e5f979f8472a3c4dfc82ad774d0e0793a92104",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/route_board/route_board.glb",
+      "glb_sha256": "57f7d7efe3e8d187fd2bbdabed63942074f4e6d974d8a8b24675200554e319a2",
+      "triangles_before": 976,
+      "triangles_after": 976,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 6,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -1.0800000429153442,
+          -0.1850000023841858,
+          0.0
+        ],
+        [
+          1.0800000429153442,
+          0.1850000023841858,
+          3.2847957611083984
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Poster"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/route_board.tscn"
+    },
+    {
+      "key": "menu_board",
+      "asset_id": "SEA-SCENE-NGQ-031",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/menu_board/menu_board.blend",
+      "source_sha256_before": "99650b1826b1fd233b9fdc605a4fb31522ac34cef705e7f733ce48e2d9e3294c",
+      "source_sha256_after": "99650b1826b1fd233b9fdc605a4fb31522ac34cef705e7f733ce48e2d9e3294c",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/menu_board_optimized.blend",
+      "optimized_sha256": "6c1f73b51bb9248f50e08247fe886dbf715090afb9072730d763e36f0b2457dd",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/menu_board/menu_board.glb",
+      "glb_sha256": "7b97f77c9f37fe2efbc6385f8a5f710a79f54f3467b96691483b58aa2dae2c9d",
+      "triangles_before": 976,
+      "triangles_after": 976,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 6,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -1.7300000190734863,
+          -0.1850000023841858,
+          0.0
+        ],
+        [
+          1.7300000190734863,
+          0.1850000023841858,
+          3.5075411796569824
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Poster"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/menu_board.tscn"
+    },
+    {
+      "key": "round_sign",
+      "asset_id": "SEA-SCENE-NGQ-032",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_sign/round_sign.blend",
+      "source_sha256_before": "6aa899d3f21e3c8c72c7f1ee4458b62558865f7d9fcf7028cd4c7e75d8544280",
+      "source_sha256_after": "6aa899d3f21e3c8c72c7f1ee4458b62558865f7d9fcf7028cd4c7e75d8544280",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/round_sign_optimized.blend",
+      "optimized_sha256": "061b1171024fed1397752c6eeb4f36b7be549296d92fbf53127209a0598d853f",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/round_sign/round_sign.glb",
+      "glb_sha256": "e9d7cedc68d0c5f2dffa86ce1875b6a1508c42c4009c48957d57bff28ba6bb52",
+      "triangles_before": 156,
+      "triangles_after": 156,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 2,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -1.25,
+          -0.13500000536441803,
+          0.0
+        ],
+        [
+          1.25,
+          0.13500000536441803,
+          2.5
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Poster"
+      ],
+      "budget": 65000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/round_sign.tscn"
+    },
+    {
+      "key": "small_placard",
+      "asset_id": "SEA-SCENE-NGQ-033",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/small_placard/small_placard.blend",
+      "source_sha256_before": "b0de17099eb3c0da325c58981f746f6961acfd43226535a8686001b5d32ad2e1",
+      "source_sha256_after": "b0de17099eb3c0da325c58981f746f6961acfd43226535a8686001b5d32ad2e1",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/small_placard_optimized.blend",
+      "optimized_sha256": "43c485fec73435498bbe98038bdc44b73789785fd5dfc2174f220111b4ec4ecb",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/small_placard/small_placard.glb",
+      "glb_sha256": "f8cf457ae371fbd177d740893a2f5768bed0b3644ac7ed636b893b1cef3e4eaf",
+      "triangles_before": 976,
+      "triangles_after": 976,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 6,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -0.7049999833106995,
+          -0.1850000023841858,
+          0.0
+        ],
+        [
+          0.7049999833106995,
+          0.1850000023841858,
+          2.571673631668091
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Poster"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/small_placard.tscn"
+    },
+    {
+      "key": "trellis",
+      "asset_id": "SEA-SCENE-NGQ-034",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/trellis/trellis.blend",
+      "source_sha256_before": "bad144b86fbd4a304f0c2869a40b12c0d789bc8410d06ba77e6d822a2cf0e634",
+      "source_sha256_after": "bad144b86fbd4a304f0c2869a40b12c0d789bc8410d06ba77e6d822a2cf0e634",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/trellis_optimized.blend",
+      "optimized_sha256": "6c92fa506fc2c626071fc635a399466f315399ab04306d4f90d2aacaa41f34a5",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/trellis/trellis.glb",
+      "glb_sha256": "e6bb0f0d2d4339056cefdf182f2e8d423413f8287c91f6a5c9abadab13ee3437",
+      "triangles_before": 140,
+      "triangles_after": 140,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 5,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.4500000476837158,
+          -0.09499146789312363,
+          0.0
+        ],
+        [
+          1.4500000476837158,
+          0.09499146789312363,
+          3.204019784927368
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/trellis.tscn"
+    },
+    {
+      "key": "crop_bed",
+      "asset_id": "SEA-SCENE-NGQ-035",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/crop_bed/crop_bed.blend",
+      "source_sha256_before": "4b2a3d11c8be19d0afc981f5f2d27824608a2d49589666d42a35291a19a91ebd",
+      "source_sha256_after": "4b2a3d11c8be19d0afc981f5f2d27824608a2d49589666d42a35291a19a91ebd",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/crop_bed_optimized.blend",
+      "optimized_sha256": "24dc44b7a7429a6009899e1a864f6bfd2895b0a8206cb83785ef41e3d41247cf",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/crop_bed/crop_bed.glb",
+      "glb_sha256": "c1a92c9e47bdb9d1f0a64796cb75287cb51b9a1450f571c65b0d2bff6142ced1",
+      "triangles_before": 940,
+      "triangles_after": 940,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 5,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.399999976158142,
+          -2.7350001335144043,
+          0.0
+        ],
+        [
+          1.399999976158142,
+          2.7350001335144043,
+          0.36000001430511475
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/crop_bed.tscn"
+    },
+    {
+      "key": "planter",
+      "asset_id": "SEA-SCENE-NGQ-036",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/planter/planter.blend",
+      "source_sha256_before": "a65bbf8c5aa7a7eac7a621aaa238e7aab456b607e0f2ed6b5c0de67a943f0492",
+      "source_sha256_after": "a65bbf8c5aa7a7eac7a621aaa238e7aab456b607e0f2ed6b5c0de67a943f0492",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/planter_optimized.blend",
+      "optimized_sha256": "f95ea4a246e47312a68e200fa98b68dc9f55c499919558153aff2a72b0301494",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/planter/planter.glb",
+      "glb_sha256": "ec9bcb8238c045965c1645fc386c6f4ada697884e0aba7251c6e42b88e9b2d60",
+      "triangles_before": 376,
+      "triangles_after": 376,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 2,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.25,
+          -0.44999998807907104,
+          0.0
+        ],
+        [
+          1.25,
+          0.44999998807907104,
+          0.9600000381469727
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/planter.tscn"
+    },
+    {
+      "key": "cabbage",
+      "asset_id": "SEA-SCENE-NGQ-037",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/cabbage/cabbage.blend",
+      "source_sha256_before": "31340811d69db76db15eb2419679e921f6e1f6f220d72a1090a8cd1dde544bcb",
+      "source_sha256_after": "31340811d69db76db15eb2419679e921f6e1f6f220d72a1090a8cd1dde544bcb",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/cabbage_optimized.blend",
+      "optimized_sha256": "0cb3443758f411d46d9b1aa9ebdf213379f0921ffa8e2d5c81fc75d414aebc21",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/cabbage/cabbage.glb",
+      "glb_sha256": "abb6b2cfafc2bf4b3be453077d99c65ba7513dd94d41379f8f516cb5e4d77dae",
+      "triangles_before": 1232,
+      "triangles_after": 1232,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 9,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.7015882730484009,
+          -0.7015882730484009,
+          0.0
+        ],
+        [
+          0.7015882730484009,
+          0.7015882730484009,
+          0.7199999690055847
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/cabbage.tscn"
+    },
+    {
+      "key": "tomato",
+      "asset_id": "SEA-SCENE-NGQ-038",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/tomato/tomato.blend",
+      "source_sha256_before": "e0454b6648f84941eb1bd1d6367e92bccaff1e4e4cbe31e0e34d1e474ee19906",
+      "source_sha256_after": "e0454b6648f84941eb1bd1d6367e92bccaff1e4e4cbe31e0e34d1e474ee19906",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/tomato_optimized.blend",
+      "optimized_sha256": "b6af8ebfb3eb20eee9c8f66a3482cbeb324c9c2f5202c206882fd9170942b055",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/tomato/tomato.glb",
+      "glb_sha256": "4632b821d8c633bc3c663eff4a9498b34caeb26f2539278aee66c9bdd6b045ad",
+      "triangles_before": 2508,
+      "triangles_after": 2508,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 25,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.1013576984405518,
+          -0.9920334219932556,
+          0.0
+        ],
+        [
+          1.1013576984405518,
+          0.9920334219932556,
+          2.6249406337738037
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/tomato.tscn"
+    },
+    {
+      "key": "herb",
+      "asset_id": "SEA-SCENE-NGQ-039",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/herb/herb.blend",
+      "source_sha256_before": "c641c7f64dd2b025a3ee2de90e8aa32c4dbbf0ec5275fb0fbadbd668f74db956",
+      "source_sha256_after": "c641c7f64dd2b025a3ee2de90e8aa32c4dbbf0ec5275fb0fbadbd668f74db956",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/herb_optimized.blend",
+      "optimized_sha256": "c619308dff0d52b57802c6178042b5204c294ee299041b290c1f4a68f33d140c",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/herb/herb.glb",
+      "glb_sha256": "c4c5cd8b4d8c93719572632d431d460c90e9c7190dfc24e7b934e689c8ee923f",
+      "triangles_before": 952,
+      "triangles_after": 952,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 7,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.6657400131225586,
+          -0.5926527976989746,
+          0.0
+        ],
+        [
+          0.6657400131225586,
+          0.5926527976989746,
+          0.7150072455406189
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/herb.tscn"
+    },
+    {
+      "key": "broadleaf",
+      "asset_id": "SEA-SCENE-NGQ-040",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/broadleaf/broadleaf.blend",
+      "source_sha256_before": "a128e17a4413104aada86981e9e895dcdc1530d56ede8975090e6c70ddc88886",
+      "source_sha256_after": "a128e17a4413104aada86981e9e895dcdc1530d56ede8975090e6c70ddc88886",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/broadleaf_optimized.blend",
+      "optimized_sha256": "fee2e283ff5c8dac435a4312a32300c35895ba9fe04c50148189c50a32b02903",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/broadleaf/broadleaf.glb",
+      "glb_sha256": "1b88b07d05f8cc441bc179728b37526c99c556e73d61883530e06192302281ec",
+      "triangles_before": 1224,
+      "triangles_after": 1224,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 9,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -1.1837928295135498,
+          -1.1173362731933594,
+          0.0
+        ],
+        [
+          1.1837928295135498,
+          1.1173362731933594,
+          1.2972315549850464
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/broadleaf.tscn"
+    },
+    {
+      "key": "vine",
+      "asset_id": "SEA-SCENE-NGQ-041",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/vine/vine.blend",
+      "source_sha256_before": "713004aaa99c59a141d81bf9fdad47fccaf75d0933525fc98ecbd2c039ece918",
+      "source_sha256_after": "713004aaa99c59a141d81bf9fdad47fccaf75d0933525fc98ecbd2c039ece918",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/vine_optimized.blend",
+      "optimized_sha256": "6cfa69247641389ceee2072f0293364984b2300f696aa6bbb72cc3ffe7bbd52d",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/vine/vine.glb",
+      "glb_sha256": "96a5ea640ae7b604de85310b922cf311deb490ea018a9bc1ac0d506a0df529d6",
+      "triangles_before": 1708,
+      "triangles_after": 1708,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 13,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.5005616545677185,
+          -0.2439647912979126,
+          0.0
+        ],
+        [
+          0.5005616545677185,
+          0.2439647912979126,
+          3.2141895294189453
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/vine.tscn"
+    },
+    {
+      "key": "hanging_bush",
+      "asset_id": "SEA-SCENE-NGQ-042",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/hanging_bush/hanging_bush.blend",
+      "source_sha256_before": "bd654f305f11fe28f3059b912eaea4b4338f32bc404fb82ffdf12e842878040d",
+      "source_sha256_after": "bd654f305f11fe28f3059b912eaea4b4338f32bc404fb82ffdf12e842878040d",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/hanging_bush_optimized.blend",
+      "optimized_sha256": "83f6829d39a63dd014c092cb026b6b37ec3af61071a55036130513c1135110a8",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/hanging_bush/hanging_bush.glb",
+      "glb_sha256": "a3f7261e799b653eaed7baa85c7ae647f5c65c43c92af52a03f297ff1270a99f",
+      "triangles_before": 2040,
+      "triangles_after": 2040,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 15,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.9877303838729858,
+          -1.1350282430648804,
+          0.0
+        ],
+        [
+          0.9877303838729858,
+          1.1350282430648804,
+          1.0834531784057617
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/hanging_bush.tscn"
+    },
+    {
+      "key": "flowers",
+      "asset_id": "SEA-SCENE-NGQ-043",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/flowers/flowers.blend",
+      "source_sha256_before": "497b813b79ea0083e4ac44a756e02921608006800752eafe8f0c1021773b9137",
+      "source_sha256_after": "497b813b79ea0083e4ac44a756e02921608006800752eafe8f0c1021773b9137",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/flowers_optimized.blend",
+      "optimized_sha256": "7e5ce8ee9c5a9cbd70e11ac2a464b83fbb64e802335ed57ff2bca3fd9b368830",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/flowers/flowers.glb",
+      "glb_sha256": "58ce4b8d8a63d418dab8535e000a100d8d37187ab56f43c1aace954a8e2d4ad9",
+      "triangles_before": 3860,
+      "triangles_after": 3860,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 35,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.6544885635375977,
+          -0.5914506316184998,
+          0.0
+        ],
+        [
+          0.6544885635375977,
+          0.5914506316184998,
+          0.80391526222229
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/flowers.tscn"
+    },
+    {
+      "key": "grass",
+      "asset_id": "SEA-SCENE-NGQ-044",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/grass/grass.blend",
+      "source_sha256_before": "0bb28e6fe5385f9c2a0a9ac984bcf5fc03cb29114e0e9a035d38a62d39464c8c",
+      "source_sha256_after": "0bb28e6fe5385f9c2a0a9ac984bcf5fc03cb29114e0e9a035d38a62d39464c8c",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/grass_optimized.blend",
+      "optimized_sha256": "68cf5bc1337283c934491a62cd2e6f474b30f57131c6610c08cad5c5730694f5",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/grass/grass.glb",
+      "glb_sha256": "4f7a4c3cf5a733ae814bae9625b3d00f67e573635c9b0fa37dd8ec55a300ae89",
+      "triangles_before": 1224,
+      "triangles_after": 1224,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 9,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.5759987235069275,
+          -0.5484809875488281,
+          0.0
+        ],
+        [
+          0.5759987235069275,
+          0.5484809875488281,
+          1.3887356519699097
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/grass.tscn"
+    },
+    {
+      "key": "roof_soil",
+      "asset_id": "SEA-SCENE-NGQ-045",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/roof_soil/roof_soil.blend",
+      "source_sha256_before": "b704dce68d6f5b90ca35ba7ca638e9a0e674d4bff960498fd0770ad958d7f258",
+      "source_sha256_after": "b704dce68d6f5b90ca35ba7ca638e9a0e674d4bff960498fd0770ad958d7f258",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/roof_soil_optimized.blend",
+      "optimized_sha256": "d47cb76c158ef49807a9a7d1f6b5ff8814d533d0126d1f9cce64382707f5b149",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/roof_soil/roof_soil.glb",
+      "glb_sha256": "12946c1238a0640bc890738c09baa0aa9a558c31e9145293a4176dfb1da0ee6b",
+      "triangles_before": 1676,
+      "triangles_after": 1676,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 17,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -10.600000381469727,
+          -3.090235710144043,
+          0.0
+        ],
+        [
+          10.600000381469727,
+          3.090235710144043,
+          2.8420820236206055
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/roof_soil.tscn"
+    },
+    {
+      "key": "utility_cable",
+      "asset_id": "SEA-SCENE-NGQ-046",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/utility_cable/utility_cable.blend",
+      "source_sha256_before": "585c0cba043169be63edfda808788cbcd8fda5069514135a02ff69b81487b930",
+      "source_sha256_after": "585c0cba043169be63edfda808788cbcd8fda5069514135a02ff69b81487b930",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/utility_cable_optimized.blend",
+      "optimized_sha256": "d3f56490b75474e121a13720d23368a1cb1e7500e944c358592b4f12c93974f8",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/utility_cable/utility_cable.glb",
+      "glb_sha256": "69f798de060b140cb0e857404e7958ca04d602ba2ea1208589dec3d283ad101f",
+      "triangles_before": 452,
+      "triangles_after": 452,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 3,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -3.0999999046325684,
+          -0.25,
+          0.0
+        ],
+        [
+          3.0999999046325684,
+          0.25,
+          0.815000057220459
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 18000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/utility_cable.tscn"
+    },
+    {
+      "key": "garden_bridge",
+      "asset_id": "SEA-SCENE-NGQ-047",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/garden_bridge/garden_bridge.blend",
+      "source_sha256_before": "c2a92ab5d356e075d202b2a0e73d7d6d7844c958c57d678a11053d341d29eaa0",
+      "source_sha256_after": "c2a92ab5d356e075d202b2a0e73d7d6d7844c958c57d678a11053d341d29eaa0",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/garden_bridge_optimized.blend",
+      "optimized_sha256": "87da23209b808b9627f2dffc16dd65d4b1096309097c4702d8b7ebed25dd537f",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/garden_bridge/garden_bridge.glb",
+      "glb_sha256": "7ee5735ed68e8fbb0af51a3f08f1f53c76714ed37717ef3d7c4833856df83ea9",
+      "triangles_before": 1880,
+      "triangles_after": 1880,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 10,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -10.800000190734863,
+          -4.369999885559082,
+          0.0
+        ],
+        [
+          10.800000190734863,
+          4.369999885559082,
+          1.2000000476837158
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 55000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/garden_bridge.tscn"
+    },
+    {
+      "key": "round_roof",
+      "asset_id": "SEA-SCENE-NGQ-048",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_roof/round_roof.blend",
+      "source_sha256_before": "ebbb10adc6545788ae29415890af41cc94ed3d2dd8ac4372cc86aff5b80404a4",
+      "source_sha256_after": "ebbb10adc6545788ae29415890af41cc94ed3d2dd8ac4372cc86aff5b80404a4",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/round_roof_optimized.blend",
+      "optimized_sha256": "5f47025247530823601b471f07c6804862d43905a82424bf95ccb25a7140caf3",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/round_roof/round_roof.glb",
+      "glb_sha256": "36d83fbecbf4e8335d3106ac8792630d7f7e7afba121943aa7e601ee008050ae",
+      "triangles_before": 3140,
+      "triangles_after": 3140,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 7,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -4.559427261352539,
+          -9.059427261352539,
+          0.0
+        ],
+        [
+          4.559427261352539,
+          9.059427261352539,
+          1.4199999570846558
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 55000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/round_roof.tscn"
+    },
+    {
+      "key": "round_damaged",
+      "asset_id": "SEA-SCENE-NGQ-049",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_damaged/round_damaged.blend",
+      "source_sha256_before": "458814ee2d041e0e51e454584a64b98279e917831c52b132f1598bd17b0214fc",
+      "source_sha256_after": "458814ee2d041e0e51e454584a64b98279e917831c52b132f1598bd17b0214fc",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/round_damaged_optimized.blend",
+      "optimized_sha256": "feb6d068e2dc24545705cf1845fa30b0d26ec07bcab3f051e8622ce5138886cf",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/round_damaged/round_damaged.glb",
+      "glb_sha256": "1e59e8b3e0f9583e5328fe08bcf1cfa5b983aea2ca6d1eac0e9dd4b295afeffd",
+      "triangles_before": 31192,
+      "triangles_after": 31192,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 158,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -4.730000019073486,
+          -9.230000495910645,
+          0.0
+        ],
+        [
+          4.730000019073486,
+          9.230000495910645,
+          5.100000381469727
+        ]
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "budget": 55000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/round_damaged.tscn"
+    },
+    {
+      "key": "round_ruin",
+      "asset_id": "SEA-SCENE-NGQ-050",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/round_ruin/round_ruin.blend",
+      "source_sha256_before": "d1bf7826aef403a7df8447ee2fe820ff6eddd16559b53cf488499db8fc94eb4e",
+      "source_sha256_after": "d1bf7826aef403a7df8447ee2fe820ff6eddd16559b53cf488499db8fc94eb4e",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/round_ruin_optimized.blend",
+      "optimized_sha256": "fedefbaa68bccb974958c7c929b0099b71ddec5b93980ed93659978d26fe870f",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/round_ruin/round_ruin.glb",
+      "glb_sha256": "00c4d99342f1419cc9fe80139fcc0c2641123f5af80f756f5d291fbc2084e883",
+      "triangles_before": 27476,
+      "triangles_after": 27476,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 143,
+      "mesh_objects_after": 2,
+      "bounds": [
+        [
+          -4.730000019073486,
+          -9.230000495910645,
+          0.0
+        ],
+        [
+          4.730000019073486,
+          9.230000495910645,
+          5.100000381469727
+        ]
+      ],
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "budget": 55000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/round_ruin.tscn"
+    },
+    {
+      "key": "left_damaged",
+      "asset_id": "SEA-SCENE-NGQ-051",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/left_damaged/left_damaged.blend",
+      "source_sha256_before": "9a1bb36b507be22afe3f2d300030e0856ebd8034e5071112cce28f72462d962f",
+      "source_sha256_after": "9a1bb36b507be22afe3f2d300030e0856ebd8034e5071112cce28f72462d962f",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/left_damaged_optimized.blend",
+      "optimized_sha256": "c7fbd6f335ddabd62e2c4898f65e83baa8d84beb5b55df5292eff3055f619f3d",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/left_damaged/left_damaged.glb",
+      "glb_sha256": "bc0c59e8365c77efd3071a5b7b3889986251c6e0c3a5c8a4d78c84fc677e7ff0",
+      "triangles_before": 9984,
+      "triangles_after": 9984,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 58,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -4.625,
+          -9.225000381469727,
+          0.0
+        ],
+        [
+          4.625,
+          9.225000381469727,
+          5.100000381469727
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 55000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/left_damaged.tscn"
+    },
+    {
+      "key": "sign_bracket",
+      "asset_id": "SEA-SCENE-NGQ-052",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/sign_bracket/sign_bracket.blend",
+      "source_sha256_before": "37263c40bcc6f8113f5aead975c4f3e51abe7010bc2a1a46ac202714f7c40adf",
+      "source_sha256_after": "37263c40bcc6f8113f5aead975c4f3e51abe7010bc2a1a46ac202714f7c40adf",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/sign_bracket_optimized.blend",
+      "optimized_sha256": "f6f349164c693808ae0a2ee80a915daddf3d0f3adc8cee70abe37577cb10415e",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/sign_bracket/sign_bracket.glb",
+      "glb_sha256": "8e69d4ee7dbb0cf666f0862faf644ac14db16a9535c5b65350a16d0f97c6dc24",
+      "triangles_before": 404,
+      "triangles_after": 404,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 3,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -0.15000000596046448,
+          -0.5058454871177673,
+          0.0
+        ],
+        [
+          0.15000000596046448,
+          0.5058454871177673,
+          1.2000000476837158
+        ]
+      ],
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "budget": 55000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/sign_bracket.tscn"
+    },
+    {
+      "key": "fractured_ground",
+      "asset_id": "SEA-SCENE-NGQ-053",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/fractured_ground/fractured_ground.blend",
+      "source_sha256_before": "467581bcc7685cb74000fb286368b4a7a19db33432dd1d14fa96c95231ed3962",
+      "source_sha256_after": "467581bcc7685cb74000fb286368b4a7a19db33432dd1d14fa96c95231ed3962",
+      "optimized_source": "art_source/scenes/neon_garden_quarter/v003/export/v003/fractured_ground_optimized.blend",
+      "optimized_sha256": "9837d43afe1cd3e879e1d7ecf9cade493ed3ea00cda6f8fc86078b56766cf5cd",
+      "glb": "godot/assets/models/facilities/neon_garden_quarter/fractured_ground/fractured_ground.glb",
+      "glb_sha256": "f1b0620505a10be8a4d7a9162911559d1332009aa844462058d1768644b6e79c",
+      "triangles_before": 4172,
+      "triangles_after": 4172,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "duplicate_faces": 0,
+        "zero_area_faces": 0,
+        "loose_edges": 0,
+        "loose_vertices": 0,
+        "coplanar_edges_reduced": 0
+      },
+      "mesh_objects_before": 17,
+      "mesh_objects_after": 1,
+      "bounds": [
+        [
+          -20.850000381469727,
+          -14.597616195678711,
+          0.0
+        ],
+        [
+          20.850000381469727,
+          14.597616195678711,
+          0.23999999463558197
+        ]
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "budget": 55000,
+      "budget_source": "v003 component_plan.json",
+      "retention": "Keep silhouette, bevels, back faces, hard edges, printed UVs and organic curvature. Merge draw surfaces by role.",
+      "embedded_images": 0,
+      "prefab": "godot/scenes/components/facilities/neon_garden_quarter/fractured_ground.tscn"
+    }
+  ],
+  "runtime_assembly": "godot/scenes/facilities/neon_garden_quarter.tscn",
+  "assembly_anchor_blender": [
+    6.0,
+    1.0,
+    0
+  ],
+  "expected_instances": 506
+}

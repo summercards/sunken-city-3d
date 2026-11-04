@@ -1,0 +1,37 @@
+{
+  "key": "wall_scar",
+  "name": "成片剥落与宽裂缝",
+  "asset_id": "SEA-SCENE-NGQ-009",
+  "category": "architecture",
+  "family": "damage",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_09_成片剥落与宽裂缝",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    1.6888573169708252,
+    0.11500000208616257,
+    1.1591731309890747
+  ],
+  "author_origin_shift": [
+    0.04840180277824402,
+    -0.057500001043081284,
+    -0.36151251196861267
+  ],
+  "mesh_objects": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/wall_scar/wall_scar.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/wall_scar/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "fba61fcf0d3efa43defda39eaf06ecbed93b89543cb718a64157224717a54258",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-009",
+  "geometry_fingerprint": "f0bfd82a43130320a660038e251ad35be0f8d9418468201fda60dbd11e07fba5",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

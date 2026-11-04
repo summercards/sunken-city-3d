@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/neon_garden_quarter/portrait_poster/portrait_poster.glb" id="visual"]
+
+[node name="portrait_poster" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-025"
+metadata/asset_version = "v003"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

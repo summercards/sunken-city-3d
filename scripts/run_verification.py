@@ -39,6 +39,8 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'neon-garden-quarter': ('tests/test_neon_garden_quarter.gd', r'\[neon-garden-quarter\] \d+ checks, 0 failures'),
+    'visual-neon-garden-quarter': ('tests/test_neon_garden_quarter.gd', r'\[neon-garden-quarter\] \d+ checks, 0 failures'),
     'rowing-fit': ('tests/test_rowing_fit.gd', r'\[rowing-fit\] \d+ checks, 0 failures'),
     'visual-rowing-fit': ('tests/test_rowing_fit.gd', r'\[rowing-fit\] \d+ checks, 0 failures'),
     'visual-rowing-game': ('tools/capture_rowing_fit.gd', r'\[rowing-game\] \d+ checks, 0 failures'),

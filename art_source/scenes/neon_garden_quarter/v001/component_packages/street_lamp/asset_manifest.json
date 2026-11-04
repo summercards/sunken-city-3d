@@ -1,0 +1,38 @@
+{
+  "key": "street_lamp",
+  "name": "弯臂街灯",
+  "asset_id": "SEA-SCENE-NGQ-022",
+  "category": "fixtures",
+  "family": "lighting",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_22_弯臂街灯",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    0.7799423336982727,
+    1.389971137046814,
+    3.5
+  ],
+  "author_origin_shift": [
+    0.20000001788139343,
+    -0.5949855446815491,
+    0.0
+  ],
+  "mesh_objects": 3,
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/street_lamp/street_lamp.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/street_lamp/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "0f147f75e5ff76c197317fc88bcfb32a5246415f646115351df332fc24ee556e",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-022",
+  "geometry_fingerprint": "6d20ecc2dee3f8c5230dbd447ea037aa9675c64b470473c6f0157c205e864347",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

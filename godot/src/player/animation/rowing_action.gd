@@ -31,11 +31,17 @@ func pose_arm(arm: Node3D, elbow: Node3D, target: Vector3, side: int, length_sca
 	var offset := target-arm.position
 	var distance := maxf(offset.length(),0.0001)
 	var direction := offset/distance
-	var axis := Vector3(side*0.8,-1.0,-0.25)
+	var axis := Vector3(side*2.0,-0.2,1.0)
 	var bend := (axis-direction*axis.dot(direction)).normalized()
 	var along := clampf((distance*distance+upper*upper-lower*lower)/(2.0*distance),0.0,upper)
 	var joint := arm.position+direction*along+bend*sqrt(maxf(0.0,upper*upper-along*along))
 	elbow.position=Vector3(0,-upper,0)
 	elbow.get_node("Hand").position=Vector3(0,-lower,0)
-	arm.quaternion=Quaternion(Vector3.DOWN,(joint-arm.position).normalized())
-	elbow.quaternion=Quaternion(Vector3.DOWN,(arm.basis.inverse()*(target-joint)).normalized())
+	# Both segments share one hinge axis. Independent down-to-direction shortest
+	# arcs introduced an axial roll at the elbow even when the wrist hit its mark.
+	var hinge := direction.cross(bend).normalized()
+	var upper_y := -(joint-arm.position).normalized()
+	var lower_y := -(target-joint).normalized()
+	arm.basis=Basis(hinge,upper_y,hinge.cross(upper_y)).orthonormalized()
+	var forearm := Basis(hinge,lower_y,hinge.cross(lower_y)).orthonormalized()
+	elbow.basis=arm.basis.transposed()*forearm

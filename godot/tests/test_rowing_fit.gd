@@ -14,7 +14,7 @@ func check(ok: bool, label: String) -> void:
 	checks+=1
 	if not ok:
 		failures+=1
-		printerr("FAIL ",label)
+		if failures<=12: printerr("FAIL ",label)
 func bounds(node: Node3D, reference: Node3D) -> AABB:
 	var result := AABB()
 	var found := false
@@ -44,6 +44,11 @@ func inspect_contacts() -> void:
 	var min_blade := INF
 	var max_blade := -INF
 	var seat_penetrations := 0
+	var min_hand_forward := INF
+	var min_elbow_forward := INF
+	var max_elbow_twist := 0.0
+	var max_elbow_fold := 0.0
+	var max_hinge_step := 0.0
 	var boards: Array[AABB]=[]
 	for mi in boat.model.get_node("Parts/bench_020").find_children("*","MeshInstance3D",true,false):
 		var b: AABB=boat.model.global_transform.affine_inverse()*mi.global_transform*mi.mesh.get_aabb()
@@ -57,6 +62,7 @@ func inspect_contacts() -> void:
 		for fps in [30,60,120]:
 			for effort in [0.0,0.35,1.0]:
 				for turn in [-1.0,0.0,1.0]:
+					var previous_axes: Array[Vector3]=[]
 					for frame in 24:
 						var phase:=TAU*frame/24.0
 						boat.model.rotation=Vector3(0.035*sin(phase),0.018*cos(phase),0.075*sin(phase+0.2))
@@ -66,6 +72,31 @@ func inspect_contacts() -> void:
 						var gap: float=maxf(actor.left_elbow.get_node("Hand").global_position.distance_to(pose.left_grip),actor.right_elbow.get_node("Hand").global_position.distance_to(pose.right_grip))
 						worst_grip=maxf(worst_grip,gap)
 						check(gap<0.008,"both palms grip actual handles case=%d fps=%d effort=%.2f phase=%.2f gap=%.5f"%[profile_index,fps,effort,phase,gap])
+						var current_axes: Array[Vector3]=[]
+						for pair in [[actor.left_arm,actor.left_elbow],[actor.right_arm,actor.right_elbow]]:
+							var shoulder: Node3D=pair[0]
+							var elbow: Node3D=pair[1]
+							var palm: Vector3=actor.body_pivot.to_local(elbow.get_node("Hand").global_position)
+							var joint: Vector3=actor.body_pivot.to_local(elbow.global_position)
+							var front: float=palm.z-shoulder.position.z
+							var elbow_front: float=joint.z-shoulder.position.z
+							var twist: float=elbow.basis.x.distance_to(Vector3.RIGHT)
+							var upper: Vector3=(joint-shoulder.position).normalized()
+							var lower: Vector3=(palm-joint).normalized()
+							var fold:=rad_to_deg(acos(clampf(upper.dot(lower),-1.0,1.0)))
+							min_hand_forward=minf(min_hand_forward,front);min_elbow_forward=minf(min_elbow_forward,elbow_front)
+							max_elbow_twist=maxf(max_elbow_twist,twist);max_elbow_fold=maxf(max_elbow_fold,fold)
+							check(front>=0.04,"grip stays in front of shoulder, not behind body %.5f"%front)
+							check(upper.z>=-sin(deg_to_rad(35.0)),"upper arm stays within modest backward swing, not reaching behind torso %.2fdeg"%rad_to_deg(asin(clampf(-upper.z,-1.0,1.0))))
+							check(twist<0.001,"forearm bends on the same hinge without axial twist %.5f"%twist)
+							check(fold<140.0,"elbow is not overfolded %.2fdeg"%fold)
+							current_axes.append(shoulder.basis.x)
+						if previous_axes.size()==2:
+							for side_index in 2:
+								var step:=rad_to_deg(acos(clampf(previous_axes[side_index].dot(current_axes[side_index]),-1.0,1.0)))
+								max_hinge_step=maxf(max_hinge_step,step)
+								check(step<45.0,"hinge frame stays continuous across stroke %.2fdeg"%step)
+						previous_axes=current_axes
 						# Actual upper-trouser mesh underside, not a seat constant alone.
 						var pelvis: MeshInstance3D=actor.body_pivot.get_node("AvatarBody/Pelvis")
 						var low:=INF
@@ -87,8 +118,9 @@ func inspect_contacts() -> void:
 							var blade: Vector3=boat.model.to_local(boat.oar_blade_positions()[0])
 							min_blade=minf(min_blade,blade.y);max_blade=maxf(max_blade,blade.y)
 	check(min_blade<0.0 and max_blade>0.3,"shortened blades enter water and recover %.4f..%.4f"%[min_blade,max_blade])
-	evidence={"max_palm_gap_m":worst_grip,"max_pelvis_seat_gap_m":worst_seat,"leg_seat_penetrations":seat_penetrations,"blade_y_m":[min_blade,max_blade],"bench_top_m":bench.end.y,"profiles":cases.size(),"expected_faults":[],"unexecuted":["touch/gamepad","all appearance combinations"]}
+	evidence={"max_palm_gap_m":worst_grip,"max_pelvis_seat_gap_m":worst_seat,"leg_seat_penetrations":seat_penetrations,"blade_y_m":[min_blade,max_blade],"bench_top_m":bench.end.y,"profiles":cases.size(),"min_hand_forward_m":min_hand_forward,"min_elbow_forward_m":min_elbow_forward,"max_elbow_twist_basis_error":max_elbow_twist,"max_elbow_fold_deg":max_elbow_fold,"expected_faults":[],"unexecuted":["touch/gamepad","all appearance combinations"]}
 	print("[measure] ",JSON.stringify(evidence))
+	evidence.max_hinge_step_deg=max_hinge_step
 func lifecycle() -> void:
 	controller.cancel();actor._process(1.0/60.0)
 	check(actor._boat_seated and actor.animation_state()=="rowing","cancel/stop keeps the seated base pose")

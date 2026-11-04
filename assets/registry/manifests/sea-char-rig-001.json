@@ -41,5 +41,12 @@
   "self_verification": "closed/connected/manifold, weights, bone-only GPU deformation, 0-120deg, pose/render/profile regressions",
   "shoulder_contract": "art_source/characters/avatar/v006/shoulder_contract.json",
   "note": "2026-11-04新旅程美术/交互",
-  "rowing_contract": "docs/development/2026-11-04_rowing_seat_and_grips.md"
+  "rowing_contract": "docs/development/2026-11-04_rowing_arm_direction.md",
+  "rowing_pose_revision": {
+    "driver": "godot/src/player/animation/rowing_action.gd",
+    "driver_sha256": "11238f8d98a589b4bcf50fcf710f152b9f73676c9703e598bfacf8403cede8bd",
+    "contract": "SEA-MOVE-R19: continuous shared elbow hinge; no axial twist, no per-frame axis sign flip",
+    "verification": "D:/projects/sea-work/rowing-arms-20261104/verification.json",
+    "scope": "pose sampling only; limb mesh, skeleton rest, skin bindings and source hash unchanged"
+  }
 }

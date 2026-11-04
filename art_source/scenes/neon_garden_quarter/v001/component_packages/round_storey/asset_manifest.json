@@ -1,0 +1,37 @@
+{
+  "key": "round_storey",
+  "name": "右侧圆角酒楼标准层",
+  "asset_id": "SEA-SCENE-NGQ-004",
+  "category": "architecture",
+  "family": "storey",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_04_右侧圆角酒楼标准层",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    9.25,
+    18.450000762939453,
+    5.100000381469727
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 51,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/round_storey/round_storey.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/round_storey/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "1b575215e0c0d375b9135368556a02e7751d0cd02dab18af81c7bbf57bfb9ff1",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-004",
+  "geometry_fingerprint": "b6d55e4b22c369683344c736cb18d06e42984adebe5f4c2fc619ae6918d02179",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

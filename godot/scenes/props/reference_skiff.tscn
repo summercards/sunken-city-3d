@@ -37,11 +37,11 @@ position = Vector3(0, 0.6025, 0.32)
 
 [node name="OarL" type="Node3D" parent="."]
 
-position = Vector3(-1.10, 0.68, 0.36)
+position = Vector3(-1.10, 0.62, 0.55)
 
 [node name="OarR" type="Node3D" parent="."]
 
-position = Vector3(1.10, 0.68, 0.36)
+position = Vector3(1.10, 0.62, 0.55)
 
 [node name="hull_000" parent="Parts" instance=ExtResource("hull")]
 
@@ -261,25 +261,25 @@ instance_id = "boat/fender_035"
 
 [node name="OarLVisual" parent="OarL" instance=ExtResource("oar")]
 
-transform = Transform3D(-0.82, 0, 0, 0, 1, 0, 0, 0, -1, -0.300330, 0.019, 0)
+transform = Transform3D(-0.82, 0, 0, 0, 1, 0, 0, 0, -1, -0.210330, 0.019, 0)
 
 instance_id = "boat/OarLVisual"
 
 [node name="OarRVisual" parent="OarR" instance=ExtResource("oar")]
 
-transform = Transform3D(0.82, 0, 0, 0, 1, 0, 0, 0, 1, 0.300330, 0.019, 0)
+transform = Transform3D(0.82, 0, 0, 0, 1, 0, 0, 0, 1, 0.210330, 0.019, 0)
 
 instance_id = "boat/OarRVisual"
 
 [node name="oarlock_038" parent="Parts" instance=ExtResource("oarlock")]
 
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0.66, 0.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0.60, 0.55)
 
 instance_id = "boat/oarlock_038"
 
 [node name="oarlock_039" parent="Parts" instance=ExtResource("oarlock")]
 
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0.66, 0.36)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0.60, 0.55)
 
 instance_id = "boat/oarlock_039"
 

@@ -1,0 +1,38 @@
+{
+  "key": "tavern_sign",
+  "name": "海道酒场厚字招牌",
+  "asset_id": "SEA-SCENE-NGQ-028",
+  "category": "signage",
+  "family": "shop_identity",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 65000,
+  "collection": "NGQ_28_海道酒场厚字招牌",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    2.5,
+    0.7372269630432129,
+    10.800000190734863
+  ],
+  "author_origin_shift": [
+    0.0,
+    1.4901161193847656e-08,
+    0.0
+  ],
+  "mesh_objects": 5,
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v002/component_packages/tavern_sign/tavern_sign.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v002/component_packages/tavern_sign/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "1c1247168c3f4fce2685417020973c45e1df10d6e0a74c72ccc2fd128e7b3551",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-028",
+  "geometry_fingerprint": "87abc6cbd09c3dd950caae79c0600e3690199c3957a1e9a7191092e1c23d50cb",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\source_verification.json"
+}

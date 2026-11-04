@@ -1,0 +1,17 @@
+{
+  "model": "gpt-image-2",
+  "protocol": "OpenAI Images edits via installed sofunny-image CLI",
+  "input": "reference/user_reference.png",
+  "reference_sha256": "33781c986197fa7191b16fdeacbaed76f78a3a45dc41068909b60aabc160e231",
+  "prompt_file": "textures/image2_prompt.txt",
+  "prompt_sha256": "801a85e3ce10532db8ce1314cf72b23a93ccb3770e440b46fc00182af8530d14",
+  "output": "textures/poster_atlas.png",
+  "output_sha256": "070416ffca0657b3faf43bea5b5950818b060dbe7d35804828dc5cc578c0893e",
+  "size": [
+    2048,
+    2048
+  ],
+  "quality": "high",
+  "layout": "4 columns x 2 rows",
+  "human_portraits": "printed artwork only; no character geometry"
+}

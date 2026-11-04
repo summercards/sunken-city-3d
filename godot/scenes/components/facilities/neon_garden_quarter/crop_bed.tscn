@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/neon_garden_quarter/crop_bed/crop_bed.glb" id="visual"]
+
+[node name="crop_bed" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-035"
+metadata/asset_version = "v003"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

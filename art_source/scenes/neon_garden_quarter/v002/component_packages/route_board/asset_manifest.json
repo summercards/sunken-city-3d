@@ -1,0 +1,37 @@
+{
+  "key": "route_board",
+  "name": "钏路方形路牌",
+  "asset_id": "SEA-SCENE-NGQ-030",
+  "category": "signage",
+  "family": "wayfinding",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_30_钏路方形路牌",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    2.1600000858306885,
+    0.3700000047683716,
+    3.2847957611083984
+  ],
+  "author_origin_shift": [
+    0.0,
+    -0.05500000715255737,
+    -0.07999999821186066
+  ],
+  "mesh_objects": 6,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v002/component_packages/route_board/route_board.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v002/component_packages/route_board/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "18b181469f1ac5b48485d63d04d29f2a10beeeba14ad2b0a3227bb526506e84a",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-030",
+  "geometry_fingerprint": "e045bc5c22a4d3b032e5e3ac5e9fb6fec2a347de9cd774f37fa1a32c56745a5c",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\source_verification.json"
+}

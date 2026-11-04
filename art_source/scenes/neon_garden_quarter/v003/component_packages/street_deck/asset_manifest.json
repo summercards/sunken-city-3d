@@ -1,0 +1,37 @@
+{
+  "key": "street_deck",
+  "name": "连续街巷平台",
+  "asset_id": "SEA-SCENE-NGQ-001",
+  "category": "architecture",
+  "family": "platform",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_01_连续街巷平台",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    30.0,
+    29.0,
+    0.21249999105930328
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 8,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_deck/street_deck.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/street_deck/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-001",
+  "source_sha256": "13881e6058e4f8712db9d514edab0d45a632631a78cb29179c983ded314964c8",
+  "geometry_fingerprint": "b3a532d1c0b2ec640bf5ed78d5855b09b0879abad7b9318f5d4b827138d5f050",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+}

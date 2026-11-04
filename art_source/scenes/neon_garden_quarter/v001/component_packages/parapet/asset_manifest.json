@@ -1,0 +1,37 @@
+{
+  "key": "parapet",
+  "name": "完整圆角女儿墙",
+  "asset_id": "SEA-SCENE-NGQ-006",
+  "category": "architecture",
+  "family": "parapet",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_06_完整圆角女儿墙",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    3.1500000953674316,
+    0.5,
+    1.25
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/parapet/parapet.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/parapet/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "648df649d2f18f8e03aa3fdfb43f7685094f38dd6b25716f1ec3b1a27f4a3731",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-006",
+  "geometry_fingerprint": "060adfbfe6fc3d78339c62a927cb8e6ad176759782ee5e9e38cb1806552a3bd6",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

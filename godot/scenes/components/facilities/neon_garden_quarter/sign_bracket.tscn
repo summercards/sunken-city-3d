@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/neon_garden_quarter/sign_bracket/sign_bracket.glb" id="visual"]
+
+[node name="sign_bracket" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-052"
+metadata/asset_version = "v003"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

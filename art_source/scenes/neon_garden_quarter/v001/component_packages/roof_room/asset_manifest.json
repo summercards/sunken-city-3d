@@ -1,0 +1,37 @@
+{
+  "key": "roof_room",
+  "name": "完整屋顶楼梯间",
+  "asset_id": "SEA-SCENE-NGQ-005",
+  "category": "architecture",
+  "family": "rooftop",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_05_完整屋顶楼梯间",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    4.099999904632568,
+    3.7750000953674316,
+    3.320000171661377
+  ],
+  "author_origin_shift": [
+    0.0,
+    -0.03750002384185791,
+    0.0
+  ],
+  "mesh_objects": 4,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/roof_room/roof_room.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/roof_room/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "331692747182cab3eb7fb4da5e982bf690021224f3ffe793863d289e02b31834",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-005",
+  "geometry_fingerprint": "a7640a441dff78d5b1133cc89f03fed4f929ed772b82a3756e59975459c45079",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

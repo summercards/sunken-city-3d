@@ -1,0 +1,117 @@
+{
+  "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
+  "name": "霓虹花园街区-完整水上建筑群",
+  "domain": "scenes",
+  "suite": "neon_garden_quarter",
+  "scope": "scene_local",
+  "category": "building_assembly",
+  "classification": {
+    "category": "building",
+    "subcategory": "structure"
+  },
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "source": "art_source/scenes/neon_garden_quarter/v001/neon_garden_quarter.blend",
+  "source_sha256": "80740cab18db996054c32abe7c54c3c3c4415bfda882190bad1086b7281f0507",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/asset_manifest.json",
+  "version": "v001",
+  "stage": "source_verified_runtime_integration_pending",
+  "license": "pending_user_supplied_reference",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "component_count": 46,
+  "instance_count": 639,
+  "polygons": 521764,
+  "triangles": 1011102,
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "verification": [
+    "docs/development/2026-11-04_neon_garden_quarter.md",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\skill_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\visual_review.json"
+  ],
+  "collision": "runtime_pending",
+  "navigation": "runtime_pending",
+  "runtime_path": null,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-ASSEMBLY",
+  "component_plan": "component_plan.json",
+  "catalog": "component_catalog.json",
+  "instances": "component_instances.json",
+  "branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "poster_exception": {
+    "reason": "user explicitly requires image-2 recreation of poster paintings",
+    "roles": [
+      "SEA_Matte",
+      "SEA_Metal",
+      "SEA_Gloss",
+      "SEA_Emission"
+    ],
+    "poster_uv": "PosterUV used only by designated printed surfaces; PaletteUV remains active and valid",
+    "poster_mask": "named mesh float attribute PosterMask",
+    "atlas": "textures/poster_atlas.png"
+  },
+  "source_bounds": {
+    "polygons": 521764,
+    "triangles": 1011102,
+    "visible_instances": 639,
+    "bounds_min": [
+      -17.5,
+      -11.5,
+      0.10000000149011612
+    ],
+    "bounds_max": [
+      15.5,
+      18.42500114440918,
+      39.52000045776367
+    ]
+  },
+  "reference_sha256": "33781c986197fa7191b16fdeacbaed76f78a3a45dc41068909b60aabc160e231",
+  "spatial_intent": {
+    "central_street_clear_strip": {
+      "x": [
+        -2.5,
+        2.5
+      ],
+      "y": [
+        -10,
+        9.2
+      ],
+      "surface_z": 0.3
+    },
+    "deck_top_z": 0.3,
+    "landing_intent": [
+      0,
+      -10.8,
+      0.3
+    ],
+    "boat_approach_intent": [
+      0,
+      -14,
+      0
+    ],
+    "status": "Blender source layout only; real capsule, landing, blocking and gameplay unverified"
+  },
+  "completion": {
+    "back_and_side_facades": true,
+    "roof_services": true,
+    "plants_separate": true,
+    "no_water": true,
+    "no_human_or_animal_meshes": true
+  },
+  "pending": [
+    "Godot integration",
+    "runtime capsule and boat clearance",
+    "collision/navigation/shoreline",
+    "performance optimization",
+    "reference commercial rights",
+    "user final art acceptance"
+  ]
+}

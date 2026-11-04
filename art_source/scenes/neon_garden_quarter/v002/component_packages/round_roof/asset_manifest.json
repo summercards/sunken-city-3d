@@ -1,0 +1,37 @@
+{
+  "key": "round_roof",
+  "name": "同轮廓弧形楼顶",
+  "asset_id": "SEA-SCENE-NGQ-048",
+  "category": "architecture",
+  "family": "round_roof",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 55000,
+  "collection": "NGQ_48_同轮廓弧形楼顶",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    9.118854522705078,
+    18.118854522705078,
+    1.4199999570846558
+  ],
+  "author_origin_shift": [
+    -0.05942726135253906,
+    -0.05942726135253906,
+    0.0
+  ],
+  "mesh_objects": 7,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v002/component_packages/round_roof/round_roof.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v002/component_packages/round_roof/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "97085f418064c83db1000f43d6a3d9d3e1abc335de9c857b3cda04ef9980a397",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-048",
+  "geometry_fingerprint": "f43e8931174fc597cd8000362ac6888794dc9e79c9573871e22b6014be76bf98",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\source_verification.json"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "round_balcony",
+  "name": "屋顶圆弧阳台",
+  "asset_id": "SEA-SCENE-NGQ-017",
+  "category": "architecture",
+  "family": "balcony",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_17_屋顶圆弧阳台",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    3.048429489135742,
+    3.048429489135742,
+    1.2999999523162842
+  ],
+  "author_origin_shift": [
+    -1.524214744567871,
+    -1.524214744567871,
+    0.0
+  ],
+  "mesh_objects": 2,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/round_balcony/round_balcony.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/round_balcony/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "6fd1e8e38f2ff38325ff0ea9bf86b2108e04dd0e80f2d87d8c923725cdd5434d",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-017",
+  "geometry_fingerprint": "a54c40bcfd6e0587bf2cae8946ff7dfa5cebd1312ef74d9caccc9affe27d0d23",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

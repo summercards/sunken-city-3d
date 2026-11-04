@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/neon_garden_quarter/charcoal_sign/charcoal_sign.glb" id="visual"]
+
+[node name="charcoal_sign" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-027"
+metadata/asset_version = "v003"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

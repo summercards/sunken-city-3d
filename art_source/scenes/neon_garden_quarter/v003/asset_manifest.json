@@ -1,0 +1,156 @@
+{
+  "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
+  "name": "霓虹花园街区·水上建筑群结构修订",
+  "category": "building_assembly",
+  "source": "art_source/scenes/neon_garden_quarter/v003/neon_garden_quarter.blend",
+  "source_sha256": "21ed2babec3228569f61b120e2528a55ec7150ae0711a4daa0077e0a08d855a2",
+  "manifest": "art_source/scenes/neon_garden_quarter/v003/asset_manifest.json",
+  "component_count": 50,
+  "instance_count": 506,
+  "polygons": 470998,
+  "triangles": 913660,
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "poster_asset_id": "SEA-SCENE-NGQ-POSTER-ATLAS",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "domain": "scenes",
+  "suite": "neon_garden_quarter",
+  "scope": "scene_local",
+  "version": "v003",
+  "stage": "runtime_component_verified_provenance_pending",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "license": "pending_user_supplied_reference",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "verification": [
+    "docs/development/2026-11-05_neon_garden_quarter_v003.md",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\structure_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\skill_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\visual_review.json",
+    "D:\\projects\\sea-work\\verification\\20261105-022415-ngq-v003-7c90c2\\report.json"
+  ],
+  "runtime_path": "godot/scenes/facilities/neon_garden_quarter.tscn",
+  "collision": "boat_blockers_from_foundation",
+  "navigation": "open_water_route_verified",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/neon_garden_quarter/v001/neon_garden_quarter.blend",
+      "source_sha256": "80740cab18db996054c32abe7c54c3c3c4415bfda882190bad1086b7281f0507",
+      "manifest": "art_source/scenes/neon_garden_quarter/v001/asset_manifest.json",
+      "version": "v001"
+    },
+    {
+      "source": "art_source/scenes/neon_garden_quarter/v002/neon_garden_quarter.blend",
+      "source_sha256": "96d8a72ab7fe77d26736bae0e439e9e6aaef4213c8af62c71961d7c878daeec2",
+      "manifest": "art_source/scenes/neon_garden_quarter/v002/asset_manifest.json",
+      "version": "v002"
+    }
+  ],
+  "runtime_sha256": "a0d27e5b29059e9d40e11e7899f2fa66a475970df4aea73be85d70f8b7b994c3",
+  "export_manifest": "art_source/scenes/neon_garden_quarter/v003/export/v003/export_manifest.json",
+  "world_anchor": [
+    156.149682,
+    1.12,
+    2.473711
+  ],
+  "landing": "street_landing_verified",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-ASSEMBLY",
+  "component_plan": "component_plan.json",
+  "catalog": "component_catalog.json",
+  "instances": "component_instances.json",
+  "sign_mounts": "mounting_manifest.json",
+  "revision_contract": {
+    "bridge": {
+      "span_x": [
+        -4.8,
+        16.8
+      ],
+      "right_shift_m": 12,
+      "depth_y": [
+        -4.2,
+        4.2
+      ],
+      "eaves_z": 26.0,
+      "ridge_y": -0.3,
+      "ridge_z": 28.45,
+      "roof_depth_y": [
+        -4.2,
+        1.8
+      ],
+      "bridge_floor_z": 25.8,
+      "unroofed_rear_passage_y": [
+        1.8,
+        4.2
+      ]
+    },
+    "right_building": {
+      "center_xy": [
+        8,
+        1
+      ],
+      "radius_m": 4.0,
+      "arc_center_local": [
+        -0.5,
+        -5
+      ],
+      "footprint_m": [
+        9,
+        18
+      ],
+      "storeys": 7,
+      "one_continuous_rounded_footprint": true,
+      "no_applied_arc_window_or_balcony": true
+    },
+    "damage": "actual removed wall / beam / slab volumes, sparse large debris; bent broken signs, fallen extinguished lanterns",
+    "ground": "building-shaped foundations and split street paving, no intact rectangular exhibition plinth",
+    "signage": "host / mounting socket and bracket for every suspended sign; local full Euler tilt retained",
+    "right_shift_m": 12,
+    "reference_spacing_sha256": "2a86c955067960a4decf4e1ec303147c2fd5ccdc264289fd8abc78949975d344",
+    "runtime": {
+      "offset_east_m": 150,
+      "reference": "sunroom body frozen XZ center",
+      "foundation_world_y": 1.12
+    }
+  },
+  "branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "reference_sha256": "51b201a285ce0d8ca815fae6f648d9b89df88609a34a0182baf3cc183a2fa112",
+  "poster_exception": {
+    "reason": "user explicitly requires image-2 recreation of poster paintings",
+    "roles": [
+      "SEA_Matte",
+      "SEA_Metal",
+      "SEA_Gloss",
+      "SEA_Emission"
+    ],
+    "poster_uv": "PosterUV used only by designated printed surfaces; PaletteUV remains active and valid",
+    "poster_mask": "named mesh float attribute PosterMask",
+    "atlas": "../v001/textures/poster_atlas.png"
+  },
+  "source_bounds": {
+    "polygons": 470998,
+    "triangles": 913660,
+    "visible_instances": 506,
+    "bounds_min": [
+      -17.0,
+      -11.60073184967041,
+      0.10000000149011612
+    ],
+    "bounds_max": [
+      24.931005477905273,
+      18.42500114440918,
+      39.52000045776367
+    ]
+  },
+  "pending": [
+    "upper floors and roof gameplay access",
+    "reference commercial rights"
+  ]
+}

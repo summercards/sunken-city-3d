@@ -269,12 +269,12 @@
     },
     {
       "path": "godot/assets/data/zones.json",
-      "bytes": 9200,
-      "sha256": "41b7f328e93d37825806369caa3147c2faf5247ba6b2e5f0dbf5f6ad464e3588",
+      "bytes": 10510,
+      "sha256": "08e4d82328fab30a0bb6421917c53aeb5d4f8d93e675bdeaa5a2c4bfea14204e",
       "asset_id": null,
       "status": "legacy_runtime_path_recorded_asset_registration_pending",
-      "previous_sha256": "f173b94db29c11e27d34d427d313bd1cbd93c40fbf0ef479c09a21f6da5c8b0b",
-      "note": "区块身份表新增 sea_supply（海上补给站）；walk/landings 由场景绑定运行时回填，不在此复制地面数据"
+      "previous_sha256": "41b7f328e93d37825806369caa3147c2faf5247ba6b2e5f0dbf5f6ad464e3588",
+      "note": "区块身份表追加已核对的 R17 顶层牧场及 R18 霓虹花园街区，行走面与泊位由场景回填。"
     },
     {
       "path": "godot/assets/fonts/NotoSansSC-Regular.otf",
@@ -1054,6 +1054,706 @@
       "sha256": "fd88ce36e4ee0ce3da44bd1076d2fc379c3478c13b837dea3649b7f5db855192",
       "asset_id": "SEA-REF-FACILITY-SALVAGE-STATION",
       "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/aircon/aircon.glb",
+      "bytes": 175768,
+      "sha256": "0cf8905d477d8444c9882c79aaf6675ffa74badcbaa2b9c23c429828f6f84bbe",
+      "asset_id": "SEA-SCENE-NGQ-019",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/aircon/aircon.glb.import",
+      "bytes": 1228,
+      "sha256": "69a9326b56cc1e6805d0bca23b0f1aceb1542c375bee9fd5b5432f470cb30f50",
+      "asset_id": "SEA-SCENE-NGQ-019",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/back_storey/back_storey.glb",
+      "bytes": 695628,
+      "sha256": "a88a5e50acd05208fd834de87f233948a8053228375fccb10f290c1e75c4968c",
+      "asset_id": "SEA-SCENE-NGQ-003",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/back_storey/back_storey.glb.import",
+      "bytes": 1248,
+      "sha256": "20106ea3e6685a323593838e6da2a16e9fa84f604a6098f9e123ee1b81c58d97",
+      "asset_id": "SEA-SCENE-NGQ-003",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/bar_poster/bar_poster.glb",
+      "bytes": 106524,
+      "sha256": "5027f71c03873e1b6e4ca62f182add8d70c5f857ec7a0c8c7041965ed45006ec",
+      "asset_id": "SEA-SCENE-NGQ-024",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/bar_poster/bar_poster.glb.import",
+      "bytes": 1244,
+      "sha256": "c1be2ce2278ed31631bff07a9c13c65e41301b300ce3bc2dcf937683e79c8935",
+      "asset_id": "SEA-SCENE-NGQ-024",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/broadleaf/broadleaf.glb",
+      "bytes": 126268,
+      "sha256": "1b88b07d05f8cc441bc179728b37526c99c556e73d61883530e06192302281ec",
+      "asset_id": "SEA-SCENE-NGQ-040",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/broadleaf/broadleaf.glb.import",
+      "bytes": 1239,
+      "sha256": "9554a1e91829b2626d267c157ccb0b0be1786600a0c320e0cb4978cac217f4c2",
+      "asset_id": "SEA-SCENE-NGQ-040",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/broken_parapet/broken_parapet.glb",
+      "bytes": 60096,
+      "sha256": "323b5590337b9e2b06e3f25e9c9ea111da4eecc0df7ff7f6f9c9a2797f2b6f14",
+      "asset_id": "SEA-SCENE-NGQ-007",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/broken_parapet/broken_parapet.glb.import",
+      "bytes": 1259,
+      "sha256": "02c9e6a5adfc6a89b21525332070f2609e14b664a7eed16c2ce75fc3349bf8b9",
+      "asset_id": "SEA-SCENE-NGQ-007",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/cabbage/cabbage.glb",
+      "bytes": 128248,
+      "sha256": "abb6b2cfafc2bf4b3be453077d99c65ba7513dd94d41379f8f516cb5e4d77dae",
+      "asset_id": "SEA-SCENE-NGQ-037",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/cabbage/cabbage.glb.import",
+      "bytes": 1232,
+      "sha256": "ea16e85babb1a20bf099def560e5962501e4989907ac8a198924104d038f3d2c",
+      "asset_id": "SEA-SCENE-NGQ-037",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/charcoal_sign/charcoal_sign.glb",
+      "bytes": 862340,
+      "sha256": "37b4e0b91d0c9451dad9f7a3147c343313a4f852fd927495eec8ce0b54b4ff5e",
+      "asset_id": "SEA-SCENE-NGQ-027",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/charcoal_sign/charcoal_sign.glb.import",
+      "bytes": 1256,
+      "sha256": "8cd804c6a13a35f83f8474e99a3e2bf146823ef7443b54e1e59eb43c72360a23",
+      "asset_id": "SEA-SCENE-NGQ-027",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/crop_bed/crop_bed.glb",
+      "bytes": 99696,
+      "sha256": "c1a92c9e47bdb9d1f0a64796cb75287cb51b9a1450f571c65b0d2bff6142ced1",
+      "asset_id": "SEA-SCENE-NGQ-035",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/crop_bed/crop_bed.glb.import",
+      "bytes": 1236,
+      "sha256": "fe8e05491f71c3becb6dfae250c45c63164595360d20b238550a226a50e2f684",
+      "asset_id": "SEA-SCENE-NGQ-035",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/double_door/double_door.glb",
+      "bytes": 139972,
+      "sha256": "ec2fa220a955737542b42dcfb58c8dc5e7e6e62b378bfb772d45ea6244ac6946",
+      "asset_id": "SEA-SCENE-NGQ-013",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/double_door/double_door.glb.import",
+      "bytes": 1247,
+      "sha256": "2dce1653b1ac46282c29fdb51afd468d86243378f5d62b7a06c8ba20f85f5274",
+      "asset_id": "SEA-SCENE-NGQ-013",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/drainpipe/drainpipe.glb",
+      "bytes": 46268,
+      "sha256": "84e5353b977828027e817a0a1a0998f153c6e697cb82e10e2875ae30f4634cfa",
+      "asset_id": "SEA-SCENE-NGQ-021",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/drainpipe/drainpipe.glb.import",
+      "bytes": 1239,
+      "sha256": "7ef45724d6c7365884a1990fde8e736993a47ae265d71d0c4e525e3b7943df32",
+      "asset_id": "SEA-SCENE-NGQ-021",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/drink_poster/drink_poster.glb",
+      "bytes": 106148,
+      "sha256": "2fea0676e914b0797595533d4760945977d2af20aa4753835b3cee26870a5628",
+      "asset_id": "SEA-SCENE-NGQ-026",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/drink_poster/drink_poster.glb.import",
+      "bytes": 1251,
+      "sha256": "ec80b94f39d10ba3be35cc49f898d5e4b75ed7542d73da1c69c773277b67f2e4",
+      "asset_id": "SEA-SCENE-NGQ-026",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/flowers/flowers.glb",
+      "bytes": 397068,
+      "sha256": "58ce4b8d8a63d418dab8535e000a100d8d37187ab56f43c1aace954a8e2d4ad9",
+      "asset_id": "SEA-SCENE-NGQ-043",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/flowers/flowers.glb.import",
+      "bytes": 1231,
+      "sha256": "0c8efa0d9d1e09f4c94bd4b2c8645d8f7ded2d6a4b1be4dfe143cb9f454b7493",
+      "asset_id": "SEA-SCENE-NGQ-043",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/fractured_ground/fractured_ground.glb",
+      "bytes": 469296,
+      "sha256": "f1b0620505a10be8a4d7a9162911559d1332009aa844462058d1768644b6e79c",
+      "asset_id": "SEA-SCENE-NGQ-053",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/fractured_ground/fractured_ground.glb.import",
+      "bytes": 1268,
+      "sha256": "73b08c33c83f0ac1071497b04df78bf9ceaf35f357045476ad2c9f589406ac79",
+      "asset_id": "SEA-SCENE-NGQ-053",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/garden_bridge/garden_bridge.glb",
+      "bytes": 199200,
+      "sha256": "7ee5735ed68e8fbb0af51a3f08f1f53c76714ed37717ef3d7c4833856df83ea9",
+      "asset_id": "SEA-SCENE-NGQ-047",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/garden_bridge/garden_bridge.glb.import",
+      "bytes": 1256,
+      "sha256": "fbf21fd0272750cd270f12d4e7e230f728174f673c3c033abbff1a7ece49dbd4",
+      "asset_id": "SEA-SCENE-NGQ-047",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/grass/grass.glb",
+      "bytes": 126280,
+      "sha256": "4f7a4c3cf5a733ae814bae9625b3d00f67e573635c9b0fa37dd8ec55a300ae89",
+      "asset_id": "SEA-SCENE-NGQ-044",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/grass/grass.glb.import",
+      "bytes": 1223,
+      "sha256": "1570ede426f62e55694c9b3f2faa817db7ac896cbc00c8504c5e91d61d93e9cb",
+      "asset_id": "SEA-SCENE-NGQ-044",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/guardrail/guardrail.glb",
+      "bytes": 99676,
+      "sha256": "fd6cd6fb2452b280aff543a70e5a1b9b0bcccd671ad182976c9077903c72fdd7",
+      "asset_id": "SEA-SCENE-NGQ-012",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/guardrail/guardrail.glb.import",
+      "bytes": 1240,
+      "sha256": "22b43f533cdf0fd36694c1aaad5ee2267e21a4dd16eb6d2eca2c0309060a4918",
+      "asset_id": "SEA-SCENE-NGQ-012",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/hanging_bush/hanging_bush.glb",
+      "bytes": 209508,
+      "sha256": "a3f7261e799b653eaed7baa85c7ae647f5c65c43c92af52a03f297ff1270a99f",
+      "asset_id": "SEA-SCENE-NGQ-042",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/hanging_bush/hanging_bush.glb.import",
+      "bytes": 1252,
+      "sha256": "d52c84abfb13cd7bbf18a05e8175698990dc35396a483fa6f1434f73a4f0f049",
+      "asset_id": "SEA-SCENE-NGQ-042",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/herb/herb.glb",
+      "bytes": 98532,
+      "sha256": "c4c5cd8b4d8c93719572632d431d460c90e9c7190dfc24e7b934e689c8ee923f",
+      "asset_id": "SEA-SCENE-NGQ-039",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/herb/herb.glb.import",
+      "bytes": 1220,
+      "sha256": "fe6bb29d9b8c838ce67d557c15a5a21462fdd27f5bb0bdcc27f8acb2c57bf76d",
+      "asset_id": "SEA-SCENE-NGQ-039",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/lantern/lantern.glb",
+      "bytes": 59852,
+      "sha256": "ed0139a353c13873cdc8df8df7b9bbbdb368fb4e82596ca6b69b313c1a9d0a7c",
+      "asset_id": "SEA-SCENE-NGQ-023",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/lantern/lantern.glb.import",
+      "bytes": 1232,
+      "sha256": "b01800db17c30e0c18a79002b35c852198d47d2fb6fa603fae4569313ca1ac04",
+      "asset_id": "SEA-SCENE-NGQ-023",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/left_damaged/left_damaged.glb",
+      "bytes": 1062092,
+      "sha256": "bc0c59e8365c77efd3071a5b7b3889986251c6e0c3a5c8a4d78c84fc677e7ff0",
+      "asset_id": "SEA-SCENE-NGQ-051",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/left_damaged/left_damaged.glb.import",
+      "bytes": 1251,
+      "sha256": "46092cf5e3a0e3bf37070cbdd492066258473e577e5cd7853a90584b84d7cce3",
+      "asset_id": "SEA-SCENE-NGQ-051",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/left_storey/left_storey.glb",
+      "bytes": 1053172,
+      "sha256": "d25b08c34f36fa220b65cebc36ff2453421d9b625c43fe77c68a43485737bd19",
+      "asset_id": "SEA-SCENE-NGQ-002",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/left_storey/left_storey.glb.import",
+      "bytes": 1247,
+      "sha256": "7b8295580d46db8cdcd35cb72bb9c553cee73cb72ae5cd37a673fe73e81882a8",
+      "asset_id": "SEA-SCENE-NGQ-002",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/menu_board/menu_board.glb",
+      "bytes": 105720,
+      "sha256": "7b97f77c9f37fe2efbc6385f8a5f710a79f54f3467b96691483b58aa2dae2c9d",
+      "asset_id": "SEA-SCENE-NGQ-031",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/menu_board/menu_board.glb.import",
+      "bytes": 1244,
+      "sha256": "da3fd6be522a4622970418bdac620fe0b58673b2d353f8f4a9de2402d4963b62",
+      "asset_id": "SEA-SCENE-NGQ-031",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/parapet/parapet.glb",
+      "bytes": 40500,
+      "sha256": "b715849b5ded3fb3877fa65e9cc3ec450452923a90c9c1067c8d45fb73f250db",
+      "asset_id": "SEA-SCENE-NGQ-006",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/parapet/parapet.glb.import",
+      "bytes": 1232,
+      "sha256": "260f7e7ae517d4ee01e2cccfa8f03abe33465d8bd5b1a40c80e44f4a0a8a3fb4",
+      "asset_id": "SEA-SCENE-NGQ-006",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/planter/planter.glb",
+      "bytes": 40496,
+      "sha256": "ec9bcb8238c045965c1645fc386c6f4ada697884e0aba7251c6e42b88e9b2d60",
+      "asset_id": "SEA-SCENE-NGQ-036",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/planter/planter.glb.import",
+      "bytes": 1232,
+      "sha256": "3f75aba661ad496b954f305999b570417f9eac31b3de4865fa894e6b3e59a252",
+      "asset_id": "SEA-SCENE-NGQ-036",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/portrait_poster/portrait_poster.glb",
+      "bytes": 106100,
+      "sha256": "2aad8e8b60e8f15247b2d06dc99f74561625ef00930884ee57a52f190b5502e2",
+      "asset_id": "SEA-SCENE-NGQ-025",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/portrait_poster/portrait_poster.glb.import",
+      "bytes": 1263,
+      "sha256": "fad5d8d011c956bdebbf14081618e5d35f9bdb3b54b5be308624a06061b4ceaf",
+      "asset_id": "SEA-SCENE-NGQ-025",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/restaurant_neon/restaurant_neon.glb",
+      "bytes": 181160,
+      "sha256": "e7052b9513e514c7086c936eed7c33bfdf0ac78ee843cf94496ed9d739e469fc",
+      "asset_id": "SEA-SCENE-NGQ-029",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/restaurant_neon/restaurant_neon.glb.import",
+      "bytes": 1264,
+      "sha256": "4e79c46076a701534231655266fb04f39360621cf1ed06c9d624784aea4e622b",
+      "asset_id": "SEA-SCENE-NGQ-029",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/roof_room/roof_room.glb",
+      "bytes": 79964,
+      "sha256": "aa0f65750762d127293379bae251516d095f38b3319be847bf68703be1241257",
+      "asset_id": "SEA-SCENE-NGQ-005",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/roof_room/roof_room.glb.import",
+      "bytes": 1240,
+      "sha256": "6b14decc62414b5560c39fb79396da7a4a128152fd299c11062d70217daa8df5",
+      "asset_id": "SEA-SCENE-NGQ-005",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/roof_soil/roof_soil.glb",
+      "bytes": 177692,
+      "sha256": "12946c1238a0640bc890738c09baa0aa9a558c31e9145293a4176dfb1da0ee6b",
+      "asset_id": "SEA-SCENE-NGQ-045",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/roof_soil/roof_soil.glb.import",
+      "bytes": 1240,
+      "sha256": "6dedc792314798d8a49012af43ab5b1d19b2b4bb103cd1d62e49018a1ca0cf37",
+      "asset_id": "SEA-SCENE-NGQ-045",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_damaged/round_damaged.glb",
+      "bytes": 3282016,
+      "sha256": "1e59e8b3e0f9583e5328fe08bcf1cfa5b983aea2ca6d1eac0e9dd4b295afeffd",
+      "asset_id": "SEA-SCENE-NGQ-049",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_damaged/round_damaged.glb.import",
+      "bytes": 1255,
+      "sha256": "cf30e3abe0ee556f84cbe8aab1de5ef192180d65ec7a359a69110df3163fcb25",
+      "asset_id": "SEA-SCENE-NGQ-049",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_roof/round_roof.glb",
+      "bytes": 328676,
+      "sha256": "36d83fbecbf4e8335d3106ac8792630d7f7e7afba121943aa7e601ee008050ae",
+      "asset_id": "SEA-SCENE-NGQ-048",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_roof/round_roof.glb.import",
+      "bytes": 1243,
+      "sha256": "6cfd97f02ff746575688fd81c3919f6a532981d534d0e4adf82a0141c52bdea6",
+      "asset_id": "SEA-SCENE-NGQ-048",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_ruin/round_ruin.glb",
+      "bytes": 2893752,
+      "sha256": "00c4d99342f1419cc9fe80139fcc0c2641123f5af80f756f5d291fbc2084e883",
+      "asset_id": "SEA-SCENE-NGQ-050",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_ruin/round_ruin.glb.import",
+      "bytes": 1244,
+      "sha256": "c083f0e16efe8ef5940c2abb8bdccf8b973d891ba7e107c9efc336847f007823",
+      "asset_id": "SEA-SCENE-NGQ-050",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_sign/round_sign.glb",
+      "bytes": 14264,
+      "sha256": "e9d7cedc68d0c5f2dffa86ce1875b6a1508c42c4009c48957d57bff28ba6bb52",
+      "asset_id": "SEA-SCENE-NGQ-032",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_sign/round_sign.glb.import",
+      "bytes": 1244,
+      "sha256": "b7add86448b23cfede5657fc46d707e2af3851fe3f21262a3ca53230c629f865",
+      "asset_id": "SEA-SCENE-NGQ-032",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_storey/round_storey.glb",
+      "bytes": 3569872,
+      "sha256": "20bf7695e8ab1f1d78de0302b3729f826432b0b9559f816f0771dc9c924d7260",
+      "asset_id": "SEA-SCENE-NGQ-004",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/round_storey/round_storey.glb.import",
+      "bytes": 1252,
+      "sha256": "82654f238dbb24aca4927af58cbe2a82f92c7b630543ff2453d28a4d1db00724",
+      "asset_id": "SEA-SCENE-NGQ-004",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/route_board/route_board.glb",
+      "bytes": 106264,
+      "sha256": "57f7d7efe3e8d187fd2bbdabed63942074f4e6d974d8a8b24675200554e319a2",
+      "asset_id": "SEA-SCENE-NGQ-030",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/route_board/route_board.glb.import",
+      "bytes": 1248,
+      "sha256": "e53a7fb8fd2fa21d2ba59c942df77954deba342248428bd1276268833939a42b",
+      "asset_id": "SEA-SCENE-NGQ-030",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/rubble/rubble.glb",
+      "bytes": 45832,
+      "sha256": "1bae7e25ca904ff35c1dd531c5febeafb73a45fbcbc362b3eda2c7d6496fd97d",
+      "asset_id": "SEA-SCENE-NGQ-008",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/rubble/rubble.glb.import",
+      "bytes": 1228,
+      "sha256": "c22a71acfdee4ef9a3bd5e0254fbfc1a6d1c043ee081a6b125e79912b4491fac",
+      "asset_id": "SEA-SCENE-NGQ-008",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/shop_awning/shop_awning.glb",
+      "bytes": 45780,
+      "sha256": "53d5392e96bc245c3334e966b816f19ec59bda4947bbd821105a9cb7df7a7532",
+      "asset_id": "SEA-SCENE-NGQ-018",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/shop_awning/shop_awning.glb.import",
+      "bytes": 1248,
+      "sha256": "a21913c4dec20f4c159f3947dab86335d46cddfc76d5a53b76b6d8078a1e5b35",
+      "asset_id": "SEA-SCENE-NGQ-018",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/sign_bracket/sign_bracket.glb",
+      "bytes": 43040,
+      "sha256": "8e69d4ee7dbb0cf666f0862faf644ac14db16a9535c5b65350a16d0f97c6dc24",
+      "asset_id": "SEA-SCENE-NGQ-052",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/sign_bracket/sign_bracket.glb.import",
+      "bytes": 1252,
+      "sha256": "55558d77f28d7311115caf05ec7e99b49b169b961003ae3b232a832e2f8b01c7",
+      "asset_id": "SEA-SCENE-NGQ-052",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/small_placard/small_placard.glb",
+      "bytes": 104488,
+      "sha256": "f8cf457ae371fbd177d740893a2f5768bed0b3644ac7ed636b893b1cef3e4eaf",
+      "asset_id": "SEA-SCENE-NGQ-033",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/small_placard/small_placard.glb.import",
+      "bytes": 1256,
+      "sha256": "729e98cc2bceeb99106aa16bd5c1a68208d942b9a42b36f7921f26d729fb72c3",
+      "asset_id": "SEA-SCENE-NGQ-033",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/stair_flight/stair_flight.glb",
+      "bytes": 326092,
+      "sha256": "bbb85702960b76e8f5a61d2136b4669e3a0f11295fc06c9fcfdfdef56d099176",
+      "asset_id": "SEA-SCENE-NGQ-010",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/stair_flight/stair_flight.glb.import",
+      "bytes": 1251,
+      "sha256": "5d66e9b484acdddc86f9b5e1820f792dadbf4fb4e7512a23337fdb0f6e1efcd8",
+      "asset_id": "SEA-SCENE-NGQ-010",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/stair_landing/stair_landing.glb",
+      "bytes": 20944,
+      "sha256": "ff479be9a73142344e7f35e0447b7f431f71d276215318fa17d955ddfee40e1b",
+      "asset_id": "SEA-SCENE-NGQ-011",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/stair_landing/stair_landing.glb.import",
+      "bytes": 1256,
+      "sha256": "6b2eac15bfcffc200c4659fcfea7e447675746bd8f6c2a1375e59c9d0cf9b33f",
+      "asset_id": "SEA-SCENE-NGQ-011",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/street_deck/street_deck.glb",
+      "bytes": 163632,
+      "sha256": "d2a6a99ca1083d7cad2c958ec8bbe72416008bc7c1943314095a410c7e3257a7",
+      "asset_id": "SEA-SCENE-NGQ-001",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/street_deck/street_deck.glb.import",
+      "bytes": 1248,
+      "sha256": "867d5c408791003effcb104e6df49ed5306c1c3f311f71bf89426094780660d6",
+      "asset_id": "SEA-SCENE-NGQ-001",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/street_lamp/street_lamp.glb",
+      "bytes": 40060,
+      "sha256": "ec07dfa4df9df6d700aac70f5d40130f64c908f185e8f0c7cb1e023f46ae7271",
+      "asset_id": "SEA-SCENE-NGQ-022",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/street_lamp/street_lamp.glb.import",
+      "bytes": 1248,
+      "sha256": "769059668691a22790dcf15c021cf8d41c94cce0ff15512e5d9db47b0ee40c2f",
+      "asset_id": "SEA-SCENE-NGQ-022",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/tavern_sign/tavern_sign.glb",
+      "bytes": 645396,
+      "sha256": "b6687c643badbf7578890b9f0d505aeedd0adcc4728a2bf146b2bd6f3659b1c7",
+      "asset_id": "SEA-SCENE-NGQ-028",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/tavern_sign/tavern_sign.glb.import",
+      "bytes": 1248,
+      "sha256": "febf718496366e341b9a3619a371d531dc3ad3abbb543c957dd1ecde2a96006b",
+      "asset_id": "SEA-SCENE-NGQ-028",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/tomato/tomato.glb",
+      "bytes": 262996,
+      "sha256": "4632b821d8c633bc3c663eff4a9498b34caeb26f2539278aee66c9bdd6b045ad",
+      "asset_id": "SEA-SCENE-NGQ-038",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/tomato/tomato.glb.import",
+      "bytes": 1228,
+      "sha256": "75ca3dd4f870d1045b53d403e00a8e4abed0e63b6432f2ca6d01542f24bfc0b5",
+      "asset_id": "SEA-SCENE-NGQ-038",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/trellis/trellis.glb",
+      "bytes": 13784,
+      "sha256": "e6bb0f0d2d4339056cefdf182f2e8d423413f8287c91f6a5c9abadab13ee3437",
+      "asset_id": "SEA-SCENE-NGQ-034",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/trellis/trellis.glb.import",
+      "bytes": 1232,
+      "sha256": "187f625dc4c6fb62eeab509ad11f61f7c75673b1e7b3f64bb7b9400205bd4cbb",
+      "asset_id": "SEA-SCENE-NGQ-034",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/utility_cable/utility_cable.glb",
+      "bytes": 47888,
+      "sha256": "69f798de060b140cb0e857404e7958ca04d602ba2ea1208589dec3d283ad101f",
+      "asset_id": "SEA-SCENE-NGQ-046",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/utility_cable/utility_cable.glb.import",
+      "bytes": 1256,
+      "sha256": "48687a8692b3114f10ec748f5b5633dd3204ec5d2856b30804cc706bf1cf85e5",
+      "asset_id": "SEA-SCENE-NGQ-046",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/vine/vine.glb",
+      "bytes": 175264,
+      "sha256": "96a5ea640ae7b604de85310b922cf311deb490ea018a9bc1ac0d506a0df529d6",
+      "asset_id": "SEA-SCENE-NGQ-041",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/vine/vine.glb.import",
+      "bytes": 1219,
+      "sha256": "927baf7f5981ab4390c5e3d3f201ede4822a2397afe2ded76706e2c718ed616c",
+      "asset_id": "SEA-SCENE-NGQ-041",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/water_tank/water_tank.glb",
+      "bytes": 154124,
+      "sha256": "4b391f1fd10684c26487f31e25a30bbee8d3a4f09a721082bdc92a50422e0641",
+      "asset_id": "SEA-SCENE-NGQ-020",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/water_tank/water_tank.glb.import",
+      "bytes": 1244,
+      "sha256": "ab5046fc557bac24eef06e9f919aa4f3128d51093e9f9cd1e244dfe5d67cbdea",
+      "asset_id": "SEA-SCENE-NGQ-020",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/window_broken/window_broken.glb",
+      "bytes": 140396,
+      "sha256": "60abf9e0c8f1a8f8774e95bba6bf9d4041084ba339bab5883cbdfc240da1c072",
+      "asset_id": "SEA-SCENE-NGQ-015",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/window_broken/window_broken.glb.import",
+      "bytes": 1256,
+      "sha256": "913708d76722fbdda973793801dcaf9c322046a8b4dd84b89e32a256980e335c",
+      "asset_id": "SEA-SCENE-NGQ-015",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/window_pair/window_pair.glb",
+      "bytes": 159484,
+      "sha256": "5df7b42e001007f3fb8cf7afe0a880f1dc8a579b80f5c65b32fee48644d7667b",
+      "asset_id": "SEA-SCENE-NGQ-014",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/models/facilities/neon_garden_quarter/window_pair/window_pair.glb.import",
+      "bytes": 1248,
+      "sha256": "e36816419936565459f0d6b00ecc1caf3247f57e6ad0d0ccb987a598c10252e7",
+      "asset_id": "SEA-SCENE-NGQ-014",
+      "status": "runtime_component_verified_provenance_pending"
     },
     {
       "path": "godot/assets/models/facilities/solar_cabin/components/ac_box/ac_box.glb",
@@ -2964,6 +3664,56 @@
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
     },
     {
+      "path": "godot/assets/textures/avatar/blush_soft.png",
+      "bytes": 9675,
+      "sha256": "d28071387735492316730e8361a044f5a732f9429a2fd9a34bd4510a5a0b2ef0",
+      "asset_id": "SEA-CHAR-FACE-001",
+      "status": "runtime_component_verified"
+    },
+    {
+      "path": "godot/assets/textures/avatar/freckles.png",
+      "bytes": 2263,
+      "sha256": "87d282f129a11a9fc76b52c2002ddda317ec954c74f39f8a6ec55933c3ce2f5c",
+      "asset_id": "SEA-CHAR-FACE-001",
+      "status": "runtime_component_verified"
+    },
+    {
+      "path": "godot/assets/textures/avatar/graphic_eyes.png",
+      "bytes": 397290,
+      "sha256": "84a68e30fc40f0a69c827b7344195eef71a0be6b19c3ccddf1fae0c3e28cae4e",
+      "asset_id": "SEA-CHAR-FACE-001",
+      "status": "runtime_component_verified",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。"
+    },
+    {
+      "path": "godot/assets/textures/avatar/graphic_mouths.png",
+      "bytes": 318221,
+      "sha256": "da4242204e4f010fa790f67bba54d1afc96289e4934207952f48711a9a3b7966",
+      "asset_id": "SEA-CHAR-MOUTH-001",
+      "status": "runtime_component_verified"
+    },
+    {
+      "path": "godot/assets/textures/avatar/stubble.png",
+      "bytes": 6298,
+      "sha256": "825c39f76b5f8369d825b0d2b004435ec0464c4f6396a2bfc765b5e145f36fc9",
+      "asset_id": "SEA-CHAR-FACE-001",
+      "status": "runtime_component_verified"
+    },
+    {
+      "path": "godot/assets/textures/facilities/neon_garden_quarter/poster_atlas.png",
+      "bytes": 8466959,
+      "sha256": "070416ffca0657b3faf43bea5b5950818b060dbe7d35804828dc5cc578c0893e",
+      "asset_id": "SEA-SCENE-NGQ-POSTER-ATLAS",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/textures/facilities/neon_garden_quarter/poster_atlas.png.import",
+      "bytes": 986,
+      "sha256": "5f5f3dffca31e1171c455db3f15e1c210bff4435342850dad61b3539f43d7ff4",
+      "asset_id": "SEA-SCENE-NGQ-POSTER-ATLAS",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
       "path": "godot/assets/textures/shared/sea_cabin_muted_8x8_512.png",
       "sha256": "269a182f8d62c2b88f4ef0a0ab9e4e6ff0dcb6b0be7a0f0b4bb68a440b6bb283",
       "bytes": 5692,
@@ -3448,6 +4198,356 @@
       "status": "runtime_component_verified"
     },
     {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/aircon.tscn",
+      "bytes": 324,
+      "sha256": "d814d7f0ca50583a938b0bd5af63dbdd30d6816ef79759568fc85ae9a792358b",
+      "asset_id": "SEA-SCENE-NGQ-019",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/back_storey.tscn",
+      "bytes": 339,
+      "sha256": "55d982778d163d7926af7646530b450d71147922d175323e691389e6d86120e9",
+      "asset_id": "SEA-SCENE-NGQ-003",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/bar_poster.tscn",
+      "bytes": 336,
+      "sha256": "9ecd73ea3ebe2da210a6d24e05bfb30000595df173a56fef00780ffb5b2e5a3b",
+      "asset_id": "SEA-SCENE-NGQ-024",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/broadleaf.tscn",
+      "bytes": 333,
+      "sha256": "517f874079948d16145b98eed846e0c06b7dee4b33a830ac779749285ae54de0",
+      "asset_id": "SEA-SCENE-NGQ-040",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/broken_parapet.tscn",
+      "bytes": 348,
+      "sha256": "3c2cae3b7c082cb5df166d4ad8e21b650f55638413ccf4638796beef5d6dc7a3",
+      "asset_id": "SEA-SCENE-NGQ-007",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/cabbage.tscn",
+      "bytes": 327,
+      "sha256": "5e332c599ca517e503ec184c467b69fc2e7b45fdccdf77a161c293b325f4aa05",
+      "asset_id": "SEA-SCENE-NGQ-037",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/charcoal_sign.tscn",
+      "bytes": 345,
+      "sha256": "2b4787c92cb46596cf60be7c172a81c7b6457a80815fefdc2d9a542e9d612caa",
+      "asset_id": "SEA-SCENE-NGQ-027",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/crop_bed.tscn",
+      "bytes": 330,
+      "sha256": "95dbca4e1c7be9b5a9c76b6ea719e05928d7042861ac4591eb1a6af8111b7241",
+      "asset_id": "SEA-SCENE-NGQ-035",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/double_door.tscn",
+      "bytes": 339,
+      "sha256": "ba6637e164b9257cc41cd7c0e04438d71adf79df173646c2b390c39f23b79086",
+      "asset_id": "SEA-SCENE-NGQ-013",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/drainpipe.tscn",
+      "bytes": 333,
+      "sha256": "5195a37ad653f6b8f0e4975383d03ab6b44e901a554a45d89fe3996afbb996a5",
+      "asset_id": "SEA-SCENE-NGQ-021",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/drink_poster.tscn",
+      "bytes": 342,
+      "sha256": "3a3f90556384e49ecbffbe889867821be9be74f18c517b14bd825a347f85479b",
+      "asset_id": "SEA-SCENE-NGQ-026",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/flowers.tscn",
+      "bytes": 327,
+      "sha256": "3ba07a981be449adc759da714cdb8eeba82d3ebb3e02624336b945581a6d6ba1",
+      "asset_id": "SEA-SCENE-NGQ-043",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/fractured_ground.tscn",
+      "bytes": 354,
+      "sha256": "a4f5c41c376a18567a3861c0e58dd59a7f7454a7d1428b284c2e538401ec2b37",
+      "asset_id": "SEA-SCENE-NGQ-053",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/garden_bridge.tscn",
+      "bytes": 345,
+      "sha256": "2614c80ed562915e9fdb1b7797f59486ee611f740d7566b985d0e140dc7752cd",
+      "asset_id": "SEA-SCENE-NGQ-047",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/grass.tscn",
+      "bytes": 321,
+      "sha256": "435ed8f4d50629b60ce49a6cc86197b4d1999da0448c2069558554610072f2f9",
+      "asset_id": "SEA-SCENE-NGQ-044",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/guardrail.tscn",
+      "bytes": 333,
+      "sha256": "299adf369f88937585cbb3cd88330020281e76362a3f94d531cfddfe6f8624b7",
+      "asset_id": "SEA-SCENE-NGQ-012",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/hanging_bush.tscn",
+      "bytes": 342,
+      "sha256": "eae8d8ce05d3a7ea1b6b94a4c6b861cf3e92fcb0de31c48654e7f6cfc63aef77",
+      "asset_id": "SEA-SCENE-NGQ-042",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/herb.tscn",
+      "bytes": 318,
+      "sha256": "6f55749fcfa1b76aa5cbe644b6d0265a54735fadde2c6f32e8d6b6d34abcb989",
+      "asset_id": "SEA-SCENE-NGQ-039",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/lantern.tscn",
+      "bytes": 327,
+      "sha256": "d60c65d0e703244f75713ae5605dd8081412f735d14905f5760e945c318527e8",
+      "asset_id": "SEA-SCENE-NGQ-023",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/left_damaged.tscn",
+      "bytes": 342,
+      "sha256": "987b9a09cd96995b2e335a281bc5321a0c67adc164ecce5d8c00c48fd40c6060",
+      "asset_id": "SEA-SCENE-NGQ-051",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/left_storey.tscn",
+      "bytes": 339,
+      "sha256": "0abc697bb3f2735f3a3889b35d6b0547de1a55c2278dbf444ec2f4577ea9e7aa",
+      "asset_id": "SEA-SCENE-NGQ-002",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/menu_board.tscn",
+      "bytes": 336,
+      "sha256": "8c2708514b1490fce01afdff2ba0a08bdd29ae81c83ee10bdbea3f6ae0571c23",
+      "asset_id": "SEA-SCENE-NGQ-031",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/parapet.tscn",
+      "bytes": 327,
+      "sha256": "733a24c44da7bbddea9d4176a352a1634887d2e68486f7e11ab12e4959436d0f",
+      "asset_id": "SEA-SCENE-NGQ-006",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/planter.tscn",
+      "bytes": 327,
+      "sha256": "ea17b3fba56456d3dd2377d5a16a5f6b75af7efe1fcfcf06ae11eab7fc1104e5",
+      "asset_id": "SEA-SCENE-NGQ-036",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/portrait_poster.tscn",
+      "bytes": 351,
+      "sha256": "f4fddb2efee4114a1f9706499fa16cb559d1964c7ced7dcab0ba09e6c298941a",
+      "asset_id": "SEA-SCENE-NGQ-025",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/restaurant_neon.tscn",
+      "bytes": 351,
+      "sha256": "8fb9d4c9ec7768d7f58dee5100964647218c0ec2b8963acd7c645dd368902550",
+      "asset_id": "SEA-SCENE-NGQ-029",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/roof_room.tscn",
+      "bytes": 333,
+      "sha256": "9b5151ecd78271abeb425063b108452a461389bdbf217298e20586719db79aa3",
+      "asset_id": "SEA-SCENE-NGQ-005",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/roof_soil.tscn",
+      "bytes": 333,
+      "sha256": "7a3e3a6856c58d3bb2e4d5725d8c5849c4dc0fd2271e360cdf08f47f1278d3cb",
+      "asset_id": "SEA-SCENE-NGQ-045",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/round_damaged.tscn",
+      "bytes": 345,
+      "sha256": "f1d902cbcfe551a365bb8d9c6bf1e535b671bab7d16c3746b507a14b2c64a7ea",
+      "asset_id": "SEA-SCENE-NGQ-049",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/round_roof.tscn",
+      "bytes": 336,
+      "sha256": "a705624896e89c6b21272525253a59dcebbe249eb4cd91c263e5a7ff15304877",
+      "asset_id": "SEA-SCENE-NGQ-048",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/round_ruin.tscn",
+      "bytes": 336,
+      "sha256": "beeb65c08f2dc0fbad616b6284adc910337478ef70a492a7a995ecf214a10558",
+      "asset_id": "SEA-SCENE-NGQ-050",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/round_sign.tscn",
+      "bytes": 336,
+      "sha256": "f073000a5bb6aaf7447c3a8346838e593bf25e44f808c2c6f56c04c2b53ddc6f",
+      "asset_id": "SEA-SCENE-NGQ-032",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/round_storey.tscn",
+      "bytes": 342,
+      "sha256": "d63b2337976c687e33a60f4f7a77f23516e878bfb9b9a2ef72e5335acef4c6fc",
+      "asset_id": "SEA-SCENE-NGQ-004",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/route_board.tscn",
+      "bytes": 339,
+      "sha256": "fa94bdf5eb6c3a5e71f31047b3918f75956c53f2eed7b2c3dc06d7a97339b10f",
+      "asset_id": "SEA-SCENE-NGQ-030",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/rubble.tscn",
+      "bytes": 324,
+      "sha256": "db5114bec959dde7779d4b5c35fcd1c3f82953015f6f990cd5f2e9d072335a28",
+      "asset_id": "SEA-SCENE-NGQ-008",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/shop_awning.tscn",
+      "bytes": 339,
+      "sha256": "d68a034fb8f4a556c5598c7e8592eab0be636d326ed6f2db2f3eb3f096b08231",
+      "asset_id": "SEA-SCENE-NGQ-018",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/sign_bracket.tscn",
+      "bytes": 342,
+      "sha256": "692c060e4db5326bd670f07bb2252af020d52d68594f79a1f05481108e34ab7d",
+      "asset_id": "SEA-SCENE-NGQ-052",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/small_placard.tscn",
+      "bytes": 345,
+      "sha256": "a9166077fdc27486732049381c884c4f15ef1eef6692ca60151debc273741d49",
+      "asset_id": "SEA-SCENE-NGQ-033",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/stair_flight.tscn",
+      "bytes": 342,
+      "sha256": "c4623ce8a41ef40b2f38f4696364751bf6fcb5c6189453596feb6fab4aa3604e",
+      "asset_id": "SEA-SCENE-NGQ-010",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/stair_landing.tscn",
+      "bytes": 345,
+      "sha256": "9af3fee76489212adad446ceffc82154ff510516507e7c2374ba5a99f470b490",
+      "asset_id": "SEA-SCENE-NGQ-011",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/street_deck.tscn",
+      "bytes": 339,
+      "sha256": "33948ba94ef3d36f8f6dfc22556b9e19e8652ce3a4e9027f03d0398ab93dd15b",
+      "asset_id": "SEA-SCENE-NGQ-001",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/street_lamp.tscn",
+      "bytes": 339,
+      "sha256": "edc08b0f943ae01e97c8112478ed14ad2785dcf862427187e8e4ccd16e6aec1b",
+      "asset_id": "SEA-SCENE-NGQ-022",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/tavern_sign.tscn",
+      "bytes": 339,
+      "sha256": "b8b16aab9257ec7180ed9a5f149f60e13b1f4605b7d0c077a111340c58f03074",
+      "asset_id": "SEA-SCENE-NGQ-028",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/tomato.tscn",
+      "bytes": 324,
+      "sha256": "b87a827df1c9178775fa3dcb807c6c38374c83da9f8eeb1f42962ac627d7bcb2",
+      "asset_id": "SEA-SCENE-NGQ-038",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/trellis.tscn",
+      "bytes": 327,
+      "sha256": "5c3382a2a5ae4411e6f45e97c68e9657d3f0805569c5d94449e7892bedc8e290",
+      "asset_id": "SEA-SCENE-NGQ-034",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/utility_cable.tscn",
+      "bytes": 345,
+      "sha256": "3497356a73e230053b09513d51a61fadadd88e9ec3cb7bf3b906e2523d881b1a",
+      "asset_id": "SEA-SCENE-NGQ-046",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/vine.tscn",
+      "bytes": 318,
+      "sha256": "ee6cd1ffb67e0e9fbcdc5f6584c90d996f2be4948bbf95b965dc99e6f7b41311",
+      "asset_id": "SEA-SCENE-NGQ-041",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/water_tank.tscn",
+      "bytes": 336,
+      "sha256": "557fcb4026a3915ec97bbe4a415cd4101ee43fcaa5d4ff37a3747af212c64644",
+      "asset_id": "SEA-SCENE-NGQ-020",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/window_broken.tscn",
+      "bytes": 345,
+      "sha256": "5520c95e4e7c554311e056403355c5fed9c4d716ce386ea20f20bcef0c0c0f48",
+      "asset_id": "SEA-SCENE-NGQ-015",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/window_pair.tscn",
+      "bytes": 339,
+      "sha256": "ab0f6111b77222f0354adb59584b1645470bda85a60478a72126b60745107cf5",
+      "asset_id": "SEA-SCENE-NGQ-014",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
       "path": "godot/scenes/components/fishery/bait_table.tscn",
       "bytes": 518,
       "sha256": "a26a30a7cc7fccb57bd3a8347309ecb5a53a5939a77d96df5a19f0257709585b",
@@ -3608,6 +4708,13 @@
       "note": "v003零售细修：storefront_windows=4（陈列面，非入口）、retail_displays=8、interior_lamps=5、立体字元数据 sign_lettering/sign_palette（x1.5）"
     },
     {
+      "path": "godot/scenes/facilities/neon_garden_quarter.tscn",
+      "bytes": 106987,
+      "sha256": "a0d27e5b29059e9d40e11e7899f2fa66a475970df4aea73be85d70f8b7b994c3",
+      "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
       "path": "godot/scenes/facilities/salvage_station.tscn",
       "bytes": 742,
       "sha256": "67480411ccda8257ead6315188fa3b5c92f983766eaef0fa38bfe1428c935074",
@@ -3625,7 +4732,7 @@
     {
       "path": "godot/scenes/props/reference_skiff.tscn",
       "bytes": 14439,
-      "sha256": "78971293cb6d1af45fe060e3015dd7bc1e378ee04019ec15a14989c71393da47",
+      "sha256": "f5afba3f33d5ea55871dd90b1ac367b8205bf7b7586b7eba1ebd1f27f88cd685",
       "asset_id": "SEA-SCENE-SKIFF-ASSEMBLY",
       "status": "source_runtime_verified_provenance_pending",
       "hash_history": [
@@ -3636,7 +4743,8 @@
         }
       ],
       "previous_sha256": "9db25b317c8e9905d94ddab2d997149423f852a660e2209a191cbe7940802b2e",
-      "note": "；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md"
+      "note": "；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md。后续用户反馈按SEA-MOVE-R19 / SEA-NAV-R14前移桨架，当前证据见 docs/development/2026-11-04_rowing_arm_direction.md",
+      "arm_direction_previous_sha256": "78971293cb6d1af45fe060e3015dd7bc1e378ee04019ec15a14989c71393da47"
     },
     {
       "path": "godot/scenes/zones/zone1_home_harbor.tscn",
@@ -3647,6 +4755,14 @@
       "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。"
     },
     {
+      "path": "godot/shaders/avatar_eye.gdshader",
+      "bytes": 1060,
+      "sha256": "7d0382c6ddc348e5172f307e6f6d1ed5b5b1de45ef67a2eb6280d35d14fc44f9",
+      "asset_id": "SEA-CHAR-FACE-001",
+      "status": "runtime_component_verified",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。"
+    },
+    {
       "path": "godot/shaders/avatar_limb.gdshader",
       "bytes": 1961,
       "sha256": "0f359ca91245c96cb943f256769514291fe9deb84a812274101ae9d1cf71ffef",
@@ -3654,6 +4770,13 @@
       "status": "runtime_component_verified",
       "previous_sha256": "8244fa8a57769d082141e6a525abc730e16b97c3fb5f0e7766040206544fe6df",
       "note": "2026-11-04新旅程美术/交互"
+    },
+    {
+      "path": "godot/shaders/avatar_mouth.gdshader",
+      "bytes": 683,
+      "sha256": "1d1193894ffba165736d0bb9524172af99aeba170c5a0d4a347dade5a42ec110",
+      "asset_id": "SEA-CHAR-MOUTH-001",
+      "status": "runtime_component_verified"
     },
     {
       "path": "godot/shaders/ocean_foam.gdshaderinc",
@@ -3693,6 +4816,42 @@
       "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。；2026-11-02复验：定点核对新增water_layer/water_layer_role导出声明，保留跨水线元数据，当前渔场专项通过。"
     },
     {
+      "path": "godot/src/avatar/avatar_editor.gd",
+      "bytes": 33266,
+      "sha256": "f8b19049be78e875ff900d3cb334da25f6d405d42f3569ba55b712bd2b0a3f31",
+      "asset_id": "SEA-UI-AVATAR-001",
+      "status": "runtime_component_verified",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。；2026-11-04新旅程美术/交互",
+      "previous_sha256": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a"
+    },
+    {
+      "path": "godot/src/avatar/avatar_expression.gd",
+      "bytes": 2967,
+      "sha256": "cc9ef5700aac6a9872e20194ae9108ee9a1c2db5e360a5b5f9f17c38c254f662",
+      "asset_id": "SEA-CHAR-EXPRESSION-001",
+      "status": "runtime_component_verified",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。",
+      "previous_sha256": "07431739074e6914bd3fe76294b521f34f9b0d8fc40bfb807fb3aec8ba787a5d"
+    },
+    {
+      "path": "godot/src/avatar/avatar_face.gd",
+      "bytes": 15566,
+      "sha256": "77ebe8ccaadf782eedaa3a712ea57af76029f7a236e04331decfd4bc60fba9f0",
+      "asset_id": "SEA-CHAR-FACE-001",
+      "status": "runtime_component_verified",
+      "previous_sha256": "2a859b3b881bb93f5c629f2943b753904b4549c7340fad5a73aee53c1e9e9bba",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。"
+    },
+    {
+      "path": "godot/src/avatar/avatar_hair.gd",
+      "bytes": 17234,
+      "sha256": "63cd82f6ed058eda9885b09c2c0a484e3a0b6d1610985b9502055d26f599ab1d",
+      "asset_id": "SEA-CHAR-HAIR-001",
+      "status": "runtime_component_verified",
+      "previous_sha256": "1619921b95b12acfdf5e25e08cd0a90076b053c8b138538e7e0db0130b69315d",
+      "note": "2026-11-04新旅程美术/交互"
+    },
+    {
       "path": "godot/src/avatar/avatar_limb_skinning.gd",
       "bytes": 10388,
       "sha256": "43550b216d752f190658f4b2a4ebd2fb03d947ab4714269a649392b70308f5ca",
@@ -3700,6 +4859,33 @@
       "status": "runtime_component_verified",
       "previous_sha256": "34a8403ac342472baea634007c8215fabe91ee022945743a691283f00973011e",
       "note": " 2026-11-03 SEA-AVATAR-R15–R19：本轮角色定制扩充，原HEAD与登记基线精确匹配后定点更新，详见当前交付。 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。"
+    },
+    {
+      "path": "godot/src/avatar/avatar_morphology.gd",
+      "bytes": 5060,
+      "sha256": "d6410d69084c48825560178b6ad01158c2411b3804fe885fea59faf91c390c44",
+      "asset_id": "SEA-CHAR-SHAPE-001",
+      "status": "runtime_component_verified",
+      "previous_sha256": "b7225805936e57d751d70e87e3f0b3ee64433d89dc00adede79e9e1257069491",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。"
+    },
+    {
+      "path": "godot/src/avatar/avatar_session.gd",
+      "bytes": 4318,
+      "sha256": "198b8e9f4a20a30dd3f6e529adae8a3d29a212eedc9e65e8682051f645d67c21",
+      "asset_id": "SEA-UI-AVATAR-001",
+      "status": "runtime_component_verified",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。；2026-11-04新旅程美术/交互",
+      "previous_sha256": "4d3ae7f18ac329abd6f23c961693eddc2fc95060da5bc1975c41372ed88b6a2a"
+    },
+    {
+      "path": "godot/src/avatar/avatar_visual.gd",
+      "bytes": 8844,
+      "sha256": "25facf3925329d7a77acab163a2aac15dbc3d49b68917babf248014ad5f11beb",
+      "asset_id": "SEA-CHAR-AVATAR-001",
+      "status": "runtime_component_verified",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。；2026-11-04新旅程美术/交互",
+      "previous_sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604"
     },
     {
       "path": "godot/src/bootstrap/main.gd",
@@ -3866,11 +5052,29 @@
       "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
     },
     {
+      "path": "godot/src/onboarding/arrival_camera.gd",
+      "bytes": 3117,
+      "sha256": "111cafa6ccdcd30d87fb90408afe5ce0aa6603a0764cde460a11092ee14530b3",
+      "asset_id": "SEA-UI-AVATAR-001",
+      "status": "runtime_component_verified",
+      "previous_sha256": "cd40077507e64713a54210eabc07fd163a87d68400e3cab8013abe2078620d9e",
+      "note": "2026-11-04新旅程美术/交互"
+    },
+    {
       "path": "godot/src/player/actions/walk_action.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
       "bytes": 2902,
       "sha256": "917bdf1624e6815e6c15eeb19e65adcb3bc486851cfb55c6403ce8a9e580013d"
+    },
+    {
+      "path": "godot/src/player/animation/idle_action.gd",
+      "bytes": 2391,
+      "sha256": "ef04370f4293f8db28496d86b3bddb22014c3e5607f22f2fdd963ff7be93fb93",
+      "asset_id": "SEA-CHAR-RECEIVE-001",
+      "status": "runtime_component_verified",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。；2026-11-04新旅程美术/交互",
+      "previous_sha256": "3db4532be77d7a64d85e0d2a225807802cebec2cea7c33f0595825bf6b86aff6"
     },
     {
       "path": "godot/src/player/animation/item_receive.gd",
@@ -3880,6 +5084,22 @@
       "status": "runtime_component_verified",
       "previous_sha256": "7ebf4331c860ee7b5dadd041cc57b43be7b4612a9293a5b66a254c8d472ca957",
       "note": "v003 骨骼连续四肢适配：姿势控制仅改节点/骨骼长度，不再写分段网格；举物绕开头部，2.4秒/奖励边界及双腕支持实测。 2026-11-03 SEA-AVATAR-R15–R19：本轮角色定制扩充，原HEAD与登记基线精确匹配后定点更新，详见当前交付。 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。"
+    },
+    {
+      "path": "godot/src/player/character.gd",
+      "bytes": 14400,
+      "sha256": "78d70b56fcf7a54452182d1d18500587b00086e250fcc22358ce0e1fd891daee",
+      "asset_id": "SEA-CHAR-RIG-001",
+      "status": "runtime_component_verified",
+      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。；2026-11-04新旅程美术/交互；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md",
+      "previous_sha256": "b3d69452c80ef713b5109030f2b75b7926090f124fa473964345f2460590f12e",
+      "hash_history": [
+        {
+          "sha256": "b3d69452c80ef713b5109030f2b75b7926090f124fa473964345f2460590f12e",
+          "previous_sha256": "b13ea4092cc82ec1d17c4e9e6d65d763e572b8be2b140f67e1aab829df803e04",
+          "review": "2026-11-04 rowing: exact pre-edit isolated snapshot; only reviewed seat/pose wiring changes"
+        }
+      ]
     },
     {
       "path": "godot/src/rendering/water_surface.gd",
@@ -3921,6 +5141,13 @@
       "previous_sha256": "6646932a160de673170c5fcd9f64b65b1626cd7f0584fc7bdf2af2dcba87c268"
     },
     {
+      "path": "godot/src/world/neon_garden_quarter.gd",
+      "bytes": 264,
+      "sha256": "0f6714e0f02f9f8892ecf54a6090f5e67ee43a986fd4fa8d3497a8711699e050",
+      "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
       "path": "godot/tools/fishery_palette_import.gd",
       "bytes": 490,
       "sha256": "f8f587ae20071eefdc08166be0038097ae318a48d648a8585022eb49189ec728",
@@ -3929,152 +5156,11 @@
       "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
     },
     {
-      "path": "godot/src/avatar/avatar_face.gd",
-      "bytes": 15566,
-      "sha256": "77ebe8ccaadf782eedaa3a712ea57af76029f7a236e04331decfd4bc60fba9f0",
-      "asset_id": "SEA-CHAR-FACE-001",
-      "status": "runtime_component_verified",
-      "previous_sha256": "2a859b3b881bb93f5c629f2943b753904b4549c7340fad5a73aee53c1e9e9bba",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。"
-    },
-    {
-      "path": "godot/assets/textures/avatar/blush_soft.png",
-      "bytes": 9675,
-      "sha256": "d28071387735492316730e8361a044f5a732f9429a2fd9a34bd4510a5a0b2ef0",
-      "asset_id": "SEA-CHAR-FACE-001",
-      "status": "runtime_component_verified"
-    },
-    {
-      "path": "godot/assets/textures/avatar/freckles.png",
-      "bytes": 2263,
-      "sha256": "87d282f129a11a9fc76b52c2002ddda317ec954c74f39f8a6ec55933c3ce2f5c",
-      "asset_id": "SEA-CHAR-FACE-001",
-      "status": "runtime_component_verified"
-    },
-    {
-      "path": "godot/assets/textures/avatar/stubble.png",
-      "bytes": 6298,
-      "sha256": "825c39f76b5f8369d825b0d2b004435ec0464c4f6396a2bfc765b5e145f36fc9",
-      "asset_id": "SEA-CHAR-FACE-001",
-      "status": "runtime_component_verified"
-    },
-    {
-      "path": "godot/src/avatar/avatar_hair.gd",
-      "bytes": 17234,
-      "sha256": "63cd82f6ed058eda9885b09c2c0a484e3a0b6d1610985b9502055d26f599ab1d",
-      "asset_id": "SEA-CHAR-HAIR-001",
-      "status": "runtime_component_verified",
-      "previous_sha256": "1619921b95b12acfdf5e25e08cd0a90076b053c8b138538e7e0db0130b69315d",
-      "note": "2026-11-04新旅程美术/交互"
-    },
-    {
-      "path": "godot/src/avatar/avatar_morphology.gd",
-      "bytes": 5060,
-      "sha256": "d6410d69084c48825560178b6ad01158c2411b3804fe885fea59faf91c390c44",
-      "asset_id": "SEA-CHAR-SHAPE-001",
-      "status": "runtime_component_verified",
-      "previous_sha256": "b7225805936e57d751d70e87e3f0b3ee64433d89dc00adede79e9e1257069491",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。"
-    },
-    {
-      "path": "godot/src/avatar/avatar_visual.gd",
-      "bytes": 8844,
-      "sha256": "25facf3925329d7a77acab163a2aac15dbc3d49b68917babf248014ad5f11beb",
-      "asset_id": "SEA-CHAR-AVATAR-001",
-      "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。；2026-11-04新旅程美术/交互",
-      "previous_sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604"
-    },
-    {
-      "path": "godot/src/player/character.gd",
-      "bytes": 14400,
-      "sha256": "78d70b56fcf7a54452182d1d18500587b00086e250fcc22358ce0e1fd891daee",
-      "asset_id": "SEA-CHAR-RIG-001",
-      "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。；2026-11-04新旅程美术/交互；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md",
-      "previous_sha256": "b3d69452c80ef713b5109030f2b75b7926090f124fa473964345f2460590f12e",
-      "hash_history": [
-        {
-          "sha256": "b3d69452c80ef713b5109030f2b75b7926090f124fa473964345f2460590f12e",
-          "previous_sha256": "b13ea4092cc82ec1d17c4e9e6d65d763e572b8be2b140f67e1aab829df803e04",
-          "review": "2026-11-04 rowing: exact pre-edit isolated snapshot; only reviewed seat/pose wiring changes"
-        }
-      ]
-    },
-    {
-      "path": "godot/src/player/animation/idle_action.gd",
-      "bytes": 2391,
-      "sha256": "ef04370f4293f8db28496d86b3bddb22014c3e5607f22f2fdd963ff7be93fb93",
-      "asset_id": "SEA-CHAR-RECEIVE-001",
-      "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。；2026-11-04新旅程美术/交互",
-      "previous_sha256": "3db4532be77d7a64d85e0d2a225807802cebec2cea7c33f0595825bf6b86aff6"
-    },
-    {
-      "path": "godot/assets/textures/avatar/graphic_eyes.png",
-      "bytes": 397290,
-      "sha256": "84a68e30fc40f0a69c827b7344195eef71a0be6b19c3ccddf1fae0c3e28cae4e",
-      "asset_id": "SEA-CHAR-FACE-001",
-      "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。"
-    },
-    {
-      "path": "godot/shaders/avatar_eye.gdshader",
-      "bytes": 1060,
-      "sha256": "7d0382c6ddc348e5172f307e6f6d1ed5b5b1de45ef67a2eb6280d35d14fc44f9",
-      "asset_id": "SEA-CHAR-FACE-001",
-      "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。"
-    },
-    {
-      "path": "godot/src/avatar/avatar_editor.gd",
-      "bytes": 33266,
-      "sha256": "f8b19049be78e875ff900d3cb334da25f6d405d42f3569ba55b712bd2b0a3f31",
-      "asset_id": "SEA-UI-AVATAR-001",
-      "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。；2026-11-04新旅程美术/交互",
-      "previous_sha256": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a"
-    },
-    {
-      "path": "godot/src/avatar/avatar_session.gd",
-      "bytes": 4318,
-      "sha256": "198b8e9f4a20a30dd3f6e529adae8a3d29a212eedc9e65e8682051f645d67c21",
-      "asset_id": "SEA-UI-AVATAR-001",
-      "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。；2026-11-04新旅程美术/交互",
-      "previous_sha256": "4d3ae7f18ac329abd6f23c961693eddc2fc95060da5bc1975c41372ed88b6a2a"
-    },
-    {
-      "path": "godot/src/avatar/avatar_expression.gd",
-      "bytes": 2967,
-      "sha256": "cc9ef5700aac6a9872e20194ae9108ee9a1c2db5e360a5b5f9f17c38c254f662",
-      "asset_id": "SEA-CHAR-EXPRESSION-001",
-      "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。",
-      "previous_sha256": "07431739074e6914bd3fe76294b521f34f9b0d8fc40bfb807fb3aec8ba787a5d"
-    },
-    {
-      "path": "godot/src/onboarding/arrival_camera.gd",
-      "bytes": 3117,
-      "sha256": "111cafa6ccdcd30d87fb90408afe5ce0aa6603a0764cde460a11092ee14530b3",
-      "asset_id": "SEA-UI-AVATAR-001",
-      "status": "runtime_component_verified",
-      "previous_sha256": "cd40077507e64713a54210eabc07fd163a87d68400e3cab8013abe2078620d9e",
-      "note": "2026-11-04新旅程美术/交互"
-    },
-    {
-      "path": "godot/assets/textures/avatar/graphic_mouths.png",
-      "bytes": 318221,
-      "sha256": "da4242204e4f010fa790f67bba54d1afc96289e4934207952f48711a9a3b7966",
-      "asset_id": "SEA-CHAR-MOUTH-001",
-      "status": "runtime_component_verified"
-    },
-    {
-      "path": "godot/shaders/avatar_mouth.gdshader",
-      "bytes": 683,
-      "sha256": "1d1193894ffba165736d0bb9524172af99aeba170c5a0d4a347dade5a42ec110",
-      "asset_id": "SEA-CHAR-MOUTH-001",
-      "status": "runtime_component_verified"
+      "path": "godot/tools/neon_garden_quarter_import.gd",
+      "bytes": 1770,
+      "sha256": "da1abb5599aa545362a176498b68b6cedbedbf38c90e7164539b14ba55646d39",
+      "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
+      "status": "runtime_component_verified_provenance_pending"
     }
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "key": "fractured_ground",
+  "name": "按建筑轮廓收边的破损街巷地面",
+  "asset_id": "SEA-SCENE-NGQ-053",
+  "category": "architecture",
+  "family": "street_ground",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 55000,
+  "collection": "NGQ_53_按建筑轮廓收边的破损街巷地面",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    41.70000076293945,
+    29.195232391357422,
+    0.23999999463558197
+  ],
+  "author_origin_shift": [
+    3.8500003814697266,
+    3.702383041381836,
+    0.0
+  ],
+  "mesh_objects": 17,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/fractured_ground/fractured_ground.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/fractured_ground/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "467581bcc7685cb74000fb286368b4a7a19db33432dd1d14fa96c95231ed3962",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-053",
+  "geometry_fingerprint": "f75c663b0867a5e40e7a763369c5b0b435d8332f004f1942aaedb25e04db4657",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+}

@@ -51,3 +51,7 @@
 - 正式角色回桨：`D:/projects/sea-work/verification/20261104-162628-rowing-accepted-f1aa4d/project/outputs/rowing-game-recovery.png`
 - 正式角色侧视：`D:/projects/sea-work/verification/20261104-162628-rowing-accepted-f1aa4d/project/outputs/rowing-game-side.png`
 - 水面两套全部证据：`D:/projects/sea-work/verification/20261104-163538-rowing-water-frame-check-24e9f3/project/outputs/`
+
+## 后续用户反馈与验收修正
+
+用户随后明确指出手臂仍扭转。上文“整体自然”的结论过早：到点、臀部接触和不穿板并不证明肘部弯曲方向与扭转正确。当前以SEA-MOVE-R19 / SEA-NAV-R14及[第二轮交付](2026-11-04_rowing_arm_direction.md)为准，旧数值仅作为历史证据，不能代替当前复验。

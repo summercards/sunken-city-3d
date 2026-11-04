@@ -1,0 +1,37 @@
+{
+  "key": "garden_bridge",
+  "name": "两楼间菜园承重连接桥",
+  "asset_id": "SEA-SCENE-NGQ-047",
+  "category": "architecture",
+  "family": "garden_bridge",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 55000,
+  "collection": "NGQ_47_两楼间菜园承重连接桥",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    9.600000381469727,
+    8.850000381469727,
+    1.2000000476837158
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 12,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v002/component_packages/garden_bridge/garden_bridge.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v002/component_packages/garden_bridge/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "e570a69086e20d2fd93ce94cda7279f45041fd2076c24e0d18ac2edd04e361a2",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-047",
+  "geometry_fingerprint": "a1e67e7f14800834597211c8d4c71d9987e60f0421686ba287a79db44a8d0ede",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\source_verification.json"
+}

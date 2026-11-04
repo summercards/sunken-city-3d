@@ -1,0 +1,37 @@
+{
+  "key": "sign_bracket",
+  "name": "招牌实体挂架",
+  "asset_id": "SEA-SCENE-NGQ-052",
+  "category": "fixtures",
+  "family": "sign_support",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 55000,
+  "collection": "NGQ_52_招牌实体挂架",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    0.30000001192092896,
+    1.0116909742355347,
+    1.2000000476837158
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.35415446758270264,
+    0.0
+  ],
+  "mesh_objects": 3,
+  "material_roles": [
+    "SEA_Metal"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v002/component_packages/sign_bracket/sign_bracket.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v002/component_packages/sign_bracket/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "f14ccb2fb1aa0811ebff30468cc752660a0626b18a38318c3c7a0c9ff80909b2",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-052",
+  "geometry_fingerprint": "96848da196ac059acea99ec5ec541db0c7ce1aca2fda48229a62c62e5cf06c36",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v002\\source_verification.json"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "utility_cable",
+  "name": "粗电缆及墙支架",
+  "asset_id": "SEA-SCENE-NGQ-046",
+  "category": "fixtures",
+  "family": "service",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_46_粗电缆及墙支架",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    6.199999809265137,
+    0.5,
+    0.815000057220459
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.09999999403953552,
+    0.08500000834465027
+  ],
+  "mesh_objects": 3,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/utility_cable/utility_cable.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/utility_cable/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "876e1fd8caf3f7c496cafe441cae6006d64539c0f0ab1875c1cf2908aaf5e306",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-046",
+  "geometry_fingerprint": "7c999a085d1d97c8f19e77bb58a973011e7f37762b8645bb57b3ce425043bccd",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

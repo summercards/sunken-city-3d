@@ -1,0 +1,37 @@
+{
+  "key": "guardrail",
+  "name": "厚实通道栏杆",
+  "asset_id": "SEA-SCENE-NGQ-012",
+  "category": "fixtures",
+  "family": "rail",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_12_厚实通道栏杆",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    3.0,
+    0.14000000059604645,
+    1.2400000095367432
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 5,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/guardrail/guardrail.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/guardrail/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "e5005955160a276dbd7330cd1c3e224b1ee1a20d133bc84ed75519abc4bb4f1e",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-012",
+  "geometry_fingerprint": "f13e4d66804e64888247261209143f8c5a440abe01fbe50fed368c9617ac761d",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/facilities/neon_garden_quarter/double_door/double_door.glb" id="visual"]
+
+[node name="double_door" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-013"
+metadata/asset_version = "v003"
+
+[node name="Visual" parent="." instance=ExtResource("visual")]

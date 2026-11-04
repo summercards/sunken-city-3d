@@ -1,0 +1,37 @@
+{
+  "key": "drainpipe",
+  "name": "粗排水管",
+  "asset_id": "SEA-SCENE-NGQ-021",
+  "category": "fixtures",
+  "family": "utility",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_21_粗排水管",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    0.36000001430511475,
+    0.4620097279548645,
+    5.05364465713501
+  ],
+  "author_origin_shift": [
+    0.0,
+    0.11118170619010925,
+    -0.07682212442159653
+  ],
+  "mesh_objects": 3,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/drainpipe/drainpipe.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/drainpipe/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "8ae607e47077bc867907ac40d32eefccaf6174d68adbc8a4c246eb803634c2f8",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-021",
+  "geometry_fingerprint": "4fbf8c4a46c67513c5b248bd38250abd31837d4823bef9e12e0e898606fdb1a9",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

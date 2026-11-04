@@ -1,0 +1,38 @@
+{
+  "key": "restaurant_neon",
+  "name": "餐厅饱满立体霓虹字",
+  "asset_id": "SEA-SCENE-NGQ-029",
+  "category": "signage",
+  "family": "shop_identity",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 65000,
+  "collection": "NGQ_29_餐厅饱满立体霓虹字",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    1.850000023841858,
+    0.6892741322517395,
+    11.600000381469727
+  ],
+  "author_origin_shift": [
+    0.0,
+    -0.15463706851005554,
+    0.0
+  ],
+  "mesh_objects": 6,
+  "material_roles": [
+    "SEA_Emission",
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/restaurant_neon/restaurant_neon.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/restaurant_neon/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "eb7ab4f458e2bb4da313eff876e370011e9d3cfdec6abd3d797c7f94439701aa",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-029",
+  "geometry_fingerprint": "64dd1ef996c716e0c850214c756a4014f3aa56b1191bc035dc362adea164f89e",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

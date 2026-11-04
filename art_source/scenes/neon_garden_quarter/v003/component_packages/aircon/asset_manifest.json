@@ -1,0 +1,37 @@
+{
+  "key": "aircon",
+  "name": "厚边空调外机",
+  "asset_id": "SEA-SCENE-NGQ-019",
+  "category": "fixtures",
+  "family": "utility",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_19_厚边空调外机",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    1.7999999523162842,
+    0.9149999618530273,
+    1.2999999523162842
+  ],
+  "author_origin_shift": [
+    0.0,
+    -0.08249998092651367,
+    0.0
+  ],
+  "mesh_objects": 9,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v003/component_packages/aircon/aircon.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v003/component_packages/aircon/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-019",
+  "source_sha256": "96b8346629178e15b55f930273053e91a745afda7888e3e8ffc0a7002198a961",
+  "geometry_fingerprint": "eddfc8e145325c650274d2d55576399f265b8c8e9ccd2b8de9dc915b8dcca8b2",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v003\\source_verification.json"
+}

@@ -1,0 +1,37 @@
+{
+  "key": "broken_parapet",
+  "name": "大块断裂女儿墙",
+  "asset_id": "SEA-SCENE-NGQ-007",
+  "category": "architecture",
+  "family": "parapet",
+  "building_class": "above_water",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "triangle_budget": 18000,
+  "collection": "NGQ_07_大块断裂女儿墙",
+  "scope": "scene_local",
+  "bounds_size_m": [
+    3.0255584716796875,
+    0.5,
+    1.1983747482299805
+  ],
+  "author_origin_shift": [
+    -0.01277923583984375,
+    0.0,
+    0.0
+  ],
+  "mesh_objects": 3,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v001/component_packages/broken_parapet/broken_parapet.blend",
+  "manifest": "art_source/scenes/neon_garden_quarter/v001/component_packages/broken_parapet/asset_manifest.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_responsibility": "facility_projection_pending",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "source_sha256": "c6ef76082cbecd678b28410ae8f3431fea53ca41f527b1f7a3441eddab4effb8",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-007",
+  "geometry_fingerprint": "f22a189213aaae1572a0ef3814ec8bf384615154d7db334bc70e60000b93dc8b",
+  "verification": "D:\\projects\\sea-work\\neon_garden_quarter\\v001\\source_verification.json"
+}

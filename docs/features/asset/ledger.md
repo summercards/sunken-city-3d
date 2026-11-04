@@ -421,3 +421,27 @@ SEA-ASSET-R15/R16/R17/R24/R33–R40：海上用途计入surface与amphibious，�
 |---|---|---|
 | SEA-ASSET-R42 | 源级完成：`submerged_street/v001` 十栋独立纯景观建筑，10 组件计划冻结后才建几何；11 行账本（10 栋 + 1 条 reference_only 装配）登记为 `building_class=underwater`、`stage=source_verified_runtime_integration_pending`。风格基准取自海下基座逐面实测（米白 82.3%／深蓝玻璃 7.2%／无近黑）；整包实测象牙 76.4%、近黑 3.6%、合计 11696 三角面，逐栋 ≤ 预算。Blender 内自检 0 失败（逐面 UV 面积与单格安全区、单层 PaletteUV、三角色材质无自发光、底心原点与恒等变换、无近黑大面、无共面 z-fighting）。10 独立包重开复核并导出无内嵌贴图 GLB。 | [交付、缺陷清单与门禁](../../development/2026-11-02_submerged_street.md)；`sea-work/submerged_street_v001/selfcheck_report.json`。**pending**：Godot PackedScene 与 main.tscn 摆位、碰撞/岸线审查、水下真实渲染、双拱商标与参考授权、用户美术验收 |
 | SEA-ASSET-R43 | 接入与返工完成：十栋已在 `main.tscn` 的 `World/UnderwaterStreet`，专项 `test_submerged_street.gd` 476 项断言 0 失败（headless 与真实渲染各一次），已登记进 `run_verification.py`。高度改为屋顶对齐水面；按接入后真实观感返工 9 处（屋面光板补屋顶设备、底层窗与门共面渲染成黑块、桥底梁跨断口悬空、塌落桥面无支撑、瓦砾浮在水中、路牌取景斜视、街面人视装不下、渲染无海床、材质覆盖层级错位）。新增渲染像素级黑块断言后又抓出普通公寓门一处，修完最差一张纯黑占比 0.077%。三角面 12518，象牙 77.5%／近黑 3.4%。 | [交付与返工记录](../../development/2026-11-03_submerged_street_integration.md)；`sea-work/submerged_street_v001/selfcheck_report.json`、`godot/outputs/submerged-street-*.png`。**pending**：街区互穿阻挡是否加视觉碰撞、最终水下后期（雾／焦散）观感、双拱商标与参考授权、用户美术验收 |
+
+
+## 2026-11-04 霓虹花园街区 Blender 制作与源级验收
+
+| 对应设计条款 | 当前实施状态 | 证据 / 未执行项 |
+|---|---|---|
+| SEA-ASSET-R44 | Blender 源级完成并验收：46组件、639实例，三栋主建筑为6／7／5层；46独立包均保存重开。8896项检查0失败，44439个母版面逐面 PaletteUV 合规；Skill验证器按sea 8×8及已登记印刷图例外适配，母版＋46包共47份全部通过。7张真实Cycles验收图已目视检查；image-2八幅广告图集、圆润厚字、独立花草及概括破损已交付。登记48行（46组件＋总成＋图集），主建筑above_water，植物／图集不承担建筑空间职责 | [交付与证据](../../development/2026-11-04_neon_garden_quarter.md)；[母版](../../../art_source/scenes/neon_garden_quarter/v001/neon_garden_quarter.blend)。Godot导出接入、碰撞／导航／泊位、性能优化、商业参考授权与用户最终美术验收pending；未修改正式TSCN |
+
+
+R44全局同步：已执行sync与无参复核，分别退出1／1；ORF旧源、zones／ocean_sky／zone1运行哈希与zones内容ID差异阻断，派生功能索引因此未更新。本套件源级验收通过，不以刷新任务外哈希掩盖全局失败。详见本轮交付记录。
+
+
+## 2026-11-05 霓虹花园街区 v002 结构返工
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R45 | v002 Blender 源级验收完成。9.6 米菜园桥接两楼，右楼实墙、楼板和屋顶同弧。挂架定位、落地灯笼、严重缺墙断板和裂分地坪已完成。50 组件／439 实例，17909 项重开检查与 33 项结构检查零失败。Skill 验证覆盖母版与 50 包，10 张 Cycles 实图复核。51 条 v002 主记录，3 条历史组件，复用原图集。 | [本轮交付](../../development/2026-11-05_neon_garden_quarter_v002.md) · [母版](../../../art_source/scenes/neon_garden_quarter/v002/neon_garden_quarter.blend)。Godot、碰撞、导航、泊位、商业授权 pending。 |
+
+
+## 2026-11-05 霓虹花园街区 v003
+
+| 对应条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R46 | v003 已接入。右楼右移 12 米，菜园桥跨约 21.6 米且使用实体双坡。50 组件与 506 实例通过 Blender 重开、结构和 02b 导入验收。源级专项与真实游戏专项均通过，参考图商业授权 pending。 | [本轮交付](../../development/2026-11-05_neon_garden_quarter_v003.md) |
