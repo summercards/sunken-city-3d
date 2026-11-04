@@ -377,12 +377,12 @@ func _animate_oars(delta: float) -> void:
 	var swing := sin(_stroke)
 	var dip := cos(_stroke)
 	var turn := clampf(_turn_rate / TURN_RATE, -1.0, 1.0)
-	_oar_l.rotation.y = lerpf(1.1, swing * 0.30 * (1.0 - turn * 0.3), _row_blend)
-	_oar_r.rotation.y = lerpf(-1.1, -swing * 0.30 * (1.0 + turn * 0.3), _row_blend)
+	_oar_l.rotation.y = lerpf(0.08, swing * 0.17 * (1.0 - turn * 0.3), _row_blend)
+	_oar_r.rotation.y = lerpf(-0.08, -swing * 0.17 * (1.0 + turn * 0.3), _row_blend)
 	# The authored oarlocks sit on the higher gunwale; the blade still dips below
 	# the original waterline on the power stroke and clears it on recovery.
-	_oar_l.rotation.z = lerpf(-0.3, 0.14 + dip * 0.22, _row_blend)
-	_oar_r.rotation.z = lerpf(0.3, -0.14 - dip * 0.22, _row_blend)
+	_oar_l.rotation.z = lerpf(0.22, 0.28 + dip * 0.24, _row_blend)
+	_oar_r.rotation.z = lerpf(-0.22, -0.28 - dip * 0.24, _row_blend)
 
 
 func wake_uniform() -> Vector4:
@@ -390,6 +390,16 @@ func wake_uniform() -> Vector4:
 
 func rowing_state() -> Vector2:
 	return Vector2(_stroke, _row_blend)
+
+
+## Read-only visual attachment contract; presentation never writes the vessel.
+func boarding_position() -> Vector3:
+	return model.transform * model.get_node("RowingSeat").position
+
+func rowing_pose() -> Dictionary:
+	return {"seat":model.get_node("RowingSeat").global_transform,
+		"left_grip":_oar_l.get_node("OarLVisual/Grip").global_position,
+		"right_grip":_oar_r.get_node("OarRVisual/Grip").global_position}
 
 
 ## Read-only visual contacts. Rendering owns the resulting water effects.

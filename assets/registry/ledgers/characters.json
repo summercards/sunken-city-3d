@@ -33,18 +33,18 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_visual.gd",
-      "source_sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604",
+      "source_sha256": "25facf3925329d7a77acab163a2aac15dbc3d49b68917babf248014ad5f11beb",
       "manifest": "assets/registry/manifests/sea-char-avatar-001.json",
-      "version": "v006",
+      "version": "v007",
       "runtime_path": "godot/src/avatar/avatar_visual.gd",
       "license": "project_authored_original_procedural_geometry_and_UI",
       "consumer_features": [
         "SEA-AVATAR",
         "SEA-ONBOARDING"
       ],
-      "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
-      "note": "r7 按用户最新红线内收/降低肩口，平顺颈胸、袖口与腋下；标准胖体肩根间距0.28937m、高0.74125m，骨架静止绑定和存档格式保持；本轮实际网格/渲染/动作验证。",
-      "previous_source_sha256": "0e5dd2e9056e9585d4537c3af3c031d9abae96ffd5fc55d43b2bc483f5a4d1c5"
+      "verification": "docs/features/onboarding/ledger.md",
+      "note": "r7 按用户最新红线内收/降低肩口，平顺颈胸、袖口与腋下；标准胖体肩根间距0.28937m、高0.74125m，骨架静止绑定和存档格式保持；本轮实际网格/渲染/动作验证。；2026-11-04新旅程美术/交互",
+      "previous_source_sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604"
     },
     {
       "asset_id": "SEA-CHAR-RIG-001",
@@ -63,7 +63,12 @@
       ],
       "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
       "note": "r7 按用户最新红线内收/降低肩口，平顺颈胸、袖口与腋下；标准胖体肩根间距0.28937m、高0.74125m，骨架静止绑定和存档格式保持；本轮实际网格/渲染/动作验证。",
-      "previous_source_sha256": "34a8403ac342472baea634007c8215fabe91ee022945743a691283f00973011e"
+      "previous_source_sha256": "34a8403ac342472baea634007c8215fabe91ee022945743a691283f00973011e",
+      "rowing_verification": {
+        "contract": "docs/development/2026-11-04_rowing_seat_and_grips.md",
+        "report": "D:\\projects\\sea-work\\rowing-fit-20261104\\verification.json",
+        "scope": "pose sampling only; skeleton bindings, geometry, source hash and license unchanged"
+      }
     },
     {
       "asset_id": "SEA-CHAR-FACE-001",
@@ -89,16 +94,17 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_hair.gd",
-      "source_sha256": "1619921b95b12acfdf5e25e08cd0a90076b053c8b138538e7e0db0130b69315d",
+      "source_sha256": "63cd82f6ed058eda9885b09c2c0a484e3a0b6d1610985b9502055d26f599ab1d",
       "manifest": "assets/registry/manifests/sea-char-hair-001.json",
-      "version": "v001",
+      "version": "v002",
       "runtime_path": "godot/src/avatar/avatar_hair.gd",
       "license": "project_authored_procedural_mesh_and_texture",
       "consumer_features": [
         "SEA-AVATAR"
       ],
-      "verification": "docs/development/2026-11-03_avatar_customization.md",
-      "note": "独立可维护的Godot程序源/自制透明遮罩；未使用外部游戏资产，未声称Blender或GLB产物。"
+      "verification": "docs/features/onboarding/ledger.md",
+      "note": "独立可维护的Godot程序源/自制透明遮罩；未使用外部游戏资产，未声称Blender或GLB产物。；2026-11-04新旅程美术/交互",
+      "previous_source_sha256": "1619921b95b12acfdf5e25e08cd0a90076b053c8b138538e7e0db0130b69315d"
     },
     {
       "asset_id": "SEA-CHAR-SHAPE-001",

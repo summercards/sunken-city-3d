@@ -53,3 +53,7 @@ __pycache__/
 
 # Godot 原子保存的中间文件（<场景>.<pid>.tmp），崩溃或中断后残留
 *.tmp
+
+# 一次性只读探针脚本（自查用，输出写 sea-work/，不进仓库）
+/godot/.tmp_*
+/godot/tools/.tmp_*

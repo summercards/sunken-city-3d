@@ -14,7 +14,16 @@ func tick(dt: float, move := false) -> void:
 	main.water_node.time=clock
 	if move:main.boat.position.z-=dt*1.8
 	main.boat._animate_oars(dt)
+	var contact=main.water_node.boat_contact
+	var previous_count: int=contact.touch_count
+	var blades: PackedVector3Array=main.boat.oar_blade_positions()
 	main.water_node.update_surface(clock,main.boat,main.cam.target)
+	# Compare each new event with the actual blade on that frame; oar length
+	# can change without reintroducing the retired fixed-distance splash.
+	var added: int=contact.touch_count-previous_count
+	for i in range(contact.last_touches.size()-added,contact.last_touches.size()):
+		var touch: Dictionary=contact.last_touches[i]
+		check(touch.position.distance_to(blades[int(touch.side)])<0.0001,"splash tracks actual blade at the entry frame")
 func shot(label: String) -> Image:
 	for i in 6:await process_frame
 	await RenderingServer.frame_post_draw
@@ -45,6 +54,9 @@ func run() -> void:
 	oar_pack.free()
 	main=load("res://scenes/main.tscn").instantiate();root.add_child(main)
 	main._autosave_on=false;main.process_mode=Node.PROCESS_MODE_DISABLED
+	# A real renderer must submit the newly built scene before synchronous
+	# uniform readbacks; otherwise the whole simulation queues in its first frame.
+	if visual: await process_frame
 	main.boat.set_process(false);main.cam.set_process(false);main.cam.follow_enabled=false
 	main.boat.place_at(Vector3(26,1.12,25),0.0);main.boat.model.transform=Transform3D.IDENTITY
 	var surface=main.water_node
@@ -62,17 +74,21 @@ func run() -> void:
 	check(contact.world_outline[0].distance_to(old)>3.0,"hull contact translates and rotates with vessel")
 	main.boat.place_at(Vector3(26,1.12,25),0.0)
 	main.boat._sailing=true;main.boat._vel=main.boat.cruise_speed();main.boat._speed_actual=1.8
-	for i in 240:tick(1.0/60.0)
+	for i in 240:
+		tick(1.0/60.0)
+		if visual and i%12==0: await process_frame
 	check(contact.touch_count>=6 and contact.touch_count<=12,"blade entry emits once per side per stroke")
 	var sides := [false,false]
 	for touch in contact.last_touches:
 		sides[int(touch.side)]=true
 		check(touch.position.y<=touch.surface_y+.016,"splash happens at real water entry")
-		check(absf(touch.position.x-main.boat.position.x)>3.0,"splash follows authored blade, replaces old fixed 2.6m offset")
+		check(absf(touch.position.x-main.boat.position.x)>main.boat.hull_local_aabb().size.x*.5,"blade splash stays outside the real hull after oar resize")
 	check(sides[0] and sides[1],"both oars create water contact")
 	var before: int=contact.touch_count
 	main.boat._sailing=false;main.boat._vel=0;main.boat._speed_actual=0
-	for i in 240:tick(1.0/60.0)
+	for i in 240:
+		tick(1.0/60.0)
+		if visual and i%12==0: await process_frame
 	check(contact.touch_count==before,"stopping creates no new blade splashes")
 	for rp in surface._ripples:check(clock-rp.z>3.2,"old rings expire in world space after stopping")
 	surface.wave_scale=waves
@@ -96,6 +112,7 @@ func run() -> void:
 			var start: int=contact.touch_count
 			for i in 100:
 				tick(1.0/60.0,true)
+				if i%12==0: await process_frame
 				if contact.touch_count>start:break
 			for i in 20:tick(1.0/60.0,true)
 			main.cam.target=main.boat.position+Vector3.UP*.3;main.cam.refresh()
@@ -120,7 +137,9 @@ func run() -> void:
 			mat.set_shader_parameter("boat_oar_strength",1.0)
 			main.cam.distance=16;main.cam.orbit_dir=Vector3(-.65,1.15,.8)
 			main.boat._sailing=false;main.boat._vel=0;main.boat._speed_actual=0
-			for i in 210:tick(1.0/60.0)
+			for i in 210:
+				tick(1.0/60.0)
+				if i%12==0: await process_frame
 			var stopped:=await shot(scheme+"-stopped")
 			mat.set_shader_parameter("boat_oar_strength",0.0)
 			var expired:=await shot(scheme+"-expired-off")

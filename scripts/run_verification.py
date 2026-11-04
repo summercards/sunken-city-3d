@@ -39,6 +39,9 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'rowing-fit': ('tests/test_rowing_fit.gd', r'\[rowing-fit\] \d+ checks, 0 failures'),
+    'visual-rowing-fit': ('tests/test_rowing_fit.gd', r'\[rowing-fit\] \d+ checks, 0 failures'),
+    'visual-rowing-game': ('tools/capture_rowing_fit.gd', r'\[rowing-game\] \d+ checks, 0 failures'),
     'building-demolition': ('tests/test_building_demolition.gd', r'\[building-demolition\] \d+ checks, 0 failures'),
     'building-surfaces': ('tests/test_building_surfaces.gd', r'\[building-surfaces\] \d+ checks, 0 failures'),
     'visual-building-surfaces': ('tests/test_building_surfaces.gd', r'\[building-surfaces\] \d+ checks, 0 failures'),
@@ -133,8 +136,10 @@ TESTS.update({
     'sunroom-body-probe': ('tools/probe_sunroom_body.gd', r'\[sunroom-probe\] '),
     # 海上补给站：浮店作为最小区块，涵盖登记/甲板/泊位/上岸/柜台/存档校验。
     'sea-supply': ('tests/test_sea_supply.gd', r'\[sea-supply\] \d+ checks, 0 failures'),
-    # 顶层牧场：水面压在保留段最下面那层消防梯平台下 0.26 米，六段折返梯真实连通楼顶。
+    # 顶层牧场：原顶部梯段不挪位，整楼下沉至仅最后一段在水上，登陆可达屋顶。
     'rooftop-ranch': ('tests/test_rooftop_ranch.gd', r'\[rooftop-ranch\] \d+ checks, 0 failures'),
+    'ranch-deck-probe': ('tools/probe_ranch_decks.gd', r'DOCKEDGE world='),
+    'visual-rooftop-ranch': ('tools/capture_rooftop_ranch_v005.gd', r'\[ranch-shot\] complete'),
     'floating-shop': ('tests/test_floating_shop.gd', r'\[floating-shop\] \d+ checks, 0 failures'),
     'building-scale-reference': ('tools/probe_building_scale.gd', r'\[building-scale-reference\] \d+ rows, 0 failures'),
     'visual-floating-shop': ('tools/capture_floating_shop.gd', r'\[floating-shop-render\] \d+ checks, 0 failures'),

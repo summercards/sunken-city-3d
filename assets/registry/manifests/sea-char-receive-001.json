@@ -3,7 +3,7 @@
   "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-RECEIVE-001",
   "source": "godot/src/player/animation/item_receive.gd",
   "runtime_path": "godot/src/player/animation/item_receive.gd",
-  "version": "v006",
+  "version": "v007",
   "animation": {
     "id": "harvesting",
     "duration": 2.4,
@@ -47,7 +47,8 @@
     },
     {
       "path": "godot/src/player/animation/idle_action.gd",
-      "sha256": "3db4532be77d7a64d85e0d2a225807802cebec2cea7c33f0595825bf6b86aff6"
+      "sha256": "ef04370f4293f8db28496d86b3bddb22014c3e5607f22f2fdd963ff7be93fb93",
+      "previous_sha256": "3db4532be77d7a64d85e0d2a225807802cebec2cea7c33f0595825bf6b86aff6"
     }
   ],
   "reused_assets": [
@@ -56,7 +57,7 @@
     "SEA-CROP-PUMPKIN"
   ],
   "source_type": "existing sea procedural node model; no Blender/GLB change",
-  "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
+  "verification": "docs/features/onboarding/ledger.md",
   "checks": [
     "actor-presentation",
     "harvest-receive",
@@ -64,5 +65,6 @@
   ],
   "rollback": "revert only files listed in development record; original crop GLBs unchanged",
   "skeleton_asset_id": "SEA-CHAR-RIG-001",
-  "rig_contract": "art_source/characters/avatar/v002/rig_contract.json"
+  "rig_contract": "art_source/characters/avatar/v002/rig_contract.json",
+  "note": "2026-11-04新旅程美术/交互"
 }

@@ -3,10 +3,10 @@ extends "res://src/world/zone_scene.gd"
 ## 顶层牧场：视觉升级状态 + 楼顶与消防梯的行走/物理支撑。
 ## 不拥有经济、生产或存档规则，只把「能不能站、能不能走上去」做成真实数据。
 ##
-## 水面位置按用户红线标定：现在只保留一段消防梯，
-## 该段下端平台甲板 44.80 对齐水面（44.80），视觉甲板厚度向上留 0.26 米供角色站立。
-## 整楼包装根下沉到 -43.68：1.12 - 44.80 = -43.68。
-## 船靠这一个平台上人；平台以上不再有来回折返梯，楼顶暂不承诺从该段连续可达。
+## v006：消防梯相对楼体的原始变换不改，整楼下沉到 -55.92。
+## 水面对应本地 57.04，原顶部下平台 57.30 在水上 0.26 米。
+## 仅最后一段（57.30→59.80）完整露在水面以上，原下层梯留在水下。
+## 船靠原顶部下平台上岸，经最后一段及原入口登上 60.00 米楼顶。
 
 @export_enum("unbuilt", "complete") var greenhouse_upgrade_state := "unbuilt":
 	set(value):
@@ -19,9 +19,9 @@ extends "res://src/world/zone_scene.gd"
 		_apply_upgrade_state()
 
 ## —— 楼体本地标高（米，+Y 向上）——
-const WATER_LOCAL_Y := 44.80      ## 水面穿过单段消防梯下端平台；世界高度 1.12
-const BOARD_DECK_Y := 45.06       ## 甲板可站高度：视觉平台厚度向上 0.26m
-const ROOF_Y := 60.00             ## 楼顶草皮面
+const WATER_LOCAL_Y := 57.04      ## 世界水面 1.12，不移动海面
+const BOARD_DECK_Y := 57.30       ## 原顶部梯段下平台的真实甲板
+const ROOF_Y := 60.05             ## 60.00 基底 + 0.05 草皮真实厚度
 const BRIDGE_Y := 59.90           ## 历史值，仅保留元数据兼容
 
 ## 六段折返梯：lane A/B 两条梯道交替，每段升 2.5 米，合 15 米。
@@ -55,31 +55,29 @@ const ROOF_MAX_Z := 15.50
 ## 楼顶上占地的实体：这些地方不是地面，要挖掉，同时给角色一层物理阻挡。
 ## rect = [x0, z0, x1, z1]（本地 XZ），top = 顶部标高。
 const ROOF_CUTS := [
-	{"id": "UpperTerrace", "rect": [-21.30, 3.20, -10.70, 12.80], "top": 65.85},
-	{"id": "Shed", "rect": [-9.50, 7.20, -4.60, 10.80], "top": 63.61},
-	{"id": "Coop", "rect": [-18.90, -0.65, -15.10, 2.40], "top": 62.32},
-	{"id": "Greenhouse", "rect": [3.20, -12.20, 10.80, -2.80], "top": 63.84},
-	{"id": "WaterTower", "rect": [15.50, -13.20, 20.90, -6.80], "top": 66.10},
+	{"id": "UpperTerrace", "rect": [-21.20, -12.70, -10.80, -3.30], "top": 65.853},
+	{"id": "Shed", "rect": [-9.233, -10.724, -4.644, -7.276], "top": 63.613},
+	{"id": "Coop", "rect": [-18.818, -2.550, -15.182, 0.289], "top": 62.337},
+	{"id": "Greenhouse", "rect": [3.809, -11.572, 10.191, -3.428], "top": 63.888},
+	{"id": "WaterTower", "rect": [15.967, -12.502, 19.648, -7.498], "top": 66.144},
 ]
 
 func _ready() -> void:
-	_hide_extra_stairs()
+	_restore_original_stairs()
 	_author_walk_surfaces()
 	_author_roof_obstacles()
 	super._ready()
 	_apply_upgrade_state()
 
-## v005 只露出一段消防梯：保留水面平台、第一段梯段和上端小平台。
-## 其余几何在运行包装中隐藏；Blender v005 源也同步保留同一段。
-func _hide_extra_stairs() -> void:
+## 所有原梯保留原位；下层由真实海水遮没，而不是删除/挪动梯子。
+func _restore_original_stairs() -> void:
 	var models := get_node_or_null("Models")
 	if models == null:
 		return
 	for child in models.get_children():
 		var n := String(child.name)
-		var keep := n in ["ORF3_实例_stair_flight.018", "ORF3_实例_stair_landing.019"]
-		if n.begins_with("ORF3_实例_stair_flight.") or n.begins_with("ORF3_实例_stair_landing.") or n == "ORF3_实例_stair_landing.024" or n == "ORF3_实例_roof_entry":
-			child.visible = keep
+		if n.begins_with("ORF3_实例_stair_flight.") or n.begins_with("ORF3_实例_stair_landing.") or n == "ORF3_实例_roof_entry":
+			child.visible = true
 
 func set_greenhouse_upgrade_state(state: String, instant := false) -> void:
 	if state != "unbuilt" and state != "complete":
@@ -115,17 +113,19 @@ func _author_walk_surfaces() -> void:
 	if area == null:
 		return
 	var faces := PackedVector3Array()
-	# v005 只保留水面以上的一段消防梯：下端平台 44.80 → 单段梯 → 上端平台 47.30。
-	# 楼顶不再与这段消防梯宣称连通；WalkArea 严格跟随当前可见模型。
-	_add_rect(faces, 23.90, -4.80, 28.10, -3.00, BOARD_DECK_Y)
-	_add_ramp(faces, 24.16, 25.84, -3.00, 1.20, BOARD_DECK_Y, 47.56)
-	_add_rect(faces, 23.90, 1.20, 28.10, 3.00, 47.56)
+	# 原末段，坐标直接对应实际 GLB 踏面；不能沿用之前反号的 Z。
+	_add_rect(faces, 24.02, -2.98, 27.98, -1.20, BOARD_DECK_Y)
+	_add_ramp(faces, 26.25, 27.75, -1.20, 3.00, BOARD_DECK_Y, 59.80)
+	_add_rect(faces, 24.80, 3.00, 27.98, 4.78, 59.80)
+	_add_ramp_x(faces, 3.00, 4.78, 24.80, ROOF_MAX_X, 59.80, ROOF_Y)
+	for piece: Array in _roof_pieces():
+		_add_rect(faces, piece[0], piece[1], piece[2], piece[3], ROOF_Y)
 	faces = _upward(faces)
 	area.surface_triangles = faces
 	area.physical_surface_triangles = faces
-	area.surface_y = global_position.y + 47.56
+	area.surface_y = global_position.y + ROOF_Y
 	area.span_min = global_position.y + WATER_LOCAL_Y
-	area.span_max = global_position.y + 47.86
+	area.span_max = global_position.y + ROOF_Y + 0.30
 
 ## 楼顶矩形减去被实体占掉的部分，切成若干可走矩形。
 func _roof_pieces() -> Array:

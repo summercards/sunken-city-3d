@@ -10,6 +10,9 @@ facility_id = "player_boat"
 metadata/asset_id = "SEA-SCENE-SKIFF-OAR"
 [node name="Visual" parent="." instance=ExtResource("visual")]
 
+[node name="Grip" type="Marker3D" parent="."]
+position = Vector3(-1.427232, 0.056, 0)
+
 [node name="BladeContact" type="Marker3D" parent="."]
 
 position = Vector3(1.582232, 0.021, 0)

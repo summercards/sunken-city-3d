@@ -33,7 +33,8 @@ func run() -> void:
 	for i in 3: await process_frame
 	var zone: Node3D=main.get_node("World/Zones/Zone1HomeHarbor")
 	var models: Node3D=zone.get_node("Models")
-	for name in ["detail","unit_01","unit_02","unit_03"]: check(not models.get_node(name).visible,"old sea models retired "+name)
+	# 2026-11-04：这四栋旧海面楼体已从场景删除，不再是「存在但隐藏」。
+	for name in ["detail","unit_01","unit_02","unit_03"]: check(models.get_node_or_null(name)==null,"old sea models removed "+name)
 	var surface: Node3D=models.get_node("太阳能木屋/太阳能木屋-海上区域")
 	check(surface.scale.is_equal_approx(Vector3.ONE),"prefab root scale one")
 	var component_ids := {};var triangles := 0;var bounds := AABB();var first := true

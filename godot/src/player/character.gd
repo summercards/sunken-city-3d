@@ -58,7 +58,12 @@ func avatar_geometry_report() -> Dictionary:
 	return {"factors":_avatar_factors.duplicate(true),"morphs":_avatar_morphs.duplicate(true),"face":_avatar_visual.face_metrics(),"hair":_avatar_visual.hair_metrics()}
 
 func set_preview_yaw(value: float) -> void:
-	if body_pivot != null: body_pivot.rotation.y = value
+	if body_pivot != null:
+		_turn_velocity = clampf(wrapf(value - body_pivot.rotation.y, -PI, PI) * 3.5, -1.5, 1.5)
+		body_pivot.rotation.y = value
+
+func trigger_customize_pulse() -> void:
+	_customize_pulse = 1.0
 
 func preview_expression(id: String, duration:=2.8) -> void:
 	_avatar_visual.expression.preview(id,duration)
@@ -67,7 +72,10 @@ func preview_expression(id: String, duration:=2.8) -> void:
 func expression_state() -> Dictionary: return _avatar_visual.expression.query()
 
 var _t := 0.0
+var _customize_pulse := 0.0
+var _turn_velocity := 0.0
 var _rowing := false
+var _boat_seated := false
 var _farm_action_left := 0.0
 
 func play_farm_action(event: String, payload: Dictionary = {}) -> void:
@@ -195,7 +203,14 @@ func set_rowing(on: bool) -> void:
 	if on:
 		_base_action="rowing"
 		cancel_action("rowing")
+	elif _base_action=="rowing" and not _boat_seated: _base_action="idle"
+
+func set_boat_seated(on: bool) -> void:
+	var leaving_seat := _boat_seated and not on
+	_boat_seated=on
+	if on: _base_action="rowing"
 	elif _base_action=="rowing": _base_action="idle"
+	if leaving_seat: _reset_action_pose()
 
 func set_diving(on: bool) -> void:
 	_base_action = "swimming" if on else "idle"
@@ -207,6 +222,7 @@ func set_diving(on: bool) -> void:
 
 
 var rowing_query: Callable
+var rowing_pose_query: Callable
 var _action := "idle"
 var _base_action := "idle"
 var _last_action := ""
@@ -277,7 +293,7 @@ func _reset_action_pose() -> void:
 	if body_pivot == null: return
 	for joint in [body_pivot,head_pivot,left_arm,right_arm,left_elbow,right_elbow,left_leg,right_leg,left_knee,right_knee]:
 		joint.rotation = Vector3.ZERO
-	body_pivot.position.y = 0.0
+	body_pivot.position = Vector3.ZERO
 	left_arm.position = avatar_shoulder(-1)
 	right_arm.position = avatar_shoulder(1)
 	left_arm.scale = Vector3.ONE
@@ -288,6 +304,8 @@ func _reset_action_pose() -> void:
 	right_arm.rotation.z=float(_avatar_factors.arm_rest)
 	_item_receive.set_arm_length(left_arm,left_elbow,float(_avatar_factors.arm_length))
 	_item_receive.set_arm_length(right_arm,right_elbow,float(_avatar_factors.arm_length))
+	left_elbow.get_node("Hand").position.z=0.006
+	right_elbow.get_node("Hand").position.z=0.006
 	_last_action = ""
 	sync_visual_pose()
 
@@ -305,12 +323,16 @@ func _flush_action_events() -> void:
 func _process(delta: float) -> void:
 	if not is_finite(delta) or delta < 0.0: return
 	_t += delta
+	_customize_pulse = maxf(0.0, _customize_pulse - delta * 2.2)
+	_turn_velocity = move_toward(_turn_velocity, 0.0, delta * 4.5)
 	if body_pivot==null: return
+	var preserved_yaw := body_pivot.rotation.y
 	var playback: Dictionary = _action_playback.capture()
 	_action = str(playback.id) if not playback.is_empty() else _base_action
 	_farm_action_left = _action_playback.remaining()
 	if _last_action != _action:
 		_reset_action_pose()
+		body_pivot.rotation.y = preserved_yaw
 		_last_action = _action
 	_actions[_action].sample(self,delta)
 	var visible_progress:=action_progress()

@@ -489,6 +489,7 @@ func _activate_selection() -> void:
 			tile.pressed.emit();return
 
 func _input(event: InputEvent) -> void:
+	if narrative_active(): return
 	if menu and menu.active: return
 	if owned_modal_query.is_valid() and owned_modal_query.call(): return
 	if not event is InputEventKey or not event.pressed or event.echo: return
@@ -591,7 +592,7 @@ func _process(delta: float) -> void:
 	_toast_tag.visible=false
 	_toast_tag.modulate=_toast_box.modulate
 	_zoom_left=maxf(0,_zoom_left-delta)
-	_zoom.visible=_zoom_left>0 and not _panel_open and not _external_modal and not menu.active
+	_zoom.visible=_zoom_left>0 and not _panel_open and not _external_modal and not menu.active and not narrative_active()
 	_tick_build_rows();_tick_plant_rows()
 
 func _item_tile(id: String, count: int) -> Button:
@@ -840,7 +841,7 @@ func _add_goal_button(id: String) -> void:
 	_tab_body.add_child(button)
 
 func is_modal() -> bool:
-	return _panel_open or _external_modal or (corner!=null and corner.expanded) or (world_actions != null and world_actions.is_open()) or (menu != null and menu.visible and get_tree().paused)
+	return narrative_active() or _panel_open or _external_modal or (corner!=null and corner.expanded) or (world_actions != null and world_actions.is_open()) or (menu != null and menu.visible and get_tree().paused)
 
 func camera_modal() -> bool:
 	if owned_modal_camera_query.is_valid() and owned_modal_camera_query.call():
@@ -874,6 +875,17 @@ func show_dialogue(speaker: String, text: String) -> void:
 		dialogue = preload("res://src/ui/character_dialogue.gd").new()
 		add_child(dialogue)
 	dialogue.show_line(speaker,text)
+
+func narrative_active() -> bool:
+	return is_instance_valid(dialogue) and dialogue.is_blocking()
+
+func show_dialogue_sequence(lines: Array) -> void:
+	if dialogue == null:
+		dialogue = preload("res://src/ui/character_dialogue.gd").new()
+		add_child(dialogue)
+	_zoom_left=0.0
+	_zoom.hide()
+	dialogue.show_sequence(lines)
 
 var _context_plot := ""
 var _plot_command: Callable

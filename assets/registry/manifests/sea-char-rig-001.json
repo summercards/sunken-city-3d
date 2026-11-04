@@ -1,7 +1,7 @@
 {
   "asset_id": "SEA-CHAR-RIG-001",
   "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-RIG-001",
-  "version": "v005",
+  "version": "v006",
   "source": "godot/src/avatar/avatar_limb_skinning.gd",
   "runtime_path": "godot/src/avatar/avatar_limb_skinning.gd",
   "authored_files": [
@@ -11,7 +11,8 @@
     },
     {
       "path": "godot/shaders/avatar_limb.gdshader",
-      "sha256": "8244fa8a57769d082141e6a525abc730e16b97c3fb5f0e7766040206544fe6df"
+      "sha256": "0f359ca91245c96cb943f256769514291fe9deb84a812274101ae9d1cf71ffef",
+      "previous_sha256": "8244fa8a57769d082141e6a525abc730e16b97c3fb5f0e7766040206544fe6df"
     },
     {
       "path": "godot/src/avatar/avatar_dimensions.gd",
@@ -19,7 +20,9 @@
     },
     {
       "path": "godot/src/player/character.gd",
-      "sha256": "b13ea4092cc82ec1d17c4e9e6d65d763e572b8be2b140f67e1aab829df803e04"
+      "sha256": "78d70b56fcf7a54452182d1d18500587b00086e250fcc22358ce0e1fd891daee",
+      "previous_sha256": "b3d69452c80ef713b5109030f2b75b7926090f124fa473964345f2460590f12e",
+      "revision_note": "SEA-MOVE-R18: seat lifecycle, injected pose query and full offset reset; rig geometry unchanged"
     },
     {
       "path": "art_source/characters/avatar/v002/rig_contract.json",
@@ -34,7 +37,9 @@
   "rig_contract": "art_source/characters/avatar/v002/rig_contract.json",
   "coordinate_system": "+Y up, +Z forward, metres, root scale 1",
   "animation_driver": "registered action samples -> non-rendering pose controls -> Skeleton3D bone poses -> GPU skinning",
-  "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
+  "verification": "docs/features/onboarding/ledger.md",
   "self_verification": "closed/connected/manifold, weights, bone-only GPU deformation, 0-120deg, pose/render/profile regressions",
-  "shoulder_contract": "art_source/characters/avatar/v006/shoulder_contract.json"
+  "shoulder_contract": "art_source/characters/avatar/v006/shoulder_contract.json",
+  "note": "2026-11-04新旅程美术/交互",
+  "rowing_contract": "docs/development/2026-11-04_rowing_seat_and_grips.md"
 }

@@ -1,18 +1,20 @@
 {
   "asset_id": "SEA-CHAR-HAIR-001",
   "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-HAIR-001",
-  "version": "v001",
+  "version": "v002",
   "source": "godot/src/avatar/avatar_hair.gd",
   "runtime_path": "godot/src/avatar/avatar_hair.gd",
   "authored_files": [
     {
       "path": "godot/src/avatar/avatar_hair.gd",
-      "sha256": "1619921b95b12acfdf5e25e08cd0a90076b053c8b138538e7e0db0130b69315d"
+      "sha256": "63cd82f6ed058eda9885b09c2c0a484e3a0b6d1610985b9502055d26f599ab1d",
+      "previous_sha256": "1619921b95b12acfdf5e25e08cd0a90076b053c8b138538e7e0db0130b69315d"
     }
   ],
-  "verification": "docs/development/2026-11-03_avatar_customization.md",
+  "verification": "docs/features/onboarding/ledger.md",
   "source_type": "original Godot procedural source and deterministic Pillow-authored PNG masks; no Blender/GLB",
   "units": "metres / +Y up / +Z forward / root scale 1",
   "external_game_assets_used": false,
-  "self_verification": "actual mesh and skinned vertices, mixed extremes, dense action samples, real renderer and real UI input"
+  "self_verification": "actual mesh and skinned vertices, mixed extremes, dense action samples, real renderer and real UI input",
+  "note": "2026-11-04新旅程美术/交互"
 }

@@ -3,7 +3,7 @@
   "groups": [
     {
       "id": "body",
-      "label": "体型",
+      "label": "身形",
       "slots": [
         "body_type"
       ]
@@ -17,7 +17,7 @@
     },
     {
       "id": "hair",
-      "label": "头发",
+      "label": "发型",
       "slots": [
         "hair_style",
         "hair_color",
@@ -27,7 +27,7 @@
     },
     {
       "id": "eyes",
-      "label": "眼睛",
+      "label": "神态",
       "slots": [
         "eyes",
         "eye_color",
@@ -36,7 +36,7 @@
     },
     {
       "id": "face",
-      "label": "五官",
+      "label": "面庞",
       "slots": [
         "nose",
         "mouth",
@@ -63,7 +63,7 @@
     },
     {
       "id": "shoes",
-      "label": "鞋子",
+      "label": "鞋履",
       "slots": [
         "shoes",
         "shoe_color"
@@ -71,7 +71,7 @@
     },
     {
       "id": "extras",
-      "label": "配饰",
+      "label": "随身",
       "slots": [
         "hat",
         "hat_color",
@@ -82,44 +82,44 @@
   "slots": [
     {
       "id": "skin",
-      "label": "海风亲吻的肤色",
+      "label": "海风与日光的肤色",
       "default": "peach",
       "options": [
         {
           "id": "porcelain",
-          "label": "瓷白",
-          "color": "#ffe5d0"
+          "label": "白瓷",
+          "color": "#fce4cf"
         },
         {
           "id": "peach",
-          "label": "蜜桃",
-          "color": "#f5cbaa"
+          "label": "暖杏",
+          "color": "#f2c6a2"
         },
         {
           "id": "honey",
-          "label": "蜜糖",
-          "color": "#dfaa7b"
+          "label": "浅麦",
+          "color": "#dca474"
         },
         {
           "id": "tan",
-          "label": "小麦",
-          "color": "#bb825c"
+          "label": "海盐琥珀",
+          "color": "#b87f58"
         },
         {
           "id": "umber",
-          "label": "可可",
-          "color": "#895a43"
+          "label": "深焙可可",
+          "color": "#865740"
         },
         {
           "id": "deep",
-          "label": "深棕",
-          "color": "#593d34"
+          "label": "礁石深棕",
+          "color": "#563b32"
         }
       ]
     },
     {
       "id": "body_type",
-      "label": "身体的轮廓",
+      "label": "身形比例",
       "default": "balanced",
       "options": [
         {
@@ -128,461 +128,461 @@
         },
         {
           "id": "pear",
-          "label": "梨形"
+          "label": "松弛梨形"
         },
         {
           "id": "athletic",
-          "label": "健朗"
+          "label": "挺拔健朗"
         },
         {
           "id": "soft",
-          "label": "柔和"
+          "label": "温润柔和"
         }
       ]
     },
     {
       "id": "hair_style",
-      "label": "选一个喜欢的发型",
+      "label": "发型款式",
       "default": "bob",
       "options": [
         {
           "id": "crop",
-          "label": "清爽短发"
+          "label": "清爽利落短发"
         },
         {
           "id": "side",
-          "label": "侧分短发"
+          "label": "海风侧分"
         },
         {
           "id": "bob",
-          "label": "圆圆波波头"
+          "label": "内扣波波"
         },
         {
           "id": "wave",
-          "label": "柔软卷发"
+          "label": "微卷中发"
         },
         {
           "id": "bun",
-          "label": "高高丸子头"
+          "label": "随性丸子头"
         },
         {
           "id": "twin",
-          "label": "双团子"
+          "label": "双丸发髻"
         },
         {
           "id": "ponytail",
-          "label": "轻盈马尾"
+          "label": "轻快马尾"
         },
         {
           "id": "high_ponytail",
-          "label": "高马尾"
+          "label": "高束马尾"
         },
         {
           "id": "low_ponytail",
-          "label": "低马尾"
+          "label": "低束马尾"
         },
         {
           "id": "long",
-          "label": "披肩长发"
+          "label": "垂肩长发"
         },
         {
           "id": "curly",
-          "label": "蓬松卷发"
+          "label": "蓬松自然卷"
         },
         {
           "id": "braid",
-          "label": "麻花辫"
+          "label": "编织麻花辫"
         },
         {
           "id": "undercut",
-          "label": "两侧清爽"
+          "label": "干净利落铲青"
         },
         {
           "id": "pixie",
-          "label": "精灵短发"
+          "label": "精灵碎发"
         }
       ]
     },
     {
       "id": "hair_color",
-      "label": "头发的颜色",
+      "label": "发色",
       "default": "chestnut",
       "options": [
         {
           "id": "chestnut",
-          "label": "栗棕",
-          "color": "#664432"
+          "label": "焦糖栗棕",
+          "color": "#5e3e2e"
         },
         {
           "id": "black",
-          "label": "墨黑",
-          "color": "#302d35"
+          "label": "乌木墨黑",
+          "color": "#2c2930"
         },
         {
           "id": "cocoa",
-          "label": "可可",
-          "color": "#8d6145"
+          "label": "暖焙可可",
+          "color": "#84593f"
         },
         {
           "id": "gold",
-          "label": "麦金",
-          "color": "#d9b565"
+          "label": "日晒麦金",
+          "color": "#cfa95c"
         },
         {
           "id": "silver",
-          "label": "银灰",
-          "color": "#c4c5c0"
+          "label": "海雾银灰",
+          "color": "#b9bcb6"
         },
         {
           "id": "rose",
-          "label": "莓粉",
-          "color": "#ca8490"
+          "label": "落日灰粉",
+          "color": "#c27c87"
         },
         {
           "id": "ocean",
-          "label": "海蓝",
-          "color": "#648eab"
+          "label": "深海石青",
+          "color": "#547c96"
         },
         {
           "id": "mint",
-          "label": "薄荷",
-          "color": "#91b59a"
+          "label": "海苔灰绿",
+          "color": "#7ea388"
         }
       ]
     },
     {
       "id": "fringe",
-      "label": "刘海",
+      "label": "额前刘海",
       "default": "auto",
       "options": [
         {
           "id": "auto",
-          "label": "随发型"
+          "label": "随发型自然垂落"
         },
         {
           "id": "side",
-          "label": "侧扫刘海"
+          "label": "斜分微扫"
         },
         {
           "id": "straight",
-          "label": "齐刘海"
+          "label": "整齐平刘海"
         },
         {
           "id": "open",
-          "label": "露额头"
+          "label": "清爽露额"
         }
       ]
     },
     {
       "id": "hair_accessory",
-      "label": "发饰",
+      "label": "发间点缀",
       "default": "none",
       "options": [
         {
           "id": "none",
-          "label": "不加发饰"
+          "label": "无点缀"
         },
         {
           "id": "ribbon",
-          "label": "小蝴蝶结"
+          "label": "布艺发结"
         },
         {
           "id": "band",
-          "label": "发带"
+          "label": "编织发带"
         }
       ]
     },
     {
       "id": "eyes",
-      "label": "眼睛的形状",
+      "label": "眼型与目光",
       "default": "round",
       "options": [
         {
           "id": "round",
-          "label": "圆亮眼"
+          "label": "澄澈圆眼"
         },
         {
           "id": "oval",
-          "label": "椭圆眼"
+          "label": "温和椭圆"
         },
         {
           "id": "sleepy",
-          "label": "悠闲眼"
+          "label": "慵懒微垂"
         },
         {
           "id": "smile",
-          "label": "笑眯眯"
+          "label": "弯月笑眼"
         },
         {
           "id": "almond",
-          "label": "细杏眼"
+          "label": "修长杏眼"
         },
         {
           "id": "wide",
-          "label": "惊喜眼"
+          "label": "好奇睁大"
         },
         {
           "id": "soft",
-          "label": "温柔眼"
+          "label": "柔和目光"
         },
         {
           "id": "cat",
-          "label": "猫咪眼"
+          "label": "微挑猫眼"
         },
         {
           "id": "sparkle",
-          "label": "粗线亮眼"
+          "label": "神采奕奕"
         },
         {
           "id": "dot",
-          "label": "豆豆眼"
+          "label": "质朴豆眼"
         },
         {
           "id": "lidded",
-          "label": "半睁眼"
+          "label": "沉静半敛"
         },
         {
           "id": "bright",
-          "label": "明亮眼"
+          "label": "清亮有神"
         }
       ]
     },
     {
       "id": "eye_color",
-      "label": "眼睛的颜色",
+      "label": "瞳色",
       "default": "brown",
       "options": [
         {
           "id": "brown",
-          "label": "栗子",
-          "color": "#654634"
+          "label": "琥珀栗",
+          "color": "#5b3f2f"
         },
         {
           "id": "black",
-          "label": "深墨",
-          "color": "#33303b"
+          "label": "深邃墨",
+          "color": "#2d2a34"
         },
         {
           "id": "blue",
-          "label": "湖蓝",
-          "color": "#548aa0"
+          "label": "远海蓝",
+          "color": "#4c7e94"
         },
         {
           "id": "green",
-          "label": "苔绿",
-          "color": "#71895a"
+          "label": "海藻绿",
+          "color": "#667e52"
         },
         {
           "id": "amber",
-          "label": "琥珀",
-          "color": "#b78d4a"
+          "label": "落日金",
+          "color": "#ad8342"
         },
         {
           "id": "violet",
-          "label": "紫藤",
-          "color": "#927da8"
+          "label": "暮色紫",
+          "color": "#85719a"
         }
       ]
     },
     {
       "id": "brows",
-      "label": "眉毛",
+      "label": "眉形",
       "default": "soft",
       "options": [
         {
           "id": "soft",
-          "label": "柔和"
+          "label": "自然柔和"
         },
         {
           "id": "straight",
-          "label": "平直"
+          "label": "平直干净"
         },
         {
           "id": "arch",
-          "label": "弯弯"
+          "label": "舒展微挑"
         }
       ]
     },
     {
       "id": "nose",
-      "label": "鼻子",
+      "label": "鼻型",
       "default": "button",
       "options": [
         {
           "id": "button",
-          "label": "小圆鼻"
+          "label": "圆润短鼻"
         },
         {
           "id": "oval",
-          "label": "椭圆鼻"
+          "label": "立体椭圆"
         },
         {
           "id": "tiny",
-          "label": "小巧鼻"
+          "label": "秀气微翘"
         }
       ]
     },
     {
       "id": "mouth",
-      "label": "嘴巴",
+      "label": "唇形与神情",
       "default": "smile",
       "options": [
         {
           "id": "smile",
-          "label": "弯弯微笑"
+          "label": "浅浅微笑"
         },
         {
           "id": "wide",
-          "label": "大大微笑"
+          "label": "舒展笑意"
         },
         {
           "id": "calm",
-          "label": "平静横线"
+          "label": "沉静抿唇"
         },
         {
           "id": "oh",
-          "label": "惊讶圆嘴"
+          "label": "轻叹微张"
         },
         {
           "id": "open",
-          "label": "开怀笑"
+          "label": "朗声开怀"
         },
         {
           "id": "grin",
-          "label": "露齿笑"
+          "label": "爽朗露齿"
         },
         {
           "id": "frown",
-          "label": "小烦恼"
+          "label": "若有所思"
         },
         {
           "id": "smirk",
-          "label": "俏皮歪笑"
+          "label": "嘴角微扬"
         },
         {
           "id": "cat",
-          "label": "弯弯W嘴"
+          "label": "轻巧弧线"
         },
         {
           "id": "joy",
-          "label": "欢呼"
+          "label": "欣喜雀跃"
         },
         {
           "id": "laugh",
-          "label": "哈哈笑"
+          "label": "畅快大笑"
         },
         {
           "id": "pout",
-          "label": "抿嘴"
+          "label": "微微嘟起"
         },
         {
           "id": "fang",
-          "label": "小虎牙"
+          "label": "单侧虎牙"
         },
         {
           "id": "tongue",
-          "label": "吐舌"
+          "label": "轻松吐舌"
         },
         {
           "id": "kiss",
-          "label": "嘟嘟嘴"
+          "label": "吹海风哨"
         },
         {
           "id": "zigzag",
-          "label": "紧张波浪"
+          "label": "略显局促"
         }
       ]
     },
     {
       "id": "blush",
-      "label": "脸颊",
+      "label": "面颊气色",
       "default": "peach",
       "options": [
         {
           "id": "peach",
-          "label": "蜜桃腮红"
+          "label": "海风微醺"
         },
         {
           "id": "freckles",
-          "label": "小雀斑"
+          "label": "日晒雀斑"
         },
         {
           "id": "none",
-          "label": "清清爽爽"
+          "label": "干净素颜"
         }
       ]
     },
     {
       "id": "beard",
-      "label": "胡子",
+      "label": "胡须造型",
       "default": "none",
       "options": [
         {
           "id": "none",
-          "label": "清爽无胡"
+          "label": "清爽无须"
         },
         {
           "id": "stubble",
-          "label": "淡淡胡茬"
+          "label": "浅浅青茬"
         },
         {
           "id": "moustache",
-          "label": "小八字胡"
+          "label": "复古八字须"
         },
         {
           "id": "goatee",
-          "label": "山羊胡"
+          "label": "修剪山羊胡"
         },
         {
           "id": "full",
-          "label": "环脸胡"
+          "label": "浓密络腮胡"
         }
       ]
     },
     {
       "id": "beard_color",
-      "label": "胡子的颜色",
+      "label": "胡须颜色",
       "default": "chestnut",
       "options": [
         {
           "id": "chestnut",
-          "label": "栗棕",
-          "color": "#664432"
+          "label": "焦糖栗棕",
+          "color": "#5e3e2e"
         },
         {
           "id": "black",
-          "label": "墨黑",
-          "color": "#302d35"
+          "label": "乌木墨黑",
+          "color": "#2c2930"
         },
         {
           "id": "cocoa",
-          "label": "可可",
-          "color": "#8d6145"
+          "label": "暖焙可可",
+          "color": "#84593f"
         },
         {
           "id": "gold",
-          "label": "麦金",
-          "color": "#d9b565"
+          "label": "日晒麦金",
+          "color": "#cfa95c"
         },
         {
           "id": "silver",
-          "label": "银灰",
-          "color": "#c4c5c0"
+          "label": "海雾银灰",
+          "color": "#b9bcb6"
         },
         {
           "id": "rose",
-          "label": "莓粉",
-          "color": "#ca8490"
+          "label": "落日灰粉",
+          "color": "#c27c87"
         },
         {
           "id": "ocean",
-          "label": "海蓝",
-          "color": "#648eab"
+          "label": "深海石青",
+          "color": "#547c96"
         },
         {
           "id": "mint",
-          "label": "薄荷",
-          "color": "#91b59a"
+          "label": "海苔灰绿",
+          "color": "#7ea388"
         }
       ]
     },
@@ -593,71 +593,71 @@
       "options": [
         {
           "id": "tee",
-          "label": "日常短袖"
+          "label": "纯棉圆领衫"
         },
         {
           "id": "stripe",
-          "label": "海风条纹"
+          "label": "海魂条纹衫"
         },
         {
           "id": "sailor",
-          "label": "水手领"
+          "label": "远航水手衫"
         },
         {
           "id": "vest",
-          "label": "衬衫马甲"
+          "label": "工装衬衫马甲"
         }
       ]
     },
     {
       "id": "top_color",
-      "label": "上装的颜色",
+      "label": "上装配色",
       "default": "seafoam",
       "options": [
         {
           "id": "seafoam",
-          "label": "海沫绿",
-          "color": "#72b8a6"
+          "label": "海沫青绿",
+          "color": "#5ba08f"
         },
         {
           "id": "sunset",
-          "label": "落日橙",
-          "color": "#e6a068"
+          "label": "陶土暖橙",
+          "color": "#dc8d56"
         },
         {
           "id": "cream",
-          "label": "奶油白",
-          "color": "#f5e5ba"
+          "label": "帆布米白",
+          "color": "#f2e2b6"
         },
         {
           "id": "blue",
-          "label": "晴空蓝",
-          "color": "#7daaca"
+          "label": "海湾雾蓝",
+          "color": "#6b98b8"
         },
         {
           "id": "rose",
-          "label": "珊瑚粉",
-          "color": "#d9929b"
+          "label": "晚霞灰粉",
+          "color": "#cf858e"
         },
         {
           "id": "lilac",
-          "label": "丁香紫",
-          "color": "#afa0c6"
+          "label": "暮云灰紫",
+          "color": "#9f90b8"
         },
         {
           "id": "navy",
-          "label": "海军蓝",
-          "color": "#486879"
+          "label": "深海藏青",
+          "color": "#3d5a6c"
         },
         {
           "id": "sage",
-          "label": "鼠尾草",
-          "color": "#9eae81"
+          "label": "海岛鼠尾草",
+          "color": "#8fa174"
         },
         {
           "id": "plum",
-          "label": "烟紫",
-          "color": "#635b6d"
+          "label": "礁石烟紫",
+          "color": "#5d5466"
         }
       ]
     },
@@ -668,140 +668,140 @@
       "options": [
         {
           "id": "shorts",
-          "label": "轻便短裤"
+          "label": "挽边工装短裤"
         },
         {
           "id": "trousers",
-          "label": "休闲长裤"
+          "label": "直筒休闲长裤"
         }
       ]
     },
     {
       "id": "bottom_color",
-      "label": "下装的颜色",
+      "label": "下装配色",
       "default": "navy",
       "options": [
         {
           "id": "seafoam",
-          "label": "海沫绿",
-          "color": "#72b8a6"
+          "label": "海沫青绿",
+          "color": "#5ba08f"
         },
         {
           "id": "sunset",
-          "label": "落日橙",
-          "color": "#e6a068"
+          "label": "陶土暖橙",
+          "color": "#dc8d56"
         },
         {
           "id": "cream",
-          "label": "奶油白",
-          "color": "#f5e5ba"
+          "label": "帆布米白",
+          "color": "#f2e2b6"
         },
         {
           "id": "blue",
-          "label": "晴空蓝",
-          "color": "#7daaca"
+          "label": "海湾雾蓝",
+          "color": "#6b98b8"
         },
         {
           "id": "rose",
-          "label": "珊瑚粉",
-          "color": "#d9929b"
+          "label": "晚霞灰粉",
+          "color": "#cf858e"
         },
         {
           "id": "lilac",
-          "label": "丁香紫",
-          "color": "#afa0c6"
+          "label": "暮云灰紫",
+          "color": "#9f90b8"
         },
         {
           "id": "navy",
-          "label": "海军蓝",
-          "color": "#486879"
+          "label": "深海藏青",
+          "color": "#3d5a6c"
         },
         {
           "id": "sage",
-          "label": "鼠尾草",
-          "color": "#9eae81"
+          "label": "海岛鼠尾草",
+          "color": "#8fa174"
         },
         {
           "id": "plum",
-          "label": "烟紫",
-          "color": "#635b6d"
+          "label": "礁石烟紫",
+          "color": "#5d5466"
         }
       ]
     },
     {
       "id": "shoes",
-      "label": "鞋子款式",
+      "label": "鞋履款式",
       "default": "sneakers",
       "options": [
         {
           "id": "sneakers",
-          "label": "帆布鞋"
+          "label": "胶底帆布鞋"
         },
         {
           "id": "boots",
-          "label": "软软短靴"
+          "label": "防水工装短靴"
         },
         {
           "id": "dress",
-          "label": "小皮鞋"
+          "label": "复古搭扣皮鞋"
         }
       ]
     },
     {
       "id": "shoe_color",
-      "label": "鞋子的颜色",
+      "label": "鞋履配色",
       "default": "cream",
       "options": [
         {
           "id": "seafoam",
-          "label": "海沫绿",
-          "color": "#72b8a6"
+          "label": "海沫青绿",
+          "color": "#5ba08f"
         },
         {
           "id": "sunset",
-          "label": "落日橙",
-          "color": "#e6a068"
+          "label": "陶土暖橙",
+          "color": "#dc8d56"
         },
         {
           "id": "cream",
-          "label": "奶油白",
-          "color": "#f5e5ba"
+          "label": "帆布米白",
+          "color": "#f2e2b6"
         },
         {
           "id": "blue",
-          "label": "晴空蓝",
-          "color": "#7daaca"
+          "label": "海湾雾蓝",
+          "color": "#6b98b8"
         },
         {
           "id": "rose",
-          "label": "珊瑚粉",
-          "color": "#d9929b"
+          "label": "晚霞灰粉",
+          "color": "#cf858e"
         },
         {
           "id": "lilac",
-          "label": "丁香紫",
-          "color": "#afa0c6"
+          "label": "暮云灰紫",
+          "color": "#9f90b8"
         },
         {
           "id": "navy",
-          "label": "海军蓝",
-          "color": "#486879"
+          "label": "深海藏青",
+          "color": "#3d5a6c"
         },
         {
           "id": "sage",
-          "label": "鼠尾草",
-          "color": "#9eae81"
+          "label": "海岛鼠尾草",
+          "color": "#8fa174"
         },
         {
           "id": "plum",
-          "label": "烟紫",
-          "color": "#635b6d"
+          "label": "礁石烟紫",
+          "color": "#5d5466"
         }
       ]
     },
     {
       "id": "hat",
-      "label": "帽子",
+      "label": "帽饰",
       "default": "none",
       "options": [
         {
@@ -810,67 +810,67 @@
         },
         {
           "id": "bucket",
-          "label": "渔夫帽"
+          "label": "海岛遮阳渔夫帽"
         },
         {
           "id": "beanie",
-          "label": "针织帽"
+          "label": "水手针织冷帽"
         },
         {
           "id": "fedora",
-          "label": "窄边礼帽"
+          "label": "旅人窄檐礼帽"
         }
       ]
     },
     {
       "id": "hat_color",
-      "label": "帽子的颜色",
+      "label": "帽饰配色",
       "default": "sunset",
       "options": [
         {
           "id": "seafoam",
-          "label": "海沫绿",
-          "color": "#72b8a6"
+          "label": "海沫青绿",
+          "color": "#5ba08f"
         },
         {
           "id": "sunset",
-          "label": "落日橙",
-          "color": "#e6a068"
+          "label": "陶土暖橙",
+          "color": "#dc8d56"
         },
         {
           "id": "cream",
-          "label": "奶油白",
-          "color": "#f5e5ba"
+          "label": "帆布米白",
+          "color": "#f2e2b6"
         },
         {
           "id": "blue",
-          "label": "晴空蓝",
-          "color": "#7daaca"
+          "label": "海湾雾蓝",
+          "color": "#6b98b8"
         },
         {
           "id": "rose",
-          "label": "珊瑚粉",
-          "color": "#d9929b"
+          "label": "晚霞灰粉",
+          "color": "#cf858e"
         },
         {
           "id": "lilac",
-          "label": "丁香紫",
-          "color": "#afa0c6"
+          "label": "暮云灰紫",
+          "color": "#9f90b8"
         },
         {
           "id": "navy",
-          "label": "海军蓝",
-          "color": "#486879"
+          "label": "深海藏青",
+          "color": "#3d5a6c"
         },
         {
           "id": "sage",
-          "label": "鼠尾草",
-          "color": "#9eae81"
+          "label": "海岛鼠尾草",
+          "color": "#8fa174"
         },
         {
           "id": "plum",
-          "label": "烟紫",
-          "color": "#635b6d"
+          "label": "礁石烟紫",
+          "color": "#5d5466"
         }
       ]
     },
@@ -885,11 +885,11 @@
         },
         {
           "id": "round",
-          "label": "圆框眼镜"
+          "label": "复古圆框镜"
         },
         {
           "id": "square",
-          "label": "方圆眼镜"
+          "label": "文艺方圆镜"
         }
       ]
     }
@@ -897,77 +897,77 @@
   "morphs": [
     {
       "id": "body_build",
-      "label": "胖瘦",
+      "label": "身形丰满度",
       "group": "body",
       "min": 0,
       "max": 1,
       "default": 0.5,
-      "low_label": "纤细",
-      "high_label": "圆润"
+      "low_label": "清瘦",
+      "high_label": "敦实"
     },
     {
       "id": "head_size",
-      "label": "头部大小",
+      "label": "头部比例",
       "group": "body",
       "min": 0,
       "max": 1,
       "default": 0.5,
-      "low_label": "小巧",
+      "low_label": "精巧",
       "high_label": "饱满"
     },
     {
       "id": "head_width",
-      "label": "头部横向比例",
+      "label": "面颊宽窄",
       "group": "body",
       "min": 0,
       "max": 1,
       "default": 0.5,
-      "low_label": "收窄",
-      "high_label": "展开"
+      "low_label": "收拢",
+      "high_label": "舒展"
     },
     {
       "id": "arm_girth",
-      "label": "手臂粗细",
+      "label": "手臂围度",
       "group": "body",
       "min": 0,
       "max": 1,
       "default": 0.5,
-      "low_label": "纤细",
-      "high_label": "饱满"
+      "low_label": "修长",
+      "high_label": "厚实"
     },
     {
       "id": "leg_length",
-      "label": "腿长与胯位",
+      "label": "腰线与腿长",
       "group": "body",
       "min": 0,
       "max": 1,
       "default": 0.5,
-      "low_label": "短腿低胯",
-      "high_label": "修长高胯"
+      "low_label": "低腰短腿",
+      "high_label": "高腰修长"
     },
     {
       "id": "eye_spacing",
-      "label": "眼睛距离",
+      "label": "眼距宽窄",
       "group": "eyes",
       "min": 0,
       "max": 1,
       "default": 0.5,
-      "low_label": "靠近",
-      "high_label": "分开"
+      "low_label": "聚拢",
+      "high_label": "舒展"
     },
     {
       "id": "hair_length",
-      "label": "头发长度",
+      "label": "发梢长度",
       "group": "hair",
       "min": 0,
       "max": 1,
       "default": 0.5,
-      "low_label": "短一些",
-      "high_label": "长一些"
+      "low_label": "利落",
+      "high_label": "垂坠"
     },
     {
       "id": "hair_volume",
-      "label": "头发蓬松度",
+      "label": "发丝蓬松度",
       "group": "hair",
       "min": 0,
       "max": 1,
@@ -977,13 +977,13 @@
     },
     {
       "id": "hair_sweep",
-      "label": "发丝方向",
+      "label": "发流偏分",
       "group": "hair",
       "min": 0,
       "max": 1,
       "default": 0.5,
-      "low_label": "向左",
-      "high_label": "向右"
+      "low_label": "左偏",
+      "high_label": "右偏"
     }
   ]
 }

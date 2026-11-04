@@ -84,7 +84,24 @@ func run() -> void:
 	await shot("07-card")
 	await click(editor.next_button); await wait_phase("idle")
 	check(not main._title_active and main.avatar_profile.query().completed,"actual save restores gameplay")
+	var dialogue=main.hud.dialogue
+	check(dialogue!=null and main.hud.narrative_active(),"arrival narrative owns input")
+	await settle(48)
 	await shot("08-gameplay")
+	var pos: Vector3=main.player.global_position
+	var point:=Vector2(120,160)
+	for pressed in [true,false]:
+		var event:=InputEventMouseButton.new(); event.position=point; event.button_index=MOUSE_BUTTON_LEFT; event.pressed=pressed
+		root.push_input(event,true); await process_frame
+	check(main.player.global_position==pos and not main._walking,"narrative backdrop absorbs world clicks")
+	for resolution in [Vector2i(1280,800),Vector2i(1600,1000),Vector2i(1920,1080)]:
+		root.size=resolution; await settle(6)
+		check(root.get_visible_rect().encloses(dialogue.panel.get_global_rect()),"narrative card fits "+str(resolution))
+		check(not main.hud._zoom.visible,"no view percentage overlaps narrative "+str(resolution))
+		await shot("09-dialogue-"+str(resolution.x))
+	while dialogue.panel.visible:
+		dialogue._advance()
+	check(not main.input_blocked(),"finishing narrative releases gameplay input")
 	main.hud.menu.show_menu("pause"); await settle()
 	check(main.hud.menu.buttons.has("appearance"),"pause menu has maintainable appearance entry")
 	await click(main.hud.menu.buttons.appearance); await wait_phase("editing")

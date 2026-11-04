@@ -59,7 +59,7 @@ func run() -> void:
 	check(lowest_blade<0.0 and recovered_blade>.3,"authored blade enters water and clears on recovery")
 	main.boat._sailing=false;main.boat._vel=0.0
 	for i in 180:main.boat._animate_oars(1.0/60.0)
-	check(absf(main.boat._oar_l.rotation.y-1.1)<.001 and absf(main.boat._oar_r.rotation.y+1.1)<.001,"idle smoothly folds both oars")
+	check(absf(main.boat._oar_l.rotation.y-.08)<.001 and absf(main.boat._oar_r.rotation.y+.08)<.001,"idle rests both oars within seated reach")
 	var lamp: SpotLight3D=main.boat.model.get_node("BoatLamp")
 	check(lamp.is_in_group("boat_lamps") and lamp.shadow_enabled,"existing physical navigation lamp retained")
 	check(main.boat.model.get_node("BowLantern").instance_id=="boat/furnishing/bow_lantern","lantern stable identity")
@@ -86,7 +86,7 @@ func run() -> void:
 		main.boat._sailing=true;main.boat._vel=main.boat.cruise_speed()
 		for i in 50:main.boat._animate_oars(1.0/60.0)
 		main.cam.distance=15.5;main.cam.orbit_dir=Vector3(-.65,1.30,.80);main.cam.refresh();await shot("rowing")
-		main.player.show();main.player.position=Vector3(0,.62,-.30);await shot("with-player")
+		main.player.show();main.actor_controller.restore_pose({"mode":1});main.player._process(1.0/60.0);await shot("with-player")
 		main.boat._sailing=false;main.boat._vel=0
 		for i in 180:main.boat._animate_oars(1.0/60.0)
 		main.daylight_rig.apply(21.0);await shot("night")

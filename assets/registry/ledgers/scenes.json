@@ -16189,7 +16189,7 @@
       "runtime_path": "godot/assets/models/boats/reference_skiff/components/oar/oar.glb",
       "runtime_sha256": "b4f1be632243d8d471c9dfccdb1aab623b2edc9f665e201e105d88eaca5f2630",
       "prefab": "godot/scenes/components/reference_skiff/oar.tscn",
-      "prefab_sha256": "e5694e1be78571d2253f417b81e83885fee5654b3f0812ece8bf552ef7aeffad",
+      "prefab_sha256": "d5a25760ce664d4442ec48837bf5a241e48b8d8c7635c33558eb15d3354a70a2",
       "license": "user_supplied_reference_commercial_rights_pending",
       "geometry_fingerprint": "cc6d6608505820321cece828803386e1d5c8c4bde9b4593185c810a6a398a79e",
       "category": "fitting",
@@ -16199,13 +16199,26 @@
       },
       "consumer_features": [
         "SEA-ASSET",
-        "SEA-NAV"
+        "SEA-NAV",
+        "SEA-MOVE"
       ],
       "verification": [
         "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
-        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json",
+        "D:/projects/sea-work/verification/20261104-162628-rowing-accepted-f1aa4d/report.json",
+        "D:\\projects\\sea-work\\rowing-fit-20261104\\verification.json"
       ],
-      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending."
+      "note": "Newly authored reference skiff component. Public palette and PaletteUV; no gameplay collision. Commercial reference rights pending. 2026-11-04: existing Blender/GLB retained; runtime TSCN owns shortened oar placement and seat/Grip markers. Prior recorded CRLF hash traced to 3e683fe2, intervening changes reviewed; commercial reference rights remain pending.",
+      "previous_prefab_sha256": "e5694e1be78571d2253f417b81e83885fee5654b3f0812ece8bf552ef7aeffad",
+      "runtime_layout_revision": {
+        "id": "2026-11-04-seated-rowing",
+        "owner": "godot/scenes/props/reference_skiff.tscn",
+        "before_snapshot_sha256": "e1a84146d93417e4e30ab65610ea2461a28bb90019256c9866f8efc58923fee6",
+        "recorded_baseline_commit": "3e683fe2",
+        "reviewed_intervening_change": "BladeContact marker only",
+        "verification": "D:\\projects\\sea-work\\rowing-fit-20261104\\verification.json",
+        "contract": "docs/development/2026-11-04_rowing_seat_and_grips.md"
+      }
     },
     {
       "asset_id": "SEA-SCENE-SKIFF-OARLOCK",
@@ -16327,22 +16340,35 @@
       "manifest": "art_source/scenes/reference_skiff/v001/asset_manifest.json",
       "version": "v001",
       "runtime_path": "godot/scenes/props/reference_skiff.tscn",
-      "runtime_sha256": "f9ca8d93c20ead7957dd7d79b159ecd1d08824c2ccb8f60128aa8215b0a7ac85",
+      "runtime_sha256": "78971293cb6d1af45fe060e3015dd7bc1e378ee04019ec15a14989c71393da47",
       "prefab": "godot/scenes/props/reference_skiff.tscn",
       "license": "user_supplied_reference_commercial_rights_pending",
       "consumer_features": [
         "SEA-ASSET",
-        "SEA-NAV"
+        "SEA-NAV",
+        "SEA-MOVE"
       ],
       "verification": [
         "D:\\projects\\sea-work\\verification\\20261028-190353-reference-skiff-accepted-3b705b\\report.json",
-        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json"
+        "D:\\projects\\sea-work\\verification\\20261028-190717-reference-skiff-home-recheck-badb19\\report.json",
+        "D:/projects/sea-work/verification/20261104-162628-rowing-accepted-f1aa4d/report.json",
+        "D:\\projects\\sea-work\\rowing-fit-20261104\\verification.json"
       ],
       "classification": {
         "category": "vessel",
         "subcategory": "assembly"
       },
-      "note": "12 components/44 source instances; base boat replacement, existing lantern reused; hull envelope exactly matches legacy."
+      "note": "12 components/44 source instances; base boat replacement, existing lantern reused; hull envelope exactly matches legacy. 2026-11-04: existing Blender/GLB retained; runtime TSCN owns shortened oar placement and seat/Grip markers. Prior recorded CRLF hash traced to 3e683fe2, intervening changes reviewed; commercial reference rights remain pending.",
+      "previous_runtime_sha256": "f9ca8d93c20ead7957dd7d79b159ecd1d08824c2ccb8f60128aa8215b0a7ac85",
+      "runtime_layout_revision": {
+        "id": "2026-11-04-seated-rowing",
+        "owner": "godot/scenes/props/reference_skiff.tscn",
+        "before_snapshot_sha256": "9db25b317c8e9905d94ddab2d997149423f852a660e2209a191cbe7940802b2e",
+        "recorded_baseline_commit": "3e683fe2",
+        "reviewed_intervening_change": "water_layer and water_layer_role metadata only",
+        "verification": "D:\\projects\\sea-work\\rowing-fit-20261104\\verification.json",
+        "contract": "docs/development/2026-11-04_rowing_seat_and_grips.md"
+      }
     },
     {
       "asset_id": "SEA-SCENE-SUBMERGED-TERRACED-TOWER",

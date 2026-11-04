@@ -45,9 +45,11 @@ func run() -> void:
 			check(fish.position.distance_to(positions[n]) > 0.04, "every fish participates in animation")
 			n += 1
 	# Legacy batch pads/rings must not enter the shoreline atlas again.
-	var batch := main.get_node("World/Environment/StaticBatch")
-	for child in batch.get_children():
-		check(int(child.get_meta("source_geometry", -1)) not in batch.retired_geometries, "no baked fish duplicates")
+	# 2026-11-04：旧环境烘焙（249136 实例）已从 environment.tscn 删除，
+	# 节点不存在时这条历史检查自动失效，不能硬取导致工具崩。
+	var batch := main.get_node_or_null("World/Environment/StaticBatch")
+	if batch != null:/r/n		for child in batch.get_children():
+			check(int(child.get_meta("source_geometry", -1)) not in batch.retired_geometries, "no baked fish duplicates")
 	print("[sea-style] animated_fish=", n, " failures=", failures)
 	print("[sea-style] complete")
 	main.queue_free()

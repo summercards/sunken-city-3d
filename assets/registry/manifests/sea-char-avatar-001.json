@@ -3,24 +3,29 @@
   "asset_ledger": "assets/registry/ledgers/characters.json#SEA-CHAR-AVATAR-001",
   "source": "godot/src/avatar/avatar_visual.gd",
   "runtime_path": "godot/src/avatar/avatar_visual.gd",
-  "version": "v006",
+  "version": "v007",
   "source_type": "original procedural Godot source; no Blender/GLB",
   "authored_files": [
     {
       "path": "godot/src/avatar/avatar_visual.gd",
-      "sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604"
+      "sha256": "25facf3925329d7a77acab163a2aac15dbc3d49b68917babf248014ad5f11beb",
+      "previous_sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604"
     },
     {
       "path": "godot/src/player/character.gd",
-      "sha256": "b13ea4092cc82ec1d17c4e9e6d65d763e572b8be2b140f67e1aab829df803e04"
+      "sha256": "78d70b56fcf7a54452182d1d18500587b00086e250fcc22358ce0e1fd891daee",
+      "previous_sha256": "b3d69452c80ef713b5109030f2b75b7926090f124fa473964345f2460590f12e",
+      "revision_note": "SEA-MOVE-R18: seat lifecycle, injected pose query and full offset reset; rig geometry unchanged"
     },
     {
       "path": "godot/assets/data/avatar_catalog.json",
-      "sha256": "b82b29d22e6ee5556076f21381289b3d0085101773687bfe083543cf773e9f8e"
+      "sha256": "976f769a67079c4eae60b89cf71242777d5eaccdc7a50e017e1774a6da6fd80c",
+      "previous_sha256": "b82b29d22e6ee5556076f21381289b3d0085101773687bfe083543cf773e9f8e"
     },
     {
       "path": "godot/shaders/avatar_cloth.gdshader",
-      "sha256": "e6b08e2d2648b0075c60b7c9b7d68e0db92dcd61168dda0df6f4bcb884131755"
+      "sha256": "ef94ebb237b1dc889b81ef427655d0ef47b85b1cdba80385d8bf8c5c6bee331c",
+      "previous_sha256": "e6b08e2d2648b0075c60b7c9b7d68e0db92dcd61168dda0df6f4bcb884131755"
     },
     {
       "path": "godot/src/avatar/avatar_dimensions.gd",
@@ -61,12 +66,14 @@
   ],
   "units": "metres / +Y up / +Z forward / root scale 1",
   "consumer": "Character + AvatarSession",
-  "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
+  "verification": "docs/features/onboarding/ledger.md",
   "user_art_acceptance": "self_verified_per_user_instruction_2026-11-02",
-  "self_verification": "six projected anatomy ratios within 5%; original reference, three-quarter/front/side and gameplay/editor renders inspected",
+  "self_verification": "2026-11-04: current v006 low-shoulder/short-leg contract retained; 13 current projected checks pass (shoulder ratio 9.16% relative difference, not the superseded all-within-5% claim); actual mesh, dense actions, front/side/back and gameplay/editor renders inspected",
   "external_game_assets_used": false,
   "skeleton_asset_id": "SEA-CHAR-RIG-001",
   "rig_contract": "art_source/characters/avatar/v002/rig_contract.json",
   "expression_asset_id": "SEA-CHAR-EXPRESSION-001",
-  "shoulder_contract": "art_source/characters/avatar/v006/shoulder_contract.json"
+  "shoulder_contract": "art_source/characters/avatar/v006/shoulder_contract.json",
+  "note": "2026-11-04新旅程美术/交互",
+  "rowing_contract": "docs/development/2026-11-04_rowing_seat_and_grips.md"
 }

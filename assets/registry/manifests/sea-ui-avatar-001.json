@@ -3,26 +3,30 @@
   "asset_ledger": "assets/registry/ledgers/ui.json#SEA-UI-AVATAR-001",
   "source": "godot/src/avatar/avatar_editor.gd",
   "runtime_path": "godot/src/avatar/avatar_editor.gd",
-  "version": "v004",
+  "version": "v005",
   "source_type": "original procedural Godot source; no Blender/GLB",
   "authored_files": [
     {
       "path": "godot/src/avatar/avatar_editor.gd",
-      "sha256": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a"
+      "sha256": "f8b19049be78e875ff900d3cb334da25f6d405d42f3569ba55b712bd2b0a3f31",
+      "previous_sha256": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a"
     },
     {
       "path": "godot/src/avatar/avatar_session.gd",
-      "sha256": "4d3ae7f18ac329abd6f23c961693eddc2fc95060da5bc1975c41372ed88b6a2a"
+      "sha256": "198b8e9f4a20a30dd3f6e529adae8a3d29a212eedc9e65e8682051f645d67c21",
+      "previous_sha256": "4d3ae7f18ac329abd6f23c961693eddc2fc95060da5bc1975c41372ed88b6a2a"
     },
     {
       "path": "godot/src/onboarding/arrival_camera.gd",
-      "sha256": "cd40077507e64713a54210eabc07fd163a87d68400e3cab8013abe2078620d9e"
+      "sha256": "111cafa6ccdcd30d87fb90408afe5ce0aa6603a0764cde460a11092ee14530b3",
+      "previous_sha256": "cd40077507e64713a54210eabc07fd163a87d68400e3cab8013abe2078620d9e"
     }
   ],
   "units": "1600x1000 responsive logical canvas",
   "consumer": "Character + AvatarSession",
-  "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
+  "verification": "docs/features/onboarding/ledger.md",
   "user_art_acceptance": "self_verified_per_user_instruction_2026-11-02",
-  "self_verification": "six projected anatomy ratios within 5%; original reference, three-quarter/front/side and gameplay/editor renders inspected",
-  "external_game_assets_used": false
+  "self_verification": "2026-11-04: three resolutions 1280x800/1600x1000/1920x1080; 368 real customization GUI checks and 49 new-game GUI/render checks pass; narrative input isolation, camera focus, turn interpolation and save/cancel inspected",
+  "external_game_assets_used": false,
+  "note": "2026-11-04新旅程美术/交互"
 }

@@ -1,5 +1,9 @@
 # 角色表现契约
 
+## 2026-11-04 坐船与双桨接触
+
+SEA-MOVE-R18 / SEA-NAV-R13：运行消费者仍为Character→rowing_action→LimbSkeleton，米制、根缩放1、+Z面向船尾、胶囊与21骨契约保持。Boat通过注入的`rowing_pose_query`提供`RowingSeat`世界变换及左右`Grip`世界位置；`rowing_query`保留原相位/出力。坐点在中排座板前半部（船局部0,0.6025,0.32），BodyPivot绕髋部微倾，腿朝前屈膝且避开板沿；纯表现跟随Model摇摆，不改玩法根。上船位置只由`Boat.boarding_position()`提供，停船仍坐着；岸上/潜水切回原动作并完整清除坐姿平移。双手使用当前体型的上/前臂长度解算，未借伸长补偿；未改角色网格、蒙皮、骨名或原始Blend/GLB。桨的长度/偏移由正式TSCN维护，角色不得反向拖桨轴。[实际网格接触与渲染证据](development/2026-11-04_rowing_seat_and_grips.md)。
+
 ## 当前正式Godot角色（2026-11-02）
 
 **最新四肢契约：** 身体/头部仍使用既有表现容器，四肢已改原生Skeleton3D+Skin。BodyPivot下LimbSkeleton拥有21骨和4张连续闭合ArrayMesh；肩肘/髋膝节点只提供不可见姿势输入，旧分段胶囊、关节球、独立手脚实体已移除。每条手臂含手、每条腿含脚在同一连通网格内；袖口/裤脚/鞋底仅为同网格的着色分区。实际资产SEA-CHAR-RIG-001，节点、骨名和绑定见art_source/characters/avatar/v002/rig_contract.json。参见[本次骨骼交付](development/2026-11-02_avatar_limb_skinning.md)。

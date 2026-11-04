@@ -93,8 +93,10 @@ func _root(parent: Node3D, id: String) -> Node3D:
 func _material(color: Color) -> StandardMaterial3D:
 	var key:=color.to_html()
 	if not _materials.has(key):
-		var mat:=StandardMaterial3D.new(); mat.albedo_color=color; mat.roughness=0.9
+		var mat:=StandardMaterial3D.new(); mat.albedo_color=color; mat.roughness=0.84
+		mat.diffuse_mode=BaseMaterial3D.DIFFUSE_TOON
 		mat.specular_mode=BaseMaterial3D.SPECULAR_DISABLED
+		mat.rim_enabled=true; mat.rim=0.14; mat.rim_tint=0.35
 		_materials[key]=mat
 	return _materials[key]
 

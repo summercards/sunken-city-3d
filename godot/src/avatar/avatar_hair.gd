@@ -66,8 +66,12 @@ func _material(color: Color) -> StandardMaterial3D:
 	if not _materials.has(key):
 		var material := StandardMaterial3D.new()
 		material.albedo_color = color
-		material.roughness = 0.90
+		material.roughness = 0.82
+		material.diffuse_mode = BaseMaterial3D.DIFFUSE_TOON
 		material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
+		material.rim_enabled = true
+		material.rim = 0.16
+		material.rim_tint = 0.40
 		material.cull_mode = BaseMaterial3D.CULL_DISABLED
 		_materials[key] = material
 	return _materials[key]

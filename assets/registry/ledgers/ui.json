@@ -26,9 +26,9 @@
       "domain": "ui",
       "stage": "runtime_integrated_verified",
       "source": "godot/src/ui/start_screen.gd",
-      "source_sha256": "1dd5e2a8ac3a24aa6c133d83c0012919a4dbd705510ffddf38bc5b7f158481ef",
+      "source_sha256": "df5052c071d633ad541a8e6c563985f5a629458a004eab3903d60ccb6fe48d4a",
       "manifest": "assets/registry/manifests/ui_title_sea_001.json",
-      "version": "v002",
+      "version": "v003",
       "runtime_path": "godot/src/ui/start_screen.gd",
       "license": "project-authored layout; font SIL-OFL-1.1",
       "license_file": "godot/src/ui/fonts/OFL.txt",
@@ -38,8 +38,8 @@
       ],
       "font_asset_id": "UI-FONT-LXGW975YUAN-SC-700",
       "note": "程序化排字使用已有授权圆体；参考图只作为风格与构图依据，未打包参考图，也不声称采用参考图原字体。",
-      "verification": "docs/development/2026-10-28_title_composition_saved_time.md",
-      "previous_source_sha256": "0e016a54790c8866a3bf3d77dc38b89eede5a75ec1117ad7a7b831e7c30dd1ae",
+      "verification": "docs/features/onboarding/ledger.md",
+      "previous_source_sha256": "1dd5e2a8ac3a24aa6c133d83c0012919a4dbd705510ffddf38bc5b7f158481ef",
       "revision_note": "2026-10-28: only StartGame horizontal anchor 0.66 -> 0.755; keep font, logo and reveal animation. Verified three sizes and saved-time entry; no unrelated hash refresh."
     },
     {
@@ -143,18 +143,18 @@
       "domain": "ui",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_editor.gd",
-      "source_sha256": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a",
+      "source_sha256": "f8b19049be78e875ff900d3cb334da25f6d405d42f3569ba55b712bd2b0a3f31",
       "manifest": "assets/registry/manifests/sea-ui-avatar-001.json",
-      "version": "v004",
+      "version": "v005",
       "runtime_path": "godot/src/avatar/avatar_editor.gd",
       "license": "project_authored_original_procedural_geometry_and_UI",
       "consumer_features": [
         "SEA-AVATAR",
         "SEA-ONBOARDING"
       ],
-      "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
-      "note": "r6 按用户最新红线：饱满A形躯干/低胯短腿、独立头横宽和臂粗、16嘴型贴图、下移帽子；原档案兼容，当前专项和真实渲染见交付。",
-      "previous_source_sha256": "cfcf544c3ad511bb0c4b7ae1c8b30094e9fe24c24cfba63d433f44817b1c6901"
+      "verification": "docs/features/onboarding/ledger.md",
+      "note": "r6 按用户最新红线：饱满A形躯干/低胯短腿、独立头横宽和臂粗、16嘴型贴图、下移帽子；原档案兼容，当前专项和真实渲染见交付。；2026-11-04新旅程美术/交互",
+      "previous_source_sha256": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a"
     }
   ]
 }

@@ -1196,7 +1196,7 @@ func _setup_player() -> void:
 		player = CharacterScript.new()
 		player.name = "Explorer"
 		boat.add_child(player)
-		player.position = Vector3(0, 0.62, -0.30)
+		player.position = boat.boarding_position()
 	player.build()
 	player.scale = Vector3(1.0, 1.0, 1.0)
 	player.set_rowing(true)
@@ -2014,6 +2014,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	# 直接放行，别把点击/按键丢给一个还不存在的节点。
 	if hud == null or not is_instance_valid(hud):
 		return
+	if hud.narrative_active():
+		_world_press=false
+		return
 	# 潜水时输入归海底世界（游动 / 环视 / 宝箱），海面这边一律不响应。
 	if dive != null and dive.active:
 		return
@@ -2611,6 +2614,7 @@ func input_blocked() -> bool:
 	return _title_active or _exhausted_rest or (sleep_cycle != null and sleep_cycle.busy) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
 
 func _setup_actor_controller() -> void:
+	player.rowing_pose_query = boat.rowing_pose
 	actor_controller.mode_changed.connect(GameState.set_mode)
 	actor_controller.configure(player,boat,self,interactor,{"landing":_current_landing,"zone":func(): return _zone_nodes.get(GameState.current_zone),"notify":func(text): hud.toast(text),"input_blocked":input_blocked})
 	GameState.mode_changed.connect(actor_controller.reconcile_mode)
@@ -3038,7 +3042,12 @@ func _setup_avatar() -> void:
 	add_child(avatar_session)
 	avatar_session.finished.connect(func(saved: bool):
 		_resume_after_avatar_or_title()
-		if saved: hud.toast(("你好，%s。海上的新生活开始了！" if avatar_session.first_creation else "已保存你的新模样，%s。") % avatar_profile.query().name,4.0))
+		if saved:
+			var traveler_name: String = str(avatar_profile.query().name)
+			if avatar_session.first_creation:
+				_play_arrival_monologue(traveler_name)
+			else:
+				hud.toast("已保存你的新模样，%s。" % traveler_name, 4.0))
 	arrival_flow=preload("res://src/onboarding/arrival_flow.gd").new()
 	arrival_flow.name="ArrivalFlow"; arrival_flow.session=avatar_session
 	arrival_flow.release_title_camera=func(): title_camera.finish(cam)
@@ -3047,12 +3056,21 @@ func _setup_avatar() -> void:
 
 func _place_new_traveler() -> void:
 	var landing = _zone_nodes.zone1.landing_point("main")
-	var pos: Vector3=landing.stand_position()
+	# Place traveler slightly further onto the open sunny courtyard deck (z=11.2)
+	# while facing the solar cabin (-Z, yaw=PI), so the cabin veranda is right ahead.
+	var pos := Vector3(3.15, landing.stand_position().y, 11.2)
 	actor_controller.restore_pose({"mode":0,"player":[pos.x,pos.y,pos.z]})
-	# Look back along the dock: camera stays inside its railings, sea behind actor.
+	# Face the solar cabin (-Z) along the harbor deck rather than looking back at the boat.
 	player.rotation=Vector3(0,PI,0)
 	GameState.landing_id="main"; GameState.enter_zone("zone1")
 	cam.restore_follow(player); cam.apply_pose()
+
+func _play_arrival_monologue(traveler_name: String) -> void:
+	hud.show_dialogue_sequence([
+		{"speaker": traveler_name, "text": "旧城沉进水底之后，只有这座屋顶还留在海面上。木栈桥在晃，但阳光房的玻璃还是暖的。"},
+		{"speaker": traveler_name, "text": "船就系在身后的桩子上，挎包里还留着三包生菜种子和八十枚旧瓶盖。"},
+		{"speaker": traveler_name, "text": "先去屋前的培养箱把种子种下吧……从今天起，这里就是我的海上落脚处了。"}
+	])
 
 func _begin_avatar_edit() -> void:
 	if avatar_session.active() or actor_controller.mode()==3: return

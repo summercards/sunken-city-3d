@@ -1,3 +1,53 @@
+# SEA-WORLD · 区块与世界装配 · 独立账本
+
+[主文档中控](../../../GDD_V1.0.md#sea-world) · [功能文档](spec.md)
+
+## 登记头
+
+以下为本功能状态的唯一编辑源；主文档状态摘要与机器索引由工具读取本页汇总。`partial` 不代表失败，`planned` 不代表已有实现。
+
+```json
+{
+  "feature_id": "SEA-WORLD",
+  "status": "partial",
+  "owner": "Zones / ZoneScene",
+  "code_paths": [
+    "godot/src/world",
+    "godot/src/navigation/ground_space.gd",
+    "godot/src/navigation/actor_collision_body.gd",
+    "godot/scenes/zones",
+    "godot/scenes/world",
+    "godot/assets/data/zones.json"
+  ],
+  "verification": [
+    "water-layer",
+    "submerged-neighborhood",
+    "visual-submerged-neighborhood",
+    "selftest",
+    "surface",
+    "visual-sea-style",
+    "visual-blockers",
+    "decorations",
+    "visual-decorations",
+    "minimum-loop",
+    "visual-plot-shipping",
+    "visual-home-lighting",
+    "sea-supply",
+    "sea-supply-probe",
+    "fishery-environment",
+    "visual-fishery-environment"
+  ]
+}
+```
+
+## 2026-11-04 编辑器与游戏对齐：删除「永远不显示」的建筑几何
+
+## 设计承接与实施条目
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待核验 |
+|---|---|---|
+| SEA-WORLD-R08 · 11-04 再修订 | 用户把编辑器里打开的 `main.tscn` 与游戏画面对比后指出：编辑器里那片密集城市在游戏内根本不出现。核查确认有两类「存在但永不显示」的建筑几何，已从场景删除：<br>① `World/Environment/StaticBatch` —— 旧网页版城市烘焙，`bake.json` 记 249136 个实例、141 批次，`assets/world/environment/instances.bin` 15.9MB；默认 minimal 范围每次启动被 `main.gd` 的 `_apply_play_scope()` 直接 `hide()`，只有 `--full-world` 才会亮。删除后 `environment.tscn` 只剩 `Animals`，`load_steps` 4→2。<br>② 家园 zone1 的 `Models/detail`、`unit_01`、`unit_02`、`unit_03` —— 四栋旧海面楼体，TSCN 内自带 `visible = false`，连同 4 条 `ext_resource` 一并移除。<br>**保留**：横滨铁道 zone2（用户明确要求显示）、zone1、zone5、浮店、顶层牧场。<br>**保留且不动**（按运行状态切换，不属于本类）：海底地图 `Underwater`、角色表情与 `DiveMask`、`ClickReticle`／`RouteRibbon`／`SalvageWinch`（minimal 关闭的交互件）、顶层牧场温室／水塔升级态（spec R17 要求默认显示未建造）、未建渔场 `WildFishery`。烘焙源与 GLB 一律保留，可回退。 | 主场景 `godot/scenes/world/environment.tscn`、`godot/scenes/zones/zone1_home_harbor.tscn`。连带修复两处依赖：`godot/tests/test_solar_cabin_asset.gd` 的断言由「四栋旧楼已隐藏」改为「已从场景移除」；`godot/tools/capture_sea_style.gd` 改 `get_node_or_null`，节点缺失时跳过历史烘焙去重检查。<br>**实测**：改前改后 `selftest` 均为 490 passed / 24 failed；`visual-solar-cabin` 均为 703 checks / 4 failures。两组失败逐项对照确认是存量问题，非本次引入。<br>**真实渲染**（隐藏 UI 后截图）：开场镜头、高空全景、俯视、zone2、顶层牧场、浮店六处，删除前后画面一致，保留下来的建筑与水面泡沫无缺失、无破洞。证据在 `sea-work/scope/11_opening_clean.png` 等 6 张。<br>**副作用已确认**：岸线几何切片由 801 段变为 10060 段。原因是 zone1 那四栋隐藏楼体原先仍参与 `_set_shore_uniforms()` 的几何切片（`shore_roots=[zone1,zone5]`），`visible=false` 不使其退出切片；移除后回到 `water_surface.gd` 注释记录的正常量级（约 9950）。删除 `StaticBatch` 与段数变化无关——单独回滚该项后段数不变，已隔离验证。 |
+
 
 ## 2026-11-04 顶层牧场 v005：大块破败、下沉与单段消防梯
 
@@ -17,6 +67,10 @@
 | SEA-WORLD-R08 | 本轮实现；正式最小范围与独立专项验证 | [本轮交付](../../development/2026-10-27_minimum_loop_and_title.md) |
 | SEA-WORLD-R09 | 已实现，场景点击与存读专项验证 | [本轮证据](../../development/2026-10-27_plot_shipping_loop.md) |
 | SEA-WORLD-R12 | 正式区块装配GroundSpace并提供高度查询；建造通过现有geometry_changed刷新投影，水面阻挡未改 | [本轮交付及实测](../../development/2026-10-29_character_physics_framework.md) |
+
+## 2026-11-03 默认世界范围：只保留横滨 + 新增顶层牧场（R08 / R01 修订）
+
+按用户明确要求压缩默认主场景，并接入这一轮新做的海上高层农场。
 
 ## 资源与调用入口
 

@@ -11,6 +11,7 @@ func _init() -> void:
 func _hist(node: Node, ranch: Node3D) -> Dictionary:
 	var inv: Transform3D = ranch.global_transform.affine_inverse()
 	var bands := {}
+	var planes := {}
 	for mesh in node.find_children("*", "VisualInstance3D", true, false):
 		if not (mesh is MeshInstance3D):
 			continue
@@ -39,16 +40,23 @@ func _hist(node: Node, ranch: Node3D) -> Dictionary:
 				var area := normal.length() * 0.5
 				var key := snappedf((a.y + b.y + c.y) / 3.0, 0.05)
 				bands[key] = float(bands.get(key, 0.0)) + area
+				if maxf(a.y, maxf(b.y, c.y)) - minf(a.y, minf(b.y, c.y)) < 0.01:
+					var box := AABB(a, Vector3.ZERO).expand(b).expand(c)
+					planes[key] = (planes[key] as AABB).merge(box) if planes.has(key) else box
 	var rows: Array = bands.keys()
 	rows.sort()
+	print("PLANES ", node.name, " ", planes)
 	var out: Array = []
 	for k in rows:
 		out.append([k, snappedf(float(bands[k]), 0.01)])
 	return {"bands": out.slice(maxi(0, out.size() - 8)), "top": rows[rows.size() - 1] if rows.size() > 0 else null}
 
 func run() -> void:
-	var ranch: Node3D = load("res://scenes/facilities/rooftop_ranch.tscn").instantiate()
-	root.add_child(ranch)
+	var main: Node = load("res://scenes/main.tscn").instantiate()
+	root.add_child(main)
+	main._autosave_on = false
+	main.set_process(false)
+	var ranch: Node3D = main._zone_nodes["rooftop_ranch"]
 	await process_frame
 	await process_frame
 	var models: Node = ranch.get_node("Models")
@@ -68,7 +76,7 @@ func run() -> void:
 	var area: Node3D = ranch.get_node("WalkAreas/Walk_rooftop_ranch_access")
 	var landing: Node3D = ranch.get_node("WalkAreas/Walk_rooftop_ranch_access/Landing_main")
 	print("AREA surface_y=", area.surface_y, " span=", area.span_min, "..", area.span_max, " tris=", area.surface_triangles.size() / 3)
-	print("LANDING local=", landing.position, " stand=", landing.stand_position())
+	print("LANDING local=", landing.position, " stand=", landing.global_position)
 	print("BOATPARK local=", landing.get_node("BoatPark").position, " world=", landing.get_node("BoatPark").global_position)
 	print("DOCKEDGE world=", landing.get_node("DockEdge").global_position)
 	quit(0)

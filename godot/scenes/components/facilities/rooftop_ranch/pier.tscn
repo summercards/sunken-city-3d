@@ -28,30 +28,8 @@ mode = "auto"
 blocks_water = true
 cell = 0.4
 
-[node name="ORF3_厚实混凝土结构柱_0_001" parent="."]
+[node name="ORF3_厚实混凝土结构柱_0" parent="."]
 surface_material_override/0 = ExtResource("sea_matte")
 
-[node name="ORF5_柱体大块崩缺_p0" parent="."]
+[node name="Cube" parent="."]
 surface_material_override/0 = ExtResource("sea_matte")
-[node name="ORF5_柱体大块崩缺_p1" parent="."]
-surface_material_override/0 = ExtResource("sea_matte")
-[node name="ORF5_柱体大块崩缺_p2" parent="."]
-surface_material_override/0 = ExtResource("sea_matte")
-[node name="ORF5_柱体大块崩缺_p3" parent="."]
-surface_material_override/0 = ExtResource("sea_matte")
-[node name="ORF5_柱体大块崩缺_p4" parent="."]
-surface_material_override/0 = ExtResource("sea_matte")
-[node name="ORF5_柱体大块崩缺_p5" parent="."]
-surface_material_override/0 = ExtResource("sea_matte")
-[node name="ORF5_柱体崩口内里_p0" parent="."]
-surface_material_override/0 = ExtResource("sea_metal")
-[node name="ORF5_柱体崩口内里_p1" parent="."]
-surface_material_override/0 = ExtResource("sea_metal")
-[node name="ORF5_柱体崩口内里_p2" parent="."]
-surface_material_override/0 = ExtResource("sea_metal")
-[node name="ORF5_柱体崩口内里_p3" parent="."]
-surface_material_override/0 = ExtResource("sea_metal")
-[node name="ORF5_柱体崩口内里_p4" parent="."]
-surface_material_override/0 = ExtResource("sea_metal")
-[node name="ORF5_柱体崩口内里_p5" parent="."]
-surface_material_override/0 = ExtResource("sea_metal")

@@ -30,6 +30,11 @@ func run() -> void:
 	if DisplayServer.get_name() != "headless":
 		await process_frame
 		root.get_texture().get_image().save_png("res://outputs/sea-start-screen.png")
+	# This test owns the returning-traveler path. Fresh creation is covered by
+	# test_onboarding.gd; it deliberately cannot enter gameplay after 1.9s.
+	var traveler: Dictionary=main.avatar_profile.query()
+	traveler.name="续行旅人"
+	check(main.avatar_profile.commit(traveler).ok,"completed traveler fixture commits")
 	# Deliver an actual GUI click, not a direct game-start call.
 	var button: Button = main.start_screen.start_button
 	var position: Vector2 = button.get_global_transform_with_canvas() * (button.size*0.5)

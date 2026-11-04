@@ -49,3 +49,17 @@ FAIL: content ID drift/duplicate godot/assets/data/zones.json
 | `ocean_sky.tres`、`hud.gd` | 天空材质与 HUD 本轮改动，未留验证记录 | 同上；补一次真实渲染抓图作证据 |
 
 在这些跑完之前，上述 6 项应继续以失败状态暴露，不作为“已通过”记入账本。
+
+## 复发（2026-11-04 傍晚）
+
+同一个故障当天又发生一次，被 `0666ccd`（每日自动提交）固化进历史：
+`docs/features/world/ledger.md` 的标题、主文档回链、`## 登记头`、
+`## 设计承接与实施条目` 标题再次被顶层新章节覆盖，`check_feature_contracts.py`
+报 `SEA-WORLD: ledger has no JSON registration header`。
+
+已按同一路径从 `b4601d5` 取回登记头（41 行：标题 → 回链 → 登记头 JSON 围栏），
+补回承接段标题，正文与新增的两个 11-04 章节原样保留，全文 CRLF。
+
+因为这是两天内第二次同形损坏，已在 `AGENTS.md` 第 2 条补一句硬约束：
+账本新章节只能追加在原有内容之后，禁止整文件重写或"取前 N 行替换"式保存。
+这属于会重复发生的流程缺陷，光靠这一次修文件不够。

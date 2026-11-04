@@ -18,6 +18,9 @@
     "godot/src/navigation/landing_point.gd"
   ],
   "verification": [
+    "rowing-fit",
+    "visual-rowing-fit",
+    "visual-rowing-game",
     "walk-on-planters",
     "visual-walk-on-planters",
     "character-motor",
@@ -165,3 +168,11 @@ SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-MOVE-R17 | 已接真实骨骼及连续蒙皮；步行/划船/播种/浇水/获物/游泳与取消/恢复当前专项分别验收 | [本轮交付与实测](../../development/2026-11-02_avatar_limb_skinning.md) |
+
+## 2026-11-04 · 座位与双桨适配
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-MOVE-R18 | 已实现；中排座板坐姿、屈膝避板、双手消费真实握点、按体型真实臂长与船体摇摆同步；停船、取消、上下船和恢复共用同一座点 | `rowing-fit`、`visual-rowing-fit`、`visual-rowing-game`及相关回归；[当前实测与原生画面](../../development/2026-11-04_rowing_seat_and_grips.md)。触摸/手柄与全部外观组合未执行，整体功能状态不因本次局部修复上调。 |
+
+最终实测：6入口19028项、0失败，exit均0；正式场景22项与两套海面57项为真实渲染。全局文档门禁仍因范围外既有登记问题exit1，未强行同步索引；详见本轮交付记录。

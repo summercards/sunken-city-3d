@@ -18,6 +18,9 @@
     "godot/src/navigation/route_ribbon.gd"
   ],
   "verification": [
+    "rowing-fit",
+    "visual-rowing-fit",
+    "visual-rowing-game",
     "reference-skiff",
     "visual-reference-skiff",
     "boat-water-contact",
@@ -190,3 +193,11 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-NAV-R12 | 已实现；`sea_supply` 的 `main` 泊位复用唯一「航行→抵达→上岸」链路，站立点 y=1.38 落在甲板、船位 y=1.12 在甲板外 2.35 米开阔水面（该点 `_is_open_water` 为真）、靠岸边在两者之间；从家园起航可规划出 6 点折线。 | `sea-supply` 专项与 `sea-supply-probe` 实测；[接入记录](../../development/2026-10-31_sea_supply_station.md) |
+
+## 2026-11-04 · 座位与双桨适配
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-NAV-R13 | 已实现；中排座板坐姿、屈膝避板、双手消费真实握点、按体型真实臂长与船体摇摆同步；停船、取消、上下船和恢复共用同一座点 | `rowing-fit`、`visual-rowing-fit`、`visual-rowing-game`及相关回归；[当前实测与原生画面](../../development/2026-11-04_rowing_seat_and_grips.md)。触摸/手柄与全部外观组合未执行，整体功能状态不因本次局部修复上调。 |
+
+最终实测：6入口19028项、0失败，exit均0；正式场景22项与两套海面57项为真实渲染。全局文档门禁仍因范围外既有登记问题exit1，未强行同步索引；详见本轮交付记录。
