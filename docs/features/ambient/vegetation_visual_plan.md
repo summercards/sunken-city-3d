@@ -37,7 +37,7 @@
 | 入口 | 实际情况 | 对方案的影响 |
 |---|---|---|
 | `godot/project.godot` | 标记 Godot 4.7 / Forward Plus；1600×1000；`msaa_3d=2`；方向阴影图 8192 | PC Forward+ 为主；采样数按引擎枚举核对，不能把配置值 2 直接称为 2×。不顺带提高全局阴影成本 |
-| `godot/src/camera/orbit_camera.gd` | 默认距离 38 m、FOV 31°；允许 9–38 m 缩放（2026-11-05 上限由 190 收紧到 38），场景可覆盖 | 不照搬第一人称“20 m 后全删草”的距离表；以实际投影像素与取景验收 |
+| `godot/src/camera/orbit_camera.gd` | 默认距离 38 m、FOV 31°；允许 9–77.8 m 缩放（2026-11-05 上限由 190 收紧到 77.8），场景可覆盖 | 不照搬第一人称“20 m 后全删草”的距离表；以实际投影像素与取景验收 |
 | `godot/src/ambient/plant.gd` | 每株 `_process` 计算正弦并直接写根 `rotation.x/z`；生长由 scale/Tween 驱动 | 迁移后关闭该株旧旋转，避免双重动画和覆盖作者倾斜；生长接口继续保留 |
 | `plant_field.gd` / 植物摆放 JSON | 旧表共 161 条摆放，42 个植物 TSCN；其中农场表 149 条 | 是静态目录统计，不等于最小生活循环当前同时可见数；先按消费者确定迁移范围 |
 | `sunny_bloom_visual.gd` | flora 逐株建 Component，并按单实例集合创建 MultiMesh；材质按角色强制选择 | 名为 MultiMesh 不代表已批量合并；须适配材料选择与分组，单换包装材质可能被覆盖 |
@@ -207,7 +207,7 @@ A=原场景；B=接入新几何但风关闭；C=相同几何开启风；D=密度
 
 后续新增 `vegetation-contract`、`visual-vegetation`、`vegetation-performance` runner 入口；名称目前是计划，尚不能执行。完成专项后按改动选跑现有 decorations、visual-decorations、water-layer、作物/种植、天气/昼夜及保存恢复集成。**不能将 headless 编译通过当作柔软、好看或性能通过。**
 
-真实验收至少覆盖：根固定且叶尖移动；相邻草同向传播且不整齐同步；弯曲法线/背面；干湿接触与穿水；无黑夜自发光；AABB 边缘；9–38 m 镜头范围；昼夜/两种海面；升级显隐/生长/读档/暂停/潜水往返；固定 seed 重建一致；低档不成片缺口；错误通道/缺材质/缺源记录的拒绝行为。每项单独记录退出码、真实渲染、预期故障、未执行与性能硬件信息。
+真实验收至少覆盖：根固定且叶尖移动；相邻草同向传播且不整齐同步；弯曲法线/背面；干湿接触与穿水；无黑夜自发光；AABB 边缘；9–77.8 m 镜头范围；昼夜/两种海面；升级显隐/生长/读档/暂停/潜水往返；固定 seed 重建一致；低档不成片缺口；错误通道/缺材质/缺源记录的拒绝行为。每项单独记录退出码、真实渲染、预期故障、未执行与性能硬件信息。
 
 Godot 3D 屏幕色是在不透明 pass 后复制，普通透明物体不会被该复制捕获；这就是本项目水下植被优先实体不透明、并专门测试吸收水面的原因。[官方屏幕读取说明](https://docs.godotengine.org/en/stable/tutorials/shaders/screen-reading_shaders.html#behind-the-scenes)
 

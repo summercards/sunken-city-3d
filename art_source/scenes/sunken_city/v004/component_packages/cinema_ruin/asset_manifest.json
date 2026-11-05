@@ -1,0 +1,141 @@
+{
+  "key": "cinema_ruin",
+  "slug": "cinema_ruin",
+  "name": "旧影院_残破招牌",
+  "category": "architecture",
+  "component_family": "civic",
+  "component_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    20,
+    16,
+    19
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 2,
+  "color": "plaster",
+  "damage": 0.55,
+  "style": "cinema",
+  "variant_axis": "structure_damage",
+  "variant_value": "cinema",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 1,
+  "collection": "SEA-SCENE-SCITY-CINEMA-RUIN_旧影院_残破招牌",
+  "root_object": "SEA-SCENE-SCITY-CINEMA-RUIN_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-CINEMA-RUIN_ROOT",
+    "旧影院_残破招牌_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    19.62713050842285,
+    15.767000198364258,
+    13.759183883666992
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 50680,
+  "polygons": 26413,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/cinema_ruin/cinema_ruin.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v004",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "7e3c6809b86bd4020c070e3e31e09069e4ef8a79bcfaac90c87f7d393e4bb03e",
+  "source_floors": 3,
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/cinema_ruin/cinema_ruin.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "023ffaf06cbc537f4e89036f7417088e894f3d568a11efc8ba7c265d53f8321b",
+  "bounds_min": [
+    -9.813565254211426,
+    -7.883500099182129,
+    0.0
+  ],
+  "bounds_max": [
+    9.813565254211426,
+    7.883500099182129,
+    13.759183883666992
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\cinema_ruin.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-CINEMA-RUIN",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/cinema_ruin_optimized.blend",
+    "optimized_sha256": "6848ac80ffb02d4afb8941044cc2ef6c0487f22c243598d4b4c8c9970ccb3a87",
+    "triangles_before": 50680,
+    "triangles_after": 50680,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 517,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 9,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 96,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -9.813565254211426,
+        -7.883500099182129,
+        0.0
+      ],
+      [
+        9.813565254211426,
+        7.883500099182129,
+        13.759183883666992
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/cinema_ruin/cinema_ruin.glb",
+    "runtime_sha256": "4fdc0ea1d5912a2dc592222b7871ac703c7c5f022aa672c65f755dfbf2e38ead",
+    "prefab": "godot/scenes/components/scenery/sunken_city/cinema_ruin.tscn",
+    "prefab_sha256": "685d7da96e1aca473f49d765fd81eb8f10ad8a2ec31e282437ace17027e1d620",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

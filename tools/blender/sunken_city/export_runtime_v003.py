@@ -13,8 +13,8 @@ RUN=R/'godot/assets/models/scenery/sunken_city'
 P=json.loads((D/'component_plan.json').read_text(encoding='utf-8'));CAT=json.loads((D/'component_catalog.json').read_text(encoding='utf-8'))['components']
 INST=json.loads((D/'component_instances.json').read_text(encoding='utf-8'))['instances']
 MAIN=D/f'sunken_city_{VERSION}.blend';PAL=R/P['palette']
-V003_CAT=json.loads((R/'art_source/scenes/sunken_city/v003/component_catalog.json').read_text(encoding='utf-8'))['components']
-BUILDING_HEIGHT_LIMIT=max(c['bounds_size_m'][2] for c in V003_CAT if c.get('category')=='architecture')/4
+VERSION_CAT=json.loads((D/'component_catalog.json').read_text(encoding='utf-8'))['components']
+BUILDING_HEIGHT_LIMIT=max(c['bounds_size_m'][2] for c in VERSION_CAT if c.get('category')=='architecture')/4
 assert len(CAT)==50 and len(INST)==388 and len({c['component_id'] for c in CAT})==50
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def write(p,v):p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
@@ -92,6 +92,11 @@ for c in CAT:
     # Scene output wrapper remains explicit; previews are not exported.
     for preview in list(bpy.context.scene.objects):
         if preview.type in ('CAMERA','LIGHT'):bpy.data.objects.remove(preview,do_unlink=True)
+    root=next(o for o in col.all_objects if o.type=='EMPTY')
+    root.name='Root_'+key
+    obj.name='Mesh_'+key
+    obj.data.name='Geometry_'+key
+    bpy.context.scene.name='Component_'+key
     derived=O/(key+'_optimized.blend')
     bpy.ops.wm.save_as_mainfile(filepath=str(derived),compress=True,relative_remap=False)
     dh=sha(derived)
@@ -112,12 +117,12 @@ for c in CAT:
     for node in doc.get('nodes',[]):
         if 'mesh' in node:
             mesh_nodes.append({'node_name':node['name'],'mesh_index':node['mesh'],'roles':[materials[p['material']] for p in doc['meshes'][node['mesh']]['primitives']]})
-    row=dict(key=key,asset_id=c['component_id'],role='optimized',version='v003',source=c['component_blend'],source_sha256_before=c['source_sha256'],source_sha256_after=sha(source),optimized_source=str(derived.relative_to(R)).replace('\\','/'),optimized_sha256=dh,
+    row=dict(key=key,asset_id=c['component_id'],role='optimized',version=VERSION,source=c['component_blend'],source_sha256_before=c['source_sha256'],source_sha256_after=sha(source),optimized_source=str(derived.relative_to(R)).replace('\\','/'),optimized_sha256=dh,
         glb=str(target.relative_to(R)).replace('\\','/'),glb_sha256=sha(target),glb_bytes=len(raw),triangles_before=tb,triangles_after=ta,reduction_ratio=(tb-ta)/tb,operations=ops,bounds_blender=ba,bounds_before=bb,palette_color_area_max_relative_drift=max(area_drift.values(),default=0),material_roles=c['material_roles'],mesh_nodes=mesh_nodes,
         budget=None,budget_source='no numeric runtime budget supplied; preserve approved shape and measure actual cost',retained_faces='All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.',uv_faces_audited=audited,exported_triangles=exported,embedded_images=0,source_preserved=True,fidelity_status='geometry/color-area/bbox_pass_visual_comparison_pending')
     records.append(row)
-    write(O/'export_manifest.json',{'suite':'sunken_city','version':'v003','passed':False,'stage':'component_export','protected_sources':protected,'components':records})
+    write(O/'export_manifest.json',{'suite':'sunken_city','version':VERSION,'passed':False,'stage':'component_export','protected_sources':protected,'components':records})
     print('SCITY_EXPORT',key,tb,ta,'saved_reopened',flush=True)
 assert all(sha(R/p)==h for p,h in protected.items())
-write(O/'export_manifest.json',{'suite':'sunken_city','version':'v003','passed':True,'stage':'exports_complete_fidelity_visual_pending','protected_sources':protected,'components':records,'triangles_before':sum(x['triangles_before'] for x in records),'triangles_after':sum(x['triangles_after'] for x in records),'source_unchanged':True})
+write(O/'export_manifest.json',{'suite':'sunken_city','version':VERSION,'passed':True,'stage':'exports_complete_fidelity_visual_pending','protected_sources':protected,'components':records,'triangles_before':sum(x['triangles_before'] for x in records),'triangles_after':sum(x['triangles_after'] for x in records),'source_unchanged':True})
 print('SCITY_EXPORT_COMPLETE',len(records),'before',sum(x['triangles_before'] for x in records),'after',sum(x['triangles_after'] for x in records),flush=True)

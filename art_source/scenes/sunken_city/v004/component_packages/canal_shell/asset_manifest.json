@@ -1,0 +1,140 @@
+{
+  "key": "canal_shell",
+  "slug": "canal_shell",
+  "name": "运河街断墙_半栋遗址",
+  "category": "architecture",
+  "component_family": "canal_housing",
+  "component_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    17,
+    16,
+    23
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 2,
+  "color": "white",
+  "damage": 0.72,
+  "style": "canal_shell",
+  "variant_axis": "structure_damage",
+  "variant_value": "canal_shell",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 4,
+  "collection": "SEA-SCENE-SCITY-CANAL-SHELL_运河街断墙_半栋遗址",
+  "root_object": "SEA-SCENE-SCITY-CANAL-SHELL_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-CANAL-SHELL_ROOT",
+    "运河街断墙_半栋遗址_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    16.62713050842285,
+    15.520315170288086,
+    13.759183883666992
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 30624,
+  "polygons": 15954,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/canal_shell/canal_shell.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v004",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "93c809dbeef482d764ed3e375dfc96adc7499832b3b10c0462d651dc78bec795",
+  "source_floors": 5,
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/canal_shell/canal_shell.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "cc2545cd9244bfd0740ca616113255c8eeae26ac75f3523d459c2cdfeed3c0fa",
+  "bounds_min": [
+    -8.313565254211426,
+    -7.760157585144043,
+    0.0
+  ],
+  "bounds_max": [
+    8.313565254211426,
+    7.760157585144043,
+    13.759183883666992
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\canal_shell.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-CANAL-SHELL",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/canal_shell_optimized.blend",
+    "optimized_sha256": "cd822ea328101ef96fd4bf63289232d5e334673d2abbe159f4a31c29f38581e8",
+    "triangles_before": 30624,
+    "triangles_after": 30624,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 184,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -8.313565254211426,
+        -7.760157585144043,
+        0.0
+      ],
+      [
+        8.313565254211426,
+        7.760157585144043,
+        13.759183883666992
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/canal_shell/canal_shell.glb",
+    "runtime_sha256": "a14a195c3a5d808c47c8b48bb5f0ca99815beabfde492843b28a3381a92826e2",
+    "prefab": "godot/scenes/components/scenery/sunken_city/canal_shell.tscn",
+    "prefab_sha256": "a884d7a23d22e997f582e38b806478d7e229c7a7e51174003d385e8a21fafbfe",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

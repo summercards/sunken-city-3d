@@ -15,8 +15,6 @@ func _init() -> void:
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
-	# 探针用 46 m 机位；玩家上限是 38 m（SEA-CAMERA-R11），不抬高会被静默夹回。
-	main.cam.zoom_max = 160.0
 	main._autosave_on = false
 	for i in 60:
 		await process_frame

@@ -22,7 +22,7 @@ func _init() -> void:
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
-	# 探针：玩家上限是 38 m（SEA-CAMERA-R11），这里临时放开，保留 46/78 m 对照机位。
+	# 探针：玩家上限是 77.8 m（SEA-CAMERA-R11），这里临时放开，保留 46/78 m 对照机位。
 	main.cam.zoom_max = 260.0
 	main._autosave_on = false
 	root.get_node("Economy").ticking = false

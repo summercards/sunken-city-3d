@@ -129,7 +129,12 @@ var _after_walk: Callable:
 	set(value): actor_controller.after_walk = value
 const WALK_SPEED := 2.3
 ## 按 E 上船的有效距离（米）：从泊位站立点算起，再远就要求玩家先走过去。
-const BOAT_KEY_REACH := 3.2
+const BOAT_KEY_REACH := 2.4
+## 按 E 上/下船后的冷却（秒）。切换是一次性动作：按住不放时键盘只会补 echo 事件，
+## 但「走位到一半再按一下」会立刻反向 —— 表现为刚上船又上岸。0.35 秒足够过场起势，
+## 又不会让有意连按失效（真连按通常是误触，本来就该被吞掉）。
+const BOAT_KEY_COOLDOWN := 0.35
+var _boat_key_left := 0.0
 
 var _t := 0.0
 var _ripples := PackedVector4Array()
@@ -1015,16 +1020,19 @@ func _camera_relative(axis: Vector2) -> Vector3:
 ## 每物理帧把「按键」折成世界方向，分派给角色或船。
 ##
 ## 面板打开/过场/模态时整体不读键：方向键在背包页里是选格子，不是走路。
-func _update_keyboard_move(_delta: float) -> void:
+func _update_keyboard_move(delta: float) -> void:
+	_boat_key_left = maxf(0.0, _boat_key_left - maxf(delta, 0.0))
 	var axis := Vector2.ZERO
-	if not input_blocked():
+	# 建造/拆除模式里左右方向键是「换件/换层」，不驱动角色；那边仍用点击走位。
+	var building_busy: bool = building_controller != null and building_controller.active
+	if not input_blocked() and not building_busy:
 		axis = Input.get_vector("move_left","move_right","move_forward","move_back")
 	var world := _camera_relative(axis)
 	var mode := actor_controller.mode()
 	if mode == 0:
 		actor_controller.set_move_intent(world)
 		return
-	if dive != null and dive.active:
+	if boat == null or (dive != null and dive.active):
 		return
 	if mode == 1 or mode == 2:
 		if axis == Vector2.ZERO:
@@ -2274,39 +2282,63 @@ func _step_ashore() -> bool:
 ## ---- E 键上下船（SEA-INTERACT-R13，2026-11-05）-----------------------------
 ##
 ## 与点击登陆标记是同一对动作，只是入口从「点图标」换成「站在旁边按 E」：
-##   · 岸上、船正停在这个泊位、离站立点 3.2 米内 → 上船；
+##   · 岸上、船正停在这个泊位、站在站立点 2.4 米内 → 上船；
 ##   · 船上、船停稳在这个泊位 → 上岸。
-## 不满足成对条件就什么都不做（不弹提示、不 set_handled），让 E 继续归交互。
-func _toggle_boat_by_key() -> bool:
+## 附近同时有可交互物时按「谁更近」让位：物件比泊位近就归采集，
+## 否则站在船舷边按 E 永远会被旁边的出货箱吃掉。
+func _boat_key_action() -> String:
 	if boat == null or (dive != null and dive.active):
-		return false
+		return ""
 	if _title_active or (sleep_cycle != null and sleep_cycle.busy):
-		return false
+		return ""
 	if room_controller != null and room_controller.busy:
-		return false
+		return ""
+	if _boat_key_left > 0.0:
+		return ""
+	# 上下船过场进行中：此时 mode 已经先跳到船上，再按一次会被读成「上岸」。
+	if actor_controller.machine.current == "boarding":
+		return ""
 	if not _landing_is_docked():
-		return false
+		return ""
 	var mode := actor_controller.mode()
-	if mode == 0:
-		# 站在土箱/藤壶旁边按 E 是采集，不该被送上船。
-		if interactor != null and interactor.target != null:
-			return false
-		var landing := _current_landing()
-		if landing == null:
-			return false
-		var stand: Vector3 = landing.stand_position()
-		var here: Vector3 = actor_controller.actor.global_position
-		if Vector2(here.x - stand.x, here.z - stand.z).length() > BOAT_KEY_REACH:
-			return false
-		_ashore_on_arrival = false
-		return _depart(func() -> void: hud.toast("上船了 · 方向键划船，E 上岸"))
 	if mode == 1 or mode == 2:
-		boat.stop_drive()
-		_ashore_on_arrival = false
-		var ok := _step_ashore()
-		if ok:
-			hud.toast("上岸了 · 方向键走路，E 上船")
-		return ok
+		return "leave"
+	if mode != 0:
+		return ""
+	var landing := _current_landing()
+	if landing == null or not is_instance_valid(actor_controller.actor):
+		return ""
+	var stand: Vector3 = landing.stand_position()
+	var here: Vector3 = actor_controller.actor.global_position
+	var land_dist := Vector2(here.x - stand.x, here.z - stand.z).length()
+	if land_dist > BOAT_KEY_REACH:
+		return ""
+	if interactor != null and interactor.target != null:
+		var spot: Node3D = interactor.target
+		if is_instance_valid(spot):
+			var spot_pos: Vector3 = spot.focus_position() if spot.has_method("focus_position") else spot.global_position
+			var spot_dist := Vector2(here.x - spot_pos.x, here.z - spot_pos.z).length()
+			if spot_dist <= land_dist:
+				return ""
+	return "board"
+
+
+func _toggle_boat_by_key() -> bool:
+	match _boat_key_action():
+		"board":
+			_ashore_on_arrival = false
+			var boarded := _depart(func() -> void: hud.toast("上船了 · 方向键划船，E 上岸"))
+			if boarded:
+				_boat_key_left = BOAT_KEY_COOLDOWN
+			return boarded
+		"leave":
+			boat.stop_drive()
+			_ashore_on_arrival = false
+			var ok := _step_ashore()
+			if ok:
+				_boat_key_left = BOAT_KEY_COOLDOWN
+				hud.toast("上岸了 · 方向键走路，E 上船")
+			return ok
 	return false
 
 
@@ -2324,26 +2356,11 @@ func _landing_is_docked() -> bool:
 
 ## 提示条上的「现在按 E 会做什么」。
 func _boat_shortcut_text() -> String:
-	if boat == null or (dive != null and dive.active):
-		return ""
 	if hud == null or not is_instance_valid(hud) or input_blocked():
 		return ""
-	if not _landing_is_docked():
-		return ""
-	var mode := actor_controller.mode()
-	if mode == 0:
-		if interactor != null and interactor.target != null:
-			return ""
-		var landing := _current_landing()
-		if landing == null:
-			return ""
-		var stand: Vector3 = landing.stand_position()
-		var here: Vector3 = actor_controller.actor.global_position
-		if Vector2(here.x - stand.x, here.z - stand.z).length() > BOAT_KEY_REACH:
-			return ""
-		return "上船"
-	if mode == 1 or mode == 2:
-		return "上岸"
+	match _boat_key_action():
+		"board": return "上船"
+		"leave": return "上岸"
 	return ""
 
 

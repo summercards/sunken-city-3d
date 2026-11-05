@@ -82,8 +82,6 @@ func run() -> void:
 	preload("res://tools/lighting_capture_profile.gd").prepare()
 	main=load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
-	# 证据取景用到 42 m 机位；玩家上限是 38 m（SEA-CAMERA-R11），不抬高会被静默夹回。
-	main.cam.zoom_max = 160.0
 	main._autosave_on=false;main.world_clock.paused=true;main.weather_service.paused=true
 	main.process_mode=Node.PROCESS_MODE_DISABLED
 	main.cam.follow_enabled=false

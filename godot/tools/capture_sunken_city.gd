@@ -4,6 +4,8 @@ extends SceneTree
 
 const MANIFEST := "res://assets/models/scenery/sunken_city/runtime_manifest.json"
 const OUTPUT := "res://outputs/sunken-city-"
+const RUNTIME_VERSION := "v004"
+const WATER_Y := 1.12
 const SETTLE_FRAMES := 14
 const DEPTH_KEYS := ["depth_half_distance", "depth_distance", "absorption", "absorption_color", "deep_darkness", "caustics_depth_near", "caustics_depth_far", "night_depth_distance", "night_shallow_opacity"]
 
@@ -18,12 +20,19 @@ var saved: Dictionary = {}
 var hidden_layers: Array[Dictionary] = []
 var frame_records: Array[Dictionary] = []
 var roof_candidates: Array[Dictionary] = []
+var road_point: Vector3 = Vector3.ZERO
+var road_found: bool = false
 var bridge_point: Vector3 = Vector3.ZERO
 var bridge_found: bool = false
+var curve_bridge_point: Vector3 = Vector3.ZERO
+var curve_bridge_found: bool = false
 var depth_before: Dictionary = {}
 var original_depth: Dictionary = {}
 var frames_by_tag: Dictionary = {}
 var water_shapes_before: Array = []
+var city_root_lift_m: float = 0.0
+var source_max_height_m: float = 59.6591835
+var height_cap_m: float = 14.9147959
 
 
 func _init() -> void:
@@ -51,8 +60,10 @@ func depth_snapshot() -> Dictionary:
 
 
 func save_state() -> void:
+	city_root_lift_m = city.position.y
 	saved = {
 		"main_process": main.is_processing(), "main_physics": main.is_physics_processing(),
+		"city_transform": city.transform, "city_root_lift_m": city.position.y,
 		"clock": main.world_clock.to_dict().duplicate(true), "clock_paused": main.world_clock.paused,
 		"weather": main.weather_service.to_dict().duplicate(true), "weather_paused": main.weather_service.paused,
 		"camera_target": camera.get("target"), "camera_distance": camera.get("distance"),
@@ -65,6 +76,18 @@ func save_state() -> void:
 	water_shapes_before = main.call("_water_shapes").duplicate(true)
 	depth_before = depth_snapshot()
 	original_depth = depth_before.duplicate(true)
+
+
+func sweep_enabled() -> bool:
+	return OS.get_environment("SEA_CITY_SWEEP") == "1"
+
+
+func set_city_lift(lift_m: float) -> void:
+	city.position.y = lift_m
+	var box: Dictionary = geometry_summary(city)
+	check(bool(box["valid"]), "sweep lift %.1f 几何包络有效" % lift_m)
+	if bool(box["valid"]):
+		check(float(box["max"].y) <= water.global_position.y - 1.0, "sweep lift %.1f 最高实际顶点至少低于水面1m" % lift_m)
 
 
 func freeze_scene() -> void:
@@ -135,17 +158,31 @@ func select_targets(instances: Array) -> void:
 			var box: Dictionary = geometry_summary(child)
 			if bool(box["valid"]):
 				roof_candidates.append({"instance_id": id, "top": box["top"], "center": box["center"]})
+		# A genuine marked road junction, not the first plaza tile in manifest order.
+		if key == "junction" and id == "junction_instance_003":
+			var road_box: Dictionary = geometry_summary(child)
+			if bool(road_box["valid"]):
+				road_point = road_box["center"]
+				road_point.y = road_box["max"].y
+				road_found = true
 		if key == "viaduct_broken" and (not bridge_found or str(entry.get("urban_role", "")) == "rail_extension"):
 			var box: Dictionary = geometry_summary(child)
 			if bool(box["valid"]):
 				bridge_point = box["center"]
 				bridge_found = true
+		if key == "viaduct_curve" and not curve_bridge_found:
+			var curve_box: Dictionary = geometry_summary(child)
+			if bool(curve_box["valid"]):
+				curve_bridge_point = curve_box["center"]
+				curve_bridge_found = true
 	roof_candidates.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		var top_a: Vector3 = a["top"]
 		var top_b: Vector3 = b["top"]
 		return top_a.y > top_b.y)
 	check(roof_candidates.size() >= 3, "至少三个实际高楼屋顶可供隔水取景")
+	check(road_found, "真实道路组件可供水面焦点取景")
 	check(bridge_found, "真实冻结断桥可供取景")
+	check(curve_bridge_found, "真实弯桥组件可供取景")
 
 
 func image_stats(image: Image) -> Dictionary:
@@ -191,16 +228,37 @@ func shot(tag: String, target: Vector3, distance: float, orbit: Vector3, focus: 
 	check(float(stats["luminance_span"]) > 0.01, tag + " 画面不是空白纯色")
 	var path: String = OUTPUT + tag + ".png"
 	check(image.save_png(path) == OK, tag + " PNG 保存成功")
-	check(depth_snapshot() == depth_before, tag + " 水深/吸收参数未改变")
+	var depth_unchanged: bool = depth_snapshot() == depth_before
+	check(depth_unchanged, tag + " 水深/吸收参数未改变")
 	frames_by_tag[tag] = image
 	frame_records.append({"tag": tag, "path": path, "diagnostic_only": diagnostic,
 		"hour": main.world_clock.query().get("hour"), "settle_frames": SETTLE_FRAMES,
 		"water_visible": water.visible, "camera_position": str(camera.global_position),
+		"capture_type": "diagnostic_no_water" if diagnostic else "water_real_main",
 		"camera_target": str(target), "camera_distance": camera.get("distance"), "orbit": str(orbit),
-		"focus": str(focus), "focus_depth_m": water.global_position.y - focus.y,
+			"focus": str(focus), "focus_depth_m": water.global_position.y - focus.y,
+		"lift_m": city.position.y, "road_depth": water.global_position.y - (road_point.y + city.position.y - city_root_lift_m),
+		"roof_clearance": water.global_position.y - (geometry_summary(city)["max"].y if bool(geometry_summary(city)["valid"]) else 0.0),
+		"global_depth_parameters_unchanged": depth_unchanged,
 		"focus_pixel": str(screen), "stats": stats,
 		"visibility_verdict": "待目视复核；投影入框或无水诊断不代表隔水可辨"})
 	print("[sunken-city-frame] ", tag, " ", image.get_width(), "x", image.get_height(), " diagnostic=", diagnostic)
+
+
+func road_focus() -> Vector3:
+	return road_point + Vector3(0.0, city.position.y - city_root_lift_m, 0.0)
+
+
+func paired_road_shot(tag: String, distance: float) -> void:
+	var focus: Vector3 = road_focus()
+	var target: Vector3 = Vector3(focus.x, WATER_Y, focus.z)
+	await paired_diagnostic(tag, target, distance, Vector3(-0.35, 1.25, 0.55), focus)
+
+
+func sweep_road_shots(lift_m: float) -> void:
+	set_city_lift(lift_m)
+	await paired_road_shot("road-sweep-%d-38m" % int(lift_m), 38.0)
+	await paired_road_shot("road-sweep-%d-110m" % int(lift_m), 110.0)
 
 
 func paired_diagnostic(tag: String, target: Vector3, distance: float, orbit: Vector3, focus: Vector3) -> void:
@@ -260,6 +318,8 @@ func restore_state() -> void:
 	check(water.visible == bool(saved["water_visible"]) and water.transform.is_equal_approx(saved["water_transform"]), "恢复原水面显示/变换")
 	check(main.world_clock.to_dict() == saved["clock"] and main.weather_service.to_dict() == saved["weather"], "恢复原时间/天气快照")
 	check(camera.global_transform.is_equal_approx(saved["camera_transform"]), "恢复原相机变换")
+	city.transform = saved["city_transform"]
+	check(city.transform.is_equal_approx(saved["city_transform"]) and absf(city.position.y - float(saved["city_root_lift_m"])) < 0.0001, "恢复旧城原始变换/根 Y")
 	check(main.boat.transform.is_equal_approx(saved["boat_transform"]), "船体从未被挪动")
 	check(depth_snapshot() == original_depth, "清理后水深/吸收参数恢复原时间状态")
 	var shapes_after: Array = main.call("_water_shapes").duplicate(true)
@@ -275,9 +335,12 @@ func finish() -> void:
 	var file: FileAccess = FileAccess.open(OUTPUT + "render.json", FileAccess.WRITE)
 	check(file != null, "渲染报告可写")
 	if file != null:
-		file.store_string(JSON.stringify({"suite": "sunken_city", "version": "v003", "checks": checks,
+		file.store_string(JSON.stringify({"suite": "sunken_city", "version": RUNTIME_VERSION, "checks": checks,
 			"failures": failures, "errors": errors, "frames": frame_records,
-			"restoration_attempted": not saved.is_empty(), "depth_parameters_before": var_to_str(depth_before),
+				"restoration_attempted": not saved.is_empty(), "depth_parameters_before": original_depth,
+			"global_depth_parameters_unchanged": depth_snapshot() == original_depth,
+			"root_lift_m": city_root_lift_m, "source_max_height_m": source_max_height_m, "height_cap_m": height_cap_m,
+		"height_cap_rule": "global_max_div4_cap",
 			"scope": "真实海上主场景，正式图保留水面；无水图仅作同机位诊断",
 			"limits": "地面约在水下62米，断桥也处于深水；不擅自调整水深/吸收，实际可辨性与shader稳定性仍需查看输出帧"}, "\t"))
 		file.close()
@@ -303,7 +366,7 @@ func run() -> void:
 	main.set("_autosave_on", false)
 	root.add_child(main)
 	# 取景工具：旧城隔水可见性需要 72–190 m 的远机位；玩家上限是 38 m
-	# （SEA-CAMERA-R11），不抬高会被静默夹回，截出来的就不是远景。
+	# （SEA-CAMERA-R11 的 77.8 m），不抬高会被静默夹回，截出来的就不是远景。
 	var cam_node: Node = main.get("cam") as Node
 	if cam_node != null:
 		cam_node.set("zoom_max", 260.0)
@@ -323,9 +386,12 @@ func run() -> void:
 	if not parsed is Dictionary:
 		await finish()
 		return
-	var manifest: Dictionary = parsed
+	var manifest: Dictionary = parsed as Dictionary
 	var placements: Variant = manifest.get("instances", null)
-	check(manifest.get("suite", "") == "sunken_city" and manifest.get("version", "") == "v003" and placements is Array, "只拍 sunken_city/v003")
+	check(manifest.get("suite", "") == "sunken_city" and manifest.get("version", "") == RUNTIME_VERSION and placements is Array, "只拍 sunken_city/v004")
+	var height_contract: Dictionary = manifest.get("height_cap_contract", {}) as Dictionary
+	source_max_height_m = float(height_contract.get("source_max_height_m", source_max_height_m))
+	height_cap_m = float(height_contract.get("height_cap_m", height_cap_m))
 	if not placements is Array:
 		await finish()
 		return
@@ -336,8 +402,11 @@ func run() -> void:
 	select_targets(placements)
 	set_hour(9.0)
 	# 默认 pan 高度：诚实记录真实观感，不为了看见62米深地面而改水。
-	await shot("surface-day", Vector3(0.0, 1.12, 0.0), 110.0, Vector3(-0.5, 0.85, 0.7), Vector3(0.0, 1.12, 0.0))
-	await shot("high-overview-day", Vector3(0.0, 1.12, 0.0), 190.0, Vector3(-0.1, 1.6, 0.3), Vector3(0.0, 1.12, 0.0))
+	await shot("surface-day", Vector3(0.0, WATER_Y, 0.0), 110.0, Vector3(-0.5, 0.85, 0.7), Vector3(0.0, WATER_Y, 0.0))
+	await shot("high-overview-day", Vector3(0.0, WATER_Y, 0.0), 190.0, Vector3(-0.1, 1.6, 0.3), Vector3(0.0, WATER_Y, 0.0))
+	if road_found:
+		await paired_road_shot("road-focus-water", 110.0)
+		await paired_road_shot("road-focus-player-38m", 38.0)
 	for index in range(mini(3, roof_candidates.size())):
 		var roof: Dictionary = roof_candidates[index]
 		var top: Vector3 = roof["top"]
@@ -349,10 +418,18 @@ func run() -> void:
 	if bridge_found:
 		# 以断桥真实高度为瞄准点，但眼点仍高于海面；保留当前镜头190米上限。
 		await paired_diagnostic("bridge-through-water", bridge_point, 150.0, Vector3(-0.25, 1.6, 0.3), bridge_point)
+	if curve_bridge_found:
+		await paired_diagnostic("curved-bridge-through-water", curve_bridge_point, 110.0, Vector3(-0.3, 1.35, 0.45), curve_bridge_point)
 	set_hour(19.5)
 	var night_focus: Vector3 = Vector3(0.0, 1.12, 0.0)
 	if not roof_candidates.is_empty():
 		night_focus = roof_candidates[0]["top"]
-	await shot("night-1930", Vector3(night_focus.x, 1.12, night_focus.z), 96.0, Vector3(-0.4, 1.2, 0.5), night_focus)
+	await shot("night-1930", Vector3(night_focus.x, WATER_Y, night_focus.z), 96.0, Vector3(-0.4, 1.2, 0.5), night_focus)
+	if sweep_enabled() and road_found:
+		set_hour(9.0)
+		for lift_m in [42.0, 44.0, 45.0]:
+			await sweep_road_shots(float(lift_m))
+		city.transform = saved["city_transform"]
 	check(frame_records.size() >= 8, "正式日景/屋顶/高空/断桥/无水诊断/夜景均有帧")
+	check(frame_records.size() >= 14, "v004 正式日景/屋顶/道路/高空/断桥/弯桥/38m/无水诊断/夜景均有帧")
 	await finish()

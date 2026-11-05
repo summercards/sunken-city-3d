@@ -22,6 +22,9 @@ var approach_action = preload("res://src/player/actions/approach_action.gd").new
 ## 键盘移动意图（世界 xz 方向，已归一化；零 = 没按键）。由 Main 每帧写入，
 ## 这里只负责「能不能转成一次行走」，不读键盘也不读镜头。
 var move_intent := Vector3.ZERO
+## 当前行走速度（世界 m/s）。自由行走自己积分加减速，点击走路不写它。
+## 镜头前视、步频、测试都只读这一个量，不再各自猜速度。
+var move_velocity := Vector3.ZERO
 
 func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boundary: Dictionary) -> void:
 	actor = body
@@ -77,7 +80,10 @@ func current_landing() -> Node3D: return ports.landing.call()
 ## 规则：
 ##   · 只有岸上（mode 0）能走；船上/潜水/入睡一律清零，船由 SEA-NAV 手动驾驶；
 ##   · 面板、过场、模态打开时不接管（`ports.input_blocked`）；
-##   · 非零 → 进入 strolling 并打断点击走路/自动接近；归零 → 回到站立。
+##   · 非零 → 进入 strolling 并打断点击走路/自动接近；
+##   · 归零 → 只清意图，**不立刻换状态**：让 strolling 把速度收到 0 再回站定
+##     （SEA-MOVE-R23）。立刻切状态会让减速那几帧没有任何人驱动，
+##     表现为「松手瞬停」。
 ## 不做「按一下走一段」的节流：键盘是持续按住，速度由物理帧决定。
 func set_move_intent(dir: Vector3) -> void:
 	var flat := Vector3(dir.x, 0.0, dir.z)
@@ -85,8 +91,6 @@ func set_move_intent(dir: Vector3) -> void:
 	if not is_instance_valid(actor):
 		return
 	if move_intent == Vector3.ZERO:
-		if machine.current == "strolling":
-			machine.change("ashore_idle")
 		return
 	if mode() != 0 or machine.current in ["diving","sleeping","boarding","interacting"]:
 		move_intent = Vector3.ZERO
@@ -133,6 +137,8 @@ func cancel() -> void:
 	if is_instance_valid(actor) and actor.has_method("cancel_action"): actor.cancel_action("cancelled")
 	clear_interaction()
 	move_intent = Vector3.ZERO
+	move_velocity = Vector3.ZERO
+	if is_instance_valid(actor): actor.walk_speed_ratio = 0.0
 	after_walk = Callable()
 	walk_path.clear()
 	if mode() == 3: return

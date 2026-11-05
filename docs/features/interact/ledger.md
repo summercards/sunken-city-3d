@@ -15,6 +15,8 @@
     "godot/src/interaction"
   ],
   "verification": [
+    "control-feel",
+    "keyboard-control",
     "visual-corner-notebook",
     "click",
     "surface",
@@ -200,3 +202,15 @@ modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 pa
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-INTERACT-R12 | 已实现；`Objects/SupplyCounter` 挂在补给站正面招牌下的甲板上（`focus_anchor=node`，锚点 y=2.514），`interact()` 只发 `opened` 信号，组合根 `main._open_supply` 打开既有商店页；专项断言「靠妥 → 走到点（≤2 米）→ 按 E 使 `hud._tab=="shop"` 且面板打开」整条链路。 | `sea-supply` 37 项 0 失败；[接入记录](../../development/2026-10-31_sea_supply_station.md) |
+
+## 2026-11-05 E 键上下船
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-INTERACT-R13 | 已实现；`_toggle_boat_by_key()` 复用 `_depart`/`_step_ashore`，泊位旁 2.4 米内按 E 上船、船上停稳按 E 上岸；有交互焦点时按距离让位给采集；提示条新增无焦点时的 `E 上船`/`E 上岸` | `keyboard-control`（上船、上岸、更近目标时不抢 E）；[本轮交付](../../development/2026-11-05_keyboard_control.md)。提示条外观的真实渲染截图未单独出。 |
+
+## 2026-11-05 上下船去抖
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-INTERACT-R14 | 已实现；成功切换后 `BOAT_KEY_COOLDOWN` 0.35 s 内不再响应，`boarding` 过场单独挡掉 | `keyboard-control`、`control-feel`（第一次生效、第二次被吞）；[本轮交付](../../development/2026-11-05_control_feel.md)。冷却只作用于上下船。 |

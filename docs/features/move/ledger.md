@@ -18,6 +18,7 @@
     "godot/src/navigation/landing_point.gd"
   ],
   "verification": [
+    "control-feel",
     "keyboard-control",
     "rowing-fit",
     "visual-rowing-fit",
@@ -196,3 +197,10 @@ SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-MOVE-R22 | 已实现；表现层随 `SCALE` 放大，玩法契约（胶囊 0.22/1.30、2.3 m/s、状态机、+Z 朝向）一字未改；坐姿骨盆间隙 0.05×SCALE、获物路径与挎包/背带/腕部偏移同乘 | `rowing-fit` 76631 项 0 失败（臀部-座板最大间隙 9.84 mm、腿部穿板 0 顶点）、`avatar-customization` exit0、`character-motor`/`surface`/`walk-facing`/`walk-deck-fit` exit0。[本轮交付](../../development/2026-11-05_character_scale_150.md) |
+
+
+## 2026-11-05 行走手感
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-MOVE-R23 | 已实现；`free_walk_action` 用时间常数积分加减速（0.085 / 0.055 s），反向走弧线，撞墙吃掉动量；`Character.walk_phase()` 由地速驱动步频，满速仍 6.4 rad/s；`set_move_intent` 归零后不立刻换状态，交给 strolling 收速 | `control-feel` 31 项（含 30/60/120 FPS 位移一致、滑行 0.105 m、步频 6.17/3.20）、`keyboard-control`、`walk-facing`、`actor-presentation`、`character-space-save` 复跑通过；[本轮交付](../../development/2026-11-05_control_feel.md)。点击走路未加缓入（避免动到既有到站判据），手柄/触屏无模拟量。 |

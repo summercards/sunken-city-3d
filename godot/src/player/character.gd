@@ -77,6 +77,21 @@ var _turn_velocity := 0.0
 var _rowing := false
 var _boat_seated := false
 var _farm_action_left := 0.0
+## 步频 ↔ 地速耦合（SEA-MOVE-R23）。
+##
+## 走路动画的相位原来直接吃 `_t * 6.4`：不管人走多快，腿都按同一个频率摆。
+## 加减速一上来，这就成了「脚在原地划水」—— 起步时脚比身体快，停下时身体
+## 还在滑。改成由 SEA-MOVE 每物理帧写 `walk_speed_ratio`（0…1.35），
+## 这里积分真实相位，脚就永远踩在地上。
+##
+## 6.4 rad/s 是原采样频率，满速时相位推进与旧实现逐帧一致（不改变既有观感）；
+## 下限 0.35 让「刚起步的 0.1 秒」也还有轻微摆动，不然像滑行。
+const WALK_PHASE_RATE := 6.4
+const WALK_PHASE_FLOOR := 0.35
+var walk_speed_ratio := 0.0
+var _walk_phase := 0.0
+
+func walk_phase() -> float: return _walk_phase
 
 func play_farm_action(event: String, payload: Dictionary = {}) -> void:
 	play_action("watering" if event in ["watered","浇水"] else ("harvesting" if event in ["harvested","收获"] else "planting"),payload)
@@ -334,6 +349,11 @@ func _process(delta: float) -> void:
 		_reset_action_pose()
 		body_pivot.rotation.y = preserved_yaw
 		_last_action = _action
+	# 步频只在本帧真的在走路时推进；其余状态冻结相位，切回走路时从脚下开始。
+	if _action == "walking":
+		_walk_phase = fmod(_walk_phase + delta * WALK_PHASE_RATE * maxf(WALK_PHASE_FLOOR, walk_speed_ratio), TAU)
+	else:
+		_walk_phase = 0.0
 	_actions[_action].sample(self,delta)
 	var visible_progress:=action_progress()
 	if not playback.is_empty(): visible_progress=clampf((float(playback.elapsed)+delta)/float(playback.duration),0.0,1.0)

@@ -7,15 +7,16 @@ const BodyScale = preload("res://src/avatar/avatar_dimensions.gd")
 
 @export var target := Vector3(0.45, 1.75, -0.65)
 @export var orbit_dir := Vector3(-0.5, 0.7, 0.5)
-@export var distance := 38.0
+@export var distance := 54.25
 ## 缩放下限/上限。不再复用 min_distance / max_distance（那两个是旧接口的相容字段）。
-## 上限锁在 38 米（SEA-CAMERA-R11，2026-11-05）：玩家能拉到的最远处就是开局这一档，
-## 再往外没有需要的画面，也不该把镜头甩到区块外的空海面。
+## 上限 77.8 米（SEA-CAMERA-R11，2026-11-05 修订）：主人指认截图那一档就是最远，
+## 反解得 77.8 m —— 正是旧区间 9~190 m 的 38%（9+0.38×181=77.8），
+## 与截图里小屋占画面宽约 29% 的实测吻合（同构图 78 m 渲染得 29.1%）。
 ## 抓图/探针工具若需要更宽取景，在自己脚本里临时抬高 zoom_max，不改这里的玩家上限。
 @export var zoom_min := 9.0
-@export var zoom_max := 38.0
+@export var zoom_max := 77.8
 @export var min_distance := 30.0
-@export var max_distance := 38.0
+@export var max_distance := 77.8
 @export var cam_fov := 31.0
 @export var cam_near := 0.5
 @export var cam_far := 600.0
@@ -43,7 +44,7 @@ var _pan_origin := Vector2.ZERO
 
 ## 平滑用的当前值：外部写 target/distance，相机自己追过去。
 var _cur_target := Vector3.ZERO
-var _cur_distance := 38.0
+var _cur_distance := 54.25
 ## 平移惯性（米/秒，世界 xz）。
 var _velocity := Vector2.ZERO
 ## 固定机位（一次性摆放）：由主场景直接写 target/distance/dir，
@@ -77,12 +78,52 @@ const ZOOM_DAMP := 9.0
 const TARGET_DAMP := 3.7125 # 网页每帧 0.06 在 60 FPS 下的等效阻尼
 const INERTIA_DAMP := 3.4
 
+## ---- 跟随手感（SEA-CAMERA-R14，2026-11-05）----------------------------------
+##
+## 两件事，各自解决一个具体的「不丝滑」：
+##
+## 1) **位移继承**：角色每走一步，`_cur_target` 先跟着平移同样的量，只剩「误差」
+##    交给阻尼收敛。原实现是让整个 target 从后面追，人匀速走时视点永远落后
+##    v·τ ≈ 2.3×0.27 = 0.62 米，一停还会「追上来」多滑一下。继承之后，
+##    匀速段零滞后，阻尼只负责吃掉按键抖动与斜坡高度变化。
+##
+## 2) **前视**：按速度给一个前置量，镜头提前看到「要去的地方」。这是俯视相机
+##    的进阶感来源 —— 没有前视，人永远在画面正中，走起来像贴纸在移动。
+##    前置量 = clamp(速度) × LEAD_PER_SPEED，走路满速 2.3 × 0.52 = 1.2 米；
+##    按 LEAD_TAU 缓入缓出，反向时自然回零，不会突然甩镜头。
+##
+## 前视只作用于「跟随」；手动接管（`manual`）、固定机位、房间环视都不加。
+const LEAD_PER_SPEED := 0.52
+const LEAD_MAX := 1.4
+const LEAD_TAU := 0.32
+## 主体速度估计的平滑时间常数：物理帧位置采样有 1–2 厘米的抖动，
+## 不滤会把抖动放大成镜头晃动。
+const SUBJECT_VEL_TAU := 0.12
+## 超过这个单帧位移就当成传送，不参与速度估计（8 米/帧 ≈ 480 m/s）。
+const TELEPORT_STEP := 8.0
+
+var _subject_prev := Vector3.ZERO
+var _subject_valid := false
+var _subject_vel := Vector3.ZERO
+var _lead := Vector3.ZERO
+
 
 func resume_follow() -> void:
 	follow_enabled = true
 	_pan_pressed = false
 	_end_drag()
 	velocity_cancel()
+	_forget_subject()
+
+## 跟随目标变化（上下船、读档）时丢掉历史：不丢的话第一帧会把「上一个主体的
+## 世界坐标 → 新主体」这段距离当成位移继承进视点，镜头会瞬移一次。
+func _forget_subject() -> void:
+	_subject_valid = false
+	_subject_vel = Vector3.ZERO
+	_lead = Vector3.ZERO
+
+## 当前前视偏移（供跟随状态读取）。已缓动，不是原始速度。
+func lead() -> Vector3: return _lead
 
 func restore_follow(subject: Node3D) -> void:
 	follow_subject = subject
@@ -153,6 +194,7 @@ func _update_pose() -> void:
 
 
 func _process(delta: float) -> void:
+	_track_subject(delta)
 	if current: camera_machine.tick(delta)
 
 	# 室内是「绕房间转」而不是「跟人跑」：target 由房间给，任何夹取都只会
@@ -168,6 +210,38 @@ func _process(delta: float) -> void:
 	var kd := 1.0 - exp(-ZOOM_DAMP * delta)
 	_cur_distance = lerpf(_cur_distance, clampf(distance, _zoom_low(), _zoom_high()), kd)
 	_update_pose()
+
+
+## 跟随主体的位移继承 + 速度估计 + 前视缓动（SEA-CAMERA-R14）。
+##
+## 只在「跟随 + 室外」时生效：手动接管、固定机位、房间环视一律不加，
+## 否则玩家自己拖好的构图会被角色的移动重新拽走。
+func _track_subject(delta: float) -> void:
+	var dt := clampf(delta, 0.0, 0.1)
+	var tracking := follow_enabled and not pose_lock and not orbit_only and is_instance_valid(follow_subject)
+	if not tracking:
+		_subject_valid = false
+		if dt > 0.0:
+			_subject_vel = _subject_vel.lerp(Vector3.ZERO, 1.0 - exp(-dt / SUBJECT_VEL_TAU))
+			_lead = _lead.lerp(Vector3.ZERO, 1.0 - exp(-dt / LEAD_TAU))
+		return
+	var now: Vector3 = follow_subject.global_position
+	if _subject_valid and dt > 0.0001:
+		var step := now - _subject_prev
+		# 读档/上下船/调试传送：位移是「跳」不是「走」，别把它摊成速度。
+		if step.length() > TELEPORT_STEP:
+			_subject_vel = Vector3.ZERO
+			_lead = Vector3.ZERO
+		else:
+			var raw := Vector3(step.x, 0.0, step.z) / dt
+			_subject_vel = _subject_vel.lerp(raw, 1.0 - exp(-dt / SUBJECT_VEL_TAU))
+		# 视点跟着主体走同样的位移；阻尼只收敛残余误差（不再有匀速段滞后）。
+		_cur_target += step
+	_subject_prev = now
+	_subject_valid = true
+	var want := Vector3(_subject_vel.x, 0.0, _subject_vel.z) * LEAD_PER_SPEED
+	if want.length() > LEAD_MAX: want = want.normalized() * LEAD_MAX
+	_lead = _lead.lerp(want, 1.0 - exp(-dt / LEAD_TAU))
 
 
 ## 键盘不再驱动镜头（SEA-CAMERA-R12，2026-11-05）。

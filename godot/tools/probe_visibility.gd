@@ -13,7 +13,7 @@ func _init_bounds() -> AABB:
 func run() -> void:
 	var main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
-	# 探针用 120 m 远机位；玩家上限是 38 m（SEA-CAMERA-R11），不抬高会被静默夹回。
+	# 探针用 120 m 远机位；玩家上限是 77.8 m（SEA-CAMERA-R11），不抬高会被静默夹回。
 	main.cam.zoom_max = 160.0
 	for i in 4:
 		await process_frame

@@ -11,10 +11,11 @@ func run() -> void:
 	main._autosave_on = false
 	main.process_mode = Node.PROCESS_MODE_DISABLED
 	var cam: Node = main.cam
-	# SEA-CAMERA-R11：玩家能拉到的最远就是 38 m，开局就停在这一档（比例 100%）。
-	check(is_equal_approx(cam.zoom_max,38.0),"缩放上限38")
-	check(is_equal_approx(cam.distance,38.0),"开局=最远38")
-	check(absf(cam.zoom_ratio()-1.0)<.001,"开局即最远")
+	# SEA-CAMERA-R11（2026-11-05 修订）：主人指认截图那一档就是最远 = 77.8 m，
+	# 也就是旧区间 9~190 m 的 38%（9+0.38×181）。开局仍是原来的 54.25 m。
+	check(is_equal_approx(cam.zoom_max,77.8),"缩放上限77.8")
+	check(is_equal_approx(cam.distance,54.25),"开局54.25")
+	check(absf(cam.zoom_ratio()-(54.25-9.0)/(77.8-9.0))<.001,"开局比例%.3f"%cam.zoom_ratio())
 	check(cam.follow_enabled and cam.follow_subject==main.player,"默认跟随角色")
 	cam._process(.1)
 	check(cam.target.distance_to(main.player.global_position+Vector3.UP*main.BodyScale.CAMERA_FOCUS)<.001,"跟随世界坐标 aim=%.3fm"%main.BodyScale.CAMERA_FOCUS)
@@ -44,13 +45,22 @@ func run() -> void:
 		for i in fps: cam._process(1.0/fps)
 		outputs.append(cam._cur_target)
 	check(outputs[0].distance_to(outputs[2])<.001,"阻尼帧率一致")
-	# 连续往外滚：被 zoom_max 钉在 38 m，拉不出更远的画面。
+	# 连续往外滚：被 zoom_max 钉在 77.8 m（主人截图的取景），拉不出更远的画面。
 	cam.suspend_follow()
 	for i in 12:
 		cam.zoom_action.execute(cam,1.0/0.86,Vector2(500,400))
 	cam._process(.2)
-	check(absf(cam.distance-38.0)<.001 and absf(cam._cur_distance-38.0)<.001,"滚轮拉不出38m")
-	print("[camera-follow] 11 checks, failures=",failures)
+	# 平滑要收敛：ZOOM_DAMP=9，0.2 s 只走 83%，单帧不够。
+	for i in 12:
+		cam._process(0.1)
+	check(absf(cam.distance-77.8)<.001 and absf(cam._cur_distance-77.8)<.05,"滚轮停在77.8m 实际=%.2f/%.2f"%[cam.distance,cam._cur_distance])
+	# 往里仍能到 9 m，说明收紧上限没把缩放整体压死。
+	for i in 24:
+		cam.zoom_action.execute(cam,0.86,Vector2(500,400))
+	for i in 12:
+		cam._process(0.1)
+	check(absf(cam.distance-9.0)<.001,"内侧仍到9m 实际=%.2f"%cam.distance)
+	print("[camera-follow] 12 checks, failures=",failures)
 	main.queue_free()
 	await process_frame
 	quit(0 if failures==0 else 1)

@@ -28,6 +28,9 @@ TESTS = {
     # 键盘操控：方向键走人 / 划船、镜头不再被方向键平移、E 上下船
     # （SEA-MOVE-R20 / SEA-NAV-R15 / SEA-CAMERA-R12 / SEA-INTERACT-R13）。
     'keyboard-control': ('tests/test_keyboard_control.gd', r'\[keyboard-control\] \d+ checks, 0 failures'),
+    # 手感参数：加减速时间常数、反向弧线、步频耦合、镜头前视/零滞后、船转向惯性与侧滑、E 去抖
+    # （SEA-MOVE-R22 / SEA-CAMERA-R13 / SEA-NAV-R16）。
+    'control-feel': ('tests/test_control_feel.gd', r'\[control-feel\] \d+ checks, 0 failures'),
     'management': ('tests/test_management_loop.gd', r'\[management\] \d+ checks, 0 failed'),
     'camera': ('tests/test_camera_follow.gd', r'\[camera-follow\].*failures=0'),
     # 缩放上限 38 m：连续往外滚拉不出去，往里仍能到 9 m（SEA-CAMERA-R11，真实渲染）。
@@ -36,10 +39,9 @@ TESTS = {
     'visual-zoom-framing': ('tools/probe_zoom_framing.gd', r'\[framing\] '),
     # 取景标定：同一栋家园小屋在不同距离下占画面多宽，用来把"看图定距离"变成可复算的数。
     'visual-home-framing': ('tools/probe_home_framing.gd', r'\[home-framing\] distance='),
-    # 临时诊断：打印家园小屋子树（标定 AABB 为空时用来查节点类型）。
-    'cabin-dump': ('tools/probe_cabin_dump.gd', r'\[cabin-dump\] all descendants='),
-    # 暖色灯光标尺：拿主人截图的暖光簇宽度反解相机距离。
-    'visual-warm-ruler': ('tools/probe_warm_ruler.gd', r'\[warm-ruler\] done'),
+    # 连通块包围盒量尺：同一算法跑参考图与候选图，系统偏差互相抵消。
+    # 参考图路径由 SEA_FRAMING_REF 给绝对路径（不放 assets）；不给则只输出候选宽度。
+    'visual-silhouette': ('tools/probe_silhouette.gd', r'\[silhouette\] (done|no reference)'),
     # 交互热区必须跟着物体走：出货箱曾偏 2.07 米，看得见却点不到。
     'interact-focus': ('tests/test_interact_focus.gd', r'\[interact-focus\] \d+ checks, 0 failures'),
     # 走不到的地方点开操作菜单：图标贴边可命中、菜单钉住、逐项写明原因。

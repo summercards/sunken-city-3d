@@ -34,10 +34,17 @@ func shot(label: String, target: Vector3, distance: float, orbit: Vector3) -> vo
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
-	# 取景工具：玩家上限是 38 m（SEA-CAMERA-R11），这里临时放开；
-	# 围挡在 108~112 m 外，贴着墙拍仍需要中远景机位。
-	main.cam.zoom_max = 260.0
 	main._autosave_on = false
+
+	# 2026-11-05 晚：围挡已从 main.tscn 摘除（资产与源保留）。没挂载时拍到的是
+	# 空海面，存下来只会误导读图，所以直接跳过；重新挂回后自动恢复抓图。
+	for i in 6:
+		await process_frame
+	if main.get_node_or_null("World/SeaStructures/sea_barrier") == null:
+		print("[sea-barrier-render] not mounted in main.tscn, nothing to capture")
+		print("[sea-barrier-render] 0 failures")
+		quit(0)
+		return
 	root.get_node("Economy").ticking = false
 	main.hud.hide()
 	main.markers.hide()

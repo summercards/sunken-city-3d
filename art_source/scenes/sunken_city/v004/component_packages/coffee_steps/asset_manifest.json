@@ -1,0 +1,141 @@
+{
+  "key": "coffee_steps",
+  "slug": "coffee_steps",
+  "name": "梯巷咖啡楼_断顶",
+  "category": "architecture",
+  "component_family": "stepped_shop",
+  "component_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    18,
+    16,
+    25
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 1,
+  "color": "red",
+  "damage": 0.26,
+  "style": "coffee",
+  "variant_axis": "structure_damage",
+  "variant_value": "coffee",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 2,
+  "collection": "SEA-SCENE-SCITY-COFFEE-STEPS_梯巷咖啡楼_断顶",
+  "root_object": "SEA-SCENE-SCITY-COFFEE-STEPS_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-COFFEE-STEPS_ROOT",
+    "梯巷咖啡楼_断顶_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    19.299999237060547,
+    17.594999313354492,
+    10.706676483154297
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 44092,
+  "polygons": 23005,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/coffee_steps/coffee_steps.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v004",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "7e603ca539b10c23142def9b5f0622b3691574473ef0e9bff2de5ed6627ea3f6",
+  "source_floors": 4,
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/coffee_steps/coffee_steps.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "9cfde0856d08f111401590883f4e968a500e8e73d96e3a2c60301b81131a611b",
+  "bounds_min": [
+    -9.649999618530273,
+    -8.797499656677246,
+    0.0
+  ],
+  "bounds_max": [
+    9.649999618530273,
+    8.797499656677246,
+    10.706676483154297
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\coffee_steps.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-COFFEE-STEPS",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/coffee_steps_optimized.blend",
+    "optimized_sha256": "2503d5d2ebbb4bba92ccfe2b4ac8aa6df0ae4ea9c7f6002b9ba6bb0d9e54d534",
+    "triangles_before": 44092,
+    "triangles_after": 44092,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 410,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 200,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -9.649999618530273,
+        -8.797499656677246,
+        0.0
+      ],
+      [
+        9.649999618530273,
+        8.797499656677246,
+        10.706676483154297
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/coffee_steps/coffee_steps.glb",
+    "runtime_sha256": "03380ea30e538939f79b5cb4728bea8402fe0e8bb6f571fb484e704972df6813",
+    "prefab": "godot/scenes/components/scenery/sunken_city/coffee_steps.tscn",
+    "prefab_sha256": "9b0fa25ee1cf626ba36039d9c5f090a5c079c9b23d7d14b07468cb7ac4b63de5",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

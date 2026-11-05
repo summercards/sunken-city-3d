@@ -106,6 +106,14 @@ func run() -> void:
 		await process_frame
 
 	var barrier := main.get_node_or_null("World/SeaStructures/sea_barrier") as Node3D
+	if barrier == null:
+		# 2026-11-05 晚：用户要求把围挡从 main.tscn 摘掉（资产与源全部保留）。
+		# 未挂载时只保留「总装与组件包装能独立加载」的检查，不假装场景里有东西。
+		# 一旦重新挂回 main.tscn，下面全部断言自动生效，不需要改这个文件。
+		print("[sea-barrier] not mounted in main.tscn, wrappers checked only")
+		print("[sea-barrier] ", checks, " checks, ", failures, " failures")
+		quit(0 if failures == 0 else 1)
+		return
 	check(barrier != null, "barrier instance lives under World/SeaStructures")
 	if barrier == null:
 		print("[sea-barrier] ", checks, " checks, ", failures, " failures")

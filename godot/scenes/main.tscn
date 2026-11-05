@@ -25,7 +25,6 @@
 [ext_resource type="PackedScene" path="res://scenes/facilities/floating_shop.tscn" id="33_floating_shop"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/rooftop_ranch.tscn" id="34_ranch"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/neon_garden_quarter.tscn" id="35_neon_garden"]
-[ext_resource type="PackedScene" path="res://scenes/world/sea_barrier.tscn" id="36_barrier"]
 [ext_resource type="PackedScene" path="res://scenes/rooms/bedroom.tscn" id="37_bedroom"]
 [ext_resource type="PackedScene" path="res://scenes/world/sunken_city.tscn" id="38_sunken_city"]
 [ext_resource type="Script" uid="uid://bnlpdixomk08r" path="res://src/ambient/vegetation/wind_controller.gd" id="vegetation_wind"]
@@ -118,12 +117,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, -55.92, -52)
 [node name="neon_garden_quarter" parent="World/SeaStructures" unique_id=971645584 instance=ExtResource("35_neon_garden")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 156.14969, -21.726082, 2.473711)
 
-[node name="sea_barrier" parent="World/SeaStructures" unique_id=917300001 instance=ExtResource("36_barrier")]
-
 [node name="Interior" parent="World" unique_id=1830010001 instance=ExtResource("37_bedroom")]
 
 [node name="SunkenCity" parent="World" unique_id=377266353 instance=ExtResource("38_sunken_city")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, 0)
 
 [node name="Gameplay" type="Node3D" parent="World" unique_id=1251468208]
 

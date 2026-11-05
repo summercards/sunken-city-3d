@@ -136,8 +136,8 @@ func _synthetic_street() -> Node3D:
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
-	# 证据取景需要 88–118 m 的远机位；玩家上限是 38 m（SEA-CAMERA-R11），
-	# 不抬高只会被静默夹回 38 m，截出来的"远景"其实不是远景。
+	# 证据取景需要 88–118 m 的远机位；玩家上限是 77.8 m（SEA-CAMERA-R11），
+	# 不抬高只会被静默夹回 77.8 m，截出来的"远景"其实不是远景。
 	main.cam.zoom_max = 160.0
 	main._autosave_on = false
 	main.set_process(false)

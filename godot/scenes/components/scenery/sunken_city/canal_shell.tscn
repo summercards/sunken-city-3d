@@ -8,7 +8,7 @@
 [node name="运河街断墙_半栋遗址" type="Node3D"]
 metadata/asset_id = "SEA-SCENE-SCITY-CANAL-SHELL"
 metadata/key = "canal_shell"
-metadata/asset_version = "v003"
+metadata/asset_version = "v004"
 metadata/building_class = "underwater"
 metadata/source_suite = "sunken_city"
 metadata/water_layer = "submerged"
@@ -21,6 +21,5 @@ metadata/shoreline_source = false
 [node name="Visual" parent="." instance=ExtResource("model")]
 [node name="Mesh_canal_shell" parent="Visual/Root_canal_shell" index="0"]
 surface_material_override/0 = ExtResource("matte")
-surface_material_override/1 = ExtResource("metal")
-surface_material_override/2 = ExtResource("gloss")
+surface_material_override/1 = ExtResource("gloss")
 cast_shadow = 1

@@ -31,8 +31,6 @@ func shot(name: String) -> void:
 func run() -> void:
 	root.content_scale_size=Vector2i(1600,1000)
 	main=load("res://scenes/main.tscn").instantiate();root.add_child(main)
-	# 证据取景用到 62 m 机位；玩家上限是 38 m（SEA-CAMERA-R11），不抬高会被静默夹回。
-	main.cam.zoom_max = 160.0
 	main._autosave_on=false;main.set_process(false);main.interactor.set_process(false);main.cam.set_process(false)
 	economy=root.get_node("Economy");economy.set_process(false);hud=main.hud
 	main.world_clock.paused=true;main.weather_service.paused=true

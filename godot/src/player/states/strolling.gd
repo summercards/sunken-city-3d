@@ -10,4 +10,6 @@ func tick(delta: float) -> void:
 	context.stride.step(context, delta)
 func exit() -> void:
 	context.walk_path.clear()
+	context.move_velocity = Vector3.ZERO
+	context.actor.walk_speed_ratio = 0.0
 	context.actor.set_walking(false)

@@ -5821,8 +5821,8 @@
     {
       "path": "godot/scenes/main.tscn",
       "asset_id": null,
-      "sha256": "950bb5f3ce00dc715b90b741e4f9febaed25116c5a37c353c3619521e612688b",
-      "bytes": 3867226,
+      "sha256": "2bfdee5197a45e4a2139121fb5d90b39642b15b6ab02f6aa66b6d1197370c2f1",
+      "bytes": 3867227,
       "note": "SEA-ROOM bedroom v001 runtime"
     },
     {
@@ -6038,15 +6038,20 @@
       "path": "godot/src/bootstrap/main.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 155755,
-      "sha256": "4640334ad560258a4ac37552724541acb9c86bdeea24738b26c19217009d1b8e",
+      "bytes": 162884,
+      "sha256": "920073e7b124d2b9cb35026bf1b356bd782c9131e6cea4a4c94797f8d1c1bbd4",
       "note": "SEA-ROOM bedroom v001 runtime",
-      "previous_sha256": "b1202e9105a5859f9b92617720442df2fbb9dc7a5693df3f883d758fd74fb161",
+      "previous_sha256": "4640334ad560258a4ac37552724541acb9c86bdeea24738b26c19217009d1b8e",
       "hash_history": [
         {
           "sha256": "1273a08f5f8724da9f07bb23da802bd036feb797c45f8a3b7ee0a7d932a8047e",
           "previous_sha256": "68500a78de78a9a49948027462852ba09eee8674201a3266866dc2c548ac47d5",
           "review": "2026-11-04 rowing: exact pre-edit isolated snapshot; only reviewed seat/pose wiring changes"
+        },
+        {
+          "sha256": "4640334ad560258a4ac37552724541acb9c86bdeea24738b26c19217009d1b8e",
+          "previous_sha256": "b1202e9105a5859f9b92617720442df2fbb9dc7a5693df3f883d758fd74fb161",
+          "review": "2026-11-05 keyboard feel: decel/lead/boat-key cooldown, reviewed in 2026-11-05_control_feel.md"
         }
       ]
     },
@@ -6177,10 +6182,17 @@
     {
       "path": "godot/src/camera/orbit_camera.gd",
       "asset_id": null,
-      "sha256": "85904e1f0d0fedcf2317ac9d05659fc6bd5be90b3f4ad4ee965142f0187957dd",
-      "bytes": 13972,
+      "sha256": "488234b06c9c5814693b0bc1ce1f9fd6ec58cfab1fdd1ed4f3e6029b9fefdee1",
+      "bytes": 17628,
       "note": "SEA-ROOM bedroom v001 runtime ; 2026-11-05 相机瞄准高度随 SCALE（SEA-CAMERA-R13）",
-      "previous_sha256": "cf39f0ed02c5923633be0197a18ecd6dd761b5b148bb9aa3c84a1a25f76c5a7f"
+      "previous_sha256": "995c297af456f9ad17d88520e6611ffd30b3d89258f8f2c99aef14c84a967956",
+      "hash_history": [
+        {
+          "sha256": "85904e1f0d0fedcf2317ac9d05659fc6bd5be90b3f4ad4ee965142f0187957dd",
+          "previous_sha256": "cf39f0ed02c5923633be0197a18ecd6dd761b5b148bb9aa3c84a1a25f76c5a7f",
+          "review": "2026-11-05 camera feel: subject velocity inheritance + lead, reviewed in 2026-11-05_control_feel.md"
+        }
+      ]
     },
     {
       "path": "godot/src/core/play_scope.gd",
@@ -6227,8 +6239,16 @@
       "path": "godot/src/player/actions/walk_action.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 2902,
-      "sha256": "917bdf1624e6815e6c15eeb19e65adcb3bc486851cfb55c6403ce8a9e580013d"
+      "bytes": 3476,
+      "sha256": "2853cc295906fdb689a1838832c8c85774b36817742bf94060ad127b8e83f5a1",
+      "hash_history": [
+        {
+          "sha256": "917bdf1624e6815e6c15eeb19e65adcb3bc486851cfb55c6403ce8a9e580013d",
+          "previous_sha256": null,
+          "review": "2026-11-05 arrival slack 0.10m for last waypoint, reviewed in 2026-11-05_control_feel.md"
+        }
+      ],
+      "previous_sha256": "917bdf1624e6815e6c15eeb19e65adcb3bc486851cfb55c6403ce8a9e580013d"
     },
     {
       "path": "godot/src/player/animation/idle_action.gd",
@@ -6250,17 +6270,22 @@
     },
     {
       "path": "godot/src/player/character.gd",
-      "bytes": 14572,
-      "sha256": "3d95bc47335a7a794219146a7b27f267a4927ad63e2ccb1bfafb9ab58cc98cf9",
+      "bytes": 15631,
+      "sha256": "3ffb45aaa059d389b6d6708d710cc513a63428ed7e450cdfe0cacadd4701364f",
       "asset_id": "SEA-CHAR-RIG-001",
       "status": "runtime_component_verified",
       "note": "2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。；2026-11-04新旅程美术/交互；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新",
-      "previous_sha256": "78d70b56fcf7a54452182d1d18500587b00086e250fcc22358ce0e1fd891daee",
+      "previous_sha256": "0e657e76044a358a9ff1f568bfa7965098ffd486b65a1d5c0fd00e1dfe5cd1d0",
       "hash_history": [
         {
           "sha256": "b3d69452c80ef713b5109030f2b75b7926090f124fa473964345f2460590f12e",
           "previous_sha256": "b13ea4092cc82ec1d17c4e9e6d65d763e572b8be2b140f67e1aab829df803e04",
           "review": "2026-11-04 rowing: exact pre-edit isolated snapshot; only reviewed seat/pose wiring changes"
+        },
+        {
+          "sha256": "3d95bc47335a7a794219146a7b27f267a4927ad63e2ccb1bfafb9ab58cc98cf9",
+          "previous_sha256": "78d70b56fcf7a54452182d1d18500587b00086e250fcc22358ce0e1fd891daee",
+          "review": "2026-11-05 walk phase coupling (walk_speed_ratio), reviewed in 2026-11-05_control_feel.md"
         }
       ]
     },
@@ -6417,11 +6442,12 @@
     },
     {
       "path": "godot/tools/capture_sea_barrier.gd",
-      "bytes": 2542,
-      "sha256": "93b1477aec10e34264ca2aad8e6dcd4291ac71a5115d49b33a0ee31fde20ba87",
+      "bytes": 2360,
+      "sha256": "827c29da18283cb6488a4e3ca9f87d51b4f9a17f68490013487c0927b7932777",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R47 sea_barrier contract"
+      "note": "SEA-ASSET-R47 sea_barrier contract",
+      "previous_sha256": "93b1477aec10e34264ca2aad8e6dcd4291ac71a5115d49b33a0ee31fde20ba87"
     },
     {
       "path": "godot/tools/fishery_palette_import.gd",
@@ -6463,8 +6489,8 @@
       "path": "godot/assets/models/scenery/sunken_city/balcony_tenement/balcony_tenement.glb",
       "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
       "status": "source_verified_runtime_verified",
-      "sha256": "79dca3e3e5682a4d5d846b92688fb9524783a390b195126cd91652593a143edc",
-      "bytes": 10117420
+      "sha256": "807263c225ca7b3532d3a9e6bd1eb7a59d20682aa976171e1d946376714fb52a",
+      "bytes": 2717672
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/balcony_tenement/balcony_tenement.glb.import",
@@ -6519,8 +6545,8 @@
       "path": "godot/assets/models/scenery/sunken_city/canal_housing/canal_housing.glb",
       "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
       "status": "source_verified_runtime_verified",
-      "sha256": "728a68c387e3ae4559014376ca682f451f96c2f5dcbaee0f314b0a8c02b89463",
-      "bytes": 13546012
+      "sha256": "b204e33137edb7794cbd950a0da9542568fa1af4a482cc578dee1f37ba08083c",
+      "bytes": 4163340
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/canal_housing/canal_housing.glb.import",
@@ -6547,8 +6573,8 @@
       "path": "godot/assets/models/scenery/sunken_city/canal_shell/canal_shell.glb",
       "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
       "status": "source_verified_runtime_verified",
-      "sha256": "bc2633eb94eb1d8b4507fdd811ca2bba57a738328a8fa77cd9c90a2c67d6376b",
-      "bytes": 4933960
+      "sha256": "a14a195c3a5d808c47c8b48bb5f0ca99815beabfde492843b28a3381a92826e2",
+      "bytes": 1752660
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/canal_shell/canal_shell.glb.import",
@@ -6589,8 +6615,8 @@
       "path": "godot/assets/models/scenery/sunken_city/cinema_ruin/cinema_ruin.glb",
       "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
       "status": "source_verified_runtime_verified",
-      "sha256": "f88f0ae32d69e64356528c428f324abb3da10b5d4d74032fd6de333519c8af3b",
-      "bytes": 4966188
+      "sha256": "4fdc0ea1d5912a2dc592222b7871ac703c7c5f022aa672c65f755dfbf2e38ead",
+      "bytes": 3206520
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/cinema_ruin/cinema_ruin.glb.import",
@@ -6603,8 +6629,8 @@
       "path": "godot/assets/models/scenery/sunken_city/coffee_steps/coffee_steps.glb",
       "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
       "status": "source_verified_runtime_verified",
-      "sha256": "1610852155854312fe539915c36b37e1f013dc0f3bf5b46296a76f3584d19e94",
-      "bytes": 8292284
+      "sha256": "03380ea30e538939f79b5cb4728bea8402fe0e8bb6f571fb484e704972df6813",
+      "bytes": 2804264
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/coffee_steps/coffee_steps.glb.import",
@@ -6617,8 +6643,8 @@
       "path": "godot/assets/models/scenery/sunken_city/collapsed_residence/collapsed_residence.glb",
       "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
       "status": "source_verified_runtime_verified",
-      "sha256": "2eafc74b7169f9aea4aded0bdb199848be08f39d5f14087b9b6c9f2774743734",
-      "bytes": 4692172
+      "sha256": "5c2dae0dbbc009ea1f81d2ecdf65426ed546c3ad0ca87eb5dbbfee54ca1affc3",
+      "bytes": 4263572
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/collapsed_residence/collapsed_residence.glb.import",
@@ -6645,8 +6671,8 @@
       "path": "godot/assets/models/scenery/sunken_city/cutaway_tenement/cutaway_tenement.glb",
       "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
       "status": "source_verified_runtime_verified",
-      "sha256": "16ecd186554a423e8f523f8df72c52702d9f31fb6d11087904a7b714b9c83bb1",
-      "bytes": 4921544
+      "sha256": "a3efc436885598202a33128c07c25a3874d39519e3482d26471472aab7abb492",
+      "bytes": 1505388
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/cutaway_tenement/cutaway_tenement.glb.import",
@@ -6659,8 +6685,8 @@
       "path": "godot/assets/models/scenery/sunken_city/electronics_shop/electronics_shop.glb",
       "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
       "status": "source_verified_runtime_verified",
-      "sha256": "2e129856decaf63b9bcbaf3ea62b3f4b15135afd97e43fb190ff63f2c2bfae2d",
-      "bytes": 4472728
+      "sha256": "e396806c30284cb1fa3002102ff76d1800f4f4232e876f9056d5a1de2b92e7ba",
+      "bytes": 3081880
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/electronics_shop/electronics_shop.glb.import",
@@ -6673,8 +6699,8 @@
       "path": "godot/assets/models/scenery/sunken_city/fallen_hall/fallen_hall.glb",
       "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
       "status": "source_verified_runtime_verified",
-      "sha256": "dc7f0146d2233138fe2e8f5b5284801e41a87af62a3ef3de1e0ed8c4df7cb1c6",
-      "bytes": 4748036
+      "sha256": "481daf42c035be9b014e1e486f5adecba8e4796740630df1926071fa554217ea",
+      "bytes": 3744536
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/fallen_hall/fallen_hall.glb.import",
@@ -6687,8 +6713,8 @@
       "path": "godot/assets/models/scenery/sunken_city/frame_construction/frame_construction.glb",
       "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
       "status": "source_verified_runtime_verified",
-      "sha256": "24dd8edfce62680b8662df16fd0a8020781ea600516ad621313ba8c2030373a8",
-      "bytes": 865480
+      "sha256": "3d9b02ed7d4a830a02c380283c739550cfddf9512923f36193fab9225e62cf70",
+      "bytes": 331908
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/frame_construction/frame_construction.glb.import",
@@ -6701,8 +6727,8 @@
       "path": "godot/assets/models/scenery/sunken_city/half_tower/half_tower.glb",
       "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
       "status": "source_verified_runtime_verified",
-      "sha256": "b73d60c7dc766094a5c56cc0ae01c0e3f6936d773a9fae1da3568be3868455e9",
-      "bytes": 7985408
+      "sha256": "df087384745e530183073dbf4d6d9ae99ea7999e9b10c759282fd396c55dfdbf",
+      "bytes": 1346680
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/half_tower/half_tower.glb.import",
@@ -6841,8 +6867,8 @@
       "path": "godot/assets/models/scenery/sunken_city/roof_garden_shell/roof_garden_shell.glb",
       "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
       "status": "source_verified_runtime_verified",
-      "sha256": "c9413de1da839b6490c5d49b78868a4df0e54380ad8d8cc1395ca8376b42a757",
-      "bytes": 7016668
+      "sha256": "47ef5dd533d8a381d20a49df144fad7dc101c174191e736b299f16c20a023f4b",
+      "bytes": 2053076
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/roof_garden_shell/roof_garden_shell.glb.import",
@@ -6855,8 +6881,8 @@
       "path": "godot/assets/models/scenery/sunken_city/rounded_corner/rounded_corner.glb",
       "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
       "status": "source_verified_runtime_verified",
-      "sha256": "64fcd677ea69102344205cd3ec00a78f0bcbced06b5a36e8edd25f6e8816618a",
-      "bytes": 11519668
+      "sha256": "6d9b9e1eddf0b9318a38cac417e6a8468f16e68ebeb8e2e07d8380ad2ff5009b",
+      "bytes": 4153728
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/rounded_corner/rounded_corner.glb.import",
@@ -6883,8 +6909,8 @@
       "path": "godot/assets/models/scenery/sunken_city/runtime_manifest.json",
       "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
       "status": "source_verified_runtime_verified",
-      "sha256": "68d5694a1f6c8d7d7d5bb989064eccf6967cfe39f13d86ca8b318cdb2d5218e4",
-      "bytes": 387239
+      "sha256": "f44349ca7dfa3fea960490fb26edff892e897d030e22040db90acd20e5f7a2de",
+      "bytes": 402398
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/scooter/scooter.glb",
@@ -6918,8 +6944,8 @@
       "path": "godot/assets/models/scenery/sunken_city/slender_tower/slender_tower.glb",
       "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
       "status": "source_verified_runtime_verified",
-      "sha256": "4e39cc0671e8d66c07d45cf0c26b87e94d462ee2cceee74f84736eb7b1729a44",
-      "bytes": 13940840
+      "sha256": "6d2358d92b6e33871eb9a10536795825c9878b06591f66a1f5f660e8211e7533",
+      "bytes": 2383772
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/slender_tower/slender_tower.glb.import",
@@ -6946,8 +6972,8 @@
       "path": "godot/assets/models/scenery/sunken_city/station_hall/station_hall.glb",
       "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
       "status": "source_verified_runtime_verified",
-      "sha256": "adfe25d25255ceede66b018ba279f083bae5f75645c1dfca996fe226bfbb2871",
-      "bytes": 7860332
+      "sha256": "b862420bc9bba7c6dd0b42b3e07e3eb32187dd59e592046986deaa24aecaef91",
+      "bytes": 4149704
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/station_hall/station_hall.glb.import",
@@ -7002,8 +7028,8 @@
       "path": "godot/assets/models/scenery/sunken_city/terrace_residence/terrace_residence.glb",
       "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
       "status": "source_verified_runtime_verified",
-      "sha256": "4a5ae911a0f67a392411c4f31b9a8185f97118247758e0b34832c94e5004ecc1",
-      "bytes": 12094956
+      "sha256": "821057def3543103486e46566c10a5edb96fc388147bc6c979aa1e98a9b19bbb",
+      "bytes": 4429636
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/terrace_residence/terrace_residence.glb.import",
@@ -7016,8 +7042,8 @@
       "path": "godot/assets/models/scenery/sunken_city/terraced_tower/terraced_tower.glb",
       "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
       "status": "source_verified_runtime_verified",
-      "sha256": "aec15b62c6aa630166add26d5c1cf885a73cb9febe2119195922666a5775fdb5",
-      "bytes": 18092360
+      "sha256": "aa2bbc8f2fb0033a2eee284dca5066ced5ac509a11a31ba92e088546df0aeaf1",
+      "bytes": 3496116
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/terraced_tower/terraced_tower.glb.import",
@@ -7058,8 +7084,8 @@
       "path": "godot/assets/models/scenery/sunken_city/tram_tenement/tram_tenement.glb",
       "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
       "status": "source_verified_runtime_verified",
-      "sha256": "a835f5973a13d65bc7d9ffc716e8d17090610f71cd7c8e093823a28b1a6fe34c",
-      "bytes": 13682524
+      "sha256": "a23da4f41da04b325d3f863624fda03036238b1da4210490c1f62a973c7ec32b",
+      "bytes": 3311052
     },
     {
       "path": "godot/assets/models/scenery/sunken_city/tram_tenement/tram_tenement.glb.import",
@@ -7170,372 +7196,372 @@
       "path": "godot/scenes/components/scenery/sunken_city/balcony_tenement.tscn",
       "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
       "status": "source_verified_runtime_verified",
-      "sha256": "f9bef4555c43eb7f0c506fe4e0f0804caaeae3d7039ecdc2af4b76b2e52d1ee2",
+      "sha256": "e5611fc4e8b48cfdf9e88b17b0ca2292b585303f744c72239069589fa30c784d",
       "bytes": 1221
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/bench.tscn",
       "asset_id": "SEA-SCENE-SCITY-BENCH",
       "status": "source_verified_runtime_verified",
-      "sha256": "40fa59ac8afa4026ac4733c8823a1dc1c1f91f76768d79b22e85dfc5b3869ef5",
+      "sha256": "f46d21fe126434040dacb3323e165e10ebea3797cc179cbdf72260a3fa4453e7",
       "bytes": 1007
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/bus_shelter.tscn",
       "asset_id": "SEA-SCENE-SCITY-BUS-SHELTER",
       "status": "source_verified_runtime_verified",
-      "sha256": "07ac0fe9e5d3d086c5fb56b47ee3f8c289aa6187ff23d30be7c1e54d94d872db",
+      "sha256": "52d96eb99109cd5b8b305eb032aa4a31854140f23dfc7a29cc39aaf6aa3dc846",
       "bytes": 1185
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/cable_span.tscn",
       "asset_id": "SEA-SCENE-SCITY-CABLE-SPAN",
       "status": "source_verified_runtime_verified",
-      "sha256": "eaefa6e312795f143461323337b101457d0faa72e2acf079624ddc7e7084e13e",
+      "sha256": "85dc6f0f0a82378202af3fe853ccf142e16b40f055405bafa84462424ca946dd",
       "bytes": 888
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/canal_housing.tscn",
       "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
       "status": "source_verified_runtime_verified",
-      "sha256": "3ed657f7d6bea595fb54d72fc4bd4a8c9a38790e9763d9902ba38fd77b67e488",
+      "sha256": "8f9c80103c8083e67c29f65a31c5bf059d6faeeda9214afeadafeff57f80d858",
       "bytes": 1206
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/canal_segment.tscn",
       "asset_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
       "status": "source_verified_runtime_verified",
-      "sha256": "6a4415a8f2b49a9adfe37ee42a60272132c2bdefde0d3ffbfb0c7290a3f166d0",
+      "sha256": "1ef59d285f530a2cfdae3bb5db8c267235dc0bff74154caf7508c70911f2221d",
       "bytes": 907
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/canal_shell.tscn",
       "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
       "status": "source_verified_runtime_verified",
-      "sha256": "2c811d0317adb19be4ff5e4673e965eb58b59107083d520cf6ae206713550b41",
-      "bytes": 1194
+      "sha256": "a884d7a23d22e997f582e38b806478d7e229c7a7e51174003d385e8a21fafbfe",
+      "bytes": 1142
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/car_sedan.tscn",
       "asset_id": "SEA-SCENE-SCITY-CAR-SEDAN",
       "status": "source_verified_runtime_verified",
-      "sha256": "85ddff079543d5fac15b2ba06469df995ed9f2d32e2dd74fa432cd94522c1100",
+      "sha256": "93e02fad8cec316b4ec0c6ff188c3e2243d2f1e77c51d1178adf3bcbbdd2d6ac",
       "bytes": 1179
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/car_van.tscn",
       "asset_id": "SEA-SCENE-SCITY-CAR-VAN",
       "status": "source_verified_runtime_verified",
-      "sha256": "0791614f00f83f8fac475f492ecd4606d4c3020d0587a23718979d69a582418a",
+      "sha256": "f4d56ab16e27cf55d1a26d62f0e9fda89809d41a76b354b9d052882f76865f35",
       "bytes": 1164
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/cinema_ruin.tscn",
       "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
       "status": "source_verified_runtime_verified",
-      "sha256": "be8b50ff1d509a81857ff9603c9f94c870a9fbd5f3f9b1c89149e1b85cc006e2",
+      "sha256": "685d7da96e1aca473f49d765fd81eb8f10ad8a2ec31e282437ace17027e1d620",
       "bytes": 1188
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/coffee_steps.tscn",
       "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
       "status": "source_verified_runtime_verified",
-      "sha256": "08ad76064d9e797a6b4ea41a7c35264f604912f91fd35b61f90dd4640e44bac9",
+      "sha256": "9b0fa25ee1cf626ba36039d9c5f090a5c079c9b23d7d14b07468cb7ac4b63de5",
       "bytes": 1194
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/collapsed_residence.tscn",
       "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
       "status": "source_verified_runtime_verified",
-      "sha256": "c6f2891a6ef523a8afd3687ca390731cdfeb73d83841ae832701439b1a7bd698",
+      "sha256": "990f0be21b12b65bdef5a9956272cc68f4b86644ff56caf3eb34990165a698fe",
       "bytes": 1239
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/corrosion_patch.tscn",
       "asset_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
       "status": "source_verified_runtime_verified",
-      "sha256": "3d221e80c05738b96e1b4dfac1fd453db9cc8727f86b209c2c91384aec773149",
+      "sha256": "9b57f0ba8b344b55211d8ea1ea40e652103eeb98ba309447db5b5c52a827e6fd",
       "bytes": 919
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/cutaway_tenement.tscn",
       "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
       "status": "source_verified_runtime_verified",
-      "sha256": "cdd9ae31365b60ff7204c5271120b551b78e22d17d4d82109095b93a75d0ecc4",
+      "sha256": "aa40500736f8ba2b162b6b06150d053c8b29d5e3170a9dc2696ce9f5fac1bc43",
       "bytes": 1221
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/electronics_shop.tscn",
       "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
       "status": "source_verified_runtime_verified",
-      "sha256": "69bf53ec02004e6daca9ec22e63d2abd96066c973205f93b6129f3b64841e104",
+      "sha256": "9cf3e1b76be56070736132e18f6534500055ea899c8f421ee8baf33b2b5d3f32",
       "bytes": 1221
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/fallen_hall.tscn",
       "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
       "status": "source_verified_runtime_verified",
-      "sha256": "e8e5465851c61c75e1bb2363aea1ea85f4828f3188d5694aa449e8ff0ed70d21",
+      "sha256": "7a21f7a63a86b45c63bfdabb1ebb0b5ee4505b9638b3f19ee9fc234cd2064794",
       "bytes": 1200
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/frame_construction.tscn",
       "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
       "status": "source_verified_runtime_verified",
-      "sha256": "e020391fd384419411127991c8dadd2a4817d2f86058fda8913d164c0ff42e57",
-      "bytes": 1079
+      "sha256": "d812e9c997514676efa32e1d683a64b7953864e6af473cd2883ae05ca6ff1bc6",
+      "bytes": 1027
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/half_tower.tscn",
       "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
       "status": "source_verified_runtime_verified",
-      "sha256": "ea7f879e2c8a1a48cd515fda8797bbabdca8fc38e0530b9cd66c40e3259df7c1",
-      "bytes": 1185
+      "sha256": "e96d9ff8cb4f3f78f91fcb89ec744950026350802a0b0f46ac3b497bdd579d78",
+      "bytes": 1133
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/junction.tscn",
       "asset_id": "SEA-SCENE-SCITY-JUNCTION",
       "status": "source_verified_runtime_verified",
-      "sha256": "97ee4f3ef362a777d7f3f20ac9051fb7adbb74bb44483563618370289dd0bc7a",
+      "sha256": "f82b9a028a1d4db671f5e14db64aa93926a2bdb1a89c85a03556424356fc3caa",
       "bytes": 874
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/kelp_clump.tscn",
       "asset_id": "SEA-SCENE-SCITY-KELP-CLUMP",
       "status": "source_verified_runtime_verified",
-      "sha256": "e4e9184971ba442ad81c0cf44663a667494bfd5caa36ab7d372e00fa0818a22f",
+      "sha256": "87366b0960244c8bbf38e60a338880885ee07cd8471e91cef69b3fcfe792a767",
       "bytes": 886
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/kiosk_ruin.tscn",
       "asset_id": "SEA-SCENE-SCITY-KIOSK-RUIN",
       "status": "source_verified_runtime_verified",
-      "sha256": "fb0cf1513966858f6dff2000b2827b64b4d543e06540bc4c9bb8c36a789aec6b",
+      "sha256": "25335234fc9c3119f55e5b4977cd5bbcf94250606eac8c4d9c478260c250288f",
       "bytes": 889
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/leaning_pole.tscn",
       "asset_id": "SEA-SCENE-SCITY-LEANING-POLE",
       "status": "source_verified_runtime_verified",
-      "sha256": "b908d39fa7a1b1f096a9e82b74d6951d888461bd0b1eeacf2b9cc39661e6c82f",
+      "sha256": "d8193cecafdc5878d47977b4d007ba7b032d543f74b59a5e807fa603da8be974",
       "bytes": 1043
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/low_foundation.tscn",
       "asset_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
       "status": "source_verified_runtime_verified",
-      "sha256": "18a89beb278eebea10ccdd48190373a68708c0cb42da5ced8c1c6fcc47415f55",
+      "sha256": "255e4b859bda36f67e2ec6211e1e0407f95e2bcfc006e42de7083efec68fdd7a",
       "bytes": 1061
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/moss_patch.tscn",
       "asset_id": "SEA-SCENE-SCITY-MOSS-PATCH",
       "status": "source_verified_runtime_verified",
-      "sha256": "14ad308ae21fabc9a4233de8adfe1bae765bbfc46e0e677e90c57d5037f76ece",
+      "sha256": "28f66128d4e13407cf3df57089e9f64e63511e57c95437d2c0db31d416ff51c1",
       "bytes": 889
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/plaza_tile.tscn",
       "asset_id": "SEA-SCENE-SCITY-PLAZA-TILE",
       "status": "source_verified_runtime_verified",
-      "sha256": "2885f2b6d4329bd10be4437f955d12adb188b8b45fb4c068b1c8d4f7c58c3695",
+      "sha256": "af055070f92e090730bc31e8ab9a71cdd5f97ac3f47a58fd85f4c887e23587c0",
       "bytes": 892
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/pump_cabinet.tscn",
       "asset_id": "SEA-SCENE-SCITY-PUMP-CABINET",
       "status": "source_verified_runtime_verified",
-      "sha256": "565e77fc55e732386e825f7f0ef0ec687dd791eb462d651bfef0f4b17d129aae",
+      "sha256": "df912c07ad3b4f97b4af49d8293952f9ba18a471ed887fce9507513556d886a3",
       "bytes": 1052
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/retaining_wall_ruin.tscn",
       "asset_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
       "status": "source_verified_runtime_verified",
-      "sha256": "0c3c5679b20a25d35f576e6ccbcdfd45adaa6191598e3279010f93dd67a595d8",
+      "sha256": "f50a46b89ce381255d999d64a80f83201f4fccb22dc4506205d7f1d406c68cb1",
       "bytes": 1097
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/roof_garden_shell.tscn",
       "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
       "status": "source_verified_runtime_verified",
-      "sha256": "baba53fafffbd572d7cfb30ab86bfb56a5455631c9b88b3114f1bd2d911589c1",
+      "sha256": "c02b775f870f028d23cb8bb9ec2d1554ea2a56f8e7dd94d3143d5592a01d1080",
       "bytes": 1233
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/rounded_corner.tscn",
       "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
       "status": "source_verified_runtime_verified",
-      "sha256": "81d2b204272d69f4ed5359db0fc93366c4d8b4c25b0e31483ca4a9d7a3893a6b",
+      "sha256": "c61c4d7b123277661052ebade608c8f2fb884c65fceae96547b8141d03fbe977",
       "bytes": 1206
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/rubble_cluster.tscn",
       "asset_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
       "status": "source_verified_runtime_verified",
-      "sha256": "ce174ad50091d60ca2e1da22af22d941659320dff7f719abfdbe85d297e56959",
+      "sha256": "ab073a666920f5aa336b4560be1a042da09abc8c3d75a844414b8c48fa69ef7c",
       "bytes": 1061
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/scooter.tscn",
       "asset_id": "SEA-SCENE-SCITY-SCOOTER",
       "status": "source_verified_runtime_verified",
-      "sha256": "e47892dd1aea46e3a71a6127589c61748ece0e62a2f35ad01e9df9ddf2c67a11",
+      "sha256": "b94c4c9bd97f998432fcf30e9a27f87ef6d8497b16445192c2d84638ba05342d",
       "bytes": 1013
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/sign_board.tscn",
       "asset_id": "SEA-SCENE-SCITY-SIGN-BOARD",
       "status": "source_verified_runtime_verified",
-      "sha256": "4dab364118ca8bbcaa74d560cd2eb256cbdb3fd32fda9ae7ba52f56e740c3295",
+      "sha256": "09af77f40e2bc2f91dfb761961613168ff7a37f055db8bae45a7cc44d958825b",
       "bytes": 1030
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/slender_tower.tscn",
       "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
       "status": "source_verified_runtime_verified",
-      "sha256": "60e98eee222e86da02d1db88b42806a809cf82d128043416b0e93c87ebe980e4",
+      "sha256": "90e49564b177f8bb461e2d6d04a32008aea2eff9ba661f5a42b429ade43ec9d0",
       "bytes": 1203
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/stair_link.tscn",
       "asset_id": "SEA-SCENE-SCITY-STAIR-LINK",
       "status": "source_verified_runtime_verified",
-      "sha256": "a27040390c827e16f6f1abf7ab088e7bc44ba74112823841d92475dfc369e230",
+      "sha256": "88feb126f959db4d284cf05a5e7bfffdb7a318f740a76be7ba616f384dd30d67",
       "bytes": 1037
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/station_hall.tscn",
       "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
       "status": "source_verified_runtime_verified",
-      "sha256": "a7d820932ddd4cf9fc37dec3b2301bd62c636b03504aee5e6fb00fa59d7b4990",
+      "sha256": "663af3b964932d373e22f4ff2960023910ce2601903514cd814b710fbf320f16",
       "bytes": 1200
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/street_intact.tscn",
       "asset_id": "SEA-SCENE-SCITY-STREET-INTACT",
       "status": "source_verified_runtime_verified",
-      "sha256": "4ede73a59383fbaa3896f03d932827165637c2aeb0c1de97ba72398e806b1fed",
+      "sha256": "de4e6f8c863a6ed5f4208f62bb99431f76fb78a4754a294490070e16dd537f57",
       "bytes": 910
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/street_lamp.tscn",
       "asset_id": "SEA-SCENE-SCITY-STREET-LAMP",
       "status": "source_verified_runtime_verified",
-      "sha256": "0f168cac4b8fbe377e915a9d99a90b453106353d872d450379c659c60fd72982",
+      "sha256": "3f52feb37cb442b46293799f353e452ce0b89eb664d615abbf22cc155ead07c9",
       "bytes": 1034
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/street_split.tscn",
       "asset_id": "SEA-SCENE-SCITY-STREET-SPLIT",
       "status": "source_verified_runtime_verified",
-      "sha256": "cb0b5404808e2214196d2a4b538cc46f11330a44188943e4cdc577963a14ba17",
+      "sha256": "0937d11f23d5c7581011507450bb13a1e8c84a9b47fc9385be3be8fd9a81862e",
       "bytes": 912
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/terrace_residence.tscn",
       "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
       "status": "source_verified_runtime_verified",
-      "sha256": "b434b71248c5b8c4ddf5560ad62670d661dcef481be404205904003851165fc8",
+      "sha256": "4e93fc60f7d2e51cdcf4c9848c8af10d7c95dbc9742634b6e20b9fa491ecd065",
       "bytes": 1227
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/terraced_tower.tscn",
       "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
       "status": "source_verified_runtime_verified",
-      "sha256": "5f06f5a93c973a13e98214b0900bcde9c882c10e49d22b6b51436933098809da",
+      "sha256": "822490f82e3b72a1efe9956ca3e9798bbc75c8cd8e70b719006c5413b9bc4959",
       "bytes": 1209
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/terrain_ramp.tscn",
       "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
       "status": "source_verified_runtime_verified",
-      "sha256": "a171e174c5a1e9c0274a6b0432f4b59ca4dcbfc6745e65b4d36f91d6f899c810",
+      "sha256": "8886996bb77287f4f10948eb2da9b3eb93960ee22ab2eec555a37a76a76b4faa",
       "bytes": 906
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/traffic_light.tscn",
       "asset_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
       "status": "source_verified_runtime_verified",
-      "sha256": "8c17cf1a96b5f646a135da06d5106918a17610f99177d3e3bfb456c85ce72406",
+      "sha256": "7e59de0b8f756d21244aa05ca58a53ae2f4ac83da34687caba1d7f1c35950d61",
       "bytes": 1052
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/tram_tenement.tscn",
       "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
       "status": "source_verified_runtime_verified",
-      "sha256": "9dfb7ca12b26ffd42888fed3eddd4e0681ec230207afd35656c3bd29ba818aa6",
+      "sha256": "82655464957b7859c409efee7c4ce20e5dcd12dbc5938d34d2e3bce1dbf8691d",
       "bytes": 1206
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/tram_wreck.tscn",
       "asset_id": "SEA-SCENE-SCITY-TRAM-WRECK",
       "status": "source_verified_runtime_verified",
-      "sha256": "45f8a85660ae089f86a035c49937f53e69f57dd2e20a49f3b42fdddb7b4bab84",
+      "sha256": "5fb5f4e60a5fe8438068922d42aae86322425c2046c13f87c2168d56f3021b73",
       "bytes": 1182
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/utility_pole.tscn",
       "asset_id": "SEA-SCENE-SCITY-UTILITY-POLE",
       "status": "source_verified_runtime_verified",
-      "sha256": "512f14d5bf7fb08a8f3cf2ba1169c400f1e34450158dc105dab9db97b6d2e5c9",
+      "sha256": "1b2e03a8f8fc8f60208b092e84e56c5500b610d4f2a58837ed640b7e35e16799",
       "bytes": 1046
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/vending.tscn",
       "asset_id": "SEA-SCENE-SCITY-VENDING",
       "status": "source_verified_runtime_verified",
-      "sha256": "208edca3472dcc09039ec2ac21b1d59f19d0a76956a7e9e6837895b624b1b10c",
+      "sha256": "bb85054f08f6fc4a7e4ebb9062f97de84e789921e8602815c0d75c249ba0cc04",
       "bytes": 1012
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/viaduct_broken.tscn",
       "asset_id": "SEA-SCENE-SCITY-VIADUCT-BROKEN",
       "status": "source_verified_runtime_verified",
-      "sha256": "166566895584d54964e3fffb1fa7904e5100ddd01103a989845a961a5daaa712",
+      "sha256": "26455b78b0a85756913629c019398167bcd05abcf268ad72443b0a091e643939",
       "bytes": 1061
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/viaduct_curve.tscn",
       "asset_id": "SEA-SCENE-SCITY-VIADUCT-CURVE",
       "status": "source_verified_runtime_verified",
-      "sha256": "bd3005b74e6cb4c39c0e4e765853bd8a7f8ce733d333125ce90c54300fad3ec0",
+      "sha256": "ad342ecf87c6edc1f67cc8eba3b3bd1a6f8484e57cebd7882a8b047d1366f290",
       "bytes": 1065
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/viaduct_intact.tscn",
       "asset_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
       "status": "source_verified_runtime_verified",
-      "sha256": "9d73f042274bb1d3706ae8ee8e56cd2b6c289ea3187b3be784e247a6fa27ff5d",
+      "sha256": "2cbf6c64ca9cb00b145526f6b9330a4d8f006da230c0c2314fd3d0589ab2bec7",
       "bytes": 1061
     },
     {
       "path": "godot/scenes/components/scenery/sunken_city/workshop_shell.tscn",
       "asset_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
       "status": "source_verified_runtime_verified",
-      "sha256": "ae085b726f43af8eba4d8bba420d16258f15a0c7e76375f4ea35eafe78c5815a",
+      "sha256": "1340391ef27b93e191198ef66e0724f9fceb84769f86b95fce17667200cf0a8a",
       "bytes": 1209
     },
     {
       "path": "godot/scenes/world/sunken_city.tscn",
       "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
       "status": "source_verified_runtime_verified",
-      "sha256": "e1a84c111e245d64ab507cb9c1fa82d46def62173c58d39cd683636c89aff9df",
-      "bytes": 116531
+      "sha256": "4619c72e6c0c31fb57e90eb3c0dc3519b2d43b797ae782b95ae946b79ccb0c2b",
+      "bytes": 118535
     },
     {
       "path": "godot/tests/test_sunken_city.gd",
       "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
       "status": "source_verified_runtime_verified",
-      "sha256": "394b502596c8f93abae9a619e592c635c74f7be34459dc91cdaf52933e92582f",
-      "bytes": 22082
+      "sha256": "b8763ba343aba333d2471cf0982e074ebf097fff4e7fd912bd46d4e482ebbff8",
+      "bytes": 25726
     },
     {
       "path": "godot/tools/capture_sunken_city.gd",
       "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
       "status": "source_verified_runtime_verified",
-      "sha256": "d5549c124969b1c92aca254eb05460281458c958f1a9f542b877addeeb07bb21",
-      "bytes": 17421,
+      "sha256": "9bf9a319da0379736c904e7beabef7bc2a6b02c8624a29106775a89e97e23210",
+      "bytes": 21678,
       "previous_sha256": "27ba5affd4539c6a18bd7c206c389cf5bfd1598d67bf15911e6ff968cd185392"
     },
     {

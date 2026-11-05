@@ -3,12 +3,13 @@ const BoatScript = preload("res://src/navigation/boat.gd")
 const Ground = preload("res://src/navigation/ground_path.gd")
 var failures := 0
 var checks := 0
-## 围挡封死后的预期不可达目的地（2026-11-05 用户决定：先封死、不看航路）。
+## 预期不可达目的地例外表。
 ##
-## `sea_barrier` 把可活动范围封成 240×240，霓虹花园在 x=156、落在墙外，
-## 于是所有往返它的航路都断开。这是用户明确接受的后果，不是回归。
-## 例外只对「涉及这个区块的航路」生效；任何其他航路仍然要求有解。
-const SEALED_OFF := ["neon_garden_quarter"]
+## 2026-11-05 曾因围挡把可活动范围封成 240×240、霓虹花园落在墙外而登记过
+## `["neon_garden_quarter"]`；同日晚些时候围挡已从 main.tscn 摘除，
+## 圈不再存在，霓虹花园重新可达，因此这里恢复为空 —— 所有航路一律要求有解。
+## 将来若重新挂回围挡，必须重新登记这块区块，否则这里会立刻报红（这是有意的）。
+const SEALED_OFF: Array[String] = []
 func check(ok: bool, message: String) -> void:
 	checks += 1
 	if not ok:
@@ -152,12 +153,17 @@ func run() -> void:
 	var blocked_pos: Vector3 = vessel.position
 	vessel._steer(1.0/60.0)
 	check(not vessel.starts_sailing() and vessel.position == blocked_pos,"移动中受阻停船")
-	# 航路循环把 main.boat 停在最后一个源泊位上；封死之后它可能是霓虹花园
-	# （在围挡外），从墙外看 1000,1000 是一片开阔水面、本来就有直线解。
-	# 这条断言问的是「玩家正常位置是否会被骗」，所以先把船放回家园泊位。
+	# 航路循环结束后船停在最后一个源泊位上。后续断言问的是「玩家从家园出发
+	# 会不会被骗」，所以先把船放回家园泊位，否则测的不是玩家真实处境。
 	var home_park: Vector3 = main._zone_nodes["zone1"].landing_point("main").get_node("BoatPark").global_position
 	main.boat.place_at(home_park, 0.0)
-	check(main.plan_route_to(1000,1000).is_empty(),"不可达目标不退回穿岸直线")
+	# 这里原来拿 1000,1000 当「不可达目标」。但远海本身就是开阔水面，绕过家园
+	# 建筑就能到 —— 它当时之所以不可达，只是被围挡封住了。围挡从 main.tscn 摘除后
+	# 这条立刻变红，说明它原本的前提是围挡撑着的，是假前提。
+	# 真正不可达的是岸上／建筑里的点：目标本身不在开阔水面，必须直接返回空，
+	# 而不是画一条穿岸直线糊弄玩家。
+	check(not main.navigation.is_open_water(0.0, 0.0), "家园原点不是开阔水面（断言前提）")
+	check(main.plan_route_to(0.0, 0.0).is_empty(), "不可达目标不退回穿岸直线")
 	vessel.queue_free()
 	main.queue_free()
 	await process_frame

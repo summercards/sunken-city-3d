@@ -11,7 +11,9 @@ const EPS := 0.002
 const RUNTIME_VERSION := "v004"
 const SOURCE_MAX_HEIGHT_M := 59.6591835
 const HEIGHT_CAP_M := 14.9147959
+const HEIGHT_CAP_RULE := "global_max_div4_cap"
 const ROLES := ["SEA_Matte", "SEA_Metal", "SEA_Gloss"]
+const CATEGORIES := ["architecture", "ground", "facilities", "road", "rail", "vehicle", "street_furniture", "vegetation", "debris", "infrastructure", "props", "terrain"]
 
 var checks: int = 0
 var failures: int = 0
@@ -198,6 +200,7 @@ func check_material(material: StandardMaterial3D, expected_role: String, label: 
 
 func check_component(entry: Dictionary) -> void:
 	var key: String = str(entry.get("key", ""))
+	check(str(entry.get("category", "")) in CATEGORIES, key + " category 已分类")
 	check(sha256_string(entry.get("source_sha256", "")), key + " source SHA256 为 string64")
 	check(sha256_string(entry.get("prefab_sha256", "")), key + " prefab SHA256 为 string64")
 	check(sha256_string(entry.get("glb_sha256", "")), key + " GLB SHA256 为 string64")
@@ -296,6 +299,8 @@ func check_component(entry: Dictionary) -> void:
 			check(role in ROLES and roles.has(role), key + " 角色集合含 " + str(role))
 	var box: Dictionary = geometry_bounds(component)
 	check(bool(box["valid"]), key + " 实际包络有限且非空")
+	if str(entry.get("category", "")) == "architecture" and bool(box["valid"]):
+		check(float(box["max"].y) <= HEIGHT_CAP_M + EPS, key + " 建筑局部最高点不超过 height cap")
 	var declared: Variant = entry.get("bounds_blender", null)
 	var valid_bounds: bool = declared is Array and declared.size() == 2
 	if valid_bounds:
@@ -327,11 +332,18 @@ func check_assembly(city: Node3D, instances: Array, label: String) -> void:
 	check_metadata(city, label)
 	check(city.get_meta("source_suite", "") == "sunken_city", label + " source_suite")
 	check(city.scale.is_equal_approx(Vector3.ONE), label + " 根缩放为 1")
+	if label == "main":
+		check(is_finite(root_lift_m), label + " root_lift_m 有限")
+		check(absf(city.position.y - root_lift_m) < EPS, label + " main 根 Y 等于 manifest root_lift_m")
+	else:
+		check(absf(city.position.y) < EPS, label + " 独立总装根 Y 为 identity")
 	check(city.visible, label + " 默认 visible")
 	check(city.get_child_count() == 388, label + " 388 个直接实例")
 	pure_visual(city, label)
 	var seen: Dictionary = {}
 	var actual_keys: Dictionary = {}
+	var world_low: Vector3 = Vector3(INF, INF, INF)
+	var world_high: Vector3 = Vector3(-INF, -INF, -INF)
 	var floors: int = 0
 	var trams: int = 0
 	var curves: int = 0
@@ -375,6 +387,8 @@ func check_assembly(city: Node3D, instances: Array, label: String) -> void:
 			if bool(box["valid"]):
 				var low: Vector3 = box["min"]
 				var high: Vector3 = box["max"]
+				world_low = world_low.min(low)
+				world_high = world_high.max(high)
 				check(high.y < 1.12, id + " 包括既有倾斜的全部几何低于水面 1.12m")
 				check(low.x >= -120.0 - EPS and high.x <= 120.0 + EPS and low.z >= -120.0 - EPS and high.z <= 120.0 + EPS, id + " 全部世界几何在 X/Z [-120,120]")
 			var records: Array = evidence["instances"]
@@ -385,6 +399,8 @@ func check_assembly(city: Node3D, instances: Array, label: String) -> void:
 	check(curves == 4, label + " 保留四段冻结曲线高架")
 	check(int(actual_keys.get("viaduct_broken", 0)) > 0, label + " 保留真实断桥组件")
 	if label == "main":
+		check(world_high.y < 1.12, label + " 世界最高实际 vertex 低于 water 1.12m")
+		evidence["world_bounds"] = {"min": vec_json(world_low), "max": vec_json(world_high), "water_clearance_m": 1.12 - world_high.y}
 		evidence["counts"] = {"components": components.size(), "instances": city.get_child_count(), "floor_domains": floors, "trams": trams, "curves": curves, "by_key": actual_keys}
 
 
@@ -398,9 +414,18 @@ func run() -> void:
 	if not parsed is Dictionary:
 		await finish()
 		return
-	var manifest: Dictionary = parsed
-	check(manifest.get("suite", "") == "sunken_city" and manifest.get("version", "") == "v003", "冻结 sunken_city/v003")
-	check(manifest.get("source_master_sha256", "") == SOURCE_SHA256, "manifest 对应已验收 v003 主源 SHA256")
+	manifest = parsed
+	check(manifest.get("suite", "") == "sunken_city" and manifest.get("version", "") == RUNTIME_VERSION, "冻结 sunken_city/v004")
+	var source_master_sha: String = str(manifest.get("source_master_sha256", ""))
+	check(sha256_string(source_master_sha), "manifest source_master_sha256 为动态 string64")
+	height_cap_contract = manifest.get("height_cap_contract", {})
+	check(height_cap_contract is Dictionary, "manifest height_cap_contract 存在")
+	if height_cap_contract is Dictionary:
+		check(absf(float(height_cap_contract.get("source_max_height_m", -1.0)) - SOURCE_MAX_HEIGHT_M) < EPS, "source max height 合同")
+		check(absf(float(height_cap_contract.get("height_cap_m", -1.0)) - HEIGHT_CAP_M) < EPS, "height cap 合同")
+		check(str(height_cap_contract.get("rule", "")) == HEIGHT_CAP_RULE, "height cap rule 合同")
+	check(manifest.get("root_lift_m", null) is float or manifest.get("root_lift_m", null) is int, "manifest root_lift_m 为数值")
+	root_lift_m = float(manifest.get("root_lift_m", 0.0))
 	var definitions: Variant = manifest.get("components", null)
 	var placements: Variant = manifest.get("instances", null)
 	check(definitions is Array and placements is Array, "manifest 包含组件/实例数组")

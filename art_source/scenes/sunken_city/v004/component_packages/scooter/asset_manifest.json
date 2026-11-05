@@ -1,0 +1,132 @@
+{
+  "key": "scooter",
+  "slug": "scooter",
+  "name": "旧踏板车_沉没",
+  "category": "facilities",
+  "component_family": "scooter",
+  "component_id": "SEA-SCENE-SCITY-SCOOTER",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    2.2,
+    1,
+    1.7
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 5,
+  "collection": "SEA-SCENE-SCITY-SCOOTER_旧踏板车_沉没",
+  "root_object": "SEA-SCENE-SCITY-SCOOTER_ROOT",
+  "objects": [
+    "旧踏板车_沉没_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-SCOOTER_ROOT"
+  ],
+  "bounds_size_m": [
+    2.059999942779541,
+    0.800000011920929,
+    1.7052394151687622
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 690,
+  "polygons": 338,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/scooter/scooter.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v004",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "12ca3f32bab4b53570d79305e150d26557122b170f252522b5445c95d943728b",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/scooter/scooter.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-SCOOTER",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "1be57df15ba2efb4c332545657b508bcbf2682183788bda67ed7253bbe0c6dee",
+  "bounds_min": [
+    -1.0299999713897705,
+    -0.4000000059604645,
+    0.0
+  ],
+  "bounds_max": [
+    1.0299999713897705,
+    0.4000000059604645,
+    1.7052394151687622
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\scooter.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-SCOOTER",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/scooter_optimized.blend",
+    "optimized_sha256": "13fbbbc7e8b56b0cc1f3835cab43b9cbe3a3773534fb162c9ef5ac73ebb29f12",
+    "triangles_before": 690,
+    "triangles_after": 690,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -1.0299999713897705,
+        -0.4000000059604645,
+        0.0
+      ],
+      [
+        1.0299999713897705,
+        0.4000000059604645,
+        1.7052394151687622
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/scooter/scooter.glb",
+    "runtime_sha256": "3b870c7848fc709da0d8ce5c6fd69fbed7366656e0f7d982a4c77b7195a56473",
+    "prefab": "godot/scenes/components/scenery/sunken_city/scooter.tscn",
+    "prefab_sha256": "b94c4c9bd97f998432fcf30e9a27f87ef6d8497b16445192c2d84638ba05342d",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

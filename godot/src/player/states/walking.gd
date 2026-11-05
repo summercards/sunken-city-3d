@@ -5,6 +5,8 @@ func enter(payload: Dictionary) -> void:
 	context.walk_path.assign(payload.get("path",[]))
 	if not context.walk_path.is_empty(): context.walk_path.pop_front()
 	context.actor.set_rowing(false)
+	# 点击走路是恒速的：步频按满速给，绝对不能再读上一段键盘行走的残余比例。
+	context.actor.walk_speed_ratio = 1.0
 	context.actor.set_walking(not context.walk_path.is_empty())
 func tick(delta: float) -> void:
 	if context.ground.step(context,delta):

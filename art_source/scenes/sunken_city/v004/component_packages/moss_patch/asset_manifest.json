@@ -1,0 +1,131 @@
+{
+  "key": "moss_patch",
+  "slug": "moss_patch",
+  "name": "攀附海藻苔片_独立",
+  "category": "vegetation",
+  "component_family": "vegetation",
+  "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    3.2,
+    2.4,
+    0.45
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 36,
+  "collection": "SEA-SCENE-SCITY-MOSS-PATCH_攀附海藻苔片_独立",
+  "root_object": "SEA-SCENE-SCITY-MOSS-PATCH_ROOT",
+  "objects": [
+    "攀附海藻苔片_独立_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-MOSS-PATCH_ROOT"
+  ],
+  "bounds_size_m": [
+    2.6253461837768555,
+    2.5836386680603027,
+    0.19999998807907104
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 256,
+  "polygons": 88,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/moss_patch/moss_patch.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v004",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "bca89f5530c0d796e4a029a7c2b6602c59125fecaa90115a9515db3a8d2a65f6",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/moss_patch/moss_patch.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "33093a63b659b66313a74cceea42c700e4db3200d57287436437218bc248af37",
+  "bounds_min": [
+    -1.3126730918884277,
+    -1.2918193340301514,
+    0.0
+  ],
+  "bounds_max": [
+    1.3126730918884277,
+    1.2918193340301514,
+    0.19999998807907104
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\moss_patch.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-MOSS-PATCH",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/moss_patch_optimized.blend",
+    "optimized_sha256": "adf9dadb38bc4d4d291dcb14c510648ebe49a91ef0bf43806ca61d85ff18408c",
+    "triangles_before": 256,
+    "triangles_after": 256,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -1.3126730918884277,
+        -1.2918193340301514,
+        0.0
+      ],
+      [
+        1.3126730918884277,
+        1.2918193340301514,
+        0.19999998807907104
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/moss_patch/moss_patch.glb",
+    "runtime_sha256": "734c68b258a58575257a4b98ff812b8ab98e65b0d3d0d6253d9b8bdd14a9146c",
+    "prefab": "godot/scenes/components/scenery/sunken_city/moss_patch.tscn",
+    "prefab_sha256": "28f66128d4e13407cf3df57089e9f64e63511e57c95437d2c0db31d416ff51c1",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

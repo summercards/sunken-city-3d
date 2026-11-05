@@ -7,7 +7,7 @@ func percentile(values: Array, p: float) -> float:
 	return ordered[mini(ordered.size()-1, int(ordered.size()*p))]
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate(); root.add_child(main)
-	# 性能档使用 42/95 m 机位；玩家上限是 38 m（SEA-CAMERA-R11），不抬高会被静默夹回。
+	# 性能档使用 42/95 m 机位；玩家上限是 77.8 m（SEA-CAMERA-R11），不抬高会被静默夹回。
 	main.cam.zoom_max = 160.0
 	main._autosave_on = false; main.set_process(false)
 	for i in 12: await process_frame

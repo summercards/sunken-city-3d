@@ -3,7 +3,7 @@
 执行前须由作者另行保存最终母版；本脚本不读取 working.blend，不连接 MCP。
 运行方式：blender --background --factory-startup --disable-autoexec
           --python-exit-code 1 --python tools/blender/sunken_city/package_verify.py
-SEA_SUNKEN_VERSION 选择 v001（默认）、v002 或 v003，独立包与报告按版本隔离。
+SEA_SUNKEN_VERSION 选择 v001（默认）、v002、v003 或 v004，独立包与报告按版本隔离。
 SEA_WORK_ROOT 可改工程外工作根目录，默认 <工程同级>/sea-work。
 """
 
@@ -28,8 +28,8 @@ from mathutils import Vector
 
 R = Path(__file__).resolve().parents[3]
 VERSION = os.environ.get("SEA_SUNKEN_VERSION", "v001")
-if VERSION not in {"v001", "v002", "v003"}:
-    raise ValueError("SEA_SUNKEN_VERSION 只支持 v001、v002 或 v003")
+if VERSION not in {"v001", "v002", "v003", "v004"}:
+    raise ValueError("SEA_SUNKEN_VERSION 只支持 v001、v002、v003 或 v004")
 D = R / "art_source/scenes/sunken_city" / VERSION
 MAIN = D / f"sunken_city_{VERSION}.blend"
 CATALOG = D / "component_catalog.json"
@@ -436,10 +436,10 @@ def main():
         all_entries = catalog["components"]
         entries = [e for e in all_entries if e.get("component_id", "").startswith("SEA-SCENE-SCITY-")]
         check("catalog_suite_count", 0 < len(entries) == EXPECTED_COUNT <= 50, len(entries))
-        if VERSION == "v003":
+        if VERSION in {"v003", "v004"}:
             plan = json.loads((D / "component_plan.json").read_text(encoding="utf-8"))
             planned = plan["components"]
-            check("v003_current_plan_components", len(entries) == len(planned) == 50
+            check(VERSION + "_current_plan_components", len(entries) == len(planned) == 50
                   and len({e["component_id"] for e in planned}) == 50
                   and len({e["key"] for e in planned}) == 50
                   and {(e["component_id"], e["key"]) for e in entries}

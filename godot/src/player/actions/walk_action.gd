@@ -1,5 +1,8 @@
 extends RefCounted
 const SPEED := 2.3
+## 到站的物理安全余量（米）。胶囊贴着边界/面沿时，最后几厘米可能先被挡住；
+## 设计条款是「物理支撑的微小安全余量不计为到达失败」，这里把它落成一个数。
+const ARRIVE_SLACK := 0.10
 func prepare(c, area: Node3D, target: Vector3) -> Dictionary:
 	if area == null or c.vessel.starts_sailing() or c.mode()==3: return {"ok":false}
 	var start: Vector3 = c.actor.global_position
@@ -43,6 +46,11 @@ func step(c, delta: float) -> bool:
 				return false
 			var result: Dictionary = c.actor.move_ground(offset/distance*length, delta)
 			if bool(result.blocked) and (result.moved as Vector3).length() < length * 0.05:
+				# 最后一个航点差几厘米时，胶囊往往先贴住边界（泊位站立点就贴着船舷）。
+				# 这不叫「走不过去」—— 再判失败会让上船/上岸在最后 6 厘米前功尽弃。
+				if c.walk_path.size() == 1 and distance <= ARRIVE_SLACK:
+					c.walk_path.clear()
+					return true
 				c.notify("前面被挡住了")
 				c.cancel()
 				return false

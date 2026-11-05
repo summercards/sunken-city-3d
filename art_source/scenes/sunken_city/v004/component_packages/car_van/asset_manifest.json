@@ -1,0 +1,133 @@
+{
+  "key": "car_van",
+  "slug": "car_van",
+  "name": "旧厢车_车门脱落",
+  "category": "facilities",
+  "component_family": "vehicle",
+  "component_id": "SEA-SCENE-SCITY-CAR-VAN",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    5.7,
+    2.5,
+    2.7
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 8,
+  "collection": "SEA-SCENE-SCITY-CAR-VAN_旧厢车_车门脱落",
+  "root_object": "SEA-SCENE-SCITY-CAR-VAN_ROOT",
+  "objects": [
+    "旧厢车_车门脱落_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-CAR-VAN_ROOT"
+  ],
+  "bounds_size_m": [
+    5.796999931335449,
+    2.828000068664551,
+    2.7799999713897705
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 2624,
+  "polygons": 1304,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/car_van/car_van.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v004",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "c42fc52378adeb94df0d34abafd714f91359f228915af463126fb230d0985c32",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/car_van/car_van.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-CAR-VAN",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "14e53ce8e6c4f1dc0e04091890b5990cebf8f65d979db4cb5355a41b85fc2d37",
+  "bounds_min": [
+    -2.8984999656677246,
+    -1.4140000343322754,
+    0.0
+  ],
+  "bounds_max": [
+    2.8984999656677246,
+    1.4140000343322754,
+    2.7799999713897705
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\car_van.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-CAR-VAN",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/car_van_optimized.blend",
+    "optimized_sha256": "ea8cf73eab191fd45d0e4e5b664ef48e2526345313174460106309ac580d4263",
+    "triangles_before": 2624,
+    "triangles_after": 2624,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -2.8984999656677246,
+        -1.4140000343322754,
+        0.0
+      ],
+      [
+        2.8984999656677246,
+        1.4140000343322754,
+        2.7799999713897705
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/car_van/car_van.glb",
+    "runtime_sha256": "110311268e014ae311bcdcf2d17ca4c649f4bd73a19ba5137a7d68e884bb5c17",
+    "prefab": "godot/scenes/components/scenery/sunken_city/car_van.tscn",
+    "prefab_sha256": "f4d56ab16e27cf55d1a26d62f0e9fda89809d41a76b354b9d052882f76865f35",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

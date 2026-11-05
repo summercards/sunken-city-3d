@@ -6,8 +6,8 @@
 登记后主 agent 用 tools/apply_water_layer.py 的现有逻辑刷新两类 views；
 若该工具尚无 SEA-SCENE-SCITY- 分类规则，须先另行补规则，再执行及检查门禁。
 
-SEA_SUNKEN_VERSION 选择 v001（默认）、v002 或 v003，仅允许同版重登或相邻升级。
-v003 保留计划明确退役的两个 v002 源记录，不覆盖其源、摘要和历史；套件共 53 条。
+SEA_SUNKEN_VERSION 选择 v001（默认）、v002、v003 或 v004，仅允许同版重登或相邻升级。
+v003/v004 保留计划明确退役的两个 v002 源记录，不覆盖其源、摘要和历史；套件共 53 条。
 报告目录默认 <工程同级>/sea-work/sunken_city/<版本>，可用 --report-dir 覆盖，
 也支持 SEA_WORK_ROOT。三份报告必须显式 passed=true 或 checks.passed=true；
 兼容 status=passed（无布尔结论时）。已提供的失败结论、非零退出码、
@@ -30,12 +30,13 @@ from pathlib import Path
 import re
 import sys
 import tempfile
+import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[3]
 VERSION = os.environ.get('SEA_SUNKEN_VERSION', 'v001')
-if VERSION not in {'v001', 'v002', 'v003'}:
-    raise ValueError('SEA_SUNKEN_VERSION 只支持 v001、v002 或 v003')
+if VERSION not in {'v001', 'v002', 'v003', 'v004'}:
+    raise ValueError('SEA_SUNKEN_VERSION 只支持 v001、v002、v003 或 v004')
 DIRECTORY = ROOT / 'art_source/scenes/sunken_city' / VERSION
 MASTER = DIRECTORY / f'sunken_city_{VERSION}.blend'
 PALETTE = ROOT / 'art_source/shared/palettes/sea_cabin_timber_8x8_512.png'
@@ -161,6 +162,32 @@ def register(args):
             binary_hashes[path] = sha(path)
         return binary_hashes[path]
 
+    archived_runtime_hashes = {}
+    runtime_upgrades = set()
+
+    def verify_previous_runtime(old):
+        aid = old['asset_id']
+        archive_path = ROOT / 'art_source/scenes/sunken_city/v003/export/v003/runtime_preserved_before_v004.zip'
+        hashed(archive_path)
+        with zipfile.ZipFile(archive_path) as archive:
+            for field, hash_field in (('runtime_path', 'runtime_sha256'), ('prefab', 'prefab_sha256')):
+                value = old.get(field)
+                require(isinstance(value, str) and bool(value), aid + '：缺少旧 runtime 路径 ' + field)
+                target = project_path('godot/' + value[6:] if value.startswith('res://') else value)
+                require(target.is_relative_to((ROOT / 'godot').resolve()),
+                        aid + '：旧 runtime 路径不在 Godot 工程内 ' + field)
+                member = relative(target)
+                if member not in archived_runtime_hashes:
+                    matches = [info for info in archive.infolist() if info.filename == member]
+                    require(len(matches) == 1 and not matches[0].is_dir() and matches[0].file_size > 0,
+                            aid + '：归档缺少唯一非空 runtime 文件 ' + member)
+                    digest = hashlib.sha256()
+                    with archive.open(matches[0]) as stream:
+                        for block in iter(lambda: stream.read(1024 * 1024), b''):
+                            digest.update(block)
+                    archived_runtime_hashes[member] = digest.hexdigest()
+                match_hashes(old, (hash_field,), archived_runtime_hashes[member], aid + '/旧 runtime 归档')
+
     work = args.report_dir.resolve()
     require(not work.is_relative_to(ROOT.resolve()), '报告目录必须位于工程外')
     catalog_path = DIRECTORY / 'component_catalog.json'
@@ -173,19 +200,19 @@ def register(args):
     require(project_path(plan['palette']) == PALETTE.resolve(), '计划不是指定公共色盘')
     retired = {}
     new_v003_ids = {'SEA-SCENE-SCITY-TERRAIN-RAMP', 'SEA-SCENE-SCITY-VIADUCT-CURVE'}
-    if VERSION == 'v003':
-        require(len(entries) == 50, 'v003 必须包含 50 个当前组件')
+    if VERSION in {'v003', 'v004'}:
+        require(len(entries) == 50, VERSION + ' 必须包含 50 个当前组件')
         planned = plan['components']
         require(len(planned) == 50 and len({row['component_id'] for row in planned}) == 50
                 and len({row['key'] for row in planned}) == 50
                 and {(row['component_id'], row['key']) for row in planned}
                 == {(row['component_id'], row['key']) for row in entries},
-                'v003 当前组件 ID/key 必须严格等于冻结计划')
+                VERSION + ' 当前组件 ID/key 必须严格等于冻结计划')
         expected_retired = {'SEA-SCENE-SCITY-T-JUNCTION': 't_junction',
                             'SEA-SCENE-SCITY-CANAL-END': 'canal_end'}
         retired_rows = plan.get('retired_components')
         require(isinstance(retired_rows, list) and len(retired_rows) == 2,
-                'v003 必须显式保留两个计划退役定义')
+                VERSION + ' 必须显式保留两个计划退役定义')
         for row in retired_rows:
             aid = row['component_id']
             require(aid in expected_retired and row['key'] == expected_retired[aid]
@@ -194,8 +221,9 @@ def register(args):
                     aid + '：退役定义必须明确保留 v002 源且不在当前布局')
             retired[aid] = row
         current_ids = {row['component_id'] for row in entries}
-        require(not current_ids.intersection(retired) and new_v003_ids <= current_ids,
-                'v003 当前定义包含退役组件或缺少两个新增组件')
+        require(not current_ids.intersection(retired)
+                and (VERSION == 'v004' or new_v003_ids <= current_ids),
+                VERSION + ' 当前定义包含退役组件或缺少必要组件')
     master_hash, palette_hash = hashed(MASTER), hashed(PALETTE)
     match_hashes(plan, ('palette_sha256',), palette_hash, '计划色盘')
     report_paths = [work / (name + '_verification.json') for name in ('source', 'package', 'skill')]
@@ -258,6 +286,7 @@ def register(args):
             source=relative(source), source_sha256=source_hash, manifest=relative(manifest_path),
             stage=STAGE, maintenance_status=STAGE, runtime_path=None, prefab=None,
             runtime_integrated=False, runtime_status='pending', prefab_status='pending',
+            runtime_sha256=None, prefab_sha256=None, runtime_verified=False,
             runtime_validation='not_executed_not_in_scope', material_roles=sorted(roles),
             palette=relative(PALETTE), palette_sha256=palette_hash,
             license='user_provided_reference_commercial_rights_pending',
@@ -367,15 +396,28 @@ def register(args):
                 require(domain == 'scenes' and old.get('suite') == 'sunken_city',
                         'AssetID 已由其他记录占用：' + aid)
                 require(old.get('version') == VERSION
-                        or (old.get('version'), VERSION) in {('v001', 'v002'), ('v002', 'v003')},
+                        or (old.get('version'), VERSION) in {('v001', 'v002'), ('v002', 'v003'), ('v003', 'v004')},
                         '既有版本不允许降级或跳改：' + aid)
-                visual_only(old, aid + '/既有记录')
-    if VERSION == 'v003':
+                if VERSION == 'v004' and old.get('version') == 'v003':
+                    match_hashes(old, ('source_sha256',), hashed(project_path(old['source'])), aid + '/既有源')
+                    if old.get('runtime_integrated') is True:
+                        verify_previous_runtime(old)
+                        source_only = {field: value for field, value in old.items()
+                                       if field not in {'runtime_integrated', 'runtime_path', 'prefab',
+                                                        'runtime_sha256', 'prefab_sha256'}}
+                        visual_only(source_only, aid + '/既有记录')
+                        runtime_upgrades.add(aid)
+                    else:
+                        visual_only(old, aid + '/既有记录')
+                else:
+                    visual_only(old, aid + '/既有记录')
+    if VERSION in {'v003', 'v004'}:
         require(set(retained) == set(retired), '两个退役定义必须已有 v002 账本源，不得新建或丢弃')
-        require((set(fresh) - new_v003_ids) <= existing_suite,
-                'v003 升级缺少既有组件或总装记录，不得伪装成新增')
-        require(all(row['version'] == 'v003' for row in book[route['asset_key']]
-                    if row['asset_id'] in new_v003_ids), '新增组件 ID 已被旧版本占用')
+        new_ids = new_v003_ids if VERSION == 'v003' else set()
+        require((set(fresh) - new_ids) <= existing_suite,
+                VERSION + ' 升级缺少既有组件或总装记录，不得伪装成新增')
+        require(all(row['version'] == VERSION for row in book[route['asset_key']]
+                    if row['asset_id'] in new_ids), '新增组件 ID 已被旧版本占用')
 
     updated_book = copy.deepcopy(book)
     remaining = dict(fresh)
@@ -387,6 +429,9 @@ def register(args):
                    for field in ('source', 'source_sha256', 'manifest', 'version')):
                 previous = copy.deepcopy(old.get('previous_sources', []))
                 original = {field: old[field] for field in ('source', 'source_sha256', 'manifest', 'version')}
+                if old['asset_id'] in runtime_upgrades:
+                    original = copy.deepcopy({field: value for field, value in old.items()
+                                              if field != 'previous_sources'})
                 if original not in previous:
                     previous.append(original)
                 row['previous_sources'] = previous
@@ -394,10 +439,10 @@ def register(args):
         else:
             updated_rows.append(retained.get(old['asset_id'], old))
     updated_rows.extend(remaining.values())
-    if VERSION == 'v003':
+    if VERSION in {'v003', 'v004'}:
         suite_rows = [row for row in updated_rows if row.get('suite') == 'sunken_city']
         require(len(suite_rows) == 53 and {row['asset_id'] for row in suite_rows} == set(fresh) | set(retired),
-                'v003 账本必须保留 50 个当前组件 + 总装 + 两个旧源，共 53 条')
+                VERSION + ' 账本必须保留 50 个当前组件 + 总装 + 两个旧源，共 53 条')
     updated_book[route['asset_key']] = updated_rows
     updated_index = copy.deepcopy(source_index)
     updated_index['sources'] = []
@@ -474,7 +519,7 @@ def main():
     args = parser.parse_args()
     try:
         return register(args)
-    except (OSError, ValueError, KeyError, TypeError) as exc:
+    except (OSError, ValueError, KeyError, TypeError, zipfile.BadZipFile) as exc:
         print('拒绝登记：' + str(exc), file=sys.stderr)
         return 1
 

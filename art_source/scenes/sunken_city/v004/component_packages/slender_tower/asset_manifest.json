@@ -1,0 +1,141 @@
+{
+  "key": "slender_tower",
+  "slug": "slender_tower",
+  "name": "竖窗高楼_局部崩角",
+  "category": "architecture",
+  "component_family": "tower",
+  "component_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    14,
+    14,
+    59
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 2,
+  "color": "white",
+  "damage": 0.18,
+  "style": "slender",
+  "variant_axis": "structure_damage",
+  "variant_value": "slender",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 2,
+  "collection": "SEA-SCENE-SCITY-SLENDER-TOWER_竖窗高楼_局部崩角",
+  "root_object": "SEA-SCENE-SCITY-SLENDER-TOWER_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-SLENDER-TOWER_ROOT",
+    "竖窗高楼_局部崩角_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    14.078924179077148,
+    13.520315170288086,
+    13.759183883666992
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 41578,
+  "polygons": 21608,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/slender_tower/slender_tower.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v004",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "9e324ecaa0594941b5ea69871952f088e96d55cbb17235eadd4c878cc27118f9",
+  "source_floors": 11,
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/slender_tower/slender_tower.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "b1fa249667f6efe6562603da9125fcb0b1236e7b8207838802691bfc159ccb0b",
+  "bounds_min": [
+    -7.039462089538574,
+    -6.760157585144043,
+    0.0
+  ],
+  "bounds_max": [
+    7.039462089538574,
+    6.760157585144043,
+    13.759183883666992
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\slender_tower.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-SLENDER-TOWER",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/slender_tower_optimized.blend",
+    "optimized_sha256": "46b195b5b3256d57a350222832213786759ac5eb71021d229fcb2f3d686d880c",
+    "triangles_before": 41578,
+    "triangles_after": 41578,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 131,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 3,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -7.039462089538574,
+        -6.760157585144043,
+        0.0
+      ],
+      [
+        7.039462089538574,
+        6.760157585144043,
+        13.759183883666992
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/slender_tower/slender_tower.glb",
+    "runtime_sha256": "6d2358d92b6e33871eb9a10536795825c9878b06591f66a1f5f660e8211e7533",
+    "prefab": "godot/scenes/components/scenery/sunken_city/slender_tower.tscn",
+    "prefab_sha256": "90e49564b177f8bb461e2d6d04a32008aea2eff9ba661f5a42b429ade43ec9d0",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "key": "tram_wreck",
+  "slug": "tram_wreck",
+  "name": "旧电车_断窗侧倾",
+  "category": "facilities",
+  "component_family": "tram",
+  "component_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    12,
+    3.8,
+    5.4
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 3,
+  "collection": "SEA-SCENE-SCITY-TRAM-WRECK_旧电车_断窗侧倾",
+  "root_object": "SEA-SCENE-SCITY-TRAM-WRECK_ROOT",
+  "objects": [
+    "旧电车_断窗侧倾_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-TRAM-WRECK_ROOT"
+  ],
+  "bounds_size_m": [
+    12.0,
+    4.152960300445557,
+    5.518245220184326
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 4614,
+  "polygons": 2336,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/tram_wreck/tram_wreck.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v004",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "06567d4e1bf90c4eabe2f205eaf8b4ac20eddeb16247ef2fb2c0e285c94ee977",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/tram_wreck/tram_wreck.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "7726858da538de76ccdc9b34a8bf0535e07f5567f89e3d3dcdff3931129a3590",
+  "bounds_min": [
+    -6.0,
+    -2.0764801502227783,
+    0.0
+  ],
+  "bounds_max": [
+    6.0,
+    2.0764801502227783,
+    5.518245220184326
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\tram_wreck.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-TRAM-WRECK",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/tram_wreck_optimized.blend",
+    "optimized_sha256": "b801d183e5d8bec102b156937082df751f9a10f077f9a041acd2ad97d5f7317b",
+    "triangles_before": 4614,
+    "triangles_after": 4614,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -6.0,
+        -2.0764801502227783,
+        0.0
+      ],
+      [
+        6.0,
+        2.0764801502227783,
+        5.518245220184326
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/tram_wreck/tram_wreck.glb",
+    "runtime_sha256": "ebf6a447f3c8d6efe3aeb68f4fb03e884cd07b3b844f6b8c45f9850dc6ecc159",
+    "prefab": "godot/scenes/components/scenery/sunken_city/tram_wreck.tscn",
+    "prefab_sha256": "5fb5f4e60a5fe8438068922d42aae86322425c2046c13f87c2168d56f3021b73",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

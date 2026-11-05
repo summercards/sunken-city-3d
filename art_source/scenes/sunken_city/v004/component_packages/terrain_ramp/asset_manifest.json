@@ -1,0 +1,140 @@
+{
+  "key": "terrain_ramp",
+  "slug": "terrain_ramp",
+  "name": "街区缓坡_24米高差4.8米",
+  "component_family": "terrain_ramp",
+  "category": "ground",
+  "component_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    45,
+    90,
+    135,
+    180,
+    225,
+    270,
+    315
+  ],
+  "size_design_m": [
+    24,
+    24,
+    5.4
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 10,
+  "version": "v004",
+  "collection": "SEA-SCENE-SCITY-TERRAIN-RAMP_街区缓坡_24米高差4.8米",
+  "root_object": "SEA-SCENE-SCITY-TERRAIN-RAMP_ROOT",
+  "objects": [
+    "街区缓坡_24米高差4.8米_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-TERRAIN-RAMP_ROOT"
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/terrain_ramp/terrain_ramp.blend",
+  "bounds_size_m": [
+    24.0,
+    24.0,
+    5.418862819671631
+  ],
+  "triangles": 9124,
+  "polygons": 4754,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "4a2afd8899a5d4d02ab00bdcb73a144f76af9960d74eb8bdf98c0cf8f0cd78b8",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/terrain_ramp/terrain_ramp.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "4f3d9c1f81cd19653f9b8fa99e7ac1b8c043bdd873c331734a9cbf7ea262e065",
+  "bounds_min": [
+    -12.0,
+    -12.0,
+    0.0
+  ],
+  "bounds_max": [
+    12.0,
+    12.0,
+    5.418862819671631
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\terrain_ramp.json",
+    "exit_code": 0
+  },
+  "source_stage": "source_verified_runtime_pending",
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-TERRAIN-RAMP",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/terrain_ramp_optimized.blend",
+    "optimized_sha256": "ea6404c7d1cd2e15c7beb9ca01267ac92b6e3fbc27bcb8211c925f6c4c3045f9",
+    "triangles_before": 9124,
+    "triangles_after": 9124,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 44,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 44,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -12.0,
+        -12.0,
+        0.0
+      ],
+      [
+        12.0,
+        12.0,
+        5.418862819671631
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/terrain_ramp/terrain_ramp.glb",
+    "runtime_sha256": "a7658f57ebefaf719a944c9e537073fc63eb4851f8cd15e6a517537a322cf430",
+    "prefab": "godot/scenes/components/scenery/sunken_city/terrain_ramp.tscn",
+    "prefab_sha256": "8886996bb77287f4f10948eb2da9b3eb93960ee22ab2eec555a37a76a76b4faa",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

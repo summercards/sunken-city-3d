@@ -1,6 +1,8 @@
 extends RefCounted
+## 采样只看 Character 积分出来的步频相位（SEA-MOVE-R23）。
+## 相位由地速驱动：慢走步幅小、频率低，跑步（当前最高速）就是原来的 6.4 rad/s。
 func sample(a, _delta: float) -> void:
-	var phase: float = a._t * 6.4
+	var phase: float = a.walk_phase()
 	var s := sin(phase)
 	var c := cos(phase)
 	a.left_arm.rotation.x = s * 0.66

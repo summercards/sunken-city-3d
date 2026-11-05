@@ -1,6 +1,9 @@
-# 相机缩放上限收到 38 米（SEA-CAMERA-R11）
+# 相机缩放上限（SEA-CAMERA-R11）
 
-2026-11-05
+2026-11-05 首次落地 · 2026-11-06 修订
+
+> **当前生效值：`zoom_max` = 77.8 米**（开局机位 54.25 米不变）。
+> 文件名里的「38」是首次落地的痕迹，未改以免断链；38 米那一版已被推翻，见文末修订节。
 
 ## 诉求
 
@@ -128,3 +131,104 @@ FOV 31°、俯角 22–78°、阻尼、跟随/手动接管、UI 阻断、`pose_l
 
 - 未跑跨分辨率手感验收；窗口尺寸变化对 38 m 取景的影响未单独量。
 - 未改网页原型 `web/gameplay.js` 的 `maxDistance = baseCameraDistance * 2.25`（约 243 m）。两套实现各自独立，网页侧若也要收紧，属另一次改动。
+
+---
+
+# 修订（2026-11-06）：上限改为 77.8 米
+
+> 本文上半部分记录的是**首次落地**：把「38」当成 38 米，`zoom_max` 收到 38 m、开局也压到 38 m。
+> 主人在实机上指出「不对，你看我给你截图的位置，那个位置是最远距离。现在太近了」——
+> 也就是说，**截图那一档本身才是最远，38 并不是米数**。本节是修订过程与最终值。
+> 上半部分保留原样，作为被推翻的判断的证据。
+
+## 结论
+
+**`zoom_max` = 77.8 米。** 这个数不是拍的：
+
+旧区间是 9~190 米，面板与 HUD 显示的是**百分比**。截图那一档读作 38，换算：
+
+```
+9 + 0.38 × (190 − 9) = 9 + 68.78 = 77.78 ≈ 77.8 m
+```
+
+再用几何独立验算（不依赖百分比这条线索）。
+
+## 独立验算：连通块量尺
+
+工具 `godot/tools/probe_silhouette.gd`：同一套「非水面」阈值 + 连通块洪水填充，
+对参考截图和候选渲染各量一次浮屋的屏幕包围盒宽度。同一算法跑两边，系统偏差互相抵消，
+所以只看**宽度占比是否相等**，不需要包围盒绝对准确。
+
+| 距离 | 浮屋宽占画面 |
+|---|---|
+| 参考截图（1月3日 21:39，1600×1000） | **28.3%** |
+| 54.25 m（旧开局机位） | 42.0% |
+| 66 m | 34.5% |
+| **78 m** | **29.1%** ← 最接近，差 0.8 个百分点 |
+| 90 m | 25.1% |
+| 100 m | 22.7% |
+| 120 m | 19.2% |
+| 190 m（旧上限） | 12.4% |
+
+78 m 与 77.8 m 相差 0.2 m，占画面宽度差 0.1 个百分点，量尺分辨率不足以区分 —— 两者吻合。
+
+## 走过的弯路（都留了证据，因为都是「看起来对、其实错」的坑）
+
+| 方法 | 结果 | 为什么不可靠 |
+|---|---|---|
+| 整帧灰度和参考图比 | 曲线几乎是平的（0.1098~0.1169），最优点是 48 m | 大面积海面纹理主导，与浮屋大小无关 |
+| 只比小屋窗口的梯度 | 仍然平，最优点漂到 106 m | 夜色下亮度关系与 JPEG 曝光差异盖过结构差 |
+| 模板滑动匹配 | 最优点顶到搜索边界（72 m / 190 m） | 起点猜错 + 搜索步长不足，最优点被推到边界 |
+| 暖色像素全局包围盒 | 参考图 80%、渲染图 90%+ | 把右上 HUD 圆钮、右下体力条、左下日期都圈进去了 |
+| 最大连通暖光簇 | 参考 7.5%，各档 4~8% 无序 | 夜里被截断的窗光簇不是同一个物体，簇会碎 |
+| 横向扫描线量跨度 | 参考 11.1%，各档 8~12% 无序 | 扫描线落到哪一行决定量到哪块甲板，不稳定 |
+| **连通块包围盒（最终采用）** | **参考 28.3% / 78 m 29.1%，单调可用** | 需要先遮掉 HUD 区域，否则 HUD 会成为最大连通块 |
+
+结论：**能定量定案的是「同一算法跑两边 + 单调曲线」**，前六种都在用不同口径比两个不同的东西。
+
+## 代码改动（本次修订）
+
+| 文件 | 变更 |
+|---|---|
+| `godot/src/camera/orbit_camera.gd` | `zoom_max` 38 → **77.8**；`distance` 38 → **54.25**（开局机位回到原值，不再等于上限）；`max_distance` 同步 77.8；`_cur_distance` 初值 54.25 |
+| `godot/src/camera/camera_panel.gd` | `_default_distance` 回到 54.25、读数占位 77.8 → 54 m、滑杆占位上限 77.8 |
+| `godot/tests/test_camera_follow.gd` | 断言改为上限 77.8 / 开局 54.25 / 开局比例 0.654；新增「外滚到底停在 77.8」「内滚仍能到 9」；11 项 → 12 项 |
+| `godot/tools/capture_camera_zoom.gd` | 断言与产物改为 77.8 档（`camera-zoom-far.png` / `-clamped.png` / `-9.png`） |
+| 14 个证据脚本 | 上一轮为 38 m 上限加的抬高块**删掉**（它们的机位都 ≤77.8，不再需要）；只保留 8 个真正超限的 |
+
+保留抬高 `zoom_max` 的 8 个：`test_submerged_street`（118 m）、`capture_ocean_pickups`（100 m）、
+`capture_rooftop_ranch_v005`（95 m）、`capture_sunken_city`（190 m）、`capture_vegetation`（95 m）、
+`probe_visibility`（120 m）、`probe_water_look`（78 m）、`profile_vegetation`（95 m）。
+
+> 上一轮给 22 个脚本统一抬高属于过度处理：上限一改回 77.8，其中 14 个根本不需要，留着会掩盖将来真正的夹取。
+
+## 验证（本次修订后实测）
+
+| 检查 | 结果 | 证据 |
+|---|---|---|
+| `camera` | PASS exit 0，`[camera-follow] 12 checks, failures=0` | `sea-work/verification/20261106-003640-rev778-601931/` |
+| `visual-camera-zoom` | PASS exit 0，`[camera-zoom] 14 checks, 0 failures` | 同上 |
+| `visual-sea-barrier` / `visual-rooftop-ranch` | PASS exit 0 | 同上（这两个的上限抬高已删，58/52 m 机位在新上限内被完整尊重） |
+| `click` / `visual-title-screen` / `visual-ocean-pickups` / `visual-vegetation` | PASS exit 0 | `sea-work/verification/20261106-003859-rev778b-8fb7b1/` |
+| `visual-submerged-street` / `keyboard-control` / `control-feel` | PASS exit 0 | `sea-work/verification/20261106-004229-rev778c-71b533/` |
+
+`camera` 中途失败过一次：`滚轮停在77.8m 实际=77.80` 报错 —— `distance` 已正确，是平滑值
+`_cur_distance` 单帧 0.2 s 只收敛 83%，断言写得太紧。改为按 0.1 s × 12 帧推进后再断言，失败轮保留。
+
+## 范围外既有改动（未修、未掩盖）
+
+`check_feature_contracts.py` 收尾仍有 3 项问题，全部与本轮无关：
+`SEA-SCENE-ORF-ASSEMBLY` 源哈希漂移、`ocean_sky.tres`、`poster_atlas.png.import`。
+
+另有大量沉没城资产在工作区被改（`asset_version` v003→v004、各 GLB 重写），修改时间 00:14–00:26，
+属并行进行的沉没城 v004 工作，本轮一个字节都没碰，也不批量更新它们的哈希。
+
+## 文档同步
+
+- `docs/features/camera/spec.md` R11 重写为 77.8 米 + 定值推导；R12/R13 里引用的「38 米上限」同步为 77.8。
+- `docs/features/camera/ledger.md` R11 状态与证据更新，R12 同步；保留「首次按 38 m 实施后被推翻」一句。
+- `docs/资产与命名规范.md`、`docs/features/ambient/vegetation_visual_plan.md`、
+  `docs/development/2026-11-05_bedroom_room.md` 的区间表述同步 9–77.8。
+- `docs/character-visuals.md`、`2026-11-05_character_scale_150.md` 里「38 m 俯视下不可见」的论证改为 77.8 m
+  （更远更难看见，结论不变）。
+- 参考截图移出资产目录，放 `sea-work/camera_ref/night-framing-ref.jpg`，避免污染 `godot/assets`。

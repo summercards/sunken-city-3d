@@ -33,6 +33,20 @@ const BRAKE := 3.0
 ## 最大转向角速度（rad/s）。划桨船不是快艇：0.95 约等于「一秒转 55°」，
 ## 转弯半径 ~3.6m，配合降速才有「船在慢慢摆头」的感觉。
 const TURN_RATE := 1.8
+## 手动驾驶的转向惯性（SEA-NAV-R17）：角速度按 TURN_ACCEL 逼近目标值，
+## 不是直接写死转到限速。1.8 / 4.6 ≈ 0.39 秒从静止到满舵 ——
+## 桨先入水、船头再跟上来，这是「有质量」的来源。
+const TURN_ACCEL := 4.6
+## 转向能力随船速变化：停船 55%、满速 100%。划桨船停着也能小角度摆头，
+## 但不会像汽车原地打方向。
+const TURN_AT_REST := 0.55
+## 侧滑：船头转了，航迹方向按 DRIFT_TAU 追上去，最多偏 DRIFT_MAX 弧度。
+## 2.6 m/s 满舵时航迹落后船头约 8°，转弯有一点「甩」，但不会像冰面。
+const DRIFT_TAU := 0.16
+const DRIFT_MAX := 0.14
+## 低速收尾的刹车折减：BRAKE 只适用于高速段，最后半米用 35% 减速度收，
+## 让船贴上去停稳，而不是最后一帧顿住。
+const BRAKE_TAIL := 0.35
 var _yaw_from := 0.0
 var _yaw_to := 0.0
 ## 到站是否拧正到 `_yaw_to`。靠泊要（船头对着泊位方向），打捞/施工不要。
@@ -42,6 +56,9 @@ var _dock_left := 0.0
 ## 划桨相位（0..TAU 循环）与转向速率（给侧倾用）。
 var _stroke := 0.0
 var _turn_rate := 0.0
+## 手动驾驶的角速度（rad/s，带惯性）与实际航迹方向（带侧滑）。
+var _yaw_rate := 0.0
+var _travel_dir := Vector2.ZERO
 ## 两根桨。
 var _oar_l: Node3D
 var _oar_r: Node3D
@@ -126,6 +143,8 @@ func place_at(pos: Vector3, yaw: float) -> void:
 	rotation.y = yaw
 	manual_drive = false
 	drive_dir = Vector2.ZERO
+	_yaw_rate = 0.0
+	_travel_dir = _forward(yaw)
 	route.clear()
 	route.append(Vector2(pos.x, pos.z))
 	_wp = 0
@@ -216,7 +235,9 @@ func set_drive(dir: Vector2) -> void:
 	if next == Vector2.ZERO:
 		return
 	if not manual_drive:
-		# 手动接管那一刻放弃自动航路。
+		# 手动接管那一刻放弃自动航路，并把航迹方向对到当前船头（不继承自动航线的方向）。
+		_yaw_rate = 0.0
+		_travel_dir = _forward(rotation.y)
 		route.clear()
 		route.append(Vector2(position.x, position.z))
 		_wp = 0
@@ -242,6 +263,8 @@ func stop_drive() -> void:
 	_vel = 0.0
 	_speed_actual = 0.0
 	_turn_rate = 0.0
+	_yaw_rate = 0.0
+	_travel_dir = _forward(rotation.y)
 	if _sailing:
 		_sailing = false
 		_yaw_to = rotation.y
@@ -249,26 +272,52 @@ func stop_drive() -> void:
 
 func _drive(delta: float) -> void:
 	var dt := minf(maxf(delta, 0.0), 0.25)
+	if dt <= 0.0:
+		return
 	var want := drive_dir
+	var cruising := cruise_speed()
+	var speed_ratio := clampf(_vel / maxf(cruising, 0.001), 0.0, 1.0)
 	if want.length() > 0.001:
 		var desired := atan2(-want.x, -want.y)
 		var error := angle_difference(rotation.y, desired)
-		var turned := clampf(error * (1.0 - exp(-7.0 * dt)), -TURN_RATE * dt, TURN_RATE * dt)
-		rotation.y += turned
-		_turn_rate = lerpf(_turn_rate, turned / maxf(dt, 0.0001), 1.0 - exp(-7.0 * dt))
-		# 大角度先转身再加速：和自动航线的 `alignment` 同一口径。
-		var alignment := pow(maxf(0.0, cos(error)), 2.0)
-		_vel = move_toward(_vel, cruise_speed() * alignment, ACCEL * dt)
+		# 目标角速度带惯性：误差大就满舵，误差小自动收油，不在目标角上左右摆。
+		# 上限随船速走：停船能转向但慢，滑起来才有舵效。
+		var limit := TURN_RATE * (TURN_AT_REST + (1.0 - TURN_AT_REST) * speed_ratio)
+		var target_rate := clampf(error * 5.0, -limit, limit)
+		_yaw_rate = move_toward(_yaw_rate, target_rate, TURN_ACCEL * dt)
+		rotation.y += _yaw_rate * dt
+		_turn_rate = _yaw_rate
+		# 大角度先转身再加速。但保留 30% 的最低推进：划桨船本来就不是原地掉头，
+		# 完全按 alignment 归零会让「朝着反方向按一下」的船一直不动，像是坏了。
+		var alignment := maxf(0.30, pow(maxf(0.0, cos(error)), 2.0))
+		_vel = move_toward(_vel, cruising * alignment, ACCEL * dt)
 	else:
-		_vel = move_toward(_vel, 0.0, BRAKE * dt)
+		# 松手不是急刹：角速度先自己归零，船头摆过去的那半拍还在走。
+		_yaw_rate = move_toward(_yaw_rate, 0.0, TURN_ACCEL * dt)
+		rotation.y += _yaw_rate * dt
+		_turn_rate = _yaw_rate
+		var tail := BRAKE * (BRAKE_TAIL + (1.0 - BRAKE_TAIL) * speed_ratio)
+		_vel = move_toward(_vel, 0.0, tail * dt)
+	# 航迹方向滞后于船头（侧滑），受 DRIFT_MAX 夹住。
+	var forward := _forward(rotation.y)
+	if _travel_dir.length_squared() < 0.000001:
+		_travel_dir = forward
+	_travel_dir = _travel_dir.lerp(forward, 1.0 - exp(-dt / DRIFT_TAU))
+	if _travel_dir.length_squared() < 0.000001:
+		_travel_dir = forward
+	_travel_dir = _travel_dir.normalized()
+	var lag := _travel_dir.angle_to(forward)
+	if absf(lag) > DRIFT_MAX:
+		_travel_dir = forward.rotated(-signf(lag) * DRIFT_MAX)
 	var here := Vector2(position.x, position.z)
 	var step := _vel * dt
 	if step > 0.00001:
-		var moved := here + _forward(rotation.y) * step
+		var moved := here + _travel_dir * step
 		if not _clear(here, moved):
 			_vel = 0.0
 			_speed_actual = 0.0
 			_turn_rate = 0.0
+			_yaw_rate = 0.0
 			manual_drive = false
 			drive_dir = Vector2.ZERO
 			_sailing = false
@@ -281,6 +330,8 @@ func _drive(delta: float) -> void:
 	if want.length() <= 0.001 and _vel <= 0.02:
 		_vel = 0.0
 		_speed_actual = 0.0
+		_turn_rate = 0.0
+		_yaw_rate = 0.0
 		manual_drive = false
 		_sailing = false
 		_yaw_to = rotation.y

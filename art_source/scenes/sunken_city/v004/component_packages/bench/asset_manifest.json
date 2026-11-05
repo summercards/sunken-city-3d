@@ -1,0 +1,132 @@
+{
+  "key": "bench",
+  "slug": "bench",
+  "name": "旧街头长凳_断靠背",
+  "component_family": "bench",
+  "category": "facilities",
+  "component_id": "SEA-SCENE-SCITY-BENCH",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    3.5,
+    1.1,
+    1.3
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 7,
+  "version": "v004",
+  "collection": "SEA-SCENE-SCITY-BENCH_旧街头长凳_断靠背",
+  "root_object": "SEA-SCENE-SCITY-BENCH_ROOT",
+  "objects": [
+    "旧街头长凳_断靠背_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-BENCH_ROOT"
+  ],
+  "bounds_size_m": [
+    3.4000000953674316,
+    0.8849999904632568,
+    1.590000033378601
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 1692,
+  "polygons": 882,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/bench/bench.blend",
+  "geometry_fingerprint": "4bb613db1a2955fb4018de26b50fd9aef7d9ada9328c178b4b2cdbccd45e1b32",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/bench/bench.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-BENCH",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "b9b7a0fd9d0ff57584bb9a4d62dc5deaf10d307d4d939c2b4fae32c50711f332",
+  "bounds_min": [
+    -1.7000000476837158,
+    -0.4424999952316284,
+    0.0
+  ],
+  "bounds_max": [
+    1.7000000476837158,
+    0.4424999952316284,
+    1.590000033378601
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\bench.json",
+    "exit_code": 0
+  },
+  "source_stage": "source_verified_runtime_pending",
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-BENCH",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/bench_optimized.blend",
+    "optimized_sha256": "439a46d8e67e5fb0db8d57c7b6f59eb3e0f13dba88e2a4876e0f720110b2f5a4",
+    "triangles_before": 1692,
+    "triangles_after": 1692,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -1.7000000476837158,
+        -0.4424999952316284,
+        0.0
+      ],
+      [
+        1.7000000476837158,
+        0.4424999952316284,
+        1.590000033378601
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/bench/bench.glb",
+    "runtime_sha256": "a16cc4d801794a75411304ff624846e5b30dc1860b8a2a42145971cf9e90be5a",
+    "prefab": "godot/scenes/components/scenery/sunken_city/bench.tscn",
+    "prefab_sha256": "f46d21fe126434040dacb3323e165e10ebea3797cc179cbdf72260a3fa4453e7",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

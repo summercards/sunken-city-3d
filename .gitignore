@@ -20,6 +20,9 @@
 # Blender 自动备份（每次保存都会生成 .blend1，重复内容）
 *.blend1
 
+# 改动前的整包快照（内容均为已入库文件，可用 git show 随时取回；单份可达 20MB+）
+*_preserved_before_*.zip
+
 # tower_district 美术管线：源文件在 art_source/，下面是渲染中间产物与迭代归档
 /outputs/tower_district/cinematic_v009/
 /outputs/tower_district/previews/

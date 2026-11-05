@@ -7,7 +7,7 @@
 [node name="停工楼架_缺层" type="Node3D"]
 metadata/asset_id = "SEA-SCENE-SCITY-FRAME-CONSTRUCTION"
 metadata/key = "frame_construction"
-metadata/asset_version = "v003"
+metadata/asset_version = "v004"
 metadata/building_class = "underwater"
 metadata/source_suite = "sunken_city"
 metadata/water_layer = "submerged"
@@ -20,5 +20,4 @@ metadata/shoreline_source = false
 [node name="Visual" parent="." instance=ExtResource("model")]
 [node name="Mesh_frame_construction" parent="Visual/Root_frame_construction" index="0"]
 surface_material_override/0 = ExtResource("matte")
-surface_material_override/1 = ExtResource("metal")
 cast_shadow = 1

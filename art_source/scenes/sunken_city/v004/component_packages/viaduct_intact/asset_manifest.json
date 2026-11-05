@@ -1,0 +1,132 @@
+{
+  "key": "viaduct_intact",
+  "slug": "viaduct_intact",
+  "name": "高架轨道_完整跨段",
+  "category": "ground",
+  "component_family": "viaduct",
+  "component_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    20,
+    9,
+    11.1
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 5,
+  "collection": "SEA-SCENE-SCITY-VIADUCT-INTACT_高架轨道_完整跨段",
+  "root_object": "SEA-SCENE-SCITY-VIADUCT-INTACT_ROOT",
+  "objects": [
+    "高架轨道_完整跨段_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-VIADUCT-INTACT_ROOT"
+  ],
+  "bounds_size_m": [
+    20.036405563354492,
+    9.0,
+    16.418245506286624
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 3872,
+  "polygons": 1928,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v004/component_packages/viaduct_intact/viaduct_intact.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v004",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "1ac96c6e2eae09ef67d125376c95d91d4eab20655a7b4a4ec370511a66d7c956",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/viaduct_intact/viaduct_intact.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+  "source": "art_source/scenes/sunken_city/v004/sunken_city_v004.blend",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+  "source_sha256": "87595383c41207626be3986ff1dbfb22f4b0de41369c97cd943f4863f405ee57",
+  "bounds_min": [
+    -10.018202781677246,
+    -4.5,
+    -1.9073486612342094e-07
+  ],
+  "bounds_max": [
+    10.018202781677246,
+    4.5,
+    16.418245315551758
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T160357_91b14318",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v004\\skill_reports\\20261105T160357_91b14318\\viaduct_intact.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-VIADUCT-INTACT",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v004/export/v004/viaduct_intact_optimized.blend",
+    "optimized_sha256": "0e6d072ecd2506383df44fd61b9232c694dfd6c1fe53f581296d76c25fc2c676",
+    "triangles_before": 3872,
+    "triangles_after": 3872,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0
+    },
+    "bounds_blender": [
+      [
+        -10.018202781677246,
+        -4.5,
+        -1.9073486612342094e-07
+      ],
+      [
+        10.018202781677246,
+        4.5,
+        16.418245315551758
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/viaduct_intact/viaduct_intact.glb",
+    "runtime_sha256": "1ab93602ac88cdab05fe49f84af99e4a1724fd786b98aaa63125a6981d3b386d",
+    "prefab": "godot/scenes/components/scenery/sunken_city/viaduct_intact.tscn",
+    "prefab_sha256": "2cbf6c64ca9cb00b145526f6b9330a4d8f006da230c0c2314fd3d0589ab2bec7",
+    "export_manifest": "art_source/scenes/sunken_city/v004/export/v004/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-003648-sunken-city-v004-road-acceptance-4513d3/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json"
+  }
+}

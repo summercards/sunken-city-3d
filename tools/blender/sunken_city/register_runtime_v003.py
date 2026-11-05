@@ -1,8 +1,12 @@
-"""登记已验收的 v003 运行资产；默认只读，--apply 才授权写入登记元数据。
+"""登记已验收的 v003/v004 运行资产；默认只读，--apply 才授权写入登记元数据。
+
+SEA_SUNKEN_VERSION 仅允许 v003（默认）或 v004；须先由 register.py 完成同版源登记。
 
 不运行 Blender、Godot、测试或其他脚本，不修改 Blend、导出清单及运行资源。
 --verification 必须为绝对 report.json 路径，可重复传入；所有报告均须成功，
-合计覆盖 sunken-city 与 visual-sunken-city，且至少一份有成功的 asset_import。
+合计覆盖 sunken-city 与 visual-sunken-city；v004 另须 water-layer、minimum-loop，
+且至少一份有成功的 asset_import。v004 仅接受原 SunkenCity 根 transform 的 Y 抬升，
+逐字节保留其余内容，归档仅只读校验本套件明确列出的旧登记摘要。
 原子性限于单文件：全部预暂存、输入 SHA256 并发检查、逐文件替换、异常回滚；
 不宣称跨文件断电事务。默认 dry-run 不创建报告或临时文件。
 """
@@ -18,11 +22,16 @@ import re
 import struct
 import sys
 import tempfile
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[3]
-SOURCE_DIR = ROOT / 'art_source/scenes/sunken_city/v003'
-MASTER = SOURCE_DIR / 'sunken_city_v003.blend'
-EXPORT = SOURCE_DIR / 'export/v003/export_manifest.json'
+VERSION = os.environ.get('SEA_SUNKEN_VERSION', 'v003')
+if VERSION not in {'v003', 'v004'}:
+    raise ValueError('SEA_SUNKEN_VERSION 只支持 v003 或 v004')
+SOURCE_DIR = ROOT / 'art_source/scenes/sunken_city' / VERSION
+MASTER = SOURCE_DIR / f'sunken_city_{VERSION}.blend'
+EXPORT = SOURCE_DIR / 'export' / VERSION / 'export_manifest.json'
+WORK = ROOT.parent / 'sea-work/sunken_city' / VERSION / 'import'
 RUNTIME = ROOT / 'godot/assets/models/scenery/sunken_city/runtime_manifest.json'
 ASSEMBLY = ROOT / 'godot/scenes/world/sunken_city.tscn'
 MAIN = ROOT / 'godot/scenes/main.tscn'
@@ -214,7 +223,80 @@ def validate_prefab(inputs, path, glb, document, entry):
             entry['key'] + ' 材质绑定覆盖不完整')
 
 
+def validate_v004_patch(inputs, work, build):
+    require(build.get('components') == 50 and build.get('instances') == 388
+            and build.get('assembly') == relative(ASSEMBLY)
+            and build.get('runtime_manifest') == relative(RUNTIME), 'v004 runtime_build 数量或运行路径错误')
+    require(build.get('main_scope') == 'only SunkenCity root translation; all other text preserved',
+            'v004 主场景授权范围错误')
+    patch = build.get('v004_approved_patch')
+    require(isinstance(patch, dict), 'v004 缺少批准的根平移记录')
+    backup = work / 'main_before_v004.tscn'
+    assembly_backup = work / 'assembly_before_v004.tscn'
+    for field, expected in (('main_before', backup), ('assembly_before', assembly_backup)):
+        supplied = Path(patch.get(field, ''))
+        require(supplied.is_absolute() and supplied.resolve() == expected.resolve(),
+                'v004 备份必须为本轮 import 文件：' + field)
+    archive = project_path(patch.get('archive'))
+    require(archive == (ROOT / 'art_source/scenes/sunken_city/v003/export/v003/runtime_preserved_before_v004.zip').resolve(),
+            'v004 必须使用指定的 v003 运行归档')
+    inputs.hashed(archive)
+    inputs.match(backup, build.get('main_sha256_before'), 'v004 主场景接入前备份')
+    inputs.match(backup, patch.get('main_before_sha256'), 'v004 批准的主场景备份')
+    inputs.match(MAIN, build.get('main_sha256_after'), 'v004 当前主场景输出')
+    inputs.match(MAIN, patch.get('main_after_sha256'), 'v004 批准的主场景输出')
+    before, after = inputs.read(backup), inputs.read(MAIN)
+    lift = patch.get('root_lift_m')
+    require(type(lift) in (int, float) and math.isfinite(lift) and lift > 0,
+            'v004 root_lift_m 必须为有限正数')
+    nodes = [match for match in re.finditer(rb'^\[node [^\r\n]*\]\r?$', before, re.M)
+             if re.search(rb'\bname="SunkenCity"', match.group())]
+    require(len(nodes) == 1, 'v004 原场景必须恰好一个 SunkenCity 节点')
+    node = nodes[0]
+    require(re.search(rb'\bparent="World"', node.group())
+            and re.search(rb'\binstance=ExtResource\("38_sunken_city"\)', node.group()),
+            'v004 原节点必须为 World/SunkenCity 总装实例')
+    resource = rb'^\[ext_resource type="PackedScene" path="res://scenes/world/sunken_city.tscn" id="38_sunken_city"\]\r?$'
+    require(len(re.findall(resource, before, re.M)) == 1, 'v004 总装资源引用不唯一')
+    following = re.search(rb'^\[', before[node.end():], re.M)
+    end = node.end() + following.start() if following else len(before)
+    transforms = list(re.finditer(rb'^transform = Transform3D\(([^\r\n()]*)\)\r?$',
+                                  before[node.end():end], re.M))
+    require(len(transforms) == 1, 'v004 原 SunkenCity block 必须恰好一行 transform')
+    transform = transforms[0]
+    values = list(re.finditer(rb'[^,]+', transform.group(1)))
+    require(len(values) == 12, 'v004 根 transform 必须有 12 个分量')
+    numbers = [float(value.group()) for value in values]
+    require(all(math.isfinite(value) for value in numbers) and numbers[10] == 0,
+            'v004 原 SunkenCity 根 Y 必须为 0')
+    y = values[10]
+    token = re.fullmatch(rb'(\s*)([-+0-9.eE]+)(\s*)', y.group())
+    require(token is not None, 'v004 原根 Y 格式错误')
+    start = node.end() + transform.start(1) + y.start() + token.start(2)
+    stop = node.end() + transform.start(1) + y.start() + token.end(2)
+    require(after[:start] == before[:start] and after.endswith(before[stop:]),
+            'v004 主场景含根 Y 以外的字节修改')
+    changed_y = after[start:len(after) - len(before[stop:])]
+    require(re.fullmatch(rb'[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?', changed_y)
+            and float(changed_y) == lift, 'v004 根 Y 与批准的抬升量不一致')
+    with zipfile.ZipFile(archive, 'r') as preserved:
+        require(len(preserved.namelist()) == len(set(preserved.namelist())), 'v004 归档含重复路径')
+        require(preserved.read(relative(MAIN)) == before, 'v004 主场景备份与归档不一致')
+        require(preserved.read(relative(ASSEMBLY)) == inputs.read(assembly_backup),
+                'v004 总装备份与归档不一致')
+    return backup, archive
+
+
 def validate_reports(inputs, paths, master_hash, runtime_files):
+    checks = {
+        'sunken-city': ('godot/tests/test_sunken_city.gd', r'\[sunken-city\] [1-9]\d* checks, 0 failures'),
+        'visual-sunken-city': ('godot/tools/capture_sunken_city.gd', r'\[sunken-city-render\] [1-9]\d* checks, 0 failures'),
+    }
+    if VERSION == 'v004':
+        checks.update({
+            'water-layer': ('godot/tests/test_water_layer.gd', r'\[water-layer\] [1-9]\d* checks, 0 failures'),
+            'minimum-loop': ('godot/tests/test_minimum_loop.gd', r'\[minimum-loop\].*0 failures'),
+        })
     covered, evidence, imports = set(), [], 0
     for supplied in paths:
         require(supplied.is_absolute() and supplied.name == 'report.json',
@@ -236,16 +318,16 @@ def validate_reports(inputs, paths, master_hash, runtime_files):
             require(log.is_absolute() and log.resolve().parent == run_dir.resolve(), name + ' 日志路径越界')
             text = inputs.text(log)
             require(not re.search(r'SCRIPT ERROR|SHADER ERROR|ERROR:|\bFAIL\b', text), name + ' 原日志存在错误')
-            if name not in ('sunken-city', 'visual-sunken-city'):
+            if name not in checks:
                 continue
-            marker = r'\[sunken-city\] [1-9]\d* checks, 0 failures' if name == 'sunken-city' else r'\[sunken-city-render\] [1-9]\d* checks, 0 failures'
+            test_path, marker = checks[name]
             require(re.search(marker, text), name + ' 原日志没有成功结束标记')
             if name.startswith('visual-'):
                 require(result.get('renderer') == 'real' and '--headless' not in result.get('command', []),
                         'visual-sunken-city 必须使用真实渲染器')
             # 隔离 runner 复制的场景与测试必须仍对应本轮文件，不用旧通过记录冒充新输出。
             isolated = run_dir / 'project'
-            for current in runtime_files:
+            for current in dict.fromkeys([*runtime_files, ROOT / test_path]):
                 counterpart = isolated / current.relative_to(ROOT / 'godot')
                 inputs.match(counterpart, inputs.hashed(current), name + '/' + relative(current))
             if name == 'sunken-city':
@@ -264,7 +346,7 @@ def validate_reports(inputs, paths, master_hash, runtime_files):
             require(not re.search(r'SCRIPT ERROR|SHADER ERROR|ERROR:', inputs.text(log)), '原 import_assets 日志存在错误')
             imports += 1
         evidence.append(path.as_posix())
-    require(covered == {'sunken-city', 'visual-sunken-city'}, '报告合计必须覆盖两个检查且 passed:true、exit_code:0')
+    require(covered == set(checks), '报告合计必须覆盖 ' + '、'.join(checks) + ' 且 passed:true、exit_code:0')
     require(imports > 0, '至少一份 runner 报告必须包含成功的 --import-assets 记录')
     return evidence
 
@@ -317,7 +399,7 @@ def register(args):
     runtime = inputs.json(RUNTIME)
     passed(export, 'export_manifest')
     require(export.get('suite') == runtime.get('suite') == 'sunken_city'
-            and export.get('version') == runtime.get('version') == 'v003', '清单版本或套件错误')
+            and export.get('version') == runtime.get('version') == VERSION, '清单版本或套件错误')
     require(runtime.get('pure_visual') is True and project_path(runtime['assembly']) == ASSEMBLY.resolve(),
             '运行清单不是纯观赏稳定总装')
     require(len(runtime.get('instances', [])) == 388, '运行实例数不是 388')
@@ -373,8 +455,8 @@ def register(args):
     current_ids = ids | {ASSEMBLY_ID}
     require(len(suite) == 53 and set(suite) == current_ids | RETIRED, '账本必须为 51 个当前源及两个保留旧源')
     for aid in current_ids:
-        require(suite[aid].get('suite') == 'sunken_city' and suite[aid].get('version') == 'v003',
-                aid + ' 必须先完成 v003 源登记；本脚本不升级或重写源')
+        require(suite[aid].get('suite') == 'sunken_city' and suite[aid].get('version') == VERSION,
+                aid + ' 必须先由 register.py 完成 ' + VERSION + ' 源登记；本脚本不升级或重写源')
         pure_visual(suite[aid], aid)
         require(suite[aid].get('commercial_rights_status') == 'pending'
                 and suite[aid].get('reference_rights_verified') is False, aid + ' 商业授权必须仍为 pending')
@@ -398,7 +480,7 @@ def register(args):
         expected_source = SOURCE_DIR / 'component_packages' / key / (key + '.blend')
         require(source == expected_source.resolve() and project_path(row['source']) == source,
                 aid + ' 当前源路径与账本不一致')
-        require(optimized != source and optimized.is_relative_to((SOURCE_DIR / 'export/v003').resolve())
+        require(optimized != source and optimized.is_relative_to(EXPORT.parent.resolve())
                 and optimized.suffix == '.blend' and 'optimized' in optimized.stem, aid + ' 优化源必须独立另存')
         require(glb == (ROOT / f'godot/assets/models/scenery/sunken_city/{key}/{key}.glb').resolve()
                 and project_path(rec['glb']) == glb, key + ' 不是稳定 GLB 路径')
@@ -431,6 +513,8 @@ def register(args):
         for path in (glb, importer, prefab):
             inventory_files[path.resolve()] = aid
         tested_files.append(prefab)
+        if VERSION == 'v004':
+            tested_files.extend((glb, importer))
         manifest_path = project_path(row['manifest'])
         require(manifest_path == (source.parent / 'asset_manifest.json').resolve(), aid + ' 源 manifest 路径错误')
         manifest = inputs.json(manifest_path)
@@ -469,12 +553,16 @@ def register(args):
 
     build = inputs.json(work / 'runtime_build.json')
     passed(build, 'runtime_build')
-    backup = work / 'main_before_sunken_city.tscn'
-    inputs.match(backup, build['main_sha256_before'], '主场景接入前备份')
+    archive = None
+    if VERSION == 'v004':
+        backup, archive = validate_v004_patch(inputs, work, build)
+    else:
+        backup = work / 'main_before_sunken_city.tscn'
+        inputs.match(backup, build['main_sha256_before'], '主场景接入前备份')
     main = inputs.text(MAIN)
     resource = '[ext_resource type="PackedScene" path="res://scenes/world/sunken_city.tscn" id="38_sunken_city"]\n'
     restore_path = work / 'depth_restore_verification.json'
-    if restore_path.is_file():
+    if VERSION == 'v003' and restore_path.is_file():
         restore = inputs.json(restore_path)
         passed(restore, '用户确认的根深度恢复')
         require(restore.get('user_confirmed') == '恢复原水下深度（推荐）', '根高度恢复缺用户确认')
@@ -495,7 +583,7 @@ def register(args):
             return '\n'.join(line for line in text.splitlines() if line.strip())
         require(editor_semantics(rest) == editor_semantics(inputs.text(backup)),
                 '编辑器保存除UID/资源ID/空白外改变了未授权主场景语义')
-    else:
+    elif VERSION == 'v003':
         inputs.match(MAIN, build['main_sha256_after'], '主场景本轮输出')
         node = '[node name="SunkenCity" parent="World" instance=ExtResource("38_sunken_city")]\n\n'
         require(main.count(resource) == main.count(node) == 1, '主场景接入必须恰好一个资源和 World/SunkenCity 节点')
@@ -545,7 +633,7 @@ def register(args):
     for old, new in zip(book[route['asset_key']], updated_book[route['asset_key']]):
         require(old['asset_id'] == new['asset_id'], '账本行顺序发生变化')
         if old['asset_id'] not in current_ids:
-            require(old == new, '修改了非当前 v003 行')
+            require(old == new, '修改了非当前 ' + VERSION + ' 行')
     outputs[ledger_path] = updated_book
     source_index_path = ROOT / 'assets/registry/current_source_index.json'
     source_index = inputs.json(source_index_path)
@@ -573,14 +661,39 @@ def register(args):
         baseline = inputs.read(backup)
         allowed_main_hashes = {inputs.hashed(MAIN), hashlib.sha256(baseline).hexdigest(),
                                hashlib.sha256(baseline.replace(b'\r\n', b'\n')).hexdigest(), build['main_sha256_after']}
+        if VERSION == 'v004':
+            allowed_main_hashes.add(hashlib.sha256(inputs.read(MAIN).replace(b'\r\n', b'\n')).hexdigest())
         require(existing_main['sha256'] in allowed_main_hashes,
                 '主场景已有未登记的第三方漂移；拒绝顺带刷新')
+    archived_hashes = {}
+    if VERSION == 'v004':
+        # 仅清单逐项确定的套件目标可用归档旧摘要，不信任路径前缀或归档中的其他资源。
+        archived_targets = {path for path, aid in inventory_files.items()
+                            if aid in current_ids and path != MAIN.resolve()
+                            and relative(path) not in TEST_PATHS}
+        with zipfile.ZipFile(archive, 'r') as preserved:
+            for path in archived_targets:
+                name = relative(path)
+                digest = hashlib.sha256()
+                with preserved.open(name, 'r') as stream:
+                    for block in iter(lambda: stream.read(1024 * 1024), b''):
+                        digest.update(block)
+                archived_hashes[name] = digest.hexdigest()
     added = refreshed = 0
     for path, aid in sorted(inventory_files.items(), key=lambda item: relative(item[0])):
         name = relative(path)
         previous = inventory_by_path.get(name)
         item = copy.deepcopy(previous) if previous is not None else {'path': name, 'asset_id': aid, 'status': STAGE}
-        item.update(sha256=inputs.hashed(path), bytes=path.stat().st_size)
+        current_hash = inputs.hashed(path)
+        if VERSION == 'v004' and previous is not None and path != MAIN.resolve() and name not in TEST_PATHS:
+            # The two explicitly owned verifiers are code revisions, not archived visual assets.
+            # Their current bytes have already been required to equal final isolated-run snapshots.
+            allowed_hashes = {current_hash}
+            if name in archived_hashes:
+                allowed_hashes.add(archived_hashes[name])
+            require(previous.get('sha256') in allowed_hashes,
+                    '已有运行登记摘要既非当前文件也非本套件归档：' + name)
+        item.update(sha256=current_hash, bytes=path.stat().st_size)
         if previous is None:
             updated_inventory['resources'].append(item)
             added += 1
@@ -604,7 +717,7 @@ def register(args):
     require(report_path not in outputs and report_path not in inputs.hashes, '报告路径与输入冲突')
     if report_path.exists():
         inputs.read(report_path)
-    summary = dict(passed=True, suite='sunken_city', version='v003', applied=bool(args.apply),
+    summary = dict(passed=True, suite='sunken_city', version=VERSION, applied=bool(args.apply),
                    current_records=51, retained_v002_records=2, components=50, instances=388,
                    updated_ledger_rows=sum(a != b for a, b in zip(book[route['asset_key']], updated_book[route['asset_key']])),
                    updated_manifests=sum(path.resolve() in changes for path in manifests),
@@ -630,8 +743,8 @@ def register(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--verification', action='append', required=True, type=Path,
-                        help='原始 runner 的绝对 report.json 路径；支持重复传入合并两个检查')
-    parser.add_argument('--report-dir', type=Path, default=ROOT.parent / 'sea-work/sunken_city/v003/import',
+                        help='原始 runner 的绝对 report.json 路径；支持合并；v004 须覆盖 sunken-city、visual-sunken-city、water-layer、minimum-loop')
+    parser.add_argument('--report-dir', type=Path, default=WORK,
                         help='工程外 import 证据目录 W；读取 fidelity/runtime_build，在 --apply 后写 runtime_registration.json')
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--apply', action='store_true', help='明确授权：通过门禁后写入登记及报告')

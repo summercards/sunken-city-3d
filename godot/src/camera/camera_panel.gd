@@ -27,8 +27,7 @@ const FAR_RATIO := 0.72
 
 var cam: OrbitCam = null
 ## 场景里的原始距离（「默认机位」回到这里）。
-## 2026-11-05 起开局距离就是缩放上限 38 m（SEA-CAMERA-R11）。
-var _default_distance := 38.0
+var _default_distance := 54.25
 
 var _panel: PanelContainer
 var _slider: HSlider
@@ -168,7 +167,7 @@ func _build() -> void:
 
 	body.add_child(_separator())
 
-	_readout = _label("38 m", 22, Color(0.99, 0.92, 0.72, 1.0))
+	_readout = _label("54 m", 22, Color(0.99, 0.92, 0.72, 1.0))
 	_readout.name = "Readout"
 	_readout.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	body.add_child(_readout)
@@ -177,7 +176,7 @@ func _build() -> void:
 	_slider.name = "Distance"
 	_slider.min_value = 9.0
 	# 初值只是占位：_sync() 每次都会用 cam.zoom_min / cam.zoom_max 覆盖。
-	_slider.max_value = 38.0
+	_slider.max_value = 77.8
 	_slider.step = 0.5
 	_slider.custom_minimum_size = Vector2(PANEL_W - 24.0, 18)
 	_slider.add_theme_stylebox_override("slider", _track_style())

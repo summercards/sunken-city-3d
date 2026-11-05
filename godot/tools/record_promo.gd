@@ -120,8 +120,6 @@ func run() -> void:
 	root.add_child(main)
 	main._autosave_on = false
 	cam = main.cam
-	# 宣传片取景：玩家上限是 38 m（SEA-CAMERA-R11），这里临时放开，保留拉远镜头。
-	cam.zoom_max = 260.0
 	var gs = root.get_node("GameState")
 	var eco = root.get_node("Economy")
 	setup_fade()

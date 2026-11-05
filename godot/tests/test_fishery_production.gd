@@ -38,8 +38,6 @@ func shot(label: String) -> void:
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
-	# 证据取景用到 45 m 机位；玩家上限是 38 m（SEA-CAMERA-R11），不抬高会被静默夹回。
-	main.cam.zoom_max = 160.0
 	main._autosave_on = false
 	main.title_camera.begin(main.cam); main.title_camera.finish(main.cam); main._enter_game()
 	main.set_process(false); main.set_physics_process(false)

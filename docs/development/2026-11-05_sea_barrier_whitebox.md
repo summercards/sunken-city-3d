@@ -162,6 +162,68 @@
 如果确实要在编辑器里逐段微调围栏，正确姿势是改 `plan.py` 的 `KIND_CYCLE` / 摆位算法后重新生成，
 或者接受手改并从此不再跑 `package.py`；两者混用会被护栏拦住并告知原因。
 
+## 从 main.tscn 摘除（2026-11-05 晚，用户要求）
+
+用户："帮我从那个场景里面把这套围栏给删除掉吧。" 确认后按**只摘挂载、不删资产**执行。
+
+### 改了哪两行
+
+`godot/scenes/main.tscn` 里只删我当初插入的两行，`git diff --numstat` 是 **0 增 3 删**（2 行内容 + 1 个空行），
+其余逐字节未动：
+
+- 第 28 行 `[ext_resource type="PackedScene" path="res://scenes/world/sea_barrier.tscn" id="36_barrier"]`
+- 第 121 行 `[node name="sea_barrier" parent="World/SeaStructures" unique_id=917300001 instance=ExtResource("36_barrier")]`
+
+### 保留了什么
+
+| 保留 | 位置 |
+|---|---|
+| Blender 源 + 46 个独立包（80 MB） | `art_source/scenes/sea_barrier/v001/` |
+| 46 个 GLB（29 MB） | `godot/assets/models/barrier/` |
+| 46 个组件包装 + 总装 | `godot/scenes/components/barrier/`、`godot/scenes/world/sea_barrier.tscn` |
+| 材质、2 个脚本、测试、抓图工具 | `godot/assets/materials/barrier/`、`godot/src/world/sea_barrier*.gd` 等 |
+| 46 行资产登记 + 98 行运行哈希 | `assets/registry/ledgers/scenes.json`、`runtime_resource_inventory.json` |
+
+登记行的 `maintenance_status` 保持 `source_verified_runtime_pending` —— 它描述的正是「源已验证、运行未接入」，
+和现在的状态一致，不用改。
+
+**重新挂回的姿势**：把那两行原样插回去即可；`sea-barrier` 与 `visual-sea-barrier` 会自己从降级状态恢复成全量断言与抓图，不需要改代码。
+
+### 连带收尾三件
+
+1. **`SEALED_OFF` 清空。** 围挡封海时把霓虹花园登记成预期不可达；圈没了，这块例外立刻失效，
+   `test_surface_movement.gd` 的 `SEALED_OFF` 恢复为 `[]`，所有航路重新一律要求有解。将来重挂必须重新登记，否则立刻报红（这是有意的）。
+
+2. **发现一条假前提的断言。** 「不可达目标不退回穿岸直线」原来拿 `1000,1000` 当不可达目标。摘除后它变红，
+   探针一量：
+
+   | 点 | `is_open_water` | `segment_clear` | `plan_route_to` |
+   |---|---|---|---|
+   | `(1000, 1000)` | **true** | false | **3 点**（绕开家园建筑即可达） |
+   | `(0, 0)` | **false** | — | 0 点 |
+
+   也就是说远海本来就可达，它此前能通过**只是因为围挡把海面封住了**。改成真正的不可达目标 `(0,0)`（岸上，目标本身不在开阔水面），
+   语义回到原意：目标不在水里时不许画一条穿岸直线糊弄玩家。顺带补了前提断言 `not is_open_water(0,0)`，
+   将来岸线一变就会先在这里报出来。
+
+3. **两个工具改成「未挂载则降级」。** `test_sea_barrier.gd` 打 `not mounted, wrappers checked only` 后仍验包装与总装独立加载（7012 项 0 失败）；
+   `capture_sea_barrier.gd` 直接跳过 —— 没挂载时拍到的是空海面，存下来只会误导读图。两者在重挂后自动恢复全量行为。
+
+### 验证
+
+| 专项 | 结果 |
+|---|---|
+| `sea-barrier` | **PASS**（7012 项 0 失败，走包装加载分支） |
+| `visual-sea-barrier` | **PASS**（跳过抓图） |
+| `minimum-loop` | **PASS** |
+| `water-layer` | **PASS** |
+| `surface` | 2 项存量失败（上岸高度与地面一致、种植物件是独立场景 `home_plot`） |
+
+`surface` 另有 4 项（木桥连接可达、走回后执行上船、再次点击泊位回船、船未靠泊不能远程上岸）在 21:19–21:21 之间新出现，
+**不是摘除引起的**：同一份测试代码在 21:18（围挡仍挂载）只报 3 项；而那几分钟里 `godot/src/navigation/boat.gd`（21:19:28）、
+`godot/src/player/character.gd`（21:21:23）、`character_motor.gd`（21:19:26）正被另一个会话修改，`git status` 可见 `M`。
+这里如实记录，不把别人的进行中改动算到自己头上，也没有顺手刷新它们的哈希。
+
 ## 尚未做（如实 pending）
 
 - 性能实测：1943 个网格对象进场景后的帧耗

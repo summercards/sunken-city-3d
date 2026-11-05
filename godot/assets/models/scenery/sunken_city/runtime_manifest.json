@@ -1,25 +1,25 @@
 {
   "schema": "sea.sunken_city.runtime_manifest",
   "suite": "sunken_city",
-  "version": "v003",
-  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "version": "v004",
+  "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
   "components": [
     {
       "key": "coffee_steps",
       "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
       "prefab": "res://scenes/components/scenery/sunken_city/coffee_steps.tscn",
       "glb": "res://assets/models/scenery/sunken_city/coffee_steps/coffee_steps.glb",
-      "triangles": 131044,
+      "triangles": 44092,
       "bounds_blender": [
         [
-          -9.875896453857422,
+          -9.649999618530273,
           -8.797499656677246,
           0.0
         ],
         [
-          9.875896453857422,
+          9.649999618530273,
           8.797499656677246,
-          26.006675720214844
+          10.706676483154297
         ]
       ],
       "roles": [
@@ -27,14 +27,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "08ad76064d9e797a6b4ea41a7c35264f604912f91fd35b61f90dd4640e44bac9",
-      "glb_sha256": "1610852155854312fe539915c36b37e1f013dc0f3bf5b46296a76f3584d19e94",
-      "source_sha256": "3f242f7e2a82e87c6190ae8fde28396fcdf0087a4ae072a74724272d70fb3b46",
+      "prefab_sha256": "9b0fa25ee1cf626ba36039d9c5f090a5c079c9b23d7d14b07468cb7ac4b63de5",
+      "glb_sha256": "03380ea30e538939f79b5cb4728bea8402fe0e8bb6f571fb484e704972df6813",
+      "source_sha256": "9cfde0856d08f111401590883f4e968a500e8e73d96e3a2c60301b81131a611b",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "9cfde0856d08f111401590883f4e968a500e8e73d96e3a2c60301b81131a611b"
       }
     },
     {
@@ -42,17 +48,17 @@
       "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
       "prefab": "res://scenes/components/scenery/sunken_city/electronics_shop.tscn",
       "glb": "res://assets/models/scenery/sunken_city/electronics_shop/electronics_shop.glb",
-      "triangles": 70442,
+      "triangles": 48418,
       "bounds_blender": [
         [
-          -7.539462089538574,
+          -7.313565254211426,
           -7.797499656677246,
           0.0
         ],
         [
-          7.539462089538574,
+          7.313565254211426,
           7.797499656677246,
-          18.85918426513672
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -60,14 +66,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "69bf53ec02004e6daca9ec22e63d2abd96066c973205f93b6129f3b64841e104",
-      "glb_sha256": "2e129856decaf63b9bcbaf3ea62b3f4b15135afd97e43fb190ff63f2c2bfae2d",
-      "source_sha256": "ed9c9358481e1173011722fac379adc56bcea0689cc6c5d2568ffd9ebee9ec96",
+      "prefab_sha256": "9cf3e1b76be56070736132e18f6534500055ea899c8f421ee8baf33b2b5d3f32",
+      "glb_sha256": "e396806c30284cb1fa3002102ff76d1800f4f4232e876f9056d5a1de2b92e7ba",
+      "source_sha256": "dbb631b1ada3eca9c2775927704e509ef4e6a2235ffc77ed2de2ffb23310f36a",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "dbb631b1ada3eca9c2775927704e509ef4e6a2235ffc77ed2de2ffb23310f36a"
       }
     },
     {
@@ -75,7 +87,7 @@
       "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
       "prefab": "res://scenes/components/scenery/sunken_city/terrace_residence.tscn",
       "glb": "res://assets/models/scenery/sunken_city/terrace_residence/terrace_residence.glb",
-      "triangles": 191410,
+      "triangles": 70038,
       "bounds_blender": [
         [
           -9.875896453857422,
@@ -85,7 +97,7 @@
         [
           9.875896453857422,
           8.600000381469727,
-          34.159183502197266
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -93,14 +105,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "b434b71248c5b8c4ddf5560ad62670d661dcef481be404205904003851165fc8",
-      "glb_sha256": "4a5ae911a0f67a392411c4f31b9a8185f97118247758e0b34832c94e5004ecc1",
-      "source_sha256": "8003d7bdf1aaeb32c779884f3317211d60182025503bce08c202de87f86873fc",
+      "prefab_sha256": "4e93fc60f7d2e51cdcf4c9848c8af10d7c95dbc9742634b6e20b9fa491ecd065",
+      "glb_sha256": "821057def3543103486e46566c10a5edb96fc388147bc6c979aa1e98a9b19bbb",
+      "source_sha256": "f3b9b1b279ac73ba8d049ae9b824513d442544d4a5c4cbe175b2cc6818addb62",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "f3b9b1b279ac73ba8d049ae9b824513d442544d4a5c4cbe175b2cc6818addb62"
       }
     },
     {
@@ -108,17 +126,17 @@
       "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
       "prefab": "res://scenes/components/scenery/sunken_city/tram_tenement.tscn",
       "glb": "res://assets/models/scenery/sunken_city/tram_tenement/tram_tenement.glb",
-      "triangles": 216566,
+      "triangles": 52354,
       "bounds_blender": [
         [
-          -9.039461135864258,
+          -8.813565254211426,
           -7.600000381469727,
           0.0
         ],
         [
-          9.039461135864258,
+          8.813565254211426,
           7.600000381469727,
-          44.35918426513672
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -126,14 +144,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "9dfb7ca12b26ffd42888fed3eddd4e0681ec230207afd35656c3bd29ba818aa6",
-      "glb_sha256": "a835f5973a13d65bc7d9ffc716e8d17090610f71cd7c8e093823a28b1a6fe34c",
-      "source_sha256": "8840e45155e533e8afafdc638aaba9e4c61e0a654ece9af55427e393df12482f",
+      "prefab_sha256": "82655464957b7859c409efee7c4ce20e5dcd12dbc5938d34d2e3bce1dbf8691d",
+      "glb_sha256": "a23da4f41da04b325d3f863624fda03036238b1da4210490c1f62a973c7ec32b",
+      "source_sha256": "f05140c4b4bb88971eb1647ade295f1418069e516fc5882aa5012edf524fb3b4",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "f05140c4b4bb88971eb1647ade295f1418069e516fc5882aa5012edf524fb3b4"
       }
     },
     {
@@ -141,17 +165,17 @@
       "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
       "prefab": "res://scenes/components/scenery/sunken_city/balcony_tenement.tscn",
       "glb": "res://assets/models/scenery/sunken_city/balcony_tenement/balcony_tenement.glb",
-      "triangles": 160090,
+      "triangles": 42942,
       "bounds_blender": [
         [
-          -8.039461135864258,
+          -7.813565254211426,
           -7.600000381469727,
           0.0
         ],
         [
-          8.039461135864258,
+          7.813565254211426,
           7.600000381469727,
-          39.25918197631836
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -159,14 +183,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "f9bef4555c43eb7f0c506fe4e0f0804caaeae3d7039ecdc2af4b76b2e52d1ee2",
-      "glb_sha256": "79dca3e3e5682a4d5d846b92688fb9524783a390b195126cd91652593a143edc",
-      "source_sha256": "67fc4e8a7de9592aed3e2ea11edc901961f51b1873ab91a051793e1e2289c693",
+      "prefab_sha256": "e5611fc4e8b48cfdf9e88b17b0ca2292b585303f744c72239069589fa30c784d",
+      "glb_sha256": "807263c225ca7b3532d3a9e6bd1eb7a59d20682aa976171e1d946376714fb52a",
+      "source_sha256": "8052ae1c0ba3e075b1a91d1dac32e39b67d774c19b6cbc646c70cf2d5e6d7485",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "8052ae1c0ba3e075b1a91d1dac32e39b67d774c19b6cbc646c70cf2d5e6d7485"
       }
     },
     {
@@ -174,17 +204,17 @@
       "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
       "prefab": "res://scenes/components/scenery/sunken_city/cutaway_tenement.tscn",
       "glb": "res://assets/models/scenery/sunken_city/cutaway_tenement/cutaway_tenement.glb",
-      "triangles": 77964,
+      "triangles": 26244,
       "bounds_blender": [
         [
           -8.313565254211426,
-          -7.039000034332275,
+          -6.760157585144043,
           0.0
         ],
         [
           8.313565254211426,
-          7.039000034332275,
-          33.83418273925781
+          6.760157585144043,
+          13.434183120727539
         ]
       ],
       "roles": [
@@ -192,14 +222,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "cdd9ae31365b60ff7204c5271120b551b78e22d17d4d82109095b93a75d0ecc4",
-      "glb_sha256": "16ecd186554a423e8f523f8df72c52702d9f31fb6d11087904a7b714b9c83bb1",
-      "source_sha256": "244916017840067da175492e2538a1a923158882b0ab693f6b53f89caa38cf44",
+      "prefab_sha256": "aa40500736f8ba2b162b6b06150d053c8b29d5e3170a9dc2696ce9f5fac1bc43",
+      "glb_sha256": "a3efc436885598202a33128c07c25a3874d39519e3482d26471472aab7abb492",
+      "source_sha256": "70f1192f56980f800a657c85c4639b8c6f0f7c9a24aa91778ddbbbd24fbe34c1",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "70f1192f56980f800a657c85c4639b8c6f0f7c9a24aa91778ddbbbd24fbe34c1"
       }
     },
     {
@@ -207,17 +243,17 @@
       "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
       "prefab": "res://scenes/components/scenery/sunken_city/slender_tower.tscn",
       "glb": "res://assets/models/scenery/sunken_city/slender_tower/slender_tower.glb",
-      "triangles": 220826,
+      "triangles": 41578,
       "bounds_blender": [
         [
           -7.039462089538574,
-          -7.039000034332275,
+          -6.760157585144043,
           0.0
         ],
         [
           7.039462089538574,
-          7.039000034332275,
-          59.659183502197266
+          6.760157585144043,
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -225,14 +261,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "60e98eee222e86da02d1db88b42806a809cf82d128043416b0e93c87ebe980e4",
-      "glb_sha256": "4e39cc0671e8d66c07d45cf0c26b87e94d462ee2cceee74f84736eb7b1729a44",
-      "source_sha256": "f364ba2e518fb5b9238d9f7d8a9113b9a295399b8f620a0b0304761049522cbd",
+      "prefab_sha256": "90e49564b177f8bb461e2d6d04a32008aea2eff9ba661f5a42b429ade43ec9d0",
+      "glb_sha256": "6d2358d92b6e33871eb9a10536795825c9878b06591f66a1f5f660e8211e7533",
+      "source_sha256": "b1fa249667f6efe6562603da9125fcb0b1236e7b8207838802691bfc159ccb0b",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "b1fa249667f6efe6562603da9125fcb0b1236e7b8207838802691bfc159ccb0b"
       }
     },
     {
@@ -240,17 +282,17 @@
       "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
       "prefab": "res://scenes/components/scenery/sunken_city/terraced_tower.tscn",
       "glb": "res://assets/models/scenery/sunken_city/terraced_tower/terraced_tower.glb",
-      "triangles": 286592,
+      "triangles": 55454,
       "bounds_blender": [
         [
-          -9.039461135864258,
+          -8.813565254211426,
           -8.038999557495117,
           0.0
         ],
         [
-          9.039461135864258,
+          8.813565254211426,
           8.038999557495117,
-          54.55918502807617
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -258,14 +300,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "5f06f5a93c973a13e98214b0900bcde9c882c10e49d22b6b51436933098809da",
-      "glb_sha256": "aec15b62c6aa630166add26d5c1cf885a73cb9febe2119195922666a5775fdb5",
-      "source_sha256": "04d4f15af37360e3de2db6b9bee6790d2fbd6278d3f6dd21cc7d279cee5e1a27",
+      "prefab_sha256": "822490f82e3b72a1efe9956ca3e9798bbc75c8cd8e70b719006c5413b9bc4959",
+      "glb_sha256": "aa2bbc8f2fb0033a2eee284dca5066ced5ac509a11a31ba92e088546df0aeaf1",
+      "source_sha256": "12c6e662bd1da8a7c150d10bb789be80c7f3eb51ed0a037361eddea780892b23",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "12c6e662bd1da8a7c150d10bb789be80c7f3eb51ed0a037361eddea780892b23"
       }
     },
     {
@@ -273,32 +321,37 @@
       "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
       "prefab": "res://scenes/components/scenery/sunken_city/half_tower.tscn",
       "glb": "res://assets/models/scenery/sunken_city/half_tower/half_tower.glb",
-      "triangles": 126410,
+      "triangles": 23570,
       "bounds_blender": [
         [
           -7.813565254211426,
-          -7.539000034332275,
+          -7.260157585144043,
           0.0
         ],
         [
           7.813565254211426,
-          7.539000034332275,
-          44.35918426513672
+          7.260157585144043,
+          13.759183883666992
         ]
       ],
       "roles": [
         "SEA_Gloss",
-        "SEA_Matte",
-        "SEA_Metal"
+        "SEA_Matte"
       ],
-      "prefab_sha256": "ea7f879e2c8a1a48cd515fda8797bbabdca8fc38e0530b9cd66c40e3259df7c1",
-      "glb_sha256": "b73d60c7dc766094a5c56cc0ae01c0e3f6936d773a9fae1da3568be3868455e9",
-      "source_sha256": "2dd0b74693f4063c624c9a85ee51799ddbcdfe62f015b46865481750896905e4",
+      "prefab_sha256": "e96d9ff8cb4f3f78f91fcb89ec744950026350802a0b0f46ac3b497bdd579d78",
+      "glb_sha256": "df087384745e530183073dbf4d6d9ae99ea7999e9b10c759282fd396c55dfdbf",
+      "source_sha256": "78d3803a63f839a43a6a23b9c1ad77ba190fa43806b85560e0130948a003db07",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "78d3803a63f839a43a6a23b9c1ad77ba190fa43806b85560e0130948a003db07"
       }
     },
     {
@@ -306,7 +359,7 @@
       "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
       "prefab": "res://scenes/components/scenery/sunken_city/canal_housing.tscn",
       "glb": "res://assets/models/scenery/sunken_city/canal_housing/canal_housing.glb",
-      "triangles": 214408,
+      "triangles": 65848,
       "bounds_blender": [
         [
           -9.875896453857422,
@@ -316,7 +369,7 @@
         [
           9.875896453857422,
           8.093500137329102,
-          39.25918197631836
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -324,14 +377,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "3ed657f7d6bea595fb54d72fc4bd4a8c9a38790e9763d9902ba38fd77b67e488",
-      "glb_sha256": "728a68c387e3ae4559014376ca682f451f96c2f5dcbaee0f314b0a8c02b89463",
-      "source_sha256": "62154ec86a0a7400817f1c04ab2a7f5dec5944d94dd212be813aaed60016eb77",
+      "prefab_sha256": "8f9c80103c8083e67c29f65a31c5bf059d6faeeda9214afeadafeff57f80d858",
+      "glb_sha256": "b204e33137edb7794cbd950a0da9542568fa1af4a482cc578dee1f37ba08083c",
+      "source_sha256": "0308f30b2d81d80e0e97d963f33d34257285f50f23c345e3dd3328410aeddb43",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "0308f30b2d81d80e0e97d963f33d34257285f50f23c345e3dd3328410aeddb43"
       }
     },
     {
@@ -339,32 +398,37 @@
       "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
       "prefab": "res://scenes/components/scenery/sunken_city/canal_shell.tscn",
       "glb": "res://assets/models/scenery/sunken_city/canal_shell/canal_shell.glb",
-      "triangles": 78096,
+      "triangles": 30624,
       "bounds_blender": [
         [
           -8.313565254211426,
-          -8.038999557495117,
+          -7.760157585144043,
           0.0
         ],
         [
           8.313565254211426,
-          8.038999557495117,
-          29.05918312072754
+          7.760157585144043,
+          13.759183883666992
         ]
       ],
       "roles": [
         "SEA_Gloss",
-        "SEA_Matte",
-        "SEA_Metal"
+        "SEA_Matte"
       ],
-      "prefab_sha256": "2c811d0317adb19be4ff5e4673e965eb58b59107083d520cf6ae206713550b41",
-      "glb_sha256": "bc2633eb94eb1d8b4507fdd811ca2bba57a738328a8fa77cd9c90a2c67d6376b",
-      "source_sha256": "21c73afbfeaf73e5eeba8591a7a05cae5eb126ed3f037df531847c561c478228",
+      "prefab_sha256": "a884d7a23d22e997f582e38b806478d7e229c7a7e51174003d385e8a21fafbfe",
+      "glb_sha256": "a14a195c3a5d808c47c8b48bb5f0ca99815beabfde492843b28a3381a92826e2",
+      "source_sha256": "cc2545cd9244bfd0740ca616113255c8eeae26ac75f3523d459c2cdfeed3c0fa",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "cc2545cd9244bfd0740ca616113255c8eeae26ac75f3523d459c2cdfeed3c0fa"
       }
     },
     {
@@ -372,17 +436,17 @@
       "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
       "prefab": "res://scenes/components/scenery/sunken_city/rounded_corner.tscn",
       "glb": "res://assets/models/scenery/sunken_city/rounded_corner/rounded_corner.glb",
-      "triangles": 182140,
+      "triangles": 65477,
       "bounds_blender": [
         [
-          -9.039461135864258,
+          -8.813565254211426,
           -8.797499656677246,
           0.0
         ],
         [
-          9.039461135864258,
+          8.813565254211426,
           8.797499656677246,
-          34.159183502197266
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -390,14 +454,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "81d2b204272d69f4ed5359db0fc93366c4d8b4c25b0e31483ca4a9d7a3893a6b",
-      "glb_sha256": "64fcd677ea69102344205cd3ec00a78f0bcbced06b5a36e8edd25f6e8816618a",
-      "source_sha256": "3fcaf403f495dd8cdf2804367bc3a432a4508d6a27cd740d2fbcf6b13bbf2127",
+      "prefab_sha256": "c61c4d7b123277661052ebade608c8f2fb884c65fceae96547b8141d03fbe977",
+      "glb_sha256": "6d9b9e1eddf0b9318a38cac417e6a8468f16e68ebeb8e2e07d8380ad2ff5009b",
+      "source_sha256": "f2e842d3fdfeb5c39baf9e506e5b889823cf5f94ea4392e873f142d31e7bce7a",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "f2e842d3fdfeb5c39baf9e506e5b889823cf5f94ea4392e873f142d31e7bce7a"
       }
     },
     {
@@ -405,17 +475,17 @@
       "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
       "prefab": "res://scenes/components/scenery/sunken_city/cinema_ruin.tscn",
       "glb": "res://assets/models/scenery/sunken_city/cinema_ruin/cinema_ruin.glb",
-      "triangles": 78548,
+      "triangles": 50680,
       "bounds_blender": [
         [
-          -10.039461135864258,
-          -8.038999557495117,
+          -9.813565254211426,
+          -7.883500099182129,
           0.0
         ],
         [
-          10.039461135864258,
-          8.038999557495117,
-          18.85918426513672
+          9.813565254211426,
+          7.883500099182129,
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -423,14 +493,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "be8b50ff1d509a81857ff9603c9f94c870a9fbd5f3f9b1c89149e1b85cc006e2",
-      "glb_sha256": "f88f0ae32d69e64356528c428f324abb3da10b5d4d74032fd6de333519c8af3b",
-      "source_sha256": "0e5f97ace6f3d9bf136cf5392f8796ebbf24f8df9cbbcc0aa76d2ebb36fa795e",
+      "prefab_sha256": "685d7da96e1aca473f49d765fd81eb8f10ad8a2ec31e282437ace17027e1d620",
+      "glb_sha256": "4fdc0ea1d5912a2dc592222b7871ac703c7c5f022aa672c65f755dfbf2e38ead",
+      "source_sha256": "023ffaf06cbc537f4e89036f7417088e894f3d568a11efc8ba7c265d53f8321b",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "023ffaf06cbc537f4e89036f7417088e894f3d568a11efc8ba7c265d53f8321b"
       }
     },
     {
@@ -438,17 +514,17 @@
       "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
       "prefab": "res://scenes/components/scenery/sunken_city/station_hall.tscn",
       "glb": "res://assets/models/scenery/sunken_city/station_hall/station_hall.glb",
-      "triangles": 124158,
+      "triangles": 65414,
       "bounds_blender": [
         [
-          -10.875896453857422,
+          -10.649999618530273,
           -8.538999557495117,
           0.0
         ],
         [
-          10.875896453857422,
+          10.649999618530273,
           8.538999557495117,
-          23.959182739257812
+          13.759183883666992
         ]
       ],
       "roles": [
@@ -456,14 +532,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "a7d820932ddd4cf9fc37dec3b2301bd62c636b03504aee5e6fb00fa59d7b4990",
-      "glb_sha256": "adfe25d25255ceede66b018ba279f083bae5f75645c1dfca996fe226bfbb2871",
-      "source_sha256": "6fdc21e6866a08913df75d25aed93557326e11fc27de6f0e477220faa61374ca",
+      "prefab_sha256": "663af3b964932d373e22f4ff2960023910ce2601903514cd814b710fbf320f16",
+      "glb_sha256": "b862420bc9bba7c6dd0b42b3e07e3eb32187dd59e592046986deaa24aecaef91",
+      "source_sha256": "5067482873681d33627c996b18df4e90897fc04bdcb0f009f403d2a233d8fb28",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "5067482873681d33627c996b18df4e90897fc04bdcb0f009f403d2a233d8fb28"
       }
     },
     {
@@ -489,14 +571,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "ae085b726f43af8eba4d8bba420d16258f15a0c7e76375f4ea35eafe78c5815a",
+      "prefab_sha256": "1340391ef27b93e191198ef66e0724f9fceb84769f86b95fce17667200cf0a8a",
       "glb_sha256": "33d6de50cb39116c3d0edbbd5e5e954f022dc2923225777bb4e82a5f9608c4e7",
-      "source_sha256": "456eba333c3a355dfec5e3009b7cba67ddab395ec8e28ca4c270b0cafa03fc08",
+      "source_sha256": "cb8811d2b756dbbb561b3fbd7c110f647094cbaadfa871c6747fccdbc5fefa8c",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "cb8811d2b756dbbb561b3fbd7c110f647094cbaadfa871c6747fccdbc5fefa8c"
       }
     },
     {
@@ -504,31 +592,36 @@
       "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
       "prefab": "res://scenes/components/scenery/sunken_city/frame_construction.tscn",
       "glb": "res://assets/models/scenery/sunken_city/frame_construction/frame_construction.glb",
-      "triangles": 15076,
+      "triangles": 5760,
       "bounds_blender": [
         [
-          -9.039461135864258,
+          -8.813565254211426,
           -7.760157585144043,
           0.0
         ],
         [
-          9.039461135864258,
+          8.813565254211426,
           7.760157585144043,
-          31.869182586669922
+          11.469183921813965
         ]
       ],
       "roles": [
-        "SEA_Matte",
-        "SEA_Metal"
+        "SEA_Matte"
       ],
-      "prefab_sha256": "e020391fd384419411127991c8dadd2a4817d2f86058fda8913d164c0ff42e57",
-      "glb_sha256": "24dd8edfce62680b8662df16fd0a8020781ea600516ad621313ba8c2030373a8",
-      "source_sha256": "fe0f8e55bc999f0c0a4f41dd3385a364b7b7689993f2d3497f54015a7b29777e",
+      "prefab_sha256": "d812e9c997514676efa32e1d683a64b7953864e6af473cd2883ae05ca6ff1bc6",
+      "glb_sha256": "3d9b02ed7d4a830a02c380283c739550cfddf9512923f36193fab9225e62cf70",
+      "source_sha256": "e3afba75dda84febbfbc2d6848edbc39bf6b32acacfd1de4ef8546b8bc44171f",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "e3afba75dda84febbfbc2d6848edbc39bf6b32acacfd1de4ef8546b8bc44171f"
       }
     },
     {
@@ -536,17 +629,17 @@
       "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
       "prefab": "res://scenes/components/scenery/sunken_city/roof_garden_shell.tscn",
       "glb": "res://assets/models/scenery/sunken_city/roof_garden_shell/roof_garden_shell.glb",
-      "triangles": 110984,
+      "triangles": 35476,
       "bounds_blender": [
         [
-          -9.375896453857422,
-          -8.038999557495117,
+          -9.149999618530273,
+          -7.883500099182129,
           0.0
         ],
         [
-          9.375896453857422,
-          8.038999557495117,
-          26.006675720214844
+          9.149999618530273,
+          7.883500099182129,
+          10.706676483154297
         ]
       ],
       "roles": [
@@ -554,14 +647,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "baba53fafffbd572d7cfb30ab86bfb56a5455631c9b88b3114f1bd2d911589c1",
-      "glb_sha256": "c9413de1da839b6490c5d49b78868a4df0e54380ad8d8cc1395ca8376b42a757",
-      "source_sha256": "90ac964350342c7ae3c67e1ce1e5ced51999306c191695f08811c7059ff154b3",
+      "prefab_sha256": "c02b775f870f028d23cb8bb9ec2d1554ea2a56f8e7dd94d3143d5592a01d1080",
+      "glb_sha256": "47ef5dd533d8a381d20a49df144fad7dc101c174191e736b299f16c20a023f4b",
+      "source_sha256": "89061d94474704fd562d52edead62aea633a31f3c918e4b5ae969426b7114327",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "89061d94474704fd562d52edead62aea633a31f3c918e4b5ae969426b7114327"
       }
     },
     {
@@ -586,14 +685,20 @@
         "SEA_Gloss",
         "SEA_Matte"
       ],
-      "prefab_sha256": "18a89beb278eebea10ccdd48190373a68708c0cb42da5ced8c1c6fcc47415f55",
+      "prefab_sha256": "255e4b859bda36f67e2ec6211e1e0407f95e2bcfc006e42de7083efec68fdd7a",
       "glb_sha256": "2011cab0d14390b98badfa6fd264e1bc4106674efd0adb651acae00038393e1b",
-      "source_sha256": "33abc9def5a5a9fd5a460766443ea933aa886da743994cf1c0d352cc5bcf6fa1",
+      "source_sha256": "dcb77ef0d49febfd5581a1a2d0fda5a231c451560e7c20e50fed150562aabcce",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "dcb77ef0d49febfd5581a1a2d0fda5a231c451560e7c20e50fed150562aabcce"
       }
     },
     {
@@ -617,14 +722,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "4ede73a59383fbaa3896f03d932827165637c2aeb0c1de97ba72398e806b1fed",
+      "prefab_sha256": "de4e6f8c863a6ed5f4208f62bb99431f76fb78a4754a294490070e16dd537f57",
       "glb_sha256": "3e7409d5adff7f9d87cc098664cb3d865266a13cc9fe62853e75a3e9a7fdd073",
-      "source_sha256": "411ad8f3821639affeda5a2e77aa7c005c1de321e5a018f39b89bcc6cf5d1390",
+      "source_sha256": "ec33abe57b85b92fa46aa73cbc18064eecbad38c7cecfa92ecb7e0b46cef62a2",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "ec33abe57b85b92fa46aa73cbc18064eecbad38c7cecfa92ecb7e0b46cef62a2"
       }
     },
     {
@@ -648,14 +759,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "cb0b5404808e2214196d2a4b538cc46f11330a44188943e4cdc577963a14ba17",
+      "prefab_sha256": "0937d11f23d5c7581011507450bb13a1e8c84a9b47fc9385be3be8fd9a81862e",
       "glb_sha256": "8076199ff4b12d9d61ebb7ae60f1023e461bfe482b845d92ca5c1dd5788f33b6",
-      "source_sha256": "7b6d8a6d696ae441cb7030766d951f05e8d3f4cf7b48a0fcf0b2436e41751070",
+      "source_sha256": "7a7b8d82462e2cdd508df24f0a1d8874391e109113d2fa9c1cb32136d057b04a",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "7a7b8d82462e2cdd508df24f0a1d8874391e109113d2fa9c1cb32136d057b04a"
       }
     },
     {
@@ -679,14 +796,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "97ee4f3ef362a777d7f3f20ac9051fb7adbb74bb44483563618370289dd0bc7a",
+      "prefab_sha256": "f82b9a028a1d4db671f5e14db64aa93926a2bdb1a89c85a03556424356fc3caa",
       "glb_sha256": "2a93ed261d52161bb3c0ea54db71b669c30220a4608684c3bd76e3c2df803d96",
-      "source_sha256": "736d8509b880fc84f0add2e46e31be69c574b2db8e5610c8ecf33986bc0e3704",
+      "source_sha256": "5cd8a89d677a272c0c453d071a9dfc4efdcd932c23101fd9753d21056fa52558",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "5cd8a89d677a272c0c453d071a9dfc4efdcd932c23101fd9753d21056fa52558"
       }
     },
     {
@@ -710,14 +833,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "6a4415a8f2b49a9adfe37ee42a60272132c2bdefde0d3ffbfb0c7290a3f166d0",
+      "prefab_sha256": "1ef59d285f530a2cfdae3bb5db8c267235dc0bff74154caf7508c70911f2221d",
       "glb_sha256": "691a127b6da4632c525bea393075e8d8f39de98b10747ea78c7662d682daafde",
-      "source_sha256": "6f52d57c3a6b01c881d2349be54ac9807fb736d2d87e0fcd2a936b540cca95dc",
+      "source_sha256": "fd8911cfa87b25e45b3ceba1e4b9ce8f8282de3ba926ccfd92e1faa9efb779fc",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "fd8911cfa87b25e45b3ceba1e4b9ce8f8282de3ba926ccfd92e1faa9efb779fc"
       }
     },
     {
@@ -741,14 +870,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "2885f2b6d4329bd10be4437f955d12adb188b8b45fb4c068b1c8d4f7c58c3695",
+      "prefab_sha256": "af055070f92e090730bc31e8ab9a71cdd5f97ac3f47a58fd85f4c887e23587c0",
       "glb_sha256": "0193ee23bd43a44e40298dc5d6acee9a6170f79f9ed101937ed035da50c4ee47",
-      "source_sha256": "5a3be29818b1b4d009e574e837c0be799fcaaa56a12521deca9903ec09535249",
+      "source_sha256": "cc3a8952f5d59a5a8cf211e74ad41e87d1f1cc04967a61585007969db69895c7",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "cc3a8952f5d59a5a8cf211e74ad41e87d1f1cc04967a61585007969db69895c7"
       }
     },
     {
@@ -773,14 +908,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "9d73f042274bb1d3706ae8ee8e56cd2b6c289ea3187b3be784e247a6fa27ff5d",
+      "prefab_sha256": "2cbf6c64ca9cb00b145526f6b9330a4d8f006da230c0c2314fd3d0589ab2bec7",
       "glb_sha256": "1ab93602ac88cdab05fe49f84af99e4a1724fd786b98aaa63125a6981d3b386d",
-      "source_sha256": "bf14cc83fc32a35747cfcee9afef10e392ac57d608898688394c23459aba2a32",
+      "source_sha256": "87595383c41207626be3986ff1dbfb22f4b0de41369c97cd943f4863f405ee57",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "87595383c41207626be3986ff1dbfb22f4b0de41369c97cd943f4863f405ee57"
       }
     },
     {
@@ -805,14 +946,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "166566895584d54964e3fffb1fa7904e5100ddd01103a989845a961a5daaa712",
+      "prefab_sha256": "26455b78b0a85756913629c019398167bcd05abcf268ad72443b0a091e643939",
       "glb_sha256": "203b18e793b3de5e1b2c809c734555b200c1cc31339b6a907852dd50e2336da2",
-      "source_sha256": "025c47be15127ebb9c206e0451333b93ebb37207a748d3e6b85ae2979d0df1df",
+      "source_sha256": "f1f3810367e38aada244e898bd52cbae03f0858a012d46ef29088d6b6eec7034",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "f1f3810367e38aada244e898bd52cbae03f0858a012d46ef29088d6b6eec7034"
       }
     },
     {
@@ -837,14 +984,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "a27040390c827e16f6f1abf7ab088e7bc44ba74112823841d92475dfc369e230",
+      "prefab_sha256": "88feb126f959db4d284cf05a5e7bfffdb7a318f740a76be7ba616f384dd30d67",
       "glb_sha256": "f178c25c308bc6f11d757195a673dfe1aa558293f5763d7d8e4d8d569a3c5670",
-      "source_sha256": "3d4596f109ada155c964360f4f0f31cb0e16e47a4d124434fde082de981a065e",
+      "source_sha256": "2fa3833aba2a8863a6685e4e4dff86e77e7e1dd9118f9828ae71a988b75408a9",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "2fa3833aba2a8863a6685e4e4dff86e77e7e1dd9118f9828ae71a988b75408a9"
       }
     },
     {
@@ -870,14 +1023,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "85ddff079543d5fac15b2ba06469df995ed9f2d32e2dd74fa432cd94522c1100",
+      "prefab_sha256": "93e02fad8cec316b4ec0c6ff188c3e2243d2f1e77c51d1178adf3bcbbdd2d6ac",
       "glb_sha256": "e6916ce8a65d06e751d434c9cdcbe76386ca1dff4b805a790d884a0f0748acff",
-      "source_sha256": "91302626a31caa3974e1cda337b648826f3681f08a9950970f55f47fee57f989",
+      "source_sha256": "9086a61a678134ce5c189fbea060dc4f6fc1f19459101985438d53aaecd26d52",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "9086a61a678134ce5c189fbea060dc4f6fc1f19459101985438d53aaecd26d52"
       }
     },
     {
@@ -903,14 +1062,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "0791614f00f83f8fac475f492ecd4606d4c3020d0587a23718979d69a582418a",
+      "prefab_sha256": "f4d56ab16e27cf55d1a26d62f0e9fda89809d41a76b354b9d052882f76865f35",
       "glb_sha256": "110311268e014ae311bcdcf2d17ca4c649f4bd73a19ba5137a7d68e884bb5c17",
-      "source_sha256": "b48edd28628d8fe14a094ff2d73b20b972bea1fdc5f67f93193cf7036ca8718b",
+      "source_sha256": "14e53ce8e6c4f1dc0e04091890b5990cebf8f65d979db4cb5355a41b85fc2d37",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "14e53ce8e6c4f1dc0e04091890b5990cebf8f65d979db4cb5355a41b85fc2d37"
       }
     },
     {
@@ -936,14 +1101,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "45f8a85660ae089f86a035c49937f53e69f57dd2e20a49f3b42fdddb7b4bab84",
+      "prefab_sha256": "5fb5f4e60a5fe8438068922d42aae86322425c2046c13f87c2168d56f3021b73",
       "glb_sha256": "ebf6a447f3c8d6efe3aeb68f4fb03e884cd07b3b844f6b8c45f9850dc6ecc159",
-      "source_sha256": "121cbf48e9950957ff7b172f274ec6c4d11ca213de66aeea1b9ee93083a53f55",
+      "source_sha256": "7726858da538de76ccdc9b34a8bf0535e07f5567f89e3d3dcdff3931129a3590",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "7726858da538de76ccdc9b34a8bf0535e07f5567f89e3d3dcdff3931129a3590"
       }
     },
     {
@@ -968,14 +1139,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "e47892dd1aea46e3a71a6127589c61748ece0e62a2f35ad01e9df9ddf2c67a11",
+      "prefab_sha256": "b94c4c9bd97f998432fcf30e9a27f87ef6d8497b16445192c2d84638ba05342d",
       "glb_sha256": "3b870c7848fc709da0d8ce5c6fd69fbed7366656e0f7d982a4c77b7195a56473",
-      "source_sha256": "9137f982933878e541d20d28c16316f1a3dabaed56706888fa3b7381dc450b30",
+      "source_sha256": "1be57df15ba2efb4c332545657b508bcbf2682183788bda67ed7253bbe0c6dee",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "1be57df15ba2efb4c332545657b508bcbf2682183788bda67ed7253bbe0c6dee"
       }
     },
     {
@@ -1000,14 +1177,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "512f14d5bf7fb08a8f3cf2ba1169c400f1e34450158dc105dab9db97b6d2e5c9",
+      "prefab_sha256": "1b2e03a8f8fc8f60208b092e84e56c5500b610d4f2a58837ed640b7e35e16799",
       "glb_sha256": "91d6232759c4cacff412d3feb7ec043098f9126040bbf77ccf5c9e5ea50272c2",
-      "source_sha256": "60f42b438d448b2a328cade76bbfd02c7070f0f705ddfc87690415c673d3d8b5",
+      "source_sha256": "ee46db9b608db2d267f9403e928b192dd83b2d8768821106d871fd8aabf059d3",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "ee46db9b608db2d267f9403e928b192dd83b2d8768821106d871fd8aabf059d3"
       }
     },
     {
@@ -1032,14 +1215,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "b908d39fa7a1b1f096a9e82b74d6951d888461bd0b1eeacf2b9cc39661e6c82f",
+      "prefab_sha256": "d8193cecafdc5878d47977b4d007ba7b032d543f74b59a5e807fa603da8be974",
       "glb_sha256": "b1a37193df7479060d4f8c11754bdeeb03eaa4e281a948a94f50681f5933e499",
-      "source_sha256": "95a2a437395ceecdb22dae1a218be4b4d77e4751951f401512bb0f73c80f7caa",
+      "source_sha256": "0da173c8974713e0ecea8a872fad22c4fca3e7ab749e1964d9ae2d49b5844e53",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "0da173c8974713e0ecea8a872fad22c4fca3e7ab749e1964d9ae2d49b5844e53"
       }
     },
     {
@@ -1063,14 +1252,20 @@
       "roles": [
         "SEA_Metal"
       ],
-      "prefab_sha256": "eaefa6e312795f143461323337b101457d0faa72e2acf079624ddc7e7084e13e",
+      "prefab_sha256": "85dc6f0f0a82378202af3fe853ccf142e16b40f055405bafa84462424ca946dd",
       "glb_sha256": "6e8d916e75a11c6a65f0e55d31c3b7dc62123e78856e6cf0b370b85fc48433c7",
-      "source_sha256": "9fbb35d95b3b70d7d9133611ddb4bc36b2240f66cec37d55347b330a5efad1a9",
+      "source_sha256": "12e6b5cb04df3a982b5b06b5b0ccbc9f3603bf3ff411cbcf43e888ca8a570a3f",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "12e6b5cb04df3a982b5b06b5b0ccbc9f3603bf3ff411cbcf43e888ca8a570a3f"
       }
     },
     {
@@ -1095,14 +1290,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "0f168cac4b8fbe377e915a9d99a90b453106353d872d450379c659c60fd72982",
+      "prefab_sha256": "3f52feb37cb442b46293799f353e452ce0b89eb664d615abbf22cc155ead07c9",
       "glb_sha256": "cedd282ea4eae09ae8d293c0995b0478c5c59836e3268480acd76908b293f5f2",
-      "source_sha256": "85bf50ca7ddb4c3ed820b962808f5c9b02ef9e6490fff31f3b248fdb3083a2e0",
+      "source_sha256": "6efbfff0dead42d888e55dd59d2650f6b727e58aba8e489f2a9a4ccba0bb7989",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "6efbfff0dead42d888e55dd59d2650f6b727e58aba8e489f2a9a4ccba0bb7989"
       }
     },
     {
@@ -1127,14 +1328,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "8c17cf1a96b5f646a135da06d5106918a17610f99177d3e3bfb456c85ce72406",
+      "prefab_sha256": "7e59de0b8f756d21244aa05ca58a53ae2f4ac83da34687caba1d7f1c35950d61",
       "glb_sha256": "da965cbc2c9dc1cbe782af98bbf4178ef3d41cce876b6884042840813e5de7d9",
-      "source_sha256": "187bee00520e8354a061328d9cacf17a88201363f630e0c078e2318fc60a8be3",
+      "source_sha256": "b572b4cb34efa8f12a35b79dfbaac7226156698c48ab11368c861eed980428d3",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "b572b4cb34efa8f12a35b79dfbaac7226156698c48ab11368c861eed980428d3"
       }
     },
     {
@@ -1159,14 +1366,20 @@
         "SEA_Gloss",
         "SEA_Matte"
       ],
-      "prefab_sha256": "208edca3472dcc09039ec2ac21b1d59f19d0a76956a7e9e6837895b624b1b10c",
+      "prefab_sha256": "bb85054f08f6fc4a7e4ebb9062f97de84e789921e8602815c0d75c249ba0cc04",
       "glb_sha256": "3aa15933743e6da4ebce40f7284ade59bb4666756ed440b1e54e5fda563bb630",
-      "source_sha256": "5e5feedbd215b238c7f0deb26b49188c9a6a3aeef3d68b776f88f8911f57fc99",
+      "source_sha256": "6a2d4e0789297e4f46bd90eddb3d2f33193e2da94334e4508a5e881ea8a4d444",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "6a2d4e0789297e4f46bd90eddb3d2f33193e2da94334e4508a5e881ea8a4d444"
       }
     },
     {
@@ -1192,14 +1405,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "07ac0fe9e5d3d086c5fb56b47ee3f8c289aa6187ff23d30be7c1e54d94d872db",
+      "prefab_sha256": "52d96eb99109cd5b8b305eb032aa4a31854140f23dfc7a29cc39aaf6aa3dc846",
       "glb_sha256": "3181b32aa9f29962056fc4113fb9ef18e9426b729db769e60a72d2e88f157687",
-      "source_sha256": "82dcc58e67b0b696375d3d7e463dc97f834be78da4e58b231c73559b35679a86",
+      "source_sha256": "35aa35dc0a6c55417ab2d57f60ba1f41787cfcacfa94227085ae23a69cb41c9c",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "35aa35dc0a6c55417ab2d57f60ba1f41787cfcacfa94227085ae23a69cb41c9c"
       }
     },
     {
@@ -1224,14 +1443,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "4dab364118ca8bbcaa74d560cd2eb256cbdb3fd32fda9ae7ba52f56e740c3295",
+      "prefab_sha256": "09af77f40e2bc2f91dfb761961613168ff7a37f055db8bae45a7cc44d958825b",
       "glb_sha256": "c793c7a705d8093e6786b772e38090e8d3336be40e49d1d5a55f1347e8fd7c2c",
-      "source_sha256": "7bab9a0b9d9c9d7e3f95b934c0c25d2918dc0d951ec0777a951c9a2419abd00d",
+      "source_sha256": "72024933afa5a63d7c139abaa716719ea25f92594f664119426fe8a43dfadbf3",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "72024933afa5a63d7c139abaa716719ea25f92594f664119426fe8a43dfadbf3"
       }
     },
     {
@@ -1256,14 +1481,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "ce174ad50091d60ca2e1da22af22d941659320dff7f719abfdbe85d297e56959",
+      "prefab_sha256": "ab073a666920f5aa336b4560be1a042da09abc8c3d75a844414b8c48fa69ef7c",
       "glb_sha256": "a729586b29accca7de7f78c30f78701de5ca653160ef8857a98a54cf4a642bb9",
-      "source_sha256": "2a07b838f18aca7bd5d9fd27817d199f97e07f20160ed43d4172657e687ca1ff",
+      "source_sha256": "42dd959ec0eeb207cdd20d0959ae536a1caa80c04031c525c5287e05dbc9c7d6",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "42dd959ec0eeb207cdd20d0959ae536a1caa80c04031c525c5287e05dbc9c7d6"
       }
     },
     {
@@ -1287,14 +1518,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "3d221e80c05738b96e1b4dfac1fd453db9cc8727f86b209c2c91384aec773149",
+      "prefab_sha256": "9b57f0ba8b344b55211d8ea1ea40e652103eeb98ba309447db5b5c52a827e6fd",
       "glb_sha256": "032d49a5bdd073bab3280b1065d8afe6b6fda945dcdb14e40a98fc9d36078d9c",
-      "source_sha256": "f62a62e26709fe65e4ffb80a2ba6d10c6be4b0e053ca9fddfcb728565b32000d",
+      "source_sha256": "c8569439d37714dec3b5b7726e067f042aa060f0f839867365c5ce3735cc6ebd",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "c8569439d37714dec3b5b7726e067f042aa060f0f839867365c5ce3735cc6ebd"
       }
     },
     {
@@ -1318,14 +1555,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "14ad308ae21fabc9a4233de8adfe1bae765bbfc46e0e677e90c57d5037f76ece",
+      "prefab_sha256": "28f66128d4e13407cf3df57089e9f64e63511e57c95437d2c0db31d416ff51c1",
       "glb_sha256": "734c68b258a58575257a4b98ff812b8ab98e65b0d3d0d6253d9b8bdd14a9146c",
-      "source_sha256": "08b18efd59c17e2a1df450b8f9a6756d36f27e4b6d60473dc7a6d083d9277fae",
+      "source_sha256": "33093a63b659b66313a74cceea42c700e4db3200d57287436437218bc248af37",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "vegetation",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "33093a63b659b66313a74cceea42c700e4db3200d57287436437218bc248af37"
       }
     },
     {
@@ -1349,14 +1592,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "e4e9184971ba442ad81c0cf44663a667494bfd5caa36ab7d372e00fa0818a22f",
+      "prefab_sha256": "87366b0960244c8bbf38e60a338880885ee07cd8471e91cef69b3fcfe792a767",
       "glb_sha256": "aea76ea6ea882dbd56a3654e12b6454ebf98d9bcfda6af60ec82d8f83369603a",
-      "source_sha256": "2e3a529b7be3a0c85c0a61b0e3d805d9b902268004a1d59e88dad9c71d771234",
+      "source_sha256": "89fbae9d90f1fbb53796699b394dc354ccba7e56c2b27165e2e10aeeb6316604",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "vegetation",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "89fbae9d90f1fbb53796699b394dc354ccba7e56c2b27165e2e10aeeb6316604"
       }
     },
     {
@@ -1364,7 +1613,7 @@
       "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
       "prefab": "res://scenes/components/scenery/sunken_city/collapsed_residence.tscn",
       "glb": "res://assets/models/scenery/sunken_city/collapsed_residence/collapsed_residence.glb",
-      "triangles": 74140,
+      "triangles": 67253,
       "bounds_blender": [
         [
           -8.488565444946289,
@@ -1374,7 +1623,7 @@
         [
           8.488565444946289,
           12.622871398925781,
-          19.434831619262695
+          14.656450271606445
         ]
       ],
       "roles": [
@@ -1382,14 +1631,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "c6f2891a6ef523a8afd3687ca390731cdfeb73d83841ae832701439b1a7bd698",
-      "glb_sha256": "2eafc74b7169f9aea4aded0bdb199848be08f39d5f14087b9b6c9f2774743734",
-      "source_sha256": "6477973b7d481b24b45b590e5ae4fe0b996276a2c5134afefdd6c825079f2079",
+      "prefab_sha256": "990f0be21b12b65bdef5a9956272cc68f4b86644ff56caf3eb34990165a698fe",
+      "glb_sha256": "5c2dae0dbbc009ea1f81d2ecdf65426ed546c3ad0ca87eb5dbbfee54ca1affc3",
+      "source_sha256": "034529882a55a07eb03c187a259883631dc9ca4bde2c5be23aee9daf0b355c19",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "034529882a55a07eb03c187a259883631dc9ca4bde2c5be23aee9daf0b355c19"
       }
     },
     {
@@ -1397,17 +1652,17 @@
       "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
       "prefab": "res://scenes/components/scenery/sunken_city/fallen_hall.tscn",
       "glb": "res://assets/models/scenery/sunken_city/fallen_hall/fallen_hall.glb",
-      "triangles": 74800,
+      "triangles": 58884,
       "bounds_blender": [
         [
-          -10.339461326599121,
-          -9.244192123413086,
+          -10.113565444946289,
+          -9.191372871398926,
           0.0
         ],
         [
-          10.339461326599121,
-          9.244192123413086,
-          16.81867027282715
+          10.113565444946289,
+          9.191372871398926,
+          14.646574020385742
         ]
       ],
       "roles": [
@@ -1415,14 +1670,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "e8e5465851c61c75e1bb2363aea1ea85f4828f3188d5694aa449e8ff0ed70d21",
-      "glb_sha256": "dc7f0146d2233138fe2e8f5b5284801e41a87af62a3ef3de1e0ed8c4df7cb1c6",
-      "source_sha256": "537bb83ff53df25464196aa82ecebcf5aefefcce213c0510b53220f65222691d",
+      "prefab_sha256": "7a21f7a63a86b45c63bfdabb1ebb0b5ee4505b9638b3f19ee9fc234cd2064794",
+      "glb_sha256": "481daf42c035be9b014e1e486f5adecba8e4796740630df1926071fa554217ea",
+      "source_sha256": "5554d5c86f63dc46ed0b162ba87cf80aaa1ba6e23ec66ce3a44da4a7c071961a",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "architecture",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "5554d5c86f63dc46ed0b162ba87cf80aaa1ba6e23ec66ce3a44da4a7c071961a"
       }
     },
     {
@@ -1447,14 +1708,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "0c3c5679b20a25d35f576e6ccbcdfd45adaa6191598e3279010f93dd67a595d8",
+      "prefab_sha256": "f50a46b89ce381255d999d64a80f83201f4fccb22dc4506205d7f1d406c68cb1",
       "glb_sha256": "903ed6628afc14d4ce5d742bbf96c8e588e55fb5b80d4cfc974aaeeb1e041156",
-      "source_sha256": "958622ff5fb999c544c345a831de6ba29d9e2b544828223abe70a836f5c952e1",
+      "source_sha256": "8f7a4230dec103f4eafb1b2441e112189a33e257394b66b7e6cc0f3c7836e28c",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "8f7a4230dec103f4eafb1b2441e112189a33e257394b66b7e6cc0f3c7836e28c"
       }
     },
     {
@@ -1479,14 +1746,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "565e77fc55e732386e825f7f0ef0ec687dd791eb462d651bfef0f4b17d129aae",
+      "prefab_sha256": "df912c07ad3b4f97b4af49d8293952f9ba18a471ed887fce9507513556d886a3",
       "glb_sha256": "83b5b65446a55a1b73029390a00820b38f64c6c5bdf6628c15b5442178d59cb3",
-      "source_sha256": "ed983ceb4611367840767bace206d33fe0aed474fb59fe8524f2a8100afd0878",
+      "source_sha256": "0d0d858d1fb75657929b4d3000ce2330205d624a7eb67d3b58c80e7a8c0fb374",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "0d0d858d1fb75657929b4d3000ce2330205d624a7eb67d3b58c80e7a8c0fb374"
       }
     },
     {
@@ -1510,14 +1783,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "fb0cf1513966858f6dff2000b2827b64b4d543e06540bc4c9bb8c36a789aec6b",
+      "prefab_sha256": "25335234fc9c3119f55e5b4977cd5bbcf94250606eac8c4d9c478260c250288f",
       "glb_sha256": "0fd7fb98f91cf2fa1134fdf3a7499d8a374facfc7eeb624b552763a77e88e483",
-      "source_sha256": "d34b90124cf832d51e65ae58232e00a82f41effb0afb853b7439aa9b943f1f8d",
+      "source_sha256": "91ef980f63c95c8f7dc9769fe9a341d02b39f8448efec21eebb26defd5fcbc3a",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "91ef980f63c95c8f7dc9769fe9a341d02b39f8448efec21eebb26defd5fcbc3a"
       }
     },
     {
@@ -1542,14 +1821,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "40fa59ac8afa4026ac4733c8823a1dc1c1f91f76768d79b22e85dfc5b3869ef5",
+      "prefab_sha256": "f46d21fe126434040dacb3323e165e10ebea3797cc179cbdf72260a3fa4453e7",
       "glb_sha256": "a16cc4d801794a75411304ff624846e5b30dc1860b8a2a42145971cf9e90be5a",
-      "source_sha256": "097b8479491696b4b364e7309e1278b65c48f589475bc16f8c9af6817e67807a",
+      "source_sha256": "b9b7a0fd9d0ff57584bb9a4d62dc5deaf10d307d4d939c2b4fae32c50711f332",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "facilities",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "b9b7a0fd9d0ff57584bb9a4d62dc5deaf10d307d4d939c2b4fae32c50711f332"
       }
     },
     {
@@ -1573,14 +1858,20 @@
       "roles": [
         "SEA_Matte"
       ],
-      "prefab_sha256": "a171e174c5a1e9c0274a6b0432f4b59ca4dcbfc6745e65b4d36f91d6f899c810",
+      "prefab_sha256": "8886996bb77287f4f10948eb2da9b3eb93960ee22ab2eec555a37a76a76b4faa",
       "glb_sha256": "a7658f57ebefaf719a944c9e537073fc63eb4851f8cd15e6a517537a322cf430",
-      "source_sha256": "d95c9f102802cd7228165d96ca3662852beaf7524ccaef8d187361ee709f5b27",
+      "source_sha256": "4f3d9c1f81cd19653f9b8fa99e7ac1b8c043bdd873c331734a9cbf7ea262e065",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "4f3d9c1f81cd19653f9b8fa99e7ac1b8c043bdd873c331734a9cbf7ea262e065"
       }
     },
     {
@@ -1605,14 +1896,20 @@
         "SEA_Matte",
         "SEA_Metal"
       ],
-      "prefab_sha256": "bd3005b74e6cb4c39c0e4e765853bd8a7f8ce733d333125ce90c54300fad3ec0",
+      "prefab_sha256": "ad342ecf87c6edc1f67cc8eba3b3bd1a6f8484e57cebd7882a8b047d1366f290",
       "glb_sha256": "03190675ffc29067807ce9c42e062533de5213befbf5318b4692f64112c22389",
-      "source_sha256": "00fcfa80af4b8f0026a933deddf674ca78cec3cb3fbe45be78ef6c1b46eea24f",
+      "source_sha256": "39ade31b3bb11aab07465cfce96a90ec89aa04e1ca0b00da78aa57d923d9a1a2",
       "import_settings": {
         "embedded_image_handling": 0,
         "automatic_lods": false,
         "shadow_meshes": false,
         "light_baking": 0
+      },
+      "asset_version": "v004",
+      "category": "ground",
+      "source_report": {
+        "source_master_sha256": "1b14eb1e05b68d06f6b758ad3c208c68968e2e47996cec73142c4e232185f734",
+        "source_sha256": "39ade31b3bb11aab07465cfce96a90ec89aa04e1ca0b00da78aa57d923d9a1a2"
       }
     }
   ],
@@ -2384,7 +2681,7 @@
       "position_m": [
         9.0,
         103.0,
-        -65.53085327148438
+        -65.50654602050781
       ],
       "rotation_euler_deg": [
         5.0,
@@ -2411,7 +2708,7 @@
         -0.08715574274765817,
         -0.9961946980917418,
         9.0,
-        -65.53085327148438,
+        -65.50654602050781,
         -103.0
       ]
     },
@@ -2612,7 +2909,7 @@
       "position_m": [
         107.0,
         34.0,
-        -60.74104309082031
+        -60.717430114746094
       ],
       "rotation_euler_deg": [
         0.0,
@@ -2639,7 +2936,7 @@
         0.0,
         1.745329196116744e-08,
         107.0,
-        -60.74104309082031,
+        -60.717430114746094,
         -34.0
       ]
     },
@@ -3030,7 +3327,7 @@
       "position_m": [
         -98.52959442138672,
         -78.0,
-        -53.08100128173828
+        -53.35984420776367
       ],
       "rotation_euler_deg": [
         90.000003,
@@ -3057,7 +3354,7 @@
         -0.9999999999999987,
         2.741556793348389e-15,
         -98.52959442138672,
-        -53.08100128173828,
+        -53.35984420776367,
         78.0
       ]
     },
@@ -16634,5 +16931,15 @@
     }
   },
   "pure_visual": true,
-  "transform_serialization": "godot_transform is column vectors for test/API; TSCN Variant text row-major basis; conversion covered by every instance matrix assertions"
+  "transform_serialization": "godot_transform is column vectors for test/API; TSCN Variant text row-major basis; conversion covered by every instance matrix assertions",
+  "height_cap_contract": {
+    "source_max_height_m": 59.659183502197266,
+    "height_cap_m": 14.914795875549316,
+    "rule": "global_max_div4_cap",
+    "below_cap_unchanged": true,
+    "method": "remove complete storeys; keep normal facade dimensions; section fractured high remnants only",
+    "source_version": "v003",
+    "scope": "all architecture component heights including rooftop equipment; horizontal wreck orientation retained"
+  },
+  "root_lift_m": 45.0
 }

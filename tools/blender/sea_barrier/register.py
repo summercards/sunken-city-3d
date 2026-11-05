@@ -160,4 +160,4 @@ index_path = ROOT / 'assets/registry/current_source_index.json'
 data = json.loads(index_path.read_text(encoding='utf-8'))
 data['sources'] = sources
 save(index_path, data)
-print('REGISTERED', len(records), 'source rows; runtime resources untouched')
+print('REGISTERED', len(records), 'source rows;', len(runtime_rows), 'runtime rows')

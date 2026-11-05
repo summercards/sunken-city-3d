@@ -18,6 +18,7 @@
     "godot/src/navigation/route_ribbon.gd"
   ],
   "verification": [
+    "control-feel",
     "keyboard-control",
     "rowing-fit",
     "visual-rowing-fit",
@@ -220,3 +221,10 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-NAV-R16 | 已实现；桨轴与桨架前移 0.18 m 到船局部 z=0.73，`RowingSeat` 保持 (0,0.6025,0.32)，桨长/入水/航速/靠泊不变 | `rowing-fit`：手掌-握柄偏差 0.0004 mm、手掌前向 +309.1 mm、肘前向 +80.9 mm（改前为 −72.6 mm）、肘折叠 107.0°（改前 136.5°）、肘轴误差 2.46e-7、桨叶 y −0.0678…+0.330；`visual-rowing-game` 8 机位逐图目视。[本轮交付](../../development/2026-11-05_character_scale_150.md) |
+
+
+## 2026-11-05 手动划行手感
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-NAV-R17 | 已实现；`_yaw_rate` 按 4.6 rad/s² 建立、舵效随船速缩放、航迹按 0.16 s 滞后并夹在 8° 内、低速软收尾；位移仍过 `_clear()`，撞岸停住 | `control-feel`（首帧 0.077 → 0.2 s 0.92 rad/s、侧滑 6.9°、滑行 1.48 m、不回弹）；`ocean`、`boat-water-contact`、`rowing-fit`、`keyboard-control` 复跑通过；[本轮交付](../../development/2026-11-05_control_feel.md)。自动航线的转向与到站契约未改。 |
