@@ -1,6 +1,8 @@
 extends SceneTree
 ## Current Godot character and real FarmPlot/interaction entry, isolated by runner.
 const Save = preload("res://src/save/save_game.gd")
+## Reference-metre thresholds below are multiplied by the body scale (SEA-AVATAR-R27).
+const Dimensions = preload("res://src/avatar/avatar_dimensions.gd")
 var checks := 0
 var failures := 0
 var main
@@ -99,13 +101,13 @@ func run() -> void:
 		pose(0.38); await shot(crop+"-take")
 		pose(1.23)
 		var prop: Node3D = actor._item_receive.prop
-		check(prop.visible and prop.position.y > 1.5,"above hat hold "+crop)
+		check(prop.visible and prop.position.y > 1.5*Dimensions.SCALE,"above hat hold "+crop)
 		for elbow: Node3D in [actor.left_elbow,actor.right_elbow]:
 			var hand: Vector3 = actor.body_pivot.to_local(elbow.to_global(elbow.get_child(1).position))
-			check(hand.y > 1.35 and hand.distance_to(prop.position) < 0.29,"wrists support overhead item "+crop)
+			check(hand.y > 1.35*Dimensions.SCALE and hand.distance_to(prop.position) < 0.29*Dimensions.SCALE,"wrists support overhead item "+crop)
 		await shot(crop+"-overhead")
 		pose(1.96)
-		check(prop.position.distance_to(actor._item_receive.bag.position) < 0.23,"item reaches actual satchel mouth "+crop)
+		check(prop.position.distance_to(actor._item_receive.bag.position) < 0.23*Dimensions.SCALE,"item reaches actual satchel mouth "+crop)
 		check(actor._item_receive.flap.rotation.x < -1.0,"satchel opens during tuck "+crop)
 		await shot(crop+"-tuck")
 		pose(2.25)
@@ -182,7 +184,7 @@ func run() -> void:
 	for fps in [30,60,120]:
 		actor.play_receive_item("tomato")
 		for frame in int(fps*1.2): actor._process(1.0/float(fps))
-		check(actor._item_receive.prop != null and absf(actor._item_receive.prop.position.y-1.60) < 0.001,"same overhead pose at fps "+str(fps))
+		check(actor._item_receive.prop != null and absf(actor._item_receive.prop.position.y-1.60*Dimensions.SCALE) < 0.001*Dimensions.SCALE,"same overhead pose at fps "+str(fps))
 		actor._process(5.0)
 		check(actor.action_playback().is_empty() and actor._item_receive.prop == null,"long frame clears transient "+str(fps))
 	actor.play_receive_item("lettuce"); pose(1.2)

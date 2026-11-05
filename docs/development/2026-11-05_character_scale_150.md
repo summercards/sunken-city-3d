@@ -103,6 +103,25 @@ const SCALE := 1.5
 2. **脚不落地**：坐姿鞋底离船底 0.11 m。放大前就有 0.08 m，本轮不是新增缺陷；如要踩实需加脚踏横杆件。
 3. **肩宽 vs 胶囊**：视觉肩跨 0.486 m 而胶囊直径 0.44 m，贴墙站会露出一点肩膀在墙内。
 
+## 五之二、资产登记与哈希刷新（逐条审阅，不做批量掩盖）
+
+`check_feature_contracts.py` 在改前报 21 项，其中 5 项是本轮角色源码导致的**源哈希漂移**
+（`SEA-CHAR-AVATAR-001` / `RIG-001` / `SHAPE-001` / `RECEIVE-001`）。逐条核对 `git diff` 后刷新：
+
+| 登记项 | 变更 | 处理 |
+|---|---|---|
+| `characters.json` 四条 | 源码确为本轮改动；`previous_source_sha256` 保留旧值，`version` 各进位一档，`verification` 指向本文件，新增 `scale_contract {scale:1.5, source:avatar_dimensions.gd}` | 刷新 |
+| `art_source/characters/avatar/v002/rig_contract.json` | 21 骨 `rest_origin` 原为参考尺度；全部 ×1.5 并新增 `reference_scale` / `scale` / `scale_source`，`collider` 注明胶囊**有意不放大**的原因 | 重算 |
+| `art_source/characters/avatar/v006/shoulder_contract.json` | 米制目标保持参考尺度，新增 `runtime_scale=1.5` 与换算说明（0.145→0.2175 m、0.741→1.1115 m），避免后人以为目标值失效 | 追加字段 |
+| `runtime_resource_inventory.json` | 本轮改动的 10 个运行文件（含 `reference_skiff.tscn`、`orbit_camera.gd`）逐条刷新哈希，保留 `previous_sha256` 并写明原因 | 刷新 |
+| `current_source_index.json` | 4 条角色源哈希 + 按账本顺序重排（原索引在沉船城追加后已失序） | 重建 |
+
+**没有刷新的**（不属于本轮，且不批量更新以免掩盖其他轮的变更）：`SEA-SCENE-ORF-ASSEMBLY` 源哈希、
+`ocean_sky.tres`、`poster_atlas.png.import`、`test_sunken_city.gd`、`walk_action.gd`、`bootstrap/main.gd`
+（后者在工作区里同时叠着键盘控制轮未提交的 `BOAT_KEY_REACH` 改动）。
+
+网关结果：改前 21 项 → 改后 **7 项**，其中 0 项由本轮功能承接的条款、路径、链接或已审阅哈希引起。
+
 ## 六、当前验证
 
 全部经统一 runner，Autoload 前隔离用户数据。
@@ -116,6 +135,10 @@ const SCALE := 1.5
 | `avatar-customization` | PASS，exit0 | 需把 `--timeout` 提到 3000 s（默认 900 s 会超时，不是失败） |
 | `character-motor` / `surface` / `click` / `board-click` / `walk-facing` / `walk-deck-fit` | PASS，exit0 | |
 | `camera` / `room` / `visual-room` / `onboarding` / `progress-bars` | PASS，exit0 | |
+| `reference-skiff` / `visual-reference-skiff` | PASS，exit0 | 桨轴前移后装配合同仍成立 |
+| `harvest-receive` / `visual-harvest-receive` | PASS，exit0 | 举物净空阈值改为 `×SCALE`（1.5/1.35/0.29/0.23/1.60 五处）后全绿 |
+| `avatar` + `avatar-restart`（必须成组） | PASS，exit0 | 单独跑 `avatar-restart` 会因没有前一步写入的存档而 6 项失败，属 runner 分组契约 |
+| `actor-presentation` / `save-protection` / `save-corrupt-seed` | PASS，exit0 | 存档格式未变 |
 | `surface` / `landing-markers` | 各 2/3 项既有失败 | 与 `SCALE=1.0` 对照结果一致，非本轮引入 |
 
 证据目录：`D:/projects/sea-work/verification/`，本轮关键批次

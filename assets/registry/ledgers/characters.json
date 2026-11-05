@@ -10,9 +10,9 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/player/animation/item_receive.gd",
-      "source_sha256": "f39fac5f8bdd40111caaa77dccd441c835c23405bde9020a6d737312abe64d5e",
+      "source_sha256": "6da04912c9b099b193b11785521ae5b6768afaa0397f25fae498c6f92f29ef9d",
       "manifest": "assets/registry/manifests/sea-char-receive-001.json",
-      "version": "v006",
+      "version": "v008",
       "runtime_path": "godot/src/player/animation/item_receive.gd",
       "license": "project_authored_procedural_motion_and_satchel",
       "consumer_features": [
@@ -23,9 +23,13 @@
         "category": "character_animation",
         "subcategory": "receive_item"
       },
-      "verification": "docs/development/2026-11-03_avatar_shape_and_mouth.md",
-      "note": "r6 按用户最新红线：饱满A形躯干/低胯短腿、独立头横宽和臂粗、16嘴型贴图、下移帽子；原档案兼容，当前专项和真实渲染见交付。",
-      "previous_source_sha256": "7ebf4331c860ee7b5dadd041cc57b43be7b4612a9293a5b66a254c8d472ca957"
+      "verification": "docs/development/2026-11-05_character_scale_150.md",
+      "note": "2026-11-05 整体放大 1.5×：举物路径、挎包、背带、肩部抬起与腕部偏移全部乘 SCALE；动作时长、信号与表现唯一写入者不变。",
+      "previous_source_sha256": "f39fac5f8bdd40111caaa77dccd441c835c23405bde9020a6d737312abe64d5e",
+      "scale_contract": {
+        "scale": 1.5,
+        "source": "godot/src/avatar/avatar_dimensions.gd"
+      }
     },
     {
       "asset_id": "SEA-CHAR-AVATAR-001",
@@ -33,18 +37,22 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_visual.gd",
-      "source_sha256": "25facf3925329d7a77acab163a2aac15dbc3d49b68917babf248014ad5f11beb",
+      "source_sha256": "dad86cf61240ba2e5b753d9925dab16189611e2327c5f29a07629b86e398cb60",
       "manifest": "assets/registry/manifests/sea-char-avatar-001.json",
-      "version": "v007",
+      "version": "v008",
       "runtime_path": "godot/src/avatar/avatar_visual.gd",
       "license": "project_authored_original_procedural_geometry_and_UI",
       "consumer_features": [
         "SEA-AVATAR",
         "SEA-ONBOARDING"
       ],
-      "verification": "docs/features/onboarding/ledger.md",
-      "note": "r7 按用户最新红线内收/降低肩口，平顺颈胸、袖口与腋下；标准胖体肩根间距0.28937m、高0.74125m，骨架静止绑定和存档格式保持；本轮实际网格/渲染/动作验证。；2026-11-04新旅程美术/交互",
-      "previous_source_sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604"
+      "verification": "docs/development/2026-11-05_character_scale_150.md",
+      "note": "2026-11-05 整体放大 1.5×：头部/礼帽/躯干球与衣领按 SCALE 缩放，头像与潜水装备同步；站立发顶 1.869m、礼帽 2.050m，选项 ID 与存档格式不变。",
+      "previous_source_sha256": "25facf3925329d7a77acab163a2aac15dbc3d49b68917babf248014ad5f11beb",
+      "scale_contract": {
+        "scale": 1.5,
+        "source": "godot/src/avatar/avatar_dimensions.gd"
+      }
     },
     {
       "asset_id": "SEA-CHAR-RIG-001",
@@ -52,22 +60,26 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_limb_skinning.gd",
-      "source_sha256": "43550b216d752f190658f4b2a4ebd2fb03d947ab4714269a649392b70308f5ca",
+      "source_sha256": "1f41d6a53d375e150355e6a1026d14a82b9712779d30fb1ed670db72cbc6bc58",
       "manifest": "assets/registry/manifests/sea-char-rig-001.json",
-      "version": "v005",
+      "version": "v007",
       "runtime_path": "godot/src/avatar/avatar_limb_skinning.gd",
       "license": "project_authored_procedural_skeleton_mesh_skin_and_shader",
       "consumer_features": [
         "SEA-AVATAR",
         "SEA-MOVE"
       ],
-      "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
-      "note": "r7 按用户最新红线内收/降低肩口，平顺颈胸、袖口与腋下；标准胖体肩根间距0.28937m、高0.74125m，骨架静止绑定和存档格式保持；本轮实际网格/渲染/动作验证。",
-      "previous_source_sha256": "34a8403ac342472baea634007c8215fabe91ee022945743a691283f00973011e",
+      "verification": "docs/development/2026-11-05_character_scale_150.md",
+      "note": "2026-11-05 整体放大 1.5×：蒙皮剖面、关节过渡带与 UV 随 SCALE 缩放，21 骨层级与骨名不变；胶囊 0.22/1.30 有意保持参考尺寸。",
+      "previous_source_sha256": "43550b216d752f190658f4b2a4ebd2fb03d947ab4714269a649392b70308f5ca",
       "rowing_verification": {
         "contract": "docs/development/2026-11-04_rowing_seat_and_grips.md",
         "report": "D:\\projects\\sea-work\\rowing-fit-20261104\\verification.json",
         "scope": "pose sampling only; skeleton bindings, geometry, source hash and license unchanged"
+      },
+      "scale_contract": {
+        "scale": 1.5,
+        "source": "godot/src/avatar/avatar_dimensions.gd"
       }
     },
     {
@@ -112,17 +124,21 @@
       "domain": "characters",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_morphology.gd",
-      "source_sha256": "d6410d69084c48825560178b6ad01158c2411b3804fe885fea59faf91c390c44",
+      "source_sha256": "fde2b17c3c861caedba31c6de451ae4ac65d053f16d38b000269a72d5e583c71",
       "manifest": "assets/registry/manifests/sea-char-shape-001.json",
-      "version": "v004",
+      "version": "v005",
       "runtime_path": "godot/src/avatar/avatar_morphology.gd",
       "license": "project_authored_procedural_mesh_and_texture",
       "consumer_features": [
         "SEA-AVATAR"
       ],
-      "verification": "docs/development/2026-11-03_avatar_low_shoulders.md",
-      "note": "r7 按用户最新红线内收/降低肩口，平顺颈胸、袖口与腋下；标准胖体肩根间距0.28937m、高0.74125m，骨架静止绑定和存档格式保持；本轮实际网格/渲染/动作验证。",
-      "previous_source_sha256": "b7225805936e57d751d70e87e3f0b3ee64433d89dc00adede79e9e1257069491"
+      "verification": "docs/development/2026-11-05_character_scale_150.md",
+      "note": "2026-11-05 整体放大 1.5×：形体因子派生量随 SCALE 缩放，9 项参数取值范围与默认值不变。",
+      "previous_source_sha256": "d6410d69084c48825560178b6ad01158c2411b3804fe885fea59faf91c390c44",
+      "scale_contract": {
+        "scale": 1.5,
+        "source": "godot/src/avatar/avatar_dimensions.gd"
+      }
     },
     {
       "asset_id": "SEA-CHAR-EXPRESSION-001",

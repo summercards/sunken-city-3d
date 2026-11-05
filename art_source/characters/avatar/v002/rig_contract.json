@@ -1,6 +1,6 @@
 {
   "asset_id": "SEA-CHAR-RIG-001",
-  "version": 1,
+  "version": 2,
   "owner": "SEA-AVATAR / SEA-MOVE",
   "units": "metres",
   "up": "+Y",
@@ -25,8 +25,8 @@
       "id": "arm.L.upper",
       "parent": 0,
       "rest_origin": [
-        -0.162000000476837,
-        0.806249976158142,
+        -0.243000001,
+        1.209374964,
         0.0
       ]
     },
@@ -35,7 +35,7 @@
       "parent": 1,
       "rest_origin": [
         0.0,
-        -0.172000005841255,
+        -0.258000009,
         0.0
       ]
     },
@@ -44,8 +44,8 @@
       "parent": 2,
       "rest_origin": [
         0.0,
-        -0.177375003695488,
-        0.00600000005215406
+        -0.266062506,
+        0.009
       ]
     },
     {
@@ -70,8 +70,8 @@
       "id": "arm.R.upper",
       "parent": 0,
       "rest_origin": [
-        0.162000000476837,
-        0.806249976158142,
+        0.243000001,
+        1.209374964,
         0.0
       ]
     },
@@ -80,7 +80,7 @@
       "parent": 6,
       "rest_origin": [
         0.0,
-        -0.172000005841255,
+        -0.258000009,
         0.0
       ]
     },
@@ -89,8 +89,8 @@
       "parent": 7,
       "rest_origin": [
         0.0,
-        -0.177375003695488,
-        0.00600000005215406
+        -0.266062506,
+        0.009
       ]
     },
     {
@@ -115,8 +115,8 @@
       "id": "leg.L.upper",
       "parent": 0,
       "rest_origin": [
-        -0.084925003349781,
-        0.419999986886978,
+        -0.127387505,
+        0.62999998,
         0.0
       ]
     },
@@ -125,7 +125,7 @@
       "parent": 11,
       "rest_origin": [
         0.0,
-        -0.202500000596046,
+        -0.303750001,
         0.0
       ]
     },
@@ -134,8 +134,8 @@
       "parent": 12,
       "rest_origin": [
         0.0,
-        -0.182500004768372,
-        0.025000000372529
+        -0.273750007,
+        0.037500001
       ]
     },
     {
@@ -160,8 +160,8 @@
       "id": "leg.R.upper",
       "parent": 0,
       "rest_origin": [
-        0.084925003349781,
-        0.419999986886978,
+        0.127387505,
+        0.62999998,
         0.0
       ]
     },
@@ -170,7 +170,7 @@
       "parent": 16,
       "rest_origin": [
         0.0,
-        -0.202500000596046,
+        -0.303750001,
         0.0
       ]
     },
@@ -179,8 +179,8 @@
       "parent": 17,
       "rest_origin": [
         0.0,
-        -0.182500004768372,
-        0.025000000372529
+        -0.273750007,
+        0.037500001
       ]
     },
     {
@@ -242,6 +242,9 @@
   "geometry": "One indexed closed connected surface per entire arm including hand and per entire leg including foot; no separate elbow/knee solids.",
   "source": "godot/src/avatar/avatar_limb_skinning.gd",
   "shader": "godot/shaders/avatar_limb.gdshader",
-  "collider": "CharacterMotor radius 0.22m height 1.30m unchanged",
-  "evidence_run": "D:\\projects\\sea-work\\verification\\20261102-201548-avatar-skin-delivery-c9a28d"
+  "collider": "CharacterMotor radius 0.22m height 1.30m kept at reference size on purpose (never scaled with the visual body); scaling it removed the 木桥 navmesh and broke SEA-MOVE reachability",
+  "evidence_run": "D:\\projects\\sea-work\u000berification61105-220536-scale-probe-5-1f88da",
+  "reference_scale": 1.0,
+  "scale": 1.5,
+  "scale_source": "godot/src/avatar/avatar_dimensions.gd SCALE constant; rest_origin values below are already multiplied by it"
 }

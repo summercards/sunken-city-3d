@@ -5821,14 +5821,14 @@
     {
       "path": "godot/scenes/main.tscn",
       "asset_id": null,
-      "sha256": "1a657ba46c2ce1f54ac83154d8da81f5f55d83037c75b2b8151a3528525f7c96",
-      "bytes": 3867430,
+      "sha256": "950bb5f3ce00dc715b90b741e4f9febaed25116c5a37c353c3619521e612688b",
+      "bytes": 3867226,
       "note": "SEA-ROOM bedroom v001 runtime"
     },
     {
       "path": "godot/scenes/props/reference_skiff.tscn",
       "bytes": 14439,
-      "sha256": "f5afba3f33d5ea55871dd90b1ac367b8205bf7b7586b7eba1ebd1f27f88cd685",
+      "sha256": "4e057e0c909325b9c390d8c746d0cb48648b78f034b96fa4c45efebd4527c896",
       "asset_id": "SEA-SCENE-SKIFF-ASSEMBLY",
       "status": "source_runtime_verified_provenance_pending",
       "hash_history": [
@@ -5838,8 +5838,8 @@
           "review": "2026-11-04 rowing: exact pre-edit isolated snapshot; only reviewed seat/pose wiring changes"
         }
       ],
-      "previous_sha256": "9db25b317c8e9905d94ddab2d997149423f852a660e2209a191cbe7940802b2e",
-      "note": "；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md。后续用户反馈按SEA-MOVE-R19 / SEA-NAV-R14前移桨架，当前证据见 docs/development/2026-11-04_rowing_arm_direction.md",
+      "previous_sha256": "f5afba3f33d5ea55871dd90b1ac367b8205bf7b7586b7eba1ebd1f27f88cd685",
+      "note": "；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md。后续用户反馈按SEA-MOVE-R19 / SEA-NAV-R14前移桨架，当前证据见 docs/development/2026-11-04_rowing_arm_direction.md ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新",
       "arm_direction_previous_sha256": "78971293cb6d1af45fe060e3015dd7bc1e378ee04019ec15a14989c71393da47"
     },
     {
@@ -6000,21 +6000,21 @@
     },
     {
       "path": "godot/src/avatar/avatar_limb_skinning.gd",
-      "bytes": 10388,
-      "sha256": "43550b216d752f190658f4b2a4ebd2fb03d947ab4714269a649392b70308f5ca",
+      "bytes": 10962,
+      "sha256": "1f41d6a53d375e150355e6a1026d14a82b9712779d30fb1ed670db72cbc6bc58",
       "asset_id": "SEA-CHAR-RIG-001",
       "status": "runtime_component_verified",
-      "previous_sha256": "34a8403ac342472baea634007c8215fabe91ee022945743a691283f00973011e",
-      "note": " 2026-11-03 SEA-AVATAR-R15–R19：本轮角色定制扩充，原HEAD与登记基线精确匹配后定点更新，详见当前交付。 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。"
+      "previous_sha256": "43550b216d752f190658f4b2a4ebd2fb03d947ab4714269a649392b70308f5ca",
+      "note": "2026-11-03 SEA-AVATAR-R15–R19：本轮角色定制扩充，原HEAD与登记基线精确匹配后定点更新，详见当前交付。 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新"
     },
     {
       "path": "godot/src/avatar/avatar_morphology.gd",
-      "bytes": 5060,
-      "sha256": "d6410d69084c48825560178b6ad01158c2411b3804fe885fea59faf91c390c44",
+      "bytes": 5225,
+      "sha256": "fde2b17c3c861caedba31c6de451ae4ac65d053f16d38b000269a72d5e583c71",
       "asset_id": "SEA-CHAR-SHAPE-001",
       "status": "runtime_component_verified",
-      "previous_sha256": "b7225805936e57d751d70e87e3f0b3ee64433d89dc00adede79e9e1257069491",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。"
+      "previous_sha256": "d6410d69084c48825560178b6ad01158c2411b3804fe885fea59faf91c390c44",
+      "note": "2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。 ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新"
     },
     {
       "path": "godot/src/avatar/avatar_session.gd",
@@ -6027,12 +6027,12 @@
     },
     {
       "path": "godot/src/avatar/avatar_visual.gd",
-      "bytes": 8844,
-      "sha256": "25facf3925329d7a77acab163a2aac15dbc3d49b68917babf248014ad5f11beb",
+      "bytes": 9181,
+      "sha256": "dad86cf61240ba2e5b753d9925dab16189611e2327c5f29a07629b86e398cb60",
       "asset_id": "SEA-CHAR-AVATAR-001",
       "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。；2026-11-04新旅程美术/交互",
-      "previous_sha256": "6dffab891dca3d22dfa89bacd3ffe933d8c4fffe9b96e0f0bcbd06c074b80604"
+      "note": "2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。；2026-11-04新旅程美术/交互 ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新",
+      "previous_sha256": "25facf3925329d7a77acab163a2aac15dbc3d49b68917babf248014ad5f11beb"
     },
     {
       "path": "godot/src/bootstrap/main.gd",
@@ -6177,10 +6177,10 @@
     {
       "path": "godot/src/camera/orbit_camera.gd",
       "asset_id": null,
-      "sha256": "cf39f0ed02c5923633be0197a18ecd6dd761b5b148bb9aa3c84a1a25f76c5a7f",
-      "bytes": 14860,
-      "note": "SEA-ROOM bedroom v001 runtime",
-      "previous_sha256": "8056529216575019375be8947b675920a5a61bf217efcb5423ec65fc7211c374"
+      "sha256": "85904e1f0d0fedcf2317ac9d05659fc6bd5be90b3f4ad4ee965142f0187957dd",
+      "bytes": 13972,
+      "note": "SEA-ROOM bedroom v001 runtime ; 2026-11-05 相机瞄准高度随 SCALE（SEA-CAMERA-R13）",
+      "previous_sha256": "cf39f0ed02c5923633be0197a18ecd6dd761b5b148bb9aa3c84a1a25f76c5a7f"
     },
     {
       "path": "godot/src/core/play_scope.gd",
@@ -6201,9 +6201,10 @@
       "path": "godot/src/navigation/ground_space.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 14957,
-      "sha256": "5165d02a88601ce5b0a7d150f274663b7d41aea669259e90631633899a5390d3",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。"
+      "bytes": 15229,
+      "sha256": "3699a9ebeb42179578d054d9c8f021449d8032176b4bec2acc42603158917003",
+      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。 ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新",
+      "previous_sha256": "5165d02a88601ce5b0a7d150f274663b7d41aea669259e90631633899a5390d3"
     },
     {
       "path": "godot/src/navigation/walk_area.gd",
@@ -6215,12 +6216,12 @@
     },
     {
       "path": "godot/src/onboarding/arrival_camera.gd",
-      "bytes": 3117,
-      "sha256": "111cafa6ccdcd30d87fb90408afe5ce0aa6603a0764cde460a11092ee14530b3",
+      "bytes": 3535,
+      "sha256": "a3591cfe821031574e0d526d78438dd1a12308172b378fb7fbd5dcb6c8cf1e5c",
       "asset_id": "SEA-UI-AVATAR-001",
       "status": "runtime_component_verified",
-      "previous_sha256": "cd40077507e64713a54210eabc07fd163a87d68400e3cab8013abe2078620d9e",
-      "note": "2026-11-04新旅程美术/交互"
+      "previous_sha256": "111cafa6ccdcd30d87fb90408afe5ce0aa6603a0764cde460a11092ee14530b3",
+      "note": "2026-11-04新旅程美术/交互 ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新"
     },
     {
       "path": "godot/src/player/actions/walk_action.gd",
@@ -6240,21 +6241,21 @@
     },
     {
       "path": "godot/src/player/animation/item_receive.gd",
-      "bytes": 7712,
-      "sha256": "f39fac5f8bdd40111caaa77dccd441c835c23405bde9020a6d737312abe64d5e",
+      "bytes": 7901,
+      "sha256": "6da04912c9b099b193b11785521ae5b6768afaa0397f25fae498c6f92f29ef9d",
       "asset_id": "SEA-CHAR-RECEIVE-001",
       "status": "runtime_component_verified",
-      "previous_sha256": "7ebf4331c860ee7b5dadd041cc57b43be7b4612a9293a5b66a254c8d472ca957",
-      "note": "v003 骨骼连续四肢适配：姿势控制仅改节点/骨骼长度，不再写分段网格；举物绕开头部，2.4秒/奖励边界及双腕支持实测。 2026-11-03 SEA-AVATAR-R15–R19：本轮角色定制扩充，原HEAD与登记基线精确匹配后定点更新，详见当前交付。 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。"
+      "previous_sha256": "f39fac5f8bdd40111caaa77dccd441c835c23405bde9020a6d737312abe64d5e",
+      "note": "v003 骨骼连续四肢适配：姿势控制仅改节点/骨骼长度，不再写分段网格；举物绕开头部，2.4秒/奖励边界及双腕支持实测。 2026-11-03 SEA-AVATAR-R15–R19：本轮角色定制扩充，原HEAD与登记基线精确匹配后定点更新，详见当前交付。 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新"
     },
     {
       "path": "godot/src/player/character.gd",
-      "bytes": 14400,
-      "sha256": "78d70b56fcf7a54452182d1d18500587b00086e250fcc22358ce0e1fd891daee",
+      "bytes": 14572,
+      "sha256": "3d95bc47335a7a794219146a7b27f267a4927ad63e2ccb1bfafb9ab58cc98cf9",
       "asset_id": "SEA-CHAR-RIG-001",
       "status": "runtime_component_verified",
-      "note": " 2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。；2026-11-04新旅程美术/交互；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md",
-      "previous_sha256": "b3d69452c80ef713b5109030f2b75b7926090f124fa473964345f2460590f12e",
+      "note": "2026-11-03 SEA-AVATAR-R20/R21：已审阅图形表情和连续衔接修订，当前证据见开发记录。 2026-11-03 SEA-AVATAR-R22–R24：本轮轮廓/嘴型/帽位修订，精确审阅前身后登记。 2026-11-03 SEA-AVATAR-R25：最新低肩内收与上胸修顺，按已审阅前身定点登记。；2026-11-04新旅程美术/交互；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新",
+      "previous_sha256": "78d70b56fcf7a54452182d1d18500587b00086e250fcc22358ce0e1fd891daee",
       "hash_history": [
         {
           "sha256": "b3d69452c80ef713b5109030f2b75b7926090f124fa473964345f2460590f12e",
@@ -6281,10 +6282,10 @@
     {
       "path": "godot/src/room/room_controller.gd",
       "asset_id": null,
-      "sha256": "52c1738682fef3661edc99caf08cc62339b1e79afcff50fc9a6e63b58bf5e874",
-      "bytes": 8029,
-      "note": "SEA-ROOM bedroom v001 runtime",
-      "previous_sha256": "b0768cb338a51a6b7e6c29b590cc7110555d1a450a0c274edf05749b5b11b4b2"
+      "sha256": "f2fb36857a59782ec7d0d7e09f9f8817951caab54de9b32ea706f638f8252cc8",
+      "bytes": 8118,
+      "note": "SEA-ROOM bedroom v001 runtime ; 2026-11-05 角色放大 1.5×（SCALE）审阅后刷新",
+      "previous_sha256": "52c1738682fef3661edc99caf08cc62339b1e79afcff50fc9a6e63b58bf5e874"
     },
     {
       "path": "godot/src/room/room_cutaway.gd",
@@ -6408,16 +6409,16 @@
     },
     {
       "path": "godot/tests/test_sea_barrier.gd",
-      "bytes": 9010,
-      "sha256": "41d4564cee2d26d1931d1a2eca1af8900f71108a2c745dcda4b0342b6f81152b",
+      "bytes": 9527,
+      "sha256": "ac75e7208bf2168fe24de7a62136cb34b76c4d827c47f8910982c979c65f89f6",
       "asset_id": null,
       "status": "runtime_resource_verified",
       "note": "SEA-ASSET-R47 sea_barrier contract"
     },
     {
       "path": "godot/tools/capture_sea_barrier.gd",
-      "bytes": 2083,
-      "sha256": "0b8c4d3b992c9ddfe449f2890e4cca6a2153718cbad8be09fc58caa4c75dd581",
+      "bytes": 2542,
+      "sha256": "93b1477aec10e34264ca2aad8e6dcd4291ac71a5115d49b33a0ee31fde20ba87",
       "asset_id": null,
       "status": "runtime_resource_verified",
       "note": "SEA-ASSET-R47 sea_barrier contract"

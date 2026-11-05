@@ -93,3 +93,11 @@
 
 放大胶囊的失败尝试已记录，不再作为方案：把胶囊与导航 agent 半径改为 0.33/1.95 时 `surface` 的
 「木桥连接可达」失败、`landing-markers` 3 项失败；回退后与 `SCALE=1.0` 对照完全一致。
+
+本轮资产登记（逐条审阅，不批量刷新）：`characters.json` 四条角色资产保留 `previous_source_sha256`
+并进位版本，新增 `scale_contract`；`v002/rig_contract.json` 的 21 骨静止坐标按 1.5 重算并标注
+参考/运行两套尺度；`v006/shoulder_contract.json` 追加 `runtime_scale`；运行资源清单刷新本轮 10 个
+文件；源索引重建（含失序修正）。未刷新项：ORF 装配源、`ocean_sky.tres`、`poster_atlas.png.import`、
+`test_sunken_city.gd`、`walk_action.gd`、`bootstrap/main.gd`（后者叠着键盘控制轮未提交改动）。
+全局门禁由改前 21 项降到 7 项，0 项与本次承接条款相关；因仍有上述范围外项，`--sync` 未写入派生
+索引，本轮不宣称全工程通过门禁。

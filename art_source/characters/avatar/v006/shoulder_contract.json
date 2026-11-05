@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "reference_image": "art_source/characters/avatar/v006/shoulder_reference.png",
   "provenance": "User shoulder-root red lines 2026-11-03: narrower and lower attachment. The head/feet alignment is used only to estimate shoulder centres, no game pixels enter runtime.",
   "supersedes": "art_source/characters/avatar/v005/shape_contract.json",
@@ -66,5 +66,8 @@
     },
     "pixel_scale_estimate": 300,
     "note": "Actual skinned ring centres extrapolated to the shoulder; no root-scale/camera compensation."
-  }
+  },
+  "reference_scale": 1.0,
+  "runtime_scale": 1.5,
+  "runtime_scale_note": "All metre targets below are reference-scale. Production multiplies them by avatar_dimensions.gd SCALE (=1.5): shoulder root becomes x=0.2175m / y=1.1115m, and test_avatar_graphic asserts 0.145*k / 0.741*k accordingly."
 }
