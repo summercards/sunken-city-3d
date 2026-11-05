@@ -37,7 +37,8 @@ func run() -> void:
 	check(not rejected.ok and absf(main.player.global_position.y-12.0)<0.001,"unsupported height rejects without changing live pose")
 	check(JSON.stringify(root.get_node("Economy").to_dict())==economy_before,"bad pose cannot partially apply economy")
 	main.cam.restore_follow(main.player); main.cam._process(1.0/60)
-	check(absf(main.cam.target.y-12.7)<0.001,"follow camera consumes upper floor height above old 10m clamp")
+	check(absf(main.cam.target.y-(12.0+main.BodyScale.CAMERA_FOCUS))<0.001,
+		"follow camera consumes upper floor height above old 10m clamp target=%.3f"%main.cam.target.y)
 	main.cam.suspend_follow(); main.cam.target.y=12.7; main.cam._process(1.0/60)
 	check(is_equal_approx(main.cam.target.y,10.0),"manual camera preserves original observation clamp")
 	# The lower player's E scan cannot acquire a spot directly above it upstairs.

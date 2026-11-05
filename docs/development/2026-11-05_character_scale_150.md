@@ -139,7 +139,28 @@ const SCALE := 1.5
 | `harvest-receive` / `visual-harvest-receive` | PASS，exit0 | 举物净空阈值改为 `×SCALE`（1.5/1.35/0.29/0.23/1.60 五处）后全绿 |
 | `avatar` + `avatar-restart`（必须成组） | PASS，exit0 | 单独跑 `avatar-restart` 会因没有前一步写入的存档而 6 项失败，属 runner 分组契约 |
 | `actor-presentation` / `save-protection` / `save-corrupt-seed` | PASS，exit0 | 存档格式未变 |
+| `modules` / `minimum-loop` / `framework-integration` / `walk-on-planters` / `character-space-save` | PASS，exit0 | `character-space-save` 的楼层跟随断言改为 `12.0 + CAMERA_FOCUS` |
+| `unreachable-menu` / `wood-bundles` / `interact-focus` / `pick-mesh` | PASS，exit0 | 热区与点击不受体型影响 |
 | `surface` / `landing-markers` | 各 2/3 项既有失败 | 与 `SCALE=1.0` 对照结果一致，非本轮引入 |
+
+## 六之二、需要主人拍板的两件（本轮只记录，未擅自动）
+
+**1. 坐姿的双脚离船底 0.11 m（改前 0.08 m）。** 不是这次放大引入的新缺陷，但放大后更显眼。
+几何上无法靠调姿势解决：
+
+- 座板顶面 0.6025 m、船底板顶面 0.203 m，落差 0.40 m；
+- 髋 0.678 m，大腿 + 小腿共 0.578 m，想踩到底必须把大腿下压 ~30°；
+- 但座板只有 0.524 m 深、角色坐在前半部，大腿一旦下压，在 z=0.412（座板前缘）处
+  大腿下沿会掉到 0.575 m，直接穿进 0.6025 m 的板面 —— `rowing-fit` 的「腿部不穿座板」立刻失败。
+
+三条路，都要主人选：
+① 加一根脚踏横杆（改 `reference_skiff.tscn`，46→48 件，要重跑装配登记）；
+② 把中排座板降低或做薄（动的是小船资产本体）；
+③ 维持现状，接受脚尖悬空 —— 划艇坐姿里脚本来也踩着桨架横档，视觉上不算错。
+
+**2. 门楣净高 2.06 m 只剩 1 cm 余量。** 默认外观（发顶 1.869 / 礼帽 2.050）刚好过；
+`礼帽 + 头大小滑杆拉到 1.12` 时 2.154 m，会穿门楣 9.4 cm。要么把门洞加高到 2.30 m
+（`SEA-SCENE-BDR-003` / `BDR-008` 重跑 Blender 管线），要么给礼帽冠高加一个按 `SCALE` 的上限。
 
 证据目录：`D:/projects/sea-work/verification/`，本轮关键批次
 `20261105-220250-scale-visual-3-ac4150`（实拍）、`20261105-220536-scale-probe-5-1f88da`（标尺）、
