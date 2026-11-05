@@ -84,3 +84,12 @@
 ## 未执行项
 
 设备/触摸/手柄/真实断电与发行包未验；已按用户要求完成自行比例和画面验收。未来DIY绘图不在本次端口预留实现内。未修改用户实际存档。
+
+## 2026-11-05 · 整体放大 50%（SCALE = 1.5）
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-AVATAR-R27 | 已实现；`avatar_dimensions.gd` 单一常量 `SCALE = 1.5`，骨骼关节/体型因子/蒙皮剖面/获物/划船间隙全部读取，头部与躯干等局部缩放子节点保持参考尺寸不二次相乘；胶囊与导航半径按可达性契约保持 0.22 m / 1.30 m，不随 `SCALE` 放大 | 站立发顶 1.869 m、礼帽 2.050 m、肩 1.240 m、头心 1.650 m；`avatar`/`avatar-skinning`/`avatar-proportions`/`avatar-graphic`/`avatar-customization`/`character-motor` 全部 exit0。已知限制：礼帽 + 头大 1.12 = 2.154 m 穿 2.06 m 门楣 9.4 cm。[本轮交付](../../development/2026-11-05_character_scale_150.md) |
+
+放大胶囊的失败尝试已记录，不再作为方案：把胶囊与导航 agent 半径改为 0.33/1.95 时 `surface` 的
+「木桥连接可达」失败、`landing-markers` 3 项失败；回退后与 `SCALE=1.0` 对照完全一致。

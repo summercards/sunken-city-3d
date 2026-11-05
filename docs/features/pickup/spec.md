@@ -150,3 +150,11 @@ SeaProps组合`OceanPopulation`拥有槽位缺失表和日次，装配层只注�
 实现源：`godot/src/pickups/wood_bundle.gd`集中数量、权重和尺寸，程序网格延续既有SeaProps路径；不是新增Blender／GLB资产，旧运行道具尚无生产AssetID的补登状态继续pending，不虚构资产授权验收。[本轮交付与实测](../../development/2026-11-02_wood_bundles.md)。
 
 参考图小束复制的最新实现与实测见[后续修订](../../development/2026-11-02_wood_bundle_copies.md)。
+
+## 2026-11-05 尺度联动（追加）
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-PICKUP-R20 | 头顶进度条的世界抬升由写死的 1.35 m 改为 `1.35 × SCALE`（默认 2.025 m）：角色发顶已到 1.869 m，原值会把条压进头发。`SCREEN_GAP = 16 px` 屏幕间距不变；条仍挂在角色而非目标上，浮层与奖励图标的锚点同源。验收以 `progress-bars` 继续断言实际屏幕位置。 |
+
+[交付与实测](../../development/2026-11-05_character_scale_150.md)

@@ -1,7 +1,9 @@
 extends CharacterBody3D
 ## SEA-MOVE: collision execution only. No input, animation, inventory or world rules.
-const BODY_RADIUS := 0.22
-const BODY_HEIGHT := 1.30
+## Body envelope follows the visual scale from one shared source.
+const BodyDimensions = preload("res://src/avatar/avatar_dimensions.gd")
+const BODY_RADIUS := BodyDimensions.BODY_RADIUS
+const BODY_HEIGHT := BodyDimensions.BODY_HEIGHT
 const GROUND_LAYER := 256
 const ACTOR_LAYER := 512
 const GRAVITY := 18.0

@@ -17,7 +17,7 @@ func run() -> void:
 	check(absf(cam.zoom_ratio()-1.0)<.001,"开局即最远")
 	check(cam.follow_enabled and cam.follow_subject==main.player,"默认跟随角色")
 	cam._process(.1)
-	check(cam.target.distance_to(main.player.global_position+Vector3.UP*.7)<.001,"跟随世界坐标")
+	check(cam.target.distance_to(main.player.global_position+Vector3.UP*main.BodyScale.CAMERA_FOCUS)<.001,"跟随世界坐标 aim=%.3fm"%main.BodyScale.CAMERA_FOCUS)
 	var e := InputEventMouseButton.new()
 	e.button_index = MOUSE_BUTTON_LEFT
 	e.position = Vector2(500,400)

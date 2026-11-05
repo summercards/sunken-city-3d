@@ -12,7 +12,7 @@ var strap: MeshInstance3D
 func build(actor) -> void:
 	bag = Node3D.new()
 	bag.name = "Satchel"
-	bag.position = Vector3(0.19, 0.49, 0.05)
+	bag.position = Vector3(0.19, 0.49, 0.05)*Dimensions.SCALE
 	bag.scale=Vector3.ONE*Dimensions.BAG_SCALE
 	actor.body_pivot.add_child(bag)
 	var sphere := SphereMesh.new()
@@ -29,27 +29,28 @@ func build(actor) -> void:
 	# Diagonal cloth strap across the chest, below the face.
 	strap = MeshInstance3D.new()
 	strap.name = "SatchelStrap"
-	var box := BoxMesh.new(); box.size = Vector3(0.025,0.42,0.014)
+	var box := BoxMesh.new(); box.size = Vector3(0.025,0.42,0.014)*Dimensions.SCALE
 	strap.mesh = box; strap.material_override = actor._mat(Color("#72533e"))
-	strap.position = Vector3(0.015,0.65,0.10); strap.rotation.z = -0.65
+	strap.position = Vector3(0.015,0.65,0.10)*Dimensions.SCALE; strap.rotation.z = -0.65
 	actor.body_pivot.add_child(strap)
 
 func fit_body(actor, shape: Dictionary) -> void:
 	# Put the bag behind the hanging hand and outside the widest shirt section.
-	bag.position=Vector3(0.15*float(shape.width)*1.10+0.102,float(shape.hip_y)+0.07,-0.095)
+	var s:=Dimensions.SCALE
+	bag.position=Vector3(0.15*float(shape.width)*1.10*s+0.102*s,float(shape.hip_y)+0.07*s,-0.095*s)
 	var surface:=SurfaceTool.new(); surface.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var points: Array[Vector3]=[]
 	for i in 25:
 		var t:=i/24.0
-		var y: float=lerpf(0.79,float(shape.hip_y)+0.06,t)
+		var y: float=lerpf(0.79*s,float(shape.hip_y)+0.06*s,t)
 		var radius: float=preload("res://src/avatar/avatar_morphology.gd").shirt_radius_at(y,shape)
-		var x:=lerpf(-0.060*float(shape.width),0.145*float(shape.width),t)
-		var half_width:=Dimensions.SHIRT_HALF.x*float(shape.width)*radius
-		var half_depth:=Dimensions.SHIRT_HALF.z*float(shape.depth)*radius
-		var z:=half_depth*sqrt(maxf(0.0,1.0-pow(x/maxf(half_width,0.001),2)))+0.013
+		var x:=lerpf(-0.060*float(shape.width)*s,0.145*float(shape.width)*s,t)
+		var half_width:=Dimensions.SHIRT_HALF.x*float(shape.width)*radius*s
+		var half_depth:=Dimensions.SHIRT_HALF.z*float(shape.depth)*radius*s
+		var z:=half_depth*sqrt(maxf(0.0,1.0-pow(x/maxf(half_width,0.001),2)))+0.013*s
 		points.append(Vector3(x,y,z))
 	for i in points.size()-1:
-		var sideways:=Vector3(0.011,0.007,0)
+		var sideways:=Vector3(0.011,0.007,0)*s
 		for vertex in [points[i]-sideways,points[i+1]-sideways,points[i+1]+sideways,points[i]-sideways,points[i+1]+sideways,points[i]+sideways]: surface.add_vertex(vertex)
 	surface.generate_normals(); strap.mesh=surface.commit()
 	strap.transform=Transform3D.IDENTITY
@@ -74,8 +75,9 @@ func clear() -> void:
 
 func sample(actor, delta: float) -> void:
 	var p := clampf(actor.action_progress() + delta / DURATION, 0.0, 1.0)
-	var reach := Vector3(0,0.46,0.35)
-	var overhead := Vector3(0,actor._avatar_visual.overhead_height(actor),0.08)
+	var s:=Dimensions.SCALE
+	var reach := Vector3(0,0.46,0.35)*s
+	var overhead := Vector3(0,actor._avatar_visual.overhead_height(actor),0.08*s)
 	var mouth := bag.position + Vector3(0,0.128,0.02)*Dimensions.BAG_SCALE
 	var center := reach
 	var bend := 0.30 * _ease(p,0.0,0.15) * (1.0-_ease(p,0.16,0.39))
@@ -85,35 +87,35 @@ func sample(actor, delta: float) -> void:
 	if p >= 0.16:
 		center = reach.lerp(overhead,lift)
 		# Carry the object around the front of the head, rather than through it.
-		center.z+=sqrt(maxf(0.0,sin(lift*PI)))*0.44
+		center.z+=sqrt(maxf(0.0,sin(lift*PI)))*0.44*s
 	if p >= 0.62:
 		center = overhead.lerp(mouth,tuck)
-		center.z += sqrt(maxf(0.0,sin(tuck*PI)))*0.65
+		center.z += sqrt(maxf(0.0,sin(tuck*PI)))*0.65*s
 	if p >= 0.84: center = mouth.lerp(bag.position,_ease(p,0.84,0.92))
 	center.z=maxf(center.z,actor._avatar_visual.carry_front_clearance(actor,center.y))
 	actor.body_pivot.rotation.x = bend
-	actor.body_pivot.position.y = sin(lift*PI)*0.025
+	actor.body_pivot.position.y = sin(lift*PI)*0.025*s
 	actor.head_pivot.rotation.x = -0.12*lift*(1.0-tuck)
 	actor.head_pivot.rotation.z = 0.05*sin(tuck*PI)
 	# Raise the shoulders slightly and allow stylized sleeve extension; solve
 	# both wrists against the produce, rather than making it float above hands.
 	var shoulders := lift*(1.0-settle)
-	actor.left_arm.position = actor.avatar_shoulder(-1)+Vector3(-0.015,0,0)*shoulders
-	actor.right_arm.position = actor.avatar_shoulder(1)+Vector3(0.015,0,0)*shoulders
+	actor.left_arm.position = actor.avatar_shoulder(-1)+Vector3(-0.015,0,0)*shoulders*s
+	actor.right_arm.position = actor.avatar_shoulder(1)+Vector3(0.015,0,0)*shoulders*s
 	# The wide reference head needs the raised arms to arc in front of the
 	# cheeks. Wrists still support the item's front/lower corners.
 	var front_clearance: float=actor.avatar_arm_front_clearance()*lift*(1.0-tuck)
-	var left := center + Vector3(-0.16,-0.16,front_clearance)
-	var right := center + Vector3(0.16,-0.16,front_clearance)
+	var left := center + Vector3(-0.16*s,-0.16*s,front_clearance)
+	var right := center + Vector3(0.16*s,-0.16*s,front_clearance)
 	if p>=0.60:
 		# Release the left hand before the item crosses toward the right bag.
 		# Its independent outward/front arc cannot follow the item through belly.
 		var retreat:=_ease(p,0.60,0.82)
 		var release_front: float=actor.avatar_arm_front_clearance()
-		left=(overhead+Vector3(-0.16,-0.16,release_front)).lerp(actor.avatar_rest_hand(-1),retreat)
-		left.x-=sin(retreat*PI)*0.17
-		left.z+=sin(retreat*PI)*0.10
-	right = right.lerp(mouth+Vector3(0.035,-0.04,0.02),tuck)
+		left=(overhead+Vector3(-0.16*s,-0.16*s,release_front)).lerp(actor.avatar_rest_hand(-1),retreat)
+		left.x-=sin(retreat*PI)*0.17*s
+		left.z+=sin(retreat*PI)*0.10*s
+	right = right.lerp(mouth+Vector3(0.035,-0.04,0.02)*s,tuck)
 	left = actor.avatar_rest_hand(-1).lerp(left,_ease(p,0.0,0.14))
 	right = actor.avatar_rest_hand(1).lerp(right,_ease(p,0.0,0.14))
 	left = left.lerp(actor.avatar_rest_hand(-1),settle)
@@ -134,7 +136,8 @@ func _ease(p: float, from: float, to: float) -> float:
 func _pose_arm(arm: Node3D, elbow: Node3D, hand: Vector3, side: float) -> void:
 	var offset := hand-arm.position
 	var distance := maxf(offset.length(),0.001)
-	var clearance:=smoothstep(0.72,1.10,hand.y)
+	var k:=Dimensions.SCALE
+	var clearance:=smoothstep(0.72*k,1.10*k,hand.y)
 	var stretch := maxf(1.0,distance/((Dimensions.UPPER_ARM+Dimensions.LOWER_ARM)*lerpf(1.0,0.72,clearance)))
 	var upper := Dimensions.UPPER_ARM*stretch
 	var lower := Dimensions.LOWER_ARM*stretch

@@ -12,6 +12,7 @@ extends Node3D
 ## 调试：`Godot --path . -- --capture` 会在 outputs/godot-preview.png 落一张图后退出。
 
 const SailNavLib = preload("res://src/navigation/sail_nav.gd")
+const BodyScale = preload("res://src/avatar/avatar_dimensions.gd")
 var navigation = preload("res://src/navigation/water_navigation.gd").new()
 const WATER_LEVEL := 1.12
 ## 渲染后端差异（Reverse-Z 只存在于 Forward+），详见该脚本。
@@ -242,7 +243,7 @@ func _ready() -> void:
 	_setup_markers()
 	_setup_player()
 	cam.follow_subject = player
-	cam.target = player.global_position + Vector3.UP*0.7
+	cam.target = player.global_position + Vector3.UP*BodyScale.CAMERA_FOCUS
 	cam.apply_pose()
 	_setup_props()
 	_setup_pickup_progress()
@@ -3486,7 +3487,7 @@ func _setup_sleep() -> void:
 	sleep_curtain = preload("res://src/ui/sleep_curtain.gd").new()
 	sleep_curtain.name = "SleepCurtain"
 	add_child(sleep_curtain)
-	sleep_curtain.focus_query = func(): return cam.unproject_position(player.global_position+Vector3.UP*0.7)
+	sleep_curtain.focus_query = func(): return cam.unproject_position(player.global_position+Vector3.UP*BodyScale.CAMERA_FOCUS)
 	sleep_cycle = preload("res://src/time/sleep_cycle.gd").new()
 	sleep_cycle.name = "SleepCycle"
 	add_child(sleep_cycle)
@@ -3591,7 +3592,7 @@ func _wake_at_home() -> void:
 		var pos := door.global_position+Vector3(0,0,0.8)
 		restore_world_state({"zone":"zone1","landing":"main","mode":0,"player":[pos.x,pos.y,pos.z],"far_sea":GameState.far_sea_unlocked})
 		cam.restore_follow(player)
-		cam.target = player.global_position+Vector3.UP*0.7
+		cam.target = player.global_position+Vector3.UP*BodyScale.CAMERA_FOCUS
 		cam.apply_pose()
 		markers.set_highlight("zone1")
 	daylight_rig.apply(world_clock.query().hour)

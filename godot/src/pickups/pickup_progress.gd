@@ -23,10 +23,12 @@ extends CanvasLayer
 const ThinBar = preload("res://src/ui/thin_progress_bar.gd")
 ## 角色头顶的世界抬升（米）。
 ##
-## 角色 `head_pivot` 在本地 (0, 0.98)，头部半径约 0.21、发顶再高一点，
-## 所以头顶约在原点上方 1.19 米。取 1.35 让条离头发留一点空隙，
-## 不会贴着帽子。真正决定观感的还是下面的 SCREEN_GAP。
-const ANCHOR_LIFT := 1.35
+## 角色 `head_pivot` 在本地 1.015×SCALE，发顶再高一点：SCALE=1.0 时头顶约
+## 1.26 米，取 1.35 留一点空隙。抬升必须跟着 `SCALE` 走 —— 角色放大后发顶
+## 到了 1.87 米，写死的 1.35 会把条压进头发里。真正决定观感的还是下面的
+## SCREEN_GAP。
+const Scale = preload("res://src/avatar/avatar_dimensions.gd")
+const ANCHOR_LIFT := 1.35*Scale.SCALE
 ## 条与锚点投影之间的屏幕间距（px）。
 ##
 ## 为什么还要屏幕间距：项目相机是斜俯视，垂直方向在屏幕上被压缩，

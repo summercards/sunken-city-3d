@@ -132,8 +132,12 @@ static func shirt_depth(point: Vector3, solid: Dictionary) -> float:
 		depth=minf(depth,point.distance_to(nearest_triangle(point,triangles[i],triangles[i+1],triangles[i+2])))
 	return depth
 
+## Sampling thresholds are authored in reference metres and follow body scale.
+static func ref_threshold(metres: float) -> float:
+	return metres*preload("res://src/avatar/avatar_dimensions.gd").SCALE
+
 static func inside_shirt(point: Vector3, solid: Dictionary) -> bool:
-	return shirt_depth(point,solid)>.008
+	return shirt_depth(point,solid)>ref_threshold(.008)
 
 static func penetration_detail(actor) -> Dictionary:
 	var shirt: MeshInstance3D=actor.body_pivot.get_node("AvatarBody/Shirt")
@@ -144,7 +148,7 @@ static func penetration_detail(actor) -> Dictionary:
 		var deformed: PackedVector3Array=actor.limb_skinning.deformed_points(id)
 		var worst:=0.0; var at:=Vector3.ZERO; var count:=0; var longitudinal:=0.0
 		for i in deformed.size():
-			if data.uv2[i].x<=.09: continue
+			if data.uv2[i].x<=ref_threshold(.09): continue
 			var p: Vector3=actor.body_pivot.to_local(actor.limb_skinning.to_global(deformed[i]))
 			var depth:=shirt_depth(p,solid)
 			if depth<=.008: continue
@@ -166,9 +170,9 @@ static func arm_geometry(actor) -> Dictionary:
 		for i in deformed.size():
 			var world: Vector3=actor.limb_skinning.to_global(deformed[i]); result.samples+=1
 			result.finite=result.finite and world.is_finite() and actor.to_local(world).length()<4
-			if data.uv2[i].x<.065: continue
+			if data.uv2[i].x<ref_threshold(.065): continue
 			if head.to_local(world).length_squared()<.94: result.arm_head+=1
-			if data.uv2[i].x>.09 and inside_shirt(actor.body_pivot.to_local(world),solid): result.arm_shirt+=1
+			if data.uv2[i].x>ref_threshold(.09) and inside_shirt(actor.body_pivot.to_local(world),solid): result.arm_shirt+=1
 	return result
 
 static func head_penetration_detail(actor) -> Dictionary:
@@ -179,7 +183,7 @@ static func head_penetration_detail(actor) -> Dictionary:
 		var deformed: PackedVector3Array=actor.limb_skinning.deformed_points(id)
 		var worst:=1.0; var at:=Vector3.ZERO; var count:=0; var longitudinal:=0.0
 		for i in deformed.size():
-			if data.uv2[i].x<=.065: continue
+			if data.uv2[i].x<=ref_threshold(.065): continue
 			var world: Vector3=actor.limb_skinning.to_global(deformed[i])
 			var q: Vector3=head.to_local(world)
 			if q.length_squared()>=.94: continue
@@ -268,11 +272,11 @@ static func geometry(actor: Node3D) -> Dictionary:
 			var world: Vector3=actor.limb_skinning.to_global(samples[i])
 			result.finite=result.finite and world.is_finite() and actor.to_local(world).length()<4
 			result.samples+=1
-			if not str(id).begins_with("arm") or data.uv2[i].x<.065: continue
+			if not str(id).begins_with("arm") or data.uv2[i].x<ref_threshold(.065): continue
 			if face.to_local(world).length_squared()<.94: result.arm_head+=1
 			# The first 9cm attach under a sleeve. Remaining exposed arm/hand
 			# vertices must not disappear more than 8mm inside actual tailoring.
-			if data.uv2[i].x>.09 and inside_shirt(actor.body_pivot.to_local(world),solid): result.arm_shirt+=1
+			if data.uv2[i].x>ref_threshold(.09) and inside_shirt(actor.body_pivot.to_local(world),solid): result.arm_shirt+=1
 	return result
 
 static func sample_action(actor, id: String, progress: float, crop: String="lettuce") -> void:

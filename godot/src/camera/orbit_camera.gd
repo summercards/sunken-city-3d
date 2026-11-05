@@ -3,6 +3,7 @@ class_name OrbitCam
 ## 默认跟随角色；左键拖动越过阈值或触控板平移后手动接管。
 ## 参考网页版 dampingFactor=0.06，采用时间相关指数阻尼平滑目标。
 ## 松手后保持手动构图；顶部按钮恢复跟随。滚轮缩放、右键旋转保留。
+const BodyScale = preload("res://src/avatar/avatar_dimensions.gd")
 
 @export var target := Vector3(0.45, 1.75, -0.65)
 @export var orbit_dir := Vector3(-0.5, 0.7, 0.5)
@@ -64,8 +65,6 @@ var orbit_pitch_max_deg := 72.0
 ## `orbit_only` 下允许的距离（米）。太近会切进家具，太远整屋缩成一个点。
 var orbit_zoom_min := 8.0
 var orbit_zoom_max := 24.0
-## 键盘平移速度（米/秒，再乘距离系数）。
-var _key_pan_speed := 26.0
 ## 抓地平移的锚点（按住时鼠标下的地面点）。
 var _grab_world := Vector3.ZERO
 var _grab_valid := false
@@ -88,7 +87,7 @@ func resume_follow() -> void:
 func restore_follow(subject: Node3D) -> void:
 	follow_subject = subject
 	resume_follow()
-	target = subject.global_position + Vector3.UP*0.7
+	target = subject.global_position + Vector3.UP*BodyScale.CAMERA_FOCUS
 	_apply()
 
 func suspend_follow() -> void:

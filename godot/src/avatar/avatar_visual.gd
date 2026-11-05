@@ -21,13 +21,17 @@ func overhead_height(actor) -> float:
 				var bounds: AABB=xf*mesh.mesh.get_aabb()
 				_native_head_top=maxf(_native_head_top,bounds.end.y)
 				_native_head_front=maxf(_native_head_front,bounds.end.z)
-	return maxf(1.60,actor.head_pivot.position.y+_native_head_top*actor.head_pivot.scale.y+0.25)
+	return maxf(1.60*_k(),actor.head_pivot.position.y+_native_head_top*actor.head_pivot.scale.y+0.25*_k())
 
 func carry_front_clearance(actor, height: float) -> float:
-	var top:=overhead_height(actor)-0.25
-	var bottom: float=actor.head_pivot.position.y-0.22*actor.head_pivot.scale.y
-	var crossing:=smoothstep(bottom-0.26,bottom-0.02,height)*(1.0-smoothstep(top+0.18,top+0.25,height))
-	return crossing*(_native_head_front*actor.head_pivot.scale.z+0.25)
+	var k:=_k()
+	var top:=overhead_height(actor)-0.25*k
+	var bottom: float=actor.head_pivot.position.y-0.22*k*actor.head_pivot.scale.y
+	var crossing:=smoothstep(bottom-0.26*k,bottom-0.02*k,height)*(1.0-smoothstep(top+0.18*k,top+0.25*k,height))
+	return crossing*(_native_head_front*actor.head_pivot.scale.z+0.25*k)
+
+func _k() -> float: return Dimensions.SCALE
+func _m(v: Vector3) -> Vector3: return v*Dimensions.SCALE
 var _roots: Array[Node3D] = []
 var _sphere: SphereMesh
 var _materials: Dictionary = {}
@@ -53,24 +57,24 @@ func apply(actor, raw: Dictionary, morphs: Dictionary = {}, factors: Dictionary 
 	var shirt:=_shirt(torso,top,shape)
 	shirt.name="Shirt"
 	_pelvis(torso,bottom,shape)
-	_blob(torso,skin,Vector3(0,0.815,0),Vector3(0.045,0.042,0.045))
-	_blob(torso,top.lightened(0.22),Vector3(0,0.8,0.015),Vector3(0.052,0.012,0.045))
+	_blob(torso,skin,_m(Vector3(0,0.815,0)),_m(Vector3(0.045,0.042,0.045)))
+	_blob(torso,top.lightened(0.22),_m(Vector3(0,0.8,0.015)),_m(Vector3(0.052,0.012,0.045)))
 	if s.top == "stripe":
 		var striped:=ShaderMaterial.new(); striped.shader=preload("res://shaders/avatar_cloth.gdshader")
 		striped.set_shader_parameter("base_color",top); shirt.material_override=striped
 	elif s.top == "sailor":
 		for side in [-1,1]:
-			var collar := _blob(torso,Color("#fff0d3"),Vector3(side*0.043,0.755,Morphology.shirt_front(side*0.043,0.755,shape)+0.010),Vector3(0.023,0.065,0.012))
+			var collar := _blob(torso,Color("#fff0d3"),Vector3(side*0.043*_k(),0.755*_k(),Morphology.shirt_front(side*0.043*_k(),0.755*_k(),shape)+0.010*_k()),_m(Vector3(0.023,0.065,0.012)))
 			collar.rotation.z=side*-0.55
-		_blob(torso,Color("#d98672"),Vector3(0,0.70,Morphology.shirt_front(0,0.70,shape)+0.010),Vector3(0.018,0.034,0.012))
+		_blob(torso,Color("#d98672"),Vector3(0,0.70*_k(),Morphology.shirt_front(0,0.70*_k(),shape)+0.010*_k()),_m(Vector3(0.018,0.034,0.012)))
 	elif s.top == "vest":
 		for side in [-1,1]:
-			var collar:=_blob(torso,Color("#d3e5ed"),Vector3(side*0.036,0.776,Morphology.shirt_front(side*0.036,0.776,shape)+0.010),Vector3(0.022,0.055,0.012))
+			var collar:=_blob(torso,Color("#d3e5ed"),Vector3(side*0.036*_k(),0.776*_k(),Morphology.shirt_front(side*0.036*_k(),0.776*_k(),shape)+0.010*_k()),_m(Vector3(0.022,0.055,0.012)))
 			collar.rotation.z=side*-0.55
-		for y in [0.69,0.63,0.57,0.51]: _blob(torso,top.darkened(0.25),Vector3(0,y,Morphology.shirt_front(0,y,shape)+0.006),Vector3(0.010,0.012,0.007))
+		for y in [0.69,0.63,0.57,0.51]: _blob(torso,top.darkened(0.25),Vector3(0,y*_k(),Morphology.shirt_front(0,y*_k(),shape)+0.006*_k()),_m(Vector3(0.010,0.012,0.007)))
 	actor.limb_skinning.apply_appearance(s)
 	var head := _root(actor.head_pivot,"AvatarHead")
-	head.scale=Dimensions.HEAD_SCALE
+	head.scale=Dimensions.HEAD_SCALE*_k()
 	var face:=_blob(head,skin,Vector3.ZERO,Vector3(0.258,0.25,0.253))
 	face.name="Face"
 	for side in [-1,1]:
@@ -81,8 +85,8 @@ func apply(actor, raw: Dictionary, morphs: Dictionary = {}, factors: Dictionary 
 	expression.bind(head.get_node("FaceDetails"))
 	_hair_module.build(head,s,morphs)
 	actor.hat=_root(actor.head_pivot,"AvatarHat")
-	actor.hat.scale=Dimensions.HEAD_SCALE
-	actor.hat.position.y=-0.018 if s.hat=="beanie" else -0.028
+	actor.hat.scale=Dimensions.HEAD_SCALE*_k()
+	actor.hat.position.y=(-0.018 if s.hat=="beanie" else -0.028)*_k()
 	if s.hat=="fedora": actor.hat.scale.z*=0.82
 	_hat(actor.hat,s.hat,Catalog.color(s,"hat_color"))
 	actor.set_meta("avatar_appearance",raw.duplicate(true))
@@ -122,13 +126,14 @@ func _shirt(parent: Node3D, color: Color, shape: Dictionary) -> MeshInstance3D:
 			for vertex in [p,t,r,p,q,t]: surface.add_vertex(vertex)
 	surface.generate_normals()
 	var node:=MeshInstance3D.new(); node.mesh=surface.commit(); node.material_override=_material(color)
-	node.position=Vector3(0,shape.shirt_center,0); node.scale=Vector3(Dimensions.SHIRT_HALF.x,shape.shirt_half_y,Dimensions.SHIRT_HALF.z); parent.add_child(node); return node
+	node.position=Vector3(0,shape.shirt_center,0); node.scale=Vector3(Dimensions.SHIRT_HALF.x*_k(),shape.shirt_half_y,Dimensions.SHIRT_HALF.z*_k()); parent.add_child(node); return node
 
 func _pelvis(parent: Node3D, color: Color, shape: Dictionary) -> void:
 	# A single rounded upper-trouser shell overlaps the shirt hem and the two
 	# skinned thighs. No detached flattened sphere masquerades as the waist.
+	var k:=_k()
 	var rings: Array[Vector3]=[Vector3(-0.055,0.012,0.015),Vector3(-0.037,0.092,0.065),Vector3(-0.018,0.132,0.079),Vector3(0.025,0.143,0.085),Vector3(0.055,0.135,0.077),Vector3(0.072,0.010,0.010)]
-	for i in rings.size(): rings[i].x+=float(shape.hip_y)
+	for i in rings.size(): rings[i]=Vector3(rings[i].x*k+float(shape.hip_y),rings[i].y*k,rings[i].z*k)
 	var surface:=SurfaceTool.new(); surface.begin(Mesh.PRIMITIVE_TRIANGLES)
 	for i in rings.size()-1:
 		for j in 48:

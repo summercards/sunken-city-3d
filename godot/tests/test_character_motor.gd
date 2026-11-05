@@ -4,6 +4,7 @@ extends SceneTree
 const CharacterScript = preload("res://src/player/character.gd")
 const WalkAreaScript = preload("res://src/navigation/walk_area.gd")
 const GroundSpaceScript = preload("res://src/navigation/ground_space.gd")
+const BodyDimensions = preload("res://src/avatar/avatar_dimensions.gd")
 const GROUND_LAYER := 256
 const ACTOR_LAYER := 512
 var checks := 0
@@ -65,8 +66,8 @@ func run() -> void:
 	if shapes.size() == 1:
 		check(shapes[0].shape is CapsuleShape3D, "actor uses a capsule")
 		if shapes[0].shape is CapsuleShape3D:
-			check(absf(shapes[0].shape.radius - 0.22) < 0.0001, "physical radius preserves construction width")
-			check(absf(shapes[0].shape.height - 1.30) < 0.0001, "physical height contract")
+			check(absf(shapes[0].shape.radius - BodyDimensions.BODY_RADIUS) < 0.0001, "physical radius preserves construction width")
+			check(absf(shapes[0].shape.height - BodyDimensions.BODY_HEIGHT) < 0.0001, "physical height contract")
 	check(actor.grounded_motion_enabled, "ground motion can be enabled")
 	check(actor.collision_layer == ACTOR_LAYER and actor.collision_mask == GROUND_LAYER, "actor collisions are isolated from boat and water")
 	var start: Vector3 = actor.global_position

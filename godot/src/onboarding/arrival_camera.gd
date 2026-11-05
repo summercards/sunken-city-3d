@@ -2,6 +2,7 @@ extends RefCounted
 ## Temporary portrait framing, independent of the orbit camera implementation.
 ## Frames the traveler in the left half of the viewport while revealing the
 ## solar cabin and sunny harbor deck in the background.
+const Dimensions = preload("res://src/avatar/avatar_dimensions.gd")
 var _saved: Dictionary = {}
 
 func begin(camera: Camera3D, _player: Node3D) -> void:
@@ -26,21 +27,25 @@ func portrait(camera: Camera3D, player: Node3D, progress: float, origin: Transfo
 		view_from = (-cabin_dir * 0.88 - right * 0.36 + Vector3.UP * 0.22).normalized()
 	else:
 		view_from = (-cabin_dir * 0.92 - right * 0.28 + Vector3.UP * 0.18).normalized()
-	var center: Vector3 = player.global_position + Vector3.UP * 0.72
+	# Framing follows the body scale: the traveler is taller than the reference
+	# 1.3m envelope, so the aim point and every distance multiply together or the
+	# portrait crops the head and the journal shot loses the boots.
+	var k := Dimensions.SCALE
+	var center: Vector3 = player.global_position + Vector3.UP * 0.72 * k
 	if focus == "face":
-		center = player.head_pivot.global_position + Vector3.UP * 0.02
+		center = player.head_pivot.global_position + Vector3.UP * 0.02 * k
 	elif focus == "card":
-		center = player.global_position + Vector3.UP * 0.82 + cabin_dir * 0.35
+		center = player.global_position + Vector3.UP * 0.82 * k + cabin_dir * 0.35 * k
 	var portrait_scale: float = player.avatar_portrait_scale() if player.has_method("avatar_portrait_scale") else 1.0
-	var dist := 3.65
-	if focus == "face": dist = 1.88 * portrait_scale
-	elif focus == "card": dist = 4.35
+	var dist := 3.65 * k
+	if focus == "face": dist = 1.88 * portrait_scale * k
+	elif focus == "card": dist = 4.35 * k
 	var destination := Transform3D(Basis.looking_at(-view_from, Vector3.UP), center + view_from * dist)
 	# Shift camera right in its own view plane so the character stands in the left third,
 	# leaving the right half clear for the journal sheet and revealing the cabin behind.
-	var pan_right := 0.68
-	if focus == "face": pan_right = 0.34 * portrait_scale
-	elif focus == "card": pan_right = 0.76
+	var pan_right := 0.68 * k
+	if focus == "face": pan_right = 0.34 * portrait_scale * k
+	elif focus == "card": pan_right = 0.76 * k
 	destination.origin += destination.basis.x * pan_right
 	camera.global_transform = origin.interpolate_with(destination, progress)
 	var target_fov := 29.0 if focus == "face" else (32.5 if focus == "card" else 31.0)

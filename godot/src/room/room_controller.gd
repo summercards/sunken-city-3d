@@ -11,6 +11,8 @@ extends Node
 ##   · 世界显隐、机位接管、时钟不动 —— 本文件
 ## 不碰时间、不碰经济、不写存档。
 
+const BodyScale = preload("res://src/avatar/avatar_dimensions.gd")
+
 signal entered
 signal exited
 
@@ -170,7 +172,7 @@ func _restore_outdoor_camera() -> void:
 		cam.orbit_dir = _outdoor_camera.orbit_dir
 		cam.refresh()
 	cam.restore_follow(actor_controller.actor)
-	cam.target = actor_controller.actor.global_position + Vector3.UP * 0.7
+	cam.target = actor_controller.actor.global_position + Vector3.UP * BodyScale.CAMERA_FOCUS
 	cam.apply_pose()
 
 

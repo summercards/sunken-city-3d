@@ -86,7 +86,7 @@ func run() -> void:
 		check(control.find_children("*","MeshInstance3D",true,false).is_empty(),"pose controls contain no old segment/joint meshes "+control.name)
 	for id in skeleton.limb_ids(): topology(id)
 	var shape: CapsuleShape3D=actor.get_node("BodyCollision").shape
-	check(is_equal_approx(shape.radius,0.22) and is_equal_approx(shape.height,1.3),"gameplay capsule unchanged")
+	check(is_equal_approx(shape.radius,actor.Dimensions.BODY_RADIUS) and is_equal_approx(shape.height,actor.Dimensions.BODY_HEIGHT),"gameplay capsule follows the body scale radius=%.3f height=%.3f"%[shape.radius,shape.height])
 	var original: Dictionary={}
 	for id in skeleton.limb_ids(): original[id]=skeleton.surface_data(id).vertices
 	# Directly change a bone, without moving a control or a MeshInstance: this
@@ -172,7 +172,8 @@ func run() -> void:
 					for j in int(ring.count): center+=deformed[int(ring.start)+j]
 					center/=float(ring.count)
 					var expected: Vector3=actor.body_pivot.to_local((actor.left_elbow if part=="arm.L" else actor.right_elbow).get_node("Hand").global_position)
-					check(center.distance_to(expected)<0.002,"stretched skinned wrist reaches actual receive-item hand "+part)
+					# Tolerance is authored at reference scale and follows the body scale.
+					check(center.distance_to(expected)<0.002*actor.Dimensions.SCALE,"stretched skinned wrist reaches actual receive-item hand "+part+" gap=%.5f"%center.distance_to(expected))
 		await shot("action-"+id,"当前动作骨骼适配 · "+id)
 	var rig_report: Dictionary={"bone_count":skeleton.get_bone_count(),"bones":[],"limbs":{},"checks":checks,"failures":failures,"renderer":DisplayServer.get_name()}
 	for i in skeleton.get_bone_count():

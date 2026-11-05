@@ -18,6 +18,7 @@
     "godot/src/navigation/route_ribbon.gd"
   ],
   "verification": [
+    "keyboard-control",
     "rowing-fit",
     "visual-rowing-fit",
     "visual-rowing-game",
@@ -207,3 +208,15 @@ R06的旧“完全黑船”断言更新为关闭船灯后仅受冷色月光；�
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-NAV-R14 | 已实现；两桨及桨架从z=0.36前移至0.55m，握柄向舷内补9cm，配合缩小摆幅和抬桨范围，坐点与桨长保持。真实BladeContact仍入水、停船不再溅水。R13原坐姿与手掌到点结果仅为历史基线，不能覆盖本次手臂扭转反馈。 | [本轮实测、近景及旧版负向对照](../../development/2026-11-04_rowing_arm_direction.md)；`visual-rowing-fit` / `visual-rowing-game` / `boat-water-contact`。原始Blend/GLB和商业授权pending保持。 |
+
+## 2026-11-05 键盘手动划行
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-NAV-R15 | 已实现；`Boat.set_drive/release_drive/stop_drive` 驱动方向与速度，位移仍过 `_clear()`，撞岸停住并抛 `navigation_blocked`，松手减速到零后退出手动、由 SEA-MOVE 切回 `boat_idle`；点目标航行主动清手动，两者不同时写船位 | `keyboard-control`（划行、松手停稳、撞岸仍在开阔水面、待机↔航行切换）；`rowing-fit` 76631 项、`board-click`、`dock-seed` 复跑通过；[本轮交付](../../development/2026-11-05_keyboard_control.md)。手动模式不自动靠泊，靠岸仍需点登陆标记或按 E。 |
+
+## 2026-11-05 · 尺度联动
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-NAV-R16 | 已实现；桨轴与桨架前移 0.18 m 到船局部 z=0.73，`RowingSeat` 保持 (0,0.6025,0.32)，桨长/入水/航速/靠泊不变 | `rowing-fit`：手掌-握柄偏差 0.0004 mm、手掌前向 +309.1 mm、肘前向 +80.9 mm（改前为 −72.6 mm）、肘折叠 107.0°（改前 136.5°）、肘轴误差 2.46e-7、桨叶 y −0.0678…+0.330；`visual-rowing-game` 8 机位逐图目视。[本轮交付](../../development/2026-11-05_character_scale_150.md) |

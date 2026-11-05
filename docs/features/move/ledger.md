@@ -18,6 +18,7 @@
     "godot/src/navigation/landing_point.gd"
   ],
   "verification": [
+    "keyboard-control",
     "rowing-fit",
     "visual-rowing-fit",
     "visual-rowing-game",
@@ -182,3 +183,16 @@ SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-MOVE-R19 | 已修正；桨架前移19cm，握点完整周期位于肩前；上下臂共用连续肘轴，消除轴向扭转和翻面。上臂允许自然的小幅后摆，限制35°，不靠拉长手臂握桨。此前R18验收只覆盖到点和坐姿，未覆盖扭转，不能作为本条通过证据。 | `visual-rowing-fit`、`actor-presentation`、`avatar-skinning`、`visual-rowing-game`及当前接水回归；[本轮记录与真实手臂近景](../../development/2026-11-04_rowing_arm_direction.md)。体型9组、30/60/120FPS、完整24相位及左右转向；设备/全部外观组合未验。 |
+
+## 2026-11-05 键盘自由行走
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-MOVE-R20 | 已实现；新增 `strolling` 状态与 `free_walk_action`，方向键/WASD 按镜头朝向连续行走，共用同一物理胶囊、速度与 +Z 朝向；面板/过场期间不读键，船上与潜水一律清零；贴边能沿边滑动，不会因 0.30 米净空阈值在窄栈桥上卡死 | `keyboard-control` 29 项；`click`、`walk-facing`、`walk-deck-fit`、`character-space-save`、`framework-integration`、`walk-on-planters` 复跑通过；[本轮交付](../../development/2026-11-05_keyboard_control.md)。手柄、触屏与室内房间键位行走未实测。 |
+| SEA-MOVE-R21 | 已实现；最后一个航点剩余 ≤ 0.10 米被胶囊挡停时视为到达，修掉「上船走到站立点差 6 厘米被判被挡住」的既有缺陷 | 同 `keyboard-control`（按 E 上船一项依赖该路径）；[本轮记录](../../development/2026-11-05_keyboard_control.md)。 |
+
+## 2026-11-05 · 尺度联动
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-MOVE-R22 | 已实现；表现层随 `SCALE` 放大，玩法契约（胶囊 0.22/1.30、2.3 m/s、状态机、+Z 朝向）一字未改；坐姿骨盆间隙 0.05×SCALE、获物路径与挎包/背带/腕部偏移同乘 | `rowing-fit` 76631 项 0 失败（臀部-座板最大间隙 9.84 mm、腿部穿板 0 顶点）、`avatar-customization` exit0、`character-motor`/`surface`/`walk-facing`/`walk-deck-fit` exit0。[本轮交付](../../development/2026-11-05_character_scale_150.md) |

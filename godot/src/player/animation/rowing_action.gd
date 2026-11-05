@@ -14,15 +14,16 @@ func sample(a, _delta: float) -> void:
 	var body_basis := local_seat.basis*Basis(Vector3.RIGHT,lean)
 	var hip_height: float=a._avatar_factors.hip_y
 	a.body_pivot.basis=body_basis
-	# Rotate about the pelvis, so boat roll does not lift the seat.
-	a.body_pivot.position=local_seat.origin+local_seat.basis*Vector3(0,0.05,0)-body_basis*Vector3(0,hip_height,0)
+	# Rotate about the pelvis, so boat roll does not lift the seat. The 5cm of
+	# clearance between bench top and pelvis underside follows the body scale.
+	a.body_pivot.position=local_seat.origin+local_seat.basis*Vector3(0,0.05*Dimensions.SCALE,0)-body_basis*Vector3(0,hip_height,0)
 	for pair in [[a.left_leg,a.left_knee],[a.right_leg,a.right_knee]]:
 		pair[0].rotation=Vector3(-1.50-lean,0,0)
 		pair[1].rotation=Vector3(1.52,0,0)
 	for side in [-1,1]:
 		var arm: Node3D=a.left_arm if side<0 else a.right_arm
 		var elbow: Node3D=a.left_elbow if side<0 else a.right_elbow
-		var target: Vector3=contacts["left_grip" if side<0 else "right_grip"] if not contacts.is_empty() else a.body_pivot.to_global(Vector3(side*0.27,hip_height+0.24,0.18))
+		var target: Vector3=contacts["left_grip" if side<0 else "right_grip"] if not contacts.is_empty() else a.body_pivot.to_global(Vector3(side*0.27,hip_height+0.24,0.18)*Dimensions.SCALE)
 		pose_arm(arm,elbow,a.body_pivot.to_local(target),side,float(a._avatar_factors.arm_length))
 
 func pose_arm(arm: Node3D, elbow: Node3D, target: Vector3, side: int, length_scale: float) -> void:

@@ -4,8 +4,11 @@ extends Node3D
 ## can provide arbitrary world-space triangles (floors, ramps and upper storeys).
 const GROUND_LAYER := 256
 const ACTOR_LAYER := 512
-const ACTOR_RADIUS := 0.22
-const ACTOR_HEIGHT := 1.30
+## Same envelope the CharacterMotor capsule uses; a narrower agent radius would
+## route paths closer to walls than the body can actually slide through.
+const BodyDimensions = preload("res://src/avatar/avatar_dimensions.gd")
+const ACTOR_RADIUS := BodyDimensions.BODY_RADIUS
+const ACTOR_HEIGHT := BodyDimensions.BODY_HEIGHT
 const ENDPOINT_TOLERANCE := 0.25
 const EPS := 0.0001
 const GroundPath = preload("res://src/navigation/ground_path.gd")

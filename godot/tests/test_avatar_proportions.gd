@@ -1,6 +1,7 @@
 extends SceneTree
 ## Actual mesh projections against the supplied image, plus real renderer views.
 const Catalog=preload("res://src/avatar/avatar_catalog.gd")
+const Dimensions=preload("res://src/avatar/avatar_dimensions.gd")
 var checks:=0
 var failures:=0
 var actor: Node3D
@@ -54,7 +55,7 @@ func measure() -> void:
 		var error: float=absf(metrics[id]-float(target.value))
 		check(error<=float(target.tolerance),"%s actual=%.4f reference=%.4f relative_error=%.2f%%" % [id,metrics[id],target.value,error/float(target.value)*100])
 	var collider: CapsuleShape3D=actor.get_node("BodyCollision").shape
-	check(is_equal_approx(collider.radius,0.22) and is_equal_approx(collider.height,1.30),"reference proportions preserve gameplay capsule")
+	check(is_equal_approx(collider.radius,Dimensions.BODY_RADIUS) and is_equal_approx(collider.height,Dimensions.BODY_HEIGHT),"gameplay capsule keeps the authored walkable envelope radius=%.3f height=%.3f"%[collider.radius,collider.height])
 	check(actor.scale==Vector3.ONE and actor.body_pivot.scale==Vector3.ONE,"no hidden gameplay or whole-body scaling")
 	var hand: Node3D=actor.left_elbow.get_child(1)
 	check(hand.global_position.y<actor.left_leg.global_position.y+0.08,"resting hands finish near hip, not short torso")

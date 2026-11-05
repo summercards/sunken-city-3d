@@ -73,3 +73,11 @@ Blender 源：`art_source/rooms/bedroom/v001`（13 个独立组件包，7888 三
 统一 runner：`room`（专项 85 项）、`visual-room`（真实渲染 6 机位）；
 受影响的既有套件：`sleep-cycle`、`visual-sleep-cycle`、`water-layer`、`modules`、
 `building-simulate`、`framework-integration`。证据见[本轮交付](../../development/2026-11-05_bedroom_room.md)。
+
+## 2026-11-05 尺度联动（追加）
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ROOM-R15 | 门洞净高仍为 2.06 m。放大后的角色发顶 1.869 m、礼帽顶 2.050 m，默认外观在门洞内余 1 cm；「礼帽 + 头大 1.12」最坏 2.154 m，会穿门楣 9.4 cm。本轮不重做门洞资产（`SEA-SCENE-BDR-003`/`SEA-SCENE-BDR-008` 需重跑 Blender 管线），作为已知限制登记；室内净高 2.75 m 与床长 2.03 m 均仍满足。 |
+
+[交付与实测](../../development/2026-11-05_character_scale_150.md)

@@ -53,7 +53,7 @@ func avatar_rest_hand(side: int) -> Vector3: return Morphology.rest_hand(side,_a
 func avatar_portrait_scale() -> float:
 	return maxf(1.0,float(_avatar_factors.head)*float(_avatar_factors.head_width)/0.95)
 func avatar_arm_front_clearance() -> float:
-	return 0.16+maxf(0.0,float(_avatar_factors.head)-1.0)*0.65+maxf(0.0,float(_avatar_factors.head_width)-0.95)*0.55+maxf(0.0,float(_avatar_factors.arm)-1.35)*0.12
+	return (0.16+maxf(0.0,float(_avatar_factors.head)-1.0)*0.65+maxf(0.0,float(_avatar_factors.head_width)-0.95)*0.55+maxf(0.0,float(_avatar_factors.arm)-1.35)*0.12)*Dimensions.SCALE
 func avatar_geometry_report() -> Dictionary:
 	return {"factors":_avatar_factors.duplicate(true),"morphs":_avatar_morphs.duplicate(true),"face":_avatar_visual.face_metrics(),"hair":_avatar_visual.hair_metrics()}
 
@@ -125,21 +125,21 @@ func build() -> void:
 	gear.visible = false
 	body_pivot.add_child(gear)
 	var tank := CylinderMesh.new()
-	tank.top_radius = 0.112
-	tank.bottom_radius = 0.112
-	tank.height = 0.32
+	tank.top_radius = 0.112*Dimensions.SCALE
+	tank.bottom_radius = 0.112*Dimensions.SCALE
+	tank.height = 0.32*Dimensions.SCALE
 	tank.radial_segments = 16
 	var tank_mi := MeshInstance3D.new()
 	tank_mi.mesh = tank
 	tank_mi.material_override = _mat(Color("#c4d5cb"), true)
-	tank_mi.position = Vector3(0, 0.56, -0.205)
+	tank_mi.position = Vector3(0, 0.56, -0.205)*Dimensions.SCALE
 	gear.add_child(tank_mi)
 
 	mask = Node3D.new()
 	mask.name = "DiveMask"
 	mask.visible = false
 	head_pivot.add_child(mask)
-	mask.scale=Dimensions.HEAD_SCALE
+	mask.scale=Dimensions.HEAD_SCALE*Dimensions.SCALE
 	preload("res://src/avatar/avatar_face.gd").new().build_dive_mask(mask)
 	apply_appearance(preload("res://src/avatar/avatar_catalog.gd").defaults())
 
@@ -176,7 +176,7 @@ func _elbow(parent: Node3D, name: String, _side: int) -> Node3D:
 	elbow.position=Vector3(0,-Dimensions.UPPER_ARM,0); parent.add_child(elbow)
 	var guide:=Marker3D.new(); guide.name="ForearmGuide"; elbow.add_child(guide)
 	var hand:=Marker3D.new(); hand.name="Hand"
-	hand.position=Vector3(0,-Dimensions.LOWER_ARM,0.006); elbow.add_child(hand)
+	hand.position=Vector3(0,-Dimensions.LOWER_ARM,0.006*Dimensions.SCALE); elbow.add_child(hand)
 	return elbow
 
 func _knee(parent: Node3D, name: String) -> Node3D:
@@ -184,7 +184,7 @@ func _knee(parent: Node3D, name: String) -> Node3D:
 	knee.position=Vector3(0,-Dimensions.THIGH,0); parent.add_child(knee)
 	var guide:=Marker3D.new(); guide.name="ShinGuide"; knee.add_child(guide)
 	var foot:=Marker3D.new(); foot.name="Foot"
-	foot.position=Vector3(0,-Dimensions.SHIN,0.025); knee.add_child(foot)
+	foot.position=Vector3(0,-Dimensions.SHIN,0.025*Dimensions.SCALE); knee.add_child(foot)
 	return knee
 
 func sync_visual_pose() -> void:
@@ -304,8 +304,8 @@ func _reset_action_pose() -> void:
 	right_arm.rotation.z=float(_avatar_factors.arm_rest)
 	_item_receive.set_arm_length(left_arm,left_elbow,float(_avatar_factors.arm_length))
 	_item_receive.set_arm_length(right_arm,right_elbow,float(_avatar_factors.arm_length))
-	left_elbow.get_node("Hand").position.z=0.006
-	right_elbow.get_node("Hand").position.z=0.006
+	left_elbow.get_node("Hand").position.z=0.006*Dimensions.SCALE
+	right_elbow.get_node("Hand").position.z=0.006*Dimensions.SCALE
 	_last_action = ""
 	sync_visual_pose()
 

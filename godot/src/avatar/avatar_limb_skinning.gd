@@ -71,10 +71,12 @@ func apply_appearance(raw: Dictionary) -> void:
 		mat.set_shader_parameter("sneakers",_appearance.shoes=="sneakers")
 
 func _profile(id: String) -> Array[Vector4]:
-	var knee: float=_chains[id].lengths.x
-	var end: float=knee+_chains[id].lengths.y
+	# Authored in reference units: the joint positions divide out SCALE, the
+	# literal offsets below stay reference-sized, and _scaled applies it once.
+	var knee: float=_chains[id].lengths.x/Dimensions.SCALE
+	var end: float=(_chains[id].lengths.x+_chains[id].lengths.y)/Dimensions.SCALE
 	if id.begins_with("arm"):
-		return [Vector4(-0.025,0,0,0),Vector4(-0.020,0.018,0.018,0),Vector4(-0.010,0.029,0.029,0),
+		return _scaled([Vector4(-0.025,0,0,0),Vector4(-0.020,0.018,0.018,0),Vector4(-0.010,0.029,0.029,0),
 			Vector4(0.005,0.034,0.032,0),Vector4(0.025,0.034,0.032,0),Vector4(0.05,0.034,0.032,0),
 			Vector4(0.08,0.034,0.032,0),Vector4(0.105,0.033,0.031,0),Vector4(0.115,0.032,0.030,0),
 			Vector4(knee-0.045,0.031,0.029,0),Vector4(knee-0.032,0.0305,0.029,0),Vector4(knee-0.020,0.030,0.0285,0),
@@ -82,20 +84,27 @@ func _profile(id: String) -> Array[Vector4]:
 			Vector4(knee+0.020,0.029,0.028,0),Vector4(knee+0.032,0.029,0.028,0),Vector4(knee+0.045,0.0285,0.0275,0),
 			Vector4(0.25,0.027,0.026,0),Vector4(0.285,0.025,0.024,0),Vector4(0.315,0.024,0.023,0.002),
 			Vector4(end-0.020,0.028,0.026,0.004),Vector4(end-0.010,0.039,0.034,0.006),Vector4(end,0.043,0.040,0.006),
-			Vector4(end+0.016,0.040,0.037,0.006),Vector4(end+0.032,0.030,0.028,0.006),Vector4(end+0.043,0.016,0.015,0.006),Vector4(end+0.047,0,0,0.006)]
-	return [Vector4(-0.025,0,0,0),Vector4(-0.018,0.022,0.022,0),Vector4(-0.005,0.032,0.030,0),Vector4(0.015,0.034,0.032,0),
+			Vector4(end+0.016,0.040,0.037,0.006),Vector4(end+0.032,0.030,0.028,0.006),Vector4(end+0.043,0.016,0.015,0.006),Vector4(end+0.047,0,0,0.006)])
+	return _scaled([Vector4(-0.025,0,0,0),Vector4(-0.018,0.022,0.022,0),Vector4(-0.005,0.032,0.030,0),Vector4(0.015,0.034,0.032,0),
 		Vector4(0.05,0.034,0.032,0),Vector4(0.10,0.034,0.032,0),Vector4(0.15,0.0335,0.032,0),
 		Vector4(knee-0.04,0.033,0.0315,0),Vector4(knee-0.025,0.0325,0.031,0),Vector4(knee-0.012,0.032,0.031,0),
 		Vector4(knee,0.032,0.031,0),Vector4(knee+0.012,0.032,0.031,0),Vector4(knee+0.025,0.0325,0.031,0),
 		Vector4(knee+0.04,0.033,0.031,0),Vector4(knee+0.065,0.034,0.031,0),
 		Vector4(end-0.065,0.031,0.029,0),Vector4(end-0.045,0.027,0.027,0.003),Vector4(end-0.025,0.027,0.032,0.008),
 		Vector4(end-0.012,0.034,0.052,0.018),Vector4(end,0.043,0.075,0.025),Vector4(end+0.012,0.044,0.080,0.025),
-		Vector4(end+0.024,0.043,0.076,0.025),Vector4(end+0.032,0.036,0.064,0.025),Vector4(end+0.035,0,0,0.025)]
+		Vector4(end+0.024,0.043,0.076,0.025),Vector4(end+0.032,0.036,0.064,0.025),Vector4(end+0.035,0,0,0.025)])
+
+## Limb profiles are authored at reference scale; the skeleton itself is real metres.
+func _scaled(rows: Array) -> Array[Vector4]:
+	var out: Array[Vector4]=[]
+	for row in rows: out.append(Vector4(row.x,row.y,row.z,row.w)*Dimensions.SCALE)
+	return out
 
 func _weights(d: float, chain: Dictionary) -> Vector3:
+	var k:=Dimensions.SCALE
 	var end: float=chain.lengths.x+chain.lengths.y
-	var distal:=smoothstep(end-0.035,end+0.020,d)
-	var bend:=smoothstep(chain.lengths.x-0.045,chain.lengths.x+0.045,d)
+	var distal:=smoothstep(end-0.035*k,end+0.020*k,d)
+	var bend:=smoothstep(chain.lengths.x-0.045*k,chain.lengths.x+0.045*k,d)
 	return Vector3((1-bend)*(1-distal),bend*(1-distal),distal)
 
 func _build_limb(id: String) -> void:
@@ -124,7 +133,7 @@ func _build_limb(id: String) -> void:
 				var longitudinal:=Vector3((next.y-prev.y)/step*cos(angle),-1,(next.w-prev.w)/step+(next.z-prev.z)/step*sin(angle))
 				normal=tangent.cross(longitudinal).normalized()
 			normals.append(normal)
-			uv.append(Vector2(float(j)/SIDES,(p.x+0.025)/(profile[-1].x+0.025)))
+			uv.append(Vector2(float(j)/SIDES,(p.x+0.025*Dimensions.SCALE)/(profile[-1].x+0.025*Dimensions.SCALE)))
 			uv2.append(Vector2(p.x,p.x-(chain.lengths.x+chain.lengths.y)))
 			var blend:=_weights(p.x,chain)
 			bones.append_array(PackedInt32Array([chain.upper_skin,chain.lower_skin,chain.tip,0]))
@@ -165,8 +174,8 @@ func deformed_points(id: String, region := "all") -> PackedVector3Array:
 	var result:=PackedVector3Array()
 	for i in data.vertices.size():
 		var d: float=data.uv2[i].x
-		if region=="shoulder" and d>0.13: continue
-		if region=="foot" and d<chain.lengths.x+chain.lengths.y-0.04: continue
+		if region=="shoulder" and d>0.13*Dimensions.SCALE: continue
+		if region=="foot" and d<chain.lengths.x+chain.lengths.y-0.04*Dimensions.SCALE: continue
 		var point:=Vector3.ZERO
 		for influence in 4:
 			var slot: int=i*4+influence

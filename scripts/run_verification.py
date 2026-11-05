@@ -25,6 +25,9 @@ TESTS = {
     'visual-crops': ('tools/capture_crops.gd', r'\[crops-render\] \d+ checks, 0 failures'),
     'surface': ('tests/test_surface_movement.gd', r'\[surface\].*failures=0'),
     'click': ('tests/test_click_controls.gd', r'\[click-controls\] \d+ checks, 0 failures'),
+    # 键盘操控：方向键走人 / 划船、镜头不再被方向键平移、E 上下船
+    # （SEA-MOVE-R20 / SEA-NAV-R15 / SEA-CAMERA-R12 / SEA-INTERACT-R13）。
+    'keyboard-control': ('tests/test_keyboard_control.gd', r'\[keyboard-control\] \d+ checks, 0 failures'),
     'management': ('tests/test_management_loop.gd', r'\[management\] \d+ checks, 0 failed'),
     'camera': ('tests/test_camera_follow.gd', r'\[camera-follow\].*failures=0'),
     # 缩放上限 38 m：连续往外滚拉不出去，往里仍能到 9 m（SEA-CAMERA-R11，真实渲染）。
@@ -65,6 +68,8 @@ TESTS.update({
     'rowing-fit': ('tests/test_rowing_fit.gd', r'\[rowing-fit\] \d+ checks, 0 failures'),
     'visual-rowing-fit': ('tests/test_rowing_fit.gd', r'\[rowing-fit\] \d+ checks, 0 failures'),
     'visual-rowing-game': ('tools/capture_rowing_fit.gd', r'\[rowing-game\] \d+ checks, 0 failures'),
+    # 划船装配标尺：角色整体尺度、座板、桨架、握柄与桨叶的实际米制关系（只读探针）。
+    'rowing-scale-probe': ('tools/probe_rowing_scale.gd', r'\[rowing-scale\] '),
     'building-demolition': ('tests/test_building_demolition.gd', r'\[building-demolition\] \d+ checks, 0 failures'),
     'building-surfaces': ('tests/test_building_surfaces.gd', r'\[building-surfaces\] \d+ checks, 0 failures'),
     'visual-building-surfaces': ('tests/test_building_surfaces.gd', r'\[building-surfaces\] \d+ checks, 0 failures'),

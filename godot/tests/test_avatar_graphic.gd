@@ -56,6 +56,9 @@ func ring_center(points: PackedVector3Array, ring: Dictionary) -> Vector3:
 	return sum/float(ring.count)
 
 func body_contract() -> void:
+	# Ring distances and the reference silhouette below are authored at 1.0 scale;
+	# multiply by SCALE so the same assertions hold for the enlarged body.
+	var k: float=actor.Dimensions.SCALE
 	for kind in ["balanced","pear","athletic","soft"]:
 		for build in [0.0,.5,1.0]:
 			actor.apply_avatar(Support.profile({"body_type":kind},{"body_build":build}))
@@ -64,26 +67,26 @@ func body_contract() -> void:
 			var solid:=Support.shirt_solid(pelvis,actor.body_pivot)
 			var shirt: MeshInstance3D=actor.body_pivot.get_node("AvatarBody/Shirt")
 			var shirt_solid:=Support.shirt_solid(shirt,actor.body_pivot)
-			check(solid.bounds.end.y>shirt_solid.bounds.position.y+.02,"pelvis overlaps shirt hem "+kind+str(build))
+			check(solid.bounds.end.y>shirt_solid.bounds.position.y+.02*k,"pelvis overlaps shirt hem "+kind+str(build))
 			for limb in ["arm.L","arm.R"]:
 				var data: Dictionary=actor.limb_skinning.surface_data(limb)
 				var points: PackedVector3Array=actor.limb_skinning.deformed_points(limb)
 				var centers:=PackedVector3Array()
 				for ring in data.rings:
-					if ring.distance>=.005 and ring.distance<=.115: centers.append(ring_center(points,ring))
+					if ring.distance>=.005*k and ring.distance<=.115*k: centers.append(ring_center(points,ring))
 				var error:=0.0
 				for c in centers: error=maxf(error,c.distance_to(Geometry3D.get_closest_point_to_segment(c,centers[0],centers[-1])))
 				check(error<.001,"actual upper-arm centreline straight "+limb+kind+str(build)+" err="+str(error))
 				var contact:=0
 				for i in points.size():
-					if data.uv2[i].x>=-.01 and data.uv2[i].x<.025 and Support.shirt_depth(points[i],shirt_solid)>.0005: contact+=1
+					if data.uv2[i].x>=-.01*k and data.uv2[i].x<.025*k and Support.shirt_depth(points[i],shirt_solid)>.0005*k: contact+=1
 				check(contact>3,"actual sleeve overlaps torso socket "+limb+kind+str(build)+" contacts="+str(contact))
 			for limb in ["leg.L","leg.R"]:
 				var data: Dictionary=actor.limb_skinning.surface_data(limb)
 				var points: PackedVector3Array=actor.limb_skinning.deformed_points(limb)
 				var contact:=0
 				for i in points.size():
-					if data.uv2[i].x<=.025 and Support.shirt_depth(points[i],solid)>.001: contact+=1
+					if data.uv2[i].x<=.025*k and Support.shirt_depth(points[i],solid)>.001*k: contact+=1
 				check(contact>12,"actual thigh attached inside pelvis "+limb+kind+str(build)+" contacts="+str(contact))
 	# Independent sliders alter the actual mesh while leaving other axes intact.
 	for id in ["head_width","arm_girth","leg_length"]:
@@ -96,7 +99,7 @@ func body_contract() -> void:
 				var data: Dictionary=actor.limb_skinning.surface_data("arm.L")
 				var points: PackedVector3Array=actor.limb_skinning.deformed_points("arm.L")
 				for ring in data.rings:
-					if absf(float(ring.distance)-.05)<.00001:
+					if absf(float(ring.distance)-.05*k)<.00001:
 						var center:=ring_center(points,ring); var radius:=0.0
 						for j in int(ring.count): radius=maxf(radius,center.distance_to(points[int(ring.start)+j]))
 						samples.append(radius); break
@@ -115,15 +118,15 @@ func body_contract() -> void:
 		var points: PackedVector3Array=actor.limb_skinning.deformed_points(limb)
 		var near:=Vector3.ZERO; var far:=Vector3.ZERO
 		for ring in data.rings:
-			if absf(float(ring.distance)-.005)<.00001: near=ring_center(points,ring)
-			if absf(float(ring.distance)-.025)<.00001: far=ring_center(points,ring)
+			if absf(float(ring.distance)-.005*k)<.00001: near=ring_center(points,ring)
+			if absf(float(ring.distance)-.025*k)<.00001: far=ring_center(points,ring)
 		var socket:=near-(far-near)*.25
-		check(absf(absf(socket.x)-.145)<.015,"red-line actual socket horizontal "+limb+" x="+str(socket.x))
-		check(absf(socket.y-.741)<.010,"red-line actual socket lowered "+limb+" y="+str(socket.y))
+		check(absf(absf(socket.x)-.145*k)<.015*k,"red-line actual socket horizontal "+limb+" x="+str(socket.x))
+		check(absf(socket.y-.741*k)<.010*k,"red-line actual socket lowered "+limb+" y="+str(socket.y))
 		for ring in data.rings:
 			if absf(float(ring.distance)-actor.Dimensions.UPPER_ARM-actor.Dimensions.LOWER_ARM)<.00001:
 				var wrist:=ring_center(points,ring)
-				check(absf(wrist.x)>.31 and absf(wrist.x)<.36 and wrist.y>.39 and wrist.y<.425,"red-line relaxed wrist silhouette "+limb+" at="+str(wrist))
+				check(absf(wrist.x)>.31*k and absf(wrist.x)<.36*k and wrist.y>.39*k and wrist.y<.425*k,"red-line relaxed wrist silhouette "+limb+" at="+str(wrist))
 
 func expression_contract() -> void:
 	for option in Catalog.options("eyes"):

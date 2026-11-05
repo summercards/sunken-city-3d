@@ -92,7 +92,7 @@ func run() -> void:
 	await click(hud.corner.buttons.follow)
 	main._process(0.0);main.cam._process(0.1)
 	check(main.cam.follow_enabled and hud.corner.buttons.follow.selected,"real camera-lock click restores follow and updates icon")
-	check(main.cam.target.distance_to(main.player.global_position+Vector3.UP*0.7)<0.001,"camera follows the real player position")
+	check(main.cam.target.distance_to(main.player.global_position+Vector3.UP*main.BodyScale.CAMERA_FOCUS)<0.001,"camera follows the real player position")
 	check(main.actor_controller.auto_target==target_before_lock,"camera icon does not issue a world movement target")
 	await shot("hud-follow-locked")
 	main.cam._begin_pan(Vector2(600,400));main.cam._drag_pan(Vector2(650,400));main.cam._end_drag()
