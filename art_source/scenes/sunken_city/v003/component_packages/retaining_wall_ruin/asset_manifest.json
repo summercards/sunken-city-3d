@@ -1,0 +1,132 @@
+{
+  "key": "retaining_wall_ruin",
+  "slug": "retaining_wall_ruin",
+  "name": "残破矮挡墙_挂管与缺口",
+  "component_family": "low_wall",
+  "category": "facilities",
+  "component_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    8,
+    2,
+    2.2
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 19,
+  "version": "v003",
+  "collection": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN_残破矮挡墙_挂管与",
+  "root_object": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN_ROOT",
+  "objects": [
+    "残破矮挡墙_挂管与缺口_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-RETAINING-WALL-RUIN_ROOT"
+  ],
+  "bounds_size_m": [
+    7.949999809265137,
+    2.0183329582214355,
+    2.413233995437622
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 2008,
+  "polygons": 1035,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/retaining_wall_ruin/retaining_wall_ruin.blend",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "958622ff5fb999c544c345a831de6ba29d9e2b544828223abe70a836f5c952e1",
+  "geometry_fingerprint": "bc8c1cfaf6fa2b03ccfec359772687e6168ad335fed3ba5df6eda3d68f772df2",
+  "bounds_min": [
+    -3.9749999046325684,
+    -1.0091664791107178,
+    0.0
+  ],
+  "bounds_max": [
+    3.9749999046325684,
+    1.0091664791107178,
+    2.413233995437622
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\retaining_wall_ruin.json",
+    "exit_code": 0
+  },
+  "source_stage": "source_verified_runtime_pending",
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/retaining_wall_ruin_optimized.blend",
+    "optimized_sha256": "69d0eaeb05a93b221e61ab9f1485366e060a9c43c2f8b178a312053f69b32b22",
+    "triangles_before": 2008,
+    "triangles_after": 2008,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -3.9749999046325684,
+        -1.0091664791107178,
+        0.0
+      ],
+      [
+        3.9749999046325684,
+        1.0091664791107178,
+        2.413233995437622
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/retaining_wall_ruin/retaining_wall_ruin.glb",
+    "runtime_sha256": "903ed6628afc14d4ce5d742bbf96c8e588e55fb5b80d4cfc974aaeeb1e041156",
+    "prefab": "godot/scenes/components/scenery/sunken_city/retaining_wall_ruin.tscn",
+    "prefab_sha256": "0c3c5679b20a25d35f576e6ccbcdfd45adaa6191598e3279010f93dd67a595d8",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

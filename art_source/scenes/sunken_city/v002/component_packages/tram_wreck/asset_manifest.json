@@ -1,0 +1,91 @@
+{
+  "key": "tram_wreck",
+  "slug": "tram_wreck",
+  "name": "旧电车_断窗侧倾",
+  "category": "facilities",
+  "component_family": "tram",
+  "component_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    12,
+    3.8,
+    5.4
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 1,
+  "collection": "SEA-SCENE-SCITY-TRAM-WRECK_旧电车_断窗侧倾",
+  "root_object": "SEA-SCENE-SCITY-TRAM-WRECK_ROOT",
+  "objects": [
+    "旧电车_断窗侧倾_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-TRAM-WRECK_ROOT"
+  ],
+  "bounds_size_m": [
+    12.0,
+    4.152960300445557,
+    5.518245220184326
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 4614,
+  "polygons": 2336,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/tram_wreck/tram_wreck.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v002",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "5da7c86ac85dac88f465c5a24abc0ded397f965d0c549c651c1ad8d1d994f8cf",
+  "geometry_fingerprint": "06567d4e1bf90c4eabe2f205eaf8b4ac20eddeb16247ef2fb2c0e285c94ee977",
+  "bounds_min": [
+    -6.0,
+    -2.0764801502227783,
+    0.0
+  ],
+  "bounds_max": [
+    6.0,
+    2.0764801502227783,
+    5.518245220184326
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\tram_wreck.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-TRAM-WRECK"
+}

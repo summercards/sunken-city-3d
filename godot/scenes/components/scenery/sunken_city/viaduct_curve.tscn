@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/scenery/sunken_city/viaduct_curve/viaduct_curve.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/matte.tres" id="matte"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/metal.tres" id="metal"]
+
+[node name="电车高架_26米半径45度弯道" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-SCITY-VIADUCT-CURVE"
+metadata/key = "viaduct_curve"
+metadata/asset_version = "v003"
+metadata/building_class = "underwater"
+metadata/source_suite = "sunken_city"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "part"
+metadata/collision = false
+metadata/interactive = false
+metadata/blocks_water = false
+metadata/shoreline_source = false
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="Mesh_viaduct_curve" parent="Visual/Root_viaduct_curve" index="0"]
+surface_material_override/0 = ExtResource("matte")
+surface_material_override/1 = ExtResource("metal")
+cast_shadow = 1

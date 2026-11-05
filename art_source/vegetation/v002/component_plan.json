@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "status": "frozen_before_geometry",
+  "scope": "solar_cabin_turf_only",
+  "reference": "user video, image-2 input reference_04s.png",
+  "supersedes": "v001 rejected solid geometry aesthetic; existing solar plants restored byte-for-byte to HEAD",
+  "assets": [
+    {
+      "asset_id": "SEA-VEG-GRASS-SOFT",
+      "key": "grass_soft",
+      "kind": "3 crossed segmented texture cards",
+      "triangles": 18
+    },
+    {
+      "asset_id": "SEA-VEG-MOSS-SOFT",
+      "key": "moss_soft",
+      "kind": "slightly warped horizontal texture card",
+      "triangles": 8
+    },
+    {
+      "asset_id": "SEA-TEX-VEGETATION-SOFT-ATLAS",
+      "key": "soft_atlas",
+      "kind": "image-2 RGBA atlas four quadrants"
+    }
+  ],
+  "exception": "User explicitly requests authored botanical color+alpha UV0, replacing palette-only UV0 for this vegetation family; architecture and existing flora stay unchanged.",
+  "collision": "none",
+  "wind": "fixed roots, spatially coherent wind plus fine tips",
+  "density": "staggered overlapping fans, 0.105m grid near; continuous moss underlayer"
+}

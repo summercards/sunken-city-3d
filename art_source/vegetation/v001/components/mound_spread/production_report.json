@@ -1,0 +1,68 @@
+{
+  "key": "mound_spread",
+  "label": "铺展草堆",
+  "profile": "mound",
+  "triangle_budget": 1700,
+  "asset_id": "SEA-VEG-MOUND-SPREAD",
+  "source": "art_source/vegetation/v001/components/mound_spread/mound_spread.blend",
+  "source_sha256": "6daf4220f114c092ce8910a9802637a5b55470d888852363a2b73422e5253b96",
+  "optimized_source": "art_source/vegetation/v001/components/mound_spread/mound_spread_optimized.blend",
+  "optimized_sha256": "6db5e49a8d24d737b91482d1f36816e34bf4d6b1be07ce2228db8366c4d8d069",
+  "glb": "godot/assets/models/vegetation/mound_spread.glb",
+  "glb_sha256": "f4ef8bd74f8ce73f06016e941ae9a6c4e7e8d9d6df22be502cbe572d6de0f31c",
+  "before": {
+    "vertices": 920,
+    "triangles": 1412,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.677933931350708,
+        -0.48948025703430176,
+        0.0
+      ],
+      [
+        0.677933931350708,
+        0.48948025703430176,
+        0.37764349579811096
+      ]
+    ],
+    "root_vertices": 80,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.7621780037879944
+    ]
+  },
+  "after": {
+    "vertices": 826,
+    "triangles": 1308,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.677933931350708,
+        -0.48948025703430176,
+        0.0
+      ],
+      [
+        0.677933931350708,
+        0.48948025703430176,
+        0.37764349579811096
+      ]
+    ],
+    "root_vertices": 40,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.7621780037879944
+    ]
+  },
+  "operations": [
+    "merge coincident vertices at 1e-6 m",
+    "remove degenerate edges",
+    "preserve PaletteUV and WindData seams",
+    "reopen both sources and verify"
+  ],
+  "removed_vertices": 94
+}

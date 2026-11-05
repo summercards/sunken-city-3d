@@ -1,0 +1,133 @@
+{
+  "key": "bus_shelter",
+  "slug": "bus_shelter",
+  "name": "候车亭_缺顶板",
+  "category": "facilities",
+  "component_family": "shelter",
+  "component_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    6,
+    2.5,
+    3.4
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 5,
+  "collection": "SEA-SCENE-SCITY-BUS-SHELTER_候车亭_缺顶板",
+  "root_object": "SEA-SCENE-SCITY-BUS-SHELTER_ROOT",
+  "objects": [
+    "候车亭_缺顶板_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-BUS-SHELTER_ROOT"
+  ],
+  "bounds_size_m": [
+    5.829999923706055,
+    2.5,
+    3.3499999046325684
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 1516,
+  "polygons": 790,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/bus_shelter/bus_shelter.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "82dcc58e67b0b696375d3d7e463dc97f834be78da4e58b231c73559b35679a86",
+  "geometry_fingerprint": "9acc4477c4ca1b42ae391ab8288f45c2c6c2296e465dd145064de02d6ad50265",
+  "bounds_min": [
+    -2.9149999618530273,
+    -1.25,
+    0.0
+  ],
+  "bounds_max": [
+    2.9149999618530273,
+    1.25,
+    3.3499999046325684
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\bus_shelter.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-BUS-SHELTER",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/bus_shelter_optimized.blend",
+    "optimized_sha256": "6d7698a3a40411da58a34f7ef0bd5ffeb2800c5c77d0babdf38a8041996ea248",
+    "triangles_before": 1516,
+    "triangles_after": 1516,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -2.9149999618530273,
+        -1.25,
+        0.0
+      ],
+      [
+        2.9149999618530273,
+        1.25,
+        3.3499999046325684
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/bus_shelter/bus_shelter.glb",
+    "runtime_sha256": "3181b32aa9f29962056fc4113fb9ef18e9426b729db769e60a72d2e88f157687",
+    "prefab": "godot/scenes/components/scenery/sunken_city/bus_shelter.tscn",
+    "prefab_sha256": "07ac0fe9e5d3d086c5fb56b47ee3f8c289aa6187ff23d30be7c1e54d94d872db",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

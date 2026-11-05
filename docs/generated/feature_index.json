@@ -140,6 +140,9 @@
         "godot/src/navigation/landing_point.gd"
       ],
       "verification": [
+        "rowing-fit",
+        "visual-rowing-fit",
+        "visual-rowing-game",
         "walk-on-planters",
         "visual-walk-on-planters",
         "character-motor",
@@ -179,6 +182,9 @@
         "godot/src/navigation/route_ribbon.gd"
       ],
       "verification": [
+        "rowing-fit",
+        "visual-rowing-fit",
+        "visual-rowing-game",
         "reference-skiff",
         "visual-reference-skiff",
         "boat-water-contact",
@@ -681,7 +687,8 @@
       "owner": "SleepCycle / SleepCheckpoint",
       "code_paths": [
         "godot/src/time/sleep_cycle.gd",
-        "godot/src/time/sleep_checkpoint.gd",
+        "godot/src/room/room_bed.gd",
+        "godot/src/room/room_controller.gd",
         "godot/src/player/states/sleeping.gd",
         "godot/src/ui/sleep_curtain.gd",
         "godot/shaders/sleep_iris.gdshader"
@@ -691,6 +698,53 @@
         "visual-sleep-cycle",
         "minimum-loop",
         "framework-integration"
+      ]
+    },
+    {
+      "feature_id": "SEA-ROOM",
+      "name": "室内房间（卧室与前厅）",
+      "group": "生活",
+      "dependencies": [
+        "SEA-WORLD",
+        "SEA-SLEEP",
+        "SEA-MOVE",
+        "SEA-SAVE"
+      ],
+      "spec": "docs/features/room/spec.md",
+      "ledger": "docs/features/room/ledger.md",
+      "status": "implemented",
+      "owner": "RoomService",
+      "code_paths": [
+        "godot/src/room/room_service.gd",
+        "godot/src/room/room_scene.gd",
+        "godot/src/room/room_controller.gd",
+        "godot/src/room/room_bed.gd",
+        "godot/src/room/room_door.gd",
+        "godot/src/room/room_cutaway.gd",
+        "godot/scenes/rooms/bedroom.tscn",
+        "godot/scenes/components/room/bed.tscn",
+        "godot/scenes/main.tscn",
+        "godot/scenes/zones/zone1_home_harbor.tscn",
+        "godot/src/ui/hud.gd",
+        "godot/src/ui/sleep_curtain.gd",
+        "godot/src/camera/orbit_camera.gd",
+        "godot/src/save/save_schema.gd",
+        "godot/src/save/save_game.gd",
+        "godot/src/bootstrap/main.gd",
+        "godot/src/core/play_scope.gd"
+      ],
+      "verification": [
+        "room",
+        "visual-room",
+        "sleep-cycle",
+        "visual-sleep-cycle",
+        "water-layer",
+        "modules",
+        "framework-integration",
+        "minimum-loop",
+        "save-protection",
+        "building-simulate",
+        "energy"
       ]
     },
     {
@@ -868,17 +922,24 @@
       "spec": "docs/features/ambient/spec.md",
       "ledger": "docs/features/ambient/ledger.md",
       "status": "partial",
-      "owner": "PlantField / Birds",
+      "owner": "PlantField / Birds / VegetationWindController / VegetationPatch / ProtonScatter authoring",
       "code_paths": [
         "godot/src/ambient",
-        "godot/scenes/plants"
+        "godot/scenes/plants",
+        "godot/addons/proton_scatter",
+        "godot/scenes/vegetation_authoring"
       ],
       "verification": [
         "selftest",
         "decorations",
         "visual-decorations",
         "visual-birds",
-        "visual-fish-schools"
+        "visual-fish-schools",
+        "vegetation-contract",
+        "visual-vegetation",
+        "visual-vegetation-performance",
+        "visual-proton-scatter",
+        "visual-proton-preview"
       ]
     },
     {

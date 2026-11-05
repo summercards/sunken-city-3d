@@ -1,0 +1,551 @@
+{
+  "schema": "sea.component_catalog",
+  "suite": "bedroom",
+  "version": "v001",
+  "plan": "art_source/rooms/bedroom/v001/component_plan.json",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "room_frame": {
+    "origin": "interior_floor_center",
+    "front_axis": "-Y",
+    "interior_m": [
+      5.0,
+      5.0
+    ],
+    "wall_height_m": 2.75,
+    "window": {
+      "x_m": [
+        0.3,
+        1.8
+      ],
+      "z_m": [
+        0.95,
+        2.0999999999999996
+      ]
+    },
+    "door": {
+      "x_m": [
+        -0.6,
+        0.6
+      ],
+      "z_m": [
+        0.0,
+        2.06
+      ]
+    },
+    "porch": {
+      "y_m": [
+        -4.46,
+        -2.66
+      ],
+      "x_m": [
+        -1.72,
+        1.72
+      ],
+      "eave_m": 2.34,
+      "ridge_m": 2.8
+    }
+  },
+  "components": [
+    {
+      "key": "floor_planks",
+      "name": "地板（5×5 木地板）",
+      "asset_id": "SEA-SCENE-BDR-001",
+      "family": "room_shell",
+      "category": "architecture",
+      "collection": "BDR_floor_planks_地板（5×5 木地板）",
+      "mesh_objects": 17,
+      "triangles": 1740,
+      "triangle_budget": 2200,
+      "bounds_size_m": [
+        5.32,
+        5.32,
+        0.14
+      ],
+      "bounds_min_m": [
+        -2.66,
+        -2.66,
+        -0.14
+      ],
+      "bounds_max_m": [
+        2.66,
+        2.66,
+        0.0
+      ],
+      "origin": "room_frame_center_floor",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "91f21f632dd7798ab0eff869a90c1a29351a7091550d5c782f22d38614589e52",
+      "layout": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "wall_window",
+      "name": "后墙（带窗）",
+      "asset_id": "SEA-SCENE-BDR-002",
+      "family": "room_shell",
+      "category": "architecture",
+      "collection": "BDR_wall_window_后墙（带窗）",
+      "mesh_objects": 8,
+      "triangles": 628,
+      "triangle_budget": 1200,
+      "bounds_size_m": [
+        5.32,
+        0.26,
+        2.75
+      ],
+      "bounds_min_m": [
+        -2.66,
+        2.4,
+        0.0
+      ],
+      "bounds_max_m": [
+        2.66,
+        2.66,
+        2.75
+      ],
+      "origin": "room_frame_center_floor",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "dad37d31285aad0929866cfc3842f1b0817bf217e3f28881ecbdb743f9574693",
+      "layout": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "wall_door",
+      "name": "前墙（带门洞）",
+      "asset_id": "SEA-SCENE-BDR-003",
+      "family": "room_shell",
+      "category": "architecture",
+      "collection": "BDR_wall_door_前墙（带门洞）",
+      "mesh_objects": 3,
+      "triangles": 68,
+      "triangle_budget": 900,
+      "bounds_size_m": [
+        5.32,
+        0.175,
+        2.75
+      ],
+      "bounds_min_m": [
+        -2.66,
+        -2.66,
+        0.0
+      ],
+      "bounds_max_m": [
+        2.66,
+        -2.485,
+        2.75
+      ],
+      "origin": "room_frame_center_floor",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "647d1fdfbc2e0da5391edfcc12055f9ada6065b54d56b23e8f3aa0122a17b6c3",
+      "layout": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "wall_side_e",
+      "name": "东侧白墙",
+      "asset_id": "SEA-SCENE-BDR-004",
+      "family": "room_shell",
+      "category": "architecture",
+      "collection": "BDR_wall_side_e_东侧白墙",
+      "mesh_objects": 2,
+      "triangles": 24,
+      "triangle_budget": 700,
+      "bounds_size_m": [
+        0.18,
+        5.0,
+        2.75
+      ],
+      "bounds_min_m": [
+        2.48,
+        -2.5,
+        0.0
+      ],
+      "bounds_max_m": [
+        2.66,
+        2.5,
+        2.75
+      ],
+      "origin": "room_frame_center_floor",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "7af978279fa0964e1e4562236f7b16e737836f1e3ae6540edb8f4d1ca3a216fc",
+      "layout": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "wall_side_w",
+      "name": "西侧白墙",
+      "asset_id": "SEA-SCENE-BDR-005",
+      "family": "room_shell",
+      "category": "architecture",
+      "collection": "BDR_wall_side_w_西侧白墙",
+      "mesh_objects": 2,
+      "triangles": 24,
+      "triangle_budget": 700,
+      "bounds_size_m": [
+        0.18,
+        5.0,
+        2.75
+      ],
+      "bounds_min_m": [
+        -2.66,
+        -2.5,
+        0.0
+      ],
+      "bounds_max_m": [
+        -2.48,
+        2.5,
+        2.75
+      ],
+      "origin": "room_frame_center_floor",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "8260b5b6ca0dd83ccffbac4b683256bf4a3f4a4b91bc7d89ef907da12e9a6d9f",
+      "layout": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "ceiling",
+      "name": "天花与木梁",
+      "asset_id": "SEA-SCENE-BDR-006",
+      "family": "room_shell",
+      "category": "architecture",
+      "collection": "BDR_ceiling_天花与木梁",
+      "mesh_objects": 7,
+      "triangles": 564,
+      "triangle_budget": 1200,
+      "bounds_size_m": [
+        5.32,
+        5.32,
+        0.3
+      ],
+      "bounds_min_m": [
+        -2.66,
+        -2.66,
+        2.58
+      ],
+      "bounds_max_m": [
+        2.66,
+        2.66,
+        2.88
+      ],
+      "origin": "room_frame_center_floor",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "215ab1a43b97013620a3432a6ad89ffe73e988302d6ec0d6df7762b7d95e1cdc",
+      "layout": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "porch_glass",
+      "name": "玻璃前厅",
+      "asset_id": "SEA-SCENE-BDR-007",
+      "family": "room_shell",
+      "category": "architecture",
+      "collection": "BDR_porch_glass_玻璃前厅",
+      "mesh_objects": 27,
+      "triangles": 2052,
+      "triangle_budget": 3600,
+      "bounds_size_m": [
+        3.54,
+        1.8237,
+        3.0209
+      ],
+      "bounds_min_m": [
+        -1.77,
+        -4.48,
+        -0.14
+      ],
+      "bounds_max_m": [
+        1.77,
+        -2.6563,
+        2.8809
+      ],
+      "origin": "room_frame_center_floor",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "4bafa21e6b504c1b52e8305eea4fbc95ada8d6d57e0ada9f0a7a74a5cf8d1143",
+      "layout": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "door_leaf",
+      "name": "门框与敞开木门",
+      "asset_id": "SEA-SCENE-BDR-008",
+      "family": "room_shell",
+      "category": "architecture",
+      "collection": "BDR_door_leaf_门框与敞开木门",
+      "mesh_objects": 8,
+      "triangles": 488,
+      "triangle_budget": 800,
+      "bounds_size_m": [
+        2.3776,
+        0.301,
+        2.12
+      ],
+      "bounds_min_m": [
+        -1.7176,
+        -2.801,
+        0.0
+      ],
+      "bounds_max_m": [
+        0.66,
+        -2.5,
+        2.12
+      ],
+      "origin": "room_frame_center_floor",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "b56b45743a6ad965813caaf36f3a25b1fb55c95ab535dd4cb033df399faf4cd7",
+      "layout": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "bed",
+      "name": "床铺（可交互/可布置）",
+      "asset_id": "SEA-SCENE-BDR-009",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "collection": "BDR_bed_床铺（可交互/可布置）",
+      "mesh_objects": 13,
+      "triangles": 1308,
+      "triangle_budget": 2600,
+      "bounds_size_m": [
+        1.16,
+        2.03,
+        0.97
+      ],
+      "bounds_min_m": [
+        -0.58,
+        -1.01,
+        0.0
+      ],
+      "bounds_max_m": [
+        0.58,
+        1.02,
+        0.97
+      ],
+      "origin": "footprint_center_base",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "a8ccf9612f76e6b988ded5ea10324fe9bb2b5c3d1fb26d6a015e21472a878134",
+      "layout": [
+        -1.86,
+        1.425,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "nightstand",
+      "name": "床头柜",
+      "asset_id": "SEA-SCENE-BDR-010",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "collection": "BDR_nightstand_床头柜",
+      "mesh_objects": 8,
+      "triangles": 296,
+      "triangle_budget": 900,
+      "bounds_size_m": [
+        0.51,
+        0.482,
+        0.5
+      ],
+      "bounds_min_m": [
+        -0.25,
+        -0.252,
+        0.0
+      ],
+      "bounds_max_m": [
+        0.26,
+        0.23,
+        0.5
+      ],
+      "origin": "footprint_center_base",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "8e7adc56fd9f931585ec8c9448a6b1ea4dcd207e2452b487b2a2ccfd8f4dcf85",
+      "layout": [
+        -0.95,
+        2.29,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "table_lamp",
+      "name": "床头台灯",
+      "asset_id": "SEA-SCENE-BDR-011",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "collection": "BDR_table_lamp_床头台灯",
+      "mesh_objects": 4,
+      "triangles": 160,
+      "triangle_budget": 700,
+      "bounds_size_m": [
+        0.34,
+        0.34,
+        0.47
+      ],
+      "bounds_min_m": [
+        -0.17,
+        -0.17,
+        0.0
+      ],
+      "bounds_max_m": [
+        0.17,
+        0.17,
+        0.47
+      ],
+      "origin": "footprint_center_base",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Emission",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "8014a6bd4907faf00212e4d149919f6a959f54a915b581690e49e87ce23ce609",
+      "layout": [
+        -0.95,
+        2.29,
+        0.5
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "rug",
+      "name": "地毯",
+      "asset_id": "SEA-SCENE-BDR-012",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "collection": "BDR_rug_地毯",
+      "mesh_objects": 3,
+      "triangles": 132,
+      "triangle_budget": 500,
+      "bounds_size_m": [
+        2.6,
+        1.9,
+        0.023
+      ],
+      "bounds_min_m": [
+        -1.3,
+        -0.95,
+        0.0
+      ],
+      "bounds_max_m": [
+        1.3,
+        0.95,
+        0.023
+      ],
+      "origin": "footprint_center_base",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "geometry_fingerprint": "8d4923d316459711a58df2f1e039d082809260313baff2c80cc65e41afde23e9",
+      "layout": [
+        0.45,
+        0.35,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    },
+    {
+      "key": "shelf",
+      "name": "靠墙矮柜",
+      "asset_id": "SEA-SCENE-BDR-013",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "collection": "BDR_shelf_靠墙矮柜",
+      "mesh_objects": 15,
+      "triangles": 404,
+      "triangle_budget": 1200,
+      "bounds_size_m": [
+        0.507,
+        1.54,
+        1.06
+      ],
+      "bounds_min_m": [
+        -0.267,
+        -0.77,
+        0.0
+      ],
+      "bounds_max_m": [
+        0.24,
+        0.77,
+        1.06
+      ],
+      "origin": "footprint_center_base",
+      "front_axis": "-Y",
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "geometry_fingerprint": "576942704b5663e1eaa2eee352ddeaf727f0fd410c7f7c656ba1f6bd848c16a2",
+      "layout": [
+        2.24,
+        0.15,
+        0.0
+      ],
+      "layout_yaw_deg": 0.0
+    }
+  ]
+}

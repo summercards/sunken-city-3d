@@ -1,0 +1,29 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3]
+
+[ext_resource type="Shader" path="res://shaders/sunny_palette_gloss.gdshader" id="1"]
+[ext_resource type="Texture2D" path="res://assets/textures/shared/sea_cabin_timber_8x8_512.png" id="2"]
+
+; SEA-ROOM 前厅玻璃：玻璃前厅的两侧与正面那几片。
+;
+; 和后墙窗玻璃（room_glass.tres）刻意分开，因为两者的「后面」不一样：
+;   · 窗后面是黑的、什么也没有 → 玻璃要暗（tint 0.085 / alpha 0.55），
+;     否则一块浅色方板读成「窗外是白天」。
+;   · 前厅是**能走进去的房间**，玩家绕着房间转时会从各个方向看它。
+;     玻璃若也是深色，转过去就是一块斜插在画面里的黑板。
+;
+; 折中值：完全透明（alpha 0.16）在黑背景下根本看不见，前厅就只剩几根白柱；
+; 太实（0.55 追深灰）又变黑板。0.30 配 0.46 的中灰，在纯黑背景上落成
+; 一片可辨认的青灰面（比夜空亮、比白框暗），加上 roughness 0.06 的镜面高光，
+; 读得出「这是玻璃」。实测 0.30/0.46 在纯黑背景上仍然太暗，前厅只剩柱子。
+[resource]
+resource_name = "SEA_Room_Porch_Glass"
+shader = ExtResource("1")
+
+shader_parameter/palette = ExtResource("2")
+shader_parameter/roughness_value = 0.06
+shader_parameter/metallic_value = 0.0
+shader_parameter/emission_value = 0.0
+shader_parameter/grid_role = false
+shader_parameter/alpha_value = 0.42
+shader_parameter/tint = Color(0.60, 0.66, 0.70, 1)
+shader_parameter/interior_glass = true

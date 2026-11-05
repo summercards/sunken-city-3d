@@ -1,0 +1,99 @@
+{
+  "key": "fallen_hall",
+  "name": "侧倒厂馆_残墙与翻转楼板",
+  "category": "architecture",
+  "component_family": "collapsed_building",
+  "size_design_m": [
+    25,
+    30,
+    15
+  ],
+  "collapse_state": "lateral_wall_failure",
+  "floors": 3,
+  "color": "plaster",
+  "damage": 0.9,
+  "style": "fallen_hall",
+  "slug": "fallen_hall",
+  "component_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "variant_axis": "collapse_state",
+  "variant_value": "lateral_wall_failure",
+  "variant_reason": "physically different collapse topology, no world-location geometry",
+  "collection": "SEA-SCENE-SCITY-FALLEN-HALL_侧倒厂馆_残墙与翻转楼板",
+  "root_object": "SEA-SCENE-SCITY-FALLEN-HALL_ROOT",
+  "objects": [
+    "侧倒厂馆_残墙与翻转楼板_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-FALLEN-HALL_ROOT"
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "version": "v001",
+  "component_blend": "art_source/scenes/sunken_city/v001/component_packages/fallen_hall/fallen_hall.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "bounds_size_m": [
+    20.678922653198242,
+    18.488384246826172,
+    16.81867027282715
+  ],
+  "triangles": 74800,
+  "polygons": 38965,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "instance_count": 1,
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+  "source": "art_source/scenes/sunken_city/v001/sunken_city_v001.blend",
+  "source_master_sha256": "dc7c4a396c139300a0d892f7e5d00053b702d7d999cb4e631e3e7ea57f1acca7",
+  "source_sha256": "d552625513a8da38310d596c24e0147cf3a3a78961a1880ed4faa80860db9f2b",
+  "geometry_fingerprint": "520ab3a820be25868558380978cf5ec4be4925902d17496dcd1fc2e72af57c3d",
+  "bounds_min": [
+    -10.339461326599121,
+    -9.244192123413086,
+    0.0
+  ],
+  "bounds_max": [
+    10.339461326599121,
+    9.244192123413086,
+    16.81867027282715
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T061230_fda4dc6e",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v001\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v001\\skill_reports\\20261105T061230_fda4dc6e\\fallen_hall.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-FALLEN-HALL"
+}

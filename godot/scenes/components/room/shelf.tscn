@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/world/sunny_palette_binding.gd" id="bind"]
+[ext_resource type="PackedScene" path="res://assets/models/rooms/bedroom/shelf/shelf.glb" id="visual"]
+[node name="靠墙矮柜" type="Node3D"]
+script = ExtResource("bind")
+asset_id = "SEA-SCENE-BDR-013"
+component_kind = "furnishing"
+subcategory = "furniture"
+movable = false
+metadata/asset_id = "SEA-SCENE-BDR-013"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "part"
+[node name="Visual" parent="." instance=ExtResource("visual")]

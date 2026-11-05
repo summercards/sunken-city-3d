@@ -1,0 +1,141 @@
+{
+  "key": "fallen_hall",
+  "name": "侧倒厂馆_残墙与翻转楼板",
+  "category": "architecture",
+  "component_family": "collapsed_building",
+  "size_design_m": [
+    25,
+    30,
+    15
+  ],
+  "collapse_state": "lateral_wall_failure",
+  "floors": 3,
+  "color": "plaster",
+  "damage": 0.9,
+  "style": "fallen_hall",
+  "slug": "fallen_hall",
+  "component_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "variant_axis": "collapse_state",
+  "variant_value": "lateral_wall_failure",
+  "variant_reason": "physically different collapse topology, no world-location geometry",
+  "collection": "SEA-SCENE-SCITY-FALLEN-HALL_侧倒厂馆_残墙与翻转楼板",
+  "root_object": "SEA-SCENE-SCITY-FALLEN-HALL_ROOT",
+  "objects": [
+    "侧倒厂馆_残墙与翻转楼板_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-FALLEN-HALL_ROOT"
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "version": "v003",
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/fallen_hall/fallen_hall.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "bounds_size_m": [
+    20.678922653198242,
+    18.488384246826172,
+    16.81867027282715
+  ],
+  "triangles": 74800,
+  "polygons": 38965,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "instance_count": 1,
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "537bb83ff53df25464196aa82ecebcf5aefefcce213c0510b53220f65222691d",
+  "geometry_fingerprint": "520ab3a820be25868558380978cf5ec4be4925902d17496dcd1fc2e72af57c3d",
+  "bounds_min": [
+    -10.339461326599121,
+    -9.244192123413086,
+    0.0
+  ],
+  "bounds_max": [
+    10.339461326599121,
+    9.244192123413086,
+    16.81867027282715
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\fallen_hall.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-FALLEN-HALL",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/fallen_hall_optimized.blend",
+    "optimized_sha256": "d846338951abcb45235027f76bc8a075e4444aa3ce601422a87956332878af8f",
+    "triangles_before": 74800,
+    "triangles_after": 74800,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 112112,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 96,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -10.339461326599121,
+        -9.244192123413086,
+        0.0
+      ],
+      [
+        10.339461326599121,
+        9.244192123413086,
+        16.81867027282715
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/fallen_hall/fallen_hall.glb",
+    "runtime_sha256": "dc7f0146d2233138fe2e8f5b5284801e41a87af62a3ef3de1e0ed8c4df7cb1c6",
+    "prefab": "godot/scenes/components/scenery/sunken_city/fallen_hall.tscn",
+    "prefab_sha256": "e8e5465851c61c75e1bb2363aea1ea85f4828f3188d5694aa449e8ff0ed70d21",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "schema": "sea.component_plan",
+  "suite": "bedroom",
+  "version": "v001",
+  "feature_id": "SEA-ROOM",
+  "requirement": "SEA-ASSET-R51",
+  "status": "frozen_before_geometry",
+  "building_class": "above_water",
+  "reference": null,
+  "reference_note": "用户口述：5×5 米室内房间，木头地板、白墙、一面窗、和外面一样的玻璃前厅、一张可交互的床；对着镜头的墙看不见。",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "dimensions": {
+    "interior_m": [
+      5.0,
+      5.0
+    ],
+    "interior_half_extent_m": 2.5,
+    "wall_thickness_m": 0.16,
+    "wall_height_m": 2.75,
+    "floor_thickness_m": 0.14,
+    "ceiling_thickness_m": 0.13,
+    "window_m": [
+      1.5,
+      1.15
+    ],
+    "window_sill_m": 0.95,
+    "door_m": [
+      1.2,
+      2.06
+    ],
+    "porch_m": [
+      3.44,
+      1.8
+    ],
+    "porch_ridge_m": 2.8,
+    "porch_eave_m": 2.34,
+    "front_axis": "-Y"
+  },
+  "components": [
+    {
+      "key": "floor_planks",
+      "name": "地板（5×5 木地板）",
+      "asset_id": "SEA-SCENE-BDR-001",
+      "family": "room_shell",
+      "category": "architecture",
+      "triangle_budget": 2200
+    },
+    {
+      "key": "wall_window",
+      "name": "后墙（带窗）",
+      "asset_id": "SEA-SCENE-BDR-002",
+      "family": "room_shell",
+      "category": "architecture",
+      "triangle_budget": 1200
+    },
+    {
+      "key": "wall_door",
+      "name": "前墙（带门洞）",
+      "asset_id": "SEA-SCENE-BDR-003",
+      "family": "room_shell",
+      "category": "architecture",
+      "triangle_budget": 900
+    },
+    {
+      "key": "wall_side_e",
+      "name": "东侧白墙",
+      "asset_id": "SEA-SCENE-BDR-004",
+      "family": "room_shell",
+      "category": "architecture",
+      "triangle_budget": 700
+    },
+    {
+      "key": "wall_side_w",
+      "name": "西侧白墙",
+      "asset_id": "SEA-SCENE-BDR-005",
+      "family": "room_shell",
+      "category": "architecture",
+      "triangle_budget": 700
+    },
+    {
+      "key": "ceiling",
+      "name": "天花与木梁",
+      "asset_id": "SEA-SCENE-BDR-006",
+      "family": "room_shell",
+      "category": "architecture",
+      "triangle_budget": 1200
+    },
+    {
+      "key": "porch_glass",
+      "name": "玻璃前厅",
+      "asset_id": "SEA-SCENE-BDR-007",
+      "family": "room_shell",
+      "category": "architecture",
+      "triangle_budget": 3600
+    },
+    {
+      "key": "door_leaf",
+      "name": "门框与敞开木门",
+      "asset_id": "SEA-SCENE-BDR-008",
+      "family": "room_shell",
+      "category": "architecture",
+      "triangle_budget": 800
+    },
+    {
+      "key": "bed",
+      "name": "床铺（可交互/可布置）",
+      "asset_id": "SEA-SCENE-BDR-009",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "triangle_budget": 2600
+    },
+    {
+      "key": "nightstand",
+      "name": "床头柜",
+      "asset_id": "SEA-SCENE-BDR-010",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "triangle_budget": 900
+    },
+    {
+      "key": "table_lamp",
+      "name": "床头台灯",
+      "asset_id": "SEA-SCENE-BDR-011",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "triangle_budget": 700
+    },
+    {
+      "key": "rug",
+      "name": "地毯",
+      "asset_id": "SEA-SCENE-BDR-012",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "triangle_budget": 500
+    },
+    {
+      "key": "shelf",
+      "name": "靠墙矮柜",
+      "asset_id": "SEA-SCENE-BDR-013",
+      "family": "room_furniture",
+      "category": "furnishing",
+      "triangle_budget": 1200
+    }
+  ],
+  "exceptions": [
+    "M4 室内陈设不做贴图细节：颜色全走 8×8 公共色盘，材质角色只有 Matte / Gloss / Emission 三种。",
+    "房间灯光节点、相机与行走面不进 Blender 输出，归正式 Godot TSCN（见 docs/standards 与 SEA-ROOM spec）。",
+    "床铺单独成包，是因为它要被布置功能搬动与旋转；房间壳体里不留床的几何。"
+  ]
+}

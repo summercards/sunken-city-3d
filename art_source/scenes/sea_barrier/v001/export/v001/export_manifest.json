@@ -1,0 +1,1252 @@
+{
+  "suite": "sea_barrier",
+  "version": "v001",
+  "protected_sources": {
+    "art_source/scenes/sea_barrier/v001/sea_barrier.blend": "ee929d90a8b34a3bda7da8767fab586a6fe32175a7b5cefb695033c22bf3140b",
+    "art_source/shared/palettes/sea_cabin_timber_8x8_512.png": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09"
+  },
+  "components": [
+    {
+      "key": "corner_ruin_a",
+      "asset_id": "SEA-SCENE-SBW-001",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/corner_ruin_a/corner_ruin_a.blend",
+      "source_sha256": "b32b1385a9989e4c4e51c4d0fc05dacb037ceec225f9e3f07bc339771b4d63f3",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/corner_ruin_a_optimized.blend",
+      "optimized_sha256": "8b084d9cf67c9fa9237a09d378732c676d3d71ac1afc528252ee649201707ff5",
+      "glb": "godot/assets/models/barrier/corner_ruin_a/corner_ruin_a.glb",
+      "glb_sha256": "b2fbee91da8b9cc50cab78dde5054704fadff02b0d80947787b494ded8aee4dd",
+      "glb_bytes": 1149728,
+      "triangles": 15296,
+      "mesh_objects": 103,
+      "mesh_nodes": 103,
+      "bounds": [
+        [
+          -13.51249,
+          -13.46738,
+          -22.8
+        ],
+        [
+          11.078,
+          11.73674,
+          5.42838
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "corner_ruin_b",
+      "asset_id": "SEA-SCENE-SBW-002",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/corner_ruin_b/corner_ruin_b.blend",
+      "source_sha256": "9046379150324afa6427e7cd9f3a4f1586a12bad85161759e8d6b0b8df0bb199",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/corner_ruin_b_optimized.blend",
+      "optimized_sha256": "9e8870ec32fa56a78c76254039b0d65eead19edbb10d2297c21516bd22a66851",
+      "glb": "godot/assets/models/barrier/corner_ruin_b/corner_ruin_b.glb",
+      "glb_sha256": "cd89554109c71348474444faa4707db1a2a77841f5727fb4f00afeecd9981604",
+      "glb_bytes": 993200,
+      "triangles": 13080,
+      "mesh_objects": 103,
+      "mesh_nodes": 103,
+      "bounds": [
+        [
+          -13.5397,
+          -13.50755,
+          -22.8
+        ],
+        [
+          10.4007,
+          11.36583,
+          5.15739
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_01",
+      "asset_id": "SEA-SCENE-SBW-003",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_01/north_01.blend",
+      "source_sha256": "4d75efdab6921e24414e1e55c6122be4723e525be3b67832c67ffdc177cc5edb",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_01_optimized.blend",
+      "optimized_sha256": "28ddd365b37a7f1cf6fb7d50c6b3056d6fc476885a5f889f247383ccbdf76291",
+      "glb": "godot/assets/models/barrier/north_01/north_01.glb",
+      "glb_sha256": "845ecd4de88712f83833c410d1672adc98172abaf00c1bd4ac37b01224b73ca2",
+      "glb_bytes": 707132,
+      "triangles": 9400,
+      "mesh_objects": 65,
+      "mesh_nodes": 65,
+      "bounds": [
+        [
+          -11.92556,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.26893,
+          4.21888,
+          5.87164
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_02",
+      "asset_id": "SEA-SCENE-SBW-004",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_02/north_02.blend",
+      "source_sha256": "eff22e79e008c3eedff4348b7d4a1379d8d8cf6daf53d108b88c7f520b777040",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_02_optimized.blend",
+      "optimized_sha256": "677bba1055a82d7a6fd40448f413506738fea0af20808183bd84d47662fa45e3",
+      "glb": "godot/assets/models/barrier/north_02/north_02.glb",
+      "glb_sha256": "7d77432e2464f3999f95b00f780482b09c17b8bff4febecf1688da02362f9a38",
+      "glb_bytes": 539596,
+      "triangles": 7022,
+      "mesh_objects": 71,
+      "mesh_nodes": 71,
+      "bounds": [
+        [
+          -11.87722,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.24504,
+          6.77071,
+          5.75558
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_03",
+      "asset_id": "SEA-SCENE-SBW-005",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_03/north_03.blend",
+      "source_sha256": "535362919cb3aa3f5554bf9e224d9d1418dac26ea6bddb3bfcbfe7091ef8c6fb",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_03_optimized.blend",
+      "optimized_sha256": "b6dc315cb9a6321ae75876c5a8c0fc98058cb128de2fabbcd7eeb30bb77f101d",
+      "glb": "godot/assets/models/barrier/north_03/north_03.glb",
+      "glb_sha256": "48ee6842c123074ffd6e54c159a8f998498ce0c7ea98e95ca00445451ff7b839",
+      "glb_bytes": 716224,
+      "triangles": 9526,
+      "mesh_objects": 65,
+      "mesh_nodes": 65,
+      "bounds": [
+        [
+          -11.8206,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.29029,
+          5.12711,
+          4.44703
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_04",
+      "asset_id": "SEA-SCENE-SBW-006",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_04/north_04.blend",
+      "source_sha256": "9df60b60fafdd6c811318e21a0c9c92c2244b1b35e411f0dba62d6d697cf9350",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_04_optimized.blend",
+      "optimized_sha256": "82556100ec8f6967e13a1882711a447c448ad8844deca102e16cbd5b9c69b69d",
+      "glb": "godot/assets/models/barrier/north_04/north_04.glb",
+      "glb_sha256": "b8334144fdf30d6cfa1ad965d2a2192fa3975dbf543f7892c3749cb1d9f5ab34",
+      "glb_bytes": 712876,
+      "triangles": 9440,
+      "mesh_objects": 71,
+      "mesh_nodes": 71,
+      "bounds": [
+        [
+          -11.80135,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.23184,
+          4.89011,
+          7.09592
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_05",
+      "asset_id": "SEA-SCENE-SBW-007",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_05/north_05.blend",
+      "source_sha256": "0c2caa272d31333ba2affeb9d9e32ea69afb6d5fb05cd188a2135f2280c7f2a3",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_05_optimized.blend",
+      "optimized_sha256": "9b0e49d0f4dccfabc1f81ffdfbe977b608114bee52e5b567f8c376607f08e441",
+      "glb": "godot/assets/models/barrier/north_05/north_05.glb",
+      "glb_sha256": "1254bdde9d9f396763d714140a872e1fac5074a0f71da95b94ee31ac7502691a",
+      "glb_bytes": 642552,
+      "triangles": 8284,
+      "mesh_objects": 92,
+      "mesh_nodes": 92,
+      "bounds": [
+        [
+          -11.91989,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.24157,
+          6.33356,
+          7.56984
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_06",
+      "asset_id": "SEA-SCENE-SBW-008",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_06/north_06.blend",
+      "source_sha256": "c13a530920036c59b701ee3804230af7b4d4662a4daa8ee20d6d8de35637ecbe",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_06_optimized.blend",
+      "optimized_sha256": "d0f81ddd3e18fb8edf105a081c2fa70da149723b5a417e53c69d160278891e06",
+      "glb": "godot/assets/models/barrier/north_06/north_06.glb",
+      "glb_sha256": "f0d8f466e8e08be8427dae7ff4802af7fd736569ac8bc284343b35beaadc38fa",
+      "glb_bytes": 648404,
+      "triangles": 8534,
+      "mesh_objects": 67,
+      "mesh_nodes": 67,
+      "bounds": [
+        [
+          -11.86072,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.187,
+          7.44397,
+          7.22983
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_07",
+      "asset_id": "SEA-SCENE-SBW-009",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_07/north_07.blend",
+      "source_sha256": "32a7fee76bc42317565f83897db7c7fcd0bbfed58d171f7b51eec9262205f988",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_07_optimized.blend",
+      "optimized_sha256": "0b942d6ce93549b32bc639cda1dc794144ebd054676ed9e04e89f2b84f777797",
+      "glb": "godot/assets/models/barrier/north_07/north_07.glb",
+      "glb_sha256": "f4c9690349bc50897f775ddd0aad6c511b6ae0f8bd175603c22bb51cf3cc4276",
+      "glb_bytes": 740828,
+      "triangles": 9836,
+      "mesh_objects": 71,
+      "mesh_nodes": 71,
+      "bounds": [
+        [
+          -11.80293,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.19082,
+          4.09475,
+          8.87923
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_08",
+      "asset_id": "SEA-SCENE-SBW-010",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_08/north_08.blend",
+      "source_sha256": "b33772bfced912f3b7c62a9e07b4b6a151eaa8deb3b10b6f74fe8fd8be2f1309",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_08_optimized.blend",
+      "optimized_sha256": "d9e85f37a4aca103837e33655db592c919e57b2288fe6feeb226127b2e63271d",
+      "glb": "godot/assets/models/barrier/north_08/north_08.glb",
+      "glb_sha256": "80e65d3940d86162380f967ad6b1754425d65a2230891f00fa2d249339fc7569",
+      "glb_bytes": 594516,
+      "triangles": 7630,
+      "mesh_objects": 89,
+      "mesh_nodes": 89,
+      "bounds": [
+        [
+          -11.91748,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.19433,
+          6.02159,
+          6.47134
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_09",
+      "asset_id": "SEA-SCENE-SBW-011",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_09/north_09.blend",
+      "source_sha256": "6d3bdf4a443d053fd0ba6d36bbb2df80203e330afba834af935986405d175413",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_09_optimized.blend",
+      "optimized_sha256": "a41bf29c662f4e5ed6e4e81e3649a77ce3652da4486492209f657bf392acf2b4",
+      "glb": "godot/assets/models/barrier/north_09/north_09.glb",
+      "glb_sha256": "ec6b4b004fad78f8e0a0efaed6b7c80dbf7a0a2c293e38e0957857e1170fb8a4",
+      "glb_bytes": 637104,
+      "triangles": 8460,
+      "mesh_objects": 58,
+      "mesh_nodes": 58,
+      "bounds": [
+        [
+          -11.889,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.24328,
+          4.5798,
+          6.91076
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_10",
+      "asset_id": "SEA-SCENE-SBW-012",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_10/north_10.blend",
+      "source_sha256": "2142b610fa9513a079a5e4e2f033359566aa153c18ef6b4ace71f2718fcc42ac",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_10_optimized.blend",
+      "optimized_sha256": "1d0f7cea09c06d61fee953173399c9a68d7969aa5398ddf90753c5fa47a04051",
+      "glb": "godot/assets/models/barrier/north_10/north_10.glb",
+      "glb_sha256": "44c1aee82e12d452acad7ab55631d0da48f11ed48ae5b91b1085723b9a104a0a",
+      "glb_bytes": 786208,
+      "triangles": 10452,
+      "mesh_objects": 75,
+      "mesh_nodes": 75,
+      "bounds": [
+        [
+          -11.81834,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.23696,
+          6.13445,
+          8.82528
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "north_11",
+      "asset_id": "SEA-SCENE-SBW-013",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/north_11/north_11.blend",
+      "source_sha256": "a039559fc318ee284b1738074032c734f45f6860ec114b2b9f7a6c8b0043a67f",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/north_11_optimized.blend",
+      "optimized_sha256": "c561cc52d5850e772697ea37375a4394c06eabb298136e3a0c09b236a7c0947b",
+      "glb": "godot/assets/models/barrier/north_11/north_11.glb",
+      "glb_sha256": "b1abbca52083bef38484d44b9f8a5c1509bc9ba88c1469b3a4e8be81868473e6",
+      "glb_bytes": 585064,
+      "triangles": 7574,
+      "mesh_objects": 80,
+      "mesh_nodes": 80,
+      "bounds": [
+        [
+          -11.83629,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.19492,
+          5.6111,
+          7.85087
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_01",
+      "asset_id": "SEA-SCENE-SBW-014",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_01/east_01.blend",
+      "source_sha256": "c386706ebda64b263e89fdb7501fe5bd3ad3bb829fe82049301414cb5386c6a8",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_01_optimized.blend",
+      "optimized_sha256": "992db2596fcaa4df483fec0a6ff29a5680d42ffd6bd6eb9e859b49aa6ea0ce9e",
+      "glb": "godot/assets/models/barrier/east_01/east_01.glb",
+      "glb_sha256": "1e4837336d046587a6605381d909520963da7cac391e1801dfbf0bc2d4efbcdd",
+      "glb_bytes": 527248,
+      "triangles": 6778,
+      "mesh_objects": 77,
+      "mesh_nodes": 77,
+      "bounds": [
+        [
+          -11.90531,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.27335,
+          6.82643,
+          5.88647
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_02",
+      "asset_id": "SEA-SCENE-SBW-015",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_02/east_02.blend",
+      "source_sha256": "e9260123e3a589e7bd82d265d93c21c9296e1600b8e83d5e6c23b9a803855fcc",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_02_optimized.blend",
+      "optimized_sha256": "51412cb530a5edaeedd77c53bafd0ce31f69d0c5607ec82d06ce4eef34f47246",
+      "glb": "godot/assets/models/barrier/east_02/east_02.glb",
+      "glb_sha256": "baea5e50fd9fb4f598259db40eaf7988739c554b210b4933a8b6cda7bda46fa3",
+      "glb_bytes": 622264,
+      "triangles": 8236,
+      "mesh_objects": 61,
+      "mesh_nodes": 61,
+      "bounds": [
+        [
+          -11.82235,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.15046,
+          4.35974,
+          8.36634
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_03",
+      "asset_id": "SEA-SCENE-SBW-016",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_03/east_03.blend",
+      "source_sha256": "6335029396362841fee6361496600bf85993a93ea9a03f6119aca76f211a3b78",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_03_optimized.blend",
+      "optimized_sha256": "a1983be17e8f88cd9decc525f4f975c81228ce5b4333be610341852a9b37af42",
+      "glb": "godot/assets/models/barrier/east_03/east_03.glb",
+      "glb_sha256": "d410245f997d0350609211ef1cb394323023020cba0504337717cd7af5bc54ec",
+      "glb_bytes": 694856,
+      "triangles": 9228,
+      "mesh_objects": 65,
+      "mesh_nodes": 65,
+      "bounds": [
+        [
+          -11.82825,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.20903,
+          3.45705,
+          8.20251
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_04",
+      "asset_id": "SEA-SCENE-SBW-017",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_04/east_04.blend",
+      "source_sha256": "b10808240aa223c5a2022873d7d46738bcf09f45da90f5e98258cd1fac8f5377",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_04_optimized.blend",
+      "optimized_sha256": "390a81bb4a3f1558edbcfd20ee1d83c67ea1779216af2d72fbc76606dfd71f6c",
+      "glb": "godot/assets/models/barrier/east_04/east_04.glb",
+      "glb_sha256": "e5a5444c1354438e52b446c04c307bae8a86ec858261d00059796d9fc76d0cd1",
+      "glb_bytes": 583552,
+      "triangles": 7614,
+      "mesh_objects": 71,
+      "mesh_nodes": 71,
+      "bounds": [
+        [
+          -11.91412,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.23846,
+          2.99766,
+          7.99246
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_05",
+      "asset_id": "SEA-SCENE-SBW-018",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_05/east_05.blend",
+      "source_sha256": "b41a1bdaa6dcb0548fb5a0d815ae5d6e5bc78e7d99bf01710dcc89e8ffb9c408",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_05_optimized.blend",
+      "optimized_sha256": "5fe0558460e097747adb69c77ff321a6a529a820e0e8ce0bd5caa6cd40ea202e",
+      "glb": "godot/assets/models/barrier/east_05/east_05.glb",
+      "glb_sha256": "ec2735ab70c07140b99ef2f6dc74c52af954f395b210d7853b38934c0ad80f40",
+      "glb_bytes": 623032,
+      "triangles": 8260,
+      "mesh_objects": 66,
+      "mesh_nodes": 66,
+      "bounds": [
+        [
+          -11.88833,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.24466,
+          6.29117,
+          6.52104
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_06",
+      "asset_id": "SEA-SCENE-SBW-019",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_06/east_06.blend",
+      "source_sha256": "92069319a63c4e48a5c7a75bac8bb3915b2e204645507e103400b75d1409aee9",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_06_optimized.blend",
+      "optimized_sha256": "8d1efae628fbb0f8b4af32d97da9ea22cc1a6043dd54813fd0ed335cf88acb58",
+      "glb": "godot/assets/models/barrier/east_06/east_06.glb",
+      "glb_sha256": "20fc0f987586207c443705207aaf1f997fc14f4076d05c257ffd4d39b9d776fe",
+      "glb_bytes": 682696,
+      "triangles": 9088,
+      "mesh_objects": 66,
+      "mesh_nodes": 66,
+      "bounds": [
+        [
+          -11.88321,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.16322,
+          4.91728,
+          8.10186
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_07",
+      "asset_id": "SEA-SCENE-SBW-020",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_07/east_07.blend",
+      "source_sha256": "0caf16bd338735cfd97fdc0111300e3b4730d83474687be3b6bdee360c4cb306",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_07_optimized.blend",
+      "optimized_sha256": "86bef92135463fcef4ef31218d89cc32b92108e228e04c1332e45fb8c7d59271",
+      "glb": "godot/assets/models/barrier/east_07/east_07.glb",
+      "glb_sha256": "38520a9714761337a5347a75856a636c6399f95c325159daad15989763cd9c13",
+      "glb_bytes": 548528,
+      "triangles": 7024,
+      "mesh_objects": 78,
+      "mesh_nodes": 78,
+      "bounds": [
+        [
+          -11.80074,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.16135,
+          7.1229,
+          7.59991
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_08",
+      "asset_id": "SEA-SCENE-SBW-021",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_08/east_08.blend",
+      "source_sha256": "1cce6c7dc871e69af302eba532c08f82ce8acb6196da04e5e6ebec70d7f3208f",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_08_optimized.blend",
+      "optimized_sha256": "20f1c92d0935103f9532300f7b26e82b8b3ed14073fca7a63173001a6f693999",
+      "glb": "godot/assets/models/barrier/east_08/east_08.glb",
+      "glb_sha256": "7638a7bfc05d5ce9ff278c1ec0ad5fcbf506672d75711878b93c2f41d98611f2",
+      "glb_bytes": 517060,
+      "triangles": 6812,
+      "mesh_objects": 52,
+      "mesh_nodes": 52,
+      "bounds": [
+        [
+          -11.90438,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.20985,
+          7.27452,
+          8.42454
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_09",
+      "asset_id": "SEA-SCENE-SBW-022",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_09/east_09.blend",
+      "source_sha256": "dfa901b86c1ff3da81ef5bc7ad7e36f502e52bfc3032ba4b9b2db3eca9be3df4",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_09_optimized.blend",
+      "optimized_sha256": "9cb8c7e29f01e37598bd08590304ca570cbd5206af00bc934cb86636359e46b2",
+      "glb": "godot/assets/models/barrier/east_09/east_09.glb",
+      "glb_sha256": "dc5ea5d786b81988652aea29f705fd64b6d65a826a04731683f58209be82f1b0",
+      "glb_bytes": 551240,
+      "triangles": 7148,
+      "mesh_objects": 67,
+      "mesh_nodes": 67,
+      "bounds": [
+        [
+          -11.93156,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.36413,
+          6.1804,
+          7.12404
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_10",
+      "asset_id": "SEA-SCENE-SBW-023",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_10/east_10.blend",
+      "source_sha256": "6b05a40c7b7ac8daaa30355c250d58c6e8ecd1602213d5f6f6940e6543a878b6",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_10_optimized.blend",
+      "optimized_sha256": "9663baf201e4e8eed75351356c4c404707dfde7fc3b5ad581b04e26ea3065f02",
+      "glb": "godot/assets/models/barrier/east_10/east_10.glb",
+      "glb_sha256": "d6b0afa6d98d916b94d344a5009f16152bf6b87f2df3d83e320911c2be6620fc",
+      "glb_bytes": 481564,
+      "triangles": 6176,
+      "mesh_objects": 67,
+      "mesh_nodes": 67,
+      "bounds": [
+        [
+          -11.80035,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.17166,
+          6.3751,
+          5.88128
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "east_11",
+      "asset_id": "SEA-SCENE-SBW-024",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/east_11/east_11.blend",
+      "source_sha256": "6b73bc78fde57297eae3eb343af95b4fe5af84c759932cb5f54623b40986c944",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/east_11_optimized.blend",
+      "optimized_sha256": "d06cfa3e6abe0f77d948631ae5aa6fbcef7f643f977874455f0fbef15a4d9fb3",
+      "glb": "godot/assets/models/barrier/east_11/east_11.glb",
+      "glb_sha256": "9116150d68847b009dae9df3d701a9c7558cde9dab4e1eb1d611ae1c1c21cf3b",
+      "glb_bytes": 506204,
+      "triangles": 6586,
+      "mesh_objects": 56,
+      "mesh_nodes": 56,
+      "bounds": [
+        [
+          -11.84401,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.2356,
+          2.80578,
+          5.9928
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_01",
+      "asset_id": "SEA-SCENE-SBW-025",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_01/south_01.blend",
+      "source_sha256": "f893d2bfa6bc80205bb21fd08855af0c6e158012c9de4eb2e33bfb1635b04c47",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_01_optimized.blend",
+      "optimized_sha256": "30c2460d6ba1f041df73b2e5c20d258e8b6735e59a757e595549fa18fa00a779",
+      "glb": "godot/assets/models/barrier/south_01/south_01.glb",
+      "glb_sha256": "a084a59793a6fa575a8b14bde3c37b773b6068383c602e637aa0210ef80f690a",
+      "glb_bytes": 588292,
+      "triangles": 7694,
+      "mesh_objects": 67,
+      "mesh_nodes": 67,
+      "bounds": [
+        [
+          -13.28952,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.15414,
+          5.87888,
+          10.58344
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_02",
+      "asset_id": "SEA-SCENE-SBW-026",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_02/south_02.blend",
+      "source_sha256": "fdc303706ab9443bba63bdb7e2eaf3e538eae1f912895d093258041ceef2e12f",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_02_optimized.blend",
+      "optimized_sha256": "2a29693b82d2ee72de1adecf825b9a0b2cb979f7d96bfd969691e5b6710f7f96",
+      "glb": "godot/assets/models/barrier/south_02/south_02.glb",
+      "glb_sha256": "7792c44018e3686821a48d0afcae2280d8a1158dfdc65d464e4d9ab9516a8791",
+      "glb_bytes": 656648,
+      "triangles": 8664,
+      "mesh_objects": 69,
+      "mesh_nodes": 69,
+      "bounds": [
+        [
+          -11.94986,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.25583,
+          6.10042,
+          7.94797
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_03",
+      "asset_id": "SEA-SCENE-SBW-027",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_03/south_03.blend",
+      "source_sha256": "ae11045c014f0901694575bb79e444d7392e16197f3b3fb0ec95de650829eaca",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_03_optimized.blend",
+      "optimized_sha256": "82cc2643548e6476cbe4dcec377abc997856b2ac3fc179383879cbe7f5d03eac",
+      "glb": "godot/assets/models/barrier/south_03/south_03.glb",
+      "glb_sha256": "8d6b8ee388cc4addd7f321182b3f53f49f283ffff74eafd5a76fe8c28053892e",
+      "glb_bytes": 628064,
+      "triangles": 8062,
+      "mesh_objects": 91,
+      "mesh_nodes": 91,
+      "bounds": [
+        [
+          -11.83664,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.28284,
+          6.27563,
+          6.94752
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_04",
+      "asset_id": "SEA-SCENE-SBW-028",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_04/south_04.blend",
+      "source_sha256": "df69927d0d1530c34f747ad69cf153a82975d7761e169cf5b5cdfbab4c89ca21",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_04_optimized.blend",
+      "optimized_sha256": "04d9c2dc53e3efaf0854b541910cdbfc8f1d69f59ddedc7e24eaae0cef33eedf",
+      "glb": "godot/assets/models/barrier/south_04/south_04.glb",
+      "glb_sha256": "c6ca3ae65db12b61aa1ca3132b38bbee30d9c42ab9265243224b9a42b0daa208",
+      "glb_bytes": 561156,
+      "triangles": 7296,
+      "mesh_objects": 64,
+      "mesh_nodes": 64,
+      "bounds": [
+        [
+          -11.94292,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.26927,
+          6.13309,
+          8.11062
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_05",
+      "asset_id": "SEA-SCENE-SBW-029",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_05/south_05.blend",
+      "source_sha256": "967db927cb4d6b642145ab250ccd85fefc5329c5ce215b96aac342ff42b6e0f8",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_05_optimized.blend",
+      "optimized_sha256": "94252026c8dbcd1b8eaef52a78197424c4be733412e561c81abf44e4495da367",
+      "glb": "godot/assets/models/barrier/south_05/south_05.glb",
+      "glb_sha256": "5909468b3cfcd34f34eefde8af878c81515123f3ccbe24d318d956ad35a9d344",
+      "glb_bytes": 631712,
+      "triangles": 8356,
+      "mesh_objects": 65,
+      "mesh_nodes": 65,
+      "bounds": [
+        [
+          -11.89485,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.2647,
+          4.3569,
+          7.65433
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_06",
+      "asset_id": "SEA-SCENE-SBW-030",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_06/south_06.blend",
+      "source_sha256": "bdf76e2a6bd32ef62362a1ef811778b8025d81f42565ba077aa4892701143021",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_06_optimized.blend",
+      "optimized_sha256": "c65addbb697f5ba7e9533cd69b12e7c95d6a824576db8df03d6d926d43e2810d",
+      "glb": "godot/assets/models/barrier/south_06/south_06.glb",
+      "glb_sha256": "f1395a1a4d2537ec03502ca6771572d80e678d5be15d2fc921f39be6a8c4e017",
+      "glb_bytes": 566056,
+      "triangles": 7182,
+      "mesh_objects": 82,
+      "mesh_nodes": 82,
+      "bounds": [
+        [
+          -11.89948,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.20978,
+          7.06216,
+          7.21806
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_07",
+      "asset_id": "SEA-SCENE-SBW-031",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_07/south_07.blend",
+      "source_sha256": "16fdecd51430c15e4da9d171979d6bcc352fceafd8c8fbcc6ca9ff1748a8e16f",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_07_optimized.blend",
+      "optimized_sha256": "57dd51b8d4efe31c0108c01ebe1e934f921c0daf04bd187d9921f7631a4258de",
+      "glb": "godot/assets/models/barrier/south_07/south_07.glb",
+      "glb_sha256": "343f2f6329f1ca30ae70e87e7a796948e8065832b3a40681cf18f93b0a2dd2a1",
+      "glb_bytes": 596132,
+      "triangles": 7800,
+      "mesh_objects": 69,
+      "mesh_nodes": 69,
+      "bounds": [
+        [
+          -11.91369,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.1599,
+          4.32465,
+          8.89358
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_08",
+      "asset_id": "SEA-SCENE-SBW-032",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_08/south_08.blend",
+      "source_sha256": "21a337b4f7490e6525e1bd792fb7007f26919423133c4535a8ea2e5ee1481f02",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_08_optimized.blend",
+      "optimized_sha256": "006620f20406db2f34dd180c2ffbceca50b0741d2896d1da2a78b7ca48f53d07",
+      "glb": "godot/assets/models/barrier/south_08/south_08.glb",
+      "glb_sha256": "249dfcfea220cad82b1742fba52959230b04360e06f34c8f3050bc133666b3d6",
+      "glb_bytes": 754436,
+      "triangles": 10056,
+      "mesh_objects": 66,
+      "mesh_nodes": 66,
+      "bounds": [
+        [
+          -11.82571,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.15919,
+          2.72586,
+          8.45536
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_09",
+      "asset_id": "SEA-SCENE-SBW-033",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_09/south_09.blend",
+      "source_sha256": "647156ecaa0ab0dc155e279e94ff741db5a4b59fc5b92669476c2e3a8c454ce6",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_09_optimized.blend",
+      "optimized_sha256": "83ee90e378cc4de34f949aa83853a6e5442fb17c8bf80bed5b1e311c83c13538",
+      "glb": "godot/assets/models/barrier/south_09/south_09.glb",
+      "glb_sha256": "564da3a99c4e391e23bda7ba9483d2bf9b9fbf8f268eebc1c139340588e92c16",
+      "glb_bytes": 608028,
+      "triangles": 7916,
+      "mesh_objects": 75,
+      "mesh_nodes": 75,
+      "bounds": [
+        [
+          -11.81882,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.25429,
+          4.54749,
+          5.82038
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_10",
+      "asset_id": "SEA-SCENE-SBW-034",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_10/south_10.blend",
+      "source_sha256": "3ccb6dbd0f945bb4bc6f8e00f141f6ea0404094df176eb4a9b5513322f86d633",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_10_optimized.blend",
+      "optimized_sha256": "4d5d34d0226a3eb83fa5f40eeda212f6e398b33be353660813d0d8d81a9cc126",
+      "glb": "godot/assets/models/barrier/south_10/south_10.glb",
+      "glb_sha256": "2b9f151fdb9011d6c08911382869c62d26923bd0a51d491d9812fbefe2e88cbe",
+      "glb_bytes": 585180,
+      "triangles": 7742,
+      "mesh_objects": 65,
+      "mesh_nodes": 65,
+      "bounds": [
+        [
+          -11.9235,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.31505,
+          6.18348,
+          8.95986
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "south_11",
+      "asset_id": "SEA-SCENE-SBW-035",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/south_11/south_11.blend",
+      "source_sha256": "fe06569c5fc9453747960b04e92c528a97245a61255cabdb030f5cd96778c2f5",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/south_11_optimized.blend",
+      "optimized_sha256": "3f90d47f92360a96e498b6a4aec942a69e3e464b8793095e7c88150bf0b642cf",
+      "glb": "godot/assets/models/barrier/south_11/south_11.glb",
+      "glb_sha256": "9b67de5ff62a2fb6bb9ff686f0a78803a2dd9907900f1e2ce8fb271e0e3a26ed",
+      "glb_bytes": 822600,
+      "triangles": 10972,
+      "mesh_objects": 75,
+      "mesh_nodes": 75,
+      "bounds": [
+        [
+          -11.85773,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.25164,
+          4.06779,
+          8.3626
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_01",
+      "asset_id": "SEA-SCENE-SBW-036",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_01/west_01.blend",
+      "source_sha256": "000a9a14a096c0b1053505a7d6905e83ae168c0a45139dca755cccd70c6e61f9",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_01_optimized.blend",
+      "optimized_sha256": "ff6c4b75467cb27755c1e7c6ce5ee49904b4f66f4fccfdcac91a366f16c8d224",
+      "glb": "godot/assets/models/barrier/west_01/west_01.glb",
+      "glb_sha256": "470eb2dafc98ef078efcd9dca427ae3cea40a255a9651688572d46a590dbc390",
+      "glb_bytes": 511576,
+      "triangles": 6530,
+      "mesh_objects": 77,
+      "mesh_nodes": 77,
+      "bounds": [
+        [
+          -11.85339,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.285,
+          6.28349,
+          3.75204
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_02",
+      "asset_id": "SEA-SCENE-SBW-037",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_02/west_02.blend",
+      "source_sha256": "841de02a87fcd53bb70e009bedea332a8b6ee13dacfea0122ee68fd9ef75eecc",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_02_optimized.blend",
+      "optimized_sha256": "499a6f0cae62038bf6934e3112649351d9fca32f794131e64c258d4a10d3ddf4",
+      "glb": "godot/assets/models/barrier/west_02/west_02.glb",
+      "glb_sha256": "c8c00f6b726ed65de6d16b564d9aa8592a44ac6413105dbe47524ecd05eb3c28",
+      "glb_bytes": 699536,
+      "triangles": 9268,
+      "mesh_objects": 67,
+      "mesh_nodes": 67,
+      "bounds": [
+        [
+          -11.8214,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.21528,
+          5.75025,
+          6.83055
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_03",
+      "asset_id": "SEA-SCENE-SBW-038",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_03/west_03.blend",
+      "source_sha256": "fbe2db4daabf1005dcace783574f3379db406eb9d15a3ec595e5a979c78571d9",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_03_optimized.blend",
+      "optimized_sha256": "b52d1edbd707b68144ccfac61b2a98bbccf5e714f3ea336cca7137d52eb66514",
+      "glb": "godot/assets/models/barrier/west_03/west_03.glb",
+      "glb_sha256": "b3bb2ff0cf779057b08168ed829ba84b93c6a6c31c5a6603fa56f044ec971752",
+      "glb_bytes": 669940,
+      "triangles": 8788,
+      "mesh_objects": 76,
+      "mesh_nodes": 76,
+      "bounds": [
+        [
+          -11.94644,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.18098,
+          4.12594,
+          7.73195
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_04",
+      "asset_id": "SEA-SCENE-SBW-039",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_04/west_04.blend",
+      "source_sha256": "bea5bd6ffb33a34761180336181fbf76cf6b50faf9aa26807421fcf04da68fa2",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_04_optimized.blend",
+      "optimized_sha256": "c688531e52c0df0c7ad08aef83fb5671bc380ade3665edcba7eebbc6a2259bad",
+      "glb": "godot/assets/models/barrier/west_04/west_04.glb",
+      "glb_sha256": "61a5543a634306562a8cc179c69e4400b8ca2dcdc8c775466c645deb68d28083",
+      "glb_bytes": 519512,
+      "triangles": 6626,
+      "mesh_objects": 78,
+      "mesh_nodes": 78,
+      "bounds": [
+        [
+          -11.83985,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.16183,
+          4.89953,
+          7.46725
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_05",
+      "asset_id": "SEA-SCENE-SBW-040",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_05/west_05.blend",
+      "source_sha256": "5fe75fbf52ba2370ecc037b9e3b89ab911905347af00e4d2c5e47c5d550f20b5",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_05_optimized.blend",
+      "optimized_sha256": "54487cc875ddff4565b0659588aed393b3f3567317115375200b28094e64c637",
+      "glb": "godot/assets/models/barrier/west_05/west_05.glb",
+      "glb_sha256": "1953a0ba55f18514faf8c20436f3baece34bbfe74e3ccc64bced7bc884103ebe",
+      "glb_bytes": 569612,
+      "triangles": 7422,
+      "mesh_objects": 64,
+      "mesh_nodes": 64,
+      "bounds": [
+        [
+          -11.86986,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.18468,
+          6.26389,
+          7.86847
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_06",
+      "asset_id": "SEA-SCENE-SBW-041",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_06/west_06.blend",
+      "source_sha256": "d909e510c0d0e2c672216330bc712a2513e56a72a44d3cc18c5bcc47040cdee0",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_06_optimized.blend",
+      "optimized_sha256": "231862020f13f6774a170ad879a93506bc1e5bd53968e26e1129f458ca48d9a8",
+      "glb": "godot/assets/models/barrier/west_06/west_06.glb",
+      "glb_sha256": "e68a98024780c6622933ced4181c448a84dd9979405d17e186e61d1e41a6208e",
+      "glb_bytes": 704344,
+      "triangles": 9408,
+      "mesh_objects": 62,
+      "mesh_nodes": 62,
+      "bounds": [
+        [
+          -11.86202,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.23089,
+          4.87811,
+          8.15848
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_07",
+      "asset_id": "SEA-SCENE-SBW-042",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_07/west_07.blend",
+      "source_sha256": "013fafff5a76908845e0ff8ee4350b101be039e2c00d2d9bc7f4a13aebfeeb30",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_07_optimized.blend",
+      "optimized_sha256": "16de62b87f7d5309ae6efca2f0158a15c9bd130fe4141016c22bbf66204fcb77",
+      "glb": "godot/assets/models/barrier/west_07/west_07.glb",
+      "glb_sha256": "c4e5f4a82026c965df21f43286822f072d3ba2c5506aec6d569febf88df6aa1e",
+      "glb_bytes": 602908,
+      "triangles": 7802,
+      "mesh_objects": 80,
+      "mesh_nodes": 80,
+      "bounds": [
+        [
+          -11.96129,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.25389,
+          5.20477,
+          6.75947
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_08",
+      "asset_id": "SEA-SCENE-SBW-043",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_08/west_08.blend",
+      "source_sha256": "248681f9fbed8e3ce782f0d609939aba621c3d0d3a2aee8a47a2ce129a94fc5d",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_08_optimized.blend",
+      "optimized_sha256": "c3e85def2626a4ddd2961d66f5b7cf5f9e30328c741cc6c2ae2bdc887fbc0045",
+      "glb": "godot/assets/models/barrier/west_08/west_08.glb",
+      "glb_sha256": "0fa6d244f8efe7e26c095720c67ce1a65117b6abf37d4c34362b93e9672969a4",
+      "glb_bytes": 642720,
+      "triangles": 8460,
+      "mesh_objects": 61,
+      "mesh_nodes": 61,
+      "bounds": [
+        [
+          -11.83834,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.18762,
+          5.13424,
+          6.41
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_09",
+      "asset_id": "SEA-SCENE-SBW-044",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_09/west_09.blend",
+      "source_sha256": "7803a8ec7e068b4f21beca75464a0c0234ada120aff76a5ed0256543306e3275",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_09_optimized.blend",
+      "optimized_sha256": "d6d251a3ae3329acfb9c1870e41245a9ad2ae3f5e03c3ccc68b89294b023d0c8",
+      "glb": "godot/assets/models/barrier/west_09/west_09.glb",
+      "glb_sha256": "1dcc850b0eae04c928957490a73e81ae7390a84c8749cbd9c438821bb90ef82d",
+      "glb_bytes": 757700,
+      "triangles": 10008,
+      "mesh_objects": 80,
+      "mesh_nodes": 80,
+      "bounds": [
+        [
+          -11.90105,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.21382,
+          6.93687,
+          7.50774
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_10",
+      "asset_id": "SEA-SCENE-SBW-045",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_10/west_10.blend",
+      "source_sha256": "964d19f991a367914d364e1c6a3aa6d04a5406fa48d5b62b02d3a15818f85e03",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_10_optimized.blend",
+      "optimized_sha256": "a72d8de388c9c83fe009a587ab4777816ba6506b839c2272a61f7edd581f9895",
+      "glb": "godot/assets/models/barrier/west_10/west_10.glb",
+      "glb_sha256": "a76845f870aee266d61fed68d154c46bbaf3c5dd16b2312feec654519aa423bd",
+      "glb_bytes": 686744,
+      "triangles": 8898,
+      "mesh_objects": 92,
+      "mesh_nodes": 92,
+      "bounds": [
+        [
+          -11.83421,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.15572,
+          5.74897,
+          7.03654
+        ]
+      ],
+      "embedded_images": 0
+    },
+    {
+      "key": "west_11",
+      "asset_id": "SEA-SCENE-SBW-046",
+      "source": "art_source/scenes/sea_barrier/v001/component_packages/west_11/west_11.blend",
+      "source_sha256": "46bc54f2c764347a101cfe9d19b00692295bd3470f4cdb52bcb91971ea8fb252",
+      "optimized_source": "art_source/scenes/sea_barrier/v001/export/v001/west_11_optimized.blend",
+      "optimized_sha256": "7df8f5ebb01726165401fd10f557e57927e0584f5c16fcb2a75d98face7c0694",
+      "glb": "godot/assets/models/barrier/west_11/west_11.glb",
+      "glb_sha256": "095308a4b3293e8355973ab0cf8d5f02a8fc4577cf8369e74b46352b41ef4bad",
+      "glb_bytes": 578776,
+      "triangles": 7666,
+      "mesh_objects": 59,
+      "mesh_nodes": 59,
+      "bounds": [
+        [
+          -11.87626,
+          -5.0,
+          -22.8
+        ],
+        [
+          12.18522,
+          5.21053,
+          6.88694
+        ]
+      ],
+      "embedded_images": 0
+    }
+  ]
+}

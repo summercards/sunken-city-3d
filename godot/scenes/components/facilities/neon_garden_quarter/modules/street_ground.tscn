@@ -1,0 +1,132 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/broadleaf.tscn" id="broadleaf"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/fractured_ground.tscn" id="fractured_ground"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/grass.tscn" id="grass"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/lantern.tscn" id="lantern"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/rubble.tscn" id="rubble"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/small_placard.tscn" id="small_placard"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/street_lamp.tscn" id="street_lamp"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/utility_cable.tscn" id="utility_cable"]
+
+[node name="Foundation" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-STREET-GROUND"
+metadata/asset_version = "v004"
+metadata/module_key = "street_ground"
+
+[node name="street_lamp_247" parent="." instance=ExtResource("street_lamp")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -5.9928574564697266, 0.20000001040988388, 7.3496336936950684)
+
+[node name="street_lamp_248" parent="." instance=ExtResource("street_lamp")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -5.9928574564697266, 0.20000001040988388, 0.3496336936950684)
+
+[node name="street_lamp_249" parent="." instance=ExtResource("street_lamp")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -5.9928574564697266, 0.20000001040988388, -4.6503663063049316)
+
+[node name="street_lamp_250" parent="." instance=ExtResource("street_lamp")]
+transform = Transform3D(-1, 0, 1.224646799e-16, -0, 1, -0, -1.224646799e-16, -0, -1, 11.1499996185302734, 0.20000001040988388, 7.3496336936950684)
+
+[node name="street_lamp_251" parent="." instance=ExtResource("street_lamp")]
+transform = Transform3D(-1, 0, 1.224646799e-16, -0, 1, -0, -1.224646799e-16, -0, -1, 11.1499996185302734, 0.20000001040988388, 0.3496336936950684)
+
+[node name="street_lamp_252" parent="." instance=ExtResource("street_lamp")]
+transform = Transform3D(-1, 0, 1.224646799e-16, -0, 1, -0, -1.224646799e-16, -0, -1, 11.1499996185302734, 0.20000001040988388, -4.6503663063049316)
+
+[node name="utility_cable_253" parent="." instance=ExtResource("utility_cable")]
+transform = Transform3D(2.714285714, 0, -0, -0, 1, -0, -0, -0, 1, 2.1499996185302734, 7.89999999850988388, -1.6503663063049316)
+
+[node name="utility_cable_254" parent="." instance=ExtResource("utility_cable")]
+transform = Transform3D(2.714285714, 0, -0, -0, 1, -0, -0, -0, 1, 2.1499996185302734, 15.89999999850988388, -1.6503663063049316)
+
+[node name="utility_cable_255" parent="." instance=ExtResource("utility_cable")]
+transform = Transform3D(2.714285714, 0, -0, -0, 1, -0, -0, -0, 1, 2.1499996185302734, 22.89999999850988388, -1.6503663063049316)
+
+[node name="rubble_280" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(0.9901605791, 0, 0.1399357985, -0, 1, -0, -0.1399357985, -0, 0.9901605791, -14.8500003814697266, 0.20000001040988388, 12.3496336936950684)
+
+[node name="rubble_281" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(0.7428020118, 0, 0.6695111435, -0, 1, -0, -0.6695111435, -0, 0.7428020118, 18.1499996185302734, 0.20000001040988388, 12.0496335026950684)
+
+[node name="rubble_282" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(0.6829144978, 0, 0.7304983154, -0, 1, -0, -0.7304983154, -0, 0.6829144978, -15.8500003814697266, 0.20000001040988388, -2.6503663063049316)
+
+[node name="rubble_283" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(0.9344709137, 0, 0.3560394803, -0, 1, -0, -0.3560394803, -0, 0.9344709137, 19.1499996185302734, 0.20000001040988388, -7.6503663063049316)
+
+[node name="lantern_343" parent="." instance=ExtResource("lantern")]
+transform = Transform3D(0.8924274382, 0.3894183423, -0.2278741366, -0.2474039593, 5.93287748e-17, -0.9689124217, -0.3773122691, 0.921060994, 0.09634363969, -11.9500007614697266, 0.54105558250988388, 13.1496338836950684)
+
+[node name="lantern_344" parent="." instance=ExtResource("lantern")]
+transform = Transform3D(0.06853815337, 0.9974949866, -0.01750066376, -0.2474039593, 5.93287748e-17, -0.9689124217, -0.9664852831, 0.07073720167, 0.246784209, -9.3500003814697266, 0.55814208830988388, 13.0496335036950684)
+
+[node name="lantern_345" parent="." instance=ExtResource("lantern")]
+transform = Transform3D(0.8503006453, -0.4794255386, -0.2171174004, -0.2474039593, 5.93287748e-17, -0.9689124217, 0.4645213596, 0.8775825619, -0.1186117764, 16.9499988585302734, 0.55814220760988388, 12.4496340736950684)
+
+[node name="lantern_346" parent="." instance=ExtResource("lantern")]
+transform = Transform3D(0.675047785, 0.7173560909, -0.1723679983, -0.2474039593, 5.93287748e-17, -0.9689124217, -0.6950552273, 0.6967067093, 0.1774767371, 18.3500003785302734, 0.55814196910988388, 12.8496336936950684)
+
+[node name="lantern_347" parent="." instance=ExtResource("lantern")]
+transform = Transform3D(0.8924274382, 0.3894183423, -0.2278741366, -0.2474039593, 5.93287748e-17, -0.9689124217, -0.3773122691, 0.921060994, 0.09634363969, 6.4928569795302734, 0.55814196910988388, -4.1503663063049316)
+
+[node name="small_placard_348" parent="." instance=ExtResource("small_placard")]
+transform = Transform3D(0.9658135552, -0.2474039593, -0.07743033966, -0.07991469397, 6.103650095e-17, -0.9968017063, 0.2466126887, 0.9689124217, -0.01977121169, -4.3642863634697266, 0.43915208430988388, 9.5496335026950684)
+
+[node name="rubble_349" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(0.601686479, 0.28938359, 2.096241999, -0.2851951138, 2.170538072, -0.2177802257, -2.09681595, -0.212182981, 0.6311428162, -15.2500000014697266, 0.44065912810988388, 12.8496336936950684)
+
+[node name="rubble_350" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(-0.7175682238, -0.2011595068, -1.065190451, -0.1685243854, 1.282590679, -0.1286883152, 1.070838632, 0.06705224644, -0.7340358441, -12.9500007614697266, 0.22435345500988388, 13.0496335036950684)
+
+[node name="rubble_351" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(-0.2178801599, 0.1701153453, 1.980805141, -0.2592682852, 1.973216429, -0.1979820233, -1.971118513, -0.2783481536, -0.1929095986, 14.1499996185302734, 0.41896279900988388, 12.2496333126950684)
+
+[node name="rubble_352" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(1.685646339, 0.2198268154, -0.01651034821, -0.2203780425, 1.677233964, -0.1682847198, -0.005471633686, 0.1690041412, 1.691569585, 16.1499996185302734, 0.38641839470988388, 13.3496336936950684)
+
+[node name="rubble_353" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(1.104574599, 0.1882296015, 0.4295166722, -0.1555609711, 1.183929857, -0.118789214, -0.4423977157, 0.05366293151, 1.114183356, 9.2071418765302734, 0.32649248090988388, 3.8496336936950684)
+
+[node name="rubble_354" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(-0.09319387053, -0.1115145449, -0.9893833477, -0.1296341426, 0.9866082144, -0.09899101167, 0.9871726757, 0.1190325065, -0.1064019306, -4.3642863634697266, 0.25048156830988388, -3.4503664973049316)
+
+[node name="rubble_355" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(1.550876143, 0.1680852372, -0.3557113188, -0.2074146282, 1.578573143, -0.1583856187, 0.3343087814, 0.1996351302, 1.551896728, -16.7500000014697266, 0.37556999180988388, -4.1503663063049316)
+
+[node name="broadleaf_382" parent="." instance=ExtResource("broadleaf")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -15.2500000014697266, 0.21999999130988388, 13.3496336936950684)
+
+[node name="grass_383" parent="." instance=ExtResource("grass")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -14.7500000014697266, 0.21999999130988388, 13.1496338836950684)
+
+[node name="broadleaf_384" parent="." instance=ExtResource("broadleaf")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -7.8500003814697266, 0.21999999130988388, 12.7496333136950684)
+
+[node name="grass_385" parent="." instance=ExtResource("grass")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -7.3500003814697266, 0.21999999130988388, 12.5496335036950684)
+
+[node name="broadleaf_386" parent="." instance=ExtResource("broadleaf")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 14.7499999985302734, 0.21999999130988388, 12.7496333136950684)
+
+[node name="grass_387" parent="." instance=ExtResource("grass")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 15.2499999985302734, 0.21999999130988388, 12.5496335036950684)
+
+[node name="broadleaf_388" parent="." instance=ExtResource("broadleaf")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 19.6499996185302734, 0.21999999130988388, 13.1496338836950684)
+
+[node name="grass_389" parent="." instance=ExtResource("grass")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 20.1499996185302734, 0.21999999130988388, 12.9496340736950684)
+
+[node name="broadleaf_390" parent="." instance=ExtResource("broadleaf")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -5.7214292284697266, 0.21999999130988388, 0.3496336936950684)
+
+[node name="grass_391" parent="." instance=ExtResource("grass")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -4.3642863634697266, 0.21999999130988388, 0.1496336456950684)
+
+[node name="broadleaf_392" parent="." instance=ExtResource("broadleaf")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 9.7499990465302734, 0.21999999130988388, -2.8503661153049316)
+
+[node name="grass_393" parent="." instance=ExtResource("grass")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 11.4499998095302734, 0.21999999130988388, -3.0503664013049316)
+
+[node name="GroundMesh" parent="." instance=ExtResource("fractured_ground")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -0.0000000004697266, 0.00000000000988388, -0.3527493473049316)

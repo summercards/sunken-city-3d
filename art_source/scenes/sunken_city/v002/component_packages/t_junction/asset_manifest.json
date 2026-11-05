@@ -1,0 +1,92 @@
+{
+  "key": "t_junction",
+  "name": "丁字路口_连续人行道",
+  "category": "ground",
+  "component_family": "junction",
+  "size_design_m": [
+    24,
+    24,
+    0.8
+  ],
+  "slug": "t_junction",
+  "component_id": "SEA-SCENE-SCITY-T-JUNCTION",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "variant_axis": null,
+  "variant_value": null,
+  "variant_reason": "physically different collapse topology, no world-location geometry",
+  "collection": "SEA-SCENE-SCITY-T-JUNCTION_丁字路口_连续人行道",
+  "root_object": "SEA-SCENE-SCITY-T-JUNCTION_ROOT",
+  "objects": [
+    "丁字路口_连续人行道_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-T-JUNCTION_ROOT"
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "version": "v002",
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/t_junction/t_junction.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "bounds_size_m": [
+    24.0,
+    24.0,
+    0.800000011920929
+  ],
+  "triangles": 1364,
+  "polygons": 710,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "instance_count": 0,
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-T-JUNCTION",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "7d5bb5e6e110fdcc81f0b266a50cbccb5089a3bd62c41f8d764d919c21b8d45b",
+  "geometry_fingerprint": "36b7d3951b2b0c58dd80d3e5f297f866cbd4a2bc89514709503daedf6940bc10",
+  "bounds_min": [
+    -12.0,
+    -12.0,
+    0.0
+  ],
+  "bounds_max": [
+    12.0,
+    12.0,
+    0.800000011920929
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\t_junction.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-T-JUNCTION"
+}

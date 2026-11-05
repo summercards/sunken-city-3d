@@ -1,0 +1,92 @@
+{
+  "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
+  "name": "霓虹花园街区·水上建筑群结构修订",
+  "category": "building_assembly",
+  "source": "art_source/scenes/neon_garden_quarter/v004/neon_garden_quarter.blend",
+  "source_sha256": "c6f5b94542caea427b47c512a0922ce702e9d7e26d5f9694ddf5ff16ae26875c",
+  "manifest": "art_source/scenes/neon_garden_quarter/v004/asset_manifest.json",
+  "component_count": 5,
+  "instance_count": 506,
+  "polygons": 470998,
+  "triangles": 913660,
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "poster_asset_id": "SEA-SCENE-NGQ-POSTER-ATLAS",
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss",
+    "SEA_Emission"
+  ],
+  "domain": "scenes",
+  "suite": "neon_garden_quarter",
+  "scope": "scene_local",
+  "version": "v004",
+  "stage": "runtime_component_verified_provenance_pending",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "entity",
+  "license": "pending_user_supplied_reference",
+  "consumer_features": [
+    "SEA-ASSET"
+  ],
+  "verification": [
+    "docs/development/2026-11-05_neon_garden_quarter_v004.md",
+    "D:\\projects\\sea-work\\verification\\20261105-105104-ngq-v004-final-d6c9b3\\report.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v004\\source_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v004\\import_verification.json"
+  ],
+  "runtime_path": "godot/scenes/facilities/neon_garden_quarter.tscn",
+  "collision": "boat_blockers_from_foundation",
+  "navigation": "open_water_route_verified",
+  "previous_sources": [
+    {
+      "source": "art_source/scenes/neon_garden_quarter/v001/neon_garden_quarter.blend",
+      "source_sha256": "80740cab18db996054c32abe7c54c3c3c4415bfda882190bad1086b7281f0507",
+      "manifest": "art_source/scenes/neon_garden_quarter/v001/asset_manifest.json",
+      "version": "v001"
+    },
+    {
+      "source": "art_source/scenes/neon_garden_quarter/v002/neon_garden_quarter.blend",
+      "source_sha256": "96d8a72ab7fe77d26736bae0e439e9e6aaef4213c8af62c71961d7c878daeec2",
+      "manifest": "art_source/scenes/neon_garden_quarter/v002/asset_manifest.json",
+      "version": "v002"
+    },
+    {
+      "version": "v003",
+      "source": "art_source/scenes/neon_garden_quarter/v003/neon_garden_quarter.blend",
+      "source_sha256": "21ed2babec3228569f61b120e2528a55ec7150ae0711a4daa0077e0a08d855a2",
+      "manifest": "art_source/scenes/neon_garden_quarter/v003/asset_manifest.json",
+      "runtime_sha256": "a0d27e5b29059e9d40e11e7899f2fa66a475970df4aea73be85d70f8b7b994c3"
+    }
+  ],
+  "runtime_sha256": "3a8f9e694bf8050bd33d0d5792ff682ea7804fd1478be110b6e8f44e84a55f7a",
+  "export_manifest": "art_source/scenes/neon_garden_quarter/v003/export/v003/export_manifest.json",
+  "world_anchor": [
+    156.149682,
+    1.12,
+    2.473711
+  ],
+  "landing": "surface_fixture_verified_live_street_submerged",
+  "leaf_component_count": 50,
+  "module_instance_count": 5,
+  "module_asset_ids": [
+    "SEA-SCENE-NGQ-LEFT-BUILDING",
+    "SEA-SCENE-NGQ-REAR-BUILDING",
+    "SEA-SCENE-NGQ-RIGHT-BUILDING",
+    "SEA-SCENE-NGQ-GARDEN-BRIDGE",
+    "SEA-SCENE-NGQ-STREET-GROUND"
+  ],
+  "authored_world_anchor": [
+    156.14969,
+    -21.726082,
+    2.473711
+  ],
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-ASSEMBLY",
+  "component_plan": "component_plan.json",
+  "module_catalog": "module_catalog.json",
+  "reference_sha256": "7a3b03e236c760aae5b17a0b2682c6be5ba1a4dc957c496dd414d938dd7cdfad",
+  "pending": [
+    "upper floors and roof gameplay access",
+    "reference commercial rights"
+  ]
+}

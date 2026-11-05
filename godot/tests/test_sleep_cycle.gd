@@ -57,17 +57,32 @@ func run() -> void:
 	check(main.sleep_curtain.COVER_FADE>=0.4 and main.sleep_curtain.MORNING_FADE>=0.4,"caption fades are gentle, not abrupt")
 	var economy=root.get_node("Economy")
 	var saves=preload("res://src/save/save_game.gd")
-	var checkpoint=main._zone_nodes.zone1.get_node("Objects/SleepCheckpoint")
-	var pos: Vector3=checkpoint.global_position+Vector3(0,0,1.0)
+	# 2026-11-05：睡觉从「太阳房入口的月亮点」搬到房间里的床上（SEA-ROOM）。
+	# 所以这里的入口流程拆成两步：门口点「进入房间」→ 屋里的床上点「睡到早上 06:00」。
+	# 过场本身（圆幕、时机、黑幕文字）一个字没改，断言仍然守着同一件事。
+	var doorstep=main._zone_nodes.zone1.get_node("Objects/RoomDoor")
 	main.restore_world_state({"zone":"zone1","landing":"main","mode":1})
-	check(main.validate_world_state(main.capture_world_state()).is_empty(),"sleep doorstep is valid walkable ground")
+	check(main.validate_world_state(main.capture_world_state()).is_empty(),"sunroom doorstep is valid walkable ground")
 	main.cam.set_process(false)
 	main.cam.global_position=Vector3(17,14,26)
-	main.cam.look_at(checkpoint.global_position)
+	main.cam.look_at(doorstep.global_position)
 	main.cam.fov=40
 	await process_frame
-	var point: Vector2=main.cam.unproject_position(checkpoint.global_position+Vector3.UP*0.75)
-	check(main.hover._pick(point).get("node")==checkpoint,"doorstep world click resolves sleep")
+	var door_point: Vector2=main.cam.unproject_position(doorstep.global_position+Vector3.UP*0.75)
+	check(main.hover._pick(door_point).get("node")==doorstep,"doorstep world click enters the room")
+	main.room_controller.enter(true)
+	await process_frame
+	await process_frame
+	check(main.room_service.inside,"room is entered before sleeping")
+	var bed: Node3D=main.room.get_node("Furnishings/Bed")
+	main.cam.target=bed.global_position+Vector3.UP*0.35
+	main.cam.distance=5.2
+	main.cam.orbit_dir=Vector3(0.35,0.62,0.70).normalized()
+	main.cam.refresh()
+	main.cam.apply_pose()
+	await process_frame
+	var point: Vector2=main.cam.unproject_position(bed.global_position+Vector3.UP*0.55)
+	check(main.hover._pick(point).get("node")==bed,"bed world click resolves sleep")
 	if DisplayServer.get_name()!="headless":
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://outputs/sleep-doorstep.png")
@@ -76,7 +91,7 @@ func run() -> void:
 	var coins: int=economy.coins
 	var day: int=clock.day
 	await click(point)
-	check(main.hud.world_actions.active and not sleep.busy,"door click offers a sleep bubble before executing")
+	check(main.hud.world_actions.active and not sleep.busy,"bed click offers a sleep bubble before executing")
 	await create_timer(0.32).timeout
 	var sleep_button: Button=main.hud.world_actions.buttons[0]
 	await click(sleep_button.get_global_transform_with_canvas()*(sleep_button.size*0.5))
@@ -133,7 +148,8 @@ func run() -> void:
 	check(clock.day==day+1 and clock.query().hour==6.0,"one sleep, one next-day 06:00 wake")
 	check(main._calendar_label.text.contains("06:00"),"calendar shows wake time before fade reveals scene")
 	check(economy.coins==coins and economy.daily.query().items.get("fish")==1,"06:00 cargo stays queued")
-	check(main.actor_controller.state_id()=="ashore_idle" and main.validate_world_state(main.capture_world_state()).is_empty(),"wake ashore at home with valid pose")
+	check(main.actor_controller.state_id()=="ashore_idle" and main.validate_world_state(main.capture_world_state()).is_empty(),"wake with a valid pose on walkable ground")
+	check(main.room_service.inside,"sleeping on the bed wakes you still inside the room")
 	check(saves.write("user://wake.json",main).ok,"06:00 wake save valid")
 	var saved: Dictionary=saves.read("user://wake.json").snapshot
 	check(saves.restore(main,saved).ok and economy.coins==coins,"wake save reload cannot settle early")
@@ -143,6 +159,9 @@ func run() -> void:
 	sleep.advance(0.0)
 	check(economy.coins==paid,"repeated frame cannot pay twice")
 	# Sailing + an open inventory must be cancelled by automatic bedtime.
+	# 先离开房间：自动入睡是「在海上/甲板上到点」，不是在屋里。
+	main.room_controller.exit(true)
+	await process_frame
 	main._on_destination("zone5")
 	for i in 600:
 		main.actor_controller.tick(1.0/30.0)

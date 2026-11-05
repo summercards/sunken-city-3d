@@ -1,0 +1,89 @@
+{
+  "key": "plaza_tile",
+  "slug": "plaza_tile",
+  "name": "旧铺砖广场_局部缺角",
+  "category": "ground",
+  "component_family": "plaza",
+  "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    24,
+    24,
+    0.8
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 58,
+  "collection": "SEA-SCENE-SCITY-PLAZA-TILE_旧铺砖广场_局部缺角",
+  "root_object": "SEA-SCENE-SCITY-PLAZA-TILE_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-PLAZA-TILE_ROOT",
+    "旧铺砖广场_局部缺角_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    24.0,
+    24.0,
+    0.6000000238418579
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 6780,
+  "polygons": 3534,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/plaza_tile/plaza_tile.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v002",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "04c76d12834a7ddc3337e52a93743ab6351c8b2b2f38c74056e574b9dfcb53e9",
+  "geometry_fingerprint": "c02c90f325321f9551bbfdc1607c993a7351a93d2e59b94372e0bb7c58a1da1d",
+  "bounds_min": [
+    -12.0,
+    -12.0,
+    0.0
+  ],
+  "bounds_max": [
+    12.0,
+    12.0,
+    0.6000000238418579
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\plaza_tile.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-PLAZA-TILE"
+}

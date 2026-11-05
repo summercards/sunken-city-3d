@@ -26,6 +26,10 @@
 
 ## 当前可玩版本：太阳房最小生活循环（2026-10-27）
 
+2026-11-05室内房间：太阳房门口原来的「睡觉」按钮改成「进入房间」，进屋是一个 5×5 米方形卧室 —— 木头地板、白墙、后墙一面 1.5×1.15 米窗，前侧接一间和外面同语言的白框玻璃前厅（3.44×1.80 米、斜面玻璃顶）。**进出用既有的圆幕过场（合拢 0.85 秒 → 全黑 → 1.05 秒打开），黑幕上一个字都没有**；过场期间输入、行走与存档全锁。床是可交互家具、`movable=true`，绑睡觉，位置与朝向由 SEA-ROOM 的布局状态唯一拥有（`place_bed` 夹回房间、压到床头柜/门口先就近滑位）；在屋里睡就在屋里床边醒，在屋外到点睡回太阳房门口。**「对着镜头的这面墙看不见」按相机方位逐帧算**，不是永久删墙：四面墙各有一个朝外法线，相机在哪一侧就收哪一面，相机高于墙顶时天花与前厅顶一起收；前厅各件也带法线，相机站到前厅前侧（局部 z>2.4）时整座前厅构件全部收起。**室内机位能自己转**：右键拖动绕房间旋转（四面墙的剖切跟着换面）、滚轮拉近拉远，俯仰 26–72°、距离 8–24 米；视点钉在房间上，左键不平移（5×5 米里允许平移就会拖出房间、四周全黑）。默认机位 14.4 米 / 俯角 46°。房间挂在 `World/Interior`、摆在屋面上方 0.7 米，屋外时隐藏并关碰撞层，不与甲板/屋顶/水下几何互相干扰。**屋里看不到海、也看不到天**：进屋收起海面／船／船迹与全部区块，世界背景从天空盒切成纯黑（只动 `background_mode`/`background_color`，环境光仍取天空辐照，昼夜亮度与外面同步）；窗与前厅玻璃换室内玻璃实例（`interior_glass=true`，颜色不再乘色盘 ice 格的天蓝）—— 窗取深灰（后面是黑的），前厅取近透明冷灰（玩家要绕着看它）。13 个 Blender 组件包、7888 三角面、无内嵌贴图；`room` 105 项 0 失败、`visual-room` 6 机位与 `visual-room-orbit` 8 机位 0 失败，`sleep-cycle`/`water-layer`/`modules`/`framework-integration`/`minimum-loop`/`save-protection`/`building-simulate`/`energy` 复跑通过。归 SEA-ROOM-R01–R14、SEA-ASSET-R52。[制作、接入与实测](docs/development/2026-11-05_bedroom_room.md)。
+
+2026-11-05家园外围残楼围挡（白盒 → 已进主场景）：按用户「把周围白盒的房子、水下淹半截的植被围起来，每20米一个独立组件、不许合并」的要求，新建独立套件 `sea_barrier/v001`：46 个组件、48 个围合实例，四边按「转角腿 10 + 11×20 + 转角腿 10 = 240」整除铺满。**范围三次改口径**：150 → 90 → 240；最后一次按用户红框截图实测反推（红框 854×698 px，用围挡外接与霓虹花园 x=156 两点校准得 0.33 米/px，约 282 米宽、右界落在 x≈+150），取 240 米见方。组件分双塌房／斜塌楼／半沉林带三型轮转，带真实窗洞与一层门洞、墙顶参差破口 0.8–2.8 米、6–17° 倾斜，顶层可整块塌落；树分半沉／高树／枯树。围挡全部落在 240×240 之外，可活动范围内零几何。**已修 5 处真实缺陷**：转角对角漏水、倾斜致整栋悬空、顶板悬空成托盘、楼梯间坐在已塌顶板上、对角补块在需镜像的两个角掉进可活动范围。**已进主场景**：46 个 GLB 与组件包装生成，总装 `scenes/world/sea_barrier.tscn` 挂 `World/SeaStructures`，`main.tscn` 只插 1 条 ext_resource + 1 个节点；挡船复用既有 `_collect_water_shapes` 入口（每段自带 `BlockerSet` manual 矩形），未新建通道。源级 17635 项断言 0 失败；运行期专项 `sea-barrier` 通过（四边连续、无矩形侵入、连通搜索出不去）。岸线泡沫、真实游戏内截图、航行手感与性能实测仍 pending。归 SEA-ASSET-R47。[制作、接入与验收](docs/development/2026-11-05_sea_barrier_whitebox.md)。
+
 2026-11-04划船坐姿与握桨：角色坐中排座板前半部，屈膝绕过板沿，停船及取消航行后仍坐着；双桨约2.595米。按用户最新“手臂仍扭转”反馈，桨架沿角色+Z面向前移19厘米至z=0.55m，上下臂共用连续肘轴，握点完整周期保持在肩前。保留船体、水线、航速及存档规则。归SEA-MOVE-R18/R19、SEA-NAV-R13/R14。[初轮历史](docs/development/2026-11-04_rowing_seat_and_grips.md) · [本次返工、手臂近景与当前实测](docs/development/2026-11-04_rowing_arm_direction.md)。
 
 2026-11-03角色肩口r7：按最新红线把标准胖体肩根间距从0.4304m收至0.28937m、高度从0.80625m降至0.74125m，颈胸与低肩袖口平顺连接；臂粗极值自动保留腋下活动空间。当前源8入口4303断言通过，实际蒙皮肩根/手腕、三体型正侧背、六动作和保存冷启动均复验。归SEA-AVATAR-R25。[交付与证据](docs/development/2026-11-03_avatar_low_shoulders.md)。
@@ -426,6 +430,7 @@
 | <a id="sea-resident"></a>SEA-RESIDENT | 居民与生活行为 | 生活 | SEA-WORLD, SEA-BUILD | [文档](docs/features/resident/spec.md) | [账本](docs/features/resident/ledger.md) | 规划中 |
 | <a id="sea-time"></a>SEA-TIME | 世界时间 | 生活 | SEA-WORLD | [文档](docs/features/time/spec.md) | [账本](docs/features/time/ledger.md) | 已实现待完整验收 |
 | <a id="sea-sleep"></a>SEA-SLEEP | 睡觉与次日醒来 | 生活 | SEA-TIME、SEA-MOVE、SEA-INTERACT | [文档](docs/features/sleep/spec.md) | [账本](docs/features/sleep/ledger.md) | 已实现待完整验收 |
+| <a id="sea-room"></a>SEA-ROOM | 室内房间（卧室与前厅） | 生活 | SEA-WORLD, SEA-SLEEP, SEA-MOVE, SEA-SAVE | [文档](docs/features/room/spec.md) | [账本](docs/features/room/ledger.md) | 已实现待完整验收 |
 | <a id="sea-energy"></a>SEA-ENERGY | 体力与疲劳 | 生活 | SEA-SLEEP | [文档](docs/features/energy/spec.md) | [账本](docs/features/energy/ledger.md) | 已实现待完整验收 |
 | <a id="sea-weather"></a>SEA-WEATHER | 天气 | 生活 | SEA-TIME、SEA-WORLD | [文档](docs/features/weather/spec.md) | [账本](docs/features/weather/ledger.md) | 已实现待完整验收 |
 | <a id="sea-aqua"></a>SEA-AQUA | 浅水养殖 | 经营 | SEA-WORLD, SEA-INVENTORY | [文档](docs/features/aqua/spec.md) | [账本](docs/features/aqua/ledger.md) | 部分实现 |
@@ -451,3 +456,45 @@
 - [资产总索引与分账本](assets/registry/README.md)支撑各功能，不取代独立功能账本。
 - [结构门禁与运行验收](docs/standards/工程管理规范.md)是持续维护入口。
 - [历史开发计划](docs/archive/pre_split_20261023/开发计划_V1.0.md)和[历史功能计划](docs/archive/pre_split_20261023/功能重做计划.md)保留未完成设计与原始依据，当前调度以本页及独立功能文件为准。
+
+
+## 2026-11-05 植物、草地与青苔视效规划
+
+用户确认桌面 PC 优先。本次完成视频参考分析、现有植物/材质/相机审计及 Godot/ProtonScatter 技术评估，确定采用共享 GPU 风场、圆润叶簇与分段草簇、苔垫加短绒、分块 MultiMesh 和屏幕大小分级；ProtonScatter 仅作为可选编辑器布置工具，正式布局使用项目中立资源。当前为设计交付，制作、接入、美术与性能均未签署通过。
+
+范围由 **SEA-AMBIENT-R06–R16** 承接，公共资产生产由 **SEA-ASSET-R49** 承接，不另建重复的植物生命周期所有者。跨功能交接：SEA-WORLD 提供场景/表面与生命周期；SEA-WEATHER 经装配层提供天气快照；SEA-OCEAN 提供既有水面采样；SEA-CROP/SEA-FARM 保留阶段、生长与收获真值；SEA-QUALITY 的统一 runner 承担后续真实渲染和性能验证。植物表现不反写上述玩法状态。
+
+入口：[评估与实施方案](docs/features/ambient/vegetation_visual_plan.md) · [统一制作规范](docs/standards/植被视效制作规范.md) · [功能账本](docs/features/ambient/ledger.md) · [本轮记录](docs/development/2026-11-05_vegetation_visual_plan.md)。后续新增植物复用同一风函数、材质/profile、数据通道和验收入口，不按套件重复制作视效系统。
+
+## 2026-11-05 围栏内沉没旧城源
+
+归SEA-ASSET-R50：`sunken_city/v001`在活跃Blender会话制作46种独立组件、37栋建筑/260总实例；围栏内240×240米由100块24米地坪完整覆盖，**中央只留建筑位，地板不留洞**。按商业街、住宅巷、运河电车支线与前庭组团布置，包含两种真实倒塌建筑和5栋倾斜沉降；道路、车辆、电线及设施独立维护。主源+46独立包重开和源级/技能验收通过，登记47条水下纯观赏源。仅交Blender原始资产，未改正式Godot场景；494万三角面原始源仍待游戏优化、LOD、实际水下渲染及商业参考授权。[制作与验收](docs/development/2026-11-05_sunken_city.md)。
+
+14:27反馈后已另存 `sunken_city/v002`：十处红框补充低矮街景/断墙/楼板/车辆/设备与侵蚀植被，新增116实例和三栋横卧马路的建筑；总计50定义/376实例，原46组件几何、100块地板及原楼体姿态保持。总源+50独立包重开和技能验证通过，51条当前资产登记、47条保留v001源历史。未改正式运行场景。[v002补景与锁定验收](docs/development/2026-11-05_sunken_city_v002.md)。
+
+14:54追加地形和电车要求，当前源升级 `sunken_city/v003`：4.8米下沉街坊与两侧24米缓坡，100块地坪完整覆盖并核真实共边；原电车高架接出弯曲路线、中间真实断开，另加两辆电车，总3辆。50组件/388实例，坡地高架1061项专项与总源/50包重开技能通过；v001/v002保留。仅Blender源，正式游戏接入与优化pending。[v003地形断桥与验收](docs/development/2026-11-05_sunken_city_v003.md)。
+
+
+## 2026-11-05 阳光房柔软贴图草皮（用户修订）
+
+用户否定实体草堆和几何草叶候选后，当前先完成阳光房草皮与少量苔藓；原56株花草对象与材质保持，屋顶牧场试铺撤回。Image-2参考视频帧生成草叶/苔藓RGBA图集，以密集交错面片、共享风动与分块绘制实现，三份资产由vegetation独立分账本管理。原生视觉、性能和边界见[本轮记录](docs/development/2026-11-05_vegetation_soft_cards.md)及[复用手册](docs/features/ambient/vegetation_soft_cards.md)。本轮归SEA-AMBIENT-R17 / SEA-ASSET-R51；后续草堆花朵贴片重制与屋顶牧场仍待推进，用户审美验收pending。
+
+
+## 2026-11-05 宽叶草地与天台草堆 v003
+
+用户进一步要求草叶更大、远景可辨，并在顶层牧场天台布置草堆，草地/草堆都要有明显风动。当前v003已将两处草皮改成宽叶面片，天台增加14处无实体内核的层叠草堆，复用同一空间阵风；阳光房原56株花草保持。六项统一runner当前实测通过，资产版本、源历史和消费者统一维护，用户审美验收pending。归SEA-AMBIENT-R18 / SEA-ASSET-R51。[交付](docs/development/2026-11-05_vegetation_meadow.md) · [复用手册](docs/features/ambient/vegetation_meadow.md)。
+
+
+## 2026-11-05 ProtonScatter天台原版试刷
+
+用户要求直接用仓库效果先刷一个版本，已安装ProtonScatter4.2.0固定7198cc0，用其原版草/灌木、贴图及风动shader，在天台实际生成11542实例并保存可编辑修改器场景。原色/绿色适配、近/远景及原生录屏均保留。原版Main实拍与最终独立视效台/重开检查分列，正式采用及素材发行审查仍pending；正式Main默认植被保持v003。归SEA-AMBIENT-R12/R18、SEA-ASSET-R51。[原版试刷与打开方式](docs/features/ambient/proton_scatter_trial.md) · [验证与来源](docs/development/2026-11-05_proton_scatter_trial.md)。
+
+## 2026-11-05 沉没旧城正式Godot导入
+
+用户16:41授权后将sunken_city/v003按02b逐组件优化另存、重开导出，50稳定GLB/PackedScene、388实例挂World/SunkenCity，保留完整坡地、曲线断桥和3电车。原源/色板哈希保持，母版三角仅清理14面，实际运行布局约537万三角，不冒充性能优化完成。用户明确选择恢复原水下深度，仅撤回编辑器上移38.04888米的街区根Y，其余最新场景保持。最终33338结构、124真实渲染、1239水层、141最小循环0失败，import退出0；51当前资产运行登记并保留两旧源。近水屋顶可见，但约50–60米深的道路/断桥在当前海水吸收下几乎不可辨；隔水视觉可读性、LOD性能及商业参考授权待后续，未擅改水体参数。归SEA-ASSET-R50 / SEA-WORLD-R20。[正式接入与最终证据](docs/development/2026-11-05_sunken_city_godot_import.md)。
+
+## 2026-11-05 相机缩放上限收到38米
+
+用户指出实机画面里镜头最远只要到「38」这一档，不用再拉远。海面 OrbitCam 的 `zoom_max` 由 190 米收紧为 38 米，开局机位 `distance` 同为 38 米，即开局就是全图最宽视角、之后只能拉近；滚轮、触控板捏合、C 面板滑杆与「最远/远景」预设一律不越过 38 米，下限 9 米不变。FOV 31°、俯角 22–78°、阻尼、跟随/手动接管、UI 阻断与存档字段均未动。八处需要更宽机位的抓图/宣传/探针脚本改为在自己脚本内临时抬高上限，不作为玩家可达范围；`--zoom=` 调试参数显式要求更远时同步抬高上限，避免静默夹回 38 却看起来正常。归SEA-CAMERA-R11。[交付与取景对照](docs/development/2026-11-05_camera_zoom_max_38.md)。
+
+> 口径待确认：旧区间为 9–190 米，面板与 HUD 显示的是百分比，「38」在旧区间里对应约 77.8 米。本轮按用户明确选择以 38 米落地；同构图的 38/54/78/90 米对照图见交付记录，若本意是 78 米只需改 `zoom_max` 与 `distance` 两处常量。

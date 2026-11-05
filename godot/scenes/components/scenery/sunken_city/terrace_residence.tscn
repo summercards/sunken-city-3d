@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/scenery/sunken_city/terrace_residence/terrace_residence.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/gloss.tres" id="gloss"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/matte.tres" id="matte"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/metal.tres" id="metal"]
+
+[node name="错层露台公寓_侵蚀" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-SCITY-TERRACE-RESIDENCE"
+metadata/key = "terrace_residence"
+metadata/asset_version = "v003"
+metadata/building_class = "underwater"
+metadata/source_suite = "sunken_city"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "part"
+metadata/collision = false
+metadata/interactive = false
+metadata/blocks_water = false
+metadata/shoreline_source = false
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="Mesh_terrace_residence" parent="Visual/Root_terrace_residence" index="0"]
+surface_material_override/0 = ExtResource("matte")
+surface_material_override/1 = ExtResource("metal")
+surface_material_override/2 = ExtResource("gloss")
+cast_shadow = 1

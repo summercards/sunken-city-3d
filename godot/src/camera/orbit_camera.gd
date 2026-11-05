@@ -6,12 +6,15 @@ class_name OrbitCam
 
 @export var target := Vector3(0.45, 1.75, -0.65)
 @export var orbit_dir := Vector3(-0.5, 0.7, 0.5)
-@export var distance := 54.25
+@export var distance := 38.0
 ## 缩放下限/上限。不再复用 min_distance / max_distance（那两个是旧接口的相容字段）。
+## 上限锁在 38 米（SEA-CAMERA-R11，2026-11-05）：玩家能拉到的最远处就是开局这一档，
+## 再往外没有需要的画面，也不该把镜头甩到区块外的空海面。
+## 抓图/探针工具若需要更宽取景，在自己脚本里临时抬高 zoom_max，不改这里的玩家上限。
 @export var zoom_min := 9.0
-@export var zoom_max := 190.0
+@export var zoom_max := 38.0
 @export var min_distance := 30.0
-@export var max_distance := 120.0
+@export var max_distance := 38.0
 @export var cam_fov := 31.0
 @export var cam_near := 0.5
 @export var cam_far := 600.0
@@ -39,9 +42,28 @@ var _pan_origin := Vector2.ZERO
 
 ## 平滑用的当前值：外部写 target/distance，相机自己追过去。
 var _cur_target := Vector3.ZERO
-var _cur_distance := 60.0
+var _cur_distance := 38.0
 ## 平移惯性（米/秒，世界 xz）。
 var _velocity := Vector2.ZERO
+## 固定机位（一次性摆放）：由主场景直接写 target/distance/dir，
+## 关掉平移边界、高度夹取与鼠标/键盘接管。默认关，室外行为一字未改。
+var pose_lock := false
+## 「绕着一个东西转」的机位（SEA-ROOM 房间内）。
+##
+## 和 `pose_lock` 的区别只有一种：**允许鼠标右键拖动旋转、滚轮拉近拉远**，
+## 但视点（target）钉死不动。房间只有 5×5 米，一旦允许平移，随手一拖镜头
+## 就飘到房间外、只剩一片黑 —— 那是把人关进黑箱，不是「自由」。
+##
+## 所以这里的自由是「绕着房间转圈看」的自由：任意方位角（四面墙的剖切会跟着
+## 换面）、受限的俯仰、受限的远近。默认关，室外行为一字未改。
+var orbit_only := false
+## `orbit_only` 下允许的俯仰（度）。比室外收窄：低于 26° 相机会贴到地板高度，
+## 看见墙的背面；高于 72° 就成了平面图，房间的立体感全没了。
+var orbit_pitch_min_deg := 26.0
+var orbit_pitch_max_deg := 72.0
+## `orbit_only` 下允许的距离（米）。太近会切进家具，太远整屋缩成一个点。
+var orbit_zoom_min := 8.0
+var orbit_zoom_max := 24.0
 ## 键盘平移速度（米/秒，再乘距离系数）。
 var _key_pan_speed := 26.0
 ## 抓地平移的锚点（按住时鼠标下的地面点）。
@@ -87,7 +109,7 @@ func refresh() -> void:
 	fov = cam_fov
 	near = cam_near
 	far = cam_far
-	distance = clampf(distance, zoom_min, zoom_max)
+	distance = clampf(distance, _zoom_low(), _zoom_high())
 	_cur_distance = distance
 	_cur_target = target
 	_apply()
@@ -132,56 +154,35 @@ func _update_pose() -> void:
 
 
 func _process(delta: float) -> void:
-	if not _ui_blocked(): _keyboard(delta)
 	if current: camera_machine.tick(delta)
 
-	_clamp_target()
+	# 室内是「绕房间转」而不是「跟人跑」：target 由房间给，任何夹取都只会
+	# 把它从 12 米高的房间拖到海平面。
+	if not pose_lock and not orbit_only:
+		_clamp_target()
 	# Following consumes the real character height, including future upper floors.
 	# The original manual observation height remains unchanged.
-	if not follow_enabled: target.y = clampf(target.y, 0.0, 10.0)
+	if not pose_lock and not orbit_only and not follow_enabled: target.y = clampf(target.y, 0.0, 10.0)
 
 	var k := 1.0 - exp(-TARGET_DAMP * delta)
 	_cur_target = _cur_target.lerp(target, k)
 	var kd := 1.0 - exp(-ZOOM_DAMP * delta)
-	_cur_distance = lerpf(_cur_distance, clampf(distance, zoom_min, zoom_max), kd)
+	_cur_distance = lerpf(_cur_distance, clampf(distance, _zoom_low(), _zoom_high()), kd)
 	_update_pose()
 
 
-## 键盘平移/旋转。用 physical key 而不是 action，省掉 InputMap 注册。
-func _keyboard(delta: float) -> void:
-	var vx := 0.0
-	var vz := 0.0
-	if Input.is_physical_key_pressed(KEY_A) or Input.is_physical_key_pressed(KEY_LEFT):
-		vx -= 1.0
-	if Input.is_physical_key_pressed(KEY_D) or Input.is_physical_key_pressed(KEY_RIGHT):
-		vx += 1.0
-	if Input.is_physical_key_pressed(KEY_W) or Input.is_physical_key_pressed(KEY_UP):
-		vz -= 1.0
-	if Input.is_physical_key_pressed(KEY_S) or Input.is_physical_key_pressed(KEY_DOWN):
-		vz += 1.0
-	var rot := 0.0
-	if Input.is_physical_key_pressed(KEY_Q):
-		rot += 1.0
-	if Input.is_physical_key_pressed(KEY_E):
-		rot -= 1.0
-	if rot != 0.0:
-		_orbit(-rot * 1.5 * delta, 0.0)
-	if vx == 0.0 and vz == 0.0:
-		return
-	suspend_follow()
-	var boost := 2.4 if (Input.is_physical_key_pressed(KEY_SHIFT) or Input.is_physical_key_pressed(KEY_CTRL)) else 1.0
-	var fwd := -global_transform.basis.z
-	fwd.y = 0.0
-	fwd = fwd.normalized()
-	var right := global_transform.basis.x
-	right.y = 0.0
-	right = right.normalized()
-	# 键盘速度随高度缩放：拉近时慢，拉远时快，观感一致。
-	var speed := _key_pan_speed * boost * clampf(_cur_distance / 90.0, 0.35, 1.8)
-	target += (right * vx + fwd * -vz) * speed * delta
+## 键盘不再驱动镜头（SEA-CAMERA-R12，2026-11-05）。
+##
+## 以前 WASD / 方向键平移、Q/E 旋转，和「角色要用方向键走」直接冲突：
+## 按住方向键时人和镜头一起动，E 又同时是交互键。现在键盘全部归角色与交互，
+## 镜头只保留鼠标：左键拖拽平移、右键/中键旋转、滚轮与触控板捏合缩放。
+## 需要键盘取景的抓图/探针工具自己调 `apply_pose()`，不依赖玩家键位。
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# 固定机位时镜头不接受任何接管（房间里就是要一个稳定构图）。
+	if pose_lock:
+		return
 	# 面板打开时不抢镜头（面板自己要处理滚轮/拖动）。
 	if _ui_blocked():
 		_pan_pressed = false
@@ -193,6 +194,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		var mb := event as InputEventMouseButton
 		match mb.button_index:
 			MOUSE_BUTTON_LEFT:
+				# 室内不接左键平移：这里左键留给「点地面走路 / 点家具」。
+				if orbit_only:
+					return
 				if mb.pressed:
 					_pan_pressed = true
 					_pan_origin = mb.position
@@ -216,6 +220,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		var mm := event as InputEventMouseMotion
 		if rotating:
 			_orbit(-mm.relative.x * ROT_PER_PIXEL, -mm.relative.y * ROT_PER_PIXEL * 0.7)
+		elif orbit_only:
+			# 室内没有平移，按住左键拖动也不该有任何镜头反应。
+			return
 		elif _pan_pressed:
 			if not panning and mm.position.distance_to(_pan_origin)>=11.0:
 				_begin_pan(_pan_origin)
@@ -224,8 +231,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		# 触控板捏合：factor > 1 是放大（拉近）。
 		var mg := event as InputEventMagnifyGesture
 		_zoom_factor(1.0 / maxf(mg.factor, 0.01), mg.position)
-	elif event is InputEventPanGesture:
+	elif event is InputEventPanGesture and not orbit_only:
 		# 触控板双指滑动：当地图平移用（比缩放更符合直觉，也解决「滚轮没反应」）。
+		# 室内不接：target 钉死，滑动没有可平移的对象。
 		suspend_follow()
 		var pg := event as InputEventPanGesture
 		target += _screen_delta_to_world(pg.delta)
@@ -239,6 +247,10 @@ func _ui_blocked() -> bool:
 ## ---- 平移 -------------------------------------------------------------------
 
 func _begin_pan(screen: Vector2) -> void:
+	# 室内的视点是钉死的：`_unhandled_input` 已经在入口挡住左键，这里再挡一次 ——
+	# 以后若有人从别处调这个函数（工具、手柄、脚本），室内也不会被平移。
+	if orbit_only:
+		return
 	suspend_follow()
 	panning = true
 	Input.set_default_cursor_shape(Input.CURSOR_DRAG)
@@ -315,13 +327,31 @@ func _orbit(dyaw: float, dpitch: float) -> void:
 	orbit_action.execute(self,dyaw,dpitch)
 
 
+## 当前模式下的俯仰上下限（度）。室外 22–78°，室内 26–72°。
+func pitch_low() -> float:
+	return orbit_pitch_min_deg if orbit_only else pitch_min_deg
+
+
+func pitch_high() -> float:
+	return orbit_pitch_max_deg if orbit_only else pitch_max_deg
+
+
+## 当前模式下的缩放上下限（米）。
+func _zoom_low() -> float:
+	return orbit_zoom_min if orbit_only else zoom_min
+
+
+func _zoom_high() -> float:
+	return orbit_zoom_max if orbit_only else zoom_max
+
+
 func _keep_pitch_valid() -> void:
 	var radius := Vector2(dir.x, dir.z).length()
 	if radius < 0.0001:
 		dir = Vector3(0.0, 0.7, 0.7).normalized()
 		return
 	var pitch := atan2(dir.y, radius)
-	pitch = clampf(pitch, deg_to_rad(pitch_min_deg), deg_to_rad(pitch_max_deg))
+	pitch = clampf(pitch, deg_to_rad(pitch_low()), deg_to_rad(pitch_high()))
 	var yaw := atan2(dir.x, dir.z)
 	dir = Vector3(sin(yaw) * cos(pitch), sin(pitch), cos(yaw) * cos(pitch)).normalized()
 	orbit_dir = dir

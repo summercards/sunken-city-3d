@@ -51,6 +51,7 @@ ROLES = {'entity', 'part', 'none'}
 # prefix -> (layer, role); role 'assembly' means "assembly id -> entity, siblings -> part".
 FAMILIES = [
     ('SEA-SCENE-SUBMERGED-', 'submerged', 'entity'),
+    ('SEA-SCENE-SCITY-', 'submerged', 'assembly'),
     ('SEA-REF-01-BG-', 'backdrop', 'entity'),
     ('SEA-REF-01-BACKGROUND-BUILDING-LIBRARY', 'backdrop', 'entity'),
     ('SEA-REF-01-PLAYABLE-OVERVIEW', 'backdrop', 'entity'),
@@ -64,7 +65,12 @@ FAMILIES = [
     ('SEA-SCENE-ORF2-', 'surface', 'assembly'),
     ('SEA-SCENE-ORF-', 'surface', 'assembly'),
     ('SEA-SCENE-NGQ-', 'surface', 'assembly'),
+    # 家园外围残楼围挡：水上实体，自己带船阻挡；不是观赏件（水下/观赏应为 visual only）。
+    ('SEA-SCENE-SBW-', 'surface', 'part'),
     ('SEA-SCENE-SBR-', 'surface', 'part'),
+    # 室内房间（SEA-ROOM）：挂在太阳房上的房间壳体与家具。房间是独立空间，
+    # 自己带可走面，但「水面阻挡」不属于它 —— 它不接触水面，由宿主建筑负责。
+    ('SEA-SCENE-BDR-', 'surface', 'part'),
     ('SEA-SCENE-SOLAR-', 'surface', 'part'),
     ('SEA-SCENE-BLB-', 'submerged', 'part'),
     ('SEA-SCENE-PFH-', 'surface', 'assembly'),

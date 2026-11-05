@@ -1,0 +1,156 @@
+{
+  "key": "viaduct_curve",
+  "slug": "viaduct_curve",
+  "name": "电车高架_26米半径45度弯道",
+  "component_family": "viaduct",
+  "category": "ground",
+  "component_id": "SEA-SCENE-SCITY-VIADUCT-CURVE",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    45,
+    90,
+    135,
+    180,
+    225,
+    270,
+    315
+  ],
+  "size_design_m": [
+    26,
+    26,
+    16.5
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 4,
+  "version": "v003",
+  "collection": "SEA-SCENE-SCITY-VIADUCT-CURVE_电车高架_26米半径45度弯",
+  "root_object": "SEA-SCENE-SCITY-VIADUCT-CURVE_ROOT",
+  "objects": [
+    "电车高架_26米半径45度弯道_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-VIADUCT-CURVE_ROOT"
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "authored_origin_shift": [
+    10.703378677368164,
+    3.14860200881958,
+    0.0
+  ],
+  "connector_local": {
+    "start": [
+      -10.703378677368164,
+      -3.14860200881958,
+      16.299999237060547
+    ],
+    "end": [
+      7.681398391723633,
+      4.4666218757629395,
+      16.299999237060547
+    ],
+    "tangent_start_deg": 0,
+    "tangent_end_deg": 45,
+    "span_m": 20.420352248333657
+  },
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/viaduct_curve/viaduct_curve.blend",
+  "bounds_size_m": [
+    21.726757049560547,
+    15.29720401763916,
+    17.368244171142578
+  ],
+  "triangles": 4272,
+  "polygons": 2150,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-VIADUCT-CURVE",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "00fcfa80af4b8f0026a933deddf674ca78cec3cb3fbe45be78ef6c1b46eea24f",
+  "geometry_fingerprint": "2cc6d55909cb9c1bee7c9361453fed84a2417494ef28ea5f477eba64b05e1437",
+  "bounds_min": [
+    -10.863378524780273,
+    -7.64860200881958,
+    0.0
+  ],
+  "bounds_max": [
+    10.863378524780273,
+    7.64860200881958,
+    17.368244171142578
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\viaduct_curve.json",
+    "exit_code": 0
+  },
+  "source_stage": "source_verified_runtime_pending",
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-VIADUCT-CURVE",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/viaduct_curve_optimized.blend",
+    "optimized_sha256": "8302e340682943413337b5d97d111d5f36ad43a44b3fd18400a1228c3180d107",
+    "triangles_before": 4272,
+    "triangles_after": 4272,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 276,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 88,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -10.863378524780273,
+        -7.64860200881958,
+        0.0
+      ],
+      [
+        10.863378524780273,
+        7.64860200881958,
+        17.368244171142578
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/viaduct_curve/viaduct_curve.glb",
+    "runtime_sha256": "03190675ffc29067807ce9c42e062533de5213befbf5318b4692f64112c22389",
+    "prefab": "godot/scenes/components/scenery/sunken_city/viaduct_curve.tscn",
+    "prefab_sha256": "bd3005b74e6cb4c39c0e4e765853bd8a7f8ce733d333125ce90c54300fad3ec0",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

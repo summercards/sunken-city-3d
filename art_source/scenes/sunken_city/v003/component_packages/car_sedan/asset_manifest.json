@@ -1,0 +1,133 @@
+{
+  "key": "car_sedan",
+  "slug": "car_sedan",
+  "name": "废弃轿车_压瘪车顶",
+  "category": "facilities",
+  "component_family": "vehicle",
+  "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    4.8,
+    2.2,
+    1.7
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 15,
+  "collection": "SEA-SCENE-SCITY-CAR-SEDAN_废弃轿车_压瘪车顶",
+  "root_object": "SEA-SCENE-SCITY-CAR-SEDAN_ROOT",
+  "objects": [
+    "废弃轿车_压瘪车顶_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-CAR-SEDAN_ROOT"
+  ],
+  "bounds_size_m": [
+    4.888000011444092,
+    2.522239923477173,
+    1.8799999952316284
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 2624,
+  "polygons": 1304,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/car_sedan/car_sedan.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "91302626a31caa3974e1cda337b648826f3681f08a9950970f55f47fee57f989",
+  "geometry_fingerprint": "dc889a1a35e28ba72bce8bb3e118d12d1aee3bb8ea988d0878e413259a895606",
+  "bounds_min": [
+    -2.444000005722046,
+    -1.2611199617385864,
+    0.0
+  ],
+  "bounds_max": [
+    2.444000005722046,
+    1.2611199617385864,
+    1.8799999952316284
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\car_sedan.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-CAR-SEDAN",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/car_sedan_optimized.blend",
+    "optimized_sha256": "ec3b7957a703c3031ea3ac6b3a5413e20cf8e8b1388596f293aaf217c8d2c303",
+    "triangles_before": 2624,
+    "triangles_after": 2624,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -2.444000005722046,
+        -1.2611199617385864,
+        0.0
+      ],
+      [
+        2.444000005722046,
+        1.2611199617385864,
+        1.8799999952316284
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/car_sedan/car_sedan.glb",
+    "runtime_sha256": "e6916ce8a65d06e751d434c9cdcbe76386ca1dff4b805a790d884a0f0748acff",
+    "prefab": "godot/scenes/components/scenery/sunken_city/car_sedan.tscn",
+    "prefab_sha256": "85ddff079543d5fac15b2ba06469df995ed9f2d32e2dd74fa432cd94522c1100",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "key": "collapsed_residence",
+  "name": "倒塌住宅_断腰折落",
+  "category": "architecture",
+  "component_family": "collapsed_building",
+  "size_design_m": [
+    24,
+    30,
+    18
+  ],
+  "collapse_state": "mid_storey_fracture",
+  "floors": 5,
+  "color": "seafoam",
+  "damage": 0.85,
+  "style": "folded_residence",
+  "slug": "collapsed_residence",
+  "component_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "variant_axis": "collapse_state",
+  "variant_value": "mid_storey_fracture",
+  "variant_reason": "physically different collapse topology, no world-location geometry",
+  "collection": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE_倒塌住宅_断腰折落",
+  "root_object": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE_ROOT",
+  "objects": [
+    "倒塌住宅_断腰折落_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE_ROOT"
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "version": "v003",
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/collapsed_residence/collapsed_residence.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "bounds_size_m": [
+    16.977130889892578,
+    25.245742797851562,
+    19.434831619262695
+  ],
+  "triangles": 74140,
+  "polygons": 38538,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "instance_count": 1,
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "6477973b7d481b24b45b590e5ae4fe0b996276a2c5134afefdd6c825079f2079",
+  "geometry_fingerprint": "a0285f6ed6db32e4fd360437adee541cfa33052b15f9fa7e5bd193304ac7ab81",
+  "bounds_min": [
+    -8.488565444946289,
+    -12.622871398925781,
+    0.0
+  ],
+  "bounds_max": [
+    8.488565444946289,
+    12.622871398925781,
+    19.434831619262695
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\collapsed_residence.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/collapsed_residence_optimized.blend",
+    "optimized_sha256": "a3b95238f540106901341f8d9fcf32f0c257ef62b883a28c0ef15539200b089c",
+    "triangles_before": 74140,
+    "triangles_after": 74140,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 111064,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 8,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -8.488565444946289,
+        -12.622871398925781,
+        0.0
+      ],
+      [
+        8.488565444946289,
+        12.622871398925781,
+        19.434831619262695
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/collapsed_residence/collapsed_residence.glb",
+    "runtime_sha256": "2eafc74b7169f9aea4aded0bdb199848be08f39d5f14087b9b6c9f2774743734",
+    "prefab": "godot/scenes/components/scenery/sunken_city/collapsed_residence.tscn",
+    "prefab_sha256": "c6f2891a6ef523a8afd3687ca390731cdfeb73d83841ae832701439b1a7bd698",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

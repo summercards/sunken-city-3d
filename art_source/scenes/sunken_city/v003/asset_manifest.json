@@ -1,0 +1,621 @@
+{
+  "schema": "sea.asset_manifest",
+  "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
+  "name": "沉没旧城_起伏街区与弯曲断桥",
+  "version": "v003",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-ASSEMBLY",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "building_class": "underwater",
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss"
+  ],
+  "dependencies": [
+    "SEA-SCENE-SCITY-COFFEE-STEPS",
+    "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+    "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+    "SEA-SCENE-SCITY-TRAM-TENEMENT",
+    "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+    "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+    "SEA-SCENE-SCITY-SLENDER-TOWER",
+    "SEA-SCENE-SCITY-TERRACED-TOWER",
+    "SEA-SCENE-SCITY-HALF-TOWER",
+    "SEA-SCENE-SCITY-CANAL-HOUSING",
+    "SEA-SCENE-SCITY-CANAL-SHELL",
+    "SEA-SCENE-SCITY-ROUNDED-CORNER",
+    "SEA-SCENE-SCITY-CINEMA-RUIN",
+    "SEA-SCENE-SCITY-STATION-HALL",
+    "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+    "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+    "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+    "SEA-SCENE-SCITY-LOW-FOUNDATION",
+    "SEA-SCENE-SCITY-STREET-INTACT",
+    "SEA-SCENE-SCITY-STREET-SPLIT",
+    "SEA-SCENE-SCITY-JUNCTION",
+    "SEA-SCENE-SCITY-CANAL-SEGMENT",
+    "SEA-SCENE-SCITY-PLAZA-TILE",
+    "SEA-SCENE-SCITY-VIADUCT-INTACT",
+    "SEA-SCENE-SCITY-VIADUCT-BROKEN",
+    "SEA-SCENE-SCITY-STAIR-LINK",
+    "SEA-SCENE-SCITY-CAR-SEDAN",
+    "SEA-SCENE-SCITY-CAR-VAN",
+    "SEA-SCENE-SCITY-TRAM-WRECK",
+    "SEA-SCENE-SCITY-SCOOTER",
+    "SEA-SCENE-SCITY-UTILITY-POLE",
+    "SEA-SCENE-SCITY-LEANING-POLE",
+    "SEA-SCENE-SCITY-CABLE-SPAN",
+    "SEA-SCENE-SCITY-STREET-LAMP",
+    "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+    "SEA-SCENE-SCITY-VENDING",
+    "SEA-SCENE-SCITY-BUS-SHELTER",
+    "SEA-SCENE-SCITY-SIGN-BOARD",
+    "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+    "SEA-SCENE-SCITY-CORROSION-PATCH",
+    "SEA-SCENE-SCITY-MOSS-PATCH",
+    "SEA-SCENE-SCITY-KELP-CLUMP",
+    "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+    "SEA-SCENE-SCITY-FALLEN-HALL",
+    "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+    "SEA-SCENE-SCITY-PUMP-CABINET",
+    "SEA-SCENE-SCITY-KIOSK-RUIN",
+    "SEA-SCENE-SCITY-BENCH",
+    "SEA-SCENE-SCITY-TERRAIN-RAMP",
+    "SEA-SCENE-SCITY-VIADUCT-CURVE"
+  ],
+  "reference_rights": "pending",
+  "runtime_validation": "not_executed_not_in_scope",
+  "runtime_path": null,
+  "prefab": null,
+  "source_verified": true,
+  "component_count": 50,
+  "instance_count": 388,
+  "terrain_contract": {
+    "type": "continuous stepped-slope city court; flat terrace pads and broad ramps, no random vertex noise",
+    "base_paving_z_m": -61.3,
+    "relief_m": 4.8,
+    "ramp_run_m": 24,
+    "ramp_angle_deg": 11.309932474020213,
+    "profile_xz": [
+      [
+        -120,
+        0
+      ],
+      [
+        -72,
+        0
+      ],
+      [
+        -48,
+        -4.8
+      ],
+      [
+        24,
+        -4.8
+      ],
+      [
+        48,
+        0
+      ],
+      [
+        120,
+        0
+      ]
+    ],
+    "plateau_world_z_m": [
+      -61.3,
+      -66.1
+    ],
+    "buildings": "rigid geometry, lowest foundation vertices match local height; partially buried lower storey on ramps is intentional sediment settlement, never free floating",
+    "terrain_seams": "100 logical 24m cells; ramp edges share exact world height, pavement curbs may have their authored 0.2m step",
+    "canal": "the four shared canal modules and two ends are warped on the same linear ramp, not removed",
+    "protected_scope": "all non-terrain/bridge component geometry locked; XY of existing buildings preserved; source v002 unchanged",
+    "sloped_road_definition": "street_split semantic slope state replaces prior crack-only design; same AssetID and prior source history retained"
+  },
+  "rail_extension": {
+    "start_xy": [
+      -78,
+      -48
+    ],
+    "heading_deg": 0,
+    "deck_top_z_m": -50.8,
+    "radius_m": 26,
+    "curve_sweep_deg": 45,
+    "gap_m": 15,
+    "commands": [
+      {
+        "kind": "curve",
+        "turn": "left"
+      },
+      {
+        "kind": "straight",
+        "length_m": 12
+      },
+      {
+        "kind": "curve",
+        "turn": "right"
+      },
+      {
+        "kind": "broken"
+      },
+      {
+        "kind": "gap",
+        "length_m": 15
+      },
+      {
+        "kind": "straight",
+        "length_m": 20
+      },
+      {
+        "kind": "curve",
+        "turn": "right"
+      },
+      {
+        "kind": "curve",
+        "turn": "right"
+      },
+      {
+        "kind": "straight",
+        "length_m": 20
+      }
+    ],
+    "tram_additions": "one on 12m tangent before the fracture and one on the 20m straight after it",
+    "break_policy": "fractured deck and rails terminate before the gap; no invisible beam or connected rail crosses it; debris lies below on terrain",
+    "actual_segments": [
+      {
+        "name": "V3_viaduct_curve_000",
+        "key": "viaduct_curve",
+        "start": [
+          -78.0,
+          -48.0,
+          -50.79999923706055
+        ],
+        "end": [
+          -59.61522674560547,
+          -40.3847770690918,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 0.0,
+        "heading_end_deg": 45.0
+      },
+      {
+        "name": "V3_viaduct_intact_001",
+        "key": "viaduct_intact",
+        "start": [
+          -59.61522674560547,
+          -40.3847770690918,
+          -50.79999923706055
+        ],
+        "end": [
+          -51.12994384765625,
+          -31.89949607849121,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 45.0,
+        "heading_end_deg": 45.0
+      },
+      {
+        "name": "V3_viaduct_curve_002",
+        "key": "viaduct_curve",
+        "start": [
+          -51.12994384765625,
+          -31.89949607849121,
+          -50.79999923706055
+        ],
+        "end": [
+          -32.74516296386719,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 45.0,
+        "heading_end_deg": 0.0
+      },
+      {
+        "name": "V3_viaduct_broken_003",
+        "key": "viaduct_broken",
+        "start": [
+          -32.74516296386719,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "end": [
+          -12.745162963867188,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 0.0,
+        "heading_end_deg": 0.0
+      },
+      {
+        "name": "V3_viaduct_intact_004",
+        "key": "viaduct_intact",
+        "start": [
+          2.2548370361328125,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "end": [
+          22.254837036132812,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 0.0,
+        "heading_end_deg": 0.0
+      },
+      {
+        "name": "V3_viaduct_curve_005",
+        "key": "viaduct_curve",
+        "start": [
+          22.254837036132812,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "end": [
+          40.63961410522461,
+          -31.899492263793945,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 0.0,
+        "heading_end_deg": -45.0
+      },
+      {
+        "name": "V3_viaduct_curve_006",
+        "key": "viaduct_curve",
+        "start": [
+          40.63961410522461,
+          -31.899492263793945,
+          -50.79999923706055
+        ],
+        "end": [
+          48.25483703613281,
+          -50.284271240234375,
+          -50.79999923706055
+        ],
+        "heading_start_deg": -45.0,
+        "heading_end_deg": -90.0
+      },
+      {
+        "name": "V3_viaduct_intact_007",
+        "key": "viaduct_intact",
+        "start": [
+          48.25483703613281,
+          -50.284271240234375,
+          -50.79999923706055
+        ],
+        "end": [
+          48.25483703613281,
+          -70.28427124023438,
+          -50.79999923706055
+        ],
+        "heading_start_deg": -90.0,
+        "heading_end_deg": -90.0
+      },
+      {
+        "name": "V3_TRAM_ADDITION_01",
+        "key": "tram_wreck",
+        "mid": [
+          -55.37258529663086,
+          -36.14213562011719,
+          -50.79999923706055
+        ],
+        "heading_deg": 45.0
+      },
+      {
+        "name": "V3_TRAM_ADDITION_02",
+        "key": "tram_wreck",
+        "mid": [
+          12.254837036132812,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "heading_deg": 0.0
+      },
+      {
+        "name": "V3_rubble_cluster_010",
+        "key": "rubble_cluster",
+        "fracture_debris": true
+      },
+      {
+        "name": "V3_rubble_cluster_011",
+        "key": "rubble_cluster",
+        "fracture_debris": true
+      },
+      {
+        "name": "V3_rubble_cluster_012",
+        "key": "rubble_cluster",
+        "fracture_debris": true
+      }
+    ],
+    "actual_gap": {
+      "start": [
+        -12.745162963867188,
+        -24.284273147583008,
+        -50.79999923706055
+      ],
+      "end": [
+        2.2548370361328125,
+        -24.284273147583008,
+        -50.79999923706055
+      ],
+      "length_m": 15
+    }
+  },
+  "exported": true,
+  "runtime_integrated": true,
+  "runtime_export": {
+    "runtime_path": "godot/scenes/world/sunken_city.tscn",
+    "runtime_sha256": "e1a84c111e245d64ab507cb9c1fa82d46def62173c58d39cd683636c89aff9df",
+    "prefab": "godot/scenes/world/sunken_city.tscn",
+    "prefab_sha256": "e1a84c111e245d64ab507cb9c1fa82d46def62173c58d39cd683636c89aff9df",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "triangles_before": 2565218,
+    "triangles_after": 2565204,
+    "reduction_ratio": 5.457625823614211e-06,
+    "component_count": 50,
+    "instance_count": 388,
+    "optimized_sources": [
+      {
+        "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/coffee_steps_optimized.blend",
+        "optimized_sha256": "da0df53c589649e73735b80da4586f773c30a7c10fce354559672ff076190a63"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/electronics_shop_optimized.blend",
+        "optimized_sha256": "ff6a129a3f42c3dae5dadad16dadb52c240fab7e6b815b0c757b27b5a815e417"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/terrace_residence_optimized.blend",
+        "optimized_sha256": "5d6164c44eb884791f3f7bcbfbaadced3ca6a1e945e55395c7751640d19af871"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/tram_tenement_optimized.blend",
+        "optimized_sha256": "fcb346fc277297b5ea521ebd517f91f664761fea57a281231c5d24e310ad0658"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/balcony_tenement_optimized.blend",
+        "optimized_sha256": "b99c0a5173901a7b431c6811d2bc9cfee064f1dc1896537fcfa33c1debc1e72c"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/cutaway_tenement_optimized.blend",
+        "optimized_sha256": "fdd1671b29ec217c6c4e1c99d24119efb28e5b46276ed7d217b0dfecf64d9c10"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/slender_tower_optimized.blend",
+        "optimized_sha256": "24b4fea28af100d7afffdc7436e5cf5882234d4c92661f5208334bc3e700160a"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/terraced_tower_optimized.blend",
+        "optimized_sha256": "698fdb92d3a9a41d989f8e2296810a44b2bfc1e29f776bba75d48a12fe587e7e"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/half_tower_optimized.blend",
+        "optimized_sha256": "8bfe8f731b345fb74dea89125ad1c6f77371282959d87a0e26554716a399e89c"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/canal_housing_optimized.blend",
+        "optimized_sha256": "407a3872b98ea18edbabd099d84ba75d521800b20855e795c384f16a4d257bab"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/canal_shell_optimized.blend",
+        "optimized_sha256": "55056f4c44a57fa4ab3c69e69791cb90a823c96827382c9735e386b4e069cbff"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/rounded_corner_optimized.blend",
+        "optimized_sha256": "2368ce2975974decaa187b6122fc3781cec118c65f585206e1cb5942f60046cf"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/cinema_ruin_optimized.blend",
+        "optimized_sha256": "41ecac2565bc2e0a359a6332312eb904bbc39d51864820fd5981160cca54a5f8"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/station_hall_optimized.blend",
+        "optimized_sha256": "0a90cb667841581e812ae2600c1ecfcb7f08f629b198b9388d6c95a5bc59afe1"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/workshop_shell_optimized.blend",
+        "optimized_sha256": "f88cb706aab01e5984a006d931dd445eee7209c6c31379cb035df489a8d7b0c8"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/frame_construction_optimized.blend",
+        "optimized_sha256": "fc95bfa72744fd51544077f8d2911bb2b5b5439eabac24d18d8aa3d65d314d23"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/roof_garden_shell_optimized.blend",
+        "optimized_sha256": "ee2a5fadae5d73eb97001522bff855267fd324adc500a9afa442b3651cb66924"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/low_foundation_optimized.blend",
+        "optimized_sha256": "0a52888fb437c0476cc5c9a5f998c73014aeeffc1e052be137c7cc8b845cfea0"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-STREET-INTACT",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/street_intact_optimized.blend",
+        "optimized_sha256": "1fe19e627815586c60b228fb4666516050b0db3570d27c132221cbef256ddb7c"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/street_split_optimized.blend",
+        "optimized_sha256": "608e809b185c72edfbdf6ff82a50474308ab088190231e69a65a65b525f53030"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-JUNCTION",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/junction_optimized.blend",
+        "optimized_sha256": "45bc14ab95851ecba35bcb449b2c94c3247c0dd84c2680c5cdd91b71e1686113"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/canal_segment_optimized.blend",
+        "optimized_sha256": "1cb204a31302a1fceba72638aadade9e9c222f2b17d44a7aa216c2764cb6b03b"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/plaza_tile_optimized.blend",
+        "optimized_sha256": "138807c239ea6d4788fb78d353852b8e013ea7261bb6a76068d7733b54a68b78"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/viaduct_intact_optimized.blend",
+        "optimized_sha256": "b56d11a6ef0b03353b393a029b1e4abecb234f3caed7aff430bdd3b6b4541543"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-VIADUCT-BROKEN",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/viaduct_broken_optimized.blend",
+        "optimized_sha256": "2feb05e09bab4b1d254f4dfbc390ec6cb93ef7e8dd15269aa2836c1776b33cf7"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-STAIR-LINK",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/stair_link_optimized.blend",
+        "optimized_sha256": "54e9ddc9c8c3a0f670158dfbb2e6bb00e2269f78104766885d04183fcc42e47f"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/car_sedan_optimized.blend",
+        "optimized_sha256": "ec3b7957a703c3031ea3ac6b3a5413e20cf8e8b1388596f293aaf217c8d2c303"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-CAR-VAN",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/car_van_optimized.blend",
+        "optimized_sha256": "50ac436f0d61ee809998b07717e9599058c92a8ffe5347d07e92f4dbb8d279dc"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/tram_wreck_optimized.blend",
+        "optimized_sha256": "75c4fde0aaf61d396fb0bdf7b406bedaabae8c04c2b8978996f42bdf3e10793d"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-SCOOTER",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/scooter_optimized.blend",
+        "optimized_sha256": "4976611d32ec2f0c8b6efd39842dce1944b1e302eb9587eede6260eb53e9ae5d"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/utility_pole_optimized.blend",
+        "optimized_sha256": "d53023bf51fb19bb6713058b779fbadab4c8e7207823c9f3a9ed412bde3ec059"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-LEANING-POLE",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/leaning_pole_optimized.blend",
+        "optimized_sha256": "4ede057ba088cb3f23ed5d88eb9360f04eb505b2b8346039107935a6d1a93474"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-CABLE-SPAN",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/cable_span_optimized.blend",
+        "optimized_sha256": "af8db7f45e2510700a124b0117b364b947dd480d835c870a5ec845e85b33a2aa"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-STREET-LAMP",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/street_lamp_optimized.blend",
+        "optimized_sha256": "f15f1f5d115f211284ef7d071d2f1d766adb87e35c1e25901d583850d7fac68c"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/traffic_light_optimized.blend",
+        "optimized_sha256": "df18509648ec5d69190ac4e5f315ec323b524e5768419b3ff5621e354ffcd461"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-VENDING",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/vending_optimized.blend",
+        "optimized_sha256": "d18c344f52a4b20914759564e7c38a127b50fc8c2488b94a3a60ab415cd5f2ea"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/bus_shelter_optimized.blend",
+        "optimized_sha256": "6d7698a3a40411da58a34f7ef0bd5ffeb2800c5c77d0babdf38a8041996ea248"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/sign_board_optimized.blend",
+        "optimized_sha256": "b4e40ffb33577a4362f476136d1d6664176467d4dfefbe2a0f50930c0dccb4e5"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/rubble_cluster_optimized.blend",
+        "optimized_sha256": "08f4c9806789724f59d89ebe897cfb52f734b8370b701d192df1ebc8bc7ed09e"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/corrosion_patch_optimized.blend",
+        "optimized_sha256": "9a7546b1c37f39adb5fea71e31a3fd77452b163858308210610ad20b555c6c15"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/moss_patch_optimized.blend",
+        "optimized_sha256": "1b2bfd426c142448441e303a72de3518ecacd09a3c659e5171accc2d615daa08"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/kelp_clump_optimized.blend",
+        "optimized_sha256": "c4e53c9993fcd3c36055a2ba978856bc70713aa4e3762ed749da3655f67786fd"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/collapsed_residence_optimized.blend",
+        "optimized_sha256": "a3b95238f540106901341f8d9fcf32f0c257ef62b883a28c0ef15539200b089c"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/fallen_hall_optimized.blend",
+        "optimized_sha256": "d846338951abcb45235027f76bc8a075e4444aa3ce601422a87956332878af8f"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/retaining_wall_ruin_optimized.blend",
+        "optimized_sha256": "69d0eaeb05a93b221e61ab9f1485366e060a9c43c2f8b178a312053f69b32b22"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-PUMP-CABINET",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/pump_cabinet_optimized.blend",
+        "optimized_sha256": "645ff503e5dbe4cae32aac258dec76a41c14695c9596d19de3c9b12ba8b83184"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-KIOSK-RUIN",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/kiosk_ruin_optimized.blend",
+        "optimized_sha256": "a5cea4aa6ccb70a9fb1f70c30be99eb15b02df2be57b5333e031241eb1620e95"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-BENCH",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/bench_optimized.blend",
+        "optimized_sha256": "4d78da549eab05aaa5ea06fe69fc1513587584b6a53ab9da516756f85a96cc7f"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/terrain_ramp_optimized.blend",
+        "optimized_sha256": "78a8a90f4a72c075aca58cf9a4472663e2a9b6eec6d168fc2f24088637f3d672"
+      },
+      {
+        "asset_id": "SEA-SCENE-SCITY-VIADUCT-CURVE",
+        "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/viaduct_curve_optimized.blend",
+        "optimized_sha256": "8302e340682943413337b5d97d111d5f36ad43a44b3fd18400a1228c3180d107"
+      }
+    ],
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

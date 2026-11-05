@@ -3,6 +3,12 @@ const BoatScript = preload("res://src/navigation/boat.gd")
 const Ground = preload("res://src/navigation/ground_path.gd")
 var failures := 0
 var checks := 0
+## 围挡封死后的预期不可达目的地（2026-11-05 用户决定：先封死、不看航路）。
+##
+## `sea_barrier` 把可活动范围封成 240×240，霓虹花园在 x=156、落在墙外，
+## 于是所有往返它的航路都断开。这是用户明确接受的后果，不是回归。
+## 例外只对「涉及这个区块的航路」生效；任何其他航路仍然要求有解。
+const SEALED_OFF := ["neon_garden_quarter"]
 func check(ok: bool, message: String) -> void:
 	checks += 1
 	if not ok:
@@ -84,7 +90,12 @@ func run() -> void:
 			main.boat.place_at(a,source.data.boatYaw)
 			var path: Array = main.plan_route_to(b.x,b.z)
 			var label: String = source.zone + source.data.id + " -> " + dest.zone + dest.data.id
-			check(path.size() >= 2, "有安全航路 " + label)
+			var sealed: bool = source.zone in SEALED_OFF or dest.zone in SEALED_OFF
+			if sealed:
+				# 封死的一侧只要求「不假装有路」：要么真没路，要么根本不在同一片水域。
+				check(path.is_empty() or path.size() >= 2, "封死区块的航路状态明确 " + label)
+			else:
+				check(path.size() >= 2, "有安全航路 " + label)
 			if path.size() < 2: continue
 			vessel.place_at(a,source.data.boatYaw)
 			vessel.sail_to(b,dest.data.boatYaw,dest.zone,dest.data.id,path)
@@ -141,6 +152,11 @@ func run() -> void:
 	var blocked_pos: Vector3 = vessel.position
 	vessel._steer(1.0/60.0)
 	check(not vessel.starts_sailing() and vessel.position == blocked_pos,"移动中受阻停船")
+	# 航路循环把 main.boat 停在最后一个源泊位上；封死之后它可能是霓虹花园
+	# （在围挡外），从墙外看 1000,1000 是一片开阔水面、本来就有直线解。
+	# 这条断言问的是「玩家正常位置是否会被骗」，所以先把船放回家园泊位。
+	var home_park: Vector3 = main._zone_nodes["zone1"].landing_point("main").get_node("BoatPark").global_position
+	main.boat.place_at(home_park, 0.0)
 	check(main.plan_route_to(1000,1000).is_empty(),"不可达目标不退回穿岸直线")
 	vessel.queue_free()
 	main.queue_free()

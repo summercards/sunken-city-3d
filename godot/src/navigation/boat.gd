@@ -50,6 +50,11 @@ var _blade_l: Node
 var _blade_r: Node
 ## 手动航行的目标（点水面划过去）：没有区块、没有泊位朝向。
 var manual := false
+## 键盘手动划行（SEA-NAV-R15，2026-11-05）。与「点目标自动划」并列：
+## 打开时 `_process` 走 `_drive`，完全不理 `route`；关掉后回到原自动航行。
+var manual_drive := false
+## 世界 xz 方向；零 = 松手（减速滑行到停）。
+var drive_dir := Vector2.ZERO
 var _t := 0.0
 var _duration := 1.0
 var _to_zone := ""
@@ -119,6 +124,8 @@ func build() -> void:
 func place_at(pos: Vector3, yaw: float) -> void:
 	position = Vector3(pos.x, WATER_LEVEL, pos.z)
 	rotation.y = yaw
+	manual_drive = false
+	drive_dir = Vector2.ZERO
 	route.clear()
 	route.append(Vector2(pos.x, pos.z))
 	_wp = 0
@@ -136,6 +143,9 @@ func place_at(pos: Vector3, yaw: float) -> void:
 ## 多转一下船头（主人反馈的「打捞时自动转向一下」就是这段）；靠泊仍传 true。
 func sail_to(pos: Vector3, yaw: float, zone_id: String, landing_id: String, path: Array = [],
 		align_at_arrival := true) -> void:
+	# 点目标 = 自动航行接管：手动驾驶必须当场放掉，否则两条控制同时写位置。
+	manual_drive = false
+	drive_dir = Vector2.ZERO
 	if landing_id != "manual":
 		manual = false
 	_align_at_arrival = align_at_arrival
@@ -191,6 +201,90 @@ func sail_to_point(pos: Vector3, path: Array = []) -> void:
 	sail_to(pos, rotation.y, "", "manual", path)
 
 
+## ---- 键盘手动划行（SEA-NAV-R15） --------------------------------------------
+##
+## 方向键接管方向盘。三条硬约束：
+##   1. 不走 `route`：手动时把旧航线整条丢掉，松手后也不会自己接着跑；
+##   2. 位移仍过 `_clear`（岸线阻挡），撞岸就停并抛 `navigation_blocked`，
+##      与自动航线同一套边界，不新增第二条「能穿岸」的通路；
+##   3. 停与不停只有一条判据 —— 船速归零才关 manual_drive，避免一松手就瞬停。
+
+func set_drive(dir: Vector2) -> void:
+	var flat := Vector2(dir.x, dir.y)
+	var next := flat.normalized() if flat.length() > 0.001 else Vector2.ZERO
+	drive_dir = next
+	if next == Vector2.ZERO:
+		return
+	if not manual_drive:
+		# 手动接管那一刻放弃自动航路。
+		route.clear()
+		route.append(Vector2(position.x, position.z))
+		_wp = 0
+		manual = true
+		_to_zone = ""
+		_to_landing = "manual"
+		_align_at_arrival = true
+		_dock_left = 0.0
+	manual_drive = true
+	_sailing = true
+
+## 松手：只清方向，速度自己在 `_drive` 里按 BRAKE 收敛到 0。
+func release_drive() -> void:
+	drive_dir = Vector2.ZERO
+
+func driving() -> bool:
+	return manual_drive
+
+## 外部（上下船、读档、取消）强制结束手动驾驶。
+func stop_drive() -> void:
+	manual_drive = false
+	drive_dir = Vector2.ZERO
+	_vel = 0.0
+	_speed_actual = 0.0
+	_turn_rate = 0.0
+	if _sailing:
+		_sailing = false
+		_yaw_to = rotation.y
+
+
+func _drive(delta: float) -> void:
+	var dt := minf(maxf(delta, 0.0), 0.25)
+	var want := drive_dir
+	if want.length() > 0.001:
+		var desired := atan2(-want.x, -want.y)
+		var error := angle_difference(rotation.y, desired)
+		var turned := clampf(error * (1.0 - exp(-7.0 * dt)), -TURN_RATE * dt, TURN_RATE * dt)
+		rotation.y += turned
+		_turn_rate = lerpf(_turn_rate, turned / maxf(dt, 0.0001), 1.0 - exp(-7.0 * dt))
+		# 大角度先转身再加速：和自动航线的 `alignment` 同一口径。
+		var alignment := pow(maxf(0.0, cos(error)), 2.0)
+		_vel = move_toward(_vel, cruise_speed() * alignment, ACCEL * dt)
+	else:
+		_vel = move_toward(_vel, 0.0, BRAKE * dt)
+	var here := Vector2(position.x, position.z)
+	var step := _vel * dt
+	if step > 0.00001:
+		var moved := here + _forward(rotation.y) * step
+		if not _clear(here, moved):
+			_vel = 0.0
+			_speed_actual = 0.0
+			_turn_rate = 0.0
+			manual_drive = false
+			drive_dir = Vector2.ZERO
+			_sailing = false
+			_yaw_to = rotation.y
+			navigation_blocked.emit()
+			return
+		position.x = moved.x
+		position.z = moved.y
+	_speed_actual = _vel
+	if want.length() <= 0.001 and _vel <= 0.02:
+		_vel = 0.0
+		_speed_actual = 0.0
+		manual_drive = false
+		_sailing = false
+		_yaw_to = rotation.y
+
 func starts_sailing() -> bool:
 	return _sailing
 
@@ -207,7 +301,9 @@ func remaining_route() -> Array:
 
 func _process(delta: float) -> void:
 	var now := Time.get_ticks_msec() / 1000.0
-	if _sailing:
+	if manual_drive:
+		_drive(delta)
+	elif _sailing:
 		_steer(delta)
 	else:
 		_speed_actual = lerp(_speed_actual, 0.0, clamp(delta * 6.0, 0.0, 1.0))

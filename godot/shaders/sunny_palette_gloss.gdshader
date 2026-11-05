@@ -4,6 +4,15 @@ uniform sampler2D palette : source_color, filter_nearest, repeat_disable;
 uniform float roughness_value = 0.62;
 uniform float metallic_value = 0.0;
 uniform float emission_value = 0.0;
+// 玻璃的透光率与压色。默认 0.81 / 纯白 = 室外玻璃原样（太阳房、前厅外框都不动）；
+// 室内房间的窗与前厅玻璃用另一个实例（alpha 更低、偏冷灰），
+// 因为房间外面是黑的 —— 玻璃若还留着 sky 蓝，就还是「看得到天」的读法。
+uniform float alpha_value = 0.81;
+uniform vec4 tint : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+// 室内玻璃：玻璃后面什么都没有（房间是室内），所以不能再用色盘里的 ice 格
+// 去乘天空环境光 —— 那样白天就是一格浅蓝的「天空」。置 true 时颜色固定取
+// tint，只留高光。室外玻璃（太阳房、前厅外框）保持 false，一点不变。
+uniform bool interior_glass = false;
 uniform bool grid_role = false;
 uniform bool home_window = false;
 uniform bool home_window_recessed = false;
@@ -41,5 +50,12 @@ void fragment() {
   ALBEDO=mix(ALBEDO,vec3(1.0,0.58,0.19),world_home_lights);
   EMISSION+=vec3(0.42,0.16,0.025)*world_home_lights;
  }
- ALPHA=0.81;
+ if (interior_glass) {
+  ALBEDO=tint.rgb;
+  ROUGHNESS=roughness_value;
+  SPECULAR=0.65;
+ } else {
+  ALBEDO*=tint.rgb;
+ }
+ ALPHA=alpha_value;
 }

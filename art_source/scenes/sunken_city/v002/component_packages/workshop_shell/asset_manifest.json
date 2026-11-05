@@ -1,0 +1,98 @@
+{
+  "key": "workshop_shell",
+  "slug": "workshop_shell",
+  "name": "旧维修厂_锯齿断顶",
+  "category": "architecture",
+  "component_family": "workshop",
+  "component_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    20,
+    17,
+    14
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 2,
+  "color": "sage_gray",
+  "damage": 0.68,
+  "style": "workshop",
+  "variant_axis": "structure_damage",
+  "variant_value": "workshop",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 2,
+  "collection": "SEA-SCENE-SCITY-WORKSHOP-SHELL_旧维修厂_锯齿断顶",
+  "root_object": "SEA-SCENE-SCITY-WORKSHOP-SHELL_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-WORKSHOP-SHELL_ROOT",
+    "旧维修厂_锯齿断顶_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    19.62713050842285,
+    16.52031707763672,
+    13.759183883666992
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 43852,
+  "polygons": 22793,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/workshop_shell/workshop_shell.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v002",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "82eab888dc42f55b7b4eb061be8bf57bbbd84a4905d598a231cbe77bfc996a96",
+  "geometry_fingerprint": "5cf6d7f89929fc653473cdb79af6778e6986aa80998facfcfef2b5f13b07ff95",
+  "bounds_min": [
+    -9.813565254211426,
+    -8.26015853881836,
+    0.0
+  ],
+  "bounds_max": [
+    9.813565254211426,
+    8.26015853881836,
+    13.759183883666992
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\workshop_shell.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-WORKSHOP-SHELL"
+}

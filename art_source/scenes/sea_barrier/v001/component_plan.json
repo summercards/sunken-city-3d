@@ -1,0 +1,1691 @@
+{
+  "schema": "sea.component_plan",
+  "suite": "sea_barrier",
+  "version": "v001",
+  "feature_id": "SEA-ASSET",
+  "requirement": "SEA-ASSET-R47",
+  "status": "frozen_before_geometry",
+  "building_class": "above_water",
+  "branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "reference": null,
+  "reference_note": "用户口述：白盒残楼围挡，破坏房屋+倾斜+树林；范围 150 改成 90，当天再按红框截图改为 240x240",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "dimensions": {
+    "module_width_m": 20.0,
+    "depth_m": 10.0,
+    "corner_arm_m": 10.0,
+    "waterline_local_z": 0.0,
+    "submerged_base_local_z": -2.8,
+    "house_storey_m": 3.0,
+    "wall_thickness_m": 0.3,
+    "window_m": [
+      1.0,
+      1.2
+    ]
+  },
+  "ring": {
+    "shape": "square",
+    "center": [
+      0.0,
+      0.0
+    ],
+    "inner_half_extent_m": 120.0,
+    "side_length_m": 240.0,
+    "placement": "inner_face_on_boundary_outward",
+    "instances": 48,
+    "coverage_assert": "转角腿 10 + 11*20 + 转角腿 10 = 240 per side"
+  },
+  "exceptions": [
+    "白盒阶段：只做体量、倾斜、开口与窗洞，开孔边缘为直角，倒角只落在体块外轮廓。",
+    "同族超过 3 件：用户明确要求「每 20 米一个独立组件、不许合并」，按显式例外登记；套件总数 29 件仍在 50 件上限内。",
+    "原点取水线中心而非底部中心：构件半沉，底部在水下 2.8 米，用水线做原点才不随水深漂移。",
+    "植被随各组件走，尚未抽成跨套件共享母版。"
+  ],
+  "components": [
+    {
+      "key": "corner_ruin_a",
+      "name": "转角残楼A（L形20米）",
+      "asset_id": "SEA-SCENE-SBW-001",
+      "category": "architecture",
+      "family": "corner_ruin",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "SBW_01_转角残楼A（L形20米）",
+      "scope": "scene_local",
+      "kind": "corner_ruin",
+      "width_m": 10.0,
+      "depth_m": 10.0,
+      "seed": 20261105,
+      "placements": [
+        {
+          "position": [
+            120.0,
+            120.0
+          ],
+          "yaw_deg": 0.0
+        },
+        {
+          "position": [
+            -120.0,
+            -120.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "corner_ruin_b",
+      "name": "转角残楼B（L形20米）",
+      "asset_id": "SEA-SCENE-SBW-002",
+      "category": "architecture",
+      "family": "corner_ruin",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 18000,
+      "collection": "SBW_02_转角残楼B（L形20米）",
+      "scope": "scene_local",
+      "kind": "corner_ruin",
+      "width_m": 10.0,
+      "depth_m": 10.0,
+      "seed": 20270713,
+      "placements": [
+        {
+          "position": [
+            -120.0,
+            120.0
+          ],
+          "yaw_deg": 90.0
+        },
+        {
+          "position": [
+            120.0,
+            -120.0
+          ],
+          "yaw_deg": 270.0
+        }
+      ]
+    },
+    {
+      "key": "north_01",
+      "name": "北01·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-003",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_03_北01·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261179,
+      "placements": [
+        {
+          "position": [
+            -100.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_02",
+      "name": "北02·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-004",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_04_北02·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261216,
+      "placements": [
+        {
+          "position": [
+            -80.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_03",
+      "name": "北03·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-005",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_05_北03·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261253,
+      "placements": [
+        {
+          "position": [
+            -60.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_04",
+      "name": "北04·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-006",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_06_北04·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261290,
+      "placements": [
+        {
+          "position": [
+            -40.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_05",
+      "name": "北05·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-007",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_07_北05·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261327,
+      "placements": [
+        {
+          "position": [
+            -20.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_06",
+      "name": "北06·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-008",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_08_北06·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261364,
+      "placements": [
+        {
+          "position": [
+            0.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_07",
+      "name": "北07·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-009",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_09_北07·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261401,
+      "placements": [
+        {
+          "position": [
+            20.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_08",
+      "name": "北08·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-010",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_10_北08·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261438,
+      "placements": [
+        {
+          "position": [
+            40.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_09",
+      "name": "北09·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-011",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_11_北09·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261475,
+      "placements": [
+        {
+          "position": [
+            60.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_10",
+      "name": "北10·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-012",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_12_北10·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261512,
+      "placements": [
+        {
+          "position": [
+            80.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "north_11",
+      "name": "北11·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-013",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_13_北11·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261549,
+      "placements": [
+        {
+          "position": [
+            100.0,
+            125.0
+          ],
+          "yaw_deg": 0.0
+        }
+      ]
+    },
+    {
+      "key": "east_01",
+      "name": "东01·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-014",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_14_东01·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261586,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            -100.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_02",
+      "name": "东02·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-015",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_15_东02·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261623,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            -80.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_03",
+      "name": "东03·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-016",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_16_东03·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261660,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            -60.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_04",
+      "name": "东04·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-017",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_17_东04·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261697,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            -40.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_05",
+      "name": "东05·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-018",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_18_东05·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261734,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            -20.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_06",
+      "name": "东06·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-019",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_19_东06·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261771,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            0.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_07",
+      "name": "东07·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-020",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_20_东07·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261808,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            20.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_08",
+      "name": "东08·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-021",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_21_东08·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261845,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            40.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_09",
+      "name": "东09·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-022",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_22_东09·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261882,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            60.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_10",
+      "name": "东10·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-023",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_23_东10·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261919,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            80.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "east_11",
+      "name": "东11·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-024",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_24_东11·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261956,
+      "placements": [
+        {
+          "position": [
+            125.0,
+            100.0
+          ],
+          "yaw_deg": -90.0
+        }
+      ]
+    },
+    {
+      "key": "south_01",
+      "name": "南01·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-025",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_25_南01·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20261993,
+      "placements": [
+        {
+          "position": [
+            -100.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_02",
+      "name": "南02·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-026",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_26_南02·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262030,
+      "placements": [
+        {
+          "position": [
+            -80.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_03",
+      "name": "南03·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-027",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_27_南03·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262067,
+      "placements": [
+        {
+          "position": [
+            -60.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_04",
+      "name": "南04·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-028",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_28_南04·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262104,
+      "placements": [
+        {
+          "position": [
+            -40.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_05",
+      "name": "南05·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-029",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_29_南05·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262141,
+      "placements": [
+        {
+          "position": [
+            -20.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_06",
+      "name": "南06·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-030",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_30_南06·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262178,
+      "placements": [
+        {
+          "position": [
+            0.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_07",
+      "name": "南07·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-031",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_31_南07·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262215,
+      "placements": [
+        {
+          "position": [
+            20.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_08",
+      "name": "南08·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-032",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_32_南08·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262252,
+      "placements": [
+        {
+          "position": [
+            40.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_09",
+      "name": "南09·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-033",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_33_南09·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262289,
+      "placements": [
+        {
+          "position": [
+            60.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_10",
+      "name": "南10·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-034",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_34_南10·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262326,
+      "placements": [
+        {
+          "position": [
+            80.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "south_11",
+      "name": "南11·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-035",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_35_南11·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262363,
+      "placements": [
+        {
+          "position": [
+            100.0,
+            -125.0
+          ],
+          "yaw_deg": 180.0
+        }
+      ]
+    },
+    {
+      "key": "west_01",
+      "name": "西01·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-036",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_36_西01·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262400,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            -100.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_02",
+      "name": "西02·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-037",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_37_西02·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262437,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            -80.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_03",
+      "name": "西03·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-038",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_38_西03·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262474,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            -60.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_04",
+      "name": "西04·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-039",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_39_西04·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262511,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            -40.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_05",
+      "name": "西05·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-040",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_40_西05·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262548,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            -20.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_06",
+      "name": "西06·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-041",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_41_西06·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262585,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            0.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_07",
+      "name": "西07·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-042",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_42_西07·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262622,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            20.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_08",
+      "name": "西08·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-043",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_43_西08·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262659,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            40.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_09",
+      "name": "西09·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-044",
+      "category": "architecture",
+      "family": "house_pair",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_44_西09·双塌房（20米）",
+      "scope": "scene_local",
+      "kind": "house_pair",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262696,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            60.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_10",
+      "name": "西10·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-045",
+      "category": "architecture",
+      "family": "forest_band",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_45_西10·半沉林带（20米）",
+      "scope": "scene_local",
+      "kind": "forest_band",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262733,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            80.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    },
+    {
+      "key": "west_11",
+      "name": "西11·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-046",
+      "category": "architecture",
+      "family": "single_house",
+      "building_class": "above_water",
+      "origin": "waterline_center",
+      "front_axis": "-Y",
+      "triangle_budget": 12000,
+      "collection": "SBW_46_西11·斜塌楼（20米）",
+      "scope": "scene_local",
+      "kind": "single_house",
+      "width_m": 20.0,
+      "depth_m": 10.0,
+      "seed": 20262770,
+      "placements": [
+        {
+          "position": [
+            -125.0,
+            100.0
+          ],
+          "yaw_deg": 90.0
+        }
+      ]
+    }
+  ],
+  "instances": [
+    {
+      "component": "corner_ruin_a",
+      "position": [
+        120.0,
+        120.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "corner_ruin_a",
+      "position": [
+        -120.0,
+        -120.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "corner_ruin_b",
+      "position": [
+        -120.0,
+        120.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "corner_ruin_b",
+      "position": [
+        120.0,
+        -120.0
+      ],
+      "yaw_deg": 270.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_01",
+      "position": [
+        -100.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_02",
+      "position": [
+        -80.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_03",
+      "position": [
+        -60.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_04",
+      "position": [
+        -40.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_05",
+      "position": [
+        -20.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_06",
+      "position": [
+        0.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_07",
+      "position": [
+        20.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_08",
+      "position": [
+        40.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_09",
+      "position": [
+        60.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_10",
+      "position": [
+        80.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "north_11",
+      "position": [
+        100.0,
+        125.0
+      ],
+      "yaw_deg": 0.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_01",
+      "position": [
+        125.0,
+        -100.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_02",
+      "position": [
+        125.0,
+        -80.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_03",
+      "position": [
+        125.0,
+        -60.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_04",
+      "position": [
+        125.0,
+        -40.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_05",
+      "position": [
+        125.0,
+        -20.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_06",
+      "position": [
+        125.0,
+        0.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_07",
+      "position": [
+        125.0,
+        20.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_08",
+      "position": [
+        125.0,
+        40.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_09",
+      "position": [
+        125.0,
+        60.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_10",
+      "position": [
+        125.0,
+        80.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "east_11",
+      "position": [
+        125.0,
+        100.0
+      ],
+      "yaw_deg": -90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_01",
+      "position": [
+        -100.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_02",
+      "position": [
+        -80.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_03",
+      "position": [
+        -60.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_04",
+      "position": [
+        -40.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_05",
+      "position": [
+        -20.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_06",
+      "position": [
+        0.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_07",
+      "position": [
+        20.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_08",
+      "position": [
+        40.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_09",
+      "position": [
+        60.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_10",
+      "position": [
+        80.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "south_11",
+      "position": [
+        100.0,
+        -125.0
+      ],
+      "yaw_deg": 180.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_01",
+      "position": [
+        -125.0,
+        -100.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_02",
+      "position": [
+        -125.0,
+        -80.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_03",
+      "position": [
+        -125.0,
+        -60.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_04",
+      "position": [
+        -125.0,
+        -40.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_05",
+      "position": [
+        -125.0,
+        -20.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_06",
+      "position": [
+        -125.0,
+        0.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_07",
+      "position": [
+        -125.0,
+        20.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_08",
+      "position": [
+        -125.0,
+        40.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_09",
+      "position": [
+        -125.0,
+        60.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_10",
+      "position": [
+        -125.0,
+        80.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    },
+    {
+      "component": "west_11",
+      "position": [
+        -125.0,
+        100.0
+      ],
+      "yaw_deg": 90.0,
+      "scale": 1.0
+    }
+  ]
+}

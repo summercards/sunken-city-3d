@@ -1,0 +1,68 @@
+{
+  "key": "grass_round",
+  "label": "圆叶短草",
+  "profile": "grass",
+  "triangle_budget": 70,
+  "asset_id": "SEA-VEG-GRASS-ROUND",
+  "source": "art_source/vegetation/v001/components/grass_round/grass_round.blend",
+  "source_sha256": "43f916fdddc1d26d26aaef6d7f2cc928f9351b070f633a1685644666965d4631",
+  "optimized_source": "art_source/vegetation/v001/components/grass_round/grass_round_optimized.blend",
+  "optimized_sha256": "cb4c53f6d00dbb5c60f7891aefa1ce782985c558726ab6cd68d0a0b163909d59",
+  "glb": "godot/assets/models/vegetation/grass_round.glb",
+  "glb_sha256": "0087951d0146e125b1f35d7d3d64fee5c6f68abe4241c50fe4059361465e712e",
+  "before": {
+    "vertices": 60,
+    "triangles": 60,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.20016899704933167,
+        -0.16351965069770813,
+        0.0
+      ],
+      [
+        0.20016899704933167,
+        0.16351965069770813,
+        0.27314120531082153
+      ]
+    ],
+    "root_vertices": 20,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.8535662889480591
+    ]
+  },
+  "after": {
+    "vertices": 60,
+    "triangles": 60,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.20016899704933167,
+        -0.16351965069770813,
+        0.0
+      ],
+      [
+        0.20016899704933167,
+        0.16351965069770813,
+        0.27314120531082153
+      ]
+    ],
+    "root_vertices": 20,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.8535662889480591
+    ]
+  },
+  "operations": [
+    "merge coincident vertices at 1e-6 m",
+    "remove degenerate edges",
+    "preserve PaletteUV and WindData seams",
+    "reopen both sources and verify"
+  ],
+  "removed_vertices": 0
+}

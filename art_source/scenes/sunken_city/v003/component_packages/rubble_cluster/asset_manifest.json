@@ -1,0 +1,132 @@
+{
+  "key": "rubble_cluster",
+  "slug": "rubble_cluster",
+  "name": "大块楼板残骸_露筋",
+  "category": "facilities",
+  "component_family": "rubble",
+  "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    6.5,
+    5,
+    2.5
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 59,
+  "collection": "SEA-SCENE-SCITY-RUBBLE-CLUSTER_大块楼板残骸_露筋",
+  "root_object": "SEA-SCENE-SCITY-RUBBLE-CLUSTER_ROOT",
+  "objects": [
+    "大块楼板残骸_露筋_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-RUBBLE-CLUSTER_ROOT"
+  ],
+  "bounds_size_m": [
+    5.715139389038086,
+    3.827401638031006,
+    1.9428422451019287
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 848,
+  "polygons": 428,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/rubble_cluster/rubble_cluster.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "2a07b838f18aca7bd5d9fd27817d199f97e07f20160ed43d4172657e687ca1ff",
+  "geometry_fingerprint": "438bf26b453564c6f707906e8577eb142a4d787c2c2e04a702d69d03fd863dce",
+  "bounds_min": [
+    -2.857569694519043,
+    -1.913700819015503,
+    0.0
+  ],
+  "bounds_max": [
+    2.857569694519043,
+    1.913700819015503,
+    1.9428422451019287
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\rubble_cluster.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/rubble_cluster_optimized.blend",
+    "optimized_sha256": "08f4c9806789724f59d89ebe897cfb52f734b8370b701d192df1ebc8bc7ed09e",
+    "triangles_before": 848,
+    "triangles_after": 848,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -2.857569694519043,
+        -1.913700819015503,
+        0.0
+      ],
+      [
+        2.857569694519043,
+        1.913700819015503,
+        1.9428422451019287
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/rubble_cluster/rubble_cluster.glb",
+    "runtime_sha256": "a729586b29accca7de7f78c30f78701de5ca653160ef8857a98a54cf4a642bb9",
+    "prefab": "godot/scenes/components/scenery/sunken_city/rubble_cluster.tscn",
+    "prefab_sha256": "ce174ad50091d60ca2e1da22af22d941659320dff7f719abfdbe85d297e56959",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

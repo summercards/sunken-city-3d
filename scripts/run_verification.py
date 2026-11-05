@@ -13,6 +13,8 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 GODOT_ROOT = ROOT / 'godot'
 TESTS = {
+    'sunken-city': ('tests/test_sunken_city.gd', r'\[sunken-city\] \d+ checks, 0 failures'),
+    'visual-sunken-city': ('tools/capture_sunken_city.gd', r'\[sunken-city-render\] \d+ checks, 0 failures'),
     'modules': ('tests/test_feature_modules.gd', r'\[modules\] \d+ checks, 0 failures'),
     'parity': ('tests/test_core.gd', r'\d+ checks, 0 failures'),
     'farming': ('tests/test_farming.gd', r'\[farming\] \d+ checks, 0 failed'),
@@ -25,6 +27,16 @@ TESTS = {
     'click': ('tests/test_click_controls.gd', r'\[click-controls\] \d+ checks, 0 failures'),
     'management': ('tests/test_management_loop.gd', r'\[management\] \d+ checks, 0 failed'),
     'camera': ('tests/test_camera_follow.gd', r'\[camera-follow\].*failures=0'),
+    # 缩放上限 38 m：连续往外滚拉不出去，往里仍能到 9 m（SEA-CAMERA-R11，真实渲染）。
+    'visual-camera-zoom': ('tools/capture_camera_zoom.gd', r'\[camera-zoom\] \d+ checks, 0 failures'),
+    # 取景对照探针：同一构图只改距离，各存一张图（SEA_ZOOM_SET="38,54.25,78"）。
+    'visual-zoom-framing': ('tools/probe_zoom_framing.gd', r'\[framing\] '),
+    # 取景标定：同一栋家园小屋在不同距离下占画面多宽，用来把"看图定距离"变成可复算的数。
+    'visual-home-framing': ('tools/probe_home_framing.gd', r'\[home-framing\] distance='),
+    # 临时诊断：打印家园小屋子树（标定 AABB 为空时用来查节点类型）。
+    'cabin-dump': ('tools/probe_cabin_dump.gd', r'\[cabin-dump\] all descendants='),
+    # 暖色灯光标尺：拿主人截图的暖光簇宽度反解相机距离。
+    'visual-warm-ruler': ('tools/probe_warm_ruler.gd', r'\[warm-ruler\] done'),
     # 交互热区必须跟着物体走：出货箱曾偏 2.07 米，看得见却点不到。
     'interact-focus': ('tests/test_interact_focus.gd', r'\[interact-focus\] \d+ checks, 0 failures'),
     # 走不到的地方点开操作菜单：图标贴边可命中、菜单钉住、逐项写明原因。
@@ -39,7 +51,16 @@ TESTS = {
 }
 CORE = list(TESTS)
 TESTS.update({
+    'visual-vegetation': ('tools/capture_vegetation.gd', r'\[vegetation-render\] 0 failures'),
+    'visual-vegetation-study': ('tools/capture_vegetation_study.gd', r'\[vegetation-study\] complete'),
+    'visual-proton-scatter': ('tools/capture_proton_scatter.gd', r'\[proton-scatter-trial\] 0 failures'),
+    'visual-proton-preview': ('tests/test_proton_preview.gd', r'\[proton-preview\] 11542 instances, 0 failures'),
+    'vegetation-contract': ('tests/test_vegetation.gd', r'\[vegetation\] \d+ checks, 0 failures'),
+    'visual-vegetation-performance': ('tools/profile_vegetation.gd', r'\[vegetation-performance\] complete'),
     'neon-garden-quarter': ('tests/test_neon_garden_quarter.gd', r'\[neon-garden-quarter\] \d+ checks, 0 failures'),
+    # 家园外围残楼围挡：20 段接入主场景，四边连续挡船、不侵入可活动范围（SEA-ASSET-R47）。
+    'sea-barrier': ('tests/test_sea_barrier.gd', r'\[sea-barrier\] \d+ checks, 0 failures'),
+    'visual-sea-barrier': ('tools/capture_sea_barrier.gd', r'\[sea-barrier-render\] 0 failures'),
     'visual-neon-garden-quarter': ('tests/test_neon_garden_quarter.gd', r'\[neon-garden-quarter\] \d+ checks, 0 failures'),
     'rowing-fit': ('tests/test_rowing_fit.gd', r'\[rowing-fit\] \d+ checks, 0 failures'),
     'visual-rowing-fit': ('tests/test_rowing_fit.gd', r'\[rowing-fit\] \d+ checks, 0 failures'),
@@ -167,6 +188,13 @@ TESTS.update({
     # 现场反馈过一次「12:00 浇水、次日 06:00 醒来还是昨天的状态」，所以这条量时刻不量数值。
     'farm-day-change': ('tests/test_farm_day_change.gd', r'\[farm-day-change\] \d+ checks, 0 failures'),
     'sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
+    # SEA-ROOM：从门口进屋的过场、剖切换面、室内行走、床上睡觉、床铺布置与存档往返。
+    'room': ('tests/test_room.gd', r'\[room\] \d+ checks, 0 failures'),
+    # 同一份专项的真实渲染版：门口 / 室内 / 床铺 / 前厅 / 换面剖切 / 夜景。
+    'visual-room': ('tools/capture_room.gd', r'\[room-render\] 0 failures'),
+    # 室内环绕机位的实拍：绕房间转一圈（四个方位）+ 最近/最远/最低/最高，
+    # 专门盯「转过去会不会冒出暗板、白杆、缺墙」这类只有看渲染才抓得到的缺陷。
+    'visual-room-orbit': ('tools/capture_room_orbit.gd', r'\[room-orbit\] done'),
     # 黑幕文字要停得够久：两段文字各自至少 2 秒、淡入淡出不少于 0.4 秒。
     # 只认常量不够，测试里还实测「全黑后 1.6 秒仍完整可见」。
     'visual-sleep-cycle': ('tests/test_sleep_cycle.gd', r'\[sleep-cycle\].*0 failures'),
@@ -303,7 +331,7 @@ def mount_readonly(target, source):
 def isolated_project(run_dir):
     project = run_dir / 'project'
     project.mkdir()
-    for name in ['src', 'scripts', 'scenes', 'tests', 'tools', 'shaders']:
+    for name in ['src', 'scripts', 'scenes', 'tests', 'tools', 'shaders', 'data', 'addons']:
         source = GODOT_ROOT / name
         if source.exists():
             shutil.copytree(source, project / name, ignore=shutil.ignore_patterns('__pycache__'))

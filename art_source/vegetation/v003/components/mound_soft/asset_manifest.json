@@ -1,0 +1,71 @@
+{
+  "key": "mound_soft",
+  "asset_id": "SEA-VEG-MOUND-SOFT",
+  "version": "v003",
+  "source": "art_source/vegetation/v003/components/mound_soft/mound_soft.blend",
+  "source_sha256": "fb63d048a8e950517fc7999b64d0366f5592509b8c8c9f18ed5797c41b43f049",
+  "optimized_source": "art_source/vegetation/v003/components/mound_soft/mound_soft_optimized.blend",
+  "optimized_sha256": "98386eed13f4213e6825bd15ea8402dee72237d633723a281f3a0830c7f0da71",
+  "glb": "godot/assets/models/vegetation/mound_soft.glb",
+  "glb_sha256": "557a9f4f1f73abbb8e2f1351bd7c6a1ccc5537fb3c2f09e2673f2d04192e6410",
+  "triangles": 252,
+  "vertices": 336,
+  "bounds_blender": [
+    [
+      -1.4819388389587402,
+      -1.2105035781860352,
+      0.0
+    ],
+    [
+      1.4819388389587402,
+      1.2105035781860352,
+      1.1284534931182861
+    ]
+  ],
+  "operations": [
+    "independent optimized save",
+    "degenerate edge cleanup",
+    "reopen source and optimized",
+    "verify rooted weights and UVs"
+  ],
+  "no_solid_core": true,
+  "name": "层叠面片草堆",
+  "domain": "vegetation",
+  "suite": "soft_botanical_cards",
+  "scope": "shared",
+  "category": "textured_vegetation",
+  "manifest": "art_source/vegetation/v003/components/mound_soft/asset_manifest.json",
+  "prefab": "godot/scenes/components/vegetation/mound_soft.tscn",
+  "runtime_path": "godot/scenes/components/vegetation/mound_soft.tscn",
+  "runtime_sha256": "249954303b860df7f220155620af567bcf5186892badde437b05fcec0dd088a9",
+  "material": "godot/assets/materials/vegetation/mound_soft.tres",
+  "dependencies": [
+    "SEA-TEX-VEGETATION-MEADOW-ATLAS"
+  ],
+  "consumers": [
+    "rooftop_ranch"
+  ],
+  "consumer_features": [
+    "SEA-AMBIENT",
+    "SEA-ASSET"
+  ],
+  "previous_sources": [],
+  "stage": "runtime_verified_user_visual_review_pending",
+  "license": "original_carrier_geometry",
+  "water_layer": "surface",
+  "water_layer_role": "none",
+  "collision": false,
+  "wind_contract": 3,
+  "verification": {
+    "source": "reopened_and_verified",
+    "runtime": "passed",
+    "visual": "near_default_far_and_motion_reviewed",
+    "user_art_acceptance": "pending",
+    "performance": "measured_RTX4060Ti_1280x800",
+    "evidence": [
+      "D:\\projects\\sea-work\\verification\\20261105-165018-meadow-final-7648b4\\report.json",
+      "docs/development/2026-11-05_vegetation_meadow.md"
+    ]
+  },
+  "asset_ledger": "assets/registry/ledgers/vegetation.json#SEA-VEG-MOUND-SOFT"
+}

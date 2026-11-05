@@ -48,6 +48,9 @@ func run() -> void:
 		printerr("FAIL real renderer required");quit(1);return
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
+	# 证据取景需要 47–73 m 的远机位；玩家上限是 38 m（SEA-CAMERA-R11），
+	# 不抬高只会被静默夹回 38 m，截出来的"远景"其实不是远景。
+	main.cam.zoom_max = 160.0
 	main._autosave_on = false
 	main.process_mode = Node.PROCESS_MODE_DISABLED
 	main.set_process(false)

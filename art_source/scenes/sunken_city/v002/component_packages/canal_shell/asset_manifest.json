@@ -1,0 +1,98 @@
+{
+  "key": "canal_shell",
+  "slug": "canal_shell",
+  "name": "运河街断墙_半栋遗址",
+  "category": "architecture",
+  "component_family": "canal_housing",
+  "component_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    17,
+    16,
+    23
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 5,
+  "color": "white",
+  "damage": 0.72,
+  "style": "canal_shell",
+  "variant_axis": "structure_damage",
+  "variant_value": "canal_shell",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 4,
+  "collection": "SEA-SCENE-SCITY-CANAL-SHELL_运河街断墙_半栋遗址",
+  "root_object": "SEA-SCENE-SCITY-CANAL-SHELL_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-CANAL-SHELL_ROOT",
+    "运河街断墙_半栋遗址_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    16.62713050842285,
+    16.077999114990234,
+    29.05918312072754
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 78096,
+  "polygons": 40674,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/canal_shell/canal_shell.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v002",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "a1c89128bd46ed872fa3c26563c41b5de3e0029e3016c14efb89022a3ea6dfa7",
+  "geometry_fingerprint": "058c030c92c9fcdb4ce2bfc8ed41205ff58aea9624792a0620265087350f33db",
+  "bounds_min": [
+    -8.313565254211426,
+    -8.038999557495117,
+    0.0
+  ],
+  "bounds_max": [
+    8.313565254211426,
+    8.038999557495117,
+    29.05918312072754
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\canal_shell.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-CANAL-SHELL"
+}

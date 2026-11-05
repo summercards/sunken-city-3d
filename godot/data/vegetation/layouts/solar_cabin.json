@@ -1,0 +1,6755 @@
+{
+  "schema_version": 3,
+  "wind_contract": 3,
+  "scope": "solar_cabin",
+  "seed": 110503,
+  "chunk_metres": 4,
+  "regions": [
+    {
+      "id": "upper_roof_meadow",
+      "rect": [
+        4.69,
+        -2.66,
+        8.98,
+        1.03
+      ],
+      "y": 10.847,
+      "spacing": 0.23,
+      "exclusions": [
+        {
+          "id": "aircon_service",
+          "rect": [
+            6.13,
+            -2.05,
+            8.28,
+            0.12
+          ]
+        }
+      ]
+    },
+    {
+      "id": "left_parapet",
+      "rect": [
+        -0.17,
+        -2.7,
+        0.25,
+        2.3
+      ],
+      "y": 7.895,
+      "spacing": 0.23,
+      "exclusions": []
+    },
+    {
+      "id": "front_parapet",
+      "rect": [
+        0.55,
+        2.5,
+        3.25,
+        2.95
+      ],
+      "y": 7.895,
+      "spacing": 0.23,
+      "exclusions": []
+    }
+  ],
+  "instances": [
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00077",
+      "asset": "grass_soft",
+      "position": [
+        5.75401,
+        10.849,
+        0.38856
+      ],
+      "scale": [
+        0.83187,
+        0.94142,
+        0.83187
+      ],
+      "yaw": 2.89491,
+      "phase": 0.063578,
+      "variation": 0.911376
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00097",
+      "asset": "grass_soft",
+      "position": [
+        6.14788,
+        10.849,
+        -2.33106
+      ],
+      "scale": [
+        0.92685,
+        0.96673,
+        0.92685
+      ],
+      "yaw": 3.68284,
+      "phase": 0.267256,
+      "variation": 0.645683
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00212",
+      "asset": "grass_soft",
+      "position": [
+        -0.04847,
+        7.897,
+        -1.6172
+      ],
+      "scale": [
+        1.03028,
+        1.03345,
+        1.03028
+      ],
+      "yaw": 0.23864,
+      "phase": 0.626399,
+      "variation": 0.183107
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01303",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89835,
+        0.66
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 0.14056,
+      "phase": 0.476883,
+      "variation": 0.788846
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01045",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.85009,
+        -2.5
+      ],
+      "scale": [
+        0.44203,
+        1,
+        0.44203
+      ],
+      "yaw": 3.58473,
+      "phase": 0.565645,
+      "variation": 0.640873
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00000",
+      "asset": "grass_soft",
+      "position": [
+        4.83068,
+        10.849,
+        -2.51491
+      ],
+      "scale": [
+        1.05585,
+        0.96052,
+        1.05585
+      ],
+      "yaw": 3.12938,
+      "phase": 0.880314,
+      "variation": 0.067163
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01024",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85059,
+        -2.18
+      ],
+      "scale": [
+        0.49638,
+        1,
+        0.49638
+      ],
+      "yaw": 1.98371,
+      "phase": 0.595637,
+      "variation": 0.292896
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00031",
+      "asset": "grass_soft",
+      "position": [
+        5.04244,
+        10.849,
+        0.92232
+      ],
+      "scale": [
+        1.03022,
+        0.82083,
+        1.03022
+      ],
+      "yaw": 5.87209,
+      "phase": 0.278466,
+      "variation": 0.155927
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01080",
+      "asset": "moss_soft",
+      "position": [
+        8.05,
+        10.85006,
+        -2.5
+      ],
+      "scale": [
+        0.40136,
+        1,
+        0.40136
+      ],
+      "yaw": 1.84465,
+      "phase": 0.796718,
+      "variation": 0.515116
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00127",
+      "asset": "grass_soft",
+      "position": [
+        7.08482,
+        10.849,
+        0.49665
+      ],
+      "scale": [
+        0.84067,
+        1.1051,
+        0.84067
+      ],
+      "yaw": 3.94545,
+      "phase": 0.650383,
+      "variation": 0.159748
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00128",
+      "asset": "grass_soft",
+      "position": [
+        7.0448,
+        10.849,
+        0.72159
+      ],
+      "scale": [
+        1.0371,
+        0.89198,
+        1.0371
+      ],
+      "yaw": 4.232,
+      "phase": 0.398782,
+      "variation": 0.67315
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00147",
+      "asset": "grass_soft",
+      "position": [
+        7.77062,
+        10.849,
+        0.3855
+      ],
+      "scale": [
+        0.98179,
+        1.05163,
+        0.98179
+      ],
+      "yaw": 4.15538,
+      "phase": 0.136341,
+      "variation": 0.371354
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01037",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.8508,
+        -1.54
+      ],
+      "scale": [
+        0.40513,
+        1,
+        0.40513
+      ],
+      "yaw": 6.23159,
+      "phase": 0.245798,
+      "variation": 0.234726
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00201",
+      "asset": "grass_soft",
+      "position": [
+        8.9225,
+        10.849,
+        -1.13414
+      ],
+      "scale": [
+        0.87883,
+        0.95914,
+        0.87883
+      ],
+      "yaw": 1.2777,
+      "phase": 0.522668,
+      "variation": 0.379398
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00073",
+      "asset": "grass_soft",
+      "position": [
+        5.73735,
+        10.849,
+        -0.53834
+      ],
+      "scale": [
+        0.86001,
+        1.04387,
+        0.86001
+      ],
+      "yaw": 1.23896,
+      "phase": 0.501598,
+      "variation": 0.387622
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00224",
+      "asset": "grass_soft",
+      "position": [
+        -0.03205,
+        7.897,
+        1.08721
+      ],
+      "scale": [
+        0.91604,
+        0.85692,
+        0.91604
+      ],
+      "yaw": 2.78387,
+      "phase": 0.107735,
+      "variation": 0.700106
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00215",
+      "asset": "grass_soft",
+      "position": [
+        -0.06302,
+        7.897,
+        -0.91697
+      ],
+      "scale": [
+        0.89684,
+        0.97059,
+        0.89684
+      ],
+      "yaw": 2.57354,
+      "phase": 0.501732,
+      "variation": 0.983081
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00133",
+      "asset": "grass_soft",
+      "position": [
+        7.35311,
+        10.849,
+        0.39706
+      ],
+      "scale": [
+        0.89231,
+        0.97557,
+        0.89231
+      ],
+      "yaw": 3.55529,
+      "phase": 0.647478,
+      "variation": 0.711321
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01027",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85035,
+        -1.22
+      ],
+      "scale": [
+        0.43686,
+        1,
+        0.43686
+      ],
+      "yaw": 5.42355,
+      "phase": 0.801385,
+      "variation": 0.309819
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01022",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85157,
+        0.7
+      ],
+      "scale": [
+        0.54313,
+        1,
+        0.54313
+      ],
+      "yaw": 5.00176,
+      "phase": 0.173936,
+      "variation": 0.828082
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00264",
+      "asset": "grass_soft",
+      "position": [
+        2.29243,
+        7.897,
+        2.78711
+      ],
+      "scale": [
+        0.91253,
+        0.92559,
+        0.91253
+      ],
+      "yaw": 4.85259,
+      "phase": 0.351059,
+      "variation": 0.113407
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01018",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85054,
+        -0.58
+      ],
+      "scale": [
+        0.41251,
+        1,
+        0.41251
+      ],
+      "yaw": 4.99679,
+      "phase": 0.759101,
+      "variation": 0.535503
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01293",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.8989,
+        -2.54
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 0.69759,
+      "phase": 0.060439,
+      "variation": 0.489237
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01104",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.85178,
+        0.38
+      ],
+      "scale": [
+        0.47999,
+        1,
+        0.47999
+      ],
+      "yaw": 4.56606,
+      "phase": 0.632815,
+      "variation": 0.276332
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00139",
+      "asset": "grass_soft",
+      "position": [
+        7.59775,
+        10.849,
+        0.2291
+      ],
+      "scale": [
+        1.0511,
+        0.93986,
+        1.0511
+      ],
+      "yaw": 2.15752,
+      "phase": 0.785144,
+      "variation": 0.712359
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01091",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85189,
+        -0.26
+      ],
+      "scale": [
+        0.45868,
+        1,
+        0.45868
+      ],
+      "yaw": 2.37244,
+      "phase": 0.69832,
+      "variation": 0.701826
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00243",
+      "asset": "grass_soft",
+      "position": [
+        0.15656,
+        7.897,
+        0.6522
+      ],
+      "scale": [
+        0.93539,
+        1.08623,
+        0.93539
+      ],
+      "yaw": 1.91018,
+      "phase": 0.137446,
+      "variation": 0.704276
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01102",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.85083,
+        -0.26
+      ],
+      "scale": [
+        0.50758,
+        1,
+        0.50758
+      ],
+      "yaw": 4.78714,
+      "phase": 0.047157,
+      "variation": 0.4138
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01056",
+      "asset": "moss_soft",
+      "position": [
+        6.13,
+        10.85149,
+        -2.5
+      ],
+      "scale": [
+        0.46486,
+        1,
+        0.46486
+      ],
+      "yaw": 1.47551,
+      "phase": 0.613455,
+      "variation": 0.702157
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01057",
+      "asset": "moss_soft",
+      "position": [
+        6.13,
+        10.85189,
+        -2.18
+      ],
+      "scale": [
+        0.48755,
+        1,
+        0.48755
+      ],
+      "yaw": 1.51778,
+      "phase": 0.352286,
+      "variation": 0.064317
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00101",
+      "asset": "grass_soft",
+      "position": [
+        6.14279,
+        10.849,
+        0.62834
+      ],
+      "scale": [
+        0.90282,
+        0.82052,
+        0.90282
+      ],
+      "yaw": 5.72327,
+      "phase": 0.919405,
+      "variation": 0.668868
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00189",
+      "asset": "grass_soft",
+      "position": [
+        8.67205,
+        10.849,
+        -0.95117
+      ],
+      "scale": [
+        1.06341,
+        0.88095,
+        1.06341
+      ],
+      "yaw": 5.21087,
+      "phase": 0.449625,
+      "variation": 0.660621
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00110",
+      "asset": "grass_soft",
+      "position": [
+        6.69884,
+        10.849,
+        -2.53192
+      ],
+      "scale": [
+        0.8502,
+        0.93144,
+        0.8502
+      ],
+      "yaw": 0.74345,
+      "phase": 0.737921,
+      "variation": 0.681746
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00230",
+      "asset": "grass_soft",
+      "position": [
+        0.16491,
+        7.897,
+        -2.34823
+      ],
+      "scale": [
+        0.95046,
+        0.84229,
+        0.95046
+      ],
+      "yaw": 3.05815,
+      "phase": 0.625425,
+      "variation": 0.012069
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00219",
+      "asset": "grass_soft",
+      "position": [
+        -0.04532,
+        7.897,
+        -0.09006
+      ],
+      "scale": [
+        1.02108,
+        0.88887,
+        1.02108
+      ],
+      "yaw": 5.48207,
+      "phase": 0.585801,
+      "variation": 0.447446
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01055",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.85102,
+        0.7
+      ],
+      "scale": [
+        0.43761,
+        1,
+        0.43761
+      ],
+      "yaw": 5.28419,
+      "phase": 0.111865,
+      "variation": 0.840299
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00026",
+      "asset": "grass_soft",
+      "position": [
+        5.07134,
+        10.849,
+        -0.18979
+      ],
+      "scale": [
+        1.07336,
+        0.87594,
+        1.07336
+      ],
+      "yaw": 2.07372,
+      "phase": 0.667757,
+      "variation": 0.255181
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00046",
+      "asset": "grass_soft",
+      "position": [
+        5.2072,
+        10.849,
+        0.70539
+      ],
+      "scale": [
+        1.05078,
+        0.81901,
+        1.05078
+      ],
+      "yaw": 5.31478,
+      "phase": 0.392427,
+      "variation": 0.428375
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01090",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85193,
+        -0.58
+      ],
+      "scale": [
+        0.47791,
+        1,
+        0.47791
+      ],
+      "yaw": 0.30035,
+      "phase": 0.022598,
+      "variation": 0.190076
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00122",
+      "asset": "grass_soft",
+      "position": [
+        6.90143,
+        10.849,
+        0.70691
+      ],
+      "scale": [
+        1.00847,
+        1.12527,
+        1.00847
+      ],
+      "yaw": 1.07872,
+      "phase": 0.459778,
+      "variation": 0.428764
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00104",
+      "asset": "grass_soft",
+      "position": [
+        6.42251,
+        10.849,
+        -2.33027
+      ],
+      "scale": [
+        0.99265,
+        0.99602,
+        0.99265
+      ],
+      "yaw": 4.15295,
+      "phase": 0.088251,
+      "variation": 0.932411
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01296",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89836,
+        -1.58
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 5.56343,
+      "phase": 0.584693,
+      "variation": 0.131622
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00070",
+      "asset": "grass_soft",
+      "position": [
+        5.77289,
+        10.849,
+        -1.1063
+      ],
+      "scale": [
+        1.02825,
+        0.8329,
+        1.02825
+      ],
+      "yaw": 1.04143,
+      "phase": 0.832713,
+      "variation": 0.927994
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00191",
+      "asset": "grass_soft",
+      "position": [
+        8.71697,
+        10.849,
+        -0.46702
+      ],
+      "scale": [
+        0.91405,
+        0.81528,
+        0.91405
+      ],
+      "yaw": 1.2372,
+      "phase": 0.995033,
+      "variation": 0.839559
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01074",
+      "asset": "moss_soft",
+      "position": [
+        7.41,
+        10.85111,
+        0.38
+      ],
+      "scale": [
+        0.53929,
+        1,
+        0.53929
+      ],
+      "yaw": 5.45414,
+      "phase": 0.232199,
+      "variation": 0.635987
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00192",
+      "asset": "grass_soft",
+      "position": [
+        8.73398,
+        10.849,
+        -0.2259
+      ],
+      "scale": [
+        0.94466,
+        1.01593,
+        0.94466
+      ],
+      "yaw": 1.00328,
+      "phase": 0.992513,
+      "variation": 0.771281
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00172",
+      "asset": "grass_soft",
+      "position": [
+        8.50124,
+        10.849,
+        -1.11473
+      ],
+      "scale": [
+        0.98396,
+        0.82596,
+        0.98396
+      ],
+      "yaw": 4.22975,
+      "phase": 0.637771,
+      "variation": 0.058101
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01034",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.85132,
+        -2.5
+      ],
+      "scale": [
+        0.49106,
+        1,
+        0.49106
+      ],
+      "yaw": 2.9768,
+      "phase": 0.990923,
+      "variation": 0.853295
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00254",
+      "asset": "grass_soft",
+      "position": [
+        1.09308,
+        7.897,
+        2.83678
+      ],
+      "scale": [
+        0.85897,
+        0.83821,
+        0.85897
+      ],
+      "yaw": 1.29283,
+      "phase": 0.288463,
+      "variation": 0.434427
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00080",
+      "asset": "grass_soft",
+      "position": [
+        5.89978,
+        10.849,
+        -2.58599
+      ],
+      "scale": [
+        0.95604,
+        0.93284,
+        0.95604
+      ],
+      "yaw": 3.72148,
+      "phase": 0.996948,
+      "variation": 0.348026
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00050",
+      "asset": "grass_soft",
+      "position": [
+        5.45063,
+        10.849,
+        -2.05073
+      ],
+      "scale": [
+        0.90938,
+        0.9089,
+        0.90938
+      ],
+      "yaw": 3.14073,
+      "phase": 0.67174,
+      "variation": 0.629716
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00108",
+      "asset": "grass_soft",
+      "position": [
+        6.36664,
+        10.849,
+        0.63781
+      ],
+      "scale": [
+        0.85447,
+        0.82744,
+        0.85447
+      ],
+      "yaw": 5.02629,
+      "phase": 0.859681,
+      "variation": 0.084581
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00179",
+      "asset": "grass_soft",
+      "position": [
+        8.47835,
+        10.849,
+        0.44135
+      ],
+      "scale": [
+        0.96897,
+        0.831,
+        0.96897
+      ],
+      "yaw": 3.90261,
+      "phase": 0.986825,
+      "variation": 0.312625
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00004",
+      "asset": "grass_soft",
+      "position": [
+        4.74482,
+        10.849,
+        -1.5969
+      ],
+      "scale": [
+        1.00944,
+        1.04317,
+        1.00944
+      ],
+      "yaw": 0.51331,
+      "phase": 0.462204,
+      "variation": 0.712684
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01092",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85047,
+        0.06
+      ],
+      "scale": [
+        0.47112,
+        1,
+        0.47112
+      ],
+      "yaw": 4.41562,
+      "phase": 0.9121,
+      "variation": 0.961477
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00027",
+      "asset": "grass_soft",
+      "position": [
+        5.03308,
+        10.849,
+        -0.03594
+      ],
+      "scale": [
+        0.95155,
+        0.83742,
+        0.95155
+      ],
+      "yaw": 0.5207,
+      "phase": 0.249909,
+      "variation": 0.403491
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00209",
+      "asset": "grass_soft",
+      "position": [
+        -0.04329,
+        7.897,
+        -2.40798
+      ],
+      "scale": [
+        0.84308,
+        1.03407,
+        0.84308
+      ],
+      "yaw": 1.1454,
+      "phase": 0.059535,
+      "variation": 0.139144
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01036",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.85078,
+        -1.86
+      ],
+      "scale": [
+        0.42161,
+        1,
+        0.42161
+      ],
+      "yaw": 5.57221,
+      "phase": 0.530258,
+      "variation": 0.316505
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00206",
+      "asset": "grass_soft",
+      "position": [
+        8.91635,
+        10.849,
+        0.7228
+      ],
+      "scale": [
+        1.05876,
+        0.90618,
+        1.05876
+      ],
+      "yaw": 4.14167,
+      "phase": 0.415819,
+      "variation": 0.866326
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00131",
+      "asset": "grass_soft",
+      "position": [
+        7.33772,
+        10.849,
+        -2.27454
+      ],
+      "scale": [
+        1.03293,
+        1.0437,
+        1.03293
+      ],
+      "yaw": 2.91163,
+      "phase": 0.186215,
+      "variation": 0.970984
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00115",
+      "asset": "grass_soft",
+      "position": [
+        6.6342,
+        10.849,
+        0.66308
+      ],
+      "scale": [
+        0.89967,
+        1.12617,
+        0.89967
+      ],
+      "yaw": 3.01489,
+      "phase": 0.580159,
+      "variation": 0.002598
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01086",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85049,
+        -1.86
+      ],
+      "scale": [
+        0.45059,
+        1,
+        0.45059
+      ],
+      "yaw": 3.06107,
+      "phase": 0.668154,
+      "variation": 0.293974
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00043",
+      "asset": "grass_soft",
+      "position": [
+        5.26419,
+        10.849,
+        -0.02484
+      ],
+      "scale": [
+        1.01007,
+        1.10391,
+        1.01007
+      ],
+      "yaw": 1.81503,
+      "phase": 0.668796,
+      "variation": 0.050057
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00065",
+      "asset": "grass_soft",
+      "position": [
+        5.69199,
+        10.849,
+        -2.29868
+      ],
+      "scale": [
+        0.92109,
+        1.07566,
+        0.92109
+      ],
+      "yaw": 5.02609,
+      "phase": 0.503589,
+      "variation": 0.283081
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01103",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.85064,
+        0.06
+      ],
+      "scale": [
+        0.43403,
+        1,
+        0.43403
+      ],
+      "yaw": 3.7436,
+      "phase": 0.64852,
+      "variation": 0.587995
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00096",
+      "asset": "grass_soft",
+      "position": [
+        6.18323,
+        10.849,
+        -2.53743
+      ],
+      "scale": [
+        1.02725,
+        0.84262,
+        1.02725
+      ],
+      "yaw": 3.8923,
+      "phase": 0.9478,
+      "variation": 0.261022
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00193",
+      "asset": "grass_soft",
+      "position": [
+        8.70639,
+        10.849,
+        -0.02379
+      ],
+      "scale": [
+        0.86537,
+        1.00616,
+        0.86537
+      ],
+      "yaw": 2.60001,
+      "phase": 0.878609,
+      "variation": 0.867458
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00200",
+      "asset": "grass_soft",
+      "position": [
+        8.92291,
+        10.849,
+        -2.07659
+      ],
+      "scale": [
+        1.06185,
+        0.844,
+        1.06185
+      ],
+      "yaw": 3.29346,
+      "phase": 0.588197,
+      "variation": 0.117225
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00246",
+      "asset": "grass_soft",
+      "position": [
+        0.12607,
+        7.897,
+        1.57993
+      ],
+      "scale": [
+        0.87711,
+        0.99971,
+        0.87711
+      ],
+      "yaw": 0.95327,
+      "phase": 0.746231,
+      "variation": 0.817145
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00005",
+      "asset": "grass_soft",
+      "position": [
+        4.78297,
+        10.849,
+        -1.41853
+      ],
+      "scale": [
+        1.03813,
+        0.99905,
+        1.03813
+      ],
+      "yaw": 6.18466,
+      "phase": 0.078526,
+      "variation": 0.326344
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01041",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.85031,
+        -0.26
+      ],
+      "scale": [
+        0.51359,
+        1,
+        0.51359
+      ],
+      "yaw": 2.3499,
+      "phase": 0.888337,
+      "variation": 0.937651
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00016",
+      "asset": "grass_soft",
+      "position": [
+        5.04522,
+        10.849,
+        -2.55783
+      ],
+      "scale": [
+        0.85197,
+        0.84126,
+        0.85197
+      ],
+      "yaw": 1.78982,
+      "phase": 0.542504,
+      "variation": 0.960909
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00114",
+      "asset": "grass_soft",
+      "position": [
+        6.6603,
+        10.849,
+        0.48715
+      ],
+      "scale": [
+        0.85139,
+        0.84806,
+        0.85139
+      ],
+      "yaw": 3.45232,
+      "phase": 0.927922,
+      "variation": 0.249308
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00085",
+      "asset": "grass_soft",
+      "position": [
+        5.94989,
+        10.849,
+        -1.35066
+      ],
+      "scale": [
+        1.07873,
+        0.89887,
+        1.07873
+      ],
+      "yaw": 0.76508,
+      "phase": 0.871318,
+      "variation": 0.575615
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01302",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89899,
+        0.34
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 4.23331,
+      "phase": 0.433737,
+      "variation": 0.050105
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00220",
+      "asset": "grass_soft",
+      "position": [
+        -0.07031,
+        7.897,
+        0.12957
+      ],
+      "scale": [
+        0.96426,
+        0.91626,
+        0.96426
+      ],
+      "yaw": 0.57262,
+      "phase": 0.346115,
+      "variation": 0.647368
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01053",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.85086,
+        0.06
+      ],
+      "scale": [
+        0.44718,
+        1,
+        0.44718
+      ],
+      "yaw": 5.02499,
+      "phase": 0.871606,
+      "variation": 0.051823
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00003",
+      "asset": "grass_soft",
+      "position": [
+        4.76702,
+        10.849,
+        -1.91891
+      ],
+      "scale": [
+        0.98285,
+        1.0488,
+        0.98285
+      ],
+      "yaw": 3.73697,
+      "phase": 0.02747,
+      "variation": 0.874537
+    },
+    {
+      "id": "solar_cabin/front_parapet/moss/01416",
+      "asset": "moss_soft",
+      "position": [
+        2.31,
+        7.89951,
+        2.66
+      ],
+      "scale": [
+        0.405,
+        1,
+        0.405
+      ],
+      "yaw": 1.8885,
+      "phase": 0.594638,
+      "variation": 0.103376
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00015",
+      "asset": "grass_soft",
+      "position": [
+        4.82462,
+        10.849,
+        0.94818
+      ],
+      "scale": [
+        1.0037,
+        0.9032,
+        1.0037
+      ],
+      "yaw": 1.05356,
+      "phase": 0.351863,
+      "variation": 0.899834
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00214",
+      "asset": "grass_soft",
+      "position": [
+        -0.07495,
+        7.897,
+        -1.22355
+      ],
+      "scale": [
+        1.05943,
+        0.99845,
+        1.05943
+      ],
+      "yaw": 0.9533,
+      "phase": 0.408682,
+      "variation": 0.101197
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00237",
+      "asset": "grass_soft",
+      "position": [
+        0.14872,
+        7.897,
+        -0.74574
+      ],
+      "scale": [
+        0.93983,
+        1.10069,
+        0.93983
+      ],
+      "yaw": 2.20486,
+      "phase": 0.598931,
+      "variation": 0.715065
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00067",
+      "asset": "grass_soft",
+      "position": [
+        5.75513,
+        10.849,
+        -1.84981
+      ],
+      "scale": [
+        0.82531,
+        0.81901,
+        0.82531
+      ],
+      "yaw": 2.98323,
+      "phase": 0.809415,
+      "variation": 0.271143
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00151",
+      "asset": "grass_soft",
+      "position": [
+        8.00135,
+        10.849,
+        -2.30658
+      ],
+      "scale": [
+        1.07435,
+        1.12266,
+        1.07435
+      ],
+      "yaw": 4.63833,
+      "phase": 0.781034,
+      "variation": 0.654453
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00242",
+      "asset": "grass_soft",
+      "position": [
+        0.13915,
+        7.897,
+        0.43791
+      ],
+      "scale": [
+        1.023,
+        0.82041,
+        1.023
+      ],
+      "yaw": 6.09177,
+      "phase": 0.660836,
+      "variation": 0.796773
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00182",
+      "asset": "grass_soft",
+      "position": [
+        8.72562,
+        10.849,
+        -2.60477
+      ],
+      "scale": [
+        1.06743,
+        0.84728,
+        1.06743
+      ],
+      "yaw": 3.16362,
+      "phase": 0.382914,
+      "variation": 0.100003
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00162",
+      "asset": "grass_soft",
+      "position": [
+        8.29807,
+        10.849,
+        0.21794
+      ],
+      "scale": [
+        0.9126,
+        0.86177,
+        0.9126
+      ],
+      "yaw": 1.62773,
+      "phase": 0.146612,
+      "variation": 0.522184
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01029",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85111,
+        -0.58
+      ],
+      "scale": [
+        0.52598,
+        1,
+        0.52598
+      ],
+      "yaw": 2.02817,
+      "phase": 0.965406,
+      "variation": 0.636604
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01077",
+      "asset": "moss_soft",
+      "position": [
+        7.73,
+        10.85043,
+        -2.18
+      ],
+      "scale": [
+        0.55196,
+        1,
+        0.55196
+      ],
+      "yaw": 5.68329,
+      "phase": 0.725286,
+      "variation": 0.992945
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00144",
+      "asset": "grass_soft",
+      "position": [
+        7.81274,
+        10.849,
+        -2.36149
+      ],
+      "scale": [
+        0.86872,
+        1.05756,
+        0.86872
+      ],
+      "yaw": 3.71166,
+      "phase": 0.262707,
+      "variation": 0.190205
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00045",
+      "asset": "grass_soft",
+      "position": [
+        5.30965,
+        10.849,
+        0.43636
+      ],
+      "scale": [
+        1.04591,
+        0.9417,
+        1.04591
+      ],
+      "yaw": 5.63014,
+      "phase": 0.715681,
+      "variation": 0.602219
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00033",
+      "asset": "grass_soft",
+      "position": [
+        5.24709,
+        10.849,
+        -2.3395
+      ],
+      "scale": [
+        1.03354,
+        1.02526,
+        1.03354
+      ],
+      "yaw": 0.52563,
+      "phase": 0.508858,
+      "variation": 0.099421
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00132",
+      "asset": "grass_soft",
+      "position": [
+        7.29687,
+        10.849,
+        0.15162
+      ],
+      "scale": [
+        0.96575,
+        1.12942,
+        0.96575
+      ],
+      "yaw": 2.91015,
+      "phase": 0.874029,
+      "variation": 0.48604
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00038",
+      "asset": "grass_soft",
+      "position": [
+        5.21431,
+        10.849,
+        -1.10728
+      ],
+      "scale": [
+        1.07234,
+        0.88616,
+        1.07234
+      ],
+      "yaw": 6.13553,
+      "phase": 0.680524,
+      "variation": 0.64456
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01083",
+      "asset": "moss_soft",
+      "position": [
+        8.05,
+        10.85134,
+        0.7
+      ],
+      "scale": [
+        0.54764,
+        1,
+        0.54764
+      ],
+      "yaw": 1.48963,
+      "phase": 0.830581,
+      "variation": 0.775932
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01072",
+      "asset": "moss_soft",
+      "position": [
+        7.41,
+        10.85147,
+        -2.5
+      ],
+      "scale": [
+        0.534,
+        1,
+        0.534
+      ],
+      "yaw": 1.56576,
+      "phase": 0.836878,
+      "variation": 0.698811
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01063",
+      "asset": "moss_soft",
+      "position": [
+        6.45,
+        10.85075,
+        0.7
+      ],
+      "scale": [
+        0.54595,
+        1,
+        0.54595
+      ],
+      "yaw": 1.63005,
+      "phase": 0.903123,
+      "variation": 0.782129
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00120",
+      "asset": "grass_soft",
+      "position": [
+        6.88042,
+        10.849,
+        0.20716
+      ],
+      "scale": [
+        0.95284,
+        1.1092,
+        0.95284
+      ],
+      "yaw": 3.57052,
+      "phase": 0.568343,
+      "variation": 0.965547
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00039",
+      "asset": "grass_soft",
+      "position": [
+        5.22488,
+        10.849,
+        -0.98415
+      ],
+      "scale": [
+        1.00788,
+        1.09011,
+        1.00788
+      ],
+      "yaw": 3.67655,
+      "phase": 0.895336,
+      "variation": 0.168462
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00155",
+      "asset": "grass_soft",
+      "position": [
+        8.02242,
+        10.849,
+        0.69634
+      ],
+      "scale": [
+        0.89513,
+        0.99253,
+        0.89513
+      ],
+      "yaw": 4.16644,
+      "phase": 0.446978,
+      "variation": 0.571273
+    },
+    {
+      "id": "solar_cabin/moss_accents/01422",
+      "asset": "moss_soft",
+      "position": [
+        3.32,
+        7.24,
+        2.27
+      ],
+      "scale": [
+        0.21,
+        1,
+        0.21
+      ],
+      "yaw": 2.87009,
+      "phase": 0.087578,
+      "variation": 0.473653
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00048",
+      "asset": "grass_soft",
+      "position": [
+        5.49284,
+        10.849,
+        -2.5939
+      ],
+      "scale": [
+        0.86813,
+        1.00067,
+        0.86813
+      ],
+      "yaw": 3.14951,
+      "phase": 0.653553,
+      "variation": 0.393836
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00256",
+      "asset": "grass_soft",
+      "position": [
+        1.33343,
+        7.897,
+        2.86867
+      ],
+      "scale": [
+        1.05393,
+        1.12785,
+        1.05393
+      ],
+      "yaw": 4.92291,
+      "phase": 0.813203,
+      "variation": 0.498708
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00198",
+      "asset": "grass_soft",
+      "position": [
+        8.9547,
+        10.849,
+        -2.56811
+      ],
+      "scale": [
+        1.06284,
+        1.01742,
+        1.06284
+      ],
+      "yaw": 4.54325,
+      "phase": 0.409094,
+      "variation": 0.252206
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00018",
+      "asset": "grass_soft",
+      "position": [
+        5.01252,
+        10.849,
+        -2.04931
+      ],
+      "scale": [
+        0.98599,
+        0.91972,
+        0.98599
+      ],
+      "yaw": 2.28457,
+      "phase": 0.525796,
+      "variation": 0.659279
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00229",
+      "asset": "grass_soft",
+      "position": [
+        0.11578,
+        7.897,
+        -2.63745
+      ],
+      "scale": [
+        0.99487,
+        0.81906,
+        0.99487
+      ],
+      "yaw": 0.39122,
+      "phase": 0.231598,
+      "variation": 0.210364
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01081",
+      "asset": "moss_soft",
+      "position": [
+        8.05,
+        10.85025,
+        -2.18
+      ],
+      "scale": [
+        0.54984,
+        1,
+        0.54984
+      ],
+      "yaw": 3.92546,
+      "phase": 0.389524,
+      "variation": 0.055397
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00226",
+      "asset": "grass_soft",
+      "position": [
+        -0.03029,
+        7.897,
+        1.60336
+      ],
+      "scale": [
+        0.89603,
+        0.91642,
+        0.89603
+      ],
+      "yaw": 0.16853,
+      "phase": 0.604811,
+      "variation": 0.269132
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01062",
+      "asset": "moss_soft",
+      "position": [
+        6.45,
+        10.85187,
+        0.38
+      ],
+      "scale": [
+        0.55757,
+        1,
+        0.55757
+      ],
+      "yaw": 6.14787,
+      "phase": 0.438709,
+      "variation": 0.874995
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00055",
+      "asset": "grass_soft",
+      "position": [
+        5.55417,
+        10.849,
+        -0.92117
+      ],
+      "scale": [
+        0.86164,
+        1.0495,
+        0.86164
+      ],
+      "yaw": 1.58374,
+      "phase": 0.232767,
+      "variation": 0.787014
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00126",
+      "asset": "grass_soft",
+      "position": [
+        7.09515,
+        10.849,
+        0.25149
+      ],
+      "scale": [
+        0.97077,
+        0.82066,
+        0.97077
+      ],
+      "yaw": 1.45963,
+      "phase": 0.740067,
+      "variation": 0.918287
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00012",
+      "asset": "grass_soft",
+      "position": [
+        4.85585,
+        10.849,
+        0.25373
+      ],
+      "scale": [
+        0.99452,
+        0.80989,
+        0.99452
+      ],
+      "yaw": 3.86666,
+      "phase": 0.328576,
+      "variation": 0.800151
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01021",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85032,
+        0.38
+      ],
+      "scale": [
+        0.517,
+        1,
+        0.517
+      ],
+      "yaw": 3.77611,
+      "phase": 0.251692,
+      "variation": 0.789822
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01033",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85145,
+        0.7
+      ],
+      "scale": [
+        0.54767,
+        1,
+        0.54767
+      ],
+      "yaw": 3.75971,
+      "phase": 0.464656,
+      "variation": 0.527126
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01016",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.8518,
+        -1.22
+      ],
+      "scale": [
+        0.45551,
+        1,
+        0.45551
+      ],
+      "yaw": 2.26216,
+      "phase": 0.098573,
+      "variation": 0.044256
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01298",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89894,
+        -0.94
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 2.70969,
+      "phase": 0.995704,
+      "variation": 0.887762
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01067",
+      "asset": "moss_soft",
+      "position": [
+        6.77,
+        10.85175,
+        0.7
+      ],
+      "scale": [
+        0.52658,
+        1,
+        0.52658
+      ],
+      "yaw": 4.55485,
+      "phase": 0.727253,
+      "variation": 0.905918
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01101",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.85036,
+        -0.58
+      ],
+      "scale": [
+        0.51427,
+        1,
+        0.51427
+      ],
+      "yaw": 5.16643,
+      "phase": 0.4158,
+      "variation": 0.487942
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00006",
+      "asset": "grass_soft",
+      "position": [
+        4.84527,
+        10.849,
+        -1.19713
+      ],
+      "scale": [
+        0.90371,
+        0.96201,
+        0.90371
+      ],
+      "yaw": 4.91007,
+      "phase": 0.185292,
+      "variation": 0.735464
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01050",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.8506,
+        -0.9
+      ],
+      "scale": [
+        0.4249,
+        1,
+        0.4249
+      ],
+      "yaw": 1.59164,
+      "phase": 0.950333,
+      "variation": 0.993501
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00007",
+      "asset": "grass_soft",
+      "position": [
+        4.81459,
+        10.849,
+        -0.98037
+      ],
+      "scale": [
+        0.8701,
+        1.08363,
+        0.8701
+      ],
+      "yaw": 2.15904,
+      "phase": 0.589479,
+      "variation": 0.63658
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00196",
+      "asset": "grass_soft",
+      "position": [
+        8.66036,
+        10.849,
+        0.65709
+      ],
+      "scale": [
+        0.95904,
+        0.8424,
+        0.95904
+      ],
+      "yaw": 5.77373,
+      "phase": 0.014521,
+      "variation": 0.469328
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00233",
+      "asset": "grass_soft",
+      "position": [
+        0.21065,
+        7.897,
+        -1.66611
+      ],
+      "scale": [
+        0.82519,
+        0.89639,
+        0.82519
+      ],
+      "yaw": 1.13535,
+      "phase": 0.180807,
+      "variation": 0.09922
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00014",
+      "asset": "grass_soft",
+      "position": [
+        4.79756,
+        10.849,
+        0.70951
+      ],
+      "scale": [
+        0.823,
+        0.81154,
+        0.823
+      ],
+      "yaw": 5.34698,
+      "phase": 0.333209,
+      "variation": 0.865112
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01096",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.85187,
+        -2.18
+      ],
+      "scale": [
+        0.48191,
+        1,
+        0.48191
+      ],
+      "yaw": 4.66124,
+      "phase": 0.043907,
+      "variation": 0.818105
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00271",
+      "asset": "grass_soft",
+      "position": [
+        3.15463,
+        7.897,
+        2.81021
+      ],
+      "scale": [
+        0.90608,
+        0.87452,
+        0.90608
+      ],
+      "yaw": 5.17564,
+      "phase": 0.413954,
+      "variation": 0.15592
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01308",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89805,
+        2.26
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 3.10896,
+      "phase": 0.858705,
+      "variation": 0.688834
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00183",
+      "asset": "grass_soft",
+      "position": [
+        8.71581,
+        10.849,
+        -2.32733
+      ],
+      "scale": [
+        1.01159,
+        1.12884,
+        1.01159
+      ],
+      "yaw": 0.50731,
+      "phase": 0.34487,
+      "variation": 0.123495
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00245",
+      "asset": "grass_soft",
+      "position": [
+        0.13001,
+        7.897,
+        1.36357
+      ],
+      "scale": [
+        0.9048,
+        0.92221,
+        0.9048
+      ],
+      "yaw": 0.05205,
+      "phase": 0.901756,
+      "variation": 0.07428
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01043",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.85096,
+        0.38
+      ],
+      "scale": [
+        0.51828,
+        1,
+        0.51828
+      ],
+      "yaw": 5.79555,
+      "phase": 0.262133,
+      "variation": 0.972249
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01061",
+      "asset": "moss_soft",
+      "position": [
+        6.45,
+        10.8511,
+        -2.18
+      ],
+      "scale": [
+        0.53913,
+        1,
+        0.53913
+      ],
+      "yaw": 3.34307,
+      "phase": 0.906427,
+      "variation": 0.089821
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01079",
+      "asset": "moss_soft",
+      "position": [
+        7.73,
+        10.85114,
+        0.7
+      ],
+      "scale": [
+        0.48127,
+        1,
+        0.48127
+      ],
+      "yaw": 5.46346,
+      "phase": 0.084171,
+      "variation": 0.430243
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01054",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.8506,
+        0.38
+      ],
+      "scale": [
+        0.46725,
+        1,
+        0.46725
+      ],
+      "yaw": 4.23221,
+      "phase": 0.046221,
+      "variation": 0.105892
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01087",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85129,
+        -1.54
+      ],
+      "scale": [
+        0.50502,
+        1,
+        0.50502
+      ],
+      "yaw": 2.24688,
+      "phase": 0.229773,
+      "variation": 0.699325
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01093",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.8512,
+        0.38
+      ],
+      "scale": [
+        0.55942,
+        1,
+        0.55942
+      ],
+      "yaw": 2.21209,
+      "phase": 0.556412,
+      "variation": 0.830995
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01065",
+      "asset": "moss_soft",
+      "position": [
+        6.77,
+        10.85127,
+        -2.18
+      ],
+      "scale": [
+        0.5378,
+        1,
+        0.5378
+      ],
+      "yaw": 5.36603,
+      "phase": 0.979421,
+      "variation": 0.005474
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00210",
+      "asset": "grass_soft",
+      "position": [
+        -0.10478,
+        7.897,
+        -2.16234
+      ],
+      "scale": [
+        1.06375,
+        0.90855,
+        1.06375
+      ],
+      "yaw": 1.76557,
+      "phase": 0.916399,
+      "variation": 0.635728
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00068",
+      "asset": "grass_soft",
+      "position": [
+        5.74375,
+        10.849,
+        -1.6304
+      ],
+      "scale": [
+        0.94874,
+        1.11838,
+        0.94874
+      ],
+      "yaw": 1.59614,
+      "phase": 0.842349,
+      "variation": 0.04946
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00259",
+      "asset": "grass_soft",
+      "position": [
+        1.78425,
+        7.897,
+        2.57489
+      ],
+      "scale": [
+        0.87262,
+        0.89942,
+        0.87262
+      ],
+      "yaw": 3.49042,
+      "phase": 0.492724,
+      "variation": 0.768017
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00076",
+      "asset": "grass_soft",
+      "position": [
+        5.78528,
+        10.849,
+        0.15473
+      ],
+      "scale": [
+        1.06309,
+        0.9609,
+        1.06309
+      ],
+      "yaw": 1.08048,
+      "phase": 0.10823,
+      "variation": 0.51473
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00195",
+      "asset": "grass_soft",
+      "position": [
+        8.71034,
+        10.849,
+        0.38986
+      ],
+      "scale": [
+        1.02034,
+        1.00913,
+        1.02034
+      ],
+      "yaw": 1.903,
+      "phase": 0.727002,
+      "variation": 0.49345
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00171",
+      "asset": "grass_soft",
+      "position": [
+        8.45239,
+        10.849,
+        -1.43754
+      ],
+      "scale": [
+        1.00265,
+        0.80012,
+        1.00265
+      ],
+      "yaw": 1.20648,
+      "phase": 0.805297,
+      "variation": 0.022743
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00194",
+      "asset": "grass_soft",
+      "position": [
+        8.67828,
+        10.849,
+        0.15314
+      ],
+      "scale": [
+        1.01908,
+        0.82898,
+        1.01908
+      ],
+      "yaw": 4.39385,
+      "phase": 0.046959,
+      "variation": 0.396758
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00023",
+      "asset": "grass_soft",
+      "position": [
+        5.09024,
+        10.849,
+        -0.97586
+      ],
+      "scale": [
+        1.0138,
+        0.98534,
+        1.0138
+      ],
+      "yaw": 4.6453,
+      "phase": 0.830402,
+      "variation": 0.803971
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00153",
+      "asset": "grass_soft",
+      "position": [
+        7.99882,
+        10.849,
+        0.24625
+      ],
+      "scale": [
+        0.89312,
+        1.08846,
+        0.89312
+      ],
+      "yaw": 1.88527,
+      "phase": 0.327708,
+      "variation": 0.988928
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00270",
+      "asset": "grass_soft",
+      "position": [
+        2.981,
+        7.897,
+        2.85241
+      ],
+      "scale": [
+        0.97236,
+        0.88711,
+        0.97236
+      ],
+      "yaw": 3.2568,
+      "phase": 0.918456,
+      "variation": 0.17981
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01049",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.85071,
+        -1.22
+      ],
+      "scale": [
+        0.46527,
+        1,
+        0.46527
+      ],
+      "yaw": 1.20456,
+      "phase": 0.701544,
+      "variation": 0.081215
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01040",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.8514,
+        -0.58
+      ],
+      "scale": [
+        0.55015,
+        1,
+        0.55015
+      ],
+      "yaw": 2.08017,
+      "phase": 0.538996,
+      "variation": 0.490879
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00181",
+      "asset": "grass_soft",
+      "position": [
+        8.50891,
+        10.849,
+        0.95176
+      ],
+      "scale": [
+        1.00377,
+        0.89769,
+        1.00377
+      ],
+      "yaw": 0.38772,
+      "phase": 0.450034,
+      "variation": 0.624603
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00071",
+      "asset": "grass_soft",
+      "position": [
+        5.72653,
+        10.849,
+        -0.87421
+      ],
+      "scale": [
+        0.92875,
+        1.00368,
+        0.92875
+      ],
+      "yaw": 2.18889,
+      "phase": 0.666474,
+      "variation": 0.984555
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00074",
+      "asset": "grass_soft",
+      "position": [
+        5.7588,
+        10.849,
+        -0.28114
+      ],
+      "scale": [
+        0.84728,
+        1.0582,
+        0.84728
+      ],
+      "yaw": 0.51611,
+      "phase": 0.481809,
+      "variation": 0.563794
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00199",
+      "asset": "grass_soft",
+      "position": [
+        8.91139,
+        10.849,
+        -2.29674
+      ],
+      "scale": [
+        0.95213,
+        1.04922,
+        0.95213
+      ],
+      "yaw": 4.10473,
+      "phase": 0.469118,
+      "variation": 0.892285
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00150",
+      "asset": "grass_soft",
+      "position": [
+        8.00422,
+        10.849,
+        -2.50232
+      ],
+      "scale": [
+        0.85897,
+        0.84579,
+        0.85897
+      ],
+      "yaw": 0.64014,
+      "phase": 0.227112,
+      "variation": 0.272506
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00168",
+      "asset": "grass_soft",
+      "position": [
+        8.48182,
+        10.849,
+        -2.0347
+      ],
+      "scale": [
+        0.88592,
+        1.02662,
+        0.88592
+      ],
+      "yaw": 3.48442,
+      "phase": 0.743486,
+      "variation": 0.707233
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01058",
+      "asset": "moss_soft",
+      "position": [
+        6.13,
+        10.85016,
+        0.38
+      ],
+      "scale": [
+        0.55089,
+        1,
+        0.55089
+      ],
+      "yaw": 3.10815,
+      "phase": 0.048325,
+      "variation": 0.302044
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00177",
+      "asset": "grass_soft",
+      "position": [
+        8.45564,
+        10.849,
+        0.00373
+      ],
+      "scale": [
+        1.05169,
+        1.1284,
+        1.05169
+      ],
+      "yaw": 5.15917,
+      "phase": 0.191083,
+      "variation": 0.856273
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00167",
+      "asset": "grass_soft",
+      "position": [
+        8.54081,
+        10.849,
+        -2.26651
+      ],
+      "scale": [
+        0.91785,
+        0.89559,
+        0.91785
+      ],
+      "yaw": 0.57065,
+      "phase": 0.203247,
+      "variation": 0.394579
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01299",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89851,
+        -0.62
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 6.14713,
+      "phase": 0.560368,
+      "variation": 0.029706
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01060",
+      "asset": "moss_soft",
+      "position": [
+        6.45,
+        10.85189,
+        -2.5
+      ],
+      "scale": [
+        0.52077,
+        1,
+        0.52077
+      ],
+      "yaw": 6.13517,
+      "phase": 0.421426,
+      "variation": 0.381201
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00248",
+      "asset": "grass_soft",
+      "position": [
+        0.13988,
+        7.897,
+        1.98924
+      ],
+      "scale": [
+        1.00946,
+        0.9743,
+        1.00946
+      ],
+      "yaw": 1.64962,
+      "phase": 0.370138,
+      "variation": 0.681228
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01032",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85127,
+        0.38
+      ],
+      "scale": [
+        0.4724,
+        1,
+        0.4724
+      ],
+      "yaw": 3.30745,
+      "phase": 0.540596,
+      "variation": 0.722332
+    },
+    {
+      "id": "solar_cabin/moss_accents/01421",
+      "asset": "moss_soft",
+      "position": [
+        1.14,
+        7.24,
+        2.22
+      ],
+      "scale": [
+        0.24,
+        1,
+        0.24
+      ],
+      "yaw": 4.24148,
+      "phase": 0.95884,
+      "variation": 0.229715
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00042",
+      "asset": "grass_soft",
+      "position": [
+        5.31763,
+        10.849,
+        -0.28599
+      ],
+      "scale": [
+        0.96556,
+        0.91336,
+        0.96556
+      ],
+      "yaw": 0.14577,
+      "phase": 0.938702,
+      "variation": 0.768212
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00159",
+      "asset": "grass_soft",
+      "position": [
+        8.26963,
+        10.849,
+        -2.13009
+      ],
+      "scale": [
+        1.03772,
+        1.00213,
+        1.03772
+      ],
+      "yaw": 0.75326,
+      "phase": 0.128452,
+      "variation": 0.772639
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00173",
+      "asset": "grass_soft",
+      "position": [
+        8.44761,
+        10.849,
+        -0.89312
+      ],
+      "scale": [
+        0.91046,
+        1.0598,
+        0.91046
+      ],
+      "yaw": 1.0373,
+      "phase": 0.373771,
+      "variation": 0.552714
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00213",
+      "asset": "grass_soft",
+      "position": [
+        -0.04884,
+        7.897,
+        -1.4588
+      ],
+      "scale": [
+        0.86206,
+        1.02067,
+        0.86206
+      ],
+      "yaw": 5.83876,
+      "phase": 0.749139,
+      "variation": 0.311427
+    },
+    {
+      "id": "solar_cabin/front_parapet/moss/01418",
+      "asset": "moss_soft",
+      "position": [
+        2.95,
+        7.89931,
+        2.66
+      ],
+      "scale": [
+        0.405,
+        1,
+        0.405
+      ],
+      "yaw": 0.87619,
+      "phase": 0.972565,
+      "variation": 0.929604
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01047",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.85105,
+        -1.86
+      ],
+      "scale": [
+        0.52657,
+        1,
+        0.52657
+      ],
+      "yaw": 0.34574,
+      "phase": 0.80159,
+      "variation": 0.384517
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00129",
+      "asset": "grass_soft",
+      "position": [
+        7.1147,
+        10.849,
+        0.95357
+      ],
+      "scale": [
+        0.95047,
+        1.08636,
+        0.95047
+      ],
+      "yaw": 3.77558,
+      "phase": 0.675375,
+      "variation": 0.40579
+    },
+    {
+      "id": "solar_cabin/front_parapet/moss/01412",
+      "asset": "moss_soft",
+      "position": [
+        1.03,
+        7.89811,
+        2.66
+      ],
+      "scale": [
+        0.405,
+        1,
+        0.405
+      ],
+      "yaw": 1.93861,
+      "phase": 0.830266,
+      "variation": 0.722661
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01095",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.8512,
+        -2.5
+      ],
+      "scale": [
+        0.47469,
+        1,
+        0.47469
+      ],
+      "yaw": 3.78209,
+      "phase": 0.165318,
+      "variation": 0.676293
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00030",
+      "asset": "grass_soft",
+      "position": [
+        5.0026,
+        10.849,
+        0.6772
+      ],
+      "scale": [
+        1.07797,
+        0.80609,
+        1.07797
+      ],
+      "yaw": 1.97239,
+      "phase": 0.572832,
+      "variation": 0.489707
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00252",
+      "asset": "grass_soft",
+      "position": [
+        0.94669,
+        7.897,
+        2.88438
+      ],
+      "scale": [
+        0.96898,
+        0.86287,
+        0.96898
+      ],
+      "yaw": 5.67665,
+      "phase": 0.039455,
+      "variation": 0.032504
+    },
+    {
+      "id": "solar_cabin/front_parapet/moss/01414",
+      "asset": "moss_soft",
+      "position": [
+        1.67,
+        7.89979,
+        2.66
+      ],
+      "scale": [
+        0.405,
+        1,
+        0.405
+      ],
+      "yaw": 4.7712,
+      "phase": 0.825674,
+      "variation": 0.358418
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00022",
+      "asset": "grass_soft",
+      "position": [
+        5.05329,
+        10.849,
+        -1.22604
+      ],
+      "scale": [
+        1.0109,
+        0.9078,
+        1.0109
+      ],
+      "yaw": 4.64318,
+      "phase": 0.924976,
+      "variation": 0.280916
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00011",
+      "asset": "grass_soft",
+      "position": [
+        4.85317,
+        10.849,
+        -0.01423
+      ],
+      "scale": [
+        0.82505,
+        1.01471,
+        0.82505
+      ],
+      "yaw": 3.54948,
+      "phase": 0.798601,
+      "variation": 0.775796
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00117",
+      "asset": "grass_soft",
+      "position": [
+        6.82289,
+        10.849,
+        -2.56357
+      ],
+      "scale": [
+        0.99645,
+        0.91141,
+        0.99645
+      ],
+      "yaw": 1.37497,
+      "phase": 0.280807,
+      "variation": 0.227718
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00265",
+      "asset": "grass_soft",
+      "position": [
+        2.4445,
+        7.897,
+        2.65745
+      ],
+      "scale": [
+        0.82055,
+        1.05361,
+        0.82055
+      ],
+      "yaw": 6.23777,
+      "phase": 0.11298,
+      "variation": 0.727601
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00249",
+      "asset": "grass_soft",
+      "position": [
+        0.7158,
+        7.897,
+        2.63289
+      ],
+      "scale": [
+        0.97793,
+        0.82445,
+        0.97793
+      ],
+      "yaw": 1.27827,
+      "phase": 0.824467,
+      "variation": 0.072946
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01046",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.85069,
+        -2.18
+      ],
+      "scale": [
+        0.53369,
+        1,
+        0.53369
+      ],
+      "yaw": 3.46486,
+      "phase": 0.465898,
+      "variation": 0.152432
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00157",
+      "asset": "grass_soft",
+      "position": [
+        8.28276,
+        10.849,
+        -2.58516
+      ],
+      "scale": [
+        1.05947,
+        0.89014,
+        1.05947
+      ],
+      "yaw": 3.77626,
+      "phase": 0.007443,
+      "variation": 0.506843
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00136",
+      "asset": "grass_soft",
+      "position": [
+        7.62621,
+        10.849,
+        -2.48371
+      ],
+      "scale": [
+        0.9307,
+        1.03859,
+        0.9307
+      ],
+      "yaw": 0.27768,
+      "phase": 0.475994,
+      "variation": 0.557055
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01012",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85077,
+        -2.5
+      ],
+      "scale": [
+        0.52356,
+        1,
+        0.52356
+      ],
+      "yaw": 2.83282,
+      "phase": 0.293519,
+      "variation": 0.917482
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00044",
+      "asset": "grass_soft",
+      "position": [
+        5.30873,
+        10.849,
+        0.20131
+      ],
+      "scale": [
+        0.85001,
+        0.91856,
+        0.85001
+      ],
+      "yaw": 6.18404,
+      "phase": 0.525226,
+      "variation": 0.512308
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00001",
+      "asset": "grass_soft",
+      "position": [
+        4.81835,
+        10.849,
+        -2.33364
+      ],
+      "scale": [
+        1.03296,
+        1.1134,
+        1.03296
+      ],
+      "yaw": 3.69445,
+      "phase": 0.994183,
+      "variation": 0.011472
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00158",
+      "asset": "grass_soft",
+      "position": [
+        8.2375,
+        10.849,
+        -2.2945
+      ],
+      "scale": [
+        0.85938,
+        0.99268,
+        0.85938
+      ],
+      "yaw": 4.7526,
+      "phase": 0.696186,
+      "variation": 0.236123
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01073",
+      "asset": "moss_soft",
+      "position": [
+        7.41,
+        10.85123,
+        -2.18
+      ],
+      "scale": [
+        0.46775,
+        1,
+        0.46775
+      ],
+      "yaw": 4.11061,
+      "phase": 0.080334,
+      "variation": 0.108842
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00234",
+      "asset": "grass_soft",
+      "position": [
+        0.13664,
+        7.897,
+        -1.49473
+      ],
+      "scale": [
+        0.82114,
+        1.06797,
+        0.82114
+      ],
+      "yaw": 6.10086,
+      "phase": 0.381265,
+      "variation": 0.093918
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00188",
+      "asset": "grass_soft",
+      "position": [
+        8.7457,
+        10.849,
+        -1.19132
+      ],
+      "scale": [
+        0.96243,
+        1.10371,
+        0.96243
+      ],
+      "yaw": 4.15232,
+      "phase": 0.016365,
+      "variation": 0.523291
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01059",
+      "asset": "moss_soft",
+      "position": [
+        6.13,
+        10.85046,
+        0.7
+      ],
+      "scale": [
+        0.50945,
+        1,
+        0.50945
+      ],
+      "yaw": 6.15806,
+      "phase": 0.686604,
+      "variation": 0.983799
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01066",
+      "asset": "moss_soft",
+      "position": [
+        6.77,
+        10.85157,
+        0.38
+      ],
+      "scale": [
+        0.47806,
+        1,
+        0.47806
+      ],
+      "yaw": 0.63757,
+      "phase": 0.253056,
+      "variation": 0.986708
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01038",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.85106,
+        -1.22
+      ],
+      "scale": [
+        0.40361,
+        1,
+        0.40361
+      ],
+      "yaw": 3.27304,
+      "phase": 0.802379,
+      "variation": 0.551812
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00180",
+      "asset": "grass_soft",
+      "position": [
+        8.45384,
+        10.849,
+        0.68104
+      ],
+      "scale": [
+        1.06372,
+        0.86165,
+        1.06372
+      ],
+      "yaw": 5.41198,
+      "phase": 0.051343,
+      "variation": 0.88718
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00121",
+      "asset": "grass_soft",
+      "position": [
+        6.81226,
+        10.849,
+        0.4215
+      ],
+      "scale": [
+        1.02327,
+        1.06109,
+        1.02327
+      ],
+      "yaw": 5.90199,
+      "phase": 0.33847,
+      "variation": 0.666793
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00160",
+      "asset": "grass_soft",
+      "position": [
+        8.31913,
+        10.849,
+        -1.65616
+      ],
+      "scale": [
+        0.95545,
+        0.90057,
+        0.95545
+      ],
+      "yaw": 5.29294,
+      "phase": 0.139859,
+      "variation": 0.56519
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00054",
+      "asset": "grass_soft",
+      "position": [
+        5.47782,
+        10.849,
+        -1.20859
+      ],
+      "scale": [
+        0.99442,
+        0.98904,
+        0.99442
+      ],
+      "yaw": 1.77036,
+      "phase": 0.456001,
+      "variation": 0.493411
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00175",
+      "asset": "grass_soft",
+      "position": [
+        8.53868,
+        10.849,
+        -0.45292
+      ],
+      "scale": [
+        0.85351,
+        0.89026,
+        0.85351
+      ],
+      "yaw": 6.01063,
+      "phase": 0.172051,
+      "variation": 0.123568
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00216",
+      "asset": "grass_soft",
+      "position": [
+        0.00534,
+        7.897,
+        -0.80239
+      ],
+      "scale": [
+        0.9199,
+        1.02888,
+        0.9199
+      ],
+      "yaw": 2.40776,
+      "phase": 0.864096,
+      "variation": 0.016813
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00057",
+      "asset": "grass_soft",
+      "position": [
+        5.46702,
+        10.849,
+        -0.44486
+      ],
+      "scale": [
+        0.87752,
+        1.01407,
+        0.87752
+      ],
+      "yaw": 4.6454,
+      "phase": 0.383944,
+      "variation": 0.328315
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01014",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85112,
+        -1.86
+      ],
+      "scale": [
+        0.4029,
+        1,
+        0.4029
+      ],
+      "yaw": 3.14638,
+      "phase": 0.253112,
+      "variation": 0.606495
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00069",
+      "asset": "grass_soft",
+      "position": [
+        5.76723,
+        10.849,
+        -1.39301
+      ],
+      "scale": [
+        1.01263,
+        0.84734,
+        1.01263
+      ],
+      "yaw": 1.9432,
+      "phase": 0.561418,
+      "variation": 0.599038
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00152",
+      "asset": "grass_soft",
+      "position": [
+        8.02063,
+        10.849,
+        -2.08255
+      ],
+      "scale": [
+        1.04295,
+        0.96413,
+        1.04295
+      ],
+      "yaw": 5.96499,
+      "phase": 0.07064,
+      "variation": 0.312058
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00260",
+      "asset": "grass_soft",
+      "position": [
+        1.83727,
+        7.897,
+        2.7854
+      ],
+      "scale": [
+        1.02996,
+        1.01996,
+        1.02996
+      ],
+      "yaw": 3.88268,
+      "phase": 0.929418,
+      "variation": 0.647124
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00051",
+      "asset": "grass_soft",
+      "position": [
+        5.50465,
+        10.849,
+        -1.85033
+      ],
+      "scale": [
+        0.98928,
+        1.00977,
+        0.98928
+      ],
+      "yaw": 2.5509,
+      "phase": 0.486648,
+      "variation": 0.035551
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01068",
+      "asset": "moss_soft",
+      "position": [
+        7.09,
+        10.85186,
+        -2.5
+      ],
+      "scale": [
+        0.41267,
+        1,
+        0.41267
+      ],
+      "yaw": 1.71869,
+      "phase": 0.998889,
+      "variation": 0.802179
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00100",
+      "asset": "grass_soft",
+      "position": [
+        6.23592,
+        10.849,
+        0.50471
+      ],
+      "scale": [
+        0.92104,
+        0.96565,
+        0.92104
+      ],
+      "yaw": 3.75633,
+      "phase": 0.190476,
+      "variation": 0.957182
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00228",
+      "asset": "grass_soft",
+      "position": [
+        -0.09007,
+        7.897,
+        2.0262
+      ],
+      "scale": [
+        0.86226,
+        0.80313,
+        0.86226
+      ],
+      "yaw": 2.82082,
+      "phase": 0.35356,
+      "variation": 0.073239
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00240",
+      "asset": "grass_soft",
+      "position": [
+        0.19174,
+        7.897,
+        -0.09583
+      ],
+      "scale": [
+        1.00477,
+        1.07749,
+        1.00477
+      ],
+      "yaw": 0.23705,
+      "phase": 0.272881,
+      "variation": 0.50606
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00142",
+      "asset": "grass_soft",
+      "position": [
+        7.60325,
+        10.849,
+        0.96873
+      ],
+      "scale": [
+        0.92459,
+        0.90133,
+        0.92459
+      ],
+      "yaw": 1.47307,
+      "phase": 0.203185,
+      "variation": 0.439861
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00009",
+      "asset": "grass_soft",
+      "position": [
+        4.81031,
+        10.849,
+        -0.52846
+      ],
+      "scale": [
+        0.97442,
+        1.08027,
+        0.97442
+      ],
+      "yaw": 4.777,
+      "phase": 0.953962,
+      "variation": 0.653702
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00010",
+      "asset": "grass_soft",
+      "position": [
+        4.76169,
+        10.849,
+        -0.30868
+      ],
+      "scale": [
+        1.04676,
+        0.88375,
+        1.04676
+      ],
+      "yaw": 3.68139,
+      "phase": 0.497558,
+      "variation": 0.000922
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00090",
+      "asset": "grass_soft",
+      "position": [
+        5.99014,
+        10.849,
+        -0.27052
+      ],
+      "scale": [
+        0.92999,
+        1.01627,
+        0.92999
+      ],
+      "yaw": 5.531,
+      "phase": 0.444708,
+      "variation": 0.133896
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01023",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.8516,
+        -2.5
+      ],
+      "scale": [
+        0.43398,
+        1,
+        0.43398
+      ],
+      "yaw": 3.32554,
+      "phase": 0.550629,
+      "variation": 0.001419
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00268",
+      "asset": "grass_soft",
+      "position": [
+        2.71045,
+        7.897,
+        2.90918
+      ],
+      "scale": [
+        0.96561,
+        0.9004,
+        0.96561
+      ],
+      "yaw": 2.58162,
+      "phase": 0.179863,
+      "variation": 0.061156
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01301",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89824,
+        0.02
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 3.73943,
+      "phase": 0.468438,
+      "variation": 0.253345
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00088",
+      "asset": "grass_soft",
+      "position": [
+        5.97076,
+        10.849,
+        -0.68241
+      ],
+      "scale": [
+        0.83998,
+        0.84396,
+        0.83998
+      ],
+      "yaw": 4.53347,
+      "phase": 0.272767,
+      "variation": 0.751794
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00241",
+      "asset": "grass_soft",
+      "position": [
+        0.11272,
+        7.897,
+        0.19479
+      ],
+      "scale": [
+        0.94291,
+        1.06012,
+        0.94291
+      ],
+      "yaw": 2.80677,
+      "phase": 0.804844,
+      "variation": 0.699867
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01295",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89889,
+        -1.9
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 4.99909,
+      "phase": 0.55226,
+      "variation": 0.108446
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00058",
+      "asset": "grass_soft",
+      "position": [
+        5.55413,
+        10.849,
+        -0.18864
+      ],
+      "scale": [
+        1.00652,
+        1.12198,
+        1.00652
+      ],
+      "yaw": 5.76081,
+      "phase": 0.556133,
+      "variation": 0.418149
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01300",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89991,
+        -0.3
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 3.65515,
+      "phase": 0.252556,
+      "variation": 0.817065
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00145",
+      "asset": "grass_soft",
+      "position": [
+        7.77777,
+        10.849,
+        -2.1225
+      ],
+      "scale": [
+        0.99865,
+        0.82911,
+        0.99865
+      ],
+      "yaw": 3.54436,
+      "phase": 0.856327,
+      "variation": 0.749056
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00227",
+      "asset": "grass_soft",
+      "position": [
+        -0.0533,
+        7.897,
+        1.78517
+      ],
+      "scale": [
+        0.86031,
+        1.04632,
+        0.86031
+      ],
+      "yaw": 0.16849,
+      "phase": 0.000381,
+      "variation": 0.213217
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01019",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85039,
+        -0.26
+      ],
+      "scale": [
+        0.50325,
+        1,
+        0.50325
+      ],
+      "yaw": 4.67487,
+      "phase": 0.650993,
+      "variation": 0.213744
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01306",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89983,
+        1.62
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 3.13115,
+      "phase": 0.188115,
+      "variation": 0.317491
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00146",
+      "asset": "grass_soft",
+      "position": [
+        7.73809,
+        10.849,
+        0.16938
+      ],
+      "scale": [
+        1.0713,
+        1.03963,
+        1.0713
+      ],
+      "yaw": 3.83392,
+      "phase": 0.621816,
+      "variation": 0.327638
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00235",
+      "asset": "grass_soft",
+      "position": [
+        0.19207,
+        7.897,
+        -1.21923
+      ],
+      "scale": [
+        0.87489,
+        0.89452,
+        0.87489
+      ],
+      "yaw": 0.57893,
+      "phase": 0.153122,
+      "variation": 0.474503
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01089",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85198,
+        -0.9
+      ],
+      "scale": [
+        0.45308,
+        1,
+        0.45308
+      ],
+      "yaw": 0.74064,
+      "phase": 0.573449,
+      "variation": 0.848361
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00247",
+      "asset": "grass_soft",
+      "position": [
+        0.14903,
+        7.897,
+        1.80185
+      ],
+      "scale": [
+        0.87191,
+        1.05235,
+        0.87191
+      ],
+      "yaw": 3.24211,
+      "phase": 0.007142,
+      "variation": 0.259369
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00094",
+      "asset": "grass_soft",
+      "position": [
+        6.0031,
+        10.849,
+        0.71499
+      ],
+      "scale": [
+        0.84379,
+        1.06213,
+        0.84379
+      ],
+      "yaw": 5.17313,
+      "phase": 0.376247,
+      "variation": 0.680742
+    },
+    {
+      "id": "solar_cabin/front_parapet/moss/01417",
+      "asset": "moss_soft",
+      "position": [
+        2.63,
+        7.89918,
+        2.66
+      ],
+      "scale": [
+        0.405,
+        1,
+        0.405
+      ],
+      "yaw": 2.77738,
+      "phase": 0.549349,
+      "variation": 0.478357
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00102",
+      "asset": "grass_soft",
+      "position": [
+        6.13323,
+        10.849,
+        0.86603
+      ],
+      "scale": [
+        1.05066,
+        0.86015,
+        1.05066
+      ],
+      "yaw": 5.53794,
+      "phase": 0.22348,
+      "variation": 0.089506
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00028",
+      "asset": "grass_soft",
+      "position": [
+        5.06484,
+        10.849,
+        0.23223
+      ],
+      "scale": [
+        0.82681,
+        0.95538,
+        0.82681
+      ],
+      "yaw": 1.39725,
+      "phase": 0.167439,
+      "variation": 0.828255
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01294",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89877,
+        -2.22
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 5.70727,
+      "phase": 0.378579,
+      "variation": 0.799521
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00223",
+      "asset": "grass_soft",
+      "position": [
+        -0.06855,
+        7.897,
+        0.84431
+      ],
+      "scale": [
+        0.99493,
+        0.81344,
+        0.99493
+      ],
+      "yaw": 1.60897,
+      "phase": 0.769677,
+      "variation": 0.269662
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00138",
+      "asset": "grass_soft",
+      "position": [
+        7.52275,
+        10.849,
+        -2.12612
+      ],
+      "scale": [
+        0.98273,
+        0.83643,
+        0.98273
+      ],
+      "yaw": 1.54839,
+      "phase": 0.523195,
+      "variation": 0.252818
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00075",
+      "asset": "grass_soft",
+      "position": [
+        5.66784,
+        10.849,
+        0.00158
+      ],
+      "scale": [
+        1.07107,
+        1.07101,
+        1.07107
+      ],
+      "yaw": 6.01151,
+      "phase": 0.788455,
+      "variation": 0.891862
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00231",
+      "asset": "grass_soft",
+      "position": [
+        0.14525,
+        7.897,
+        -2.18355
+      ],
+      "scale": [
+        0.86794,
+        0.95559,
+        0.86794
+      ],
+      "yaw": 4.88983,
+      "phase": 0.647883,
+      "variation": 0.512443
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01015",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85081,
+        -1.54
+      ],
+      "scale": [
+        0.46223,
+        1,
+        0.46223
+      ],
+      "yaw": 4.57734,
+      "phase": 0.526844,
+      "variation": 0.656072
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00082",
+      "asset": "grass_soft",
+      "position": [
+        6.00044,
+        10.849,
+        -2.05729
+      ],
+      "scale": [
+        1.0388,
+        0.87015,
+        1.0388
+      ],
+      "yaw": 5.23067,
+      "phase": 0.040527,
+      "variation": 0.050231
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00205",
+      "asset": "grass_soft",
+      "position": [
+        8.90389,
+        10.849,
+        0.27265
+      ],
+      "scale": [
+        0.85272,
+        0.93845,
+        0.85272
+      ],
+      "yaw": 6.12179,
+      "phase": 0.518825,
+      "variation": 0.751706
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01099",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.85181,
+        -1.22
+      ],
+      "scale": [
+        0.51533,
+        1,
+        0.51533
+      ],
+      "yaw": 2.21364,
+      "phase": 0.958589,
+      "variation": 0.898115
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00137",
+      "asset": "grass_soft",
+      "position": [
+        7.60486,
+        10.849,
+        -2.26638
+      ],
+      "scale": [
+        0.879,
+        1.05704,
+        0.879
+      ],
+      "yaw": 0.49164,
+      "phase": 0.329253,
+      "variation": 0.01567
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00084",
+      "asset": "grass_soft",
+      "position": [
+        5.92883,
+        10.849,
+        -1.56928
+      ],
+      "scale": [
+        0.95815,
+        1.02935,
+        0.95815
+      ],
+      "yaw": 2.93211,
+      "phase": 0.214515,
+      "variation": 0.739436
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00109",
+      "asset": "grass_soft",
+      "position": [
+        6.41846,
+        10.849,
+        0.96094
+      ],
+      "scale": [
+        0.88037,
+        1.07012,
+        0.88037
+      ],
+      "yaw": 4.54561,
+      "phase": 0.294475,
+      "variation": 0.527665
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01098",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.85063,
+        -1.54
+      ],
+      "scale": [
+        0.4907,
+        1,
+        0.4907
+      ],
+      "yaw": 5.7126,
+      "phase": 0.72745,
+      "variation": 0.170137
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00078",
+      "asset": "grass_soft",
+      "position": [
+        5.73267,
+        10.849,
+        0.67065
+      ],
+      "scale": [
+        0.99435,
+        0.90444,
+        0.99435
+      ],
+      "yaw": 5.44244,
+      "phase": 0.890021,
+      "variation": 0.832181
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00017",
+      "asset": "grass_soft",
+      "position": [
+        5.09906,
+        10.849,
+        -2.37686
+      ],
+      "scale": [
+        1.02957,
+        0.83723,
+        1.02957
+      ],
+      "yaw": 4.99754,
+      "phase": 0.744266,
+      "variation": 0.723854
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00187",
+      "asset": "grass_soft",
+      "position": [
+        8.74265,
+        10.849,
+        -1.41082
+      ],
+      "scale": [
+        0.98873,
+        1.10016,
+        0.98873
+      ],
+      "yaw": 5.09806,
+      "phase": 0.626992,
+      "variation": 0.424164
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00040",
+      "asset": "grass_soft",
+      "position": [
+        5.28222,
+        10.849,
+        -0.70961
+      ],
+      "scale": [
+        0.84095,
+        0.97902,
+        0.84095
+      ],
+      "yaw": 5.08631,
+      "phase": 0.641198,
+      "variation": 0.979632
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00103",
+      "asset": "grass_soft",
+      "position": [
+        6.35984,
+        10.849,
+        -2.52514
+      ],
+      "scale": [
+        0.87426,
+        0.85257,
+        0.87426
+      ],
+      "yaw": 1.71044,
+      "phase": 0.004463,
+      "variation": 0.686176
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00066",
+      "asset": "grass_soft",
+      "position": [
+        5.71132,
+        10.849,
+        -2.03754
+      ],
+      "scale": [
+        0.85879,
+        0.90447,
+        0.85879
+      ],
+      "yaw": 6.20932,
+      "phase": 0.803058,
+      "variation": 0.146937
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00107",
+      "asset": "grass_soft",
+      "position": [
+        6.36768,
+        10.849,
+        0.39789
+      ],
+      "scale": [
+        1.04202,
+        0.80077,
+        1.04202
+      ],
+      "yaw": 0.07837,
+      "phase": 0.983477,
+      "variation": 0.28571
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01052",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.85068,
+        -0.26
+      ],
+      "scale": [
+        0.4395,
+        1,
+        0.4395
+      ],
+      "yaw": 6.20678,
+      "phase": 0.503899,
+      "variation": 0.495304
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00255",
+      "asset": "grass_soft",
+      "position": [
+        1.34156,
+        7.897,
+        2.55927
+      ],
+      "scale": [
+        0.87795,
+        0.81945,
+        0.87795
+      ],
+      "yaw": 2.37395,
+      "phase": 0.08263,
+      "variation": 0.77975
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00135",
+      "asset": "grass_soft",
+      "position": [
+        7.27063,
+        10.849,
+        0.91305
+      ],
+      "scale": [
+        1.01333,
+        1.04022,
+        1.01333
+      ],
+      "yaw": 5.21958,
+      "phase": 0.055541,
+      "variation": 0.366034
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01100",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.85161,
+        -0.9
+      ],
+      "scale": [
+        0.41974,
+        1,
+        0.41974
+      ],
+      "yaw": 3.57764,
+      "phase": 0.108424,
+      "variation": 0.55818
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00156",
+      "asset": "grass_soft",
+      "position": [
+        8.00999,
+        10.849,
+        0.95771
+      ],
+      "scale": [
+        1.0182,
+        1.11173,
+        1.0182
+      ],
+      "yaw": 2.30018,
+      "phase": 0.697072,
+      "variation": 0.199173
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00020",
+      "asset": "grass_soft",
+      "position": [
+        4.9916,
+        10.849,
+        -1.56549
+      ],
+      "scale": [
+        1.02218,
+        1.03692,
+        1.02218
+      ],
+      "yaw": 5.16009,
+      "phase": 0.477786,
+      "variation": 0.03478
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01085",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85187,
+        -2.18
+      ],
+      "scale": [
+        0.5054,
+        1,
+        0.5054
+      ],
+      "yaw": 5.96979,
+      "phase": 0.158825,
+      "variation": 0.117739
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00047",
+      "asset": "grass_soft",
+      "position": [
+        5.22235,
+        10.849,
+        0.87804
+      ],
+      "scale": [
+        0.94734,
+        1.03401,
+        0.94734
+      ],
+      "yaw": 3.97196,
+      "phase": 0.012656,
+      "variation": 0.956312
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00257",
+      "asset": "grass_soft",
+      "position": [
+        1.60104,
+        7.897,
+        2.60096
+      ],
+      "scale": [
+        0.86105,
+        0.97246,
+        0.86105
+      ],
+      "yaw": 1.19136,
+      "phase": 0.874916,
+      "variation": 0.331931
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00083",
+      "asset": "grass_soft",
+      "position": [
+        5.92031,
+        10.849,
+        -1.8531
+      ],
+      "scale": [
+        1.03175,
+        0.89135,
+        1.03175
+      ],
+      "yaw": 0.97349,
+      "phase": 0.312667,
+      "variation": 0.142078
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00095",
+      "asset": "grass_soft",
+      "position": [
+        5.973,
+        10.849,
+        0.85679
+      ],
+      "scale": [
+        0.94178,
+        1.08301,
+        0.94178
+      ],
+      "yaw": 5.03234,
+      "phase": 0.658728,
+      "variation": 0.452601
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00013",
+      "asset": "grass_soft",
+      "position": [
+        4.74344,
+        10.849,
+        0.41557
+      ],
+      "scale": [
+        0.86016,
+        1.11136,
+        0.86016
+      ],
+      "yaw": 0.17423,
+      "phase": 0.005503,
+      "variation": 0.079075
+    },
+    {
+      "id": "solar_cabin/front_parapet/moss/01411",
+      "asset": "moss_soft",
+      "position": [
+        0.71,
+        7.89965,
+        2.66
+      ],
+      "scale": [
+        0.405,
+        1,
+        0.405
+      ],
+      "yaw": 0.6829,
+      "phase": 0.848126,
+      "variation": 0.730842
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00021",
+      "asset": "grass_soft",
+      "position": [
+        4.98213,
+        10.849,
+        -1.33339
+      ],
+      "scale": [
+        0.99164,
+        0.96128,
+        0.99164
+      ],
+      "yaw": 6.07846,
+      "phase": 0.618525,
+      "variation": 0.878763
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00239",
+      "asset": "grass_soft",
+      "position": [
+        0.18487,
+        7.897,
+        -0.2473
+      ],
+      "scale": [
+        0.97524,
+        1.0525,
+        0.97524
+      ],
+      "yaw": 5.61193,
+      "phase": 0.568214,
+      "variation": 0.152772
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01030",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85092,
+        -0.26
+      ],
+      "scale": [
+        0.43682,
+        1,
+        0.43682
+      ],
+      "yaw": 1.76554,
+      "phase": 0.410041,
+      "variation": 0.11744
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00062",
+      "asset": "grass_soft",
+      "position": [
+        5.44634,
+        10.849,
+        0.70689
+      ],
+      "scale": [
+        0.88988,
+        0.97762,
+        0.88988
+      ],
+      "yaw": 5.0728,
+      "phase": 0.95906,
+      "variation": 0.186412
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00111",
+      "asset": "grass_soft",
+      "position": [
+        6.65965,
+        10.849,
+        -2.25295
+      ],
+      "scale": [
+        0.95464,
+        0.88441,
+        0.95464
+      ],
+      "yaw": 3.68378,
+      "phase": 0.507785,
+      "variation": 0.628352
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00105",
+      "asset": "grass_soft",
+      "position": [
+        6.36676,
+        10.849,
+        -2.05354
+      ],
+      "scale": [
+        0.9414,
+        0.83061,
+        0.9414
+      ],
+      "yaw": 3.86941,
+      "phase": 0.903475,
+      "variation": 0.862944
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00148",
+      "asset": "grass_soft",
+      "position": [
+        7.7894,
+        10.849,
+        0.71887
+      ],
+      "scale": [
+        0.83288,
+        0.82527,
+        0.83288
+      ],
+      "yaw": 5.97754,
+      "phase": 0.524252,
+      "variation": 0.963716
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01028",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85103,
+        -0.9
+      ],
+      "scale": [
+        0.47142,
+        1,
+        0.47142
+      ],
+      "yaw": 3.00965,
+      "phase": 0.652679,
+      "variation": 0.635765
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00217",
+      "asset": "grass_soft",
+      "position": [
+        -0.02786,
+        7.897,
+        -0.54159
+      ],
+      "scale": [
+        0.84793,
+        0.83359,
+        0.84793
+      ],
+      "yaw": 4.96495,
+      "phase": 0.64953,
+      "variation": 0.853346
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01048",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.85147,
+        -1.54
+      ],
+      "scale": [
+        0.42966,
+        1,
+        0.42966
+      ],
+      "yaw": 4.23978,
+      "phase": 0.028485,
+      "variation": 0.078505
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00041",
+      "asset": "grass_soft",
+      "position": [
+        5.22069,
+        10.849,
+        -0.51151
+      ],
+      "scale": [
+        0.83016,
+        0.8985,
+        0.83016
+      ],
+      "yaw": 1.87741,
+      "phase": 0.185965,
+      "variation": 0.788895
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00034",
+      "asset": "grass_soft",
+      "position": [
+        5.29683,
+        10.849,
+        -2.12425
+      ],
+      "scale": [
+        0.94226,
+        1.05123,
+        0.94226
+      ],
+      "yaw": 2.75204,
+      "phase": 0.72536,
+      "variation": 0.975211
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00149",
+      "asset": "grass_soft",
+      "position": [
+        7.84279,
+        10.849,
+        0.92481
+      ],
+      "scale": [
+        1.07422,
+        0.86196,
+        1.07422
+      ],
+      "yaw": 5.18983,
+      "phase": 0.733337,
+      "variation": 0.857124
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00164",
+      "asset": "grass_soft",
+      "position": [
+        8.23393,
+        10.849,
+        0.64049
+      ],
+      "scale": [
+        0.89349,
+        0.98336,
+        0.89349
+      ],
+      "yaw": 3.84992,
+      "phase": 0.782132,
+      "variation": 0.754937
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01017",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85067,
+        -0.9
+      ],
+      "scale": [
+        0.44349,
+        1,
+        0.44349
+      ],
+      "yaw": 1.60812,
+      "phase": 0.385182,
+      "variation": 0.383161
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00204",
+      "asset": "grass_soft",
+      "position": [
+        8.92036,
+        10.849,
+        0.0384
+      ],
+      "scale": [
+        0.828,
+        1.0288,
+        0.828
+      ],
+      "yaw": 5.38593,
+      "phase": 0.78461,
+      "variation": 0.517155
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00267",
+      "asset": "grass_soft",
+      "position": [
+        2.78535,
+        7.897,
+        2.6204
+      ],
+      "scale": [
+        0.86774,
+        0.80541,
+        0.86774
+      ],
+      "yaw": 1.11589,
+      "phase": 0.361563,
+      "variation": 0.838858
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00232",
+      "asset": "grass_soft",
+      "position": [
+        0.1826,
+        7.897,
+        -1.85022
+      ],
+      "scale": [
+        0.82537,
+        0.80025,
+        0.82537
+      ],
+      "yaw": 0.13718,
+      "phase": 0.845591,
+      "variation": 0.286169
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01020",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85036,
+        0.06
+      ],
+      "scale": [
+        0.44377,
+        1,
+        0.44377
+      ],
+      "yaw": 0.48755,
+      "phase": 0.193014,
+      "variation": 0.170268
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01069",
+      "asset": "moss_soft",
+      "position": [
+        7.09,
+        10.85182,
+        -2.18
+      ],
+      "scale": [
+        0.45076,
+        1,
+        0.45076
+      ],
+      "yaw": 3.0853,
+      "phase": 0.445464,
+      "variation": 0.447055
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01070",
+      "asset": "moss_soft",
+      "position": [
+        7.09,
+        10.85094,
+        0.38
+      ],
+      "scale": [
+        0.49581,
+        1,
+        0.49581
+      ],
+      "yaw": 4.12406,
+      "phase": 0.893822,
+      "variation": 0.690687
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00140",
+      "asset": "grass_soft",
+      "position": [
+        7.57491,
+        10.849,
+        0.40139
+      ],
+      "scale": [
+        0.89548,
+        0.88123,
+        0.89548
+      ],
+      "yaw": 5.86407,
+      "phase": 0.429718,
+      "variation": 0.851012
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00176",
+      "asset": "grass_soft",
+      "position": [
+        8.51326,
+        10.849,
+        -0.27452
+      ],
+      "scale": [
+        0.90024,
+        0.95956,
+        0.90024
+      ],
+      "yaw": 3.19195,
+      "phase": 0.434521,
+      "variation": 0.065
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01064",
+      "asset": "moss_soft",
+      "position": [
+        6.77,
+        10.85065,
+        -2.5
+      ],
+      "scale": [
+        0.46586,
+        1,
+        0.46586
+      ],
+      "yaw": 3.50891,
+      "phase": 0.811088,
+      "variation": 0.26206
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00032",
+      "asset": "grass_soft",
+      "position": [
+        5.32711,
+        10.849,
+        -2.59387
+      ],
+      "scale": [
+        0.91961,
+        0.99972,
+        0.91961
+      ],
+      "yaw": 5.95123,
+      "phase": 0.289013,
+      "variation": 0.35106
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00161",
+      "asset": "grass_soft",
+      "position": [
+        8.28732,
+        10.849,
+        -0.98469
+      ],
+      "scale": [
+        1.00491,
+        1.05077,
+        1.00491
+      ],
+      "yaw": 1.32372,
+      "phase": 0.337964,
+      "variation": 0.802749
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00053",
+      "asset": "grass_soft",
+      "position": [
+        5.48387,
+        10.849,
+        -1.39181
+      ],
+      "scale": [
+        0.86949,
+        1.0535,
+        0.86949
+      ],
+      "yaw": 2.50216,
+      "phase": 0.259433,
+      "variation": 0.843556
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00089",
+      "asset": "grass_soft",
+      "position": [
+        5.91977,
+        10.849,
+        -0.4355
+      ],
+      "scale": [
+        1.0388,
+        1.04541,
+        1.0388
+      ],
+      "yaw": 3.46373,
+      "phase": 0.204909,
+      "variation": 0.729818
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00211",
+      "asset": "grass_soft",
+      "position": [
+        0.00342,
+        7.897,
+        -1.93992
+      ],
+      "scale": [
+        1.05932,
+        0.90823,
+        1.05932
+      ],
+      "yaw": 3.82536,
+      "phase": 0.37238,
+      "variation": 0.458833
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01035",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.85135,
+        -2.18
+      ],
+      "scale": [
+        0.42298,
+        1,
+        0.42298
+      ],
+      "yaw": 6.27901,
+      "phase": 0.291044,
+      "variation": 0.867874
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00081",
+      "asset": "grass_soft",
+      "position": [
+        5.89814,
+        10.849,
+        -2.28588
+      ],
+      "scale": [
+        0.83751,
+        0.98242,
+        0.83751
+      ],
+      "yaw": 2.40638,
+      "phase": 0.041145,
+      "variation": 0.971547
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00123",
+      "asset": "grass_soft",
+      "position": [
+        6.93627,
+        10.849,
+        0.85261
+      ],
+      "scale": [
+        0.84853,
+        0.93614,
+        0.84853
+      ],
+      "yaw": 1.23283,
+      "phase": 0.423792,
+      "variation": 0.752711
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00099",
+      "asset": "grass_soft",
+      "position": [
+        6.14472,
+        10.849,
+        0.17341
+      ],
+      "scale": [
+        0.86964,
+        0.80777,
+        0.86964
+      ],
+      "yaw": 2.19114,
+      "phase": 0.662986,
+      "variation": 0.581321
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01042",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.85121,
+        0.06
+      ],
+      "scale": [
+        0.47055,
+        1,
+        0.47055
+      ],
+      "yaw": 5.80002,
+      "phase": 0.603124,
+      "variation": 0.37353
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00091",
+      "asset": "grass_soft",
+      "position": [
+        5.96744,
+        10.849,
+        0.03664
+      ],
+      "scale": [
+        1.06855,
+        0.83049,
+        1.06855
+      ],
+      "yaw": 1.25573,
+      "phase": 0.6362,
+      "variation": 0.362213
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00169",
+      "asset": "grass_soft",
+      "position": [
+        8.51186,
+        10.849,
+        -1.80594
+      ],
+      "scale": [
+        0.82494,
+        0.94585,
+        0.82494
+      ],
+      "yaw": 2.80688,
+      "phase": 0.185092,
+      "variation": 0.337193
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00221",
+      "asset": "grass_soft",
+      "position": [
+        -0.11222,
+        7.897,
+        0.41336
+      ],
+      "scale": [
+        1.00703,
+        0.85755,
+        1.00703
+      ],
+      "yaw": 4.58857,
+      "phase": 0.461996,
+      "variation": 0.55468
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00087",
+      "asset": "grass_soft",
+      "position": [
+        5.98182,
+        10.849,
+        -0.90178
+      ],
+      "scale": [
+        0.88222,
+        0.99187,
+        0.88222
+      ],
+      "yaw": 6.0211,
+      "phase": 0.502414,
+      "variation": 0.586637
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00124",
+      "asset": "grass_soft",
+      "position": [
+        7.16679,
+        10.849,
+        -2.5621
+      ],
+      "scale": [
+        0.94544,
+        0.86257,
+        0.94544
+      ],
+      "yaw": 1.16235,
+      "phase": 0.998645,
+      "variation": 0.839404
+    },
+    {
+      "id": "solar_cabin/front_parapet/moss/01415",
+      "asset": "moss_soft",
+      "position": [
+        1.99,
+        7.8994,
+        2.66
+      ],
+      "scale": [
+        0.405,
+        1,
+        0.405
+      ],
+      "yaw": 5.30448,
+      "phase": 0.497891,
+      "variation": 0.429959
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00002",
+      "asset": "grass_soft",
+      "position": [
+        4.84994,
+        10.849,
+        -2.02834
+      ],
+      "scale": [
+        0.90532,
+        1.10487,
+        0.90532
+      ],
+      "yaw": 6.053,
+      "phase": 0.084937,
+      "variation": 0.603236
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01088",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85011,
+        -1.22
+      ],
+      "scale": [
+        0.4081,
+        1,
+        0.4081
+      ],
+      "yaw": 0.82728,
+      "phase": 0.395904,
+      "variation": 0.648823
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01097",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.85086,
+        -1.86
+      ],
+      "scale": [
+        0.55084,
+        1,
+        0.55084
+      ],
+      "yaw": 4.68983,
+      "phase": 0.233331,
+      "variation": 0.918723
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00238",
+      "asset": "grass_soft",
+      "position": [
+        0.13352,
+        7.897,
+        -0.45241
+      ],
+      "scale": [
+        0.96934,
+        0.9789,
+        0.96934
+      ],
+      "yaw": 1.55925,
+      "phase": 0.381555,
+      "variation": 0.217214
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01039",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.85055,
+        -0.9
+      ],
+      "scale": [
+        0.4966,
+        1,
+        0.4966
+      ],
+      "yaw": 6.13064,
+      "phase": 0.29782,
+      "variation": 0.942034
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00098",
+      "asset": "grass_soft",
+      "position": [
+        6.23777,
+        10.849,
+        -2.07109
+      ],
+      "scale": [
+        0.8508,
+        1.04373,
+        0.8508
+      ],
+      "yaw": 2.78923,
+      "phase": 0.517713,
+      "variation": 0.249693
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00093",
+      "asset": "grass_soft",
+      "position": [
+        5.95171,
+        10.849,
+        0.38652
+      ],
+      "scale": [
+        0.9505,
+        0.90986,
+        0.9505
+      ],
+      "yaw": 1.53318,
+      "phase": 0.792315,
+      "variation": 0.484994
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00037",
+      "asset": "grass_soft",
+      "position": [
+        5.28436,
+        10.849,
+        -1.33195
+      ],
+      "scale": [
+        1.05215,
+        1.07044,
+        1.05215
+      ],
+      "yaw": 5.59008,
+      "phase": 0.065427,
+      "variation": 0.817422
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00207",
+      "asset": "grass_soft",
+      "position": [
+        8.8954,
+        10.849,
+        0.94082
+      ],
+      "scale": [
+        0.87413,
+        0.84296,
+        0.87413
+      ],
+      "yaw": 5.57274,
+      "phase": 0.673008,
+      "variation": 0.850087
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00106",
+      "asset": "grass_soft",
+      "position": [
+        6.39462,
+        10.849,
+        0.16261
+      ],
+      "scale": [
+        0.89306,
+        1.07609,
+        0.89306
+      ],
+      "yaw": 5.06469,
+      "phase": 0.855117,
+      "variation": 0.69349
+    },
+    {
+      "id": "solar_cabin/front_parapet/moss/01413",
+      "asset": "moss_soft",
+      "position": [
+        1.35,
+        7.89865,
+        2.66
+      ],
+      "scale": [
+        0.405,
+        1,
+        0.405
+      ],
+      "yaw": 2.26094,
+      "phase": 0.201581,
+      "variation": 0.211127
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00056",
+      "asset": "grass_soft",
+      "position": [
+        5.43963,
+        10.849,
+        -0.68722
+      ],
+      "scale": [
+        0.9119,
+        0.93729,
+        0.9119
+      ],
+      "yaw": 1.55685,
+      "phase": 0.013714,
+      "variation": 0.595943
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00202",
+      "asset": "grass_soft",
+      "position": [
+        8.92372,
+        10.849,
+        -0.7379
+      ],
+      "scale": [
+        0.93646,
+        0.83178,
+        0.93646
+      ],
+      "yaw": 0.75521,
+      "phase": 0.554392,
+      "variation": 0.145273
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00092",
+      "asset": "grass_soft",
+      "position": [
+        5.91268,
+        10.849,
+        0.15702
+      ],
+      "scale": [
+        1.00053,
+        1.10995,
+        1.00053
+      ],
+      "yaw": 3.88544,
+      "phase": 0.673115,
+      "variation": 0.389663
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00072",
+      "asset": "grass_soft",
+      "position": [
+        5.73825,
+        10.849,
+        -0.69322
+      ],
+      "scale": [
+        0.8921,
+        0.93614,
+        0.8921
+      ],
+      "yaw": 4.56272,
+      "phase": 0.775289,
+      "variation": 0.220476
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00251",
+      "asset": "grass_soft",
+      "position": [
+        0.8742,
+        7.897,
+        2.66778
+      ],
+      "scale": [
+        0.84423,
+        1.01409,
+        0.84423
+      ],
+      "yaw": 3.55799,
+      "phase": 0.346596,
+      "variation": 0.144708
+    },
+    {
+      "id": "solar_cabin/moss_accents/01420",
+      "asset": "moss_soft",
+      "position": [
+        10.98,
+        2.154,
+        5.9
+      ],
+      "scale": [
+        0.25,
+        1,
+        0.25
+      ],
+      "yaw": 1.55912,
+      "phase": 0.110669,
+      "variation": 0.528899
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01026",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85105,
+        -1.54
+      ],
+      "scale": [
+        0.43166,
+        1,
+        0.43166
+      ],
+      "yaw": 4.32286,
+      "phase": 0.660812,
+      "variation": 0.00516
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00244",
+      "asset": "grass_soft",
+      "position": [
+        0.15411,
+        7.897,
+        1.11024
+      ],
+      "scale": [
+        0.89441,
+        1.12913,
+        0.89441
+      ],
+      "yaw": 5.08307,
+      "phase": 0.325663,
+      "variation": 0.770511
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00116",
+      "asset": "grass_soft",
+      "position": [
+        6.65569,
+        10.849,
+        0.92259
+      ],
+      "scale": [
+        0.8836,
+        0.853,
+        0.8836
+      ],
+      "yaw": 2.53411,
+      "phase": 0.85359,
+      "variation": 0.718787
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01076",
+      "asset": "moss_soft",
+      "position": [
+        7.73,
+        10.85033,
+        -2.5
+      ],
+      "scale": [
+        0.47144,
+        1,
+        0.47144
+      ],
+      "yaw": 2.13691,
+      "phase": 0.669434,
+      "variation": 0.22233
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00184",
+      "asset": "grass_soft",
+      "position": [
+        8.74674,
+        10.849,
+        -2.0401
+      ],
+      "scale": [
+        0.97379,
+        1.03699,
+        0.97379
+      ],
+      "yaw": 3.18345,
+      "phase": 0.47898,
+      "variation": 0.448661
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00125",
+      "asset": "grass_soft",
+      "position": [
+        7.10821,
+        10.849,
+        -2.35543
+      ],
+      "scale": [
+        0.98533,
+        1.06281,
+        0.98533
+      ],
+      "yaw": 3.51433,
+      "phase": 0.842085,
+      "variation": 0.979381
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00154",
+      "asset": "grass_soft",
+      "position": [
+        8.02858,
+        10.849,
+        0.48351
+      ],
+      "scale": [
+        1.04286,
+        1.08715,
+        1.04286
+      ],
+      "yaw": 0.82942,
+      "phase": 0.880407,
+      "variation": 0.39923
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00141",
+      "asset": "grass_soft",
+      "position": [
+        7.55828,
+        10.849,
+        0.7256
+      ],
+      "scale": [
+        1.02616,
+        0.92393,
+        1.02616
+      ],
+      "yaw": 1.54228,
+      "phase": 0.382155,
+      "variation": 0.462076
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01071",
+      "asset": "moss_soft",
+      "position": [
+        7.09,
+        10.85096,
+        0.7
+      ],
+      "scale": [
+        0.4571,
+        1,
+        0.4571
+      ],
+      "yaw": 2.26058,
+      "phase": 0.421082,
+      "variation": 0.027025
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00197",
+      "asset": "grass_soft",
+      "position": [
+        8.75952,
+        10.849,
+        0.85243
+      ],
+      "scale": [
+        0.88711,
+        0.8209,
+        0.88711
+      ],
+      "yaw": 1.73902,
+      "phase": 0.109531,
+      "variation": 0.787123
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00269",
+      "asset": "grass_soft",
+      "position": [
+        2.90985,
+        7.897,
+        2.55217
+      ],
+      "scale": [
+        0.86782,
+        1.06227,
+        0.86782
+      ],
+      "yaw": 5.73391,
+      "phase": 0.744966,
+      "variation": 0.713028
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00174",
+      "asset": "grass_soft",
+      "position": [
+        8.46903,
+        10.849,
+        -0.74877
+      ],
+      "scale": [
+        1.05356,
+        0.93208,
+        1.05356
+      ],
+      "yaw": 4.61134,
+      "phase": 0.900037,
+      "variation": 0.03307
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00019",
+      "asset": "grass_soft",
+      "position": [
+        4.97779,
+        10.849,
+        -1.91483
+      ],
+      "scale": [
+        1.01825,
+        1.10418,
+        1.01825
+      ],
+      "yaw": 1.30433,
+      "phase": 0.837665,
+      "variation": 0.809275
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01075",
+      "asset": "moss_soft",
+      "position": [
+        7.41,
+        10.85104,
+        0.7
+      ],
+      "scale": [
+        0.41822,
+        1,
+        0.41822
+      ],
+      "yaw": 0.13356,
+      "phase": 0.462673,
+      "variation": 0.064945
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00261",
+      "asset": "grass_soft",
+      "position": [
+        2.02138,
+        7.897,
+        2.66927
+      ],
+      "scale": [
+        0.84273,
+        0.93986,
+        0.84273
+      ],
+      "yaw": 4.32377,
+      "phase": 0.448018,
+      "variation": 0.980146
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00170",
+      "asset": "grass_soft",
+      "position": [
+        8.53732,
+        10.849,
+        -1.68779
+      ],
+      "scale": [
+        0.89418,
+        0.80244,
+        0.89418
+      ],
+      "yaw": 5.92189,
+      "phase": 0.468391,
+      "variation": 0.445284
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00218",
+      "asset": "grass_soft",
+      "position": [
+        -0.05606,
+        7.897,
+        -0.22273
+      ],
+      "scale": [
+        0.94617,
+        1.05012,
+        0.94617
+      ],
+      "yaw": 2.10756,
+      "phase": 0.412021,
+      "variation": 0.21596
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00134",
+      "asset": "grass_soft",
+      "position": [
+        7.28097,
+        10.849,
+        0.61822
+      ],
+      "scale": [
+        0.95712,
+        1.07362,
+        0.95712
+      ],
+      "yaw": 5.17725,
+      "phase": 0.319329,
+      "variation": 0.788813
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01078",
+      "asset": "moss_soft",
+      "position": [
+        7.73,
+        10.85108,
+        0.38
+      ],
+      "scale": [
+        0.52357,
+        1,
+        0.52357
+      ],
+      "yaw": 0.38878,
+      "phase": 0.710063,
+      "variation": 0.068154
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00203",
+      "asset": "grass_soft",
+      "position": [
+        8.92867,
+        10.849,
+        -0.21032
+      ],
+      "scale": [
+        0.99498,
+        1.00296,
+        0.99498
+      ],
+      "yaw": 6.26773,
+      "phase": 0.858802,
+      "variation": 0.548532
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00024",
+      "asset": "grass_soft",
+      "position": [
+        5.06692,
+        10.849,
+        -0.67501
+      ],
+      "scale": [
+        1.03867,
+        0.94422,
+        1.03867
+      ],
+      "yaw": 0.05001,
+      "phase": 0.710077,
+      "variation": 0.097728
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00258",
+      "asset": "grass_soft",
+      "position": [
+        1.54905,
+        7.897,
+        2.81337
+      ],
+      "scale": [
+        0.85999,
+        0.82208,
+        0.85999
+      ],
+      "yaw": 0.07199,
+      "phase": 0.07268,
+      "variation": 0.726721
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00166",
+      "asset": "grass_soft",
+      "position": [
+        8.46344,
+        10.849,
+        -2.52867
+      ],
+      "scale": [
+        1.06522,
+        0.87079,
+        1.06522
+      ],
+      "yaw": 5.02657,
+      "phase": 0.271146,
+      "variation": 0.424115
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01044",
+      "asset": "moss_soft",
+      "position": [
+        5.49,
+        10.85153,
+        0.7
+      ],
+      "scale": [
+        0.43969,
+        1,
+        0.43969
+      ],
+      "yaw": 4.83173,
+      "phase": 0.290595,
+      "variation": 0.554543
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00130",
+      "asset": "grass_soft",
+      "position": [
+        7.33359,
+        10.849,
+        -2.54255
+      ],
+      "scale": [
+        0.87494,
+        1.07198,
+        0.87494
+      ],
+      "yaw": 1.25214,
+      "phase": 0.869109,
+      "variation": 0.872034
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01025",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85136,
+        -1.86
+      ],
+      "scale": [
+        0.41333,
+        1,
+        0.41333
+      ],
+      "yaw": 3.20238,
+      "phase": 0.476326,
+      "variation": 0.119314
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00079",
+      "asset": "grass_soft",
+      "position": [
+        5.68022,
+        10.849,
+        0.95503
+      ],
+      "scale": [
+        0.9957,
+        1.04432,
+        0.9957
+      ],
+      "yaw": 3.65998,
+      "phase": 0.629636,
+      "variation": 0.757749
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00118",
+      "asset": "grass_soft",
+      "position": [
+        6.91174,
+        10.849,
+        -2.32006
+      ],
+      "scale": [
+        0.99489,
+        1.0164,
+        0.99489
+      ],
+      "yaw": 3.57889,
+      "phase": 0.608892,
+      "variation": 0.556478
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00049",
+      "asset": "grass_soft",
+      "position": [
+        5.55614,
+        10.849,
+        -2.35002
+      ],
+      "scale": [
+        1.07112,
+        0.81947,
+        1.07112
+      ],
+      "yaw": 1.51322,
+      "phase": 0.64155,
+      "variation": 0.402197
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00186",
+      "asset": "grass_soft",
+      "position": [
+        8.71146,
+        10.849,
+        -1.58558
+      ],
+      "scale": [
+        0.97298,
+        0.88716,
+        0.97298
+      ],
+      "yaw": 0.73187,
+      "phase": 0.861079,
+      "variation": 0.579849
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00086",
+      "asset": "grass_soft",
+      "position": [
+        5.92093,
+        10.849,
+        -1.20681
+      ],
+      "scale": [
+        1.03245,
+        1.08564,
+        1.03245
+      ],
+      "yaw": 2.48091,
+      "phase": 0.991353,
+      "variation": 0.877414
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00008",
+      "asset": "grass_soft",
+      "position": [
+        4.75243,
+        10.849,
+        -0.73532
+      ],
+      "scale": [
+        1.07424,
+        1.02678,
+        1.07424
+      ],
+      "yaw": 5.56039,
+      "phase": 0.494899,
+      "variation": 0.10812
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01084",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85083,
+        -2.5
+      ],
+      "scale": [
+        0.41365,
+        1,
+        0.41365
+      ],
+      "yaw": 2.32876,
+      "phase": 0.631176,
+      "variation": 0.466657
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00061",
+      "asset": "grass_soft",
+      "position": [
+        5.54716,
+        10.849,
+        0.46648
+      ],
+      "scale": [
+        0.90849,
+        0.87025,
+        0.90849
+      ],
+      "yaw": 2.17029,
+      "phase": 0.003573,
+      "variation": 0.291304
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00253",
+      "asset": "grass_soft",
+      "position": [
+        1.10854,
+        7.897,
+        2.61191
+      ],
+      "scale": [
+        1.01401,
+        0.97076,
+        1.01401
+      ],
+      "yaw": 3.14595,
+      "phase": 0.939094,
+      "variation": 0.216031
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00025",
+      "asset": "grass_soft",
+      "position": [
+        5.09406,
+        10.849,
+        -0.46583
+      ],
+      "scale": [
+        0.85788,
+        1.03572,
+        0.85788
+      ],
+      "yaw": 5.92514,
+      "phase": 0.036205,
+      "variation": 0.115738
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00060",
+      "asset": "grass_soft",
+      "position": [
+        5.52692,
+        10.849,
+        0.24104
+      ],
+      "scale": [
+        0.87931,
+        1.07942,
+        0.87931
+      ],
+      "yaw": 0.80479,
+      "phase": 0.672486,
+      "variation": 0.239737
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00190",
+      "asset": "grass_soft",
+      "position": [
+        8.71338,
+        10.849,
+        -0.71782
+      ],
+      "scale": [
+        0.92692,
+        1.07648,
+        0.92692
+      ],
+      "yaw": 0.71628,
+      "phase": 0.441479,
+      "variation": 0.098597
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01105",
+      "asset": "moss_soft",
+      "position": [
+        8.69,
+        10.8519,
+        0.7
+      ],
+      "scale": [
+        0.45081,
+        1,
+        0.45081
+      ],
+      "yaw": 5.09819,
+      "phase": 0.651714,
+      "variation": 0.694754
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00059",
+      "asset": "grass_soft",
+      "position": [
+        5.54098,
+        10.849,
+        0.02698
+      ],
+      "scale": [
+        0.90189,
+        1.0218,
+        0.90189
+      ],
+      "yaw": 5.43196,
+      "phase": 0.272996,
+      "variation": 0.803502
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01094",
+      "asset": "moss_soft",
+      "position": [
+        8.37,
+        10.85077,
+        0.7
+      ],
+      "scale": [
+        0.41367,
+        1,
+        0.41367
+      ],
+      "yaw": 3.51457,
+      "phase": 0.53261,
+      "variation": 0.485428
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00112",
+      "asset": "grass_soft",
+      "position": [
+        6.68349,
+        10.849,
+        -2.1294
+      ],
+      "scale": [
+        0.86089,
+        0.93605,
+        0.86089
+      ],
+      "yaw": 4.27143,
+      "phase": 0.166617,
+      "variation": 0.994083
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00029",
+      "asset": "grass_soft",
+      "position": [
+        5.08503,
+        10.849,
+        0.48272
+      ],
+      "scale": [
+        1.04291,
+        0.90977,
+        1.04291
+      ],
+      "yaw": 4.80497,
+      "phase": 0.025507,
+      "variation": 0.3733
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01305",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89974,
+        1.3
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 4.35568,
+      "phase": 0.491074,
+      "variation": 0.317984
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01051",
+      "asset": "moss_soft",
+      "position": [
+        5.81,
+        10.8503,
+        -0.58
+      ],
+      "scale": [
+        0.48639,
+        1,
+        0.48639
+      ],
+      "yaw": 3.12895,
+      "phase": 0.621761,
+      "variation": 0.045752
+    },
+    {
+      "id": "solar_cabin/moss_accents/01419",
+      "asset": "moss_soft",
+      "position": [
+        10.92,
+        2.154,
+        5.47
+      ],
+      "scale": [
+        0.33,
+        1,
+        0.33
+      ],
+      "yaw": 3.80453,
+      "phase": 0.820378,
+      "variation": 0.871602
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00266",
+      "asset": "grass_soft",
+      "position": [
+        2.54062,
+        7.897,
+        2.79091
+      ],
+      "scale": [
+        0.91183,
+        0.96723,
+        0.91183
+      ],
+      "yaw": 6.0353,
+      "phase": 0.037812,
+      "variation": 0.810183
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00250",
+      "asset": "grass_soft",
+      "position": [
+        0.62447,
+        7.897,
+        2.90271
+      ],
+      "scale": [
+        1.05664,
+        1.06717,
+        1.05664
+      ],
+      "yaw": 0.42014,
+      "phase": 0.4181,
+      "variation": 0.757567
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01031",
+      "asset": "moss_soft",
+      "position": [
+        5.17,
+        10.85035,
+        0.06
+      ],
+      "scale": [
+        0.55054,
+        1,
+        0.55054
+      ],
+      "yaw": 2.92216,
+      "phase": 0.109025,
+      "variation": 0.693675
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00163",
+      "asset": "grass_soft",
+      "position": [
+        8.24168,
+        10.849,
+        0.40185
+      ],
+      "scale": [
+        1.01772,
+        0.94777,
+        1.01772
+      ],
+      "yaw": 2.70525,
+      "phase": 0.856339,
+      "variation": 0.64027
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00119",
+      "asset": "grass_soft",
+      "position": [
+        6.81293,
+        10.849,
+        -2.14046
+      ],
+      "scale": [
+        0.85789,
+        0.94456,
+        0.85789
+      ],
+      "yaw": 1.54785,
+      "phase": 0.365258,
+      "variation": 0.801113
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00263",
+      "asset": "grass_soft",
+      "position": [
+        2.26224,
+        7.897,
+        2.63594
+      ],
+      "scale": [
+        0.97888,
+        0.92485,
+        0.97888
+      ],
+      "yaw": 2.58618,
+      "phase": 0.864619,
+      "variation": 0.537612
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00052",
+      "asset": "grass_soft",
+      "position": [
+        5.47428,
+        10.849,
+        -1.6564
+      ],
+      "scale": [
+        1.04405,
+        0.8449,
+        1.04405
+      ],
+      "yaw": 2.97488,
+      "phase": 0.375459,
+      "variation": 0.540079
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00036",
+      "asset": "grass_soft",
+      "position": [
+        5.28191,
+        10.849,
+        -1.64494
+      ],
+      "scale": [
+        1.05314,
+        0.85142,
+        1.05314
+      ],
+      "yaw": 3.13978,
+      "phase": 0.214071,
+      "variation": 0.201596
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00063",
+      "asset": "grass_soft",
+      "position": [
+        5.52753,
+        10.849,
+        0.84966
+      ],
+      "scale": [
+        0.84446,
+        1.06616,
+        0.84446
+      ],
+      "yaw": 5.18282,
+      "phase": 0.603608,
+      "variation": 0.341603
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01297",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89817,
+        -1.26
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 4.56871,
+      "phase": 0.137033,
+      "variation": 0.972203
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01307",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89824,
+        1.94
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 5.96573,
+      "phase": 0.674091,
+      "variation": 0.775941
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00064",
+      "asset": "grass_soft",
+      "position": [
+        5.70498,
+        10.849,
+        -2.5477
+      ],
+      "scale": [
+        0.87052,
+        1.03018,
+        0.87052
+      ],
+      "yaw": 5.71408,
+      "phase": 0.80803,
+      "variation": 0.993137
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00113",
+      "asset": "grass_soft",
+      "position": [
+        6.66756,
+        10.849,
+        0.20186
+      ],
+      "scale": [
+        0.86458,
+        1.01501,
+        0.86458
+      ],
+      "yaw": 5.80138,
+      "phase": 0.434589,
+      "variation": 0.032085
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00208",
+      "asset": "grass_soft",
+      "position": [
+        -0.0048,
+        7.897,
+        -2.64879
+      ],
+      "scale": [
+        0.97784,
+        0.93223,
+        0.97784
+      ],
+      "yaw": 6.25536,
+      "phase": 0.835423,
+      "variation": 0.070384
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00165",
+      "asset": "grass_soft",
+      "position": [
+        8.2117,
+        10.849,
+        0.85767
+      ],
+      "scale": [
+        0.83667,
+        1.01839,
+        0.83667
+      ],
+      "yaw": 2.79909,
+      "phase": 0.43715,
+      "variation": 0.70355
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00178",
+      "asset": "grass_soft",
+      "position": [
+        8.47817,
+        10.849,
+        0.19269
+      ],
+      "scale": [
+        0.87269,
+        0.83828,
+        0.87269
+      ],
+      "yaw": 5.48721,
+      "phase": 0.435976,
+      "variation": 0.203001
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00236",
+      "asset": "grass_soft",
+      "position": [
+        0.12876,
+        7.897,
+        -0.93271
+      ],
+      "scale": [
+        0.94055,
+        0.8219,
+        0.94055
+      ],
+      "yaw": 2.53087,
+      "phase": 0.541991,
+      "variation": 0.285277
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01013",
+      "asset": "moss_soft",
+      "position": [
+        4.85,
+        10.85054,
+        -2.18
+      ],
+      "scale": [
+        0.40618,
+        1,
+        0.40618
+      ],
+      "yaw": 0.11659,
+      "phase": 0.627631,
+      "variation": 0.491203
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00035",
+      "asset": "grass_soft",
+      "position": [
+        5.31,
+        10.849,
+        -1.86277
+      ],
+      "scale": [
+        0.96264,
+        0.87761,
+        0.96264
+      ],
+      "yaw": 3.28188,
+      "phase": 0.005447,
+      "variation": 0.924
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00225",
+      "asset": "grass_soft",
+      "position": [
+        -0.10942,
+        7.897,
+        1.34878
+      ],
+      "scale": [
+        0.87372,
+        1.04531,
+        0.87372
+      ],
+      "yaw": 0.02564,
+      "phase": 0.775375,
+      "variation": 0.335976
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/moss/01082",
+      "asset": "moss_soft",
+      "position": [
+        8.05,
+        10.85116,
+        0.38
+      ],
+      "scale": [
+        0.53637,
+        1,
+        0.53637
+      ],
+      "yaw": 5.75791,
+      "phase": 0.321232,
+      "variation": 0.976882
+    },
+    {
+      "id": "solar_cabin/front_parapet/grass/00262",
+      "asset": "grass_soft",
+      "position": [
+        2.06576,
+        7.897,
+        2.88894
+      ],
+      "scale": [
+        0.93537,
+        0.91681,
+        0.93537
+      ],
+      "yaw": 0.36888,
+      "phase": 0.940066,
+      "variation": 0.071829
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00143",
+      "asset": "grass_soft",
+      "position": [
+        7.78161,
+        10.849,
+        -2.53711
+      ],
+      "scale": [
+        0.95026,
+        1.08607,
+        0.95026
+      ],
+      "yaw": 4.188,
+      "phase": 0.509798,
+      "variation": 0.627347
+    },
+    {
+      "id": "solar_cabin/left_parapet/moss/01304",
+      "asset": "moss_soft",
+      "position": [
+        -0.01,
+        7.89823,
+        0.98
+      ],
+      "scale": [
+        0.378,
+        1,
+        0.378
+      ],
+      "yaw": 2.16879,
+      "phase": 0.431793,
+      "variation": 0.414284
+    },
+    {
+      "id": "solar_cabin/left_parapet/grass/00222",
+      "asset": "grass_soft",
+      "position": [
+        -0.10854,
+        7.897,
+        0.67825
+      ],
+      "scale": [
+        1.03393,
+        0.88438,
+        1.03393
+      ],
+      "yaw": 6.2011,
+      "phase": 0.679496,
+      "variation": 0.760008
+    },
+    {
+      "id": "solar_cabin/upper_roof_meadow/grass/00185",
+      "asset": "grass_soft",
+      "position": [
+        8.66037,
+        10.849,
+        -1.89413
+      ],
+      "scale": [
+        0.84516,
+        1.11212,
+        0.84516
+      ],
+      "yaw": 2.21072,
+      "phase": 0.927327,
+      "variation": 0.327641
+    }
+  ]
+}

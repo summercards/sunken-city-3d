@@ -1,0 +1,53 @@
+{
+  "schema_version": 2,
+  "scope": "solar_cabin",
+  "regions": [
+    {
+      "id": "upper_roof_meadow",
+      "rect": [
+        4.69,
+        -2.66,
+        8.98,
+        1.03
+      ],
+      "y": 10.847,
+      "spacing": 0.105,
+      "exclusions": [
+        {
+          "id": "aircon_service",
+          "rect": [
+            6.13,
+            -2.05,
+            8.28,
+            0.12
+          ]
+        }
+      ]
+    },
+    {
+      "id": "left_parapet",
+      "rect": [
+        -0.17,
+        -2.7,
+        0.25,
+        2.3
+      ],
+      "y": 7.895,
+      "spacing": 0.105,
+      "exclusions": []
+    },
+    {
+      "id": "front_parapet",
+      "rect": [
+        0.55,
+        2.5,
+        3.25,
+        2.95
+      ],
+      "y": 7.895,
+      "spacing": 0.105,
+      "exclusions": []
+    }
+  ],
+  "coordinate_space": "facility local Godot XYZ, actual supporting top surface"
+}

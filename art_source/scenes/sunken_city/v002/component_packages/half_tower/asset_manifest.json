@@ -1,0 +1,98 @@
+{
+  "key": "half_tower",
+  "slug": "half_tower",
+  "name": "高楼半骸_外露柱架",
+  "category": "architecture",
+  "component_family": "tower",
+  "component_id": "SEA-SCENE-SCITY-HALF-TOWER",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    16,
+    15,
+    43
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 8,
+  "color": "mint_white",
+  "damage": 0.65,
+  "style": "half_tower",
+  "variant_axis": "structure_damage",
+  "variant_value": "half_tower",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 2,
+  "collection": "SEA-SCENE-SCITY-HALF-TOWER_高楼半骸_外露柱架",
+  "root_object": "SEA-SCENE-SCITY-HALF-TOWER_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-HALF-TOWER_ROOT",
+    "高楼半骸_外露柱架_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    15.627130508422852,
+    15.07800006866455,
+    44.35918426513672
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 126410,
+  "polygons": 65845,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/half_tower/half_tower.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v002",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "07df4953d3344cc3a5eed29f030622bd4790a6075eb0f750d96e3e4ba08b0b0a",
+  "geometry_fingerprint": "9a3494026ee0486c44aaa4a23e1f09a7e651c289103135e810a2f4ba919a6381",
+  "bounds_min": [
+    -7.813565254211426,
+    -7.539000034332275,
+    0.0
+  ],
+  "bounds_max": [
+    7.813565254211426,
+    7.539000034332275,
+    44.35918426513672
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\half_tower.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-HALF-TOWER"
+}

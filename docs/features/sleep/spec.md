@@ -6,7 +6,7 @@
 
 | 条款 ID | 规则 |
 |---|---|
-| SEA-SLEEP-R01 | 点击太阳房入口地毯的月亮检查点，角色按现有寻路接近后睡觉；岸上菜单的睡觉按钮使用同一命令。 |
+| SEA-SLEEP-R01 | 点击房间里床铺上的睡眠点（2026-11-05 起；此前是太阳房入口地毯的月亮检查点，见 SEA-ROOM-R01/R08），角色按现有寻路接近后睡觉；岸上菜单的睡觉按钮使用同一命令。 |
 | SEA-SLEEP-R02 | 23:00自动入睡，结束航行/行走/交互、关闭面板，次日06:00在太阳房入口醒来；午夜后旧档回到当天06:00。大delta不得跨过阈值跳多天。 |
 | SEA-SLEEP-R03 | 睡觉使用黑色圆形向角色合拢、全黑显示次日早晨、圆形向外打开，不占角色对话框；睡眠态独立文件，过渡期间输入和日历暂停，重复点击只执行一次。 |
 | SEA-SLEEP-R04 | 醒来06:00不提前卖货；07:00继续由DailyShipping唯一结算。过渡期间拒绝存档，醒后正常自动存档；读档不重复结算。（作物生长已于2026-11-01改为「醒来即换天」，见SEA-FARM-R14；本条只约束**卖货**仍在07:00，不约束生长时刻。） |
@@ -16,9 +16,9 @@
 
 SleepCycle拥有会话过渡，不拥有世界时间或经营状态。advance(delta)截断到23:00；request(automatic)开始一次睡眠；is_busy()给存档和输入查询；woke(snapshot)在淡入完成后发出。注入WorldClock、SleepCurtain、prepare和return_home命令。WorldClock.wake_to_morning是时间唯一写入口。
 
-SleepCheckpoint只发sleep_requested；Main装配命令。ActorController.begin_sleep进入独立sleeping状态；restore_pose退出并恢复合法岸上位置与泊位。SleepCurtain只负责圆形遮罩、黑幕文字与输入消费；通过注入focus_query获取角色屏幕位置，不读取角色或时钟状态。
+RoomBed 只发 sleep_requested（2026-11-05 起；原 SleepCheckpoint 已随 SEA-ROOM 迁移删除）；Main 装配命令。ActorController.begin_sleep进入独立sleeping状态；restore_pose退出并恢复合法岸上位置与泊位。SleepCurtain只负责圆形遮罩、黑幕文字与输入消费；通过注入focus_query获取角色屏幕位置，不读取角色或时钟状态。
 
-不保存动画进度；存档仍用time/game/economy原字段。暂停菜单停时；开始画面不会自动睡觉。开发全世界配置可结束潜水后回家，默认潜水仍锁定。暂不制作室内、床模型、睡姿动画、NPC收货动画。体力惩罚（见SEA-ENERGY）由Main在完全遮黑的这一段调用Energy.after_sleep(forced)，本功能不持有体力数值。
+不保存动画进度；存档仍用time/game/economy原字段。暂停菜单停时；开始画面不会自动睡觉。开发全世界配置可结束潜水后回家，默认潜水仍锁定。室内与床模型已于 2026-11-05 由 SEA-ROOM 制作；睡姿动画与 NPC 收货动画仍未制作。体力惩罚（见SEA-ENERGY）由Main在完全遮黑的这一段调用Energy.after_sleep(forced)，本功能不持有体力数值。
 
 ## 资产边界
 

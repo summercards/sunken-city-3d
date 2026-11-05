@@ -15,9 +15,13 @@ var walk_area: Node3D
 var after_walk := Callable()
 var auto_target: Node3D
 var ground = preload("res://src/player/actions/walk_action.gd").new()
+var stride = preload("res://src/player/actions/free_walk_action.gd").new()
 var board = preload("res://src/player/actions/board_action.gd").new()
 var disembark = preload("res://src/player/actions/disembark_action.gd").new()
 var approach_action = preload("res://src/player/actions/approach_action.gd").new()
+## 键盘移动意图（世界 xz 方向，已归一化；零 = 没按键）。由 Main 每帧写入，
+## 这里只负责「能不能转成一次行走」，不读键盘也不读镜头。
+var move_intent := Vector3.ZERO
 
 func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boundary: Dictionary) -> void:
 	actor = body
@@ -29,6 +33,7 @@ func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boun
 		"sleeping":preload("res://src/player/states/sleeping.gd").new(),
 		"ashore_idle":preload("res://src/player/states/ashore_idle.gd").new(),
 		"walking":preload("res://src/player/states/walking.gd").new(),
+		"strolling":preload("res://src/player/states/strolling.gd").new(),
 		"approaching":preload("res://src/player/states/approaching.gd").new(),
 		"interacting":preload("res://src/player/states/interacting.gd").new(),
 		"boarding":preload("res://src/player/states/boarding.gd").new(),
@@ -37,9 +42,10 @@ func configure(body: Node3D, boat: Node3D, root: Node3D, interaction: Node, boun
 		"diving":preload("res://src/player/states/diving.gd").new()}
 	var edges := {
 		"sleeping":["ashore_idle"],
-		"ashore_idle":["walking","approaching","boarding","diving","interacting"],
-		"walking":["ashore_idle","walking","approaching","boarding"],
-		"approaching":["ashore_idle","walking","approaching","interacting","boarding"],
+		"ashore_idle":["walking","strolling","approaching","boarding","diving","interacting"],
+		"walking":["ashore_idle","walking","strolling","approaching","boarding"],
+		"strolling":["ashore_idle","walking","strolling","approaching","boarding"],
+		"approaching":["ashore_idle","walking","strolling","approaching","interacting","boarding"],
 		"interacting":["ashore_idle","walking","approaching","boarding","diving"],
 		"boarding":["boat_idle"], "boat_idle":["walking","approaching","sailing","diving","boarding"],
 		"sailing":["boat_idle"], "diving":["boat_idle","ashore_idle"]}
@@ -50,7 +56,7 @@ func _transitioned(previous: String, current: String) -> void:
 	if is_instance_valid(actor) and actor.has_method("set_boat_seated"):
 		actor.set_boat_seated(current in ["boat_idle","boarding","sailing"])
 	if is_instance_valid(actor) and actor.has_method("set_grounded_motion"):
-		actor.set_grounded_motion(current in ["ashore_idle","walking","approaching","interacting","sleeping"])
+		actor.set_grounded_motion(current in ["ashore_idle","walking","strolling","approaching","interacting","sleeping"])
 	mode_changed.emit(mode())
 	state_changed.emit(previous, current)
 
@@ -59,11 +65,41 @@ func mode() -> int:
 	if machine.current == "sailing": return 2
 	return 1 if machine.current in ["boat_idle","boarding"] else 0
 
-func walking() -> bool: return machine.current in ["walking","approaching"]
+func walking() -> bool: return machine.current in ["walking","strolling","approaching"]
 func state_id() -> String: return machine.current
 func tick(delta: float) -> void: machine.tick(delta)
 func notify(text: String) -> void: ports.notify.call(text)
 func current_landing() -> Node3D: return ports.landing.call()
+
+## 键盘移动的唯一写入口（SEA-MOVE-R20）。
+##
+## `dir` 是**世界**方向（Main 已按镜头朝向折算），长度只用于判「按没按」。
+## 规则：
+##   · 只有岸上（mode 0）能走；船上/潜水/入睡一律清零，船由 SEA-NAV 手动驾驶；
+##   · 面板、过场、模态打开时不接管（`ports.input_blocked`）；
+##   · 非零 → 进入 strolling 并打断点击走路/自动接近；归零 → 回到站立。
+## 不做「按一下走一段」的节流：键盘是持续按住，速度由物理帧决定。
+func set_move_intent(dir: Vector3) -> void:
+	var flat := Vector3(dir.x, 0.0, dir.z)
+	move_intent = flat.normalized() if flat.length_squared() > 0.000001 else Vector3.ZERO
+	if not is_instance_valid(actor):
+		return
+	if move_intent == Vector3.ZERO:
+		if machine.current == "strolling":
+			machine.change("ashore_idle")
+		return
+	if mode() != 0 or machine.current in ["diving","sleeping","boarding","interacting"]:
+		move_intent = Vector3.ZERO
+		return
+	if ports.has("input_blocked") and bool(ports.input_blocked.call()):
+		move_intent = Vector3.ZERO
+		return
+	if machine.current in ["ashore_idle","walking","approaching","strolling"]:
+		clear_interaction()
+		machine.change("strolling")
+
+## 当前是否由键盘在走（HUD 用来区分「点过去」和「自己在走」）。
+func strolling() -> bool: return machine.current == "strolling"
 
 func start_walk(area: Node3D, target: Vector3) -> bool:
 	var result: Dictionary = ground.prepare(self, area, target)
@@ -96,6 +132,7 @@ func clear_interaction() -> void:
 func cancel() -> void:
 	if is_instance_valid(actor) and actor.has_method("cancel_action"): actor.cancel_action("cancelled")
 	clear_interaction()
+	move_intent = Vector3.ZERO
 	after_walk = Callable()
 	walk_path.clear()
 	if mode() == 3: return

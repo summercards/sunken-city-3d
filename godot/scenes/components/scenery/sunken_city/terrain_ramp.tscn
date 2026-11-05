@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/scenery/sunken_city/terrain_ramp/terrain_ramp.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/matte.tres" id="matte"]
+
+[node name="街区缓坡_24米高差4.8米" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-SCITY-TERRAIN-RAMP"
+metadata/key = "terrain_ramp"
+metadata/asset_version = "v003"
+metadata/building_class = "underwater"
+metadata/source_suite = "sunken_city"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "part"
+metadata/collision = false
+metadata/interactive = false
+metadata/blocks_water = false
+metadata/shoreline_source = false
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="Mesh_terrain_ramp" parent="Visual/Root_terrain_ramp" index="0"]
+surface_material_override/0 = ExtResource("matte")
+cast_shadow = 1

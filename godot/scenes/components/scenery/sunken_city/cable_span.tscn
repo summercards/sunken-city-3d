@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/scenery/sunken_city/cable_span/cable_span.glb" id="model"]
+[ext_resource type="Material" path="res://assets/materials/sunken_city/metal.tres" id="metal"]
+
+[node name="三根下垂电线_20米" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-SCITY-CABLE-SPAN"
+metadata/key = "cable_span"
+metadata/asset_version = "v003"
+metadata/building_class = "underwater"
+metadata/source_suite = "sunken_city"
+metadata/water_layer = "submerged"
+metadata/water_layer_role = "part"
+metadata/collision = false
+metadata/interactive = false
+metadata/blocks_water = false
+metadata/shoreline_source = false
+
+[node name="Visual" parent="." instance=ExtResource("model")]
+[node name="Mesh_cable_span" parent="Visual/Root_cable_span" index="0"]
+surface_material_override/0 = ExtResource("metal")
+cast_shadow = 1

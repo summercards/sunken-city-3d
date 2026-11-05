@@ -1,0 +1,61 @@
+{
+  "asset_id": "SEA-VEG-MOSS-SOFT",
+  "key": "moss_soft",
+  "source": "art_source/vegetation/v002/components/moss_soft/moss_soft.blend",
+  "source_sha256": "698c2ee543fdfa4c5228101a10300771fa03536a9bcfa8253e03d953dcea1c2a",
+  "optimized_source": "art_source/vegetation/v002/components/moss_soft/moss_soft_optimized.blend",
+  "optimized_sha256": "97020bfd4d019071effc9566a16917fb7ea1936c64cc0a4dcc17bba91a9bb4a5",
+  "glb": "godot/assets/models/vegetation/moss_soft.glb",
+  "glb_sha256": "540d6811b56764d56ac684bb07dcc9ef8aa7fe11e04079ec415235b0cc027095",
+  "triangles": 8,
+  "vertices": 9,
+  "operations": [
+    "separate persistent optimized save",
+    "remove degenerate edges",
+    "source and optimized reopened",
+    "UV and WindData preserved"
+  ],
+  "root": "bottom_center",
+  "geometry": "texture carrier only",
+  "uv0": "BotanicalUV",
+  "name": "细碎苔藓贴片",
+  "domain": "vegetation",
+  "suite": "soft_botanical_cards",
+  "version": "v002",
+  "category": "textured_vegetation",
+  "scope": "shared",
+  "manifest": "art_source/vegetation/v002/components/moss_soft/asset_manifest.json",
+  "runtime_path": "godot/scenes/components/vegetation/moss_soft.tscn",
+  "runtime_sha256": "c6f5e365481b38cf7499009f74e80db18c4b9c00c3c29099ca598ff7da6801a3",
+  "prefab": "godot/scenes/components/vegetation/moss_soft.tscn",
+  "stage": "runtime_verified_user_visual_review_pending",
+  "license": "original_carrier_geometry",
+  "dependencies": [
+    "SEA-TEX-VEGETATION-SOFT-ATLAS"
+  ],
+  "consumers": [
+    "solar_cabin"
+  ],
+  "consumer_features": [
+    "SEA-AMBIENT",
+    "SEA-ASSET"
+  ],
+  "water_layer": "surface",
+  "water_layer_role": "none",
+  "collision": false,
+  "wind_contract": 2,
+  "material": "godot/assets/materials/vegetation/moss_soft.tres",
+  "uv_exception": "User explicitly requested botanical color/alpha UV0 instead of palette cells",
+  "verification": {
+    "source": "reopened_and_checked",
+    "runtime": "passed",
+    "visual": "native_frames_reviewed",
+    "user_art_acceptance": "pending",
+    "performance": "measured_RTX4060Ti_1280x800",
+    "evidence": [
+      "D:\\projects\\sea-work\\verification\\20261105-155056-soft-turf-verified-1f59a8\\report.json",
+      "docs/development/2026-11-05_vegetation_soft_cards.md"
+    ]
+  },
+  "asset_ledger": "assets/registry/ledgers/vegetation.json#SEA-VEG-MOSS-SOFT"
+}

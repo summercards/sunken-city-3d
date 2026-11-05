@@ -11,7 +11,10 @@ func run() -> void:
 	main._autosave_on = false
 	main.process_mode = Node.PROCESS_MODE_DISABLED
 	var cam: Node = main.cam
-	check(absf(cam.zoom_ratio()-.25)<.001,"默认25%")
+	# SEA-CAMERA-R11：玩家能拉到的最远就是 38 m，开局就停在这一档（比例 100%）。
+	check(is_equal_approx(cam.zoom_max,38.0),"缩放上限38")
+	check(is_equal_approx(cam.distance,38.0),"开局=最远38")
+	check(absf(cam.zoom_ratio()-1.0)<.001,"开局即最远")
 	check(cam.follow_enabled and cam.follow_subject==main.player,"默认跟随角色")
 	cam._process(.1)
 	check(cam.target.distance_to(main.player.global_position+Vector3.UP*.7)<.001,"跟随世界坐标")
@@ -41,7 +44,13 @@ func run() -> void:
 		for i in fps: cam._process(1.0/fps)
 		outputs.append(cam._cur_target)
 	check(outputs[0].distance_to(outputs[2])<.001,"阻尼帧率一致")
-	print("[camera-follow] 8 checks, failures=",failures)
+	# 连续往外滚：被 zoom_max 钉在 38 m，拉不出更远的画面。
+	cam.suspend_follow()
+	for i in 12:
+		cam.zoom_action.execute(cam,1.0/0.86,Vector2(500,400))
+	cam._process(.2)
+	check(absf(cam.distance-38.0)<.001 and absf(cam._cur_distance-38.0)<.001,"滚轮拉不出38m")
+	print("[camera-follow] 11 checks, failures=",failures)
 	main.queue_free()
 	await process_frame
 	quit(0 if failures==0 else 1)

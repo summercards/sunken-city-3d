@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/world/sunny_palette_binding.gd" id="bind"]
+[ext_resource type="PackedScene" path="res://assets/models/rooms/bedroom/door_leaf/door_leaf.glb" id="visual"]
+[node name="门框与门扇" type="Node3D"]
+script = ExtResource("bind")
+asset_id = "SEA-SCENE-BDR-008"
+component_kind = "building"
+subcategory = "interior_shell"
+movable = false
+metadata/asset_id = "SEA-SCENE-BDR-008"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "part"
+[node name="Visual" parent="." instance=ExtResource("visual")]

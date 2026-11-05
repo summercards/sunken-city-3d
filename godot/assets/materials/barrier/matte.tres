@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/textures/shared/sea_cabin_timber_8x8_512.png" id="palette"]
+
+[resource]
+resource_name = "SEA_Matte_Barrier"
+albedo_texture = ExtResource("palette")
+roughness = 0.86
+texture_filter = 0

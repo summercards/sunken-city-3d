@@ -1,0 +1,483 @@
+{
+  "schema_version": 1,
+  "domain": "vegetation",
+  "owner_feature": "SEA-ASSET",
+  "note": "v003 broad meadow and rooftop mounds. v002 moss retained; grass history preserved. v001 solid candidates rejected.",
+  "assets": [
+    {
+      "key": "grass_soft",
+      "asset_id": "SEA-VEG-GRASS-SOFT",
+      "version": "v003",
+      "source": "art_source/vegetation/v003/components/grass_soft/grass_soft.blend",
+      "source_sha256": "031688b038b03e01c716e9e4d4317ca3c357e3f5839575beb9e22b6e88e1ed4a",
+      "optimized_source": "art_source/vegetation/v003/components/grass_soft/grass_soft_optimized.blend",
+      "optimized_sha256": "31b54fea68b1d0999123efb72640133a4ff41fd5f885a7e8cefc7884a2523859",
+      "glb": "godot/assets/models/vegetation/grass_soft.glb",
+      "glb_sha256": "5d6e698f714c0c7981ef42e42898ce4a86e2fea67169a477c60021c67588c365",
+      "triangles": 18,
+      "vertices": 24,
+      "bounds_blender": [
+        [
+          -0.3700000047683716,
+          -0.32042938470840454,
+          0.0
+        ],
+        [
+          0.3700000047683716,
+          0.32042938470840454,
+          0.47999998927116394
+        ]
+      ],
+      "operations": [
+        "independent optimized save",
+        "degenerate edge cleanup",
+        "reopen source and optimized",
+        "verify rooted weights and UVs"
+      ],
+      "no_solid_core": true,
+      "name": "宽叶柔软草簇",
+      "domain": "vegetation",
+      "suite": "soft_botanical_cards",
+      "scope": "shared",
+      "category": "textured_vegetation",
+      "manifest": "art_source/vegetation/v003/components/grass_soft/asset_manifest.json",
+      "prefab": "godot/scenes/components/vegetation/grass_soft.tscn",
+      "runtime_path": "godot/scenes/components/vegetation/grass_soft.tscn",
+      "runtime_sha256": "8bf4a4b0fc25a75c5cfa1c59312fa3568e5e10d12c733e322ddc077b10bd51f6",
+      "material": "godot/assets/materials/vegetation/grass_soft.tres",
+      "dependencies": [
+        "SEA-TEX-VEGETATION-MEADOW-ATLAS"
+      ],
+      "consumers": [
+        "solar_cabin",
+        "rooftop_ranch"
+      ],
+      "consumer_features": [
+        "SEA-AMBIENT",
+        "SEA-ASSET"
+      ],
+      "previous_sources": [
+        {
+          "version": "v002",
+          "source": "art_source/vegetation/v002/components/grass_soft/grass_soft.blend",
+          "source_sha256": "b627fe26de560cc1e1c8c738b0bcb0e4bfd4a566970ce629e1d785fd6a4b5e6d",
+          "optimized_source": "art_source/vegetation/v002/components/grass_soft/grass_soft_optimized.blend",
+          "optimized_sha256": "b032cc1ffc006578dcbfa879a8599735ff9295754d2e7d360be0663b599c5b69",
+          "glb_sha256": "3e8c993e34c9fe0f9128d5d89d7d247b3ca251e8013190aa8a362e2d60b02f13",
+          "manifest": "art_source/vegetation/v002/components/grass_soft/asset_manifest.json"
+        }
+      ],
+      "stage": "runtime_verified_user_visual_review_pending",
+      "license": "original_carrier_geometry",
+      "water_layer": "surface",
+      "water_layer_role": "none",
+      "collision": false,
+      "wind_contract": 3,
+      "verification": {
+        "source": "reopened_and_verified",
+        "runtime": "passed",
+        "visual": "near_default_far_and_motion_reviewed",
+        "user_art_acceptance": "pending",
+        "performance": "measured_RTX4060Ti_1280x800",
+        "evidence": [
+          "D:\\projects\\sea-work\\verification\\20261105-165018-meadow-final-7648b4\\report.json",
+          "docs/development/2026-11-05_vegetation_meadow.md"
+        ]
+      }
+    },
+    {
+      "asset_id": "SEA-VEG-MOSS-SOFT",
+      "key": "moss_soft",
+      "source": "art_source/vegetation/v002/components/moss_soft/moss_soft.blend",
+      "source_sha256": "698c2ee543fdfa4c5228101a10300771fa03536a9bcfa8253e03d953dcea1c2a",
+      "optimized_source": "art_source/vegetation/v002/components/moss_soft/moss_soft_optimized.blend",
+      "optimized_sha256": "97020bfd4d019071effc9566a16917fb7ea1936c64cc0a4dcc17bba91a9bb4a5",
+      "glb": "godot/assets/models/vegetation/moss_soft.glb",
+      "glb_sha256": "540d6811b56764d56ac684bb07dcc9ef8aa7fe11e04079ec415235b0cc027095",
+      "triangles": 8,
+      "vertices": 9,
+      "operations": [
+        "separate persistent optimized save",
+        "remove degenerate edges",
+        "source and optimized reopened",
+        "UV and WindData preserved"
+      ],
+      "root": "bottom_center",
+      "geometry": "texture carrier only",
+      "uv0": "BotanicalUV",
+      "name": "细碎苔藓贴片",
+      "domain": "vegetation",
+      "suite": "soft_botanical_cards",
+      "version": "v002",
+      "category": "textured_vegetation",
+      "scope": "shared",
+      "manifest": "art_source/vegetation/v002/components/moss_soft/asset_manifest.json",
+      "runtime_path": "godot/scenes/components/vegetation/moss_soft.tscn",
+      "runtime_sha256": "c6f5e365481b38cf7499009f74e80db18c4b9c00c3c29099ca598ff7da6801a3",
+      "prefab": "godot/scenes/components/vegetation/moss_soft.tscn",
+      "stage": "runtime_verified_user_visual_review_pending",
+      "license": "original_carrier_geometry",
+      "dependencies": [
+        "SEA-TEX-VEGETATION-SOFT-ATLAS"
+      ],
+      "consumers": [
+        "solar_cabin"
+      ],
+      "consumer_features": [
+        "SEA-AMBIENT",
+        "SEA-ASSET"
+      ],
+      "water_layer": "surface",
+      "water_layer_role": "none",
+      "collision": false,
+      "wind_contract": 2,
+      "material": "godot/assets/materials/vegetation/moss_soft.tres",
+      "uv_exception": "User explicitly requested botanical color/alpha UV0 instead of palette cells",
+      "verification": {
+        "source": "reopened_and_checked",
+        "runtime": "passed",
+        "visual": "native_frames_reviewed",
+        "user_art_acceptance": "pending",
+        "performance": "measured_RTX4060Ti_1280x800",
+        "evidence": [
+          "D:\\projects\\sea-work\\verification\\20261105-155056-soft-turf-verified-1f59a8\\report.json",
+          "docs/development/2026-11-05_vegetation_soft_cards.md"
+        ]
+      }
+    },
+    {
+      "asset_id": "SEA-TEX-VEGETATION-SOFT-ATLAS",
+      "name": "Image-2草叶与苔藓RGBA图集",
+      "domain": "vegetation",
+      "suite": "soft_botanical_cards",
+      "version": "v002",
+      "category": "color_alpha_texture",
+      "scope": "shared",
+      "source": "art_source/vegetation/v002/grass_moss_atlas_generated.png",
+      "source_sha256": "4eb3a69740eb23879ddfc13514b9a26e8ce88d52e5f717f4bd1533c5e3fc2fa2",
+      "processed_source": "art_source/vegetation/v002/soft_atlas.png",
+      "processed_sha256": "f39b29e86468e247ed12fb11fc2d9dd736e5215d6adec030a394991626c2603b",
+      "manifest": "art_source/vegetation/v002/texture_manifest.json",
+      "runtime_path": "godot/assets/textures/vegetation/soft_atlas.png",
+      "runtime_sha256": "f39b29e86468e247ed12fb11fc2d9dd736e5215d6adec030a394991626c2603b",
+      "stage": "runtime_verified_user_visual_review_pending",
+      "license": "generated_image_output_terms_not_audited",
+      "provenance": {
+        "model": "gpt-image-2",
+        "skill": "sofunny-image",
+        "mode": "reference_image_edit",
+        "reference_sha256": "ee0d2d1afda55555ef499ae688bdffda59d41b10cdd4a41a8e9eb0c0408ff50b",
+        "prompt": "art_source/vegetation/v002/texture_brief.txt",
+        "processing": "art_source/vegetation/v002/texture_production.json"
+      },
+      "consumers": [
+        "solar_cabin"
+      ],
+      "consumer_features": [
+        "SEA-AMBIENT",
+        "SEA-ASSET"
+      ],
+      "verification": {
+        "alpha": "RGBA 0..255, internal and edge transparency verified",
+        "visual": "native_game_frames_reviewed",
+        "user_art_acceptance": "pending",
+        "evidence": [
+          "D:\\projects\\sea-work\\verification\\20261105-155056-soft-turf-verified-1f59a8\\report.json",
+          "docs/development/2026-11-05_vegetation_soft_cards.md"
+        ]
+      }
+    },
+    {
+      "key": "mound_soft",
+      "asset_id": "SEA-VEG-MOUND-SOFT",
+      "version": "v003",
+      "source": "art_source/vegetation/v003/components/mound_soft/mound_soft.blend",
+      "source_sha256": "fb63d048a8e950517fc7999b64d0366f5592509b8c8c9f18ed5797c41b43f049",
+      "optimized_source": "art_source/vegetation/v003/components/mound_soft/mound_soft_optimized.blend",
+      "optimized_sha256": "98386eed13f4213e6825bd15ea8402dee72237d633723a281f3a0830c7f0da71",
+      "glb": "godot/assets/models/vegetation/mound_soft.glb",
+      "glb_sha256": "557a9f4f1f73abbb8e2f1351bd7c6a1ccc5537fb3c2f09e2673f2d04192e6410",
+      "triangles": 252,
+      "vertices": 336,
+      "bounds_blender": [
+        [
+          -1.4819388389587402,
+          -1.2105035781860352,
+          0.0
+        ],
+        [
+          1.4819388389587402,
+          1.2105035781860352,
+          1.1284534931182861
+        ]
+      ],
+      "operations": [
+        "independent optimized save",
+        "degenerate edge cleanup",
+        "reopen source and optimized",
+        "verify rooted weights and UVs"
+      ],
+      "no_solid_core": true,
+      "name": "层叠面片草堆",
+      "domain": "vegetation",
+      "suite": "soft_botanical_cards",
+      "scope": "shared",
+      "category": "textured_vegetation",
+      "manifest": "art_source/vegetation/v003/components/mound_soft/asset_manifest.json",
+      "prefab": "godot/scenes/components/vegetation/mound_soft.tscn",
+      "runtime_path": "godot/scenes/components/vegetation/mound_soft.tscn",
+      "runtime_sha256": "249954303b860df7f220155620af567bcf5186892badde437b05fcec0dd088a9",
+      "material": "godot/assets/materials/vegetation/mound_soft.tres",
+      "dependencies": [
+        "SEA-TEX-VEGETATION-MEADOW-ATLAS"
+      ],
+      "consumers": [
+        "rooftop_ranch"
+      ],
+      "consumer_features": [
+        "SEA-AMBIENT",
+        "SEA-ASSET"
+      ],
+      "previous_sources": [],
+      "stage": "runtime_verified_user_visual_review_pending",
+      "license": "original_carrier_geometry",
+      "water_layer": "surface",
+      "water_layer_role": "none",
+      "collision": false,
+      "wind_contract": 3,
+      "verification": {
+        "source": "reopened_and_verified",
+        "runtime": "passed",
+        "visual": "near_default_far_and_motion_reviewed",
+        "user_art_acceptance": "pending",
+        "performance": "measured_RTX4060Ti_1280x800",
+        "evidence": [
+          "D:\\projects\\sea-work\\verification\\20261105-165018-meadow-final-7648b4\\report.json",
+          "docs/development/2026-11-05_vegetation_meadow.md"
+        ]
+      }
+    },
+    {
+      "asset_id": "SEA-TEX-VEGETATION-MEADOW-ATLAS",
+      "name": "宽叶草地与草堆Image-2图集",
+      "domain": "vegetation",
+      "version": "v003",
+      "suite": "soft_botanical_cards",
+      "scope": "shared",
+      "category": "color_alpha_texture",
+      "source": "art_source/vegetation/v003/grass_mound_atlas_generated.png",
+      "source_sha256": "40ebe848a4f327877d31bbbadd2b0275427e12da47366f1abf16c66c8670f8f2",
+      "processed_source": "art_source/vegetation/v003/meadow_atlas.png",
+      "processed_sha256": "c4f6e6fc6f51551bb105b9a052b9d61c73b29a106f786152a22ae1be61b63d48",
+      "manifest": "art_source/vegetation/v003/texture_manifest.json",
+      "runtime_path": "godot/assets/textures/vegetation/meadow_atlas.png",
+      "runtime_sha256": "c4f6e6fc6f51551bb105b9a052b9d61c73b29a106f786152a22ae1be61b63d48",
+      "license": "generated_image_output_terms_not_audited",
+      "stage": "runtime_verified_user_visual_review_pending",
+      "consumers": [
+        "solar_cabin",
+        "rooftop_ranch"
+      ],
+      "consumer_features": [
+        "SEA-AMBIENT",
+        "SEA-ASSET"
+      ],
+      "provenance": {
+        "model": "gpt-image-2",
+        "prompt": "art_source/vegetation/v003/texture_brief.txt",
+        "processing": "art_source/vegetation/v003/texture_production.json",
+        "reference": "user video frame plus previous fine atlas for a broader-leaf revision"
+      },
+      "verification": {
+        "alpha": "RGBA 0..255, transparent leaf gaps",
+        "visual": "native_game_frames_reviewed",
+        "user_art_acceptance": "pending",
+        "evidence": [
+          "D:\\projects\\sea-work\\verification\\20261105-165018-meadow-final-7648b4\\report.json",
+          "docs/development/2026-11-05_vegetation_meadow.md"
+        ]
+      }
+    },
+    {
+      "asset_id": "SEA-VEG-PROTON-DEMO-GRASS",
+      "name": "ProtonScatter 原版草A",
+      "domain": "vegetation",
+      "suite": "proton_native_trial",
+      "version": "upstream_7198cc0",
+      "scope": "preview",
+      "category": "third_party_vegetation",
+      "source": "godot/addons/proton_scatter/demos/assets/models/grass.glb",
+      "source_sha256": "5bf5adc17329290fe82afc5e6aff8159ffd51888287b4f207b1ff7f74ff819f6",
+      "manifest": "art_source/vegetation/proton_scatter_trial/v001/grass_manifest.json",
+      "runtime_path": "godot/addons/proton_scatter/demos/assets/models/grass.glb",
+      "runtime_sha256": "5bf5adc17329290fe82afc5e6aff8159ffd51888287b4f207b1ff7f74ff819f6",
+      "material_binding": "ScatterItem.override_material",
+      "material": "godot/addons/proton_scatter/demos/assets/materials/m_grass.tres",
+      "stage": "trial_verified_production_pending",
+      "license": "upstream_MIT_models_demo_texture_terms_pending",
+      "provenance": {
+        "repository": "https://github.com/HungryProton/scatter",
+        "commit": "7198cc00078ebde61307578137c3f35223c6e438",
+        "plugin_version": "4.2.0",
+        "scope": "editor authoring plus explicitly requested native demo trial; formal runtime does not load plugin",
+        "license": "MIT addon/code/models; demo texture usage per upstream README; no standalone texture redistribution",
+        "upstream_readme_sha256": "4bbfb3489933faacae7dd43f35d431e76fc5cc9177028a6c41babcf013177193"
+      },
+      "consumers": [
+        "proton_rooftop_preview"
+      ],
+      "consumer_features": [
+        "SEA-AMBIENT",
+        "SEA-ASSET"
+      ],
+      "water_layer": "surface",
+      "water_layer_role": "none",
+      "collision": false,
+      "verification": {
+        "native_scatter": "passed",
+        "real_render": "passed",
+        "saved_preview_reopen": "passed",
+        "production_clock_integration": "pending",
+        "user_art_acceptance": "pending",
+        "evidence": [
+          "D:\\projects\\sea-work\\verification\\20261105-173934-proton-focused-stage-eedf1a\\report.json",
+          "docs/development/2026-11-05_proton_scatter_trial.md"
+        ]
+      }
+    },
+    {
+      "asset_id": "SEA-VEG-PROTON-DEMO-GRASS-2",
+      "name": "ProtonScatter 原版草B",
+      "domain": "vegetation",
+      "suite": "proton_native_trial",
+      "version": "upstream_7198cc0",
+      "scope": "preview",
+      "category": "third_party_vegetation",
+      "source": "godot/addons/proton_scatter/demos/assets/models/grass_2.glb",
+      "source_sha256": "604c81fcc9369966b6d638165141a3d76c06afd327f6f94b0c35012f0ddf0262",
+      "manifest": "art_source/vegetation/proton_scatter_trial/v001/grass_2_manifest.json",
+      "runtime_path": "godot/addons/proton_scatter/demos/assets/models/grass_2.glb",
+      "runtime_sha256": "604c81fcc9369966b6d638165141a3d76c06afd327f6f94b0c35012f0ddf0262",
+      "material_binding": "ScatterItem.override_material",
+      "material": "godot/addons/proton_scatter/demos/assets/materials/m_grass.tres",
+      "stage": "trial_verified_production_pending",
+      "license": "upstream_MIT_models_demo_texture_terms_pending",
+      "provenance": {
+        "repository": "https://github.com/HungryProton/scatter",
+        "commit": "7198cc00078ebde61307578137c3f35223c6e438",
+        "plugin_version": "4.2.0",
+        "scope": "editor authoring plus explicitly requested native demo trial; formal runtime does not load plugin",
+        "license": "MIT addon/code/models; demo texture usage per upstream README; no standalone texture redistribution",
+        "upstream_readme_sha256": "4bbfb3489933faacae7dd43f35d431e76fc5cc9177028a6c41babcf013177193"
+      },
+      "consumers": [
+        "proton_rooftop_preview"
+      ],
+      "consumer_features": [
+        "SEA-AMBIENT",
+        "SEA-ASSET"
+      ],
+      "water_layer": "surface",
+      "water_layer_role": "none",
+      "collision": false,
+      "verification": {
+        "native_scatter": "passed",
+        "real_render": "passed",
+        "saved_preview_reopen": "passed",
+        "production_clock_integration": "pending",
+        "user_art_acceptance": "pending",
+        "evidence": [
+          "D:\\projects\\sea-work\\verification\\20261105-173934-proton-focused-stage-eedf1a\\report.json",
+          "docs/development/2026-11-05_proton_scatter_trial.md"
+        ]
+      }
+    },
+    {
+      "asset_id": "SEA-VEG-PROTON-DEMO-BUSH",
+      "name": "ProtonScatter 原版灌木",
+      "domain": "vegetation",
+      "suite": "proton_native_trial",
+      "version": "upstream_7198cc0",
+      "scope": "preview",
+      "category": "third_party_vegetation",
+      "source": "godot/addons/proton_scatter/demos/assets/models/bush.glb",
+      "source_sha256": "5b52223e466b93b84fe9bfc93e1745df84fb9c19da8eab8ad46c33c7e913ceb6",
+      "manifest": "art_source/vegetation/proton_scatter_trial/v001/bush_manifest.json",
+      "runtime_path": "godot/addons/proton_scatter/demos/assets/models/bush.glb",
+      "runtime_sha256": "5b52223e466b93b84fe9bfc93e1745df84fb9c19da8eab8ad46c33c7e913ceb6",
+      "material_binding": "ScatterItem.override_material",
+      "material": "godot/addons/proton_scatter/demos/assets/materials/m_bush.tres",
+      "stage": "trial_verified_production_pending",
+      "license": "upstream_MIT_models_demo_texture_terms_pending",
+      "provenance": {
+        "repository": "https://github.com/HungryProton/scatter",
+        "commit": "7198cc00078ebde61307578137c3f35223c6e438",
+        "plugin_version": "4.2.0",
+        "scope": "editor authoring plus explicitly requested native demo trial; formal runtime does not load plugin",
+        "license": "MIT addon/code/models; demo texture usage per upstream README; no standalone texture redistribution",
+        "upstream_readme_sha256": "4bbfb3489933faacae7dd43f35d431e76fc5cc9177028a6c41babcf013177193"
+      },
+      "consumers": [
+        "proton_rooftop_preview"
+      ],
+      "consumer_features": [
+        "SEA-AMBIENT",
+        "SEA-ASSET"
+      ],
+      "water_layer": "surface",
+      "water_layer_role": "none",
+      "collision": false,
+      "verification": {
+        "native_scatter": "passed",
+        "real_render": "passed",
+        "saved_preview_reopen": "passed",
+        "production_clock_integration": "pending",
+        "user_art_acceptance": "pending",
+        "evidence": [
+          "D:\\projects\\sea-work\\verification\\20261105-173934-proton-focused-stage-eedf1a\\report.json",
+          "docs/development/2026-11-05_proton_scatter_trial.md"
+        ]
+      }
+    },
+    {
+      "asset_id": "SEA-VEG-PROTON-ROOFTOP-TRIAL",
+      "name": "ProtonScatter天台可编辑试刷场景",
+      "domain": "vegetation",
+      "suite": "proton_native_trial",
+      "version": "v001",
+      "scope": "preview",
+      "category": "scatter_authoring_preset",
+      "source": "art_source/vegetation/proton_scatter_trial/v001/rooftop_scatter_authoring.tscn",
+      "source_sha256": "99090d2d5e0404baf384ef6599e4a4daeec7e5831f4507ac967bf244dc1d467f",
+      "manifest": "art_source/vegetation/proton_scatter_trial/v001/asset_manifest.json",
+      "runtime_path": "godot/scenes/vegetation_authoring/proton_rooftop_preview.tscn",
+      "runtime_sha256": "1b66cf9ed594b6ea46dd55d327e7d338f1ac4a32b8a0d82bc2df0e4f19470a97",
+      "stage": "trial_verified_production_pending",
+      "license": "MIT_addon_and_models_demo_texture_terms_pending",
+      "dependencies": [
+        "SEA-VEG-PROTON-DEMO-GRASS",
+        "SEA-VEG-PROTON-DEMO-GRASS-2",
+        "SEA-VEG-PROTON-DEMO-BUSH"
+      ],
+      "consumers": [
+        "proton_rooftop_preview"
+      ],
+      "consumer_features": [
+        "SEA-AMBIENT",
+        "SEA-ASSET"
+      ],
+      "verification": {
+        "actual_generators": 2,
+        "instances": 11542,
+        "render_batches": 60,
+        "native_shader": "upstream grass.gdshader unchanged",
+        "saved_preview_reopen": "passed",
+        "production_default": "v003 unchanged",
+        "evidence": [
+          "D:\\projects\\sea-work\\verification\\20261105-173934-proton-focused-stage-eedf1a\\report.json",
+          "docs/development/2026-11-05_proton_scatter_trial.md"
+        ]
+      }
+    }
+  ]
+}

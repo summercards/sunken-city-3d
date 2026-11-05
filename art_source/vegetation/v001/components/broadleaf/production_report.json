@@ -1,0 +1,68 @@
+{
+  "key": "broadleaf",
+  "label": "宽叶盆栽",
+  "profile": "leaf",
+  "triangle_budget": 700,
+  "asset_id": "SEA-VEG-BROADLEAF",
+  "source": "art_source/vegetation/v001/components/broadleaf/broadleaf.blend",
+  "source_sha256": "1cf28ffbfaeeffc9523c50d92792d6b157c65ad7dddadd9db02a82d4187ec531",
+  "optimized_source": "art_source/vegetation/v001/components/broadleaf/broadleaf_optimized.blend",
+  "optimized_sha256": "4299cb4a20eebae06524b3f653ec66d86e7c9396f2dbb40903b54475c9f69703",
+  "glb": "godot/assets/models/vegetation/broadleaf.glb",
+  "glb_sha256": "58db7f9f8710e16647f69ef9532c1cef10d1b78de1cd7d9c4f098ccd4e9effce",
+  "before": {
+    "vertices": 216,
+    "triangles": 324,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.3232215642929077,
+        -0.29704749584198,
+        0.0
+      ],
+      [
+        0.3232215642929077,
+        0.29704749584198,
+        0.5400000214576721
+      ]
+    ],
+    "root_vertices": 108,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.8307692408561707
+    ]
+  },
+  "after": {
+    "vertices": 199,
+    "triangles": 324,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.3232215642929077,
+        -0.29704749584198,
+        0.0
+      ],
+      [
+        0.3232215642929077,
+        0.29704749584198,
+        0.5400000214576721
+      ]
+    ],
+    "root_vertices": 108,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.8307692408561707
+    ]
+  },
+  "operations": [
+    "merge coincident vertices at 1e-6 m",
+    "remove degenerate edges",
+    "preserve PaletteUV and WindData seams",
+    "reopen both sources and verify"
+  ],
+  "removed_vertices": 17
+}

@@ -18,6 +18,8 @@ func shot(label: String, target: Vector3, distance: float) -> void:
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
 	root.add_child(main)
+	# 取景工具：玩家上限是 38 m（SEA-CAMERA-R11），这里临时放开，保持港湾中远景机位。
+	main.cam.zoom_max = 260.0
 	main._autosave_on = false
 	root.get_node("Economy").ticking = false
 	main.hud.hide()

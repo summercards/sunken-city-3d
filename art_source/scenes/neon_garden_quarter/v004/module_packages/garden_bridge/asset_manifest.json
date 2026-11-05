@@ -1,0 +1,64 @@
+{
+  "asset_id": "SEA-SCENE-NGQ-GARDEN-BRIDGE",
+  "name": "双坡菜园桥",
+  "domain": "scenes",
+  "suite": "neon_garden_quarter",
+  "scope": "scene_local",
+  "category": "building_module",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v004",
+  "stage": "runtime_component_verified_provenance_pending",
+  "license": "pending_user_supplied_reference",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v004/module_packages/garden_bridge/garden_bridge.blend",
+  "source_sha256": "f37e1dcb44417a182662533cb9602007672513f3c17bbd9c68ddd4aa16aff7e9",
+  "manifest": "art_source/scenes/neon_garden_quarter/v004/module_packages/garden_bridge/asset_manifest.json",
+  "runtime_path": "godot/scenes/components/facilities/neon_garden_quarter/modules/garden_bridge.tscn",
+  "runtime_sha256": "8ffd0021940019699d2c531865df4c0790699861bb1839917ce660b700e27a64",
+  "prefab": "godot/scenes/components/facilities/neon_garden_quarter/modules/garden_bridge.tscn",
+  "dependencies": [
+    "SEA-SCENE-NGQ-030",
+    "SEA-SCENE-NGQ-034",
+    "SEA-SCENE-NGQ-035",
+    "SEA-SCENE-NGQ-037",
+    "SEA-SCENE-NGQ-038",
+    "SEA-SCENE-NGQ-039",
+    "SEA-SCENE-NGQ-041",
+    "SEA-SCENE-NGQ-043",
+    "SEA-SCENE-NGQ-045",
+    "SEA-SCENE-NGQ-047",
+    "SEA-SCENE-NGQ-052"
+  ],
+  "collection": "NGQ_MODULE_garden_bridge",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "bounds": [
+    [
+      -10.799999237060547,
+      -4.637499809265137,
+      0.0
+    ],
+    [
+      10.80000114440918,
+      4.637499809265137,
+      7.551952362060547
+    ]
+  ],
+  "instance_count": 118,
+  "verification": [
+    "docs/development/2026-11-05_neon_garden_quarter_v004.md",
+    "D:\\projects\\sea-work\\verification\\20261105-105104-ngq-v004-final-d6c9b3\\report.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v004\\source_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v004\\import_verification.json"
+  ],
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-GARDEN-BRIDGE",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "collision_responsibility": "quarter scene owns gameplay projections",
+  "geometry_reuse": "v003 optimized leaf components, source and GLB hashes verified"
+}

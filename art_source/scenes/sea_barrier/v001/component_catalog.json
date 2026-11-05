@@ -1,0 +1,1386 @@
+{
+  "suite": "sea_barrier",
+  "version": "v001",
+  "components": [
+    {
+      "key": "corner_ruin_a",
+      "name": "转角残楼A（L形20米）",
+      "asset_id": "SEA-SCENE-SBW-001",
+      "collection": "SBW_01_转角残楼A（L形20米）",
+      "category": "architecture",
+      "family": "corner_ruin",
+      "kind": "corner_ruin",
+      "mesh_objects": 103,
+      "triangles": 15296,
+      "geometry_fingerprint": "9fbb7d953526725a5c013a29aacaff20647a44cc690009120c3ae30fd28df5af",
+      "bounds_size_m": [
+        24.5905,
+        25.2041,
+        28.2284
+      ],
+      "bounds_min": [
+        -13.5125,
+        -13.4674,
+        -22.8
+      ],
+      "bounds_max": [
+        11.078,
+        11.7367,
+        5.4284
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "corner_ruin_b",
+      "name": "转角残楼B（L形20米）",
+      "asset_id": "SEA-SCENE-SBW-002",
+      "collection": "SBW_02_转角残楼B（L形20米）",
+      "category": "architecture",
+      "family": "corner_ruin",
+      "kind": "corner_ruin",
+      "mesh_objects": 103,
+      "triangles": 13080,
+      "geometry_fingerprint": "58faa0f3f31138b5e7613b3c8220d7a2a406d0ee7eac83c41dc92f3d699d4034",
+      "bounds_size_m": [
+        23.9404,
+        24.8734,
+        27.9574
+      ],
+      "bounds_min": [
+        -13.5397,
+        -13.5076,
+        -22.8
+      ],
+      "bounds_max": [
+        10.4007,
+        11.3658,
+        5.1574
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_01",
+      "name": "北01·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-003",
+      "collection": "SBW_03_北01·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 65,
+      "triangles": 9400,
+      "geometry_fingerprint": "cce62dd64f81292d0eaa8e8672de0f67b0618b95d986c7910a64fdeefd58f942",
+      "bounds_size_m": [
+        24.1945,
+        9.2189,
+        28.6716
+      ],
+      "bounds_min": [
+        -11.9256,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2689,
+        4.2189,
+        5.8716
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_02",
+      "name": "北02·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-004",
+      "collection": "SBW_04_北02·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 71,
+      "triangles": 7022,
+      "geometry_fingerprint": "7768cabfe9e186576618639ba8350d03e01364b6d7dcfa2cc6e5464f4b134733",
+      "bounds_size_m": [
+        24.1223,
+        11.7707,
+        28.5556
+      ],
+      "bounds_min": [
+        -11.8772,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.245,
+        6.7707,
+        5.7556
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_03",
+      "name": "北03·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-005",
+      "collection": "SBW_05_北03·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 65,
+      "triangles": 9526,
+      "geometry_fingerprint": "0af9c9046f62a6062e498747aed6fcb039abaa56c544aca6fc4e3d69cc421259",
+      "bounds_size_m": [
+        24.1109,
+        10.1271,
+        27.247
+      ],
+      "bounds_min": [
+        -11.8206,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2903,
+        5.1271,
+        4.447
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_04",
+      "name": "北04·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-006",
+      "collection": "SBW_06_北04·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 71,
+      "triangles": 9440,
+      "geometry_fingerprint": "662700d14e7e0e2b8b553cb8a5ce6ae1f08031c4436cedad330c541cfb783395",
+      "bounds_size_m": [
+        24.0332,
+        9.8901,
+        29.8959
+      ],
+      "bounds_min": [
+        -11.8014,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2318,
+        4.8901,
+        7.0959
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_05",
+      "name": "北05·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-007",
+      "collection": "SBW_07_北05·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 92,
+      "triangles": 8284,
+      "geometry_fingerprint": "5f52b439f772f743ea29fce8d49e5cd970b5e26582b788a396dfea868300d142",
+      "bounds_size_m": [
+        24.1615,
+        11.3336,
+        30.3698
+      ],
+      "bounds_min": [
+        -11.9199,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2416,
+        6.3336,
+        7.5698
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_06",
+      "name": "北06·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-008",
+      "collection": "SBW_08_北06·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 67,
+      "triangles": 8534,
+      "geometry_fingerprint": "91b859d5d5706ca770f7ed9e1ee9608d3c67e1ba35666c7ed40bd71c886e48cd",
+      "bounds_size_m": [
+        24.0477,
+        12.444,
+        30.0298
+      ],
+      "bounds_min": [
+        -11.8607,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.187,
+        7.444,
+        7.2298
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_07",
+      "name": "北07·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-009",
+      "collection": "SBW_09_北07·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 71,
+      "triangles": 9836,
+      "geometry_fingerprint": "945fff5f21eb6011c6d25c57d93996caf43023f7e30cb52492df5c30c14b0337",
+      "bounds_size_m": [
+        23.9937,
+        9.0947,
+        31.6792
+      ],
+      "bounds_min": [
+        -11.8029,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1908,
+        4.0947,
+        8.8792
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_08",
+      "name": "北08·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-010",
+      "collection": "SBW_10_北08·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 89,
+      "triangles": 7630,
+      "geometry_fingerprint": "6fc89e0abc5fd15428be7f4d269e489c24c3c6769afd6e5834ee91cfb1f0665b",
+      "bounds_size_m": [
+        24.1118,
+        11.0216,
+        29.2713
+      ],
+      "bounds_min": [
+        -11.9175,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1943,
+        6.0216,
+        6.4713
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_09",
+      "name": "北09·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-011",
+      "collection": "SBW_11_北09·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 58,
+      "triangles": 8460,
+      "geometry_fingerprint": "845f8a13195c4de004f4a29a819c80e9ec0cea9ab523eb6ff189bb46a097e92f",
+      "bounds_size_m": [
+        24.1323,
+        9.5798,
+        29.7108
+      ],
+      "bounds_min": [
+        -11.889,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2433,
+        4.5798,
+        6.9108
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_10",
+      "name": "北10·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-012",
+      "collection": "SBW_12_北10·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 75,
+      "triangles": 10452,
+      "geometry_fingerprint": "3b6c15d59c8fc527222729a9ed54589faffbcacafbfd049420079d5544244a79",
+      "bounds_size_m": [
+        24.0553,
+        11.1345,
+        31.6253
+      ],
+      "bounds_min": [
+        -11.8183,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.237,
+        6.1345,
+        8.8253
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "north_11",
+      "name": "北11·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-013",
+      "collection": "SBW_13_北11·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 80,
+      "triangles": 7574,
+      "geometry_fingerprint": "720eded2883b7c1cdbb0fb068f41d252ccea7b1b375a5c7ef54c496a7bd27524",
+      "bounds_size_m": [
+        24.0312,
+        10.6111,
+        30.6509
+      ],
+      "bounds_min": [
+        -11.8363,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1949,
+        5.6111,
+        7.8509
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_01",
+      "name": "东01·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-014",
+      "collection": "SBW_14_东01·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 77,
+      "triangles": 6778,
+      "geometry_fingerprint": "8b6acca0e75dd2ad9cc15018c7f8337c4d6d51d53da849e4c7c21045d173167a",
+      "bounds_size_m": [
+        24.1787,
+        11.8264,
+        28.6865
+      ],
+      "bounds_min": [
+        -11.9053,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2733,
+        6.8264,
+        5.8865
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_02",
+      "name": "东02·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-015",
+      "collection": "SBW_15_东02·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 61,
+      "triangles": 8236,
+      "geometry_fingerprint": "74026b38fed28c0bed5b2776cfc2f1e491fd6e62940cf64f12411d1b5833c444",
+      "bounds_size_m": [
+        23.9728,
+        9.3597,
+        31.1663
+      ],
+      "bounds_min": [
+        -11.8223,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1505,
+        4.3597,
+        8.3663
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_03",
+      "name": "东03·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-016",
+      "collection": "SBW_16_东03·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 65,
+      "triangles": 9228,
+      "geometry_fingerprint": "f0b2fbd90353b7dbd90a8c69f675415971810adc741b6c8f080e39d418138424",
+      "bounds_size_m": [
+        24.0373,
+        8.4571,
+        31.0025
+      ],
+      "bounds_min": [
+        -11.8282,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.209,
+        3.4571,
+        8.2025
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_04",
+      "name": "东04·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-017",
+      "collection": "SBW_17_东04·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 71,
+      "triangles": 7614,
+      "geometry_fingerprint": "84e4c65fd196140507c21e86e6ac6067f36023508aa08be155576b6a34013372",
+      "bounds_size_m": [
+        24.1526,
+        7.9977,
+        30.7925
+      ],
+      "bounds_min": [
+        -11.9141,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2385,
+        2.9977,
+        7.9925
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_05",
+      "name": "东05·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-018",
+      "collection": "SBW_18_东05·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 66,
+      "triangles": 8260,
+      "geometry_fingerprint": "23de4a58f4b98479f0c795e3021eecc87a5ae9d1837e1443a98d7fde0c456ae2",
+      "bounds_size_m": [
+        24.133,
+        11.2912,
+        29.321
+      ],
+      "bounds_min": [
+        -11.8883,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2447,
+        6.2912,
+        6.521
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_06",
+      "name": "东06·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-019",
+      "collection": "SBW_19_东06·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 66,
+      "triangles": 9088,
+      "geometry_fingerprint": "7db811d53a05f5b0b4657611f6928875122fcc906795148bde46795b383de9d4",
+      "bounds_size_m": [
+        24.0464,
+        9.9173,
+        30.9019
+      ],
+      "bounds_min": [
+        -11.8832,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1632,
+        4.9173,
+        8.1019
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_07",
+      "name": "东07·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-020",
+      "collection": "SBW_20_东07·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 78,
+      "triangles": 7024,
+      "geometry_fingerprint": "54f601ce574f5e8bd0979cf9ac46d5931c20780d821d9ab282b21f27f5136ffc",
+      "bounds_size_m": [
+        23.9621,
+        12.1229,
+        30.3999
+      ],
+      "bounds_min": [
+        -11.8007,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1614,
+        7.1229,
+        7.5999
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_08",
+      "name": "东08·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-021",
+      "collection": "SBW_21_东08·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 52,
+      "triangles": 6812,
+      "geometry_fingerprint": "3ada77d2316a20d83d1300be4cbe0de603f57d03a284a0450f6a25f7572d3caf",
+      "bounds_size_m": [
+        24.1142,
+        12.2745,
+        31.2245
+      ],
+      "bounds_min": [
+        -11.9044,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2098,
+        7.2745,
+        8.4245
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_09",
+      "name": "东09·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-022",
+      "collection": "SBW_22_东09·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 67,
+      "triangles": 7148,
+      "geometry_fingerprint": "455fbe46f4bd9ee084274352b4cb4339876a2de04e454bf15428cc9fa55d9c18",
+      "bounds_size_m": [
+        24.2957,
+        11.1804,
+        29.924
+      ],
+      "bounds_min": [
+        -11.9316,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.3641,
+        6.1804,
+        7.124
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_10",
+      "name": "东10·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-023",
+      "collection": "SBW_23_东10·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 67,
+      "triangles": 6176,
+      "geometry_fingerprint": "ef94005ec371fa782745b316cfda840dc3927aed6ae33fe8d49eff8f27209276",
+      "bounds_size_m": [
+        23.972,
+        11.3751,
+        28.6813
+      ],
+      "bounds_min": [
+        -11.8004,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1717,
+        6.3751,
+        5.8813
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "east_11",
+      "name": "东11·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-024",
+      "collection": "SBW_24_东11·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 56,
+      "triangles": 6586,
+      "geometry_fingerprint": "d5766de0f070f14e1cd4a749da6225f1b43c3c75c336f8d873f2941c4c9f4447",
+      "bounds_size_m": [
+        24.0796,
+        7.8058,
+        28.7928
+      ],
+      "bounds_min": [
+        -11.844,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2356,
+        2.8058,
+        5.9928
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_01",
+      "name": "南01·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-025",
+      "collection": "SBW_25_南01·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 67,
+      "triangles": 7694,
+      "geometry_fingerprint": "c4307d22a78a90c9703b4b5c327a8cad0ea186c67c9e0ed69bf9955dc60c889e",
+      "bounds_size_m": [
+        25.4437,
+        10.8789,
+        33.3834
+      ],
+      "bounds_min": [
+        -13.2895,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1541,
+        5.8789,
+        10.5834
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_02",
+      "name": "南02·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-026",
+      "collection": "SBW_26_南02·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 69,
+      "triangles": 8664,
+      "geometry_fingerprint": "5f6b0dae497d0c7e898aaca1ad4853feaa58e0b7e91398f517a807758c16c003",
+      "bounds_size_m": [
+        24.2057,
+        11.1004,
+        30.748
+      ],
+      "bounds_min": [
+        -11.9499,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2558,
+        6.1004,
+        7.948
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_03",
+      "name": "南03·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-027",
+      "collection": "SBW_27_南03·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 91,
+      "triangles": 8062,
+      "geometry_fingerprint": "21e65436d8e05e860dc40fdf9129d42de60fad4f0212e05fcfb19e450cfb384b",
+      "bounds_size_m": [
+        24.1195,
+        11.2756,
+        29.7475
+      ],
+      "bounds_min": [
+        -11.8366,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2828,
+        6.2756,
+        6.9475
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_04",
+      "name": "南04·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-028",
+      "collection": "SBW_28_南04·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 64,
+      "triangles": 7296,
+      "geometry_fingerprint": "115a4f8fcf4d885553af1aed98b0d04440f1216ae1c3efc88a3fe33664b061c0",
+      "bounds_size_m": [
+        24.2122,
+        11.1331,
+        30.9106
+      ],
+      "bounds_min": [
+        -11.9429,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2693,
+        6.1331,
+        8.1106
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_05",
+      "name": "南05·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-029",
+      "collection": "SBW_29_南05·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 65,
+      "triangles": 8356,
+      "geometry_fingerprint": "136f4c0d17d856df5e7e1f3fd9d735b4330233ecccf459a60597bdee2731ce84",
+      "bounds_size_m": [
+        24.1596,
+        9.3569,
+        30.4543
+      ],
+      "bounds_min": [
+        -11.8949,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2647,
+        4.3569,
+        7.6543
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_06",
+      "name": "南06·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-030",
+      "collection": "SBW_30_南06·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 82,
+      "triangles": 7182,
+      "geometry_fingerprint": "1c089561a36476f4b87253417d73e14c260d11620fba4e24d829cc1ea24448e2",
+      "bounds_size_m": [
+        24.1093,
+        12.0622,
+        30.0181
+      ],
+      "bounds_min": [
+        -11.8995,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2098,
+        7.0622,
+        7.2181
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_07",
+      "name": "南07·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-031",
+      "collection": "SBW_31_南07·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 69,
+      "triangles": 7800,
+      "geometry_fingerprint": "c074cddfb7dd635809b40802cee1e18d52d24af640b5c6261e789c596340a4be",
+      "bounds_size_m": [
+        24.0736,
+        9.3246,
+        31.6936
+      ],
+      "bounds_min": [
+        -11.9137,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1599,
+        4.3246,
+        8.8936
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_08",
+      "name": "南08·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-032",
+      "collection": "SBW_32_南08·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 66,
+      "triangles": 10056,
+      "geometry_fingerprint": "d615f0b00566f53df8a39816223a28ab14fe5d208f8b3d1c9f457dd75fb90079",
+      "bounds_size_m": [
+        23.9849,
+        7.7259,
+        31.2554
+      ],
+      "bounds_min": [
+        -11.8257,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1592,
+        2.7259,
+        8.4554
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_09",
+      "name": "南09·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-033",
+      "collection": "SBW_33_南09·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 75,
+      "triangles": 7916,
+      "geometry_fingerprint": "583e0a2c260d08d5c35df4252708e3221794e25813c6242395f30d93c11645c8",
+      "bounds_size_m": [
+        24.0731,
+        9.5475,
+        28.6204
+      ],
+      "bounds_min": [
+        -11.8188,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2543,
+        4.5475,
+        5.8204
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_10",
+      "name": "南10·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-034",
+      "collection": "SBW_34_南10·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 65,
+      "triangles": 7742,
+      "geometry_fingerprint": "98c5e04d35eb588b21d4b620c90271571ab209c66279a119ad2636d4f38792e7",
+      "bounds_size_m": [
+        24.2385,
+        11.1835,
+        31.7599
+      ],
+      "bounds_min": [
+        -11.9235,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.315,
+        6.1835,
+        8.9599
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "south_11",
+      "name": "南11·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-035",
+      "collection": "SBW_35_南11·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 75,
+      "triangles": 10972,
+      "geometry_fingerprint": "eede71beb06a9a9d146f964502b4c183b1855dbe5606558c3c2809dd47602dd3",
+      "bounds_size_m": [
+        24.1094,
+        9.0678,
+        31.1626
+      ],
+      "bounds_min": [
+        -11.8577,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2516,
+        4.0678,
+        8.3626
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_01",
+      "name": "西01·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-036",
+      "collection": "SBW_36_西01·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 77,
+      "triangles": 6530,
+      "geometry_fingerprint": "03d0c3b3c3d4aa42f502400cdc9166b3fc81ad0269a4da9f0495051bb5d7498d",
+      "bounds_size_m": [
+        24.1384,
+        11.2835,
+        26.552
+      ],
+      "bounds_min": [
+        -11.8534,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.285,
+        6.2835,
+        3.752
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_02",
+      "name": "西02·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-037",
+      "collection": "SBW_37_西02·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 67,
+      "triangles": 9268,
+      "geometry_fingerprint": "4172b648108df6b6e35be70c2de9d4828d0565910b44c5b2b2e9549d36de6cd6",
+      "bounds_size_m": [
+        24.0367,
+        10.7503,
+        29.6305
+      ],
+      "bounds_min": [
+        -11.8214,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2153,
+        5.7503,
+        6.8305
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_03",
+      "name": "西03·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-038",
+      "collection": "SBW_38_西03·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 76,
+      "triangles": 8788,
+      "geometry_fingerprint": "a4e36a65dcf133d624b6abb0822b22f12ccda2b986ac9ffd31ab58a6189baf12",
+      "bounds_size_m": [
+        24.1274,
+        9.1259,
+        30.5319
+      ],
+      "bounds_min": [
+        -11.9464,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.181,
+        4.1259,
+        7.7319
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_04",
+      "name": "西04·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-039",
+      "collection": "SBW_39_西04·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 78,
+      "triangles": 6626,
+      "geometry_fingerprint": "9b028957961451d16ba82d7d4ceee46aca67643fb073ce3271d24df6c14e9052",
+      "bounds_size_m": [
+        24.0017,
+        9.8995,
+        30.2672
+      ],
+      "bounds_min": [
+        -11.8398,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1618,
+        4.8995,
+        7.4672
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_05",
+      "name": "西05·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-040",
+      "collection": "SBW_40_西05·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 64,
+      "triangles": 7422,
+      "geometry_fingerprint": "c3b0009318aeff240ccb7708605920332fe9c34c6d45cc5ad0f927f16fd96cb5",
+      "bounds_size_m": [
+        24.0545,
+        11.2639,
+        30.6685
+      ],
+      "bounds_min": [
+        -11.8699,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1847,
+        6.2639,
+        7.8685
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_06",
+      "name": "西06·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-041",
+      "collection": "SBW_41_西06·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 62,
+      "triangles": 9408,
+      "geometry_fingerprint": "b452bf744fe319fcf4f2ed9558984272486165bd4216b47ac667297e0b20932d",
+      "bounds_size_m": [
+        24.0929,
+        9.8781,
+        30.9585
+      ],
+      "bounds_min": [
+        -11.862,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2309,
+        4.8781,
+        8.1585
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_07",
+      "name": "西07·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-042",
+      "collection": "SBW_42_西07·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 80,
+      "triangles": 7802,
+      "geometry_fingerprint": "27878a7281b82b3e4b43e2953e565e9ab56e633a16eda6038b49b3d2152ffa0c",
+      "bounds_size_m": [
+        24.2152,
+        10.2048,
+        29.5595
+      ],
+      "bounds_min": [
+        -11.9613,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2539,
+        5.2048,
+        6.7595
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_08",
+      "name": "西08·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-043",
+      "collection": "SBW_43_西08·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 61,
+      "triangles": 8460,
+      "geometry_fingerprint": "51563b85665608a6ccd4ec18ca30702b068efbeeea728e0a4f0ed4930b377514",
+      "bounds_size_m": [
+        24.026,
+        10.1342,
+        29.21
+      ],
+      "bounds_min": [
+        -11.8383,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1876,
+        5.1342,
+        6.41
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_09",
+      "name": "西09·双塌房（20米）",
+      "asset_id": "SEA-SCENE-SBW-044",
+      "collection": "SBW_44_西09·双塌房（20米）",
+      "category": "architecture",
+      "family": "house_pair",
+      "kind": "house_pair",
+      "mesh_objects": 80,
+      "triangles": 10008,
+      "geometry_fingerprint": "70a2a7fe35553ada50d0cfe095fdb85864394b5dc20e5572074a6dfc7b2e56f2",
+      "bounds_size_m": [
+        24.1149,
+        11.9369,
+        30.3077
+      ],
+      "bounds_min": [
+        -11.901,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.2138,
+        6.9369,
+        7.5077
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_10",
+      "name": "西10·半沉林带（20米）",
+      "asset_id": "SEA-SCENE-SBW-045",
+      "collection": "SBW_45_西10·半沉林带（20米）",
+      "category": "architecture",
+      "family": "forest_band",
+      "kind": "forest_band",
+      "mesh_objects": 92,
+      "triangles": 8898,
+      "geometry_fingerprint": "07e7085699b486b1631dfafa3c4566d0085b6d969fbf225d0ae2595a32e2f61e",
+      "bounds_size_m": [
+        23.9899,
+        10.749,
+        29.8365
+      ],
+      "bounds_min": [
+        -11.8342,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1557,
+        5.749,
+        7.0365
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "west_11",
+      "name": "西11·斜塌楼（20米）",
+      "asset_id": "SEA-SCENE-SBW-046",
+      "collection": "SBW_46_西11·斜塌楼（20米）",
+      "category": "architecture",
+      "family": "single_house",
+      "kind": "single_house",
+      "mesh_objects": 59,
+      "triangles": 7666,
+      "geometry_fingerprint": "b85594bc790e7da6c14dbaf4193e99e30e3740f591af4662f1796e2d26cd1ee3",
+      "bounds_size_m": [
+        24.0615,
+        10.2105,
+        29.6869
+      ],
+      "bounds_min": [
+        -11.8763,
+        -5.0,
+        -22.8
+      ],
+      "bounds_max": [
+        12.1852,
+        5.2105,
+        6.8869
+      ],
+      "material_roles": [
+        "SEA_Matte"
+      ]
+    }
+  ]
+}

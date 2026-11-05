@@ -1,0 +1,90 @@
+{
+  "key": "sign_board",
+  "slug": "sign_board",
+  "name": "旧街道导向牌",
+  "category": "facilities",
+  "component_family": "sign",
+  "component_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    4.4,
+    1,
+    4.5
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 4,
+  "collection": "SEA-SCENE-SCITY-SIGN-BOARD_旧街道导向牌",
+  "root_object": "SEA-SCENE-SCITY-SIGN-BOARD_ROOT",
+  "objects": [
+    "旧街道导向牌_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-SIGN-BOARD_ROOT"
+  ],
+  "bounds_size_m": [
+    4.460979461669922,
+    1.0,
+    4.526264190673828
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 1490,
+  "polygons": 833,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/sign_board/sign_board.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v002",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "93576b235d127ba50eff53a96491e893f06e8e1daa436b7bca5c7d4f00dc895e",
+  "geometry_fingerprint": "f04f7a560c8ec8292fc0d3691d570f6f029ae9083b69ccc7223c2b12f852f0d7",
+  "bounds_min": [
+    -2.230489730834961,
+    -0.5,
+    0.0
+  ],
+  "bounds_max": [
+    2.230489730834961,
+    0.5,
+    4.526264190673828
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\sign_board.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-SIGN-BOARD"
+}

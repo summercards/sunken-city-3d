@@ -1,0 +1,48 @@
+{
+  "asset_id": "SEA-VEG-PROTON-DEMO-GRASS-2",
+  "name": "ProtonScatter 原版草B",
+  "domain": "vegetation",
+  "suite": "proton_native_trial",
+  "version": "upstream_7198cc0",
+  "scope": "preview",
+  "category": "third_party_vegetation",
+  "source": "godot/addons/proton_scatter/demos/assets/models/grass_2.glb",
+  "source_sha256": "604c81fcc9369966b6d638165141a3d76c06afd327f6f94b0c35012f0ddf0262",
+  "manifest": "art_source/vegetation/proton_scatter_trial/v001/grass_2_manifest.json",
+  "runtime_path": "godot/addons/proton_scatter/demos/assets/models/grass_2.glb",
+  "runtime_sha256": "604c81fcc9369966b6d638165141a3d76c06afd327f6f94b0c35012f0ddf0262",
+  "material_binding": "ScatterItem.override_material",
+  "material": "godot/addons/proton_scatter/demos/assets/materials/m_grass.tres",
+  "stage": "trial_verified_production_pending",
+  "license": "upstream_MIT_models_demo_texture_terms_pending",
+  "provenance": {
+    "repository": "https://github.com/HungryProton/scatter",
+    "commit": "7198cc00078ebde61307578137c3f35223c6e438",
+    "plugin_version": "4.2.0",
+    "scope": "editor authoring plus explicitly requested native demo trial; formal runtime does not load plugin",
+    "license": "MIT addon/code/models; demo texture usage per upstream README; no standalone texture redistribution",
+    "upstream_readme_sha256": "4bbfb3489933faacae7dd43f35d431e76fc5cc9177028a6c41babcf013177193"
+  },
+  "consumers": [
+    "proton_rooftop_preview"
+  ],
+  "consumer_features": [
+    "SEA-AMBIENT",
+    "SEA-ASSET"
+  ],
+  "water_layer": "surface",
+  "water_layer_role": "none",
+  "collision": false,
+  "verification": {
+    "native_scatter": "passed",
+    "real_render": "passed",
+    "saved_preview_reopen": "passed",
+    "production_clock_integration": "pending",
+    "user_art_acceptance": "pending",
+    "evidence": [
+      "D:\\projects\\sea-work\\verification\\20261105-173934-proton-focused-stage-eedf1a\\report.json",
+      "docs/development/2026-11-05_proton_scatter_trial.md"
+    ]
+  },
+  "asset_ledger": "assets/registry/ledgers/vegetation.json#SEA-VEG-PROTON-DEMO-GRASS-2"
+}

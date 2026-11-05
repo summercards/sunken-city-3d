@@ -39,5 +39,9 @@ args=sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else list(views)
 for key in args:
  S.camera=bpy.data.objects[views[key]];S.render.resolution_x=1300;S.render.resolution_y=1500 if key=='reference' else 1300
  if key=='reference':S.render.resolution_x=1000
- plants=bpy.data.collections['04_独立植物'];plants.hide_render=key=='architecture'
+ plants=bpy.data.collections.get('04_独立植物')
+ if plants is not None:plants.hide_render=key=='architecture'
+ if version=='v004':
+  for collection in bpy.data.collections:
+   if collection.get('ngq_category')=='plants':collection.hide_render=key=='architecture'
  S.render.filepath=str(out/f'{key}.png');S.cycles.samples=40;bpy.ops.render.render(write_still=True);print('NGQ_RENDER',key,flush=True)

@@ -1,0 +1,90 @@
+{
+  "key": "scooter",
+  "slug": "scooter",
+  "name": "旧踏板车_沉没",
+  "category": "facilities",
+  "component_family": "scooter",
+  "component_id": "SEA-SCENE-SCITY-SCOOTER",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    2.2,
+    1,
+    1.7
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 5,
+  "collection": "SEA-SCENE-SCITY-SCOOTER_旧踏板车_沉没",
+  "root_object": "SEA-SCENE-SCITY-SCOOTER_ROOT",
+  "objects": [
+    "旧踏板车_沉没_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-SCOOTER_ROOT"
+  ],
+  "bounds_size_m": [
+    2.059999942779541,
+    0.800000011920929,
+    1.7052394151687622
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 690,
+  "polygons": 338,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/scooter/scooter.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v002",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-SCOOTER",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "2542af5b021eeb40f1aa786c6c938a268195ea002469ecf8805efde864866590",
+  "geometry_fingerprint": "12ca3f32bab4b53570d79305e150d26557122b170f252522b5445c95d943728b",
+  "bounds_min": [
+    -1.0299999713897705,
+    -0.4000000059604645,
+    0.0
+  ],
+  "bounds_max": [
+    1.0299999713897705,
+    0.4000000059604645,
+    1.7052394151687622
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\scooter.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-SCOOTER"
+}

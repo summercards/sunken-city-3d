@@ -52,3 +52,8 @@
 原 `SEA-FARM-SOIL-CELL` 保留，但描述改为「木框培养土」，不再声称承载作物模型。
 
 2026-11-02：两类职责整理已登记。资产维护后运行 `python tools/apply_water_layer.py` 同步分类和视图，再运行功能契约sync／复核；无需改动既有源哈希或运行哈希。[本轮记录](../../docs/development/2026-11-02_building_two_class_contract.md)。
+
+
+## 2026-11-05 共享植被独立分账本
+
+`ledger_index.json` 的 vegetation 域路由到 [植被独立资产账本](ledgers/vegetation.json)。当前为阳光房v002柔软草皮：草叶贴片、苔藓贴片、共用Image-2图集分别独立登记。每件可复用，源/优化源/运行路径、真实哈希、消费者与验收维度分别记录；原场景植物仍归历史场景账本，未复制或换ID。v001实体候选被用户否定，不进入正式账本。[使用方法](../../docs/features/ambient/vegetation_soft_cards.md)。

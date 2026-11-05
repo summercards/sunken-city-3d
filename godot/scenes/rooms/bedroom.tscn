@@ -1,0 +1,132 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://src/room/room_scene.gd" id="room_scene"]
+[ext_resource type="Script" uid="uid://ccxkxo7n0ye11" path="res://src/navigation/walk_area.gd" id="walk"]
+[ext_resource type="Script" path="res://src/navigation/actor_collision_body.gd" id="block"]
+[ext_resource type="Script" path="res://src/room/room_bed.gd" id="bed_script"]
+[ext_resource type="Script" path="res://src/room/room_cutaway.gd" id="cutaway_script"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/floor_planks.tscn" id="c_floor"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/wall_window.tscn" id="c_wall_window"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/wall_door.tscn" id="c_wall_door"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/wall_side_e.tscn" id="c_wall_east"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/wall_side_w.tscn" id="c_wall_west"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/ceiling.tscn" id="c_ceiling"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/porch_glass.tscn" id="c_porch"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/door_leaf.tscn" id="c_door"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/bed.tscn" id="c_bed"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/nightstand.tscn" id="c_nightstand"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/table_lamp.tscn" id="c_lamp"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/rug.tscn" id="c_rug"]
+[ext_resource type="PackedScene" path="res://scenes/components/room/shelf.tscn" id="c_shelf"]
+
+[sub_resource type="BoxShape3D" id="Shape_nightstand"]
+size = Vector3(0.53, 0.52, 0.5)
+
+[sub_resource type="BoxShape3D" id="Shape_shelf"]
+size = Vector3(0.53, 0.8, 1.56)
+
+; SEA-ROOM 房间：内部净空 5×5 米，木头地板、白墙、后墙一面窗，前侧一个玻璃前厅。
+; 原点在室内地面中心，+Z 朝玻璃前厅；整间房摆在太阳房屋顶正上方
+; (2.5, 12.6, 1.0)——比屋面最高点 11.89 米再高 0.7 米，不穿模。
+; 四周墙面高度 2.75 米。走的是与海上区块相同的接口（zone_id / walk_areas），
+; 所以房间里点地面走路、交互判定、存档位置校验都不需要另开通道。
+[node name="Bedroom" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 12.6, 1.0)
+script = ExtResource("room_scene")
+zone_id = "room"
+zone_label = "房间"
+water_layer = "surface"
+water_layer_role = "part"
+
+[node name="Shell" type="Node3D" parent="."]
+
+[node name="Floor" parent="Shell" instance=ExtResource("c_floor")]
+
+[node name="WallWindow" parent="Shell" instance=ExtResource("c_wall_window")]
+
+[node name="WallDoor" parent="Shell" instance=ExtResource("c_wall_door")]
+
+[node name="WallEast" parent="Shell" instance=ExtResource("c_wall_east")]
+
+[node name="WallWest" parent="Shell" instance=ExtResource("c_wall_west")]
+
+[node name="Ceiling" parent="Shell" instance=ExtResource("c_ceiling")]
+
+[node name="Porch" parent="Shell" instance=ExtResource("c_porch")]
+
+[node name="Door" parent="Shell" instance=ExtResource("c_door")]
+
+[node name="Furnishings" type="Node3D" parent="."]
+
+; 床是唯一可搬动的家具：位置与朝向由 SEA-ROOM 的布局状态拥有，
+; 这里的 transform 只是初版摆放，进房间与读档时都会被 apply_layout 覆盖。
+[node name="Bed" type="Node3D" parent="Furnishings"]
+position = Vector3(-1.86, 0, -1.425)
+script = ExtResource("bed_script")
+
+[node name="Visual" parent="Furnishings/Bed" instance=ExtResource("c_bed")]
+
+[node name="Nightstand" parent="Furnishings" instance=ExtResource("c_nightstand")]
+position = Vector3(-0.95, 0, -2.29)
+
+[node name="TableLamp" parent="Furnishings" instance=ExtResource("c_lamp")]
+position = Vector3(-0.95, 0.5, -2.29)
+
+[node name="Rug" parent="Furnishings" instance=ExtResource("c_rug")]
+position = Vector3(0.45, 0, 0.35)
+
+[node name="Shelf" parent="Furnishings" instance=ExtResource("c_shelf")]
+position = Vector3(2.24, 0, -0.15)
+
+; 固定陈设的遮挡：床自带遮挡（跟着床走），这两件是死的。
+[node name="NightstandBlock" type="StaticBody3D" parent="Furnishings"]
+position = Vector3(-0.95, 0.26, -2.29)
+script = ExtResource("block")
+
+[node name="Shape" type="CollisionShape3D" parent="Furnishings/NightstandBlock"]
+shape = SubResource("Shape_nightstand")
+
+[node name="ShelfBlock" type="StaticBody3D" parent="Furnishings"]
+position = Vector3(2.24, 0.4, -0.15)
+script = ExtResource("block")
+
+[node name="Shape" type="CollisionShape3D" parent="Furnishings/ShelfBlock"]
+shape = SubResource("Shape_shelf")
+
+; 可走面：室内 + 1.1 米宽的门槛 + 玻璃前厅。门槛这一块是关键 ——
+; 少了它，前厅和室内就是两个断开的矩形，人从门里走不过去。
+[node name="WalkAreas" type="Node3D" parent="."]
+
+[node name="Walk_room_floor" type="Node3D" parent="WalkAreas"]
+script = ExtResource("walk")
+area_id = "room_floor"
+zone_id = "room"
+surface_y = 12.6
+span_min = 0.0
+span_max = 3.2
+rects = [Rect2(-2.42, -2.42, 4.84, 4.84), Rect2(-0.55, 2.4, 1.1, 0.34), Rect2(-1.62, 2.7, 3.24, 1.62)]
+
+; 室内灯：都挂在 home_lamps 组，由日照装置按时段自动开关 ——
+; 白天熄、入夜渐亮，和家园其它灯同一条曲线，不另造一套亮度规则。
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="LampGlow" type="OmniLight3D" parent="Lights" groups=["home_lamps"]]
+position = Vector3(-0.95, 0.88, -2.29)
+light_color = Color(1, 0.66, 0.32, 1)
+light_energy = 1.35
+light_specular = 0.15
+omni_range = 5.5
+omni_attenuation = 0.9
+shadow_enabled = true
+
+[node name="RoomFill" type="OmniLight3D" parent="Lights" groups=["home_lamps"]]
+position = Vector3(0.25, 2.3, 0.45)
+light_color = Color(1, 0.93, 0.82, 1)
+light_energy = 0.55
+light_specular = 0.05
+omni_range = 7.5
+omni_attenuation = 1.0
+
+; 剖切：相机在房顶以上时收起天花，在南侧时收起前墙。
+[node name="Cutaway" type="Node3D" parent="."]
+script = ExtResource("cutaway_script")

@@ -26,7 +26,7 @@ func _box(rect: Rect2, color: Color, radius: int) -> void:
 	draw_style_box(Cozy.surface(color,radius),rect)
 
 func _draw() -> void:
-	var colors: Dictionary={"menu":"#e6b951","bag":"#4eaa92","notes":"#d79450","shop":"#e58e78","storage":"#6d9db5","shipping":"#8bae69","map":"#65b4c2","system":"#a59ac5","dive":"#64a3c1","build":"#c79d66"}
+	var colors: Dictionary={"menu":"#e6b951","bag":"#4eaa92","notes":"#d79450","shop":"#e58e78","storage":"#6d9db5","shipping":"#8bae69","map":"#65b4c2","system":"#a59ac5","dive":"#64a3c1","build":"#c79d66","exit":"#d9a15c"}
 	var color:=Color(colors.get(kind,"#4eaa92"))
 	if kind=="follow": color=Color("#4eaa92") if selected else Color("#d5b061")
 	if hovered: color=color.lightened(0.12)
@@ -72,6 +72,14 @@ func _draw() -> void:
 		draw_line(Vector2(30,17),Vector2(29,50),Color("#dcd5b6"),2,true);draw_line(Vector2(43,22),Vector2(42,55),Color("#dcd5b6"),2,true)
 		draw_circle(Vector2(26,31),6,Color("#8abb84"),true,-1,true);draw_circle(Vector2(45,42),7,Color("#8abb84"),true,-1,true)
 		draw_line(Vector2(28,33),Vector2(44,42),Color("#df9970"),3,true)
+	elif kind=="exit":
+		# 一扇门 + 指向门外的箭头：读作「离开这里」。
+		_box(Rect2(20,17,26,38),Cozy.CREAM,4)
+		_box(Rect2(23,20,20,32),color.darkened(0.22),3)
+		draw_circle(Vector2(40,36),2.6,Cozy.CREAM,true,-1,true)
+		draw_line(Vector2(45,36),Vector2(55,36),Cozy.CREAM,5,true)
+		draw_line(Vector2(55,36),Vector2(50,31),Cozy.CREAM,5,true)
+		draw_line(Vector2(55,36),Vector2(50,41),Cozy.CREAM,5,true)
 	else:
 		var icon:=Art.texture(kind,true)
 		if icon: draw_texture_rect(icon,Rect2(15,15,42,42),false,Cozy.CREAM)

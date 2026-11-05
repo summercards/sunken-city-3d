@@ -1,0 +1,204 @@
+[gd_scene load_steps=48 format=3]
+
+[ext_resource type="Script" path="res://src/world/sea_barrier.gd" id="barrier"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/corner_ruin_a.tscn" id="c0"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/corner_ruin_b.tscn" id="c1"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_01.tscn" id="c2"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_02.tscn" id="c3"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_03.tscn" id="c4"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_04.tscn" id="c5"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_05.tscn" id="c6"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_06.tscn" id="c7"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_07.tscn" id="c8"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_08.tscn" id="c9"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_09.tscn" id="c10"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_10.tscn" id="c11"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/north_11.tscn" id="c12"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_01.tscn" id="c13"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_02.tscn" id="c14"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_03.tscn" id="c15"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_04.tscn" id="c16"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_05.tscn" id="c17"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_06.tscn" id="c18"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_07.tscn" id="c19"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_08.tscn" id="c20"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_09.tscn" id="c21"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_10.tscn" id="c22"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/east_11.tscn" id="c23"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_01.tscn" id="c24"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_02.tscn" id="c25"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_03.tscn" id="c26"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_04.tscn" id="c27"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_05.tscn" id="c28"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_06.tscn" id="c29"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_07.tscn" id="c30"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_08.tscn" id="c31"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_09.tscn" id="c32"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_10.tscn" id="c33"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/south_11.tscn" id="c34"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_01.tscn" id="c35"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_02.tscn" id="c36"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_03.tscn" id="c37"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_04.tscn" id="c38"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_05.tscn" id="c39"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_06.tscn" id="c40"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_07.tscn" id="c41"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_08.tscn" id="c42"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_09.tscn" id="c43"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_10.tscn" id="c44"]
+[ext_resource type="PackedScene" path="res://scenes/components/barrier/west_11.tscn" id="c45"]
+
+[node name="SeaBarrier" type="Node3D"]
+script = ExtResource("barrier")
+asset_id = "SEA-SCENE-SBW-ASSEMBLY"
+role = "barrier"
+metadata/asset_id = "SEA-SCENE-SBW-ASSEMBLY"
+metadata/asset_version = "v001"
+metadata/building_class = "above_water"
+metadata/segments = 46
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="corner_ruin_a_01" parent="Visual" instance=ExtResource("c0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 120, 0, -120)
+
+[node name="corner_ruin_a_02" parent="Visual" instance=ExtResource("c0")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -120, 0, 120)
+
+[node name="corner_ruin_b_01" parent="Visual" instance=ExtResource("c1")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -120, 0, -120)
+
+[node name="corner_ruin_b_02" parent="Visual" instance=ExtResource("c1")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 120, 0, 120)
+
+[node name="north_01_01" parent="Visual" instance=ExtResource("c2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, -125)
+
+[node name="north_02_01" parent="Visual" instance=ExtResource("c3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 0, -125)
+
+[node name="north_03_01" parent="Visual" instance=ExtResource("c4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, -125)
+
+[node name="north_04_01" parent="Visual" instance=ExtResource("c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 0, -125)
+
+[node name="north_05_01" parent="Visual" instance=ExtResource("c6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, -125)
+
+[node name="north_06_01" parent="Visual" instance=ExtResource("c7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -125)
+
+[node name="north_07_01" parent="Visual" instance=ExtResource("c8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, -125)
+
+[node name="north_08_01" parent="Visual" instance=ExtResource("c9")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, -125)
+
+[node name="north_09_01" parent="Visual" instance=ExtResource("c10")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -125)
+
+[node name="north_10_01" parent="Visual" instance=ExtResource("c11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, -125)
+
+[node name="north_11_01" parent="Visual" instance=ExtResource("c12")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, -125)
+
+[node name="east_01_01" parent="Visual" instance=ExtResource("c13")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, 100)
+
+[node name="east_02_01" parent="Visual" instance=ExtResource("c14")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, 80)
+
+[node name="east_03_01" parent="Visual" instance=ExtResource("c15")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, 60)
+
+[node name="east_04_01" parent="Visual" instance=ExtResource("c16")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, 40)
+
+[node name="east_05_01" parent="Visual" instance=ExtResource("c17")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, 20)
+
+[node name="east_06_01" parent="Visual" instance=ExtResource("c18")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, 0)
+
+[node name="east_07_01" parent="Visual" instance=ExtResource("c19")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, -20)
+
+[node name="east_08_01" parent="Visual" instance=ExtResource("c20")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, -40)
+
+[node name="east_09_01" parent="Visual" instance=ExtResource("c21")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, -60)
+
+[node name="east_10_01" parent="Visual" instance=ExtResource("c22")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, -80)
+
+[node name="east_11_01" parent="Visual" instance=ExtResource("c23")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 125, 0, -100)
+
+[node name="south_01_01" parent="Visual" instance=ExtResource("c24")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -100, 0, 125)
+
+[node name="south_02_01" parent="Visual" instance=ExtResource("c25")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -80, 0, 125)
+
+[node name="south_03_01" parent="Visual" instance=ExtResource("c26")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -60, 0, 125)
+
+[node name="south_04_01" parent="Visual" instance=ExtResource("c27")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -40, 0, 125)
+
+[node name="south_05_01" parent="Visual" instance=ExtResource("c28")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -20, 0, 125)
+
+[node name="south_06_01" parent="Visual" instance=ExtResource("c29")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 125)
+
+[node name="south_07_01" parent="Visual" instance=ExtResource("c30")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 20, 0, 125)
+
+[node name="south_08_01" parent="Visual" instance=ExtResource("c31")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 40, 0, 125)
+
+[node name="south_09_01" parent="Visual" instance=ExtResource("c32")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 60, 0, 125)
+
+[node name="south_10_01" parent="Visual" instance=ExtResource("c33")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 80, 0, 125)
+
+[node name="south_11_01" parent="Visual" instance=ExtResource("c34")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 100, 0, 125)
+
+[node name="west_01_01" parent="Visual" instance=ExtResource("c35")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, 100)
+
+[node name="west_02_01" parent="Visual" instance=ExtResource("c36")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, 80)
+
+[node name="west_03_01" parent="Visual" instance=ExtResource("c37")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, 60)
+
+[node name="west_04_01" parent="Visual" instance=ExtResource("c38")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, 40)
+
+[node name="west_05_01" parent="Visual" instance=ExtResource("c39")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, 20)
+
+[node name="west_06_01" parent="Visual" instance=ExtResource("c40")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, 0)
+
+[node name="west_07_01" parent="Visual" instance=ExtResource("c41")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, -20)
+
+[node name="west_08_01" parent="Visual" instance=ExtResource("c42")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, -40)
+
+[node name="west_09_01" parent="Visual" instance=ExtResource("c43")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, -60)
+
+[node name="west_10_01" parent="Visual" instance=ExtResource("c44")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, -80)
+
+[node name="west_11_01" parent="Visual" instance=ExtResource("c45")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -125, 0, -100)

@@ -3,6 +3,27 @@
   "note": "已跟踪运行资源路径与内容基线；不凭路径自动发明生产 AssetID，不等于资产制作验收。",
   "resources": [
     {
+      "path": "godot/addons/proton_scatter/demos/assets/models/bush.glb",
+      "sha256": "5b52223e466b93b84fe9bfc93e1745df84fb9c19da8eab8ad46c33c7e913ceb6",
+      "bytes": 5288,
+      "asset_id": "SEA-VEG-PROTON-DEMO-BUSH",
+      "status": "trial_verified_excluded_from_release"
+    },
+    {
+      "path": "godot/addons/proton_scatter/demos/assets/models/grass.glb",
+      "sha256": "5bf5adc17329290fe82afc5e6aff8159ffd51888287b4f207b1ff7f74ff819f6",
+      "bytes": 1628,
+      "asset_id": "SEA-VEG-PROTON-DEMO-GRASS",
+      "status": "trial_verified_excluded_from_release"
+    },
+    {
+      "path": "godot/addons/proton_scatter/demos/assets/models/grass_2.glb",
+      "sha256": "604c81fcc9369966b6d638165141a3d76c06afd327f6f94b0c35012f0ddf0262",
+      "bytes": 1356,
+      "asset_id": "SEA-VEG-PROTON-DEMO-GRASS-2",
+      "status": "trial_verified_excluded_from_release"
+    },
+    {
       "path": "godot/assets/baked/birds.json",
       "bytes": 19376,
       "sha256": "8b640b7c684e0c3275384380664b97811c6798d4b2f12a349311fe20a5dc4762",
@@ -284,6 +305,14 @@
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
     },
     {
+      "path": "godot/assets/materials/barrier/matte.tres",
+      "bytes": 284,
+      "sha256": "5657fdb48786663b02036dbbc0ae18e27ffb11a2e9e1a4c6bc0d55cf746af751",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R47 sea_barrier contract"
+    },
+    {
       "path": "godot/assets/materials/building_kit/emission.tres",
       "asset_id": null,
       "status": "runtime_resource_verified",
@@ -439,6 +468,13 @@
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
     },
     {
+      "path": "godot/assets/materials/room/room_glass.tres",
+      "asset_id": null,
+      "sha256": "b3bfdf5a0b0d7ceec874040e48f2e8a7d87b6547bb95da7a31c3cc28fd094f4c",
+      "bytes": 1200,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
       "path": "godot/assets/materials/solar_cabin/sunny_emission.tres",
       "bytes": 512,
       "sha256": "b790020329798b0da33a50d4b238530e985981d61c6a188af7081e8eebd34bcb",
@@ -475,6 +511,27 @@
       "note": "Reviewed v008 timber/daypart change"
     },
     {
+      "path": "godot/assets/materials/vegetation/grass_soft.tres",
+      "bytes": 520,
+      "sha256": "a3da654a27f6fac6bd46e2ad3228bafa80ceb770eb3c586dc0ae4d9b2ca08482",
+      "asset_id": "SEA-AMBIENT-SOFT-VEGETATION",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/assets/materials/vegetation/moss_soft.tres",
+      "bytes": 483,
+      "sha256": "f44d7e4596c4781d57932465b03bea11564663c8de238b880b49f4b4586f8801",
+      "asset_id": "SEA-AMBIENT-SOFT-VEGETATION",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/assets/materials/vegetation/mound_soft.tres",
+      "sha256": "d93d82e8e6a282fdb104463c13286bda387f0edcf48118d4de77be069f29b401",
+      "bytes": 520,
+      "asset_id": "SEA-AMBIENT-SOFT-VEGETATION",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
       "path": "godot/assets/materials/water.tres",
       "bytes": 4790,
       "sha256": "da61719a2885257bc6e358262a7040b79af5bd9701441cb472d74dce0e19b3e6",
@@ -507,6 +564,374 @@
           "evidence": "docs/development/2026-10-28_cozy_daypart_atmosphere.md"
         }
       ]
+    },
+    {
+      "path": "godot/assets/models/barrier/corner_ruin_a/corner_ruin_a.glb",
+      "bytes": 1149728,
+      "sha256": "0de2d10a9895fe98e840521ae63e7eb2a9a40febc465fea0e1d9a3ce8516d2d7",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/corner_ruin_b/corner_ruin_b.glb",
+      "bytes": 993200,
+      "sha256": "cd89554109c71348474444faa4707db1a2a77841f5727fb4f00afeecd9981604",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_01/east_01.glb",
+      "bytes": 527248,
+      "sha256": "d2012af53a71febc2d4eba8bd033f6485b18af6037695a463b7f75f35a944b6a",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_02/east_02.glb",
+      "bytes": 622264,
+      "sha256": "05e20eef207ddae6302600755eceb720258589562f3f305e3dc6a84f9ec8089d",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_03/east_03.glb",
+      "bytes": 694856,
+      "sha256": "f84c671d1d44c4f9e8974f2a3bf5c678969b281bee39a23bfe2c0c106e950686",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_04/east_04.glb",
+      "bytes": 583552,
+      "sha256": "58330f585ff604ab7b8292a35f9ec7b0fffe356b802e451a0b84d3ae8aa0fb60",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_05/east_05.glb",
+      "bytes": 623032,
+      "sha256": "ec2735ab70c07140b99ef2f6dc74c52af954f395b210d7853b38934c0ad80f40",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_06/east_06.glb",
+      "bytes": 682696,
+      "sha256": "20fc0f987586207c443705207aaf1f997fc14f4076d05c257ffd4d39b9d776fe",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_07/east_07.glb",
+      "bytes": 548528,
+      "sha256": "38520a9714761337a5347a75856a636c6399f95c325159daad15989763cd9c13",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_08/east_08.glb",
+      "bytes": 517060,
+      "sha256": "1f22459885e60c822d22095aab13dadad81c16c80d666f912a39f266c74c9e47",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_09/east_09.glb",
+      "bytes": 551240,
+      "sha256": "a759a26325a5b6f42c882665a846edddba557d3e6c18276f1fbe3696cac007f3",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_10/east_10.glb",
+      "bytes": 481564,
+      "sha256": "d6b0afa6d98d916b94d344a5009f16152bf6b87f2df3d83e320911c2be6620fc",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/east_11/east_11.glb",
+      "bytes": 506204,
+      "sha256": "9116150d68847b009dae9df3d701a9c7558cde9dab4e1eb1d611ae1c1c21cf3b",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_01/north_01.glb",
+      "bytes": 707132,
+      "sha256": "ab7bc9b8fb0a3c530bc8f4484d1d868214825cee1a5cf2826fbf2b5cc0492024",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_02/north_02.glb",
+      "bytes": 539596,
+      "sha256": "1c16ae7085591a9ca2e25cecf070095b000b59d49af6efbb33168686bd2c5554",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_03/north_03.glb",
+      "bytes": 716224,
+      "sha256": "e9dd5407d1bc395b601bf18be2441f1e65d7cca301bc9d130b430af3497424a1",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_04/north_04.glb",
+      "bytes": 712876,
+      "sha256": "a809828a37545420d5fce897fb5228c11bc5b9c8ef59a38ddb873448ebaa3f97",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_05/north_05.glb",
+      "bytes": 642552,
+      "sha256": "a1dfde7e539077877e7e9a812923ce649696ac668077f3934c90bd912f498593",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_06/north_06.glb",
+      "bytes": 648404,
+      "sha256": "11da45284ecff376182cee7b690a6b3e3d0b126ee023745ba317f615fad96b3f",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_07/north_07.glb",
+      "bytes": 740828,
+      "sha256": "7a5ae03a04d1e3fc141e73ed1d51df04010dd5fdfd03a5000d5ebf6d3f0a429b",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_08/north_08.glb",
+      "bytes": 594516,
+      "sha256": "6a5f9cfe667af5e8c334364fd296de65d437685a1a5c16589c2d2df283f371ab",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_09/north_09.glb",
+      "bytes": 637104,
+      "sha256": "2de9a548c50130c0604aaa696af5c61409af730d67abc666d0d0f45db331f7ee",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_10/north_10.glb",
+      "bytes": 786208,
+      "sha256": "41faeb3f5f4bc9d28dac4229d6a48a860b96d42ed0bac660fe7350586c89f3c8",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/north_11/north_11.glb",
+      "bytes": 585064,
+      "sha256": "c01358760acb72f143bc5d53c12d0f3aca8689a7a7d60d38f6bbfb777b14894e",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_01/south_01.glb",
+      "bytes": 588292,
+      "sha256": "a084a59793a6fa575a8b14bde3c37b773b6068383c602e637aa0210ef80f690a",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_02/south_02.glb",
+      "bytes": 656648,
+      "sha256": "7792c44018e3686821a48d0afcae2280d8a1158dfdc65d464e4d9ab9516a8791",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_03/south_03.glb",
+      "bytes": 628064,
+      "sha256": "330a32feb95190608e82247b34438776bfbc5f90bb7542474171c473f00b9922",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_04/south_04.glb",
+      "bytes": 561156,
+      "sha256": "c6ca3ae65db12b61aa1ca3132b38bbee30d9c42ab9265243224b9a42b0daa208",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_05/south_05.glb",
+      "bytes": 631712,
+      "sha256": "0a3878d43bb495ee2e0cc5c3683437a49c3fdfdd17ee8ed9723d67ce3130b2a8",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_06/south_06.glb",
+      "bytes": 566056,
+      "sha256": "f1395a1a4d2537ec03502ca6771572d80e678d5be15d2fc921f39be6a8c4e017",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_07/south_07.glb",
+      "bytes": 596132,
+      "sha256": "343f2f6329f1ca30ae70e87e7a796948e8065832b3a40681cf18f93b0a2dd2a1",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_08/south_08.glb",
+      "bytes": 754436,
+      "sha256": "c51cab2f9e2b8de96ea64f3a3e34f407bec26ac2a4629097a7c0681cfbed60b9",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_09/south_09.glb",
+      "bytes": 608028,
+      "sha256": "23e078e9ea65bc296aa84cc8ac3ac910219b4fb0ca18a1ec7b1853dffa6a5eb1",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_10/south_10.glb",
+      "bytes": 585180,
+      "sha256": "f5ee0da0859485f0d9c3c36e92d49590ab7abfe035818d741c43fc29da707e03",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/south_11/south_11.glb",
+      "bytes": 822600,
+      "sha256": "927c56887e5978104ddb8925c2d28116271886e5fa595797d91367c7403153f6",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_01/west_01.glb",
+      "bytes": 511576,
+      "sha256": "470eb2dafc98ef078efcd9dca427ae3cea40a255a9651688572d46a590dbc390",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_02/west_02.glb",
+      "bytes": 699536,
+      "sha256": "a3333dda086e983b44d4b2dd23219afaf96f7d65c061c57f31b2887906d1a10d",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_03/west_03.glb",
+      "bytes": 669940,
+      "sha256": "b3bb2ff0cf779057b08168ed829ba84b93c6a6c31c5a6603fa56f044ec971752",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_04/west_04.glb",
+      "bytes": 519512,
+      "sha256": "445fccc422e9b9a576eb3a740aec273ff20d195868405d59821405f5676d00a0",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_05/west_05.glb",
+      "bytes": 569612,
+      "sha256": "4c45af0bd9e4067d72c3e8ac7cf7f543361a11aeb42c6675f5b2083526fd34a4",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_06/west_06.glb",
+      "bytes": 704344,
+      "sha256": "87048a90bad932fd5ef908a454de401f6a0da8e0a4b9ce874ad3bc84da44d11b",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_07/west_07.glb",
+      "bytes": 602908,
+      "sha256": "3c538098b723a47eb367e0c0c714868a17dfdda18b1554a2478692c8f80eeb69",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_08/west_08.glb",
+      "bytes": 642720,
+      "sha256": "fb08dfe8fe74e2eb27345938b18199b24ee39414400a4e9dadc571881e3d5171",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_09/west_09.glb",
+      "bytes": 757700,
+      "sha256": "44bd9c24270af87c46684208094308a378943ec7ad30be3b6ab2100851eaf80f",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_10/west_10.glb",
+      "bytes": 686744,
+      "sha256": "2a7a8cb6e6c2c885edde54036871ae89b0eb65f3a2d6294e80c554ac055a9024",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
+    },
+    {
+      "path": "godot/assets/models/barrier/west_11/west_11.glb",
+      "bytes": 578776,
+      "sha256": "095308a4b3293e8355973ab0cf8d5f02a8fc4577cf8369e74b46352b41ef4bad",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier whitebox GLB"
     },
     {
       "path": "godot/assets/models/boats/reference_skiff/components/bench/bench.glb",
@@ -2458,6 +2883,97 @@
       "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
     },
     {
+      "path": "godot/assets/models/rooms/bedroom/bed/bed.glb",
+      "asset_id": "SEA-SCENE-BDR-009",
+      "sha256": "0719015e484952943a74bb78646f22385422da7e73b6f2cb9ee2ccab7b0b8d0c",
+      "bytes": 96320,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/ceiling/ceiling.glb",
+      "asset_id": "SEA-SCENE-BDR-006",
+      "sha256": "78fa24d3b447113fb749c79734ca3e834dbc2ccf39676363d45c9d312ad5752e",
+      "bytes": 44392,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/door_leaf/door_leaf.glb",
+      "asset_id": "SEA-SCENE-BDR-008",
+      "sha256": "006186f3d5e1f460a80f6087842eab270e76254db1aeae6047412ce541310f06",
+      "bytes": 39348,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/floor_planks/floor_planks.glb",
+      "asset_id": "SEA-SCENE-BDR-001",
+      "sha256": "19cfb7cec395d54f5a9364173818cd8d2fc839398f80d04272c0d2bdd09fe570",
+      "bytes": 129108,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/nightstand/nightstand.glb",
+      "asset_id": "SEA-SCENE-BDR-010",
+      "sha256": "202d2e3677e66d9d951290124d41dec5d53eef29644c23059957776d6e7de570",
+      "bytes": 25948,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/porch_glass/porch_glass.glb",
+      "asset_id": "SEA-SCENE-BDR-007",
+      "sha256": "b8a90546026410f0c60152e45a29c5d724ac5d8b19bca16b7e8f7c581b5492c1",
+      "bytes": 164004,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/rug/rug.glb",
+      "asset_id": "SEA-SCENE-BDR-012",
+      "sha256": "29d6e6c1a5db7ef98bb096cee85dcba21751fdab598db6671f0c2f88db5ded3a",
+      "bytes": 11896,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/shelf/shelf.glb",
+      "asset_id": "SEA-SCENE-BDR-013",
+      "sha256": "d9b8b220f971cba9d4421bdac1f15e28f41df18ff5ccd561254c73377d7c740d",
+      "bytes": 37052,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/table_lamp/table_lamp.glb",
+      "asset_id": "SEA-SCENE-BDR-011",
+      "sha256": "a1bea1633efa45915607a613e0444de5db4805ce0cef869fa1fd4fa50db9fbbf",
+      "bytes": 12336,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/wall_door/wall_door.glb",
+      "asset_id": "SEA-SCENE-BDR-003",
+      "sha256": "e8462b3d37758d0454c9a946304c5e2dbfae66919018f59938074b9d6129b2c4",
+      "bytes": 7348,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/wall_side_e/wall_side_e.glb",
+      "asset_id": "SEA-SCENE-BDR-004",
+      "sha256": "fb67afa5dd5f67b634c5adfeb5e95c017b935531925f274bfd2bb91e848493bd",
+      "bytes": 3616,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/wall_side_w/wall_side_w.glb",
+      "asset_id": "SEA-SCENE-BDR-005",
+      "sha256": "c00336fa932567d096abaef4aac17903e28f296cab7e1a9f291098f307952f71",
+      "bytes": 3620,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/assets/models/rooms/bedroom/wall_window/wall_window.glb",
+      "asset_id": "SEA-SCENE-BDR-002",
+      "sha256": "f08ee8b4c8bf5cc3fe75dcaa3a7337fd7951313c786b0aa1b71bb637237a45f0",
+      "bytes": 50100,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
       "path": "godot/assets/models/scenery/submerged_neighborhood/flat_annex/flat_annex.glb",
       "bytes": 35052,
       "sha256": "3a3e0f7b6ed62d445dbe3fc506c52abd6724527d311407a5e912e892b5216745",
@@ -2841,6 +3357,27 @@
       "sha256": "a40f063ecd952a238f4c111b8ca47396bd5b3b9b97d45672469cd96bd62b683c",
       "asset_id": null,
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
+    },
+    {
+      "path": "godot/assets/models/vegetation/grass_soft.glb",
+      "bytes": 2696,
+      "sha256": "5d6e698f714c0c7981ef42e42898ce4a86e2fea67169a477c60021c67588c365",
+      "asset_id": "SEA-VEG-GRASS-SOFT",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/assets/models/vegetation/moss_soft.glb",
+      "bytes": 1768,
+      "sha256": "540d6811b56764d56ac684bb07dcc9ef8aa7fe11e04079ec415235b0cc027095",
+      "asset_id": "SEA-VEG-MOSS-SOFT",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/assets/models/vegetation/mound_soft.glb",
+      "sha256": "557a9f4f1f73abbb8e2f1351bd7c6a1ccc5537fb3c2f09e2673f2d04192e6410",
+      "bytes": 22832,
+      "asset_id": "SEA-VEG-MOUND-SOFT",
+      "status": "runtime_verified_visual_review_pending"
     },
     {
       "path": "godot/assets/models/zones/zone1_home_harbor/manifest.json",
@@ -3725,7 +4262,7 @@
       "asset_id": "SEA-PALETTE-CABIN-TIMBER-64",
       "sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
       "bytes": 5695,
-      "note": "Reviewed v008 timber/daypart change"
+      "note": "SEA-ROOM bedroom v001 runtime"
     },
     {
       "path": "godot/assets/textures/shared/sea_cabin_timber_8x8_512.png.import",
@@ -3741,6 +4278,20 @@
       "sha256": "6906f7284161e58b5c1733fa00591d309ce8d5b5aac7e458e9679513bd4e50a1",
       "asset_id": "SEA-REF-FACILITY-SOLAR-CABIN",
       "status": "runtime_integrated_verified"
+    },
+    {
+      "path": "godot/assets/textures/vegetation/meadow_atlas.png",
+      "sha256": "c4f6e6fc6f51551bb105b9a052b9d61c73b29a106f786152a22ae1be61b63d48",
+      "bytes": 3652743,
+      "asset_id": "SEA-TEX-VEGETATION-MEADOW-ATLAS",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/assets/textures/vegetation/soft_atlas.png",
+      "bytes": 5556706,
+      "sha256": "f39b29e86468e247ed12fb11fc2d9dd736e5215d6adec030a394991626c2603b",
+      "asset_id": "SEA-TEX-VEGETATION-SOFT-ATLAS",
+      "status": "runtime_verified_visual_review_pending"
     },
     {
       "path": "godot/assets/textures/water/cartoon_cross_ripple.png",
@@ -4037,6 +4588,27 @@
       "status": "legacy_runtime_path_recorded_asset_registration_pending"
     },
     {
+      "path": "godot/data/vegetation/catalog.json",
+      "bytes": 865,
+      "sha256": "99b796c403283f56011331f76c3b0c412ab0052560d79cb652ebb6296b703d00",
+      "asset_id": "SEA-AMBIENT-SOFT-VEGETATION",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/data/vegetation/layouts/rooftop_ranch.json",
+      "sha256": "a319acc2eb20b196ea4a4f92e0c96c6f2063e651b3de9c74b6ae5d6169930684",
+      "bytes": 1846295,
+      "asset_id": "SEA-AMBIENT-SOFT-VEGETATION",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/data/vegetation/layouts/solar_cabin.json",
+      "bytes": 134640,
+      "sha256": "f7dec5d0757b26fc8392d675fa9a9545d2076ef7486f21ae7a8680f22b06b806",
+      "asset_id": "SEA-AMBIENT-SOFT-VEGETATION",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
       "path": "godot/scenes/buildables/kit/beam.tscn",
       "asset_id": "SEA-KIT-BEAM",
       "status": "runtime_component_verified",
@@ -4198,6 +4770,374 @@
       "status": "runtime_component_verified"
     },
     {
+      "path": "godot/scenes/components/barrier/corner_ruin_a.tscn",
+      "bytes": 1036,
+      "sha256": "4b4ce008be17adcee56aff43eb0f3c55f4608e747b267a9403d1e87735c0ef62",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/corner_ruin_b.tscn",
+      "bytes": 1036,
+      "sha256": "77d08badf94a4a9da758bc86e3cbae29f50506d2c538e5df01657e972754a766",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_01.tscn",
+      "bytes": 984,
+      "sha256": "9f6dc8cc3541b17532a2e22929220e363e5772c9ebde93e73ad9afa47074bd7a",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_02.tscn",
+      "bytes": 985,
+      "sha256": "8249d6bf49062aab099530c612084a4f6e4af63e2f7dc4b40b10e50f0b234e45",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_03.tscn",
+      "bytes": 983,
+      "sha256": "83cbe6716709da6634067d7a65c574ab8643ec5e5522266b6b3de757dcf7c9ed",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_04.tscn",
+      "bytes": 984,
+      "sha256": "7c799e820a2f54bf29b2c349b2f5217c49bf23c288431cfe35b0e19323b462be",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_05.tscn",
+      "bytes": 985,
+      "sha256": "5ddf825219b29f9a1d72bcbe61b4b6cf048096d7f47e16080057a71eaa87ac00",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_06.tscn",
+      "bytes": 983,
+      "sha256": "3fad19f6358858634f534e5dce81bf09a6d334b138b5a353a0339b81aaf7be02",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_07.tscn",
+      "bytes": 984,
+      "sha256": "682aa0fe7455cbb957b6d6c213f944eff4c5147332e09827c0643f62a6631361",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_08.tscn",
+      "bytes": 985,
+      "sha256": "8be6ebc44ba634e1ec1490c2ba1a23531c6b02e1d6537361d0e59bf012c16ccc",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_09.tscn",
+      "bytes": 983,
+      "sha256": "1560daedbc3e8cf5d7cc3c4814f6403b4fc2ab048535bde3f2f4e50ed818781a",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_10.tscn",
+      "bytes": 984,
+      "sha256": "661aed1f08a21891526909134039fab2506afbd1709fe09273330f5dd950cf8b",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/east_11.tscn",
+      "bytes": 985,
+      "sha256": "bf5706e85a41f62d91c87fa588b2e332ee61dfb6c3c5ff10e60e3f522f9a2e4d",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_01.tscn",
+      "bytes": 988,
+      "sha256": "1a997464474d9ff8fd747b574d1f22347a4bdd177874c538c54749843fa8fd0d",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_02.tscn",
+      "bytes": 989,
+      "sha256": "531261b04c079907c74e6a9561ecd51d05968d530d721b48c73c9fdcf29a28a6",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_03.tscn",
+      "bytes": 990,
+      "sha256": "4c1046c142021eb6549833c956e633fc268ee5b3c5225f787f63dceb35ab74e9",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_04.tscn",
+      "bytes": 988,
+      "sha256": "70a42051823a1c5985d0dc04157856b163abc9a7feb750d522fe14814ccea5fe",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_05.tscn",
+      "bytes": 989,
+      "sha256": "881811e5137be924166a0481ba9cad20b3cc9eaa23bb4c6e2518aa3b34b12283",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_06.tscn",
+      "bytes": 990,
+      "sha256": "48ccbe21d9ecaa157755e7c7f414fb226fec1e221546ef29b051e9d646c3bfaa",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_07.tscn",
+      "bytes": 988,
+      "sha256": "a93df92d56b6ac40ad9e60ec2a72cd853ff0a474392fc0ae58f1abddccbb6cc3",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_08.tscn",
+      "bytes": 989,
+      "sha256": "961e0c18aba72feff32c1c6d991b9dd85cdf1c857b1479394e433f80638aad3c",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_09.tscn",
+      "bytes": 990,
+      "sha256": "df04eabcfe8f5c63b07eeac61d116f8f53e9371298ed1fa56d3a6c33881d61c2",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_10.tscn",
+      "bytes": 988,
+      "sha256": "981aa77c88eb36bb69dc995eab89021bd023f5528e2c1b6c41f3ff2b8be96f4b",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/north_11.tscn",
+      "bytes": 989,
+      "sha256": "f93e926a06eea1b2c73043e6b7e2172c3be98d4b16a9e61a95ab4e7b63da8552",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_01.tscn",
+      "bytes": 990,
+      "sha256": "93300f274450890640ddd9e3ac5a2abce0ee3b3245d50225dd31eccfa87cc98e",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_02.tscn",
+      "bytes": 988,
+      "sha256": "ae7c1f5a0b25cbc3a3cbf8a1bd471a3253e7f492f4ee1aa2a724f4f6a2455b7b",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_03.tscn",
+      "bytes": 989,
+      "sha256": "c5644aebbe8261828d795a777141996bbf4668d442f59355b49d5441c6f3c60c",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_04.tscn",
+      "bytes": 990,
+      "sha256": "ecde858ddcab1482526d07e474bab49f8b7d756966b1f7ba448d46804797a95f",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_05.tscn",
+      "bytes": 988,
+      "sha256": "703897b4a3d6db236a3b01bff10162a3e1749a125215d17d2b394afe7b2e6d3b",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_06.tscn",
+      "bytes": 989,
+      "sha256": "3b3646e2b6781c892187f476b41bf5bf029801340deac3687902548db55e5cff",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_07.tscn",
+      "bytes": 990,
+      "sha256": "4ddef619bd51756353fb795131cf1dfb87f39c79ba803148d7035002240c403d",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_08.tscn",
+      "bytes": 988,
+      "sha256": "e695686115c9f53104633fc2f4de981d93d9aa9dd8c79796064569f9629cc8fa",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_09.tscn",
+      "bytes": 989,
+      "sha256": "2a869d7e92320e9635d549cf05e06cdab788c0aee9aa870be9e43beecfc5d7c2",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_10.tscn",
+      "bytes": 990,
+      "sha256": "62b08dbd45b0689a53c332810e99724a3ad917d787094f76d554462048597d32",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/south_11.tscn",
+      "bytes": 988,
+      "sha256": "6135b147ad788117c86c32a6af17eed31ee2d19abfe42a3b9ffe0017f0a6d7d6",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_01.tscn",
+      "bytes": 984,
+      "sha256": "38f9fccce289739f0dab43a9a0e1c972e2ecdc151e9ddaba0b68a5dcd5231b9e",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_02.tscn",
+      "bytes": 985,
+      "sha256": "765534080cd5d5dbdb6a09ccf70e678972835ac8e46ae81c13ab8188eebd1026",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_03.tscn",
+      "bytes": 983,
+      "sha256": "26960db2789962a39f36069e461c891517cc0523e2d91500810fc0fae1fbe2e7",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_04.tscn",
+      "bytes": 984,
+      "sha256": "abf659d4c8ce796d242d03cd6ef4c82053cdda077fb0c909ae0bd1d1b6e2f585",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_05.tscn",
+      "bytes": 985,
+      "sha256": "255ea831bfe01b3c62fe068c9af79860268dbc95945c1c0b08bb2592b3546c04",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_06.tscn",
+      "bytes": 983,
+      "sha256": "2c2b6a4129f5a296ce1950e3114347d30e870fe8c22387562f23d2807aa6a6b2",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_07.tscn",
+      "bytes": 984,
+      "sha256": "d6a0c4832fd843c3c39372eb3e6430acc6d15ca29216479946e557c030cabb59",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_08.tscn",
+      "bytes": 985,
+      "sha256": "0dcaf8d8caccd08064f67a72f0ba710de62308b535653fafcb0978ad98d45fef",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_09.tscn",
+      "bytes": 983,
+      "sha256": "505ab3fa88ad5b68700c0ecc161048565f5d79cc649f1eb47c0ea23b60cdbbe5",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_10.tscn",
+      "bytes": 984,
+      "sha256": "b3f859407677ba6ab6296fbfee09b20f4645a66efb1c1ea22e78ef8c235f9a1b",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
+      "path": "godot/scenes/components/barrier/west_11.tscn",
+      "bytes": 985,
+      "sha256": "74e73cec7793102515d280d499bc1dc1d17e553a2292e78360f6f3fe23acf40e",
+      "asset_id": null,
+      "status": "runtime_component_verified",
+      "note": "SEA-ASSET-R47 sea_barrier wrapper"
+    },
+    {
       "path": "godot/scenes/components/facilities/neon_garden_quarter/aircon.tscn",
       "bytes": 324,
       "sha256": "d814d7f0ca50583a938b0bd5af63dbdd30d6816ef79759568fc85ae9a792358b",
@@ -4349,6 +5289,41 @@
       "bytes": 336,
       "sha256": "8c2708514b1490fce01afdff2ba0a08bdd29ae81c83ee10bdbea3f6ae0571c23",
       "asset_id": "SEA-SCENE-NGQ-031",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/modules/garden_bridge.tscn",
+      "bytes": 28221,
+      "sha256": "8ffd0021940019699d2c531865df4c0790699861bb1839917ce660b700e27a64",
+      "asset_id": "SEA-SCENE-NGQ-GARDEN-BRIDGE",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/modules/left_building.tscn",
+      "bytes": 46011,
+      "sha256": "2e9121eb7a5ad2d54bca1d5e7e3a1190bdfaafffbe3f059470c634588e27d194",
+      "asset_id": "SEA-SCENE-NGQ-LEFT-BUILDING",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/modules/rear_building.tscn",
+      "bytes": 21696,
+      "sha256": "0a44d04d94d9a9b6326e34ca7316aa5972fcb7fd4779c5f774d3941c77a80e9d",
+      "asset_id": "SEA-SCENE-NGQ-REAR-BUILDING",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/modules/right_building.tscn",
+      "bytes": 15545,
+      "sha256": "74f9623d6913ec94a63fb04aa7d925b8196092e0d09689f869d6daec04f777bd",
+      "asset_id": "SEA-SCENE-NGQ-RIGHT-BUILDING",
+      "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/scenes/components/facilities/neon_garden_quarter/modules/street_ground.tscn",
+      "bytes": 10355,
+      "sha256": "6dade721bb9d5b797e42fd96a90ffe2f5bc6c239f41dff5ea21b76de361d0899",
+      "asset_id": "SEA-SCENE-NGQ-STREET-GROUND",
       "status": "runtime_component_verified_provenance_pending"
     },
     {
@@ -4644,6 +5619,120 @@
       "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract"
     },
     {
+      "path": "godot/scenes/components/room/bed.tscn",
+      "asset_id": "SEA-SCENE-BDR-009",
+      "sha256": "a158dcf5fd2c614a1690aa4ce656832f9aa460d1e286298ddb885707c256a50f",
+      "bytes": 569,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/ceiling.tscn",
+      "asset_id": "SEA-SCENE-BDR-006",
+      "sha256": "68d4f9085ec5d7958c2fa3804fe8b880678c2038ace3cfac3812e289fcb31e3b",
+      "bytes": 590,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/door_leaf.tscn",
+      "asset_id": "SEA-SCENE-BDR-008",
+      "sha256": "d4115eb36034d886cd28b56abd93cb110f739da0bb669ada91811eb2927f7869",
+      "bytes": 594,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/floor_planks.tscn",
+      "asset_id": "SEA-SCENE-BDR-001",
+      "sha256": "0c515272908d7fea83db97920ad6bae48aaa1fd629562b69b796ed4a184d7df4",
+      "bytes": 600,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/nightstand.tscn",
+      "asset_id": "SEA-SCENE-BDR-010",
+      "sha256": "44770c3f667496f7ed0c96ece82956913d90082329f0255fc2474a5be69f5da4",
+      "bytes": 587,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/porch_glass.tscn",
+      "asset_id": "SEA-SCENE-BDR-007",
+      "sha256": "cd5ddea89cd8787514e1a4cc6c4b0aa0c25c87ae16a5a462dba2ddcea9b0e376",
+      "bytes": 763,
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "d4aed417b10f0be14d6a8b04eca739337a952163f09661ef29dee3375d2600bb"
+    },
+    {
+      "path": "godot/scenes/components/room/rug.tscn",
+      "asset_id": "SEA-SCENE-BDR-012",
+      "sha256": "8ea4c68e3817235f43df16017f32604afc5d34c0f6eace24297994ef26dad8d5",
+      "bytes": 570,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/shelf.tscn",
+      "asset_id": "SEA-SCENE-BDR-013",
+      "sha256": "96a00a8e701ce647cf6b22d4c76620a34f70a9e7860fbd4001c3686f25383f1a",
+      "bytes": 580,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/table_lamp.tscn",
+      "asset_id": "SEA-SCENE-BDR-011",
+      "sha256": "4d063716e7fe76e8b0ee20a212c579dbd92f725bd6867d2d06eff16832c1cbac",
+      "bytes": 590,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/wall_door.tscn",
+      "asset_id": "SEA-SCENE-BDR-003",
+      "sha256": "12563e02fb091f78ae492bd0947b56b543541177c0c59adf08dba54df7ebabb5",
+      "bytes": 600,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/wall_side_e.tscn",
+      "asset_id": "SEA-SCENE-BDR-004",
+      "sha256": "da6e30b1f31cc7a450df19307fd8e4f07631d1703b1a7d4a9a4f70701396f5b7",
+      "bytes": 595,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/wall_side_w.tscn",
+      "asset_id": "SEA-SCENE-BDR-005",
+      "sha256": "61838aa1d42226c9a17d56b334cbdda56d6c1bb6ded68c40675ad61a478515fc",
+      "bytes": 595,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/components/room/wall_window.tscn",
+      "asset_id": "SEA-SCENE-BDR-002",
+      "sha256": "deb04d39b01258fa9a7f25ce77acfed73cd6960c50c70f2e3d4f82bd45485d88",
+      "bytes": 763,
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "a0f9c4df63ebfdc69772f566b2a3a57883b44b0c169fed9a7adab4a1c729d7f6"
+    },
+    {
+      "path": "godot/scenes/components/vegetation/grass_soft.tscn",
+      "bytes": 358,
+      "sha256": "8bf4a4b0fc25a75c5cfa1c59312fa3568e5e10d12c733e322ddc077b10bd51f6",
+      "asset_id": "SEA-VEG-GRASS-SOFT",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/scenes/components/vegetation/moss_soft.tscn",
+      "bytes": 355,
+      "sha256": "c6f5e365481b38cf7499009f74e80db18c4b9c00c3c29099ca598ff7da6801a3",
+      "asset_id": "SEA-VEG-MOSS-SOFT",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/scenes/components/vegetation/mound_soft.tscn",
+      "sha256": "249954303b860df7f220155620af567bcf5186892badde437b05fcec0dd088a9",
+      "bytes": 358,
+      "asset_id": "SEA-VEG-MOUND-SOFT",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
       "path": "godot/scenes/decorations/underwater/buildings/flat_annex.tscn",
       "bytes": 1030,
       "sha256": "8a708a40eea7eac13d6a3dc588a318a491f7bdf088ef1897ae870e26e992de67",
@@ -4709,8 +5798,8 @@
     },
     {
       "path": "godot/scenes/facilities/neon_garden_quarter.tscn",
-      "bytes": 106987,
-      "sha256": "a0d27e5b29059e9d40e11e7899f2fa66a475970df4aea73be85d70f8b7b994c3",
+      "bytes": 3228,
+      "sha256": "3a8f9e694bf8050bd33d0d5792ff682ea7804fd1478be110b6e8f44e84a55f7a",
       "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
       "status": "runtime_component_verified_provenance_pending"
     },
@@ -4730,6 +5819,13 @@
       "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。"
     },
     {
+      "path": "godot/scenes/main.tscn",
+      "asset_id": null,
+      "sha256": "1a657ba46c2ce1f54ac83154d8da81f5f55d83037c75b2b8151a3528525f7c96",
+      "bytes": 3867430,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
       "path": "godot/scenes/props/reference_skiff.tscn",
       "bytes": 14439,
       "sha256": "f5afba3f33d5ea55871dd90b1ac367b8205bf7b7586b7eba1ebd1f27f88cd685",
@@ -4747,12 +5843,35 @@
       "arm_direction_previous_sha256": "78971293cb6d1af45fe060e3015dd7bc1e378ee04019ec15a14989c71393da47"
     },
     {
-      "path": "godot/scenes/zones/zone1_home_harbor.tscn",
-      "bytes": 8441,
-      "sha256": "86a371b8a45594e5f877d9d68be7334bc8198f8dd904d412564f47f35c274040",
+      "path": "godot/scenes/rooms/bedroom.tscn",
+      "asset_id": "SEA-SCENE-BDR-000",
+      "sha256": "5be175a64977ed38c87e72848ee972311f6ad7805b0f4d632268052c7572e2c9",
+      "bytes": 6294,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/scenes/vegetation_authoring/proton_rooftop_preview.tscn",
+      "sha256": "1b66cf9ed594b6ea46dd55d327e7d338f1ac4a32b8a0d82bc2df0e4f19470a97",
+      "bytes": 1210,
+      "asset_id": "SEA-VEG-PROTON-ROOFTOP-TRIAL",
+      "status": "trial_verified_excluded_from_release"
+    },
+    {
+      "path": "godot/scenes/world/sea_barrier.tscn",
+      "bytes": 11545,
+      "sha256": "e30e7236886d69d517d54584ac27b6349b64cebc15d98c41beec74ec53b5709f",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "note": "SEA-ASSET-R38 / SEA-AQUA-R06–R08: task-reviewed fishery import/assembly contract；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。"
+      "note": "SEA-ASSET-R47 sea_barrier contract"
+    },
+    {
+      "path": "godot/scenes/zones/zone1_home_harbor.tscn",
+      "bytes": 7069,
+      "sha256": "a563888346f06c0809122e02fd40fd4b3441e3ba2400052bd512245bca413c8d",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "86a371b8a45594e5f877d9d68be7334bc8198f8dd904d412564f47f35c274040"
     },
     {
       "path": "godot/shaders/avatar_eye.gdshader",
@@ -4791,6 +5910,34 @@
       "sha256": "2294f62ca4e8aef2dd2b98c81921fb3bab1e62b7915bf36ce2389a7619836b4d",
       "asset_id": null,
       "status": "runtime_resource_verified"
+    },
+    {
+      "path": "godot/shaders/sunny_palette.gdshader",
+      "asset_id": null,
+      "sha256": "4284d43743b39d3d290bd9ddc569d758c3b209da559dee9fcaf03eaaf14510df",
+      "bytes": 1835,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/shaders/sunny_palette_gloss.gdshader",
+      "asset_id": null,
+      "sha256": "c52591b02454fcc99d2361b22d0f37ad2a16574f8741c3b122a0bb9575b676a5",
+      "bytes": 2696,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/shaders/vegetation/soft_cards.gdshader",
+      "bytes": 2333,
+      "sha256": "6b03f7085d8422b86090cf50316dbffdcf6711ac04e738909ca834230bbfaac6",
+      "asset_id": "SEA-AMBIENT-SOFT-VEGETATION",
+      "status": "runtime_verified_visual_review_pending"
+    },
+    {
+      "path": "godot/shaders/vegetation/wind.gdshaderinc",
+      "bytes": 894,
+      "sha256": "e62227f9435e0b17e3eed0d1441782e364d57adb455dc7ca272eee28b34341cc",
+      "asset_id": "SEA-AMBIENT-SOFT-VEGETATION",
+      "status": "runtime_verified_visual_review_pending"
     },
     {
       "path": "godot/shaders/water_absorption.gdshader",
@@ -4891,10 +6038,10 @@
       "path": "godot/src/bootstrap/main.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 149850,
-      "sha256": "1522b194b1083ba14764c27ffc20ea77abda3644ce907ebe2fc7abad4ce6cff7",
-      "note": "组合根保留海上补给站装配；2026-11-02浮木巡航停位及打捞范围改读SeaProps公开分档查询（SEA-PICKUP-R18）；同日P面板第四页「测试」注入端口与_debug_set_clock（SEA-TOOL）；reset_save归档后回开局并写新档（SEA-SAVE-R14）；2026-11-02 SEA-AQUA-R07/R09/R10：现有独立彩色鱼群、收获入口与周期产鱼接线，定点审阅并实测。 2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。；2026-11-02 SEA-AQUA-R10/R11、SEA-UI-R48：屏幕圆按钮与地点仅建造/收获，定点审阅与当前实测。 2026-11-02 SEA-AVATAR/SEA-ONBOARDING接线；与已登记原哈希精确匹配的173802隔离副本逐行核对，仅本次角色/开场改动；保存、重置与移动动作回归见交付。 2026-11-03 SEA-AVATAR-R15–R19：本轮角色定制扩充，原HEAD与登记基线精确匹配后定点更新，详见当前交付。；2026-11-04新旅程美术/交互；2026-11-04 SEA-MOVE-R18 / SEA-NAV-R13：已核对隔离前身，座位与真实握点适配，证据见 docs/development/2026-11-04_rowing_seat_and_grips.md",
-      "previous_sha256": "1273a08f5f8724da9f07bb23da802bd036feb797c45f8a3b7ee0a7d932a8047e",
+      "bytes": 155755,
+      "sha256": "4640334ad560258a4ac37552724541acb9c86bdeea24738b26c19217009d1b8e",
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "b1202e9105a5859f9b92617720442df2fbb9dc7a5693df3f883d758fd74fb161",
       "hash_history": [
         {
           "sha256": "1273a08f5f8724da9f07bb23da802bd036feb797c45f8a3b7ee0a7d932a8047e",
@@ -5028,6 +6175,21 @@
       "sha256": "e7ddd080e6228681450792b2eed15a24f48fd4c0801e2ec32d5e53ba79dbcef9"
     },
     {
+      "path": "godot/src/camera/orbit_camera.gd",
+      "asset_id": null,
+      "sha256": "cf39f0ed02c5923633be0197a18ecd6dd761b5b148bb9aa3c84a1a25f76c5a7f",
+      "bytes": 14860,
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "8056529216575019375be8947b675920a5a61bf217efcb5423ec65fc7211c374"
+    },
+    {
+      "path": "godot/src/core/play_scope.gd",
+      "asset_id": null,
+      "sha256": "b08673316c85ae58c2969cf7825bda358fe9ab3fc1235a10d394e6fc34576ade",
+      "bytes": 1380,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
       "path": "godot/src/interaction/hover_card.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
@@ -5109,6 +6271,66 @@
       "status": "runtime_resource_verified"
     },
     {
+      "path": "godot/src/room/room_bed.gd",
+      "asset_id": null,
+      "sha256": "b93dcc78a7b6b2ec8b58c26eb81966304189251b5ff01bf42e82cca74f3cdd85",
+      "bytes": 1702,
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "c9e5293266f1e9bf63b5bbda5c0067ec6b1867ccc9641a2f78ee52eb94e92e42"
+    },
+    {
+      "path": "godot/src/room/room_controller.gd",
+      "asset_id": null,
+      "sha256": "52c1738682fef3661edc99caf08cc62339b1e79afcff50fc9a6e63b58bf5e874",
+      "bytes": 8029,
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "b0768cb338a51a6b7e6c29b590cc7110555d1a450a0c274edf05749b5b11b4b2"
+    },
+    {
+      "path": "godot/src/room/room_cutaway.gd",
+      "asset_id": null,
+      "sha256": "0133a8eab5e152e0e7b392120b1e0bcbef9141e483a555004d9ea6c9f912b507",
+      "bytes": 4710,
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "0b6e47318a937f2b3243e9bcc00920d54628ed0e94929fa20e3d215cd43f72c1"
+    },
+    {
+      "path": "godot/src/room/room_door.gd",
+      "asset_id": null,
+      "sha256": "42c38d78cc49dea7712e46d40ada77f96386aaa0e73424e1ecf35708109a172d",
+      "bytes": 898,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/src/room/room_scene.gd",
+      "asset_id": null,
+      "sha256": "ea7c36bc9da2b31a170750dc9c7ecd4670e75b60e38deb4c59359e50ee53cd6e",
+      "bytes": 8613,
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "cd7a2c8dbac2b0323c78b089b470c8a39468377d5660d11a0768756bcfa152fc"
+    },
+    {
+      "path": "godot/src/room/room_service.gd",
+      "asset_id": null,
+      "sha256": "beeddcbbb9edd426a269309581a1fe176726a6436a6dc748b776bb05e6fc4751",
+      "bytes": 6872,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/src/save/save_game.gd",
+      "asset_id": null,
+      "sha256": "5c4b65a8f78bcd11d06e7841855d3352efbaa2ef1c10bcd6a032e7770b8394d8",
+      "bytes": 9707,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/src/save/save_schema.gd",
+      "asset_id": null,
+      "sha256": "22ca43fe35fd964fdcab765a6e79954db50692f7bb191f60ae0a79e0764776dd",
+      "bytes": 11856,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
       "path": "godot/src/ui/fishery_marker.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
@@ -5135,10 +6357,24 @@
       "path": "godot/src/ui/hud.gd",
       "asset_id": null,
       "status": "runtime_resource_verified",
-      "bytes": 47595,
-      "sha256": "f1b73f305641208a67c513b2a4160e24c8581fc3373912d9f076666842372d1b",
-      "note": "2026-11-02 SEA-BUILDING-R27/R28/R29：梯顶续建、同高平台/自由摆位/三维通路与独立锤子确认；本轮专项实测。；旧 HUD 登记 664693... 已核实为 33845e721323a4d3bc35b2a55047285d77cb6a34 的 CRLF 哈希；已审阅至 HEAD 的既有 rooftop_ranch 差异；本轮登记 narrative_active guard 当前差异。",
-      "previous_sha256": "6646932a160de673170c5fcd9f64b65b1626cd7f0584fc7bdf2af2dcba87c268"
+      "bytes": 48948,
+      "sha256": "4169009594015f250a4cebfea72fad9b4a6db2be5706c6778585d0580cca8455",
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "f1b73f305641208a67c513b2a4160e24c8581fc3373912d9f076666842372d1b"
+    },
+    {
+      "path": "godot/src/ui/launcher_icon.gd",
+      "asset_id": null,
+      "sha256": "5019847c35e5e4f679b152b8a144324347aae995c92881625e138be6025ca3ad",
+      "bytes": 4491,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/src/ui/sleep_curtain.gd",
+      "asset_id": null,
+      "sha256": "f1d4c94e09cc1d3150e51c2724157886eec6bdb2e673733d0b6a1f356904c7eb",
+      "bytes": 4181,
+      "note": "SEA-ROOM bedroom v001 runtime"
     },
     {
       "path": "godot/src/world/neon_garden_quarter.gd",
@@ -5146,6 +6382,45 @@
       "sha256": "0f6714e0f02f9f8892ecf54a6090f5e67ee43a986fd4fa8d3497a8711699e050",
       "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
       "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/src/world/sea_barrier.gd",
+      "bytes": 835,
+      "sha256": "335189d77920fe55ca33b8cc4a454cfb4ac746318371aa8eff9c22f70c0d0043",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R47 sea_barrier contract"
+    },
+    {
+      "path": "godot/src/world/sea_barrier_component.gd",
+      "bytes": 1114,
+      "sha256": "d70bea24af224936a91ddd9d9fc39010350fb25506a1f845e31c4a5824707a57",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R47 sea_barrier contract"
+    },
+    {
+      "path": "godot/src/world/sunny_palette_binding.gd",
+      "asset_id": null,
+      "sha256": "154dec0ad18caadbc80b56250f0af2fd8370de8a4565495af5e4d99bb6b9bcba",
+      "bytes": 1241,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/tests/test_sea_barrier.gd",
+      "bytes": 9010,
+      "sha256": "41d4564cee2d26d1931d1a2eca1af8900f71108a2c745dcda4b0342b6f81152b",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R47 sea_barrier contract"
+    },
+    {
+      "path": "godot/tools/capture_sea_barrier.gd",
+      "bytes": 2083,
+      "sha256": "0b8c4d3b992c9ddfe449f2890e4cca6a2153718cbad8be09fc58caa4c75dd581",
+      "asset_id": null,
+      "status": "runtime_resource_verified",
+      "note": "SEA-ASSET-R47 sea_barrier contract"
     },
     {
       "path": "godot/tools/fishery_palette_import.gd",
@@ -5161,6 +6436,1128 @@
       "sha256": "da1abb5599aa545362a176498b68b6cedbedbf38c90e7164539b14ba55646d39",
       "asset_id": "SEA-SCENE-NGQ-ASSEMBLY",
       "status": "runtime_component_verified_provenance_pending"
+    },
+    {
+      "path": "godot/assets/materials/sunken_city/gloss.tres",
+      "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
+      "status": "source_verified_runtime_verified",
+      "sha256": "e6965e0862d8a55a16998102e8b004583aac3babd6d3f60704453153855c1ec1",
+      "bytes": 463
+    },
+    {
+      "path": "godot/assets/materials/sunken_city/matte.tres",
+      "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
+      "status": "source_verified_runtime_verified",
+      "sha256": "3f7ec833578cab5ad28c2aa1e5455ba0b3e6f11d25fbd1bdd370c5e8a3bde61b",
+      "bytes": 460
+    },
+    {
+      "path": "godot/assets/materials/sunken_city/metal.tres",
+      "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
+      "status": "source_verified_runtime_verified",
+      "sha256": "539410725f33dee47362e0bba01e3f8445a3a65ebc447a38bc951d2b6632f5cf",
+      "bytes": 463
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/balcony_tenement/balcony_tenement.glb",
+      "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "79dca3e3e5682a4d5d846b92688fb9524783a390b195126cd91652593a143edc",
+      "bytes": 10117420
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/balcony_tenement/balcony_tenement.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "6a756c702975c5cb75a39fccf7421929a099ac9504f4cd92be72c1e227f68a55",
+      "bytes": 1216
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/bench/bench.glb",
+      "asset_id": "SEA-SCENE-SCITY-BENCH",
+      "status": "source_verified_runtime_verified",
+      "sha256": "a16cc4d801794a75411304ff624846e5b30dc1860b8a2a42145971cf9e90be5a",
+      "bytes": 99124
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/bench/bench.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-BENCH",
+      "status": "source_verified_runtime_verified",
+      "sha256": "08110470e243dcf890dd1493aff851f4034a9b4b83d62c4ea3e26b9a5e01d2d9",
+      "bytes": 1173
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/bus_shelter/bus_shelter.glb",
+      "asset_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "3181b32aa9f29962056fc4113fb9ef18e9426b729db769e60a72d2e88f157687",
+      "bytes": 90272
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/bus_shelter/bus_shelter.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "80dfb1eb7c6f219e61069ddec6f543fec418d23fb6c96fcab2ce3cc5b0965aa2",
+      "bytes": 1197
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/cable_span/cable_span.glb",
+      "asset_id": "SEA-SCENE-SCITY-CABLE-SPAN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "6e8d916e75a11c6a65f0e55d31c3b7dc62123e78856e6cf0b370b85fc48433c7",
+      "bytes": 11108
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/cable_span/cable_span.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-CABLE-SPAN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "ede4c14e8636411fae2e578a33a029bfbc3ecae4f293dac7c91e6f717b0b308c",
+      "bytes": 1192
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/canal_housing/canal_housing.glb",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
+      "status": "source_verified_runtime_verified",
+      "sha256": "728a68c387e3ae4559014376ca682f451f96c2f5dcbaee0f314b0a8c02b89463",
+      "bytes": 13546012
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/canal_housing/canal_housing.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
+      "status": "source_verified_runtime_verified",
+      "sha256": "ad7a59ebb680ab8cd8e53fbb9de73937e702b39ca18c9b91437fe7793e540bdb",
+      "bytes": 1205
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/canal_segment/canal_segment.glb",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "691a127b6da4632c525bea393075e8d8f39de98b10747ea78c7662d682daafde",
+      "bytes": 111388
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/canal_segment/canal_segment.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "fa73862cdf5ccfe8fbbd21f379660d98ff1a3165898a90bf88e773663bbaa9d7",
+      "bytes": 1204
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/canal_shell/canal_shell.glb",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "bc2633eb94eb1d8b4507fdd811ca2bba57a738328a8fa77cd9c90a2c67d6376b",
+      "bytes": 4933960
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/canal_shell/canal_shell.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "5d228ed6f85eae48814bd28dd1b3f0c69e143ce8227a0c32dd0fa5dcbf73e522",
+      "bytes": 1197
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/car_sedan/car_sedan.glb",
+      "asset_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "e6916ce8a65d06e751d434c9cdcbe76386ca1dff4b805a790d884a0f0748acff",
+      "bytes": 154572
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/car_sedan/car_sedan.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "798c485fe9bf2f19139e4250ec14a806b61abf94821aec828c13937424a7152a",
+      "bytes": 1189
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/car_van/car_van.glb",
+      "asset_id": "SEA-SCENE-SCITY-CAR-VAN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "110311268e014ae311bcdcf2d17ca4c649f4bd73a19ba5137a7d68e884bb5c17",
+      "bytes": 154536
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/car_van/car_van.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-CAR-VAN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "8db37329fe7fbe177c2671c6df9e087f3926dde44eae115dd310b2f0b1399474",
+      "bytes": 1181
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/cinema_ruin/cinema_ruin.glb",
+      "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "f88f0ae32d69e64356528c428f324abb3da10b5d4d74032fd6de333519c8af3b",
+      "bytes": 4966188
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/cinema_ruin/cinema_ruin.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "a1090abdd5d81a9d4eba477c53108056b43e56ad2050ef672c323546dfa3bfae",
+      "bytes": 1197
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/coffee_steps/coffee_steps.glb",
+      "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+      "status": "source_verified_runtime_verified",
+      "sha256": "1610852155854312fe539915c36b37e1f013dc0f3bf5b46296a76f3584d19e94",
+      "bytes": 8292284
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/coffee_steps/coffee_steps.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+      "status": "source_verified_runtime_verified",
+      "sha256": "782af3ba19bcd4f33f0496225f852557e048c1b6f6d8488981f86d63fd204d32",
+      "bytes": 1200
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/collapsed_residence/collapsed_residence.glb",
+      "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "2eafc74b7169f9aea4aded0bdb199848be08f39d5f14087b9b6c9f2774743734",
+      "bytes": 4692172
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/collapsed_residence/collapsed_residence.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "1b38950197f7316068b84f5f8c64b03ea3018974b2436507e05b575ce3a8e199",
+      "bytes": 1228
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/corrosion_patch/corrosion_patch.glb",
+      "asset_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "status": "source_verified_runtime_verified",
+      "sha256": "032d49a5bdd073bab3280b1065d8afe6b6fda945dcdb14e40a98fc9d36078d9c",
+      "bytes": 98220
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/corrosion_patch/corrosion_patch.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "status": "source_verified_runtime_verified",
+      "sha256": "4dbf332239493cc5913ed5586b57d942ecd522b02a139c55a6bd0156fb7beae2",
+      "bytes": 1212
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/cutaway_tenement/cutaway_tenement.glb",
+      "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "16ecd186554a423e8f523f8df72c52702d9f31fb6d11087904a7b714b9c83bb1",
+      "bytes": 4921544
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/cutaway_tenement/cutaway_tenement.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "71b114283a86a5ef51c0a1a679628b345fed923ad2d925135a2e298e7608b017",
+      "bytes": 1217
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/electronics_shop/electronics_shop.glb",
+      "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "2e129856decaf63b9bcbaf3ea62b3f4b15135afd97e43fb190ff63f2c2bfae2d",
+      "bytes": 4472728
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/electronics_shop/electronics_shop.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "df92d764a5c9330f095da932b18a3a4a91ba7070dfdf61af7e81a4d7c6688e3b",
+      "bytes": 1216
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/fallen_hall/fallen_hall.glb",
+      "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "dc7f0146d2233138fe2e8f5b5284801e41a87af62a3ef3de1e0ed8c4df7cb1c6",
+      "bytes": 4748036
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/fallen_hall/fallen_hall.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "098112e0028ecb3b89041eebbccc9eb265a1e22ad2327b418b74b91f59c183a9",
+      "bytes": 1197
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/frame_construction/frame_construction.glb",
+      "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+      "status": "source_verified_runtime_verified",
+      "sha256": "24dd8edfce62680b8662df16fd0a8020781ea600516ad621313ba8c2030373a8",
+      "bytes": 865480
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/frame_construction/frame_construction.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+      "status": "source_verified_runtime_verified",
+      "sha256": "44047e1d3c0a7f266be18adb8268a53d3805a5ca45e705bb26a5757380cd3b1e",
+      "bytes": 1225
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/half_tower/half_tower.glb",
+      "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "b73d60c7dc766094a5c56cc0ae01c0e3f6936d773a9fae1da3568be3868455e9",
+      "bytes": 7985408
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/half_tower/half_tower.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "e6501a3e0afc7e1dd34c08c6b3c2a3c79ab910f5960809fdbf0eb7f9bf9ba142",
+      "bytes": 1192
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/junction/junction.glb",
+      "asset_id": "SEA-SCENE-SCITY-JUNCTION",
+      "status": "source_verified_runtime_verified",
+      "sha256": "2a93ed261d52161bb3c0ea54db71b669c30220a4608684c3bd76e3c2df803d96",
+      "bytes": 241780
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/junction/junction.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-JUNCTION",
+      "status": "source_verified_runtime_verified",
+      "sha256": "c1aabb84f6913bd282a8a18715b9c7dc7a73f748ce97e6ffa2337d79ddd0d326",
+      "bytes": 1184
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/kelp_clump/kelp_clump.glb",
+      "asset_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "aea76ea6ea882dbd56a3654e12b6454ebf98d9bcfda6af60ec82d8f83369603a",
+      "bytes": 4540
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/kelp_clump/kelp_clump.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "292d37d71bf83785db34e37857f8bc3d79635b6238f584083dc12943fcbe4bca",
+      "bytes": 1193
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/kiosk_ruin/kiosk_ruin.glb",
+      "asset_id": "SEA-SCENE-SCITY-KIOSK-RUIN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "0fd7fb98f91cf2fa1134fdf3a7499d8a374facfc7eeb624b552763a77e88e483",
+      "bytes": 267372
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/kiosk_ruin/kiosk_ruin.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-KIOSK-RUIN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "76dace0c0ef51da366566918deb75df2c433e1d1247093bdbcf15558ba5b138a",
+      "bytes": 1193
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/leaning_pole/leaning_pole.glb",
+      "asset_id": "SEA-SCENE-SCITY-LEANING-POLE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "b1a37193df7479060d4f8c11754bdeeb03eaa4e281a948a94f50681f5933e499",
+      "bytes": 47100
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/leaning_pole/leaning_pole.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-LEANING-POLE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "0c965250ae01abdb56555e56d656c9558ca6b598fa849fb3e3cde40d7e98aff3",
+      "bytes": 1201
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/low_foundation/low_foundation.glb",
+      "asset_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
+      "status": "source_verified_runtime_verified",
+      "sha256": "2011cab0d14390b98badfa6fd264e1bc4106674efd0adb651acae00038393e1b",
+      "bytes": 813248
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/low_foundation/low_foundation.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
+      "status": "source_verified_runtime_verified",
+      "sha256": "073a3810c35d40df387e0bc2889917649ebc20f5392907b96771040a2121a84f",
+      "bytes": 1209
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/moss_patch/moss_patch.glb",
+      "asset_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "status": "source_verified_runtime_verified",
+      "sha256": "734c68b258a58575257a4b98ff812b8ab98e65b0d3d0d6253d9b8bdd14a9146c",
+      "bytes": 16988
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/moss_patch/moss_patch.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "status": "source_verified_runtime_verified",
+      "sha256": "054f93f2e7e05f34e6b5e3c12290cd1b90af584641d5c6e7386704e3319e2864",
+      "bytes": 1192
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/plaza_tile/plaza_tile.glb",
+      "asset_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "0193ee23bd43a44e40298dc5d6acee9a6170f79f9ed101937ed035da50c4ee47",
+      "bytes": 388652
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/plaza_tile/plaza_tile.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "aa697b9178ef857320a852febafb2815c27294eea6145140174cd890a46b04b8",
+      "bytes": 1192
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/pump_cabinet/pump_cabinet.glb",
+      "asset_id": "SEA-SCENE-SCITY-PUMP-CABINET",
+      "status": "source_verified_runtime_verified",
+      "sha256": "83b5b65446a55a1b73029390a00820b38f64c6c5bdf6628c15b5442178d59cb3",
+      "bytes": 125376
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/pump_cabinet/pump_cabinet.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-PUMP-CABINET",
+      "status": "source_verified_runtime_verified",
+      "sha256": "1a976b1387312f9ac95237e665b89438a1e88cc713320973edaf495c1424ac22",
+      "bytes": 1201
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/retaining_wall_ruin/retaining_wall_ruin.glb",
+      "asset_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "903ed6628afc14d4ce5d742bbf96c8e588e55fb5b80d4cfc974aaeeb1e041156",
+      "bytes": 118316
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/retaining_wall_ruin/retaining_wall_ruin.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "85adc5f7232528325a6021a00a3b366179bc0bbd4a2301bed7c95d8280bd2474",
+      "bytes": 1229
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/roof_garden_shell/roof_garden_shell.glb",
+      "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "c9413de1da839b6490c5d49b78868a4df0e54380ad8d8cc1395ca8376b42a757",
+      "bytes": 7016668
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/roof_garden_shell/roof_garden_shell.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "9ff9e64aa35cc34a010b348956dda2b93ca72dac01e9f594fe1890a4eafae8fd",
+      "bytes": 1221
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/rounded_corner/rounded_corner.glb",
+      "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "64fcd677ea69102344205cd3ec00a78f0bcbced06b5a36e8edd25f6e8816618a",
+      "bytes": 11519668
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/rounded_corner/rounded_corner.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "d86805f5824af6fb7e3f34aff451b66a36287823d402ad9a6ff214d07fb2022e",
+      "bytes": 1208
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/rubble_cluster/rubble_cluster.glb",
+      "asset_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "a729586b29accca7de7f78c30f78701de5ca653160ef8857a98a54cf4a642bb9",
+      "bytes": 51460
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/rubble_cluster/rubble_cluster.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "373de9fc399fbc9ec53e70d1436181d2da39082f85422355b5a2d2a54744071a",
+      "bytes": 1208
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/runtime_manifest.json",
+      "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
+      "status": "source_verified_runtime_verified",
+      "sha256": "68d5694a1f6c8d7d7d5bb989064eccf6967cfe39f13d86ca8b318cdb2d5218e4",
+      "bytes": 387239
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/scooter/scooter.glb",
+      "asset_id": "SEA-SCENE-SCITY-SCOOTER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "3b870c7848fc709da0d8ce5c6fd69fbed7366656e0f7d982a4c77b7195a56473",
+      "bytes": 42344
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/scooter/scooter.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-SCOOTER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "1ddcc02ffdba4f7575acbd060a456bd5f69287b64918e334063235cd276f4ee7",
+      "bytes": 1180
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/sign_board/sign_board.glb",
+      "asset_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+      "status": "source_verified_runtime_verified",
+      "sha256": "c793c7a705d8093e6786b772e38090e8d3336be40e49d1d5a55f1347e8fd7c2c",
+      "bytes": 103900
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/sign_board/sign_board.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+      "status": "source_verified_runtime_verified",
+      "sha256": "199fc5999f9b9c65680f7e90bc650869cc10e2a2231f43001995ebf8f2e2127b",
+      "bytes": 1193
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/slender_tower/slender_tower.glb",
+      "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "4e39cc0671e8d66c07d45cf0c26b87e94d462ee2cceee74f84736eb7b1729a44",
+      "bytes": 13940840
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/slender_tower/slender_tower.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "e6b01bf162c8922685217109c08d8e431d887f2c788b8a819745120fcfec57c6",
+      "bytes": 1205
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/stair_link/stair_link.glb",
+      "asset_id": "SEA-SCENE-SCITY-STAIR-LINK",
+      "status": "source_verified_runtime_verified",
+      "sha256": "f178c25c308bc6f11d757195a673dfe1aa558293f5763d7d8e4d8d569a3c5670",
+      "bytes": 433188
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/stair_link/stair_link.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-STAIR-LINK",
+      "status": "source_verified_runtime_verified",
+      "sha256": "5933bd91940f94b5f7648245cb3de9b09ab74e1d86abc0e136c574e939f0a092",
+      "bytes": 1193
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/station_hall/station_hall.glb",
+      "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "adfe25d25255ceede66b018ba279f083bae5f75645c1dfca996fe226bfbb2871",
+      "bytes": 7860332
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/station_hall/station_hall.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "056bdac89078ceb0cd5e7786a8f89867e6f950e8a0850efe21f7c0ef7f2d64b8",
+      "bytes": 1201
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/street_intact/street_intact.glb",
+      "asset_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "3e7409d5adff7f9d87cc098664cb3d865266a13cc9fe62853e75a3e9a7fdd073",
+      "bytes": 75196
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/street_intact/street_intact.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "f2c201b63566f543999b9f889d58443d6215a95848e693d0de7647eec24c9622",
+      "bytes": 1205
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/street_lamp/street_lamp.glb",
+      "asset_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "cedd282ea4eae09ae8d293c0995b0478c5c59836e3268480acd76908b293f5f2",
+      "bytes": 29008
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/street_lamp/street_lamp.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "35a8576b7fa9e63392532370bfd5add59a080f08753a99c2baa4eafd41d552b5",
+      "bytes": 1197
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/street_split/street_split.glb",
+      "asset_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "8076199ff4b12d9d61ebb7ae60f1023e461bfe482b845d92ca5c1dd5788f33b6",
+      "bytes": 77708
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/street_split/street_split.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "8a99fa29ab05606901a77aa5bf3eda319feb24705010c4087ca68b21fcedca9f",
+      "bytes": 1200
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/terrace_residence/terrace_residence.glb",
+      "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "4a5ae911a0f67a392411c4f31b9a8185f97118247758e0b34832c94e5004ecc1",
+      "bytes": 12094956
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/terrace_residence/terrace_residence.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "435aea95ea04116d9ada74342696a45e8e2b115d5588831dc20f85767f32737b",
+      "bytes": 1221
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/terraced_tower/terraced_tower.glb",
+      "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "aec15b62c6aa630166add26d5c1cf885a73cb9febe2119195922666a5775fdb5",
+      "bytes": 18092360
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/terraced_tower/terraced_tower.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "9542f34de91b14d86b7d48a1b29cb6a8e2aaee781fbb89a065d51940729b9f08",
+      "bytes": 1209
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/terrain_ramp/terrain_ramp.glb",
+      "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "a7658f57ebefaf719a944c9e537073fc63eb4851f8cd15e6a517537a322cf430",
+      "bytes": 523552
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/terrain_ramp/terrain_ramp.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "26144430ae4a12079926daf60249a87a953b9ed595c1bb7d88526d8cedcd1756",
+      "bytes": 1201
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/traffic_light/traffic_light.glb",
+      "asset_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "da965cbc2c9dc1cbe782af98bbf4178ef3d41cce876b6884042840813e5de7d9",
+      "bytes": 24724
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/traffic_light/traffic_light.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "dc18312e78a4e6cbc533edbebdbfb64d950afaa3777d89a55e601631168f86be",
+      "bytes": 1205
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/tram_tenement/tram_tenement.glb",
+      "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "a835f5973a13d65bc7d9ffc716e8d17090610f71cd7c8e093823a28b1a6fe34c",
+      "bytes": 13682524
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/tram_tenement/tram_tenement.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "3d129b2d5b0d16fdff43b21813d18637c88d5dcc005568746acdb28eeb9d43d3",
+      "bytes": 1205
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/tram_wreck/tram_wreck.glb",
+      "asset_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+      "status": "source_verified_runtime_verified",
+      "sha256": "ebf6a447f3c8d6efe3aeb68f4fb03e884cd07b3b844f6b8c45f9850dc6ecc159",
+      "bytes": 269320
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/tram_wreck/tram_wreck.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+      "status": "source_verified_runtime_verified",
+      "sha256": "2f3b93946704cc988ef4302ee70f8f0568e640e0e7dd54635c757e4c890ba296",
+      "bytes": 1193
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/utility_pole/utility_pole.glb",
+      "asset_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "91d6232759c4cacff412d3feb7ec043098f9126040bbf77ccf5c9e5ea50272c2",
+      "bytes": 47100
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/utility_pole/utility_pole.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "4f6f3f5e80fbec318c6554194864e1ffb9ec7a4b056017a2d52a436365e7af10",
+      "bytes": 1201
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/vending/vending.glb",
+      "asset_id": "SEA-SCENE-SCITY-VENDING",
+      "status": "source_verified_runtime_verified",
+      "sha256": "3aa15933743e6da4ebce40f7284ade59bb4666756ed440b1e54e5fda563bb630",
+      "bytes": 60936
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/vending/vending.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-VENDING",
+      "status": "source_verified_runtime_verified",
+      "sha256": "5bf1acd92467358d086c5758b9568ec962a09c419565a8539e70700f78b02113",
+      "bytes": 1181
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/viaduct_broken/viaduct_broken.glb",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-BROKEN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "203b18e793b3de5e1b2c809c734555b200c1cc31339b6a907852dd50e2336da2",
+      "bytes": 188648
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/viaduct_broken/viaduct_broken.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-BROKEN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "971fed64066cadfbbb63447651367a7c6bf123fd447615eaed82d94812432a4e",
+      "bytes": 1209
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/viaduct_curve/viaduct_curve.glb",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-CURVE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "03190675ffc29067807ce9c42e062533de5213befbf5318b4692f64112c22389",
+      "bytes": 264928
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/viaduct_curve/viaduct_curve.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-CURVE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "1caaec773b74cb25b835590b6f29d0a653d3e0372b15b585e03031336abf9246",
+      "bytes": 1204
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/viaduct_intact/viaduct_intact.glb",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "1ab93602ac88cdab05fe49f84af99e4a1724fd786b98aaa63125a6981d3b386d",
+      "bytes": 232836
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/viaduct_intact/viaduct_intact.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "993df29be1de2da6132544ae22bd8f3ed720634bfd15b6decb9f55786650191d",
+      "bytes": 1209
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/workshop_shell/workshop_shell.glb",
+      "asset_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "33d6de50cb39116c3d0edbbd5e5e954f022dc2923225777bb4e82a5f9608c4e7",
+      "bytes": 2762160
+    },
+    {
+      "path": "godot/assets/models/scenery/sunken_city/workshop_shell/workshop_shell.glb.import",
+      "asset_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "7cf71d80f60f53cc9bf27ae55b4851341e966edf2d83ca4a100147d7b50e552d",
+      "bytes": 1209
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/balcony_tenement.tscn",
+      "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "f9bef4555c43eb7f0c506fe4e0f0804caaeae3d7039ecdc2af4b76b2e52d1ee2",
+      "bytes": 1221
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/bench.tscn",
+      "asset_id": "SEA-SCENE-SCITY-BENCH",
+      "status": "source_verified_runtime_verified",
+      "sha256": "40fa59ac8afa4026ac4733c8823a1dc1c1f91f76768d79b22e85dfc5b3869ef5",
+      "bytes": 1007
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/bus_shelter.tscn",
+      "asset_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "07ac0fe9e5d3d086c5fb56b47ee3f8c289aa6187ff23d30be7c1e54d94d872db",
+      "bytes": 1185
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/cable_span.tscn",
+      "asset_id": "SEA-SCENE-SCITY-CABLE-SPAN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "eaefa6e312795f143461323337b101457d0faa72e2acf079624ddc7e7084e13e",
+      "bytes": 888
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/canal_housing.tscn",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
+      "status": "source_verified_runtime_verified",
+      "sha256": "3ed657f7d6bea595fb54d72fc4bd4a8c9a38790e9763d9902ba38fd77b67e488",
+      "bytes": 1206
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/canal_segment.tscn",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "6a4415a8f2b49a9adfe37ee42a60272132c2bdefde0d3ffbfb0c7290a3f166d0",
+      "bytes": 907
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/canal_shell.tscn",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "2c811d0317adb19be4ff5e4673e965eb58b59107083d520cf6ae206713550b41",
+      "bytes": 1194
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/car_sedan.tscn",
+      "asset_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "85ddff079543d5fac15b2ba06469df995ed9f2d32e2dd74fa432cd94522c1100",
+      "bytes": 1179
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/car_van.tscn",
+      "asset_id": "SEA-SCENE-SCITY-CAR-VAN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "0791614f00f83f8fac475f492ecd4606d4c3020d0587a23718979d69a582418a",
+      "bytes": 1164
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/cinema_ruin.tscn",
+      "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "be8b50ff1d509a81857ff9603c9f94c870a9fbd5f3f9b1c89149e1b85cc006e2",
+      "bytes": 1188
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/coffee_steps.tscn",
+      "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+      "status": "source_verified_runtime_verified",
+      "sha256": "08ad76064d9e797a6b4ea41a7c35264f604912f91fd35b61f90dd4640e44bac9",
+      "bytes": 1194
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/collapsed_residence.tscn",
+      "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "c6f2891a6ef523a8afd3687ca390731cdfeb73d83841ae832701439b1a7bd698",
+      "bytes": 1239
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/corrosion_patch.tscn",
+      "asset_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "status": "source_verified_runtime_verified",
+      "sha256": "3d221e80c05738b96e1b4dfac1fd453db9cc8727f86b209c2c91384aec773149",
+      "bytes": 919
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/cutaway_tenement.tscn",
+      "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "cdd9ae31365b60ff7204c5271120b551b78e22d17d4d82109095b93a75d0ecc4",
+      "bytes": 1221
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/electronics_shop.tscn",
+      "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "69bf53ec02004e6daca9ec22e63d2abd96066c973205f93b6129f3b64841e104",
+      "bytes": 1221
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/fallen_hall.tscn",
+      "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "e8e5465851c61c75e1bb2363aea1ea85f4828f3188d5694aa449e8ff0ed70d21",
+      "bytes": 1200
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/frame_construction.tscn",
+      "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+      "status": "source_verified_runtime_verified",
+      "sha256": "e020391fd384419411127991c8dadd2a4817d2f86058fda8913d164c0ff42e57",
+      "bytes": 1079
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/half_tower.tscn",
+      "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "ea7f879e2c8a1a48cd515fda8797bbabdca8fc38e0530b9cd66c40e3259df7c1",
+      "bytes": 1185
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/junction.tscn",
+      "asset_id": "SEA-SCENE-SCITY-JUNCTION",
+      "status": "source_verified_runtime_verified",
+      "sha256": "97ee4f3ef362a777d7f3f20ac9051fb7adbb74bb44483563618370289dd0bc7a",
+      "bytes": 874
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/kelp_clump.tscn",
+      "asset_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "e4e9184971ba442ad81c0cf44663a667494bfd5caa36ab7d372e00fa0818a22f",
+      "bytes": 886
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/kiosk_ruin.tscn",
+      "asset_id": "SEA-SCENE-SCITY-KIOSK-RUIN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "fb0cf1513966858f6dff2000b2827b64b4d543e06540bc4c9bb8c36a789aec6b",
+      "bytes": 889
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/leaning_pole.tscn",
+      "asset_id": "SEA-SCENE-SCITY-LEANING-POLE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "b908d39fa7a1b1f096a9e82b74d6951d888461bd0b1eeacf2b9cc39661e6c82f",
+      "bytes": 1043
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/low_foundation.tscn",
+      "asset_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
+      "status": "source_verified_runtime_verified",
+      "sha256": "18a89beb278eebea10ccdd48190373a68708c0cb42da5ced8c1c6fcc47415f55",
+      "bytes": 1061
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/moss_patch.tscn",
+      "asset_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "status": "source_verified_runtime_verified",
+      "sha256": "14ad308ae21fabc9a4233de8adfe1bae765bbfc46e0e677e90c57d5037f76ece",
+      "bytes": 889
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/plaza_tile.tscn",
+      "asset_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "2885f2b6d4329bd10be4437f955d12adb188b8b45fb4c068b1c8d4f7c58c3695",
+      "bytes": 892
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/pump_cabinet.tscn",
+      "asset_id": "SEA-SCENE-SCITY-PUMP-CABINET",
+      "status": "source_verified_runtime_verified",
+      "sha256": "565e77fc55e732386e825f7f0ef0ec687dd791eb462d651bfef0f4b17d129aae",
+      "bytes": 1052
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/retaining_wall_ruin.tscn",
+      "asset_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "0c3c5679b20a25d35f576e6ccbcdfd45adaa6191598e3279010f93dd67a595d8",
+      "bytes": 1097
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/roof_garden_shell.tscn",
+      "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "baba53fafffbd572d7cfb30ab86bfb56a5455631c9b88b3114f1bd2d911589c1",
+      "bytes": 1233
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/rounded_corner.tscn",
+      "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "81d2b204272d69f4ed5359db0fc93366c4d8b4c25b0e31483ca4a9d7a3893a6b",
+      "bytes": 1206
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/rubble_cluster.tscn",
+      "asset_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "ce174ad50091d60ca2e1da22af22d941659320dff7f719abfdbe85d297e56959",
+      "bytes": 1061
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/scooter.tscn",
+      "asset_id": "SEA-SCENE-SCITY-SCOOTER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "e47892dd1aea46e3a71a6127589c61748ece0e62a2f35ad01e9df9ddf2c67a11",
+      "bytes": 1013
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/sign_board.tscn",
+      "asset_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+      "status": "source_verified_runtime_verified",
+      "sha256": "4dab364118ca8bbcaa74d560cd2eb256cbdb3fd32fda9ae7ba52f56e740c3295",
+      "bytes": 1030
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/slender_tower.tscn",
+      "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "60e98eee222e86da02d1db88b42806a809cf82d128043416b0e93c87ebe980e4",
+      "bytes": 1203
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/stair_link.tscn",
+      "asset_id": "SEA-SCENE-SCITY-STAIR-LINK",
+      "status": "source_verified_runtime_verified",
+      "sha256": "a27040390c827e16f6f1abf7ab088e7bc44ba74112823841d92475dfc369e230",
+      "bytes": 1037
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/station_hall.tscn",
+      "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "a7d820932ddd4cf9fc37dec3b2301bd62c636b03504aee5e6fb00fa59d7b4990",
+      "bytes": 1200
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/street_intact.tscn",
+      "asset_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "4ede73a59383fbaa3896f03d932827165637c2aeb0c1de97ba72398e806b1fed",
+      "bytes": 910
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/street_lamp.tscn",
+      "asset_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "0f168cac4b8fbe377e915a9d99a90b453106353d872d450379c659c60fd72982",
+      "bytes": 1034
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/street_split.tscn",
+      "asset_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "cb0b5404808e2214196d2a4b538cc46f11330a44188943e4cdc577963a14ba17",
+      "bytes": 912
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/terrace_residence.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "b434b71248c5b8c4ddf5560ad62670d661dcef481be404205904003851165fc8",
+      "bytes": 1227
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/terraced_tower.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
+      "status": "source_verified_runtime_verified",
+      "sha256": "5f06f5a93c973a13e98214b0900bcde9c882c10e49d22b6b51436933098809da",
+      "bytes": 1209
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/terrain_ramp.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+      "status": "source_verified_runtime_verified",
+      "sha256": "a171e174c5a1e9c0274a6b0432f4b59ca4dcbfc6745e65b4d36f91d6f899c810",
+      "bytes": 906
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/traffic_light.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "8c17cf1a96b5f646a135da06d5106918a17610f99177d3e3bfb456c85ce72406",
+      "bytes": 1052
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/tram_tenement.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "9dfb7ca12b26ffd42888fed3eddd4e0681ec230207afd35656c3bd29ba818aa6",
+      "bytes": 1206
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/tram_wreck.tscn",
+      "asset_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+      "status": "source_verified_runtime_verified",
+      "sha256": "45f8a85660ae089f86a035c49937f53e69f57dd2e20a49f3b42fdddb7b4bab84",
+      "bytes": 1182
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/utility_pole.tscn",
+      "asset_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "512f14d5bf7fb08a8f3cf2ba1169c400f1e34450158dc105dab9db97b6d2e5c9",
+      "bytes": 1046
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/vending.tscn",
+      "asset_id": "SEA-SCENE-SCITY-VENDING",
+      "status": "source_verified_runtime_verified",
+      "sha256": "208edca3472dcc09039ec2ac21b1d59f19d0a76956a7e9e6837895b624b1b10c",
+      "bytes": 1012
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/viaduct_broken.tscn",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-BROKEN",
+      "status": "source_verified_runtime_verified",
+      "sha256": "166566895584d54964e3fffb1fa7904e5100ddd01103a989845a961a5daaa712",
+      "bytes": 1061
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/viaduct_curve.tscn",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-CURVE",
+      "status": "source_verified_runtime_verified",
+      "sha256": "bd3005b74e6cb4c39c0e4e765853bd8a7f8ce733d333125ce90c54300fad3ec0",
+      "bytes": 1065
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/viaduct_intact.tscn",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+      "status": "source_verified_runtime_verified",
+      "sha256": "9d73f042274bb1d3706ae8ee8e56cd2b6c289ea3187b3be784e247a6fa27ff5d",
+      "bytes": 1061
+    },
+    {
+      "path": "godot/scenes/components/scenery/sunken_city/workshop_shell.tscn",
+      "asset_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+      "status": "source_verified_runtime_verified",
+      "sha256": "ae085b726f43af8eba4d8bba420d16258f15a0c7e76375f4ea35eafe78c5815a",
+      "bytes": 1209
+    },
+    {
+      "path": "godot/scenes/world/sunken_city.tscn",
+      "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
+      "status": "source_verified_runtime_verified",
+      "sha256": "e1a84c111e245d64ab507cb9c1fa82d46def62173c58d39cd683636c89aff9df",
+      "bytes": 116531
+    },
+    {
+      "path": "godot/tests/test_sunken_city.gd",
+      "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
+      "status": "source_verified_runtime_verified",
+      "sha256": "394b502596c8f93abae9a619e592c635c74f7be34459dc91cdaf52933e92582f",
+      "bytes": 22082
+    },
+    {
+      "path": "godot/tools/capture_sunken_city.gd",
+      "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
+      "status": "source_verified_runtime_verified",
+      "sha256": "d5549c124969b1c92aca254eb05460281458c958f1a9f542b877addeeb07bb21",
+      "bytes": 17421,
+      "previous_sha256": "27ba5affd4539c6a18bd7c206c389cf5bfd1598d67bf15911e6ff968cd185392"
+    },
+    {
+      "path": "godot/assets/materials/room/room_porch_glass.tres",
+      "asset_id": null,
+      "sha256": "b2f09dbf24ce642530b7ae52d3daa4ecdc274b2342f39b9bd4481fd52f46ea35",
+      "bytes": 1588,
+      "note": "SEA-ROOM bedroom v001 runtime",
+      "previous_sha256": "e7765d7ab7be6cd507d93606b0b6214487b1a8e8fe05180beba85d25ac590fce"
+    },
+    {
+      "path": "godot/src/camera/actions/orbit_action.gd",
+      "asset_id": null,
+      "sha256": "eff936fc94cfea07b42d912af662429a4d1aacfcbf24536d1b2afcd74a373711",
+      "bytes": 548,
+      "note": "SEA-ROOM bedroom v001 runtime"
+    },
+    {
+      "path": "godot/src/camera/actions/zoom_action.gd",
+      "asset_id": null,
+      "sha256": "c1a34e26eda02fe8e9133d6505c9f5ba65d4e81250c569a35b0e6feb77efa7ab",
+      "bytes": 1357,
+      "note": "SEA-ROOM bedroom v001 runtime"
     }
   ]
 }

@@ -4,7 +4,8 @@ func execute(c,dyaw: float, dpitch: float) -> void:
 	var pitch = atan2(c.dir.y, maxf(radius, 0.0001))
 	var yaw = atan2(c.dir.x, c.dir.z)
 	yaw += dyaw
-	pitch = clampf(pitch + dpitch, deg_to_rad(c.pitch_min_deg), deg_to_rad(c.pitch_max_deg))
+	# 俯仰上下限随模式变（室外 22–78°、室内 26–72°），见 OrbitCam.pitch_low/high。
+	pitch = clampf(pitch + dpitch, deg_to_rad(c.pitch_low()), deg_to_rad(c.pitch_high()))
 	c.dir = Vector3(sin(yaw) * cos(pitch), sin(pitch), cos(yaw) * cos(pitch)).normalized()
 	c.orbit_dir = c.dir
 	c._update_pose()

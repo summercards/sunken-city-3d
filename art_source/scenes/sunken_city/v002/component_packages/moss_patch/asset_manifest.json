@@ -1,0 +1,89 @@
+{
+  "key": "moss_patch",
+  "slug": "moss_patch",
+  "name": "攀附海藻苔片_独立",
+  "category": "vegetation",
+  "component_family": "vegetation",
+  "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    3.2,
+    2.4,
+    0.45
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 36,
+  "collection": "SEA-SCENE-SCITY-MOSS-PATCH_攀附海藻苔片_独立",
+  "root_object": "SEA-SCENE-SCITY-MOSS-PATCH_ROOT",
+  "objects": [
+    "攀附海藻苔片_独立_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-MOSS-PATCH_ROOT"
+  ],
+  "bounds_size_m": [
+    2.6253461837768555,
+    2.5836386680603027,
+    0.19999998807907104
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 256,
+  "polygons": 88,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/moss_patch/moss_patch.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v002",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "22f86ff6643b269a118afdb05826094c9ef017e465cb994132426a4e0a6c1710",
+  "geometry_fingerprint": "bca89f5530c0d796e4a029a7c2b6602c59125fecaa90115a9515db3a8d2a65f6",
+  "bounds_min": [
+    -1.3126730918884277,
+    -1.2918193340301514,
+    0.0
+  ],
+  "bounds_max": [
+    1.3126730918884277,
+    1.2918193340301514,
+    0.19999998807907104
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\moss_patch.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-MOSS-PATCH"
+}

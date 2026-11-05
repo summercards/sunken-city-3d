@@ -1,0 +1,85 @@
+{
+  "model": "gpt-image-2",
+  "protocol": "OpenAI Images edits via sofunny-image",
+  "reference_sha256": "ee0d2d1afda55555ef499ae688bdffda59d41b10cdd4a41a8e9eb0c0408ff50b",
+  "source": "art_source/vegetation/v002/grass_moss_atlas_generated.png",
+  "source_sha256": "4eb3a69740eb23879ddfc13514b9a26e8ce88d52e5f717f4bd1533c5e3fc2fa2",
+  "runtime": "godot/assets/textures/vegetation/soft_atlas.png",
+  "runtime_sha256": "f39b29e86468e247ed12fb11fc2d9dd736e5215d6adec030a394991626c2603b",
+  "size": [
+    2048,
+    2048
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "operations": [
+    "crop 4 original alpha sprites",
+    "normalize 254 maximum alpha to 255",
+    "pack each sprite with 16 pixel gutter",
+    "no painting, no opaque background"
+  ],
+  "tiles": [
+    {
+      "tile": 0,
+      "input_crop": [
+        64,
+        80,
+        1011,
+        915
+      ],
+      "output_rect": [
+        16,
+        16,
+        992,
+        992
+      ]
+    },
+    {
+      "tile": 1,
+      "input_crop": [
+        57,
+        241,
+        966,
+        925
+      ],
+      "output_rect": [
+        1040,
+        16,
+        992,
+        992
+      ]
+    },
+    {
+      "tile": 2,
+      "input_crop": [
+        72,
+        68,
+        970,
+        900
+      ],
+      "output_rect": [
+        16,
+        1040,
+        992,
+        992
+      ]
+    },
+    {
+      "tile": 3,
+      "input_crop": [
+        49,
+        51,
+        957,
+        912
+      ],
+      "output_rect": [
+        1040,
+        1040,
+        992,
+        992
+      ]
+    }
+  ]
+}

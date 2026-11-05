@@ -1,0 +1,131 @@
+{
+  "key": "junction",
+  "slug": "junction",
+  "name": "十字路口_斑马线",
+  "category": "ground",
+  "component_family": "junction",
+  "component_id": "SEA-SCENE-SCITY-JUNCTION",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    24,
+    24,
+    0.8
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 4,
+  "collection": "SEA-SCENE-SCITY-JUNCTION_十字路口_斑马线",
+  "root_object": "SEA-SCENE-SCITY-JUNCTION_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-JUNCTION_ROOT",
+    "十字路口_斑马线_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    24.0,
+    24.0,
+    0.8550000190734863
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 4196,
+  "polygons": 2186,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/junction/junction.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-JUNCTION",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "736d8509b880fc84f0add2e46e31be69c574b2db8e5610c8ecf33986bc0e3704",
+  "geometry_fingerprint": "3609c7aab5a79836285e4e89cc1a5016894b2aa8777e53ef7b2e3e31f85c2caf",
+  "bounds_min": [
+    -12.0,
+    -12.0,
+    0.0
+  ],
+  "bounds_max": [
+    12.0,
+    12.0,
+    0.8550000190734863
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\junction.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-JUNCTION",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/junction_optimized.blend",
+    "optimized_sha256": "45bc14ab95851ecba35bcb449b2c94c3247c0dd84c2680c5cdd91b71e1686113",
+    "triangles_before": 4196,
+    "triangles_after": 4196,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 4,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -12.0,
+        -12.0,
+        0.0
+      ],
+      [
+        12.0,
+        12.0,
+        0.8550000190734863
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/junction/junction.glb",
+    "runtime_sha256": "2a93ed261d52161bb3c0ea54db71b669c30220a4608684c3bd76e3c2df803d96",
+    "prefab": "godot/scenes/components/scenery/sunken_city/junction.tscn",
+    "prefab_sha256": "97ee4f3ef362a777d7f3f20ac9051fb7adbb74bb44483563618370289dd0bc7a",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

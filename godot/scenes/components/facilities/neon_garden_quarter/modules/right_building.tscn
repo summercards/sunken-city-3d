@@ -1,0 +1,206 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/aircon.tscn" id="aircon"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/charcoal_sign.tscn" id="charcoal_sign"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/double_door.tscn" id="double_door"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/drainpipe.tscn" id="drainpipe"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/flowers.tscn" id="flowers"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/grass.tscn" id="grass"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/hanging_bush.tscn" id="hanging_bush"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/menu_board.tscn" id="menu_board"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/planter.tscn" id="planter"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/restaurant_neon.tscn" id="restaurant_neon"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/roof_room.tscn" id="roof_room"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/round_damaged.tscn" id="round_damaged"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/round_roof.tscn" id="round_roof"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/round_ruin.tscn" id="round_ruin"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/round_storey.tscn" id="round_storey"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/rubble.tscn" id="rubble"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/shop_awning.tscn" id="shop_awning"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/sign_bracket.tscn" id="sign_bracket"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/small_placard.tscn" id="small_placard"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/tavern_sign.tscn" id="tavern_sign"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/vine.tscn" id="vine"]
+[ext_resource type="PackedScene" path="res://scenes/components/facilities/neon_garden_quarter/water_tank.tscn" id="water_tank"]
+
+[node name="RightBuilding" type="Node3D"]
+metadata/asset_id = "SEA-SCENE-NGQ-RIGHT-BUILDING"
+metadata/asset_version = "v004"
+metadata/module_key = "right_building"
+
+[node name="drainpipe_147" parent="." instance=ExtResource("drainpipe")]
+transform = Transform3D(6.123233996e-17, 0, 1, -0, 1, -0, -1, -0, 6.123233996e-17, 5.61756896678711, -0.00000000002092896, -9.2154998779296875)
+
+[node name="aircon_148" parent="." instance=ExtResource("aircon")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 3.91756820678711, 8.69999998807907104, 8.8345003130703125)
+
+[node name="drainpipe_149" parent="." instance=ExtResource("drainpipe")]
+transform = Transform3D(6.123233996e-17, 0, 1, -0, 1, -0, -1, -0, 6.123233996e-17, 5.61756896678711, 5.10000008307907104, -9.2154998779296875)
+
+[node name="drainpipe_150" parent="." instance=ExtResource("drainpipe")]
+transform = Transform3D(6.123233996e-17, 0, 1, -0, 1, -0, -1, -0, 6.123233996e-17, 5.61756896678711, 10.19999998807907104, -9.2154998779296875)
+
+[node name="aircon_151" parent="." instance=ExtResource("aircon")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 3.91756820678711, 18.90000074807907104, 8.8345003130703125)
+
+[node name="drainpipe_152" parent="." instance=ExtResource("drainpipe")]
+transform = Transform3D(6.123233996e-17, 0, 1, -0, 1, -0, -1, -0, 6.123233996e-17, 5.61756896678711, 15.30000036807907104, -9.2154998779296875)
+
+[node name="drainpipe_153" parent="." instance=ExtResource("drainpipe")]
+transform = Transform3D(6.123233996e-17, 0, 1, -0, 1, -0, -1, -0, 6.123233996e-17, 5.61756896678711, 20.40000074807907104, -9.2154998779296875)
+
+[node name="aircon_154" parent="." instance=ExtResource("aircon")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 3.91756820678711, 29.09999960807907104, 8.8345003130703125)
+
+[node name="drainpipe_155" parent="." instance=ExtResource("drainpipe")]
+transform = Transform3D(6.123233996e-17, 0, 1, -0, 1, -0, -1, -0, 6.123233996e-17, 5.61756896678711, 25.49999922807907104, -9.2154998779296875)
+
+[node name="drainpipe_156" parent="." instance=ExtResource("drainpipe")]
+transform = Transform3D(6.123233996e-17, 0, 1, -0, 1, -0, -1, -0, 6.123233996e-17, 5.61756896678711, 30.59999960807907104, -9.2154998779296875)
+
+[node name="roof_room_157" parent="." instance=ExtResource("roof_room")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, 35.90000074807907104, -4.7154998779296875)
+
+[node name="water_tank_158" parent="." instance=ExtResource("water_tank")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -1.08243179321289, 35.90000074807907104, -7.7154998779296875)
+
+[node name="aircon_159" parent="." instance=ExtResource("aircon")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 2.91756820678711, 35.90000074807907104, -2.7154998779296875)
+
+[node name="rubble_160" parent="." instance=ExtResource("rubble")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.41756820678711, 35.90000074807907104, 6.8845000270703125)
+
+[node name="double_door_161" parent="." instance=ExtResource("double_door")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -1.88243103321289, -0.00000000002092896, 8.6044998170703125)
+
+[node name="shop_awning_162" parent="." instance=ExtResource("shop_awning")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, -1.88243103321289, 3.35000008307907104, 9.1844997410703125)
+
+[node name="double_door_163" parent="." instance=ExtResource("double_door")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, -0.00000000002092896, 8.6044998170703125)
+
+[node name="shop_awning_164" parent="." instance=ExtResource("shop_awning")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, 3.35000008307907104, 9.1844997410703125)
+
+[node name="double_door_165" parent="." instance=ExtResource("double_door")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 3.71756744678711, -0.00000000002092896, 8.6044998170703125)
+
+[node name="shop_awning_166" parent="." instance=ExtResource("shop_awning")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 3.71756744678711, 3.35000008307907104, 9.1844997410703125)
+
+[node name="round_storey_284" parent="." instance=ExtResource("round_storey")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, -0.00000000002092896, -0.7154998779296875)
+
+[node name="round_storey_285" parent="." instance=ExtResource("round_storey")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, 5.10000008307907104, -0.7154998779296875)
+
+[node name="round_damaged_286" parent="." instance=ExtResource("round_damaged")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, 10.19999998807907104, -0.7154998779296875)
+
+[node name="round_damaged_287" parent="." instance=ExtResource("round_damaged")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, 15.30000036807907104, -0.7154998779296875)
+
+[node name="round_storey_288" parent="." instance=ExtResource("round_storey")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, 20.40000074807907104, -0.7154998779296875)
+
+[node name="round_ruin_289" parent="." instance=ExtResource("round_ruin")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, 25.49999922807907104, -0.7154998779296875)
+
+[node name="round_damaged_290" parent="." instance=ExtResource("round_damaged")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, 30.59999960807907104, -0.7154998779296875)
+
+[node name="round_roof_291" parent="." instance=ExtResource("round_roof")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.85814094678711, 35.69999998807907104, -0.6560726165796875)
+
+[node name="restaurant_neon_313" parent="." instance=ExtResource("restaurant_neon")]
+transform = Transform3D(0.9982005399, 0.05996400648, -0, -0.05996400648, 0.9982005399, -0, -0, -0, 1, -4.93243217421289, 12.30000036807907104, 5.1845002170703125)
+
+[node name="sign_bracket_314" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(0.2050054286, 0, -2.325950197, -0, 1, -0, 0.9787608361, 0, 0.4871797068, -4.53292751321289, 14.06483095807907104, 4.8919634820703125)
+
+[node name="sign_bracket_315" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(0.7455003974, 0, -0.4355567943, -0, 1, -0, 0.6665051818, 0, 0.4871796531, -3.72791194921289, 20.71638220807907104, 4.8919634820703125)
+
+[node name="tavern_sign_316" parent="." instance=ExtResource("tavern_sign")]
+transform = Transform3D(0.705613544, -0.04592958275, -0.7071067812, 0.06495423883, 0.9978882437, -0, 0.705613544, -0.04592958275, 0.7071067812, -2.83243179321289, 9.00000017907907104, 7.5845003130703125)
+
+[node name="sign_bracket_317" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(0.5727225236, 0, -0.611650079, -0, 1, -0, 0.8197492976, 0, 0.4273328173, -3.12189674421289, 10.55725973807907104, 6.7573695180703125)
+
+[node name="sign_bracket_318" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(0.7436283222, 0, -0.4439403395, -0, 1, -0, 0.6685932384, 0, 0.49376301, -2.44585418321289, 16.90221517807907104, 7.4692797660703125)
+
+[node name="charcoal_sign_319" parent="." instance=ExtResource("charcoal_sign")]
+transform = Transform3D(0.9993156075, -0.01227191903, -0.03489579696, 0.011999712, 0.9998960033, -0.00799933868, 0.03499033515, 0.007575124479, 0.9993589415, -2.00587463321289, 20.65259092807907104, 6.6163311000703125)
+
+[node name="sign_bracket_320" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(0.1577456941, 0, -0.9874797699, -0, 1, -0, 0.9874797699, 0, 0.1577456941, -3.42950058021289, 21.69999998807907104, 4.8990530970703125)
+
+[node name="sign_bracket_321" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(0.9775301177, 0, -0.2107957994, -0, 1, -0, 0.2107957994, 0, 0.9775301177, -0.40365982321289, 21.69999998807907104, 8.0928063390703125)
+
+[node name="sign_bracket_322" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(0.1577456941, 0, -0.9874797699, -0, 1, -0, 0.9874797699, 0, 0.1577456941, -3.42950058021289, 28.69999998807907104, 4.8990530970703125)
+
+[node name="sign_bracket_323" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(0.9775301177, 0, -0.2107957994, -0, 1, -0, 0.2107957994, 0, 0.9775301177, -0.40365982321289, 28.69999998807907104, 8.0928063390703125)
+
+[node name="menu_board_324" parent="." instance=ExtResource("menu_board")]
+transform = Transform3D(0.9950041653, 0.09983341665, -0, -0.09983341665, 0.9950041653, -0, -0, -0, 1, 2.91756820678711, 13.00000017807907104, 9.2845001220703125)
+
+[node name="sign_bracket_325" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(1, 0, 0, 0, 1, -0, -0, 0, 1.051281677, 1.97520828678711, 13.53857630807907104, 8.7921838760703125)
+
+[node name="sign_bracket_326" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(1, 0, 0, 0, 1, -0, -0, 0, 1.051281677, 4.17508125678711, 15.36244123807907104, 8.7921838760703125)
+
+[node name="small_placard_327" parent="." instance=ExtResource("small_placard")]
+transform = Transform3D(0.9887710779, -0.1494381325, 0, 0.1494381325, 0.9887710779, -0, -0, 0, 1, 3.01756858678711, 5.19999998807907104, 9.2845001220703125)
+
+[node name="sign_bracket_328" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(1, 0, 0, 0, 1, -0, -0, 0, 1.051281677, 2.55177116678711, 5.42574232807907104, 8.7921838760703125)
+
+[node name="sign_bracket_329" parent="." instance=ExtResource("sign_bracket")]
+transform = Transform3D(1, 0, 0, 0, 1, -0, -0, 0, 1.051281677, 3.13748931678711, 7.02277487507907104, 8.7921838760703125)
+
+[node name="double_door_339" parent="." instance=ExtResource("double_door")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 1.71756744678711, -0.00000000002092896, 8.4844999310703125)
+
+[node name="shop_awning_340" parent="." instance=ExtResource("shop_awning")]
+transform = Transform3D(0.9950041653, -0.09983341665, 0, 0.09983341665, 0.9950041653, -0, -0, 0, 1, 1.71756744678711, 3.35000008307907104, 9.0845003130703125)
+
+[node name="double_door_341" parent="." instance=ExtResource("double_door")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 3.91756820678711, -0.00000000002092896, 8.4844999310703125)
+
+[node name="shop_awning_342" parent="." instance=ExtResource("shop_awning")]
+transform = Transform3D(0.9950041653, 0.09983341665, -0, -0.09983341665, 0.9950041653, -0, -0, -0, 1, 3.91756820678711, 3.35000008307907104, 9.0845003130703125)
+
+[node name="planter_364" parent="." instance=ExtResource("planter")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.91756820678711, 35.90000074807907104, -6.7154998779296875)
+
+[node name="grass_365" parent="." instance=ExtResource("grass")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 0.41756820678711, 36.83999937807907104, -6.7154998779296875)
+
+[node name="flowers_366" parent="." instance=ExtResource("flowers")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 1.51756858678711, 36.83999937807907104, -6.7154998779296875)
+
+[node name="hanging_bush_367" parent="." instance=ExtResource("hanging_bush")]
+transform = Transform3D(0.8, 0, -0, -0, 0.8, -0, -0, -0, 0.8, 0.91756820678711, 36.40000074807907104, -6.4154996869296875)
+
+[node name="planter_368" parent="." instance=ExtResource("planter")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 1.51756858678711, 35.90000074807907104, 5.4844999310703125)
+
+[node name="grass_369" parent="." instance=ExtResource("grass")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 1.01756858678711, 36.83999937807907104, 5.4844999310703125)
+
+[node name="flowers_370" parent="." instance=ExtResource("flowers")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 2.11756896678711, 36.83999937807907104, 5.4844999310703125)
+
+[node name="hanging_bush_371" parent="." instance=ExtResource("hanging_bush")]
+transform = Transform3D(0.8, 0, -0, -0, 0.8, -0, -0, -0, 0.8, 1.51756858678711, 36.40000074807907104, 5.7845001220703125)
+
+[node name="vine_380" parent="." instance=ExtResource("vine")]
+transform = Transform3D(1, 0, -0, -0, 1, -0, -0, -0, 1, 2.71756744678711, 16.19999998807907104, 9.2845001220703125)
+
+[node name="flowers_381" parent="." instance=ExtResource("flowers")]
+transform = Transform3D(0.7, 0, -0, -0, 0.7, -0, -0, -0, 0.7, 2.71756744678711, 19.09999960807907104, 9.2845001220703125)

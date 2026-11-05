@@ -30,7 +30,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/material_guard/plugin.cfg")
+enabled=PackedStringArray("res://addons/material_guard/plugin.cfg", "res://addons/proton_scatter/plugin.cfg")
 
 [gui]
 
@@ -43,6 +43,19 @@ anti_aliasing/quality/msaa_3d=2
 environment/defaults/default_clear_color=Color(0.09, 0.427, 0.604, 1)
 
 [shader_globals]
+
+vegetation_time={
+"type": "float",
+"value": 0.0
+}
+vegetation_strength={
+"type": "float",
+"value": 0.8
+}
+vegetation_direction={
+"type": "vec2",
+"value": Vector2(0.86, 0.5)
+}
 
 world_daylight={
 "type": "float",

@@ -1,6 +1,13 @@
 extends SceneTree
 
 const COMPONENTS := "res://scenes/components/facilities/neon_garden_quarter/"
+const MODULES := {
+	"left_building": ["LeftBuilding", 198],
+	"rear_building": ["RearBuilding", 92],
+	"right_building": ["RightBuilding", 59],
+	"garden_bridge": ["GardenBridge", 118],
+	"street_ground": ["Foundation", 39],
+}
 const SURVEYED_SUNROOM := Vector2(6.149682, 2.473711)
 const PALETTE := "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
 const POSTER := "res://assets/textures/facilities/neon_garden_quarter/poster_atlas.png"
@@ -55,6 +62,15 @@ func check_components() -> void:
 		component.free()
 	check(count == 50, "50 stable independent components")
 	check(print_surfaces == 8, "eight original poster panels retain atlas")
+	for key in MODULES:
+		var packed := load(COMPONENTS + "modules/" + key + ".tscn") as PackedScene
+		check(packed != null, key + " module loads independently")
+		if packed == null: continue
+		var component := packed.instantiate() as Node3D
+		check(component.transform == Transform3D.IDENTITY, key + " independent module origin")
+		check(component.get_meta("asset_version") == "v004", key + " independent module version")
+		check(component.get_child_count() == MODULES[key][1], key + " expected placement count")
+		component.free()
 
 func capture(camera: Camera3D, target: Vector3, offset: Vector3, name: String) -> void:
 	camera.position = target + offset
@@ -89,11 +105,20 @@ func run() -> void:
 	# The headless MultiMesh fallback has different proxy bounds. Use the rendered geometry for the survey.
 	if DisplayServer.get_name() != "headless":
 		check(not first and Vector2(center.x, center.z).distance_to(SURVEYED_SUNROOM) < 0.02, "survey agrees with the two rendered sunroom body meshes")
-	check(absf(p.y - main.get_node("World/Water").global_position.y) < 0.002, "foundation at world water datum")
+	var water_y: float = main.get_node("World/Water").global_position.y
 	check(quarter.is_visible_in_tree() and quarter.scale.is_equal_approx(Vector3.ONE), "visible in default main at real scale")
-	check(quarter.get_node("Visual").get_child_count() == 506, "all Blender placements instantiated")
+	var visual := quarter.get_node("Visual")
+	check(visual.get_child_count() == 5, "three buildings, bridge and street are five direct module instances")
+	var placements := 0
+	for key in MODULES:
+		var module := visual.get_node_or_null(MODULES[key][0])
+		check(module != null and module.scene_file_path == COMPONENTS + "modules/" + key + ".tscn", key + " stable module in production layout")
+		if module != null: placements += module.get_child_count()
+	check(placements == 506, "all Blender placements instantiated once")
+	var blockers := quarter.get_node("Blockers")
+	check(blockers.get_node_or_null(blockers.target_path) == visual.get_node("Foundation/GroundMesh"), "water footprint derives only from the original street mesh")
 	var roof: Node3D
-	for child in quarter.get_node("Visual").get_children():
+	for child in visual.get_node("GardenBridge").get_children():
 		if str(child.name).begins_with("roof_soil_"):roof = child
 		if str(child.name).begins_with("crop_bed_"):
 			check(child.basis.z.y < -0.37 and child.basis.z.y > -0.40, "crop bed tilt follows front roof plane " + str(child.basis))
@@ -103,7 +128,6 @@ func run() -> void:
 		check(roof_bounds.size.x > 21 and roof_bounds.size.y > 2.65, "gable mesh spans the alley and rises above its eaves")
 	var full_bounds := bounds(quarter)
 	check(full_bounds.size.x > 41 and full_bounds.size.y > 39, "widened assembly dimensions")
-	check(quarter.water_block_rects.size() > 0 and not main._is_open_water(p.x, p.z), "foundation blocks boats through the street")
 	var approach := Vector2(p.x, p.z + 24)
 	check(main._is_open_water(approach.x, approach.y), "southern approach is open water")
 	var boat_position: Vector3 = main.boat.global_position
@@ -111,6 +135,28 @@ func run() -> void:
 	check(not route.is_empty() and main.navigation.valid_route(route), "normal boat route from home to quarter approach")
 	check(not main.cam.pan_bounds.has_area() or main.cam.pan_bounds.has_point(Vector2(p.x, p.z)), "camera can pan to the quarter")
 	check(main._zone_nodes.get("neon_garden_quarter") == quarter, "registered for landing in default scope")
+	var submerged := p.y < water_y - 2.0
+	print("[neon-garden-quarter] live placement ", {"anchor": p, "extent": full_bounds, "street_blockers": quarter.water_block_rects.size(), "route_waypoints": route.size()})
+	if submerged:
+		check(quarter.water_block_rects.is_empty(), "submerged street does not create an invisible surface barrier")
+	if DisplayServer.get_name() != "headless":
+		main.set_process(false)
+		var camera := Camera3D.new()
+		camera.fov = 41.0
+		main.add_child(camera)
+		camera.make_current()
+		await capture(camera, p + Vector3(-1, 23, -2), Vector3(-48, 34, 62), "overview")
+		await capture(camera, p + Vector3(0, 25.8, 1), Vector3(-3, 12, 38), "roof")
+		await capture(camera, p + Vector3(0, 23, -1), Vector3(41, 9, -54), "rear")
+	# Separately verify the inherited surface-height behavior in this isolated run.
+	# The production scene can be manually submerged while its module layout remains unchanged.
+	if not is_equal_approx(p.y, water_y):
+		quarter.global_position.y = water_y
+		root.get_node("Zones").bind_scene(quarter)
+		main._shore_shapes.clear()
+		main.navigation.invalidate()
+		main._water_shapes()
+	check(quarter.water_block_rects.size() > 0 and not main._is_open_water(p.x, p.z), "surface fixture retains the original street blockers")
 	var landing := quarter.get_node("WalkAreas/WalkStreetLanding/Landing_main") as Marker3D
 	var park := landing.get_node("BoatPark") as Marker3D
 	check(main._is_open_water(park.global_position.x, park.global_position.z), "park lies outside the boat blockers")
@@ -135,15 +181,6 @@ func run() -> void:
 				main.actor_controller.tick(1.0 / 60.0)
 				if not main.actor_controller.walking():break
 			check(main.player.global_position.distance_to(target) < .65, "character reaches destination on street paving")
-	print("[neon-garden-quarter] evidence ", {"anchor": p, "live_sunroom_mesh_bounds": live_body, "extent": full_bounds, "blockers": quarter.water_block_rects.size(), "route_waypoints": route.size()})
-	if DisplayServer.get_name() != "headless":
-		main.set_process(false)
-		var camera := Camera3D.new()
-		camera.fov = 41.0
-		main.add_child(camera)
-		camera.make_current()
-		await capture(camera, p + Vector3(-1, 17, -2), Vector3(-48, 34, 62), "overview")
-		await capture(camera, p + Vector3(0, 25.8, 1), Vector3(-3, 12, 38), "roof")
-		await capture(camera, p + Vector3(0, 13, -1), Vector3(41, 9, -54), "rear")
+	print("[neon-garden-quarter] surface fixture blockers ", quarter.water_block_rects.size())
 	print("[neon-garden-quarter] ", checks, " checks, ", failures, " failures")
 	quit(0 if failures == 0 else 1)

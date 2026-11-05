@@ -96,6 +96,11 @@ var _ribbon_left := 0.0
 var _zoom_seen := 0.0
 ## 点击某个可交互物后自动走过去的目标；到位后自动按住 E。
 var actor_controller = preload("res://src/player/actor_controller.gd").new()
+## SEA-ROOM：房间状态（床的摆放 / 在不在屋里）与进出过场。
+## 房间是 `World/Interior` 下的一个区块（zone_id="room"），和其它区块共用行走接口。
+var room_service = preload("res://src/room/room_service.gd").new()
+var room_controller = preload("res://src/room/room_controller.gd").new()
+var room: Node3D
 var _auto_target: Node3D:
 	get: return actor_controller.auto_target
 	set(value): actor_controller.auto_target = value
@@ -122,6 +127,8 @@ var _after_walk: Callable:
 	get: return actor_controller.after_walk
 	set(value): actor_controller.after_walk = value
 const WALK_SPEED := 2.3
+## 按 E 上船的有效距离（米）：从泊位站立点算起，再远就要求玩家先走过去。
+const BOAT_KEY_REACH := 3.2
 
 var _t := 0.0
 var _ripples := PackedVector4Array()
@@ -251,8 +258,10 @@ func _ready() -> void:
 	_apply_play_scope()
 	hud.presenter_sources = {"camera":cam_panel,"grade":grade,"orders":order_panel,"salvage":salvage_panel,"prompt":prompt,"hover":hover}
 	_setup_actor_controller()
+	ensure_move_keys()
 	_setup_calendar()
 	_setup_sleep()
+	_setup_room()
 	_setup_building()
 	_setup_save_registry()
 	_setup_avatar()
@@ -294,11 +303,15 @@ func _ready() -> void:
 		if a.begins_with("--zoom="):
 			# 数字=米数；也可以写 near / mid / far / farthest / default / 40%
 			# 这些都是「相机定位」：测试工具需要一键到最近或最远再截图。
+			# 玩家上限是 38 m（SEA-CAMERA-R11）；调试参数显式要更远时临时抬高上限，
+			# 否则 set_distance 会把请求静默夹回 38，截图看不出是被夹了。
 			var spec := a.trim_prefix("--zoom=")
 			if spec.is_valid_float():
 				var z := float(spec)
 				if z < cam.zoom_min:
 					cam.zoom_min = maxf(6.0, z * 0.8)
+				if z > cam.zoom_max:
+					cam.zoom_max = z
 				cam.set_distance(z)
 			elif cam_panel != null:
 				cam_panel.snap_to(spec)
@@ -714,6 +727,8 @@ func _setup_scene() -> void:
 			_zone_nodes[child.zone_id] = child
 			Zones.bind_scene(child)
 	_register_sea_structures(world_root.get_node_or_null("SeaStructures"))
+	room = world_root.get_node_or_null("Interior") as Node3D
+	_register_interior()
 	if _zone_nodes.is_empty():
 		push_error("World/Zones 下没有区块场景实例")
 	_sync_zone_levels()
@@ -742,6 +757,27 @@ func _register_sea_structures(root: Node) -> void:
 			continue
 		_zone_nodes[child.zone_id] = child
 		Zones.bind_scene(child)
+
+
+## 室内房间登记为区块（SEA-ROOM）。
+##
+## 为什么不放进 `World/Zones`：那里是「有植物、有建造等级、要水面阻挡」的户外生活区，
+## 而房间是挂在太阳房上的室内空间（y≈120，不接触水面）。但它必须满足同一套区块接口
+## （`zone_id` / `walk_areas` / `area_at` / `pick_walk`），否则「在屋里点地面走路」
+## 与「房间位置存档校验」就得另开一条通道 —— 那正是要避免的第二套行走系统。
+func _register_interior() -> void:
+	if room == null:
+		push_error("main.tscn 缺少 World/Interior 房间实例")
+		return
+	if not ("zone_id" in room) or not (room.has_method("landing_points") and "walk_areas" in room):
+		push_error("World/Interior 缺 zone_id / walk_areas，房间无法作为区块登记")
+		return
+	var id := str(room.zone_id)
+	if id.is_empty() or _zone_nodes.has(id):
+		push_error("房间区块 id 为空或与既有区块冲突: " + id)
+		return
+	_zone_nodes[id] = room
+	Zones.bind_scene(room)
 
 
 ## 建造等级 → 植物生长进度
@@ -930,7 +966,76 @@ func _update_walk(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if _title_active or sleep_cycle.busy or actor_controller.actor == null: return
+	_update_keyboard_move(delta)
 	_update_walk(delta)
+
+
+## ---- 键盘移动（SEA-MOVE-R20 / SEA-NAV-R15）---------------------------------
+##
+## 键位在代码里注册（同 `Interactor.ensure_input_map`）：project.godot 的
+## InputEvent 序列化对版本敏感，旧工程/旧档不该因为缺动作就整个人不能走。
+## WASD 与方向键指向同一组动作，两者都能用；不兼容「方向键移镜头」的旧行为。
+const MOVE_KEYS := {
+	"move_left":[KEY_A, KEY_LEFT],
+	"move_right":[KEY_D, KEY_RIGHT],
+	"move_forward":[KEY_W, KEY_UP],
+	"move_back":[KEY_S, KEY_DOWN]}
+
+func ensure_move_keys() -> void:
+	for action in MOVE_KEYS.keys():
+		if not InputMap.has_action(action):
+			InputMap.add_action(action)
+		for code in MOVE_KEYS[action]:
+			var exists := false
+			for event in InputMap.action_get_events(action):
+				if event is InputEventKey and (event as InputEventKey).physical_keycode == code:
+					exists = true
+					break
+			if exists:
+				continue
+			var key := InputEventKey.new()
+			key.physical_keycode = code
+			InputMap.action_add_event(action, key)
+
+
+## 屏幕相对方向：镜头朝向就是「上」。俯角再大也不影响，前向先投影到水平面。
+func _camera_relative(axis: Vector2) -> Vector3:
+	if axis.length_squared() < 0.000001 or cam == null:
+		return Vector3.ZERO
+	var forward := -cam.global_transform.basis.z
+	forward.y = 0.0
+	if forward.length() < 0.001:
+		forward = Vector3(0.0, 0.0, -1.0)
+	forward = forward.normalized()
+	var right := forward.cross(Vector3.UP).normalized()
+	return (right * axis.x + forward * -axis.y).normalized()
+
+
+## 每物理帧把「按键」折成世界方向，分派给角色或船。
+##
+## 面板打开/过场/模态时整体不读键：方向键在背包页里是选格子，不是走路。
+func _update_keyboard_move(_delta: float) -> void:
+	var axis := Vector2.ZERO
+	if not input_blocked():
+		axis = Input.get_vector("move_left","move_right","move_forward","move_back")
+	var world := _camera_relative(axis)
+	var mode := actor_controller.mode()
+	if mode == 0:
+		actor_controller.set_move_intent(world)
+		return
+	if dive != null and dive.active:
+		return
+	if mode == 1 or mode == 2:
+		if axis == Vector2.ZERO:
+			boat.release_drive()
+			# 松手滑行停稳后回到「船上待机」：HUD 与交互都以 mode 为准，
+			# 挂在 SAILING 会让船明明停了还显示在航行。
+			if mode == 2 and not boat.driving() and not boat.starts_sailing():
+				actor_controller.request_mode(GameState.Mode.ON_BOAT)
+			return
+		if mode == 1:
+			actor_controller.request_mode(GameState.Mode.SAILING)
+		boat.set_drive(Vector2(world.x, world.z))
 
 func _setup_water() -> void:
 	water_node = get_node_or_null("World/Water") as MeshInstance3D
@@ -1936,6 +2041,9 @@ func _on_click_command(command: String) -> void:
 			if salvage_panel.is_open(): salvage_panel.cancel()
 			elif order_panel.is_open(): order_panel.set_open(false)
 			else: _cancel_action()
+		"room_exit":
+			if room_service.inside:
+				room_controller.exit()
 		"save": save_game()
 		"load":
 			_cancel_action()
@@ -2056,6 +2164,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if grade != null and grade.visible:
 		return
+	# E：上船 / 上岸（SEA-INTERACT-R13）。有交互焦点时不抢 —— 那时 E 是采集。
+	if event is InputEventKey and event.pressed and not event.echo \
+			and (event as InputEventKey).physical_keycode == KEY_E:
+		if _toggle_boat_by_key():
+			get_viewport().set_input_as_handled()
+			return
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		if mb.button_index != MOUSE_BUTTON_LEFT:
@@ -2080,6 +2194,12 @@ func _unhandled_input(event: InputEvent) -> void:
 					if why != "":
 						hud.toast(why)
 						return
+			# 在屋里：只认房间里的东西（家具/床/门）。海上的漂流物、登陆点、
+			# 船、水面航行全部不参与 —— 屋里没有一片海，点了也不该有反应。
+			if room_service.inside:
+				if _try_walk(mb.position):
+					return
+				return
 			var prop: Dictionary = props.pick(mb.position, cam)
 			if not prop.is_empty():
 				_handle_prop_click(prop)
@@ -2148,6 +2268,82 @@ func _step_ashore() -> bool:
 		return false
 	if reticle != null: reticle.show_at(landing.stand_position())
 	return true
+
+
+## ---- E 键上下船（SEA-INTERACT-R13，2026-11-05）-----------------------------
+##
+## 与点击登陆标记是同一对动作，只是入口从「点图标」换成「站在旁边按 E」：
+##   · 岸上、船正停在这个泊位、离站立点 3.2 米内 → 上船；
+##   · 船上、船停稳在这个泊位 → 上岸。
+## 不满足成对条件就什么都不做（不弹提示、不 set_handled），让 E 继续归交互。
+func _toggle_boat_by_key() -> bool:
+	if boat == null or (dive != null and dive.active):
+		return false
+	if _title_active or (sleep_cycle != null and sleep_cycle.busy):
+		return false
+	if room_controller != null and room_controller.busy:
+		return false
+	if not _landing_is_docked():
+		return false
+	var mode := actor_controller.mode()
+	if mode == 0:
+		# 站在土箱/藤壶旁边按 E 是采集，不该被送上船。
+		if interactor != null and interactor.target != null:
+			return false
+		var landing := _current_landing()
+		if landing == null:
+			return false
+		var stand: Vector3 = landing.stand_position()
+		var here: Vector3 = actor_controller.actor.global_position
+		if Vector2(here.x - stand.x, here.z - stand.z).length() > BOAT_KEY_REACH:
+			return false
+		_ashore_on_arrival = false
+		return _depart(func() -> void: hud.toast("上船了 · 方向键划船，E 上岸"))
+	if mode == 1 or mode == 2:
+		boat.stop_drive()
+		_ashore_on_arrival = false
+		var ok := _step_ashore()
+		if ok:
+			hud.toast("上岸了 · 方向键走路，E 上船")
+		return ok
+	return false
+
+
+## 船是否正停在这个泊位（与点击登陆标记、点船体同一判据）。
+func _landing_is_docked() -> bool:
+	if boat == null:
+		return false
+	var l: Dictionary = _landing_data(GameState.current_zone, GameState.landing_id)
+	if l.is_empty():
+		return false
+	var park := Vector3(float(l.boatPark[0]), WATER_LEVEL, float(l.boatPark[2]))
+	var sailing: bool = boat.starts_sailing()
+	return not sailing and boat.position.distance_to(park) < 1.0
+
+
+## 提示条上的「现在按 E 会做什么」。
+func _boat_shortcut_text() -> String:
+	if boat == null or (dive != null and dive.active):
+		return ""
+	if hud == null or not is_instance_valid(hud) or input_blocked():
+		return ""
+	if not _landing_is_docked():
+		return ""
+	var mode := actor_controller.mode()
+	if mode == 0:
+		if interactor != null and interactor.target != null:
+			return ""
+		var landing := _current_landing()
+		if landing == null:
+			return ""
+		var stand: Vector3 = landing.stand_position()
+		var here: Vector3 = actor_controller.actor.global_position
+		if Vector2(here.x - stand.x, here.z - stand.z).length() > BOAT_KEY_REACH:
+			return ""
+		return "上船"
+	if mode == 1 or mode == 2:
+		return "上岸"
+	return ""
 
 
 func _handle_prop_click(prop: Dictionary) -> void:
@@ -2513,6 +2709,7 @@ func _process(delta: float) -> void:
 			and GameState.mode == GameState.Mode.ASHORE and not hud.is_modal() \
 			and not salvage_panel.is_open() and not order_panel.is_open()
 	if prompt != null:
+		prompt.shortcut = _boat_shortcut_text()
 		prompt.update_from(interactor)
 	_update_pointer_ui()
 	_update_camera_feedback(delta)
@@ -2611,7 +2808,7 @@ func _probe_flicker(first: Image, dir: String) -> void:
 	print("[flicker] captured a/b %s" % str(second.get_size()))
 
 func input_blocked() -> bool:
-	return _title_active or _exhausted_rest or (sleep_cycle != null and sleep_cycle.busy) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
+	return _title_active or _exhausted_rest or (sleep_cycle != null and sleep_cycle.busy) or (room_controller.busy if room_controller != null else false) or (hud != null and hud.is_modal()) or (salvage_panel != null and salvage_panel.is_open()) or (order_panel != null and order_panel.is_open()) or (cam_panel != null and cam_panel.is_open()) or (grade != null and grade.visible)
 
 func _setup_actor_controller() -> void:
 	player.rowing_pose_query = boat.rowing_pose
@@ -2874,9 +3071,18 @@ func _setup_save_registry() -> void:
 		var sources: Array = owner.snapshot_event_sources() if owner.has_method("snapshot_event_sources") else [owner]
 		save_registry.register(id,owner.to_dict,owner.from_dict,schemas[id],owner.to_dict(),Callable(),sources)
 	save_registry.register("game",capture_world_state,restore_world_state,schemas.game,capture_world_state(),Callable(),[GameState])
+	save_registry.register("room",room_service.to_dict,room_service.from_dict,schemas.room,room_service.to_dict(),room_service.validate_snapshot,[room_service])
 	save_registry.restored.connect(_after_restore)
 
 func capture_world_state() -> Dictionary:
+	# 在屋里存档：世界位置记成太阳房门口的落点。室内状态（床的摆放、在屋里）
+	# 由 room 模块自己记，读档时先按门口恢复世界，再进屋里。
+	if room_service.inside:
+		var door_pose: Vector3 = room_controller.exit_position
+		var parked := boat.position
+		return {"zone":"zone1","landing":"main","mode":0,"far_sea":GameState.far_sea_unlocked,
+			"boat":[parked.x,parked.y,parked.z,boat.rotation.y],
+			"player":[door_pose.x,door_pose.y,door_pose.z]}
 	var p := player.global_position
 	var b := boat.position
 	return {"zone":GameState.current_zone,"landing":GameState.landing_id,"mode":actor_controller.mode(),"far_sea":GameState.far_sea_unlocked,"boat":[b.x,b.y,b.z,boat.rotation.y],"player":[p.x,p.y,p.z] if actor_controller.mode()==0 else []}
@@ -2927,6 +3133,13 @@ func _after_restore() -> void:
 	_sync_zone_levels()
 	cam.restore_follow(player)
 	markers.set_highlight(GameState.current_zone)
+	if room_service.inside:
+		# 读档时已经在屋里的人：直接把世界收起来、把机位搬进房间，不再播第二次过场。
+		room_controller.resync_inside()
+	else:
+		# 反向：在屋里读了一份「屋外存下的档」，`inside` 已经变回 false，
+		# 但场景还停在进屋那一刻（世界全隐藏、背景全黑）。这里把它还原。
+		room_controller.resync_outside()
 	hud.refresh_after_restore()
 
 func _exit_tree() -> void:
@@ -2982,6 +3195,13 @@ func _apply_play_scope() -> void:
 	cam_panel.process_mode = Node.PROCESS_MODE_DISABLED
 
 func _begin_title() -> void:
+	# 从屋里回到标题（重置存档等）：先把房间那套视觉与世界显隐还回去。
+	# 不还的话，标题界面的天空会一直是黑的，再进游戏也回不来。
+	if room_service != null and room_controller != null:
+		if bool(room_service.inside):
+			room_controller.exit(true)
+		else:
+			room_controller.resync_outside()
 	_suspend_for_avatar_or_title()
 	title_camera.begin(cam)
 	start_screen = preload("res://src/ui/start_screen.gd").new()
@@ -2992,7 +3212,7 @@ func _begin_title() -> void:
 func _suspend_for_avatar_or_title() -> void:
 	_title_active = true
 	daylight_rig.apply(world_clock.query().hour)
-	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").hide()
+	_zone_nodes.zone1.get_node("Objects/RoomDoor").hide()
 	_title_economy_ticking = Economy.ticking
 	Economy.ticking = false
 	interactor.active = false
@@ -3027,7 +3247,7 @@ func _resume_after_avatar_or_title() -> void:
 	props.process_mode = _title_props.process_mode
 	_title_props.clear()
 	_title_active = false
-	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").show()
+	_zone_nodes.zone1.get_node("Objects/RoomDoor").show()
 	daylight_rig.apply(world_clock.query().hour)
 	Economy.ticking = _title_economy_ticking
 	if is_instance_valid(start_screen): start_screen.queue_free()
@@ -3155,7 +3375,7 @@ func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 	else:
 		var icon := "hand"
 		if spot.is_in_group("shipping_boxes"): icon="shipping"
-		elif str(spot.id)=="home_sleep": icon="sleep"
+		elif str(spot.id)=="room_bed": icon="sleep"
 		elif str(spot.verb).contains("采"): icon="harvest"
 		elif str(spot.verb).contains("挖"): icon="dig"
 		var blocked := str(spot.blocked_reason()) if spot.has_method("blocked_reason") else ""
@@ -3278,7 +3498,57 @@ func _setup_sleep() -> void:
 		_restore_sleep_ui()
 		hud.toast("早上好 · 作物已长一天 · 07:00 出货箱收货",4.0)
 		if _autosave_on: save_game("",true))
-	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").sleep_requested.connect(_rest_for_day)
+	
+## SEA-ROOM 接线：状态所有者、过场控制器、入口点、床铺睡觉、界面与存档。
+func _setup_room() -> void:
+	if room == null:
+		return
+	room_service.name = "RoomService"
+	add_child(room_service)
+	room.service = room_service
+	room_controller.name = "RoomController"
+	add_child(room_controller)
+	room_controller.service = room_service
+	room_controller.room = room
+	room_controller.actor_controller = actor_controller
+	room_controller.cam = cam
+	room_controller.curtain = sleep_curtain
+	room_controller.hud = hud
+	room_controller.state = GameState
+	room_controller.world_environment = world_root.get_node_or_null("WorldEnvironment") as WorldEnvironment
+	room_controller.outdoor_nodes = _outdoor_nodes()
+	# 出门后站回门口地毯边，面朝太阳房（-Z）。
+	var door: Node3D = _zone_nodes.zone1.get_node("Objects/RoomDoor")
+	room_controller.exit_position = door.global_position+Vector3(0,0,1.05)
+	room_controller.exit_yaw = PI
+	door.enter_requested.connect(func() -> void: room_controller.enter())
+	room_service.changed.connect(room.apply_layout)
+	room_service.changed.connect(func() -> void:
+		if room.visible: room.apply_layout())
+	room.get_node("Furnishings/Bed").sleep_requested.connect(_rest_for_day)
+	room.set_camera(cam)
+	room.set_active(false)
+	room.apply_layout()
+
+
+## 进屋要收起来的室外内容。
+##
+## 房间是**室内**：窗和玻璃前厅外面不该有海、有天、有任何东西。所以连海面
+## 与船迹一起收，世界背景由 `room_controller` 切成纯黑（见
+## `_apply_interior_environment`）。只留下 Lights（房间的日照与灯要它们）、
+## WorldEnvironment 节点本身（背景改黑靠它）与风场。
+func _outdoor_nodes() -> Array:
+	var nodes: Array = []
+	if world_root != null:
+		var keep := ["Lights","WorldEnvironment","VegetationWind","Interior"]
+		for child in world_root.get_children():
+			if child.name in keep: continue
+			if child is Node3D or child is CanvasLayer:
+				nodes.append(child)
+	for node in [boat, bird_root, dive]:
+		if is_instance_valid(node): nodes.append(node)
+	return nodes
+
 
 func _prepare_sleep() -> void:
 	actor_controller.cancel()
@@ -3301,23 +3571,29 @@ func _prepare_sleep() -> void:
 		layer.hide()
 	_sleep_calendar_visible = _calendar_label.visible
 	_calendar_label.hide()
-	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").hide()
+	_zone_nodes.zone1.get_node("Objects/RoomDoor").hide()
 
 func _restore_sleep_ui() -> void:
 	for entry in _sleep_ui_layers:
 		if is_instance_valid(entry.node): entry.node.visible=entry.visible
 	_sleep_ui_layers.clear()
 	_calendar_label.visible = _sleep_calendar_visible
-	_zone_nodes.zone1.get_node("Objects/SleepCheckpoint").show()
+	_zone_nodes.zone1.get_node("Objects/RoomDoor").show()
 
 func _wake_at_home() -> void:
-	var checkpoint: Node3D = _zone_nodes.zone1.get_node("Objects/SleepCheckpoint")
-	var pos := checkpoint.global_position+Vector3(0,0,0.8)
-	restore_world_state({"zone":"zone1","landing":"main","mode":0,"player":[pos.x,pos.y,pos.z],"far_sea":GameState.far_sea_unlocked})
-	cam.restore_follow(player)
-	cam.target = player.global_position+Vector3.UP*0.7
-	cam.apply_pose()
-	markers.set_highlight("zone1")
+	# 在屋里床上睡的人，醒来还在屋里（床边站定）；在室外被到点/体力逼着睡的人，
+	# 仍旧回太阳房入口。房间不是传送门 —— 睡觉地点决定醒来地点。
+	if room_service.inside:
+		room_controller.wake_in_room()
+		markers.set_highlight("room")
+	else:
+		var door: Node3D = _zone_nodes.zone1.get_node("Objects/RoomDoor")
+		var pos := door.global_position+Vector3(0,0,0.8)
+		restore_world_state({"zone":"zone1","landing":"main","mode":0,"player":[pos.x,pos.y,pos.z],"far_sea":GameState.far_sea_unlocked})
+		cam.restore_follow(player)
+		cam.target = player.global_position+Vector3.UP*0.7
+		cam.apply_pose()
+		markers.set_highlight("zone1")
 	daylight_rig.apply(world_clock.query().hour)
 	_calendar_label.text = world_clock.query().text + " · " + weather_service.query().label
 	# 体力在完全遮黑的这一段里结算：正常睡回满，被体力逼着睡则今天上限减半。

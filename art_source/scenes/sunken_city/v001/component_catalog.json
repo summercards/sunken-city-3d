@@ -1,0 +1,2786 @@
+{
+  "schema": "sea.component_catalog",
+  "components": [
+    {
+      "key": "coffee_steps",
+      "slug": "coffee_steps",
+      "name": "梯巷咖啡楼_断顶",
+      "category": "architecture",
+      "component_family": "stepped_shop",
+      "component_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        18,
+        16,
+        25
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 4,
+      "color": "red",
+      "damage": 0.26,
+      "style": "coffee",
+      "variant_axis": "structure_damage",
+      "variant_value": "coffee",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 2,
+      "collection": "SEA-SCENE-SCITY-COFFEE-STEPS_梯巷咖啡楼_断顶",
+      "root_object": "SEA-SCENE-SCITY-COFFEE-STEPS_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-COFFEE-STEPS_ROOT",
+        "梯巷咖啡楼_断顶_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        19.751792907714844,
+        17.59499979019165,
+        26.00667554140091
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 131044,
+      "polygons": 68296,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/coffee_steps/coffee_steps.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "d058e559b91977b596d83ea3a6ea2924291cabc06430cb2bc86ab214f13394f3",
+      "geometry_fingerprint": "6c49bd023305ab3d56f9b9cf4bc13395830e4e3635869b0c9e02f6b1377b415f"
+    },
+    {
+      "key": "electronics_shop",
+      "slug": "electronics_shop",
+      "name": "旧电器商店_半边楼",
+      "category": "architecture",
+      "component_family": "stepped_shop",
+      "component_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        15,
+        14,
+        19
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 3,
+      "color": "seafoam",
+      "damage": 0.5,
+      "style": "electronics",
+      "variant_axis": "structure_damage",
+      "variant_value": "electronics",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 3,
+      "collection": "SEA-SCENE-SCITY-ELECTRONICS-SHOP_旧电器商店_半边楼",
+      "root_object": "SEA-SCENE-SCITY-ELECTRONICS-SHOP_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-ELECTRONICS-SHOP_ROOT",
+        "旧电器商店_半边楼_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        15.07892370223999,
+        15.59499979019165,
+        18.859184086322784
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 70444,
+      "polygons": 36766,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/electronics_shop/electronics_shop.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "b7febbdd288791e7a5a0baf2e5120ecfc1b67b25db93c334082a0ee23e2ddc38",
+      "geometry_fingerprint": "4fac15634f3c75e81fab3250079b540257b8f23a4be2d9351f426fc089067faa"
+    },
+    {
+      "key": "terrace_residence",
+      "slug": "terrace_residence",
+      "name": "错层露台公寓_侵蚀",
+      "category": "architecture",
+      "component_family": "stepped_shop",
+      "component_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        18,
+        16,
+        34
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 6,
+      "color": "plaster",
+      "damage": 0.22,
+      "style": "terrace",
+      "variant_axis": "structure_damage",
+      "variant_value": "terrace",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 2,
+      "collection": "SEA-SCENE-SCITY-TERRACE-RESIDENCE_错层露台公寓_侵蚀",
+      "root_object": "SEA-SCENE-SCITY-TERRACE-RESIDENCE_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-TERRACE-RESIDENCE_ROOT",
+        "错层露台公寓_侵蚀_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        19.751792907714844,
+        17.200000286102295,
+        34.15918332338333
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 191410,
+      "polygons": 99604,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/terrace_residence/terrace_residence.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "c65a3aa534e74188e39b258406b786ec6b9e7ca02555eac6e8a881726bbb0c93",
+      "geometry_fingerprint": "cf3edff56bdafb2d239598ae5ea2c200376928b1beb42a8bdbba13e203248756"
+    },
+    {
+      "key": "tram_tenement",
+      "slug": "tram_tenement",
+      "name": "电车街连廊公寓_残缺",
+      "category": "architecture",
+      "component_family": "tenement",
+      "component_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        18,
+        14,
+        43
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 8,
+      "color": "mint_white",
+      "damage": 0.3,
+      "style": "tram",
+      "variant_axis": "structure_damage",
+      "variant_value": "tram",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 1,
+      "collection": "SEA-SCENE-SCITY-TRAM-TENEMENT_电车街连廊公寓_残缺",
+      "root_object": "SEA-SCENE-SCITY-TRAM-TENEMENT_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-TRAM-TENEMENT_ROOT",
+        "电车街连廊公寓_残缺_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        18.078923225402832,
+        15.200000286102295,
+        44.359184086322784
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 216566,
+      "polygons": 112677,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/tram_tenement/tram_tenement.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "c29f82eb5aef48bcc3d5ca9aff2e35798557fd523b22f2b5ef6a9ee6ca617279",
+      "geometry_fingerprint": "9e21e730769581dd24fe01c459caae962dcf177caa4e01bb5415076e88fba72f"
+    },
+    {
+      "key": "balcony_tenement",
+      "slug": "balcony_tenement",
+      "name": "阳台住宅_斜向塌顶",
+      "category": "architecture",
+      "component_family": "tenement",
+      "component_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        16,
+        14,
+        38
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 7,
+      "color": "seafoam",
+      "damage": 0.43,
+      "style": "balcony",
+      "variant_axis": "structure_damage",
+      "variant_value": "balcony",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 2,
+      "collection": "SEA-SCENE-SCITY-BALCONY-TENEMENT_阳台住宅_斜向塌顶",
+      "root_object": "SEA-SCENE-SCITY-BALCONY-TENEMENT_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-BALCONY-TENEMENT_ROOT",
+        "阳台住宅_斜向塌顶_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        16.078923225402832,
+        15.200000286102295,
+        39.259181797504425
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 160090,
+      "polygons": 83319,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/balcony_tenement/balcony_tenement.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "cb100ad4302a654d8d2ea4c37a84a4bb0ccb847b3fa372d2681e538af99a5a5b",
+      "geometry_fingerprint": "f013aab1a7a68e6841321a75c80ecb3b89c9ea2f4083684e72c4f9cadfa53c64"
+    },
+    {
+      "key": "cutaway_tenement",
+      "slug": "cutaway_tenement",
+      "name": "半栋住宅_楼层剖露",
+      "category": "architecture",
+      "component_family": "tenement",
+      "component_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        17,
+        14,
+        30
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 6,
+      "color": "plaster",
+      "damage": 0.63,
+      "style": "cutaway",
+      "variant_axis": "structure_damage",
+      "variant_value": "cutaway",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 3,
+      "collection": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT_半栋住宅_楼层剖露",
+      "root_object": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CUTAWAY-TENEMENT_ROOT",
+        "半栋住宅_楼层剖露_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        16.62713050842285,
+        14.07800006866455,
+        33.83418256044388
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 77964,
+      "polygons": 40572,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/cutaway_tenement/cutaway_tenement.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "9dba76434aebbb77d0948f93779404ca56f80cea7be81820066c7966a57972d4",
+      "geometry_fingerprint": "6934587ba195866bc0b3e9c62612795d4e7765e991ba5484ea735cdf24329c09"
+    },
+    {
+      "key": "slender_tower",
+      "slug": "slender_tower",
+      "name": "竖窗高楼_局部崩角",
+      "category": "architecture",
+      "component_family": "tower",
+      "component_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        14,
+        14,
+        59
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 11,
+      "color": "white",
+      "damage": 0.18,
+      "style": "slender",
+      "variant_axis": "structure_damage",
+      "variant_value": "slender",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 2,
+      "collection": "SEA-SCENE-SCITY-SLENDER-TOWER_竖窗高楼_局部崩角",
+      "root_object": "SEA-SCENE-SCITY-SLENDER-TOWER_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-SLENDER-TOWER_ROOT",
+        "竖窗高楼_局部崩角_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        14.07892370223999,
+        14.07800006866455,
+        59.65918332338333
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 220826,
+      "polygons": 114953,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/slender_tower/slender_tower.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "2811b49b84ae0b5bc92b2a9969c676779c95f48928f0c7266964850bffaf454d",
+      "geometry_fingerprint": "69ec21fbf0f07a305ff4ca6720cc72428a4f8a8edc1621282eb29529e7eaed4d"
+    },
+    {
+      "key": "terraced_tower",
+      "slug": "terraced_tower",
+      "name": "退台高楼_破顶机房",
+      "category": "architecture",
+      "component_family": "tower",
+      "component_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        18,
+        16,
+        54
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 10,
+      "color": "plaster",
+      "damage": 0.34,
+      "style": "tower_terrace",
+      "variant_axis": "structure_damage",
+      "variant_value": "tower_terrace",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 2,
+      "collection": "SEA-SCENE-SCITY-TERRACED-TOWER_退台高楼_破顶机房",
+      "root_object": "SEA-SCENE-SCITY-TERRACED-TOWER_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-TERRACED-TOWER_ROOT",
+        "退台高楼_破顶机房_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        18.078923225402832,
+        16.077999591827393,
+        54.55918484926224
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 286592,
+      "polygons": 149238,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/terraced_tower/terraced_tower.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "c3183f67c5a59c1a5b4e02873692774370c7b8f53aa5d51d4bc8185ad2532e10",
+      "geometry_fingerprint": "0e741c161e353bf934ba7c2ebd7097972c8ed4a8b1b5b1ddf39ba48b6c5a6ff6"
+    },
+    {
+      "key": "half_tower",
+      "slug": "half_tower",
+      "name": "高楼半骸_外露柱架",
+      "category": "architecture",
+      "component_family": "tower",
+      "component_id": "SEA-SCENE-SCITY-HALF-TOWER",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        16,
+        15,
+        43
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 8,
+      "color": "mint_white",
+      "damage": 0.65,
+      "style": "half_tower",
+      "variant_axis": "structure_damage",
+      "variant_value": "half_tower",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 2,
+      "collection": "SEA-SCENE-SCITY-HALF-TOWER_高楼半骸_外露柱架",
+      "root_object": "SEA-SCENE-SCITY-HALF-TOWER_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-HALF-TOWER_ROOT",
+        "高楼半骸_外露柱架_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        15.627130508422852,
+        15.07800006866455,
+        44.359184086322784
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 126410,
+      "polygons": 65845,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/half_tower/half_tower.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "4ce481f3d492159d715032d9d79deff2b6133e88160fcc89e926337e8ff1727c",
+      "geometry_fingerprint": "9a3494026ee0486c44aaa4a23e1f09a7e651c289103135e810a2f4ba919a6381"
+    },
+    {
+      "key": "canal_housing",
+      "slug": "canal_housing",
+      "name": "运河侧白楼_阶梯屋顶",
+      "category": "architecture",
+      "component_family": "canal_housing",
+      "component_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        18,
+        16,
+        39
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 7,
+      "color": "cloud",
+      "damage": 0.23,
+      "style": "canal",
+      "variant_axis": "structure_damage",
+      "variant_value": "canal",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 1,
+      "collection": "SEA-SCENE-SCITY-CANAL-HOUSING_运河侧白楼_阶梯屋顶",
+      "root_object": "SEA-SCENE-SCITY-CANAL-HOUSING_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CANAL-HOUSING_ROOT",
+        "运河侧白楼_阶梯屋顶_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        19.751792907714844,
+        16.186999797821045,
+        39.259181797504425
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 214408,
+      "polygons": 111676,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/canal_housing/canal_housing.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "04b9d1bc69deef192b383de667ae33a5bf1dcbb361bb497156461b41aadb5e7a",
+      "geometry_fingerprint": "27431938d45a2b972c61258a4456c8bdbb7ffe2a186917b3e9b39cb43a7c982b"
+    },
+    {
+      "key": "canal_shell",
+      "slug": "canal_shell",
+      "name": "运河街断墙_半栋遗址",
+      "category": "architecture",
+      "component_family": "canal_housing",
+      "component_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        17,
+        16,
+        23
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 5,
+      "color": "white",
+      "damage": 0.72,
+      "style": "canal_shell",
+      "variant_axis": "structure_damage",
+      "variant_value": "canal_shell",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 3,
+      "collection": "SEA-SCENE-SCITY-CANAL-SHELL_运河街断墙_半栋遗址",
+      "root_object": "SEA-SCENE-SCITY-CANAL-SHELL_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CANAL-SHELL_ROOT",
+        "运河街断墙_半栋遗址_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        16.62713050842285,
+        16.077999591827393,
+        29.059182941913605
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 78096,
+      "polygons": 40674,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/canal_shell/canal_shell.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "23370642424ed67b283115ec7aa6a33662d54164d04f9efe38c6e881cecf6ac1",
+      "geometry_fingerprint": "058c030c92c9fcdb4ce2bfc8ed41205ff58aea9624792a0620265087350f33db"
+    },
+    {
+      "key": "rounded_corner",
+      "slug": "rounded_corner",
+      "name": "弧角百货楼_掉角",
+      "category": "architecture",
+      "component_family": "retail_corner",
+      "component_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        18,
+        16,
+        34
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 6,
+      "color": "seafoam",
+      "damage": 0.33,
+      "style": "corner",
+      "variant_axis": "structure_damage",
+      "variant_value": "corner",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 1,
+      "collection": "SEA-SCENE-SCITY-ROUNDED-CORNER_弧角百货楼_掉角",
+      "root_object": "SEA-SCENE-SCITY-ROUNDED-CORNER_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-ROUNDED-CORNER_ROOT",
+        "弧角百货楼_掉角_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        18.078923225402832,
+        17.59499979019165,
+        34.15918332338333
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 182144,
+      "polygons": 94927,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/rounded_corner/rounded_corner.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "ab297bcfec59ecd6a92e72f74fe2b1a16845512e1dc50552ecb50e37de3cb51f",
+      "geometry_fingerprint": "ec5af581f881336433bf2b154ef625d3f7d2e1ae161a2d3a9641b35bcd93168b"
+    },
+    {
+      "key": "cinema_ruin",
+      "slug": "cinema_ruin",
+      "name": "旧影院_残破招牌",
+      "category": "architecture",
+      "component_family": "civic",
+      "component_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        20,
+        16,
+        19
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 3,
+      "color": "plaster",
+      "damage": 0.55,
+      "style": "cinema",
+      "variant_axis": "structure_damage",
+      "variant_value": "cinema",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 1,
+      "collection": "SEA-SCENE-SCITY-CINEMA-RUIN_旧影院_残破招牌",
+      "root_object": "SEA-SCENE-SCITY-CINEMA-RUIN_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CINEMA-RUIN_ROOT",
+        "旧影院_残破招牌_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        20.078923225402832,
+        16.077999591827393,
+        18.859184086322784
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 78548,
+      "polygons": 40919,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/cinema_ruin/cinema_ruin.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "7b80278c61a5a4acf23960fcda3e222cead743b81c88f55bdbf5891dd2964ae7",
+      "geometry_fingerprint": "f9b9ca836ade3708a1adafcee952eedb407a19ddafaeafab96c8f98d801d5326"
+    },
+    {
+      "key": "station_hall",
+      "slug": "station_hall",
+      "name": "电车候车馆_坍塌拱厅",
+      "category": "architecture",
+      "component_family": "civic",
+      "component_id": "SEA-SCENE-SCITY-STATION-HALL",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        20,
+        17,
+        21
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 4,
+      "color": "stone",
+      "damage": 0.62,
+      "style": "station",
+      "variant_axis": "structure_damage",
+      "variant_value": "station",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 1,
+      "collection": "SEA-SCENE-SCITY-STATION-HALL_电车候车馆_坍塌拱厅",
+      "root_object": "SEA-SCENE-SCITY-STATION-HALL_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-STATION-HALL_ROOT",
+        "电车候车馆_坍塌拱厅_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        21.751792907714844,
+        17.07800006866455,
+        23.959182560443878
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 124162,
+      "polygons": 64724,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/station_hall/station_hall.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "15719b8522c642614c176db132f6c7f0ae0532ef09dd973992d6d3e6686007a5",
+      "geometry_fingerprint": "68d9009e2e2f9bfcfee19dc4c4a3bfb9664ceb251a5aeaf59e1a51436bed6663"
+    },
+    {
+      "key": "workshop_shell",
+      "slug": "workshop_shell",
+      "name": "旧维修厂_锯齿断顶",
+      "category": "architecture",
+      "component_family": "workshop",
+      "component_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        20,
+        17,
+        14
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 2,
+      "color": "sage_gray",
+      "damage": 0.68,
+      "style": "workshop",
+      "variant_axis": "structure_damage",
+      "variant_value": "workshop",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 2,
+      "collection": "SEA-SCENE-SCITY-WORKSHOP-SHELL_旧维修厂_锯齿断顶",
+      "root_object": "SEA-SCENE-SCITY-WORKSHOP-SHELL_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-WORKSHOP-SHELL_ROOT",
+        "旧维修厂_锯齿断顶_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        19.62713050842285,
+        16.520316123962402,
+        13.759183704853058
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 43852,
+      "polygons": 22793,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/workshop_shell/workshop_shell.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "2f139edfa88b48070e64cce26f815cebcdb04594f17057ef76fa1f34b9627b00",
+      "geometry_fingerprint": "5cf6d7f89929fc653473cdb79af6778e6986aa80998facfcfef2b5f13b07ff95"
+    },
+    {
+      "key": "frame_construction",
+      "slug": "frame_construction",
+      "name": "停工楼架_缺层",
+      "category": "architecture",
+      "component_family": "construction",
+      "component_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        18,
+        16,
+        35
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 6,
+      "color": "cloud",
+      "damage": 0.73,
+      "style": "frame",
+      "variant_axis": "structure_damage",
+      "variant_value": "frame",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 1,
+      "collection": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION_停工楼架_缺层",
+      "root_object": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-FRAME-CONSTRUCTION_ROOT",
+        "停工楼架_缺层_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        18.078923225402832,
+        15.520315647125244,
+        31.869182407855988
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 15076,
+      "polygons": 7849,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/frame_construction/frame_construction.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "1665e8efdbe18c047a42c12519c2aafbad06a68da330aca6a0375ae7bbfc6d18",
+      "geometry_fingerprint": "64dd37c23e497acdd059c4d9444c5a242ee8fe092e5e4875c9f2b979361c04d7"
+    },
+    {
+      "key": "roof_garden_shell",
+      "slug": "roof_garden_shell",
+      "name": "屋顶温室楼_破碎玻璃架",
+      "category": "architecture",
+      "component_family": "greenhouse_building",
+      "component_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        17,
+        16,
+        24
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 4,
+      "color": "red",
+      "damage": 0.38,
+      "style": "greenhouse",
+      "variant_axis": "structure_damage",
+      "variant_value": "greenhouse",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 3,
+      "collection": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL_屋顶温室楼_破碎玻璃",
+      "root_object": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL_ROOT",
+        "屋顶温室楼_破碎玻璃架_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        18.751792907714844,
+        16.077999591827393,
+        26.00667554140091
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 110984,
+      "polygons": 57820,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/roof_garden_shell/roof_garden_shell.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "09c5e26301ba22530e6d0cc130165f3d6e13fd8c0f037d78dea4721184fc7e61",
+      "geometry_fingerprint": "fe65ba7b4fbab196f0e26c903a9e2c1314b64137f80252555841cd05c77cacb5"
+    },
+    {
+      "key": "low_foundation",
+      "slug": "low_foundation",
+      "name": "半层残楼_基础遗址",
+      "category": "architecture",
+      "component_family": "foundation",
+      "component_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        17,
+        16,
+        8
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "floors": 1,
+      "color": "stone",
+      "damage": 0.84,
+      "style": "foundation",
+      "variant_axis": "structure_damage",
+      "variant_value": "foundation",
+      "variant_reason": "distinct height, cut silhouette and original building function; not location",
+      "instance_count": 3,
+      "collection": "SEA-SCENE-SCITY-LOW-FOUNDATION_半层残楼_基础遗址",
+      "root_object": "SEA-SCENE-SCITY-LOW-FOUNDATION_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-LOW-FOUNDATION_ROOT",
+        "半层残楼_基础遗址_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        16.62713050842285,
+        15.520315647125244,
+        6.369183361530304
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 14150,
+      "polygons": 7371,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/low_foundation/low_foundation.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "1647c24b0d9dadaebd8f6c4474663ca48ce506a1f0bb2f14472960915c3cebc1",
+      "geometry_fingerprint": "ca925fae22706b1b6621d120a846468ad196963f535501a3f927ba1b1d38e558"
+    },
+    {
+      "key": "street_intact",
+      "slug": "street_intact",
+      "name": "车行街段_带两侧路沿",
+      "category": "ground",
+      "component_family": "street",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        24,
+        24,
+        0.8
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 28,
+      "collection": "SEA-SCENE-SCITY-STREET-INTACT_车行街段_带两侧路沿",
+      "root_object": "SEA-SCENE-SCITY-STREET-INTACT_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-STREET-INTACT_ROOT",
+        "车行街段_带两侧路沿_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        24.0,
+        24.0,
+        0.8550000190734863
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 1260,
+      "polygons": 654,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/street_intact/street_intact.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "502df880965247d5adeef71d37be54095ff8d66386ad2b2093be05abbdf95934",
+      "geometry_fingerprint": "85778e56399dc841e272eb2caa8d7a83b97fba03d7ca68bf8d953682bfd50fac"
+    },
+    {
+      "key": "street_split",
+      "slug": "street_split",
+      "name": "开裂街段_错位断板",
+      "category": "ground",
+      "component_family": "street",
+      "component_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        24,
+        24,
+        0.8
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 4,
+      "collection": "SEA-SCENE-SCITY-STREET-SPLIT_开裂街段_错位断板",
+      "root_object": "SEA-SCENE-SCITY-STREET-SPLIT_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-STREET-SPLIT_ROOT",
+        "开裂街段_错位断板_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        24.0,
+        24.0,
+        0.8550000190734863
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 1296,
+      "polygons": 672,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/street_split/street_split.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "f75fded156a651d1af494ce831cc8ef6dceee6dc24818924a018dd1e1dbf21fc",
+      "geometry_fingerprint": "8bae375c6036d43a5c212b6fe7f60e7023ced57915793d509255142af6553128"
+    },
+    {
+      "key": "junction",
+      "slug": "junction",
+      "name": "十字路口_斑马线",
+      "category": "ground",
+      "component_family": "junction",
+      "component_id": "SEA-SCENE-SCITY-JUNCTION",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        24,
+        24,
+        0.8
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 4,
+      "collection": "SEA-SCENE-SCITY-JUNCTION_十字路口_斑马线",
+      "root_object": "SEA-SCENE-SCITY-JUNCTION_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-JUNCTION_ROOT",
+        "十字路口_斑马线_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        24.0,
+        24.0,
+        0.8550000190734863
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 4196,
+      "polygons": 2186,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/junction/junction.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "9eadda13063cac9d375f7266dc70412aa39ae354a2663860256a67966581e2b7",
+      "geometry_fingerprint": "3609c7aab5a79836285e4e89cc1a5016894b2aa8777e53ef7b2e3e31f85c2caf"
+    },
+    {
+      "key": "canal_segment",
+      "slug": "canal_segment",
+      "name": "下沉运河_两岸步道",
+      "category": "ground",
+      "component_family": "canal",
+      "component_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        24,
+        24,
+        2.2
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 4,
+      "collection": "SEA-SCENE-SCITY-CANAL-SEGMENT_下沉运河_两岸步道",
+      "root_object": "SEA-SCENE-SCITY-CANAL-SEGMENT_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CANAL-SEGMENT_ROOT",
+        "下沉运河_两岸步道_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        24.0,
+        24.0,
+        2.0999999046325684
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 1916,
+      "polygons": 998,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/canal_segment/canal_segment.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "a862fca205837878e35cada632ae944bb3331c06c748ca50fe7d302467718dcd",
+      "geometry_fingerprint": "327c3915f63b06ecbfbba449bf09bd092de2d127c521ceec5c5a0c328cf99660"
+    },
+    {
+      "key": "plaza_tile",
+      "slug": "plaza_tile",
+      "name": "旧铺砖广场_局部缺角",
+      "category": "ground",
+      "component_family": "plaza",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        24,
+        24,
+        0.8
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 58,
+      "collection": "SEA-SCENE-SCITY-PLAZA-TILE_旧铺砖广场_局部缺角",
+      "root_object": "SEA-SCENE-SCITY-PLAZA-TILE_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-PLAZA-TILE_ROOT",
+        "旧铺砖广场_局部缺角_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        24.0,
+        24.0,
+        0.6000000238418579
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 6780,
+      "polygons": 3534,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/plaza_tile/plaza_tile.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "b8c91811a426dd610c084daf07e87415d4503ca72645bd9ab1d66cb67a7ff22d",
+      "geometry_fingerprint": "c02c90f325321f9551bbfdc1607c993a7351a93d2e59b94372e0bb7c58a1da1d"
+    },
+    {
+      "key": "viaduct_intact",
+      "slug": "viaduct_intact",
+      "name": "高架轨道_完整跨段",
+      "category": "ground",
+      "component_family": "viaduct",
+      "component_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        20,
+        9,
+        11.1
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 2,
+      "collection": "SEA-SCENE-SCITY-VIADUCT-INTACT_高架轨道_完整跨段",
+      "root_object": "SEA-SCENE-SCITY-VIADUCT-INTACT_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-VIADUCT-INTACT_ROOT",
+        "高架轨道_完整跨段_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        20.036405563354492,
+        9.0,
+        11.618245124816895
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 3872,
+      "polygons": 1928,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/viaduct_intact/viaduct_intact.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "54780265b095415f63c0bf12cad3dc26a81b63d1e8f0459765f40a3421f22769",
+      "geometry_fingerprint": "d1a4a1c35ccc9e453033f44edbb4dc3b02dfcce9f2eb294bb8c73ffc8e6eb67a"
+    },
+    {
+      "key": "viaduct_broken",
+      "slug": "viaduct_broken",
+      "name": "高架轨道_断裂跨段",
+      "category": "ground",
+      "component_family": "viaduct",
+      "component_id": "SEA-SCENE-SCITY-VIADUCT-BROKEN",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        20,
+        9,
+        11.1
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 1,
+      "collection": "SEA-SCENE-SCITY-VIADUCT-BROKEN_高架轨道_断裂跨段",
+      "root_object": "SEA-SCENE-SCITY-VIADUCT-BROKEN_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-VIADUCT-BROKEN_ROOT",
+        "高架轨道_断裂跨段_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        19.899999618530273,
+        9.0,
+        11.618245124816895
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 3132,
+      "polygons": 1551,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/viaduct_broken/viaduct_broken.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "7b985c2e1a2f92e76648e48d38aa7e1a55864bbabe0cc000aaa4543e274fcc6e",
+      "geometry_fingerprint": "84b5244f9f80480087172cfd221756f92ff5f64866d346815978db823b80f2e4"
+    },
+    {
+      "key": "stair_link",
+      "slug": "stair_link",
+      "name": "高架长梯_断侧扶栏",
+      "category": "ground",
+      "component_family": "stair",
+      "component_id": "SEA-SCENE-SCITY-STAIR-LINK",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        4,
+        14,
+        10.8
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 1,
+      "collection": "SEA-SCENE-SCITY-STAIR-LINK_高架长梯_断侧扶栏",
+      "root_object": "SEA-SCENE-SCITY-STAIR-LINK_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-STAIR-LINK_ROOT",
+        "高架长梯_断侧扶栏_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        3.799999952316284,
+        13.639999389648438,
+        11.391594886779785
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 7544,
+      "polygons": 3929,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/stair_link/stair_link.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "8d265310a90e88fc0f13ca82006f25a1c736d44600277097ac9d3661dc1c28ab",
+      "geometry_fingerprint": "d8a400d32d973367ba338d5ec33b7f6025b56f3198d8be87d234d7bcc6d75e59"
+    },
+    {
+      "key": "car_sedan",
+      "slug": "car_sedan",
+      "name": "废弃轿车_压瘪车顶",
+      "category": "facilities",
+      "component_family": "vehicle",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        4.8,
+        2.2,
+        1.7
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 10,
+      "collection": "SEA-SCENE-SCITY-CAR-SEDAN_废弃轿车_压瘪车顶",
+      "root_object": "SEA-SCENE-SCITY-CAR-SEDAN_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CAR-SEDAN_ROOT",
+        "废弃轿车_压瘪车顶_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        4.888000011444092,
+        2.522239923477173,
+        1.8799999952316284
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 2624,
+      "polygons": 1304,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/car_sedan/car_sedan.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "5881aa40e32405e65ed20ede84a0bfc7de51eacd7f6b00d9b2138c3c0f4817a1",
+      "geometry_fingerprint": "dc889a1a35e28ba72bce8bb3e118d12d1aee3bb8ea988d0878e413259a895606"
+    },
+    {
+      "key": "car_van",
+      "slug": "car_van",
+      "name": "旧厢车_车门脱落",
+      "category": "facilities",
+      "component_family": "vehicle",
+      "component_id": "SEA-SCENE-SCITY-CAR-VAN",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        5.7,
+        2.5,
+        2.7
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 3,
+      "collection": "SEA-SCENE-SCITY-CAR-VAN_旧厢车_车门脱落",
+      "root_object": "SEA-SCENE-SCITY-CAR-VAN_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CAR-VAN_ROOT",
+        "旧厢车_车门脱落_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        5.796999931335449,
+        2.828000068664551,
+        2.7799999713897705
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 2624,
+      "polygons": 1304,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/car_van/car_van.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "d0bed46fa3fd44165cb5ea42390a2f493adc5c34ed5efde21ce2e9b20bcfb9d5",
+      "geometry_fingerprint": "c42fc52378adeb94df0d34abafd714f91359f228915af463126fb230d0985c32"
+    },
+    {
+      "key": "tram_wreck",
+      "slug": "tram_wreck",
+      "name": "旧电车_断窗侧倾",
+      "category": "facilities",
+      "component_family": "tram",
+      "component_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        12,
+        3.8,
+        5.4
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 1,
+      "collection": "SEA-SCENE-SCITY-TRAM-WRECK_旧电车_断窗侧倾",
+      "root_object": "SEA-SCENE-SCITY-TRAM-WRECK_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-TRAM-WRECK_ROOT",
+        "旧电车_断窗侧倾_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        12.0,
+        4.152960300445557,
+        5.518245220184326
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 4614,
+      "polygons": 2336,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/tram_wreck/tram_wreck.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "e81936ec9aca9b5326d346efaec6b1eddcda3b8644e462667da167f4ddbbc7b3",
+      "geometry_fingerprint": "06567d4e1bf90c4eabe2f205eaf8b4ac20eddeb16247ef2fb2c0e285c94ee977"
+    },
+    {
+      "key": "scooter",
+      "slug": "scooter",
+      "name": "旧踏板车_沉没",
+      "category": "facilities",
+      "component_family": "scooter",
+      "component_id": "SEA-SCENE-SCITY-SCOOTER",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        2.2,
+        1,
+        1.7
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 4,
+      "collection": "SEA-SCENE-SCITY-SCOOTER_旧踏板车_沉没",
+      "root_object": "SEA-SCENE-SCITY-SCOOTER_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-SCOOTER_ROOT",
+        "旧踏板车_沉没_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        2.059999942779541,
+        0.800000011920929,
+        1.7052394151687622
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 690,
+      "polygons": 338,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/scooter/scooter.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "0ea842a71e7b96e6bc37e5423d1a8fa594ee6491d6d59cbd96e61c1031047d24",
+      "geometry_fingerprint": "12ca3f32bab4b53570d79305e150d26557122b170f252522b5445c95d943728b"
+    },
+    {
+      "key": "utility_pole",
+      "slug": "utility_pole",
+      "name": "电线杆_锈蚀横担",
+      "category": "facilities",
+      "component_family": "power",
+      "component_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        1.8,
+        1.0,
+        10
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 7,
+      "collection": "SEA-SCENE-SCITY-UTILITY-POLE_电线杆_锈蚀横担",
+      "root_object": "SEA-SCENE-SCITY-UTILITY-POLE_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-UTILITY-POLE_ROOT",
+        "电线杆_锈蚀横担_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        2.5999999046325684,
+        0.5,
+        9.600000381469727
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 768,
+      "polygons": 366,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/utility_pole/utility_pole.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "fc8ce11d7d18afca9fa21a2ce0fbe01ccbda31a07aa702831735ce7778ba296a",
+      "geometry_fingerprint": "bfd1724953f231814c036583aa0d4ffeac24f307cd8a6877b81b4520d62fcb90"
+    },
+    {
+      "key": "leaning_pole",
+      "slug": "leaning_pole",
+      "name": "断杆_折落横担",
+      "category": "facilities",
+      "component_family": "power",
+      "component_id": "SEA-SCENE-SCITY-LEANING-POLE",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        3.1,
+        1.2,
+        6.8
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 2,
+      "collection": "SEA-SCENE-SCITY-LEANING-POLE_断杆_折落横担",
+      "root_object": "SEA-SCENE-SCITY-LEANING-POLE_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-LEANING-POLE_ROOT",
+        "断杆_折落横担_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        2.686842441558838,
+        0.5,
+        6.568987846374512
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 768,
+      "polygons": 366,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/leaning_pole/leaning_pole.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "ff3f34d457f973955b64448a2b2b87a2b28efbef68a27b3ab23fe25c8a22d375",
+      "geometry_fingerprint": "43736d26eb66da1d736052bec8651315627969f8fe74b730f6af9f7aaa14d655"
+    },
+    {
+      "key": "cable_span",
+      "slug": "cable_span",
+      "name": "三根下垂电线_20米",
+      "category": "facilities",
+      "component_family": "cable",
+      "component_id": "SEA-SCENE-SCITY-CABLE-SPAN",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        20,
+        0.9,
+        2.6
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 3,
+      "collection": "SEA-SCENE-SCITY-CABLE-SPAN_三根下垂电线_20米",
+      "root_object": "SEA-SCENE-SCITY-CABLE-SPAN_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CABLE-SPAN_ROOT",
+        "三根下垂电线_20米_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        20.02143096923828,
+        0.7633155584335327,
+        2.5648021697998047
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 138,
+      "polygons": 66,
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/cable_span/cable_span.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "d89d6c8e81b8c2cf86ae2f5a6053117b23ef481c444c38534a7069272b36cef9",
+      "geometry_fingerprint": "2119b4809436f889f735e917f0b2f3aa8873f7282f3d7e48d4d9ab61125e7e8a"
+    },
+    {
+      "key": "street_lamp",
+      "slug": "street_lamp",
+      "name": "旧路灯_熄灭",
+      "category": "facilities",
+      "component_family": "lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        3.4,
+        1,
+        7.3
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 14,
+      "collection": "SEA-SCENE-SCITY-STREET-LAMP_旧路灯_熄灭",
+      "root_object": "SEA-SCENE-SCITY-STREET-LAMP_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-STREET-LAMP_ROOT",
+        "旧路灯_熄灭_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        3.25,
+        1.0,
+        7.326263904571533
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 458,
+      "polygons": 226,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/street_lamp/street_lamp.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "f6e314e60ac2c62ced0acbff0e9a073fd89bf5d330e078601ab9b6c6881b7d79",
+      "geometry_fingerprint": "a4d569b676a0683d834dbf3434156c389b6cd73b1bf5c795d68c574d49fd8955"
+    },
+    {
+      "key": "traffic_light",
+      "slug": "traffic_light",
+      "name": "红绿灯_熄灭掉罩",
+      "category": "facilities",
+      "component_family": "signal",
+      "component_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        2.6,
+        1,
+        5.8
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 4,
+      "collection": "SEA-SCENE-SCITY-TRAFFIC-LIGHT_红绿灯_熄灭掉罩",
+      "root_object": "SEA-SCENE-SCITY-TRAFFIC-LIGHT_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-TRAFFIC-LIGHT_ROOT",
+        "红绿灯_熄灭掉罩_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        2.825000047683716,
+        1.0,
+        5.92626428604126
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 378,
+      "polygons": 164,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/traffic_light/traffic_light.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "6c8376610a56770b8abdc09bd07da193cb6919a09196172262efbff795fb1667",
+      "geometry_fingerprint": "ea33fd94d90796793da530d18b105e69da19119a5071cca3ea800b6eb3ba1616"
+    },
+    {
+      "key": "vending",
+      "slug": "vending",
+      "name": "旧饮料售货机",
+      "category": "facilities",
+      "component_family": "vending",
+      "component_id": "SEA-SCENE-SCITY-VENDING",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        1.4,
+        1.1,
+        2.7
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 4,
+      "collection": "SEA-SCENE-SCITY-VENDING_旧饮料售货机",
+      "root_object": "SEA-SCENE-SCITY-VENDING_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-VENDING_ROOT",
+        "旧饮料售货机_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        1.399999976158142,
+        1.2699999809265137,
+        2.700000047683716
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 1004,
+      "polygons": 482,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/vending/vending.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "395b425a72f87f45082bec5a69ca6e5b925cc574290ec96ea16d09c0f39ecf63",
+      "geometry_fingerprint": "789a2cfdaeca86448b5b426930b92ca9e9327ed87b5af74c0bedc6d7169b2b73"
+    },
+    {
+      "key": "bus_shelter",
+      "slug": "bus_shelter",
+      "name": "候车亭_缺顶板",
+      "category": "facilities",
+      "component_family": "shelter",
+      "component_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        6,
+        2.5,
+        3.4
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 4,
+      "collection": "SEA-SCENE-SCITY-BUS-SHELTER_候车亭_缺顶板",
+      "root_object": "SEA-SCENE-SCITY-BUS-SHELTER_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-BUS-SHELTER_ROOT",
+        "候车亭_缺顶板_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        5.829999923706055,
+        2.5,
+        3.3499999046325684
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 1516,
+      "polygons": 790,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/bus_shelter/bus_shelter.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "e106922bf161c109d9470c75ea768af401a0709099652691da0c7c77b65006e6",
+      "geometry_fingerprint": "9acc4477c4ca1b42ae391ab8288f45c2c6c2296e465dd145064de02d6ad50265"
+    },
+    {
+      "key": "sign_board",
+      "slug": "sign_board",
+      "name": "旧街道导向牌",
+      "category": "facilities",
+      "component_family": "sign",
+      "component_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        4.4,
+        1,
+        4.5
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 4,
+      "collection": "SEA-SCENE-SCITY-SIGN-BOARD_旧街道导向牌",
+      "root_object": "SEA-SCENE-SCITY-SIGN-BOARD_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-SIGN-BOARD_ROOT",
+        "旧街道导向牌_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        4.460979461669922,
+        1.0,
+        4.526264190673828
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 1490,
+      "polygons": 833,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/sign_board/sign_board.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "50ccb569e8b1e4d57f81e0587fe495f35283488b748564ba1352988ee7f151ce",
+      "geometry_fingerprint": "f04f7a560c8ec8292fc0d3691d570f6f029ae9083b69ccc7223c2b12f852f0d7"
+    },
+    {
+      "key": "rubble_cluster",
+      "slug": "rubble_cluster",
+      "name": "大块楼板残骸_露筋",
+      "category": "facilities",
+      "component_family": "rubble",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        6.5,
+        5,
+        2.5
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 20,
+      "collection": "SEA-SCENE-SCITY-RUBBLE-CLUSTER_大块楼板残骸_露筋",
+      "root_object": "SEA-SCENE-SCITY-RUBBLE-CLUSTER_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-RUBBLE-CLUSTER_ROOT",
+        "大块楼板残骸_露筋_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        5.715139389038086,
+        3.827401638031006,
+        1.9428422451019287
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 848,
+      "polygons": 428,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/rubble_cluster/rubble_cluster.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "6ce47c71f03fb56f8689a0b0e1c020f2863c211ed13e5413c1702065b475f5b1",
+      "geometry_fingerprint": "438bf26b453564c6f707906e8577eb142a4d787c2c2e04a702d69d03fd863dce"
+    },
+    {
+      "key": "corrosion_patch",
+      "slug": "corrosion_patch",
+      "name": "侵蚀剥落块_硬表面",
+      "category": "facilities",
+      "component_family": "corrosion",
+      "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        3.4,
+        0.1,
+        2.0
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 8,
+      "collection": "SEA-SCENE-SCITY-CORROSION-PATCH_侵蚀剥落块_硬表面",
+      "root_object": "SEA-SCENE-SCITY-CORROSION-PATCH_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CORROSION-PATCH_ROOT",
+        "侵蚀剥落块_硬表面_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        3.1742563247680664,
+        0.04500000178813934,
+        1.857536792755127
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 1692,
+      "polygons": 882,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/corrosion_patch/corrosion_patch.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "0f1a2ef3038b20726753fd70e7dd4d372f723613ca4f9ae87ab6faf44dfcf0d0",
+      "geometry_fingerprint": "cc4257a1d860b85910bfd53c7d91b4807282a481c6872f90bfb263c6d8cf65c7"
+    },
+    {
+      "key": "moss_patch",
+      "slug": "moss_patch",
+      "name": "攀附海藻苔片_独立",
+      "category": "vegetation",
+      "component_family": "vegetation",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        3.2,
+        2.4,
+        0.45
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 23,
+      "collection": "SEA-SCENE-SCITY-MOSS-PATCH_攀附海藻苔片_独立",
+      "root_object": "SEA-SCENE-SCITY-MOSS-PATCH_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-MOSS-PATCH_ROOT",
+        "攀附海藻苔片_独立_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        2.6253461837768555,
+        2.5836386680603027,
+        0.19999998807907104
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 256,
+      "polygons": 88,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/moss_patch/moss_patch.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "6829b059cbefa70e583b2d14f9ff0b90861957af68abcac39bc58b4a82456a5f",
+      "geometry_fingerprint": "bca89f5530c0d796e4a029a7c2b6602c59125fecaa90115a9515db3a8d2a65f6"
+    },
+    {
+      "key": "kelp_clump",
+      "slug": "kelp_clump",
+      "name": "宽叶海藻簇_独立",
+      "category": "vegetation",
+      "component_family": "vegetation",
+      "component_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "size_design_m": [
+        2.8,
+        2.8,
+        3.4
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "instance_count": 8,
+      "collection": "SEA-SCENE-SCITY-KELP-CLUMP_宽叶海藻簇_独立",
+      "root_object": "SEA-SCENE-SCITY-KELP-CLUMP_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-KELP-CLUMP_ROOT",
+        "宽叶海藻簇_独立_主体_金属哑光反光"
+      ],
+      "bounds_size_m": [
+        2.9110703468322754,
+        1.298693299293518,
+        3.0
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "triangles": 42,
+      "polygons": 21,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/kelp_clump/kelp_clump.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "version": "v001",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "source_sha256": "7c95ff3d3400991e5f755b3dcbafe5491ad53d87960811b8020e94a99e23972c",
+      "geometry_fingerprint": "5a65ba0f42edbec84b76b82fbd093fb5f69ece6c15dc4191b163cd6b813069b6"
+    },
+    {
+      "key": "collapsed_residence",
+      "name": "倒塌住宅_断腰折落",
+      "category": "architecture",
+      "component_family": "collapsed_building",
+      "size_design_m": [
+        24,
+        30,
+        18
+      ],
+      "collapse_state": "mid_storey_fracture",
+      "floors": 5,
+      "color": "seafoam",
+      "damage": 0.85,
+      "style": "folded_residence",
+      "slug": "collapsed_residence",
+      "component_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "variant_axis": "collapse_state",
+      "variant_value": "mid_storey_fracture",
+      "variant_reason": "physically different collapse topology, no world-location geometry",
+      "collection": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE_倒塌住宅_断腰折落",
+      "root_object": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE_ROOT",
+        "倒塌住宅_断腰折落_主体_金属哑光反光"
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "version": "v001",
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/collapsed_residence/collapsed_residence.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "bounds_size_m": [
+        16.977130889892578,
+        25.24574375152588,
+        19.43483155965805
+      ],
+      "triangles": 74140,
+      "polygons": 38538,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "instance_count": 1,
+      "source_sha256": "cfb624cd1fdebe16e0fdbc46130f141409d8891f634fd6ac3ab5cb2039bc9008",
+      "geometry_fingerprint": "a0285f6ed6db32e4fd360437adee541cfa33052b15f9fa7e5bd193304ac7ab81"
+    },
+    {
+      "key": "fallen_hall",
+      "name": "侧倒厂馆_残墙与翻转楼板",
+      "category": "architecture",
+      "component_family": "collapsed_building",
+      "size_design_m": [
+        25,
+        30,
+        15
+      ],
+      "collapse_state": "lateral_wall_failure",
+      "floors": 3,
+      "color": "plaster",
+      "damage": 0.9,
+      "style": "fallen_hall",
+      "slug": "fallen_hall",
+      "component_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "variant_axis": "collapse_state",
+      "variant_value": "lateral_wall_failure",
+      "variant_reason": "physically different collapse topology, no world-location geometry",
+      "collection": "SEA-SCENE-SCITY-FALLEN-HALL_侧倒厂馆_残墙与翻转楼板",
+      "root_object": "SEA-SCENE-SCITY-FALLEN-HALL_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-FALLEN-HALL_ROOT",
+        "侧倒厂馆_残墙与翻转楼板_主体_金属哑光反光"
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "version": "v001",
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/fallen_hall/fallen_hall.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "bounds_size_m": [
+        20.678922653198242,
+        18.48838520050049,
+        16.818670213222504
+      ],
+      "triangles": 74800,
+      "polygons": 38965,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "instance_count": 1,
+      "source_sha256": "d552625513a8da38310d596c24e0147cf3a3a78961a1880ed4faa80860db9f2b",
+      "geometry_fingerprint": "520ab3a820be25868558380978cf5ec4be4925902d17496dcd1fc2e72af57c3d"
+    },
+    {
+      "key": "t_junction",
+      "name": "丁字路口_连续人行道",
+      "category": "ground",
+      "component_family": "junction",
+      "size_design_m": [
+        24,
+        24,
+        0.8
+      ],
+      "slug": "t_junction",
+      "component_id": "SEA-SCENE-SCITY-T-JUNCTION",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": "physically different collapse topology, no world-location geometry",
+      "collection": "SEA-SCENE-SCITY-T-JUNCTION_丁字路口_连续人行道",
+      "root_object": "SEA-SCENE-SCITY-T-JUNCTION_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-T-JUNCTION_ROOT",
+        "丁字路口_连续人行道_主体_金属哑光反光"
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "version": "v001",
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/t_junction/t_junction.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "bounds_size_m": [
+        24.0,
+        24.0,
+        0.800000011920929
+      ],
+      "triangles": 1364,
+      "polygons": 710,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "instance_count": 0,
+      "source_sha256": "2a16891535dcf31ae517f501be44678f30157e4a126c1f46557fa1db45fbd27c",
+      "geometry_fingerprint": "36b7d3951b2b0c58dd80d3e5f297f866cbd4a2bc89514709503daedf6940bc10"
+    },
+    {
+      "key": "canal_end",
+      "name": "运河收口_桥面步道",
+      "category": "ground",
+      "component_family": "canal",
+      "size_design_m": [
+        24,
+        24,
+        2.2
+      ],
+      "slug": "canal_end",
+      "component_id": "SEA-SCENE-SCITY-CANAL-END",
+      "building_class": "underwater",
+      "scope": "scene_local",
+      "origin": "bottom_center",
+      "front_axis": "-Y",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision": false,
+      "interactive": false,
+      "emission": false,
+      "variant_axis": null,
+      "variant_value": null,
+      "variant_reason": "physically different collapse topology, no world-location geometry",
+      "collection": "SEA-SCENE-SCITY-CANAL-END_运河收口_桥面步道",
+      "root_object": "SEA-SCENE-SCITY-CANAL-END_ROOT",
+      "objects": [
+        "SEA-SCENE-SCITY-CANAL-END_ROOT",
+        "运河收口_桥面步道_主体_金属哑光反光"
+      ],
+      "local_origin": [
+        0,
+        0,
+        0
+      ],
+      "version": "v001",
+      "component_blend": "art_source/scenes/sunken_city/v001/component_packages/canal_end/canal_end.blend",
+      "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+      "source_stage": "source_authored_verification_pending",
+      "collision_owner": "none_pure_scenery",
+      "dependencies": [],
+      "bounds_size_m": [
+        24.0,
+        24.0,
+        2.200000047683716
+      ],
+      "triangles": 58,
+      "polygons": 29,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "instance_count": 2,
+      "source_sha256": "ba288dc72612edd2a3bfb80114951c8da1175f914d4fcca71ee2d719737f9ea1",
+      "geometry_fingerprint": "1c9404ed3c0c86075799bbfcbc9e74dab9e09e86602f0ae79c025ac32d051bfc"
+    }
+  ]
+}

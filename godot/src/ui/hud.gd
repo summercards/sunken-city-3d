@@ -58,6 +58,9 @@ var _build_rows := {}
 var _plant_rows := {}
 var command_buttons := {}
 var _diving := false
+## SEA-ROOM：进屋后右下角多一枚「出门」圆钮，同时收起室外的工具栏与视角锁定钮。
+var _room_exit: Button
+var _room_mode := false
 var _dive_zone := ""
 var _depth := -1.0
 var _air_ratio := -1.0
@@ -172,6 +175,12 @@ func _ready() -> void:
 		if menu: menu.back()
 		else: back())
 	command_buttons.close = close;_hints.add_child(close);_hints.hide()
+	_room_exit = preload("res://src/ui/launcher_icon.gd").new()
+	_room_exit.kind = "exit"
+	_room_exit.tooltip_text = "离开房间"
+	_root.add_child(_room_exit)
+	_room_exit.hide()
+	_room_exit.pressed.connect(func(): command_requested.emit("room_exit"))
 	_toast_box = PanelContainer.new();_toast_box.add_theme_stylebox_override("panel",_pill(true));_toast_box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(_toast_box);_toast_box.hide();_toast = _label("",22,Cozy.CREAM);_toast_box.add_child(_toast)
 	_toast.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;_toast.custom_minimum_size.x=440
@@ -243,6 +252,10 @@ func _layout() -> void:
 	# 仍落在边距里，不会被屏幕裁掉。普通 Control 不会自己撑开 size，这里显式给。
 	_hints.size=Vector2(CloseButton.DIAMETER,CloseButton.DIAMETER)
 	_hints.position=Vector2(_root.size.x-CloseButton.DIAMETER-34,_root.size.y-CloseButton.DIAMETER-30)
+	# 房间里的「出门」钮：和右下角圆钮同一行，贴在它左边 12px。
+	if _room_exit != null:
+		_room_exit.scale = corner.actions.scale
+		_room_exit.position = corner.actions.position - Vector2(72.0 * corner.actions.scale.x + 12.0, 0.0)
 	# 潜水状态在潜水按钮排（y=88，高 52）下面一行。
 	var dive_h: float = _dive_status.get_theme_font_size("font_size")*1.35
 	_dive_status.position=Vector2(34,140+maxf(12,dive_h*0.2))
@@ -259,6 +272,26 @@ func _attach_presenters() -> void:
 
 func bind_presenters(views: Dictionary) -> void:
 	menu.bind(self,views)
+
+## 进屋/出门的界面切换（SEA-ROOM）。
+##
+## 屋里只留「出门」这一枚按钮：室外的建造、航海图、视角锁定在房间里没有意义，
+## 而且它们都按世界坐标（海面甲板）工作，不该在 120 米高的小房间里被点到。
+## Esc 的暂停菜单与存档不受影响。
+func set_room_mode(on: bool) -> void:
+	if _room_mode == on: return
+	_room_mode = on
+	if _room_exit != null:
+		_room_exit.visible = on
+	corner.toolbar.visible = not on
+	corner.actions.visible = not on
+	corner.stamina.visible = true
+	if on:
+		corner.set_expanded(false)
+		close_card()
+
+func is_room_mode() -> bool:
+	return _room_mode
 
 ## `dim` 为 false 时仍然算「有面板挡着」（提示气泡、底部按钮照旧收起），
 ## 但不铺那层压暗 + 去色的屏幕遮罩。

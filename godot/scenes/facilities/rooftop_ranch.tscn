@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3]
+[gd_scene load_steps=50 format=3]
 
 [ext_resource type="Script" path="res://src/facilities/rooftop_ranch_zone.gd" id="zone"]
 [ext_resource type="Script" path="res://src/navigation/walk_area.gd" id="walk"]
@@ -48,6 +48,8 @@
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/greenhouse_complete.tscn" id="c42"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/water_tower_unbuilt.tscn" id="c43"]
 [ext_resource type="PackedScene" path="res://scenes/components/facilities/rooftop_ranch/water_tower_complete.tscn" id="c44"]
+
+[ext_resource type="Script" path="res://src/ambient/vegetation/patch.gd" id="vegetation"]
 
 [node name="RooftopRanch" type="Node3D"]
 script = ExtResource("zone")
@@ -1848,1002 +1850,1502 @@ transform = Transform3D(1.000000000, 0.000000000, 0.000000000, 0.000000000, 1.00
 metadata/asset_id = "SEA-SCENE-ORF2-POT"
 metadata/source_instance = "ORF2_实例_pot.011"
 [node name="ORF2_实例_grass.001" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.0173757941922235, 0, 0.795187555462697, 0, 0.25, 0, -0.835038052947085, 0, -0.0182465749759388, -20.6054153442383, 60, 9.68053245544434)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.001"
 [node name="ORF2_实例_grass.002" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.521790298934861, 0, 0.574700229863683, 0, 0.25, 0, -0.754420181371319, 0, 0.684964284864834, -20.4550075531006, 60, 6.54170799255371)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.002"
 [node name="ORF2_实例_grass.004" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.414278489604406, 0, -0.655278770076944, 0, 0.25, 0, 0.56927847711577, 0, -0.359907627766004, -19.329345703125, 60, 0.406932651996613)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.004"
 [node name="ORF2_实例_grass.005" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.89030832363848, 0, -0.356582187562977, 0, 0.25, 0, 0.271745357978238, 0, -0.678489174604143, -20.483959197998, 60, -2.57655239105225)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.005"
 [node name="ORF2_实例_grass.007" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.995381819020771, 0, -0.176810947797535, 0, 0.25, 0, 0.193108828558895, 0, -1.08713300524824, -20.1000003814697, 60, -9.2245979309082)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.007"
 [node name="ORF2_实例_grass.008" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.561706467889707, 0, 0.654514032459285, 0, 0.25, 0, -0.814569444419694, 0, 0.699066639956767, -20.2156963348389, 60, -11.382378578186)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.008"
 [node name="ORF2_实例_grass.010" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.43042019458861, 0, 1.16689471109058, 0, 0.25, 0, -1.04252328286045, 0, -0.384544612300604, -17.5437335968018, 60, 8.63866138458252)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.010"
 [node name="ORF2_实例_grass.011" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.537131185262495, 0, -0.997064282415511, 0, 0.25, 0, 0.898225102957594, 0, 0.483885264664489, -17.4512195587158, 60, 6.0938868522644)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.011"
 [node name="ORF2_实例_grass.013" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.65233764207115, 0, 0.451906216700585, 0, 0.25, 0, -0.662492617537548, 0, 0.956324246144032, -17.6251697540283, 60, -0.624819040298462)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.013"
 [node name="ORF2_实例_grass.014" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(1.06822326923975, 0, -0.208596076862708, 0, 0.25, 0, 0.239102080713431, 0, 1.22444491853906, -17.5069179534912, 60, -3.41280460357666)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.014"
 [node name="ORF2_实例_grass.016" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.673997988000066, 0, -0.917605196507307, 0, 0.25, 0, 0.923941642916882, 0, -0.678652225080871, -17.2343158721924, 60, -9.13745403289795)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.016"
 [node name="ORF2_实例_grass.017" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.666975650049503, 0, -0.820757350435454, 0, 0.25, 0, 0.758788061992978, 0, 0.616617275043666, -16.471830368042, 60, -11.742091178894)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.017"
 [node name="ORF2_实例_grass.019" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.696681410375745, 0, 0.151326837431473, 0, 0.25, 0, -0.146217916414548, 0, 0.673160861344375, -13.8523387908936, 60, 8.91894054412842)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.019"
 [node name="ORF2_实例_grass.020" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.23969600509625, 0, -0.680516441365845, 0, 0.25, 0, 0.768735722906298, 0, -0.270769184335339, -13.6672706604004, 60, 5.69802761077881)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.020"
 [node name="ORF2_实例_grass.022" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.560148374346432, 0, -0.376939549330649, 0, 0.25, 0, 0.408493070538191, 0, -0.607038263297315, -13.2734050750732, 60, -0.0430345088243484)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.022"
 [node name="ORF2_实例_grass.023" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.419236469220192, 0, -0.773695135928467, 0, 0.25, 0, 0.806621354885706, 0, 0.437077956311666, -14.3442668914795, 60, -2.73976922035217)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.023"
 [node name="ORF2_实例_grass.025" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.174081524187813, 0, 0.811679237479462, 0, 0.25, 0, -1.15150714293179, 0, -0.24696469898282, -13.2974452972412, 60, -9.63349533081055)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.025"
 [node name="ORF2_实例_grass.026" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.981844586232849, 0, -0.370031141256392, 0, 0.25, 0, 0.342081632278363, 0, 0.90768306030082, -14.7656669616699, 60, -11.8448543548584)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.026"
 [node name="ORF2_实例_grass.028" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(1.12824235664126, 0, -0.187362492733476, 0, 0.25, 0, 0.109633082480207, 0, 0.660178488974677, -11.426344871521, 60, 8.83318710327148)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.028"
 [node name="ORF2_实例_grass.029" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(1.02019777426586, 0, -0.585374177484893, 0, 0.25, 0, 0.458047792455826, 0, 0.798291684779488, -10.9516534805298, 60, 5.91321563720703)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.029"
 [node name="ORF2_实例_grass.031" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.445850254679707, 0, -0.558145954536867, 0, 0.25, 0, 0.935946625387135, 0, 0.747639641394021, -10.5170803070068, 60, -0.604194402694702)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.031"
 [node name="ORF2_实例_grass.032" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.273033064907882, 0, 0.85709170433726, 0, 0.25, 0, -0.921592063422765, 0, 0.293580143638964, -11.3842582702637, 60, -2.63649415969849)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.032"
 [node name="ORF2_实例_grass.034" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.518809428042806, 0, -0.734911854784333, 0, 0.25, 0, 0.755752364951791, 0, 0.533521740940891, -11.1426668167114, 60, -9.0663537979126)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.034"
 [node name="ORF2_实例_grass.035" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.491121982610196, 0, -0.586741505814178, 0, 0.25, 0, 0.60442220537068, 0, -0.50592131099259, -10.340051651001, 60, -11.9756917953491)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.035"
 [node name="ORF2_实例_grass.037" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.645180352189827, 0, 0.210860650720345, 0, 0.25, 0, -0.253659850735829, 0, 0.776135098108991, -7.27555084228516, 60, 8.77797508239746)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.037"
 [node name="ORF2_实例_grass.038" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.599512763885135, 0, 1.01379416624009, 0, 0.25, 0, -0.703564738961913, 0, -0.416056883412058, -8.08103942871094, 60, 5.59327459335327)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.038"
 [node name="ORF2_实例_grass.040" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.913621221699488, 0, -0.0175117594071909, 0, 0.25, 0, 0.0131874542471324, 0, 0.688014138397982, -8.60068416595459, 60, 0.490753978490829)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.040"
 [node name="ORF2_实例_grass.041" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.30115796457925, 0, 0.731072076746656, 0, 0.25, 0, -0.66158101251816, 0, -0.272531802911812, -7.85770988464355, 60, -2.6859986782074)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.041"
 [node name="ORF2_实例_grass.043" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.84078214907276, 0, -0.424802393095149, 0, 0.25, 0, 0.415840695413085, 0, 0.823044877440256, -8.27104473114014, 60, -9.06386756896973)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.043"
 [node name="ORF2_实例_grass.044" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.795097558042954, 0, 0.0864354425927905, 0, 0.25, 0, -0.0777651427414772, 0, 0.715341684381767, -8.26703262329102, 60, -11.5714616775513)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.044"
 [node name="ORF2_实例_grass.046" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.0880236307200879, 0, 0.908205010830319, 0, 0.25, 0, -1.19319968449549, 0, 0.115645440347586, -5.20102262496948, 60, 8.64969444274902)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.046"
 [node name="ORF2_实例_grass.047" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.715736026027208, 0, -0.385469705828616, 0, 0.25, 0, 0.534902944683982, 0, 0.993202065296888, -4.24956798553467, 60, 5.40426921844482)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.047"
 [node name="ORF2_实例_grass.049" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.481579136054072, 0, 0.584573629226276, 0, 0.25, 0, -0.554198230146438, 0, 0.456555498799809, -4.08788156509399, 60, -0.00954037997871637)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.049"
 [node name="ORF2_实例_grass.050" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.801270745248519, 0, -0.456622796545878, 0, 0.25, 0, 0.38132336116884, 0, 0.669137099802525, -5.72178316116333, 60, -3.06374382972717)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.050"
 [node name="ORF2_实例_grass.052" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-1.12219618821454, 0, -0.0287324787416525, 0, 0.25, 0, 0.0312203499439686, 0, -1.21936426080274, -5.01207447052002, 60, -8.65213680267334)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.052"
 [node name="ORF2_实例_grass.053" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.924229784731658, 0, 0.448638897500065, 0, 0.25, 0, -0.325569281315883, 0, 0.670697142986305, -5.50252246856689, 60, -12.1544313430786)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.053"
 [node name="ORF2_实例_grass.055" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.576097088068211, 0, 0.89801717443279, 0, 0.25, 0, -0.642424623776333, 0, -0.412129038951426, -2.45282530784607, 60, 8.89322566986084)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.055"
 [node name="ORF2_实例_grass.056" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.175766615126973, 0, -0.705385505103903, 0, 0.25, 0, 0.937713213316813, 0, 0.233657590455102, -1.96407091617584, 60, 5.821608543396)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.056"
 [node name="ORF2_实例_grass.058" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.685951165865026, 0, -0.096338160626186, 0, 0.25, 0, 0.100375406812773, 0, -0.714697341944922, -2.12516641616821, 60, 0.361793488264084)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.058"
 [node name="ORF2_实例_grass.059" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.833504325926437, 0, 0.545548818920794, 0, 0.25, 0, -0.378445422105696, 0, -0.578199210615378, -2.27613878250122, 60, -3.5404486656189)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.059"
 [node name="ORF2_实例_grass.061" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.671465504523682, 0, 0.412012155903899, 0, 0.25, 0, -0.628995211111705, 0, -1.02508768423477, -2.21966981887817, 60, -9.43485641479492)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.061"
 [node name="ORF2_实例_grass.062" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.832194963416326, 0, -0.0104434279350588, 0, 0.25, 0, 0.0128868375880118, 0, -1.02690049682879, -1.31376791000366, 60, -12.4933967590332)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.062"
 [node name="ORF2_实例_grass.064" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.693062053285842, 0, -0.569754498733893, 0, 0.25, 0, 0.480356481047199, 0, -0.58431631484006, 0.903502702713013, 60, 9.11609840393066)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.064"
 [node name="ORF2_实例_grass.065" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.164796583157122, 0, -1.2111715157185, 0, 0.25, 0, 1.21360468807377, 0, -0.165127649802247, 0.971370458602905, 60, 5.69682121276855)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.065"
 [node name="ORF2_实例_grass.067" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-1.05989269636222, 0, 0.0731943887381497, 0, 0.25, 0, -0.0808045782403289, 0, -1.17009218583603, 0.886656641960144, 60, 0.106434069573879)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.067"
 [node name="ORF2_实例_grass.068" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.596135612514796, 0, -0.475193237725665, 0, 0.25, 0, 0.735651798607996, 0, -0.922883999064753, 0.891231179237366, 60, -2.85452318191528)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.068"
 [node name="ORF2_实例_grass.070" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.303838890518947, 0, -0.844325339503249, 0, 0.25, 0, 0.662495780834548, 0, -0.238405711168969, 0.805628180503845, 60, -9.37398719787598)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.070"
 [node name="ORF2_实例_grass.071" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.650460924149949, 0, 0.936292434437614, 0, 0.25, 0, -0.776803033360044, 0, -0.539660473990004, 0.271181255578995, 60, -11.7793264389038)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.071"
 [node name="ORF2_实例_grass.073" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.489101455365102, 0, -0.611447927243502, 0, 0.25, 0, 0.557702001119143, 0, -0.446109714750532, 4.60812759399414, 60, 8.60310173034668)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.073"
 [node name="ORF2_实例_grass.074" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.777209427578798, 0, 0.65515618232085, 0, 0.25, 0, -0.420621156371449, 0, 0.498981368095964, 3.84437251091003, 60, 5.97501754760742)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.074"
 [node name="ORF2_实例_grass.076" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.930567654010238, 0, -0.67793030577331, 0, 0.25, 0, 0.454874306502029, 0, 0.624387658534134, 4.45561265945435, 60, 0.0230558477342129)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.076"
 [node name="ORF2_实例_grass.077" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.329435756786445, 0, 0.941484445144515, 0, 0.25, 0, -1.01712605383684, 0, -0.355903587171337, 4.41091012954712, 60, -2.7319507598877)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.077"
 [node name="ORF2_实例_grass.079" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-1.085255530654, 0, -0.0319841013798533, 0, 0.25, 0, 0.0365621534835407, 0, -1.24059384409114, 4.27925968170166, 60, -8.59254550933838)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.079"
 [node name="ORF2_实例_grass.080" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.418463541683127, 0, 0.762760459339546, 0, 0.25, 0, -0.698661109239182, 0, -0.383297532834411, 4.49786043167114, 60, -11.9909782409668)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.080"
 [node name="ORF2_实例_grass.082" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-1.1567573592712, 0, -0.0161524573639441, 0, 0.25, 0, 0.0112574681697749, 0, -0.806202973252644, 7.60426902770996, 60, 8.30592727661133)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.082"
 [node name="ORF2_实例_grass.083" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-1.1443586753727, 0, -0.498022225569619, 0, 0.25, 0, 0.494190841874072, 0, -1.13555489725685, 7.5245885848999, 60, 6.47300291061401)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.083"
 [node name="ORF2_实例_grass.085" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.187451322625606, 0, 1.02590930833494, 0, 0.25, 0, -0.832558047149956, 0, -0.152122712829406, 6.87652397155762, 60, -0.036216601729393)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.085"
 [node name="ORF2_实例_grass.086" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(1.02701677822383, 0, 0.609483268733512, 0, 0.25, 0, -0.560284483981803, 0, 0.944113801226242, 6.3294095993042, 60, -2.49394178390503)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.086"
 [node name="ORF2_实例_grass.088" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.106607540118751, 0, -1.13777277678819, 0, 0.25, 0, 1.02582551188917, 0, -0.0961182554589473, 7.03527307510376, 60, -8.72367477416992)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.088"
 [node name="ORF2_实例_grass.089" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.990220177194248, 0, 0.0315571655552292, 0, 0.25, 0, -0.0233405897203876, 0, -0.732395399969966, 6.37216854095459, 60, -11.8603963851929)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.089"
 [node name="ORF2_实例_grass.091" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.392323327069983, 0, -0.625083836160725, 0, 0.25, 0, 0.749768625431835, 0, 0.470579632115893, 9.92169094085693, 60, 9.06948471069336)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.091"
 [node name="ORF2_实例_grass.092" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.895164616159901, 0, -0.143961508132659, 0, 0.25, 0, 0.158142858204242, 0, -0.983345428921049, 9.15534591674805, 60, 5.66145420074463)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.092"
 [node name="ORF2_实例_grass.094" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(1.02725367466737, 0, -0.122812684417882, 0, 0.25, 0, 0.148209311131541, 0, 1.23968106553028, 9.97180461883545, 60, 0.137855008244514)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.094"
 [node name="ORF2_实例_grass.095" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.0548888277095013, 0, -0.914938158549601, 0, 0.25, 0, 0.844827586673219, 0, 0.0506827651856277, 10.1590118408203, 60, -3.55639266967773)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.095"
 [node name="ORF2_实例_grass.097" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.965390191851266, 0, 0.737071223540357, 0, 0.25, 0, -0.748958421299011, 0, -0.980959629048501, 10.252082824707, 60, -9.25052452087402)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.097"
 [node name="ORF2_实例_grass.098" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.445180352259795, 0, -0.654563082411448, 0, 0.25, 0, 0.800088716440958, 0, 0.544155003841756, 9.90567874908447, 60, -12.3548450469971)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.098"
 [node name="ORF2_实例_grass.100" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.790982900507982, 0, 0.816609091579692, 0, 0.25, 0, -0.511905016279829, 0, 0.495840811395241, 13.0207471847534, 60, 8.80652713775635)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.100"
 [node name="ORF2_实例_grass.101" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.635580334809394, 0, 0.671169693657088, 0, 0.25, 0, -0.631155273401272, 0, -0.597687714114889, 12.6304206848145, 60, 6.11331605911255)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.101"
 [node name="ORF2_实例_grass.103" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.811309345185443, 0, -0.258841809841463, 0, 0.25, 0, 0.340972904021836, 0, -1.0687396431719, 12.8035297393799, 60, -0.229132503271103)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.103"
 [node name="ORF2_实例_grass.104" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.181694539359088, 0, 1.16574859367025, 0, 0.25, 0, -0.777897619486173, 0, -0.121243765944487, 13.5793056488037, 60, -2.60852527618408)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.104"
 [node name="ORF2_实例_grass.106" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.692072214051533, 0, 0.569611535532589, 0, 0.25, 0, -0.754018042568937, 0, 0.916124241879283, 12.7642812728882, 60, -8.98316383361816)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.106"
 [node name="ORF2_实例_grass.107" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.0900274630292947, 0, -1.00522633620661, 0, 0.25, 0, 0.971374542035607, 0, 0.086995716806145, 12.9014053344727, 60, -11.4497623443604)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.107"
 [node name="ORF2_实例_grass.109" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.772250330345111, 0, -0.122404840364558, 0, 0.25, 0, 0.137252567840694, 0, 0.865924423740197, 16.456750869751, 60, 9.54775524139404)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.109"
 [node name="ORF2_实例_grass.110" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.330235169958552, 0, 0.848309589155896, 0, 0.25, 0, -1.00236067844749, 0, -0.390205124683607, 16.6192569732666, 60, 6.21217918395996)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.110"
 [node name="ORF2_实例_grass.112" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-1.01335510408346, 0, 0.357258925490654, 0, 0.25, 0, -0.334808586770539, 0, -0.94967533653339, 16.6086578369141, 60, -0.729166507720947)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.112"
 [node name="ORF2_实例_grass.113" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.872708760165022, 0, 0.111111648346716, 0, 0.25, 0, -0.0865065102132355, 0, 0.679451618239149, 15.9967231750488, 60, -3.064861536026)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.113"
 [node name="ORF2_实例_grass.115" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(1.07669102711967, 0, -0.431733896631989, 0, 0.25, 0, 0.319717626385872, 0, 0.797336281045117, 16.1737117767334, 60, -8.35008430480957)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.115"
 [node name="ORF2_实例_grass.116" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.595396103565292, 0, -0.414009652699098, 0, 0.25, 0, 0.441613383702942, 0, 0.635093617322292, 15.756516456604, 60, -12.3422031402588)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.116"
 [node name="ORF2_实例_grass.118" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.650095774532614, 0, 0.967360676925273, 0, 0.25, 0, -0.800730713182216, 0, 0.53811537474606, 18.8588180541992, 60, 8.98752498626709)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.118"
 [node name="ORF2_实例_grass.119" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.670118844285345, 0, -0.383683740773977, 0, 0.25, 0, 0.407225014410645, 0, -0.711234610751202, 19.8449764251709, 60, 5.60064744949341)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.119"
 [node name="ORF2_实例_grass.121" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.207916389627303, 0, 1.09804614273754, 0, 0.25, 0, -0.786063914538014, 0, 0.148842170438838, 18.5004367828369, 60, -0.154142886400223)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.121"
 [node name="ORF2_实例_grass.122" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.601321089563955, 0, -0.714156789372417, 0, 0.25, 0, 0.923033316806223, 0, 0.777195439468557, 19.3847808837891, 60, -3.06910085678101)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.122"
 [node name="ORF2_实例_grass.124" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.575819542127898, 0, 0.743781834152722, 0, 0.25, 0, -0.592759174912833, 0, 0.458901119949017, 19.2753200531006, 60, -9.38840103149414)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.124"
 [node name="ORF2_实例_grass.125" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.309103949314783, 0, -0.635340629275405, 0, 0.25, 0, 0.640818071458518, 0, -0.311768817470429, 19.8765354156494, 60, -12.2528686523438)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.125"
 [node name="ORF2_实例_grass.127" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.579767166546281, 0, 0.389826502283809, 0, 0.25, 0, -0.481589913586017, 0, 0.716241758837006, 20.1000003814697, 60, 9.08106803894043)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.127"
 [node name="ORF2_实例_grass.128" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.330669314639295, 0, -0.923552825023968, 0, 0.25, 0, 0.685766742945065, 0, 0.245532267075445, 20.1000003814697, 60, 6.08769083023071)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.128"
 [node name="ORF2_实例_grass.130" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.0453258604450952, 0, -1.10550483669088, 0, 0.25, 0, 0.810081098006388, 0, 0.0332134438302001, 20.1000003814697, 60, -0.0895326733589172)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.130"
 [node name="ORF2_实例_grass.131" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.219420659014656, 0, 0.736887494835295, 0, 0.25, 0, -0.830178581105929, 0, -0.247199650751069, 20.1000003814697, 60, -2.42453169822693)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.131"
 [node name="ORF2_实例_grass.133" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.53836495604449, 0, -0.53744071019737, 0, 0.25, 0, 0.477546054111381, 0, 0.478367298108991, 20.1000003814697, 60, -8.72906970977783)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.133"
 [node name="ORF2_实例_grass.134" parent="Models" instance=ExtResource("c9")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.386368537282272, 0, 1.17740950555287, 0, 0.25, 0, -1.10581452330426, 0, 0.362874546077271, 20.1000003814697, 60, -11.4883432388306)
 metadata/asset_id = "SEA-SCENE-ORF2-GRASS"
 metadata/source_instance = "ORF2_实例_grass.134"
 [node name="ORF2_实例_tuft" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.929988211, 0.000000000, 0.367589346, 0.000000000, 1.000000000, 0.000000000, -0.367589346, 0.000000000, 0.929988211, 13.036040306, 60.080001831, -12.449721336)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft"
 [node name="ORF2_实例_tuft.001" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.012853312, 0.000000000, -0.999917393, 0.000000000, 1.000000000, 0.000000000, 0.999917393, 0.000000000, -0.012853312, -20.988582611, 60.080001831, -6.728415489)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.001"
 [node name="ORF2_实例_tuft.002" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.979220407, 0.000000000, 0.202798902, 0.000000000, 1.000000000, 0.000000000, -0.202798902, 0.000000000, -0.979220407, -10.839345932, 60.080001831, -12.533804893)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.002"
 [node name="ORF2_实例_tuft.003" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.368404837, 0.000000000, -0.929665465, 0.000000000, 1.000000000, 0.000000000, 0.929665465, 0.000000000, 0.368404837, 9.354141235, 60.080001831, -9.514169693)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.003"
 [node name="ORF2_实例_tuft.004" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.864239067, 0.000000000, 0.503081340, 0.000000000, 1.000000000, 0.000000000, -0.503081340, 0.000000000, 0.864239067, -21.492460251, 60.080001831, -6.767316341)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.004"
 [node name="ORF2_实例_tuft.005" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.816118830, 0.000000000, -0.577884119, 0.000000000, 1.000000000, 0.000000000, 0.577884119, 0.000000000, 0.816118830, 9.176110268, 60.080001831, -2.988789797)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.005"
 [node name="ORF2_实例_tuft.006" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.278845184, 0.000000000, -0.960336068, 0.000000000, 1.000000000, 0.000000000, 0.960336068, 0.000000000, -0.278845184, 17.332508087, 60.080001831, 2.613473415)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.006"
 [node name="ORF2_实例_tuft.007" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.992708944, 0.000000000, -0.120536108, 0.000000000, 1.000000000, 0.000000000, 0.120536108, 0.000000000, 0.992708944, -3.172768116, 60.080001831, 7.315875530)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.007"
 [node name="ORF2_实例_tuft.008" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.206245109, 0.000000000, 0.978500360, 0.000000000, 1.000000000, 0.000000000, -0.978500360, 0.000000000, -0.206245109, -14.569320679, 60.080001831, 8.415402412)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.008"
 [node name="ORF2_实例_tuft.009" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.996477205, 0.000000000, -0.083864054, 0.000000000, 1.000000000, 0.000000000, 0.083864054, 0.000000000, 0.996477205, -10.045209885, 60.080001831, -7.943148613)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.009"
 [node name="ORF2_实例_tuft.010" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.392122622, 0.000000000, 0.919912957, 0.000000000, 1.000000000, 0.000000000, -0.919912957, 0.000000000, -0.392122622, -3.552832842, 60.080001831, 9.794839859)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.010"
 [node name="ORF2_实例_tuft.011" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.515727270, 0.000000000, 0.856752813, 0.000000000, 1.000000000, 0.000000000, -0.856752813, 0.000000000, 0.515727270, 15.594469070, 60.080001831, 12.251569748)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.011"
 [node name="ORF2_实例_tuft.012" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.968994926, 0.000000000, 0.247080621, 0.000000000, 1.000000000, 0.000000000, -0.247080621, 0.000000000, -0.968994926, 5.086567402, 60.080001831, -0.680774748)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.012"
 [node name="ORF2_实例_tuft.013" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.951923725, 0.000000000, -0.306335146, 0.000000000, 1.000000000, 0.000000000, 0.306335146, 0.000000000, 0.951923725, -20.185735703, 60.080001831, 5.849008083)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.013"
 [node name="ORF2_实例_tuft.014" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.068717178, 0.000000000, 0.997636181, 0.000000000, 1.000000000, 0.000000000, -0.997636181, 0.000000000, 0.068717178, -17.617834091, 60.080001831, -4.544174671)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.014"
 [node name="ORF2_实例_tuft.015" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.968644215, 0.000000000, 0.248451976, 0.000000000, 1.000000000, 0.000000000, -0.248451976, 0.000000000, -0.968644215, 15.160369873, 60.080001831, 3.582999229)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.015"
 [node name="ORF2_实例_tuft.016" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.534840704, 0.000000000, -0.844952911, 0.000000000, 1.000000000, 0.000000000, 0.844952911, 0.000000000, 0.534840704, -19.026922226, 60.080001831, -2.368578196)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.016"
 [node name="ORF2_实例_tuft.017" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.986477533, 0.000000000, 0.163896541, 0.000000000, 1.000000000, 0.000000000, -0.163896541, 0.000000000, -0.986477533, 0.985023677, 60.080001831, -12.385462761)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.017"
 [node name="ORF2_实例_tuft.018" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.582930469, 0.000000000, 0.812522042, 0.000000000, 1.000000000, 0.000000000, -0.812522042, 0.000000000, 0.582930469, 3.298408270, 60.080001831, 7.099852085)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.018"
 [node name="ORF2_实例_tuft.019" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.991022026, 0.000000000, 0.133698705, 0.000000000, 1.000000000, 0.000000000, -0.133698705, 0.000000000, 0.991022026, -0.475688308, 60.080001831, 12.266107559)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.019"
 [node name="ORF2_实例_tuft.020" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.940080411, 0.000000000, 0.340952814, 0.000000000, 1.000000000, 0.000000000, -0.340952814, 0.000000000, 0.940080411, 10.337960243, 60.080001831, -4.621765614)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.020"
 [node name="ORF2_实例_tuft.021" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.814763800, 0.000000000, -0.579793023, 0.000000000, 1.000000000, 0.000000000, 0.579793023, 0.000000000, -0.814763800, -2.939259052, 60.080001831, -4.060324669)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.021"
 [node name="ORF2_实例_tuft.022" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.666234803, 0.000000000, 0.745742038, 0.000000000, 1.000000000, 0.000000000, -0.745742038, 0.000000000, 0.666234803, 14.622829437, 60.080001831, 13.775083542)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.022"
 [node name="ORF2_实例_tuft.023" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.740402474, 0.000000000, 0.672163801, 0.000000000, 1.000000000, 0.000000000, -0.672163801, 0.000000000, -0.740402474, -10.735003471, 60.080001831, 6.475260258)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.023"
 [node name="ORF2_实例_tuft.024" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.852591053, 0.000000000, 0.522578699, 0.000000000, 1.000000000, 0.000000000, -0.522578699, 0.000000000, 0.852591053, -15.252924919, 60.080001831, 12.532228470)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.024"
 [node name="ORF2_实例_tuft.025" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.401077122, 0.000000000, -0.916044291, 0.000000000, 1.000000000, 0.000000000, 0.916044291, 0.000000000, 0.401077122, -20.100000381, 60.080001831, 7.443652153)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.025"
 [node name="ORF2_实例_tuft.026" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.863051219, 0.000000000, -0.505116415, 0.000000000, 1.000000000, 0.000000000, 0.505116415, 0.000000000, -0.863051219, 4.102591991, 60.080001831, 0.786016285)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.026"
 [node name="ORF2_实例_tuft.027" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.461231371, 0.000000000, 0.887279901, 0.000000000, 1.000000000, 0.000000000, -0.887279901, 0.000000000, -0.461231371, 4.663203716, 60.080001831, -3.125060320)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.027"
 [node name="ORF2_实例_tuft.028" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.146907304, 0.000000000, 0.989150264, 0.000000000, 1.000000000, 0.000000000, -0.989150264, 0.000000000, 0.146907304, 3.868849754, 60.080001831, -11.082378387)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.028"
 [node name="ORF2_实例_tuft.029" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.901931672, 0.000000000, 0.431878755, 0.000000000, 1.000000000, 0.000000000, -0.431878755, 0.000000000, -0.901931672, 3.436719656, 60.080001831, 6.032835484)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.029"
 [node name="ORF2_实例_tuft.030" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.999751053, 0.000000000, -0.022312133, 0.000000000, 1.000000000, 0.000000000, 0.022312133, 0.000000000, -0.999751053, -1.988419414, 60.080001831, 6.472193718)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.030"
 [node name="ORF2_实例_tuft.031" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.281873904, 0.000000000, -0.959451459, 0.000000000, 1.000000000, 0.000000000, 0.959451459, 0.000000000, 0.281873904, -9.774799347, 60.080001831, -9.958014488)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.031"
 [node name="ORF2_实例_tuft.032" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.379313568, 0.000000000, 0.925268186, 0.000000000, 1.000000000, 0.000000000, -0.925268186, 0.000000000, 0.379313568, -7.400891304, 60.080001831, 12.141805649)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.032"
 [node name="ORF2_实例_tuft.033" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.989692532, 0.000000000, -0.143208564, 0.000000000, 1.000000000, 0.000000000, 0.143208564, 0.000000000, 0.989692532, 14.582427025, 60.080001831, -2.296955585)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.033"
 [node name="ORF2_实例_tuft.034" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.343926249, 0.000000000, -0.938996664, 0.000000000, 1.000000000, 0.000000000, 0.938996664, 0.000000000, 0.343926249, 20.615976334, 60.080001831, 7.762015343)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.034"
 [node name="ORF2_实例_tuft.035" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.892510201, 0.000000000, -0.451027206, 0.000000000, 1.000000000, 0.000000000, 0.451027206, 0.000000000, 0.892510201, -17.380155563, 60.080001831, -12.622487068)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.035"
 [node name="ORF2_实例_tuft.036" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.389100857, 0.000000000, 0.921195160, 0.000000000, 1.000000000, 0.000000000, -0.921195160, 0.000000000, -0.389100857, -7.412950993, 60.080001831, -8.257167816)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.036"
 [node name="ORF2_实例_tuft.037" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.906797348, 0.000000000, -0.421566803, 0.000000000, 1.000000000, 0.000000000, 0.421566803, 0.000000000, -0.906797348, -6.447828293, 60.080001831, -0.769822061)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.037"
 [node name="ORF2_实例_tuft.038" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.352898876, 0.000000000, -0.935661468, 0.000000000, 1.000000000, 0.000000000, 0.935661468, 0.000000000, -0.352898876, -9.833554268, 60.080001831, -2.420040607)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.038"
 [node name="ORF2_实例_tuft.039" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.405069147, 0.000000000, -0.914286053, 0.000000000, 1.000000000, 0.000000000, 0.914286053, 0.000000000, -0.405069147, 5.761286259, 60.080001831, 1.296560645)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.039"
 [node name="ORF2_实例_tuft.040" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.611583704, 0.000000000, -0.791179735, 0.000000000, 1.000000000, 0.000000000, 0.791179735, 0.000000000, 0.611583704, -18.684545517, 60.080001831, -4.407230854)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.040"
 [node name="ORF2_实例_tuft.041" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.849143517, 0.000000000, -0.528162180, 0.000000000, 1.000000000, 0.000000000, 0.528162180, 0.000000000, -0.849143517, 7.703349590, 60.080001831, -8.570542336)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.041"
 [node name="ORF2_实例_tuft.042" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.999469777, 0.000000000, -0.032560162, 0.000000000, 1.000000000, 0.000000000, 0.032560162, 0.000000000, 0.999469777, 2.125914335, 60.080001831, 7.193672180)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.042"
 [node name="ORF2_实例_tuft.043" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.397406672, 0.000000000, 0.917642598, 0.000000000, 1.000000000, 0.000000000, -0.917642598, 0.000000000, 0.397406672, -17.697166443, 60.080001831, -9.596553802)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.043"
 [node name="ORF2_实例_tuft.044" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.609860210, 0.000000000, -0.792509005, 0.000000000, 1.000000000, 0.000000000, 0.792509005, 0.000000000, -0.609860210, -10.656026840, 60.080001831, 9.511661530)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.044"
 [node name="ORF2_实例_tuft.045" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.035831874, 0.000000000, 0.999357832, 0.000000000, 1.000000000, 0.000000000, -0.999357832, 0.000000000, -0.035831874, -5.767165661, 60.080001831, 2.973316193)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.045"
 [node name="ORF2_实例_tuft.046" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.534358689, 0.000000000, 0.845257826, 0.000000000, 1.000000000, 0.000000000, -0.845257826, 0.000000000, 0.534358689, -0.774760962, 60.080001831, 9.071885109)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.046"
 [node name="ORF2_实例_tuft.047" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.275982812, 0.000000000, 0.961162571, 0.000000000, 1.000000000, 0.000000000, -0.961162571, 0.000000000, 0.275982812, 2.103596926, 60.080001831, 7.813998699)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.047"
 [node name="ORF2_实例_tuft.048" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.916284495, 0.000000000, -0.400528056, 0.000000000, 1.000000000, 0.000000000, 0.400528056, 0.000000000, -0.916284495, 2.716844797, 60.080001831, -1.204211354)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.048"
 [node name="ORF2_实例_tuft.049" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.532303297, 0.000000000, -0.846553720, 0.000000000, 1.000000000, 0.000000000, 0.846553720, 0.000000000, -0.532303297, 9.531888008, 60.080001831, -11.225867271)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.049"
 [node name="ORF2_实例_tuft.050" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.827345888, 0.000000000, -0.561692782, 0.000000000, 1.000000000, 0.000000000, 0.561692782, 0.000000000, 0.827345888, 10.050812721, 60.080001831, 4.949549198)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.050"
 [node name="ORF2_实例_tuft.051" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.536278648, 0.000000000, 0.844041001, 0.000000000, 1.000000000, 0.000000000, -0.844041001, 0.000000000, 0.536278648, 17.356212616, 60.080001831, 1.337709069)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.051"
 [node name="ORF2_实例_tuft.052" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.396785237, 0.000000000, 0.917911475, 0.000000000, 1.000000000, 0.000000000, -0.917911475, 0.000000000, 0.396785237, 3.520373344, 60.080001831, 2.739396811)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.052"
 [node name="ORF2_实例_tuft.053" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.971311933, 0.000000000, 0.237809017, 0.000000000, 1.000000000, 0.000000000, -0.237809017, 0.000000000, -0.971311933, 2.910696030, 60.080001831, 8.947371483)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.053"
 [node name="ORF2_实例_tuft.054" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.999619928, 0.000000000, -0.027568098, 0.000000000, 1.000000000, 0.000000000, 0.027568098, 0.000000000, -0.999619928, 9.315544128, 60.080001831, 11.432884216)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.054"
 [node name="ORF2_实例_tuft.055" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.764068780, 0.000000000, -0.645134791, 0.000000000, 1.000000000, 0.000000000, 0.645134791, 0.000000000, -0.764068780, -14.319558144, 60.080001831, -4.609016418)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.055"
 [node name="ORF2_实例_tuft.056" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.446909249, 0.000000000, 0.894579299, 0.000000000, 1.000000000, 0.000000000, -0.894579299, 0.000000000, -0.446909249, 6.480781078, 60.080001831, 11.139846802)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.056"
 [node name="ORF2_实例_tuft.057" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.572298504, 0.000000000, -0.820045378, 0.000000000, 1.000000000, 0.000000000, 0.820045378, 0.000000000, -0.572298504, -0.372457504, 60.080001831, 5.910970211)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.057"
 [node name="ORF2_实例_tuft.058" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.920684727, 0.000000000, -0.390307101, 0.000000000, 1.000000000, 0.000000000, 0.390307101, 0.000000000, -0.920684727, 21.833923340, 60.080001831, -13.541682243)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.058"
 [node name="ORF2_实例_tuft.059" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.457839080, 0.000000000, 0.889035082, 0.000000000, 1.000000000, 0.000000000, -0.889035082, 0.000000000, -0.457839080, -11.755553246, 60.080001831, 2.477940083)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.059"
 [node name="ORF2_实例_tuft.060" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.598035613, 0.000000000, -0.801469529, 0.000000000, 1.000000000, 0.000000000, 0.801469529, 0.000000000, -0.598035613, 11.390311241, 60.080001831, -12.736374855)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.060"
 [node name="ORF2_实例_tuft.061" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.140456886, 0.000000000, -0.990086796, 0.000000000, 1.000000000, 0.000000000, 0.990086796, 0.000000000, 0.140456886, 10.833066940, 60.080001831, -10.841448784)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.061"
 [node name="ORF2_实例_tuft.062" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.761701937, 0.000000000, 0.647927588, 0.000000000, 1.000000000, 0.000000000, -0.647927588, 0.000000000, 0.761701937, 11.161482811, 60.080001831, 0.016671432)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.062"
 [node name="ORF2_实例_tuft.063" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.854984831, 0.000000000, -0.518653004, 0.000000000, 1.000000000, 0.000000000, 0.518653004, 0.000000000, 0.854984831, -9.209382057, 60.080001831, -4.483454704)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.063"
 [node name="ORF2_实例_tuft.064" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.739423663, 0.000000000, 0.673240408, 0.000000000, 1.000000000, 0.000000000, -0.673240408, 0.000000000, 0.739423663, -14.332334518, 60.080001831, 3.212910891)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.064"
 [node name="ORF2_实例_tuft.065" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.718186762, 0.000000000, -0.695850397, 0.000000000, 1.000000000, 0.000000000, 0.695850397, 0.000000000, 0.718186762, 1.371479750, 60.080001831, 11.599555016)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.065"
 [node name="ORF2_实例_tuft.066" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.647499703, 0.000000000, -0.762065703, 0.000000000, 1.000000000, 0.000000000, 0.762065703, 0.000000000, -0.647499703, -6.997038841, 60.080001831, -2.922210217)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.066"
 [node name="ORF2_实例_tuft.067" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.913647949, 0.000000000, -0.406506365, 0.000000000, 1.000000000, 0.000000000, 0.406506365, 0.000000000, 0.913647949, 14.587776184, 60.080001831, -3.329031944)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.067"
 [node name="ORF2_实例_tuft.068" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.969056087, 0.000000000, -0.246840638, 0.000000000, 1.000000000, 0.000000000, 0.246840638, 0.000000000, -0.969056087, 1.200549126, 60.080001831, -10.322687149)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.068"
 [node name="ORF2_实例_tuft.069" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.433095139, 0.000000000, -0.901348213, 0.000000000, 1.000000000, 0.000000000, 0.901348213, 0.000000000, 0.433095139, -9.428838730, 60.080001831, -3.239474535)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.069"
 [node name="ORF2_实例_tuft.070" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.513119684, 0.000000000, 0.858317068, 0.000000000, 1.000000000, 0.000000000, -0.858317068, 0.000000000, 0.513119684, -7.397867203, 60.080001831, 9.509673119)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.070"
 [node name="ORF2_实例_tuft.071" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.540975568, 0.000000000, 0.841038307, 0.000000000, 1.000000000, 0.000000000, -0.841038307, 0.000000000, 0.540975568, 7.701340675, 60.080001831, 12.476223946)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.071"
 [node name="ORF2_实例_tuft.072" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.445738811, 0.000000000, 0.895163065, 0.000000000, 1.000000000, 0.000000000, -0.895163065, 0.000000000, 0.445738811, 17.202281952, 60.080001831, 9.899121284)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.072"
 [node name="ORF2_实例_tuft.073" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.127847446, 0.000000000, -0.991793845, 0.000000000, 1.000000000, 0.000000000, 0.991793845, 0.000000000, -0.127847446, -20.043704987, 60.080001831, 5.945249557)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.073"
 [node name="ORF2_实例_tuft.074" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.061109159, 0.000000000, -0.998131089, 0.000000000, 1.000000000, 0.000000000, 0.998131089, 0.000000000, -0.061109159, 15.573243141, 60.080001831, -9.243289948)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.074"
 [node name="ORF2_实例_tuft.075" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.814560446, 0.000000000, 0.580078684, 0.000000000, 1.000000000, 0.000000000, -0.580078684, 0.000000000, -0.814560446, 13.311495781, 60.080001831, -0.116662435)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.075"
 [node name="ORF2_实例_tuft.076" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.933849098, 0.000000000, -0.357667251, 0.000000000, 1.000000000, 0.000000000, 0.357667251, 0.000000000, 0.933849098, 7.697010517, 60.080001831, -2.624612570)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.076"
 [node name="ORF2_实例_tuft.077" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.996621264, 0.000000000, -0.082134378, 0.000000000, 1.000000000, 0.000000000, 0.082134378, 0.000000000, 0.996621264, 19.486223221, 60.080001831, -2.107462168)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.077"
 [node name="ORF2_实例_tuft.078" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.989734734, 0.000000000, 0.142916604, 0.000000000, 1.000000000, 0.000000000, -0.142916604, 0.000000000, 0.989734734, 12.900793076, 60.080001831, -7.815912724)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.078"
 [node name="ORF2_实例_tuft.079" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.190749344, 0.000000000, -0.981638777, 0.000000000, 1.000000000, 0.000000000, 0.981638777, 0.000000000, -0.190749344, -4.714759827, 60.080001831, 13.271744728)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.079"
 [node name="ORF2_实例_tuft.080" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.999189714, 0.000000000, -0.040248161, 0.000000000, 1.000000000, 0.000000000, 0.040248161, 0.000000000, -0.999189714, 14.059520721, 60.080001831, -1.207060933)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.080"
 [node name="ORF2_实例_tuft.081" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.754565758, 0.000000000, 0.656224441, 0.000000000, 1.000000000, 0.000000000, -0.656224441, 0.000000000, -0.754565758, -20.927328110, 60.080001831, 0.331406265)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.081"
 [node name="ORF2_实例_tuft.082" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.009792183, 0.000000000, 0.999952055, 0.000000000, 1.000000000, 0.000000000, -0.999952055, 0.000000000, 0.009792183, -11.929610252, 60.080001831, -11.005846977)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.082"
 [node name="ORF2_实例_tuft.083" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.214593564, 0.000000000, 0.976703436, 0.000000000, 1.000000000, 0.000000000, -0.976703436, 0.000000000, -0.214593564, 6.529611111, 60.080001831, 7.676202774)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.083"
 [node name="ORF2_实例_tuft.084" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.492426144, 0.000000000, -0.870354234, 0.000000000, 1.000000000, 0.000000000, 0.870354234, 0.000000000, -0.492426144, 15.360925674, 60.080001831, -12.081245422)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.084"
 [node name="ORF2_实例_tuft.085" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.505783373, 0.000000000, -0.862660524, 0.000000000, 1.000000000, 0.000000000, 0.862660524, 0.000000000, -0.505783373, 12.067418098, 60.080001831, 7.154095173)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.085"
 [node name="ORF2_实例_tuft.086" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.874749079, 0.000000000, -0.484576154, 0.000000000, 1.000000000, 0.000000000, 0.484576154, 0.000000000, 0.874749079, 3.182369471, 60.080001831, -8.078917503)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.086"
 [node name="ORF2_实例_tuft.087" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.255670953, 0.000000000, -0.966763861, 0.000000000, 1.000000000, 0.000000000, 0.966763861, 0.000000000, 0.255670953, 20.597660065, 60.080001831, -10.152500153)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.087"
 [node name="ORF2_实例_tuft.088" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.108483483, 0.000000000, 0.994098252, 0.000000000, 1.000000000, 0.000000000, -0.994098252, 0.000000000, -0.108483483, -12.194745064, 60.080001831, 2.246624708)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.088"
 [node name="ORF2_实例_tuft.089" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.974259471, 0.000000000, 0.225429553, 0.000000000, 1.000000000, 0.000000000, -0.225429553, 0.000000000, 0.974259471, 18.017463684, 60.080001831, 3.258330345)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.089"
 [node name="ORF2_实例_tuft.090" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.338194247, 0.000000000, 0.941076326, 0.000000000, 1.000000000, 0.000000000, -0.941076326, 0.000000000, 0.338194247, -20.561609268, 60.080001831, 5.849396706)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.090"
 [node name="ORF2_实例_tuft.091" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.985861526, 0.000000000, 0.167562084, 0.000000000, 1.000000000, 0.000000000, -0.167562084, 0.000000000, -0.985861526, 1.041847467, 60.080001831, -7.417099953)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.091"
 [node name="ORF2_实例_tuft.092" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.590655402, 0.000000000, -0.806923910, 0.000000000, 1.000000000, 0.000000000, 0.806923910, 0.000000000, 0.590655402, -12.818024635, 60.080001831, -8.644443512)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.092"
 [node name="ORF2_实例_tuft.093" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.838094116, 0.000000000, 0.545525666, 0.000000000, 1.000000000, 0.000000000, -0.545525666, 0.000000000, -0.838094116, -16.451129913, 60.080001831, -12.996637344)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.093"
 [node name="ORF2_实例_tuft.094" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.133399819, 0.000000000, -0.991062303, 0.000000000, 1.000000000, 0.000000000, 0.991062303, 0.000000000, 0.133399819, -8.914715767, 60.080001831, -0.191999242)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.094"
 [node name="ORF2_实例_tuft.095" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.973362820, 0.000000000, 0.229270191, 0.000000000, 1.000000000, 0.000000000, -0.229270191, 0.000000000, 0.973362820, -0.388159245, 60.080001831, 3.165172338)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.095"
 [node name="ORF2_实例_tuft.096" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.962492627, 0.000000000, -0.271307839, 0.000000000, 1.000000000, 0.000000000, 0.271307839, 0.000000000, -0.962492627, -2.893435717, 60.080001831, 11.404867172)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.096"
 [node name="ORF2_实例_tuft.097" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.737894099, 0.000000000, -0.674916512, 0.000000000, 1.000000000, 0.000000000, 0.674916512, 0.000000000, -0.737894099, 12.709908485, 60.080001831, -4.201141357)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.097"
 [node name="ORF2_实例_tuft.098" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.490843701, 0.000000000, -0.871247646, 0.000000000, 1.000000000, 0.000000000, 0.871247646, 0.000000000, -0.490843701, 8.133368492, 60.080001831, -13.049438477)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.098"
 [node name="ORF2_实例_tuft.099" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.336571101, 0.000000000, 0.941658056, 0.000000000, 1.000000000, 0.000000000, -0.941658056, 0.000000000, 0.336571101, -10.137708664, 60.080001831, 1.909268618)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.099"
 [node name="ORF2_实例_tuft.100" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.793255041, 0.000000000, -0.608889514, 0.000000000, 1.000000000, 0.000000000, 0.608889514, 0.000000000, 0.793255041, -4.784923553, 60.080001831, -11.740983009)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.100"
 [node name="ORF2_实例_tuft.101" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.937662785, 0.000000000, 0.347546403, 0.000000000, 1.000000000, 0.000000000, -0.347546403, 0.000000000, 0.937662785, 0.672613919, 60.080001831, -11.578366280)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.101"
 [node name="ORF2_实例_tuft.102" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.390055899, 0.000000000, -0.920791179, 0.000000000, 1.000000000, 0.000000000, 0.920791179, 0.000000000, 0.390055899, 6.455091476, 60.080001831, -9.264790535)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.102"
 [node name="ORF2_实例_tuft.103" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.988245354, 0.000000000, 0.152876162, 0.000000000, 1.000000000, 0.000000000, -0.152876162, 0.000000000, -0.988245354, 16.737377167, 60.080001831, -9.803221703)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.103"
 [node name="ORF2_实例_tuft.104" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.653944488, 0.000000000, -0.756542535, 0.000000000, 1.000000000, 0.000000000, 0.756542535, 0.000000000, -0.653944488, -9.524648666, 60.080001831, -11.899178505)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.104"
 [node name="ORF2_实例_tuft.105" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.295364579, 0.000000000, 0.955384617, 0.000000000, 1.000000000, 0.000000000, -0.955384617, 0.000000000, -0.295364579, 16.448925018, 60.080001831, -10.777066231)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.105"
 [node name="ORF2_实例_tuft.106" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.804319861, 0.000000000, -0.594196567, 0.000000000, 1.000000000, 0.000000000, 0.594196567, 0.000000000, -0.804319861, -0.614737093, 60.080001831, -0.516011775)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.106"
 [node name="ORF2_实例_tuft.107" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.194421888, 0.000000000, -0.980918003, 0.000000000, 1.000000000, 0.000000000, 0.980918003, 0.000000000, 0.194421888, 0.593183637, 60.080001831, -7.978868484)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.107"
 [node name="ORF2_实例_tuft.108" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.596321912, 0.000000000, -0.802745400, 0.000000000, 1.000000000, 0.000000000, 0.802745400, 0.000000000, 0.596321912, -18.618396759, 60.080001831, -2.163131952)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.108"
 [node name="ORF2_实例_tuft.109" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.079069948, 0.000000000, 0.996869070, 0.000000000, 1.000000000, 0.000000000, -0.996869070, 0.000000000, -0.079069948, -5.497836590, 60.080001831, 12.747209549)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.109"
 [node name="ORF2_实例_tuft.110" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.984626287, 0.000000000, 0.174674196, 0.000000000, 1.000000000, 0.000000000, -0.174674196, 0.000000000, -0.984626287, 14.427580833, 60.080001831, -1.648899913)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.110"
 [node name="ORF2_实例_tuft.111" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.278999905, 0.000000000, 0.960291129, 0.000000000, 1.000000000, 0.000000000, -0.960291129, 0.000000000, -0.278999905, -21.232938766, 60.080001831, 4.053691864)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.111"
 [node name="ORF2_实例_tuft.112" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.250428486, 0.000000000, 0.968135101, 0.000000000, 1.000000000, 0.000000000, -0.968135101, 0.000000000, 0.250428486, -7.926930428, 60.080001831, -12.727429390)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.112"
 [node name="ORF2_实例_tuft.113" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.935414373, 0.000000000, 0.353553322, 0.000000000, 1.000000000, 0.000000000, -0.353553322, 0.000000000, 0.935414373, -14.973905563, 60.080001831, -11.591474533)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.113"
 [node name="ORF2_实例_tuft.114" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.523210468, 0.000000000, 0.852203500, 0.000000000, 1.000000000, 0.000000000, -0.852203500, 0.000000000, -0.523210468, 11.966642380, 60.080001831, -9.512215614)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.114"
 [node name="ORF2_实例_tuft.115" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.075531019, 0.000000000, 0.997143453, 0.000000000, 1.000000000, 0.000000000, -0.997143453, 0.000000000, 0.075531019, -2.702466726, 60.080001831, -1.943942904)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.115"
 [node name="ORF2_实例_tuft.116" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.916146966, 0.000000000, 0.400842534, 0.000000000, 1.000000000, 0.000000000, -0.400842534, 0.000000000, 0.916146966, -0.958846867, 60.080001831, -0.958908260)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.116"
 [node name="ORF2_实例_tuft.117" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.791109222, 0.000000000, 0.611674913, 0.000000000, 1.000000000, 0.000000000, -0.611674913, 0.000000000, -0.791109222, 12.090078354, 60.080001831, -13.925801277)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.117"
 [node name="ORF2_实例_tuft.118" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.809495519, 0.000000000, 0.587126055, 0.000000000, 1.000000000, 0.000000000, -0.587126055, 0.000000000, -0.809495519, 17.322387695, 60.080001831, -0.848048568)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.118"
 [node name="ORF2_实例_tuft.119" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.945002783, 0.000000000, -0.327062288, 0.000000000, 1.000000000, 0.000000000, 0.327062288, 0.000000000, -0.945002783, 7.132561684, 60.080001831, -13.940456390)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.119"
 [node name="ORF2_实例_tuft.120" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.971890675, 0.000000000, -0.235432615, 0.000000000, 1.000000000, 0.000000000, 0.235432615, 0.000000000, 0.971890675, 12.397150040, 60.080001831, 13.834120750)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.120"
 [node name="ORF2_实例_tuft.121" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.746457895, 0.000000000, -0.665432649, 0.000000000, 1.000000000, 0.000000000, 0.665432649, 0.000000000, -0.746457895, 2.410810232, 60.080001831, 12.781716347)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.121"
 [node name="ORF2_实例_tuft.122" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.964696771, 0.000000000, 0.263363132, 0.000000000, 1.000000000, 0.000000000, -0.263363132, 0.000000000, -0.964696771, -4.986548424, 60.080001831, 13.720415115)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.122"
 [node name="ORF2_实例_tuft.123" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.058023584, 0.000000000, -0.998315213, 0.000000000, 1.000000000, 0.000000000, 0.998315213, 0.000000000, 0.058023584, 14.411793709, 60.080001831, 4.059319496)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.123"
 [node name="ORF2_实例_tuft.124" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.991353684, 0.000000000, 0.131216897, 0.000000000, 1.000000000, 0.000000000, -0.131216897, 0.000000000, 0.991353684, 18.380071640, 60.080001831, -1.035087109)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.124"
 [node name="ORF2_实例_tuft.125" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.986915934, 0.000000000, 0.161235662, 0.000000000, 1.000000000, 0.000000000, -0.161235662, 0.000000000, -0.986915934, -16.912839890, 60.080001831, 4.347729683)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.125"
 [node name="ORF2_实例_tuft.126" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.060133829, 0.000000000, -0.998190324, 0.000000000, 1.000000000, 0.000000000, 0.998190324, 0.000000000, 0.060133829, 15.928212166, 60.080001831, 11.071166992)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.126"
 [node name="ORF2_实例_tuft.127" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.928696537, 0.000000000, -0.370840590, 0.000000000, 1.000000000, 0.000000000, 0.370840590, 0.000000000, 0.928696537, -18.118490219, 60.080001831, -0.788068831)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.127"
 [node name="ORF2_实例_tuft.128" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.956697319, 0.000000000, -0.291084593, 0.000000000, 1.000000000, 0.000000000, 0.291084593, 0.000000000, 0.956697319, -6.509194851, 60.080001831, -5.009077072)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.128"
 [node name="ORF2_实例_tuft.129" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.851010081, 0.000000000, 0.525149352, 0.000000000, 1.000000000, 0.000000000, -0.525149352, 0.000000000, 0.851010081, 6.223691463, 60.080001831, 2.110544682)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.129"
 [node name="ORF2_实例_tuft.130" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.645217003, 0.000000000, 0.763999358, 0.000000000, 1.000000000, 0.000000000, -0.763999358, 0.000000000, -0.645217003, -6.667641163, 60.080001831, 6.696763039)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.130"
 [node name="ORF2_实例_tuft.131" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.970486854, 0.000000000, -0.241154030, 0.000000000, 1.000000000, 0.000000000, 0.241154030, 0.000000000, 0.970486854, -6.225488663, 60.080001831, -13.077227592)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.131"
 [node name="ORF2_实例_tuft.132" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.832678388, 0.000000000, 0.553756897, 0.000000000, 1.000000000, 0.000000000, -0.553756897, 0.000000000, -0.832678388, 12.290521622, 60.080001831, -2.510131121)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.132"
 [node name="ORF2_实例_tuft.133" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.416426914, 0.000000000, -0.909169195, 0.000000000, 1.000000000, 0.000000000, 0.909169195, 0.000000000, -0.416426914, -5.634640217, 60.080001831, -6.110470772)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.133"
 [node name="ORF2_实例_tuft.134" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.498177258, 0.000000000, 0.867075210, 0.000000000, 1.000000000, 0.000000000, -0.867075210, 0.000000000, -0.498177258, -16.637842178, 60.080001831, -13.324720383)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.134"
 [node name="ORF2_实例_tuft.135" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.321606363, 0.000000000, 0.946873459, 0.000000000, 1.000000000, 0.000000000, -0.946873459, 0.000000000, 0.321606363, 16.096424103, 60.080001831, 7.808018208)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.135"
 [node name="ORF2_实例_tuft.136" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.807590203, 0.000000000, -0.589744067, 0.000000000, 1.000000000, 0.000000000, 0.589744067, 0.000000000, 0.807590203, -8.009738922, 60.080001831, 10.755747795)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.136"
 [node name="ORF2_实例_tuft.137" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.709012158, 0.000000000, 0.705196257, 0.000000000, 1.000000000, 0.000000000, -0.705196257, 0.000000000, -0.709012158, 16.555202484, 60.080001831, -1.931772232)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.137"
 [node name="ORF2_实例_tuft.138" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.637168213, 0.000000000, -0.770724768, 0.000000000, 1.000000000, 0.000000000, 0.770724768, 0.000000000, -0.637168213, 0.745768011, 60.080001831, 11.413162231)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.138"
 [node name="ORF2_实例_tuft.139" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.852885985, 0.000000000, -0.522097209, 0.000000000, 1.000000000, 0.000000000, 0.522097209, 0.000000000, 0.852885985, 7.159820080, 60.080001831, 9.250510216)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.139"
 [node name="ORF2_实例_tuft.140" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.978920473, 0.000000000, -0.204241787, 0.000000000, 1.000000000, 0.000000000, 0.204241787, 0.000000000, -0.978920473, 1.488125086, 60.080001831, -10.411303520)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.140"
 [node name="ORF2_实例_tuft.141" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.936951613, 0.000000000, 0.349459118, 0.000000000, 1.000000000, 0.000000000, -0.349459118, 0.000000000, -0.936951613, 20.135622025, 60.080001831, -12.656437874)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.141"
 [node name="ORF2_实例_tuft.142" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.997358209, 0.000000000, -0.072640229, 0.000000000, 1.000000000, 0.000000000, 0.072640229, 0.000000000, 0.997358209, 15.713466644, 60.080001831, -10.752898216)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.142"
 [node name="ORF2_实例_tuft.143" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.340901438, 0.000000000, 0.940099042, 0.000000000, 1.000000000, 0.000000000, -0.940099042, 0.000000000, 0.340901438, -5.952050686, 60.080001831, -0.572082400)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.143"
 [node name="ORF2_实例_tuft.144" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.942511601, 0.000000000, 0.334173431, 0.000000000, 1.000000000, 0.000000000, -0.334173431, 0.000000000, 0.942511601, 20.530139923, 60.080001831, -2.448681593)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.144"
 [node name="ORF2_实例_tuft.145" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.403007914, 0.000000000, 0.915196493, 0.000000000, 1.000000000, 0.000000000, -0.915196493, 0.000000000, -0.403007914, -3.457636118, 60.080001831, 6.416193962)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.145"
 [node name="ORF2_实例_tuft.146" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.585850684, 0.000000000, 0.810419013, 0.000000000, 1.000000000, 0.000000000, -0.810419013, 0.000000000, -0.585850684, 3.216109514, 60.080001831, -4.600973606)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.146"
 [node name="ORF2_实例_tuft.147" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.999864135, 0.000000000, -0.016483665, 0.000000000, 1.000000000, 0.000000000, 0.016483665, 0.000000000, -0.999864135, -13.752634048, 60.080001831, -11.680036545)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.147"
 [node name="ORF2_实例_tuft.148" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.971780012, 0.000000000, 0.235888974, 0.000000000, 1.000000000, 0.000000000, -0.235888974, 0.000000000, 0.971780012, -7.725155354, 60.080001831, -10.339629173)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.148"
 [node name="ORF2_实例_tuft.149" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.051847403, 0.000000000, -0.998655019, 0.000000000, 1.000000000, 0.000000000, 0.998655019, 0.000000000, 0.051847403, 8.112423897, 60.080001831, 4.917613029)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.149"
 [node name="ORF2_实例_tuft.150" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.443679941, 0.000000000, -0.896185310, 0.000000000, 1.000000000, 0.000000000, 0.896185310, 0.000000000, -0.443679941, 13.731146812, 60.080001831, 3.058514595)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.150"
 [node name="ORF2_实例_tuft.151" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.987000370, 0.000000000, 0.160717982, 0.000000000, 1.000000000, 0.000000000, -0.160717982, 0.000000000, -0.987000370, -18.519920349, 60.080001831, 9.446127892)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.151"
 [node name="ORF2_实例_tuft.152" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.999990238, 0.000000000, 0.004418661, 0.000000000, 1.000000000, 0.000000000, -0.004418661, 0.000000000, 0.999990238, 3.369000673, 60.080001831, -1.096990585)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.152"
 [node name="ORF2_实例_tuft.153" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.680061684, 0.000000000, -0.733154899, 0.000000000, 1.000000000, 0.000000000, 0.733154899, 0.000000000, -0.680061684, 9.043777466, 60.080001831, -9.848954201)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.153"
 [node name="ORF2_实例_tuft.154" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.430197185, 0.000000000, 0.902734946, 0.000000000, 1.000000000, 0.000000000, -0.902734946, 0.000000000, -0.430197185, 11.008428574, 60.080001831, 12.622101784)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.154"
 [node name="ORF2_实例_tuft.155" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.797311717, 0.000000000, -0.603567748, 0.000000000, 1.000000000, 0.000000000, 0.603567748, 0.000000000, 0.797311717, -2.912134886, 60.080001831, -5.611310482)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.155"
 [node name="ORF2_实例_tuft.156" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.250524945, 0.000000000, 0.968110145, 0.000000000, 1.000000000, 0.000000000, -0.968110145, 0.000000000, -0.250524945, -12.630810738, 60.080001831, -13.550145149)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.156"
 [node name="ORF2_实例_tuft.157" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.062329883, 0.000000000, 0.998055603, 0.000000000, 1.000000000, 0.000000000, -0.998055603, 0.000000000, 0.062329883, 6.249834538, 60.080001831, 8.831420898)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.157"
 [node name="ORF2_实例_tuft.158" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(-0.999116932, 0.000000000, 0.042016142, 0.000000000, 1.000000000, 0.000000000, -0.042016142, 0.000000000, -0.999116932, 5.925518990, 60.080001831, 9.650068283)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.158"
 [node name="ORF2_实例_tuft.159" parent="Models" instance=ExtResource("c10")]
+visible = false
+metadata/vegetation_replaced = true
 transform = Transform3D(0.768522533, 0.000000000, -0.639822723, 0.000000000, 1.000000000, 0.000000000, 0.639822723, 0.000000000, 0.768522533, -9.282720566, 60.080001831, 1.932614684)
 metadata/asset_id = "SEA-SCENE-ORF2-TUFT"
 metadata/source_instance = "ORF2_实例_tuft.159"
@@ -3082,3 +3584,10 @@ rotation = Vector3(0, 3.141592654, 0)
 
 [node name="DockEdge" type="Marker3D" parent="WalkAreas/Walk_rooftop_ranch_access/Landing_main"]
 position = Vector3(1.3, 0, 0)
+
+[node name="VegetationTurf" type="Node3D" parent="."]
+script = ExtResource("vegetation")
+layout_path = "res://data/vegetation/layouts/rooftop_ranch.json"
+metadata/visual_only = true
+metadata/water_layer = "surface"
+metadata/water_layer_role = "none"

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "plugin": {
+    "repository": "https://github.com/HungryProton/scatter",
+    "commit": "7198cc00078ebde61307578137c3f35223c6e438",
+    "plugin_version": "4.2.0",
+    "scope": "editor authoring plus explicitly requested native demo trial; formal runtime does not load plugin",
+    "license": "MIT addon/code/models; demo texture usage per upstream README; no standalone texture redistribution",
+    "upstream_readme_sha256": "4bbfb3489933faacae7dd43f35d431e76fc5cc9177028a6c41babcf013177193"
+  },
+  "scope": "rooftop_ranch alternate preview",
+  "production_default": "v003 remains in main; native trial is separate",
+  "seed_grass": 110505,
+  "seed_bushes": 110506,
+  "grass_amount": 11500,
+  "bush_amount": 42,
+  "grass_scale": 0.8,
+  "bush_scale": 1.65,
+  "chunk_size": [
+    8,
+    4,
+    8
+  ],
+  "modifiers": [
+    "Create Inside Random restrict_height=true",
+    "Randomize Transforms rotation.y=180 scale=.32"
+  ],
+  "domain": "roof include box plus authored negative road/building/future upgrade boxes",
+  "domain_source": "godot/data/vegetation/layouts/rooftop_ranch.json",
+  "bush_core_exclusion": [
+    -14,
+    -7,
+    14,
+    8
+  ],
+  "material_binding": "ScatterItem.override_material on original GLBs; original .tscn importer node names incompatible with Godot4.7",
+  "green_tuning": {
+    "wind_strength": 0.45,
+    "gradient": [
+      [
+        0.09,
+        0.16,
+        0.025
+      ],
+      [
+        0.2,
+        0.36,
+        0.07
+      ],
+      [
+        0.4,
+        0.58,
+        0.18
+      ]
+    ]
+  },
+  "keep_static_colliders": false,
+  "enable_updates_in_game": false,
+  "export_policy": "editor addon and trial excluded from release presets; trial textures not redistributed standalone"
+}

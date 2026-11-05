@@ -113,3 +113,11 @@ SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、�
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-CAMERA-R10 | 已接入，专项与回归以本轮记录为准 | `onboarding / visual-avatar`；[交付](../../development/2026-11-02_avatar_and_arrival.md) |
+
+## 2026-11-05 缩放上限 38 米
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-CAMERA-R11 | 已实现；`zoom_max` 190→38、开局 `distance` 54.25→38，滚轮/捏合/面板均被钉住；19 个需要更宽机位的证据脚本改为在自己文件内临时抬高 `zoom_max` | `camera` 11 项、`visual-camera-zoom` 14 项；`visual-sunken-city` 124 项、`click`、`visual-title-screen` 及 8 个取景/水下检查复跑通过；[本轮交付](../../development/2026-11-05_camera_zoom_max_38.md) |
+
+玩家侧只有一条变化：能拉到的最远处从 190 m 收到 38 m，且开局即这一档。FOV、俯角、阻尼、跟随/手动接管、UI 阻断、存档字段均未改动；工具侧的 `zoom_max` 抬高只影响证据取景，不代表玩家可达范围。

@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://bgt2ik1wbg2yi" path="res://src/navigation/landing_point.gd" id="landing_script"]
 [ext_resource type="Script" uid="uid://1sfliqvrp6is" path="res://src/orders/shipping_box.gd" id="shipping_script"]
 [ext_resource type="PackedScene" path="res://scenes/components/solar_cabin/cooler.tscn" id="shipping_visual"]
-[ext_resource type="Script" uid="uid://c8vwaklg0k1ro" path="res://src/time/sleep_checkpoint.gd" id="sleep_script"]
+[ext_resource type="Script" path="res://src/room/room_door.gd" id="sleep_script"]
 [ext_resource type="PackedScene" uid="uid://boyqyowbitbxp" path="res://scenes/facilities/solar_cabin.tscn" id="sunny_surface"]
 
 [ext_resource type="PackedScene" path="res://scenes/decorations/animals/fish_school.tscn" id="fishery_school"]
@@ -112,13 +112,13 @@ transform = Transform3D(0.017022815, 0, 1.724916, 0, 1.5869999, 0, -1.724916, 0,
 instance_id = "solar_cabin/shipping_box"
 facility_id = "solar_cabin"
 
-[node name="SleepCheckpoint" type="Node3D" parent="Objects" unique_id=567116255]
+[node name="RoomDoor" type="Node3D" parent="Objects" unique_id=567116255]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35, 1.38, 8.75)
 script = ExtResource("sleep_script")
-id = "home_sleep"
-label = "太阳房 · 睡觉"
-verb = "睡到早上 06:00"
-priority = 4
+id = "room_door"
+label = "太阳房 · 房间"
+verb = "进入房间"
+priority = 5
 hold_time = 0.15
 
 [node name="FisherySchools" type="Node3D" parent="."]

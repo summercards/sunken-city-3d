@@ -1,0 +1,140 @@
+{
+  "key": "terrain_ramp",
+  "slug": "terrain_ramp",
+  "name": "街区缓坡_24米高差4.8米",
+  "component_family": "terrain_ramp",
+  "category": "ground",
+  "component_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    45,
+    90,
+    135,
+    180,
+    225,
+    270,
+    315
+  ],
+  "size_design_m": [
+    24,
+    24,
+    5.4
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 10,
+  "version": "v003",
+  "collection": "SEA-SCENE-SCITY-TERRAIN-RAMP_街区缓坡_24米高差4.8米",
+  "root_object": "SEA-SCENE-SCITY-TERRAIN-RAMP_ROOT",
+  "objects": [
+    "街区缓坡_24米高差4.8米_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-TERRAIN-RAMP_ROOT"
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/terrain_ramp/terrain_ramp.blend",
+  "bounds_size_m": [
+    24.0,
+    24.0,
+    5.418862819671631
+  ],
+  "triangles": 9124,
+  "polygons": 4754,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "d95c9f102802cd7228165d96ca3662852beaf7524ccaef8d187361ee709f5b27",
+  "geometry_fingerprint": "4a2afd8899a5d4d02ab00bdcb73a144f76af9960d74eb8bdf98c0cf8f0cd78b8",
+  "bounds_min": [
+    -12.0,
+    -12.0,
+    0.0
+  ],
+  "bounds_max": [
+    12.0,
+    12.0,
+    5.418862819671631
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\terrain_ramp.json",
+    "exit_code": 0
+  },
+  "source_stage": "source_verified_runtime_pending",
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-TERRAIN-RAMP",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/terrain_ramp_optimized.blend",
+    "optimized_sha256": "78a8a90f4a72c075aca58cf9a4472663e2a9b6eec6d168fc2f24088637f3d672",
+    "triangles_before": 9124,
+    "triangles_after": 9124,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 44,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 44,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -12.0,
+        -12.0,
+        0.0
+      ],
+      [
+        12.0,
+        12.0,
+        5.418862819671631
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/terrain_ramp/terrain_ramp.glb",
+    "runtime_sha256": "a7658f57ebefaf719a944c9e537073fc63eb4851f8cd15e6a517537a322cf430",
+    "prefab": "godot/scenes/components/scenery/sunken_city/terrain_ramp.tscn",
+    "prefab_sha256": "a171e174c5a1e9c0274a6b0432f4b59ca4dcbfc6745e65b4d36f91d6f899c810",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

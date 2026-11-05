@@ -39,9 +39,9 @@ func run() -> void:
 	main.hud.hide()
 	main.markers.hide()
 
-	# 相机用**默认游戏视距**（orbit_camera.distance=54.25、FOV 31°），不是特写。
+	# 相机用**默认游戏视距**（orbit_camera.distance=38、FOV 31°），不是特写。
 	# 特写只能证明 shader 画得出圈，证明不了玩家在正常视角里看得见 ——
-	# 这个坑本轮踩过：距离 7.5 时水纹占满画面，看起来很好；回到 54 就只剩一小撮。
+	# 这个坑本轮踩过：距离 7.5 时水纹占满画面，看起来很好；回到几十米就只剩一小撮。
 	main.cam.target = open_water_near(7.0)
 	main.cam._apply()
 	await settle(12)

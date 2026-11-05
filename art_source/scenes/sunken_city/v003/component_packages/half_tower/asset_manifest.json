@@ -1,0 +1,140 @@
+{
+  "key": "half_tower",
+  "slug": "half_tower",
+  "name": "高楼半骸_外露柱架",
+  "category": "architecture",
+  "component_family": "tower",
+  "component_id": "SEA-SCENE-SCITY-HALF-TOWER",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    16,
+    15,
+    43
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 8,
+  "color": "mint_white",
+  "damage": 0.65,
+  "style": "half_tower",
+  "variant_axis": "structure_damage",
+  "variant_value": "half_tower",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 2,
+  "collection": "SEA-SCENE-SCITY-HALF-TOWER_高楼半骸_外露柱架",
+  "root_object": "SEA-SCENE-SCITY-HALF-TOWER_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-HALF-TOWER_ROOT",
+    "高楼半骸_外露柱架_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    15.627130508422852,
+    15.07800006866455,
+    44.35918426513672
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 126410,
+  "polygons": 65845,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/half_tower/half_tower.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "2dd0b74693f4063c624c9a85ee51799ddbcdfe62f015b46865481750896905e4",
+  "geometry_fingerprint": "9a3494026ee0486c44aaa4a23e1f09a7e651c289103135e810a2f4ba919a6381",
+  "bounds_min": [
+    -7.813565254211426,
+    -7.539000034332275,
+    0.0
+  ],
+  "bounds_max": [
+    7.813565254211426,
+    7.539000034332275,
+    44.35918426513672
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\half_tower.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-HALF-TOWER",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/half_tower_optimized.blend",
+    "optimized_sha256": "8bfe8f731b345fb74dea89125ad1c6f77371282959d87a0e26554716a399e89c",
+    "triangles_before": 126410,
+    "triangles_after": 126410,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 356,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 57,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -7.813565254211426,
+        -7.539000034332275,
+        0.0
+      ],
+      [
+        7.813565254211426,
+        7.539000034332275,
+        44.35918426513672
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/half_tower/half_tower.glb",
+    "runtime_sha256": "b73d60c7dc766094a5c56cc0ae01c0e3f6936d773a9fae1da3568be3868455e9",
+    "prefab": "godot/scenes/components/scenery/sunken_city/half_tower.tscn",
+    "prefab_sha256": "ea7f879e2c8a1a48cd515fda8797bbabdca8fc38e0530b9cd66c40e3259df7c1",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

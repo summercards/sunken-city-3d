@@ -1,0 +1,68 @@
+{
+  "key": "pink_flower",
+  "label": "粉瓣野花",
+  "profile": "flower",
+  "triangle_budget": 850,
+  "asset_id": "SEA-VEG-PINK-FLOWER",
+  "source": "art_source/vegetation/v001/components/pink_flower/pink_flower.blend",
+  "source_sha256": "d95ea96bcf83b9418e75bcac20141fe99f6505106d89a1be6612146f763abcb4",
+  "optimized_source": "art_source/vegetation/v001/components/pink_flower/pink_flower_optimized.blend",
+  "optimized_sha256": "81df2014bc7199d98e584fbb20b7ad42449389932814ccbbfc866a729cf14280",
+  "glb": "godot/assets/models/vegetation/pink_flower.glb",
+  "glb_sha256": "aece2f10093ebfa800ce01f4dfa933f6d90e6f41073413594d2d28599668600d",
+  "before": {
+    "vertices": 522,
+    "triangles": 768,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.22971923649311066,
+        -0.22679632902145386,
+        0.0
+      ],
+      [
+        0.22971923649311066,
+        0.22679632902145386,
+        0.5870000123977661
+      ]
+    ],
+    "root_vertices": 102,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.8553054928779602
+    ]
+  },
+  "after": {
+    "vertices": 451,
+    "triangles": 720,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.22971923649311066,
+        -0.22679632902145386,
+        0.0
+      ],
+      [
+        0.22971923649311066,
+        0.22679632902145386,
+        0.5870000123977661
+      ]
+    ],
+    "root_vertices": 102,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.8553054928779602
+    ]
+  },
+  "operations": [
+    "merge coincident vertices at 1e-6 m",
+    "remove degenerate edges",
+    "preserve PaletteUV and WindData seams",
+    "reopen both sources and verify"
+  ],
+  "removed_vertices": 71
+}

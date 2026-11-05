@@ -1,0 +1,16 @@
+{
+  "schema_version": 3,
+  "status": "frozen_before_geometry",
+  "scope": ["solar_cabin_turf", "rooftop_ranch_turf_and_mounds"],
+  "user_revision": "Larger, broader readable grass leaves; rounded card-based mounds on the indicated rooftop; visibly traveling wind on both. Original solar flowers and foliage remain untouched.",
+  "assets": [
+    {"key": "grass_soft", "asset_id": "SEA-VEG-GRASS-SOFT", "version": "v003", "triangle_budget": 18, "geometry": "3 crossed flexible sheets; leaf silhouettes entirely from alpha texture", "bounds_metres": [0.74, 0.48, 0.74]},
+    {"key": "mound_soft", "asset_id": "SEA-VEG-MOUND-SOFT", "version": "v003", "triangle_budget": 650, "geometry": "overlapping curved textured cards over an empty rounded scaffold; no solid core", "bounds_metres": [3.1, 1.25, 2.7]},
+    {"key": "meadow_atlas", "asset_id": "SEA-TEX-VEGETATION-MEADOW-ATLAS", "version": "v003", "texture": "Image-2 2048 RGBA; two broad grass fans plus two broad foliage sprays"}
+  ],
+  "reuse": "Existing moss_soft and its v002 atlas remain unchanged. Keep stable grass runtime path and AssetID, retaining v002 source history.",
+  "uv_exception": "User requested full botanical color-alpha UV0, not palette-only UV0, for this family.",
+  "collision": "none",
+  "wind": "single shared clock; visibly traveling coherent gusts, rooted deformation; shader envelope <=0.55m",
+  "spatial": "authored local XZ polygons and explicit road/building/upgrade exclusions; no runtime random scattering"
+}

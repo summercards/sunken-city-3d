@@ -1,0 +1,139 @@
+{
+  "key": "frame_construction",
+  "slug": "frame_construction",
+  "name": "停工楼架_缺层",
+  "category": "architecture",
+  "component_family": "construction",
+  "component_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    18,
+    16,
+    35
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 6,
+  "color": "cloud",
+  "damage": 0.73,
+  "style": "frame",
+  "variant_axis": "structure_damage",
+  "variant_value": "frame",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 1,
+  "collection": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION_停工楼架_缺层",
+  "root_object": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-FRAME-CONSTRUCTION_ROOT",
+    "停工楼架_缺层_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    18.078922271728516,
+    15.520315170288086,
+    31.869182586669922
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 15076,
+  "polygons": 7849,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/frame_construction/frame_construction.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "fe0f8e55bc999f0c0a4f41dd3385a364b7b7689993f2d3497f54015a7b29777e",
+  "geometry_fingerprint": "64dd37c23e497acdd059c4d9444c5a242ee8fe092e5e4875c9f2b979361c04d7",
+  "bounds_min": [
+    -9.039461135864258,
+    -7.760157585144043,
+    0.0
+  ],
+  "bounds_max": [
+    9.039461135864258,
+    7.760157585144043,
+    31.869182586669922
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\frame_construction.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/frame_construction_optimized.blend",
+    "optimized_sha256": "fc95bfa72744fd51544077f8d2911bb2b5b5439eabac24d18d8aa3d65d314d23",
+    "triangles_before": 15076,
+    "triangles_after": 15076,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 0,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -9.039461135864258,
+        -7.760157585144043,
+        0.0
+      ],
+      [
+        9.039461135864258,
+        7.760157585144043,
+        31.869182586669922
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/frame_construction/frame_construction.glb",
+    "runtime_sha256": "24dd8edfce62680b8662df16fd0a8020781ea600516ad621313ba8c2030373a8",
+    "prefab": "godot/scenes/components/scenery/sunken_city/frame_construction.tscn",
+    "prefab_sha256": "e020391fd384419411127991c8dadd2a4817d2f86058fda8913d164c0ff42e57",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

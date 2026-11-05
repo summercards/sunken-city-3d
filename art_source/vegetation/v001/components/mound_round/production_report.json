@@ -1,0 +1,68 @@
+{
+  "key": "mound_round",
+  "label": "圆润草堆",
+  "profile": "mound",
+  "triangle_budget": 1700,
+  "asset_id": "SEA-VEG-MOUND-ROUND",
+  "source": "art_source/vegetation/v001/components/mound_round/mound_round.blend",
+  "source_sha256": "928a42521c0dbe6910ff0722382bceb3d3ddafe8ec9d5fe7bfa4b055b31dbe01",
+  "optimized_source": "art_source/vegetation/v001/components/mound_round/mound_round_optimized.blend",
+  "optimized_sha256": "752a4bf5742a870263175fc4273edabc988fdaf7223d939ff8bb7833b1f9ab3c",
+  "glb": "godot/assets/models/vegetation/mound_round.glb",
+  "glb_sha256": "9a422b3dceefca1c40c5965ee15c8cdb8656b9d63955f35662959e134be33ee9",
+  "before": {
+    "vertices": 920,
+    "triangles": 1412,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.5103904008865356,
+        -0.4993487596511841,
+        0.0
+      ],
+      [
+        0.5103904008865356,
+        0.4993487596511841,
+        0.5209102034568787
+      ]
+    ],
+    "root_vertices": 80,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.78226238489151
+    ]
+  },
+  "after": {
+    "vertices": 826,
+    "triangles": 1308,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.5103904008865356,
+        -0.4993487596511841,
+        0.0
+      ],
+      [
+        0.5103904008865356,
+        0.4993487596511841,
+        0.5209102034568787
+      ]
+    ],
+    "root_vertices": 40,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.78226238489151
+    ]
+  },
+  "operations": [
+    "merge coincident vertices at 1e-6 m",
+    "remove degenerate edges",
+    "preserve PaletteUV and WindData seams",
+    "reopen both sources and verify"
+  ],
+  "removed_vertices": 94
+}

@@ -1,0 +1,2111 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter.gd" id="1_o1604"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/stack/modifier_stack.gd" id="2_k5yc3"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/base_modifier.gd" id="3_nq8e3"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/create_inside_random.gd" id="4_j3xj1"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/modifiers/randomize_transforms.gd" id="5_1u50t"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_item.gd" id="6_dewb7"]
+[ext_resource type="Shader" path="res://addons/proton_scatter/demos/assets/materials/grass.gdshader" id="7_yk38x"]
+[ext_resource type="Texture2D" path="res://addons/proton_scatter/demos/assets/textures/t_grass_2.png" id="8_m6iwu"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/scatter_shape.gd" id="9_cklov"]
+[ext_resource type="Script" path="res://addons/proton_scatter/src/shapes/box_shape.gd" id="10_5ru1j"]
+[ext_resource type="Texture2D" path="res://addons/proton_scatter/demos/assets/textures/t_bush.png" id="11_cgeqi"]
+
+[sub_resource type="Resource" id="Resource_57wr7"]
+script = ExtResource("4_j3xj1")
+amount = 11500
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_r3d06"]
+script = ExtResource("5_1u50t")
+rotation = Vector3(0, 180, 0)
+scale = Vector3(0.32, 0.32, 0.32)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_efh37"]
+script = ExtResource("2_k5yc3")
+stack = Array[ExtResource("3_nq8e3")]([SubResource("Resource_57wr7"), SubResource("Resource_r3d06")])
+
+[sub_resource type="Gradient" id="Gradient_0ujiq"]
+offsets = PackedFloat32Array(0, 0.48, 1)
+colors = PackedColorArray(0.09, 0.16, 0.025, 1, 0.2, 0.36, 0.07, 1, 0.4, 0.58, 0.18, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o3gj0"]
+gradient = SubResource("Gradient_0ujiq")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bppda"]
+seed = 1
+frequency = 0.002
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u8the"]
+noise = SubResource("FastNoiseLite_bppda")
+seamless = true
+in_3d_space = true
+seamless_blend_skirt = 0.65
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g753b"]
+render_priority = 0
+shader = ExtResource("7_yk38x")
+shader_parameter/texture_albedo = ExtResource("8_m6iwu")
+shader_parameter/texture_gradient = SubResource("GradientTexture1D_o3gj0")
+shader_parameter/texture_noise = SubResource("NoiseTexture2D_u8the")
+shader_parameter/alpha_scissor_threshold = 0.3
+shader_parameter/transmission = Color(0.737255, 0.72549, 0, 1)
+shader_parameter/secondary_color = Color(0, 0, 0, 1)
+shader_parameter/secondary_attenuation = 0.2
+shader_parameter/grass_height = 0.6
+shader_parameter/wind_direction = Vector2(1, -0.5)
+shader_parameter/wind_speed = 0.5
+shader_parameter/wind_strength = 0.45
+shader_parameter/noise_scale = 6.0
+
+[sub_resource type="Gradient" id="Gradient_0vy06"]
+offsets = PackedFloat32Array(0, 0.48, 1)
+colors = PackedColorArray(0.09, 0.16, 0.025, 1, 0.2, 0.36, 0.07, 1, 0.4, 0.58, 0.18, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fh6hu"]
+gradient = SubResource("Gradient_0vy06")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_23hc3"]
+seed = 1
+frequency = 0.002
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vmqev"]
+noise = SubResource("FastNoiseLite_23hc3")
+seamless = true
+in_3d_space = true
+seamless_blend_skirt = 0.65
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4t5f5"]
+render_priority = 0
+shader = ExtResource("7_yk38x")
+shader_parameter/texture_albedo = ExtResource("8_m6iwu")
+shader_parameter/texture_gradient = SubResource("GradientTexture1D_fh6hu")
+shader_parameter/texture_noise = SubResource("NoiseTexture2D_vmqev")
+shader_parameter/alpha_scissor_threshold = 0.3
+shader_parameter/transmission = Color(0.737255, 0.72549, 0, 1)
+shader_parameter/secondary_color = Color(0, 0, 0, 1)
+shader_parameter/secondary_attenuation = 0.2
+shader_parameter/grass_height = 0.6
+shader_parameter/wind_direction = Vector2(1, -0.5)
+shader_parameter/wind_speed = 0.5
+shader_parameter/wind_strength = 0.45
+shader_parameter/noise_scale = 6.0
+
+[sub_resource type="Resource" id="Resource_rjuty"]
+script = ExtResource("10_5ru1j")
+size = Vector3(43.6, 1, 27.6)
+
+[sub_resource type="Resource" id="Resource_xdcw8"]
+script = ExtResource("10_5ru1j")
+size = Vector3(11.200002, 1, 10.199998)
+
+[sub_resource type="Resource" id="Resource_au7qs"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.8814056, 1, 1.0207031)
+
+[sub_resource type="Resource" id="Resource_ri05s"]
+script = ExtResource("10_5ru1j")
+size = Vector3(4.8610964, 1, 3.9100006)
+
+[sub_resource type="Resource" id="Resource_rkt17"]
+script = ExtResource("10_5ru1j")
+size = Vector3(4.0581083, 1, 3.3710754)
+
+[sub_resource type="Resource" id="Resource_ec481"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9963348, 1, 1.7524688)
+
+[sub_resource type="Resource" id="Resource_v7nqm"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9422424, 1, 1.6672409)
+
+[sub_resource type="Resource" id="Resource_jumbm"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9485977, 1, 1.6768997)
+
+[sub_resource type="Resource" id="Resource_1ivhk"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9805877, 1, 1.7268646)
+
+[sub_resource type="Resource" id="Resource_yhrnl"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9869506, 1, 1.7371185)
+
+[sub_resource type="Resource" id="Resource_tw7a0"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9685333, 1, 1.7077377)
+
+[sub_resource type="Resource" id="Resource_asjvv"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9970214, 1, 1.7536056)
+
+[sub_resource type="Resource" id="Resource_ymbrl"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9479187, 1, 1.6758697)
+
+[sub_resource type="Resource" id="Resource_0b7a6"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9600112, 1, 1.694432)
+
+[sub_resource type="Resource" id="Resource_h4gx2"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9316452, 1, 1.6513336)
+
+[sub_resource type="Resource" id="Resource_wxjuy"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9752395, 1, 1.7183349)
+
+[sub_resource type="Resource" id="Resource_yt37y"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9558685, 1, 1.6880462)
+
+[sub_resource type="Resource" id="Resource_jis02"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9880264, 1, 1.7388656)
+
+[sub_resource type="Resource" id="Resource_bajw3"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.935498, 1, 1.657109)
+
+[sub_resource type="Resource" id="Resource_f4hlo"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9303405, 1, 1.6494033)
+
+[sub_resource type="Resource" id="Resource_ce6gn"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9794052, 1, 1.7249649)
+
+[sub_resource type="Resource" id="Resource_2wmeg"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9006088, 1, 1.6058776)
+
+[sub_resource type="Resource" id="Resource_5qlgu"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9822662, 1, 1.7295578)
+
+[sub_resource type="Resource" id="Resource_sca2c"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9990623, 1, 1.7569854)
+
+[sub_resource type="Resource" id="Resource_1dbja"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9002693, 1, 1.6053894)
+
+[sub_resource type="Resource" id="Resource_vdcw0"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9237449, 1, 1.6396072)
+
+[sub_resource type="Resource" id="Resource_lls7t"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9953563, 1, 1.750859)
+
+[sub_resource type="Resource" id="Resource_eqq2d"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9941909, 1, 1.7489364)
+
+[sub_resource type="Resource" id="Resource_blg2p"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.0010116, 1, 1.7602279)
+
+[sub_resource type="Resource" id="Resource_k85lr"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.8765152, 1, 1.5715835)
+
+[sub_resource type="Resource" id="Resource_46noc"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9810607, 1, 1.7276199)
+
+[sub_resource type="Resource" id="Resource_24lk6"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9890792, 1, 1.7405746)
+
+[sub_resource type="Resource" id="Resource_2ihyv"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9393203, 1, 1.662854)
+
+[sub_resource type="Resource" id="Resource_k8p51"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.941632, 1, 1.666333)
+
+[sub_resource type="Resource" id="Resource_pohms"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.8753555, 1, 1.5699508)
+
+[sub_resource type="Resource" id="Resource_xh46g"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9277008, 1, 1.6454742)
+
+[sub_resource type="Resource" id="Resource_hs7tn"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4131134, 1, 1.4829834)
+
+[sub_resource type="Resource" id="Resource_kfu4q"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4440162, 1, 1.5675094)
+
+[sub_resource type="Resource" id="Resource_s5uwg"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4306648, 1, 1.5296447)
+
+[sub_resource type="Resource" id="Resource_ar1ki"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.415116, 1, 1.4881561)
+
+[sub_resource type="Resource" id="Resource_1xjkc"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4354427, 1, 1.5429351)
+
+[sub_resource type="Resource" id="Resource_mhnpi"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4079864, 1, 1.4699142)
+
+[sub_resource type="Resource" id="Resource_7uonn"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4092605, 1, 1.4731491)
+
+[sub_resource type="Resource" id="Resource_njwre"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4023254, 1, 1.4557464)
+
+[sub_resource type="Resource" id="Resource_57c07"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4251068, 1, 1.5145233)
+
+[sub_resource type="Resource" id="Resource_x2nld"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4275863, 1, 1.5212066)
+
+[sub_resource type="Resource" id="Resource_fadjx"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.411023, 1, 1.4776199)
+
+[sub_resource type="Resource" id="Resource_xl7vv"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4115264, 1, 1.4789169)
+
+[sub_resource type="Resource" id="Resource_t2d1d"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4211242, 1, 1.5038803)
+
+[sub_resource type="Resource" id="Resource_05aqe"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4192245, 1, 1.4988906)
+
+[sub_resource type="Resource" id="Resource_8m25d"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4147003, 1, 1.487088)
+
+[sub_resource type="Resource" id="Resource_5omk4"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.443875, 1, 1.567105)
+
+[sub_resource type="Resource" id="Resource_la4x8"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4331405, 1, 1.5364883)
+
+[sub_resource type="Resource" id="Resource_15t6w"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4080093, 1, 1.4699676)
+
+[sub_resource type="Resource" id="Resource_g8pfq"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4423416, 1, 1.5626113)
+
+[sub_resource type="Resource" id="Resource_6fldy"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.41969, 1, 1.5001037)
+
+[sub_resource type="Resource" id="Resource_oep0g"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4074829, 1, 1.4686401)
+
+[sub_resource type="Resource" id="Resource_drrfy"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.4360778, 1, 1.5447357)
+
+[sub_resource type="Resource" id="Resource_2e1b6"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.446534, 1, 1.5749176)
+
+[sub_resource type="Resource" id="Resource_717ol"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.416043, 1, 1.4905975)
+
+[sub_resource type="Resource" id="Resource_tqecl"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9017074, 1, 1.6074569)
+
+[sub_resource type="Resource" id="Resource_k24tb"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9017074, 1, 1.6074569)
+
+[sub_resource type="Resource" id="Resource_8pp6e"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9017074, 1, 1.6074569)
+
+[sub_resource type="Resource" id="Resource_k26j2"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9017074, 1, 1.6074569)
+
+[sub_resource type="Resource" id="Resource_ua7qa"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9017074, 1, 1.6074569)
+
+[sub_resource type="Resource" id="Resource_svnkn"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9645011, 1, 1.7014282)
+
+[sub_resource type="Resource" id="Resource_15u3f"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9975631, 1, 1.7545059)
+
+[sub_resource type="Resource" id="Resource_vx2ni"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.8921344, 1, 1.593724)
+
+[sub_resource type="Resource" id="Resource_28vim"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9239318, 1, 1.6398895)
+
+[sub_resource type="Resource" id="Resource_31bpe"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9066436, 1, 1.6145904)
+
+[sub_resource type="Resource" id="Resource_o47nu"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.9383132, 1, 1.6613204)
+
+[sub_resource type="Resource" id="Resource_fqg6b"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.0278747, 1, 1.8064773)
+
+[sub_resource type="Resource" id="Resource_px33t"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.0106704, 1, 1.776509)
+
+[sub_resource type="Resource" id="Resource_87jtc"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.971524, 1, 1.7124603)
+
+[sub_resource type="Resource" id="Resource_6yee2"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.9200027, 1, 2.5916336)
+
+[sub_resource type="Resource" id="Resource_3wwr1"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.600003, 1, 2.600003)
+
+[sub_resource type="Resource" id="Resource_mtohf"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.7191055, 1, 1.7197082)
+
+[sub_resource type="Resource" id="Resource_0ixgr"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6675766, 1, 1.6699646)
+
+[sub_resource type="Resource" id="Resource_ek4u4"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6600006, 1, 1.6600006)
+
+[sub_resource type="Resource" id="Resource_4horv"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6600006, 1, 1.6600006)
+
+[sub_resource type="Resource" id="Resource_hs43i"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6600006, 1, 1.6600006)
+
+[sub_resource type="Resource" id="Resource_nct4t"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6600006, 1, 1.6600006)
+
+[sub_resource type="Resource" id="Resource_ft7xh"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6600006, 1, 1.6600006)
+
+[sub_resource type="Resource" id="Resource_533gd"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6600006, 1, 1.6600006)
+
+[sub_resource type="Resource" id="Resource_2ovrc"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6600006, 1, 1.6600006)
+
+[sub_resource type="Resource" id="Resource_bew6n"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.600003, 1, 1.600003)
+
+[sub_resource type="Resource" id="Resource_3j7p3"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6300018, 1, 1.6300018)
+
+[sub_resource type="Resource" id="Resource_1jsxt"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.7000015, 1, 1.6399963)
+
+[sub_resource type="Resource" id="Resource_e8ous"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.7000015, 1, 1.6399963)
+
+[sub_resource type="Resource" id="Resource_tx05i"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.600003, 1, 1.600003)
+
+[sub_resource type="Resource" id="Resource_xkv5h"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.6300018, 1, 1.6300018)
+
+[sub_resource type="Resource" id="Resource_8ogu3"]
+script = ExtResource("10_5ru1j")
+size = Vector3(1.7000015, 1, 1.6399963)
+
+[sub_resource type="Resource" id="Resource_spmwm"]
+script = ExtResource("10_5ru1j")
+size = Vector3(7.5, 1, 9.3)
+
+[sub_resource type="Resource" id="Resource_7wm22"]
+script = ExtResource("10_5ru1j")
+size = Vector3(4.9, 1, 6.2)
+
+[sub_resource type="Resource" id="Resource_8kngy"]
+script = ExtResource("10_5ru1j")
+size = Vector3(2.2, 1, 28.6)
+
+[sub_resource type="Resource" id="Resource_8oyv5"]
+script = ExtResource("10_5ru1j")
+size = Vector3(44.6, 1, 2)
+
+[sub_resource type="Resource" id="Resource_0gffc"]
+script = ExtResource("4_j3xj1")
+amount = 42
+restrict_height = true
+reference_frame = 1
+
+[sub_resource type="Resource" id="Resource_vy7lm"]
+script = ExtResource("5_1u50t")
+rotation = Vector3(0, 180, 0)
+scale = Vector3(0.32, 0.32, 0.32)
+reference_frame = 2
+
+[sub_resource type="Resource" id="Resource_wkxjk"]
+script = ExtResource("2_k5yc3")
+stack = Array[ExtResource("3_nq8e3")]([SubResource("Resource_0gffc"), SubResource("Resource_vy7lm")])
+
+[sub_resource type="Gradient" id="Gradient_2pk3s"]
+offsets = PackedFloat32Array(0, 0.48, 1)
+colors = PackedColorArray(0.09, 0.16, 0.025, 1, 0.2, 0.36, 0.07, 1, 0.4, 0.58, 0.18, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wioa8"]
+gradient = SubResource("Gradient_2pk3s")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4pohv"]
+seed = 1
+frequency = 0.002
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y3hro"]
+noise = SubResource("FastNoiseLite_4pohv")
+seamless = true
+in_3d_space = true
+seamless_blend_skirt = 0.65
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kymr4"]
+render_priority = 0
+shader = ExtResource("7_yk38x")
+shader_parameter/texture_albedo = ExtResource("11_cgeqi")
+shader_parameter/texture_gradient = SubResource("GradientTexture1D_wioa8")
+shader_parameter/texture_noise = SubResource("NoiseTexture2D_y3hro")
+shader_parameter/alpha_scissor_threshold = 0.25
+shader_parameter/transmission = Color(0.619608, 0.541176, 0.101961, 1)
+shader_parameter/secondary_color = Color(0, 0, 0, 1)
+shader_parameter/secondary_attenuation = 0.2
+shader_parameter/grass_height = 0.829
+shader_parameter/wind_direction = Vector2(1, -0.5)
+shader_parameter/wind_speed = 0.5
+shader_parameter/wind_strength = 0.45
+shader_parameter/noise_scale = 6.0
+
+[sub_resource type="Resource" id="Resource_f7wu3"]
+script = ExtResource("10_5ru1j")
+size = Vector3(43.6, 1, 27.6)
+
+[sub_resource type="Resource" id="Resource_y48rs"]
+script = ExtResource("10_5ru1j")
+size = Vector3(12.600001, 1, 11.5999975)
+
+[sub_resource type="Resource" id="Resource_snteq"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.2814057, 1, 2.4207032)
+
+[sub_resource type="Resource" id="Resource_mky2g"]
+script = ExtResource("10_5ru1j")
+size = Vector3(6.261096, 1, 5.3100004)
+
+[sub_resource type="Resource" id="Resource_1s8jy"]
+script = ExtResource("10_5ru1j")
+size = Vector3(5.458108, 1, 4.7710752)
+
+[sub_resource type="Resource" id="Resource_x7hob"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.396335, 1, 3.152469)
+
+[sub_resource type="Resource" id="Resource_nvfl2"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3422425, 1, 3.067241)
+
+[sub_resource type="Resource" id="Resource_k3sdb"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3485978, 1, 3.0768998)
+
+[sub_resource type="Resource" id="Resource_mvend"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3805878, 1, 3.1268647)
+
+[sub_resource type="Resource" id="Resource_fnoxl"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3869507, 1, 3.1371186)
+
+[sub_resource type="Resource" id="Resource_pq701"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3685334, 1, 3.1077378)
+
+[sub_resource type="Resource" id="Resource_sqyus"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3970215, 1, 3.1536057)
+
+[sub_resource type="Resource" id="Resource_6b22r"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3479187, 1, 3.0758698)
+
+[sub_resource type="Resource" id="Resource_hu6aa"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3600113, 1, 3.094432)
+
+[sub_resource type="Resource" id="Resource_ciw8t"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3316453, 1, 3.0513337)
+
+[sub_resource type="Resource" id="Resource_4qpmv"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3752396, 1, 3.118335)
+
+[sub_resource type="Resource" id="Resource_mmtx2"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3558686, 1, 3.0880463)
+
+[sub_resource type="Resource" id="Resource_rv006"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3880265, 1, 3.1388657)
+
+[sub_resource type="Resource" id="Resource_pishm"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.335498, 1, 3.057109)
+
+[sub_resource type="Resource" id="Resource_r0xbp"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3303406, 1, 3.0494034)
+
+[sub_resource type="Resource" id="Resource_73fv6"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3794053, 1, 3.124965)
+
+[sub_resource type="Resource" id="Resource_ld2f8"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3006089, 1, 3.0058777)
+
+[sub_resource type="Resource" id="Resource_ssudf"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3822663, 1, 3.1295578)
+
+[sub_resource type="Resource" id="Resource_dn788"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3990624, 1, 3.1569855)
+
+[sub_resource type="Resource" id="Resource_u0iqo"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3002694, 1, 3.0053895)
+
+[sub_resource type="Resource" id="Resource_1qj8e"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.323745, 1, 3.0396073)
+
+[sub_resource type="Resource" id="Resource_38st4"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3953564, 1, 3.150859)
+
+[sub_resource type="Resource" id="Resource_f5p01"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.394191, 1, 3.1489365)
+
+[sub_resource type="Resource" id="Resource_esh80"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.4010117, 1, 3.160228)
+
+[sub_resource type="Resource" id="Resource_2hts8"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.2765152, 1, 2.9715836)
+
+[sub_resource type="Resource" id="Resource_iomce"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3810608, 1, 3.12762)
+
+[sub_resource type="Resource" id="Resource_u23cj"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3890793, 1, 3.1405747)
+
+[sub_resource type="Resource" id="Resource_5ub5w"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3393204, 1, 3.062854)
+
+[sub_resource type="Resource" id="Resource_piotx"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3416321, 1, 3.066333)
+
+[sub_resource type="Resource" id="Resource_bifm7"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.2753556, 1, 2.969951)
+
+[sub_resource type="Resource" id="Resource_1vin0"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3277009, 1, 3.0454743)
+
+[sub_resource type="Resource" id="Resource_suwra"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8131135, 1, 2.8829834)
+
+[sub_resource type="Resource" id="Resource_rv2v0"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8440163, 1, 2.9675095)
+
+[sub_resource type="Resource" id="Resource_uyhll"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8306649, 1, 2.9296448)
+
+[sub_resource type="Resource" id="Resource_v5q3v"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8151162, 1, 2.8881562)
+
+[sub_resource type="Resource" id="Resource_6fetu"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8354428, 1, 2.9429352)
+
+[sub_resource type="Resource" id="Resource_jl55l"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8079865, 1, 2.8699143)
+
+[sub_resource type="Resource" id="Resource_uqsp4"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8092606, 1, 2.8731492)
+
+[sub_resource type="Resource" id="Resource_wtd5j"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8023255, 1, 2.8557465)
+
+[sub_resource type="Resource" id="Resource_6655a"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8251069, 1, 2.9145234)
+
+[sub_resource type="Resource" id="Resource_swowt"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8275864, 1, 2.9212067)
+
+[sub_resource type="Resource" id="Resource_mdkqt"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.811023, 1, 2.87762)
+
+[sub_resource type="Resource" id="Resource_bpvk4"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8115265, 1, 2.878917)
+
+[sub_resource type="Resource" id="Resource_rnv4d"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8211243, 1, 2.9038804)
+
+[sub_resource type="Resource" id="Resource_bkgyb"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8192246, 1, 2.8988907)
+
+[sub_resource type="Resource" id="Resource_pkmks"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8147004, 1, 2.887088)
+
+[sub_resource type="Resource" id="Resource_5wh6r"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8438752, 1, 2.9671052)
+
+[sub_resource type="Resource" id="Resource_5h5sc"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8331406, 1, 2.9364884)
+
+[sub_resource type="Resource" id="Resource_a35ly"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8080094, 1, 2.8699677)
+
+[sub_resource type="Resource" id="Resource_g6jpv"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8423417, 1, 2.9626114)
+
+[sub_resource type="Resource" id="Resource_sl36a"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.81969, 1, 2.9001038)
+
+[sub_resource type="Resource" id="Resource_l6lxf"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.807483, 1, 2.8686402)
+
+[sub_resource type="Resource" id="Resource_a6qbn"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.836078, 1, 2.9447358)
+
+[sub_resource type="Resource" id="Resource_crprv"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.846534, 1, 2.9749177)
+
+[sub_resource type="Resource" id="Resource_43prk"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.8160431, 1, 2.8905976)
+
+[sub_resource type="Resource" id="Resource_bi6rr"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3017075, 1, 3.007457)
+
+[sub_resource type="Resource" id="Resource_lrltv"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3017075, 1, 3.007457)
+
+[sub_resource type="Resource" id="Resource_ycgrr"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3017075, 1, 3.007457)
+
+[sub_resource type="Resource" id="Resource_kbpaa"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3017075, 1, 3.007457)
+
+[sub_resource type="Resource" id="Resource_8rifq"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3017075, 1, 3.007457)
+
+[sub_resource type="Resource" id="Resource_gs7hh"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3645012, 1, 3.1014283)
+
+[sub_resource type="Resource" id="Resource_n5ttj"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3975632, 1, 3.154506)
+
+[sub_resource type="Resource" id="Resource_vptmj"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.2921345, 1, 2.993724)
+
+[sub_resource type="Resource" id="Resource_cplui"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.323932, 1, 3.0398896)
+
+[sub_resource type="Resource" id="Resource_tpfss"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3066437, 1, 3.0145905)
+
+[sub_resource type="Resource" id="Resource_c5uc3"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.3383133, 1, 3.0613205)
+
+[sub_resource type="Resource" id="Resource_0hx4x"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.4278748, 1, 3.2064774)
+
+[sub_resource type="Resource" id="Resource_v3h77"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.4106705, 1, 3.1765091)
+
+[sub_resource type="Resource" id="Resource_hwbab"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.371524, 1, 3.1124604)
+
+[sub_resource type="Resource" id="Resource_jlfws"]
+script = ExtResource("10_5ru1j")
+size = Vector3(4.3200026, 1, 3.9916337)
+
+[sub_resource type="Resource" id="Resource_nbqj6"]
+script = ExtResource("10_5ru1j")
+size = Vector3(4.000003, 1, 4.000003)
+
+[sub_resource type="Resource" id="Resource_xd85s"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.1191056, 1, 3.1197083)
+
+[sub_resource type="Resource" id="Resource_a08wr"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0675766, 1, 3.0699646)
+
+[sub_resource type="Resource" id="Resource_sjffy"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0600007, 1, 3.0600007)
+
+[sub_resource type="Resource" id="Resource_sdman"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0600007, 1, 3.0600007)
+
+[sub_resource type="Resource" id="Resource_ia35x"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0600007, 1, 3.0600007)
+
+[sub_resource type="Resource" id="Resource_lss50"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0600007, 1, 3.0600007)
+
+[sub_resource type="Resource" id="Resource_ko1we"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0600007, 1, 3.0600007)
+
+[sub_resource type="Resource" id="Resource_w4sre"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0600007, 1, 3.0600007)
+
+[sub_resource type="Resource" id="Resource_cw7rb"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0600007, 1, 3.0600007)
+
+[sub_resource type="Resource" id="Resource_knqh2"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.000003, 1, 3.000003)
+
+[sub_resource type="Resource" id="Resource_ygr1n"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0300019, 1, 3.0300019)
+
+[sub_resource type="Resource" id="Resource_70erc"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.1000016, 1, 3.0399964)
+
+[sub_resource type="Resource" id="Resource_j43k4"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.1000016, 1, 3.0399964)
+
+[sub_resource type="Resource" id="Resource_6vpny"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.000003, 1, 3.000003)
+
+[sub_resource type="Resource" id="Resource_vsyp2"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.0300019, 1, 3.0300019)
+
+[sub_resource type="Resource" id="Resource_3l8w8"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.1000016, 1, 3.0399964)
+
+[sub_resource type="Resource" id="Resource_304md"]
+script = ExtResource("10_5ru1j")
+size = Vector3(8.9, 1, 10.7)
+
+[sub_resource type="Resource" id="Resource_jt5cc"]
+script = ExtResource("10_5ru1j")
+size = Vector3(6.3, 1, 7.6)
+
+[sub_resource type="Resource" id="Resource_6p5l2"]
+script = ExtResource("10_5ru1j")
+size = Vector3(3.6, 1, 30)
+
+[sub_resource type="Resource" id="Resource_tdv7d"]
+script = ExtResource("10_5ru1j")
+size = Vector3(46, 1, 3.4)
+
+[sub_resource type="Resource" id="Resource_5te3i"]
+script = ExtResource("10_5ru1j")
+size = Vector3(28, 1, 15)
+
+[node name="ProtonScatterNativeTrial" type="Node3D" unique_id=1302840023]
+metadata/visual_only = true
+
+[node name="NativeGrass" type="Node3D" parent="." unique_id=1029788330]
+script = ExtResource("1_o1604")
+global_seed = 110505
+dbg_disable_thread = true
+modifier_stack = SubResource("Resource_efh37")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(8, 4, 8)
+
+[node name="grass" type="Node3D" parent="NativeGrass" unique_id=1393733663]
+script = ExtResource("6_dewb7")
+source_scale_multiplier = 0.8
+override_material = SubResource("ShaderMaterial_g753b")
+override_cast_shadow = 0
+lod_generate = false
+path = "res://addons/proton_scatter/demos/assets/models/grass.glb"
+
+[node name="grass_2" type="Node3D" parent="NativeGrass" unique_id=315283963]
+script = ExtResource("6_dewb7")
+source_scale_multiplier = 0.8
+override_material = SubResource("ShaderMaterial_4t5f5")
+override_cast_shadow = 0
+lod_generate = false
+path = "res://addons/proton_scatter/demos/assets/models/grass_2.glb"
+
+[node name="Roof_Include" type="Node3D" parent="NativeGrass" unique_id=796401413]
+script = ExtResource("9_cklov")
+shape = SubResource("Resource_rjuty")
+
+[node name="ORF2_实例_platform" type="Node3D" parent="NativeGrass" unique_id=209866647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -7.999998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_xdcw8")
+
+[node name="ORF2_实例_ladder" type="Node3D" parent="NativeGrass" unique_id=851160645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -3.3428497)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_au7qs")
+
+[node name="ORF2_实例_shed" type="Node3D" parent="NativeGrass" unique_id=2124796471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0209503, 0, -8.945)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ri05s")
+
+[node name="ORF2_实例_coop" type="Node3D" parent="NativeGrass" unique_id=1944522448]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.995815, 0, -0.9110718)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_rkt17")
+
+[node name="ORF2_实例_stone" type="Node3D" parent="NativeGrass" unique_id=1104119692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17999268, 0, 13.5)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ec481")
+
+[node name="ORF2_实例_stone_001" type="Node3D" parent="NativeGrass" unique_id=1218609088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3203659, 0, 11.950001)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_v7nqm")
+
+[node name="ORF2_实例_stone_002" type="Node3D" parent="NativeGrass" unique_id=1795126621]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27431107, 0, 10.400002)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_jumbm")
+
+[node name="ORF2_实例_stone_003" type="Node3D" parent="NativeGrass" unique_id=1224201588]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.029380798, 0, 8.849998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_1ivhk")
+
+[node name="ORF2_实例_stone_004" type="Node3D" parent="NativeGrass" unique_id=1067743534]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14328003, 0, 7.299999)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_yhrnl")
+
+[node name="ORF2_实例_stone_005" type="Node3D" parent="NativeGrass" unique_id=682525245]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.063625336, 0, 5.75)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_tw7a0")
+
+[node name="ORF2_实例_stone_006" type="Node3D" parent="NativeGrass" unique_id=571634985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21361923, 0, 4.200001)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_asjvv")
+
+[node name="ORF2_实例_stone_007" type="Node3D" parent="NativeGrass" unique_id=29460778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14185715, 0, 2.6500015)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ymbrl")
+
+[node name="ORF2_实例_stone_008" type="Node3D" parent="NativeGrass" unique_id=1533676613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20475769, 0, 1.0999985)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_0b7a6")
+
+[node name="ORF2_实例_stone_009" type="Node3D" parent="NativeGrass" unique_id=1107730262]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04095459, 0, -0.45000076)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_h4gx2")
+
+[node name="ORF2_实例_stone_010" type="Node3D" parent="NativeGrass" unique_id=180534429]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19955063, 0, -2)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_wxjuy")
+
+[node name="ORF2_实例_stone_011" type="Node3D" parent="NativeGrass" unique_id=151524999]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31227112, 0, -3.5499992)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_yt37y")
+
+[node name="ORF2_实例_stone_012" type="Node3D" parent="NativeGrass" unique_id=414652712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2972107, 0, -5.0999985)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_jis02")
+
+[node name="ORF2_实例_stone_013" type="Node3D" parent="NativeGrass" unique_id=20185775]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.187603, 0, -6.6500015)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_bajw3")
+
+[node name="ORF2_实例_stone_014" type="Node3D" parent="NativeGrass" unique_id=286488183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2626114, 0, -8.200001)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_f4hlo")
+
+[node name="ORF2_实例_stone_015" type="Node3D" parent="NativeGrass" unique_id=1008948180]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12054062, 0, -9.75)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ce6gn")
+
+[node name="ORF2_实例_stone_016" type="Node3D" parent="NativeGrass" unique_id=1962659910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13589859, 0, -11.299999)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_2wmeg")
+
+[node name="ORF2_实例_stone_017" type="Node3D" parent="NativeGrass" unique_id=2059807013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_5qlgu")
+
+[node name="ORF2_实例_stone_018" type="Node3D" parent="NativeGrass" unique_id=972567148]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_sca2c")
+
+[node name="ORF2_实例_stone_019" type="Node3D" parent="NativeGrass" unique_id=601995243]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_1dbja")
+
+[node name="ORF2_实例_stone_020" type="Node3D" parent="NativeGrass" unique_id=1927580547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_vdcw0")
+
+[node name="ORF2_实例_stone_021" type="Node3D" parent="NativeGrass" unique_id=1967369994]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.999999, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_lls7t")
+
+[node name="ORF2_实例_stone_022" type="Node3D" parent="NativeGrass" unique_id=1946725419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_eqq2d")
+
+[node name="ORF2_实例_stone_023" type="Node3D" parent="NativeGrass" unique_id=1794942629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_blg2p")
+
+[node name="ORF2_实例_stone_024" type="Node3D" parent="NativeGrass" unique_id=1517612442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_k85lr")
+
+[node name="ORF2_实例_stone_025" type="Node3D" parent="NativeGrass" unique_id=2044010003]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_46noc")
+
+[node name="ORF2_实例_stone_026" type="Node3D" parent="NativeGrass" unique_id=1068412378]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_24lk6")
+
+[node name="ORF2_实例_stone_027" type="Node3D" parent="NativeGrass" unique_id=2128764172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_2ihyv")
+
+[node name="ORF2_实例_stone_028" type="Node3D" parent="NativeGrass" unique_id=525968296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_k8p51")
+
+[node name="ORF2_实例_stone_029" type="Node3D" parent="NativeGrass" unique_id=738312085]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_pohms")
+
+[node name="ORF2_实例_stone_030" type="Node3D" parent="NativeGrass" unique_id=1334909764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_xh46g")
+
+[node name="ORF2_实例_plank" type="Node3D" parent="NativeGrass" unique_id=766892763]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_hs7tn")
+
+[node name="ORF2_实例_plank_001" type="Node3D" parent="NativeGrass" unique_id=910940137]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_kfu4q")
+
+[node name="ORF2_实例_plank_002" type="Node3D" parent="NativeGrass" unique_id=97940024]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.6, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_s5uwg")
+
+[node name="ORF2_实例_plank_003" type="Node3D" parent="NativeGrass" unique_id=889505624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ar1ki")
+
+[node name="ORF2_实例_plank_004" type="Node3D" parent="NativeGrass" unique_id=84423874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_1xjkc")
+
+[node name="ORF2_实例_plank_005" type="Node3D" parent="NativeGrass" unique_id=206682161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_mhnpi")
+
+[node name="ORF2_实例_plank_006" type="Node3D" parent="NativeGrass" unique_id=1117660593]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.799999, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_7uonn")
+
+[node name="ORF2_实例_plank_007" type="Node3D" parent="NativeGrass" unique_id=1464794673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.099998, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_njwre")
+
+[node name="ORF2_实例_plank_008" type="Node3D" parent="NativeGrass" unique_id=765216134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4000015, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_57c07")
+
+[node name="ORF2_实例_plank_009" type="Node3D" parent="NativeGrass" unique_id=178540866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.700001, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_x2nld")
+
+[node name="ORF2_实例_plank_010" type="Node3D" parent="NativeGrass" unique_id=1964434934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_fadjx")
+
+[node name="ORF2_实例_plank_011" type="Node3D" parent="NativeGrass" unique_id=810162652]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2999992, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_xl7vv")
+
+[node name="ORF2_实例_plank_012" type="Node3D" parent="NativeGrass" unique_id=130009879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40000153, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_t2d1d")
+
+[node name="ORF2_实例_plank_013" type="Node3D" parent="NativeGrass" unique_id=1320875417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0999985, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_05aqe")
+
+[node name="ORF2_实例_plank_014" type="Node3D" parent="NativeGrass" unique_id=1257330327]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7999992, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_8m25d")
+
+[node name="ORF2_实例_plank_015" type="Node3D" parent="NativeGrass" unique_id=497920776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_5omk4")
+
+[node name="ORF2_实例_plank_016" type="Node3D" parent="NativeGrass" unique_id=1281259804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.200001, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_la4x8")
+
+[node name="ORF2_实例_plank_017" type="Node3D" parent="NativeGrass" unique_id=1256763148]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.900002, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_15t6w")
+
+[node name="ORF2_实例_plank_018" type="Node3D" parent="NativeGrass" unique_id=1688359026]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.599998, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_g8pfq")
+
+[node name="ORF2_实例_plank_019" type="Node3D" parent="NativeGrass" unique_id=1730450295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.299999, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_6fldy")
+
+[node name="ORF2_实例_plank_020" type="Node3D" parent="NativeGrass" unique_id=1580209855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_oep0g")
+
+[node name="ORF2_实例_plank_021" type="Node3D" parent="NativeGrass" unique_id=1241756719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.700001, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_drrfy")
+
+[node name="ORF2_实例_plank_022" type="Node3D" parent="NativeGrass" unique_id=1424424330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_2e1b6")
+
+[node name="ORF2_实例_plank_023" type="Node3D" parent="NativeGrass" unique_id=421692318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.099998, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_717ol")
+
+[node name="ORF2_实例_stone_031" type="Node3D" parent="NativeGrass" unique_id=361822777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 13)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_tqecl")
+
+[node name="ORF2_实例_stone_032" type="Node3D" parent="NativeGrass" unique_id=1793180705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 10)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_k24tb")
+
+[node name="ORF2_实例_stone_033" type="Node3D" parent="NativeGrass" unique_id=2137822480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_8pp6e")
+
+[node name="ORF2_实例_stone_034" type="Node3D" parent="NativeGrass" unique_id=835697461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 4)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_k26j2")
+
+[node name="ORF2_实例_stone_035" type="Node3D" parent="NativeGrass" unique_id=298774601]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 1)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ua7qa")
+
+[node name="ORF2_实例_stone_036" type="Node3D" parent="NativeGrass" unique_id=1257836189]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -4)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_svnkn")
+
+[node name="ORF2_实例_stone_037" type="Node3D" parent="NativeGrass" unique_id=287112330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.75, 0, -4.564644)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_15u3f")
+
+[node name="ORF2_实例_stone_038" type="Node3D" parent="NativeGrass" unique_id=774890217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.500001, 0, -4.9320374)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_vx2ni")
+
+[node name="ORF2_实例_stone_039" type="Node3D" parent="NativeGrass" unique_id=438341301]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.25, 0, -4.9738464)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_28vim")
+
+[node name="ORF2_实例_stone_040" type="Node3D" parent="NativeGrass" unique_id=211586724]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -4.6754646)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_31bpe")
+
+[node name="ORF2_实例_stone_041" type="Node3D" parent="NativeGrass" unique_id=1178777359]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.75, 0, -4.141121)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_o47nu")
+
+[node name="ORF2_实例_stone_042" type="Node3D" parent="NativeGrass" unique_id=280276450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, -3.5574799)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_fqg6b")
+
+[node name="ORF2_实例_stone_043" type="Node3D" parent="NativeGrass" unique_id=1444860434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.25, 0, -3.1284256)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_px33t")
+
+[node name="ORF2_实例_stone_044" type="Node3D" parent="NativeGrass" unique_id=1911455020]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -3.0038338)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_87jtc")
+
+[node name="ORF2_实例_compost" type="Node3D" parent="NativeGrass" unique_id=1898412665]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -11)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_6yee2")
+
+[node name="ORF2_实例_table" type="Node3D" parent="NativeGrass" unique_id=212348367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -8.5)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_3wwr1")
+
+[node name="ORF2_实例_chair" type="Node3D" parent="NativeGrass" unique_id=464517489]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.200001, 0, -8)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_mtohf")
+
+[node name="ORF2_实例_chair_001" type="Node3D" parent="NativeGrass" unique_id=207869876]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7999992, 0, -9)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_0ixgr")
+
+[node name="ORF2_实例_pot_001" type="Node3D" parent="NativeGrass" unique_id=195145224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 11)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ek4u4")
+
+[node name="ORF2_实例_pot_002" type="Node3D" parent="NativeGrass" unique_id=656479767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -2)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_4horv")
+
+[node name="ORF2_实例_pot_003" type="Node3D" parent="NativeGrass" unique_id=1244726047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_hs43i")
+
+[node name="ORF2_实例_pot_004" type="Node3D" parent="NativeGrass" unique_id=815362950]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -11)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_nct4t")
+
+[node name="ORF2_实例_pot_005" type="Node3D" parent="NativeGrass" unique_id=910929845]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -13)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ft7xh")
+
+[node name="ORF2_实例_pot_006" type="Node3D" parent="NativeGrass" unique_id=1280023449]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 12)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_533gd")
+
+[node name="ORF2_实例_pot_007" type="Node3D" parent="NativeGrass" unique_id=1927017071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_2ovrc")
+
+[node name="ORF2_实例_barrel" type="Node3D" parent="NativeGrass" unique_id=562794488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_bew6n")
+
+[node name="@Node3D@2033" type="Node3D" parent="NativeGrass" unique_id=1356566997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_3j7p3")
+
+[node name="ORF2_实例_crate" type="Node3D" parent="NativeGrass" unique_id=897041540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_1jsxt")
+
+[node name="ORF2_实例_crate_001" type="Node3D" parent="NativeGrass" unique_id=701325210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -2)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_e8ous")
+
+[node name="ORF2_实例_barrel_001" type="Node3D" parent="NativeGrass" unique_id=477602367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -12)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_tx05i")
+
+[node name="@Node3D@2034" type="Node3D" parent="NativeGrass" unique_id=1303143853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -12)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_xkv5h")
+
+[node name="ORF2_实例_crate_002" type="Node3D" parent="NativeGrass" unique_id=1794415917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -8)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_8ogu3")
+
+[node name="greenhouse_future" type="Node3D" parent="NativeGrass" unique_id=1707619172]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7.5)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_spmwm")
+
+[node name="water_tower_future" type="Node3D" parent="NativeGrass" unique_id=1850409006]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.85, 0, -10)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_7wm22")
+
+[node name="continuous_central_path" type="Node3D" parent="NativeGrass" unique_id=1288940459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_8kngy")
+
+[node name="continuous_cross_path" type="Node3D" parent="NativeGrass" unique_id=827199318]
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_8oyv5")
+
+[node name="NativeBushes" type="Node3D" parent="." unique_id=541204720]
+script = ExtResource("1_o1604")
+global_seed = 110506
+dbg_disable_thread = true
+modifier_stack = SubResource("Resource_wkxjk")
+Performance/use_chunks = true
+Performance/chunk_dimensions = Vector3(8, 4, 8)
+
+[node name="bush" type="Node3D" parent="NativeBushes" unique_id=1645855421]
+script = ExtResource("6_dewb7")
+source_scale_multiplier = 1.65
+override_material = SubResource("ShaderMaterial_kymr4")
+override_cast_shadow = 0
+lod_generate = false
+path = "res://addons/proton_scatter/demos/assets/models/bush.glb"
+
+[node name="Roof_Include" type="Node3D" parent="NativeBushes" unique_id=586975126]
+script = ExtResource("9_cklov")
+shape = SubResource("Resource_f7wu3")
+
+[node name="ORF2_实例_platform" type="Node3D" parent="NativeBushes" unique_id=1917564351]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -7.999998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_y48rs")
+
+[node name="ORF2_实例_ladder" type="Node3D" parent="NativeBushes" unique_id=872969896]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -3.3428497)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_snteq")
+
+[node name="ORF2_实例_shed" type="Node3D" parent="NativeBushes" unique_id=1289923886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0209503, 0, -8.945)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_mky2g")
+
+[node name="ORF2_实例_coop" type="Node3D" parent="NativeBushes" unique_id=1444375997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.995815, 0, -0.9110718)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_1s8jy")
+
+[node name="ORF2_实例_stone" type="Node3D" parent="NativeBushes" unique_id=1907258147]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17999268, 0, 13.5)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_x7hob")
+
+[node name="ORF2_实例_stone_001" type="Node3D" parent="NativeBushes" unique_id=1875937131]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3203659, 0, 11.950001)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_nvfl2")
+
+[node name="ORF2_实例_stone_002" type="Node3D" parent="NativeBushes" unique_id=1702741035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27431107, 0, 10.400002)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_k3sdb")
+
+[node name="ORF2_实例_stone_003" type="Node3D" parent="NativeBushes" unique_id=1262183059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.029380798, 0, 8.849998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_mvend")
+
+[node name="ORF2_实例_stone_004" type="Node3D" parent="NativeBushes" unique_id=1794322973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14328003, 0, 7.299999)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_fnoxl")
+
+[node name="ORF2_实例_stone_005" type="Node3D" parent="NativeBushes" unique_id=891974955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.063625336, 0, 5.75)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_pq701")
+
+[node name="ORF2_实例_stone_006" type="Node3D" parent="NativeBushes" unique_id=1089469535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21361923, 0, 4.200001)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_sqyus")
+
+[node name="ORF2_实例_stone_007" type="Node3D" parent="NativeBushes" unique_id=1682701041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14185715, 0, 2.6500015)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_6b22r")
+
+[node name="ORF2_实例_stone_008" type="Node3D" parent="NativeBushes" unique_id=899831296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20475769, 0, 1.0999985)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_hu6aa")
+
+[node name="ORF2_实例_stone_009" type="Node3D" parent="NativeBushes" unique_id=1439400170]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04095459, 0, -0.45000076)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ciw8t")
+
+[node name="ORF2_实例_stone_010" type="Node3D" parent="NativeBushes" unique_id=1375249550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19955063, 0, -2)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_4qpmv")
+
+[node name="ORF2_实例_stone_011" type="Node3D" parent="NativeBushes" unique_id=1830659407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.31227112, 0, -3.5499992)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_mmtx2")
+
+[node name="ORF2_实例_stone_012" type="Node3D" parent="NativeBushes" unique_id=621970476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2972107, 0, -5.0999985)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_rv006")
+
+[node name="ORF2_实例_stone_013" type="Node3D" parent="NativeBushes" unique_id=548303830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.187603, 0, -6.6500015)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_pishm")
+
+[node name="ORF2_实例_stone_014" type="Node3D" parent="NativeBushes" unique_id=1036248790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2626114, 0, -8.200001)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_r0xbp")
+
+[node name="ORF2_实例_stone_015" type="Node3D" parent="NativeBushes" unique_id=1729813182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12054062, 0, -9.75)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_73fv6")
+
+[node name="ORF2_实例_stone_016" type="Node3D" parent="NativeBushes" unique_id=42029308]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13589859, 0, -11.299999)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ld2f8")
+
+[node name="ORF2_实例_stone_017" type="Node3D" parent="NativeBushes" unique_id=525183040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ssudf")
+
+[node name="ORF2_实例_stone_018" type="Node3D" parent="NativeBushes" unique_id=369438874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_dn788")
+
+[node name="ORF2_实例_stone_019" type="Node3D" parent="NativeBushes" unique_id=2135786238]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_u0iqo")
+
+[node name="ORF2_实例_stone_020" type="Node3D" parent="NativeBushes" unique_id=631581888]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_1qj8e")
+
+[node name="ORF2_实例_stone_021" type="Node3D" parent="NativeBushes" unique_id=1863527134]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.999999, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_38st4")
+
+[node name="ORF2_实例_stone_022" type="Node3D" parent="NativeBushes" unique_id=1340284691]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_f5p01")
+
+[node name="ORF2_实例_stone_023" type="Node3D" parent="NativeBushes" unique_id=1577791261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_esh80")
+
+[node name="ORF2_实例_stone_024" type="Node3D" parent="NativeBushes" unique_id=302214391]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_2hts8")
+
+[node name="ORF2_实例_stone_025" type="Node3D" parent="NativeBushes" unique_id=827808275]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_iomce")
+
+[node name="ORF2_实例_stone_026" type="Node3D" parent="NativeBushes" unique_id=342230515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_u23cj")
+
+[node name="ORF2_实例_stone_027" type="Node3D" parent="NativeBushes" unique_id=843737191]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_5ub5w")
+
+[node name="ORF2_实例_stone_028" type="Node3D" parent="NativeBushes" unique_id=1558834764]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_piotx")
+
+[node name="ORF2_实例_stone_029" type="Node3D" parent="NativeBushes" unique_id=1926433736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_bifm7")
+
+[node name="ORF2_实例_stone_030" type="Node3D" parent="NativeBushes" unique_id=1085786111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 13.599998)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_1vin0")
+
+[node name="ORF2_实例_plank" type="Node3D" parent="NativeBushes" unique_id=1336138481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_suwra")
+
+[node name="ORF2_实例_plank_001" type="Node3D" parent="NativeBushes" unique_id=1902116340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_rv2v0")
+
+[node name="ORF2_实例_plank_002" type="Node3D" parent="NativeBushes" unique_id=231731540]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.6, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_uyhll")
+
+[node name="ORF2_实例_plank_003" type="Node3D" parent="NativeBushes" unique_id=890637694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_v5q3v")
+
+[node name="ORF2_实例_plank_004" type="Node3D" parent="NativeBushes" unique_id=419168542]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_6fetu")
+
+[node name="ORF2_实例_plank_005" type="Node3D" parent="NativeBushes" unique_id=1071000890]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_jl55l")
+
+[node name="ORF2_实例_plank_006" type="Node3D" parent="NativeBushes" unique_id=1865362887]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.799999, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_uqsp4")
+
+[node name="ORF2_实例_plank_007" type="Node3D" parent="NativeBushes" unique_id=2043701479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.099998, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_wtd5j")
+
+[node name="ORF2_实例_plank_008" type="Node3D" parent="NativeBushes" unique_id=467368038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4000015, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_6655a")
+
+[node name="ORF2_实例_plank_009" type="Node3D" parent="NativeBushes" unique_id=1687520329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.700001, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_swowt")
+
+[node name="ORF2_实例_plank_010" type="Node3D" parent="NativeBushes" unique_id=1489471323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_mdkqt")
+
+[node name="ORF2_实例_plank_011" type="Node3D" parent="NativeBushes" unique_id=1845627770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2999992, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_bpvk4")
+
+[node name="ORF2_实例_plank_012" type="Node3D" parent="NativeBushes" unique_id=2057476381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40000153, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_rnv4d")
+
+[node name="ORF2_实例_plank_013" type="Node3D" parent="NativeBushes" unique_id=2114642212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0999985, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_bkgyb")
+
+[node name="ORF2_实例_plank_014" type="Node3D" parent="NativeBushes" unique_id=116346552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7999992, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_pkmks")
+
+[node name="ORF2_实例_plank_015" type="Node3D" parent="NativeBushes" unique_id=1057220667]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_5wh6r")
+
+[node name="ORF2_实例_plank_016" type="Node3D" parent="NativeBushes" unique_id=1735519309]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.200001, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_5h5sc")
+
+[node name="ORF2_实例_plank_017" type="Node3D" parent="NativeBushes" unique_id=1247513944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.900002, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_a35ly")
+
+[node name="ORF2_实例_plank_018" type="Node3D" parent="NativeBushes" unique_id=1438277274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.599998, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_g6jpv")
+
+[node name="ORF2_实例_plank_019" type="Node3D" parent="NativeBushes" unique_id=1382238969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.299999, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_sl36a")
+
+[node name="ORF2_实例_plank_020" type="Node3D" parent="NativeBushes" unique_id=1013885918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_l6lxf")
+
+[node name="ORF2_实例_plank_021" type="Node3D" parent="NativeBushes" unique_id=1576514302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.700001, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_a6qbn")
+
+[node name="ORF2_实例_plank_022" type="Node3D" parent="NativeBushes" unique_id=2136020055]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.4, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_crprv")
+
+[node name="ORF2_实例_plank_023" type="Node3D" parent="NativeBushes" unique_id=418503209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.099998, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_43prk")
+
+[node name="ORF2_实例_stone_031" type="Node3D" parent="NativeBushes" unique_id=324267544]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 13)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_bi6rr")
+
+[node name="ORF2_实例_stone_032" type="Node3D" parent="NativeBushes" unique_id=585984768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 10)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_lrltv")
+
+[node name="ORF2_实例_stone_033" type="Node3D" parent="NativeBushes" unique_id=128021108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ycgrr")
+
+[node name="ORF2_实例_stone_034" type="Node3D" parent="NativeBushes" unique_id=1227681941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 4)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_kbpaa")
+
+[node name="ORF2_实例_stone_035" type="Node3D" parent="NativeBushes" unique_id=1967284404]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 1)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_8rifq")
+
+[node name="ORF2_实例_stone_036" type="Node3D" parent="NativeBushes" unique_id=978147129]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -4)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_gs7hh")
+
+[node name="ORF2_实例_stone_037" type="Node3D" parent="NativeBushes" unique_id=704890259]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.75, 0, -4.564644)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_n5ttj")
+
+[node name="ORF2_实例_stone_038" type="Node3D" parent="NativeBushes" unique_id=52570497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.500001, 0, -4.9320374)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_vptmj")
+
+[node name="ORF2_实例_stone_039" type="Node3D" parent="NativeBushes" unique_id=54523838]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.25, 0, -4.9738464)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_cplui")
+
+[node name="ORF2_实例_stone_040" type="Node3D" parent="NativeBushes" unique_id=234803048]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -4.6754646)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_tpfss")
+
+[node name="ORF2_实例_stone_041" type="Node3D" parent="NativeBushes" unique_id=675594780]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.75, 0, -4.141121)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_c5uc3")
+
+[node name="ORF2_实例_stone_042" type="Node3D" parent="NativeBushes" unique_id=1090336436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, -3.5574799)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_0hx4x")
+
+[node name="ORF2_实例_stone_043" type="Node3D" parent="NativeBushes" unique_id=1685287807]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.25, 0, -3.1284256)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_v3h77")
+
+[node name="ORF2_实例_stone_044" type="Node3D" parent="NativeBushes" unique_id=384649791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -3.0038338)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_hwbab")
+
+[node name="ORF2_实例_compost" type="Node3D" parent="NativeBushes" unique_id=529216292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -11)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_jlfws")
+
+[node name="ORF2_实例_table" type="Node3D" parent="NativeBushes" unique_id=541373553]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -8.5)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_nbqj6")
+
+[node name="ORF2_实例_chair" type="Node3D" parent="NativeBushes" unique_id=1662521673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.200001, 0, -8)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_xd85s")
+
+[node name="ORF2_实例_chair_001" type="Node3D" parent="NativeBushes" unique_id=1517593422]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7999992, 0, -9)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_a08wr")
+
+[node name="ORF2_实例_pot_001" type="Node3D" parent="NativeBushes" unique_id=515579666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 0, 11)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_sjffy")
+
+[node name="ORF2_实例_pot_002" type="Node3D" parent="NativeBushes" unique_id=1163820071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -2)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_sdman")
+
+[node name="ORF2_实例_pot_003" type="Node3D" parent="NativeBushes" unique_id=1434862346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ia35x")
+
+[node name="ORF2_实例_pot_004" type="Node3D" parent="NativeBushes" unique_id=1906001781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -11)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_lss50")
+
+[node name="ORF2_实例_pot_005" type="Node3D" parent="NativeBushes" unique_id=2006104785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -13)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ko1we")
+
+[node name="ORF2_实例_pot_006" type="Node3D" parent="NativeBushes" unique_id=2110126107]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 12)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_w4sre")
+
+[node name="ORF2_实例_pot_007" type="Node3D" parent="NativeBushes" unique_id=577786484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_cw7rb")
+
+[node name="ORF2_实例_barrel" type="Node3D" parent="NativeBushes" unique_id=1912054978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_knqh2")
+
+[node name="@Node3D@2035" type="Node3D" parent="NativeBushes" unique_id=1489097263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_ygr1n")
+
+[node name="ORF2_实例_crate" type="Node3D" parent="NativeBushes" unique_id=556606652]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -7)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_70erc")
+
+[node name="ORF2_实例_crate_001" type="Node3D" parent="NativeBushes" unique_id=558716757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, -2)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_j43k4")
+
+[node name="ORF2_实例_barrel_001" type="Node3D" parent="NativeBushes" unique_id=1860068904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -12)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_6vpny")
+
+[node name="@Node3D@2036" type="Node3D" parent="NativeBushes" unique_id=2051261467]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -12)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_vsyp2")
+
+[node name="ORF2_实例_crate_002" type="Node3D" parent="NativeBushes" unique_id=1279097682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -8)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_3l8w8")
+
+[node name="greenhouse_future" type="Node3D" parent="NativeBushes" unique_id=415328941]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -7.5)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_304md")
+
+[node name="water_tower_future" type="Node3D" parent="NativeBushes" unique_id=1221278366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.85, 0, -10)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_jt5cc")
+
+[node name="continuous_central_path" type="Node3D" parent="NativeBushes" unique_id=608653946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_6p5l2")
+
+[node name="continuous_cross_path" type="Node3D" parent="NativeBushes" unique_id=681296888]
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_tdv7d")
+
+[node name="Open_Farm_Core" type="Node3D" parent="NativeBushes" unique_id=6903479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+script = ExtResource("9_cklov")
+negative = true
+shape = SubResource("Resource_5te3i")

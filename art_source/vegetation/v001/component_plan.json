@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_geometry",
+  "suite": "shared_vegetation",
+  "version": "v001",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "consumers": [
+    "solar_cabin",
+    "rooftop_ranch"
+  ],
+  "reference": "user video b586549578ed79117367dc27e97b38c22c1a0e49546c614324369bbc946750e6; aesthetic only, original geometry",
+  "components": [
+    {
+      "key": "grass_fine",
+      "label": "细叶柔草",
+      "profile": "grass",
+      "triangle_budget": 70,
+      "asset_id": "SEA-VEG-GRASS-FINE"
+    },
+    {
+      "key": "grass_round",
+      "label": "圆叶短草",
+      "profile": "grass",
+      "triangle_budget": 70,
+      "asset_id": "SEA-VEG-GRASS-ROUND"
+    },
+    {
+      "key": "mound_round",
+      "label": "圆润草堆",
+      "profile": "mound",
+      "triangle_budget": 1700,
+      "asset_id": "SEA-VEG-MOUND-ROUND"
+    },
+    {
+      "key": "mound_spread",
+      "label": "铺展草堆",
+      "profile": "mound",
+      "triangle_budget": 1700,
+      "asset_id": "SEA-VEG-MOUND-SPREAD"
+    },
+    {
+      "key": "broadleaf",
+      "label": "宽叶盆栽",
+      "profile": "leaf",
+      "triangle_budget": 700,
+      "asset_id": "SEA-VEG-BROADLEAF"
+    },
+    {
+      "key": "daisy",
+      "label": "白瓣野花",
+      "profile": "flower",
+      "triangle_budget": 850,
+      "asset_id": "SEA-VEG-DAISY"
+    },
+    {
+      "key": "pink_flower",
+      "label": "粉瓣野花",
+      "profile": "flower",
+      "triangle_budget": 850,
+      "asset_id": "SEA-VEG-PINK-FLOWER"
+    },
+    {
+      "key": "turf_pad",
+      "label": "柔边草皮基底",
+      "profile": "base",
+      "triangle_budget": 160,
+      "asset_id": "SEA-VEG-TURF-PAD"
+    }
+  ],
+  "contract": {
+    "uv0": "PaletteUV",
+    "color": "linear RGBA main bend / detail / phase / AO",
+    "root": "bottom_center",
+    "collision": "none",
+    "optimization": "separate persistent optimized.blend"
+  }
+}

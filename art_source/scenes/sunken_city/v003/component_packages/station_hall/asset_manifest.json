@@ -1,0 +1,140 @@
+{
+  "key": "station_hall",
+  "slug": "station_hall",
+  "name": "电车候车馆_坍塌拱厅",
+  "category": "architecture",
+  "component_family": "civic",
+  "component_id": "SEA-SCENE-SCITY-STATION-HALL",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    20,
+    17,
+    21
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 4,
+  "color": "stone",
+  "damage": 0.62,
+  "style": "station",
+  "variant_axis": "structure_damage",
+  "variant_value": "station",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 1,
+  "collection": "SEA-SCENE-SCITY-STATION-HALL_电车候车馆_坍塌拱厅",
+  "root_object": "SEA-SCENE-SCITY-STATION-HALL_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-STATION-HALL_ROOT",
+    "电车候车馆_坍塌拱厅_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    21.751792907714844,
+    17.077999114990234,
+    23.959182739257812
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 124162,
+  "polygons": 64724,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/station_hall/station_hall.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "6fdc21e6866a08913df75d25aed93557326e11fc27de6f0e477220faa61374ca",
+  "geometry_fingerprint": "68d9009e2e2f9bfcfee19dc4c4a3bfb9664ceb251a5aeaf59e1a51436bed6663",
+  "bounds_min": [
+    -10.875896453857422,
+    -8.538999557495117,
+    0.0
+  ],
+  "bounds_max": [
+    10.875896453857422,
+    8.538999557495117,
+    23.959182739257812
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\station_hall.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-STATION-HALL",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/station_hall_optimized.blend",
+    "optimized_sha256": "0a90cb667841581e812ae2600c1ecfcb7f08f629b198b9388d6c95a5bc59afe1",
+    "triangles_before": 124162,
+    "triangles_after": 124158,
+    "reduction_ratio": 3.2215975902450026e-05,
+    "operations": {
+      "weld_vertices_1e_minus6": 590,
+      "zero_area_faces_removed": 4,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 2,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 159,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -10.875896453857422,
+        -8.538999557495117,
+        0.0
+      ],
+      [
+        10.875896453857422,
+        8.538999557495117,
+        23.959182739257812
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/station_hall/station_hall.glb",
+    "runtime_sha256": "adfe25d25255ceede66b018ba279f083bae5f75645c1dfca996fe226bfbb2871",
+    "prefab": "godot/scenes/components/scenery/sunken_city/station_hall.tscn",
+    "prefab_sha256": "a7d820932ddd4cf9fc37dec3b2301bd62c636b03504aee5e6fb00fa59d7b4990",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

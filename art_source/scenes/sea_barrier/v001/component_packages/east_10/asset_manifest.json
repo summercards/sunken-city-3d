@@ -1,0 +1,41 @@
+{
+  "key": "east_10",
+  "name": "东10·半沉林带（20米）",
+  "asset_id": "SEA-SCENE-SBW-023",
+  "domain": "scenes",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBW-023",
+  "category": "architecture",
+  "family": "forest_band",
+  "building_class": "above_water",
+  "version": "v001",
+  "source": "art_source/scenes/sea_barrier/v001/component_packages/east_10/east_10.blend",
+  "source_sha256": "6b05a40c7b7ac8daaa30355c250d58c6e8ecd1602213d5f6f6940e6543a878b6",
+  "collection": "SBW_23_东10·半沉林带（20米）",
+  "origin": "waterline_center",
+  "origin_note": "构件半沉，原点取水线中心；底部在水下约 2.8 米。",
+  "front_axis": "-Y",
+  "bounds_size_m": [
+    23.972,
+    11.3751,
+    28.6813
+  ],
+  "mesh_objects": 67,
+  "triangles": 6176,
+  "triangle_budget": 12000,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_uv": "sole UV layer PaletteUV / per-face inset island / 8px safe margin",
+  "geometry_fingerprint": "ef94005ec371fa782745b316cfda840dc3927aed6ae33fe8d49eff8f27209276",
+  "scope": "scene_local",
+  "placement_count": 1,
+  "collision": "facility_projection_pending",
+  "blocking_intent": "boat_blocking_required_at_runtime",
+  "stage": "source_verified_runtime_pending",
+  "runtime_integrated": false,
+  "license": "user_authored_whitebox_no_external_reference",
+  "verification": 30074,
+  "verification_failures": 0,
+  "note": "白盒阶段：只有体量、倾斜、开口与窗洞，未做倒角细则与贴图细节。"
+}

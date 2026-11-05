@@ -1,0 +1,68 @@
+{
+  "key": "grass_fine",
+  "label": "细叶柔草",
+  "profile": "grass",
+  "triangle_budget": 70,
+  "asset_id": "SEA-VEG-GRASS-FINE",
+  "source": "art_source/vegetation/v001/components/grass_fine/grass_fine.blend",
+  "source_sha256": "57b116cc963033d96d65d56b5a8f9a308a5022a5759e77ac4c03af7ea4f7a492",
+  "optimized_source": "art_source/vegetation/v001/components/grass_fine/grass_fine_optimized.blend",
+  "optimized_sha256": "09eb3c19a833604ff59c5926dd21a58016e007ba01496d828fdd8d460461ab34",
+  "glb": "godot/assets/models/vegetation/grass_fine.glb",
+  "glb_sha256": "f95ce8d680a6b80c726955978207cde624895b604408054d6650e526c72ac8ab",
+  "before": {
+    "vertices": 60,
+    "triangles": 60,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.16998055577278137,
+        -0.15297898650169373,
+        0.0
+      ],
+      [
+        0.16998055577278137,
+        0.15297898650169373,
+        0.25389203429222107
+      ]
+    ],
+    "root_vertices": 20,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.7934126257896423
+    ]
+  },
+  "after": {
+    "vertices": 60,
+    "triangles": 60,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.16998055577278137,
+        -0.15297898650169373,
+        0.0
+      ],
+      [
+        0.16998055577278137,
+        0.15297898650169373,
+        0.25389203429222107
+      ]
+    ],
+    "root_vertices": 20,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.7934126257896423
+    ]
+  },
+  "operations": [
+    "merge coincident vertices at 1e-6 m",
+    "remove degenerate edges",
+    "preserve PaletteUV and WindData seams",
+    "reopen both sources and verify"
+  ],
+  "removed_vertices": 0
+}

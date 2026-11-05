@@ -1,0 +1,41 @@
+{
+  "key": "south_10",
+  "name": "南10·斜塌楼（20米）",
+  "asset_id": "SEA-SCENE-SBW-034",
+  "domain": "scenes",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBW-034",
+  "category": "architecture",
+  "family": "single_house",
+  "building_class": "above_water",
+  "version": "v001",
+  "source": "art_source/scenes/sea_barrier/v001/component_packages/south_10/south_10.blend",
+  "source_sha256": "3ccb6dbd0f945bb4bc6f8e00f141f6ea0404094df176eb4a9b5513322f86d633",
+  "collection": "SBW_34_南10·斜塌楼（20米）",
+  "origin": "waterline_center",
+  "origin_note": "构件半沉，原点取水线中心；底部在水下约 2.8 米。",
+  "front_axis": "-Y",
+  "bounds_size_m": [
+    24.2385,
+    11.1835,
+    31.7599
+  ],
+  "mesh_objects": 65,
+  "triangles": 7742,
+  "triangle_budget": 12000,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_uv": "sole UV layer PaletteUV / per-face inset island / 8px safe margin",
+  "geometry_fingerprint": "98c5e04d35eb588b21d4b620c90271571ab209c66279a119ad2636d4f38792e7",
+  "scope": "scene_local",
+  "placement_count": 1,
+  "collision": "facility_projection_pending",
+  "blocking_intent": "boat_blocking_required_at_runtime",
+  "stage": "source_verified_runtime_pending",
+  "runtime_integrated": false,
+  "license": "user_authored_whitebox_no_external_reference",
+  "verification": 30074,
+  "verification_failures": 0,
+  "note": "白盒阶段：只有体量、倾斜、开口与窗洞，未做倒角细则与贴图细节。"
+}

@@ -63,6 +63,9 @@ const ROOF_CUTS := [
 ]
 
 func _ready() -> void:
+	# Editor imports may instantiate this @tool scene before non-tool WalkArea scripts.
+	# Runtime walking/upgrade state is built only in the running game.
+	if Engine.is_editor_hint(): return
 	_restore_original_stairs()
 	_author_walk_surfaces()
 	_author_roof_obstacles()

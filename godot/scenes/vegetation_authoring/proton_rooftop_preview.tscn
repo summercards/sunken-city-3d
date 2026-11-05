@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource type="PackedScene" path="res://scenes/facilities/rooftop_ranch.tscn" id="roof"]
+[ext_resource type="PackedScene" path="res://scenes/vegetation_authoring/rooftop_scatter_authoring.tscn" id="scatter"]
+[ext_resource type="Script" path="res://tools/proton_preview_stage.gd" id="stage"]
+[ext_resource type="Environment" path="res://assets/materials/world_env.tres" id="environment"]
+[node name="ProtonRooftopPreview" type="Node3D"]
+script = ExtResource("stage")
+[node name="RooftopRanch" parent="." instance=ExtResource("roof")]
+[node name="NativeScatter" parent="." instance=ExtResource("scatter")]
+position = Vector3(0, 4.13, 0)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("environment")
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-48, -35, 0)
+light_color = Color(1, 0.955, 0.8, 1)
+light_energy = 0.54
+[node name="Fill" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-25, 130, 0)
+light_color = Color(0.65, 0.87, 0.84, 1)
+light_energy = 0.12
+[node name="Camera3D" type="Camera3D" parent="."]
+position = Vector3(-19, 62, 71)
+fov = 35.0
+far = 200.0
+current = true

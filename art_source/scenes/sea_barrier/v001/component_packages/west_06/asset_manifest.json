@@ -1,0 +1,41 @@
+{
+  "key": "west_06",
+  "name": "西06·双塌房（20米）",
+  "asset_id": "SEA-SCENE-SBW-041",
+  "domain": "scenes",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SBW-041",
+  "category": "architecture",
+  "family": "house_pair",
+  "building_class": "above_water",
+  "version": "v001",
+  "source": "art_source/scenes/sea_barrier/v001/component_packages/west_06/west_06.blend",
+  "source_sha256": "d909e510c0d0e2c672216330bc712a2513e56a72a44d3cc18c5bcc47040cdee0",
+  "collection": "SBW_41_西06·双塌房（20米）",
+  "origin": "waterline_center",
+  "origin_note": "构件半沉，原点取水线中心；底部在水下约 2.8 米。",
+  "front_axis": "-Y",
+  "bounds_size_m": [
+    24.0929,
+    9.8781,
+    30.9585
+  ],
+  "mesh_objects": 62,
+  "triangles": 9408,
+  "triangle_budget": 12000,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_uv": "sole UV layer PaletteUV / per-face inset island / 8px safe margin",
+  "geometry_fingerprint": "b452bf744fe319fcf4f2ed9558984272486165bd4216b47ac667297e0b20932d",
+  "scope": "scene_local",
+  "placement_count": 1,
+  "collision": "facility_projection_pending",
+  "blocking_intent": "boat_blocking_required_at_runtime",
+  "stage": "source_verified_runtime_pending",
+  "runtime_integrated": false,
+  "license": "user_authored_whitebox_no_external_reference",
+  "verification": 30074,
+  "verification_failures": 0,
+  "note": "白盒阶段：只有体量、倾斜、开口与窗洞，未做倒角细则与贴图细节。"
+}

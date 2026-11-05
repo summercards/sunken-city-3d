@@ -1,0 +1,132 @@
+{
+  "key": "street_split",
+  "slug": "street_split",
+  "name": "车行缓坡街段_24米高差4.8米",
+  "category": "ground",
+  "component_family": "street",
+  "component_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    24,
+    24,
+    0.8
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 4,
+  "collection": "SEA-SCENE-SCITY-STREET-SPLIT_开裂街段_错位断板",
+  "root_object": "SEA-SCENE-SCITY-STREET-SPLIT_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-STREET-SPLIT_ROOT",
+    "开裂街段_错位断板_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    24.0,
+    24.0,
+    5.60699987411499
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 1296,
+  "polygons": 672,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v003/component_packages/street_split/street_split.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v003",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "terrain_slope_state": true,
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+  "source": "art_source/scenes/sunken_city/v003/sunken_city_v003.blend",
+  "source_master_sha256": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+  "source_sha256": "7b6d8a6d696ae441cb7030766d951f05e8d3f4cf7b48a0fcf0b2436e41751070",
+  "geometry_fingerprint": "fc161a887502fd309aacb3fd5d1f6a6be9fed27953a4200f703bbfb4ccbc8d96",
+  "bounds_min": [
+    -12.0,
+    -12.0,
+    0.0
+  ],
+  "bounds_max": [
+    12.0,
+    12.0,
+    5.60699987411499
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T073456_486d6d8b",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v003\\skill_reports\\20261105T073456_486d6d8b\\street_split.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": true,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-STREET-SPLIT",
+  "runtime_integrated": true,
+  "runtime_export": {
+    "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/street_split_optimized.blend",
+    "optimized_sha256": "608e809b185c72edfbdf6ff82a50474308ab088190231e69a65a65b525f53030",
+    "triangles_before": 1296,
+    "triangles_after": 1296,
+    "reduction_ratio": 0.0,
+    "operations": {
+      "weld_vertices_1e_minus6": 4,
+      "zero_area_faces_removed": 0,
+      "duplicate_faces_removed": 0,
+      "loose_edges_removed": 0,
+      "loose_vertices_removed": 0,
+      "flat_candidate_edges": 0,
+      "coplanar_edges_removed": 0,
+      "coplanar_faces_reduced": 0,
+      "export_node_names_ascii": true
+    },
+    "bounds_blender": [
+      [
+        -12.0,
+        -12.0,
+        0.0
+      ],
+      [
+        12.0,
+        12.0,
+        5.60699987411499
+      ]
+    ],
+    "runtime_path": "godot/assets/models/scenery/sunken_city/street_split/street_split.glb",
+    "runtime_sha256": "8076199ff4b12d9d61ebb7ae60f1023e461bfe482b845d92ca5c1dd5788f33b6",
+    "prefab": "godot/scenes/components/scenery/sunken_city/street_split.tscn",
+    "prefab_sha256": "cb0b5404808e2214196d2a4b538cc46f11330a44188943e4cdc577963a14ba17",
+    "export_manifest": "art_source/scenes/sunken_city/v003/export/v003/export_manifest.json",
+    "source_verified": true,
+    "runtime_verified": true,
+    "verification": [
+      "D:/projects/sea-work/verification/20261105-180807-sunken-city-restored-depth-final-28d3d5/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v003/import/fidelity_verification.json"
+  }
+}

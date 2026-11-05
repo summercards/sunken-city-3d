@@ -1,0 +1,68 @@
+{
+  "key": "daisy",
+  "label": "白瓣野花",
+  "profile": "flower",
+  "triangle_budget": 850,
+  "asset_id": "SEA-VEG-DAISY",
+  "source": "art_source/vegetation/v001/components/daisy/daisy.blend",
+  "source_sha256": "af78d7a6b22b0c5944b786b5b151e97037e9f2d455a10bfe74c64e5d2c3391fa",
+  "optimized_source": "art_source/vegetation/v001/components/daisy/daisy_optimized.blend",
+  "optimized_sha256": "3d425673bc9acd8a8a425427abf7fdc7d265ea7ff8daade6ea1f3384d40e59c0",
+  "glb": "godot/assets/models/vegetation/daisy.glb",
+  "glb_sha256": "c6a278f5dd570600156e50bdb0e9260095d89edafdc6345bf8ea1c663a7e5385",
+  "before": {
+    "vertices": 522,
+    "triangles": 768,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.22971923649311066,
+        -0.22679632902145386,
+        0.0
+      ],
+      [
+        0.22971923649311066,
+        0.22679632902145386,
+        0.5870000123977661
+      ]
+    ],
+    "root_vertices": 102,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.8553054928779602
+    ]
+  },
+  "after": {
+    "vertices": 451,
+    "triangles": 720,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.22971923649311066,
+        -0.22679632902145386,
+        0.0
+      ],
+      [
+        0.22971923649311066,
+        0.22679632902145386,
+        0.5870000123977661
+      ]
+    ],
+    "root_vertices": 102,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.8553054928779602
+    ]
+  },
+  "operations": [
+    "merge coincident vertices at 1e-6 m",
+    "remove degenerate edges",
+    "preserve PaletteUV and WindData seams",
+    "reopen both sources and verify"
+  ],
+  "removed_vertices": 71
+}

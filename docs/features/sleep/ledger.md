@@ -9,7 +9,8 @@
   "owner": "SleepCycle / SleepCheckpoint",
   "code_paths": [
     "godot/src/time/sleep_cycle.gd",
-    "godot/src/time/sleep_checkpoint.gd",
+    "godot/src/room/room_bed.gd",
+    "godot/src/room/room_controller.gd",
     "godot/src/player/states/sleeping.gd",
     "godot/src/ui/sleep_curtain.gd",
     "godot/shaders/sleep_iris.gdshader"

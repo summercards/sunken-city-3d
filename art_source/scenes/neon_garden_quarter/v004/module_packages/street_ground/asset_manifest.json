@@ -1,0 +1,61 @@
+{
+  "asset_id": "SEA-SCENE-NGQ-STREET-GROUND",
+  "name": "街道地面",
+  "domain": "scenes",
+  "suite": "neon_garden_quarter",
+  "scope": "scene_local",
+  "category": "building_module",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v004",
+  "stage": "runtime_component_verified_provenance_pending",
+  "license": "pending_user_supplied_reference",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v004/module_packages/street_ground/street_ground.blend",
+  "source_sha256": "5dc6c4f99b9255188044ecdeb24175fb6616990a433042e196ae03292bdc39a6",
+  "manifest": "art_source/scenes/neon_garden_quarter/v004/module_packages/street_ground/asset_manifest.json",
+  "runtime_path": "godot/scenes/components/facilities/neon_garden_quarter/modules/street_ground.tscn",
+  "runtime_sha256": "6dade721bb9d5b797e42fd96a90ffe2f5bc6c239f41dff5ea21b76de361d0899",
+  "prefab": "godot/scenes/components/facilities/neon_garden_quarter/modules/street_ground.tscn",
+  "dependencies": [
+    "SEA-SCENE-NGQ-008",
+    "SEA-SCENE-NGQ-022",
+    "SEA-SCENE-NGQ-023",
+    "SEA-SCENE-NGQ-033",
+    "SEA-SCENE-NGQ-040",
+    "SEA-SCENE-NGQ-044",
+    "SEA-SCENE-NGQ-046",
+    "SEA-SCENE-NGQ-053"
+  ],
+  "collection": "NGQ_MODULE_street_ground",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "bounds": [
+    [
+      -20.850000381469727,
+      -14.950366020202637,
+      0.0
+    ],
+    [
+      20.850000381469727,
+      14.95036506652832,
+      23.71500015258789
+    ]
+  ],
+  "instance_count": 39,
+  "verification": [
+    "docs/development/2026-11-05_neon_garden_quarter_v004.md",
+    "D:\\projects\\sea-work\\verification\\20261105-105104-ngq-v004-final-d6c9b3\\report.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v004\\source_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v004\\import_verification.json"
+  ],
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-STREET-GROUND",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "collision_responsibility": "quarter scene owns gameplay projections",
+  "geometry_reuse": "v003 optimized leaf components, source and GLB hashes verified"
+}

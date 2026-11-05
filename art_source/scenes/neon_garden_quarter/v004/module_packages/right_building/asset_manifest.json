@@ -1,0 +1,75 @@
+{
+  "asset_id": "SEA-SCENE-NGQ-RIGHT-BUILDING",
+  "name": "右楼",
+  "domain": "scenes",
+  "suite": "neon_garden_quarter",
+  "scope": "scene_local",
+  "category": "building_module",
+  "building_class": "above_water",
+  "water_layer": "surface",
+  "water_layer_role": "part",
+  "version": "v004",
+  "stage": "runtime_component_verified_provenance_pending",
+  "license": "pending_user_supplied_reference",
+  "consumer_features": [
+    "SEA-ASSET",
+    "SEA-WORLD"
+  ],
+  "source": "art_source/scenes/neon_garden_quarter/v004/module_packages/right_building/right_building.blend",
+  "source_sha256": "3448fa41f250c3547b74227d3025e9d3db9e7e30062781e71f7689260cd305b5",
+  "manifest": "art_source/scenes/neon_garden_quarter/v004/module_packages/right_building/asset_manifest.json",
+  "runtime_path": "godot/scenes/components/facilities/neon_garden_quarter/modules/right_building.tscn",
+  "runtime_sha256": "74f9623d6913ec94a63fb04aa7d925b8196092e0d09689f869d6daec04f777bd",
+  "prefab": "godot/scenes/components/facilities/neon_garden_quarter/modules/right_building.tscn",
+  "dependencies": [
+    "SEA-SCENE-NGQ-004",
+    "SEA-SCENE-NGQ-005",
+    "SEA-SCENE-NGQ-008",
+    "SEA-SCENE-NGQ-013",
+    "SEA-SCENE-NGQ-018",
+    "SEA-SCENE-NGQ-019",
+    "SEA-SCENE-NGQ-020",
+    "SEA-SCENE-NGQ-021",
+    "SEA-SCENE-NGQ-027",
+    "SEA-SCENE-NGQ-028",
+    "SEA-SCENE-NGQ-029",
+    "SEA-SCENE-NGQ-031",
+    "SEA-SCENE-NGQ-033",
+    "SEA-SCENE-NGQ-036",
+    "SEA-SCENE-NGQ-041",
+    "SEA-SCENE-NGQ-042",
+    "SEA-SCENE-NGQ-043",
+    "SEA-SCENE-NGQ-044",
+    "SEA-SCENE-NGQ-048",
+    "SEA-SCENE-NGQ-049",
+    "SEA-SCENE-NGQ-050",
+    "SEA-SCENE-NGQ-052"
+  ],
+  "collection": "NGQ_MODULE_right_building",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "bounds": [
+    [
+      -5.84857177734375,
+      -9.945500373840332,
+      0.0
+    ],
+    [
+      5.848573684692383,
+      9.945500373840332,
+      39.220001220703125
+    ]
+  ],
+  "instance_count": 59,
+  "verification": [
+    "docs/development/2026-11-05_neon_garden_quarter_v004.md",
+    "D:\\projects\\sea-work\\verification\\20261105-105104-ngq-v004-final-d6c9b3\\report.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v004\\source_verification.json",
+    "D:\\projects\\sea-work\\neon_garden_quarter\\v004\\import_verification.json"
+  ],
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-NGQ-RIGHT-BUILDING",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "loaded_branch": ".agents/skills/sea-scene-component-authoring/references/above-water.md",
+  "collision_responsibility": "quarter scene owns gameplay projections",
+  "geometry_reuse": "v003 optimized leaf components, source and GLB hashes verified"
+}

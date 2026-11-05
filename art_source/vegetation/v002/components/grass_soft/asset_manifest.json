@@ -1,0 +1,61 @@
+{
+  "asset_id": "SEA-VEG-GRASS-SOFT",
+  "key": "grass_soft",
+  "source": "art_source/vegetation/v002/components/grass_soft/grass_soft.blend",
+  "source_sha256": "b627fe26de560cc1e1c8c738b0bcb0e4bfd4a566970ce629e1d785fd6a4b5e6d",
+  "optimized_source": "art_source/vegetation/v002/components/grass_soft/grass_soft_optimized.blend",
+  "optimized_sha256": "b032cc1ffc006578dcbfa879a8599735ff9295754d2e7d360be0663b599c5b69",
+  "glb": "godot/assets/models/vegetation/grass_soft.glb",
+  "glb_sha256": "3e8c993e34c9fe0f9128d5d89d7d247b3ca251e8013190aa8a362e2d60b02f13",
+  "triangles": 18,
+  "vertices": 24,
+  "operations": [
+    "separate persistent optimized save",
+    "remove degenerate edges",
+    "source and optimized reopened",
+    "UV and WindData preserved"
+  ],
+  "root": "bottom_center",
+  "geometry": "texture carrier only",
+  "uv0": "BotanicalUV",
+  "name": "柔软草叶贴片簇",
+  "domain": "vegetation",
+  "suite": "soft_botanical_cards",
+  "version": "v002",
+  "category": "textured_vegetation",
+  "scope": "shared",
+  "manifest": "art_source/vegetation/v002/components/grass_soft/asset_manifest.json",
+  "runtime_path": "godot/scenes/components/vegetation/grass_soft.tscn",
+  "runtime_sha256": "8bf4a4b0fc25a75c5cfa1c59312fa3568e5e10d12c733e322ddc077b10bd51f6",
+  "prefab": "godot/scenes/components/vegetation/grass_soft.tscn",
+  "stage": "runtime_verified_user_visual_review_pending",
+  "license": "original_carrier_geometry",
+  "dependencies": [
+    "SEA-TEX-VEGETATION-SOFT-ATLAS"
+  ],
+  "consumers": [
+    "solar_cabin"
+  ],
+  "consumer_features": [
+    "SEA-AMBIENT",
+    "SEA-ASSET"
+  ],
+  "water_layer": "surface",
+  "water_layer_role": "none",
+  "collision": false,
+  "wind_contract": 2,
+  "material": "godot/assets/materials/vegetation/grass_soft.tres",
+  "uv_exception": "User explicitly requested botanical color/alpha UV0 instead of palette cells",
+  "verification": {
+    "source": "reopened_and_checked",
+    "runtime": "passed",
+    "visual": "native_frames_reviewed",
+    "user_art_acceptance": "pending",
+    "performance": "measured_RTX4060Ti_1280x800",
+    "evidence": [
+      "D:\\projects\\sea-work\\verification\\20261105-155056-soft-turf-verified-1f59a8\\report.json",
+      "docs/development/2026-11-05_vegetation_soft_cards.md"
+    ]
+  },
+  "asset_ledger": "assets/registry/ledgers/vegetation.json#SEA-VEG-GRASS-SOFT"
+}

@@ -1,0 +1,43 @@
+{
+  "asset_id": "SEA-TEX-VEGETATION-SOFT-ATLAS",
+  "name": "Image-2草叶与苔藓RGBA图集",
+  "domain": "vegetation",
+  "suite": "soft_botanical_cards",
+  "version": "v002",
+  "category": "color_alpha_texture",
+  "scope": "shared",
+  "source": "art_source/vegetation/v002/grass_moss_atlas_generated.png",
+  "source_sha256": "4eb3a69740eb23879ddfc13514b9a26e8ce88d52e5f717f4bd1533c5e3fc2fa2",
+  "processed_source": "art_source/vegetation/v002/soft_atlas.png",
+  "processed_sha256": "f39b29e86468e247ed12fb11fc2d9dd736e5215d6adec030a394991626c2603b",
+  "manifest": "art_source/vegetation/v002/texture_manifest.json",
+  "runtime_path": "godot/assets/textures/vegetation/soft_atlas.png",
+  "runtime_sha256": "f39b29e86468e247ed12fb11fc2d9dd736e5215d6adec030a394991626c2603b",
+  "stage": "runtime_verified_user_visual_review_pending",
+  "license": "generated_image_output_terms_not_audited",
+  "provenance": {
+    "model": "gpt-image-2",
+    "skill": "sofunny-image",
+    "mode": "reference_image_edit",
+    "reference_sha256": "ee0d2d1afda55555ef499ae688bdffda59d41b10cdd4a41a8e9eb0c0408ff50b",
+    "prompt": "art_source/vegetation/v002/texture_brief.txt",
+    "processing": "art_source/vegetation/v002/texture_production.json"
+  },
+  "consumers": [
+    "solar_cabin"
+  ],
+  "consumer_features": [
+    "SEA-AMBIENT",
+    "SEA-ASSET"
+  ],
+  "verification": {
+    "alpha": "RGBA 0..255, internal and edge transparency verified",
+    "visual": "native_game_frames_reviewed",
+    "user_art_acceptance": "pending",
+    "evidence": [
+      "D:\\projects\\sea-work\\verification\\20261105-155056-soft-turf-verified-1f59a8\\report.json",
+      "docs/development/2026-11-05_vegetation_soft_cards.md"
+    ]
+  },
+  "asset_ledger": "assets/registry/ledgers/vegetation.json#SEA-TEX-VEGETATION-SOFT-ATLAS"
+}

@@ -1,0 +1,98 @@
+{
+  "key": "balcony_tenement",
+  "slug": "balcony_tenement",
+  "name": "阳台住宅_斜向塌顶",
+  "category": "architecture",
+  "component_family": "tenement",
+  "component_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    16,
+    14,
+    38
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 7,
+  "color": "seafoam",
+  "damage": 0.43,
+  "style": "balcony",
+  "variant_axis": "structure_damage",
+  "variant_value": "balcony",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 2,
+  "collection": "SEA-SCENE-SCITY-BALCONY-TENEMENT_阳台住宅_斜向塌顶",
+  "root_object": "SEA-SCENE-SCITY-BALCONY-TENEMENT_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-BALCONY-TENEMENT_ROOT",
+    "阳台住宅_斜向塌顶_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    16.078922271728516,
+    15.200000762939453,
+    39.25918197631836
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 160090,
+  "polygons": 83319,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v002/component_packages/balcony_tenement/balcony_tenement.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v002",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+  "source": "art_source/scenes/sunken_city/v002/sunken_city_v002.blend",
+  "source_master_sha256": "b6c5ebb8047789603c435db7733fe1e8149d88a81ebddc96fbfbcc460472af1f",
+  "source_sha256": "1789ba1e3ff686e17ee13203a11232f45807f10029061260eda42d1690e1a6ad",
+  "geometry_fingerprint": "f013aab1a7a68e6841321a75c80ecb3b89c9ea2f4083684e72c4f9cadfa53c64",
+  "bounds_min": [
+    -8.039461135864258,
+    -7.600000381469727,
+    0.0
+  ],
+  "bounds_max": [
+    8.039461135864258,
+    7.600000381469727,
+    39.25918197631836
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261105T065018_30774b67",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v002\\skill_reports\\20261105T065018_30774b67\\balcony_tenement.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-BALCONY-TENEMENT"
+}

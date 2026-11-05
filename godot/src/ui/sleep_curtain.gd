@@ -68,19 +68,13 @@ func _input(_event: InputEvent) -> void:
 func cover(text: String) -> void:
 	caption.text = text
 	caption.modulate.a = 0.0
-	openness = 1.0
-	_sample_focus()
-	show()
-	_set_phase("closing")
+	await _close_iris()
 	var tween := create_tween()
-	tween.tween_property(self,"openness",0.0,CLOSE_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
-	_set_phase("closed")
-	tween = create_tween()
 	tween.tween_property(caption,"modulate:a",1.0,COVER_FADE)
 	tween.tween_interval(COVER_HOLD)
 	tween.tween_property(caption,"modulate:a",0.0,COVER_FADE)
 	await tween.finished
+
 
 func uncover(text: String) -> void:
 	caption.text = text
@@ -90,10 +84,41 @@ func uncover(text: String) -> void:
 	tween.tween_interval(MORNING_HOLD)
 	tween.tween_property(caption,"modulate:a",0.0,MORNING_FADE)
 	await tween.finished
-	# The wake command has moved both player and camera while the screen was black.
+	await _open_iris()
+
+
+## 无文字的圆幕（SEA-ROOM 进出房间，2026-11-05）。
+##
+## 玩家要求「用日夜变化那个过场，但不要增加文字」。所以只借用合拢/打开与
+## 遮黑这一段，黑幕上不写任何字 —— 文案由调用方决定，本方法不碰 caption。
+func cover_blank() -> void:
+	caption.text = ""
+	caption.modulate.a = 0.0
+	await _close_iris()
+
+
+func uncover_blank() -> void:
+	caption.text = ""
+	caption.modulate.a = 0.0
+	await _open_iris()
+
+
+func _close_iris() -> void:
+	openness = 1.0
+	_sample_focus()
+	show()
+	_set_phase("closing")
+	var tween := create_tween()
+	tween.tween_property(self,"openness",0.0,CLOSE_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
+	_set_phase("closed")
+
+
+func _open_iris() -> void:
+	# The wake/teleport command has moved the camera while the screen was black.
 	_sample_focus()
 	_set_phase("opening")
-	tween = create_tween()
+	var tween := create_tween()
 	tween.tween_property(self,"openness",1.0,OPEN_SECONDS).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 	hide()

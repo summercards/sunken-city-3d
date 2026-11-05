@@ -10,17 +10,24 @@
 {
   "feature_id": "SEA-AMBIENT",
   "status": "partial",
-  "owner": "PlantField / Birds",
+  "owner": "PlantField / Birds / VegetationWindController / VegetationPatch / ProtonScatter authoring",
   "code_paths": [
     "godot/src/ambient",
-    "godot/scenes/plants"
+    "godot/scenes/plants",
+    "godot/addons/proton_scatter",
+    "godot/scenes/vegetation_authoring"
   ],
   "verification": [
     "selftest",
     "decorations",
     "visual-decorations",
     "visual-birds",
-    "visual-fish-schools"
+    "visual-fish-schools",
+    "vegetation-contract",
+    "visual-vegetation",
+    "visual-vegetation-performance",
+    "visual-proton-scatter",
+    "visual-proton-preview"
   ]
 }
 ```
@@ -98,3 +105,54 @@
 ### 同日第三轮修订
 
 巨鲸改为走 `toon.gdshader` 并开启 `depth_tint`（对应网页版 `makePainterlyMat` 的第三个参数），鲸不再是水下的一块死蓝。`toon_common.gdshaderinc` 新增 `depth_tint_strength` 与 `uw_glow_amount` 两个 uniform，默认值等于原行为，既有沉没城市材质零影响；鲸取 2.0 / 0.60 / `ambient_boost` 0.55（实拍四组扫描定的）。水面装饰群条数 18 → 10，地盘半径按体型收紧到 1.5–1.65 m；个体最小间距改为随 `size_scale` 缩放（`0.60 m × size_scale × 1.70`），否则鱼缩小后相对间距翻倍、群读成散点。
+
+
+## 2026-11-05 植被视效评估与制作设计
+
+用户授权本阶段先评估、确定实现方案并落制作文档，已确认桌面 PC 优先。本批完成参考视频抽帧分析、当前代码与三个代表 GLB 的静态审计、官方文档研究和 ProtonScatter 固定提交的源码评估。**本批没有新增运行视效、安装插件或验收帧率。**
+
+| 对应设计条款 | 当前实施状态 | 证据 / 下一阶段要求 |
+|---|---|---|
+| SEA-AMBIENT-R06 | 设计完成；实际美术 pending | [方案 §2](vegetation_visual_plan.md#2-视频参考哪些值得迁移)记录视频哈希与观察边界；需真实样板近/中/远录屏 |
+| SEA-AMBIENT-R07 | planned；风函数与控制器未实现 | [方案 §5–6](vegetation_visual_plan.md)；需根固定、相干阵风、相位与暂停测试 |
+| SEA-AMBIENT-R08 | 生产协议完成；源通道/导入/材质未实现 | [制作规范](../../standards/植被视效制作规范.md)；三代表 GLB 均无 COLOR/UV2，不能直接宣称可风动 |
+| SEA-AMBIENT-R09 | 分层草苔方案确定；模型/真实渲染 pending | 现有青苔 POSITION 的 Z 包络为零；需苔垫/短绒小样与原生录屏 |
+| SEA-AMBIENT-R10 | planned；分块/LOD/预算已设计 | 源码确认当前阳光房 flora 多为单实例 MultiMesh；新分组、动态包围盒、投影分级待实现 |
+| SEA-AMBIENT-R11 | 所有权与迁移契约确定；接入 pending | [方案 §3/6/9](vegetation_visual_plan.md)；保留原生长/升级接口，迁移单株时关闭旧旋转 |
+| SEA-AMBIENT-R12 | 源码评估完成；插件接入与中立导出 pending | 审计 HEAD `7198cc00078ebde61307578137c3f35223c6e438`，插件 v4.2.0；未安装/执行；缓存不是脱插件烘焙 |
+| SEA-AMBIENT-R13 | 水面/水下策略确定；实际组合验证 pending | [方案 §10](vegetation_visual_plan.md)；水面浮动输入、两种海面实景和空间职责需验证 |
+| SEA-AMBIENT-R14 | 性能目标与采样协议完成；所有性能数字未实测 | [方案 §8](vegetation_visual_plan.md)；目标机、GPU/CPU/显存/提交、60 FPS 整帧结果待 P0 采集 |
+| SEA-AMBIENT-R15 | 阶段计划完成；正式场景迁移未执行 | [方案 §9](vegetation_visual_plan.md)；先小样，再渔场/阳光房，逐消费者推进 |
+| SEA-AMBIENT-R16 | 文档与逐条账本建立；运行专项未注册/未执行 | [制作规范 §9](../../standards/植被视效制作规范.md)；后续统一 runner 增入口，不复用历史绿项 |
+
+登记头、历史章节和原条款完整保留，未改 partial 状态；本轮只追加。相关资产制作管理归 SEA-ASSET-R49。完整证据、检查退出码及未执行项见[本轮交付记录](../../development/2026-11-05_vegetation_visual_plan.md)。
+
+
+## 2026-11-05 阳光房草皮 v002 返工交付
+
+| 对应设计条款 | 当前实施 | 证据与边界 |
+|---|---|---|
+| SEA-AMBIENT-R17 | 已改为贴图面片草皮：1301草簇、122苔藓贴片，原56株花草保留；屋顶牧场试铺撤回。原生近景/默认/宏观叶片和风动帧已制作；用户审美验收待反馈。 | [本轮交付与当前检查](../../development/2026-11-05_vegetation_soft_cards.md)；[复用手册](vegetation_soft_cards.md) |
+| SEA-AMBIENT-R07/R08/R10/R11/R16 | 本轮阳光房采用单一GPU风时钟、根权重、RGBA图集例外、共享材质、空间分块、屏幕分级与显隐/暂停契约；原物件职责保持。 | vegetation-contract / visual-vegetation / visual-vegetation-performance 经统一runner；结果与失败历史见交付记录。 |
+| SEA-AMBIENT-R09/R12/R13/R15 | 本轮完成阳光房草皮与低矮苔藓，不安装Scatter。草堆/花朵贴片重制、屋顶牧场新铺设、青苔短绒与水生植物尚未实施。 | 先完成用户指定的阳光房草皮；不以本轮小范围替代全植被系统完成。 |
+
+
+## 2026-11-05 v002 当前实测结论
+
+SEA-AMBIENT-R17及本轮R07/R08/R10/R11/R16覆盖项：六项统一runner实测全通过，退出码均0；2658项植被契约、56株原植物保留、16绘制批次、近景GPU p95增量0.273ms。完整镜头、动态、性能范围与全库文档门禁的无关阻塞见[当前验收附录](../../development/2026-11-05_vegetation_soft_cards.md#当前验收附录2026-11-05-1550-快照)。本轮仅阳光房贴图草皮与低苔，草堆花朵重制及屋顶牧场仍planned；用户审美验收pending。
+
+
+## 2026-11-05 v003 宽叶与天台草堆当前交付
+
+| 对应设计条款 | 当前实施 | 证据 |
+|---|---|---|
+| SEA-AMBIENT-R18 | v003两处宽叶草地及天台14处面片草堆已接入；风位移参数0.20/0.30米，阵风沿世界方向传播；远景保留草轮廓。原56株阳光房花草保持。六项统一runner均退出0，515336项植被契约无失败。用户审美验收pending。 | [实景、动态、性能与边界](../../development/2026-11-05_vegetation_meadow.md)；[当前复用手册](vegetation_meadow.md) |
+| SEA-AMBIENT-R07/R10/R14/R16 | 同一风系统供草地/草堆两类资产、两个区域复用。52作者绘制批次，测得GPU p95增量阳光房0.053ms/天台0.501ms；CPU专项在初始预算内。未签署整帧锁60FPS或其他设备。 | 当前最终报告20261105-165018-meadow-final-7648b4；不复用v002结果。 |
+
+
+## 2026-11-05 ProtonScatter原版试刷当前结论
+
+| 对应条款 | 当前实施 | 证据与边界 |
+|---|---|---|
+| SEA-AMBIENT-R12/R18 | 已实际安装插件4.2.0/7198cc0，调用真实ProtonScatter＋Create Inside Random＋Randomize Transforms＋正负Shape。原版草11500、灌木42，共60批；可编辑预设重开仍生成11542实例。visual-proton-scatter及visual-proton-preview当前均退出0。 | [当前交付](../../development/2026-11-05_proton_scatter_trial.md)；[用法](proton_scatter_trial.md)。首次正式Main实拍与最终独立台验证分列，未冒充全世界集成通过。 |
+| SEA-AMBIENT-R07/R11/R14 | 插件原版TIME风动、示例材质和模型在独立预览展示，未替换正式共用时钟。单一视效台测得根Viewport GPU p95 1.000ms，不签署全游戏锁60FPS；正式暂停/显隐接入及跨设备仍pending。 | 绿色版只改Gradient与wind_strength=.45；原模型、贴图、shader不改。 |

@@ -1,0 +1,197 @@
+{
+  "schema": "sea.bedroom_export",
+  "version": "v001",
+  "glb_dir": "godot/assets/models/rooms/bedroom",
+  "triangles": 7888,
+  "components": [
+    {
+      "key": "floor_planks",
+      "asset_id": "SEA-SCENE-BDR-001",
+      "name": "地板（5×5 木地板）",
+      "source": "art_source/rooms/bedroom/v001/component_packages/floor_planks/floor_planks.blend",
+      "source_sha256": "223bfbd722335b694489e2c1af6e4f0e35368165a2787defffee92f0d2278f69",
+      "glb": "godot/assets/models/rooms/bedroom/floor_planks/floor_planks.glb",
+      "glb_sha256": "19cfb7cec395d54f5a9364173818cd8d2fc839398f80d04272c0d2bdd09fe570",
+      "glb_bytes": 129108,
+      "triangles": 1740,
+      "materials": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "wall_window",
+      "asset_id": "SEA-SCENE-BDR-002",
+      "name": "后墙（带窗）",
+      "source": "art_source/rooms/bedroom/v001/component_packages/wall_window/wall_window.blend",
+      "source_sha256": "89dec7115dd79e0ddb9f9e543350286282d047ad04d0de4925b7d1d569a8a21b",
+      "glb": "godot/assets/models/rooms/bedroom/wall_window/wall_window.glb",
+      "glb_sha256": "f08ee8b4c8bf5cc3fe75dcaa3a7337fd7951313c786b0aa1b71bb637237a45f0",
+      "glb_bytes": 50100,
+      "triangles": 628,
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "wall_door",
+      "asset_id": "SEA-SCENE-BDR-003",
+      "name": "前墙（带门洞）",
+      "source": "art_source/rooms/bedroom/v001/component_packages/wall_door/wall_door.blend",
+      "source_sha256": "acd0b611e0265590a6e7bb618e76880ed48f1d727c4f8abd464917924e40a701",
+      "glb": "godot/assets/models/rooms/bedroom/wall_door/wall_door.glb",
+      "glb_sha256": "e8462b3d37758d0454c9a946304c5e2dbfae66919018f59938074b9d6129b2c4",
+      "glb_bytes": 7348,
+      "triangles": 68,
+      "materials": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "wall_side_e",
+      "asset_id": "SEA-SCENE-BDR-004",
+      "name": "东侧白墙",
+      "source": "art_source/rooms/bedroom/v001/component_packages/wall_side_e/wall_side_e.blend",
+      "source_sha256": "a77c01dd4410c978624712b97b78f2d09a2f56ba9096b32fbe7c1c82b293aa4d",
+      "glb": "godot/assets/models/rooms/bedroom/wall_side_e/wall_side_e.glb",
+      "glb_sha256": "fb67afa5dd5f67b634c5adfeb5e95c017b935531925f274bfd2bb91e848493bd",
+      "glb_bytes": 3616,
+      "triangles": 24,
+      "materials": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "wall_side_w",
+      "asset_id": "SEA-SCENE-BDR-005",
+      "name": "西侧白墙",
+      "source": "art_source/rooms/bedroom/v001/component_packages/wall_side_w/wall_side_w.blend",
+      "source_sha256": "4a9d8bfedac58e4b92f099d34850a86dc76ac59c18508a1317a1ecfcd3f5a011",
+      "glb": "godot/assets/models/rooms/bedroom/wall_side_w/wall_side_w.glb",
+      "glb_sha256": "c00336fa932567d096abaef4aac17903e28f296cab7e1a9f291098f307952f71",
+      "glb_bytes": 3620,
+      "triangles": 24,
+      "materials": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "ceiling",
+      "asset_id": "SEA-SCENE-BDR-006",
+      "name": "天花与木梁",
+      "source": "art_source/rooms/bedroom/v001/component_packages/ceiling/ceiling.blend",
+      "source_sha256": "e87d8355552c72d91df07856756e774d359464a3e9217f340b794d173fe93c31",
+      "glb": "godot/assets/models/rooms/bedroom/ceiling/ceiling.glb",
+      "glb_sha256": "78fa24d3b447113fb749c79734ca3e834dbc2ccf39676363d45c9d312ad5752e",
+      "glb_bytes": 44392,
+      "triangles": 564,
+      "materials": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "porch_glass",
+      "asset_id": "SEA-SCENE-BDR-007",
+      "name": "玻璃前厅",
+      "source": "art_source/rooms/bedroom/v001/component_packages/porch_glass/porch_glass.blend",
+      "source_sha256": "dcb7b8b38549fce78e481eb74f5bcc2e90fb0acfdd4cd63c88aa8885c68abdd7",
+      "glb": "godot/assets/models/rooms/bedroom/porch_glass/porch_glass.glb",
+      "glb_sha256": "b8a90546026410f0c60152e45a29c5d724ac5d8b19bca16b7e8f7c581b5492c1",
+      "glb_bytes": 164004,
+      "triangles": 2052,
+      "materials": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "door_leaf",
+      "asset_id": "SEA-SCENE-BDR-008",
+      "name": "门框与敞开木门",
+      "source": "art_source/rooms/bedroom/v001/component_packages/door_leaf/door_leaf.blend",
+      "source_sha256": "fddb81d20a40da14bd796848b57150473d074fa71d2cd24154c511187b003747",
+      "glb": "godot/assets/models/rooms/bedroom/door_leaf/door_leaf.glb",
+      "glb_sha256": "006186f3d5e1f460a80f6087842eab270e76254db1aeae6047412ce541310f06",
+      "glb_bytes": 39348,
+      "triangles": 488,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ]
+    },
+    {
+      "key": "bed",
+      "asset_id": "SEA-SCENE-BDR-009",
+      "name": "床铺（可交互/可布置）",
+      "source": "art_source/rooms/bedroom/v001/component_packages/bed/bed.blend",
+      "source_sha256": "23520f3a1e52b4e25e1a0a99dddff5358ff4bdc6648d7f9cbc41bfc89e2b5fa5",
+      "glb": "godot/assets/models/rooms/bedroom/bed/bed.glb",
+      "glb_sha256": "0719015e484952943a74bb78646f22385422da7e73b6f2cb9ee2ccab7b0b8d0c",
+      "glb_bytes": 96320,
+      "triangles": 1308,
+      "materials": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "nightstand",
+      "asset_id": "SEA-SCENE-BDR-010",
+      "name": "床头柜",
+      "source": "art_source/rooms/bedroom/v001/component_packages/nightstand/nightstand.blend",
+      "source_sha256": "c476ac0b69418b57fcbd96ae6633891d9c29c35abd821e97fc353422280c3709",
+      "glb": "godot/assets/models/rooms/bedroom/nightstand/nightstand.glb",
+      "glb_sha256": "202d2e3677e66d9d951290124d41dec5d53eef29644c23059957776d6e7de570",
+      "glb_bytes": 25948,
+      "triangles": 296,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ]
+    },
+    {
+      "key": "table_lamp",
+      "asset_id": "SEA-SCENE-BDR-011",
+      "name": "床头台灯",
+      "source": "art_source/rooms/bedroom/v001/component_packages/table_lamp/table_lamp.blend",
+      "source_sha256": "7fb56db35be804d4633ac0edec915279684ce0c2f29f48bfd1e84cb4f35dcb60",
+      "glb": "godot/assets/models/rooms/bedroom/table_lamp/table_lamp.glb",
+      "glb_sha256": "a1bea1633efa45915607a613e0444de5db4805ce0cef869fa1fd4fa50db9fbbf",
+      "glb_bytes": 12336,
+      "triangles": 160,
+      "materials": [
+        "SEA_Emission",
+        "SEA_Matte",
+        "SEA_Metal"
+      ]
+    },
+    {
+      "key": "rug",
+      "asset_id": "SEA-SCENE-BDR-012",
+      "name": "地毯",
+      "source": "art_source/rooms/bedroom/v001/component_packages/rug/rug.blend",
+      "source_sha256": "d438f3959ba629a84c45a077c3516aad5630563aea5912c6837e0ca08c1acf77",
+      "glb": "godot/assets/models/rooms/bedroom/rug/rug.glb",
+      "glb_sha256": "29d6e6c1a5db7ef98bb096cee85dcba21751fdab598db6671f0c2f88db5ded3a",
+      "glb_bytes": 11896,
+      "triangles": 132,
+      "materials": [
+        "SEA_Matte"
+      ]
+    },
+    {
+      "key": "shelf",
+      "asset_id": "SEA-SCENE-BDR-013",
+      "name": "靠墙矮柜",
+      "source": "art_source/rooms/bedroom/v001/component_packages/shelf/shelf.blend",
+      "source_sha256": "485306d6ea5173b493f65a3c06163e517f7670e09c7f78432b07359aeedb2ae5",
+      "glb": "godot/assets/models/rooms/bedroom/shelf/shelf.glb",
+      "glb_sha256": "d9b8b220f971cba9d4421bdac1f15e28f41df18ff5ccd561254c73377d7c740d",
+      "glb_bytes": 37052,
+      "triangles": 404,
+      "materials": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ]
+    }
+  ]
+}

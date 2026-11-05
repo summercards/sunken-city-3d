@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://src/ambient/vegetation/piece.gd" id="piece"]
+[node name="mound_soft" type="Node3D"]
+script = ExtResource("piece")
+asset_key = "mound_soft"
+metadata/asset_id = "SEA-VEG-MOUND-SOFT"
+metadata/visual_only = true
+metadata/water_layer = "surface"
+metadata/water_layer_role = "none"

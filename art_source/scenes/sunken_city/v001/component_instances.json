@@ -1,0 +1,5768 @@
+{
+  "schema": "sea.component_instances",
+  "coordinate_contract": {
+    "blender_plane": "XY",
+    "blender_up": "+Z",
+    "godot_mapping": "(x,y,z)->(x,z,-y)",
+    "world_frame_translation_m": [
+      0,
+      0,
+      0
+    ],
+    "water_level_m": 1.12,
+    "street_base_z_m": -61.9,
+    "depth_from_water_m": 63.02,
+    "depth_source": "screenshot #6 calibrated with current rooftop_ranch 60m building; estimate +/-5m, not exact screenshot metadata",
+    "boundary_xy_m": [
+      -120,
+      120,
+      -120,
+      120
+    ]
+  },
+  "floor_contract": {
+    "grid_m": 24,
+    "plane": "XY",
+    "base_z_m": -61.9,
+    "paving_top_z_m": -61.3,
+    "curb_top_z_m": -61.1,
+    "seams": "exact shared 24m boundary, identity scale, yaw multiples of 90; cracks remain inside module",
+    "ground_overlap_forbidden": true,
+    "central_no_geometry": true,
+    "outer_extent_m": [
+      -120,
+      120,
+      -120,
+      120
+    ],
+    "central_buildings_exclusion_m": [
+      -36,
+      38,
+      -44,
+      34
+    ],
+    "expected_ground_tiles": 100
+  },
+  "instances": [
+    {
+      "instance_id": "coffee_steps_instance_001",
+      "key": "coffee_steps",
+      "component_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+      "position_m": [
+        -107.0,
+        -103.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "coffee_steps_instance_001",
+      "urban_role": "south_boulevard_coffee_corner"
+    },
+    {
+      "instance_id": "electronics_shop_instance_001",
+      "key": "electronics_shop",
+      "component_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+      "position_m": [
+        -85.0,
+        -106.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "electronics_shop_instance_001",
+      "urban_role": "attached_shopping_frontage"
+    },
+    {
+      "instance_id": "roof_garden_shell_instance_001",
+      "key": "roof_garden_shell",
+      "component_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+      "position_m": [
+        -28.0,
+        -103.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "roof_garden_shell_instance_001",
+      "urban_role": "shop_with_rooftop_greenhouse"
+    },
+    {
+      "instance_id": "terrace_residence_instance_001",
+      "key": "terrace_residence",
+      "component_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+      "position_m": [
+        -7.0,
+        -106.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "terrace_residence_instance_001",
+      "urban_role": "setback_stair_residence"
+    },
+    {
+      "instance_id": "collapsed_residence_instance_001",
+      "key": "collapsed_residence",
+      "component_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+      "position_m": [
+        25.0,
+        -104.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "collapsed_residence_instance_001",
+      "urban_role": "collapsed_lowrise_empty_plot"
+    },
+    {
+      "instance_id": "canal_shell_instance_001",
+      "key": "canal_shell",
+      "component_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+      "position_m": [
+        63.0,
+        -106.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_shell_instance_001",
+      "urban_role": "half_building_after_collapse"
+    },
+    {
+      "instance_id": "cinema_ruin_instance_001",
+      "key": "cinema_ruin",
+      "component_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
+      "position_m": [
+        104.0,
+        -105.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cinema_ruin_instance_001",
+      "urban_role": "cinema_plaza_facing_boulevard"
+    },
+    {
+      "instance_id": "slender_tower_instance_001",
+      "key": "slender_tower",
+      "component_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+      "position_m": [
+        -58.0,
+        -100.0,
+        -60.81985092163086
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        -5.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "slender_tower_instance_001",
+      "urban_role": "rear_tower_settlement"
+    },
+    {
+      "instance_id": "balcony_tenement_instance_001",
+      "key": "balcony_tenement",
+      "component_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+      "position_m": [
+        -108.0,
+        -61.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "balcony_tenement_instance_001",
+      "urban_role": "west_residential_frontage"
+    },
+    {
+      "instance_id": "tram_tenement_instance_001",
+      "key": "tram_tenement",
+      "component_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
+      "position_m": [
+        -110.0,
+        -34.0,
+        -61.12422561645508
+      ],
+      "rotation_euler_deg": [
+        -3.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "tram_tenement_instance_001",
+      "urban_role": "tram_station_housing"
+    },
+    {
+      "instance_id": "cutaway_tenement_instance_001",
+      "key": "cutaway_tenement",
+      "component_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+      "position_m": [
+        -107.0,
+        -6.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cutaway_tenement_instance_001",
+      "urban_role": "collapsed_courtyard_edge"
+    },
+    {
+      "instance_id": "workshop_shell_instance_001",
+      "key": "workshop_shell",
+      "component_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+      "position_m": [
+        -106.0,
+        52.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "workshop_shell_instance_001",
+      "urban_role": "western_industrial_yard"
+    },
+    {
+      "instance_id": "fallen_hall_instance_001",
+      "key": "fallen_hall",
+      "component_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+      "position_m": [
+        -105.0,
+        24.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "fallen_hall_instance_001",
+      "urban_role": "fallen_factory_grounded"
+    },
+    {
+      "instance_id": "terraced_tower_instance_001",
+      "key": "terraced_tower",
+      "component_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
+      "position_m": [
+        -58.0,
+        -59.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "terraced_tower_instance_001",
+      "urban_role": "canal_south_anchor"
+    },
+    {
+      "instance_id": "canal_housing_instance_001",
+      "key": "canal_housing",
+      "component_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
+      "position_m": [
+        -53.0,
+        55.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_housing_instance_001",
+      "urban_role": "canal_north_housing"
+    },
+    {
+      "instance_id": "canal_shell_instance_002",
+      "key": "canal_shell",
+      "component_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+      "position_m": [
+        -65.0,
+        7.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_shell_instance_002",
+      "urban_role": "canal_partial_shell"
+    },
+    {
+      "instance_id": "station_hall_instance_001",
+      "key": "station_hall",
+      "component_id": "SEA-SCENE-SCITY-STATION-HALL",
+      "position_m": [
+        -101.0,
+        102.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "station_hall_instance_001",
+      "urban_role": "station_court"
+    },
+    {
+      "instance_id": "rounded_corner_instance_001",
+      "key": "rounded_corner",
+      "component_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
+      "position_m": [
+        -70.0,
+        105.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rounded_corner_instance_001",
+      "urban_role": "corner_department_frontage"
+    },
+    {
+      "instance_id": "terrace_residence_instance_002",
+      "key": "terrace_residence",
+      "component_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+      "position_m": [
+        -47.0,
+        102.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "terrace_residence_instance_002",
+      "urban_role": "north_lane_residence"
+    },
+    {
+      "instance_id": "frame_construction_instance_001",
+      "key": "frame_construction",
+      "component_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+      "position_m": [
+        -18.0,
+        106.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "frame_construction_instance_001",
+      "urban_role": "unfinished_block"
+    },
+    {
+      "instance_id": "half_tower_instance_001",
+      "key": "half_tower",
+      "component_id": "SEA-SCENE-SCITY-HALF-TOWER",
+      "position_m": [
+        9.0,
+        103.0,
+        -60.73085403442383
+      ],
+      "rotation_euler_deg": [
+        5.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "half_tower_instance_001",
+      "urban_role": "leaning_fractured_block"
+    },
+    {
+      "instance_id": "terraced_tower_instance_002",
+      "key": "terraced_tower",
+      "component_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
+      "position_m": [
+        45.0,
+        105.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "terraced_tower_instance_002",
+      "urban_role": "northern_tower_cluster"
+    },
+    {
+      "instance_id": "slender_tower_instance_002",
+      "key": "slender_tower",
+      "component_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+      "position_m": [
+        66.0,
+        105.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "slender_tower_instance_002",
+      "urban_role": "northern_tower_cluster"
+    },
+    {
+      "instance_id": "low_foundation_instance_001",
+      "key": "low_foundation",
+      "component_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
+      "position_m": [
+        101.0,
+        105.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "low_foundation_instance_001",
+      "urban_role": "demolished_corner_lot"
+    },
+    {
+      "instance_id": "roof_garden_shell_instance_002",
+      "key": "roof_garden_shell",
+      "component_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+      "position_m": [
+        107.0,
+        68.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "roof_garden_shell_instance_002",
+      "urban_role": "east_lane_low_shop"
+    },
+    {
+      "instance_id": "electronics_shop_instance_002",
+      "key": "electronics_shop",
+      "component_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+      "position_m": [
+        108.0,
+        8.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "electronics_shop_instance_002",
+      "urban_role": "eastern_retail_node"
+    },
+    {
+      "instance_id": "balcony_tenement_instance_002",
+      "key": "balcony_tenement",
+      "component_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+      "position_m": [
+        107.0,
+        34.0,
+        -60.74104309082031
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        6.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "balcony_tenement_instance_002",
+      "urban_role": "tilted_residential_settlement"
+    },
+    {
+      "instance_id": "workshop_shell_instance_002",
+      "key": "workshop_shell",
+      "component_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+      "position_m": [
+        109.0,
+        -17.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "workshop_shell_instance_002",
+      "urban_role": "east_service_court"
+    },
+    {
+      "instance_id": "half_tower_instance_002",
+      "key": "half_tower",
+      "component_id": "SEA-SCENE-SCITY-HALF-TOWER",
+      "position_m": [
+        108.0,
+        -65.0,
+        -60.534271240234375
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        -7.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "half_tower_instance_002",
+      "urban_role": "leaning_tower_away_from_home"
+    },
+    {
+      "instance_id": "low_foundation_instance_002",
+      "key": "low_foundation",
+      "component_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
+      "position_m": [
+        11.0,
+        -62.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "low_foundation_instance_002",
+      "urban_role": "southern_clearance_court"
+    },
+    {
+      "instance_id": "cutaway_tenement_instance_002",
+      "key": "cutaway_tenement",
+      "component_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+      "position_m": [
+        -18.0,
+        -62.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cutaway_tenement_instance_002",
+      "urban_role": "south_lane_exposed_rooms"
+    },
+    {
+      "instance_id": "electronics_shop_instance_003",
+      "key": "electronics_shop",
+      "component_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+      "position_m": [
+        -34.0,
+        -56.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "electronics_shop_instance_003",
+      "urban_role": "inner_south_retail_alley"
+    },
+    {
+      "instance_id": "canal_shell_instance_003",
+      "key": "canal_shell",
+      "component_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+      "position_m": [
+        -65.0,
+        34.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_shell_instance_003",
+      "urban_role": "collapsed_side_of_alley"
+    },
+    {
+      "instance_id": "coffee_steps_instance_002",
+      "key": "coffee_steps",
+      "component_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+      "position_m": [
+        65.0,
+        9.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "coffee_steps_instance_002",
+      "urban_role": "south_east_shop_court"
+    },
+    {
+      "instance_id": "low_foundation_instance_003",
+      "key": "low_foundation",
+      "component_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
+      "position_m": [
+        65.0,
+        -7.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "low_foundation_instance_003",
+      "urban_role": "ruined_court_near_supply"
+    },
+    {
+      "instance_id": "cutaway_tenement_instance_003",
+      "key": "cutaway_tenement",
+      "component_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+      "position_m": [
+        -33.0,
+        57.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cutaway_tenement_instance_003",
+      "urban_role": "inner_north_lane"
+    },
+    {
+      "instance_id": "roof_garden_shell_instance_003",
+      "key": "roof_garden_shell",
+      "component_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+      "position_m": [
+        -10.0,
+        55.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "roof_garden_shell_instance_003",
+      "urban_role": "inner_north_small_shop"
+    },
+    {
+      "instance_id": "plaza_tile_instance_001",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -108.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_001",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_001",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -108.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_001",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_002",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -108.0,
+        -60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_002",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_003",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -108.0,
+        -36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_003",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_004",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -108.0,
+        -12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_004",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_005",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -108.0,
+        12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_005",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_006",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -108.0,
+        36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_006",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_007",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -108.0,
+        60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_007",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_002",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -108.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_002",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_008",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -108.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_008",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_003",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -84.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_003",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "junction_instance_001",
+      "key": "junction",
+      "component_id": "SEA-SCENE-SCITY-JUNCTION",
+      "position_m": [
+        -84.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "junction_instance_001",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_004",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -84.0,
+        -60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_004",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_005",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -84.0,
+        -36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_005",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_006",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -84.0,
+        -12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_006",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_007",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -84.0,
+        12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_007",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_split_instance_001",
+      "key": "street_split",
+      "component_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+      "position_m": [
+        -84.0,
+        36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_split_instance_001",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_008",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -84.0,
+        60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_008",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "junction_instance_002",
+      "key": "junction",
+      "component_id": "SEA-SCENE-SCITY-JUNCTION",
+      "position_m": [
+        -84.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "junction_instance_002",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_009",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -84.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_009",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_009",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -60.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_009",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_010",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -60.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_010",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "canal_end_instance_001",
+      "key": "canal_end",
+      "component_id": "SEA-SCENE-SCITY-CANAL-END",
+      "position_m": [
+        -60.0,
+        -60.0,
+        -63.400001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_end_instance_001",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "canal_segment_instance_001",
+      "key": "canal_segment",
+      "component_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+      "position_m": [
+        -60.0,
+        -36.0,
+        -63.400001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_segment_instance_001",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "canal_segment_instance_002",
+      "key": "canal_segment",
+      "component_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+      "position_m": [
+        -60.0,
+        -12.0,
+        -63.400001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_segment_instance_002",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "canal_segment_instance_003",
+      "key": "canal_segment",
+      "component_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+      "position_m": [
+        -60.0,
+        12.0,
+        -63.400001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_segment_instance_003",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "canal_segment_instance_004",
+      "key": "canal_segment",
+      "component_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+      "position_m": [
+        -60.0,
+        36.0,
+        -63.400001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_segment_instance_004",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "canal_end_instance_002",
+      "key": "canal_end",
+      "component_id": "SEA-SCENE-SCITY-CANAL-END",
+      "position_m": [
+        -60.0,
+        60.0,
+        -63.400001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "canal_end_instance_002",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_011",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -60.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_011",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_010",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -60.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_010",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_011",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -36.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_011",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_012",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -36.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_012",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_012",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -36.0,
+        -60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_012",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_013",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -36.0,
+        -36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_013",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_014",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -36.0,
+        -12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_014",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_015",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -36.0,
+        12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_015",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_016",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -36.0,
+        36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_016",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_017",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -36.0,
+        60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_017",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_013",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -36.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_013",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_018",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -36.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_018",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_019",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -12.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_019",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_014",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -12.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_014",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_020",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -12.0,
+        -60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_020",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_021",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -12.0,
+        -36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_021",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_022",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -12.0,
+        -12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_022",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_023",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -12.0,
+        12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_023",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_024",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -12.0,
+        36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_024",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_025",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -12.0,
+        60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_025",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_015",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        -12.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_015",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_026",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        -12.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_026",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_027",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        12.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_027",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_016",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        12.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_016",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_028",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        12.0,
+        -60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_028",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_029",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        12.0,
+        -36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_029",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_030",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        12.0,
+        -12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_030",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_031",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        12.0,
+        12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_031",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_032",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        12.0,
+        36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_032",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_033",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        12.0,
+        60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_033",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_017",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        12.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_017",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_034",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        12.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_034",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_035",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        36.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_035",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_split_instance_002",
+      "key": "street_split",
+      "component_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+      "position_m": [
+        36.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_split_instance_002",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_036",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        36.0,
+        -60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_036",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_037",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        36.0,
+        -36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_037",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_038",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        36.0,
+        -12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_038",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_039",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        36.0,
+        12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_039",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_040",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        36.0,
+        36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_040",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_041",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        36.0,
+        60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_041",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_split_instance_003",
+      "key": "street_split",
+      "component_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+      "position_m": [
+        36.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_split_instance_003",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_042",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        36.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_042",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_043",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        60.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_043",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_018",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        60.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_018",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_044",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        60.0,
+        -60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_044",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_045",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        60.0,
+        -36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_045",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_046",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        60.0,
+        -12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_046",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_047",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        60.0,
+        12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_047",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_048",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        60.0,
+        36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_048",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_049",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        60.0,
+        60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_049",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_019",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        60.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_019",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_050",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        60.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_050",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_020",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        84.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_020",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "junction_instance_003",
+      "key": "junction",
+      "component_id": "SEA-SCENE-SCITY-JUNCTION",
+      "position_m": [
+        84.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "junction_instance_003",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_021",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        84.0,
+        -60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_021",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_022",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        84.0,
+        -36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_022",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_023",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        84.0,
+        -12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_023",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_024",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        84.0,
+        12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_024",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_split_instance_004",
+      "key": "street_split",
+      "component_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+      "position_m": [
+        84.0,
+        36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_split_instance_004",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_025",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        84.0,
+        60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_025",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "junction_instance_004",
+      "key": "junction",
+      "component_id": "SEA-SCENE-SCITY-JUNCTION",
+      "position_m": [
+        84.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "junction_instance_004",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_026",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        84.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_026",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_051",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        108.0,
+        -108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_051",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_027",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        108.0,
+        -84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_027",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_052",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        108.0,
+        -60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_052",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_053",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        108.0,
+        -36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_053",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_054",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        108.0,
+        -12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_054",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_055",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        108.0,
+        12.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_055",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_056",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        108.0,
+        36.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_056",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_057",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        108.0,
+        60.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_057",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "street_intact_instance_028",
+      "key": "street_intact",
+      "component_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "position_m": [
+        108.0,
+        84.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_intact_instance_028",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "plaza_tile_instance_058",
+      "key": "plaza_tile",
+      "component_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "position_m": [
+        108.0,
+        108.0,
+        -61.900001525878906
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "plaza_tile_instance_058",
+      "urban_role": "aligned_ground_domain"
+    },
+    {
+      "instance_id": "viaduct_intact_instance_001",
+      "key": "viaduct_intact",
+      "component_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+      "position_m": [
+        -108.0,
+        -48.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "viaduct_intact_instance_001",
+      "urban_role": "tram_branch"
+    },
+    {
+      "instance_id": "viaduct_intact_instance_002",
+      "key": "viaduct_intact",
+      "component_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+      "position_m": [
+        -88.0,
+        -48.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "viaduct_intact_instance_002",
+      "urban_role": "tram_branch"
+    },
+    {
+      "instance_id": "viaduct_broken_instance_001",
+      "key": "viaduct_broken",
+      "component_id": "SEA-SCENE-SCITY-VIADUCT-BROKEN",
+      "position_m": [
+        -68.0,
+        -48.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "viaduct_broken_instance_001",
+      "urban_role": "tram_branch"
+    },
+    {
+      "instance_id": "stair_link_instance_001",
+      "key": "stair_link",
+      "component_id": "SEA-SCENE-SCITY-STAIR-LINK",
+      "position_m": [
+        -109.0,
+        -36.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "stair_link_instance_001",
+      "urban_role": "station_stair_access"
+    },
+    {
+      "instance_id": "tram_wreck_instance_001",
+      "key": "tram_wreck",
+      "component_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+      "position_m": [
+        -96.0,
+        -48.0,
+        -50.75
+      ],
+      "rotation_euler_deg": [
+        -3.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "tram_wreck_instance_001",
+      "urban_role": "wreck_on_tracks"
+    },
+    {
+      "instance_id": "car_sedan_instance_001",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        -100.0,
+        -84.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_001",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_van_instance_001",
+      "key": "car_van",
+      "component_id": "SEA-SCENE-SCITY-CAR-VAN",
+      "position_m": [
+        -47.0,
+        -84.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        85.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_van_instance_001",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_sedan_instance_002",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        2.0,
+        -84.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_002",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_sedan_instance_003",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        59.0,
+        -84.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        94.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_003",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_sedan_instance_004",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        99.0,
+        -84.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_004",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_sedan_instance_005",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        -84.0,
+        -58.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        -3.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_005",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_sedan_instance_006",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        -84.0,
+        9.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        8.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_006",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_van_instance_002",
+      "key": "car_van",
+      "component_id": "SEA-SCENE-SCITY-CAR-VAN",
+      "position_m": [
+        -84.0,
+        67.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_van_instance_002",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_sedan_instance_007",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        -28.0,
+        84.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_007",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_sedan_instance_008",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        29.0,
+        84.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_008",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_van_instance_003",
+      "key": "car_van",
+      "component_id": "SEA-SCENE-SCITY-CAR-VAN",
+      "position_m": [
+        94.0,
+        84.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        79.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_van_instance_003",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_sedan_instance_009",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        84.0,
+        -35.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        3.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_009",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "car_sedan_instance_010",
+      "key": "car_sedan",
+      "component_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "position_m": [
+        84.0,
+        30.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        -5.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "car_sedan_instance_010",
+      "urban_role": "abandoned_traffic"
+    },
+    {
+      "instance_id": "bus_shelter_instance_001",
+      "key": "bus_shelter",
+      "component_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+      "position_m": [
+        -107.0,
+        -91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "bus_shelter_instance_001",
+      "urban_role": "transit_node"
+    },
+    {
+      "instance_id": "vending_instance_001",
+      "key": "vending",
+      "component_id": "SEA-SCENE-SCITY-VENDING",
+      "position_m": [
+        -103.0,
+        -91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "vending_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "scooter_instance_001",
+      "key": "scooter",
+      "component_id": "SEA-SCENE-SCITY-SCOOTER",
+      "position_m": [
+        -112.0,
+        -91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "scooter_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "bus_shelter_instance_002",
+      "key": "bus_shelter",
+      "component_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+      "position_m": [
+        -27.0,
+        -92.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "bus_shelter_instance_002",
+      "urban_role": "transit_node"
+    },
+    {
+      "instance_id": "vending_instance_002",
+      "key": "vending",
+      "component_id": "SEA-SCENE-SCITY-VENDING",
+      "position_m": [
+        -23.0,
+        -92.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "vending_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "scooter_instance_002",
+      "key": "scooter",
+      "component_id": "SEA-SCENE-SCITY-SCOOTER",
+      "position_m": [
+        -32.0,
+        -92.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "scooter_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "bus_shelter_instance_003",
+      "key": "bus_shelter",
+      "component_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+      "position_m": [
+        -92.0,
+        46.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "bus_shelter_instance_003",
+      "urban_role": "transit_node"
+    },
+    {
+      "instance_id": "vending_instance_003",
+      "key": "vending",
+      "component_id": "SEA-SCENE-SCITY-VENDING",
+      "position_m": [
+        -88.0,
+        46.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "vending_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "scooter_instance_003",
+      "key": "scooter",
+      "component_id": "SEA-SCENE-SCITY-SCOOTER",
+      "position_m": [
+        -97.0,
+        46.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "scooter_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "bus_shelter_instance_004",
+      "key": "bus_shelter",
+      "component_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+      "position_m": [
+        101.0,
+        91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "bus_shelter_instance_004",
+      "urban_role": "transit_node"
+    },
+    {
+      "instance_id": "vending_instance_004",
+      "key": "vending",
+      "component_id": "SEA-SCENE-SCITY-VENDING",
+      "position_m": [
+        105.0,
+        91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "vending_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "scooter_instance_004",
+      "key": "scooter",
+      "component_id": "SEA-SCENE-SCITY-SCOOTER",
+      "position_m": [
+        96.0,
+        91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "scooter_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "traffic_light_instance_001",
+      "key": "traffic_light",
+      "component_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+      "position_m": [
+        -76.0,
+        -77.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "traffic_light_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "sign_board_instance_001",
+      "key": "sign_board",
+      "component_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+      "position_m": [
+        -72.0,
+        -75.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "sign_board_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "traffic_light_instance_002",
+      "key": "traffic_light",
+      "component_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+      "position_m": [
+        -76.0,
+        76.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "traffic_light_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "sign_board_instance_002",
+      "key": "sign_board",
+      "component_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+      "position_m": [
+        -72.0,
+        78.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "sign_board_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "traffic_light_instance_003",
+      "key": "traffic_light",
+      "component_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+      "position_m": [
+        76.0,
+        76.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "traffic_light_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "sign_board_instance_003",
+      "key": "sign_board",
+      "component_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+      "position_m": [
+        80.0,
+        78.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "sign_board_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "traffic_light_instance_004",
+      "key": "traffic_light",
+      "component_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+      "position_m": [
+        76.0,
+        -76.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "traffic_light_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "sign_board_instance_004",
+      "key": "sign_board",
+      "component_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+      "position_m": [
+        80.0,
+        -74.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "sign_board_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_001",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        -112.0,
+        -91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_002",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        -62.0,
+        -91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_003",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        -12.0,
+        -91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_004",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        38.0,
+        -91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_005",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        103.0,
+        -91.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_005",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_006",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        -92.0,
+        -42.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_006",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_007",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        -92.0,
+        14.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_007",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_008",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        -92.0,
+        73.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_008",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_009",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        -55.0,
+        92.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_009",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_010",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        13.0,
+        92.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_010",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_011",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        69.0,
+        92.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_011",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_012",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        92.0,
+        47.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_012",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_013",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        92.0,
+        -7.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_013",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "street_lamp_instance_014",
+      "key": "street_lamp",
+      "component_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "position_m": [
+        92.0,
+        -63.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "street_lamp_instance_014",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "utility_pole_instance_001",
+      "key": "utility_pole",
+      "component_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "position_m": [
+        -105.0,
+        -77.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "utility_pole_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "utility_pole_instance_002",
+      "key": "utility_pole",
+      "component_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "position_m": [
+        -85.0,
+        -77.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "utility_pole_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "leaning_pole_instance_001",
+      "key": "leaning_pole",
+      "component_id": "SEA-SCENE-SCITY-LEANING-POLE",
+      "position_m": [
+        -65.0,
+        -77.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "leaning_pole_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "utility_pole_instance_003",
+      "key": "utility_pole",
+      "component_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "position_m": [
+        -13.0,
+        -77.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "utility_pole_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "utility_pole_instance_004",
+      "key": "utility_pole",
+      "component_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "position_m": [
+        7.0,
+        -77.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "utility_pole_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "utility_pole_instance_005",
+      "key": "utility_pole",
+      "component_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "position_m": [
+        27.0,
+        -77.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "utility_pole_instance_005",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "leaning_pole_instance_002",
+      "key": "leaning_pole",
+      "component_id": "SEA-SCENE-SCITY-LEANING-POLE",
+      "position_m": [
+        -78.0,
+        32.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "leaning_pole_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "utility_pole_instance_006",
+      "key": "utility_pole",
+      "component_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "position_m": [
+        -78.0,
+        52.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "utility_pole_instance_006",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "utility_pole_instance_007",
+      "key": "utility_pole",
+      "component_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "position_m": [
+        -78.0,
+        72.0,
+        -61.099998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "utility_pole_instance_007",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "cable_span_instance_001",
+      "key": "cable_span",
+      "component_id": "SEA-SCENE-SCITY-CABLE-SPAN",
+      "position_m": [
+        -95.0,
+        -77.0,
+        -54.2599983215332
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cable_span_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "cable_span_instance_002",
+      "key": "cable_span",
+      "component_id": "SEA-SCENE-SCITY-CABLE-SPAN",
+      "position_m": [
+        -3.0,
+        -77.0,
+        -54.2599983215332
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cable_span_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "cable_span_instance_003",
+      "key": "cable_span",
+      "component_id": "SEA-SCENE-SCITY-CABLE-SPAN",
+      "position_m": [
+        17.0,
+        -77.0,
+        -54.2599983215332
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "cable_span_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "corrosion_patch_instance_001",
+      "key": "corrosion_patch",
+      "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "position_m": [
+        -107.0,
+        -109.80000305175781,
+        -55.599998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "corrosion_patch_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_001",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -85.0,
+        -101.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        41.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_002",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -24.0,
+        -98.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        82.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_003",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        29.0,
+        -99.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        164.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "corrosion_patch_instance_002",
+      "key": "corrosion_patch",
+      "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "position_m": [
+        25.0,
+        -110.80000305175781,
+        -55.599998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "corrosion_patch_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_004",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        68.0,
+        -99.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        205.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_005",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -54.0,
+        -95.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        286.999986
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_005",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_006",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -104.0,
+        -56.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        328.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_006",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "corrosion_patch_instance_003",
+      "key": "corrosion_patch",
+      "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "position_m": [
+        -108.0,
+        -67.80000305175781,
+        -55.599998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.000003
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "corrosion_patch_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_007",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -103.0,
+        -1.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        50.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_007",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_008",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -102.0,
+        57.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        90.999997
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_008",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "corrosion_patch_instance_004",
+      "key": "corrosion_patch",
+      "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "position_m": [
+        -105.0,
+        17.200000762939453,
+        -55.599998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "corrosion_patch_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_009",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -54.0,
+        -54.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        173.000004
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_009",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_010",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -49.0,
+        60.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        214.000004
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_010",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_011",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -97.0,
+        97.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        295.99999
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_011",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "corrosion_patch_instance_005",
+      "key": "corrosion_patch",
+      "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "position_m": [
+        -101.0,
+        95.19999694824219,
+        -55.599998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "corrosion_patch_instance_005",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_012",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -66.0,
+        100.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        337.000004
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_012",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_013",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        -14.0,
+        101.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        59.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_013",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_014",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        13.0,
+        98.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        100.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_014",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "corrosion_patch_instance_006",
+      "key": "corrosion_patch",
+      "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "position_m": [
+        9.0,
+        96.19999694824219,
+        -55.599998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        180.000005
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "corrosion_patch_instance_006",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_015",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        70.0,
+        100.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        181.999994
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_015",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_016",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        97.0,
+        100.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        222.999994
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_016",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "corrosion_patch_instance_007",
+      "key": "corrosion_patch",
+      "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "position_m": [
+        107.0,
+        61.20000076293945,
+        -55.599998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "corrosion_patch_instance_007",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_017",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        104.0,
+        13.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        304.999994
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_017",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_018",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        103.0,
+        39.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        346.000007
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_018",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_019",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        104.0,
+        -60.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        67.999997
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_019",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "corrosion_patch_instance_008",
+      "key": "corrosion_patch",
+      "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "position_m": [
+        108.0,
+        -71.80000305175781,
+        -55.599998474121094
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        270.000001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "corrosion_patch_instance_008",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "rubble_cluster_instance_020",
+      "key": "rubble_cluster",
+      "component_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "position_m": [
+        15.0,
+        -57.0,
+        -61.29999923706055
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        108.999997
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "rubble_cluster_instance_020",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "kelp_clump_instance_001",
+      "key": "kelp_clump",
+      "component_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "position_m": [
+        -111.0,
+        -98.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "kelp_clump_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_001",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -93.0,
+        -101.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        29.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_001",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_002",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -32.0,
+        -98.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        57.999999
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_003",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -11.0,
+        -101.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        86.999999
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "kelp_clump_instance_002",
+      "key": "kelp_clump",
+      "component_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "position_m": [
+        21.0,
+        -99.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        115.999999
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "kelp_clump_instance_002",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_004",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        60.0,
+        -99.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        144.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_005",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        105.0,
+        -99.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        173.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_005",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_006",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -62.0,
+        -95.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        202.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_006",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "kelp_clump_instance_003",
+      "key": "kelp_clump",
+      "component_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "position_m": [
+        -112.0,
+        -56.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        231.999997
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "kelp_clump_instance_003",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_007",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -114.0,
+        -29.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        260.999997
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_007",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_008",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -111.0,
+        -1.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        289.999997
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_008",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_009",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -110.0,
+        57.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        318.999996
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_009",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "kelp_clump_instance_004",
+      "key": "kelp_clump",
+      "component_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "position_m": [
+        -109.0,
+        29.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        347.999996
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "kelp_clump_instance_004",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_010",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -62.0,
+        -54.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        16.999999
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_010",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_011",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -57.0,
+        60.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        45.999999
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_011",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_012",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -62.0,
+        12.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        74.999999
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_012",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "kelp_clump_instance_005",
+      "key": "kelp_clump",
+      "component_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "position_m": [
+        -105.0,
+        97.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        103.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "kelp_clump_instance_005",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_013",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -74.0,
+        100.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        132.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_013",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_014",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -51.0,
+        97.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        161.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_014",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_015",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -22.0,
+        101.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        190.999997
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_015",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "kelp_clump_instance_006",
+      "key": "kelp_clump",
+      "component_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "position_m": [
+        5.0,
+        98.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        219.999997
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "kelp_clump_instance_006",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_016",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        41.0,
+        100.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        249.00001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_016",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_017",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        62.0,
+        100.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        278.00001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_017",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_018",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        105.0,
+        100.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        307.00001
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_018",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "kelp_clump_instance_007",
+      "key": "kelp_clump",
+      "component_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "position_m": [
+        111.0,
+        73.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        336.000009
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "kelp_clump_instance_007",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_019",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        112.0,
+        13.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        5.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_019",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_020",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        111.0,
+        39.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        33.999999
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_020",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_021",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        113.0,
+        -12.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        62.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_021",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "kelp_clump_instance_008",
+      "key": "kelp_clump",
+      "component_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "position_m": [
+        112.0,
+        -60.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        91.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "kelp_clump_instance_008",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_022",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        7.0,
+        -57.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        120.999998
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_022",
+      "urban_role": "street_support"
+    },
+    {
+      "instance_id": "moss_patch_instance_023",
+      "key": "moss_patch",
+      "component_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "position_m": [
+        -22.0,
+        -57.0,
+        -61.27000045776367
+      ],
+      "rotation_euler_deg": [
+        0.0,
+        0.0,
+        149.999997
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "source_object": "moss_patch_instance_023",
+      "urban_role": "street_support"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3]
+[ext_resource type="Shader" path="res://shaders/vegetation/soft_cards.gdshader" id="shader"]
+[ext_resource type="Texture2D" path="res://assets/textures/vegetation/meadow_atlas.png" id="atlas"]
+[resource]
+shader = ExtResource("shader")
+shader_parameter/botanical_atlas = ExtResource("atlas")
+shader_parameter/moss_layer = false
+shader_parameter/atlas_row = 0.0
+shader_parameter/wind_displacement = 0.2
+shader_parameter/tint = Color(0.94, 0.98, 0.88, 1)

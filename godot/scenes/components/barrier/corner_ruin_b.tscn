@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/barrier/corner_ruin_b/corner_ruin_b.glb" id="model"]
+[ext_resource type="Script" path="res://src/world/sea_barrier_component.gd" id="contract"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+
+[node name="corner_ruin_b" instance=ExtResource("model")]
+script = ExtResource("contract")
+asset_id = "SEA-SCENE-SBW-002"
+instance_id = "sea_barrier/corner_ruin_b"
+facility_id = "sea_barrier"
+component_kind = "building"
+subcategory = "corner_ruin"
+water_layer = "surface"
+water_layer_role = "part"
+movable = false
+metadata/asset_id = "SEA-SCENE-SBW-002"
+metadata/asset_version = "v001"
+metadata/component_key = "corner_ruin_b"
+metadata/building_class = "above_water"
+metadata/blocker_mode = "manual"
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "manual"
+blocks_water = true
+cell = 0.5
+manual_rects = [Rect2(-10, -10, 10, 10), Rect2(0, 0, 10, 10)]

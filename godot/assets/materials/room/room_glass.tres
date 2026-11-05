@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3]
+
+[ext_resource type="Shader" path="res://shaders/sunny_palette_gloss.gdshader" id="1"]
+[ext_resource type="Texture2D" path="res://assets/textures/shared/sea_cabin_timber_8x8_512.png" id="2"]
+
+; SEA-ROOM 室内玻璃：窗玻璃与前厅玻璃。
+;
+; 和小屋外面的玻璃（sunny_gloss.tres）是同一套着色器、同一个色盘，只改三样：
+;   · interior_glass=true —— 玻璃后面是室内，没有天也没有海可看；颜色取固定
+;     中性深灰，不再让色盘 ice 格乘上天空环境光（那会读成一格浅蓝的天空）。
+;   · alpha_value 0.55 与 roughness 0.09 —— 留一点镜面高光，读得出
+;     「这是玻璃」，而不是墙上抠出来的一块黑方板。
+[resource]
+resource_name = "SEA_Room_Glass"
+shader = ExtResource("1")
+
+shader_parameter/palette = ExtResource("2")
+shader_parameter/roughness_value = 0.09
+shader_parameter/metallic_value = 0.0
+shader_parameter/emission_value = 0.0
+shader_parameter/grid_role = false
+shader_parameter/alpha_value = 0.55
+shader_parameter/tint = Color(0.085, 0.098, 0.105, 1)
+shader_parameter/interior_glass = true

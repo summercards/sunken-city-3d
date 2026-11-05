@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3]
+[ext_resource type="Script" path="res://src/world/sunny_palette_binding.gd" id="bind"]
+[ext_resource type="PackedScene" path="res://assets/models/rooms/bedroom/porch_glass/porch_glass.glb" id="visual"]
+[ext_resource type="Material" path="res://assets/materials/room/room_porch_glass.tres" id="room_glass"]
+[node name="玻璃前厅" type="Node3D"]
+script = ExtResource("bind")
+asset_id = "SEA-SCENE-BDR-007"
+component_kind = "building"
+subcategory = "interior_shell"
+movable = false
+material_overrides = {
+"Gloss": ExtResource("room_glass")
+}
+metadata/asset_id = "SEA-SCENE-BDR-007"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "part"
+[node name="Visual" parent="." instance=ExtResource("visual")]

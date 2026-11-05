@@ -179,6 +179,108 @@
         "emission_value": "2",
         "grid_role": "false"
       }
+    },
+    "godot/assets/materials/vegetation/grass_soft.tres": {
+      "shader": "res://shaders/vegetation/soft_cards.gdshader",
+      "min_params": 5,
+      "required": [
+        "botanical_atlas",
+        "moss_layer",
+        "atlas_row",
+        "wind_displacement",
+        "tint"
+      ],
+      "params": {
+        "botanical_atlas": {
+          "res": "res://assets/textures/vegetation/meadow_atlas.png"
+        },
+        "moss_layer": "false",
+        "atlas_row": "0.0",
+        "wind_displacement": "0.2",
+        "tint": "Color(0.94, 0.98, 0.88, 1)"
+      }
+    },
+    "godot/assets/materials/vegetation/moss_soft.tres": {
+      "shader": "res://shaders/vegetation/soft_cards.gdshader",
+      "min_params": 4,
+      "required": [
+        "botanical_atlas",
+        "moss_layer",
+        "wind_displacement",
+        "tint"
+      ],
+      "params": {
+        "botanical_atlas": {
+          "res": "res://assets/textures/vegetation/soft_atlas.png"
+        },
+        "moss_layer": "true",
+        "wind_displacement": "0.0",
+        "tint": "Color(0.84, 0.94, 0.79, 1)"
+      }
+    },
+    "godot/assets/materials/vegetation/mound_soft.tres": {
+      "shader": "res://shaders/vegetation/soft_cards.gdshader",
+      "min_params": 5,
+      "required": [
+        "botanical_atlas",
+        "moss_layer",
+        "atlas_row",
+        "wind_displacement",
+        "tint"
+      ],
+      "params": {
+        "botanical_atlas": {
+          "res": "res://assets/textures/vegetation/meadow_atlas.png"
+        },
+        "moss_layer": "false",
+        "atlas_row": "0.5",
+        "wind_displacement": "0.3",
+        "tint": "Color(0.94, 0.98, 0.88, 1)"
+      }
+    },
+    "godot/assets/materials/room/room_glass.tres": {
+      "shader": "res://shaders/sunny_palette_gloss.gdshader",
+      "min_params": 8,
+      "required": [
+        "palette",
+        "alpha_value",
+        "tint",
+        "interior_glass"
+      ],
+      "params": {
+        "palette": {
+          "res": "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
+        },
+        "roughness_value": "0.09",
+        "metallic_value": "0.0",
+        "emission_value": "0.0",
+        "grid_role": "false",
+        "alpha_value": "0.55",
+        "tint": "Color(0.085, 0.098, 0.105, 1)",
+        "interior_glass": "true"
+      }
+    },
+    "godot/assets/materials/room/room_porch_glass.tres": {
+      "shader": "res://shaders/sunny_palette_gloss.gdshader",
+      "min_params": 8,
+      "required": [
+        "palette",
+        "alpha_value",
+        "tint",
+        "interior_glass"
+      ],
+      "params": {
+        "palette": {
+          "res": "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
+        },
+        "roughness_value": "0.06",
+        "metallic_value": "0.0",
+        "emission_value": "0.0",
+        "grid_role": "false",
+        "alpha_value": "0.16",
+        "tint": "Color(0.74, 0.78, 0.81, 1)",
+        "interior_glass": "true"
+      }
     }
   }
 }

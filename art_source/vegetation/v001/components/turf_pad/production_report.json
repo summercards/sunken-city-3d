@@ -1,0 +1,68 @@
+{
+  "key": "turf_pad",
+  "label": "柔边草皮基底",
+  "profile": "base",
+  "triangle_budget": 160,
+  "asset_id": "SEA-VEG-TURF-PAD",
+  "source": "art_source/vegetation/v001/components/turf_pad/turf_pad.blend",
+  "source_sha256": "81b742777ce72859dd2c8a268e2a67c1f504f4bd3ec09d1f091f34974ed85d18",
+  "optimized_source": "art_source/vegetation/v001/components/turf_pad/turf_pad_optimized.blend",
+  "optimized_sha256": "2c7f8a1d4278e1cd0e107081480036539d8b22a91e1f7089ab53cafea19d0cf4",
+  "glb": "godot/assets/models/vegetation/turf_pad.glb",
+  "glb_sha256": "4fd7ff04e3097194765f534e1451ae7ae325eee86562fa13faffcda473dc57ca",
+  "before": {
+    "vertices": 16,
+    "triangles": 28,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.5,
+        -0.5,
+        0.0
+      ],
+      [
+        0.5,
+        0.5,
+        0.03500000014901161
+      ]
+    ],
+    "root_vertices": 24,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.0
+    ]
+  },
+  "after": {
+    "vertices": 16,
+    "triangles": 28,
+    "surfaces": 1,
+    "bounds_blender": [
+      [
+        -0.5,
+        -0.5,
+        0.0
+      ],
+      [
+        0.5,
+        0.5,
+        0.03500000014901161
+      ]
+    ],
+    "root_vertices": 24,
+    "root_max_weight": 0.0,
+    "uv_nonzero": true,
+    "color_range": [
+      0.0,
+      0.0
+    ]
+  },
+  "operations": [
+    "merge coincident vertices at 1e-6 m",
+    "remove degenerate edges",
+    "preserve PaletteUV and WindData seams",
+    "reopen both sources and verify"
+  ],
+  "removed_vertices": 0
+}

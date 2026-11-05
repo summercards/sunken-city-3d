@@ -1,0 +1,61 @@
+{
+  "model": "gpt-image-2",
+  "source": "art_source/vegetation/v003/grass_mound_atlas_generated.png",
+  "source_sha256": "40ebe848a4f327877d31bbbadd2b0275427e12da47366f1abf16c66c8670f8f2",
+  "processed_source": "art_source/vegetation/v003/meadow_atlas.png",
+  "processed_sha256": "c4f6e6fc6f51551bb105b9a052b9d61c73b29a106f786152a22ae1be61b63d48",
+  "runtime": "godot/assets/textures/vegetation/meadow_atlas.png",
+  "runtime_sha256": "c4f6e6fc6f51551bb105b9a052b9d61c73b29a106f786152a22ae1be61b63d48",
+  "reference": "video reference_04s and previous fine atlas as counter-reference",
+  "size": [
+    2048,
+    2048
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "operations": [
+    "alpha-bounded crop",
+    "normalize maximum alpha 254 to 255",
+    "16px gutter, no repainting"
+  ],
+  "tiles": [
+    {
+      "tile": 0,
+      "source_crop": [
+        78,
+        141,
+        992,
+        900
+      ]
+    },
+    {
+      "tile": 1,
+      "source_crop": [
+        41,
+        295,
+        981,
+        907
+      ]
+    },
+    {
+      "tile": 2,
+      "source_crop": [
+        66,
+        156,
+        970,
+        778
+      ]
+    },
+    {
+      "tile": 3,
+      "source_crop": [
+        63,
+        146,
+        969,
+        812
+      ]
+    }
+  ]
+}

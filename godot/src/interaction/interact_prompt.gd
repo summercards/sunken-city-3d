@@ -14,6 +14,9 @@ const PANEL_BG := Color(0.03, 0.12, 0.20, 0.74)
 
 var enabled := true
 signal action_requested
+## 没有交互焦点时也能说的一句话（上船/上岸，SEA-INTERACT-R13）。
+## 由 Main 每帧写；这里只负责在「焦点为空」时把它画出来，不判断条件。
+var shortcut := ""
 var _panel: PanelContainer
 var _key_label: Button
 var _text: Label
@@ -120,6 +123,18 @@ func update_from(actor: Node) -> void:
 	if _finish_left > 0.0: return
 	_fill.bg_color = Color("#8edbb3")
 	if actor == null or not actor.active or actor.target == null:
+		# 交互焦点为空时，仍要说清「现在按 E 会做什么」（上下船）。
+		if shortcut != "":
+			if not visible:
+				visible = true
+			if _blocked_left <= 0.0:
+				_text.add_theme_color_override("font_color", HINT_COLOR)
+				_last_text = shortcut
+				_text.text = shortcut
+			_key_label.disabled = false
+			_key_label.text = "E"
+			_bar.value = 0.0
+			return
 		if visible:
 			visible = false
 			_bar.value = 0.0

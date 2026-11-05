@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/barrier/west_09/west_09.glb" id="model"]
+[ext_resource type="Script" path="res://src/world/sea_barrier_component.gd" id="contract"]
+[ext_resource type="Script" path="res://src/world/blocker_set.gd" id="blocker"]
+
+[node name="west_09" instance=ExtResource("model")]
+script = ExtResource("contract")
+asset_id = "SEA-SCENE-SBW-044"
+instance_id = "sea_barrier/west_09"
+facility_id = "sea_barrier"
+component_kind = "building"
+subcategory = "house_pair"
+water_layer = "surface"
+water_layer_role = "part"
+movable = false
+metadata/asset_id = "SEA-SCENE-SBW-044"
+metadata/asset_version = "v001"
+metadata/component_key = "west_09"
+metadata/building_class = "above_water"
+metadata/blocker_mode = "manual"
+
+[node name="Blockers" type="Node3D" parent="."]
+script = ExtResource("blocker")
+mode = "manual"
+blocks_water = true
+cell = 0.5
+manual_rects = [Rect2(-10, -5, 20, 10)]

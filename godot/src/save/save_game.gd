@@ -104,6 +104,9 @@ static func decode(text: String) -> Dictionary:
 	if version<4: doc.building=preload("res://src/building/building_service.gd").empty_snapshot()
 	doc.version=VERSION
 	if not doc.has("profile"): doc.profile=preload("res://src/avatar/avatar_profile.gd").fresh(true)
+	if not doc.has("room"):
+		# 2026-11-05 新增的房间模块：旧 v4 档缺这一段，按初版床位置补，版本号不动。
+		doc.room={"version":1,"bed":{"position":[-1.86,0.0,-1.425],"yaw":0.0},"inside":false}
 	var error := Schema.validate(doc)
 	if error!="": return {"ok":false,"reason":error}
 	doc.profile=preload("res://src/avatar/avatar_profile.gd").normalize(doc.profile)

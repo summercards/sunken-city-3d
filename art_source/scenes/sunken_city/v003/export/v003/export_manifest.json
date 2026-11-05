@@ -1,0 +1,3837 @@
+{
+  "suite": "sunken_city",
+  "version": "v003",
+  "passed": true,
+  "stage": "exports_complete_fidelity_visual_pending",
+  "protected_sources": {
+    "art_source/scenes/sunken_city/v003/sunken_city_v003.blend": "e4a2ed7ec61456f0754c754158ab34dbb13e923e94b7601c18f1d2c19cb696f3",
+    "art_source/shared/palettes/sea_cabin_timber_8x8_512.png": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+    "art_source/scenes/sunken_city/v003/component_packages/coffee_steps/coffee_steps.blend": "3f242f7e2a82e87c6190ae8fde28396fcdf0087a4ae072a74724272d70fb3b46",
+    "art_source/scenes/sunken_city/v003/component_packages/electronics_shop/electronics_shop.blend": "ed9c9358481e1173011722fac379adc56bcea0689cc6c5d2568ffd9ebee9ec96",
+    "art_source/scenes/sunken_city/v003/component_packages/terrace_residence/terrace_residence.blend": "8003d7bdf1aaeb32c779884f3317211d60182025503bce08c202de87f86873fc",
+    "art_source/scenes/sunken_city/v003/component_packages/tram_tenement/tram_tenement.blend": "8840e45155e533e8afafdc638aaba9e4c61e0a654ece9af55427e393df12482f",
+    "art_source/scenes/sunken_city/v003/component_packages/balcony_tenement/balcony_tenement.blend": "67fc4e8a7de9592aed3e2ea11edc901961f51b1873ab91a051793e1e2289c693",
+    "art_source/scenes/sunken_city/v003/component_packages/cutaway_tenement/cutaway_tenement.blend": "244916017840067da175492e2538a1a923158882b0ab693f6b53f89caa38cf44",
+    "art_source/scenes/sunken_city/v003/component_packages/slender_tower/slender_tower.blend": "f364ba2e518fb5b9238d9f7d8a9113b9a295399b8f620a0b0304761049522cbd",
+    "art_source/scenes/sunken_city/v003/component_packages/terraced_tower/terraced_tower.blend": "04d4f15af37360e3de2db6b9bee6790d2fbd6278d3f6dd21cc7d279cee5e1a27",
+    "art_source/scenes/sunken_city/v003/component_packages/half_tower/half_tower.blend": "2dd0b74693f4063c624c9a85ee51799ddbcdfe62f015b46865481750896905e4",
+    "art_source/scenes/sunken_city/v003/component_packages/canal_housing/canal_housing.blend": "62154ec86a0a7400817f1c04ab2a7f5dec5944d94dd212be813aaed60016eb77",
+    "art_source/scenes/sunken_city/v003/component_packages/canal_shell/canal_shell.blend": "21c73afbfeaf73e5eeba8591a7a05cae5eb126ed3f037df531847c561c478228",
+    "art_source/scenes/sunken_city/v003/component_packages/rounded_corner/rounded_corner.blend": "3fcaf403f495dd8cdf2804367bc3a432a4508d6a27cd740d2fbcf6b13bbf2127",
+    "art_source/scenes/sunken_city/v003/component_packages/cinema_ruin/cinema_ruin.blend": "0e5f97ace6f3d9bf136cf5392f8796ebbf24f8df9cbbcc0aa76d2ebb36fa795e",
+    "art_source/scenes/sunken_city/v003/component_packages/station_hall/station_hall.blend": "6fdc21e6866a08913df75d25aed93557326e11fc27de6f0e477220faa61374ca",
+    "art_source/scenes/sunken_city/v003/component_packages/workshop_shell/workshop_shell.blend": "456eba333c3a355dfec5e3009b7cba67ddab395ec8e28ca4c270b0cafa03fc08",
+    "art_source/scenes/sunken_city/v003/component_packages/frame_construction/frame_construction.blend": "fe0f8e55bc999f0c0a4f41dd3385a364b7b7689993f2d3497f54015a7b29777e",
+    "art_source/scenes/sunken_city/v003/component_packages/roof_garden_shell/roof_garden_shell.blend": "90ac964350342c7ae3c67e1ce1e5ced51999306c191695f08811c7059ff154b3",
+    "art_source/scenes/sunken_city/v003/component_packages/low_foundation/low_foundation.blend": "33abc9def5a5a9fd5a460766443ea933aa886da743994cf1c0d352cc5bcf6fa1",
+    "art_source/scenes/sunken_city/v003/component_packages/street_intact/street_intact.blend": "411ad8f3821639affeda5a2e77aa7c005c1de321e5a018f39b89bcc6cf5d1390",
+    "art_source/scenes/sunken_city/v003/component_packages/street_split/street_split.blend": "7b6d8a6d696ae441cb7030766d951f05e8d3f4cf7b48a0fcf0b2436e41751070",
+    "art_source/scenes/sunken_city/v003/component_packages/junction/junction.blend": "736d8509b880fc84f0add2e46e31be69c574b2db8e5610c8ecf33986bc0e3704",
+    "art_source/scenes/sunken_city/v003/component_packages/canal_segment/canal_segment.blend": "6f52d57c3a6b01c881d2349be54ac9807fb736d2d87e0fcd2a936b540cca95dc",
+    "art_source/scenes/sunken_city/v003/component_packages/plaza_tile/plaza_tile.blend": "5a3be29818b1b4d009e574e837c0be799fcaaa56a12521deca9903ec09535249",
+    "art_source/scenes/sunken_city/v003/component_packages/viaduct_intact/viaduct_intact.blend": "bf14cc83fc32a35747cfcee9afef10e392ac57d608898688394c23459aba2a32",
+    "art_source/scenes/sunken_city/v003/component_packages/viaduct_broken/viaduct_broken.blend": "025c47be15127ebb9c206e0451333b93ebb37207a748d3e6b85ae2979d0df1df",
+    "art_source/scenes/sunken_city/v003/component_packages/stair_link/stair_link.blend": "3d4596f109ada155c964360f4f0f31cb0e16e47a4d124434fde082de981a065e",
+    "art_source/scenes/sunken_city/v003/component_packages/car_sedan/car_sedan.blend": "91302626a31caa3974e1cda337b648826f3681f08a9950970f55f47fee57f989",
+    "art_source/scenes/sunken_city/v003/component_packages/car_van/car_van.blend": "b48edd28628d8fe14a094ff2d73b20b972bea1fdc5f67f93193cf7036ca8718b",
+    "art_source/scenes/sunken_city/v003/component_packages/tram_wreck/tram_wreck.blend": "121cbf48e9950957ff7b172f274ec6c4d11ca213de66aeea1b9ee93083a53f55",
+    "art_source/scenes/sunken_city/v003/component_packages/scooter/scooter.blend": "9137f982933878e541d20d28c16316f1a3dabaed56706888fa3b7381dc450b30",
+    "art_source/scenes/sunken_city/v003/component_packages/utility_pole/utility_pole.blend": "60f42b438d448b2a328cade76bbfd02c7070f0f705ddfc87690415c673d3d8b5",
+    "art_source/scenes/sunken_city/v003/component_packages/leaning_pole/leaning_pole.blend": "95a2a437395ceecdb22dae1a218be4b4d77e4751951f401512bb0f73c80f7caa",
+    "art_source/scenes/sunken_city/v003/component_packages/cable_span/cable_span.blend": "9fbb35d95b3b70d7d9133611ddb4bc36b2240f66cec37d55347b330a5efad1a9",
+    "art_source/scenes/sunken_city/v003/component_packages/street_lamp/street_lamp.blend": "85bf50ca7ddb4c3ed820b962808f5c9b02ef9e6490fff31f3b248fdb3083a2e0",
+    "art_source/scenes/sunken_city/v003/component_packages/traffic_light/traffic_light.blend": "187bee00520e8354a061328d9cacf17a88201363f630e0c078e2318fc60a8be3",
+    "art_source/scenes/sunken_city/v003/component_packages/vending/vending.blend": "5e5feedbd215b238c7f0deb26b49188c9a6a3aeef3d68b776f88f8911f57fc99",
+    "art_source/scenes/sunken_city/v003/component_packages/bus_shelter/bus_shelter.blend": "82dcc58e67b0b696375d3d7e463dc97f834be78da4e58b231c73559b35679a86",
+    "art_source/scenes/sunken_city/v003/component_packages/sign_board/sign_board.blend": "7bab9a0b9d9c9d7e3f95b934c0c25d2918dc0d951ec0777a951c9a2419abd00d",
+    "art_source/scenes/sunken_city/v003/component_packages/rubble_cluster/rubble_cluster.blend": "2a07b838f18aca7bd5d9fd27817d199f97e07f20160ed43d4172657e687ca1ff",
+    "art_source/scenes/sunken_city/v003/component_packages/corrosion_patch/corrosion_patch.blend": "f62a62e26709fe65e4ffb80a2ba6d10c6be4b0e053ca9fddfcb728565b32000d",
+    "art_source/scenes/sunken_city/v003/component_packages/moss_patch/moss_patch.blend": "08b18efd59c17e2a1df450b8f9a6756d36f27e4b6d60473dc7a6d083d9277fae",
+    "art_source/scenes/sunken_city/v003/component_packages/kelp_clump/kelp_clump.blend": "2e3a529b7be3a0c85c0a61b0e3d805d9b902268004a1d59e88dad9c71d771234",
+    "art_source/scenes/sunken_city/v003/component_packages/collapsed_residence/collapsed_residence.blend": "6477973b7d481b24b45b590e5ae4fe0b996276a2c5134afefdd6c825079f2079",
+    "art_source/scenes/sunken_city/v003/component_packages/fallen_hall/fallen_hall.blend": "537bb83ff53df25464196aa82ecebcf5aefefcce213c0510b53220f65222691d",
+    "art_source/scenes/sunken_city/v003/component_packages/retaining_wall_ruin/retaining_wall_ruin.blend": "958622ff5fb999c544c345a831de6ba29d9e2b544828223abe70a836f5c952e1",
+    "art_source/scenes/sunken_city/v003/component_packages/pump_cabinet/pump_cabinet.blend": "ed983ceb4611367840767bace206d33fe0aed474fb59fe8524f2a8100afd0878",
+    "art_source/scenes/sunken_city/v003/component_packages/kiosk_ruin/kiosk_ruin.blend": "d34b90124cf832d51e65ae58232e00a82f41effb0afb853b7439aa9b943f1f8d",
+    "art_source/scenes/sunken_city/v003/component_packages/bench/bench.blend": "097b8479491696b4b364e7309e1278b65c48f589475bc16f8c9af6817e67807a",
+    "art_source/scenes/sunken_city/v003/component_packages/terrain_ramp/terrain_ramp.blend": "d95c9f102802cd7228165d96ca3662852beaf7524ccaef8d187361ee709f5b27",
+    "art_source/scenes/sunken_city/v003/component_packages/viaduct_curve/viaduct_curve.blend": "00fcfa80af4b8f0026a933deddf674ca78cec3cb3fbe45be78ef6c1b46eea24f"
+  },
+  "components": [
+    {
+      "key": "coffee_steps",
+      "asset_id": "SEA-SCENE-SCITY-COFFEE-STEPS",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/coffee_steps/coffee_steps.blend",
+      "source_sha256_before": "3f242f7e2a82e87c6190ae8fde28396fcdf0087a4ae072a74724272d70fb3b46",
+      "source_sha256_after": "3f242f7e2a82e87c6190ae8fde28396fcdf0087a4ae072a74724272d70fb3b46",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/coffee_steps_optimized.blend",
+      "optimized_sha256": "da0df53c589649e73735b80da4586f773c30a7c10fce354559672ff076190a63",
+      "glb": "godot/assets/models/scenery/sunken_city/coffee_steps/coffee_steps.glb",
+      "glb_sha256": "1610852155854312fe539915c36b37e1f013dc0f3bf5b46296a76f3584d19e94",
+      "glb_bytes": 8292284,
+      "triangles_before": 131044,
+      "triangles_after": 131044,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 634,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 198,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.875896453857422,
+          -8.797499656677246,
+          0.0
+        ],
+        [
+          9.875896453857422,
+          8.797499656677246,
+          26.006675720214844
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.875896453857422,
+          -8.797499656677246,
+          0.0
+        ],
+        [
+          9.875896453857422,
+          8.797499656677246,
+          26.006675720214844
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 2.8772868592436612e-11,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_coffee_steps",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 68296,
+      "exported_triangles": 131044,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "electronics_shop",
+      "asset_id": "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/electronics_shop/electronics_shop.blend",
+      "source_sha256_before": "ed9c9358481e1173011722fac379adc56bcea0689cc6c5d2568ffd9ebee9ec96",
+      "source_sha256_after": "ed9c9358481e1173011722fac379adc56bcea0689cc6c5d2568ffd9ebee9ec96",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/electronics_shop_optimized.blend",
+      "optimized_sha256": "ff6a129a3f42c3dae5dadad16dadb52c240fab7e6b815b0c757b27b5a815e417",
+      "glb": "godot/assets/models/scenery/sunken_city/electronics_shop/electronics_shop.glb",
+      "glb_sha256": "2e129856decaf63b9bcbaf3ea62b3f4b15135afd97e43fb190ff63f2c2bfae2d",
+      "glb_bytes": 4472728,
+      "triangles_before": 70444,
+      "triangles_after": 70442,
+      "reduction_ratio": 2.8391346317642383e-05,
+      "operations": {
+        "weld_vertices_1e_minus6": 682,
+        "zero_area_faces_removed": 2,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 224,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -7.539462089538574,
+          -7.797499656677246,
+          0.0
+        ],
+        [
+          7.539462089538574,
+          7.797499656677246,
+          18.85918426513672
+        ]
+      ],
+      "bounds_before": [
+        [
+          -7.539462089538574,
+          -7.797499656677246,
+          0.0
+        ],
+        [
+          7.539462089538574,
+          7.797499656677246,
+          18.85918426513672
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 2.1863663727105616e-09,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_electronics_shop",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 36764,
+      "exported_triangles": 70442,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "terrace_residence",
+      "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/terrace_residence/terrace_residence.blend",
+      "source_sha256_before": "8003d7bdf1aaeb32c779884f3317211d60182025503bce08c202de87f86873fc",
+      "source_sha256_after": "8003d7bdf1aaeb32c779884f3317211d60182025503bce08c202de87f86873fc",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/terrace_residence_optimized.blend",
+      "optimized_sha256": "5d6164c44eb884791f3f7bcbfbaadced3ca6a1e945e55395c7751640d19af871",
+      "glb": "godot/assets/models/scenery/sunken_city/terrace_residence/terrace_residence.glb",
+      "glb_sha256": "4a5ae911a0f67a392411c4f31b9a8185f97118247758e0b34832c94e5004ecc1",
+      "glb_bytes": 12094956,
+      "triangles_before": 191410,
+      "triangles_after": 191410,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 591,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 6,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 94,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.875896453857422,
+          -8.600000381469727,
+          0.0
+        ],
+        [
+          9.875896453857422,
+          8.600000381469727,
+          34.159183502197266
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.875896453857422,
+          -8.600000381469727,
+          0.0
+        ],
+        [
+          9.875896453857422,
+          8.600000381469727,
+          34.159183502197266
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 7.61727251256432e-12,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_terrace_residence",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 99604,
+      "exported_triangles": 191410,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "tram_tenement",
+      "asset_id": "SEA-SCENE-SCITY-TRAM-TENEMENT",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/tram_tenement/tram_tenement.blend",
+      "source_sha256_before": "8840e45155e533e8afafdc638aaba9e4c61e0a654ece9af55427e393df12482f",
+      "source_sha256_after": "8840e45155e533e8afafdc638aaba9e4c61e0a654ece9af55427e393df12482f",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/tram_tenement_optimized.blend",
+      "optimized_sha256": "fcb346fc277297b5ea521ebd517f91f664761fea57a281231c5d24e310ad0658",
+      "glb": "godot/assets/models/scenery/sunken_city/tram_tenement/tram_tenement.glb",
+      "glb_sha256": "a835f5973a13d65bc7d9ffc716e8d17090610f71cd7c8e093823a28b1a6fe34c",
+      "glb_bytes": 13682524,
+      "triangles_before": 216566,
+      "triangles_after": 216566,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 650,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 33,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 94,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.039461135864258,
+          -7.600000381469727,
+          0.0
+        ],
+        [
+          9.039461135864258,
+          7.600000381469727,
+          44.35918426513672
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.039461135864258,
+          -7.600000381469727,
+          0.0
+        ],
+        [
+          9.039461135864258,
+          7.600000381469727,
+          44.35918426513672
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 5.315585641148892e-11,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_tram_tenement",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 112677,
+      "exported_triangles": 216566,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "balcony_tenement",
+      "asset_id": "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/balcony_tenement/balcony_tenement.blend",
+      "source_sha256_before": "67fc4e8a7de9592aed3e2ea11edc901961f51b1873ab91a051793e1e2289c693",
+      "source_sha256_after": "67fc4e8a7de9592aed3e2ea11edc901961f51b1873ab91a051793e1e2289c693",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/balcony_tenement_optimized.blend",
+      "optimized_sha256": "b99c0a5173901a7b431c6811d2bc9cfee064f1dc1896537fcfa33c1debc1e72c",
+      "glb": "godot/assets/models/scenery/sunken_city/balcony_tenement/balcony_tenement.glb",
+      "glb_sha256": "79dca3e3e5682a4d5d846b92688fb9524783a390b195126cd91652593a143edc",
+      "glb_bytes": 10117420,
+      "triangles_before": 160090,
+      "triangles_after": 160090,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 576,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 56,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 94,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -8.039461135864258,
+          -7.600000381469727,
+          0.0
+        ],
+        [
+          8.039461135864258,
+          7.600000381469727,
+          39.25918197631836
+        ]
+      ],
+      "bounds_before": [
+        [
+          -8.039461135864258,
+          -7.600000381469727,
+          0.0
+        ],
+        [
+          8.039461135864258,
+          7.600000381469727,
+          39.25918197631836
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 1.0719908289000598e-09,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_balcony_tenement",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 83319,
+      "exported_triangles": 160090,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "cutaway_tenement",
+      "asset_id": "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/cutaway_tenement/cutaway_tenement.blend",
+      "source_sha256_before": "244916017840067da175492e2538a1a923158882b0ab693f6b53f89caa38cf44",
+      "source_sha256_after": "244916017840067da175492e2538a1a923158882b0ab693f6b53f89caa38cf44",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/cutaway_tenement_optimized.blend",
+      "optimized_sha256": "fdd1671b29ec217c6c4e1c99d24119efb28e5b46276ed7d217b0dfecf64d9c10",
+      "glb": "godot/assets/models/scenery/sunken_city/cutaway_tenement/cutaway_tenement.glb",
+      "glb_sha256": "16ecd186554a423e8f523f8df72c52702d9f31fb6d11087904a7b714b9c83bb1",
+      "glb_bytes": 4921544,
+      "triangles_before": 77964,
+      "triangles_after": 77964,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 176,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 10,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -8.313565254211426,
+          -7.039000034332275,
+          0.0
+        ],
+        [
+          8.313565254211426,
+          7.039000034332275,
+          33.83418273925781
+        ]
+      ],
+      "bounds_before": [
+        [
+          -8.313565254211426,
+          -7.039000034332275,
+          0.0
+        ],
+        [
+          8.313565254211426,
+          7.039000034332275,
+          33.83418273925781
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 1.8073343455126692e-09,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_cutaway_tenement",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 40572,
+      "exported_triangles": 77964,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "slender_tower",
+      "asset_id": "SEA-SCENE-SCITY-SLENDER-TOWER",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/slender_tower/slender_tower.blend",
+      "source_sha256_before": "f364ba2e518fb5b9238d9f7d8a9113b9a295399b8f620a0b0304761049522cbd",
+      "source_sha256_after": "f364ba2e518fb5b9238d9f7d8a9113b9a295399b8f620a0b0304761049522cbd",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/slender_tower_optimized.blend",
+      "optimized_sha256": "24b4fea28af100d7afffdc7436e5cf5882234d4c92661f5208334bc3e700160a",
+      "glb": "godot/assets/models/scenery/sunken_city/slender_tower/slender_tower.glb",
+      "glb_sha256": "4e39cc0671e8d66c07d45cf0c26b87e94d462ee2cceee74f84736eb7b1729a44",
+      "glb_bytes": 13940840,
+      "triangles_before": 220826,
+      "triangles_after": 220826,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 484,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 43,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -7.039462089538574,
+          -7.039000034332275,
+          0.0
+        ],
+        [
+          7.039462089538574,
+          7.039000034332275,
+          59.659183502197266
+        ]
+      ],
+      "bounds_before": [
+        [
+          -7.039462089538574,
+          -7.039000034332275,
+          0.0
+        ],
+        [
+          7.039462089538574,
+          7.039000034332275,
+          59.659183502197266
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 1.0159932609444086e-11,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_slender_tower",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 114953,
+      "exported_triangles": 220826,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "terraced_tower",
+      "asset_id": "SEA-SCENE-SCITY-TERRACED-TOWER",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/terraced_tower/terraced_tower.blend",
+      "source_sha256_before": "04d4f15af37360e3de2db6b9bee6790d2fbd6278d3f6dd21cc7d279cee5e1a27",
+      "source_sha256_after": "04d4f15af37360e3de2db6b9bee6790d2fbd6278d3f6dd21cc7d279cee5e1a27",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/terraced_tower_optimized.blend",
+      "optimized_sha256": "698fdb92d3a9a41d989f8e2296810a44b2bfc1e29f776bba75d48a12fe587e7e",
+      "glb": "godot/assets/models/scenery/sunken_city/terraced_tower/terraced_tower.glb",
+      "glb_sha256": "aec15b62c6aa630166add26d5c1cf885a73cb9febe2119195922666a5775fdb5",
+      "glb_bytes": 18092360,
+      "triangles_before": 286592,
+      "triangles_after": 286592,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 723,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 88,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.039461135864258,
+          -8.038999557495117,
+          0.0
+        ],
+        [
+          9.039461135864258,
+          8.038999557495117,
+          54.55918502807617
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.039461135864258,
+          -8.038999557495117,
+          0.0
+        ],
+        [
+          9.039461135864258,
+          8.038999557495117,
+          54.55918502807617
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 2.1529345020585028e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_terraced_tower",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 149238,
+      "exported_triangles": 286592,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "half_tower",
+      "asset_id": "SEA-SCENE-SCITY-HALF-TOWER",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/half_tower/half_tower.blend",
+      "source_sha256_before": "2dd0b74693f4063c624c9a85ee51799ddbcdfe62f015b46865481750896905e4",
+      "source_sha256_after": "2dd0b74693f4063c624c9a85ee51799ddbcdfe62f015b46865481750896905e4",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/half_tower_optimized.blend",
+      "optimized_sha256": "8bfe8f731b345fb74dea89125ad1c6f77371282959d87a0e26554716a399e89c",
+      "glb": "godot/assets/models/scenery/sunken_city/half_tower/half_tower.glb",
+      "glb_sha256": "b73d60c7dc766094a5c56cc0ae01c0e3f6936d773a9fae1da3568be3868455e9",
+      "glb_bytes": 7985408,
+      "triangles_before": 126410,
+      "triangles_after": 126410,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 356,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 57,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -7.813565254211426,
+          -7.539000034332275,
+          0.0
+        ],
+        [
+          7.813565254211426,
+          7.539000034332275,
+          44.35918426513672
+        ]
+      ],
+      "bounds_before": [
+        [
+          -7.813565254211426,
+          -7.539000034332275,
+          0.0
+        ],
+        [
+          7.813565254211426,
+          7.539000034332275,
+          44.35918426513672
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 1.2064913377101327e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_half_tower",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 65845,
+      "exported_triangles": 126410,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "canal_housing",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-HOUSING",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/canal_housing/canal_housing.blend",
+      "source_sha256_before": "62154ec86a0a7400817f1c04ab2a7f5dec5944d94dd212be813aaed60016eb77",
+      "source_sha256_after": "62154ec86a0a7400817f1c04ab2a7f5dec5944d94dd212be813aaed60016eb77",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/canal_housing_optimized.blend",
+      "optimized_sha256": "407a3872b98ea18edbabd099d84ba75d521800b20855e795c384f16a4d257bab",
+      "glb": "godot/assets/models/scenery/sunken_city/canal_housing/canal_housing.glb",
+      "glb_sha256": "728a68c387e3ae4559014376ca682f451f96c2f5dcbaee0f314b0a8c02b89463",
+      "glb_bytes": 13546012,
+      "triangles_before": 214408,
+      "triangles_after": 214408,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 682,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 35,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 94,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.875896453857422,
+          -8.093500137329102,
+          0.0
+        ],
+        [
+          9.875896453857422,
+          8.093500137329102,
+          39.25918197631836
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.875896453857422,
+          -8.093500137329102,
+          0.0
+        ],
+        [
+          9.875896453857422,
+          8.093500137329102,
+          39.25918197631836
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 3.6760162475162693e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_canal_housing",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 111676,
+      "exported_triangles": 214408,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "canal_shell",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-SHELL",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/canal_shell/canal_shell.blend",
+      "source_sha256_before": "21c73afbfeaf73e5eeba8591a7a05cae5eb126ed3f037df531847c561c478228",
+      "source_sha256_after": "21c73afbfeaf73e5eeba8591a7a05cae5eb126ed3f037df531847c561c478228",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/canal_shell_optimized.blend",
+      "optimized_sha256": "55056f4c44a57fa4ab3c69e69791cb90a823c96827382c9735e386b4e069cbff",
+      "glb": "godot/assets/models/scenery/sunken_city/canal_shell/canal_shell.glb",
+      "glb_sha256": "bc2633eb94eb1d8b4507fdd811ca2bba57a738328a8fa77cd9c90a2c67d6376b",
+      "glb_bytes": 4933960,
+      "triangles_before": 78096,
+      "triangles_after": 78096,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 264,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -8.313565254211426,
+          -8.038999557495117,
+          0.0
+        ],
+        [
+          8.313565254211426,
+          8.038999557495117,
+          29.05918312072754
+        ]
+      ],
+      "bounds_before": [
+        [
+          -8.313565254211426,
+          -8.038999557495117,
+          0.0
+        ],
+        [
+          8.313565254211426,
+          8.038999557495117,
+          29.05918312072754
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 4.786142819693635e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_canal_shell",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 40674,
+      "exported_triangles": 78096,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "rounded_corner",
+      "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/rounded_corner/rounded_corner.blend",
+      "source_sha256_before": "3fcaf403f495dd8cdf2804367bc3a432a4508d6a27cd740d2fbcf6b13bbf2127",
+      "source_sha256_after": "3fcaf403f495dd8cdf2804367bc3a432a4508d6a27cd740d2fbcf6b13bbf2127",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/rounded_corner_optimized.blend",
+      "optimized_sha256": "2368ce2975974decaa187b6122fc3781cec118c65f585206e1cb5942f60046cf",
+      "glb": "godot/assets/models/scenery/sunken_city/rounded_corner/rounded_corner.glb",
+      "glb_sha256": "64fcd677ea69102344205cd3ec00a78f0bcbced06b5a36e8edd25f6e8816618a",
+      "glb_bytes": 11519668,
+      "triangles_before": 182144,
+      "triangles_after": 182140,
+      "reduction_ratio": 2.196064652143359e-05,
+      "operations": {
+        "weld_vertices_1e_minus6": 763,
+        "zero_area_faces_removed": 4,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 7,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 202,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.039461135864258,
+          -8.797499656677246,
+          0.0
+        ],
+        [
+          9.039461135864258,
+          8.797499656677246,
+          34.159183502197266
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.039461135864258,
+          -8.797499656677246,
+          0.0
+        ],
+        [
+          9.039461135864258,
+          8.797499656677246,
+          34.159183502197266
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 4.0375080775286467e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_rounded_corner",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 94923,
+      "exported_triangles": 182140,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "cinema_ruin",
+      "asset_id": "SEA-SCENE-SCITY-CINEMA-RUIN",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/cinema_ruin/cinema_ruin.blend",
+      "source_sha256_before": "0e5f97ace6f3d9bf136cf5392f8796ebbf24f8df9cbbcc0aa76d2ebb36fa795e",
+      "source_sha256_after": "0e5f97ace6f3d9bf136cf5392f8796ebbf24f8df9cbbcc0aa76d2ebb36fa795e",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/cinema_ruin_optimized.blend",
+      "optimized_sha256": "41ecac2565bc2e0a359a6332312eb904bbc39d51864820fd5981160cca54a5f8",
+      "glb": "godot/assets/models/scenery/sunken_city/cinema_ruin/cinema_ruin.glb",
+      "glb_sha256": "f88f0ae32d69e64356528c428f324abb3da10b5d4d74032fd6de333519c8af3b",
+      "glb_bytes": 4966188,
+      "triangles_before": 78548,
+      "triangles_after": 78548,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 592,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 21,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 96,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -10.039461135864258,
+          -8.038999557495117,
+          0.0
+        ],
+        [
+          10.039461135864258,
+          8.038999557495117,
+          18.85918426513672
+        ]
+      ],
+      "bounds_before": [
+        [
+          -10.039461135864258,
+          -8.038999557495117,
+          0.0
+        ],
+        [
+          10.039461135864258,
+          8.038999557495117,
+          18.85918426513672
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 1.961239358013881e-09,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_cinema_ruin",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 40919,
+      "exported_triangles": 78548,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "station_hall",
+      "asset_id": "SEA-SCENE-SCITY-STATION-HALL",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/station_hall/station_hall.blend",
+      "source_sha256_before": "6fdc21e6866a08913df75d25aed93557326e11fc27de6f0e477220faa61374ca",
+      "source_sha256_after": "6fdc21e6866a08913df75d25aed93557326e11fc27de6f0e477220faa61374ca",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/station_hall_optimized.blend",
+      "optimized_sha256": "0a90cb667841581e812ae2600c1ecfcb7f08f629b198b9388d6c95a5bc59afe1",
+      "glb": "godot/assets/models/scenery/sunken_city/station_hall/station_hall.glb",
+      "glb_sha256": "adfe25d25255ceede66b018ba279f083bae5f75645c1dfca996fe226bfbb2871",
+      "glb_bytes": 7860332,
+      "triangles_before": 124162,
+      "triangles_after": 124158,
+      "reduction_ratio": 3.2215975902450026e-05,
+      "operations": {
+        "weld_vertices_1e_minus6": 590,
+        "zero_area_faces_removed": 4,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 2,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 159,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -10.875896453857422,
+          -8.538999557495117,
+          0.0
+        ],
+        [
+          10.875896453857422,
+          8.538999557495117,
+          23.959182739257812
+        ]
+      ],
+      "bounds_before": [
+        [
+          -10.875896453857422,
+          -8.538999557495117,
+          0.0
+        ],
+        [
+          10.875896453857422,
+          8.538999557495117,
+          23.959182739257812
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 4.2810207880907706e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_station_hall",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 64720,
+      "exported_triangles": 124158,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "workshop_shell",
+      "asset_id": "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/workshop_shell/workshop_shell.blend",
+      "source_sha256_before": "456eba333c3a355dfec5e3009b7cba67ddab395ec8e28ca4c270b0cafa03fc08",
+      "source_sha256_after": "456eba333c3a355dfec5e3009b7cba67ddab395ec8e28ca4c270b0cafa03fc08",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/workshop_shell_optimized.blend",
+      "optimized_sha256": "f88cb706aab01e5984a006d931dd445eee7209c6c31379cb035df489a8d7b0c8",
+      "glb": "godot/assets/models/scenery/sunken_city/workshop_shell/workshop_shell.glb",
+      "glb_sha256": "33d6de50cb39116c3d0edbbd5e5e954f022dc2923225777bb4e82a5f9608c4e7",
+      "glb_bytes": 2762160,
+      "triangles_before": 43852,
+      "triangles_after": 43852,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 456,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 24,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.813565254211426,
+          -8.26015853881836,
+          0.0
+        ],
+        [
+          9.813565254211426,
+          8.26015853881836,
+          13.759183883666992
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.813565254211426,
+          -8.26015853881836,
+          0.0
+        ],
+        [
+          9.813565254211426,
+          8.26015853881836,
+          13.759183883666992
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 5.790819264878175e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_workshop_shell",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 22793,
+      "exported_triangles": 43852,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "frame_construction",
+      "asset_id": "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/frame_construction/frame_construction.blend",
+      "source_sha256_before": "fe0f8e55bc999f0c0a4f41dd3385a364b7b7689993f2d3497f54015a7b29777e",
+      "source_sha256_after": "fe0f8e55bc999f0c0a4f41dd3385a364b7b7689993f2d3497f54015a7b29777e",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/frame_construction_optimized.blend",
+      "optimized_sha256": "fc95bfa72744fd51544077f8d2911bb2b5b5439eabac24d18d8aa3d65d314d23",
+      "glb": "godot/assets/models/scenery/sunken_city/frame_construction/frame_construction.glb",
+      "glb_sha256": "24dd8edfce62680b8662df16fd0a8020781ea600516ad621313ba8c2030373a8",
+      "glb_bytes": 865480,
+      "triangles_before": 15076,
+      "triangles_after": 15076,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.039461135864258,
+          -7.760157585144043,
+          0.0
+        ],
+        [
+          9.039461135864258,
+          7.760157585144043,
+          31.869182586669922
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.039461135864258,
+          -7.760157585144043,
+          0.0
+        ],
+        [
+          9.039461135864258,
+          7.760157585144043,
+          31.869182586669922
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_frame_construction",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 7849,
+      "exported_triangles": 15076,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "roof_garden_shell",
+      "asset_id": "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/roof_garden_shell/roof_garden_shell.blend",
+      "source_sha256_before": "90ac964350342c7ae3c67e1ce1e5ced51999306c191695f08811c7059ff154b3",
+      "source_sha256_after": "90ac964350342c7ae3c67e1ce1e5ced51999306c191695f08811c7059ff154b3",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/roof_garden_shell_optimized.blend",
+      "optimized_sha256": "ee2a5fadae5d73eb97001522bff855267fd324adc500a9afa442b3651cb66924",
+      "glb": "godot/assets/models/scenery/sunken_city/roof_garden_shell/roof_garden_shell.glb",
+      "glb_sha256": "c9413de1da839b6490c5d49b78868a4df0e54380ad8d8cc1395ca8376b42a757",
+      "glb_bytes": 7016668,
+      "triangles_before": 110984,
+      "triangles_after": 110984,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 560,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 162,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.375896453857422,
+          -8.038999557495117,
+          0.0
+        ],
+        [
+          9.375896453857422,
+          8.038999557495117,
+          26.006675720214844
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.375896453857422,
+          -8.038999557495117,
+          0.0
+        ],
+        [
+          9.375896453857422,
+          8.038999557495117,
+          26.006675720214844
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 2.8082718117936227e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_roof_garden_shell",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 57820,
+      "exported_triangles": 110984,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "low_foundation",
+      "asset_id": "SEA-SCENE-SCITY-LOW-FOUNDATION",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/low_foundation/low_foundation.blend",
+      "source_sha256_before": "33abc9def5a5a9fd5a460766443ea933aa886da743994cf1c0d352cc5bcf6fa1",
+      "source_sha256_after": "33abc9def5a5a9fd5a460766443ea933aa886da743994cf1c0d352cc5bcf6fa1",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/low_foundation_optimized.blend",
+      "optimized_sha256": "0a52888fb437c0476cc5c9a5f998c73014aeeffc1e052be137c7cc8b845cfea0",
+      "glb": "godot/assets/models/scenery/sunken_city/low_foundation/low_foundation.glb",
+      "glb_sha256": "2011cab0d14390b98badfa6fd264e1bc4106674efd0adb651acae00038393e1b",
+      "glb_bytes": 813248,
+      "triangles_before": 14150,
+      "triangles_after": 14150,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 20,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -8.313565254211426,
+          -7.760157585144043,
+          0.0
+        ],
+        [
+          8.313565254211426,
+          7.760157585144043,
+          6.369183540344238
+        ]
+      ],
+      "bounds_before": [
+        [
+          -8.313565254211426,
+          -7.760157585144043,
+          0.0
+        ],
+        [
+          8.313565254211426,
+          7.760157585144043,
+          6.369183540344238
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 1.102300712570294e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_low_foundation",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 7371,
+      "exported_triangles": 14150,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "street_intact",
+      "asset_id": "SEA-SCENE-SCITY-STREET-INTACT",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/street_intact/street_intact.blend",
+      "source_sha256_before": "411ad8f3821639affeda5a2e77aa7c005c1de321e5a018f39b89bcc6cf5d1390",
+      "source_sha256_after": "411ad8f3821639affeda5a2e77aa7c005c1de321e5a018f39b89bcc6cf5d1390",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/street_intact_optimized.blend",
+      "optimized_sha256": "1fe19e627815586c60b228fb4666516050b0db3570d27c132221cbef256ddb7c",
+      "glb": "godot/assets/models/scenery/sunken_city/street_intact/street_intact.glb",
+      "glb_sha256": "3e7409d5adff7f9d87cc098664cb3d865266a13cc9fe62853e75a3e9a7fdd073",
+      "glb_bytes": 75196,
+      "triangles_before": 1260,
+      "triangles_after": 1260,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 4,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          0.8550000190734863
+        ]
+      ],
+      "bounds_before": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          0.8550000190734863
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_street_intact",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 654,
+      "exported_triangles": 1260,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "street_split",
+      "asset_id": "SEA-SCENE-SCITY-STREET-SPLIT",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/street_split/street_split.blend",
+      "source_sha256_before": "7b6d8a6d696ae441cb7030766d951f05e8d3f4cf7b48a0fcf0b2436e41751070",
+      "source_sha256_after": "7b6d8a6d696ae441cb7030766d951f05e8d3f4cf7b48a0fcf0b2436e41751070",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/street_split_optimized.blend",
+      "optimized_sha256": "608e809b185c72edfbdf6ff82a50474308ab088190231e69a65a65b525f53030",
+      "glb": "godot/assets/models/scenery/sunken_city/street_split/street_split.glb",
+      "glb_sha256": "8076199ff4b12d9d61ebb7ae60f1023e461bfe482b845d92ca5c1dd5788f33b6",
+      "glb_bytes": 77708,
+      "triangles_before": 1296,
+      "triangles_after": 1296,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 4,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          5.60699987411499
+        ]
+      ],
+      "bounds_before": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          5.60699987411499
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_street_split",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 672,
+      "exported_triangles": 1296,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "junction",
+      "asset_id": "SEA-SCENE-SCITY-JUNCTION",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/junction/junction.blend",
+      "source_sha256_before": "736d8509b880fc84f0add2e46e31be69c574b2db8e5610c8ecf33986bc0e3704",
+      "source_sha256_after": "736d8509b880fc84f0add2e46e31be69c574b2db8e5610c8ecf33986bc0e3704",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/junction_optimized.blend",
+      "optimized_sha256": "45bc14ab95851ecba35bcb449b2c94c3247c0dd84c2680c5cdd91b71e1686113",
+      "glb": "godot/assets/models/scenery/sunken_city/junction/junction.glb",
+      "glb_sha256": "2a93ed261d52161bb3c0ea54db71b669c30220a4608684c3bd76e3c2df803d96",
+      "glb_bytes": 241780,
+      "triangles_before": 4196,
+      "triangles_after": 4196,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 4,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          0.8550000190734863
+        ]
+      ],
+      "bounds_before": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          0.8550000190734863
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_junction",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 2186,
+      "exported_triangles": 4196,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "canal_segment",
+      "asset_id": "SEA-SCENE-SCITY-CANAL-SEGMENT",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/canal_segment/canal_segment.blend",
+      "source_sha256_before": "6f52d57c3a6b01c881d2349be54ac9807fb736d2d87e0fcd2a936b540cca95dc",
+      "source_sha256_after": "6f52d57c3a6b01c881d2349be54ac9807fb736d2d87e0fcd2a936b540cca95dc",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/canal_segment_optimized.blend",
+      "optimized_sha256": "1cb204a31302a1fceba72638aadade9e9c222f2b17d44a7aa216c2764cb6b03b",
+      "glb": "godot/assets/models/scenery/sunken_city/canal_segment/canal_segment.glb",
+      "glb_sha256": "691a127b6da4632c525bea393075e8d8f39de98b10747ea78c7662d682daafde",
+      "glb_bytes": 111388,
+      "triangles_before": 1916,
+      "triangles_after": 1916,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 4,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          6.8919997215271
+        ]
+      ],
+      "bounds_before": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          6.8919997215271
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_canal_segment",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 998,
+      "exported_triangles": 1916,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "plaza_tile",
+      "asset_id": "SEA-SCENE-SCITY-PLAZA-TILE",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/plaza_tile/plaza_tile.blend",
+      "source_sha256_before": "5a3be29818b1b4d009e574e837c0be799fcaaa56a12521deca9903ec09535249",
+      "source_sha256_after": "5a3be29818b1b4d009e574e837c0be799fcaaa56a12521deca9903ec09535249",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/plaza_tile_optimized.blend",
+      "optimized_sha256": "138807c239ea6d4788fb78d353852b8e013ea7261bb6a76068d7733b54a68b78",
+      "glb": "godot/assets/models/scenery/sunken_city/plaza_tile/plaza_tile.glb",
+      "glb_sha256": "0193ee23bd43a44e40298dc5d6acee9a6170f79f9ed101937ed035da50c4ee47",
+      "glb_bytes": 388652,
+      "triangles_before": 6780,
+      "triangles_after": 6780,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          0.6000000238418579
+        ]
+      ],
+      "bounds_before": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          0.6000000238418579
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_plaza_tile",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 3534,
+      "exported_triangles": 6780,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "viaduct_intact",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-INTACT",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/viaduct_intact/viaduct_intact.blend",
+      "source_sha256_before": "bf14cc83fc32a35747cfcee9afef10e392ac57d608898688394c23459aba2a32",
+      "source_sha256_after": "bf14cc83fc32a35747cfcee9afef10e392ac57d608898688394c23459aba2a32",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/viaduct_intact_optimized.blend",
+      "optimized_sha256": "b56d11a6ef0b03353b393a029b1e4abecb234f3caed7aff430bdd3b6b4541543",
+      "glb": "godot/assets/models/scenery/sunken_city/viaduct_intact/viaduct_intact.glb",
+      "glb_sha256": "1ab93602ac88cdab05fe49f84af99e4a1724fd786b98aaa63125a6981d3b386d",
+      "glb_bytes": 232836,
+      "triangles_before": 3872,
+      "triangles_after": 3872,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -10.018202781677246,
+          -4.5,
+          -1.9073486612342094e-07
+        ],
+        [
+          10.018202781677246,
+          4.5,
+          16.418245315551758
+        ]
+      ],
+      "bounds_before": [
+        [
+          -10.018202781677246,
+          -4.5,
+          -1.9073486612342094e-07
+        ],
+        [
+          10.018202781677246,
+          4.5,
+          16.418245315551758
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_viaduct_intact",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 1928,
+      "exported_triangles": 3872,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "viaduct_broken",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-BROKEN",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/viaduct_broken/viaduct_broken.blend",
+      "source_sha256_before": "025c47be15127ebb9c206e0451333b93ebb37207a748d3e6b85ae2979d0df1df",
+      "source_sha256_after": "025c47be15127ebb9c206e0451333b93ebb37207a748d3e6b85ae2979d0df1df",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/viaduct_broken_optimized.blend",
+      "optimized_sha256": "2feb05e09bab4b1d254f4dfbc390ec6cb93ef7e8dd15269aa2836c1776b33cf7",
+      "glb": "godot/assets/models/scenery/sunken_city/viaduct_broken/viaduct_broken.glb",
+      "glb_sha256": "203b18e793b3de5e1b2c809c734555b200c1cc31339b6a907852dd50e2336da2",
+      "glb_bytes": 188648,
+      "triangles_before": 3132,
+      "triangles_after": 3132,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -9.949999809265137,
+          -4.5,
+          -1.9073486612342094e-07
+        ],
+        [
+          9.949999809265137,
+          4.5,
+          16.418245315551758
+        ]
+      ],
+      "bounds_before": [
+        [
+          -9.949999809265137,
+          -4.5,
+          -1.9073486612342094e-07
+        ],
+        [
+          9.949999809265137,
+          4.5,
+          16.418245315551758
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_viaduct_broken",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 1551,
+      "exported_triangles": 3132,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "stair_link",
+      "asset_id": "SEA-SCENE-SCITY-STAIR-LINK",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/stair_link/stair_link.blend",
+      "source_sha256_before": "3d4596f109ada155c964360f4f0f31cb0e16e47a4d124434fde082de981a065e",
+      "source_sha256_after": "3d4596f109ada155c964360f4f0f31cb0e16e47a4d124434fde082de981a065e",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/stair_link_optimized.blend",
+      "optimized_sha256": "54e9ddc9c8c3a0f670158dfbb2e6bb00e2269f78104766885d04183fcc42e47f",
+      "glb": "godot/assets/models/scenery/sunken_city/stair_link/stair_link.glb",
+      "glb_sha256": "f178c25c308bc6f11d757195a673dfe1aa558293f5763d7d8e4d8d569a3c5670",
+      "glb_bytes": 433188,
+      "triangles_before": 7544,
+      "triangles_after": 7544,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.899999976158142,
+          -6.819999694824219,
+          0.0
+        ],
+        [
+          1.899999976158142,
+          6.819999694824219,
+          11.391594886779785
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.899999976158142,
+          -6.819999694824219,
+          0.0
+        ],
+        [
+          1.899999976158142,
+          6.819999694824219,
+          11.391594886779785
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_stair_link",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 3929,
+      "exported_triangles": 7544,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "car_sedan",
+      "asset_id": "SEA-SCENE-SCITY-CAR-SEDAN",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/car_sedan/car_sedan.blend",
+      "source_sha256_before": "91302626a31caa3974e1cda337b648826f3681f08a9950970f55f47fee57f989",
+      "source_sha256_after": "91302626a31caa3974e1cda337b648826f3681f08a9950970f55f47fee57f989",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/car_sedan_optimized.blend",
+      "optimized_sha256": "ec3b7957a703c3031ea3ac6b3a5413e20cf8e8b1388596f293aaf217c8d2c303",
+      "glb": "godot/assets/models/scenery/sunken_city/car_sedan/car_sedan.glb",
+      "glb_sha256": "e6916ce8a65d06e751d434c9cdcbe76386ca1dff4b805a790d884a0f0748acff",
+      "glb_bytes": 154572,
+      "triangles_before": 2624,
+      "triangles_after": 2624,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -2.444000005722046,
+          -1.2611199617385864,
+          0.0
+        ],
+        [
+          2.444000005722046,
+          1.2611199617385864,
+          1.8799999952316284
+        ]
+      ],
+      "bounds_before": [
+        [
+          -2.444000005722046,
+          -1.2611199617385864,
+          0.0
+        ],
+        [
+          2.444000005722046,
+          1.2611199617385864,
+          1.8799999952316284
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_car_sedan",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 1304,
+      "exported_triangles": 2624,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "car_van",
+      "asset_id": "SEA-SCENE-SCITY-CAR-VAN",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/car_van/car_van.blend",
+      "source_sha256_before": "b48edd28628d8fe14a094ff2d73b20b972bea1fdc5f67f93193cf7036ca8718b",
+      "source_sha256_after": "b48edd28628d8fe14a094ff2d73b20b972bea1fdc5f67f93193cf7036ca8718b",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/car_van_optimized.blend",
+      "optimized_sha256": "50ac436f0d61ee809998b07717e9599058c92a8ffe5347d07e92f4dbb8d279dc",
+      "glb": "godot/assets/models/scenery/sunken_city/car_van/car_van.glb",
+      "glb_sha256": "110311268e014ae311bcdcf2d17ca4c649f4bd73a19ba5137a7d68e884bb5c17",
+      "glb_bytes": 154536,
+      "triangles_before": 2624,
+      "triangles_after": 2624,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -2.8984999656677246,
+          -1.4140000343322754,
+          0.0
+        ],
+        [
+          2.8984999656677246,
+          1.4140000343322754,
+          2.7799999713897705
+        ]
+      ],
+      "bounds_before": [
+        [
+          -2.8984999656677246,
+          -1.4140000343322754,
+          0.0
+        ],
+        [
+          2.8984999656677246,
+          1.4140000343322754,
+          2.7799999713897705
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_car_van",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 1304,
+      "exported_triangles": 2624,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "tram_wreck",
+      "asset_id": "SEA-SCENE-SCITY-TRAM-WRECK",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/tram_wreck/tram_wreck.blend",
+      "source_sha256_before": "121cbf48e9950957ff7b172f274ec6c4d11ca213de66aeea1b9ee93083a53f55",
+      "source_sha256_after": "121cbf48e9950957ff7b172f274ec6c4d11ca213de66aeea1b9ee93083a53f55",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/tram_wreck_optimized.blend",
+      "optimized_sha256": "75c4fde0aaf61d396fb0bdf7b406bedaabae8c04c2b8978996f42bdf3e10793d",
+      "glb": "godot/assets/models/scenery/sunken_city/tram_wreck/tram_wreck.glb",
+      "glb_sha256": "ebf6a447f3c8d6efe3aeb68f4fb03e884cd07b3b844f6b8c45f9850dc6ecc159",
+      "glb_bytes": 269320,
+      "triangles_before": 4614,
+      "triangles_after": 4614,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -6.0,
+          -2.0764801502227783,
+          0.0
+        ],
+        [
+          6.0,
+          2.0764801502227783,
+          5.518245220184326
+        ]
+      ],
+      "bounds_before": [
+        [
+          -6.0,
+          -2.0764801502227783,
+          0.0
+        ],
+        [
+          6.0,
+          2.0764801502227783,
+          5.518245220184326
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_tram_wreck",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 2336,
+      "exported_triangles": 4614,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "scooter",
+      "asset_id": "SEA-SCENE-SCITY-SCOOTER",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/scooter/scooter.blend",
+      "source_sha256_before": "9137f982933878e541d20d28c16316f1a3dabaed56706888fa3b7381dc450b30",
+      "source_sha256_after": "9137f982933878e541d20d28c16316f1a3dabaed56706888fa3b7381dc450b30",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/scooter_optimized.blend",
+      "optimized_sha256": "4976611d32ec2f0c8b6efd39842dce1944b1e302eb9587eede6260eb53e9ae5d",
+      "glb": "godot/assets/models/scenery/sunken_city/scooter/scooter.glb",
+      "glb_sha256": "3b870c7848fc709da0d8ce5c6fd69fbed7366656e0f7d982a4c77b7195a56473",
+      "glb_bytes": 42344,
+      "triangles_before": 690,
+      "triangles_after": 690,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.0299999713897705,
+          -0.4000000059604645,
+          0.0
+        ],
+        [
+          1.0299999713897705,
+          0.4000000059604645,
+          1.7052394151687622
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.0299999713897705,
+          -0.4000000059604645,
+          0.0
+        ],
+        [
+          1.0299999713897705,
+          0.4000000059604645,
+          1.7052394151687622
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_scooter",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 338,
+      "exported_triangles": 690,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "utility_pole",
+      "asset_id": "SEA-SCENE-SCITY-UTILITY-POLE",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/utility_pole/utility_pole.blend",
+      "source_sha256_before": "60f42b438d448b2a328cade76bbfd02c7070f0f705ddfc87690415c673d3d8b5",
+      "source_sha256_after": "60f42b438d448b2a328cade76bbfd02c7070f0f705ddfc87690415c673d3d8b5",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/utility_pole_optimized.blend",
+      "optimized_sha256": "d53023bf51fb19bb6713058b779fbadab4c8e7207823c9f3a9ed412bde3ec059",
+      "glb": "godot/assets/models/scenery/sunken_city/utility_pole/utility_pole.glb",
+      "glb_sha256": "91d6232759c4cacff412d3feb7ec043098f9126040bbf77ccf5c9e5ea50272c2",
+      "glb_bytes": 47100,
+      "triangles_before": 768,
+      "triangles_after": 768,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.2999999523162842,
+          -0.25,
+          0.0
+        ],
+        [
+          1.2999999523162842,
+          0.25,
+          9.600000381469727
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.2999999523162842,
+          -0.25,
+          0.0
+        ],
+        [
+          1.2999999523162842,
+          0.25,
+          9.600000381469727
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_utility_pole",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 366,
+      "exported_triangles": 768,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "leaning_pole",
+      "asset_id": "SEA-SCENE-SCITY-LEANING-POLE",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/leaning_pole/leaning_pole.blend",
+      "source_sha256_before": "95a2a437395ceecdb22dae1a218be4b4d77e4751951f401512bb0f73c80f7caa",
+      "source_sha256_after": "95a2a437395ceecdb22dae1a218be4b4d77e4751951f401512bb0f73c80f7caa",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/leaning_pole_optimized.blend",
+      "optimized_sha256": "4ede057ba088cb3f23ed5d88eb9360f04eb505b2b8346039107935a6d1a93474",
+      "glb": "godot/assets/models/scenery/sunken_city/leaning_pole/leaning_pole.glb",
+      "glb_sha256": "b1a37193df7479060d4f8c11754bdeeb03eaa4e281a948a94f50681f5933e499",
+      "glb_bytes": 47100,
+      "triangles_before": 768,
+      "triangles_after": 768,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.343421220779419,
+          -0.25,
+          0.0
+        ],
+        [
+          1.343421220779419,
+          0.25,
+          6.568987846374512
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.343421220779419,
+          -0.25,
+          0.0
+        ],
+        [
+          1.343421220779419,
+          0.25,
+          6.568987846374512
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_leaning_pole",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 366,
+      "exported_triangles": 768,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "cable_span",
+      "asset_id": "SEA-SCENE-SCITY-CABLE-SPAN",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/cable_span/cable_span.blend",
+      "source_sha256_before": "9fbb35d95b3b70d7d9133611ddb4bc36b2240f66cec37d55347b330a5efad1a9",
+      "source_sha256_after": "9fbb35d95b3b70d7d9133611ddb4bc36b2240f66cec37d55347b330a5efad1a9",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/cable_span_optimized.blend",
+      "optimized_sha256": "af8db7f45e2510700a124b0117b364b947dd480d835c870a5ec845e85b33a2aa",
+      "glb": "godot/assets/models/scenery/sunken_city/cable_span/cable_span.glb",
+      "glb_sha256": "6e8d916e75a11c6a65f0e55d31c3b7dc62123e78856e6cf0b370b85fc48433c7",
+      "glb_bytes": 11108,
+      "triangles_before": 138,
+      "triangles_after": 138,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -10.01071548461914,
+          -0.38165777921676636,
+          0.0
+        ],
+        [
+          10.01071548461914,
+          0.38165777921676636,
+          2.5648021697998047
+        ]
+      ],
+      "bounds_before": [
+        [
+          -10.01071548461914,
+          -0.38165777921676636,
+          0.0
+        ],
+        [
+          10.01071548461914,
+          0.38165777921676636,
+          2.5648021697998047
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_cable_span",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 66,
+      "exported_triangles": 138,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "street_lamp",
+      "asset_id": "SEA-SCENE-SCITY-STREET-LAMP",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/street_lamp/street_lamp.blend",
+      "source_sha256_before": "85bf50ca7ddb4c3ed820b962808f5c9b02ef9e6490fff31f3b248fdb3083a2e0",
+      "source_sha256_after": "85bf50ca7ddb4c3ed820b962808f5c9b02ef9e6490fff31f3b248fdb3083a2e0",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/street_lamp_optimized.blend",
+      "optimized_sha256": "f15f1f5d115f211284ef7d071d2f1d766adb87e35c1e25901d583850d7fac68c",
+      "glb": "godot/assets/models/scenery/sunken_city/street_lamp/street_lamp.glb",
+      "glb_sha256": "cedd282ea4eae09ae8d293c0995b0478c5c59836e3268480acd76908b293f5f2",
+      "glb_bytes": 29008,
+      "triangles_before": 458,
+      "triangles_after": 458,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.625,
+          -0.5,
+          0.0
+        ],
+        [
+          1.625,
+          0.5,
+          7.326263904571533
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.625,
+          -0.5,
+          0.0
+        ],
+        [
+          1.625,
+          0.5,
+          7.326263904571533
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_street_lamp",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 226,
+      "exported_triangles": 458,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "traffic_light",
+      "asset_id": "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/traffic_light/traffic_light.blend",
+      "source_sha256_before": "187bee00520e8354a061328d9cacf17a88201363f630e0c078e2318fc60a8be3",
+      "source_sha256_after": "187bee00520e8354a061328d9cacf17a88201363f630e0c078e2318fc60a8be3",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/traffic_light_optimized.blend",
+      "optimized_sha256": "df18509648ec5d69190ac4e5f315ec323b524e5768419b3ff5621e354ffcd461",
+      "glb": "godot/assets/models/scenery/sunken_city/traffic_light/traffic_light.glb",
+      "glb_sha256": "da965cbc2c9dc1cbe782af98bbf4178ef3d41cce876b6884042840813e5de7d9",
+      "glb_bytes": 24724,
+      "triangles_before": 378,
+      "triangles_after": 378,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.412500023841858,
+          -0.5,
+          0.0
+        ],
+        [
+          1.412500023841858,
+          0.5,
+          5.92626428604126
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.412500023841858,
+          -0.5,
+          0.0
+        ],
+        [
+          1.412500023841858,
+          0.5,
+          5.92626428604126
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_traffic_light",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 164,
+      "exported_triangles": 378,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "vending",
+      "asset_id": "SEA-SCENE-SCITY-VENDING",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/vending/vending.blend",
+      "source_sha256_before": "5e5feedbd215b238c7f0deb26b49188c9a6a3aeef3d68b776f88f8911f57fc99",
+      "source_sha256_after": "5e5feedbd215b238c7f0deb26b49188c9a6a3aeef3d68b776f88f8911f57fc99",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/vending_optimized.blend",
+      "optimized_sha256": "d18c344f52a4b20914759564e7c38a127b50fc8c2488b94a3a60ab415cd5f2ea",
+      "glb": "godot/assets/models/scenery/sunken_city/vending/vending.glb",
+      "glb_sha256": "3aa15933743e6da4ebce40f7284ade59bb4666756ed440b1e54e5fda563bb630",
+      "glb_bytes": 60936,
+      "triangles_before": 1004,
+      "triangles_after": 1004,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -0.699999988079071,
+          -0.6349999904632568,
+          0.0
+        ],
+        [
+          0.699999988079071,
+          0.6349999904632568,
+          2.700000047683716
+        ]
+      ],
+      "bounds_before": [
+        [
+          -0.699999988079071,
+          -0.6349999904632568,
+          0.0
+        ],
+        [
+          0.699999988079071,
+          0.6349999904632568,
+          2.700000047683716
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_vending",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 482,
+      "exported_triangles": 1004,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "bus_shelter",
+      "asset_id": "SEA-SCENE-SCITY-BUS-SHELTER",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/bus_shelter/bus_shelter.blend",
+      "source_sha256_before": "82dcc58e67b0b696375d3d7e463dc97f834be78da4e58b231c73559b35679a86",
+      "source_sha256_after": "82dcc58e67b0b696375d3d7e463dc97f834be78da4e58b231c73559b35679a86",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/bus_shelter_optimized.blend",
+      "optimized_sha256": "6d7698a3a40411da58a34f7ef0bd5ffeb2800c5c77d0babdf38a8041996ea248",
+      "glb": "godot/assets/models/scenery/sunken_city/bus_shelter/bus_shelter.glb",
+      "glb_sha256": "3181b32aa9f29962056fc4113fb9ef18e9426b729db769e60a72d2e88f157687",
+      "glb_bytes": 90272,
+      "triangles_before": 1516,
+      "triangles_after": 1516,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -2.9149999618530273,
+          -1.25,
+          0.0
+        ],
+        [
+          2.9149999618530273,
+          1.25,
+          3.3499999046325684
+        ]
+      ],
+      "bounds_before": [
+        [
+          -2.9149999618530273,
+          -1.25,
+          0.0
+        ],
+        [
+          2.9149999618530273,
+          1.25,
+          3.3499999046325684
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_bus_shelter",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 790,
+      "exported_triangles": 1516,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "sign_board",
+      "asset_id": "SEA-SCENE-SCITY-SIGN-BOARD",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/sign_board/sign_board.blend",
+      "source_sha256_before": "7bab9a0b9d9c9d7e3f95b934c0c25d2918dc0d951ec0777a951c9a2419abd00d",
+      "source_sha256_after": "7bab9a0b9d9c9d7e3f95b934c0c25d2918dc0d951ec0777a951c9a2419abd00d",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/sign_board_optimized.blend",
+      "optimized_sha256": "b4e40ffb33577a4362f476136d1d6664176467d4dfefbe2a0f50930c0dccb4e5",
+      "glb": "godot/assets/models/scenery/sunken_city/sign_board/sign_board.glb",
+      "glb_sha256": "c793c7a705d8093e6786b772e38090e8d3336be40e49d1d5a55f1347e8fd7c2c",
+      "glb_bytes": 103900,
+      "triangles_before": 1490,
+      "triangles_after": 1489,
+      "reduction_ratio": 0.0006711409395973154,
+      "operations": {
+        "weld_vertices_1e_minus6": 206,
+        "zero_area_faces_removed": 1,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 124,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -2.230489730834961,
+          -0.5,
+          0.0
+        ],
+        [
+          2.230489730834961,
+          0.5,
+          4.526264190673828
+        ]
+      ],
+      "bounds_before": [
+        [
+          -2.230489730834961,
+          -0.5,
+          0.0
+        ],
+        [
+          2.230489730834961,
+          0.5,
+          4.526264190673828
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_sign_board",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 832,
+      "exported_triangles": 1489,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "rubble_cluster",
+      "asset_id": "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/rubble_cluster/rubble_cluster.blend",
+      "source_sha256_before": "2a07b838f18aca7bd5d9fd27817d199f97e07f20160ed43d4172657e687ca1ff",
+      "source_sha256_after": "2a07b838f18aca7bd5d9fd27817d199f97e07f20160ed43d4172657e687ca1ff",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/rubble_cluster_optimized.blend",
+      "optimized_sha256": "08f4c9806789724f59d89ebe897cfb52f734b8370b701d192df1ebc8bc7ed09e",
+      "glb": "godot/assets/models/scenery/sunken_city/rubble_cluster/rubble_cluster.glb",
+      "glb_sha256": "a729586b29accca7de7f78c30f78701de5ca653160ef8857a98a54cf4a642bb9",
+      "glb_bytes": 51460,
+      "triangles_before": 848,
+      "triangles_after": 848,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -2.857569694519043,
+          -1.913700819015503,
+          0.0
+        ],
+        [
+          2.857569694519043,
+          1.913700819015503,
+          1.9428422451019287
+        ]
+      ],
+      "bounds_before": [
+        [
+          -2.857569694519043,
+          -1.913700819015503,
+          0.0
+        ],
+        [
+          2.857569694519043,
+          1.913700819015503,
+          1.9428422451019287
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_rubble_cluster",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 428,
+      "exported_triangles": 848,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "corrosion_patch",
+      "asset_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/corrosion_patch/corrosion_patch.blend",
+      "source_sha256_before": "f62a62e26709fe65e4ffb80a2ba6d10c6be4b0e053ca9fddfcb728565b32000d",
+      "source_sha256_after": "f62a62e26709fe65e4ffb80a2ba6d10c6be4b0e053ca9fddfcb728565b32000d",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/corrosion_patch_optimized.blend",
+      "optimized_sha256": "9a7546b1c37f39adb5fea71e31a3fd77452b163858308210610ad20b555c6c15",
+      "glb": "godot/assets/models/scenery/sunken_city/corrosion_patch/corrosion_patch.glb",
+      "glb_sha256": "032d49a5bdd073bab3280b1065d8afe6b6fda945dcdb14e40a98fc9d36078d9c",
+      "glb_bytes": 98220,
+      "triangles_before": 1692,
+      "triangles_after": 1692,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.5871281623840332,
+          -0.02250000089406967,
+          0.0
+        ],
+        [
+          1.5871281623840332,
+          0.02250000089406967,
+          1.857536792755127
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.5871281623840332,
+          -0.02250000089406967,
+          0.0
+        ],
+        [
+          1.5871281623840332,
+          0.02250000089406967,
+          1.857536792755127
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_corrosion_patch",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 882,
+      "exported_triangles": 1692,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "moss_patch",
+      "asset_id": "SEA-SCENE-SCITY-MOSS-PATCH",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/moss_patch/moss_patch.blend",
+      "source_sha256_before": "08b18efd59c17e2a1df450b8f9a6756d36f27e4b6d60473dc7a6d083d9277fae",
+      "source_sha256_after": "08b18efd59c17e2a1df450b8f9a6756d36f27e4b6d60473dc7a6d083d9277fae",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/moss_patch_optimized.blend",
+      "optimized_sha256": "1b2bfd426c142448441e303a72de3518ecacd09a3c659e5171accc2d615daa08",
+      "glb": "godot/assets/models/scenery/sunken_city/moss_patch/moss_patch.glb",
+      "glb_sha256": "734c68b258a58575257a4b98ff812b8ab98e65b0d3d0d6253d9b8bdd14a9146c",
+      "glb_bytes": 16988,
+      "triangles_before": 256,
+      "triangles_after": 256,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.3126730918884277,
+          -1.2918193340301514,
+          0.0
+        ],
+        [
+          1.3126730918884277,
+          1.2918193340301514,
+          0.19999998807907104
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.3126730918884277,
+          -1.2918193340301514,
+          0.0
+        ],
+        [
+          1.3126730918884277,
+          1.2918193340301514,
+          0.19999998807907104
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_moss_patch",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 88,
+      "exported_triangles": 256,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "kelp_clump",
+      "asset_id": "SEA-SCENE-SCITY-KELP-CLUMP",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/kelp_clump/kelp_clump.blend",
+      "source_sha256_before": "2e3a529b7be3a0c85c0a61b0e3d805d9b902268004a1d59e88dad9c71d771234",
+      "source_sha256_after": "2e3a529b7be3a0c85c0a61b0e3d805d9b902268004a1d59e88dad9c71d771234",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/kelp_clump_optimized.blend",
+      "optimized_sha256": "c4e53c9993fcd3c36055a2ba978856bc70713aa4e3762ed749da3655f67786fd",
+      "glb": "godot/assets/models/scenery/sunken_city/kelp_clump/kelp_clump.glb",
+      "glb_sha256": "aea76ea6ea882dbd56a3654e12b6454ebf98d9bcfda6af60ec82d8f83369603a",
+      "glb_bytes": 4540,
+      "triangles_before": 42,
+      "triangles_after": 42,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.4555351734161377,
+          -0.649346649646759,
+          0.0
+        ],
+        [
+          1.4555351734161377,
+          0.649346649646759,
+          3.0
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.4555351734161377,
+          -0.649346649646759,
+          0.0
+        ],
+        [
+          1.4555351734161377,
+          0.649346649646759,
+          3.0
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_kelp_clump",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 21,
+      "exported_triangles": 42,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "collapsed_residence",
+      "asset_id": "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/collapsed_residence/collapsed_residence.blend",
+      "source_sha256_before": "6477973b7d481b24b45b590e5ae4fe0b996276a2c5134afefdd6c825079f2079",
+      "source_sha256_after": "6477973b7d481b24b45b590e5ae4fe0b996276a2c5134afefdd6c825079f2079",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/collapsed_residence_optimized.blend",
+      "optimized_sha256": "a3b95238f540106901341f8d9fcf32f0c257ef62b883a28c0ef15539200b089c",
+      "glb": "godot/assets/models/scenery/sunken_city/collapsed_residence/collapsed_residence.glb",
+      "glb_sha256": "2eafc74b7169f9aea4aded0bdb199848be08f39d5f14087b9b6c9f2774743734",
+      "glb_bytes": 4692172,
+      "triangles_before": 74140,
+      "triangles_after": 74140,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 111064,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 8,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -8.488565444946289,
+          -12.622871398925781,
+          0.0
+        ],
+        [
+          8.488565444946289,
+          12.622871398925781,
+          19.434831619262695
+        ]
+      ],
+      "bounds_before": [
+        [
+          -8.488565444946289,
+          -12.622871398925781,
+          0.0
+        ],
+        [
+          8.488565444946289,
+          12.622871398925781,
+          19.434831619262695
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 1.1382181075082587e-09,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_collapsed_residence",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 38538,
+      "exported_triangles": 74140,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "fallen_hall",
+      "asset_id": "SEA-SCENE-SCITY-FALLEN-HALL",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/fallen_hall/fallen_hall.blend",
+      "source_sha256_before": "537bb83ff53df25464196aa82ecebcf5aefefcce213c0510b53220f65222691d",
+      "source_sha256_after": "537bb83ff53df25464196aa82ecebcf5aefefcce213c0510b53220f65222691d",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/fallen_hall_optimized.blend",
+      "optimized_sha256": "d846338951abcb45235027f76bc8a075e4444aa3ce601422a87956332878af8f",
+      "glb": "godot/assets/models/scenery/sunken_city/fallen_hall/fallen_hall.glb",
+      "glb_sha256": "dc7f0146d2233138fe2e8f5b5284801e41a87af62a3ef3de1e0ed8c4df7cb1c6",
+      "glb_bytes": 4748036,
+      "triangles_before": 74800,
+      "triangles_after": 74800,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 112112,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 96,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -10.339461326599121,
+          -9.244192123413086,
+          0.0
+        ],
+        [
+          10.339461326599121,
+          9.244192123413086,
+          16.81867027282715
+        ]
+      ],
+      "bounds_before": [
+        [
+          -10.339461326599121,
+          -9.244192123413086,
+          0.0
+        ],
+        [
+          10.339461326599121,
+          9.244192123413086,
+          16.81867027282715
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 2.226269474621989e-10,
+      "material_roles": [
+        "SEA_Gloss",
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_fallen_hall",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal",
+            "SEA_Gloss"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 38965,
+      "exported_triangles": 74800,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "retaining_wall_ruin",
+      "asset_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/retaining_wall_ruin/retaining_wall_ruin.blend",
+      "source_sha256_before": "958622ff5fb999c544c345a831de6ba29d9e2b544828223abe70a836f5c952e1",
+      "source_sha256_after": "958622ff5fb999c544c345a831de6ba29d9e2b544828223abe70a836f5c952e1",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/retaining_wall_ruin_optimized.blend",
+      "optimized_sha256": "69d0eaeb05a93b221e61ab9f1485366e060a9c43c2f8b178a312053f69b32b22",
+      "glb": "godot/assets/models/scenery/sunken_city/retaining_wall_ruin/retaining_wall_ruin.glb",
+      "glb_sha256": "903ed6628afc14d4ce5d742bbf96c8e588e55fb5b80d4cfc974aaeeb1e041156",
+      "glb_bytes": 118316,
+      "triangles_before": 2008,
+      "triangles_after": 2008,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -3.9749999046325684,
+          -1.0091664791107178,
+          0.0
+        ],
+        [
+          3.9749999046325684,
+          1.0091664791107178,
+          2.413233995437622
+        ]
+      ],
+      "bounds_before": [
+        [
+          -3.9749999046325684,
+          -1.0091664791107178,
+          0.0
+        ],
+        [
+          3.9749999046325684,
+          1.0091664791107178,
+          2.413233995437622
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_retaining_wall_ruin",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 1035,
+      "exported_triangles": 2008,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "pump_cabinet",
+      "asset_id": "SEA-SCENE-SCITY-PUMP-CABINET",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/pump_cabinet/pump_cabinet.blend",
+      "source_sha256_before": "ed983ceb4611367840767bace206d33fe0aed474fb59fe8524f2a8100afd0878",
+      "source_sha256_after": "ed983ceb4611367840767bace206d33fe0aed474fb59fe8524f2a8100afd0878",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/pump_cabinet_optimized.blend",
+      "optimized_sha256": "645ff503e5dbe4cae32aac258dec76a41c14695c9596d19de3c9b12ba8b83184",
+      "glb": "godot/assets/models/scenery/sunken_city/pump_cabinet/pump_cabinet.glb",
+      "glb_sha256": "83b5b65446a55a1b73029390a00820b38f64c6c5bdf6628c15b5442178d59cb3",
+      "glb_bytes": 125376,
+      "triangles_before": 2130,
+      "triangles_after": 2130,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.7000000476837158,
+          -1.350000023841858,
+          0.0
+        ],
+        [
+          1.7000000476837158,
+          1.350000023841858,
+          2.25
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.7000000476837158,
+          -1.350000023841858,
+          0.0
+        ],
+        [
+          1.7000000476837158,
+          1.350000023841858,
+          2.25
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_pump_cabinet",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 1074,
+      "exported_triangles": 2130,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "kiosk_ruin",
+      "asset_id": "SEA-SCENE-SCITY-KIOSK-RUIN",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/kiosk_ruin/kiosk_ruin.blend",
+      "source_sha256_before": "d34b90124cf832d51e65ae58232e00a82f41effb0afb853b7439aa9b943f1f8d",
+      "source_sha256_after": "d34b90124cf832d51e65ae58232e00a82f41effb0afb853b7439aa9b943f1f8d",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/kiosk_ruin_optimized.blend",
+      "optimized_sha256": "a5cea4aa6ccb70a9fb1f70c30be99eb15b02df2be57b5333e031241eb1620e95",
+      "glb": "godot/assets/models/scenery/sunken_city/kiosk_ruin/kiosk_ruin.glb",
+      "glb_sha256": "0fd7fb98f91cf2fa1134fdf3a7499d8a374facfc7eeb624b552763a77e88e483",
+      "glb_bytes": 267372,
+      "triangles_before": 4380,
+      "triangles_after": 4377,
+      "reduction_ratio": 0.0006849315068493151,
+      "operations": {
+        "weld_vertices_1e_minus6": 202,
+        "zero_area_faces_removed": 3,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 105,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -2.694888114929199,
+          -2.1001198291778564,
+          0.0
+        ],
+        [
+          2.694888114929199,
+          2.1001198291778564,
+          3.767500877380371
+        ]
+      ],
+      "bounds_before": [
+        [
+          -2.694888114929199,
+          -2.1001198291778564,
+          0.0
+        ],
+        [
+          2.694888114929199,
+          2.1001198291778564,
+          3.767500877380371
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_kiosk_ruin",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 2342,
+      "exported_triangles": 4377,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "bench",
+      "asset_id": "SEA-SCENE-SCITY-BENCH",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/bench/bench.blend",
+      "source_sha256_before": "097b8479491696b4b364e7309e1278b65c48f589475bc16f8c9af6817e67807a",
+      "source_sha256_after": "097b8479491696b4b364e7309e1278b65c48f589475bc16f8c9af6817e67807a",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/bench_optimized.blend",
+      "optimized_sha256": "4d78da549eab05aaa5ea06fe69fc1513587584b6a53ab9da516756f85a96cc7f",
+      "glb": "godot/assets/models/scenery/sunken_city/bench/bench.glb",
+      "glb_sha256": "a16cc4d801794a75411304ff624846e5b30dc1860b8a2a42145971cf9e90be5a",
+      "glb_bytes": 99124,
+      "triangles_before": 1692,
+      "triangles_after": 1692,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 0,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 0,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -1.7000000476837158,
+          -0.4424999952316284,
+          0.0
+        ],
+        [
+          1.7000000476837158,
+          0.4424999952316284,
+          1.590000033378601
+        ]
+      ],
+      "bounds_before": [
+        [
+          -1.7000000476837158,
+          -0.4424999952316284,
+          0.0
+        ],
+        [
+          1.7000000476837158,
+          0.4424999952316284,
+          1.590000033378601
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_bench",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 882,
+      "exported_triangles": 1692,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "terrain_ramp",
+      "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/terrain_ramp/terrain_ramp.blend",
+      "source_sha256_before": "d95c9f102802cd7228165d96ca3662852beaf7524ccaef8d187361ee709f5b27",
+      "source_sha256_after": "d95c9f102802cd7228165d96ca3662852beaf7524ccaef8d187361ee709f5b27",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/terrain_ramp_optimized.blend",
+      "optimized_sha256": "78a8a90f4a72c075aca58cf9a4472663e2a9b6eec6d168fc2f24088637f3d672",
+      "glb": "godot/assets/models/scenery/sunken_city/terrain_ramp/terrain_ramp.glb",
+      "glb_sha256": "a7658f57ebefaf719a944c9e537073fc63eb4851f8cd15e6a517537a322cf430",
+      "glb_bytes": 523552,
+      "triangles_before": 9124,
+      "triangles_after": 9124,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 44,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 44,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          5.418862819671631
+        ]
+      ],
+      "bounds_before": [
+        [
+          -12.0,
+          -12.0,
+          0.0
+        ],
+        [
+          12.0,
+          12.0,
+          5.418862819671631
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_terrain_ramp",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 4754,
+      "exported_triangles": 9124,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    },
+    {
+      "key": "viaduct_curve",
+      "asset_id": "SEA-SCENE-SCITY-VIADUCT-CURVE",
+      "role": "optimized",
+      "version": "v003",
+      "source": "art_source/scenes/sunken_city/v003/component_packages/viaduct_curve/viaduct_curve.blend",
+      "source_sha256_before": "00fcfa80af4b8f0026a933deddf674ca78cec3cb3fbe45be78ef6c1b46eea24f",
+      "source_sha256_after": "00fcfa80af4b8f0026a933deddf674ca78cec3cb3fbe45be78ef6c1b46eea24f",
+      "optimized_source": "art_source/scenes/sunken_city/v003/export/v003/viaduct_curve_optimized.blend",
+      "optimized_sha256": "8302e340682943413337b5d97d111d5f36ad43a44b3fd18400a1228c3180d107",
+      "glb": "godot/assets/models/scenery/sunken_city/viaduct_curve/viaduct_curve.glb",
+      "glb_sha256": "03190675ffc29067807ce9c42e062533de5213befbf5318b4692f64112c22389",
+      "glb_bytes": 264928,
+      "triangles_before": 4272,
+      "triangles_after": 4272,
+      "reduction_ratio": 0.0,
+      "operations": {
+        "weld_vertices_1e_minus6": 276,
+        "zero_area_faces_removed": 0,
+        "duplicate_faces_removed": 0,
+        "loose_edges_removed": 0,
+        "loose_vertices_removed": 0,
+        "flat_candidate_edges": 88,
+        "coplanar_edges_removed": 0,
+        "coplanar_faces_reduced": 0,
+        "export_node_names_ascii": true
+      },
+      "bounds_blender": [
+        [
+          -10.863378524780273,
+          -7.64860200881958,
+          0.0
+        ],
+        [
+          10.863378524780273,
+          7.64860200881958,
+          17.368244171142578
+        ]
+      ],
+      "bounds_before": [
+        [
+          -10.863378524780273,
+          -7.64860200881958,
+          0.0
+        ],
+        [
+          10.863378524780273,
+          7.64860200881958,
+          17.368244171142578
+        ]
+      ],
+      "palette_color_area_max_relative_drift": 0.0,
+      "material_roles": [
+        "SEA_Matte",
+        "SEA_Metal"
+      ],
+      "mesh_nodes": [
+        {
+          "node_name": "Mesh_viaduct_curve",
+          "mesh_index": 0,
+          "roles": [
+            "SEA_Matte",
+            "SEA_Metal"
+          ]
+        }
+      ],
+      "budget": null,
+      "budget_source": "no numeric runtime budget supplied; preserve approved shape and measure actual cost",
+      "retained_faces": "All unknown/internal/back/bottom faces retained unless exact duplicates/zero-area; no normal-down deletion. All 3-segment rounded bevels retained. No blanket Decimate.",
+      "uv_faces_audited": 2150,
+      "exported_triangles": 4272,
+      "embedded_images": 0,
+      "source_preserved": true,
+      "fidelity_status": "geometry/color-area/bbox_pass_visual_comparison_pending"
+    }
+  ],
+  "triangles_before": 2565218,
+  "triangles_after": 2565204,
+  "source_unchanged": true
+}

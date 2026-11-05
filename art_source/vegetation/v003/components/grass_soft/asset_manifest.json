@@ -1,0 +1,82 @@
+{
+  "key": "grass_soft",
+  "asset_id": "SEA-VEG-GRASS-SOFT",
+  "version": "v003",
+  "source": "art_source/vegetation/v003/components/grass_soft/grass_soft.blend",
+  "source_sha256": "031688b038b03e01c716e9e4d4317ca3c357e3f5839575beb9e22b6e88e1ed4a",
+  "optimized_source": "art_source/vegetation/v003/components/grass_soft/grass_soft_optimized.blend",
+  "optimized_sha256": "31b54fea68b1d0999123efb72640133a4ff41fd5f885a7e8cefc7884a2523859",
+  "glb": "godot/assets/models/vegetation/grass_soft.glb",
+  "glb_sha256": "5d6e698f714c0c7981ef42e42898ce4a86e2fea67169a477c60021c67588c365",
+  "triangles": 18,
+  "vertices": 24,
+  "bounds_blender": [
+    [
+      -0.3700000047683716,
+      -0.32042938470840454,
+      0.0
+    ],
+    [
+      0.3700000047683716,
+      0.32042938470840454,
+      0.47999998927116394
+    ]
+  ],
+  "operations": [
+    "independent optimized save",
+    "degenerate edge cleanup",
+    "reopen source and optimized",
+    "verify rooted weights and UVs"
+  ],
+  "no_solid_core": true,
+  "name": "宽叶柔软草簇",
+  "domain": "vegetation",
+  "suite": "soft_botanical_cards",
+  "scope": "shared",
+  "category": "textured_vegetation",
+  "manifest": "art_source/vegetation/v003/components/grass_soft/asset_manifest.json",
+  "prefab": "godot/scenes/components/vegetation/grass_soft.tscn",
+  "runtime_path": "godot/scenes/components/vegetation/grass_soft.tscn",
+  "runtime_sha256": "8bf4a4b0fc25a75c5cfa1c59312fa3568e5e10d12c733e322ddc077b10bd51f6",
+  "material": "godot/assets/materials/vegetation/grass_soft.tres",
+  "dependencies": [
+    "SEA-TEX-VEGETATION-MEADOW-ATLAS"
+  ],
+  "consumers": [
+    "solar_cabin",
+    "rooftop_ranch"
+  ],
+  "consumer_features": [
+    "SEA-AMBIENT",
+    "SEA-ASSET"
+  ],
+  "previous_sources": [
+    {
+      "version": "v002",
+      "source": "art_source/vegetation/v002/components/grass_soft/grass_soft.blend",
+      "source_sha256": "b627fe26de560cc1e1c8c738b0bcb0e4bfd4a566970ce629e1d785fd6a4b5e6d",
+      "optimized_source": "art_source/vegetation/v002/components/grass_soft/grass_soft_optimized.blend",
+      "optimized_sha256": "b032cc1ffc006578dcbfa879a8599735ff9295754d2e7d360be0663b599c5b69",
+      "glb_sha256": "3e8c993e34c9fe0f9128d5d89d7d247b3ca251e8013190aa8a362e2d60b02f13",
+      "manifest": "art_source/vegetation/v002/components/grass_soft/asset_manifest.json"
+    }
+  ],
+  "stage": "runtime_verified_user_visual_review_pending",
+  "license": "original_carrier_geometry",
+  "water_layer": "surface",
+  "water_layer_role": "none",
+  "collision": false,
+  "wind_contract": 3,
+  "verification": {
+    "source": "reopened_and_verified",
+    "runtime": "passed",
+    "visual": "near_default_far_and_motion_reviewed",
+    "user_art_acceptance": "pending",
+    "performance": "measured_RTX4060Ti_1280x800",
+    "evidence": [
+      "D:\\projects\\sea-work\\verification\\20261105-165018-meadow-final-7648b4\\report.json",
+      "docs/development/2026-11-05_vegetation_meadow.md"
+    ]
+  },
+  "asset_ledger": "assets/registry/ledgers/vegetation.json#SEA-VEG-GRASS-SOFT"
+}
