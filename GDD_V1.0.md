@@ -474,7 +474,7 @@
 | <a id="sea-pickup"></a>SEA-PICKUP | 海面漂流物与鱼群收取 | 探索 | SEA-NAV, SEA-INVENTORY | [文档](docs/features/pickup/spec.md) | [账本](docs/features/pickup/ledger.md) | 部分实现 |
 | <a id="sea-order"></a>SEA-ORDER | 交易与订单 | 经营 | SEA-INVENTORY, SEA-BUILD, SEA-SHIP | [文档](docs/features/order/spec.md) | [账本](docs/features/order/ledger.md) | 部分实现 |
 | <a id="sea-goal"></a>SEA-GOAL | 小目标追踪与引导 | 成长 | SEA-BUILD, SEA-SHIP | [文档](docs/features/goal/spec.md) | [账本](docs/features/goal/ledger.md) | 部分实现 |
-| <a id="sea-resident"></a>SEA-RESIDENT | 居民与生活行为 | 生活 | SEA-WORLD, SEA-BUILD | [文档](docs/features/resident/spec.md) | [账本](docs/features/resident/ledger.md) | 规划中 |
+| <a id="sea-resident"></a>SEA-RESIDENT | NPC 居民、对话与关系网 | 生活 | SEA-WORLD, SEA-BUILD, SEA-MOVE, SEA-TIME, SEA-WEATHER, SEA-INTERACT, SEA-INVENTORY, SEA-SAVE | [文档](docs/features/resident/spec.md) | [账本](docs/features/resident/ledger.md) | 规划中 |
 | <a id="sea-time"></a>SEA-TIME | 世界时间 | 生活 | SEA-WORLD | [文档](docs/features/time/spec.md) | [账本](docs/features/time/ledger.md) | 已实现待完整验收 |
 | <a id="sea-sleep"></a>SEA-SLEEP | 睡觉与次日醒来 | 生活 | SEA-TIME、SEA-MOVE、SEA-INTERACT | [文档](docs/features/sleep/spec.md) | [账本](docs/features/sleep/ledger.md) | 已实现待完整验收 |
 | <a id="sea-room"></a>SEA-ROOM | 室内房间（卧室与前厅） | 生活 | SEA-WORLD, SEA-SLEEP, SEA-MOVE, SEA-SAVE | [文档](docs/features/room/spec.md) | [账本](docs/features/room/ledger.md) | 已实现待完整验收 |

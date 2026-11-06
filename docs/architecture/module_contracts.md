@@ -161,3 +161,19 @@ UI的owned_modal_query/close/input为独立手册和预览提供注入的模态�
 AvatarLimbSkinning（Skeleton3D）拥有4张连续封闭索引网格、Skin绑定和21骨姿势；AvatarVisual只传入稳定外观选项，shader负责袖口/裤脚/鞋底分色。原动作采样器不改网格或奖励，继续输出肩肘/髋膝不可见控制，Character在采样完成后一次sync_visual_pose，LimbSkeleton同步控制骨和独立伸长辅助骨，GPU完成变形。辅助骨不向下一旋转控制骨传递非均匀缩放，避免长臂获物姿势剪切。
 
 四肢网格只在构造时生成，换装不重建骨骼/顶点权重，运行期不以CPU逐顶点改网格。deformed_points为只读验收/量测端口，不在生产_process中调用。保存仍只有profile稳定ID，恢复重置控制姿势并投影骨骼，不持久化临时蒙皮姿态；碰撞和根位移所有者不变。[独立契约](../features/avatar/spec.md)与[本轮证据](../development/2026-11-02_avatar_limb_skinning.md)。
+
+## 2026-11-07 独立 NPC 模块契约（SEA-RESIDENT）
+
+`NpcService` 是五名固定 NPC 的唯一运行状态所有者，计划代码目录为 `godot/src/npc/`。它独立维护身份、日程意图、对白会话、个人剧情、玩家好感、NPC-NPC 关系边、请求状态和 `npc` 存档快照；不访问 Main/HUD/Economy 私有字段，不持有背包、作物、建筑、船、时间或导航状态。
+
+| 端口 | 提供方/消费方 | 契约 |
+|---|---|---|
+| `WorldClock.query()` | SEA-TIME → NPC | NPC 只读世界日、小时、星期，不推进时间 |
+| `WeatherService.query()` | SEA-WEATHER → 装配层 → NPC | NPC 只读天气标签，不修改天气 |
+| `MoveIntent(npc_id, anchor_id, facing, action)` | NPC → SEA-MOVE / SEA-WORLD | NPC 给生活位置意图；实际寻路、碰撞、到达和 home anchor 降级由世界/移动模块执行 |
+| `interact(npc_id)` | SEA-INTERACT → NPC | 交互层转发目标，不把 NPC 内部状态写到热点节点 |
+| `InventoryGiftPort` | 装配层 → Inventory / NPC | 先预检物品并由 Inventory 唯一扣除，成功事件才结算好感 |
+| 业务结果事件 | Farm/Build/Ship/Salvage/Quest → NPC | NPC 只消费公开稳定 ID 和结果，不复制业务状态、不发放其他模块奖励 |
+| `SnapshotRegistry` | SEA-SAVE → NPC | 注册/验证/apply `npc.version=1`；恢复期间屏蔽中间事件，瞬态对话和移动路径不存档 |
+
+NPC 的关系图查询、对白查询和日程查询都返回副本。UI 只能发送 `meet`、`start_dialogue`、`choose_dialogue`、`give_gift` 等意图；不能直接改 `affinity`、`edge_deltas`、`seen_events` 或 `schedule`。关系与对白规则见 [SEA-RESIDENT 设计](../features/resident/spec.md)，施工顺序和门禁见 [NPC 模块施工文档](../development/2026-11-07_npc_module_framework.md)。
