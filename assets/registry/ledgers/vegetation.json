@@ -451,7 +451,7 @@
       "source_sha256": "99090d2d5e0404baf384ef6599e4a4daeec7e5831f4507ac967bf244dc1d467f",
       "manifest": "art_source/vegetation/proton_scatter_trial/v001/asset_manifest.json",
       "runtime_path": "godot/scenes/vegetation_authoring/proton_rooftop_preview.tscn",
-      "runtime_sha256": "1b66cf9ed594b6ea46dd55d327e7d338f1ac4a32b8a0d82bc2df0e4f19470a97",
+      "runtime_sha256": "81e8115343bfc802af9d7879c0f1eeae934eda2d60c48b2cff065e877e703045",
       "stage": "trial_verified_production_pending",
       "license": "MIT_addon_and_models_demo_texture_terms_pending",
       "dependencies": [
@@ -472,10 +472,13 @@
         "render_batches": 60,
         "native_shader": "upstream grass.gdshader unchanged",
         "saved_preview_reopen": "passed",
+        "facility_transform_follow": "passed",
         "production_default": "v003 unchanged",
         "evidence": [
           "D:\\projects\\sea-work\\verification\\20261105-173934-proton-focused-stage-eedf1a\\report.json",
-          "docs/development/2026-11-05_proton_scatter_trial.md"
+          "docs/development/2026-11-05_proton_scatter_trial.md",
+          "D:\\projects\\sea-work\\verification\\20261106-142527-vegetation-facility-final-956ec0\\report.json",
+          "docs/development/2026-11-06_vegetation_facility_editing.md"
         ]
       }
     }

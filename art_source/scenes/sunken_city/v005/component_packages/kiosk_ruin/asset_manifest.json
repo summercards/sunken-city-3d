@@ -1,0 +1,90 @@
+{
+  "key": "kiosk_ruin",
+  "slug": "kiosk_ruin",
+  "name": "旧报刊售票亭_破顶",
+  "component_family": "kiosk",
+  "category": "facilities",
+  "component_id": "SEA-SCENE-SCITY-KIOSK-RUIN",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    5.5,
+    4.2,
+    4.0
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 3,
+  "version": "v005",
+  "collection": "SEA-SCENE-SCITY-KIOSK-RUIN_旧报刊售票亭_破顶",
+  "root_object": "SEA-SCENE-SCITY-KIOSK-RUIN_ROOT",
+  "objects": [
+    "旧报刊售票亭_破顶_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-KIOSK-RUIN_ROOT"
+  ],
+  "bounds_size_m": [
+    5.389776229858398,
+    4.200239658355713,
+    3.767500877380371
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 4380,
+  "polygons": 2345,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "component_blend": "art_source/scenes/sunken_city/v005/component_packages/kiosk_ruin/kiosk_ruin.blend",
+  "geometry_fingerprint": "e8d834d64920a676d36e0f137822d62c3af17be6c5cf8b8c5c8d21a0e2452888",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/kiosk_ruin/kiosk_ruin.blend",
+  "source_sha256": "e75284e187e2ba8409d03a46ecec0fdb25a6163924f9b8eb1e0e95992f4d9916",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-KIOSK-RUIN",
+  "source": "art_source/scenes/sunken_city/v005/sunken_city_v005.blend",
+  "source_master_sha256": "a95f1961596081ee61d14b0e051a025890524630f9e939e8fd9c324128035850",
+  "bounds_min": [
+    -2.694888114929199,
+    -2.1001198291778564,
+    0.0
+  ],
+  "bounds_max": [
+    2.694888114929199,
+    2.1001198291778564,
+    3.767500877380371
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261106T071625_3f80c899",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\skill_reports\\20261106T071625_3f80c899\\kiosk_ruin.json",
+    "exit_code": 0
+  },
+  "source_stage": "source_verified_runtime_pending",
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-KIOSK-RUIN"
+}

@@ -28,6 +28,14 @@ var selected_index := -1
 var selected_data: Dictionary = {}
 var action_tween: Tween
 var action_closing := false
+var _action_buttons: Array[Button] = []
+var _buy_minus: Button
+var _buy_plus: Button
+var _buy_button: Button
+var _buy_counter: Label
+var _buy_limit := 0
+var _page_counts := [1,1]
+var _restore_id := ""
 ## 购买气泡里当前选中的数量。每次重开气泡重置为 1。
 var buy_amount := 1
 
@@ -75,7 +83,9 @@ func _button(text: String) -> Button:
 	var button:=Button.new();button.text=text;button.set_meta("cozy_skip",true)
 	button.add_theme_font_override("font",font);button.add_theme_font_size_override("font_size",24)
 	for state in ["normal","hover","pressed","focus"]:
-		button.add_theme_stylebox_override(state,Cozy.surface(Color("#fff0ab") if state=="normal" else Cozy.GOLD,25))
+		var style:=Cozy.surface(Color("#fff0ab") if state=="normal" else Cozy.GOLD,25)
+		if state=="focus": style.bg_color=Color.TRANSPARENT;style.border_color=Cozy.INK;style.set_border_width_all(3)
+		button.add_theme_stylebox_override(state,style)
 	for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]: button.add_theme_color_override(state,Cozy.INK)
 	button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
 	return button
@@ -83,29 +93,50 @@ func _button(text: String) -> Button:
 func refresh(service: String) -> void:
 	if action_tween: action_tween.kill()
 	action_closing=false
-	if service!=mode: pages=[0,0];selected_index=-1
+	var previous_id:=str(selected_data.get("id",_restore_id))
+	var previous_pool:=selected_pool
+	var previous_index:=selected_index
+	if service!=mode:
+		pages=[0,0];previous_index=0;previous_id="";previous_pool=1 if service=="shop" else 0
 	mode=service
+	_action_buttons.clear();_buy_minus=null;_buy_plus=null;_buy_button=null;_buy_limit=0
 	if not query.is_valid(): return
 	snapshot=query.call(mode)
 	get_node("ServiceName").text={"shipping":"出货箱","storage":"保管仓库","shop":"家园补给"}[mode]
 	caption.text={"shipping":"待出货 · 明早 07:00 收货","storage":"仓库 · 存放的东西不会出售","shop":"种子与土壤 · 选一份带回家"}[mode]
-	total.text=("待结算    %d 瓶盖" % int(snapshot.expected)) if mode=="shipping" else ("瓶盖    %d" % int(snapshot.coins))
+	total.text="瓶盖 %d · 背包 %d/%d 格" % [int(snapshot.coins),_used(snapshot.bag),int(snapshot.bag_capacity)]
+	if mode=="shipping": total.text+=" · 待收 %d" % int(snapshot.expected)
+	elif mode=="storage": total.text+=" · 仓库 %d/%d 格" % [_used(snapshot.other),int(snapshot.other_capacity)]
 	var rows: Array=[_stacks(snapshot.bag,int(snapshot.bag_capacity),snapshot.get("bag_order",[])),
 		snapshot.catalog if mode=="shop" else _stacks(snapshot.other,int(snapshot.other_capacity),snapshot.get("other_order",[]))]
+	if previous_id!="":
+		var per_page:=24 if previous_pool==0 else 8
+		for i in rows[previous_pool].size():
+			if str(rows[previous_pool][i].id)==previous_id: pages[previous_pool]=i/per_page;break
 	for pool in 2:
 		for node in grids[pool].get_children(): grids[pool].remove_child(node);node.queue_free()
 		slots[pool]=[]
 		var per_page:=24 if pool==0 else 8
 		var count:=maxi(1,ceili(float(rows[pool].size())/per_page))
+		_page_counts[pool]=count
 		pages[pool]=clampi(pages[pool],0,count-1)
 		page_labels[pool].text="%d / %d" % [pages[pool]+1,count] if count>1 else ""
 		page_labels[pool].show()
 		for arrow in page_arrows[pool]: arrow.visible=count>1
+		page_arrows[pool][0].disabled=pages[pool]==0
+		page_arrows[pool][1].disabled=pages[pool]>=count-1
 		for i in mini(per_page,maxi(0,rows[pool].size()-pages[pool]*per_page)):
 			var index: int=pages[pool]*per_page+i
 			var data: Dictionary=rows[pool][index] if index<rows[pool].size() else {"id":"","count":0}
 			_add_tile(pool,i,data)
 	name_tag.hide();actions.hide();selected_data={};selected_index=-1
+	var target:=clampi(previous_index,0,slots[previous_pool].size()-1)
+	for i in slots[previous_pool].size():
+		if str(slots[previous_pool][i].get_meta("item_id"))==previous_id and previous_id!="":
+			target=i;break
+	if not slots[previous_pool].is_empty():
+		select(previous_pool,target)
+		if is_visible_in_tree(): slots[previous_pool][target].grab_focus()
 	queue_redraw()
 
 ## 把 {物品id: 数量} 摊成格子行。
@@ -114,6 +145,12 @@ func refresh(service: String) -> void:
 ## 不传就退回物品表顺序 —— 旧存档、快照没带 order 时都能照常显示。
 ## 同一物品数量超过叠放上限会拆成多堆，**跟着自己的 id 挨在一起**，
 ## 不会因为排序把同种物品的几堆打散到八个格子以外。
+func _used(counts: Dictionary) -> int:
+	var used:=0
+	for id in counts:
+		if not Items.is_currency(str(id)): used+=ceili(float(counts[id])/Items.stack_limit(str(id)))
+	return used
+
 func _stacks(counts: Dictionary, capacity: int, order: Array = []) -> Array:
 	var result: Array=[]
 	var ids: Array=[]
@@ -139,6 +176,9 @@ func _add_tile(pool: int, index: int, data: Dictionary) -> void:
 	tile.kind=str(data.id);tile.empty_slot=tile.kind=="";tile.amount=int(data.count);tile.shown_amount=tile.amount
 	tile.set_meta("item_id",tile.kind);tile.set_meta("pool",pool);tile.set_meta("slot_count",tile.amount)
 	grids[pool].add_child(tile);tile.custom_minimum_size=Vector2(84,84);tile.size=Vector2(84,84)
+	tile.focus_mode=Control.FOCUS_ALL
+	var focus:=Cozy.surface(Color.TRANSPARENT,18);focus.border_color=Cozy.INK;focus.set_border_width_all(3)
+	tile.add_theme_stylebox_override("focus",focus)
 	slots[pool].append(tile)
 	if pool==0 and mode=="shipping" and not str(data.id) in snapshot.accepts and not tile.empty_slot: tile.modulate.a=0.4
 	tile.mouse_entered.connect(func(): if not actions.visible: select(pool,index))
@@ -161,10 +201,11 @@ func select(pool: int, index: int) -> void:
 	selected_data=slots[pool][index].get_meta("entry").duplicate(true)
 	for p in 2:
 		for i in slots[p].size(): slots[p][i].selected=p==pool and i==index
-	name_tag.visible=str(selected_data.id)!=""
+	name_tag.show()
 	page_labels[1].visible=not (pool==1 and name_tag.visible)
-	if not name_tag.visible: return
-	name_tag.text=Items.label(str(selected_data.id));name_tag.reset_size()
+	name_tag.text="空格" if str(selected_data.id)=="" else "%s · ×%d" % [Items.label(str(selected_data.id)),int(selected_data.count)]
+	name_tag.reset_size()
+	_restore_id=str(selected_data.id)
 	var point:=grids[pool].position+Vector2((index%8)*106+42,(index/8)*92)
 	name_tag.position=Vector2(clampf(point.x-name_tag.size.x/2,12,size.x-name_tag.size.x-12),point.y-44 if pool==0 else point.y+86)
 
@@ -179,6 +220,7 @@ func select(pool: int, index: int) -> void:
 ## 数量变化只改三个控件，不重建整个气泡 —— 否则每点一次 + 都要闪一下。
 func _buy_picker() -> void:
 	var limit:=maxi(0,int(selected_data.get("max_buy",0)))
+	_buy_limit=limit
 	if limit<=0:
 		var short_coins:=int(snapshot.get("coins",0))<int(selected_data.get("price",0))
 		action_body.add_child(_label("瓶盖不足" if short_coins else "背包已满",22,Cozy.INK))
@@ -188,30 +230,26 @@ func _buy_picker() -> void:
 	row.add_theme_constant_override("separation",6)
 	row.alignment=BoxContainer.ALIGNMENT_CENTER
 	action_body.add_child(row)
-	var minus:=_step_button("−");row.add_child(minus)
-	var counter:=_label(str(buy_amount),26,Cozy.INK)
+	var minus:=_step_button("−");_buy_minus=minus;row.add_child(minus)
+	var counter:=_label(str(buy_amount),26,Cozy.INK);_buy_counter=counter
 	counter.custom_minimum_size=Vector2(54,44);counter.size=Vector2(54,44)
 	counter.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 	counter.vertical_alignment=VERTICAL_ALIGNMENT_CENTER
 	row.add_child(counter)
-	var plus:=_step_button("+");row.add_child(plus)
-	var buy:=_button("购买 %d" % buy_amount)
+	var plus:=_step_button("+");_buy_plus=plus;row.add_child(plus)
+	var buy:=_button("购买 %d" % buy_amount);_buy_button=buy
+	_action_buttons=[minus,plus,buy]
 	buy.custom_minimum_size=Vector2(190,45)
 	buy.set_meta("service_action","buy");buy.set_meta("amount",buy_amount)
 	action_body.add_child(buy)
 	minus.disabled=buy_amount<=1
 	plus.disabled=buy_amount>=limit
-	var apply:=func(delta: int) -> void:
-		buy_amount=clampi(buy_amount+delta,1,limit)
-		counter.text=str(buy_amount)
-		buy.text="购买 %d" % buy_amount
-		buy.set_meta("amount",buy_amount)
-		minus.disabled=buy_amount<=1
-		plus.disabled=buy_amount>=limit
-	minus.pressed.connect(func(): apply.call(-1))
-	plus.pressed.connect(func(): apply.call(1))
+	action_body.add_child(_label("上限 %d · 余额 %d 瓶盖" % [limit,int(snapshot.coins)],18,Cozy.INK))
+	minus.pressed.connect(func(): adjust_buy_amount(-1))
+	plus.pressed.connect(func(): adjust_buy_amount(1))
 	buy.pressed.connect(func(): operation_requested.emit(str(selected_data.get("crop",selected_data.id)),"buy",buy_amount))
 	buy.grab_focus.call_deferred()
+	buy.set_meta("action_hotkey",1)
 
 
 ## 数量选择的 ± 小圆钮：比「购买 N」窄，视觉上从属它。
@@ -226,9 +264,11 @@ func show_actions() -> void:
 	if selected_data.is_empty() or str(selected_data.id)=="": return
 	# 每次重新开气泡都从 1 起：上一件商品选到 7，换一件还是 7 会误买。
 	buy_amount=1
+	_action_buttons.clear();_buy_minus=null;_buy_plus=null;_buy_button=null;_buy_limit=0
 	action_closing=false;actions.mouse_filter=Control.MOUSE_FILTER_STOP
 	for node in action_body.get_children(): action_body.remove_child(node);node.queue_free()
 	var id:=str(selected_data.id)
+	action_body.add_child(_label(Items.label(id)+" · 库存 ×%d" % int(snapshot.bag.get(id,0)),20,Cozy.INK))
 	var action: String="deposit" if selected_pool==0 else ("buy" if mode=="shop" else "withdraw")
 	var verb: String="放入" if selected_pool==0 else ("购买" if mode=="shop" else "取回")
 	var blocked: bool=selected_pool==0 and ((mode=="shipping" and not id in snapshot.accepts) or mode=="shop")
@@ -238,11 +278,11 @@ func show_actions() -> void:
 		_buy_picker()
 	else:
 		for amount in ([1,int(selected_data.count)] if int(selected_data.count)>1 else [1]):
-			var button:=_button("%s %d" % [verb,amount]);button.custom_minimum_size=Vector2(190,45)
+			var button:=_button("%s %d%s" % [verb,amount,"（整叠）" if amount>1 else ""]);button.custom_minimum_size=Vector2(190,45)
 			button.set_meta("service_action",action);button.set_meta("amount",amount)
 			button.pressed.connect(func(): operation_requested.emit(str(selected_data.get("crop",id)),action,amount))
-			action_body.add_child(button)
-		if action_body.get_child_count()>0: action_body.get_child(0).grab_focus.call_deferred()
+			action_body.add_child(button);_action_buttons.append(button)
+		if not _action_buttons.is_empty(): _action_buttons[0].grab_focus.call_deferred()
 	actions.reset_size();actions.position=Vector2(750,428 if selected_pool==1 else 226);actions.show()
 	if Cozy.motion_enabled:
 		if action_tween: action_tween.kill()
@@ -253,20 +293,71 @@ func show_actions() -> void:
 	else: actions.scale=Vector2.ONE;actions.modulate.a=1
 
 func turn(pool: int, step: int) -> void:
-	pages[pool]+=step;refresh(mode)
+	var target:=clampi(pages[pool]+step,0,int(_page_counts[pool])-1)
+	if target==pages[pool]: return
+	pages[pool]=target;selected_pool=pool;selected_index=0;selected_data={};_restore_id="";refresh(mode)
+
 func move_selection(step: int) -> void:
-	actions.hide()
-	if selected_index<0: select(0,0);return
-	var index:=selected_index+step
+	if actions.visible: return
 	var pool:=selected_pool
-	if index>=slots[pool].size(): pool=1-pool;index=posmod(index,8)
-	elif index<0: pool=1-pool;index=slots[pool].size()+index
-	select(pool,clampi(index,0,slots[pool].size()-1))
+	var index:=maxi(0,selected_index)+step
+	if index<0:
+		pool=1-pool;index=maxi(0,slots[pool].size()-8)+posmod(maxi(0,selected_index),8)
+	elif index>=slots[pool].size():
+		pool=1-pool;index=posmod(index,8)
+	if slots[pool].is_empty(): return
+	index=clampi(index,0,slots[pool].size()-1)
+	select(pool,index);slots[pool][index].grab_focus()
+
+func keyboard_sort(step: int) -> String:
+	if actions.visible: return "请先返回物品网格"
+	if selected_pool!=0: return "只能整理上方背包 · 商品、仓库与出货托盘不参与换位"
+	var from_id:=str(selected_data.get("id",""))
+	if from_id=="": return "当前没有可整理的物品"
+	var target:=selected_index+step
+	while target>=0 and target<slots[0].size():
+		var id:=str(slots[0][target].get_meta("item_id"))
+		if id!=from_id:
+			sort_requested.emit(from_id,id);return ""
+		target+=step
+	return "已到本页边界，排列未改变"
+
+func is_buying() -> bool:
+	return is_instance_valid(_buy_button) and actions.visible and not action_closing
+
+func buy_button() -> Button:
+	return _buy_button
+
+func action_buttons() -> Array[Button]:
+	return _action_buttons
+
+func move_action_selection(step: int) -> void:
+	if _action_buttons.is_empty(): return
+	var focused:=get_viewport().gui_get_focus_owner()
+	var index:=_action_buttons.find(focused)
+	if index<0: index=0
+	for attempt in _action_buttons.size():
+		index=posmod(index+step,_action_buttons.size())
+		if not _action_buttons[index].disabled:
+			_action_buttons[index].grab_focus();return
+
+func adjust_buy_amount(delta: int) -> void:
+	if _buy_button==null or _buy_limit<=0: return
+	buy_amount=clampi(buy_amount+delta,1,_buy_limit)
+	_buy_counter.text=str(buy_amount)
+	_buy_button.text="购买 %d" % buy_amount
+	_buy_button.set_meta("amount",buy_amount)
+	_buy_minus.disabled=buy_amount<=1
+	_buy_plus.disabled=buy_amount>=_buy_limit
+	var focused:=get_viewport().gui_get_focus_owner()
+	if focused is Button and focused.disabled: _buy_button.grab_focus()
 
 func back() -> bool:
 	if not actions.visible: return false
 	if action_closing: return true
 	if action_tween: action_tween.kill()
+	_action_buttons.clear()
+	if selected_index>=0 and selected_index<slots[selected_pool].size(): slots[selected_pool][selected_index].grab_focus()
 	if not Cozy.motion_enabled: actions.hide();return true
 	action_closing=true;actions.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	for child in action_body.get_children():

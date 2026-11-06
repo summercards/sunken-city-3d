@@ -84,6 +84,7 @@ func _layout_reason_now(before: Array, after: Array, request: Dictionary, contex
 		if active_landing_query.is_valid():
 			var landing_id:=str(active_landing_query.call())
 			if landing_id.begins_with("built:"+id+":"): return "这块木板是当前上下船位置，请先上船或换个泊位"
+	if operation=="remove" and int(context.get("mode",0))==0 and Catalog.RECIPES[request.kind].get("profile","")=="stairs" and preload("res://src/building/assembly_surfaces.gd").contains(at-Catalog.ORIGIN,[request]): return "请先离开楼梯，再回收"
 	if operation=="begin" and Catalog.is_deck(str(request.kind)): return ""
 	var safety: String=load("res://src/building/assembly_surfaces.gd").safety_reason(before,after,at-Catalog.ORIGIN,int(context.get("mode",0))==0,[Catalog.BASE])
 	if safety!="": return safety

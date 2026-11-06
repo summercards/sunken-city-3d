@@ -148,6 +148,11 @@ func _apply_room_camera() -> void:
 	var pose: Dictionary = room.camera_pose()
 	cam.pose_lock = false
 	cam.orbit_only = true
+	# 环绕的缩放区间是**世界米**，房间整体放大后要跟着放大 ——
+	# 否则 1.5 倍的房间里，玩家一滚轮就能把镜头塞进床里。
+	var zoom: Vector2 = room.orbit_zoom_range()
+	cam.orbit_zoom_min = zoom.x
+	cam.orbit_zoom_max = zoom.y
 	cam.suspend_follow()
 	cam.target = pose.target
 	cam.distance = pose.distance
@@ -166,6 +171,9 @@ func _store_outdoor_camera() -> void:
 func _restore_outdoor_camera() -> void:
 	cam.pose_lock = false
 	cam.orbit_only = false
+	# 缩放区间还给室外默认值（8–24 是室内基准，室外是 9–38）。
+	cam.orbit_zoom_min = cam.ORBIT_ZOOM_MIN
+	cam.orbit_zoom_max = cam.ORBIT_ZOOM_MAX
 	if not _outdoor_camera.is_empty():
 		cam.target = _outdoor_camera.target
 		cam.distance = _outdoor_camera.distance
@@ -223,11 +231,18 @@ func _hide_outdoor(hidden: bool) -> void:
 			_hidden.append({"node": node, "visible": node.visible,
 				"process": node.process_mode})
 			node.visible = false
+			# 光隐藏不够：有些环境节点会**按时段自己把 visible 设回来**
+			# （鸟群 `set_hour` 就是）。它们认这个接口，进屋时被抑制，
+			# 出门时解除 —— 否则「在屋里睡到天亮」会有一群海鸥穿过卧室。
+			if node.has_method("set_interior_hidden"):
+				node.set_interior_hidden(true)
 	else:
 		for entry in _hidden:
 			var node = entry.node
 			if not is_instance_valid(node):
 				continue
+			if node.has_method("set_interior_hidden"):
+				node.set_interior_hidden(false)
 			node.visible = bool(entry.visible)
 			node.process_mode = int(entry.process)
 		_hidden.clear()

@@ -177,6 +177,15 @@ func body_point(point: Vector3) -> Vector3:
 	var area := area_at(point,0.5)
 	if area == null: return point
 	var normal: Vector3 = area.surface_normal(point)
+	# 平面/坡面共边时area_at的同高择优依赖登记顺序；胶囊已接触坡面，
+	# 仍按UP追逐平面航点会卡住。只在同一真实高度的共享点取较陡支撑，
+	# 不把相同XZ的其他楼层或不相连的坡面引入补偿。
+	for other in _areas:
+		if not is_instance_valid(other) or other == area: continue
+		var support: Vector3 = other.surface_point(point)
+		if not support.is_finite() or absf(support.y-point.y)>0.002: continue
+		var adjacent_normal: Vector3 = other.surface_normal(support)
+		if adjacent_normal.y>0.0 and adjacent_normal.y<normal.y: normal=adjacent_normal
 	# A capsule resting on a slope touches off-centre. Its bottom origin is
 	# slightly above the point directly underneath; do not chase into the ramp.
 	return point + Vector3.UP * ACTOR_RADIUS * (1.0/maxf(normal.y,0.65)-1.0)

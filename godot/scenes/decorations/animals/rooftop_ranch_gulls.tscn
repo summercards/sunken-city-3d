@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/ambient/building_gull_flock.gd" id="gull"]
+
+[node name="RooftopRanchGulls" type="Node3D"]
+script = ExtResource("gull")
+flight_center = Vector3(0, 0, 0)
+radius = Vector2(20, 12)
+altitude = 61.5
+count = 6
+speed = 0.38
+phase_offset = 1.2
+seed_offset = 3
+metadata/visual_only = true
+metadata/water_layer = "surface"
+metadata/water_layer_role = "none"
+metadata/owner_scope = "rooftop_ranch_roof"

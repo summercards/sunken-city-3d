@@ -60,6 +60,18 @@ func run() -> void:
 		patch.rebuild()
 		check(patch.placement_count == count and patch.batches.size() == batches, "rebuild does not duplicate")
 		check(first.is_equal_approx(patch.batches[0].get_meta("authored_transforms")[0]), "stable baked placements")
+		var regions: Node3D = patch.get_node("Regions")
+		var batch_sample: Node3D = patch.batches[0]
+		var anchor: Node3D = batch_sample.get_parent()
+		check(anchor.get_parent() == regions and anchor.owner != null, "grass has an editor-owned region")
+		var region_position := anchor.position
+		var batch_position := batch_sample.global_position
+		var offset := Vector3(1.5, 0.1, -0.5)
+		anchor.position += offset
+		patch.rebuild()
+		check(anchor.position.is_equal_approx(region_position + offset), "grass rebuild retains manual region edit")
+		check(patch.batches[0].global_position.is_equal_approx(batch_position + patch.global_basis * offset), "grass moves with edited region")
+		anchor.position = region_position
 		for batch in patch.batches:
 			var mm: MultiMesh = batch.multimesh
 			check(mm.use_custom_data and not mm.use_colors, "weights not multiplied by instance color")
@@ -68,13 +80,29 @@ func run() -> void:
 				var a: AABB = batch.get_meta("authored_transforms")[i] * mm.mesh.get_aabb()
 				check(mm.custom_aabb.encloses(a.grow(0.5)), "wind displacement culling margin")
 		var layout: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(patch.layout_path))
+		var facility: Node3D = patch.get_parent()
+		var samples: Array[Node3D] = [patch.batches[0]]
 		if is_roof:
-			var mounds := 0
-			for row in layout.instances:
-				if row.asset != "mound_soft": continue
-				mounds += 1
-				check(absf(row.position[1]-60.05)<0.001, "mounds grounded on the real rooftop")
-			check(mounds == 14, "fourteen authored rooftop mound islands")
+			var plants: Node3D = patch.get_node("Plants")
+			check(plants.get_child_count() == 14, "fourteen authored rooftop mound islands")
+			for mound in plants.get_children():
+				check(mound.owner == facility and mound.has_node("Foliage") and mound.has_meta("vegetation_instance_id"), "mound is individually editable with stable identity")
+			check(patch.batches.all(func(batch): return batch.get_meta("asset_key") != "mound_soft"), "scene-owned mounds never duplicated by the grass builder")
+			var mound: Node3D = plants.get_child(0)
+			var mound_position := mound.position
+			mound.position += offset
+			patch.rebuild()
+			check(mound.position.is_equal_approx(mound_position + offset), "grass rebuild retains manual mound edit")
+			mound.position = mound_position
+			samples.assign([patch.batches[0], mound])
+		var facility_transform := facility.global_transform
+		var local_samples: Array[Transform3D] = []
+		for sample in samples:
+			local_samples.append(facility_transform.affine_inverse() * sample.global_transform)
+		facility.global_transform = Transform3D(Basis(Vector3.UP, 0.37) * facility_transform.basis, facility_transform.origin + Vector3(26, 2, -14))
+		for i in samples.size():
+			check(samples[i].global_transform.is_equal_approx(facility.global_transform * local_samples[i]), "vegetation follows facility translation and rotation")
+		facility.global_transform = facility_transform
 		patch.quality = 1
 		var camera: Camera3D = main.cam
 		var previous: Vector3 = camera.position
@@ -101,15 +129,23 @@ func run() -> void:
 		var identity: String = row.get("instance_id", "solar_cabin/%03d" % i)
 		var found: Node3D = null
 		for node in components:
-			if node.get_script() != null and node.get_script().resource_path == "res://src/ambient/scene_component.gd" and node.instance_id == identity:
+			if is_instance_valid(node) and node.get_script() != null and node.get_script().resource_path == "res://src/ambient/scene_component.gd" and node.instance_id == identity:
 				found = node; break
 		check(found != null, "original plant retained " + identity)
 		if found == null: continue
 		attachments += 1
 		check(found.asset_id == row.asset_id, "original plant asset retained")
-		var a: Array = row.transform
-		check(found.position.is_equal_approx(Vector3(a[0][3], a[1][3], a[2][3])), "original root position retained")
-	check(attachments == 56, "56 original plants untouched")
+		check(found.owner == found.get_parent() and found.get_child_count() > 0, "original plant has an editor-owned transform and a visual")
+		if attachments == 1:
+			var original_transform := found.transform
+			var edited := original_transform.translated(Vector3(0.5, 0.2, -1.0))
+			var module = found.get_parent()
+			var mesh_local: Transform3D = found.get_child(0).transform
+			found.transform = edited
+			module.build()
+			check(found.transform.is_equal_approx(edited) and found.get_child(0).transform.is_equal_approx(mesh_local), "plant rebuild preserves editor placement")
+			found.transform = original_transform
+	check(attachments == 56, "56 original plant identities retained")
 	FileAccess.open("res://outputs/vegetation_contract.json", FileAccess.WRITE).store_string(JSON.stringify({"consumers":report,"solar_attachments":attachments,"checks":checks,"failures":failures},"  "))
 	print("[vegetation] %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)

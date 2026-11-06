@@ -23,3 +23,16 @@ layout_path = "res://data/vegetation/layouts/solar_cabin.json"
 metadata/visual_only = true
 metadata/water_layer = "surface"
 metadata/water_layer_role = "none"
+
+[node name="Regions" type="Node3D" parent="VegetationTurf"]
+
+[node name="upper_roof_meadow" type="Node3D" parent="VegetationTurf/Regions"]
+position = Vector3(6.835, 10.847, -0.815)
+
+[node name="left_parapet" type="Node3D" parent="VegetationTurf/Regions"]
+position = Vector3(0.04, 7.895, -0.2)
+
+[node name="front_parapet" type="Node3D" parent="VegetationTurf/Regions"]
+position = Vector3(1.9, 7.895, 2.725)
+
+[node name="moss_accents" type="Node3D" parent="VegetationTurf/Regions"]

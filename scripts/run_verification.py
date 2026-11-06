@@ -2,6 +2,7 @@
 """Run sea checks with isolated user data, full logs and unmasked exit codes."""
 import argparse
 import datetime as dt
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -13,6 +14,11 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 GODOT_ROOT = ROOT / 'godot'
 TESTS = {
+    'seabed-scene': ('tools/test_seabed_scene.gd', r'\[seabed-scene\] \d+ checks, 0 failures'),
+    'seabed-authoring': ('tools/build_sunken_seabed.gd', r'\[seabed-authoring\] \d+ checks, 0 failures'),
+    'sea-fauna': ('tests/test_sea_fauna.gd', r'\[sea-fauna\] \d+ checks, 0 failures'),
+    'visual-sea-fauna': ('tools/capture_sea_fauna.gd', r'\[sea-fauna-render\] \d+ checks, 0 failures'),
+    'visual-sunken-seabed': ('tools/capture_sunken_seabed.gd', r'\[sunken-seabed-render\] \d+ checks, 0 failures'),
     'sunken-city': ('tests/test_sunken_city.gd', r'\[sunken-city\] \d+ checks, 0 failures'),
     'visual-sunken-city': ('tools/capture_sunken_city.gd', r'\[sunken-city-render\] \d+ checks, 0 failures'),
     'modules': ('tests/test_feature_modules.gd', r'\[modules\] \d+ checks, 0 failures'),
@@ -28,9 +34,23 @@ TESTS = {
     # 键盘操控：方向键走人 / 划船、镜头不再被方向键平移、E 上下船
     # （SEA-MOVE-R20 / SEA-NAV-R15 / SEA-CAMERA-R12 / SEA-INTERACT-R13）。
     'keyboard-control': ('tests/test_keyboard_control.gd', r'\[keyboard-control\] \d+ checks, 0 failures'),
+    'keyboard-panels': ('tests/test_keyboard_panels.gd', r'\[keyboard-panels\] \d+ checks, 0 failures'),
+    'visual-keyboard-panels': ('tests/test_keyboard_panels.gd', r'\[keyboard-panels\] \d+ checks, 0 failures'),
+    'keyboard-building': ('tests/test_keyboard_building.gd', r'\[keyboard-building\] \d+ checks, 0 failures'),
+    'keyboard-farm-loop': ('tests/test_keyboard_farm_loop.gd', r'\[keyboard-farm-loop\] \d+ checks, 0 failures'),
+    'visual-keyboard-farm-loop': ('tests/test_keyboard_farm_loop.gd', r'\[keyboard-farm-loop\] \d+ checks, 0 failures'),
+    'visual-keyboard-building': ('tests/test_keyboard_building.gd', r'\[keyboard-building\] \d+ checks, 0 failures'),
+    'keyboard-entry': ('tests/test_keyboard_entry.gd', r'\[keyboard-entry\] \d+ checks, 0 failures'),
+    'keyboard-travel': ('tests/test_keyboard_travel.gd', r'\[keyboard-travel\] \d+ checks, 0 failures'),
     # 手感参数：加减速时间常数、反向弧线、步频耦合、镜头前视/零滞后、船转向惯性与侧滑、E 去抖
     # （SEA-MOVE-R22 / SEA-CAMERA-R13 / SEA-NAV-R16）。
     'control-feel': ('tests/test_control_feel.gd', r'\[control-feel\] \d+ checks, 0 failures'),
+    # 纯键盘可达性：采集点在场且站得上去、船上 E 能打捞/靠岸、泊位里朝岸=下船。
+    # （SEA-GATHER-R04/R05 / SEA-INTERACT-R15/R16 / SEA-MOVE-R24）
+    'interaction-reach': ('tests/test_interaction_reach.gd', r'\[interaction-reach\] \d+ checks, 0 failures'),
+    'visual-interaction-reach': ('tools/capture_interaction_reach.gd', r'\[interaction-reach-render\] failures=0'),
+    'probe-control-gaps': ('tools/probe_indoor_keys.gd', r'\[gap\] '),
+    'probe-gather-reach': ('tools/probe_gather_reach.gd', r'\[gr\] '),
     'management': ('tests/test_management_loop.gd', r'\[management\] \d+ checks, 0 failed'),
     'camera': ('tests/test_camera_follow.gd', r'\[camera-follow\].*failures=0'),
     # 缩放上限 38 m：连续往外滚拉不出去，往里仍能到 9 m（SEA-CAMERA-R11，真实渲染）。
@@ -72,6 +92,11 @@ TESTS.update({
     'visual-rowing-game': ('tools/capture_rowing_fit.gd', r'\[rowing-game\] \d+ checks, 0 failures'),
     # 划船装配标尺：角色整体尺度、座板、桨架、握柄与桨叶的实际米制关系（只读探针）。
     'rowing-scale-probe': ('tools/probe_rowing_scale.gd', r'\[rowing-scale\] '),
+    'building-5m-experience': ('tests/test_building_5m_experience.gd', r'\[building-5m-experience\] \d+ checks, 0 failures'),
+    'visual-building-5m-experience': ('tests/test_building_5m_experience.gd', r'\[building-5m-experience\] \d+ checks, 0 failures'),
+    'building-5m-rules': ('tests/test_building_5m_rules.gd', r'\[building-5m-rules\] \d+ checks, 0 failures'),
+    'building-ui-unified': ('tests/test_building_ui_unified.gd', r'\[building-ui-unified\] \d+ checks, 0 failures'),
+    'visual-building-ui-unified': ('tests/test_building_ui_unified.gd', r'\[building-ui-unified\] \d+ checks, 0 failures'),
     'building-demolition': ('tests/test_building_demolition.gd', r'\[building-demolition\] \d+ checks, 0 failures'),
     'building-surfaces': ('tests/test_building_surfaces.gd', r'\[building-surfaces\] \d+ checks, 0 failures'),
     'visual-building-surfaces': ('tests/test_building_surfaces.gd', r'\[building-surfaces\] \d+ checks, 0 failures'),
@@ -225,6 +250,7 @@ TESTS.update({
     'title-screen': ('tests/test_title_screen.gd', r'\[title-screen\].*0 failures'),
     'visual-title-screen': ('tests/test_title_screen.gd', r'\[title-screen\].*0 failures'),
     'minimum-loop': ('tests/test_minimum_loop.gd', r'\[minimum-loop\].*0 failures'),
+    'minimum-loop-visual-baseline': ('tests/test_minimum_loop_without_seabed_fauna.gd', r'\[minimum-loop\].*0 failures'),
     'visual-minimum-loop': ('tests/test_minimum_loop.gd', r'\[minimum-loop\].*0 failures'),
     'decorations': ('tests/test_scene_decorations.gd', r'\[decorations\].*failures=0'),
     'visual-decorations': ('tests/test_scene_decorations.gd', r'\[decorations\].*failures=0'),
@@ -303,9 +329,79 @@ def inspect_log(name, code, text, marker):
             expected.append(line)
         elif re.search(r'SCRIPT ERROR|SHADER ERROR|ERROR:|\bFAIL\b', line):
             errors.append(line)
+    completion = re.search(r'\[minimum-loop\]\s+(\d+)\s+checks,\s+(\d+)\s+failures', text)
+    removed_nodes = [line.split('] ', 1)[1] for line in text.splitlines()
+                     if line.startswith('[visual-baseline-removed] ')]
+    failure_labels = [line.split('FAIL ', 1)[1] for line in errors if 'FAIL ' in line]
     ok = code == 0 and not errors and len(expected) <= 1 and re.search(marker, text) is not None
-    return {'exit_code': code, 'passed': ok, 'expected_errors': expected,
-            'unexpected_errors': errors, 'completion_marker': bool(re.search(marker, text))}
+    result = {'exit_code': code, 'passed': ok, 'expected_errors': expected,
+              'unexpected_errors': errors, 'completion_marker': bool(re.search(marker, text))}
+    if completion:
+        result['checks'] = int(completion.group(1))
+        result['failures'] = int(completion.group(2))
+    result['failure_labels'] = failure_labels
+    result['removed_nodes'] = removed_nodes
+    return result
+
+
+def run_minimum_loop_baseline(exe, project, full_config, run_dir, user_name, args):
+    cases = [
+        ('minimum-loop', 'tests/test_minimum_loop.gd'),
+        ('minimum-loop-visual-baseline', 'tests/test_minimum_loop_without_seabed_fauna.gd'),
+    ]
+    results = {}
+    for name, script in cases:
+        config = re.sub(r'^config/custom_user_dir_name=.*$',
+                        'config/custom_user_dir_name="' + user_name + '/' + name + '"',
+                        full_config, flags=re.M)
+        (project / 'project.godot').write_text(config)
+        cmd = [exe, '--path', str(project), '--headless', '--script', 'res://' + script,
+               '--', '--skip-title']
+        log = run_dir / (name + '.log')
+        with log.open('w') as output:
+            try:
+                code = subprocess.run(cmd, stdout=output, stderr=subprocess.STDOUT,
+                                      timeout=args.timeout).returncode
+            except subprocess.TimeoutExpired:
+                code = 124
+        text = log.read_text(errors='replace')
+        result = inspect_log(name, code, text, TESTS[name][1])
+        result['log'] = str(log)
+        result['command'] = cmd
+        results[name] = result
+        print(name, 'PASS' if result['passed'] else 'FAIL', 'exit=' + str(code), flush=True)
+        if not result['passed']:
+            print('\n'.join(text.splitlines()[-18:]), flush=True)
+    current = results['minimum-loop']
+    baseline = results['minimum-loop-visual-baseline']
+    farm_plot = GODOT_ROOT / 'src/farming/farm_plot.gd'
+    report = {
+        'passed': (current['unexpected_errors'] == baseline['unexpected_errors']
+                   and current.get('checks') == baseline.get('checks') == 141
+                   and current.get('failures') == baseline.get('failures') == 10
+                   and current.get('failure_labels') == baseline.get('failure_labels')
+                   and baseline.get('removed_nodes') == [
+                       'World/SunkenSeabed',
+                       'World/Environment/Animals/SolarCabinFishSchools',
+                       'World/Zones/Zone1HomeHarbor/Models/太阳能木屋/SolarCabinGulls',
+                       'World/SeaStructures/rooftop_ranch/RooftopRanchGulls',
+                   ]),
+        'current_result_passed': current['passed'],
+        'baseline_result_passed': baseline['passed'],
+        'labels_equal': current.get('failure_labels') == baseline.get('failure_labels'),
+        'checks_equal': current.get('checks') == baseline.get('checks'),
+        'failures_current': current.get('failures'),
+        'failures_baseline': baseline.get('failures'),
+        'reportpath': str(run_dir / 'report.json'),
+        'removednodes': baseline.get('removed_nodes', []),
+        'farm_plot_current_sha256': hashlib.sha256(farm_plot.read_bytes()).hexdigest(),
+        'head_diff_evidence': subprocess.check_output(
+            ['git', 'diff', '--no-ext-diff', '--unified=20', 'HEAD', '--',
+             'godot/src/farming/farm_plot.gd'], cwd=ROOT, text=True),
+    }
+    (run_dir / 'minimum_loop_baseline.json').write_text(
+        json.dumps(report, ensure_ascii=False, indent=2))
+    return results, report
 
 
 def mount_readonly(target, source):
@@ -338,12 +434,13 @@ def mount_readonly(target, source):
 def isolated_project(run_dir):
     project = run_dir / 'project'
     project.mkdir()
-    for name in ['src', 'scripts', 'scenes', 'tests', 'tools', 'shaders', 'data', 'addons']:
+    for name in ['src', 'scripts', 'scenes', 'tests', 'tools', 'shaders', 'data', 'addons', 'terrain']:
         source = GODOT_ROOT / name
         if source.exists():
             shutil.copytree(source, project / name, ignore=shutil.ignore_patterns('__pycache__'))
     # Assets and imported binary cache are read-only inputs to test scripts.
     mount_readonly(project / 'assets', GODOT_ROOT / 'assets')
+    mount_readonly(project / 'terrain', GODOT_ROOT / 'terrain')
     mount_readonly(project / 'icon.svg', GODOT_ROOT / 'icon.svg')
     cache = project / '.godot'
     cache.mkdir()
@@ -356,6 +453,9 @@ def isolated_project(run_dir):
     uid_cache = GODOT_ROOT / '.godot/uid_cache.bin'
     if uid_cache.exists():
         shutil.copy2(uid_cache, cache / uid_cache.name)
+    extension_list = GODOT_ROOT / '.godot/extension_list.cfg'
+    if extension_list.exists():
+        shutil.copy2(extension_list, cache / extension_list.name)
     text = (GODOT_ROOT / 'project.godot').read_text()
     # Applied BEFORE Godot starts and before any Autoload is constructed.
     user_name = 'sea-verification/' + run_dir.name
@@ -421,6 +521,16 @@ def main():
               'working_tree': subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True),
               'renderer': 'per check; visual-* always use real renderer', 'results': {}}
     print('Evidence:', run_dir, flush=True)
+    if checks == ['minimum-loop', 'minimum-loop-visual-baseline']:
+        results, baseline_report = run_minimum_loop_baseline(
+            exe, project, full_config, run_dir, user_name, args)
+        report['results'].update(results)
+        report['minimum_loop_baseline'] = baseline_report
+        (run_dir / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+        evidence_path = ROOT.parent / 'sea-work' / 'sunken_city' / 'v005' / 'import' / 'minimum_loop_baseline.json'
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        evidence_path.write_text(json.dumps(baseline_report, ensure_ascii=False, indent=2))
+        return 0 if all(x['passed'] for x in report['results'].values()) else 1
     if args.import_assets:
         import_log = run_dir / 'asset-import.log'
         import_cmd = [exe, '--headless', '--editor', '--path', str(project), '--import']

@@ -59,7 +59,21 @@ func execute(c, target: Node3D) -> bool:
 	var direction: Vector3 = c.actor.global_position-anchor
 	direction.y=0
 	if direction.length()<0.01: direction=Vector3.FORWARD
-	var point: Vector2 = area.clamp_point(anchor.x+direction.normalized().x*1.35,anchor.z+direction.normalized().z*1.35)
+	# 站位距离 = 目标的「站在多远能够到」+ 一点让开自身轮廓的余量。
+	#
+	# 原来写死 1.35 米。对码头上的箱子够用，但**大件物品会把人放进它自己的身体里**：
+	# 2026-11-06 房间放大 1.5 倍后，床的半长变成 1.52 米，1.35 的落点落在床垫上，
+	# 角色一走过去就被床挡住 → `walk_action.step` 判「前面被挡住了」→ `cancel()`，
+	# 于是点床边永远睡不着，而且没有任何报错。
+	#
+	# `effective_focus_radius()` 本来就是「这个物件要站多近才算够得着」，
+	# 它已经按视觉尺寸放大过（`auto_radius`）。站位取它再让 0.35 米，
+	# 小物件行为不变（1.35 是下限），大物件自动站远。
+	var stand_off := 1.35
+	if target.has_method("effective_focus_radius"):
+		stand_off = clampf(float(target.effective_focus_radius()) + 0.35, 1.35, 2.6)
+	var point: Vector2 = area.clamp_point(anchor.x+direction.normalized().x*stand_off,
+		anchor.z+direction.normalized().z*stand_off)
 	var support: Vector3 = area.surface_point(Vector3(point.x,anchor.y,point.y))
 	if not support.is_finite():
 		c.notify("那里没有可以站立的地面")

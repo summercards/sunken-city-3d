@@ -64,8 +64,14 @@ var orbit_only := false
 var orbit_pitch_min_deg := 26.0
 var orbit_pitch_max_deg := 72.0
 ## `orbit_only` 下允许的距离（米）。太近会切进家具，太远整屋缩成一个点。
-var orbit_zoom_min := 8.0
-var orbit_zoom_max := 24.0
+##
+## 这两个是**入场时由房间按自身 scale 改写**的运行时值（见
+## `RoomController._apply_room_camera`），下面两个常量是它们的出厂基准：
+## 房间 1:1 时就是 8–24，房间放大 1.5 倍时变成 12–36。出门时还原成基准。
+const ORBIT_ZOOM_MIN := 8.0
+const ORBIT_ZOOM_MAX := 24.0
+var orbit_zoom_min := ORBIT_ZOOM_MIN
+var orbit_zoom_max := ORBIT_ZOOM_MAX
 ## 抓地平移的锚点（按住时鼠标下的地面点）。
 var _grab_world := Vector3.ZERO
 var _grab_valid := false
@@ -263,6 +269,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotating = false
 		return
 
+	# 独立取景键，不占角色方向键与 E/Q；室内环视也沿同一约束。
+	if event is InputEventKey and event.pressed:
+		var code: int = event.physical_keycode if event.physical_keycode else event.keycode
+		if code in [KEY_BRACKETLEFT,KEY_BRACKETRIGHT]:
+			_orbit(0.12 if code==KEY_BRACKETLEFT else -0.12,0.0)
+		elif code in [KEY_MINUS,KEY_EQUAL]:
+			set_distance(distance * (1.08 if code==KEY_MINUS else 1.0/1.08))
+		else: return
+		get_viewport().set_input_as_handled()
+		return
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		match mb.button_index:

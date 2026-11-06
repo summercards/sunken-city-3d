@@ -1,0 +1,406 @@
+{
+  "schema": "sea.asset_manifest",
+  "asset_id": "SEA-SCENE-SCITY-ASSEMBLY",
+  "name": "沉没旧城_统一限高浅水与外扩缓坡版",
+  "version": "v005",
+  "source": "art_source/scenes/sunken_city/v005/sunken_city_v005.blend",
+  "source_sha256": "a95f1961596081ee61d14b0e051a025890524630f9e939e8fd9c324128035850",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-ASSEMBLY",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "building_class": "underwater",
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal",
+    "SEA_Gloss"
+  ],
+  "dependencies": [
+    "SEA-SCENE-SCITY-COFFEE-STEPS",
+    "SEA-SCENE-SCITY-ELECTRONICS-SHOP",
+    "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+    "SEA-SCENE-SCITY-TRAM-TENEMENT",
+    "SEA-SCENE-SCITY-BALCONY-TENEMENT",
+    "SEA-SCENE-SCITY-CUTAWAY-TENEMENT",
+    "SEA-SCENE-SCITY-SLENDER-TOWER",
+    "SEA-SCENE-SCITY-TERRACED-TOWER",
+    "SEA-SCENE-SCITY-HALF-TOWER",
+    "SEA-SCENE-SCITY-CANAL-HOUSING",
+    "SEA-SCENE-SCITY-CANAL-SHELL",
+    "SEA-SCENE-SCITY-ROUNDED-CORNER",
+    "SEA-SCENE-SCITY-CINEMA-RUIN",
+    "SEA-SCENE-SCITY-STATION-HALL",
+    "SEA-SCENE-SCITY-WORKSHOP-SHELL",
+    "SEA-SCENE-SCITY-FRAME-CONSTRUCTION",
+    "SEA-SCENE-SCITY-ROOF-GARDEN-SHELL",
+    "SEA-SCENE-SCITY-LOW-FOUNDATION",
+    "SEA-SCENE-SCITY-STREET-INTACT",
+    "SEA-SCENE-SCITY-STREET-SPLIT",
+    "SEA-SCENE-SCITY-JUNCTION",
+    "SEA-SCENE-SCITY-CANAL-SEGMENT",
+    "SEA-SCENE-SCITY-PLAZA-TILE",
+    "SEA-SCENE-SCITY-VIADUCT-INTACT",
+    "SEA-SCENE-SCITY-VIADUCT-BROKEN",
+    "SEA-SCENE-SCITY-STAIR-LINK",
+    "SEA-SCENE-SCITY-CAR-SEDAN",
+    "SEA-SCENE-SCITY-CAR-VAN",
+    "SEA-SCENE-SCITY-TRAM-WRECK",
+    "SEA-SCENE-SCITY-SCOOTER",
+    "SEA-SCENE-SCITY-UTILITY-POLE",
+    "SEA-SCENE-SCITY-LEANING-POLE",
+    "SEA-SCENE-SCITY-CABLE-SPAN",
+    "SEA-SCENE-SCITY-STREET-LAMP",
+    "SEA-SCENE-SCITY-TRAFFIC-LIGHT",
+    "SEA-SCENE-SCITY-VENDING",
+    "SEA-SCENE-SCITY-BUS-SHELTER",
+    "SEA-SCENE-SCITY-SIGN-BOARD",
+    "SEA-SCENE-SCITY-RUBBLE-CLUSTER",
+    "SEA-SCENE-SCITY-CORROSION-PATCH",
+    "SEA-SCENE-SCITY-MOSS-PATCH",
+    "SEA-SCENE-SCITY-KELP-CLUMP",
+    "SEA-SCENE-SCITY-COLLAPSED-RESIDENCE",
+    "SEA-SCENE-SCITY-FALLEN-HALL",
+    "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+    "SEA-SCENE-SCITY-PUMP-CABINET",
+    "SEA-SCENE-SCITY-KIOSK-RUIN",
+    "SEA-SCENE-SCITY-BENCH",
+    "SEA-SCENE-SCITY-TERRAIN-RAMP",
+    "SEA-SCENE-SCITY-VIADUCT-CURVE"
+  ],
+  "reference_rights": "pending",
+  "runtime_validation": "seabed-scene_and_sunken-city_and_visual-sunken-seabed_passed",
+  "runtime_path": null,
+  "prefab": null,
+  "source_verified": true,
+  "component_count": 50,
+  "instance_count": 388,
+  "terrain_contract": {
+    "type": "continuous stepped-slope city court; flat terrace pads and broad ramps, no random vertex noise",
+    "base_paving_z_m": -61.3,
+    "relief_m": 4.8,
+    "ramp_run_m": 24,
+    "ramp_angle_deg": 11.309932474020213,
+    "profile_xz": [
+      [
+        -120,
+        0
+      ],
+      [
+        -72,
+        0
+      ],
+      [
+        -48,
+        -4.8
+      ],
+      [
+        24,
+        -4.8
+      ],
+      [
+        48,
+        0
+      ],
+      [
+        120,
+        0
+      ]
+    ],
+    "plateau_world_z_m": [
+      -61.3,
+      -66.1
+    ],
+    "buildings": "rigid geometry, lowest foundation vertices match local height; partially buried lower storey on ramps is intentional sediment settlement, never free floating",
+    "terrain_seams": "100 logical 24m cells; ramp edges share exact world height, pavement curbs may have their authored 0.2m step",
+    "canal": "the four shared canal modules and two ends are warped on the same linear ramp, not removed",
+    "protected_scope": "all non-terrain/bridge component geometry locked; XY of existing buildings preserved; source v002 unchanged",
+    "sloped_road_definition": "street_split semantic slope state replaces prior crack-only design; same AssetID and prior source history retained"
+  },
+  "rail_extension": {
+    "start_xy": [
+      -78,
+      -48
+    ],
+    "heading_deg": 0,
+    "deck_top_z_m": -50.8,
+    "radius_m": 26,
+    "curve_sweep_deg": 45,
+    "gap_m": 15,
+    "commands": [
+      {
+        "kind": "curve",
+        "turn": "left"
+      },
+      {
+        "kind": "straight",
+        "length_m": 12
+      },
+      {
+        "kind": "curve",
+        "turn": "right"
+      },
+      {
+        "kind": "broken"
+      },
+      {
+        "kind": "gap",
+        "length_m": 15
+      },
+      {
+        "kind": "straight",
+        "length_m": 20
+      },
+      {
+        "kind": "curve",
+        "turn": "right"
+      },
+      {
+        "kind": "curve",
+        "turn": "right"
+      },
+      {
+        "kind": "straight",
+        "length_m": 20
+      }
+    ],
+    "tram_additions": "one on 12m tangent before the fracture and one on the 20m straight after it",
+    "break_policy": "fractured deck and rails terminate before the gap; no invisible beam or connected rail crosses it; debris lies below on terrain",
+    "actual_segments": [
+      {
+        "name": "V3_viaduct_curve_000",
+        "key": "viaduct_curve",
+        "start": [
+          -78.0,
+          -48.0,
+          -50.79999923706055
+        ],
+        "end": [
+          -59.61522674560547,
+          -40.3847770690918,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 0.0,
+        "heading_end_deg": 45.0
+      },
+      {
+        "name": "V3_viaduct_intact_001",
+        "key": "viaduct_intact",
+        "start": [
+          -59.61522674560547,
+          -40.3847770690918,
+          -50.79999923706055
+        ],
+        "end": [
+          -51.12994384765625,
+          -31.89949607849121,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 45.0,
+        "heading_end_deg": 45.0
+      },
+      {
+        "name": "V3_viaduct_curve_002",
+        "key": "viaduct_curve",
+        "start": [
+          -51.12994384765625,
+          -31.89949607849121,
+          -50.79999923706055
+        ],
+        "end": [
+          -32.74516296386719,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 45.0,
+        "heading_end_deg": 0.0
+      },
+      {
+        "name": "V3_viaduct_broken_003",
+        "key": "viaduct_broken",
+        "start": [
+          -32.74516296386719,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "end": [
+          -12.745162963867188,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 0.0,
+        "heading_end_deg": 0.0
+      },
+      {
+        "name": "V3_viaduct_intact_004",
+        "key": "viaduct_intact",
+        "start": [
+          2.2548370361328125,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "end": [
+          22.254837036132812,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 0.0,
+        "heading_end_deg": 0.0
+      },
+      {
+        "name": "V3_viaduct_curve_005",
+        "key": "viaduct_curve",
+        "start": [
+          22.254837036132812,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "end": [
+          40.63961410522461,
+          -31.899492263793945,
+          -50.79999923706055
+        ],
+        "heading_start_deg": 0.0,
+        "heading_end_deg": -45.0
+      },
+      {
+        "name": "V3_viaduct_curve_006",
+        "key": "viaduct_curve",
+        "start": [
+          40.63961410522461,
+          -31.899492263793945,
+          -50.79999923706055
+        ],
+        "end": [
+          48.25483703613281,
+          -50.284271240234375,
+          -50.79999923706055
+        ],
+        "heading_start_deg": -45.0,
+        "heading_end_deg": -90.0
+      },
+      {
+        "name": "V3_viaduct_intact_007",
+        "key": "viaduct_intact",
+        "start": [
+          48.25483703613281,
+          -50.284271240234375,
+          -50.79999923706055
+        ],
+        "end": [
+          48.25483703613281,
+          -70.28427124023438,
+          -50.79999923706055
+        ],
+        "heading_start_deg": -90.0,
+        "heading_end_deg": -90.0
+      },
+      {
+        "name": "V3_TRAM_ADDITION_01",
+        "key": "tram_wreck",
+        "mid": [
+          -55.37258529663086,
+          -36.14213562011719,
+          -50.79999923706055
+        ],
+        "heading_deg": 45.0
+      },
+      {
+        "name": "V3_TRAM_ADDITION_02",
+        "key": "tram_wreck",
+        "mid": [
+          12.254837036132812,
+          -24.284273147583008,
+          -50.79999923706055
+        ],
+        "heading_deg": 0.0
+      },
+      {
+        "name": "V3_rubble_cluster_010",
+        "key": "rubble_cluster",
+        "fracture_debris": true
+      },
+      {
+        "name": "V3_rubble_cluster_011",
+        "key": "rubble_cluster",
+        "fracture_debris": true
+      },
+      {
+        "name": "V3_rubble_cluster_012",
+        "key": "rubble_cluster",
+        "fracture_debris": true
+      }
+    ],
+    "actual_gap": {
+      "start": [
+        -12.745162963867188,
+        -24.284273147583008,
+        -50.79999923706055
+      ],
+      "end": [
+        2.2548370361328125,
+        -24.284273147583008,
+        -50.79999923706055
+      ],
+      "length_m": 15
+    }
+  },
+  "exported": true,
+  "runtime_integrated": true,
+  "runtime_export": {
+    "export_manifest": "art_source/scenes/sunken_city/v005/export/v005/export_manifest.json",
+    "runtime_path": "godot/scenes/world/sunken_city.tscn",
+    "runtime_sha256": "af1364435c2391bc5388cb1beead6c42fc65944d57e1a18e6132b1b08eb224cd",
+    "prefab": "godot/scenes/world/sunken_city.tscn",
+    "prefab_sha256": "af1364435c2391bc5388cb1beead6c42fc65944d57e1a18e6132b1b08eb224cd",
+    "verification": [
+      "D:/projects/sea-work/verification/20261106-201303-seabed-final-targeted-import-d7bc17/report.json",
+      "D:/projects/sea-work/verification/20261106-202033-seabed-minimum-current-only-d33e93/report.json"
+    ],
+    "fidelity_verification": "D:/projects/sea-work/sunken_city/v004/import/fidelity_verification.json",
+    "components": 50,
+    "instances": 388,
+    "total_assembly": {
+      "city_instances": 388,
+      "seabed": "SEA-SCENE-SCITY-SEABED",
+      "fauna": [
+        "SEA-DECO-RANCH-GULLS",
+        "SEA-DECO-SOLAR-FISH-VARIANTS",
+        "SEA-DECO-SOLAR-GULLS"
+      ]
+    }
+  },
+  "height_cap_contract": {
+    "source_max_height_m": 59.659183502197266,
+    "height_cap_m": 14.914795875549316,
+    "rule": "global_max_div4_cap",
+    "below_cap_unchanged": true,
+    "method": "remove complete storeys; keep normal facade dimensions; section fractured high remnants only",
+    "source_version": "v003",
+    "scope": "all architecture component heights including rooftop equipment; horizontal wreck orientation retained"
+  },
+  "road_edge_contract": {
+    "method": "Terrain3D heightmap below existing city",
+    "replaces_rejected_edge_instances": true,
+    "added_road_instances": 0,
+    "city_boundary_xy_m": [
+      -120,
+      120,
+      -120,
+      120
+    ],
+    "terrain_extent_xz_m": [
+      -256,
+      256,
+      -256,
+      256
+    ],
+    "outward_slope_start_m": 120.0,
+    "outward_slope_end_m": 216.0,
+    "outer_depth_world_y_m": -62.0,
+    "preserve_actual_tscn_transforms": true,
+    "main_manual_root_y_m": 43.487442,
+    "collision": false
+  }
+}

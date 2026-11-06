@@ -14,13 +14,17 @@ func run() -> void:
 	patches = main.find_children("VegetationTurf", "Node3D", true, false)
 	for node in main.find_children("*", "Node3D", true, false):
 		if node.has_meta("vegetation_replaced"): replaced.append(node)
+	solar_surface = find_solar_surface()
+	var roof: Node3D = main._zone_nodes["rooftop_ranch"]
 	var wind = get_first_node_in_group("vegetation_wind_owner")
 	var viewport := root.get_viewport_rid()
 	RenderingServer.viewport_set_measure_render_time(viewport, true)
 	var results := []
 	for view in ["solar", "rooftop"]:
-		main.cam.suspend_follow(); main.cam.target = Vector3(6,4.3,3) if view == "solar" else Vector3(46,4.5,-52)
-		main.cam.dir = Vector3(-.2,.8,1).normalized(); main.cam.distance = 42 if view == "solar" else 95; main.cam.cam_fov = 35; main.cam.apply_pose()
+		main.cam.suspend_follow()
+		main.cam.target = solar_surface.to_global(Vector3(6,5.07,3)) if view == "solar" else roof.to_global(Vector3(0,60.42,0))
+		var facility: Node3D = solar_surface if view == "solar" else roof
+		main.cam.dir = (facility.global_basis * Vector3(-.2,.8,1)).normalized(); main.cam.distance = 42 if view == "solar" else 95; main.cam.cam_fov = 35; main.cam.apply_pose()
 		for mode in ["baseline", "new_static", "new_wind"]:
 			var enabled: bool = mode != "baseline"
 			for node in replaced: node.visible = not enabled

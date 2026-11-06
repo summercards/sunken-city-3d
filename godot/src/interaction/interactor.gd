@@ -39,6 +39,38 @@ var _scan_left := 0.0
 var _anchor := Vector3.ZERO
 var _blocked_cooldown := 0.0
 var _holding_last := false
+## 手动确认成功后必须先松开 E，禁止一次长按连续收获或穿过菜单。
+var _wait_release := false
+var keyboard_target: Node3D
+
+func candidates() -> Array[Node3D]:
+	var result: Array[Node3D] = []
+	for node in get_tree().get_nodes_in_group("interactable"):
+		if not node is Node3D or not is_instance_valid(node) or not node.is_visible_in_tree(): continue
+		if not node.can_interact(): continue
+		if reachable_query.is_valid() and not bool(reachable_query.call(node)): continue
+		var offset: Vector3 = node.focus_position() - global_position
+		if absf(offset.y) > 2.5: continue
+		offset.y = 0.0
+		if offset.length() <= minf(radius, float(node.effective_focus_radius())) + 0.9:
+			result.append(node)
+	result.sort_custom(func(a: Node3D, b: Node3D): return str(a.get_path()) < str(b.get_path()))
+	return result
+
+func require_release() -> void:
+	_wait_release = true
+	hold = 0.0
+	_holding_last = false
+	progress_changed.emit(0.0)
+
+func cycle_target(direction := 1) -> bool:
+	if not active: return false
+	var nearby := candidates()
+	if nearby.is_empty(): return false
+	var index := nearby.find(target)
+	keyboard_target = nearby[posmod(index + direction, nearby.size())]
+	_refresh_target()
+	return true
 
 
 static func ensure_input_map() -> void:
@@ -67,11 +99,17 @@ func _process(delta: float) -> void:
 
 ## 供测试直接驱动的一帧。
 func update(delta: float, holding: bool) -> void:
+	var physical_hold := Input.is_action_pressed("interact")
+	if not physical_hold and not holding: _wait_release = false
 	if not active:
+		if physical_hold: _wait_release = true
 		if target != null:
 			_release()
 		_holding_last = false
 		return
+	if _wait_release and not auto_hold:
+		if holding: return
+		_wait_release = false
 
 	_scan_left -= delta
 	if _scan_left <= 0.0:
@@ -102,8 +140,21 @@ func update(delta: float, holding: bool) -> void:
 	# 走动打断：脚下挪了位置就重来。
 	if global_position.distance_to(_anchor) > move_tolerance:
 		hold = 0.0
-		_holding_last = false
 		progress_changed.emit(0.0)
+		if auto_hold:
+			# 自动接近中（点了目标让小人自己走过去）：这时候人还在走，
+			# 「进度归零」是正确的，「被打断」不是 —— 后者会让上层
+			# `blocked` 回调把 `auto_hold` 关掉，于是走到位也不再有进度。
+			#
+			# 2026-11-06 就是这么坏的：房间放大 1.5 倍后，从门口到床边的路变长，
+			# 交互器在还有 1.8 米时就锁定了床并开始 hold，人继续走触发打断，
+			# 上层清掉 auto_hold —— 点床边再也不会睡，且没有任何报错。
+			#
+			# 重设锚点而不是结束：人停稳后从那一刻重新计时，
+			# 既不会「边走边采」，也不会把一次正常的接近判成失败。
+			_anchor = global_position
+			return
+		_holding_last = false
 		blocked.emit("走动打断了采集")
 		return
 
@@ -120,6 +171,8 @@ func update(delta: float, holding: bool) -> void:
 	hold = 0.0
 	_holding_last = false
 	progress_changed.emit(0.0)
+	var acted_target: Node3D = target
+	var was_auto := auto_hold
 	var reward: Dictionary
 	if target == command_target and selected_command.is_valid():
 		var command := selected_command
@@ -132,7 +185,8 @@ func update(delta: float, holding: bool) -> void:
 		blocked.emit(last_blocked)
 		return
 	if not reward.is_empty():
-		completed.emit(target, reward)
+		if not was_auto: _wait_release = true
+		completed.emit(acted_target, reward)
 	# 执行后立刻重选：采空的点不该继续占着焦点。
 	_refresh_target()
 
@@ -141,9 +195,8 @@ func _refresh_target() -> void:
 	var best: Node3D = null
 	var best_score := INF
 	var origin := global_position
-	var facing := global_transform.basis.x
-	for node in get_tree().get_nodes_in_group("interactable"):
-		var spot: Node3D = node
+	var facing := global_transform.basis.z
+	for spot: Node3D in candidates():
 		if spot == null or not is_instance_valid(spot):
 			continue
 		if not spot.is_visible_in_tree():
@@ -164,6 +217,8 @@ func _refresh_target() -> void:
 		# 朝向只影响排序，不作为硬门槛：俯视镜头下要求精确面对很别扭。
 		var align := facing.normalized().dot(dir)
 		var score := dist * (1.22 - 0.22 * align) - float(spot.priority) * 0.25
+		if is_instance_valid(keyboard_target) and spot == keyboard_target:
+			score -= 90.0
 		if is_instance_valid(preferred_target) and spot == preferred_target:
 			score -= 100.0
 		if score < best_score:
@@ -204,6 +259,7 @@ func cancel() -> void:
 	selected_command=Callable();command_target=null
 	auto_hold=false
 	preferred_target=null
+	keyboard_target=null
 	_holding_last=false
 	_release()
 

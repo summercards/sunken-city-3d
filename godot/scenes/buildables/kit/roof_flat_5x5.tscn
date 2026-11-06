@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/building_kit/roof_flat_5x5/roof_flat_5x5.glb" id="2"]
+
+[node name="roof_flat_5x5" type="Node3D"]
+script = ExtResource("1")
+content_id = "roof_flat_5x5"
+metadata/asset_id = "SEA-KIT-ROOF-FLAT-5X5"
+metadata/asset_version = "v002"
+metadata/source_units = "meters"
+metadata/source_origin = "bottom_center"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "entity"
+metadata/collision_owner = "sea_building_space_projection"
+
+[node name="Model" parent="." instance=ExtResource("2")]

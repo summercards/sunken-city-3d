@@ -89,16 +89,10 @@ func _ready() -> void:
 	start_hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	start_button.add_child(start_hint)
 	start_button.pressed.connect(_start)
-	start_button.mouse_entered.connect(func():
-		if not _entering:
-			var t := create_tween().set_parallel(true)
-			t.tween_property(start_button,"modulate",SoftGold,0.18)
-			t.tween_property(start_hint,"position:x",52.0,0.18).set_trans(Tween.TRANS_SINE))
-	start_button.mouse_exited.connect(func():
-		if not _entering:
-			var t := create_tween().set_parallel(true)
-			t.tween_property(start_button,"modulate",Color.WHITE,0.18)
-			t.tween_property(start_hint,"position:x",44.0,0.18).set_trans(Tween.TRANS_SINE))
+	start_button.mouse_entered.connect(_update_feedback)
+	start_button.mouse_exited.connect(_update_feedback)
+	start_button.focus_entered.connect(_update_feedback)
+	start_button.focus_exited.connect(_update_feedback)
 	root_control.resized.connect(_layout)
 	_layout()
 	_reveal = create_tween().set_parallel(true)
@@ -110,6 +104,17 @@ func _ready() -> void:
 	_reveal.tween_property(logo,"position",finish,1.5).set_delay(0.15).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_reveal.tween_property(start_button,"modulate:a",1.0,0.9).set_delay(0.85).set_trans(Tween.TRANS_SINE)
 	start_button.grab_focus()
+
+func _update_feedback() -> void:
+	if _entering: return
+	if _pulse: _pulse.kill()
+	var active := start_button.has_focus() or start_button.is_hovered()
+	_pulse = create_tween().set_parallel(true)
+	# 只调 RGB，保留既有按钮延迟淡入的透明度。
+	var tint := SoftGold if active else Color.WHITE
+	for channel in ["r", "g", "b"]:
+		_pulse.tween_property(start_button,"modulate:"+channel,tint[channel],0.18)
+	_pulse.tween_property(start_hint,"position:x",52.0 if active else 44.0,0.18).set_trans(Tween.TRANS_SINE)
 
 func _process(delta: float) -> void:
 	if _entering or not is_instance_valid(start_hint): return
@@ -137,6 +142,6 @@ func _start() -> void:
 	fade.chain().tween_callback(func(): start_requested.emit())
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed:
-		if event.keycode in [KEY_ENTER,KEY_SPACE]: _start()
+	if event is InputEventKey:
+		if event.pressed and not event.echo and event.keycode in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE]: _start()
 		get_viewport().set_input_as_handled()

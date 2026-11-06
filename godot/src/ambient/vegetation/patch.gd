@@ -4,6 +4,9 @@ extends Node3D
 const Library = preload("res://src/ambient/vegetation/library.gd")
 @export_file("*.json") var layout_path := ""
 @export_enum("Low", "Standard", "High") var quality := 1
+## These placements are owned by the editable Plants children in the facility scene.
+@export var scene_owned_assets: PackedStringArray = []
+@export_tool_button("Refresh grass preview") var refresh_preview := rebuild
 var batches: Array[MultiMeshInstance3D] = []
 var placement_count := 0
 var _tick := 0.0
@@ -11,24 +14,36 @@ var _bands := {}
 var _grass_batches: Array[MultiMeshInstance3D] = []
 var _last_camera_position := Vector3.INF
 var _last_view := Vector3.ZERO
+var _last_patch_transform := Transform3D.IDENTITY
 func _ready() -> void:
 	rebuild()
 func rebuild() -> void:
-	for node in batches: node.free()
+	for node in batches:
+		if is_instance_valid(node):
+			node.free()
 	batches.clear(); _grass_batches.clear(); _bands.clear(); placement_count = 0
 	_last_camera_position = Vector3.INF
 	if layout_path.is_empty(): return
 	var data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(layout_path))
+	var region_origins := {"moss_accents": Vector3.ZERO}
+	for region in data.regions:
+		var rect: Array = region.rect
+		region_origins[region.id] = Vector3((rect[0] + rect[2]) * 0.5, region.y, (rect[1] + rect[3]) * 0.5)
 	var groups := {}
 	for item in data.instances:
+		if item.asset in scene_owned_assets:
+			continue
 		var p: Array = item.position
 		var cell_size: float = data.get("chunk_metres", 8.0)
-		var cell := "%s/%s/%s/%s" % [item.asset, floori(p[0]/cell_size), floori(p[1]/2), floori(p[2]/cell_size)]
+		var region_id := String(item.id).get_slice("/", 1)
+		var cell := "%s/%s/%s/%s/%s" % [region_id, item.asset, floori(p[0]/cell_size), floori(p[1]/2), floori(p[2]/cell_size)]
 		if not groups.has(cell): groups[cell] = []
 		groups[cell].append(item)
 	for cell in groups:
 		var rows: Array = groups[cell]
 		var key: String = rows[0].asset
+		var region_id := String(rows[0].id).get_slice("/", 1)
+		var anchor := get_node_or_null(NodePath("Regions/" + region_id)) as Node3D
 		var mm := MultiMesh.new()
 		mm.transform_format = MultiMesh.TRANSFORM_3D
 		mm.use_custom_data = true
@@ -51,7 +66,8 @@ func rebuild() -> void:
 		mm.custom_aabb = bounds.grow(0.6)
 		var batch := MultiMeshInstance3D.new()
 		batch.name = cell.replace("/", "_")
-		batch.position = origin
+		var region_origin: Vector3 = region_origins.get(region_id, Vector3.ZERO)
+		batch.position = origin - region_origin if anchor != null else origin
 		batch.multimesh = mm
 		batch.material_override = Library.material(key)
 		batch.set_meta("asset_id", Library.catalog()[key].asset_id)
@@ -59,7 +75,9 @@ func rebuild() -> void:
 		batch.set_meta("visual_only", true)
 		batch.set_meta("authored_transforms", transforms)
 		batch.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		add_child(batch); batches.append(batch)
+		var parent: Node3D = anchor if anchor != null else self
+		parent.add_child(batch)
+		batches.append(batch)
 		if key.begins_with("grass"): _grass_batches.append(batch)
 		placement_count += rows.size()
 	set_process(not Engine.is_editor_hint())
@@ -72,8 +90,9 @@ func update_quality(camera: Camera3D, force := false) -> void:
 	if camera == null: return
 	var pixels := float(get_viewport().get_visible_rect().size.y)
 	var view := Vector3(pixels, camera.fov, quality)
-	if not force and camera.global_position.is_equal_approx(_last_camera_position) and view == _last_view: return
+	if not force and camera.global_position.is_equal_approx(_last_camera_position) and view == _last_view and global_transform.is_equal_approx(_last_patch_transform): return
 	_last_camera_position = camera.global_position; _last_view = view
+	_last_patch_transform = global_transform
 	var projection := 0.48 * pixels / (2.0 * tan(deg_to_rad(camera.fov)*0.5))
 	for batch in _grass_batches:
 		var distance := maxf(1.0, camera.global_position.distance_to(batch.global_position))

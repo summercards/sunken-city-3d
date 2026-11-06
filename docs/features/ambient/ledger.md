@@ -27,7 +27,9 @@
     "visual-vegetation",
     "visual-vegetation-performance",
     "visual-proton-scatter",
-    "visual-proton-preview"
+    "visual-proton-preview",
+    "sea-fauna",
+    "visual-sea-fauna"
   ]
 }
 ```
@@ -41,6 +43,13 @@
 | SEA-AMBIENT-R03 | 部分实现，按下方边界核验 | 当前代码入口与本轮验证记录；不以历史通过签署本条完成 |
 | SEA-AMBIENT-R04 | 本批实现并专项验证 | 稳定实例ID、describe/request_interaction/set_upgrade_level接口、完整鸟轨迹净空、装饰鱼与捕捞解耦；飞鸟鼻尖朝飞行切线（`bird.gd` 用 `atan2(tangent.x, tangent.z)`，与鲸鱼/鱼群同一烘焙约定），`visual-decorations` 断言鼻尖与切线 `dot > 0.9`、`visual-birds` 出侧拍实拍；鸥群高度带 14.3–17.7 m（`altitude_offset` 12 → 8.5，屋脊实测 11.84 m），按截图反馈压低后仍由「屋顶 +1 m」净空断言守住；水面装饰群沉在浪面下 0.5–1.5 m（最高点口径）、每群 3 色、铺开跨度 ≥3 m、单条鱼游程 ≥1 m。见[本轮记录](../../development/2026-10-28_fish_school_spread_palette.md)、[海鸥朝向修正](../../development/2026-10-28_bird_heading_flip.md)、[鸥群高度下压](../../development/2026-10-29_bird_altitude.md) |
 | SEA-AMBIENT-R05 | 已实现；06:00–18:00 出现，18:00 后整群收起，05:30/18:30 两侧断言通过 | `decorations` 新增四条时段断言（11:00 可见 / 18:30 不可见 / 05:30 不可见 / 06:06 恢复）；小时由 `Main` 从 `WorldClock.changed` 下发，鸟群不持有第二份时间；[本轮交付](../../development/2026-10-30_detail_fixes.md) |
+
+## 2026-11-06 阳光房鱼群与露水建筑海鸥
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-AMBIENT-R20 | 已实现并验证。阳光房周边鱼群6/10/14三档，真实水面采样、基座避让、身体/尾鳍动画通过。 | `sea-fauna`通过；纯视觉，无捕捞/库存/经济/存档职责。 |
+| SEA-AMBIENT-R21 | 已实现并验证。阳光房和屋顶牧场海鸥接入唯一WorldClock，白天可见、夜间隐藏，真实水面画面通过。 | `sea-fauna`、`visual-sea-fauna`通过；纯视觉，无建筑玩法/交互/资源职责。 |
 
 ## 资源与调用入口
 
@@ -156,3 +165,10 @@ SEA-AMBIENT-R17及本轮R07/R08/R10/R11/R16覆盖项：六项统一runner实测�
 |---|---|---|
 | SEA-AMBIENT-R12/R18 | 已实际安装插件4.2.0/7198cc0，调用真实ProtonScatter＋Create Inside Random＋Randomize Transforms＋正负Shape。原版草11500、灌木42，共60批；可编辑预设重开仍生成11542实例。visual-proton-scatter及visual-proton-preview当前均退出0。 | [当前交付](../../development/2026-11-05_proton_scatter_trial.md)；[用法](proton_scatter_trial.md)。首次正式Main实拍与最终独立台验证分列，未冒充全世界集成通过。 |
 | SEA-AMBIENT-R07/R11/R14 | 插件原版TIME风动、示例材质和模型在独立预览展示，未替换正式共用时钟。单一视效台测得根Viewport GPU p95 1.000ms，不签署全游戏锁60FPS；正式暂停/显隐接入及跨设备仍pending。 | 绿色版只改Gradient与wind_strength=.45；原模型、贴图、shader不改。 |
+
+
+## 2026-11-06 植被跟随设施与场景内编辑
+
+| 条款 ID | 实施状态 | 证据 |
+|---|---|---|
+| SEA-AMBIENT-R19 | 两处草皮分区、天台 14 个草堆、阳光房 56 个原花草均有保存到设施场景的调整节点。实际位置与朝向从当前主场景读取。正式草皮和草堆继续使用共享阵风。ProtonScatter 的真实生成批次及预览相机跟随预览设施。 | 契约 515315 项通过，两处正式场景实拍、ProtonScatter 11542 实例重开和移位通过。操作见[手动编辑入口](vegetation_meadow.md#在-godot-里手动摆放)，完整出口与集成失败见[开发记录](../../development/2026-11-06_vegetation_facility_editing.md)。 |

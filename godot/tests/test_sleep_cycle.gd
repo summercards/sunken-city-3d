@@ -101,6 +101,9 @@ func run() -> void:
 		main.interactor.active=not main.actor_controller.walking()
 		main.interactor.update(1.0/60.0,main.interactor.auto_hold)
 		if sleep.busy: break
+	# 这条断言守着 2026-11-06 的一个真实缺陷：房间放大 1.5 倍后床半长变成 1.52 米，
+	# 而接近落点写死 1.35 米 —— 角色走进床垫、被自己的床挡住、cancel，
+	# 点床边永远睡不着且没有任何报错。站位距离现在按 effective_focus_radius 推导。
 	check(sleep.busy,"world click approaches and begins sleep")
 	if not sleep.busy:
 		print("[sleep-cycle] %d checks, %d failures" % [checks,failures])

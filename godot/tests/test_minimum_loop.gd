@@ -7,10 +7,13 @@ func check(ok: bool, label: String) -> void:
 		failures += 1
 		printerr("FAIL ",label)
 func _init() -> void: call_deferred("run")
-func run() -> void:
-	var main = load("res://scenes/main.tscn").instantiate()
-	root.add_child(main)
+func instantiate_main() -> Node:
+	var main: Node = load("res://scenes/main.tscn").instantiate()
 	main._autosave_on = false
+	return main
+func run() -> void:
+	var main = instantiate_main()
+	root.add_child(main)
 	main.set_process(false)
 	var economy = root.get_node("Economy")
 	economy.set_process(false)
@@ -92,8 +95,28 @@ func run() -> void:
 		farm.water("home_plot")
 		clock.rest_to_morning()
 	check(farm.phase("home_plot")=="ready","three watered mornings mature")
-	check(plot.interact(main.player).get("event","")=="harvested","scene harvest")
+	var ready_state: Dictionary = farm.state("home_plot")
+	var before_options: Dictionary = economy.to_dict()
+	var playback_before: Dictionary = main.player.action_playback().duplicate(true)
+	var harvest_events: Array = []
+	var harvest_actions: Array = []
+	plot.acted.connect(func(_id, event, _payload): harvest_events.append(event))
+	main.player.action_started.connect(func(id, token): harvest_actions.append([id, token]))
+	check(plot.interact(null).get("event", "") == "options", "成熟地格交互只返回 options")
+	check(farm.state("home_plot") == ready_state and economy.to_dict() == before_options,
+		"打开收获菜单不提前改作物、库存或体力")
+	check(harvest_events.is_empty() and harvest_actions.is_empty()
+		and main.player.action_playback() == playback_before and main.player._item_receive.prop == null,
+		"打开菜单不发业务成功事件、不启动动作或举物")
+	main.hud.world_actions.close(true)
+	check(plot.perform("harvest").get("event", "") == "harvested", "显式收获命令完成业务闭环")
+	check(harvest_events == ["harvested"] and harvest_actions.size() == 1
+		and harvest_actions[0][0] == "harvesting", "显式收获只发一次成功事件与动作")
 	check(economy.count("vegetable")==2,"harvest inventory")
+	var harvested_business: Dictionary = economy.to_dict()
+	check(plot.perform("harvest").has("blocked"), "已收空地格拒绝重复收获")
+	check(economy.to_dict() == harvested_business and harvest_events == ["harvested"]
+		and harvest_actions.size() == 1, "重复收获失败不重复奖励或庆祝")
 	check(economy.storage.deposit("vegetable",2).get("ok",false),"produce stored")
 	clock.rest_to_morning()
 	check(economy.warehouse.count("vegetable")==2 and economy.coins==settled_coins,"warehouse never auto sells")

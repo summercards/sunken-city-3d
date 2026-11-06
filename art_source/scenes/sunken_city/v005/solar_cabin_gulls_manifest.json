@@ -1,0 +1,38 @@
+{
+  "schema": "sea.sunken_city.runtime_asset_manifest.v1",
+  "asset_id": "SEA-DECO-SOLAR-GULLS",
+  "suite": "sunken_city",
+  "version": "v005",
+  "stage": "runtime_component_verified",
+  "source": "godot/src/ambient/building_gull_flock.gd",
+  "source_sha256": "d051b71fb30102d62be195a8eceb014b8179ce5abac43da7cf5e5ebf68577278",
+  "prefab": "godot/scenes/decorations/animals/solar_cabin_gulls.tscn",
+  "prefab_sha256": "7acad889d66bb9579a3d116e121bd4d9ae279d95c2fd35e501ef74b6669e04f1",
+  "runtime_path": "godot/scenes/decorations/animals/solar_cabin_gulls.tscn",
+  "runtime_sha256": "7acad889d66bb9579a3d116e121bd4d9ae279d95c2fd35e501ef74b6669e04f1",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-DECO-SOLAR-GULLS",
+  "classification": {
+    "category": "decoration",
+    "subcategory": "animals"
+  },
+  "visual_only": true,
+  "water_layer": "none",
+  "water_layer_role": "none",
+  "building_class": null,
+  "placement_water_layer": "surface",
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "dependencies": [
+    "godot/scenes/decorations/animals/fish_school.tscn",
+    "godot/scenes/decorations/animals/bird.tscn"
+  ],
+  "verification": [
+    "D:/projects/sea-work/verification/20261106-201303-seabed-final-targeted-import-d7bc17/report.json",
+    "D:/projects/sea-work/verification/20261106-202033-seabed-minimum-current-only-d33e93/report.json"
+  ],
+  "license": "pending_legacy_provenance_review",
+  "commercial_rights_status": "pending",
+  "reference_rights_verified": false,
+  "note": "程序化运行装饰复用现有 fish/bird source；不创建 Blender 源，不引入玩法状态。"
+}

@@ -1,0 +1,88 @@
+{
+  "id": "wall_5m",
+  "name": "5米木板实墙",
+  "asset_id": "SEA-KIT-WALL-5M",
+  "component_family": "wall",
+  "profile": "wall",
+  "footprint": [
+    5,
+    0.2
+  ],
+  "height": 5.086335,
+  "source_origin": "bottom_center",
+  "wood": 6,
+  "seconds": 3.9,
+  "collection": "SEA-KIT-WALL-5M",
+  "source_collection": "制作_5米木板实墙",
+  "root_object": "wall_5m_ROOT",
+  "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+  "component_blend": "component_packages/wall_5m/wall_5m.blend",
+  "bounds": {
+    "min": [
+      -2.5,
+      -0.10000000149011612,
+      0.0
+    ],
+    "max": [
+      2.5,
+      0.10000000149011612,
+      5.086335182189941
+    ]
+  },
+  "triangles": 4700,
+  "material_roles_used": [
+    "Matte"
+  ],
+  "front_axis": "-Z",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collision_owner": "sea_building_space_projection",
+  "exported": true,
+  "runtime_integrated": true,
+  "bounds_size_m": [
+    5.0,
+    0.20000000298023224,
+    5.086335182189941
+  ],
+  "asset_version": "v002",
+  "building_class": "above_water",
+  "units": "meters",
+  "source_scale": [
+    1,
+    1,
+    1
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_uv_layer": "PaletteUV",
+  "material_roles": [
+    "Matte",
+    "Metal",
+    "Gloss",
+    "Emission"
+  ],
+  "dependencies": [
+    "art_source/shared/palettes/sea_cozy_8x8_512.png"
+  ],
+  "exported_glb": "godot/assets/models/building_kit/wall_5m/wall_5m.glb",
+  "prefab": "godot/scenes/buildables/kit/wall_5m.tscn",
+  "source_sha256": "5c89f0c2034e44a811a54f2f7aa7e227eab96533b810e7eb3c1878c44b6fb0d3",
+  "component_sha256": "92b45c010e5523b2756a9829d19b1d59be38153b6b6d6be2957e740789b163b1",
+  "glb_sha256": "fec36c874ea284103c9308ca3d0c2ba32ceb6d8970b39ff20d1bfd743cba2b48",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-WALL-5M",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/ocean_building_kit/v002/component_packages/wall_5m/wall_5m.blend",
+  "registered_source_sha256": "92b45c010e5523b2756a9829d19b1d59be38153b6b6d6be2957e740789b163b1",
+  "runtime_path": "godot/assets/models/building_kit/wall_5m/wall_5m.glb",
+  "runtime_sha256": "fec36c874ea284103c9308ca3d0c2ba32ceb6d8970b39ff20d1bfd743cba2b48",
+  "verification": "docs/development/2026-11-06_building_5m_and_ui.md",
+  "runtime_verification": {
+    "status": "passed",
+    "owner": "main_agent",
+    "report": "D:\\projects\\sea\\docs\\development\\2026-11-06_building_5m_verification.json",
+    "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+  }
+}

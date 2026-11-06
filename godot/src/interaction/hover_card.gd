@@ -53,6 +53,48 @@ const REACH_TTL_MS := 350
 var _card: PanelContainer
 var _canvas: Control
 var _shown := false
+signal near_requested
+## 与鼠标悬停同款图标；由交互器的真实近距焦点驱动，不依赖鼠标位置。
+var keyboard_focus: Node3D
+var _near_icon: Button
+var _near_texture: TextureRect
+var _near_progress
+
+func show_near_focus(spot: Node3D, ratio := 0.0) -> void:
+	keyboard_focus = spot
+	if not is_instance_valid(spot) or not spot.is_visible_in_tree():
+		hide_near_focus()
+		return
+	var icon := "hand"
+	if spot.is_in_group("farm_plots"):
+		var phase: String = spot.farm_model.phase(str(spot.plot_id))
+		icon = "plant" if phase == "empty" else ("harvest" if phase == "ready" else "water")
+	elif str(spot.verb).contains("采"): icon = "harvest"
+	elif spot.is_in_group("shipping_boxes"): icon = "shipping"
+	show_near_action(spot.focus_position() + Vector3.UP * 0.85, icon, ratio)
+
+func show_near_action(point: Vector3, icon: String, ratio := 0.0) -> void:
+	if not enabled or camera == null or camera.is_position_behind(point):
+		hide_near_focus()
+		return
+	var pos := camera.unproject_position(point)
+	var viewport := get_viewport().get_visible_rect()
+	if not viewport.grow(-24.0).has_point(pos):
+		hide_near_focus()
+		return
+	_near_texture.texture = preload("res://src/ui/illustrated_icons.gd").texture(icon,true)
+	_near_icon.position = pos - Vector2(22,52)
+	_near_icon.show()
+	_near_progress.set_ratio(ratio)
+	_near_progress.position = _near_icon.position + Vector2(0,48)
+	_near_progress.visible = ratio > 0.0
+	# 同一个位置不叠两枚同款图标。
+	if _card.visible and _card.position.distance_to(_near_icon.position)<58.0: _hide()
+
+func hide_near_focus() -> void:
+	keyboard_focus = null
+	if _near_icon != null: _near_icon.hide()
+	if _near_progress != null: _near_progress.hide()
 ## 三角形缓存：mesh 实例 ID → 每 3 个顶点一组的局部空间三角形。
 ## 网格资源不变，缓存可以一直用；超过上限整体清掉（重建几百面很便宜，
 ## 而任由它长下去会在长时间游玩里慢慢吃内存）。
@@ -84,6 +126,31 @@ func _ready() -> void:
 	icon.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	_card.add_child(icon)
 	_card.hide()
+	_near_icon = Button.new()
+	_near_icon.name = "NearInteraction"
+	_near_icon.set_meta("cozy_skip",true)
+	_near_icon.focus_mode = Control.FOCUS_NONE
+	_near_icon.size = Vector2(44,44)
+	_near_icon.custom_minimum_size = Vector2(44,44)
+	for state in ["normal","hover","pressed","focus"]:
+		var near_style := style.duplicate()
+		if state != "normal": near_style.bg_color = Color("#e6c36e")
+		_near_icon.add_theme_stylebox_override(state,near_style)
+	_near_icon.pressed.connect(func(): near_requested.emit())
+	_canvas.add_child(_near_icon)
+	_near_texture = TextureRect.new()
+	_near_texture.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_near_texture.offset_left=9;_near_texture.offset_top=9
+	_near_texture.offset_right=-9;_near_texture.offset_bottom=-9
+	_near_texture.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
+	_near_texture.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_near_texture.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	_near_icon.add_child(_near_texture)
+	_near_icon.hide()
+	_near_progress = preload("res://src/ui/thin_progress_bar.gd").new()
+	_canvas.add_child(_near_progress)
+	_near_progress.configure(44,4,Color("#8edbb3"))
+	_near_progress.hide()
 
 
 ## 每帧由 main 驱动。`screen` 是鼠标在视口里的位置。
@@ -106,6 +173,7 @@ func update_hover(screen: Vector2) -> void:
 
 func clear() -> void:
 	target = {}
+	hide_near_focus()
 	_clear_cursor()
 	_hide()
 

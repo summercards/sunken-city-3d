@@ -16,6 +16,8 @@
     "godot/assets/data/gather_spots.json"
   ],
   "verification": [
+    "interaction-reach",
+    "visual-interaction-reach",
     "selftest",
     "framework-integration"
   ]
@@ -65,3 +67,10 @@ GatherField.to_dict / from_dict；GatherSpot.interact / seconds_left；collected
 采集节点注入 ConstructionService 查询等级，GatherField 独立保存相对冷却。节点内的规则与程序造型可继续按美术需求拆分。
 
 新增条款 SEA-GATHER-R04 已接入独立文件和公开接口。本次结果见 [框架交付记录](../../development/2026-10-27_modular_framework.md)；此前审计是历史观测，已修复项以本次实测为准，未覆盖目标保持原状态。
+
+## 2026-11-06 采集点回到世界里
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-GATHER-R05 | 已实现；`_apply_play_scope` 不再隐藏整个 `GatherField`，改由 `_apply_gather_scope()` 按 spot 的 `zone` 元数据启停，并删除了「不可见即永久离组」那一段 | `interaction-reach`（全部装配点在组内、在可走面上）、`probe-control-gaps`（改前 10 点 `in_group=false`，改后 `/采集` 10 项）、`selftest` 采集段；[本轮交付](../../development/2026-11-06_keyboard_reach.md)。 |
+| SEA-GATHER-R06 | 已实现；`GatherField.zone_query` + `_snap_to_ground()` 在装配时回算高度，表内 `y` 降级为参考值；顺带把表格里 4 个过期高度（`zone1_shell/wood` 2.15、`zone5_*` 1.25）和挡住渔场板的 `zone1_rope` 一并修正 | 同 `interaction-reach`；`probe-gather-reach` 改前 `on=false` 两点，改后全部 `on=true`；[本轮交付](../../development/2026-11-06_keyboard_reach.md)。 |

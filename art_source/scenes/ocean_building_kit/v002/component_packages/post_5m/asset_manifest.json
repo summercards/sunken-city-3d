@@ -1,0 +1,89 @@
+{
+  "id": "post_5m",
+  "name": "5米层高木柱",
+  "asset_id": "SEA-KIT-POST-5M",
+  "component_family": "post",
+  "profile": "post",
+  "footprint": [
+    0.5,
+    0.5
+  ],
+  "height": 5.086335,
+  "source_origin": "bottom_center",
+  "wood": 3,
+  "seconds": 3.45,
+  "collection": "SEA-KIT-POST-5M",
+  "source_collection": "制作_5米层高木柱",
+  "root_object": "post_5m_ROOT",
+  "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+  "component_blend": "component_packages/post_5m/post_5m.blend",
+  "bounds": {
+    "min": [
+      -0.25,
+      -0.25,
+      0.0
+    ],
+    "max": [
+      0.25,
+      0.25,
+      5.086335182189941
+    ]
+  },
+  "triangles": 940,
+  "material_roles_used": [
+    "Matte",
+    "Metal"
+  ],
+  "front_axis": "-Z",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collision_owner": "sea_building_space_projection",
+  "exported": true,
+  "runtime_integrated": true,
+  "bounds_size_m": [
+    0.5,
+    0.5,
+    5.086335182189941
+  ],
+  "asset_version": "v002",
+  "building_class": "above_water",
+  "units": "meters",
+  "source_scale": [
+    1,
+    1,
+    1
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_uv_layer": "PaletteUV",
+  "material_roles": [
+    "Matte",
+    "Metal",
+    "Gloss",
+    "Emission"
+  ],
+  "dependencies": [
+    "art_source/shared/palettes/sea_cozy_8x8_512.png"
+  ],
+  "exported_glb": "godot/assets/models/building_kit/post_5m/post_5m.glb",
+  "prefab": "godot/scenes/buildables/kit/post_5m.tscn",
+  "source_sha256": "5c89f0c2034e44a811a54f2f7aa7e227eab96533b810e7eb3c1878c44b6fb0d3",
+  "component_sha256": "2e1694626a3c836e26d280e9d9a31bf4e6af15d0de63bfc5ad098a90bfbd4feb",
+  "glb_sha256": "e035aeefa757262c4c0e98a9c43059cc119db7143dbe309f30c6017f4e447c50",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-POST-5M",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/ocean_building_kit/v002/component_packages/post_5m/post_5m.blend",
+  "registered_source_sha256": "2e1694626a3c836e26d280e9d9a31bf4e6af15d0de63bfc5ad098a90bfbd4feb",
+  "runtime_path": "godot/assets/models/building_kit/post_5m/post_5m.glb",
+  "runtime_sha256": "e035aeefa757262c4c0e98a9c43059cc119db7143dbe309f30c6017f4e447c50",
+  "verification": "docs/development/2026-11-06_building_5m_and_ui.md",
+  "runtime_verification": {
+    "status": "passed",
+    "owner": "main_agent",
+    "report": "D:\\projects\\sea\\docs\\development\\2026-11-06_building_5m_verification.json",
+    "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+  }
+}

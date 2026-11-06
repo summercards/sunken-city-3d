@@ -6,6 +6,7 @@ const Tile = preload("res://src/ui/ac_icon.gd")
 signal manual_requested
 signal item_command(id: String, action: String)
 signal close_requested
+signal sort_requested(from_id: String, to_id: String)
 var inventory: RefCounted
 var actions_query: Callable
 var font: Font
@@ -19,6 +20,7 @@ var action_body: VBoxContainer
 var selected_index := -1
 var selected_id := ""
 var tween: Tween
+var _action_buttons: Array[Button] = []
 
 func _ready() -> void:
 	set_meta("cozy_skip",true)
@@ -74,6 +76,7 @@ func _button(text: String) -> Button:
 	node.add_theme_font_override("font",font);node.add_theme_font_size_override("font_size",24)
 	for state in ["normal","hover","pressed","focus"]:
 		var style := Cozy.surface(Color("#fff0ab") if state=="normal" else Color("#f0da83"),27)
+		if state=="focus": style.bg_color=Color.TRANSPARENT;style.border_color=Cozy.INK;style.set_border_width_all(3)
 		style.shadow_size=0;node.add_theme_stylebox_override(state,style)
 	for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color"]: node.add_theme_color_override(state,Cozy.INK)
 	node.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
@@ -82,6 +85,7 @@ func _button(text: String) -> Button:
 func refresh() -> void:
 	if inventory == null: return
 	var previous := selected_index
+	var previous_id := selected_id
 	for node in grid.get_children(): grid.remove_child(node);node.queue_free()
 	slots.clear()
 	# 按玩家拖拽整理出的次序摆格；同种物品的几堆挨在一起，不被打散。
@@ -94,14 +98,21 @@ func refresh() -> void:
 	while slots.size() < inventory.capacity(): _add_slot("",0)
 	purse.text = "瓶盖    %s" % _money(inventory.count("coins"))
 	capacity_label.text = "%d / %d 格" % [inventory.slots_used(),inventory.capacity()]
-	selected_index = -1;selected_name.hide();actions.hide()
+	selected_index = -1;selected_name.hide();actions.hide();_action_buttons.clear()
+	var target:=clampi(previous,0,slots.size()-1)
+	for i in slots.size():
+		if str(slots[i].get_meta("item_id"))==previous_id and previous_id!="":
+			target=i;break
+	if not slots.is_empty():
+		select(target)
+		if is_visible_in_tree(): slots[target].grab_focus()
 	# Capacity expansions stay scroll-free by adding rows and fitting the whole panel.
 	size.y = 490+maxi(0,ceili(float(slots.size())/8)-3)*92
 	for node in [purse]: node.position.y = size.y-81
 	capacity_label.position.y = size.y-63
 	get_child(4).position.y = size.y-79
 	queue_redraw()
-	if previous >= 0 and previous < slots.size(): select(previous)
+	capacity_label.show()
 
 func _add_slot(id: String, count: int) -> void:
 	var tile := Tile.new();tile.pocket=true;tile.managed_selection=true
@@ -109,6 +120,9 @@ func _add_slot(id: String, count: int) -> void:
 	tile.amount=count;tile.shown_amount=count;tile.empty_slot=id==""
 	tile.set_meta("item_id",id);tile.set_meta("slot_count",count)
 	grid.add_child(tile);tile.custom_minimum_size=Vector2(84,84);tile.size=Vector2(84,84)
+	tile.focus_mode=Control.FOCUS_ALL
+	var focus:=Cozy.surface(Color.TRANSPARENT,18);focus.border_color=Cozy.INK;focus.set_border_width_all(3)
+	tile.add_theme_stylebox_override("focus",focus)
 	var index := slots.size();slots.append(tile)
 	tile.mouse_entered.connect(func(): if not actions.visible: select(index))
 	tile.focus_entered.connect(func(): select(index))
@@ -120,49 +134,85 @@ func _add_slot(id: String, count: int) -> void:
 ## 拖拽落下：改 Inventory 的排列，再重排本界面。
 func _on_sorted(from_id: String, to_id: String) -> void:
 	if inventory == null: return
-	var moved: bool = inventory.move_to_end(from_id) if to_id=="" else inventory.move_item(from_id,to_id)
-	if not moved: return
-	refresh()
+	sort_requested.emit(from_id,to_id)
+
+func keyboard_sort(step: int) -> String:
+	if actions.visible: return "请先返回物品网格"
+	if selected_id=="": return "当前没有可整理的物品"
+	var target:=selected_index+step
+	while target>=0 and target<slots.size():
+		var id:=str(slots[target].get_meta("item_id"))
+		if id!=selected_id:
+			_on_sorted(selected_id,id);return ""
+		target+=step
+	return "已到背包边界 · 未改变排列"
 
 
 func select(index: int) -> void:
 	if index<0 or index>=slots.size(): return
 	selected_index=index;selected_id=str(slots[index].get_meta("item_id",""))
 	for i in slots.size(): slots[i].selected=i==index
-	selected_name.visible=selected_id!=""
-	if selected_id=="": actions.hide();return
-	selected_name.text=Items.label(selected_id);selected_name.reset_size()
+	selected_name.show()
+	selected_name.text="空格" if selected_id=="" else "%s · 库存 ×%d" % [Items.label(selected_id),inventory.count(selected_id)]
+	selected_name.reset_size()
 	var p := grid.position+Vector2((index%8)*106+42,(index/8)*92)
 	selected_name.position=Vector2(clampf(p.x-selected_name.size.x/2,20,size.x-selected_name.size.x-20),p.y-52)
 
 func show_actions() -> void:
 	if selected_id=="" or not actions_query.is_valid(): return
 	for node in action_body.get_children(): action_body.remove_child(node);node.queue_free()
+	_action_buttons.clear()
 	var options: Array = actions_query.call(selected_id)
 	var id := selected_id
 	for option in options:
 		var button := _button(str(option.label))
+		button.disabled=bool(option.get("disabled",false))
 		button.custom_minimum_size=Vector2(220,45)
 		button.set_meta("item_action",str(option.id))
 		button.pressed.connect(func(): item_command.emit(id,str(option.id)))
-		action_body.add_child(button)
+		action_body.add_child(button);_action_buttons.append(button)
 	actions.reset_size()
 	actions.position=Vector2(688,235)
 	actions.show()
+	for button in _action_buttons:
+		if not button.disabled: button.grab_focus();break
 	if Cozy.motion_enabled:
 		if tween: tween.kill()
 		actions.pivot_offset=Vector2(20,0);actions.scale=Vector2.ONE*0.86;actions.modulate.a=0
 		tween=create_tween().set_parallel(true)
 		tween.tween_property(actions,"scale",Vector2.ONE,0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		tween.tween_property(actions,"modulate:a",1.0,0.12)
+	else: actions.scale=Vector2.ONE;actions.modulate.a=1
 
 func back() -> bool:
-	if actions.visible: actions.hide();return true
+	if actions.visible:
+		actions.hide();_action_buttons.clear()
+		if selected_index >= 0 and selected_index < slots.size(): slots[selected_index].grab_focus()
+		return true
 	return false
 
 func move_selection(step: int) -> void:
-	actions.hide()
-	select(posmod(maxi(0,selected_index)+step,slots.size()))
+	if actions.visible: return
+	if slots.is_empty(): return
+	var target:=posmod(maxi(0,selected_index)+step,slots.size())
+	var guard:=0
+	while guard < slots.size() and slots[target].disabled:
+		target=posmod(target+signi(step),slots.size());guard+=1
+	select(target)
+	if target >= 0 and target < slots.size(): slots[target].grab_focus()
+
+func action_buttons() -> Array[Button]:
+	return _action_buttons
+
+func move_action_selection(step: int) -> void:
+	if _action_buttons.is_empty(): return
+	var focused:=get_viewport().gui_get_focus_owner()
+	var index:=_action_buttons.find(focused)
+	if index<0: index=0
+	for attempt in _action_buttons.size():
+		index=posmod(index+step,_action_buttons.size())
+		if not _action_buttons[index].disabled:
+			_action_buttons[index].grab_focus();return
 
 func _money(value: int) -> String:
 	var raw := str(value);var result := ""

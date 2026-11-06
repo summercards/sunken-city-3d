@@ -523,3 +523,33 @@ R44全局同步：已执行sync与无参复核，分别退出1／1；ORF旧源�
 | 对应条款 | 当前实施 | 证据 / 边界 |
 |---|---|---|
 | SEA-ASSET-R50 | 以v003最高59.6591835米÷4固定统一上限14.9147959米，18建筑减层或断高残墙，2低楼及30非建筑保持。50组件/388实例，新主源/50独立包/优化文件重开通过；5744项独立限高、低楼与非建筑字节、姿态及接地0失败。母版三角981626→981616，运行布局2460631面；四机位保真通过。旧源全保留，v003完整运行ZIP归档。 | [制作、公式、运行与回退证据](../../development/2026-11-05_sunken_city_v004.md)。最终import及33916结构/182真实渲染/1191水层/141生活循环全部退出0。51当前v004运行记录及73条inventory已更新，51份v003完整历史保留；参考商业权属、LOD/设备性能与用户美术终审仍pending。全工程sync因5处任务外哈希退出1，无参复核另含派生索引共6项，SCITY本轮无错误，未刷新他人哈希；不把设计减层计作自动优化。 |
+
+## 2026-11-06 沉没旧城 v005 连续海床、鱼群与海鸥
+
+| 对应条款 | 当前实施 | 证据 / 边界 |
+|---|---|---|
+| SEA-ASSET-R50 | v005撤下外围40个edge_ramp，恢复原50组件/388实例；新增Terrain3D四region海床与三组程序化鱼群/两组海鸥运行装饰。v004 Blend、公共色板和50组件GLB/优化源受保护；v005登记新增海床与fauna记录。 | [v005制作与验收](../../development/2026-11-06_sunken_city_v005.md)。主源/50包/388结构/水层/海床/鱼鸥真实水面验收通过；LOD/性能、商业参考权属和用户终审pending。 |
+
+## 2026-11-06 印刷面图集改为无损
+
+| 对应条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-ASSET-R53 | 霓虹花园 `poster_atlas.png`（2048²）已按用户「以近景效果为主」改为 `compress/mode=0` 无损，`mipmaps/generate=true` 保留，`detect_3d/compress_to=0` 锁定。已用 `godot --headless --path godot --import` 重导入：日志确认只重导入该文件一个，`[remap]` 由 `path.s3tc` 改回 `path`，缓存生成 `.ctex` 7.93 MB（原 `.s3tc.ctex` 2.80 MB 变为无引用残留）。全量 `git status` 比对确认**无任何其他文件被改写**。运行清单 `poster_atlas.png.import` 一条同步为 985 B / `7f7d04ee…`。代价：显存约 2.8 MB → 约 10.5 MB（含 mipmap），本条明确接受。 | [本轮核实、重导入与 core 实跑](../../development/2026-11-06_doc_drift_sweep.md)；core 8 入口中 `visual-sunken-city`、`visual-crops` 真实渲染均 exit 0，换格式未引入崩溃 |
+
+## 2026-11-06 植被资产在设施中的编辑入口
+
+| 条款 ID | 实施状态 | 证据 |
+|---|---|---|
+| SEA-ASSET-R51 | 正式草皮、苔藓、草堆及原花草复用既有 AssetID。14 个草堆各有稳定的场景实例 ID，分区和单株摆位由设施场景保存。ProtonScatter 预览场景的运行哈希与移动验证已更新，仍为预览阶段。 | [独立植被账本](../../../assets/registry/ledgers/vegetation.json) · [设施编辑与验证](../../development/2026-11-06_vegetation_facility_editing.md) |
+
+## 2026-11-06 五米建筑十组件与建筑 UI 登记
+
+| 条款 ID | 实施状态 | 证据与边界 |
+|---|---|---|
+| SEA-ASSET-R54 | 源重开/PaletteUV、GLB静态及本轮正式游戏/真实渲染均通过；十件已由主线程签署并精确晋升 `runtime_integrated_verified`。十个唯一AssetID、独立manifest、来源投影及content_index保持同步；旧v001源资产与尺寸不改。 | [机器签署](../../development/2026-11-06_building_5m_verification.json)绑定本批全部运行文件哈希；最终222059 release-signed共13项全PASS/exit0，其中12专项2965 checks/0 failures，另`building-scale-reference`62 rows/0 failures独立记数。源报告30项组件检查/12份重开文件、UV坏岛0、123份保护文件未变；十GLB合计41972三角面、无内嵌图片。用户美术偏好、低端GPU/任意规模测试不由本轮签署覆盖。 |
+
+本批登记路径：`godot/assets/models/building_kit/<id>/<id>.glb`、`godot/scenes/buildables/kit/<id>.tscn`、`godot/assets/data/building_kit_5m.json`；十件ID与条款见本功能规范R54。四个UI脚本 `building_book` / `recipe_card` / `recipe_thumbnail` / `demolition_tool` 已携原 `.uid` 移入 `godot/src/building/ui/`，inventory移除旧路径、保留asset关联；新增同目录 `building_view.gd` 与 `building_progress_presenter.gd`。本次仅登记已有迁移成果，不重写并行功能代码。
+
+初次登记历史（非最终验收阶段）：专属工具 `tools/register_building_5m.py` 当时先校验现存源证据与冻结代码哈希，再精确写入十件及路径迁移；旧 `tools/register_building_kit.py` 仅修正KNOWN中的三条已搬路径，未执行旧脚本。代码仅更新已审阅的building域15个脚本哈希，main/导航/玩家/其他资产不刷新，未知漂移保持报红。该初次登记阶段未运行Godot或全局sync，亦未修改building/ui/save文档及GDD；不是对最终任务的描述。后续Godot真实渲染、release签署及主线程全局检查分别见下段与[完整任务交付](../../development/2026-11-06_building_5m_and_ui.md)。
+
+最终签署依据已更新为 `D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json`：13项全PASS/exit0，12专项2965 checks/0 failures，另现场Sunroom对Catalog高度守卫`building-scale-reference`62 rows/0 failures。主线程通过 `tools/register_building_5m.py --promote-verified docs/development/2026-11-06_building_5m_verification.json --write` 绑定新机器签署，仅处理本批十件与已审阅运行资源；本次文档更新不执行该命令、不改registry。最终白名单20个代码文件与222059隔离副本完全一致，包含单个`ground_space.gd`适配；最新机器汇总44项`signed_source_comparison`均`matches_signed=true`，已确认新release副本；213331先签仍保留为历史，不混淆批次。不重算main、水材质、动物源等并行未知变更；上段15文件仅初次登记历史。

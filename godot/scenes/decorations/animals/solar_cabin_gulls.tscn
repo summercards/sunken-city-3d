@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://src/ambient/building_gull_flock.gd" id="gull"]
+
+[node name="SolarCabinGulls" type="Node3D"]
+script = ExtResource("gull")
+flight_center = Vector3(0, 0, 0)
+radius = Vector2(7, 4.5)
+altitude = 14.5
+count = 4
+speed = 0.42
+phase_offset = 0.4
+seed_offset = 0
+metadata/visual_only = true
+metadata/water_layer = "surface"
+metadata/water_layer_role = "none"
+metadata/owner_scope = "solar_cabin_surface_roof"

@@ -130,3 +130,4 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 | 条款 ID | 规则 |
 |---|---|
 | SEA-SAVE-R17 | 根快照v4可选profile版本1；decode与直接restore在缺失时明确迁移为completed=true默认旅人，存在但截断/类型错误/不支持版本则拒绝。独立注册表参与全模块先验后恢复，角色档案、DIY引用与整局原子写入；取消不写盘、写失败保留可重试草稿。重置默认档案为未完成，旧档案随原重置归档保留。 |
+| SEA-SAVE-R18 | 根v4 `building` 版本1与既有必填schema保持不变；2.8m旧结构与5.086335m实际平面可在同一布局混合保存/恢复。旧档原数据、旧deck/结构定义ID、尺寸与坐标无需迁移，不因新5m recipe改写；新增可选定义由目录识别。校验失败必须在恢复/写盘前拒绝且不改变现场、不覆盖有效备份、不重复收费。已由`building-save-compat`37/0及`save-protection`通过验证。 |

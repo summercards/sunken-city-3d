@@ -1,0 +1,1028 @@
+{
+  "runner": "scripts/run_verification.py",
+  "approved_by": "main_agent",
+  "scope": "SEA-BUILDING-R30/R31/R32/R33; SEA-SAVE-R18; SEA-UI-R53; SEA-MOVE-R12/R15 adapter",
+  "main_report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json",
+  "results": [
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\building-5m-rules.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/building-5m-rules",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_5m_rules.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-5m-rules",
+      "checks": 446,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\building-5m-experience.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/building-5m-experience",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_5m_experience.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-5m-experience",
+      "checks": 589,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\visual-building-5m-experience.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/visual-building-5m-experience",
+      "renderer": "real",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_building_5m_experience.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "visual-building-5m-experience",
+      "checks": 597,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\building-ui-unified.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/building-ui-unified",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_ui_unified.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-ui-unified",
+      "checks": 66,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\visual-building-ui-unified.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/visual-building-ui-unified",
+      "renderer": "real",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--resolution",
+        "1280x800",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "res://tests/test_building_ui_unified.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "visual-building-ui-unified",
+      "checks": 66,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\keyboard-building.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/keyboard-building",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_keyboard_building.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "keyboard-building",
+      "checks": 40,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\kit-safety.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/kit-safety",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_kit_safety.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "kit-safety",
+      "checks": 94,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\building-kit.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/building-kit",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_kit.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-kit",
+      "checks": 221,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\building-save-compat.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/building-save-compat",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_save_compat.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-save-compat",
+      "checks": 37,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\building-integration.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/building-integration",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_integration.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-integration",
+      "checks": 56,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\keyboard-farm-loop.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/keyboard-farm-loop",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_keyboard_farm_loop.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "keyboard-farm-loop",
+      "checks": 606,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "checks": 147,
+      "failures": 0,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\minimum-loop.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/minimum-loop",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_minimum_loop.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "minimum-loop",
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\building-scale-reference.log",
+      "user_data_name": "sea-verification/20261106-222059-building-5m-release-signed-2a186b/building-scale-reference",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project",
+        "--headless",
+        "--script",
+        "res://tools/probe_building_scale.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-scale-reference",
+      "checks": null,
+      "rows": 62,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\ground-space.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/ground-space",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_ground_space.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "ground-space",
+      "checks": 37,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\character-space-save.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/character-space-save",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_character_space_save.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "character-space-save",
+      "checks": 10,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\building-surfaces.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/building-surfaces",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_surfaces.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-surfaces",
+      "checks": 80,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\building-open-rules.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/building-open-rules",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_rules.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-open-rules",
+      "checks": 122,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\building-perf.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/building-perf",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_perf.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-perf",
+      "checks": 239,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\building-decoupling.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/building-decoupling",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_decoupling.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-decoupling",
+      "checks": 62,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\building-seed.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/building-restart",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_restart.gd",
+        "--",
+        "--skip-title",
+        "--building-seed"
+      ],
+      "check": "building-seed",
+      "checks": 5,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\building-restart.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/building-restart",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_restart.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-restart",
+      "checks": 11,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\building-open-seed.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/building-open-restart",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_restart.gd",
+        "--",
+        "--skip-title",
+        "--building-open-seed"
+      ],
+      "check": "building-open-seed",
+      "checks": 70,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\building-open-restart.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/building-open-restart",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_building_open_restart.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "building-open-restart",
+      "checks": 8,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\save-corrupt-seed.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/protection",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_corrupt_seed.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "save-corrupt-seed",
+      "checks": null,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    },
+    {
+      "exit_code": 0,
+      "passed": true,
+      "expected_errors": [],
+      "unexpected_errors": [],
+      "completion_marker": true,
+      "failure_labels": [],
+      "removed_nodes": [],
+      "log": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\save-protection.log",
+      "user_data_name": "sea-verification/20261106-211435-building-5m-final-816d34/protection",
+      "renderer": "headless",
+      "command": [
+        "C:\\Users\\zhuangmenghong\\bin\\godot.CMD",
+        "--path",
+        "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\project",
+        "--headless",
+        "--script",
+        "res://tests/test_save_protection.gd",
+        "--",
+        "--skip-title"
+      ],
+      "check": "save-protection",
+      "checks": null,
+      "failures": 0,
+      "report": "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json"
+    }
+  ],
+  "primary_checks": 2965,
+  "primary_suites": 12,
+  "signed_suites": 13,
+  "primary_all_passed": true,
+  "resource_sha256": {
+    "godot/assets/data/building_kit_5m.json": "ee91e35d4683b8a7b32ad10b3f733c7ec20854c32425b5e595f3f28e952f98ac",
+    "godot/assets/models/building_kit/beam_5m/beam_5m.glb": "ae6a41cd207b0de2a6406bf87b59809a727d4799be9ec6072a755bf9061eda13",
+    "godot/assets/models/building_kit/door_frame_5m/door_frame_5m.glb": "3dc797aa8d3f792d56d7dba5789317f8292f30121ec17e749c6bbf622ef9b089",
+    "godot/assets/models/building_kit/platform_5x5/platform_5x5.glb": "9e3cfc0b248030a3e6dbc57afebeb2ec5bd4357b15700a0a09cb82f67ee220a2",
+    "godot/assets/models/building_kit/post_5m/post_5m.glb": "e035aeefa757262c4c0e98a9c43059cc119db7143dbe309f30c6017f4e447c50",
+    "godot/assets/models/building_kit/railing_5m/railing_5m.glb": "351ce1031d2c1634e4bf242816a1364460fd54004d612dd2a1a6f0122996bdeb",
+    "godot/assets/models/building_kit/roof_flat_5x5/roof_flat_5x5.glb": "e6c7d8ac7400e665f265eb15814abf883ff5c8198f4f23d6ba8a54275d44fd4b",
+    "godot/assets/models/building_kit/roof_slope_5x5/roof_slope_5x5.glb": "6b85cbaa9fc2407e5b9feedd849fedc244efca84986041d0d4849c03d3b6c549",
+    "godot/assets/models/building_kit/stairs_5m/stairs_5m.glb": "f227ac518d683a172642def9c606e8fdeda96268cc86de8f3875d51598d42cf7",
+    "godot/assets/models/building_kit/wall_5m/wall_5m.glb": "fec36c874ea284103c9308ca3d0c2ba32ceb6d8970b39ff20d1bfd743cba2b48",
+    "godot/assets/models/building_kit/window_wall_5m/window_wall_5m.glb": "933d2b1aef08e14b3b3e8e9652c3d74567cd3a6d437212c5d2e26a56f75fbb88",
+    "godot/scenes/buildables/kit/beam_5m.tscn": "25647ce79c3c62cbbf6ae89ed6bba51e94f9e95950833186f2ac86d871b34269",
+    "godot/scenes/buildables/kit/door_frame_5m.tscn": "d07b6ba988309211c3f5e405ee4584bb5c490dafa00f12bdede48221acfc2f60",
+    "godot/scenes/buildables/kit/platform_5x5.tscn": "9c5821291a97c2c9dfed14ced09e5cc91bcb317fd7365d080643bcd6249be67a",
+    "godot/scenes/buildables/kit/post_5m.tscn": "5018004665a32dbcd07acb7ebfc3fa122ee84ba69dae4cedf6ee14530dde83ef",
+    "godot/scenes/buildables/kit/railing_5m.tscn": "3d33a84a0854a38ee6b55ff681424c21f31ac843c49fbac31cffe9c8837ffc43",
+    "godot/scenes/buildables/kit/roof_flat_5x5.tscn": "b53c031676adf61ea2cf23b65095a53b2d71b3d77730180f6cf174ef3c619493",
+    "godot/scenes/buildables/kit/roof_slope_5x5.tscn": "02b448d3d05fdf7daa0f9b1241c8bc4178d3ac6fece4385b5e88f4a441f1de55",
+    "godot/scenes/buildables/kit/stairs_5m.tscn": "52302d54a69db8c8b3e3c29e0b6e1e2c8cbb9b2fdd50055f4af7a0eb9798ff12",
+    "godot/scenes/buildables/kit/wall_5m.tscn": "b6560041522b9d78f467960003f88134814e607420b7d39b59205242596d985d",
+    "godot/scenes/buildables/kit/window_wall_5m.tscn": "ff3416cdd8790294bcb26472311432a07030d51568625777f027288cf5bfad20",
+    "godot/src/building/assembly_rules.gd": "31229887070395b7609b8101c905a99beed7b7d1ea7918c9c4214496671340a0",
+    "godot/src/building/assembly_surfaces.gd": "e46385c6f61c215cdf99247b53c3e5eb3007667db2941556f6fad99369652ec2",
+    "godot/src/building/building_access.gd": "04dd9e2772df80f0b8a936c47d830d05bcd766761a7ff09926b45fca7f406248",
+    "godot/src/building/building_boundary.gd": "975f6d206e9cdf7bc7c99cf103b9a16ec99c037a4befcdb8ebabd6d4104b0bc7",
+    "godot/src/building/building_catalog.gd": "de723cd326adf57f66411a76f3a969037c2c9e7329e0e94cf86afb6c9cf1af41",
+    "godot/src/building/building_controller.gd": "91977dd75f3735ceef93846b6336d83f014c04f221c43a47ba9bdc0a8f87aef0",
+    "godot/src/building/building_pointer.gd": "37c7e80667bb42b5a70f0e66189b44701976bd7157c4f0b8e18ba753540268d3",
+    "godot/src/building/building_service.gd": "3216ffe8b7f2f6086f73fd0a8a2c9f671b280683487c4e12e26e6dd0373db4b9",
+    "godot/src/building/building_space.gd": "aa08a9aa4096fe488cc8db69ea39ea1c198cc8e50b725d1935c68a43440a5680",
+    "godot/src/building/building_world.gd": "38a3744a183d98c4d8982c30de59b7c8e27e2c3d4c05c916e0339ffe47961815",
+    "godot/src/building/deck_visual.gd": "bedb33953f15271bb02d6a41333185fca54aadef4fbbc69f81092fc32d5a03d2",
+    "godot/src/building/kit_visual.gd": "d2cc12782f87824639b9caabbb4694dae679f205f7eb3ec9f0bb7f794b15e54f",
+    "godot/src/building/material_shop.gd": "e4aa642e4d0b07269024d68da54f7c9f95d2d2a9a45bbfee754d4f9166757990",
+    "godot/src/building/ui/building_book.gd": "3dde43c306e794876968b1d4f9b2c5e2452afe3adbb9fc7e4d4c788238e3ac5b",
+    "godot/src/building/ui/building_book.gd.uid": "c91814b4c6aa126537fce7a751932847debf1dbfe40d0286964c90c051fbe064",
+    "godot/src/building/ui/building_progress_presenter.gd": "027003b56ca64700520df390999833cc3bf3b1494527f69030b6c009b09dda5c",
+    "godot/src/building/ui/building_view.gd": "c58558c33d535d8dae03379caf7eb76131c812c776d66987794b5e75b68da616",
+    "godot/src/building/ui/demolition_tool.gd": "75bb68feff6cd6a9081208a7cd290c625d7b4b3e4306cb4121f2e325707257d3",
+    "godot/src/building/ui/demolition_tool.gd.uid": "b3649f4dbf1a56427c7db6c436c37082cc84a7b1f6dbf95b4ebfc3a56e64adf2",
+    "godot/src/building/ui/recipe_card.gd": "b9e4ab76db81b88918b8d2bf9ae8595c0d6eabd9c202ad1cff2ffe89030e506e",
+    "godot/src/building/ui/recipe_card.gd.uid": "6080c311c17b4ce94b832b8478de7222fcd81d6fc80cf09247b6570f13fc4860",
+    "godot/src/building/ui/recipe_thumbnail.gd": "e7ddd080e6228681450792b2eed15a24f48fd4c0801e2ec32d5e53ba79dbcef9",
+    "godot/src/building/ui/recipe_thumbnail.gd.uid": "b09742ce10219533d4bb47aa4b4692ec9c4a7678ca38fb6be8536763f05ea33a",
+    "godot/src/navigation/ground_space.gd": "c42b93eea8e7848b576506cf8e5526127861bd70d0d5e5e2ce52323616f0b962"
+  },
+  "signed_source_comparison": [
+    {
+      "path": "godot/src/building/assembly_rules.gd",
+      "sha256": "31229887070395b7609b8101c905a99beed7b7d1ea7918c9c4214496671340a0",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/assembly_surfaces.gd",
+      "sha256": "e46385c6f61c215cdf99247b53c3e5eb3007667db2941556f6fad99369652ec2",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/building_access.gd",
+      "sha256": "04dd9e2772df80f0b8a936c47d830d05bcd766761a7ff09926b45fca7f406248",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/building_boundary.gd",
+      "sha256": "975f6d206e9cdf7bc7c99cf103b9a16ec99c037a4befcdb8ebabd6d4104b0bc7",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/building_catalog.gd",
+      "sha256": "de723cd326adf57f66411a76f3a969037c2c9e7329e0e94cf86afb6c9cf1af41",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/building_controller.gd",
+      "sha256": "91977dd75f3735ceef93846b6336d83f014c04f221c43a47ba9bdc0a8f87aef0",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/building_pointer.gd",
+      "sha256": "37c7e80667bb42b5a70f0e66189b44701976bd7157c4f0b8e18ba753540268d3",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/building_service.gd",
+      "sha256": "3216ffe8b7f2f6086f73fd0a8a2c9f671b280683487c4e12e26e6dd0373db4b9",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/building_space.gd",
+      "sha256": "aa08a9aa4096fe488cc8db69ea39ea1c198cc8e50b725d1935c68a43440a5680",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/building_world.gd",
+      "sha256": "38a3744a183d98c4d8982c30de59b7c8e27e2c3d4c05c916e0339ffe47961815",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/deck_visual.gd",
+      "sha256": "bedb33953f15271bb02d6a41333185fca54aadef4fbbc69f81092fc32d5a03d2",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/kit_visual.gd",
+      "sha256": "d2cc12782f87824639b9caabbb4694dae679f205f7eb3ec9f0bb7f794b15e54f",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/material_shop.gd",
+      "sha256": "e4aa642e4d0b07269024d68da54f7c9f95d2d2a9a45bbfee754d4f9166757990",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/ui/building_book.gd",
+      "sha256": "3dde43c306e794876968b1d4f9b2c5e2452afe3adbb9fc7e4d4c788238e3ac5b",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/ui/building_progress_presenter.gd",
+      "sha256": "027003b56ca64700520df390999833cc3bf3b1494527f69030b6c009b09dda5c",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/ui/building_view.gd",
+      "sha256": "c58558c33d535d8dae03379caf7eb76131c812c776d66987794b5e75b68da616",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/ui/demolition_tool.gd",
+      "sha256": "75bb68feff6cd6a9081208a7cd290c625d7b4b3e4306cb4121f2e325707257d3",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/ui/recipe_card.gd",
+      "sha256": "b9e4ab76db81b88918b8d2bf9ae8595c0d6eabd9c202ad1cff2ffe89030e506e",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/building/ui/recipe_thumbnail.gd",
+      "sha256": "e7ddd080e6228681450792b2eed15a24f48fd4c0801e2ec32d5e53ba79dbcef9",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/src/navigation/ground_space.gd",
+      "sha256": "c42b93eea8e7848b576506cf8e5526127861bd70d0d5e5e2ce52323616f0b962",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building.gd",
+      "sha256": "5b9365a14bf4cf53151068205f028cea2de2754de5a71713b50032a83437e53d",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_5m_experience.gd",
+      "sha256": "768475dad9a269c0bf8dacc340973a7f52b443dca64d064237bb613b1add6c26",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_5m_rules.gd",
+      "sha256": "dc1458a06c054ae6f3a42ea19581984e82f836ae4f9312402825046e063a8fa8",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_approach.gd",
+      "sha256": "bae640b4fb314f6cba8dc50656918cc49cfeb546d78f5a33ba427c900b3c6d85",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_base_neighbors.gd",
+      "sha256": "dbaec31bb1fc46b551384ea4e909164d85ba8422f8b1e5f21e7700cd7f46a8e0",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_decoupling.gd",
+      "sha256": "62b255f4be1732034fd6824e09a9be573515ca28a43fdbd62c8a2c3fee07fb8f",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_demolition.gd",
+      "sha256": "6acd53ffadd0715968b8428a8a452b5595d7bd364d35a21a1981ca8f46ada229",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_diy_visual.gd",
+      "sha256": "dcfb1fd4ef21c1d3b5dc581ffa6b9f98ad79c2d41c6cf490ca0501a0a176d6de",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_integration.gd",
+      "sha256": "7f0cfa08850af01a2ae98accb190c8bdc9d29906436b7b70cdcf2682e19e4fc3",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_join.gd",
+      "sha256": "8e8a3794b87a9f7047071037e103900a876e8b4844f967046dd3338149f8b580",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_kit.gd",
+      "sha256": "c2cf5f53366d49a986e674c767c60aee75fc9427ddd5f084640446e5818f5db3",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_ocean.gd",
+      "sha256": "553b2d2e73dbd565d4b4e6a0f409b0c942e7cdd90ecd5a03fa1712318f865658",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_open_restart.gd",
+      "sha256": "b2dda37998b573c606f5cfa2ff5707f5de7c1e687870defcfdf68d2dcf8e2329",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_open_rules.gd",
+      "sha256": "15fda0cc5f06e63d36fd3a111945312ae0c7ebe26957a34e7e92c5768e4f6e2e",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_perf.gd",
+      "sha256": "8cd491f8da63cc32ed7cc57ae5519eae4fcaa61d36d292f2a1fe5203071a44b6",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_restart.gd",
+      "sha256": "5b0a19ac70a803b694d9c02e3d7b962a8cc4d4ae9bd68e7cb316b4c2b4bef8dc",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_save_compat.gd",
+      "sha256": "ce29dc409f08288612baa2aa6c78d3b3128c11a438f172f8a86af468c1a17724",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_simulate.gd",
+      "sha256": "d7105a26b67a4c4e7bfca8e60f00432b1f0198063a589258deb52a00bc885e19",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_space.gd",
+      "sha256": "eb4fe575f2dc091bed096c125f4fbc1f68375c1d9331ccc9dd5a05bdea0bf997",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_surfaces.gd",
+      "sha256": "c8a438753f38cc83f3413df5cee428a18fba36f673efa2c464974d73bde63a21",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_ui_unified.gd",
+      "sha256": "4c31508bf9e6bce144d5949977be0289b2f06dfe5956f24841f971c9550489ff",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_building_visual.gd",
+      "sha256": "1494d8615bde525bc451dc5b2572a70fc0a24f2cec3af8a5c42b93eaad07dd25",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_kit_safety.gd",
+      "sha256": "72abfc2797d6299682cec0db029261f55e7072db6934d60a677681410dbf3345",
+      "matches_signed": true
+    },
+    {
+      "path": "godot/tests/test_ground_space.gd",
+      "sha256": "bf68b350485ed2450f436421c524ea185e72de8f999a5626597f2d54b7673672",
+      "matches_signed": true
+    }
+  ],
+  "dimensions_m": {
+    "platform": [
+      5,
+      5
+    ],
+    "structure_span": 5,
+    "storey_rise": 5.086335,
+    "stairs_width_run": [
+      1.5,
+      5
+    ],
+    "steps": 27,
+    "door_aperture": [
+      1.85,
+      3.1
+    ]
+  },
+  "compatibility": {
+    "root_snapshot_version": 4,
+    "building_version": 1,
+    "old_coordinates_and_dimensions_unchanged": true,
+    "legacy_rise": 2.8,
+    "new_ids_distinct": true,
+    "no_player_save_written": true
+  },
+  "visual_review": {
+    "reviewed_by": "main_agent",
+    "images": [
+      "building-5m-ui.png",
+      "building-5m-parallel-preview.png",
+      "building-5m-confirm.png",
+      "building-5m-overview.png"
+    ],
+    "source_directory": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project\\outputs",
+    "notes": "Full names readable; unified bottom toolbar; legal adjacent stair ghost; default-No confirmation; serial stairs/real avatar movement verified."
+  },
+  "historical_failures_retained": [
+    "D:\\projects\\sea-work\\verification\\20261106-211435-building-5m-final-816d34\\report.json",
+    "20261106-160245-building-5m-first-2a11bd",
+    "20261106-165720-building-5m-integration-741225",
+    "20261106-182008-building-5m-fixes-8ef39b"
+  ],
+  "known_unresolved": [
+    {
+      "check": "farming",
+      "checks": 35,
+      "failures": 2,
+      "reason": "Historical fixture expects removed arc farm: 13 plots/3 beds; production farming not changed by this task. Keyboard farm 606/0 is separately recorded, not a replacement."
+    }
+  ],
+  "not_executed": [
+    "Touch input and physical controller",
+    "Low-end GPU and large full-render stress tests",
+    "Arbitrary layer counts and far-coordinate exhaustive tests",
+    "Whole-project acceptance"
+  ],
+  "live_sunroom_height_contract": {
+    "report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\report.json",
+    "geometry_report": "D:\\projects\\sea-work\\verification\\20261106-222059-building-5m-release-signed-2a186b\\project\\outputs\\building-scale-reference.json",
+    "measured_storey_rise": 5.08633422851563,
+    "catalog_storey_rise": 5.086335,
+    "tolerance_m": 0.002,
+    "passed": true,
+    "guard_script": "godot/tools/probe_building_scale.gd",
+    "guard_script_sha256": "f41402f48451776601a0fbaa62e4c211ca396a99a5d49fdcf20157b478669fd5"
+  },
+  "global_checks": {
+    "feature_sync": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\building_kit_v002\\feature_sync.log",
+      "output": "FAIL: scenes: stale building view underwater; run tools/apply_water_layer.py\nFAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/src/bootstrap/main.gd\nFAIL: 40 features, 881 source assets, 1080 runtime resource hashes; 4 issues\n"
+    },
+    "feature_check": {
+      "exit_code": 1,
+      "log": "D:\\projects\\sea-work\\building_kit_v002\\feature_check.log",
+      "output": "FAIL: scenes: stale building view underwater; run tools/apply_water_layer.py\nFAIL: SEA-DECO-ANIMAL-FISH-SCHOOL: source hash drift\nFAIL: runtime hash drift: godot/assets/materials/water.tres\nFAIL: runtime hash drift: godot/src/bootstrap/main.gd\nFAIL: derived feature index stale; use --sync\nFAIL: 40 features, 881 source assets, 1080 runtime resource hashes; 5 issues\n"
+    },
+    "architecture": {
+      "exit_code": 0,
+      "log": "D:\\projects\\sea-work\\building_kit_v002\\architecture.log",
+      "output": "PASS: architecture boundaries; 17 independent rule/storage services; 0 issues\n"
+    },
+    "git_diff_check": {
+      "exit_code": 0,
+      "output": "",
+      "warnings": "warning: in the working copy of 'assets/registry/current_source_index.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'assets/registry/ledgers/scenes.json', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/ambient/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/ambient/proton_scatter_trial.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/ambient/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/ambient/vegetation_meadow.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/building/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/building/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/interact/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/world/ledger.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'docs/features/world/spec.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/assets/materials/water.tres', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/assets/textures/facilities/neon_garden_quarter/poster_atlas.png.import', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/decorations/surface_animals.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/facilities/solar_cabin.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/main.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/scenes/vegetation_authoring/proton_rooftop_preview.tscn', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/ambient/vegetation/patch.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/ambient/vegetation/piece.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/avatar/avatar_editor.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/building/assembly_surfaces.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/building/building_catalog.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/building/building_controller.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/building/building_pointer.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/building/building_service.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/ui/action_bubble.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/ui/notebook.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/src/world/sunny_bloom_visual.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_building_demolition.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_building_integration.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_building_save_compat.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_building_surfaces.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_ground_space.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_kit_safety.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_proton_preview.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_sunken_city.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tests/test_vegetation.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tools/capture_vegetation.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tools/probe_building_scale.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tools/profile_vegetation.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'godot/tools/proton_preview_stage.gd', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'scripts/daily_release.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tools/blender/sunken_city/fidelity_runtime_v003.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tools/blender/sunken_city/master_verify.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tools/blender/sunken_city/package_verify.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tools/blender/sunken_city/probe.py', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tools/register_building_kit.py', LF will be replaced by CRLF the next time Git touches it\n"
+    }
+  }
+}

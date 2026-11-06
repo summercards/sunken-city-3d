@@ -28,8 +28,8 @@ from mathutils import Vector
 
 R = Path(__file__).resolve().parents[3]
 VERSION = os.environ.get("SEA_SUNKEN_VERSION", "v001")
-if VERSION not in {"v001", "v002", "v003", "v004"}:
-    raise ValueError("SEA_SUNKEN_VERSION 只支持 v001、v002、v003 或 v004")
+if VERSION not in {"v001", "v002", "v003", "v004", "v005"}:
+    raise ValueError("SEA_SUNKEN_VERSION 只支持 v001、v002、v003、v004 或 v005")
 D = R / "art_source/scenes/sunken_city" / VERSION
 MAIN = D / f"sunken_city_{VERSION}.blend"
 CATALOG = D / "component_catalog.json"

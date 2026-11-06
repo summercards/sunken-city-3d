@@ -20,7 +20,10 @@ const CATEGORY_DECORATION := "decoration"
 ## A seam a body must be able to cross. Wider than the 0.44 m actor, so a
 ## rounded corner or a 0.2 m post beside it never closes the join.
 const JOIN_MIN := 0.6
-const LAYER_HEIGHT := 2.8
+const LAYER_HEIGHT := 5.086335
+const LEGACY_LAYER_HEIGHT := 2.8
+const STAIR_SNAP_DISTANCE := 0.35
+const SEAM_EPS := 0.0005
 const LEVEL_EPS := 0.002
 ## Placement and rendering both consume these roles. Adding a new furnishing
 ## means adding a recipe and its projection, not another layout state owner.
@@ -84,30 +87,31 @@ static func verify_content() -> String:
 static func _load_recipes() -> Dictionary:
 	var result: Dictionary=LEGACY_RECIPES.duplicate(true)
 	result.planter.height=0.35;result.planter_small.height=0.35
-	var data: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://assets/data/building_kit.json"))
-	assert(data is Dictionary and data.get("schema")==1,"Invalid building content catalog")
-	for raw: Dictionary in data.modules:
-		assert(not result.has(raw.id),"Duplicate recipe ID")
-		var definition: Dictionary=raw.duplicate(true)
-		definition.footprint=Vector2(raw.footprint[0],raw.footprint[1])
-		definition.kit=true;definition.visual="kit"
-		# A raft is a platform, not a frame: it carries bodies and joins other
-		# platforms edge-to-edge, exactly like the legacy 2.15x2.575 board.
-		# Walls, posts, beams and roofs are frames; furniture is decoration.
-		if raw.profile in ["foundation","floor"]:
-			definition.category=CATEGORY_PLATFORM
-			definition.role="deck"
-			definition.support="water"
-			definition.placement="platform_edge"
-		elif str(raw.category)=="decoration":
-			definition.category=CATEGORY_DECORATION
-			definition.support="finished_deck"
-		else:
-			definition.category=CATEGORY_STRUCTURE
-			definition.support="finished_deck"
-		definition.group=raw.category
-		definition.rotatable=true
-		result[raw.id]=definition
+	# 旧结构仅退出菜单，兼容 API begin(旧 ID) 与旧存档仍保留原定义。
+	result.deck.menu_visible=false
+	for path in ["res://assets/data/building_kit.json","res://assets/data/building_kit_5m.json"]:
+		var data: Variant=JSON.parse_string(FileAccess.get_file_as_string(path))
+		assert(data is Dictionary and data.get("schema")==1,"建造目录格式错误")
+		for raw: Dictionary in data.modules:
+			assert(not result.has(raw.id),"建造配方 ID 重复")
+			var definition: Dictionary=raw.duplicate(true)
+			definition.footprint=Vector2(raw.footprint[0],raw.footprint[1])
+			definition.kit=true;definition.visual="kit"
+			definition.menu_visible=path.ends_with("building_kit_5m.json") or str(raw.category)=="decoration"
+			if raw.profile in ["foundation","floor"]:
+				definition.category=CATEGORY_PLATFORM
+				definition.role="deck"
+				definition.support="water"
+				definition.placement="platform_edge"
+			elif str(raw.category)=="decoration":
+				definition.category=CATEGORY_DECORATION
+				definition.support="finished_deck"
+			else:
+				definition.category=CATEGORY_STRUCTURE
+				definition.support="finished_deck"
+			definition.group=raw.category
+			definition.rotatable=true
+			result[raw.id]=definition
 	return result
 static func is_kit(kind: String) -> bool: return bool(RECIPES.get(kind,{}).get("kit",false))
 static func is_platform(kind: String) -> bool:
@@ -118,12 +122,21 @@ static func is_frame(kind: String) -> bool:
 	return RECIPES.has(kind) and str(RECIPES[kind].get("category",""))==CATEGORY_STRUCTURE
 static func category(kind: String) -> String:
 	return str(RECIPES.get(kind,{}).get("category",""))
-static func enabled(kind: String) -> bool: return bool(RECIPES.get(kind,{}).get("active",true))
+static func enabled(kind: String) -> bool:
+	return RECIPES.has(kind) and bool(RECIPES[kind].get("active",true)) and bool(RECIPES[kind].get("menu_visible",true))
+static func api_enabled(kind: String) -> bool:
+	return RECIPES.has(kind) and bool(RECIPES[kind].get("active",true))
 static func position_rect(row: Dictionary) -> Rect2: return footprint_rect(row)
 static func elevation(row: Dictionary) -> float: return float(row.get("py",0.0))
 static func same_level(a: float,b: float) -> bool: return absf(a-b)<=LEVEL_EPS
 static func valid_level(height: float) -> bool:
-	return is_finite(height) and height>=-LEVEL_EPS and height<=100000.0 and absf(height-snappedf(height,LAYER_HEIGHT))<=LEVEL_EPS
+	# 高度的几何范围与实际承载分离；混合楼梯可以派生非整层高度。
+	return is_finite(height) and height>=-LEVEL_EPS and height<=100000.0
+static func stair_rise(row: Dictionary) -> float:
+	var definition: Dictionary=RECIPES.get(str(row.get("kind","")),{})
+	return float(definition.get("height",LEGACY_LAYER_HEIGHT))
+static func component_height(row: Dictionary) -> float:
+	return stair_rise(row) if str(RECIPES.get(str(row.get("kind","")),{}).get("profile",""))=="stairs" else float(RECIPES.get(str(row.get("kind","")),{}).get("height",0.3))
 static func is_furnishing(kind: String) -> bool:
 	# Anything mounted on a finished platform: frames and loose furniture.
 	return RECIPES.has(kind) and not is_platform(kind)
@@ -174,7 +187,7 @@ static func placement_levels(rows: Array) -> Array[float]:
 	for item in rows:
 		if float(item.left)>0.0: continue
 		var height:=elevation(item)
-		if str(RECIPES[item.kind].get("profile",""))=="stairs": height+=LAYER_HEIGHT
+		if str(RECIPES[item.kind].get("profile",""))=="stairs": height+=stair_rise(item)
 		elif not is_platform(str(item.kind)): continue
 		var exists:=false
 		for known in result:
@@ -194,10 +207,97 @@ static func stairs_top_contact(rect: Rect2,row: Dictionary) -> float:
 	var outward:=Vector2(0,-1).rotated(-float(row.get("turn",0))*PI/2)
 	if (rect.get_center()-middle).dot(outward)<=0.0: return 0.0
 	if absf(edge[0].x-edge[1].x)<0.01:
-		if minf(absf(rect.position.x-middle.x),absf(rect.end.x-middle.x))>0.02: return 0.0
+		if minf(absf(rect.position.x-middle.x),absf(rect.end.x-middle.x))>SEAM_EPS: return 0.0
 		return maxf(0.0,minf(rect.end.y,maxf(edge[0].y,edge[1].y))-maxf(rect.position.y,minf(edge[0].y,edge[1].y)))
-	if minf(absf(rect.position.y-middle.y),absf(rect.end.y-middle.y))>0.02: return 0.0
+	if minf(absf(rect.position.y-middle.y),absf(rect.end.y-middle.y))>SEAM_EPS: return 0.0
 	return maxf(0.0,minf(rect.end.x,maxf(edge[0].x,edge[1].x))-maxf(rect.position.x,minf(edge[0].x,edge[1].x)))
+static func stairs_low_edge(row: Dictionary) -> Array[Vector2]:
+	var extent: Vector2=RECIPES[row.kind].footprint
+	var at:=footprint_rect(row).get_center()
+	var angle: float=-float(row.get("turn",0))*PI/2
+	return [at+Vector2(-extent.x/2,extent.y/2).rotated(angle),at+Vector2(extent.x/2,extent.y/2).rotated(angle)]
+static func stairs_parallel(a: Dictionary,b: Dictionary) -> bool:
+	if str(RECIPES[a.kind].get("profile",""))!="stairs" or str(RECIPES[b.kind].get("profile",""))!="stairs": return false
+	if int(a.get("turn",0))!=int(b.get("turn",0)) or not same_level(elevation(a),elevation(b)) or not same_level(stair_rise(a),stair_rise(b)): return false
+	var ea: Vector2=RECIPES[a.kind].footprint
+	var eb: Vector2=RECIPES[b.kind].footprint
+	var offset: Vector2=(footprint_rect(b).get_center()-footprint_rect(a).get_center()).rotated(float(a.get("turn",0))*PI/2)
+	return absf(ea.y-eb.y)<=SEAM_EPS and absf(offset.y)<=SEAM_EPS and absf(absf(offset.x)-(ea.x+eb.x)/2)<=SEAM_EPS
+static func stair_support_ids(row: Dictionary,rows: Array) -> Array[String]:
+	var ids: Array[String]=[]
+	var spans: Array[Vector2]=[]
+	var edge:=stairs_low_edge(row)
+	var vertical:=absf(edge[0].x-edge[1].x)<SEAM_EPS
+	var low: float=minf(edge[0].y,edge[1].y) if vertical else minf(edge[0].x,edge[1].x)
+	var high: float=maxf(edge[0].y,edge[1].y) if vertical else maxf(edge[0].x,edge[1].x)
+	var fixed: float=edge[0].x if vertical else edge[0].y
+	var own:=str(row.get("exclude_id",row.get("id","")))
+	var candidates:=rows.duplicate()
+	if same_level(elevation(row),0.0): candidates.append(fixed_support())
+	for other in candidates:
+		if str(other.id)==own or float(other.left)>0.0: continue
+		var lo:=low;var hi:=high
+		if str(other.id)=="@base" or (is_platform(str(other.kind)) and same_level(elevation(other),elevation(row))):
+			var rect: Rect2=BASE if str(other.id)=="@base" else footprint_rect(other)
+			if fixed<(rect.position.x if vertical else rect.position.y)-SEAM_EPS or fixed>(rect.end.x if vertical else rect.end.y)+SEAM_EPS: continue
+			lo=maxf(lo,rect.position.y if vertical else rect.position.x)
+			hi=minf(hi,rect.end.y if vertical else rect.end.x)
+		elif str(RECIPES.get(str(other.kind),{}).get("profile",""))=="stairs" and same_level(elevation(other)+stair_rise(other),elevation(row)):
+			var top:=stairs_top_edge(other)
+			if (absf(top[0].x-top[1].x)<SEAM_EPS)!=vertical: continue
+			if absf((top[0].x if vertical else top[0].y)-fixed)>SEAM_EPS: continue
+			var outward:=Vector2(0,-1).rotated(-float(other.get("turn",0))*PI/2)
+			if (footprint_rect(row).get_center()-(top[0]+top[1])/2).dot(outward)<=SEAM_EPS: continue
+			lo=maxf(lo,minf(top[0].y,top[1].y) if vertical else minf(top[0].x,top[1].x))
+			hi=minf(hi,maxf(top[0].y,top[1].y) if vertical else maxf(top[0].x,top[1].x))
+		else: continue
+		if hi-lo>SEAM_EPS: spans.append(Vector2(lo,hi));ids.append(str(other.id))
+	spans.sort_custom(func(a: Vector2,b: Vector2) -> bool: return a.x<b.x)
+	var length:=0.0;var start: float=-INF;var reach: float=-INF
+	for span in spans:
+		if span.x>reach+SEAM_EPS: start=span.x
+		reach=maxf(reach,span.y);length=maxf(length,reach-start)
+	ids.sort()
+	if length>=JOIN_MIN-SEAM_EPS: return ids
+	ids.clear()
+	return ids
+static func snap_stairs(request: Dictionary,rows: Array,edge_assist: bool=true) -> Dictionary:
+	var result:=request.duplicate(true)
+	var rules=load("res://src/building/assembly_rules.gd")
+	var supports: Array=rules.support_ids(result,rows)
+	result.support="" if supports.is_empty() else supports[0]
+	if not edge_assist: return result
+	var cursor:=Vector2(float(request.px),float(request.pz))
+	var extent:=platform_extent(str(request.kind),int(request.get("turn",0)))
+	var guides: Array=[]
+	for other in rows:
+		if float(other.left)>0.0: continue
+		if is_platform(str(other.kind)) and same_level(elevation(other),elevation(request)): guides.append({"rect":footprint_rect(other),"stair":{}})
+		elif str(RECIPES[other.kind].get("profile",""))=="stairs":
+			if same_level(elevation(other),elevation(request)) or same_level(elevation(other)+stair_rise(other),elevation(request)): guides.append({"rect":footprint_rect(other),"stair":other})
+	if same_level(elevation(request),0.0): guides.append({"rect":BASE,"stair":{}})
+	guides.sort_custom(func(a,b): return not a.stair.is_empty() and b.stair.is_empty())
+	var best_distance:=STAIR_SNAP_DISTANCE*STAIR_SNAP_DISTANCE
+	var stair_match:=false
+	for entry in guides:
+		if stair_match and entry.stair.is_empty(): continue
+		var guide: Rect2=entry.rect
+		if not entry.stair.is_empty() and (stairs_parallel(result,entry.stair) or supports.has(str(entry.stair.id))) and rules.reason(result,rows)=="": return result
+		var xs: Array=[cursor.x,guide.position.x-extent.x/2,guide.end.x+extent.x/2,guide.position.x+extent.x/2,guide.end.x-extent.x/2,guide.get_center().x]
+		var zs: Array=[cursor.y,guide.position.y-extent.y/2,guide.end.y+extent.y/2,guide.position.y+extent.y/2,guide.end.y-extent.y/2,guide.get_center().y]
+		for x: float in xs:
+			for z: float in zs:
+				var distance:=cursor.distance_squared_to(Vector2(x,z))
+				if distance<0.000000001 or distance>=best_distance: continue
+				var candidate:=request.duplicate(true);candidate.px=x;candidate.pz=z
+				var ids: Array=rules.support_ids(candidate,rows)
+				if ids.is_empty(): continue
+				candidate.support=ids[0]
+				if not entry.stair.is_empty() and not stairs_parallel(candidate,entry.stair) and not ids.has(str(entry.stair.id)): continue
+				if rules.reason(candidate,rows)!="": continue
+				best_distance=distance;result=candidate
+				if not entry.stair.is_empty(): stair_match=true
+	return result
 static func fixed_support() -> Dictionary:
 	return {"id":"@base","kind":"fixed_base","left":0.0}
 
@@ -221,7 +321,7 @@ static func platform_contact(rect: Rect2, rows: Array,height: float=0.0,include_
 	var result:=contact_against(rect,platform_tiles_at_level(rows,height))
 	if include_stairs:
 		for row in rows:
-			if str(RECIPES[row.kind].get("profile",""))=="stairs" and same_level(elevation(row)+LAYER_HEIGHT,height): result=maxf(result,stairs_top_contact(rect,row))
+			if str(RECIPES[row.kind].get("profile",""))=="stairs" and same_level(elevation(row)+stair_rise(row),height): result=maxf(result,stairs_top_contact(rect,row))
 	return result
 ## Same measurement against an already materialised tile list. Support tiles are
 ## rebuilt on every call, so the snap solver passes its own list instead of
@@ -308,7 +408,7 @@ static func snap_foundation(kind: String,point: Vector2,turn: int,rows: Array,fr
 	# Degenerate rectangles contribute only the stair's high edge as a snap
 	# guide. They never add support area or cover a hole in a platform.
 	for row in rows:
-		if str(RECIPES[row.kind].get("profile",""))!="stairs" or float(row.left)>0 or not same_level(elevation(row)+LAYER_HEIGHT,height): continue
+		if str(RECIPES[row.kind].get("profile",""))!="stairs" or float(row.left)>0 or not same_level(elevation(row)+stair_rise(row),height): continue
 		stairs.append(row)
 		var edge:=stairs_top_edge(row)
 		surfaces.append(Rect2(Vector2(minf(edge[0].x,edge[1].x),minf(edge[0].y,edge[1].y)),Vector2(absf(edge[0].x-edge[1].x),absf(edge[0].y-edge[1].y))))

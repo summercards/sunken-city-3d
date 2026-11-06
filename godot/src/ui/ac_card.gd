@@ -165,7 +165,7 @@ func show_detail(heading: String, compact := false) -> void:
 	turning = false
 	_set_extent(true,compact)
 	clip.hide();subtitle.hide();harvest_heading.hide();detail.show();detail.scroll_vertical = 0
-	title.text = heading;footer.text = "Esc 返回上一页 · 滚轮查看更多"
+	title.text = heading;footer.text = ""
 	for dot in dots: dot.hide()
 
 func _set_extent(wide: bool, compact := false) -> void:

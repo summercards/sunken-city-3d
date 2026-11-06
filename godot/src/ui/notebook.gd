@@ -26,6 +26,8 @@ var previous: Button
 var next: Button
 var index_label: Label
 var _action := ""
+var _focus_area := "cards"
+var _selected_index := 0
 
 func _ready() -> void:
 	set_meta("cozy_skip",true)
@@ -46,6 +48,7 @@ func _ready() -> void:
 		var button:=_button(entry[1],24);button.custom_minimum_size=Vector2(243,62)
 		index.add_child(button);categories[entry[0]]=button
 		button.pressed.connect(func(): show_category(entry[0]))
+		button.focus_entered.connect(func(): _focus_area="categories")
 	index_label=_add_label("",Vector2(40,193),20,Cozy.DIM)
 	grid=GridContainer.new();grid.columns=3;grid.position=Vector2(36,232)
 	grid.add_theme_constant_override("h_separation",14);grid.add_theme_constant_override("v_separation",14);add_child(grid)
@@ -53,6 +56,10 @@ func _ready() -> void:
 		var button:=_button("",22);button.custom_minimum_size=Vector2(198,195)
 		grid.add_child(button);cards.append(button)
 		button.pressed.connect(func(): select_card(i))
+		button.focus_entered.connect(func():
+			_focus_area="cards";_selected_index=i
+			var actual:=page*PAGE_SIZE+i
+			if actual<entries.size(): selected=entries[actual].id;_show_detail(entries[actual]);_sync_detail_focus())
 	var leaf:=Panel.new();leaf.position=Vector2(690,232);leaf.size=Vector2(354,404)
 	leaf.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	leaf.add_theme_stylebox_override("panel",Cozy.surface(Color("#f0ecd8"),22));add_child(leaf)
@@ -72,6 +79,9 @@ func _ready() -> void:
 	next=_button("下一页  ›",21);next.position=Vector2(510,660);next.size=Vector2(144,48);add_child(next)
 	page_label=_add_label("",Vector2(198,667),22);page_label.size.x=294;page_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 	previous.pressed.connect(func(): turn_page(-1));next.pressed.connect(func(): turn_page(1))
+	previous.focus_entered.connect(func(): _focus_area="pager")
+	next.focus_entered.connect(func(): _focus_area="pager")
+	close.focus_entered.connect(func(): _focus_area="close")
 
 func _add_label(text: String, at: Vector2, pixels: int, color:=Cozy.INK) -> Label:
 	var label:=Label.new();label.text=text;label.position=at;label.mouse_filter=Control.MOUSE_FILTER_IGNORE
@@ -83,6 +93,7 @@ func _button(text: String, pixels: int) -> Button:
 	button.add_theme_font_override("font",font);button.add_theme_font_size_override("font_size",pixels)
 	for state in ["normal","hover","pressed","focus","disabled"]:
 		var style:=Cozy.surface(Color("#f0ecd8") if state in ["normal","disabled"] else Cozy.GOLD,18)
+		if state=="focus": style.bg_color=Color.TRANSPARENT;style.border_color=Cozy.INK;style.set_border_width_all(3)
 		button.add_theme_stylebox_override(state,style)
 	for state in ["font_color","font_hover_color","font_pressed_color","font_focus_color","font_disabled_color"]: button.add_theme_color_override(state,Cozy.INK)
 	return button
@@ -96,7 +107,7 @@ func _icon(kind: String) -> TextureRect:
 	return icon
 
 func show_category(id: String) -> void:
-	category=id;page=0;selected="";refresh()
+	category=id;page=0;selected="";_focus_area="cards";_selected_index=0;refresh();_focus_first()
 
 func page_count() -> int: return maxi(1,ceili(entries.size()/float(PAGE_SIZE)))
 
@@ -131,7 +142,12 @@ func refresh() -> void:
 	page_label.text="%02d   /   %02d" % [page+1,page_count()]
 	previous.disabled=page==0;next.disabled=page>=page_count()-1
 	index_label.text="%s  ·  共 %d 条记录" % [str(categories[category].text),entries.size()]
-	if not entries.is_empty(): _show_detail(entries[selected_index])
+	if not entries.is_empty():
+		_selected_index=selected_index-page*PAGE_SIZE
+		_show_detail(entries[selected_index]);_sync_detail_focus()
+	var focused:=get_viewport().gui_get_focus_owner()
+	if is_visible_in_tree() and (focused==null or not is_ancestor_of(focused) or not focused.is_visible_in_tree()):
+		_focus_first()
 
 func _show_detail(row: Dictionary) -> void:
 	detail_tag.text=row.tag;detail_title.text=row.title;detail_body.text=row.body
@@ -139,13 +155,61 @@ func _show_detail(row: Dictionary) -> void:
 	detail_icon.texture=Art.texture(row.icon);detail_icon.modulate=Color.WHITE
 	if detail_icon.texture==null: detail_icon.texture=Art.texture(row.icon,true);detail_icon.modulate=Cozy.TEAL
 	_action=row.action;action_button.text=row.button;action_button.visible=_action!=""
+	action_button.disabled=bool(row.get("disabled",false))
+	if row.get("reason","")!="": detail_facts.text+="\n"+str(row.reason)
 
 func select_card(index: int) -> void:
 	var actual:=page*PAGE_SIZE+index
 	if actual>=entries.size(): return
-	selected=entries[actual].id;refresh()
+	selected=entries[actual].id;_selected_index=index;_focus_area="cards";refresh()
+
+func _sync_detail_focus() -> void:
+	for i in cards.size():
+		var index:=page*PAGE_SIZE+i
+		var style:=Cozy.surface(Color("#e9edce") if index<entries.size() and entries[index].id==selected else Color("#f3efdb"),16)
+		style.border_color=Cozy.TEAL;style.set_border_width_all(3 if index<entries.size() and entries[index].id==selected else 0)
+		cards[i].add_theme_stylebox_override("normal",style)
+
+func _focus_first() -> void:
+	if not entries.is_empty():
+		var index:=clampi(_selected_index,0,mini(PAGE_SIZE,entries.size()-page*PAGE_SIZE)-1)
+		cards[index].grab_focus.call_deferred()
+	else:
+		categories[category].grab_focus.call_deferred()
+
+func back() -> bool:
+	if get_viewport().gui_get_focus_owner()==action_button:
+		_focus_first();return true
+	return false
+
+func activate_focused() -> void:
+	var focused:=get_viewport().gui_get_focus_owner()
+	if focused in cards:
+		if action_button.visible and not action_button.disabled: action_button.grab_focus();_focus_area="detail"
+	elif focused is Button and is_ancestor_of(focused) and focused.is_visible_in_tree() and not focused.disabled:
+		focused.pressed.emit()
+
+func move_selection(step: int) -> void:
+	var focused:=get_viewport().gui_get_focus_owner()
+	if focused in categories.values():
+		if abs(step)>1: _focus_first();return
+		var index:=categories.values().find(focused)
+		categories.values()[posmod(index+step,CATEGORIES.size())].grab_focus();return
+	if focused==action_button or focused==previous or focused==next:
+		_focus_first();return
+	if entries.is_empty(): categories[category].grab_focus();return
+	var count:=mini(PAGE_SIZE,entries.size()-page*PAGE_SIZE)
+	var target:=_selected_index+step
+	if step==-3 and target<0: categories[category].grab_focus();return
+	if step==1 and (_selected_index%3==2 or target>=count) and action_button.visible and not action_button.disabled:
+		action_button.grab_focus();_focus_area="detail";return
+	if target<0 or target>=count:
+		if step>0 and not next.disabled: next.grab_focus()
+		elif step<0 and not previous.disabled: previous.grab_focus()
+		return
+	cards[target].grab_focus()
 
 func turn_page(direction: int) -> void:
 	var target:=clampi(page+direction,0,page_count()-1)
 	if target==page: return
-	page=target;selected="";refresh()
+	page=target;selected="";_selected_index=0;_focus_area="cards";refresh();_focus_first()

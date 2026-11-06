@@ -27,6 +27,12 @@ var _blocked_left := 0.0
 var _last_text := ""
 var _finish_left := 0.0
 
+## 主动切换焦点时立刻显示新目标，不让上一格的拒绝/成功提示遮住当前选择。
+func focus_changed(_spot: Node3D) -> void:
+	_finish_left = 0.0
+	_blocked_left = 0.0
+	_last_text = ""
+
 func celebrate() -> void:
 	if not enabled: return
 	_finish_left = 1.4
@@ -55,8 +61,10 @@ func _ready() -> void:
 	_panel.anchor_bottom = 1.0
 	_panel.offset_left = -245
 	_panel.offset_right = 245
-	_panel.offset_top = -238
-	_panel.offset_bottom = -150
+	# 抬高 14 px：底部的「视野 %」徽标贴在同一水平线上，原本两者的边只差 3 px，
+	# 在 1280×800 下读起来像一条被劈成两半的横条。
+	_panel.offset_top = -252
+	_panel.offset_bottom = -164
 	_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_panel.add_theme_stylebox_override("panel", _panel_style())
 	root.add_child(_panel)
@@ -77,6 +85,7 @@ func _ready() -> void:
 	badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(badge)
 	_key_label = Button.new()
+	_key_label.focus_mode = Control.FOCUS_NONE
 	_key_label.text = "操作"
 	_key_label.add_theme_font_override("font",_font)
 	_key_label.add_theme_font_size_override("font_size",12)
@@ -134,6 +143,9 @@ func update_from(actor: Node) -> void:
 			_key_label.disabled = false
 			_key_label.text = "E"
 			_bar.value = 0.0
+			# 没在按住时不要留一条空槽：它会读成「进度 0%，还差一点」。
+			# 只有真的在按（progress > 0）才把进度条显出来。
+			_bar.visible = false
 			return
 		if visible:
 			visible = false
@@ -145,10 +157,15 @@ func update_from(actor: Node) -> void:
 	if _blocked_left <= 0.0:
 		_text.add_theme_color_override("font_color", HINT_COLOR)
 		_last_text = spot.focus_text()
+		if spot.is_in_group("farm_plots"): _last_text += "\n按住 E 操作 · Q / Shift+Q 切换附近地格"
 		_text.text = _last_text
 	_key_label.disabled = actor.progress()>0.0
-	_key_label.text = "进行中" if actor.progress()>0.0 else str(spot.verb)
+	# 徽标只写「按哪个键」。以前这里写 `spot.verb`，于是画面上是
+	# 「采集  采集 · 贝壳」—— 同一个词出现两次，还看不出要按 E。
+	# 动词已经在 `focus_text()` 里了，这里只负责说清键位。
+	_key_label.text = "进行中" if actor.progress()>0.0 else "E"
 	_bar.value = actor.progress()
+	_bar.visible = actor.progress() > 0.0
 
 
 ## 被规则挡住时短暂改色显示原因。

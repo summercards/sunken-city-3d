@@ -9,20 +9,21 @@ static func sockets(row: Dictionary) -> Array[Vector2]:
 	var result: Array[Vector2]=[]
 	if profile(row)=="post": result.append(center(row))
 	if profile(row) in ["wall","window","door","beam"]:
-		result.append(turn_point(Vector2(-1,0),row));result.append(turn_point(Vector2(1,0),row))
+		result.append(turn_point(Vector2(-Catalog.RECIPES[row.kind].footprint.x/2,0),row));result.append(turn_point(Vector2(Catalog.RECIPES[row.kind].footprint.x/2,0),row))
 	return result
 static func required_sockets(row: Dictionary) -> Array[Vector2]:
 	var extent: Vector2=Catalog.RECIPES[row.kind].footprint
 	var result: Array[Vector2]=[]
 	if profile(row)=="beam":
-		result.append(turn_point(Vector2(-1,0),row));result.append(turn_point(Vector2(1,0),row))
+		result.append(turn_point(Vector2(-Catalog.RECIPES[row.kind].footprint.x/2,0),row));result.append(turn_point(Vector2(Catalog.RECIPES[row.kind].footprint.x/2,0),row))
 	else:
 		for x in [-extent.x/2,extent.x/2]:
 			for z in [-extent.y/2,extent.y/2]: result.append(turn_point(Vector2(x,z),row))
 	return result
 static func joint_points(row: Dictionary) -> Array[Vector2]:
 	if profile(row)=="post": return [center(row)]
-	return [turn_point(Vector2(-1,0),row),turn_point(Vector2(1,0),row)]
+	var half: float=Catalog.RECIPES[row.kind].footprint.x/2
+	return [turn_point(Vector2(-half,0),row),turn_point(Vector2(half,0),row)]
 static func joint_overlap(a: Dictionary,b: Dictionary) -> bool:
 	var overlap:=Catalog.footprint_rect(a).intersection(Catalog.footprint_rect(b))
 	if overlap.size.x>.32 or overlap.size.y>.32: return false
@@ -42,7 +43,7 @@ static func bearing_ids(row: Dictionary, rows: Array) -> Array[String]:
 	if profile(row)=="beam": target+=float(Catalog.RECIPES[row.kind].height)
 	for other in rows:
 		if str(other.id)==own or other.left>0: continue
-		if not Catalog.same_level(Catalog.elevation(other)+float(Catalog.RECIPES[other.kind].get("height",0.3)),target): continue
+		if not Catalog.same_level(Catalog.elevation(other)+Catalog.component_height(other),target): continue
 		for socket in sockets(other):
 			if shape.has_point(socket):
 				ids.append(str(other.id));break
@@ -61,8 +62,9 @@ static func support_ids(row: Dictionary,rows: Array) -> Array[String]:
 		for other in rows:
 			if str(other.id)==own or float(other.left)>0.0: continue
 			if Catalog.is_platform(str(other.kind)) and Catalog.same_level(Catalog.elevation(other),height) and Catalog.contact_length(shape,Catalog.footprint_rect(other))>=Catalog.JOIN_MIN: ids.append(str(other.id))
-			elif profile(other)=="stairs" and Catalog.same_level(Catalog.elevation(other)+Catalog.LAYER_HEIGHT,height) and Catalog.stairs_top_contact(shape,other)>=Catalog.JOIN_MIN: ids.append(str(other.id))
+			elif profile(other)=="stairs" and Catalog.same_level(Catalog.elevation(other)+Catalog.stair_rise(other),height) and Catalog.stairs_top_contact(shape,other)>=Catalog.JOIN_MIN: ids.append(str(other.id))
 		return ids
+	if profile(row)=="stairs": return Catalog.stair_support_ids(row,rows)
 	if Catalog.same_level(height,0.0) and Catalog.BASE.grow(.11).intersects(shape): ids.append("@base")
 	for other in Catalog.platform_rows_at_level(rows,height):
 		if str(other.id)!=own and Catalog.footprint_rect(other).grow(.11).intersects(shape): ids.append(str(other.id))
@@ -72,6 +74,45 @@ static func support_ids(row: Dictionary,rows: Array) -> Array[String]:
 	return ids
 ## Pure geometry: overlap, floor, bearings. Whether a new platform may start
 ## where it stands is a build-eligibility question and lives in BuildingService.
+static func rooted_ids(rows: Array) -> Array[String]:
+	# 只从水面平台和固定底板向外扩展，平台互接不能凭循环制造承载根。
+	var ids: Array[String]=[]
+	var resolved: Array=[]
+	var pending:=rows.duplicate()
+	var changed:=true
+	while changed:
+		changed=false
+		for row in pending.duplicate():
+			var candidate: Dictionary=row.duplicate()
+			var ready:=Catalog.is_platform(str(row.kind)) and Catalog.same_level(Catalog.elevation(row),0.0)
+			var supports:=support_ids(candidate,resolved)
+			if not ready and Catalog.is_platform(str(row.kind)):
+				ready=not supports.is_empty() or not bearing_ids(candidate,resolved).is_empty()
+			elif not Catalog.is_platform(str(row.kind)):
+				for id in supports:
+					candidate.support=id
+					if reason(candidate,resolved,false)=="": ready=true;break
+			if not ready: continue
+			ids.append(str(row.id));pending.erase(row);changed=true
+			# 施工预留有承载依赖，但尚不能支撑下一件。
+			if float(row.left)<=0.0: resolved.append(row)
+	return ids
+static func rebind_supports(rows: Array) -> Array:
+	var result:=rows.duplicate(true)
+	for row in result:
+		var ids:=support_ids(row,result)
+		if Catalog.is_platform(str(row.kind)):
+			ids=bearing_ids(row,result)
+			# 平台共边关系不存为主支撑，防止保存出 A↔B 循环。
+			for other in result:
+				if str(other.id)!=str(row.id) and float(other.left)<=0.0 and profile(other)=="stairs" and Catalog.same_level(Catalog.elevation(other)+Catalog.stair_rise(other),Catalog.elevation(row)) and Catalog.stairs_top_contact(Catalog.footprint_rect(row),other)>=Catalog.JOIN_MIN: ids.append(str(other.id))
+		if not ids.has(str(row.get("support",""))):
+			ids.sort()
+			row.support=""
+			for id in ids:
+				row.support=id
+				if reason(row,result,false)=="": break
+	return result
 static func reason(row: Dictionary, rows: Array,strict_clearance: bool=true) -> String:
 	var kind:=str(row.get("kind",""))
 	if not Catalog.RECIPES.has(kind): return "未知组件"
@@ -87,7 +128,7 @@ static func reason(row: Dictionary, rows: Array,strict_clearance: bool=true) -> 
 	if Catalog.is_platform(kind):
 		if not Catalog.valid_level(h): return "平台需要放在有效的楼层平面"
 		var named:=str(row.get("support",""))
-		if named!="" and not rows.any(func(other): return str(other.id)==named and str(other.id)!=own and float(other.left)<=0): return "原承载构件已经不存在"
+		if named!="" and not support_ids(row,rows).has(named) and not bearing_ids(row,rows).has(named): return "平台指定的承载构件没有真实同高接缝或顶部挂点"
 		if Catalog.same_level(h,0.0) and shape.grow(-0.001).intersects(Catalog.BASE): return "不能覆盖原有平台"
 		for other in rows:
 			if str(other.id)!=own and Catalog.is_platform(str(other.kind)) and Catalog.same_level(Catalog.elevation(other),h) and Catalog.footprint_rect(other).grow(-0.001).intersects(shape): return "同一楼层的平台不能重叠"
@@ -99,7 +140,10 @@ static func reason(row: Dictionary, rows: Array,strict_clearance: bool=true) -> 
 	if support.is_empty() or support.left>0 or str(support.id)==own: return "需要已完工的承载组件"
 	var top:=str(definition.get("placement",""))=="top"
 	var bearing_support:=top and bearing_ids(row,rows).has(str(support.id))
-	if not bearing_support:
+	if p=="stairs":
+		if not Catalog.valid_level(h) or not Catalog.valid_level(h+Catalog.stair_rise(row)): return "楼梯高度超出有效范围"
+		if not Catalog.stair_support_ids(row,rows).has(str(support.id)): return "楼梯低端需要至少0.6米真实同高接缝"
+	elif not bearing_support:
 		if not Catalog.valid_level(h): return "请选择已有平台或楼梯顶部的楼层平面"
 		var tiles:=Catalog.platform_tiles_at_level(rows,h)
 		if not ((str(support.id)=="@base" and Catalog.same_level(h,0.0)) or (Catalog.is_platform(str(support.kind)) and Catalog.same_level(Catalog.elevation(support),h))): return "支撑楼层不匹配"
@@ -115,10 +159,11 @@ static func reason(row: Dictionary, rows: Array,strict_clearance: bool=true) -> 
 	for other in rows:
 		if str(other.id)==own or Catalog.is_deck(str(other.kind)): continue
 		var other_h:=Catalog.elevation(other)
-		var other_height: float=Catalog.RECIPES[other.kind].get("height",0.3)
-		if h>=other_h+other_height-0.015 or other_h>=h+float(definition.get("height",0.3))-0.015: continue
+		var other_height:=Catalog.component_height(other)
+		if h>=other_h+other_height-0.015 or other_h>=h+Catalog.component_height(row)-0.015: continue
 		var structural_joint: bool=definition.get("group","")=="structure" and Catalog.RECIPES[other.kind].get("group","")=="structure"
 		var clearance: float=-0.008 if structural_joint or not strict_clearance else 0.0195
+		if p=="stairs" and profile(other)=="stairs": clearance=-0.000001
 		if not shape.grow(clearance).intersects(Catalog.footprint_rect(other)): continue
 		if structural_joint:
 			if kind==other.kind and center(row).distance_to(center(other))<0.02 and int(row.turn)==int(other.turn): return "挂点已有相同构件"

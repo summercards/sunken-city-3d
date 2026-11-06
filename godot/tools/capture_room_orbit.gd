@@ -35,12 +35,21 @@ func run() -> void:
 	main.hud.hide()
 	main.markers.hide()
 	main.ribbon.hide()
+	# 拆除（锤子）钮不挂在 hud 下，`hud.hide()` 管不到它；它的可见性由
+	# `launcher_visibility_query` 每帧算，而那个 query 里有一条 `hud.is_modal()` ——
+	# 截图工具把 hud 整个藏了，这条判据就失真。这里显式关掉，
+	# 让截图反映的是「玩家在屋里看到的画面」（游戏里它是被 query 收掉的）。
+	if main.building_controller != null and main.building_controller.demolition != null:
+		main.building_controller.demolition.launcher.hide()
 	# 默认距离与俯角从房间自己的 `camera_pose()` 取，不在这里另写一份 ——
 	# 否则调了正式机位，验收图还停在旧数值上，等于没验。
 	var pose: Dictionary = main.room.camera_pose()
 	var dist: float = float(pose.distance)
-	var base_yaw := 41.0
-	var base_pitch := rad_to_deg(asin(Vector3(pose.dir).normalized().y))
+	# 方位角也从 `pose.dir` 反解，不能写死 —— 写死 41° 时房间会被推偏到画面一侧，
+	# 而那只是取景工具有 bug，不是构图问题。
+	var dir: Vector3 = Vector3(pose.dir).normalized()
+	var base_yaw := rad_to_deg(atan2(dir.x, dir.z))
+	var base_pitch := rad_to_deg(asin(dir.y))
 	# 默认（+Z 一侧）→ 右侧 90° → 背面 180° → 左侧 270°。
 	await shot("front", base_yaw, base_pitch, dist)
 	await shot("east", base_yaw + 90.0, base_pitch, dist)

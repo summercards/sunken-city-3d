@@ -113,7 +113,7 @@ func _proposed(request: Dictionary, operation: String, id: String) -> Array:
 		if item.id!=id: result.append(item.duplicate(true))
 	if operation!="remove":
 		result.append(_record(request,id,0.0 if operation=="move" else float(Catalog.RECIPES[request.kind].seconds)))
-	return result
+	return Assembly.rebind_supports(result) if operation=="remove" else result
 
 func _layout_reason(request: Dictionary, operation: String, id: String) -> String:
 	var context: Dictionary=request.duplicate(true)
@@ -183,7 +183,7 @@ func snap_planter(request: Dictionary) -> Dictionary:
 func begin(request: Dictionary) -> Dictionary:
 	if _committing: return {"ok":false,"reason":"正在提交建造"}
 	if str(request.get("exclude_id",""))!="": return {"ok":false,"reason":"搬移请使用搬移命令"}
-	if not Catalog.enabled(str(request.get("kind",""))): return {"ok":false,"reason":"该配方已停用"}
+	if not Catalog.api_enabled(str(request.get("kind",""))): return {"ok":false,"reason":"该配方已停用"}
 	var reason := can_place(request)
 	if reason!="": return {"ok":false,"reason":reason}
 	var tired := _energy_blocked("build")
@@ -245,18 +245,14 @@ func can_remove(id: String) -> String:
 	if item.is_empty(): return "摆件已经不存在"
 	if item.left>0.0: return "施工完成后才能回收"
 	if not bool(Catalog.RECIPES[item.kind].get("removable",false)): return "这个物件不能回收"
-	if Catalog.is_deck(str(item.kind)):
-		var rect:=Catalog.footprint_rect(item)
-		for other in _rows:
-			if Catalog.is_deck(str(other.kind)): continue
-			if other.support==id or (Catalog.same_level(Catalog.elevation(other),Catalog.elevation(item)) and Catalog.plot_rect(other).grow(Catalog.PLANTER_MARGIN).intersects(rect)):
-				return "先搬走木板上的摆件，再回收木板"
 	var remaining: Array=[]
 	for other in _rows:
-		if other.id!=id:
-			if str(other.support)==id and Catalog.is_platform(str(other.kind)): return "先拆除依附在此构件上的楼板"
-			remaining.append(other)
+		if other.id!=id: remaining.append(other)
+	remaining=Assembly.rebind_supports(remaining)
+	var old_rooted:=Assembly.rooted_ids(_rows)
+	var new_rooted:=Assembly.rooted_ids(remaining)
 	for other in remaining:
+		if old_rooted.has(str(other.id)) and not new_rooted.has(str(other.id)): return "先拆除依附在此构件上的结构或摆件"
 		if not Catalog.is_platform(str(other.kind)) and Assembly.reason(other,remaining,false)!="": return "先拆除依附在此构件上的结构或摆件"
 	var request: Dictionary=item.duplicate(true)
 	request.operation="remove"
@@ -276,7 +272,7 @@ func remove(id: String) -> Dictionary:
 		_committing=false
 		return {"ok":false,"reason":"背包空间不足，请先整理再回收"}
 	_spend_energy("remove")
-	_rows.erase(item);_reindex()
+	_rows.erase(item);_rows=Assembly.rebind_supports(_rows);_reindex()
 	_committing=false
 	changed.emit()
 	return {"ok":true,"id":id,"refund":cost}
@@ -304,7 +300,6 @@ static func validate_snapshot(data: Dictionary) -> String:
 	var sequence: Variant=data.get("next_id")
 	if not (sequence is float or sequence is int) or not is_finite(float(sequence)) or sequence<1 or sequence!=floor(sequence):
 		return "Invalid building sequence"
-	if _layout_bytes(data.instances,int(sequence))>Catalog.MAX_LAYOUT_BYTES: return "Building layout exceeds save byte budget"
 	var validator=load("res://src/building/building_service.gd").new()
 	var ids: Dictionary={}
 	var furnishings: Array=[]
@@ -332,6 +327,16 @@ static func validate_snapshot(data: Dictionary) -> String:
 			var height: Variant=raw.py
 			if not (height is float or height is int) or not is_finite(float(height)): return "Invalid building height"
 		validator._rows.append(raw.duplicate(true))
+	# 先拒绝非有限标量，再计算JSON容量，避免坏档进入序列化器产生NaN警告。
+	if _layout_bytes(data.instances,int(sequence))>Catalog.MAX_LAYOUT_BYTES: return "Building layout exceeds save byte budget"
+	var elevated_platforms: Array=[]
 	for raw in validator._rows:
 		if validator.geometry_reason(raw,false)!="": return "Invalid building support or overlap"
+		if Catalog.is_platform(str(raw.kind)) and not Catalog.same_level(Catalog.elevation(raw),0.0): elevated_platforms.append(raw)
+	if not elevated_platforms.is_empty():
+		# 恢复允许历史水面孤台，但高层必须从真实完工承载根派生。
+		# 在完整候选集上求不动点，不能让互接平台或命名引用自行形成根。
+		var rooted: Array[String]=Assembly.rooted_ids(validator._rows)
+		for raw in elevated_platforms:
+			if not rooted.has(str(raw.id)): return "Elevated building platform has no rooted support"
 	return ""

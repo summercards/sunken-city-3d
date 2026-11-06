@@ -99,9 +99,9 @@ func run() -> void:
 	editor.tick(0)
 	check(editor.recipe=="remove" and not editor.book.visible and editor.active,"mouse opens persistent remove mode from home")
 	check(editor.hint.visible and editor.hint.text.contains("自建平台"),"unavailable context explains how to reach building area")
-	check(editor.guide_title.text.contains("拆除模式") and editor.guide_back.visible,"mode title and return control are visible")
+	check(editor.guide.visible and editor.guide_title.text.contains("拆除模式") and editor.guide_back.visible,"mode title and return control are visible")
 	await click(editor.guide_back.get_global_transform_with_canvas()*(editor.guide_back.size/2))
-	check(editor.book.visible and not editor.guide.visible,"return button reopens book")
+	check(editor.book.visible and editor.guide.visible and editor.guide_back.visible,"return button reopens book inside unified building toolbar")
 	editor.close()
 	# An old independent raft plus new edge board, projected into the real world.
 	main._restore_building(old_layout())
@@ -148,7 +148,10 @@ func run() -> void:
 	main.actor_controller.restore_pose({"mode":0,"player":[24.5,1.48,25.5]})
 	editor.update_preview(main.cam.unproject_position(main.building_world.position_for(pot)+Vector3.UP*.15))
 	check(editor.hovered_id==pot.id,"historical furnishing can be selected after restore")
-	check(editor.hint.visible and editor.guide_title.text.contains("左键"),"remove mode gives an explicit click instruction")
+	check(editor.demolition.target.get("id","")==pot.id and editor.selection_outline.visible and editor.demolition.target_label.text.contains(str(Catalog.RECIPES[pot.kind].name)),"remove mode shows selected object's real name and outline without a permanent key tutorial")
+	check(editor.demolition.ask(pot,Catalog.RECIPES[pot.kind].cost),"restored target still opens safe confirmation")
+	check(editor.demolition.details.text.contains("全额返还") and editor.demolition.details.text.contains("安全检查") and editor.demolition.no_button.has_focus(),"refund and safety details remain visible in default-No confirmation")
+	editor.demolition.dismiss()
 	if DisplayServer.get_name()!="headless":
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://outputs/building-remove-guide.png")

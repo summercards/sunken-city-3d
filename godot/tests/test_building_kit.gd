@@ -13,7 +13,7 @@ func check(ok: bool,label: String) -> void:
 ## fresh test platform at an arbitrary spot; the on-foot join rule is covered by
 ## test_building_join.gd, which exercises the real approach path.
 func build(kind: String,x: float,z: float,support: String="",height: float=0.0,origin: String="boat") -> String:
-	# 这条用例要把 22 件挨个建一遍（SEA-ENERGY 之后每件 4 点体力，一天只有 100），
+	# 这条用例要把 32 件挨个建一遍（SEA-ENERGY 之后每件 4 点体力，一天只有 100），
 	# 它测的是承载与拼装，不是体力经济：每次放置前回满，体力本身由 test_energy.gd 验。
 	if econ != null: econ.energy.refill()
 	var result: Dictionary=main.building.begin({"kind":kind,"px":x+SHIFT.x,"pz":z+SHIFT.y,"py":height,"support":support,"turn":0,"origin":origin})
@@ -34,7 +34,8 @@ func run() -> void:
 		check(not node.find_children("*","MeshInstance3D",true,false).is_empty(),"visual geometry "+kind)
 		if Catalog.RECIPES[kind].profile=="lamp": check(node.get_node_or_null("WarmLamp")!=null,"real lamp "+kind)
 		node.queue_free()
-	check(structures>=10 and decorations==10,"twelve structures and ten props")
+	check(structures>=10 and decorations==10,"structure catalog and ten props")
+	check(structures+decorations==32,"22 legacy and 10 new kit definitions")
 	main.building_controller.recipe="oil_lamp";main.building_controller.build_level=0
 	var fixed_request: Dictionary=main.building_controller._furnishing_request(Vector2(0,0))
 	check(fixed_request.support=="@base" and main.building.geometry_reason(fixed_request)=="","original fixed deck accepts new component")
@@ -71,8 +72,12 @@ func run() -> void:
 	var posts: Array[String]=[]
 	for point: Vector2 in [Vector2(18,-2),Vector2(20,-2),Vector2(18,0),Vector2(20,0)]: posts.append(build("post",point.x,point.y,base))
 	var floor_id:=build("upper_floor",19,-1,posts[0],2.8)
-	var stairs:=build("stairs",19,2,base)
-	check(main.building.can_remove(posts[0])!="","cannot remove floor support")
+	var stairs:=build("stairs",19,2,second_base)
+	# 爬楼组合保留四柱；另建唯一承载柱，避免自动换柱使拆除反例失效。
+	var sole_base:=build("raft_4x4",30,0)
+	var sole_post:=build("post",30,0,sole_base)
+	build("upper_floor",30,0,sole_post,2.8)
+	check(main.building.can_remove(sole_post)!="","cannot remove floor support")
 	var lamp:=build("oil_lamp",19,-1,floor_id,2.8)
 	check(main.building_world.node_for(lamp)!=null and main.building_world.node_for(lamp).global_position.y>4.0,"lamp stands on upper floor")
 	var saved: Dictionary=main.building.to_dict()
@@ -139,12 +144,42 @@ func run() -> void:
 		var z:=-1.0+floori(prop_index/5.0)*2.0
 		build(kind,x,z,garden_a if x<62 else garden_b)
 		prop_index+=1
+	# 新菜单结构各用独立5米夹具，不挤占旧22件的爬楼、门洞与摆件组合。
+	var new_index:=0
+	for kind: String in Catalog.RECIPES:
+		if not Catalog.is_kit(kind) or Catalog.RECIPES[kind].group!="structure": continue
+		if not Catalog.enabled(kind):
+			check(Catalog.api_enabled(kind),"hidden legacy structure retains active API "+kind)
+			continue
+		var definition: Dictionary=Catalog.RECIPES[kind]
+		var x:=80.0+new_index*10.0
+		new_index+=1
+		if definition.profile=="foundation":
+			build(kind,x,0)
+			continue
+		var foundation:=build("platform_5x5",x,0)
+		var support:=foundation
+		var height:=0.0
+		if definition.profile in ["beam","roof"]:
+			var extent: Vector2=definition.footprint
+			for dx: float in [-extent.x/2,extent.x/2]:
+				if definition.profile=="beam": support=build("post_5m",x+dx,0,foundation)
+				else:
+					for dz: float in [-extent.y/2,extent.y/2]: support=build("post_5m",x+dx,dz,foundation)
+			height=float(Catalog.RECIPES.post_5m.height)
+			if definition.profile=="beam": height-=float(definition.height)
+		build(kind,x,0,support,height)
+	check(new_index==10,"all ten new structures receive independent fixtures")
 	var built_kinds: Dictionary={}
 	for row in main.building.query():
 		if Catalog.is_kit(row.kind) and row.left<=0: built_kinds[row.kind]=true
-	check(built_kinds.size()==22,"all 22 entries finish in the real game world")
-	check(main.building.validate_snapshot(main.building.to_dict())=="","full 22-component world retains a valid save")
-	main.building_controller.open();check(main.building_controller.book.recipe_buttons.has("roof_flat"),"book discovers content")
+	for kind: String in Catalog.RECIPES:
+		if Catalog.is_kit(kind): check(built_kinds.has(kind),"catalog entry finishes in the real game world "+kind)
+	check(built_kinds.size()==32,"all 32 entries finish in the real game world")
+	check(main.building.validate_snapshot(main.building.to_dict())=="","full 32-component world retains a valid save")
+	main.building_controller.open();check(main.building_controller.book.recipe_buttons.has("roof_flat"),"book discovers legacy content")
+	check(not main.building_controller.book.recipe_buttons.roof_flat.visible and not Catalog.enabled("roof_flat"),"legacy card stays hidden without disabling its API")
+	check(main.building_controller.book.recipe_buttons.has("roof_flat_5x5"),"book discovers new content")
 	if DisplayServer.get_name()!="headless":
 		main.water_node.show();main.cam.suspend_follow();main.cam.pan_bounds=Rect2(-500,-500,1000,1000);main.cam.target=Catalog.ORIGIN+Vector3(20+SHIFT.x,1.5,1+SHIFT.y);main.cam.distance=25;main.cam.refresh()
 		for i in 10: main._process(0);await process_frame

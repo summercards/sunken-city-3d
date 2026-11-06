@@ -1,0 +1,100 @@
+{
+  "key": "terrace_residence",
+  "slug": "terrace_residence",
+  "name": "错层露台公寓_侵蚀",
+  "category": "architecture",
+  "component_family": "stepped_shop",
+  "component_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    18,
+    16,
+    34
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 2,
+  "color": "plaster",
+  "damage": 0.22,
+  "style": "terrace",
+  "variant_axis": "structure_damage",
+  "variant_value": "terrace",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 2,
+  "collection": "SEA-SCENE-SCITY-TERRACE-RESIDENCE_错层露台公寓_侵蚀",
+  "root_object": "SEA-SCENE-SCITY-TERRACE-RESIDENCE_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-TERRACE-RESIDENCE_ROOT",
+    "错层露台公寓_侵蚀_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    19.751792907714844,
+    17.200000762939453,
+    13.759183883666992
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 70038,
+  "polygons": 36441,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v005/component_packages/terrace_residence/terrace_residence.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v005",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "306d7ffa6506d263c6e22a5e9af60b574b0fb7f58e3279f9d6196c64f67f03bd",
+  "source_floors": 6,
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/terrace_residence/terrace_residence.blend",
+  "source_sha256": "5bdd24be2829e5682bdb34e0817a7b3b3c56bc9b016bb524a2302c25a2aed539",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-TERRACE-RESIDENCE",
+  "source": "art_source/scenes/sunken_city/v005/sunken_city_v005.blend",
+  "source_master_sha256": "a95f1961596081ee61d14b0e051a025890524630f9e939e8fd9c324128035850",
+  "bounds_min": [
+    -9.875896453857422,
+    -8.600000381469727,
+    0.0
+  ],
+  "bounds_max": [
+    9.875896453857422,
+    8.600000381469727,
+    13.759183883666992
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261106T071625_3f80c899",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\skill_reports\\20261106T071625_3f80c899\\terrace_residence.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-TERRACE-RESIDENCE"
+}

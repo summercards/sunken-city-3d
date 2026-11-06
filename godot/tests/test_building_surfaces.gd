@@ -100,7 +100,7 @@ func run() -> void:
 	for i in 3: await physics_frame
 	main.cam.global_position=Catalog.ORIGIN+Vector3(109,17,115);main.cam.look_at(Catalog.ORIGIN+Vector3(100,2.8,100));main.cam.fov=38
 	var editor: Node=main.building_controller
-	editor.open();editor.select_recipe("deck");editor.manual_level=false
+	editor.open();editor.select_recipe("platform_5x5");editor.manual_level=false
 	var aim:=Catalog.ORIGIN+Vector3(100,2.8,99.9)
 	editor.update_preview(main.cam.unproject_position(aim))
 	check(absf(Catalog.elevation(editor.preview)-2.8)<.001,"mouse automatically recognizes stair top")
@@ -159,7 +159,7 @@ func run() -> void:
 	main.cam.global_position=Catalog.ORIGIN+Vector3(110,17,114);main.cam.look_at(Catalog.ORIGIN+Vector3(102,2,100))
 	await shot("two-floors")
 	# Free, non-metre structural positioning and moving preview.
-	editor.open();editor.select_recipe("post");editor.build_level=1;editor.manual_level=true;editor.snap_assist=false
+	editor.open();editor.select_recipe("post_5m");editor.build_level=2.8/Catalog.LAYER_HEIGHT;editor.manual_level=true;editor.snap_assist=false
 	var free_request: Dictionary=editor._furnishing_request(Vector2(100.3,97.3))
 	check(is_equal_approx(float(free_request.px),100.3) and is_equal_approx(float(free_request.pz),97.3),"frame placement keeps free 0.1m coordinates")
 	editor.recipe="planter_small"
@@ -169,7 +169,7 @@ func run() -> void:
 	var assisted: Dictionary=editor._furnishing_request(Vector2(98.2,98))
 	check(float(assisted.px)>float(unassisted.px) and main.building.geometry_reason(assisted)=="","G on may assist planter back inside the surface")
 	editor.snap_assist=false
-	editor.select_recipe("move");editor.moving_id=lamp;editor.build_level=1;editor.manual_level=true
+	editor.select_recipe("move");editor.moving_id=lamp;editor.build_level=2.8/Catalog.LAYER_HEIGHT;editor.manual_level=true
 	editor.update_preview(main.cam.unproject_position(Catalog.ORIGIN+Vector3(100.4,2.8,98.4)))
 	check(editor.focus_ghost!=null and editor.focus_ghost.visible,"moving upper lamp has visible destination ghost")
 	var zoom_before: float=main.cam.distance
@@ -216,7 +216,7 @@ func run() -> void:
 	var pot_body:=Catalog.ORIGIN+Vector3(130,.35,128.8);main.cam.look_at(pot_body)
 	editor.open_demolition()
 	check(editor.build_level==0,"returning to boat resets construction to water plane")
-	editor.build_level=1;editor.manual_level=true
+	editor.build_level=2.8/Catalog.LAYER_HEIGHT;editor.manual_level=true
 	editor.update_preview(main.cam.unproject_position(pot_body))
 	check(editor.hovered_id==pot,"visible pot can be selected through actual door aperture: target="+str(editor.preview)+" expected="+pot)
 	editor.close();main.queue_free();await process_frame

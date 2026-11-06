@@ -9,7 +9,7 @@
 | 目录 | 身份 | 说明 |
 |---|---|---|
 | `godot/` | **正式工程**（Godot 4.7.2） | 入口 `godot/project.godot`；代码 `godot/src/<职责>/`；场景与资产路径保持稳定 |
-| `web/` | 历史 Three.js 原型 | 冻结的玩法设计来源；只作几何烘焙源与视觉对照，仍是事实上的数值基准 |
+| `web/` | 历史 Three.js 原型 | 冻结的玩法设计来源；只作几何烘焙源与视觉对照。**数值基准以 Godot 侧为准** —— 网页数值是历史口径，不再作为当前实现的对照标准 |
 
 `web/` 的完整内容（源码、样式、依赖、参考图、网页测试、调试工具）都在该目录内，内部引用闭合，不依赖仓库其他位置。Godot 侧的烘焙工具通过 `http://localhost:8765/index.html` 读取原型，属构建期单向只读通路，不回写。
 
@@ -20,7 +20,8 @@
 
 ## 常用命令
 
-- 结构检查：`python3 scripts/check_feature_contracts.py`
+- 结构检查：`python3 scripts/check_feature_contracts.py`（加 `--sync` 先同步主文档摘要）
+- 摆放位置检查：`python3 scripts/check_placed_positions.py`（`main.tscn` 手动摆位是唯一真值，见 [AGENTS.md 第 12 条](AGENTS.md)）
 - 功能验证：`python3 scripts/run_verification.py core`；如只查种植，使用 `farming modules`
 - 起网页原型（服务根必须是 `web/`）：`cd web && python3 -m http.server 8765`
 - 网页回归测试（从仓库根执行，产物写入根 `outputs/`）：`node web/tests/water-regression.cjs`

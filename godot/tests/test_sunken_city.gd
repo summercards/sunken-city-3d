@@ -8,7 +8,10 @@ const MODELS := "res://assets/models/scenery/sunken_city/"
 const PALETTE := "res://assets/textures/shared/sea_cabin_timber_8x8_512.png"
 const REPORT := "res://outputs/sunken-city-structure.json"
 const EPS := 0.002
-const RUNTIME_VERSION := "v004"
+const RUNTIME_VERSION := "v005"
+const EXPECTED_INSTANCES := 388
+const EXPECTED_EDGE_RAMPS := 0
+const WORLD_BOUNDARY := 120.0
 const SOURCE_MAX_HEIGHT_M := 59.6591835
 const HEIGHT_CAP_M := 14.9147959
 const HEIGHT_CAP_RULE := "global_max_div4_cap"
@@ -338,7 +341,7 @@ func check_assembly(city: Node3D, instances: Array, label: String) -> void:
 	else:
 		check(absf(city.position.y) < EPS, label + " 独立总装根 Y 为 identity")
 	check(city.visible, label + " 默认 visible")
-	check(city.get_child_count() == 388, label + " 388 个直接实例")
+	check(city.get_child_count() == EXPECTED_INSTANCES, label + " v005 388 个直接实例")
 	pure_visual(city, label)
 	var seen: Dictionary = {}
 	var actual_keys: Dictionary = {}
@@ -347,6 +350,7 @@ func check_assembly(city: Node3D, instances: Array, label: String) -> void:
 	var floors: int = 0
 	var trams: int = 0
 	var curves: int = 0
+	var edge_ramps: int = 0
 	for value in instances:
 		if not value is Dictionary:
 			check(false, label + " 实例记录必须为 Dictionary")
@@ -381,6 +385,8 @@ func check_assembly(city: Node3D, instances: Array, label: String) -> void:
 			trams += 1
 		if key == "viaduct_curve":
 			curves += 1
+		if str(entry.get("urban_role", "")) == "outer_edge_slope_extension":
+			edge_ramps += 1
 		if label == "main":
 			var box: Dictionary = geometry_bounds(child)
 			check(bool(box["valid"]), id + " 世界包络非空有限")
@@ -390,11 +396,12 @@ func check_assembly(city: Node3D, instances: Array, label: String) -> void:
 				world_low = world_low.min(low)
 				world_high = world_high.max(high)
 				check(high.y < 1.12, id + " 包括既有倾斜的全部几何低于水面 1.12m")
-				check(low.x >= -120.0 - EPS and high.x <= 120.0 + EPS and low.z >= -120.0 - EPS and high.z <= 120.0 + EPS, id + " 全部世界几何在 X/Z [-120,120]")
+				check(low.x >= -WORLD_BOUNDARY - EPS and high.x <= WORLD_BOUNDARY + EPS and low.z >= -WORLD_BOUNDARY - EPS and high.z <= WORLD_BOUNDARY + EPS, id + " v005 全部世界几何在扩展边界内")
 			var records: Array = evidence["instances"]
 			records.append({"instance_id": id, "key": key, "urban_role": entry.get("urban_role", ""), "matrix_max_error": error, "actual_matrix": actual, "bounds": bounds_json(box)})
-	check(seen.size() == 388, label + " manifest 388 个唯一实例")
-	check(floors == 100, label + " 保留 100 个独立地坪域")
+	check(seen.size() == EXPECTED_INSTANCES, label + " manifest 388 个唯一实例")
+	check(floors == 100, label + " 保留 100 个原有地坪域")
+	check(edge_ramps == EXPECTED_EDGE_RAMPS, label + " 不含外围道路扩展实例")
 	check(trams == 3, label + " 保留三辆电车")
 	check(curves == 4, label + " 保留四段冻结曲线高架")
 	check(int(actual_keys.get("viaduct_broken", 0)) > 0, label + " 保留真实断桥组件")
@@ -432,7 +439,7 @@ func run() -> void:
 	if not definitions is Array or not placements is Array:
 		await finish()
 		return
-	check(definitions.size() == 50 and placements.size() == 388, "冻结 50 组件 / 388 实例")
+	check(definitions.size() == 50 and placements.size() == 388, "冻结 50 组件 / 388 实例，连续海床独立挂载")
 	for value in definitions:
 		check(value is Dictionary, "组件记录是 Dictionary")
 		if value is Dictionary:
@@ -473,6 +480,28 @@ func run() -> void:
 		return
 	check(city.scene_file_path == ASSEMBLY, "main 引用稳定总装")
 	check(city.is_visible_in_tree(), "World/SunkenCity 默认范围可见")
+	var seabed: Node3D = main.get_node_or_null("World/SunkenSeabed") as Node3D
+	check(seabed != null, "World/SunkenSeabed 连续海床已挂载")
+	if seabed != null:
+		check(seabed.get_meta("visual_only", false), "连续海床纯视觉")
+		check(str(seabed.get_meta("water_layer", "")) == "submerged", "连续海床属于水下层")
+		check(int(seabed.get("collision_mode")) == 0, "连续海床禁用碰撞")
+		var seabed_data: Object = seabed.get("data")
+		# 海床贴合现有坡地；不能用已废弃平床的固定Y阈值约束它。
+		var center_height: float = float(seabed_data.call("get_height", Vector3.ZERO)) if seabed_data != null else INF
+		var ground_center: Node3D = null
+		for child in city.get_children():
+			if str(child.get_meta("urban_role", "")) != "aligned_ground_domain":
+				continue
+			var box: Dictionary = geometry_bounds(child)
+			if bool(box.get("valid", false)):
+				var low: Vector3 = box["min"]
+				var high: Vector3 = box["max"]
+				if low.x <= 0.0 and high.x >= 0.0 and low.z <= 0.0 and high.z >= 0.0:
+					ground_center = child
+					check(center_height < high.y, "海床中心低于现有中央地坪真实表面包络")
+		check(ground_center != null and is_finite(center_height), "中央地坪与海床采样真实存在")
+		check(seabed_data != null and float(seabed_data.call("get_height", Vector3(216.0, 0.0, 0.0))) < -60.0, "海床边缘连续下沉")
 	var water: Node3D = main.get_node_or_null("World/Water") as Node3D
 	check(water != null and water.is_visible_in_tree(), "真实主场景海水保留可见")
 	if water != null:

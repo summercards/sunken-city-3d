@@ -15,6 +15,8 @@
     "godot/src/camera"
   ],
   "verification": [
+    "keyboard-travel",
+    "visual-keyboard-farm-loop",
     "control-feel",
     "keyboard-control",
     "visual-corner-notebook",
@@ -145,3 +147,13 @@ SEA-CAMERA-R01/R02/R03：camera 8项通过，含默认跟随、手动接管、�
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-CAMERA-R14 | 已实现；`_track_subject` 做位移继承 + 速度估计 + 前视缓动，`follow.gd` 只负责把前视加进目标点；跟随时不再残留匀速滞后 | `control-feel`（前视 1.19 m、残差 0.016 m、站定回零）、`camera`、`visual-camera-zoom`、`visual-walk-facing` 复跑通过；[本轮交付](../../development/2026-11-05_control_feel.md)。手动接管/固定机位/房间环视不加前视。 |
+
+## 2026-11-06 独立键盘取景入口
+
+登记头仍 `partial`。历史 R12 的「只留鼠标」由 R15 覆盖；WASD/方向/Q/E不驱动镜头的约束保留。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待验 |
+|---|---|---|
+| SEA-CAMERA-R15 | `[`/`]`旋转、`-`/`=`缩放、F恢复跟随的正式室外键盘路径已通过；复用门禁与既有状态 | `test_keyboard_travel.gd:201`；`20261106-200446-keyboard-release-regression-eae88a/report.json`：travel374/0、camera12/0、keyboard-control30/0、control-feel31/0，均exit0、passed=true |
+
+证据根`D:/projects/sea-work/verification/`，`20261106-194828-keyboard-visual-travel-final-09cca9/report.json`同样travel374/0通过，visual-farm617/0为真实渲染种植链，不冒称室内镜头边界视觉专项。旧374/0因负Rect导致runner FAIL保留为过程，`.abs()`修后已两轮通过，不再pending。200446完整报告14通过/4失败，其中interaction-reach/dock-seed/minimum-loop/harvest-receive旧契约失败保留为过程；201957适配报告已分别35/0、22/0、147/0、92/0，均exit0、passed=true，不再待填。主线程keyboard-final-contracts最终批次待附，不以旧批次冒称新批次通过。完整路径、室内/设备/组合边界见[总交付](../../development/2026-11-06_keyboard_complete.md)；整体partial。没有改用户TSCN、资产/哈希或运行新检查。

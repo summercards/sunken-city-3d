@@ -1,0 +1,100 @@
+{
+  "key": "rounded_corner",
+  "slug": "rounded_corner",
+  "name": "弧角百货楼_掉角",
+  "category": "architecture",
+  "component_family": "retail_corner",
+  "component_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    18,
+    16,
+    34
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "floors": 2,
+  "color": "seafoam",
+  "damage": 0.33,
+  "style": "corner",
+  "variant_axis": "structure_damage",
+  "variant_value": "corner",
+  "variant_reason": "distinct height, cut silhouette and original building function; not location",
+  "instance_count": 1,
+  "collection": "SEA-SCENE-SCITY-ROUNDED-CORNER_弧角百货楼_掉角",
+  "root_object": "SEA-SCENE-SCITY-ROUNDED-CORNER_ROOT",
+  "objects": [
+    "SEA-SCENE-SCITY-ROUNDED-CORNER_ROOT",
+    "弧角百货楼_掉角_主体_金属哑光反光"
+  ],
+  "bounds_size_m": [
+    17.62713050842285,
+    17.594999313354492,
+    13.759183883666992
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 65480,
+  "polygons": 34154,
+  "material_roles": [
+    "SEA_Gloss",
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v005/component_packages/rounded_corner/rounded_corner.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v005",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "a3b1c39d9af8296b82193f47d87eb469b078bf4ad6b7b1bce1bd551dfcac5692",
+  "source_floors": 6,
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/rounded_corner/rounded_corner.blend",
+  "source_sha256": "01c3e7f16dfa5215802194547199a3fe22f3de7de7797df3626dbbb545c9c38f",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-ROUNDED-CORNER",
+  "source": "art_source/scenes/sunken_city/v005/sunken_city_v005.blend",
+  "source_master_sha256": "a95f1961596081ee61d14b0e051a025890524630f9e939e8fd9c324128035850",
+  "bounds_min": [
+    -8.813565254211426,
+    -8.797499656677246,
+    0.0
+  ],
+  "bounds_max": [
+    8.813565254211426,
+    8.797499656677246,
+    13.759183883666992
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261106T071625_3f80c899",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\skill_reports\\20261106T071625_3f80c899\\rounded_corner.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-ROUNDED-CORNER"
+}

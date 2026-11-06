@@ -59,9 +59,15 @@ func configure(cam: Camera3D, wall_entries: Array, roof_nodes: Array, wall_heigh
 func refresh() -> void:
 	if camera == null:
 		return
-	# 相机相对房间中心的水平偏移（房间中心 = 本节点原点，房子就摆在原点）。
-	var offset := camera.global_position - global_position
-	var flat := Vector3(offset.x, 0.0, offset.z)
+	# 相机在**房间局部空间**里的位置。
+	#
+	# 必须用 to_local 而不是世界位置差：房间整体 scale 1.5（见 bedroom.tscn 头注释），
+	# 而下面所有阈值（墙到中心的距离、前厅 face、天花高度、PORCH_FRONT_Z）
+	# 都是建模时的局部尺寸。在世界空间里比，就得给每个常量乘一次 scale ——
+	# 漏乘一个就是「转到侧面缺两面墙」这种只有看渲染才发现的问题。
+	# 转成局部之后，这些常量永远不用改。
+	var local_cam := to_local(camera.global_position)
+	var flat := Vector3(local_cam.x, 0.0, local_cam.z)
 	for entry in walls:
 		var node: Node3D = entry.get("node")
 		if not is_instance_valid(node):
@@ -74,7 +80,7 @@ func refresh() -> void:
 		if visible and bool(entry.get("porch", false)) and flat.z > PORCH_FRONT_Z:
 			visible = false
 		node.visible = visible
-	var from_above := offset.y > ceiling_height + CEILING_MARGIN
+	var from_above := local_cam.y > ceiling_height + CEILING_MARGIN
 	for roof in roofs:
 		if is_instance_valid(roof):
 			roof.visible = not from_above

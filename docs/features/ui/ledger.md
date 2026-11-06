@@ -13,11 +13,18 @@
   "owner": "HUD / UI presenters",
   "code_paths": [
     "godot/src/ui",
-    "godot/src/building/building_book.gd",
-    "godot/src/building/recipe_card.gd",
-    "godot/src/building/recipe_thumbnail.gd"
+    "godot/src/building/ui"
   ],
   "verification": [
+    "keyboard-panels",
+    "visual-keyboard-panels",
+    "keyboard-entry",
+    "keyboard-farm-loop",
+    "visual-keyboard-farm-loop",
+    "keyboard-travel",
+    "keyboard-building",
+    "visual-keyboard-building",
+    "interaction-reach",
     "visual-corner-notebook",
     "visual-title-screen-day",
     "visual-title-screen-night",
@@ -307,3 +314,53 @@ R48本轮真实渲染36项、headless33项、操作气泡回归59项全部通过
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-UI-R49 | 已接入，专项与回归以本轮记录为准 | `avatar / visual-avatar`；[交付](../../development/2026-11-02_avatar_and_arrival.md) |
+
+## 2026-11-04 角色台词多段推进与开始画面补充（2026-11-06 补记）
+
+本节补记 `1f336a13` 同批提交里除划船外的两件工作。当时只在 commit message 写了「多段对话、开始画面修订」，
+未落设计条款，`SEA-UI` 停更在 11-02；行为已在线，但缺独立验收。
+
+| 对应设计条款 | 当前实施状态 | 证据 |
+|---|---|---|
+| SEA-UI-R50 | 已实现：队列 + 页码 + 首击补全/次击换句 + 末行「开始生活」+ 打字机 0.018 s/字（夹 0.22–0.65 s）+ 多段全屏输入盾 + 空格/回车 consume。调用点为开场三句（`main.gd:3307`）与体力见底单句（`main.gd:2677`） | 源码 `godot/src/ui/character_dialogue.gd`、`godot/src/ui/hud.gd:906-921`；开场路径由 `onboarding` 38 项、`title-screen` 29 项覆盖（`20261104-151119-onboarding-r11-accepted-c93b3b`）。**pending**：对话组件自身的页码/末行文案/输入盾独立断言 |
+| SEA-UI-R51 | 已实现：副标题「沉 没 街 区 上 的 屋 顶 生 活」、登岸提示呼吸、标题/按钮投影、悬停暖金与提示右移；R21/R22/R34 的时长与锚点未改 | 源码 `godot/src/ui/start_screen.gd`；`title-screen` 29 项与 `visual-title-screen-day` 28 项（`20261104-151730-onboarding-r11-ui-regression-5b28ba`）；[本轮补记](../../development/2026-11-04_dialogue_and_title.md) |
+
+补记说明：本轮**没有新增运行**，证据全部来自 11-04 同批已接受目录；`character_dialogue` 缺独立专项这一项
+按 pending 保留，不折算成已完整验收。
+
+## 2026-11-06 世界菜单键位角标
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-UI-R52 | 已实现；`ActionBubble.hotkey` + `_draw_hotkey()`，由 `WorldActionBubbles.open()` 按序号写入 | `interaction-reach`（第一项角标为 `1`）；真实渲染截图未单独出，菜单本体已在 `visual-plot-shipping` 覆盖 |
+| SEA-UI-R53 | 已实现并最终专项通过；集中建筑UI仅承接表现与返回链，不新增业务写入者；Toolbar按钮无键名、无常驻按键教程，锤子仅建筑模块内显示，失败灰因/选择轮廓/材料确认/安全细节保留 | `building-ui-unified`66/0、`visual-building-ui-unified`66/0、`keyboard-building`40/0；签署报告`D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json`；[建筑5m与UI](../../development/2026-11-06_building_5m_and_ui.md) |
+
+## 2026-11-06 默认玩法键盘闭环与近距图标
+
+登记头 `status: partial` 不变，不执行 sync。R53 已占用并保留原样；本节只追加 R54–R57。上午 R52 的数字角标已被当前无教程式反馈目标覆盖，旧实测保留为历史。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 待验 |
+|---|---|---|
+| SEA-UI-R54 | 近距hover图标/细进度、modal收起、无底部prompt与世界角标/教程行的真实渲染专项通过；口袋按1说明/数字前缀同步差异已解决 | 194828报告visual-farm617/0、exit0；9张唯一截图，本轮画面目视审阅4张确认；主动系统help允许，不再列缺口 |
+| SEA-UI-R55 | 购买数量、1件/整叠存取、分页、Shift排序、稳定物品ID焦点与单次确认通过 | 200446报告keyboard-panels80/0、exit0、passed=true；不外推未断言的可见文案 |
+| SEA-UI-R56 | 笔记/地图稳定zone焦点、滚动、禁用跳过与原目的地信号通过；真实往返另有旅行专项 | 同报告panels80/0、travel374/0；194828报告travel374/0亦通过 |
+| SEA-UI-R57 | 首创姓名外观、失败重试/取消、台词、设置及重置安全返回专项通过 | 同报告keyboard-entry39/0；保存为内存替身，不等于磁盘/冷启动/真实断电验收 |
+
+证据根`D:/projects/sea-work/verification/`：
+
+| 本轮验收 | checks/失败 | runner结果与报告 |
+|---|---|---|
+| keyboard-farm-loop / travel / panels / building / entry | 606/0、374/0、80/0、40/0、39/0 | `20261106-200446-keyboard-release-regression-eae88a/report.json`，五项均exit0、passed=true |
+| visual-keyboard-farm-loop | 617/0，1280×800真实渲染；9张唯一截图 | `20261106-194828-keyboard-visual-travel-final-09cca9/report.json`，exit0、passed=true，无unexpected_errors；本轮画面目视审阅watered/full-bag/harvest-overhead/already-watered |
+| visual-keyboard-building | 43/0，真实渲染，日志列3张截图 | `20261106-191403-visual-keyboard-final-no-instructions-5m-8295dd/report.json`，exit0、passed=true；仅引用[building设计](../building/spec.md)/[账本](../building/ledger.md)，未改building文档 |
+| 关联通过回归 | keyboard-control30/0、control-feel31/0、camera12/0、click32/0、initial-planters247/0、walk-on-planters53/0、farm-day-change23/0、pocket-bubbles59/0、pocket-drag-buy44/0 | 200446报告均exit0、passed=true；整份报告18项均已有返回，14通过/4失败，不能称全绿 |
+| 本轮承接历史过程失败 | interaction-reach35/1、dock-seed21/1、minimum-loop141/10、harvest-receive80/1 | 200446均exit1；旧角标、标题、直接harvest及下游断言契约，保留解释、不标范围外；已由下一行适配结果收口 |
+| 四项契约适配回归 | interaction-reach35/0、dock-seed22/0、minimum-loop147/0、harvest-receive92/0 | `20261106-201957-keyboard-contract-regression-888baa/report.json`，四项均exit0、passed=true、completion_marker=true、unexpected_errors空；不再pending |
+| 最终契约与口袋合批 | panels80/0、interaction-reach35/0、dock-seed22/0、minimum-loop147/0、harvest-receive92/0、pocket-bubbles59/0、pocket-drag-buy44/0；合计479/0 | `20261106-203447-keyboard-final-contracts-ff6d9f/report.json`，7项全PASS、exit0、completion_marker=true、unexpected_errors空；最终合批已完成 |
+| 面板真实渲染（footer清理前批次） | keyboard-panels93/0（原80+layout/captures），1280×800真实渲染；4张截图 | `20261106-204809-verification-52bb38/report.json`，exit0、passed=true、completion_marker=true、unexpected_errors空；本轮画面目视审阅shop/map发现ac_card旧footer教程，当前源已删；清理后keyboard-panels-clean-final报告路径/结果待主补，不能以本批旧图声称最终无教程 |
+
+用户无提示要求正式覆盖SEA-INTERACT-R18与SEA-UI-R52，主动系统帮助允许。当前生产源码已复核：`pocket_service.gd:247/281`分别仅显示上限/余额与动词数量，`pocket_inventory.gd:168`仅option.label；按1说明和动作数字前缀已删，原同步差异已解决，不再pending。200446隔离副本是清理前历史。`hud.gd:511`的无目的地拒绝反馈仍带Esc，单独保留源码事实，不以此把整个口袋清理写回pending。主线程keyboard-final-contracts已由203447报告确认7项全PASS、479/0，不再待附。旅行旧负Rect FAIL保留，`.abs()`修后194828/200446均通过，不再写修后待跑。
+
+完整路径、截图清单、夹具与full-world/规划/设备边界见[总交付](../../development/2026-11-06_keyboard_complete.md)。四功能整体partial；本次只精确回填UI文档及总交付/GDD，不改其他账本、生产、资源哈希、用户TSCN或building文档，不运行sync。
+
+UI条款集合差异已定位：门禁按`\| (SEA-UI-R\d+) \|`提取集合，原spec56项、ledger57项，唯一ledger-only为R53，正文“R53已占用”不构成条款行。spec末尾现补R53承接SEA-BUILDING-R32，ledger保留本行；R54–R57两边均各一行。verification数组既有keyboard/visual登记保留，未添加building未知入口。主线程最新sync已消除UI集合与unknown verification命名错误，不再将building未知命名列为当前阻塞。全局仍sync13 issues、普通check加derived stale共14；40功能/881资产/1079 runtime的当前登记与定向更新4资产/4runtime事实见总交付门禁补记。本次未刷新哈希/索引、未运行sync，不宣称全绿。

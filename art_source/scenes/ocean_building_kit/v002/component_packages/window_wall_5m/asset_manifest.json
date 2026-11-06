@@ -1,0 +1,89 @@
+{
+  "id": "window_wall_5m",
+  "name": "5米开窗木墙",
+  "asset_id": "SEA-KIT-WINDOW-WALL-5M",
+  "component_family": "wall",
+  "profile": "window",
+  "footprint": [
+    5,
+    0.2
+  ],
+  "height": 5.086335,
+  "source_origin": "bottom_center",
+  "wood": 7,
+  "seconds": 4.05,
+  "collection": "SEA-KIT-WINDOW-WALL-5M",
+  "source_collection": "制作_5米开窗木墙",
+  "root_object": "window_wall_5m_ROOT",
+  "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+  "component_blend": "component_packages/window_wall_5m/window_wall_5m.blend",
+  "bounds": {
+    "min": [
+      -2.5,
+      -0.10000000149011612,
+      0.0
+    ],
+    "max": [
+      2.5,
+      0.10000000149011612,
+      5.086335182189941
+    ]
+  },
+  "triangles": 12972,
+  "material_roles_used": [
+    "Matte",
+    "Gloss"
+  ],
+  "front_axis": "-Z",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collision_owner": "sea_building_space_projection",
+  "exported": true,
+  "runtime_integrated": true,
+  "bounds_size_m": [
+    5.0,
+    0.20000000298023224,
+    5.086335182189941
+  ],
+  "asset_version": "v002",
+  "building_class": "above_water",
+  "units": "meters",
+  "source_scale": [
+    1,
+    1,
+    1
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_uv_layer": "PaletteUV",
+  "material_roles": [
+    "Matte",
+    "Metal",
+    "Gloss",
+    "Emission"
+  ],
+  "dependencies": [
+    "art_source/shared/palettes/sea_cozy_8x8_512.png"
+  ],
+  "exported_glb": "godot/assets/models/building_kit/window_wall_5m/window_wall_5m.glb",
+  "prefab": "godot/scenes/buildables/kit/window_wall_5m.tscn",
+  "source_sha256": "5c89f0c2034e44a811a54f2f7aa7e227eab96533b810e7eb3c1878c44b6fb0d3",
+  "component_sha256": "47cab94b5384c8fc17dd49163abb317ef6dae5b22f6a476bf2ed5a0f3a8c48a9",
+  "glb_sha256": "933d2b1aef08e14b3b3e8e9652c3d74567cd3a6d437212c5d2e26a56f75fbb88",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-WINDOW-WALL-5M",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/ocean_building_kit/v002/component_packages/window_wall_5m/window_wall_5m.blend",
+  "registered_source_sha256": "47cab94b5384c8fc17dd49163abb317ef6dae5b22f6a476bf2ed5a0f3a8c48a9",
+  "runtime_path": "godot/assets/models/building_kit/window_wall_5m/window_wall_5m.glb",
+  "runtime_sha256": "933d2b1aef08e14b3b3e8e9652c3d74567cd3a6d437212c5d2e26a56f75fbb88",
+  "verification": "docs/development/2026-11-06_building_5m_and_ui.md",
+  "runtime_verification": {
+    "status": "passed",
+    "owner": "main_agent",
+    "report": "D:\\projects\\sea\\docs\\development\\2026-11-06_building_5m_verification.json",
+    "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+  }
+}

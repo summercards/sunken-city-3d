@@ -3,6 +3,7 @@ extends CanvasLayer
 const Bubble = preload("res://src/ui/action_bubble.gd")
 const Cozy = preload("res://src/ui/cozy_ui.gd")
 signal dismissed
+signal opened
 var root: Control
 var cluster: Control
 var buttons: Array[Button] = []
@@ -21,6 +22,62 @@ var active := false
 var closing := false
 var animation: Tween
 var generation := 0
+var selected_index := 0
+var back_action: Callable
+var _title := "操作"
+var _held_keys := {}
+var _activated_frame := -1
+
+## 在 GUI 之前路由，确保 Enter 不被原生 Button 和世界各执行一次。
+func _input(event: InputEvent) -> void:
+	if handle_key(event): get_viewport().set_input_as_handled()
+
+func handle_key(event: InputEvent) -> bool:
+	if not event is InputEventKey: return false
+	var code: int = event.physical_keycode if event.physical_keycode else event.keycode
+	if not event.pressed:
+		if _held_keys.has(code):
+			_held_keys.erase(code)
+			return true
+		return is_open()
+	if not is_open(): return false
+	if event.echo or _held_keys.has(code): return true
+	_held_keys[code] = true
+	if not active: return true
+	if code == KEY_ESCAPE:
+		back()
+	elif code in [KEY_LEFT, KEY_UP, KEY_A, KEY_W]:
+		select_index(selected_index - 1)
+	elif code in [KEY_RIGHT, KEY_DOWN, KEY_D, KEY_S, KEY_TAB]:
+		select_index(selected_index + (-1 if event.shift_pressed else 1))
+	elif code in [KEY_E, KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]:
+		activate(selected_index)
+	else:
+		var index := index_for_key(code)
+		if index >= 0: activate(index)
+	return true
+
+func select_index(index: int) -> void:
+	if buttons.is_empty(): return
+	selected_index = posmod(index, buttons.size())
+	buttons[selected_index].grab_focus()
+	_sync_keyboard_hint()
+
+func _sync_keyboard_hint() -> void:
+	if hint_label == null or entries.is_empty(): return
+	var entry: Dictionary = entries[clampi(selected_index, 0, entries.size()-1)]
+	var reason := str(entry.get("blocked", ""))
+	hint_label.text = _title + " · " + str(entry.get("label", entry.get("id", "")))
+	if reason != "": hint_label.text += "\n" + reason
+	# 只保留当前动作、状态和受阻原因，不在操作过程中显示按键教程。
+
+func back() -> void:
+	if back_action.is_valid():
+		var command := back_action
+		back_action = Callable()
+		close(true)
+		command.call()
+	else: close()
 
 func _ready() -> void:
 	layer = 64
@@ -46,16 +103,27 @@ func open(query: Callable, options: Array, hint := "", screen_fallback := Vector
 	buttons.clear();entries = options.duplicate(true);anchor_query = query
 	fallback_anchor = screen_fallback
 	active = true;closing = false;root.show()
+	# 打开界面的那次长按不能同时作为界面确认；必须先松开再按。
+	if Input.is_physical_key_pressed(KEY_E): _held_keys[KEY_E] = true
+	back_action = Callable()
+	_title = hint if hint != "" else "操作"
+	selected_index = 0
 	for i in entries.size():
 		var entry: Dictionary = entries[i]
 		var button := Bubble.new()
 		button.kind = str(entry.get("icon","hand"))
 		button.item_icon = str(entry.get("item_icon",""))
-		button.caption = str(entry.get("caption",""))
+		button.caption = str(entry.get("caption",entry.get("label","")))
 		button.available = str(entry.get("blocked","")) == ""
 		button.set_meta("action_id",str(entry.id))
 		button.set_meta("action_label",str(entry.get("label",entry.id)))
+		# 键位角标：菜单一打开，数字 1…9 就能直接选（SEA-INTERACT-R17）。
+		# 超过 9 项的部分只留鼠标 —— 现有一处最多 6 项，不做翻页。
+		# 数字键仍可直达，但不在图标上叠按键说明。
+		button.hotkey = ""
 		button.pressed.connect(func(): activate(i))
+		button.focus_entered.connect(func(): selected_index=i;_sync_keyboard_hint())
+		button.mouse_entered.connect(func(): select_index(i))
 		cluster.add_child(button);buttons.append(button)
 		var destination := _offset(i,entries.size())
 		button.position = Vector2(-38,-38)
@@ -67,9 +135,14 @@ func open(query: Callable, options: Array, hint := "", screen_fallback := Vector
 			tween.tween_property(button,"scale",Vector2.ONE,0.24).set_delay(i*0.035).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 			tween.tween_property(button,"modulate:a",1.0,0.12).set_delay(i*0.035)
 		else: button.position = destination
-	if hint != "":
-		_build_hint(hint)
+	_build_hint(_title)
+	for i in entries.size():
+		if str(entries[i].get("blocked", "")) == "":
+			selected_index = i
+			break
+	select_index(selected_index)
 	_place()
+	opened.emit()
 
 ## 气泡上方的层级标题（「选择种子」）。位置由 `_place` 每帧跟着气泡包围盒算，
 ## 不写死像素 —— 二级菜单的按钮是沿上弧排开的，标题必须让开它们。
@@ -109,6 +182,9 @@ func _offset(i: int, count: int) -> Vector2:
 
 func activate(index: int) -> void:
 	if not active or index < 0 or index >= entries.size(): return
+	if _activated_frame == Engine.get_process_frames(): return
+	_activated_frame = Engine.get_process_frames()
+	select_index(index)
 	var entry: Dictionary = entries[index]
 	var reason := str(entry.get("blocked",""))
 	if reason != "":
@@ -118,9 +194,31 @@ func activate(index: int) -> void:
 	close()
 	if command.is_valid(): command.call()
 
+
+## 键盘「确认」：选第一个**可用**的项（SEA-INTERACT-R17）。
+##
+## 用「第一个可用」而不是「第一项」：气泡里首选常常被规则灰掉
+## （没种子时的播种、渔场未建时的收获），照位置按下去只会弹一句原因。
+## 全部不可用时返回 false，让调用方决定要不要说话。
+func press_default() -> bool:
+	for i in entries.size():
+		if str((entries[i] as Dictionary).get("blocked","")) == "":
+			activate(i)
+			return true
+	return false
+
+
+## 数字键 → 下标。1 对应第 0 项。无效键返回 -1。
+func index_for_key(code: int) -> int:
+	if code < KEY_1 or code > KEY_9: return -1
+	var index := code - KEY_1
+	return index if index < entries.size() else -1
+
 func close(immediate := false) -> void:
 	if not active and not closing: return
 	active = false;closing = true
+	var focus := get_viewport().gui_get_focus_owner()
+	if focus != null and cluster.is_ancestor_of(focus): focus.release_focus()
 	generation += 1
 	var token := generation
 	if animation: animation.kill()

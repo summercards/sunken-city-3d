@@ -1,6 +1,6 @@
 extends SceneTree
 ## The helper may request/confirm IDs; it never owns layout or refunds.
-const Tool = preload("res://src/building/demolition_tool.gd")
+const Tool = preload("res://src/building/ui/demolition_tool.gd")
 var checks := 0
 var failures := 0
 var requested := 0
@@ -32,7 +32,8 @@ func run() -> void:
 	tool.cancelled.connect(func(): cancelled+=1)
 	tool.confirmed.connect(func(id: String): confirmed_ids.append(id))
 	await process_frame;await process_frame
-	check(not tool.active and tool.launcher.visible,"dedicated launcher is available outside the book")
+	check(not tool.active and not tool.launcher.visible,"建筑模式外不显示独立锤子")
+	tool.set_launcher_visible(true)
 	await click(tool.launcher)
 	check(requested==1 and not tool.active,"launcher sends an activation command without changing business state")
 	tool.set_active(true)

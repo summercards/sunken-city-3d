@@ -1,7 +1,68 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/ambient/scene_component.gd" id="plant_anchor"]
 [ext_resource type="Script" path="res://src/world/sunny_bloom_visual.gd" id="1"]
 [node name="太阳能木屋-前部倾斜太阳能房" type="Node3D"]
 script = ExtResource("1")
 module_key = "solar_room"
 metadata/module = "solar_room"
 metadata/deck_height = 2.15
+
+[node name="foliage_138" type="Node3D" parent="."]
+position = Vector3(6.09219026566, 7.48934078217, 3.00190711021)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_139" type="Node3D" parent="."]
+position = Vector3(5.71845674515, 6.09964513779, 6.07108163834)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_140" type="Node3D" parent="."]
+position = Vector3(11.6558818817, 7.33035755157, 1.61904621124)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_141" type="Node3D" parent="."]
+position = Vector3(11.885807991, 7.01706171036, 3.0049393177)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_142" type="Node3D" parent="."]
+position = Vector3(11.8532533646, 6.58498048782, 4.74268007278)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_143" type="Node3D" parent="."]
+position = Vector3(11.8143911362, 6.15238618851, 5.91374588013)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="pink_flower_144" type="Node3D" parent="."]
+position = Vector3(6.15004014969, 7.87384843826, 4.56232500076)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="pink_flower_145" type="Node3D" parent="."]
+position = Vector3(11.9344463348, 8.06185722351, 3.41229486465)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="pink_flower_146" type="Node3D" parent="."]
+position = Vector3(11.9367923737, 3.00401329994, 5.75175762177)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="daisy_147" type="Node3D" parent="."]
+position = Vector3(13.2581176758, 6.61308288574, 4.64614868164)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="daisy_148" type="Node3D" parent="."]
+position = Vector3(6.48254823685, 6.82133674622, 5.7135386467)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="daisy_149" type="Node3D" parent="."]
+position = Vector3(12.8773603439, 6.94700574875, 4.0110912323)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true

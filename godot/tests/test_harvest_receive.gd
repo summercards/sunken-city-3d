@@ -139,19 +139,85 @@ func run() -> void:
 		print("[receive-input] phase=",farm.phase(plot.plot_id)," starts=",started.size()-before," actor=",actor.global_position," state=",main.actor_controller.state_id()," target=",main.actor_controller.auto_target," blocked=",main.interactor.last_blocked," modal=",main.hud.is_modal())
 		check(farm.is_empty(plot.plot_id) and started.size() == before+1,"real menu harvest triggers exactly one receipt")
 		actor.cancel_action("test")
-	# The E path uses the same successful FarmPlot event, with no menu callback.
+	# E 只打开成熟地格菜单；真实 Enter 确认后必须等原命令完成，不能把 options 算收获。
 	mature(plot,"tomato")
 	main.interactor.cancel(); main.interactor.debug_focus(plot)
 	main.interactor.active = true; main.interactor._scan_left = 10.0
 	var e_starts: int = started.size()
+	var e_business: Dictionary = economy.to_dict()
+	var e_state: Dictionary = farm.state(plot.plot_id)
+	var e_item := str(farm.crop_def("tomato").produce)
+	var e_count: int = economy.count(e_item)
+	var e_yield: int = int(farm.yield_of("tomato")[e_item])
+	var e_events: Array = []
+	var e_completed: Array = []
+	plot.acted.connect(func(_id, event, _payload): e_events.append(event))
+	main.interactor.completed.connect(func(_spot, reward): e_completed.append(str(reward.get("event", ""))))
 	var e_key := InputEventKey.new()
-	e_key.physical_keycode = KEY_E; e_key.pressed = true
-	Input.parse_input_event(e_key); await process_frame
+	e_key.keycode = KEY_E; e_key.physical_keycode = KEY_E; e_key.pressed = true
+	Input.parse_input_event(e_key); Input.flush_buffered_events(); await process_frame
+	check(Input.is_action_pressed("interact"), "E 真实输入进入交互映射")
 	main.interactor._process(0.01)
-	check(actor._item_receive.prop == null,"E preparation does not display unearned produce")
+	check(actor._item_receive.prop == null and started.size() == e_starts, "E 准备阶段不显示未获得的作物或启动成功动作")
 	main.interactor._process(float(plot.hold_time)+0.05)
-	e_key.pressed = false; Input.parse_input_event(e_key); await process_frame
-	check(started.size() == e_starts+1 and actor._item_receive.prop != null and actor._item_receive.prop.get_meta("crop_id") == "tomato","E harvest starts exactly one matching produce action")
+	var menu = main.hud.world_actions
+	check(menu.active and e_completed == ["options"], "E hold 完成只打开菜单并返回 options")
+	check(farm.state(plot.plot_id) == e_state and economy.to_dict() == e_business
+		and started.size() == e_starts and e_events.is_empty() and actor._item_receive.prop == null,
+		"E 打开菜单不提前收获、发奖励或庆祝")
+	main.interactor._process(float(plot.hold_time)+0.05)
+	check(menu.active and e_completed == ["options"] and e_events.is_empty()
+		and economy.to_dict() == e_business and farm.state(plot.plot_id) == e_state
+		and started.size() == e_starts and actor._item_receive.prop == null,
+		"持续 E 不穿透菜单或重复完成")
+	e_key.pressed = false; Input.parse_input_event(e_key); Input.flush_buffered_events(); await process_frame
+	main.interactor._process(0.0)
+	check(not Input.is_action_pressed("interact"), "菜单确认前已真实松开 E")
+	var harvest_selected: bool = menu.active and menu.selected_index >= 0 and menu.selected_index < menu.entries.size()
+	if harvest_selected:
+		var entry: Dictionary = menu.entries[menu.selected_index]
+		harvest_selected = str(entry.get("id", "")) == "harvest" and str(entry.get("blocked", "")) == ""
+	check(harvest_selected, "成熟菜单实际选中可用的显式收获项")
+	if harvest_selected:
+		for down in [true, false]:
+			var confirm := InputEventKey.new()
+			confirm.keycode = KEY_ENTER; confirm.physical_keycode = KEY_ENTER; confirm.pressed = down
+			root.push_input(confirm, true)
+			await process_frame
+		check(main.interactor.command_target == plot and main.interactor.selected_command.is_valid(),
+			"真实 Enter 排队原地格收获命令")
+		check(economy.to_dict() == e_business and farm.state(plot.plot_id) == e_state
+			and started.size() == e_starts and actor._item_receive.prop == null,
+			"Enter 仅排队，接近和 hold 完成前不提前奖励或举物")
+		for frame in 900:
+			main.actor_controller.tick(1.0/60.0)
+			main.interactor.active = not main.actor_controller.walking() and not main.hud.is_modal()
+			main.interactor.update(1.0/60.0,main.interactor.auto_hold)
+			await physics_frame
+			await process_frame
+			if started.size() > e_starts: break
+	check(e_events == ["harvested"] and e_completed == ["options", "harvested"],
+		"等待真实命令完成后才有一次收获业务事件")
+	check(economy.count(e_item) == e_count + e_yield and int(farm.state(plot.plot_id).harvests) == 1,
+		"Enter 收获按原产量仅入包一次并推进番茄再生一次")
+	check(started.size() == e_starts+1 and actor._item_receive.prop != null
+		and actor._item_receive.prop.get_meta("crop_id", "") == "tomato"
+		and actor.action_playback().get("id", "") == "harvesting",
+		"E 菜单加 Enter 最终只启动一次匹配番茄的成功动作")
+	var e_token: int = int(actor.action_playback().get("token", 0))
+	pose(2.4); actor._process(0.0)
+	for frame in 90:
+		main.actor_controller.tick(1.0/60.0)
+		main.interactor.active = not main.actor_controller.walking() and not main.hud.is_modal()
+		main.interactor.update(1.0/60.0,main.interactor.auto_hold)
+		await process_frame
+	check(e_token > 0 and finished.count(["harvesting", e_token]) == 1
+		and actor.action_playback().is_empty() and actor._item_receive.prop == null,
+		"等待收获动作完整结束且只结束一次，不以开菜单代替成功")
+	check(started.size() == e_starts+1 and e_events == ["harvested"]
+		and e_completed == ["options", "harvested"] and economy.count(e_item) == e_count + e_yield
+		and main.actor_controller.auto_target == null and not main.interactor.auto_hold
+		and not main.interactor.selected_command.is_valid(), "动作后续帧不重复奖励或动作，命令已释放")
 	actor.cancel_action("test"); main.interactor.cancel()
 	# Full inventory refuses without changing mature crop or starting presentation.
 	mature(plot,"lettuce")
@@ -160,8 +226,13 @@ func run() -> void:
 	economy.inventory.set_count("wood",960)
 	var before_full: int = started.size()
 	var full_state: Dictionary = farm.state(plot.plot_id)
+	var full_business: Dictionary = economy.to_dict()
+	var full_events: int = e_events.size()
 	check(plot.perform("harvest").has("blocked"),"full bag rejects harvest")
-	check(farm.state(plot.plot_id) == full_state and started.size() == before_full and actor._item_receive.prop == null,"failure retains crop and never celebrates")
+	check(farm.state(plot.plot_id) == full_state and economy.to_dict() == full_business
+		and e_events.size() == full_events and started.size() == before_full
+		and actor.action_playback().is_empty() and actor._item_receive.prop == null,
+		"满包失败保留作物与全部业务状态，不发成功事件、不庆祝")
 	economy.inventory.from_dict(inventory_before)
 	# Every interruption removes the held instance synchronously, with no finish.
 	for reason: String in ["walking","rowing","diving","cancelled","sleep","restore","replaced"]:

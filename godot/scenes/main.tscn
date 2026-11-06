@@ -26,10 +26,11 @@
 [ext_resource type="PackedScene" path="res://scenes/facilities/rooftop_ranch.tscn" id="34_ranch"]
 [ext_resource type="PackedScene" path="res://scenes/facilities/neon_garden_quarter.tscn" id="35_neon_garden"]
 [ext_resource type="PackedScene" path="res://scenes/rooms/bedroom.tscn" id="37_bedroom"]
-[ext_resource type="PackedScene" path="res://scenes/world/sunken_city.tscn" id="38_sunken_city"]
+[ext_resource type="PackedScene" uid="uid://i1kl17lc1fs1" path="res://scenes/world/sunken_city.tscn" id="38_sunken_city"]
+[ext_resource type="PackedScene" path="res://scenes/world/sunken_seabed.tscn" id="39_sunken_seabed"]
 [ext_resource type="Script" uid="uid://bnlpdixomk08r" path="res://src/ambient/vegetation/wind_controller.gd" id="vegetation_wind"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_yq6so"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_2f3dj"]
 _surfaces = [{
 "aabb": AABB(-640, 0, -640, 1280, 1e-05, 1280),
 "format": 34359742471,
@@ -91,7 +92,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12, 0)
 material_override = ExtResource("15_water")
 cast_shadow = 0
 extra_cull_margin = 2.0
-mesh = SubResource("ArrayMesh_yq6so")
+mesh = SubResource("ArrayMesh_2f3dj")
 script = ExtResource("25_ocean")
 ocean_waves = PackedVector4Array(0.94, 0.34, 0.16, 12, -0.42, 0.91, 0.085, 7.6, 0.72, -0.69, 0.0325, 4.9, -0.85, -0.53, 0.0105, 2.55)
 
@@ -112,15 +113,17 @@ script = ExtResource("26_wake")
 transform = Transform3D(-0.2076603, 0, -1.7574136, -0.1392592, 2.4054115, 0.027053408, 1.3635194, 0.24566996, -0.26488626, 69.91094, -18.097904, 46.376625)
 
 [node name="rooftop_ranch" parent="World/SeaStructures" unique_id=1142350009 instance=ExtResource("34_ranch")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46, -55.92, -52)
+transform = Transform3D(0.945029, 0, -0.32698637, 0, 1, 0, 0.32698637, 0, 0.945029, -87.471634, -55.92, 6.712494)
 
 [node name="neon_garden_quarter" parent="World/SeaStructures" unique_id=971645584 instance=ExtResource("35_neon_garden")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 156.14969, -21.726082, 2.473711)
+transform = Transform3D(-0.3057852, 0, -0.9521005, 0, 1, 0, 0.9521005, 0, -0.3057852, 106.55533, -21.726082, 88.88402)
 
 [node name="Interior" parent="World" unique_id=1830010001 instance=ExtResource("37_bedroom")]
 
+[node name="SunkenSeabed" parent="World" instance=ExtResource("39_sunken_seabed")]
+
 [node name="SunkenCity" parent="World" unique_id=377266353 instance=ExtResource("38_sunken_city")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.487442, 0)
 
 [node name="Gameplay" type="Node3D" parent="World" unique_id=1251468208]
 

@@ -1,0 +1,518 @@
+{
+  "schema": "sea.building_kit.catalog",
+  "version": "v002",
+  "components": [
+    {
+      "id": "platform_5x5",
+      "name": "5×5米木平台",
+      "asset_id": "SEA-KIT-PLATFORM-5X5",
+      "component_family": "platform",
+      "profile": "foundation",
+      "footprint": [
+        5,
+        5
+      ],
+      "height": 0.5,
+      "source_origin": "surface_center",
+      "wood": 20,
+      "seconds": 6,
+      "collection": "SEA-KIT-PLATFORM-5X5",
+      "source_collection": "制作_5×5米木平台",
+      "root_object": "platform_5x5_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/platform_5x5/platform_5x5.blend",
+      "bounds": {
+        "min": [
+          -2.5,
+          -2.5,
+          -0.5
+        ],
+        "max": [
+          2.5,
+          2.5,
+          0.0
+        ]
+      },
+      "triangles": 1692,
+      "material_roles_used": [
+        "Matte"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        5.0,
+        5.0,
+        0.5
+      ]
+    },
+    {
+      "id": "wall_5m",
+      "name": "5米木板实墙",
+      "asset_id": "SEA-KIT-WALL-5M",
+      "component_family": "wall",
+      "profile": "wall",
+      "footprint": [
+        5,
+        0.2
+      ],
+      "height": 5.086335,
+      "source_origin": "bottom_center",
+      "wood": 6,
+      "seconds": 3.9,
+      "collection": "SEA-KIT-WALL-5M",
+      "source_collection": "制作_5米木板实墙",
+      "root_object": "wall_5m_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/wall_5m/wall_5m.blend",
+      "bounds": {
+        "min": [
+          -2.5,
+          -0.10000000149011612,
+          0.0
+        ],
+        "max": [
+          2.5,
+          0.10000000149011612,
+          5.086335182189941
+        ]
+      },
+      "triangles": 4700,
+      "material_roles_used": [
+        "Matte"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        5.0,
+        0.20000000298023224,
+        5.086335182189941
+      ]
+    },
+    {
+      "id": "window_wall_5m",
+      "name": "5米开窗木墙",
+      "asset_id": "SEA-KIT-WINDOW-WALL-5M",
+      "component_family": "wall",
+      "profile": "window",
+      "footprint": [
+        5,
+        0.2
+      ],
+      "height": 5.086335,
+      "source_origin": "bottom_center",
+      "wood": 7,
+      "seconds": 4.05,
+      "collection": "SEA-KIT-WINDOW-WALL-5M",
+      "source_collection": "制作_5米开窗木墙",
+      "root_object": "window_wall_5m_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/window_wall_5m/window_wall_5m.blend",
+      "bounds": {
+        "min": [
+          -2.5,
+          -0.10000000149011612,
+          0.0
+        ],
+        "max": [
+          2.5,
+          0.10000000149011612,
+          5.086335182189941
+        ]
+      },
+      "triangles": 12972,
+      "material_roles_used": [
+        "Matte",
+        "Gloss"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        5.0,
+        0.20000000298023224,
+        5.086335182189941
+      ]
+    },
+    {
+      "id": "door_frame_5m",
+      "name": "5米通行门墙",
+      "asset_id": "SEA-KIT-DOOR-FRAME-5M",
+      "component_family": "wall",
+      "profile": "door",
+      "footprint": [
+        5,
+        0.2
+      ],
+      "height": 5.086335,
+      "source_origin": "bottom_center",
+      "wood": 5,
+      "seconds": 3.75,
+      "collection": "SEA-KIT-DOOR-FRAME-5M",
+      "source_collection": "制作_5米通行门墙",
+      "root_object": "door_frame_5m_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/door_frame_5m/door_frame_5m.blend",
+      "bounds": {
+        "min": [
+          -2.5,
+          -0.10000000149011612,
+          0.0
+        ],
+        "max": [
+          2.5,
+          0.10000000149011612,
+          5.086335182189941
+        ]
+      },
+      "triangles": 11280,
+      "material_roles_used": [
+        "Matte"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        5.0,
+        0.20000000298023224,
+        5.086335182189941
+      ]
+    },
+    {
+      "id": "post_5m",
+      "name": "5米层高木柱",
+      "asset_id": "SEA-KIT-POST-5M",
+      "component_family": "post",
+      "profile": "post",
+      "footprint": [
+        0.5,
+        0.5
+      ],
+      "height": 5.086335,
+      "source_origin": "bottom_center",
+      "wood": 3,
+      "seconds": 3.45,
+      "collection": "SEA-KIT-POST-5M",
+      "source_collection": "制作_5米层高木柱",
+      "root_object": "post_5m_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/post_5m/post_5m.blend",
+      "bounds": {
+        "min": [
+          -0.25,
+          -0.25,
+          0.0
+        ],
+        "max": [
+          0.25,
+          0.25,
+          5.086335182189941
+        ]
+      },
+      "triangles": 940,
+      "material_roles_used": [
+        "Matte",
+        "Metal"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        0.5,
+        0.5,
+        5.086335182189941
+      ]
+    },
+    {
+      "id": "beam_5m",
+      "name": "5米承重横梁",
+      "asset_id": "SEA-KIT-BEAM-5M",
+      "component_family": "beam",
+      "profile": "beam",
+      "footprint": [
+        5,
+        0.2
+      ],
+      "height": 0.2,
+      "source_origin": "bottom_center",
+      "wood": 3,
+      "seconds": 3.45,
+      "collection": "SEA-KIT-BEAM-5M",
+      "source_collection": "制作_5米承重横梁",
+      "root_object": "beam_5m_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/beam_5m/beam_5m.blend",
+      "bounds": {
+        "min": [
+          -2.5,
+          -0.10000000149011612,
+          0.0
+        ],
+        "max": [
+          2.5,
+          0.10000000149011612,
+          0.20000000298023224
+        ]
+      },
+      "triangles": 188,
+      "material_roles_used": [
+        "Matte"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        5.0,
+        0.20000000298023224,
+        0.20000000298023224
+      ]
+    },
+    {
+      "id": "railing_5m",
+      "name": "5米交叉栏杆",
+      "asset_id": "SEA-KIT-RAILING-5M",
+      "component_family": "railing",
+      "profile": "railing",
+      "footprint": [
+        5,
+        0.18
+      ],
+      "height": 1.1,
+      "source_origin": "bottom_center",
+      "wood": 4,
+      "seconds": 3.6,
+      "collection": "SEA-KIT-RAILING-5M",
+      "source_collection": "制作_5米交叉栏杆",
+      "root_object": "railing_5m_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/railing_5m/railing_5m.blend",
+      "bounds": {
+        "min": [
+          -2.5,
+          -0.09000000357627869,
+          0.0
+        ],
+        "max": [
+          2.5,
+          0.09000000357627869,
+          1.100000023841858
+        ]
+      },
+      "triangles": 1692,
+      "material_roles_used": [
+        "Matte"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        5.0,
+        0.18000000715255737,
+        1.100000023841858
+      ]
+    },
+    {
+      "id": "stairs_5m",
+      "name": "5米27级连续楼梯",
+      "asset_id": "SEA-KIT-STAIRS-5M",
+      "component_family": "stairs",
+      "profile": "stairs",
+      "footprint": [
+        1.5,
+        5
+      ],
+      "height": 5.086335,
+      "source_origin": "bottom_center",
+      "wood": 10,
+      "seconds": 4.5,
+      "collection": "SEA-KIT-STAIRS-5M",
+      "source_collection": "制作_5米27级连续楼梯",
+      "root_object": "stairs_5m_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/stairs_5m/stairs_5m.blend",
+      "bounds": {
+        "min": [
+          -0.75,
+          -2.5,
+          0.0
+        ],
+        "max": [
+          0.75,
+          2.5,
+          5.086335182189941
+        ]
+      },
+      "triangles": 5640,
+      "material_roles_used": [
+        "Matte"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        1.5,
+        5.0,
+        5.086335182189941
+      ]
+    },
+    {
+      "id": "roof_slope_5x5",
+      "name": "5×5米斜面屋顶",
+      "asset_id": "SEA-KIT-ROOF-SLOPE-5X5",
+      "component_family": "roof",
+      "profile": "roof",
+      "footprint": [
+        5,
+        5
+      ],
+      "height": 1.25,
+      "source_origin": "bottom_center",
+      "wood": 8,
+      "seconds": 4.2,
+      "collection": "SEA-KIT-ROOF-SLOPE-5X5",
+      "source_collection": "制作_5×5米斜面屋顶",
+      "root_object": "roof_slope_5x5_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/roof_slope_5x5/roof_slope_5x5.blend",
+      "bounds": {
+        "min": [
+          -2.5,
+          -2.5,
+          0.0
+        ],
+        "max": [
+          2.5,
+          2.5,
+          1.25
+        ]
+      },
+      "triangles": 1880,
+      "material_roles_used": [
+        "Matte"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        5,
+        5,
+        1.25
+      ]
+    },
+    {
+      "id": "roof_flat_5x5",
+      "name": "5×5米平顶遮棚",
+      "asset_id": "SEA-KIT-ROOF-FLAT-5X5",
+      "component_family": "roof",
+      "profile": "roof",
+      "footprint": [
+        5,
+        5
+      ],
+      "height": 0.2,
+      "source_origin": "bottom_center",
+      "wood": 10,
+      "seconds": 4.5,
+      "collection": "SEA-KIT-ROOF-FLAT-5X5",
+      "source_collection": "制作_5×5米平顶遮棚",
+      "root_object": "roof_flat_5x5_ROOT",
+      "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+      "component_blend": "component_packages/roof_flat_5x5/roof_flat_5x5.blend",
+      "bounds": {
+        "min": [
+          -2.5,
+          -2.5,
+          0.0
+        ],
+        "max": [
+          2.5,
+          2.5,
+          0.20000000298023224
+        ]
+      },
+      "triangles": 1128,
+      "material_roles_used": [
+        "Matte"
+      ],
+      "front_axis": "-Z",
+      "allowed_rotations_y_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "collision_owner": "sea_building_space_projection",
+      "exported": true,
+      "runtime_integrated": false,
+      "bounds_size_m": [
+        5.0,
+        5.0,
+        0.20000000298023224
+      ]
+    }
+  ]
+}

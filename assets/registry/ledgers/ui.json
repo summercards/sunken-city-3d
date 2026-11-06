@@ -26,7 +26,21 @@
       "domain": "ui",
       "stage": "runtime_integrated_verified",
       "source": "godot/src/ui/start_screen.gd",
-      "source_sha256": "df5052c071d633ad541a8e6c563985f5a629458a004eab3903d60ccb6fe48d4a",
+      "source_sha256": "441e1263ee365d9be9d2cedace1e3dfe5820e8454fd9ea63ab82e0f1f050fcad",
+      "hash_history": [
+        {
+          "sha256": "df5052c071d633ad541a8e6c563985f5a629458a004eab3903d60ccb6fe48d4a",
+          "previous_sha256": "1dd5e2a8ac3a24aa6c133d83c0012919a4dbd705510ffddf38bc5b7f158481ef",
+          "verification": "docs/features/onboarding/ledger.md",
+          "review": "2026-11-06 定向审阅：鼠标悬停与键盘焦点共用暖金反馈，仅调RGB保留原淡入透明度；Enter/KPEnter/Space 忽略echo并沿原开始入口。当前源码与三批验证副本 LF 指纹一致；200446 keyboard-entry39/0通过，保存为内存替身，不替代磁盘/冷启动；203447 最终面板/旧契约/口袋七项479/0通过，不冒称重新验收标题所有视觉工况。",
+          "evidence": [
+            "docs/development/2026-11-06_keyboard_complete.md",
+            "D:/projects/sea-work/verification/20261106-194828-keyboard-visual-travel-final-09cca9/report.json",
+            "D:/projects/sea-work/verification/20261106-200446-keyboard-release-regression-eae88a/report.json",
+            "D:/projects/sea-work/verification/20261106-203447-keyboard-final-contracts-ff6d9f/report.json"
+          ]
+        }
+      ],
       "manifest": "assets/registry/manifests/ui_title_sea_001.json",
       "version": "v003",
       "runtime_path": "godot/src/ui/start_screen.gd",
@@ -38,8 +52,8 @@
       ],
       "font_asset_id": "UI-FONT-LXGW975YUAN-SC-700",
       "note": "程序化排字使用已有授权圆体；参考图只作为风格与构图依据，未打包参考图，也不声称采用参考图原字体。",
-      "verification": "docs/features/onboarding/ledger.md",
-      "previous_source_sha256": "1dd5e2a8ac3a24aa6c133d83c0012919a4dbd705510ffddf38bc5b7f158481ef",
+      "verification": "docs/development/2026-11-06_keyboard_complete.md",
+      "previous_source_sha256": "df5052c071d633ad541a8e6c563985f5a629458a004eab3903d60ccb6fe48d4a",
       "revision_note": "2026-10-28: only StartGame horizontal anchor 0.66 -> 0.755; keep font, logo and reveal animation. Verified three sizes and saved-time entry; no unrelated hash refresh."
     },
     {
@@ -124,7 +138,21 @@
       "domain": "ui",
       "stage": "runtime_verified_reused_license_pending",
       "source": "godot/src/ui/notebook.gd",
-      "source_sha256": "ef53f56513877c6ea409eb4171cc3c0dd516b3d99edc6b608be86612859e012b",
+      "source_sha256": "52db74c097e83f15ea0dfae083fe6093b111f8157f160af20af1100cbdf0472e",
+      "previous_source_sha256": "ef53f56513877c6ea409eb4171cc3c0dd516b3d99edc6b608be86612859e012b",
+      "hash_history": [
+        {
+          "sha256": "ef53f56513877c6ea409eb4171cc3c0dd516b3d99edc6b608be86612859e012b",
+          "verification": "docs/development/2026-10-28_corner_hud_notebook.md",
+          "review": "2026-11-06 定向审阅：分类/卡片/详情/分页焦点、方向导航、卡片选中反馈、禁用原因与详情返回焦点；只发既有业务信号，不新增旅行真值。当前源码与三批验证副本 LF 指纹一致；200446 panels80/0、entry39/0、building40/0分别通过，203447 panels80/0及旧契约/口袋最终七项479/0通过；目的地信号与真实驶达不混称。既有复用图标授权pending保持。",
+          "evidence": [
+            "docs/development/2026-11-06_keyboard_complete.md",
+            "D:/projects/sea-work/verification/20261106-194828-keyboard-visual-travel-final-09cca9/report.json",
+            "D:/projects/sea-work/verification/20261106-200446-keyboard-release-regression-eae88a/report.json",
+            "D:/projects/sea-work/verification/20261106-203447-keyboard-final-contracts-ff6d9f/report.json"
+          ]
+        }
+      ],
       "manifest": "assets/registry/manifests/ui_notebook_001.json",
       "version": "v001",
       "runtime_path": "godot/src/ui/notebook.gd",
@@ -134,7 +162,7 @@
         "SEA-INVENTORY",
         "SEA-FARM"
       ],
-      "verification": "docs/development/2026-10-28_corner_hud_notebook.md",
+      "verification": "docs/development/2026-11-06_keyboard_complete.md",
       "note": "本轮程序化排版和图标；复用UI-FONT-LXGW975YUAN-SC-700、UI-ACTION-HANDDRAWN-001与UI-POCKET-HANDDRAWN-001。既有图片源与授权pending不变。"
     },
     {
@@ -143,7 +171,21 @@
       "domain": "ui",
       "stage": "runtime_component_verified",
       "source": "godot/src/avatar/avatar_editor.gd",
-      "source_sha256": "f8b19049be78e875ff900d3cb334da25f6d405d42f3569ba55b712bd2b0a3f31",
+      "source_sha256": "be07271de48e0077ae4656ccf78b4e151fa5b275ee54baebc26c1db99de1758d",
+      "hash_history": [
+        {
+          "sha256": "f8b19049be78e875ff900d3cb334da25f6d405d42f3569ba55b712bd2b0a3f31",
+          "previous_sha256": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a",
+          "verification": "docs/features/onboarding/ledger.md",
+          "review": "2026-11-06 定向审阅：稳定页面/控件ID焦点恢复、离屏选项跟随滚动、Tab/Shift+Tab、Esc分层返回、保存期间与echo拦截、失败后聚焦重试；首次建档不可Esc绕过，既有编辑可取消。当前源码与三批验证副本 LF 指纹一致；200446 keyboard-entry39/0通过，保存端口为内存替身，不代替写盘/冷启动；203447 最终面板/旧契约/口袋七项479/0通过。",
+          "evidence": [
+            "docs/development/2026-11-06_keyboard_complete.md",
+            "D:/projects/sea-work/verification/20261106-194828-keyboard-visual-travel-final-09cca9/report.json",
+            "D:/projects/sea-work/verification/20261106-200446-keyboard-release-regression-eae88a/report.json",
+            "D:/projects/sea-work/verification/20261106-203447-keyboard-final-contracts-ff6d9f/report.json"
+          ]
+        }
+      ],
       "manifest": "assets/registry/manifests/sea-ui-avatar-001.json",
       "version": "v005",
       "runtime_path": "godot/src/avatar/avatar_editor.gd",
@@ -152,9 +194,9 @@
         "SEA-AVATAR",
         "SEA-ONBOARDING"
       ],
-      "verification": "docs/features/onboarding/ledger.md",
+      "verification": "docs/development/2026-11-06_keyboard_complete.md",
       "note": "r6 按用户最新红线：饱满A形躯干/低胯短腿、独立头横宽和臂粗、16嘴型贴图、下移帽子；原档案兼容，当前专项和真实渲染见交付。；2026-11-04新旅程美术/交互",
-      "previous_source_sha256": "404316f12353f868af8c4541d1170ae9595aaad469bc6e2b89b43b711c09ab2a"
+      "previous_source_sha256": "f8b19049be78e875ff900d3cb334da25f6d405d42f3569ba55b712bd2b0a3f31"
     }
   ]
 }

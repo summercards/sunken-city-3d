@@ -1,0 +1,90 @@
+{
+  "key": "corrosion_patch",
+  "slug": "corrosion_patch",
+  "name": "侵蚀剥落块_硬表面",
+  "category": "facilities",
+  "component_family": "corrosion",
+  "component_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    3.4,
+    0.1,
+    2.0
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 8,
+  "collection": "SEA-SCENE-SCITY-CORROSION-PATCH_侵蚀剥落块_硬表面",
+  "root_object": "SEA-SCENE-SCITY-CORROSION-PATCH_ROOT",
+  "objects": [
+    "侵蚀剥落块_硬表面_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-CORROSION-PATCH_ROOT"
+  ],
+  "bounds_size_m": [
+    3.1742563247680664,
+    0.04500000178813934,
+    1.857536792755127
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 1692,
+  "polygons": 882,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v005/component_packages/corrosion_patch/corrosion_patch.blend",
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "version": "v005",
+  "source_stage": "source_verified_runtime_pending",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "geometry_fingerprint": "cc4257a1d860b85910bfd53c7d91b4807282a481c6872f90bfb263c6d8cf65c7",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/corrosion_patch/corrosion_patch.blend",
+  "source_sha256": "0c6aaa6f9152597c685eb7d7041e96f7d00e9508ce470b957b3b98e917616866",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-CORROSION-PATCH",
+  "source": "art_source/scenes/sunken_city/v005/sunken_city_v005.blend",
+  "source_master_sha256": "a95f1961596081ee61d14b0e051a025890524630f9e939e8fd9c324128035850",
+  "bounds_min": [
+    -1.5871281623840332,
+    -0.02250000089406967,
+    0.0
+  ],
+  "bounds_max": [
+    1.5871281623840332,
+    0.02250000089406967,
+    1.857536792755127
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261106T071625_3f80c899",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\skill_reports\\20261106T071625_3f80c899\\corrosion_patch.json",
+    "exit_code": 0
+  },
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-CORROSION-PATCH"
+}

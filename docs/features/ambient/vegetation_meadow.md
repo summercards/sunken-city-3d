@@ -37,3 +37,18 @@
 - 资产定位、当前源/历史源、消费者和哈希只维护独立植被账本；草沿用原AssetID并保留v002 previous_sources，新增草堆与新图集各一行。
 
 所有运行检查使用统一runner的隔离用户数据工程。当前入口：vegetation-contract、visual-vegetation、visual-vegetation-performance、rooftop-ranch、water-layer、minimum-loop。录屏需覆盖正常游戏镜头和远景，不以微距叶形清晰代替远景验收。实际硬件、耗时、退出码和剩余边界见交付记录。
+
+## 在 Godot 里手动摆放
+
+直接打开下列设施或子场景，在场景树选中对应节点，用移动、旋转和缩放手柄或检查器的 Transform 调整，保存场景即可。要改主场景中整个设施的位置，就在 `main.tscn` 移动设施根节点，植被会一起移动。
+
+| 场景 | 选取节点 | 可调整内容 |
+|---|---|---|
+| `rooftop_ranch.tscn` | `VegetationTurf/Regions/roof_lawn` | 天台整片草皮的位置、朝向、尺寸和显隐 |
+| `rooftop_ranch.tscn` | `VegetationTurf/Plants/Mound_*` | 单个草堆。新增草堆可实例化 `mound_soft.tscn` |
+| `solar_cabin_surface.tscn` | `VegetationTurf/Regions` 内的 `upper_roof_meadow`、`left_parapet`、`front_parapet`、`moss_accents` | 屋顶草皮、侧沿、前沿和独立苔藓组。分区内的苔藓会跟着同一草皮分区移动 |
+| `solar_cabin_rear_building.tscn`、`solar_cabin_solar_room.tscn`、`solar_cabin_front_platform.tscn` | `flower_*`、`leaf_*` 等带原组件名和实例编号的花草节点 | 逐株调整，保存后的变换随模块和设施移动 |
+
+`VegetationTurf` 检查器里的 **Refresh grass preview** 可重建编辑器预览。场景中保存的是草皮分区和草堆的位置。单根草继续按布局 JSON 批量生成，密度、边界和道路避让由配方维护。移动整片草皮时同时检查它与设施边缘、道路的对齐情况。天台草堆的 JSON 点位用于追溯原始布局，当前摆位以 `VegetationTurf/Plants` 中的 TSCN 为准。阳光房花草的编号用于绑定原模型和升级显隐，拖动时保留节点名。
+
+工具配方改动先走工程外候选，审阅草皮分区原点及布局变化后逐文件接入。其他场景仍可直接复用草簇、草堆预制体和共享风动。[设施实测位置](../world/placed_positions.md)

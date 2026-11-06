@@ -83,9 +83,14 @@ static func walk_rects(base: Array, rows: Array, fixed: Array=[], radius: float=
 static func blocker_rects(row: Dictionary) -> Array:
 	if str(Catalog.RECIPES[row.kind].get("profile",""))!="door": return [Catalog.footprint_rect(row)]
 	var result: Array=[]
-	for x in [-.79,.79]:
+	var definition: Dictionary=Catalog.RECIPES[row.kind]
+	var footprint: Vector2=definition.footprint
+	var opening: float=float(definition.get("door_width",1.16))
+	var width: float=(footprint.x-opening)/2
+	var offset: float=(footprint.x+opening)/4
+	for x in [-offset,offset]:
 		var center:=Catalog.footprint_rect(row).get_center()+Vector2(x,0).rotated(-float(row.turn)*PI/2)
-		var extent:=Vector2(.42,.16) if int(row.turn)%2==0 else Vector2(.16,.42)
+		var extent:=Vector2(width,footprint.y) if int(row.turn)%2==0 else Vector2(footprint.y,width)
 		result.append(Rect2(center-extent/2,extent))
 	return result
 

@@ -256,6 +256,18 @@ func release_drive() -> void:
 func driving() -> bool:
 	return manual_drive
 
+
+## 从当前位置朝这个世界方向迈一小步会不会撞岸（SEA-MOVE-R24）。
+##
+## 只给「泊位里按方向键」做分派用：撞岸说明这个方向只能是往岸上走，
+## 该让角色下船，而不是拿船去顶岸线。探针 0.55 米 —— 比一帧位移长，
+## 又短到不会把「沿岸平着划」误判成撞岸。
+func would_hit_shore(dir: Vector2, probe := 0.55) -> bool:
+	if dir.length() < 0.001:
+		return false
+	var here := Vector2(position.x, position.z)
+	return not _clear(here, here + dir.normalized() * probe)
+
 ## 外部（上下船、读档、取消）强制结束手动驾驶。
 func stop_drive() -> void:
 	manual_drive = false

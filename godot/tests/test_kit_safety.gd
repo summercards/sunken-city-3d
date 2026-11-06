@@ -13,9 +13,9 @@ func check(ok: bool,label: String) -> void:
 func row(kind: String,id: int,x: float,z: float,support: String="",height: float=0.0,turn: int=0) -> Dictionary:
 	return {"id":"built_%d"%id,"kind":kind,"x":0,"z":0,"px":x,"pz":z,"py":height,"support":support,"turn":turn,"left":0.0}
 func base() -> Dictionary: return row("raft_4x4",1,100,100)
-func supports(points: Array) -> Array:
-	var rows: Array=[base()]
-	for point: Vector2 in points: rows.append(row("post",rows.size()+1,point.x,point.y,"built_1"))
+func supports(points: Array,foundation: String="raft_4x4",post: String="post") -> Array:
+	var rows: Array=[row(foundation,1,100,100)]
+	for point: Vector2 in points: rows.append(row(post,rows.size()+1,point.x,point.y,"built_1"))
 	return rows
 func model() -> RefCounted:
 	var service:=Service.new()
@@ -29,25 +29,29 @@ func run() -> void:
 		if not Catalog.is_kit(kind): continue
 		seen+=1
 		var definition: Dictionary=Catalog.RECIPES[kind]
-		var fixture: Array=[base()]
+		var extent: Vector2=definition.footprint
+		var foundation: String="platform_5x5" if maxf(extent.x,extent.y)>4.0 else "raft_4x4"
+		var post: String="post_5m" if foundation=="platform_5x5" else "post"
+		var fixture: Array=[row(foundation,1,100,100)]
 		var candidate:=row(kind,100,100,100,"built_1")
 		if definition.profile=="foundation":
 			candidate=row(kind,100,110,100)
-		elif definition.profile=="beam":
-			fixture=supports([Vector2(99,100),Vector2(101,100)])
-			candidate.support="built_2";candidate.py=2.6
-		elif definition.profile=="floor":
-			fixture=supports([Vector2(99,99),Vector2(99,101),Vector2(101,99),Vector2(101,101)])
-			candidate.support="built_2";candidate.py=2.8
-		elif definition.profile=="roof":
-			fixture=supports([Vector2(98,98),Vector2(98,102),Vector2(102,98),Vector2(102,102)] if kind=="roof_flat" else [Vector2(99,98),Vector2(99,102),Vector2(101,98),Vector2(101,102)])
-			candidate.support="built_2";candidate.py=2.8
+		elif definition.profile in ["beam","floor","roof"]:
+			var points: Array=[]
+			for x: float in [-extent.x/2,extent.x/2]:
+				if definition.profile=="beam": points.append(Vector2(100+x,100))
+				else:
+					for z: float in [-extent.y/2,extent.y/2]: points.append(Vector2(100+x,100+z))
+			fixture=supports(points,foundation,post)
+			candidate.support="built_2"
+			candidate.py=float(Catalog.RECIPES[post].height)
+			if definition.profile=="beam": candidate.py-=float(definition.height)
 		var reason: String=Assembly.reason(candidate,fixture)
 		check(reason=="","supported content "+kind+": "+reason)
 		if definition.profile!="foundation":
 			var missing: Dictionary=candidate.duplicate();missing.support="gone"
 			check(Assembly.reason(missing,fixture)!="","missing support rejected "+kind)
-	check(seen>=22,"all twelve structures and ten decorations covered")
+	check(seen==32,"all 22 legacy and 10 new kit entries covered")
 	# A wall corner is allowed, broad intersections and parallel stacking are not.
 	var wall:=row("wall",2,100,100,"built_1")
 	var wall_fixture: Array=[base(),wall]
@@ -67,7 +71,8 @@ func run() -> void:
 	check(Assembly.reason(row("beam",4,100,100,"built_2",0,1),rotated_beam_fixture)!="","beam cannot float at ground socket height")
 	# Keep complete support chains, independent of creation or save record order.
 	var service:=model()
-	var snapshot: Dictionary={"version":1,"next_id":7,"instances":floor_fixture}
+	# 自动换柱承载后，只有唯一承载柱才能表达“依附未清不可拆”。
+	var snapshot: Dictionary={"version":1,"next_id":7,"instances":[base(),floor_fixture[1],floor_row]}
 	check(service.from_dict(snapshot),"supported structural fixture restores")
 	check(service.can_remove("built_2")!="","support column cannot be removed under floor")
 	var lamp_request:=row("oil_lamp",7,100,100,"built_6",2.8);lamp_request.erase("id")

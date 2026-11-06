@@ -78,11 +78,15 @@ func run() -> void:
 	var actions = main.hud.world_actions
 	check(actions.entries.size() == 3, "地格一级仍是种植/浇水/收获三颗")
 	check(str(actions.entries[0].id) == "plant", "第一颗是种植")
+	check(actions.hint_label != null and actions.hint_label.text.contains(str(cell.plot_name))
+		and actions.hint_label.text.contains(economy.farm.status_text(str(cell.plot_id))), "一级标题保留正确菜箱名与当前状态")
 	actions.activate(0)
 	check(actions.entries.size() == 1, "单一种子也弹二级")
 	check(str(actions.entries[0].id) == "seed:lettuce", "二级列出可种种子")
 	check(str(actions.entries[0].get("caption", "")) == "生菜 ×3", "二级标出名称与数量")
-	check(actions.hint_label != null and actions.hint_label.text == "选择种子", "二级有层级标题")
+	check(actions.hint_label != null and actions.hint_label.text.contains("选择种子")
+		and actions.hint_label.text.contains(str(cell.plot_name))
+		and actions.hint_label.text.contains("生菜"), "二级保留选择种子标题、正确菜箱名与当前种子名")
 	actions.close(true)
 
 	# ---- 6. 天气是固定的晴天 ---------------------------------------------

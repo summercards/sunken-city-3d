@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/building_kit/post_5m/post_5m.glb" id="2"]
+
+[node name="post_5m" type="Node3D"]
+script = ExtResource("1")
+content_id = "post_5m"
+metadata/asset_id = "SEA-KIT-POST-5M"
+metadata/asset_version = "v002"
+metadata/source_units = "meters"
+metadata/source_origin = "bottom_center"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "entity"
+metadata/collision_owner = "sea_building_space_projection"
+
+[node name="Model" parent="." instance=ExtResource("2")]

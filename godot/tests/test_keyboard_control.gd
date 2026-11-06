@@ -143,6 +143,27 @@ func run() -> void:
 	await wait_frames(6)
 	check(controller.mode() == 1, "先在船上")
 	check(main._landing_is_docked(), "船停在泊位")
+	# 先停泊位：SEA-MOVE-R24 之后，泊位里朝岸按方向键是「下船」，
+	# 要测划船就得挪到开阔水面（4 米外），否则测的是下船规则。
+	var park_data: Dictionary = main._landing_data("zone1", "main")
+	var park0 := Vector3(float(park_data.boatPark[0]), 1.12, float(park_data.boatPark[2]))
+	var water_dir := Vector3.ZERO
+	for candidate: Vector3 in [Vector3(1, 0, 0), Vector3(-1, 0, 0), Vector3(0, 0, 1), Vector3(0, 0, -1),
+			Vector3(1, 0, 1).normalized(), Vector3(-1, 0, 1).normalized(),
+			Vector3(1, 0, -1).normalized(), Vector3(-1, 0, -1).normalized()]:
+		var ok := true
+		for i in range(1, 9):
+			var probe: Vector3 = park0 + candidate * float(i)
+			if not main._is_open_water(probe.x, probe.z):
+				ok = false
+				break
+		if ok:
+			water_dir = candidate
+			break
+	if water_dir != Vector3.ZERO:
+		main.boat.place_at(park0 + water_dir * 4.0, 0.0)
+		await wait_frames(3)
+		check(not main._landing_is_docked(), "挪到开阔水面后不再算靠泊")
 	var boat_start: Vector3 = main.boat.position
 	press("move_forward")
 	await wait_frames(40)

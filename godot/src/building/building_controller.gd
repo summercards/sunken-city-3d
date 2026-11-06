@@ -2,7 +2,7 @@ extends Node3D
 ## Authoring adapter. State and transactions stay in the injected owners.
 const Catalog = preload("res://src/building/building_catalog.gd")
 const World = preload("res://src/building/building_world.gd")
-const ThinBar = preload("res://src/ui/thin_progress_bar.gd")
+const ProgressPresenter = preload("res://src/building/ui/building_progress_presenter.gd")
 const Pointer = preload("res://src/building/building_pointer.gd")
 const ARRIVE := 0.8
 const WAIT_LIMIT := 8.0
@@ -35,9 +35,12 @@ var canvas: CanvasLayer
 var active := false
 var recipe := ""
 var turn := 0
-var build_level := 0
+var build_level := 0.0
+var view: Control
+var _hint_text := ""
 var preview: Dictionary = {}
 var progress := {}
+var progress_presenter := ProgressPresenter.new()
 var candidate_ghosts: Array = []
 var moving_id := ""
 var hovered_id := ""
@@ -54,9 +57,97 @@ var demolition: Control
 var manual_level := false
 var snap_assist := true
 var _mesh_faces: Dictionary={}
+var keyboard_mode := false
+var keyboard_cursor := Vector3.INF
+var keyboard_target_id := ""
+var _held_keys: Dictionary={}
+var _submit_frame := -1
+const INPUT_HANDLED_META := "building_controller_input_handled"
 
-func configure(model: RefCounted, projection: Node3D, view: Camera3D, ui: CanvasLayer, items: Callable, cancel: Callable, stand: Callable = Callable(), approach: Callable = Callable(), actor: Callable = Callable()) -> void:
-	service=model; world=projection; camera=view; hud=ui
+## 组合根的 K 入口；只打开手册，不在这里注册全局快捷键。
+func open_keyboard() -> void:
+	keyboard_mode=true
+	keyboard_cursor=Vector3.INF
+	open()
+	_seed_keyboard_cursor()
+	book.restore_focus()
+
+## GUI 前拦截建造键，避免 ui_accept 先被按钮消费或落入世界交互。
+func _input(event: InputEvent) -> void:
+	if service==null or get_tree().paused: return
+	if event.get_meta(INPUT_HANDLED_META,false): return
+	if event is InputEventKey:
+		var code: int=event.physical_keycode if event.physical_keycode else event.keycode
+		if not event.pressed and _held_keys.has(code):
+			_held_keys.erase(code)
+			if code==KEY_SHIFT: precision_held=false
+			get_viewport().set_input_as_handled();return
+		if active and handle_input(event): get_viewport().set_input_as_handled()
+	elif active and (event is InputEventMouseButton or (event is InputEventMouseMotion and event.relative!=Vector2.ZERO)):
+		keyboard_mode=false
+		demolition.keyboard_mode=false
+
+func _camera_direction(axis: Vector2) -> Vector3:
+	var right:=camera.global_basis.x;right.y=0.0
+	var forward:=-camera.global_basis.z;forward.y=0.0
+	if forward.length_squared()<0.001: forward=Vector3.FORWARD
+	if right.length_squared()<0.001: right=Vector3.RIGHT
+	return (right.normalized()*axis.x-forward.normalized()*axis.y).normalized()
+
+func _seed_keyboard_cursor() -> void:
+	if keyboard_cursor.is_finite(): return
+	var state: Dictionary=actor_state.call() if actor_state.is_valid() else {}
+	var at: Vector3=state.get("position",Catalog.ORIGIN)
+	keyboard_cursor=at+_camera_direction(Vector2.UP)*(3.0 if _afloat() else 1.5)
+	keyboard_cursor.y=Catalog.ORIGIN.y+float(build_level)*Catalog.LAYER_HEIGHT
+
+func _cycle_keyboard_target(offset: int) -> void:
+	keyboard_mode=true;demolition.keyboard_mode=true
+	var rows: Array=_rows_cache.duplicate()
+	var state: Dictionary=actor_state.call() if actor_state.is_valid() else {}
+	var at: Vector3=state.get("position",Catalog.ORIGIN)
+	rows.sort_custom(func(a: Dictionary,b: Dictionary):
+		var da: float=world.position_for(a).distance_squared_to(at)
+		var db: float=world.position_for(b).distance_squared_to(at)
+		return str(a.id)<str(b.id) if is_equal_approx(da,db) else da<db)
+	if rows.is_empty(): keyboard_target_id="";return
+	var index: int=-1
+	for i in rows.size():
+		if str(rows[i].id)==keyboard_target_id: index=i;break
+	keyboard_target_id=str(rows[posmod(index+offset,rows.size())].id)
+
+func _refresh_current_preview() -> void:
+	update_preview(Vector2.ZERO if keyboard_mode else get_viewport().get_mouse_position())
+
+## 两种输入只调用这一个提交入口，规则、接近、扣费和退款仍归原请求通道。
+func submit_preview(screen: Vector2=Vector2.INF) -> void:
+	if not active or book.visible or demolition.confirmation_open() or not pending.is_empty(): return
+	var frame:=Engine.get_process_frames()
+	if _submit_frame==frame: return
+	_submit_frame=frame
+	_preview_cache.clear()
+	if screen.is_finite(): update_preview(screen)
+	else: _refresh_current_preview()
+	if preview.is_empty():
+		hud.toast("请选择自建物件；原有平台和固定设施不能拆回或搬移")
+		return
+	if recipe=="move" and moving_id=="":
+		if float(preview.left)>0: hud.toast("施工完成后才能搬移")
+		elif not Catalog.RECIPES[preview.kind].get("movable",false): hud.toast("此构件不能搬移，请先安全拆回再重新建造")
+		else:
+			moving_id=preview.id;turn=int(preview.turn)
+			build_level=Catalog.elevation(preview)/Catalog.LAYER_HEIGHT;manual_level=true
+			keyboard_cursor=world.position_for(preview);preview={};_preview_cache.clear();_refresh_ghosts()
+	elif recipe=="move": _request_action(preview,"move",moving_id)
+	elif recipe=="remove":
+		var reason:=_preview_reason(preview,"remove",hovered_id)
+		if reason!="": hud.toast(reason)
+		else: demolition.ask(preview,Catalog.RECIPES[preview.kind].cost)
+	else: _request_build(preview)
+	_refresh_current_preview()
+
+func configure(model: RefCounted, projection: Node3D, camera_view: Camera3D, ui: CanvasLayer, items: Callable, cancel: Callable, stand: Callable = Callable(), approach: Callable = Callable(), actor: Callable = Callable()) -> void:
+	service=model; world=projection; camera=camera_view; hud=ui
 	inventory_query=items; cancel_actor=cancel; stand_point=stand; approach_point=approach; actor_state=actor
 	hud.owned_modal_query=func(): return active
 	hud.owned_modal_close=close; hud.owned_modal_input=handle_input
@@ -65,23 +156,14 @@ func configure(model: RefCounted, projection: Node3D, view: Camera3D, ui: Canvas
 	overlay=Control.new(); overlay.set_meta("cozy_skip",true)
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.mouse_filter=Control.MOUSE_FILTER_IGNORE; canvas.add_child(overlay)
-	book=preload("res://src/building/building_book.gd").new()
-	book.inventory_query=items; overlay.add_child(book); book.hide()
-	book.selected.connect(select_recipe); book.closed.connect(close)
-	demolition=preload("res://src/building/demolition_tool.gd").new();overlay.add_child(demolition)
-	demolition.requested.connect(open_demolition)
+	view=preload("res://src/building/ui/building_view.gd").new()
+	view.inventory_query=items;overlay.add_child(view)
+	view.action_requested.connect(_ui_action)
+	book=view.book;demolition=view.demolition
+	guide=view.guide;guide_title=view.guide_title;guide_back=view.guide_back;hint=view.hint
 	demolition.confirmed.connect(_confirm_demolition)
-	demolition.cancelled.connect(close)
+	demolition.cancelled.connect(show_book)
 	hud.owned_modal_camera_query=allows_camera
-	guide=Panel.new();guide.set_meta("cozy_skip",true);guide.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	var paper:=StyleBoxFlat.new();paper.bg_color=Color("#f4ecd7");paper.set_corner_radius_all(16)
-	paper.set_border_width_all(2);paper.border_color=Color("#b49a70")
-	guide.add_theme_stylebox_override("panel",paper);overlay.add_child(guide);guide.hide()
-	guide_title=book._label("",Vector2(18,10),23,guide)
-	guide_back=book._button("返回手册",Vector2.ZERO,Vector2(126,34),guide)
-	guide_back.pressed.connect(show_book)
-	hint=book._label("",Vector2(18,48),19,guide)
-	hint.mouse_filter=Control.MOUSE_FILTER_IGNORE;hint.hide()
 	selection_outline=MeshInstance3D.new();add_child(selection_outline);selection_outline.hide()
 	service.changed.connect(_layout_changed)
 	_cache_layout()
@@ -93,15 +175,18 @@ func open() -> void:
 	cancel_actor.call(); _clear_pending(); hud.close_card(); hud.set_external_modal(true,false)
 	active=true; recipe=""; moving_id=""; hovered_id=""
 	demolition.set_active(false);manual_level=false;_inherit_actor_level()
-	book.refresh(); book.show(); hint.hide();guide.hide();selection_outline.hide(); _clear_ghosts(); _place_book()
+	book.refresh(); book.show();_hint_text=""
+	selection_outline.hide();_clear_ghosts();_sync_view()
+	book.restore_focus()
 
 func close() -> void:
 	if not pending.is_empty(): cancel_actor.call()
 	active=false; recipe=""; preview={}; moving_id=""; hovered_id=""; precision_held=false
 	demolition.set_active(false)
 	book.hide(); hint.hide();guide.hide();selection_outline.hide(); _clear_ghosts(); hud.set_external_modal(false,false); _clear_pending()
+	_sync_view()
 	var focused:=get_viewport().gui_get_focus_owner()
-	if focused!=null and book.is_ancestor_of(focused): focused.release_focus()
+	if focused!=null and view.is_ancestor_of(focused): focused.release_focus()
 
 func select_recipe(kind: String) -> void:
 	var reason: String=service.context_reason()
@@ -111,7 +196,11 @@ func select_recipe(kind: String) -> void:
 	if not pending.is_empty(): cancel_actor.call()
 	_clear_pending(); moving_id=""; hovered_id=""; preview={}
 	demolition.set_active(kind=="remove")
-	recipe=kind; book.hide();guide.show(); hint.show(); _refresh_ghosts(); update_preview(get_viewport().get_mouse_position())
+	recipe=kind;book.hide();_hint_text=""
+	_sync_view()
+	_seed_keyboard_cursor();demolition.keyboard_mode=keyboard_mode
+	if keyboard_mode and kind in ["move","remove"]: _cycle_keyboard_target(1)
+	_refresh_ghosts();_refresh_current_preview()
 	var focused:=get_viewport().gui_get_focus_owner()
 	if focused!=null and book.is_ancestor_of(focused): focused.release_focus()
 
@@ -119,7 +208,9 @@ func show_book() -> void:
 	if not pending.is_empty(): cancel_actor.call()
 	_clear_pending(); moving_id=""; hovered_id=""; preview={}; recipe=""
 	demolition.set_active(false)
-	_clear_ghosts(); book.refresh(); book.show(); hint.hide();guide.hide();selection_outline.hide()
+	_clear_ghosts();book.refresh();book.show();selection_outline.hide()
+	_hint_text="";_sync_view()
+	book.restore_focus()
 
 func open_demolition() -> void:
 	if active and recipe=="remove": close();return
@@ -138,26 +229,45 @@ func _inherit_actor_level() -> void:
 	if not actor_state.is_valid(): return
 	var state: Dictionary=actor_state.call()
 	var point: Vector3=state.get("position",Catalog.ORIGIN)
-	if int(state.get("mode",0))==0: build_level=maxi(0,roundi((point.y-Catalog.ORIGIN.y)/Catalog.LAYER_HEIGHT))
-	else: build_level=0
+	var height:=maxf(0.0,point.y-Catalog.ORIGIN.y) if int(state.get("mode",0))==0 else 0.0
+	var nearest:=0.0;var distance:=INF
+	for level: float in Catalog.placement_levels(_rows_cache):
+		if absf(level-height)<distance: nearest=level;distance=absf(level-height)
+	build_level=nearest/Catalog.LAYER_HEIGHT
 
 func _cycle_level() -> void:
 	var levels: Array=Catalog.placement_levels(_rows_cache)
-	var current_height:=float(build_level)*Catalog.LAYER_HEIGHT
-	var index:=0
-	for i in levels.size():
-		if is_equal_approx(float(levels[i]),current_height): index=i;break
-	build_level=roundi(float(levels[(index+1)%levels.size()])/Catalog.LAYER_HEIGHT)
+	var current_height:=build_level*Catalog.LAYER_HEIGHT
+	var next:=float(levels[0])
+	for level: float in levels:
+		if level>current_height+0.001: next=level;break
+	build_level=next/Catalog.LAYER_HEIGHT
 	manual_level=true;_preview_cache.clear()
 
+func _ui_action(action: String) -> void:
+	if action=="exit": close();return
+	if demolition.confirmation_open(): return
+	match action:
+		"book": show_book()
+		"level": _cycle_level()
+		"auto": manual_level=false;_preview_cache.clear()
+		"snap": snap_assist=not snap_assist;_preview_cache.clear()
+		"rotate": turn=(turn+1)%4;_preview_cache.clear()
+		_: select_recipe(action)
+	if active and not book.visible: _refresh_current_preview()
+	_sync_view()
+
+func _sync_view() -> void:
+	var title:="家园营造"
+	if recipe=="remove": title="拆除模式 · 选择物件后确认"
+	elif recipe=="move": title="搬移模式 · "+("选择新位置" if moving_id!="" else "选择摆件")
+	elif recipe!="": title="建造 · "+str(Catalog.RECIPES[recipe].name)
+	var height:=float(preview.get("py",build_level*Catalog.LAYER_HEIGHT))
+	view.set_state({"active":active,"book_open":book.visible,"recipe":recipe,"title":title,
+		"height":height,"manual_level":manual_level,"snap_assist":snap_assist,"hint":_hint_text})
+
 func _place_book() -> void:
-	var viewport:=get_viewport().get_visible_rect().size
-	var fit:=minf(1.0,minf((viewport.x-48)/book.size.x,(viewport.y-80)/book.size.y))
-	book.scale=Vector2.ONE*fit; book.position=(viewport-book.size*fit)/2
-	guide.position=Vector2(28,22);guide.size=Vector2(minf(960,viewport.x-160),132)
-	guide_back.position=Vector2(guide.size.x-144,10)
-	hint.size=Vector2(guide.size.x-36,78)
-	hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	view.layout(get_viewport().get_visible_rect().size)
 
 func _layout_changed() -> void:
 	_revision+=1; _preview_cache.clear(); _cache_layout()
@@ -228,7 +338,8 @@ func _point(screen: Vector2) -> Vector3:
 	var kind:=str(service.row(moving_id).get("kind",recipe)) if moving_id!="" else recipe
 	var height:=float(build_level)*Catalog.LAYER_HEIGHT
 	if not manual_level:
-		height=Pointer.surface_height(screen,camera,_rows_cache,height,Catalog.is_platform(kind))
+		var stairs:=str(Catalog.RECIPES.get(kind,{}).get("profile",""))=="stairs"
+		height=Pointer.surface_height(screen,camera,_rows_cache,height,Catalog.is_platform(kind) or stairs)
 		if kind=="upper_floor" and height<.1:
 			var levels:=Catalog.placement_levels(_rows_cache)
 			if levels.size()>1: height=float(levels[-1])
@@ -236,7 +347,7 @@ func _point(screen: Vector2) -> Vector3:
 		if Catalog.is_kit(kind) and str(Catalog.RECIPES[kind].get("placement",""))=="top":
 			for item in _rows_cache:
 				if item.left>0 or str(Catalog.RECIPES[item.kind].get("profile","")) not in ["post","wall","window","door","beam"]: continue
-				var top:=Catalog.elevation(item)+float(Catalog.RECIPES[item.kind].height)
+				var top:=Catalog.elevation(item)+Catalog.component_height(item)
 				var probe:=Pointer.plane_point(screen,camera,top)
 				if probe.is_finite() and Catalog.footprint_rect(item).grow(1.0).has_point(Vector2(probe.x-Catalog.ORIGIN.x,probe.z-Catalog.ORIGIN.z)):
 					height=top-(float(Catalog.RECIPES[kind].height) if kind=="beam" else 0.0);break
@@ -258,7 +369,11 @@ func _furnishing_request(local: Vector2,height: float=NAN) -> Dictionary:
 	var kind:=str(service.row(moving_id).get("kind","planter")) if moving_id!="" else recipe
 	var request: Dictionary={"kind":kind,"x":0,"z":0,"px":snappedf(local.x,step),"pz":snappedf(local.y,step),
 		"py":height if is_finite(height) else float(build_level)*Catalog.LAYER_HEIGHT,"turn":turn,"support":"","snap_step":step,"origin":"boat" if _afloat() else "shore"}
-	if moving_id!="": request.exclude_id=moving_id
+	if moving_id!="":
+		var original: Dictionary=service.row(moving_id)
+		original.merge(request,true);request=original;request.exclude_id=moving_id
+	if str(Catalog.RECIPES.get(kind,{}).get("profile",""))=="stairs":
+		return Catalog.snap_stairs(request,_rows_cache,snap_assist and not precision_held and step>=0.1)
 	# All components use the same free surface placement. No forced metre grid.
 	# Nearby structural endpoints are an optional alignment aid.
 	if snap_assist and not precision_held and Catalog.is_frame(kind):
@@ -284,15 +399,15 @@ func _furnishing_request(local: Vector2,height: float=NAN) -> Dictionary:
 func _item_at(local: Vector2,only_furnishing:=false) -> Dictionary:
 	var deck: Dictionary={}
 	for item in _rows_cache:
-		if _is_furnishing(item.kind) and absf(Catalog.elevation(item)-build_level*2.8)<0.5 and Catalog.plot_rect(item).has_point(local): return item
+		if _is_furnishing(item.kind) and absf(Catalog.elevation(item)-build_level*Catalog.LAYER_HEIGHT)<0.5 and Catalog.plot_rect(item).has_point(local): return item
 		if not only_furnishing and Catalog.is_deck(str(item.kind)) and Catalog.footprint_rect(item).has_point(local): deck=item
 	return deck
 
 func _selection_box(item: Dictionary) -> AABB:
 	var rect:=Catalog.footprint_rect(item)
 	var platform:=Catalog.is_deck(str(item.kind))
-	var bottom: float=Catalog.ORIGIN.y+Catalog.elevation(item)-(0.5 if platform else 0.0)
-	var height: float=0.53 if platform else float(Catalog.RECIPES[item.kind].get("height",0.35))
+	var height:=Catalog.component_height(item)
+	var bottom: float=Catalog.ORIGIN.y+Catalog.elevation(item)-(height if platform else 0.0)
 	return AABB(Vector3(rect.position.x+Catalog.ORIGIN.x,bottom,rect.position.y+Catalog.ORIGIN.z),Vector3(rect.size.x,maxf(height,.15),rect.size.y))
 
 ## Select the visible volume, including walls, lamps and upper-floor pieces.
@@ -393,12 +508,20 @@ func update_preview(screen: Vector2) -> void:
 	preview={}; hovered_id=""
 	if demolition.confirmation_open(): return
 	var selecting: bool=recipe=="remove" or (recipe=="move" and moving_id=="")
-	var point: Vector3=Catalog.ORIGIN if selecting else _point(screen)
+	_seed_keyboard_cursor()
+	if keyboard_mode:
+		keyboard_cursor.y=Catalog.ORIGIN.y+build_level*Catalog.LAYER_HEIGHT
+		if not selecting and not manual_level:
+			var surface:=_point(camera.unproject_position(keyboard_cursor))
+			if surface.is_finite(): keyboard_cursor.y=surface.y
+	var point: Vector3=Catalog.ORIGIN if selecting else (keyboard_cursor if keyboard_mode else _point(screen))
 	if not point.is_finite(): return
 	var local:=Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)
 	var operation:="build"; var reason:=""
-	if Catalog.is_kit(recipe) and Catalog.is_deck(recipe):
+	if Catalog.is_platform(recipe) and recipe!="deck":
 		preview=Catalog.snap_foundation(recipe,local,turn,_rows_cache,_afloat(),point.y-Catalog.ORIGIN.y,0.01 if precision_held else 0.1,snap_assist)
+		# 新平台与旧板共用船上独立起点资格；吸附位置不拥有施工来源。
+		preview.origin="boat" if _afloat() else "shore"
 	elif recipe=="deck":
 		preview=Catalog.snap_deck(local,_rows_cache,_afloat(),point.y-Catalog.ORIGIN.y,0.01 if precision_held else 0.1,snap_assist,turn)
 		preview.origin="boat" if _afloat() else "shore"
@@ -406,89 +529,101 @@ func update_preview(screen: Vector2) -> void:
 	elif recipe=="move":
 		operation="move"
 		if moving_id=="":
-			preview=_item_under_cursor(screen); hovered_id=str(preview.get("id",""))
-			reason="将鼠标移到自建摆件，左键选取，再左键选择新位置"
+			preview=service.row(keyboard_target_id) if keyboard_mode else _item_under_cursor(screen); hovered_id=str(preview.get("id",""))
+			reason=""
 			if not preview.is_empty():
-				reason="点击选取，再选择新位置" if Catalog.RECIPES[preview.kind].get("movable",false) else "此构件不能搬移，请先安全拆回再重新建造"
+				if float(preview.left)>0: reason="施工完成后才能搬移"
+				elif not Catalog.RECIPES[preview.kind].get("movable",false): reason="此构件不能搬移，请先安全拆回再重新建造"
 		else: preview=_furnishing_request(local,point.y-Catalog.ORIGIN.y)
 	elif recipe=="remove":
-		operation="remove"; preview=_item_under_cursor(screen); hovered_id=str(preview.get("id",""))
-		if preview.is_empty(): reason="将鼠标移到自建木板、浮台或摆件，左键拆回并返还材料"
+		operation="remove"; preview=service.row(keyboard_target_id) if keyboard_mode else _item_under_cursor(screen); hovered_id=str(preview.get("id",""))
+		if preview.is_empty(): reason=""
 	if not preview.is_empty() and not (recipe=="move" and moving_id==""):
 		reason=_preview_reason(preview,operation,moving_id if operation=="move" else hovered_id)
-	var label:="点击施工"
-	if operation=="move": label="点击放到新位置 · 不消耗材料"
-	elif operation=="remove": label="点击选择 · 确认后拆除并返还材料"
-	if reason!="": label=reason
 	var context_reason: String=service.context_reason()
-	if context_reason!="": label=context_reason+"；请先关闭手册前往自建平台，或乘船靠近"
-	if not preview.is_empty() and operation in ["move","remove"]: label=str(Catalog.RECIPES[preview.kind].name)+" · "+label
-	var controls:="R 旋转 · Shift 精细摆放 · 右键 手册 · Esc 退出"
-	if recipe=="deck": controls="可持续扩建，也可乘船在空海面新建 · 右键 手册 · Esc 退出"
-	elif recipe=="move" and moving_id!="": controls="R 旋转 · Shift 精细摆放 · Esc 取消选取"
-	elif recipe=="remove": controls="先收获作物、搬走承载物、离开待拆木板 · 右键返回手册 · Esc退出"
-	elif recipe=="move": controls="保留作物和生长状态 · 平台与固定设施不能搬移 · 右键返回手册 · Esc退出"
-	guide_title.text="拆除模式 · 左键选择物件" if recipe=="remove" else ("搬移模式 · "+("选择新位置" if moving_id!="" else "选择摆件") if recipe=="move" else "建造模式")
-	if recipe=="remove":
-		hint.text=label+"\n左键选取 → 是 / 否确认 · 右键手册 · Esc退出 · 中键旋转 / 滚轮缩放"
-	else: hint.text=label+"\n"+controls+" · U选层 / H自动 · G吸附"+("开" if snap_assist else "关")+" · 中键旋转 / 滚轮缩放"
-	if operation in ["move","remove"] and moving_id=="": _highlight(preview,reason!="" and not reason.begins_with("点击选取"))
+	_hint_text=reason
+	if context_reason!="": _hint_text=context_reason+"；请先关闭手册前往自建平台，或乘船靠近"
+	_sync_view()
+	if operation in ["move","remove"] and moving_id=="": _highlight(preview,reason!="" and not reason.begins_with("点击选取") and not reason.begins_with("Enter / E 选取"))
 	else: _highlight({},false)
 	for entry in candidate_ghosts:
 		entry.node.visible=recipe=="deck" and Catalog.same_level(Catalog.elevation(preview),0.0) and moving_id==""
 		_color(entry.node,bool(entry.get("invalid",false)),false)
 	if not preview.is_empty() and (operation=="build" or (operation=="move" and moving_id!="")):
 		var ghost:=_ghost(str(preview.kind));ghost.show();ghost.position=world.position_for(preview)
-		ghost.rotation.y=int(preview.get("turn",0))*PI/2;_color(ghost,reason!="",true)
+		ghost.rotation.y=int(preview.get("turn",0))*PI/2
+		if str(Catalog.RECIPES[preview.kind].get("profile",""))=="stairs":
+			ghost.scale.y=Catalog.stair_rise(preview)/float(Catalog.RECIPES[preview.kind].height)
+		_color(ghost,reason!="",true)
 	elif focus_ghost!=null: focus_ghost.hide()
 	if recipe=="remove": demolition.set_target(preview,reason)
 
 func handle_input(event: InputEvent) -> bool:
 	if not active: return false
-	if demolition.handle_input(event): return true
+	if event.get_meta(INPUT_HANDLED_META,false): return true
+	event.set_meta(INPUT_HANDLED_META,true)
 	if event is InputEventKey:
-		if event.physical_keycode in [KEY_F5,KEY_F9]: return false
-		if event.physical_keycode==KEY_SHIFT:
-			precision_held=event.pressed; _preview_cache.clear()
-			if not book.visible: update_preview(get_viewport().get_mouse_position())
+		var code: int=event.physical_keycode if event.physical_keycode else event.keycode
+		if code in [KEY_F5,KEY_F9]: return false
+		if event.pressed: _held_keys[code]=true
+		if code==KEY_SHIFT:
+			precision_held=event.pressed;_preview_cache.clear()
+			if not book.visible: _refresh_current_preview()
 			return true
-		if not event.pressed or event.echo: return false
-		if event.physical_keycode==KEY_ESCAPE:
-			if moving_id!="":
-				if not pending.is_empty(): cancel_actor.call()
-				_clear_pending(); moving_id=""; preview={}; _preview_cache.clear()
-			else: close()
-		elif event.physical_keycode==KEY_R: turn=(turn+1)%4; _preview_cache.clear()
-		elif event.physical_keycode==KEY_U: _cycle_level()
-		elif event.physical_keycode==KEY_G: snap_assist=not snap_assist;_preview_cache.clear()
-		elif event.physical_keycode==KEY_H: manual_level=false;_preview_cache.clear()
-		elif event.physical_keycode==KEY_M: select_recipe("move")
-		elif event.physical_keycode==KEY_DELETE: select_recipe("remove")
-		else: return false
-		return true
+		if not event.pressed or event.echo: return true
+		if demolition.confirmation_open():
+			if code==KEY_ESCAPE:
+				demolition.dismiss();_sync_view();return true
+			if _submit_frame==Engine.get_process_frames(): return true
+			_submit_frame=Engine.get_process_frames()
+			demolition.handle_input(event);_sync_view();return true
+		if code==KEY_ESCAPE:
+			if not pending.is_empty():
+				cancel_actor.call();_clear_pending();_refresh_current_preview()
+			elif moving_id!="":
+				moving_id="";preview={};_preview_cache.clear();_refresh_current_preview()
+			elif book.visible: close()
+			else: show_book()
+		elif code==KEY_M:
+			keyboard_mode=true;select_recipe("move")
+		elif code==KEY_DELETE:
+			keyboard_mode=true;select_recipe("remove")
+		elif book.visible:
+			keyboard_mode=true;_submit_frame=Engine.get_process_frames();book.handle_key(event)
+		elif code in [KEY_ENTER,KEY_KP_ENTER,KEY_E]: submit_preview()
+		elif code in [KEY_LEFT,KEY_A,KEY_RIGHT,KEY_D,KEY_UP,KEY_W,KEY_DOWN,KEY_S,KEY_TAB]:
+			if not pending.is_empty(): return true
+			if recipe=="remove" or (recipe=="move" and moving_id==""):
+				_cycle_keyboard_target(-1 if code in [KEY_LEFT,KEY_A,KEY_UP,KEY_W] or (code==KEY_TAB and event.shift_pressed) else 1)
+			elif code!=KEY_TAB:
+				if not keyboard_mode and not preview.is_empty(): keyboard_cursor=world.position_for(preview)
+				keyboard_mode=true;demolition.keyboard_mode=true;_seed_keyboard_cursor()
+				var axis:=Vector2.ZERO
+				if code in [KEY_LEFT,KEY_A]: axis=Vector2.LEFT
+				elif code in [KEY_RIGHT,KEY_D]: axis=Vector2.RIGHT
+				elif code in [KEY_UP,KEY_W]: axis=Vector2.UP
+				else: axis=Vector2.DOWN
+				keyboard_cursor+=_camera_direction(axis)*(0.01 if precision_held or event.shift_pressed else 0.1)
+			_preview_cache.clear();_refresh_current_preview()
+		elif code==KEY_R: _ui_action("rotate")
+		elif code==KEY_U: _ui_action("level")
+		elif code==KEY_G: _ui_action("snap")
+		elif code==KEY_H: _ui_action("auto")
+		_sync_view();return true
+	if demolition.handle_input(event): return true
+	if event is InputEventMouseMotion:
+		if event.relative!=Vector2.ZERO: keyboard_mode=false;demolition.keyboard_mode=false
+		return false
 	if event is InputEventMouseButton:
-		if book.visible: return false
+		keyboard_mode=false;demolition.keyboard_mode=false
+		if view.is_ui_point(event.position): return true
 		if event.button_index==MOUSE_BUTTON_RIGHT:
 			if event.pressed: show_book()
 			return true
 		if event.button_index!=MOUSE_BUTTON_LEFT: return false
 		if event.pressed:
-			if (guide.visible and guide.get_global_rect().has_point(event.position)) or demolition.is_ui_point(event.position): return true
 			precision_held=event.shift_pressed or Input.is_physical_key_pressed(KEY_SHIFT)
-			_preview_cache.clear(); update_preview(event.position)
-			if not preview.is_empty():
-				if recipe=="move" and moving_id=="":
-					if float(preview.left)>0: hud.toast("施工完成后才能搬移")
-					elif not Catalog.RECIPES[preview.kind].get("movable",false): hud.toast("此构件不能搬移，请先安全拆回再重新建造")
-					else:
-						moving_id=preview.id;turn=int(preview.turn);build_level=roundi(Catalog.elevation(preview)/Catalog.LAYER_HEIGHT);manual_level=true;preview={};_preview_cache.clear();_refresh_ghosts()
-				elif recipe=="move": _request_action(preview,"move",moving_id)
-				elif recipe=="remove":
-					var reason:=_preview_reason(preview,"remove",hovered_id)
-					if reason!="": hud.toast(reason)
-					else: demolition.ask(preview,Catalog.RECIPES[preview.kind].cost)
-				else: _request_build(preview)
-			elif recipe in ["move","remove"]: hud.toast("请点击自建物件；原有平台和固定设施不能拆回或搬移")
+			submit_preview(event.position)
 		return true
 	return false
 
@@ -511,7 +646,7 @@ func _request_action(request: Dictionary,operation: String,id: String) -> void:
 	pending=action; pending_stand=stand
 	var distance: float=Vector2(at.x-stand.x,at.z-stand.z).length() if at.is_finite() else 0.0
 	pending_left=maxf(WAIT_LIMIT,distance/1.5+8.0); pending_age=0.0; preview=request.duplicate(true)
-	hint.text="先到施工位置，停稳后开始\nEsc 取消"
+	_hint_text="施工中：正在接近施工位置";_sync_view()
 
 func _begin_now(request: Dictionary) -> void:
 	var operation:=str(request.get("_operation","build")); var id:=str(request.get("_target_id",""))
@@ -544,18 +679,7 @@ func tick(delta: float) -> void:
 		elif pending.is_empty():
 			_frontier_refresh_left-=delta
 			if recipe=="deck" and _frontier_refresh_left<=0: _refresh_ghosts()
-			update_preview(get_viewport().get_mouse_position())
-		else: hint.text="先到施工位置，停稳后开始\nEsc 取消"
-	var live:={}
-	for working_id in _working_ids:
-		var item: Dictionary=service.row(working_id)
-		if item.is_empty() or item.left<=0: continue
-		live[item.id]=true
-		if not progress.has(item.id):
-			var bar:=ThinBar.new(); bar.configure(ThinBar.BUILD_WIDTH,ThinBar.BUILD_HEIGHT,ThinBar.BUILD_FILL,ThinBar.BUILD_TRACK)
-			overlay.add_child(bar); progress[item.id]=bar
-		var point: Vector3=world.position_for(item)+Vector3.UP*0.8
-		var bar: ThinBar=progress[item.id]; bar.visible=not camera.is_position_behind(point)
-		bar.place_at(camera.unproject_position(point),12.0); bar.set_ratio(1.0-float(item.left)/float(Catalog.RECIPES[item.kind].seconds))
-	for id in progress.keys():
-		if not live.has(id): progress[id].queue_free(); progress.erase(id)
+			_refresh_current_preview()
+		else: _hint_text="施工中：正在接近施工位置";_sync_view()
+	progress_presenter.sync(_working_ids,service,world,camera,overlay)
+	progress=progress_presenter.progress

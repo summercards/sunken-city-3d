@@ -36,7 +36,19 @@ func run() -> void:
 				"world_bounds": {"min": vec(box.position), "size": vec(box.size), "max": vec(box.end)},
 				"basis_lengths": [xf.basis.x.length(), xf.basis.y.length(), xf.basis.z.length()],
 				"basis": [vec(xf.basis.x), vec(xf.basis.y), vec(xf.basis.z)]})
-	var report := {"schema": "sea.building.runtime_reference", "engine": Engine.get_version_info(),
+	# 真正跨资源守卫：阳光屋的现场几何变了，DIY层高不能悄悄留在旧常量。
+	var lower:=NAN
+	var upper:=NAN
+	for row: Dictionary in rows:
+		if row.component=="house": lower=float(row.world_bounds.min[1])
+		if row.component=="terrace": upper=float(row.world_bounds.max[1])
+	var measured_rise:=upper-lower
+	var expected_rise: float=preload("res://src/building/building_catalog.gd").LAYER_HEIGHT
+	var failures:=0
+	if not is_finite(measured_rise) or absf(measured_rise-expected_rise)>0.002:
+		failures+=1
+		printerr("FAIL sunroom actual rise differs from DIY catalog: ",measured_rise," vs ",expected_rise)
+	var report := {"measured_storey_rise":measured_rise,"catalog_storey_rise":expected_rise,"tolerance":0.002,"failures":failures,"schema": "sea.building.runtime_reference", "engine": Engine.get_version_info(),
 		"facility": "solar_cabin", "scene": "res://scenes/facilities/solar_cabin.tscn",
 		"instance_data": "res://assets/models/facilities/solar_cabin/instances.json",
 		"instance_data_sha256": FileAccess.get_sha256("res://assets/models/facilities/solar_cabin/instances.json"),
@@ -44,7 +56,7 @@ func run() -> void:
 	var file := FileAccess.open("res://outputs/building-scale-reference.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(report, "  "))
 	file.close()
-	print("[building-scale-reference] ", rows.size(), " rows, 0 failures")
+	print("[building-scale-reference] ", rows.size(), " rows, ",failures," failures")
 	main.queue_free()
 	await process_frame
-	quit(0 if rows.size() > 20 else 1)
+	quit(0 if rows.size() > 20 and failures==0 else 1)

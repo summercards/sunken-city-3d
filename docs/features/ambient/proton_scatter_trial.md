@@ -35,3 +35,7 @@ python3 -X utf8 scripts/run_verification.py visual-proton-scatter visual-proton-
 所有运行通过统一runner隔离用户数据。第一次成功实拍在正式主场景中完成，之后的最终可复现测试使用正式天台及相机/灯光设置组成独立视效台，避免加载并行编辑中的沉没街景。`capture_proton_scatter.gd`输出当前v003对照、上游原色、绿色适配、近景/远景、原生风动帧、真实插件点位和可编辑修改器预设；`test_proton_preview.gd`重开保存后的场景验证11542实例。独立视效台不代替Main海面合成或全世界集成验收。源配置在`art_source/vegetation/proton_scatter_trial/v001/`。
 
 试刷使用上游TIME风动，尚未替换正式系统的暂停/显隐时钟契约；此项与跨设备性能、素材发行审查一起保留为正式采用时的接入工作，不把本轮预览冒充全部生产验收。当前试刷原生结果、性能与退出码见[交付记录](../../development/2026-11-05_proton_scatter_trial.md)。
+
+## 设施移动后的试刷
+
+打开 `godot/scenes/vegetation_authoring/proton_rooftop_preview.tscn` 并按 F6。预览中的 `RooftopRanch` 同时持有 `NativeScatter` 和预览相机，移动或旋转设施时，生成的草和灌木及相机随它移动。编辑散布形状和修改器时继续使用 `rooftop_scatter_authoring.tscn`。正式主场景的草皮和草堆入口见[手动编辑说明](vegetation_meadow.md#在-godot-里手动摆放)。

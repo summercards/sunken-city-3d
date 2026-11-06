@@ -6,8 +6,9 @@
 [node name="ProtonRooftopPreview" type="Node3D"]
 script = ExtResource("stage")
 [node name="RooftopRanch" parent="." instance=ExtResource("roof")]
-[node name="NativeScatter" parent="." instance=ExtResource("scatter")]
-position = Vector3(0, 4.13, 0)
+[node name="NativeScatter" parent="RooftopRanch" instance=ExtResource("scatter")]
+position = Vector3(0, 60.05, 0)
+metadata/visual_only = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("environment")
 [node name="Sun" type="DirectionalLight3D" parent="."]
@@ -18,7 +19,7 @@ light_energy = 0.54
 rotation_degrees = Vector3(-25, 130, 0)
 light_color = Color(0.65, 0.87, 0.84, 1)
 light_energy = 0.12
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="RooftopRanch"]
 position = Vector3(-19, 62, 71)
 fov = 35.0
 far = 200.0

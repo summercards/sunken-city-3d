@@ -29,18 +29,19 @@ static func surface_height(screen: Vector2,camera: Camera3D,rows: Array,fallback
 				var near:=origin.distance_squared_to(point)
 				if near<distance: distance=near;result=height
 		elif platform and str(Catalog.RECIPES[row.kind].get("profile",""))=="stairs":
-			var box:=AABB(Catalog.ORIGIN+Vector3(rect.position.x,height,rect.position.y),Vector3(rect.size.x,Catalog.LAYER_HEIGHT,rect.size.y))
+			var rise:=Catalog.stair_rise(row)
+			var box:=AABB(Catalog.ORIGIN+Vector3(rect.position.x,height,rect.position.y),Vector3(rect.size.x,rise,rect.size.y))
 			var hit: Variant=box.intersects_ray(origin,direction)
 			if hit is Vector3:
 				var near:=origin.distance_squared_to(hit)
-				if near<distance: distance=near;result=height+Catalog.LAYER_HEIGHT
-			var upper:=plane_point(screen,camera,height+Catalog.LAYER_HEIGHT)
+				if near<distance: distance=near;result=height+rise
+			var upper:=plane_point(screen,camera,height+rise)
 			if upper.is_finite():
 				var edge:=Catalog.stairs_top_edge(row)
 				var tip: Vector2=(edge[0]+edge[1])/2
 				if Vector2(upper.x-Catalog.ORIGIN.x,upper.z-Catalog.ORIGIN.z).distance_to(tip)<1.8:
 					var near:=origin.distance_squared_to(upper)
-					if near<distance: distance=near;result=height+Catalog.LAYER_HEIGHT
+					if near<distance: distance=near;result=height+rise
 	return result
 
 static func mesh_hit(origin: Vector3,direction: Vector3,root_node: Node3D,cache: Dictionary) -> float:

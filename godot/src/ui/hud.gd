@@ -94,6 +94,12 @@ var _zoom: Label
 var _zoom_left := 0.0
 var _toast_tag: Label
 var _note_tick:=0.0
+var _activation_frame := -1
+var _panel_keys := {}
+var _panel_feedback: Label
+var _map_buttons: Array[Button] = []
+var _map_zone_id := ""
+var _map_scroll_pending := false
 
 func _ready() -> void:
 	layer = 60
@@ -111,6 +117,8 @@ func _ready() -> void:
 	_root.add_child(_backdrop);_backdrop.hide()
 	_panel = Card.new();_panel.font = _font;_panel.feedback_enabled = OXYGEN_FEEDBACK_ENABLED
 	_root.add_child(_panel);_panel.hide();_tab_body = _panel.body
+	_tab_body.resized.connect(func():
+		if _panel_open and _tab=="map": _map_scroll_pending=true)
 	_panel.activated.connect(_activate)
 	_panel.page_changed.connect(func(_page): _tab = "manual")
 	pockets = preload("res://src/ui/pocket_inventory.gd").new()
@@ -119,6 +127,7 @@ func _ready() -> void:
 	_root.add_child(pockets);pockets.hide()
 	pockets.manual_requested.connect(func(): open_tab("manual"))
 	pockets.item_command.connect(_pocket_command)
+	pockets.sort_requested.connect(_service_sort)
 	services=preload("res://src/ui/pocket_service.gd").new()
 	services.font=_font;services.query=_service_snapshot
 	_root.add_child(services);services.hide()
@@ -168,6 +177,8 @@ func _ready() -> void:
 	# 外层**故意用普通 Control 而不是 HBoxContainer**：Godot 的 Container 在
 	# `fit_child_in_rect` 里会把子节点旋转归零，放进 HBox 的按钮永远摆不正那 6° 的歪。
 	# 只有一枚按钮，不需要容器排版；`_hints` 这个名字保留，既有布局/显隐调用不用改。
+	_panel_feedback=_label("",22,Cozy.INK);_panel_feedback.add_theme_stylebox_override("normal",Cozy.surface(Cozy.CREAM,18))
+	_panel_feedback.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;_panel_feedback.size=Vector2(800,64);_root.add_child(_panel_feedback);_panel_feedback.hide()
 	_hints = Control.new();_root.add_child(_hints)
 	_hints.custom_minimum_size = Vector2(CloseButton.DIAMETER,CloseButton.DIAMETER)
 	var close := CloseButton.new();close.position = Vector2.ZERO
@@ -177,7 +188,7 @@ func _ready() -> void:
 	command_buttons.close = close;_hints.add_child(close);_hints.hide()
 	_room_exit = preload("res://src/ui/launcher_icon.gd").new()
 	_room_exit.kind = "exit"
-	_room_exit.tooltip_text = "离开房间"
+	_room_exit.tooltip_text = "离开房间 · X"
 	_root.add_child(_room_exit)
 	_room_exit.hide()
 	_room_exit.pressed.connect(func(): command_requested.emit("room_exit"))
@@ -252,6 +263,8 @@ func _layout() -> void:
 	# 仍落在边距里，不会被屏幕裁掉。普通 Control 不会自己撑开 size，这里显式给。
 	_hints.size=Vector2(CloseButton.DIAMETER,CloseButton.DIAMETER)
 	_hints.position=Vector2(_root.size.x-CloseButton.DIAMETER-34,_root.size.y-CloseButton.DIAMETER-30)
+	_panel_feedback.size.x=minf(800,_root.size.x-240)
+	_panel_feedback.position=Vector2(32,_root.size.y-90)
 	# 房间里的「出门」钮：和右下角圆钮同一行，贴在它左边 12px。
 	if _room_exit != null:
 		_room_exit.scale = corner.actions.scale
@@ -323,6 +336,8 @@ func close_card() -> void:
 
 func back() -> void:
 	if world_actions.is_open(): world_actions.close();return
+	if corner != null and corner.expanded:
+		corner.set_expanded(false);return
 	if not _panel_open: return
 	if _pocket_mode:
 		if not pockets.back(): close_card()
@@ -334,6 +349,7 @@ func back() -> void:
 		else: close_card()
 		return
 	if notebook.visible:
+		if notebook.back(): return
 		if not _history.is_empty(): _tab=_history.pop_back();_refresh_panel();_layout()
 		else: close_card()
 		return
@@ -357,6 +373,7 @@ func open_tab(tab: String) -> void:
 func _toggle_panel() -> void:
 	corner.set_expanded(false)
 	_panel_open = not _panel_open
+	_panel_feedback.visible=_panel_open
 	if _open_tween: _open_tween.kill()
 	_panel.visible = _panel_open
 	pockets.hide()
@@ -414,6 +431,7 @@ func _refresh_panel() -> void:
 		return
 	if _tab == "manual":
 		_panel.show_grid(1);return
+	_map_buttons.clear()
 	for node in _tab_body.get_children():
 		_tab_body.remove_child(node);node.queue_free()
 	_build_rows.clear();_plant_rows.clear()
@@ -432,13 +450,19 @@ func _refresh_panel() -> void:
 		"map":
 			_panel.show_detail("海风带你去哪里？")
 			var atlas := preload("res://src/ui/island_atlas.gd").new();atlas.font=_font;atlas.zones=zones;atlas.game_state=game_state;atlas.player_query=player_query;_tab_body.add_child(atlas)
-			_tab_body.add_child(_label("橙点是你现在的位置 · 太阳房是家园，随时可以回去。",16,DIM))
+			_tab_body.add_child(_label("橙点是你现在的位置",16,DIM))
 			for entry in DESTINATIONS:
 				if not Scope.zone_enabled(entry.id): continue
 				var unlocked: bool=zones.is_unlocked(entry.id)
 				var button := _plain_button(entry.name + ("   ·   已在这里" if entry.id == game_state.current_zone else "   →") if unlocked else entry.name+"   ·   需要升级小船")
 				button.disabled=not unlocked or _diving;_tab_body.add_child(button)
-				button.pressed.connect(func(): _toggle_panel();destination_pressed.emit(entry.id))
+				button.set_meta("zone_id",str(entry.id));_map_buttons.append(button)
+				button.focus_entered.connect(func():
+					_map_zone_id=str(button.get_meta("zone_id"));_map_scroll_pending=true;_scroll_map_focus.call_deferred())
+				button.pressed.connect(func():
+					if button.disabled or not _panel_open or _tab!="map": return
+					_map_zone_id=str(button.get_meta("zone_id"))
+					_toggle_panel();destination_pressed.emit(_map_zone_id))
 		_:
 			_panel.show_detail(ItemDBLib.label(_tab))
 			var art := _item_tile(_tab,economy.count(_tab));art.mouse_filter=Control.MOUSE_FILTER_IGNORE;art.size_flags_horizontal=Control.SIZE_SHRINK_CENTER;_tab_body.add_child(art)
@@ -469,6 +493,43 @@ func _refresh_panel() -> void:
 				_tab_body.add_child(_label("在码头订单中交付，换取瓶盖。",14,DIM))
 	_style_details(_tab_body)
 	_layout()
+	if _tab=="map" and _panel_open: _restore_map_focus.call_deferred()
+
+func _restore_map_focus() -> void:
+	if not _panel_open or _tab!="map": return
+	var fallback: Button
+	for button in _map_buttons:
+		if button.disabled: continue
+		if fallback==null: fallback=button
+		if str(button.get_meta("zone_id"))==_map_zone_id:
+			button.grab_focus();_scroll_map_focus();return
+	if _map_zone_id=="":
+		for button in _map_buttons:
+			if not button.disabled and str(button.get_meta("zone_id"))==game_state.current_zone: fallback=button;break
+	if fallback!=null:
+		fallback.grab_focus();_scroll_map_focus()
+	else: _panel_feedback.text="当前没有可前往的目的地 · Esc 返回"
+
+func _scroll_map_focus() -> void:
+	if not _panel_open or _tab!="map": return
+	var focused:=get_viewport().gui_get_focus_owner()
+	if focused in _map_buttons:
+		# 卡片是普通 Control，没人向详情容器查询最小尺寸；显式刷新其内容范围后再排版。
+		_panel.detail.get_minimum_size()
+		_panel.detail.queue_sort()
+		_panel.detail.ensure_control_visible(focused)
+		# 重建首帧容器尚未更新滚动范围；保留待办直至布局完成且整个按钮可见。
+		_map_scroll_pending=not _panel.detail.get_global_rect().grow(1).encloses(focused.get_global_rect())
+
+func _move_map_focus(step: int) -> void:
+	var enabled: Array[Button]=[]
+	for button in _map_buttons:
+		if not button.disabled: enabled.append(button)
+	if enabled.is_empty(): return
+	var index:=enabled.find(get_viewport().gui_get_focus_owner())
+	if index<0: _restore_map_focus();return
+	enabled[posmod(index+step,enabled.size())].grab_focus()
+	_scroll_map_focus()
 
 func _crop_sale_ids() -> Array:
 	var ids: Array = []
@@ -493,28 +554,40 @@ func _activate(id: String) -> void:
 			dive_pressed.emit()
 		_: open_tab(id)
 
+func _activate_button(button: Button) -> void:
+	if not is_instance_valid(button) or not button.is_visible_in_tree() or button.disabled: return
+	var frame:=Engine.get_process_frames()
+	if _activation_frame==frame: return
+	_activation_frame=frame
+	button.pressed.emit()
+
 func _activate_selection() -> void:
+	var frame:=Engine.get_process_frames()
+	if _activation_frame==frame: return
+	_activation_frame=frame
 	if notebook.visible:
-		var focused:=get_viewport().gui_get_focus_owner()
-		if focused is Button and notebook.is_ancestor_of(focused) and not focused.disabled: focused.pressed.emit()
-		return
+		notebook.activate_focused();return
 	if _service_mode and _panel_open:
 		if services.action_closing: return
 		if services.actions.visible:
 			var focused:=get_viewport().gui_get_focus_owner()
-			if focused is Button and services.actions.is_ancestor_of(focused): focused.pressed.emit()
+			if focused is Button and services.actions.is_ancestor_of(focused) and not focused.disabled: focused.pressed.emit()
 		else: services.show_actions()
 		return
 	if _pocket_mode and _panel_open:
 		if pockets.actions.visible:
 			var focused:=get_viewport().gui_get_focus_owner()
-			if focused is Button and pockets.actions.is_ancestor_of(focused): focused.pressed.emit()
+			if focused is Button and pockets.actions.is_ancestor_of(focused) and not focused.disabled: focused.pressed.emit()
 		else: pockets.show_actions()
 		return
 	if _external_modal:
 		var focus:=get_viewport().gui_get_focus_owner()
 		if focus is Button and focus.is_visible_in_tree() and not focus.disabled and not _hints.is_ancestor_of(focus):
 			focus.pressed.emit()
+		return
+	if _tab=="map" and _panel.detail.visible:
+		var focused:=get_viewport().gui_get_focus_owner()
+		if focused is Button and focused in _map_buttons and not focused.disabled: focused.pressed.emit()
 		return
 	if _panel.detail.visible or _panel.turning: return
 	for tile in _panel.tiles.values():
@@ -523,23 +596,73 @@ func _activate_selection() -> void:
 
 func _input(event: InputEvent) -> void:
 	if narrative_active(): return
+	if not visible: return
 	if menu and menu.active: return
 	if owned_modal_query.is_valid() and owned_modal_query.call(): return
-	if not event is InputEventKey or not event.pressed or event.echo: return
+	if not event is InputEventKey: return
 	var key: int = event.physical_keycode if event.physical_keycode else event.keycode
+	if not event.pressed:
+		if _panel_open or _panel_keys.has(key) or key in [KEY_ESCAPE,KEY_B,KEY_TAB,KEY_N]:
+			_panel_keys.erase(key);get_viewport().set_input_as_handled()
+		return
+	if not _panel_open and (_panel_keys.has(key) or (_activation_frame==Engine.get_process_frames() and key in [KEY_ENTER,KEY_KP_ENTER,KEY_E,KEY_SPACE])):
+		_panel_keys[key]=true;get_viewport().set_input_as_handled();return
 	if _panel_open:
-		if key == KEY_ESCAPE: return
-		if key in [KEY_B,KEY_TAB]: _toggle_panel()
-		elif notebook.visible and key in [KEY_LEFT,KEY_RIGHT]: notebook.turn_page(-1 if key==KEY_LEFT else 1)
-		elif notebook.visible and key in [KEY_ENTER,KEY_SPACE]: _activate_selection()
-		elif _service_mode and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]: services.move_selection({KEY_LEFT:-1,KEY_RIGHT:1,KEY_UP:-8,KEY_DOWN:8}[key])
-		elif _service_mode and key in [KEY_ENTER,KEY_SPACE]: _activate_selection()
-		elif _pocket_mode and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]: pockets.move_selection({KEY_LEFT:-1,KEY_RIGHT:1,KEY_UP:-8,KEY_DOWN:8}[key])
-		elif _pocket_mode and key in [KEY_ENTER,KEY_SPACE]: _activate_selection()
+		get_viewport().set_input_as_handled()
+		if event.echo or _panel_keys.has(key): return
+		_panel_keys[key]=true
+		if key == KEY_ESCAPE:
+			back()
+		elif _tab=="map" and key in [KEY_TAB,KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]:
+			_move_map_focus(-1 if key in [KEY_LEFT,KEY_UP] or (key==KEY_TAB and event.shift_pressed) else 1)
+		elif _tab=="map" and key in [KEY_ENTER,KEY_KP_ENTER,KEY_E,KEY_SPACE]:
+			_activate_selection()
+		elif key in [KEY_B,KEY_TAB]:
+			_toggle_panel()
+		elif event.shift_pressed and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN] and (_pocket_mode or _service_mode):
+			var step: int={KEY_LEFT:-1,KEY_RIGHT:1,KEY_UP:-8,KEY_DOWN:8}[key]
+			var reason: String=pockets.keyboard_sort(step) if _pocket_mode else services.keyboard_sort(step)
+			if reason!="": _panel_feedback.text=reason
+		elif _service_mode and services.actions.visible and key in [KEY_LEFT,KEY_RIGHT]:
+			if services.is_buying():
+				if key==KEY_LEFT: services.adjust_buy_amount(-1)
+				else: services.adjust_buy_amount(1)
+			else: services.move_action_selection(-1 if key==KEY_LEFT else 1)
+		elif _service_mode and services.actions.visible and key >= KEY_0 and key <= KEY_9:
+			var action_index:=key-KEY_1
+			var actions: Array[Button]=services.action_buttons()
+			if services.is_buying(): actions=[services.buy_button()]
+			if action_index>=0 and action_index<actions.size() and not services.action_closing: _activate_button(actions[action_index])
+		elif _service_mode and key in [KEY_PAGEUP,KEY_PAGEDOWN]:
+			if not services.actions.visible: services.turn(services.selected_pool,-1 if key==KEY_PAGEUP else 1)
+		elif _service_mode and services.actions.visible and key in [KEY_UP,KEY_DOWN]:
+			services.move_action_selection(-1 if key==KEY_UP else 1)
+		elif _service_mode and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]:
+			services.move_selection({KEY_LEFT:-1,KEY_RIGHT:1,KEY_UP:-8,KEY_DOWN:8}[key])
+		elif _service_mode and key in [KEY_ENTER,KEY_KP_ENTER,KEY_E,KEY_SPACE]:
+			_activate_selection()
+		elif _pocket_mode and pockets.actions.visible and key >= KEY_0 and key <= KEY_9:
+			var action_index:=key-KEY_1
+			var actions: Array[Button]=pockets.action_buttons()
+			if action_index>=0 and action_index<actions.size(): _activate_button(actions[action_index])
+		elif _pocket_mode and pockets.actions.visible and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]:
+			pockets.move_action_selection(-1 if key in [KEY_LEFT,KEY_UP] else 1)
+		elif _pocket_mode and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]:
+			pockets.move_selection({KEY_LEFT:-1,KEY_RIGHT:1,KEY_UP:-8,KEY_DOWN:8}[key])
+		elif _pocket_mode and key in [KEY_ENTER,KEY_KP_ENTER,KEY_E,KEY_SPACE]:
+			_activate_selection()
+		elif key==KEY_N:
+			open_tab("notes")
+		elif notebook.visible and key in [KEY_PAGEUP,KEY_PAGEDOWN]:
+			notebook.turn_page(-1 if key==KEY_PAGEUP else 1)
+		elif notebook.visible and key in [KEY_LEFT,KEY_RIGHT,KEY_UP,KEY_DOWN]:
+			notebook.move_selection({KEY_LEFT:-1,KEY_RIGHT:1,KEY_UP:-3,KEY_DOWN:3}[key])
+		elif notebook.visible and key in [KEY_ENTER,KEY_KP_ENTER,KEY_E,KEY_SPACE]:
+			_activate_selection()
 		elif key in [KEY_LEFT,KEY_RIGHT] and not _panel.detail.visible: _panel.flip(1-_panel.page)
 		elif key == KEY_UP and not _panel.detail.visible and not notebook.visible: _panel.move_selection(-1)
 		elif key == KEY_DOWN and not _panel.detail.visible and not notebook.visible: _panel.move_selection(1)
-		elif key in [KEY_ENTER,KEY_SPACE] and not _panel.detail.visible: _activate_selection()
+		elif key in [KEY_ENTER,KEY_KP_ENTER,KEY_E,KEY_SPACE] and not _panel.detail.visible: _activate_selection()
 		elif key in [KEY_C,KEY_P]:
 			command_requested.emit("camera" if key == KEY_C else "grade")
 		elif key in [KEY_F5,KEY_F9]:
@@ -547,10 +670,11 @@ func _input(event: InputEvent) -> void:
 			else: menu.show_menu("load")
 		else: return
 		get_viewport().set_input_as_handled()
-	elif key==KEY_N:
-		command_requested.emit("notes");get_viewport().set_input_as_handled()
-	elif key in [KEY_B,KEY_TAB]:
-		command_requested.emit("bag");get_viewport().set_input_as_handled()
+	elif key in [KEY_N,KEY_B,KEY_TAB]:
+		get_viewport().set_input_as_handled()
+		if event.echo or _panel_keys.has(key): return
+		_panel_keys[key]=true
+		command_requested.emit("notes" if key==KEY_N else "bag")
 
 func toast(text: String, seconds := 2.4) -> void:
 	if menu and menu.active:
@@ -611,7 +735,9 @@ func _refresh() -> void:
 
 func _process(delta: float) -> void:
 	if _root.size != _layout_size: _layout()
+	if _map_scroll_pending and _panel_open and _tab=="map": _scroll_map_focus()
 	corner.status.visible=not _panel_open and not _external_modal and not menu.active and not _diving
+	_panel_feedback.visible=_panel_open and not menu.active and not _external_modal
 	corner.place(_root.size)
 	if notebook.visible:
 		_note_tick+=delta
@@ -742,9 +868,12 @@ func _refresh_plant() -> void:
 func _farm_action(action: Callable) -> void:
 	if game_state.mode != game_state.Mode.ASHORE:
 		toast("请先上岸使用补给服务")
+		if _panel_open: _panel_feedback.text="请先上岸使用补给服务"
 		return
 	var result: Dictionary = action.call()
-	toast(str(result.get("blocked",result.get("message","已完成"))))
+	var feedback:=str(result.get("blocked",result.get("message",result.get("reason","已完成"))))
+	toast(feedback)
+	if _panel_open: _panel_feedback.text=feedback
 	_refresh_panel()
 
 
@@ -1005,8 +1134,12 @@ func _service_sort(from_id: String, to_id: String) -> void:
 		moved = economy.inventory.move_to_end(from_id)
 	else:
 		moved = economy.inventory.move_item(from_id, to_id)
-	if not moved: return
-	services.refresh(_tab)
+	if not moved:
+		_panel_feedback.text="位置未改变"
+		return
+	if _pocket_mode: pockets.refresh()
+	elif _service_mode: services.refresh(_tab)
+	_panel_feedback.text="已整理 %s%s · 焦点跟随物品" % [ItemDBLib.label(from_id),"到末尾" if to_id=="" else "，与%s换位" % ItemDBLib.label(to_id)]
 
 
 func _service_command(id: String, action: String, amount: int) -> void:

@@ -8,7 +8,7 @@
 
 [主文档](../../../GDD_V1.0.md#sea-building) · [设计](spec.md)
 
-**2026-11-02最新交付：状态implemented（已实现待完整验收）。** 用户最新要求已覆盖旧基础层/四角柱限制：梯顶可直接接普通木板和浮台并续建，上层可放结构、种植与家具；增加自由摆位和可关吸附、独立锤子拆除按钮及是/否确认。上轮6项审计反例已修复，保留历史报告以便追溯。[本轮交付与边界](../../development/2026-11-02_building_surface_and_demolition.md) · [机器记录](../../development/2026-11-02_building_surface_and_demolition_verification.json)。未宣称触屏/手柄或任意规模与层数完整验收。
+**2026-11-06当前口径：状态implemented（已实现待完整验收）。** r5统一横向平台5×5m，墙/梁跨度5m，竖向与阳光小屋实测层高5.086335m；楼梯宽1.5m×水平进深5m，共27级、每级爬升H/27，H为recipe总爬升且不重复scale，支持同层无间隙并排与首尾连续。`building_kit_5m.json`使定义总数为35、菜单可见22项；旧deck/12旧结构定义ID尺寸坐标与旧py2.8数据保留，根v4不加必填schema。四个建筑UI文件归`godot/src/building/ui`且UID保持，新增view/progress_presenter集中表现，锤子不在模式外常驻。本范围R30–R33最终专项已签署通过；触摸/手柄、低端GPU、任意规模与层数仍未覆盖，登记头保持implemented（已实现待完整验收）。[本轮开发记录](../../development/2026-11-06_building_5m_and_ui.md)。
 
 ```json
 {
@@ -17,7 +17,10 @@
   "owner": "BuildingService / BuildingWorld / BuildingController",
   "code_paths": [
     "godot/src/building",
+    "godot/src/building/ui",
+    "godot/src/navigation/ground_space.gd",
     "godot/assets/data/building_kit.json",
+    "godot/assets/data/building_kit_5m.json",
     "godot/scenes/buildables/kit",
     "godot/assets/models/building_kit",
     "godot/assets/materials/building_kit"
@@ -53,7 +56,15 @@
     "building-perf",
     "building-surfaces",
     "visual-building-surfaces",
-    "building-demolition"
+    "building-demolition",
+    "building-5m-rules",
+    "building-5m-experience",
+    "visual-building-5m-experience",
+    "building-ui-unified",
+    "visual-building-ui-unified",
+    "keyboard-building",
+    "visual-keyboard-building",
+    "building-scale-reference"
   ]
 }
 ```
@@ -89,6 +100,11 @@
 | SEA-BUILDING-R27 | 已实现；四种平台梯顶续建，同高度承载/上层墙栏杆种植家具；5.6米继续衍生有纯规则证据 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
 | SEA-BUILDING-R28 | 已实现；自由0.1/0.01米、G辅助吸附、U/H选层、搬移虚影、实际镜头滚轮与确认锁定通过 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
 | SEA-BUILDING-R29 | 已实现；专用锤子按钮/指针、悬停轮廓、默认否、是/否鼠标与Esc层级，取消无修改、确认仅退款一次 | [本轮交付](../../development/2026-11-02_building_surface_and_demolition.md) |
+| SEA-BUILDING-R30 | 已实现并最终专项通过；新增10件后35 definitions、菜单22项；平台5×5m、墙梁5m、门洞1.85×3.1m；楼梯1.5m宽×5m水平进深，不是5×5m宽；小家具/培养土保持各自recipe尺寸，旧定义兼容保留 | `building-5m-rules`446/0、`building-5m-experience`589/0；签署报告`D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json` |
+| SEA-BUILDING-R31 | 已实现并最终专项通过；recipe总爬升H只应用一次，实际底/顶高支持2.8m+5.086335m混合平面；楼梯同层无间隙并排、首尾连续及安全校验通过 | `building-5m-rules`446/0、`building-5m-experience`589/0、`visual-building-5m-experience`597/0；同签署报告 |
+| SEA-BUILDING-R32 | 已实现并最终专项通过；集中Toolbar按钮无键名、无常驻按键教程，保留失败灰因/选择轮廓、材料确认与安全细节、返回链；锤子仅模块内显示 | `building-ui-unified`66/0、`visual-building-ui-unified`66/0、`keyboard-building`40/0；同签署报告及[UI账本](../ui/ledger.md) |
+
+`code_paths`中的`godot/src/navigation/ground_space.gd`仅登记建筑坡面通行的适配依赖，不转移导航所有权；GroundSpace仍只拥有派生碰撞/导航，不拥有建造布局。签署报告确认`ground-space`37/0、`character-space-save`10/0、`building-surfaces`80/0、`building-open-rules`122/0、`building-perf`239/0、`building-decoupling`62/0、`building-restart`11/0、`building-open-restart`8/0、`save-protection`通过，均来自`D:/projects/sea-work/verification/20261106-211435-building-5m-final-816d34/report.json`及日志。坡脚sharedpoint与胶囊接触法线修复已确认，不放宽WalkAction。
 
 2026-11-02 R02/R06/R22补验：玩家副本25实例及作物恢复，旧自由浮台可继续接木板；新显式坐标木板与旧网格混合存读、三维点选拆回各39项/0失败。R11/R12真实鼠标29项、卡片108项、65实例跨进程70+8项及原有拼装/通行回归全部退出0，非预期引擎错误0。[本轮交付与过程失败](../../development/2026-11-02_building_save_compatibility.md)。
 
@@ -213,3 +229,21 @@ R13的实际登陆边、航行/登岸/返船和存档格式保留，改动仅是
 `building-decoupling` 62项0失败：内容指纹可检测、查询返回副本、不依赖`Economy`/`GameState`/`Zones`/`res://tests/`、每条配方经公开API可解析、全部字符串式`load`路径有效。
 
 完整评估见[解耦审计](../../development/2026-10-31_building_decoupling_audit.md)。
+
+## 2026-11-06 键盘建造与无教程表现
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-BUILDING-R33 | 已实现并验收该键盘链：K入口、可见卡首焦点、方向与分页、相机相对游标0.1/0.01米、原通道单次提交扣料、鼠标/键盘切换、搬移保留作物、拆除默认否/安全拒绝与仅退款一次。操作无常驻教程，保留轮廓、业务状态、受阻原因及安全确认。 | `keyboard-building`最终222059 release-signed报告40/0、exit0；既有`visual-keyboard-building`43/0、exit0真实渲染证据保留，见[全键盘交付](../../development/2026-11-06_keyboard_complete.md)。R30/R31几何及多层专项另由本任务signed报告验收，不以键盘检查代签任意组合或发行包。 |
+
+## 2026-11-06 五米建筑最终签署
+
+最终报告：`D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json`。13项均`passed=true`、`exit_code=0`、`completion_marker=true`、`unexpected_errors=[]`；前12专项合计2965 checks/0 failures，另1项几何守卫按rows独立记录：`building-5m-rules`446/0、`building-5m-experience`589/0、`visual-building-5m-experience`597/0、`building-ui-unified`66/0、`visual-building-ui-unified`66/0、`keyboard-building`40/0、`kit-safety`94/0、`building-kit`221/0、`building-save-compat`37/0、`building-integration`56/0、`keyboard-farm-loop`606/0、`minimum-loop`147/0；`building-scale-reference`62 rows/0 failures，实测5.08633422851563m对目录5.086335m、容差0.002m，PASS且exit0，不并入checks合计。真实渲染在RTX4060Ti/Forward+执行；最新机器汇总`visual_review.source_directory`已指向222059副本`project/outputs`，主线程目检四图为`building-5m-ui.png`、`building-5m-parallel-preview.png`、`building-5m-confirm.png`、`building-5m-overview.png`。20个代码文件与新副本完全一致；最新机器汇总44项`signed_source_comparison`均`matches_signed=true`，本段记录该主线程核对结果，非本轮重新运行比较脚本。
+
+release新增修复：Controller生成新5m平台preview时与旧deck同样传递`origin=boat/shore`，避免船上独立起点确认误拒；岸上隔空起板仍拒绝，取消预览不收费。`building-integration`从53增为56，覆盖新增3条船上/岸上预览路径。213331先签报告`D:/projects/sea-work/verification/20261106-213331-building-5m-signed-e9ca1f/report.json`的12项2962/0保留为历史，本次最终签署已由222059替代。
+
+补充报告`D:/projects/sea-work/verification/20261106-211435-building-5m-final-816d34/report.json`的通过项：`ground-space`37/0、`character-space-save`10/0、`building-surfaces`80/0、`building-open-rules`122/0、`building-perf`239/0、`building-decoupling`62/0、`building-seed`5/0+`building-restart`11/0、`building-open-seed`70/0+`building-open-restart`8/0；`save-protection`exit0，实际日志`ok=true protected=true unchanged=true separate=true`，不虚构checks数。
+
+P1高空孤台/循环支撑存档绕过已在Service按rooted支撑修复：无支持的新旧高空布局均拒绝，地面历史孤立布局合法；GroundSpace坡脚sharedpoint及胶囊法线修复4.7cm stuck，不放宽WalkAction。未修改main场景手摆、阳光小屋位置尺寸或玩家真实存档。
+
+过程失败保留：211435中`kit-safety`94/7、`building-kit`141/8已由signed94/0、221/0收口；同旧报告`farming`35/2仍是13地格/3床（含已移除圆弧农场）的历史fixture残留，不修改业务凑通过，也不由键盘农场606/0掩盖。最终已执行全局sync与无参检查，分别4/5问题：水下派生视图、动物源、水材质、并行Main哈希及派生索引；本功能条款/路径/哈希无残留，不批量接纳其他改动。架构17服务0问题、diff检查0。触摸/手柄、低端GPU、任意规模层数未验，因此feature仍implemented（已实现待完整验收），R30–R33本范围已通过。[任务交付](../../development/2026-11-06_building_5m_and_ui.md)；[机器汇总](../../development/2026-11-06_building_5m_verification.json)已绑定最新release-signed，13项全PASS，其中12专项2965 checks/0 failures，另几何守卫62 rows/0 failures。

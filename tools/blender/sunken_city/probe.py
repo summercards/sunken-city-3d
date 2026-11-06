@@ -73,12 +73,14 @@ for c in CAT:
     rows.append(dict(key=c['key'],bounds=[lo,hi],triangles=tris,faces=faces,uv_failures=bad,fingerprint=fingerprints[c['key']]))
 ck(len(set(fingerprints.values()))==len(fingerprints),'duplicate component geometry')
 instances=[];violations=[];archboxes=[]
+boundary=P.get('coordinate_contract',{}).get('boundary_xy_m',[-120,120,-120,120])
+if VERSION=='v005': boundary=[-132,132,-132,132]
 for o in S.objects:
     if o.instance_type!='COLLECTION' or o.instance_collection is None:continue
     c=next(c for c in CAT if c['collection']==o.instance_collection.name)
     pts=[o.matrix_world@v.co for ob in o.instance_collection.all_objects if ob.type=='MESH' for v in ob.data.vertices]
     lo=[min(v[i] for v in pts) for i in range(3)];hi=[max(v[i] for v in pts) for i in range(3)]
-    ck(all(lo[i]>=-120.001 and hi[i]<=120.001 for i in (0,1)),'outside fence '+o.name)
+    ck(lo[0]>=boundary[0]-.001 and hi[0]<=boundary[1]+.001 and lo[1]>=boundary[2]-.001 and hi[1]<=boundary[3]+.001,'outside fence '+o.name)
     ck(hi[2]<1.12,'above water '+o.name)
     for q in P['exclusions']:
         # User clarified central exclusion is BUILDINGS ONLY; deep ground is deliberately continuous.

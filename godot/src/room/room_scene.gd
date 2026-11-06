@@ -161,15 +161,36 @@ func is_active() -> bool:
 ## 进房间时的默认机位。玩家之后可以右键拖动绕房间转、滚轮拉近拉远
 ## （见 `OrbitCam.orbit_only`），这里只定「一进来看到什么」。
 ##
-## 距离 14.4 米、视点偏 +Z（0.55）：5×5 米的房间在 31° FOV 下，
-## 镜头再近一点四角就顶到画面边缘、前厅地板被切掉一半；视点若钉在房间正中，
-## 门前那块地板同样会被下缘切断，读起来像房间悬空。距离上下限 8–24 留两头手感。
+## 视点与距离都按**建模尺寸**给，再乘整间房的 scale —— 房间放大时构图自动跟着走，
+## 不会因为改了 scale 就变成「镜头贴脸」。
+##
+## 视点偏 +Z 0.55：5×5 米的房间在 31° FOV 下，视点若钉在正中，
+## 门前那块地板会被画面上缘切断，读起来像房间悬空。
+const CAMERA_TARGET_LOCAL := Vector3(0.0, 0.70, 0.55)
+const CAMERA_DISTANCE := 14.4
+const CAMERA_DIR := Vector3(0.06, 0.72, 0.69)
+const CAMERA_ZOOM_MIN := 8.0
+const CAMERA_ZOOM_MAX := 24.0
+
+
 func camera_pose() -> Dictionary:
 	return {
-		"target": to_global(Vector3(0.0, 0.70, 0.55)),
-		"distance": 14.4,
-		"dir": Vector3(0.06, 0.72, 0.69).normalized(),
+		"target": to_global(CAMERA_TARGET_LOCAL),
+		"distance": CAMERA_DISTANCE * uniform_scale(),
+		"dir": CAMERA_DIR.normalized(),
 	}
+
+
+## 房间的整体缩放（bedroom.tscn 里是 1.5，配合角色 SCALE）。
+## 相机距离、缩放区间这类**世界米**都要乘它。
+func uniform_scale() -> float:
+	return scale.x
+
+
+## 室内环绕缩放区间（世界米）。默认值按建模尺寸给，乘 scale 后使用。
+func orbit_zoom_range() -> Vector2:
+	var s := uniform_scale()
+	return Vector2(CAMERA_ZOOM_MIN * s, CAMERA_ZOOM_MAX * s)
 
 
 func entry_position() -> Vector3:

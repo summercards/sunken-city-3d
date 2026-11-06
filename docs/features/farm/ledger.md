@@ -18,6 +18,10 @@
     "godot/scenes/props/farm_cell.tscn"
   ],
   "verification": [
+    "keyboard-farm-loop",
+    "visual-keyboard-farm-loop",
+    "keyboard-travel",
+    "keyboard-panels",
     "visual-corner-notebook",
     "farming",
     "management",
@@ -135,3 +139,16 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 | SEA-FARM-R14 | 已实现；`advance_to_day(calendar_day)` 为唯一换天入口并带 `grow_day` 水位线，醒来即生长、07:00 不重复、缺水停长、读档与旧档均不重长（23 项 0 失败） | [本轮交付](../../development/2026-11-01_farm_day_change.md) |
 
 修订说明：本条取代 R02/R11 中「07:00 生长」的时机表述 —— 生长改为在睡觉醒来那一刻发生，07:00 只保留出货结算。R02 的「只推进一次已浇水作物」「缺水只停长」两件事不变，只是时刻提前。
+
+## 2026-11-06 默认种植区全键盘闭环
+
+登记头 `status: partial` 保持；默认键盘种植专项及四项旧契约适配回归已通过；主线程keyboard-final-contracts最终合批待附，不影响已接受结果。证据根为 `D:/projects/sea-work/verification/`。
+
+| 对应设计条款 | 当前实施状态 | 实测证据 |
+|---|---|---|
+| SEA-FARM-R15 | 近距循环、选中目标E优先、成熟也先开菜单、二级返回与防连发专项通过 | `20261106-200446-keyboard-release-regression-eae88a/report.json`：keyboard-farm-loop606/0、travel374/0，均exit0、passed=true |
+| SEA-FARM-R16 | 原命令播种/照料/三次床铺换天/收获/再播种、拒绝与成功一次表现专项通过 | 同一headless报告farm606/0；`20261106-194828-keyboard-visual-travel-final-09cca9/report.json`：visual-keyboard-farm-loop617/0、exit0、真实1280×800；9张唯一截图，本轮画面目视审阅4张确认无底部条/键位教程 |
+
+同批回归 initial-planters247/0、walk-on-planters53/0、farm-day-change23/0通过。minimum-loop141/10（scene harvest及库存/仓储/出货连锁断言）、harvest-receive80/1（旧E直接收获预期）、dock-seed21/1（旧二级标题预期）、interaction-reach35/1（旧角标预期）均exit1，作为本轮过程失败保留，不标范围外。新菜单/无角标契约适配后，`20261106-201957-keyboard-contract-regression-888baa/report.json`：minimum-loop147/0、harvest-receive92/0、dock-seed22/0、interaction-reach35/0，四项均exit0、passed=true、completion_marker=true、unexpected_errors空；已收口，不再pending。主线程keyboard-final-contracts包含面板及旧pocket回归的最终批次待附。
+
+旅行旧轮374/0但负Rect导致runner FAIL的过程保留；`.abs()`修复后194828与200446两份report均travel374/0、exit0、passed=true。夹具边界、截图清单与完整路径见[总交付](../../development/2026-11-06_keyboard_complete.md)。建造40/0与visual43/0仅引用[building设计](../building/spec.md)/[账本](../building/ledger.md)，未改其文档；不外推全部作物/DIY布局/full-world与设备验收。

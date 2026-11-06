@@ -87,7 +87,7 @@ func interact(_actor: Node3D) -> Dictionary:
 	var farm = farm_model
 	if farm == null:
 		return {"blocked": "种植系统未就绪"}
-	if use_action_menu and farm.phase(plot_id) != "ready":
+	if use_action_menu:
 		interaction_requested.emit(plot_id)
 		return {"event":"options"}
 	return perform("harvest" if farm.phase(plot_id)=="ready" else ("plant" if farm.is_empty(plot_id) else "water"),farm.selected_crop)

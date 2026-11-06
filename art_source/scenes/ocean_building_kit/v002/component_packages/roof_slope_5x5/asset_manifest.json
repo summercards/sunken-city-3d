@@ -1,0 +1,88 @@
+{
+  "id": "roof_slope_5x5",
+  "name": "5×5米斜面屋顶",
+  "asset_id": "SEA-KIT-ROOF-SLOPE-5X5",
+  "component_family": "roof",
+  "profile": "roof",
+  "footprint": [
+    5,
+    5
+  ],
+  "height": 1.25,
+  "source_origin": "bottom_center",
+  "wood": 8,
+  "seconds": 4.2,
+  "collection": "SEA-KIT-ROOF-SLOPE-5X5",
+  "source_collection": "制作_5×5米斜面屋顶",
+  "root_object": "roof_slope_5x5_ROOT",
+  "source_blend": "art_source/scenes/ocean_building_kit/v002/building_kit.blend",
+  "component_blend": "component_packages/roof_slope_5x5/roof_slope_5x5.blend",
+  "bounds": {
+    "min": [
+      -2.5,
+      -2.5,
+      0.0
+    ],
+    "max": [
+      2.5,
+      2.5,
+      1.25
+    ]
+  },
+  "triangles": 1880,
+  "material_roles_used": [
+    "Matte"
+  ],
+  "front_axis": "-Z",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "collision_owner": "sea_building_space_projection",
+  "exported": true,
+  "runtime_integrated": true,
+  "bounds_size_m": [
+    5,
+    5,
+    1.25
+  ],
+  "asset_version": "v002",
+  "building_class": "above_water",
+  "units": "meters",
+  "source_scale": [
+    1,
+    1,
+    1
+  ],
+  "palette": "art_source/shared/palettes/sea_cozy_8x8_512.png",
+  "palette_uv_layer": "PaletteUV",
+  "material_roles": [
+    "Matte",
+    "Metal",
+    "Gloss",
+    "Emission"
+  ],
+  "dependencies": [
+    "art_source/shared/palettes/sea_cozy_8x8_512.png"
+  ],
+  "exported_glb": "godot/assets/models/building_kit/roof_slope_5x5/roof_slope_5x5.glb",
+  "prefab": "godot/scenes/buildables/kit/roof_slope_5x5.tscn",
+  "source_sha256": "5c89f0c2034e44a811a54f2f7aa7e227eab96533b810e7eb3c1878c44b6fb0d3",
+  "component_sha256": "219c5dbcd02a824f828225501f11768c9afa9247fb2a8d23d0c8459c94b8b37c",
+  "glb_sha256": "6b85cbaa9fc2407e5b9feedd849fedc244efca84986041d0d4849c03d3b6c549",
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-KIT-ROOF-SLOPE-5X5",
+  "stage": "runtime_integrated_verified",
+  "source": "art_source/scenes/ocean_building_kit/v002/component_packages/roof_slope_5x5/roof_slope_5x5.blend",
+  "registered_source_sha256": "219c5dbcd02a824f828225501f11768c9afa9247fb2a8d23d0c8459c94b8b37c",
+  "runtime_path": "godot/assets/models/building_kit/roof_slope_5x5/roof_slope_5x5.glb",
+  "runtime_sha256": "6b85cbaa9fc2407e5b9feedd849fedc244efca84986041d0d4849c03d3b6c549",
+  "verification": "docs/development/2026-11-06_building_5m_and_ui.md",
+  "runtime_verification": {
+    "status": "passed",
+    "owner": "main_agent",
+    "report": "D:\\projects\\sea\\docs\\development\\2026-11-06_building_5m_verification.json",
+    "verification": "docs/development/2026-11-06_building_5m_and_ui.md"
+  }
+}

@@ -3,7 +3,7 @@ import bpy,hashlib,json,os
 from pathlib import Path
 from mathutils import Vector
 R=Path(__file__).resolve().parents[3];VERSION=os.environ.get('SEA_SUNKEN_VERSION','v003')
-if VERSION not in {'v003','v004'}:raise ValueError('SEA_SUNKEN_VERSION 只支持 v003 或 v004')
+if VERSION not in {'v003','v004','v005'}:raise ValueError('SEA_SUNKEN_VERSION 只支持 v003、v004 或 v005')
 D=R/'art_source/scenes/sunken_city'/VERSION;W=R.parent/'sea-work/sunken_city'/VERSION/'import';EXPORT_MANIFEST=D/'export'/VERSION/'export_manifest.json';MAIN=D/f'sunken_city_{VERSION}.blend';E=json.loads(EXPORT_MANIFEST.read_text(encoding='utf-8'));CAT=json.loads((D/'component_catalog.json').read_text(encoding='utf-8'))['components']
 assert bpy.app.background and E['passed'] and E['suite']=='sunken_city' and E['version']==VERSION
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()

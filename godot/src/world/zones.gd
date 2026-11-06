@@ -63,7 +63,7 @@ func footprint(zone_id: String) -> Rect2:
 	var first := true
 	for w in zone.get("walk", []):
 		for r in w.rects:
-			var rr := Rect2(r[0], r[2], r[1] - r[0], r[3] - r[2])
+			var rr := Rect2(r[0], r[2], r[1] - r[0], r[3] - r[2]).abs()
 			if first:
 				rect = rr
 				first = false

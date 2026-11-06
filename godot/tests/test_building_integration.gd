@@ -45,8 +45,17 @@ func run() -> void:
 	check(main.hud.corner.buttons.has("craft"),"menu eighth slot")
 	main.building_controller.open()
 	check(main.building_controller.book.visible,"construction book opens")
-	main.building_controller.select_recipe("deck")
+	main.building_controller.select_recipe("platform_5x5")
 	check(not main.building_controller.book.visible,"boat can select an ocean foundation")
+	main.building_controller.manual_level=true;main.building_controller.build_level=0.0
+	main.cam.suspend_follow();main.cam.global_position=Catalog.ORIGIN+Vector3(365,25,366)
+	main.cam.look_at(Catalog.ORIGIN+Vector3(350,0,350))
+	main.building_controller.update_preview(main.cam.unproject_position(Catalog.ORIGIN+Vector3(350,0,350)))
+	var sea_preview: Dictionary=main.building_controller.preview.duplicate(true)
+	check(sea_preview.get("origin","")=="boat" and main.building.can_place(sea_preview)=="","new 5m ocean preview carries boat eligibility, not merely a snapped position")
+	var shore_preview:=sea_preview.duplicate();shore_preview.origin="shore"
+	check(main.building.can_place(shore_preview)!="","same remote 5m platform remains forbidden from shore")
+	check(econ.count("wood")==40 and main.building.query().is_empty(),"ocean platform preview and cancellation do not charge or reserve")
 	main.building_controller.close()
 	main._debug_teleport("zone5")
 	var landing=main._zone_nodes.zone5.landing_point("main")
@@ -56,8 +65,9 @@ func run() -> void:
 		if c.x==3 and c.z==0 and main.building.can_place(c)=="": candidate=c;break
 	check(not candidate.is_empty(),"east extension offered")
 	if candidate.is_empty(): quit(1);return
-	main.building_controller.open();main.building_controller.select_recipe("deck")
-	check(not main.building_controller.book.visible and main.building_controller.candidate_ghosts.size()>0,"world ghosts")
+	main.building_controller.open();main.building_controller.select_recipe("platform_5x5")
+	main.building_controller.update_preview(main.cam.unproject_position(Catalog.ORIGIN+Vector3(0,0,-5.1)))
+	check(not main.building_controller.book.visible and main.building_controller.focus_ghost!=null and main.building_controller.focus_ghost.visible,"selected five-metre platform has world ghost")
 	var made: Dictionary=main.building.begin(candidate)
 	check(made.ok and econ.count("wood")==34,"start paid work")
 	main.building_controller.tick(1)

@@ -157,3 +157,6 @@ SnapshotRegistry.event_sources、is_restoring 与 restored；结构/语义坏档
 | 对应设计条款 | 当前实施状态 | 证据 |
 |---|---|---|
 | SEA-SAVE-R17 | 已接入，专项与回归以本轮记录为准 | `avatar / avatar-restart / onboarding / save-reset / save-protection`；[交付](../../development/2026-11-02_avatar_and_arrival.md) |
+| SEA-SAVE-R18 | 已实现并实测通过；根v4/building版本1和必填schema不变，旧档原数据保留且无需迁移，支持2.8m旧结构与5.086335m实际平面混合；校验失败不改现场、不覆盖有效备份、不重复收费 | `building-save-compat`37/0来自`D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json`；`save-protection`来自`D:/projects/sea-work/verification/20261106-211435-building-5m-final-816d34/report.json`，exit0且日志`ok=true protected=true unchanged=true separate=true`；[建筑5m与UI开发记录](../../development/2026-11-06_building_5m_and_ui.md) |
+
+2026-11-06 R18最终安全补记：Service以rooted支撑修复高空孤台/循环支撑save绕过；无支持的新旧高空布局均拒绝，地面历史孤立合法。根v4/building版本1、旧ID/尺寸/坐标/py原数据及失败不改现场原则保持，未修改玩家真实存档。`building-5m-rules`446/0、`building-5m-experience`589/0及`building-save-compat`37/0在222059 release-signed报告中均通过；211435中`character-space-save`10/0和`save-protection`通过补充恢复与保护证据。不因此宣称断电/所有平台文件系统已验收。

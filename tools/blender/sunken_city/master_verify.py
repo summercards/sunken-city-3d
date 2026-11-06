@@ -14,7 +14,9 @@ report=json.loads((W/'probe_report.json').read_text(encoding='utf-8'))
 assert report['passed'],report['errors']
 if VERSION=='v002':
     runpy.run_path(str(Path(__file__).with_name('verify_detail_v002.py')),run_name='__main__')
-if VERSION=='v003':
+if VERSION=='v005':
+    runpy.run_path(str(Path(__file__).with_name('check_terrain_v005.py')),run_name='__main__')
+elif VERSION in {'v003','v004'}:
     runpy.run_path(str(Path(__file__).with_name('check_terrain_v003.py')),run_name='__main__')
 seams=json.loads((W/'floor_seams.json').read_text(encoding='utf-8'));assert seams['passed'] and seams['tiles']==100 and seams['shared_edges']==180
 # Full source mesh validation in the master scene, including unused definition types.

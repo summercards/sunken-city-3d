@@ -4,7 +4,7 @@ extends SceneTree
 
 const MANIFEST := "res://assets/models/scenery/sunken_city/runtime_manifest.json"
 const OUTPUT := "res://outputs/sunken-city-"
-const RUNTIME_VERSION := "v004"
+const RUNTIME_VERSION := "v005"
 const WATER_Y := 1.12
 const SETTLE_FRAMES := 14
 const DEPTH_KEYS := ["depth_half_distance", "depth_distance", "absorption", "absorption_color", "deep_darkness", "caustics_depth_near", "caustics_depth_far", "night_depth_distance", "night_shallow_opacity"]
@@ -378,7 +378,7 @@ func run() -> void:
 	if city == null or water == null or camera == null:
 		await finish()
 		return
-	check(city.is_visible_in_tree() and city.get_child_count() == 388, "默认可见的 388 实例旧城")
+	check(city.is_visible_in_tree() and city.get_child_count() == 428, "默认可见的 428 实例旧城")
 	check(city.get_meta("building_class", "") == "underwater", "旧城仅水下观赏")
 	check(FileAccess.file_exists(MANIFEST), "runtime manifest 已生成")
 	var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(MANIFEST)) if FileAccess.file_exists(MANIFEST) else null

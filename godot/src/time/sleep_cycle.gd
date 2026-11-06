@@ -8,7 +8,8 @@ var prepare: Callable
 var return_home: Callable
 var busy := false
 ## 这一次是被体力逼着睡的（2026-11-01 SEA-ENERGY）。醒来时 Main 据此把
-## 今天的体力上限减半；正常入睡（23:00 自动或门口点击）保持 false。
+## 今天的体力上限减半；正常入睡（23:00 自动或床上点击，2026-11-05 起入口在室内
+## 床铺，此前的太阳房门口月亮检查点已删除）保持 false。
 var forced := false
 
 func advance(delta: float) -> void:

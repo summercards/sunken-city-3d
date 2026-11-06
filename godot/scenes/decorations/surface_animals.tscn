@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3]
 [ext_resource type="PackedScene" path="res://scenes/decorations/animals/fish_school.tscn" id="fish"]
 [ext_resource type="PackedScene" path="res://scenes/decorations/animals/whale.tscn" id="whale"]
+[ext_resource type="PackedScene" path="res://scenes/decorations/animals/solar_cabin_fish_schools.tscn" id="solar_fish"]
 [node name="SurfaceAnimals" type="Node3D"]
 metadata/visual_only = true
 [node name="HomeSchool" parent="." instance=ExtResource("fish")]
@@ -54,3 +55,5 @@ seed_value = 73
 position = Vector3(-3, -11.86, 28)
 dive_sway = 1.3
 instance_id = "surface/whale/01"
+
+[node name="SolarCabinFishSchools" parent="." instance=ExtResource("solar_fish")]

@@ -132,3 +132,16 @@ state/spec/crop_def/plot_specs/crop_definitions 深副本；debug_set_growth 仅
 ### 验收
 
 统一 runner 的 `farm-day-change`（23 项）：醒来那一帧 `remaining` 已减、湿度已清、状态文案已换、可见阶段已进；07:00 结算不重复；醒来立刻浇水不会被多长一天；不睡觉让时间跨过 07:00 仍长一天；缺水日不长；读档与旧档都不得重长。回归 `farming`、`minimum-loop`、`visual-plot-shipping`、`initial-planters`、`walk-on-planters`、`building-integration` 通过。见[本轮交付](../../development/2026-11-01_farm_day_change.md)。
+
+## 2026-11-06 默认种植区全键盘闭环（专项与契约回归通过）
+
+本节是当前输入口径，不重写历史结果。目标为默认可玩种植区不留鼠标专属入口；不据此开放开垦、工具升级、品质、季节等规划。整体仍为 `partial`。维护键位表与验收矩阵见[本轮记录](../../development/2026-11-06_keyboard_complete.md)，不作为游戏内教程。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-FARM-R15 | 固定六格与已登记的 DIY 地格沿原 Farm 命令链操作：靠近后 Q / Shift+Q 循环同源近距候选，锁定目标按住 E 打开该格菜单；`use_action_menu=true` 时空地、生长与 ready 成熟态都先打开选择，不直接收获。一级包含当前状态，种植始终进入仅列持有种子的二级，确认后才接近、计时并调用 `FarmPlot.perform`。二级 Esc 返回同格一级，一级 Esc 关闭，不扣资源、不偷做邻格业务。 |
+| SEA-FARM-R16 | 键盘完成播种→浇水→房门/床睡眠换天→继续照料→成熟显式收获→再播种；缺种、已浇、满包等拒绝必须保留原状态并显示原因，水壶为空可走既有补水并浇水命令。成功仍由 Farm→FarmPlot/FarmField acted 链触发一次表现与结算，不因 E 持续按住、菜单确认、动画或返回重复扣种/扣水/发奖。生长沿 R14，出货沿 DailyShipping，不能另建键盘专用业务状态。 |
+
+源码核实：`godot/src/farming/farm_plot.gd:86` 的 `interact()` 在 action-menu 模式下对 ready 同样发出 `interaction_requested`；`godot/src/bootstrap/main.gd:3623`、`:3651`、`:3770`、`:3785`、`:3795` 装配一级/二级/原命令。`keyboard-farm-loop` 脚本覆盖真实按键、六格切换、三次床铺睡眠及拒绝/取消，但使用位置、库存、水壶和初始日历夹具，不等于已验收整段旅行或所有品种/所有 DIY 布局。
+
+最终专项：`20261106-200446-keyboard-release-regression-eae88a/report.json` 已记录 `keyboard-farm-loop` **606/0**、`keyboard-travel` **374/0**、`keyboard-panels` **80/0**，均 exit0、passed=true。`20261106-194828-keyboard-visual-travel-final-09cca9/report.json` 的真实渲染 `visual-keyboard-farm-loop` **617/0**、exit0，输出9张唯一截图；本轮画面目视审阅已检查 watered/full-bag/harvest-overhead/already-watered，确认无底部条和键位教程。完整绝对路径见[本轮总交付](../../development/2026-11-06_keyboard_complete.md)。同批 initial-planters247/0、walk-on-planters53/0、farm-day-change23/0通过；minimum-loop141/10、harvest-receive80/1及交互角标/标题旧断言失败保留为本轮过程解释。`20261106-201957-keyboard-contract-regression-888baa/report.json` 已接受适配后的minimum-loop147/0、harvest-receive92/0、interaction-reach35/0、dock-seed22/0，均exit0、passed=true，四项不再pending；主线程keyboard-final-contracts批次待附，不预记结果。整体仍partial，保留规划/设备等边界。

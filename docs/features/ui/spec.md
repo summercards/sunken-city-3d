@@ -239,3 +239,50 @@ P 面板从三页变四页：滤镜 / 光照 / 水面 / **测试**。前 3 条�
 | 条款 ID | 规则 |
 |---|---|
 | SEA-UI-R49 | 新旅程创建界面沿用共享奶油纸张、青绿/暖黄配色、圆体和胶囊按钮；姓名→外观→旅人证确认，选项可滚动、全程阻断世界输入。暂停菜单新增「我的模样·姓名与外观」，取消还原且不改进度，保存失败提示可重试。业务状态由独立SEA-AVATAR拥有。 |
+
+## 2026-11-04 角色台词多段推进（2026-11-06 补记）
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-UI-R50 | `CharacterDialogue` 是**顺序队列**而不是单行：`show_line(speaker,text)` 等价单行，`HUD.show_dialogue_sequence(lines)` 收多行，空说话人或空正文的行丢弃。队列 >1 时右上角显示页码 `当前 / 总数`，单行留空；按钮文案中间行「下一步 ▸」、末行「开始生活」、单行「继续」。打字机只对正文 `visible_ratio` 生效，时长 `clamp(字数 × 0.018, 0.22, 0.65)` 秒，**仅多段启用**；`Cozy.motion_enabled` 关闭时直接全显。**首击只补全当前行，次击才换句**；末行之后收掉面板并 `closed`。多段期间挂全屏输入盾，`is_blocking()` 仅在「面板可见且队列 >1」时为真 —— 单句不锁世界，体力提示保持原有非叙事行为。空格 / 回车 / 小键盘回车推进并 `set_input_as_handled()`，叙事键不得漏给玩法或已聚焦的 HUD 按钮。面板 680×168、底部居中距底 32 px，按 1600×1000 基准等比缩放；正文 24 px、说话人 21 px、页码 18 px；入场 18 px / 0.24 s。**台词内容与触发时机不属于本功能**：开场三句归 SEA-ONBOARDING-R11，体力见底单句归 SEA-ENERGY。系统提示仍走 HUD 轻提示，不因此获得打字机或底部纸（R20 不变）。 |
+
+## 2026-11-04 开始画面副标题与登岸提示（2026-11-06 补记）
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-UI-R51 | 在既有 SEA 标题与「开始游戏」构图上只补三件，**不改** R21/R22/R34 的淡入时长、按钮锚点 0.755、输入与时间阻断、读档时刻取景：① 标题下副标题「沉 没 街 区 上 的 屋 顶 生 活」，22 px、旋转 −2.5°、奶油白 86%，相对标题组 (18,258)；② 按钮内提示「—  点击或按 Enter 登岸  —」，18 px，透明度按 `0.62 + 0.28 × sin(2.2 t)` 呼吸，点击入场后停止；③ 标题字 4/6 px、按钮 3/4 px 海色投影，按钮悬停整枚转暖金 `#ffe29a`、提示右移 8 px（0.18 s）。提示与副标题都不可点、不新增第二入口。 |
+
+## 2026-11-06 世界菜单的键位角标
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-UI-R52 | 世界操作气泡的每一项在右上外侧画一个小键位角标（`1…9`），与数字键一一对应；角标用与 `caption` 同一套奶油胶囊但更小、更靠上，读起来是「这是按键」而不是标签。角标不得压住图标本体（图标占圆 60%），也不得被 76 px 的圆形裁切（画在 `cluster` 层，不裁剪）。超过 9 项不画角标、也不响应数字键，现有一处最多 6 项。 |
+
+[交付与实测](../../development/2026-11-06_keyboard_reach.md)。
+
+## 2026-11-06 默认玩法键盘闭环与无教程式操作反馈
+
+用户新增无提示要求覆盖上午SEA-UI-R52角标与SEA-INTERACT-R18底部prompt常显口径：日常世界与面板不放按键教程，靠近显示原hover图标；玩家主动打开的系统帮助允许，动作/数量/状态/灰因仍保留。历史章节不删，R53既有编号保留；本轮R54–R57专项及四项旧契约适配回归已通过，口袋按1说明/数字前缀源码同步差异已解决，203447最终合批7项全PASS，整体partial。不改building文档或其登记。
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-UI-R54 | 默认操作反馈靠原有 hover 风格图标与真实动作/状态，不靠教程行。`prompt.enabled=false`；HoverCard 的 `_near_icon` 在角色接近合法目标时显示，与 `_near_progress` 同源读取 Interactor 焦点和进度，进度为零收条，模态/菜单/过场接管时图标与进度一起收起。世界气泡保留图标、动作名、地格状态、实际种子数量、灰显及受阻原因；去掉数字键角标与「方向键选择/Enter确认」等教程行，数字输入能力保留。不以删除状态、灰因或必要业务反馈实现无教程化。 |
+| SEA-UI-R55 | B/Tab 背包与商店/保管仓库/出货箱沿正式命令实现完整键盘路径：默认焦点、方向选格、动作层方向切换、Enter/KPEnter/E/Space 确认及数字直达、Esc 先退动作层。商店左右调购买数量并按真实 max_buy 封顶；服务口袋可存/取1件或当前整叠、PgUp/PgDn 翻当前池页。纯背包及服务上方背包 Shift+方向复用原排序信号（换位/空格移末尾），刷新后按物品ID恢复；不得改数量、跨池整理或误买卖。同帧确认、echo、按住和关闭不得重复业务或穿透世界。 |
+| SEA-UI-R56 | N 海岛笔记的分类、卡片、详情动作、分页与返回均键盘可达，周期刷新保留选中记录与焦点。笔记→商店/仓库/出货箱/航海图/地格沿既有 requested/plot_focus_requested 路由。地图按稳定 zone ID 恢复焦点，方向/Tab/Shift+Tab 跳过禁用目的地，滚动确保焦点按钮完整可见；Enter/KPEnter/E/Space 只发一次原 destination_pressed，Esc 返回笔记不出航。UI 不创造解锁资格或第二份旅行状态。 |
+| SEA-UI-R57 | 默认新档从开始按钮到姓名→外观→旅人证→保存失败重试→开场台词可纯键盘完成；姓名框默认焦点/空名保护、Tab/Shift+Tab、方向选项/滑杆、离屏选项自动滚动与稳定ID焦点恢复齐备。首次 Esc 不绕过建档；已有档案再次编辑取消恢复原档案/表现；设置可键盘到音量，读档/重置等确认优先取消。保存失败保留草稿，重试仅提交一次，不以键盘新增存档写入者。 |
+
+实现链：`godot/src/ui/hud.gd:498/557/597/1129` 统一键盘路由与激活防重；`pocket_inventory.gd:85/139`、`pocket_service.gd:93/263/295/312` 保持物品与页焦点；`notebook.gd:114/180/185/192` 保持笔记返回；`avatar_editor.gd:543/603/615` 与 `start_screen.gd` 保持首创生命周期。`main.gd:2280` 的 X 退出复用正式 `room_exit` 命令，不另写室内状态。
+
+实测：200446最终headless报告panels80/0、entry39/0、farm606/0、travel374/0、building40/0均exit0、passed=true；194828近距无教程真实渲染farm617/0，9张唯一截图，本轮画面目视审阅已检查watered/full-bag/harvest-overhead/already-watered确认无底部条/键位教程；191403建筑visual43/0通过，仅引用[building设计](../building/spec.md)/[账本](../building/ledger.md)，不改其文档。完整报告绝对路径见[总交付](../../development/2026-11-06_keyboard_complete.md)。
+
+旧interaction-reach35/1、dock-seed21/1、minimum-loop141/10、harvest-receive80/1保留为角标/标题/直接harvest契约变更的本轮过程失败。`20261106-201957-keyboard-contract-regression-888baa/report.json`适配后分别35/0、22/0、147/0、92/0，均exit0、passed=true，不再pending。当前`pocket_service.gd:247`只显示上限/余额，`:281`只显示动词数量/整叠，`pocket_inventory.gd:168`只用option.label，按1说明/动作数字前缀已删，对应差异已解决；200446旧副本不代表现代码。主动system help允许。`20261106-203447-keyboard-final-contracts-ff6d9f/report.json`已完成：keyboard-panels80/0、interaction-reach35/0、dock-seed22/0、minimum-loop147/0、harvest-receive92/0、pocket-bubbles59/0、pocket-drag-buy44/0，7项均exit0、passed=true、completion_marker=true、unexpected_errors空，合计479/0，最终合批不再pending。`hud.gd:511`无目的地拒绝提示仍带Esc是独立字符串事实，不扩大成整段残留pending。保留full-world/规划/设备与entry内存保存替身边界，不声称所有组合均通过。
+
+面板新增真实渲染证据：`D:/projects/sea-work/verification/20261106-204809-verification-52bb38/report.json` 中keyboard-panels **93/0**（原80加layout/captures）、exit0、passed=true；`project/outputs/keyboard-panels-01..04-*.png`共4张。本轮画面目视审阅shop/map发现`ac_card.gd`旧Esc/滚轮footer教程，现源码`:168`已为空；204809是该修改前证据，不得据旧图声称最终无教程。清理后`keyboard-panels-clean-final`由主线程运行，报告路径与结果待主补，本次不重跑。完整截图名、门禁13/14 issues和登记边界见总交付。
+
+## 2026-11-06 集中建筑UI承接条款补齐
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-UI-R53 | 集中建筑UI只承接表现与返回链：手册、搬移、拆除、高度、自动识别、吸附、旋转、退出及进度展示由 `godot/src/building/ui` 的既有 view/progress_presenter 组织，锤子仅在建筑模块内显示。业务资格、扣费/退款、布局与存档仍归SEA-BUILDING所有者；本条引用[SEA-BUILDING-R32](../building/spec.md)及[建筑交付记录](../../development/2026-11-06_building_5m_and_ui.md)，不复制或新增建造实现。本任务范围的最终报告`D:/projects/sea-work/verification/20261106-222059-building-5m-release-signed-2a186b/report.json`确认`building-ui-unified`66/0、`visual-building-ui-unified`66/0、`keyboard-building`40/0，均exit0；既有`visual-keyboard-building`43/0真实渲染保留为其对应范围证据，不把UI专项外推为全局门禁通过。 |
+
+登记修复说明：`scripts/check_feature_contracts.py:121`与`:122`只提取精确表格形式的requirement ID；此前ledger已有R53，而spec只在正文提及“R53已占用”，不被计入，造成集合差一项。保留R53并补本行后，两边R01–R57集合一致；R54–R57在两份文档中各一行，无需改号或复制。仅修UI文档承接，本次不运行sync。主线程最新sync已消除UI ID集合及unknown verification命名错误；当前仍13 issues，普通check另加derived stale为14。全局哈希/并发登记边界与定向登记事实见[总交付门禁补记](../../development/2026-11-06_keyboard_complete.md)，不宣称门禁全绿。

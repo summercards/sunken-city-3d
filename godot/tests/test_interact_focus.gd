@@ -118,9 +118,14 @@ func run() -> void:
 	state.tick(0.0)
 	check(not interactor.auto_hold,"模态阻断仍禁止自动交互")
 	gate.blocked = false
-	context.actor.global_position = box.focus_position() + outward*2.3
+	# 门槛跟着目标的「够得着半径」走（interacting.gd 2026-11-06 起不再写死 2.2 米）：
+	# 反例要落在「这个目标真正的够不着距离」之外，否则测的是旧常量而不是现行规则。
+	var reach := 2.2
+	if box.has_method("effective_focus_radius"):
+		reach = maxf(reach, float(box.effective_focus_radius()) + 0.6)
+	context.actor.global_position = box.focus_position() + outward * (reach + 0.3)
 	state.tick(0.0)
-	check(not interactor.auto_hold,"离开原2.2米范围仍停止自动交互")
+	check(not interactor.auto_hold,"离开够得着范围后停止自动交互（门槛 %.2f 米）" % reach)
 	var plain := Node3D.new()
 	root.add_child(plain)
 	context.auto_target = plain

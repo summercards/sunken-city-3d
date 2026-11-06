@@ -144,7 +144,7 @@ func _close_popup(node: Node) -> bool:
 func back() -> void:
 	if hud and hud.owned_modal_query.is_valid() and hud.owned_modal_query.call(): hud.owned_modal_close.call();return
 	if hud and hud.corner.expanded: hud.corner.set_expanded(false);return
-	if hud and hud.world_actions.is_open(): hud.world_actions.close();return
+	if hud and hud.world_actions.is_open(): hud.world_actions.back();return
 	for presenter in presenters.values():
 		if presenter.visible and _close_popup(presenter): return
 	if active:
@@ -167,7 +167,7 @@ func _input(event: InputEvent) -> void:
 		back();get_viewport().set_input_as_handled()
 	elif active:
 		# GUI receives navigation/activation; world never sees other keys while paused.
-		if key not in [KEY_UP,KEY_DOWN,KEY_LEFT,KEY_RIGHT,KEY_TAB,KEY_ENTER,KEY_SPACE]: get_viewport().set_input_as_handled()
+		if key not in [KEY_UP,KEY_DOWN,KEY_LEFT,KEY_RIGHT,KEY_TAB,KEY_ENTER,KEY_KP_ENTER,KEY_SPACE]: get_viewport().set_input_as_handled()
 	elif key == KEY_F9:
 		show_menu("load");get_viewport().set_input_as_handled()
 	elif external_open() and key in [KEY_B,KEY_TAB,KEY_C,KEY_P]:
@@ -231,8 +231,8 @@ func _render() -> void:
 			volume.value_changed.connect(func(value): AudioServer.set_bus_volume_linear(0,value/100);_save_preferences())
 			button("return","返回",back)
 		"help":
-			_title.text="海上的生活指南";_subtitle.text="用鼠标慢慢探索，也可以试试这些按键。"
-			for line in ["点击目的地  ·  走过去或划船前往","靠近物件按住 E  ·  采集与操作","B / Tab  ·  打开或收起随身手册","Esc  ·  返回上层；世界中打开暂停菜单","左右键翻页 / 上下键选图标 / Enter 确认","右键拖拽 / 滚轮  ·  观察与缩放","当前开放种植与捕鱼；出货箱每天 07:00 结算","F5 保存 / F9 读取确认"]: _body.add_child(label(line,17))
+			_title.text="海上的生活指南";_subtitle.text="鼠标与键盘都能生活 · 当前焦点始终可见"
+			for line in ["WASD / 方向键移动 · Q 切换附近目标","按住 E 操作 · 船上 E 打捞或靠岸","菜单方向键选择 · E / Enter 确认 · Esc 逐级返回","B / Tab 背包 · N 笔记与航海图 · K 建造","口袋左右调数量 · PgUp / PgDn 翻页","[ / ] 转镜头 · - / = 缩放 · F 回到角色","进屋按 E 上床睡觉 · X 出门 · 出货每天 07:00 结算","F5 保存 · F9 读取确认"]: _body.add_child(label(line,17))
 			button("return","记住啦",back,Cozy.GOLD)
 	_place.call_deferred()
 	if not buttons.is_empty(): buttons.values()[0].grab_focus.call_deferred()

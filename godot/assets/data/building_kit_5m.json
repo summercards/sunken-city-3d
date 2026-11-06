@@ -1,0 +1,270 @@
+{
+  "schema": 1,
+  "modules": [
+    {
+      "id": "platform_5x5",
+      "name": "5×5米木平台",
+      "asset_id": "SEA-KIT-PLATFORM-5X5",
+      "profile": "foundation",
+      "footprint": [
+        5,
+        5
+      ],
+      "height": 0.5,
+      "seconds": 6,
+      "source_origin": "surface_center",
+      "cost": {
+        "wood": 20
+      },
+      "category": "structure",
+      "active": true,
+      "role": "deck",
+      "placement": "water",
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/platform_5x5.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "wall_5m",
+      "name": "5米木板实墙",
+      "asset_id": "SEA-KIT-WALL-5M",
+      "profile": "wall",
+      "footprint": [
+        5,
+        0.2
+      ],
+      "height": 5.086335,
+      "seconds": 3.9,
+      "source_origin": "bottom_center",
+      "cost": {
+        "wood": 6
+      },
+      "category": "structure",
+      "active": true,
+      "role": "furnishing",
+      "placement": "deck",
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/wall_5m.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "window_wall_5m",
+      "name": "5米开窗木墙",
+      "asset_id": "SEA-KIT-WINDOW-WALL-5M",
+      "profile": "window",
+      "footprint": [
+        5,
+        0.2
+      ],
+      "height": 5.086335,
+      "seconds": 4.05,
+      "source_origin": "bottom_center",
+      "cost": {
+        "wood": 7
+      },
+      "category": "structure",
+      "active": true,
+      "role": "furnishing",
+      "placement": "deck",
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/window_wall_5m.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "door_frame_5m",
+      "name": "5米通行门墙",
+      "asset_id": "SEA-KIT-DOOR-FRAME-5M",
+      "profile": "door",
+      "footprint": [
+        5,
+        0.2
+      ],
+      "height": 5.086335,
+      "seconds": 3.75,
+      "source_origin": "bottom_center",
+      "cost": {
+        "wood": 5
+      },
+      "category": "structure",
+      "active": true,
+      "role": "furnishing",
+      "placement": "deck",
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/door_frame_5m.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z",
+      "door_width": 1.85,
+      "door_height": 3.1
+    },
+    {
+      "id": "post_5m",
+      "name": "5米层高木柱",
+      "asset_id": "SEA-KIT-POST-5M",
+      "profile": "post",
+      "footprint": [
+        0.5,
+        0.5
+      ],
+      "height": 5.086335,
+      "seconds": 3.45,
+      "source_origin": "bottom_center",
+      "cost": {
+        "wood": 3
+      },
+      "category": "structure",
+      "active": true,
+      "role": "furnishing",
+      "placement": "deck",
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/post_5m.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "beam_5m",
+      "name": "5米承重横梁",
+      "asset_id": "SEA-KIT-BEAM-5M",
+      "profile": "beam",
+      "footprint": [
+        5,
+        0.2
+      ],
+      "height": 0.2,
+      "seconds": 3.45,
+      "source_origin": "bottom_center",
+      "cost": {
+        "wood": 3
+      },
+      "category": "structure",
+      "active": true,
+      "role": "furnishing",
+      "placement": "top",
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/beam_5m.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "railing_5m",
+      "name": "5米交叉栏杆",
+      "asset_id": "SEA-KIT-RAILING-5M",
+      "profile": "railing",
+      "footprint": [
+        5,
+        0.18
+      ],
+      "height": 1.1,
+      "seconds": 3.6,
+      "source_origin": "bottom_center",
+      "cost": {
+        "wood": 4
+      },
+      "category": "structure",
+      "active": true,
+      "role": "furnishing",
+      "placement": "deck",
+      "blocks_actor": true,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/railing_5m.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "stairs_5m",
+      "name": "5米27级连续楼梯",
+      "asset_id": "SEA-KIT-STAIRS-5M",
+      "profile": "stairs",
+      "footprint": [
+        1.5,
+        5
+      ],
+      "height": 5.086335,
+      "seconds": 4.5,
+      "source_origin": "bottom_center",
+      "cost": {
+        "wood": 10
+      },
+      "category": "structure",
+      "active": true,
+      "role": "furnishing",
+      "placement": "deck",
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/stairs_5m.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z",
+      "step_count": 27,
+      "rise": 0.1883827777777778,
+      "tread": 0.18518518518518517
+    },
+    {
+      "id": "roof_slope_5x5",
+      "name": "5×5米斜面屋顶",
+      "asset_id": "SEA-KIT-ROOF-SLOPE-5X5",
+      "profile": "roof",
+      "footprint": [
+        5,
+        5
+      ],
+      "height": 1.25,
+      "seconds": 4.2,
+      "source_origin": "bottom_center",
+      "cost": {
+        "wood": 8
+      },
+      "category": "structure",
+      "active": true,
+      "role": "furnishing",
+      "placement": "top",
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/roof_slope_5x5.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z"
+    },
+    {
+      "id": "roof_flat_5x5",
+      "name": "5×5米平顶遮棚",
+      "asset_id": "SEA-KIT-ROOF-FLAT-5X5",
+      "profile": "roof",
+      "footprint": [
+        5,
+        5
+      ],
+      "height": 0.2,
+      "seconds": 4.5,
+      "source_origin": "bottom_center",
+      "cost": {
+        "wood": 10
+      },
+      "category": "structure",
+      "active": true,
+      "role": "furnishing",
+      "placement": "top",
+      "blocks_actor": false,
+      "movable": false,
+      "removable": true,
+      "prefab": "res://scenes/buildables/kit/roof_flat_5x5.tscn",
+      "description": "5米模数；源尺寸即游戏米制尺寸",
+      "front_axis": "-Z"
+    }
+  ]
+}

@@ -316,3 +316,25 @@ R07/R34/R35后续校尺要求：同族海上建筑以正式阳光房v008的最�
 ## 2026-11-05 沉没旧城 v004 统一限高（SEA-ASSET-R50）
 
 用户后续要求另制浅水可见版并保留现版。新上限只计算一次：`Hcap = max(v003建筑实际高度) / 4 = 14.9147958755m`，不是每件乘0.25；低于上限的两种建筑几何/UV/材质字节不变。超限楼以完整楼层减层并重做屋顶，高处折落残墙做真实断面，不纵向压缩窗门。全部非建筑及坡地/道路/弯桥/电车锁定。v003源与完整运行资产归档保留，v004源/独立优化源新目录，正式模型和预制体仍稳定路径。通过限高/低楼锁定/接地/逐面UV/保真及Godot专项后才登记；原始授权与性能仍分别pending。[v004制作与验收](../../development/2026-11-05_sunken_city_v004.md)。
+
+## 2026-11-06 沉没旧城 v005 连续海床与观赏动物（SEA-ASSET-R50）
+
+用户否定旧城外围追加道路块，v005必须恢复388个原实例；连续海床由Godot Terrain3D独立保存，不伪造Blender源。海床源由4个持久region、作者脚本、独立Terrain3DAssets纹理和PackedScene组成，`collision_mode=0`，不可生成水面阻挡、导航、互动或存档状态。源级海床函数须从实际100个地坪三角几何采样，边缘保留平台后单调向下缓坡。阳光房鱼群和露水建筑海鸥是环境表现独立记录，使用稳定PackedScene和现有procedural fish/bird源；不得接捕捞、库存、经济、交互或存档。
+
+[v005制作与验收](../../development/2026-11-06_sunken_city_v005.md)。
+
+## 2026-11-06 印刷面图集以近景清晰度为准（SEA-ASSET-R53）
+
+| 条款 ID | 规则 |
+|---|---|
+| SEA-ASSET-R53 | **印刷面图集（广告画、招牌字、招贴）的导入必须无损，近景可读优先于显存占用。** 具体到霓虹花园的 `poster_atlas.png`（2048×2048）：`compress/mode=0`（Lossless），`mipmaps/generate=true` 保留（近景只用 mip0，不损清晰度，但能消远景闪烁），`detect_3d/compress_to=0` **必须保持 0** —— 否则引擎检测到被 3D 材质引用时会把贴图自动转成 VRAM 压缩（实测已发生过一次，`mode` 从 0 被改成 2）。代价是显存由约 2.8 MB 升到约 10.5 MB，这是本条款明确接受的价格。判定依据：这类贴图是玩家贴近阅读的内容，块压缩会在文字边缘与大面积平色处出伪影；而普通色板/地砖贴图不适用本条，仍可走 VRAM 压缩。任何试图"优化"为有损或 VRAM 压缩的改动都必须先得到用户确认，不能以哈希漂移的名义默默发生。 |
+
+[本轮核实与重导入证据](../../development/2026-11-06_doc_drift_sweep.md)。
+
+## 2026-11-06 五米建筑十组件登记（SEA-ASSET-R54）
+
+| 条款 ID | 规则与验收 |
+|---|---|
+| SEA-ASSET-R54 | `ocean_building_kit/v002` 独立登记平台、实墙、窗墙、门墙、柱、梁、栏杆、楼梯、斜屋顶和平顶十件，配方唯一入口为 `godot/assets/data/building_kit_5m.json`，稳定 AssetID 为 `SEA-KIT-PLATFORM-5X5`、`SEA-KIT-WALL-5M`、`SEA-KIT-WINDOW-WALL-5M`、`SEA-KIT-DOOR-FRAME-5M`、`SEA-KIT-POST-5M`、`SEA-KIT-BEAM-5M`、`SEA-KIT-RAILING-5M`、`SEA-KIT-STAIRS-5M`、`SEA-KIT-ROOF-SLOPE-5X5`、`SEA-KIT-ROOF-FLAT-5X5`。五米模数与精确层高 5.086335 米为本批明确例外；楼梯 27 级、宽 1.5 米，门净洞 1.85×3.1 米，平台以表面中心为原点、其余底心，源米制 1:1，不靠整件非均匀缩放。每件组件源包、GLB `godot/assets/models/building_kit/<id>/<id>.glb` 与 PackedScene `godot/scenes/buildables/kit/<id>.tscn` 分列；归水上功能建筑，实际碰撞/通行由既有建造空间投影拥有，纯视觉 GLB 不重复带阻挡。源重开、PaletteUV、GLB 无内嵌图静态通过仅允许 `stage=source_verified_runtime_final_pending`；最终 Godot 真实运行、通行、UI 与渲染必须由主agent实测并绑定当前文件哈希后独立晋升，不以登记冒充 verified。 |
+
+登记入口为 `tools/register_building_5m.py`，默认只读预检，显式 `--write` 才写入；账本路径从 `ledger_index.json` 解析，来源索引逐字段投影账本现存哈希，不重算其他源。运行清单仅新增十件模型/预制体/新目录、迁移四个建筑 UI 脚本到 `godot/src/building/ui/` 并保留原 `.uid` 与 asset 关联、登记 `building_view`/`building_progress_presenter`，代码哈希严格限定已审阅 building 白名单；main 等并行变更和未知漂移不得顺手接纳。v001 与旧配方原样保留。开发记录由主agent维护于 `docs/development/2026-11-06_building_5m_and_ui.md`。

@@ -1,10 +1,8 @@
 extends SceneTree
 ## v006: original stairs stay in place; the whole building sinks, and boarding reaches the roof.
-const ROOT_Y := -55.92
 const WATER_Y := 1.12
 const BOARD_Y := 1.38
 const ROOF_Y := 4.13
-const ORIGIN := Vector3(46.0, ROOT_Y, -52.0)
 var checks := 0
 var failures := 0
 var main: Node
@@ -23,6 +21,7 @@ func check(ok: bool, label: String) -> void:
 
 func run() -> void:
 	main = load("res://scenes/main.tscn").instantiate()
+	var authored: Transform3D = main.get_node("World/SeaStructures/rooftop_ranch").transform
 	root.add_child(main)
 	main._autosave_on = false
 	main.set_process(false)
@@ -32,7 +31,7 @@ func run() -> void:
 	if ranch == null:
 		_finish(); return
 	area = ranch.get_node("WalkAreas/Walk_rooftop_ranch_access")
-	check(ranch.global_position.is_equal_approx(ORIGIN), "whole building sunk by 12.24m")
+	check(ranch.transform.is_equal_approx(authored), "facility retains the placement authored in main.tscn")
 	check(absf(main.water_node.global_position.y - WATER_Y) < 0.01, "global sea has not moved")
 	_check_original_stairs()
 	_check_surfaces()
@@ -107,8 +106,10 @@ func _check_surfaces() -> void:
 	for local in [Vector3(-16,60.05,-8),Vector3(-7,60.05,-9),Vector3(-17,60.05,-1),Vector3(7,60.05,-7.5),Vector3(18,60.05,-10)]:
 		var p: Vector3 = ranch.to_global(local)
 		check(not area.contains_world(p.x,p.z), "actual occupied footprint excluded " + str(local))
-	check(area.contains_world(ORIGIN.x - 16, ORIGIN.z + 8), "old mirrored terrace footprint is walkable")
-	check(not area.contains_world(ORIGIN.x + 27, ORIGIN.z - 8), "no ghost route outside original staircase")
+	var terrace := ranch.to_global(Vector3(-16, 60.05, 8))
+	var outside := ranch.to_global(Vector3(27, 60.05, -8))
+	check(area.contains_world(terrace.x, terrace.z), "old mirrored terrace footprint is walkable")
+	check(not area.contains_world(outside.x, outside.z), "no ghost route outside original staircase")
 
 func _check_upgrades() -> void:
 	var m: Node = ranch.get_node("Models")

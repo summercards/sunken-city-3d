@@ -185,6 +185,24 @@
         "glasses"
       ],
       "note": "稳定槽位ID；各选项ID在槽位内唯一，扩展需保留既有ID。"
+    },
+    {
+      "owner": "SEA-BUILDING",
+      "path": "godot/assets/data/building_kit_5m.json",
+      "collection_key": "modules",
+      "ids": [
+        "platform_5x5",
+        "wall_5m",
+        "window_wall_5m",
+        "door_frame_5m",
+        "post_5m",
+        "beam_5m",
+        "railing_5m",
+        "stairs_5m",
+        "roof_slope_5x5",
+        "roof_flat_5x5"
+      ],
+      "note": "五米新组件目录；保留旧配方和稳定AssetID，不以登记代替运行验收。"
     }
   ]
 }

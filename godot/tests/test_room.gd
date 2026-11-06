@@ -79,7 +79,12 @@ func run() -> void:
 	# ---- 结构 -----------------------------------------------------------------
 	check(room != null and main._zone_nodes.get("room") == room, "房间作为区块登记（zone_id=room）")
 	check(not room.visible and room.process_mode == Node.PROCESS_MODE_DISABLED, "室外时房间收起且不参与处理")
-	check(room.global_position.y > 11.9 and room.global_position.y < 14.0, "房间摆在太阳房屋顶上方，不穿模也不悬在天空里")
+	# 房间位置只为隔离：必须远离所有室外内容（海面 1.12、屋顶 ~11.9、海鸥 14–18、水下）。
+	# 不要求它在太阳房上 —— 玩家进屋后看不到外面，位置没有视觉含义。
+	check(room.global_position.y > 50.0, "房间远离室外所有内容（海面/屋顶/海鸥飞行层）")
+	check(not room.global_position.is_equal_approx(Vector3(2.5, 12.6, 1.0)), "房间不再压在太阳房顶上")
+	# 放大 1.5 倍：几何 1:1 建模，scale 在这里。
+	check(absf(room.scale.x - 1.5) < 0.001, "房间整体放大 1.5 倍，跟随角色 SCALE")
 	var floor_area: Node3D = room.get_node("WalkAreas/Walk_room_floor")
 	check(absf(floor_area.surface_y - room.global_position.y) < 0.01, "站立面高度取自房间世界高度")
 	check(room.area_at(room.global_position + Vector3(0, 1, 8), 0.6) == null, "房间外的空中不是可走面")
@@ -142,7 +147,8 @@ func run() -> void:
 	check(not main.hud.corner.toolbar.visible, "屋外工具栏在房间里收起")
 	check(main.cam.orbit_only and not main.cam.follow_enabled and not main.cam.pose_lock,
 		"相机接管成室内环绕机位（能转、不跟人跑）")
-	check(main.cam.global_position.distance_to(room.center_position()) < 18.0, "机位在房间附近，没飘到海上")
+	var cam_gap: float = main.cam.global_position.distance_to(room.center_position())
+	check(cam_gap < float(room.camera_pose().distance) * 1.6, "机位在房间附近（按缩放后的距离判），没飘到海上")
 	check(absf(main.cam.distance - float(room.camera_pose().distance)) < 0.05, "进屋用的是房间给的默认距离")
 	# 房间是室内：窗外与前厅外面不该有海、有天、有任何东西。
 	var sea: Node3D = main.world_root.get_node_or_null("Water")
@@ -151,6 +157,18 @@ func run() -> void:
 	check(env.background_mode == Environment.BG_COLOR
 		and env.background_color.r < 0.02 and env.background_color.g < 0.02 and env.background_color.b < 0.02,
 		"进屋后世界背景是纯黑（不画天空盒）")
+	# 海鸥不该飞进卧室。2026-11-06 用户截图里那几个白色剪影就是它们：
+	# 进屋时虽然藏了，但 `birds.set_hour` 会在时段切换时把 visible 设回去 ——
+	# 「在屋里睡一觉到天亮」正好走这条路径。这里把整条路径演一遍。
+	var birds: Node3D = main.bird_root
+	check(birds.has_method("set_interior_hidden") and bool(birds.suppressed),
+		"进屋后鸟群进入室内抑制")
+	birds.set_hour(19.0)
+	await settle(1)
+	check(not birds.visible, "屋里到 19:00（鸟本该落）仍然不可见")
+	birds.set_hour(6.5)
+	await settle(1)
+	check(not birds.visible, "屋里跨到次日 06:30（鸟本该起飞）仍然不可见")
 	# 窗玻璃与前厅玻璃用室内玻璃实例：颜色固定深灰，不会乘上天空色盘读成蓝天。
 	var pane := _glass_material(room.get_node("Shell/WallWindow"))
 	check(pane != null and bool(pane.get_shader_parameter("interior_glass")), "窗玻璃走室内玻璃（不再取色盘 ice 格）")
@@ -270,6 +288,11 @@ func run() -> void:
 	check(not room.visible, "房间收起")
 	check(main.zones_root.visible, "室外内容恢复")
 	check((main.world_root.get_node("Water") as Node3D).visible, "出门后海面恢复可见")
+	var birds_out: Node3D = main.bird_root
+	check(not bool(birds_out.suppressed), "出门后鸟群的室内抑制解除")
+	birds_out.set_hour(6.5)
+	await settle(1)
+	check(birds_out.visible, "出门且在白天时海鸥照常飞")
 	var back_env: Environment = (main.world_root.get_node("WorldEnvironment") as WorldEnvironment).environment
 	check(back_env.background_mode == Environment.BG_SKY, "出门后世界背景恢复成天空盒")
 	check(not main.hud.is_room_mode() and not main.hud._room_exit.visible, "出门按钮与房间模式撤掉")

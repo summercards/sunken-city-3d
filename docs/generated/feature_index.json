@@ -140,6 +140,8 @@
         "godot/src/navigation/landing_point.gd"
       ],
       "verification": [
+        "control-feel",
+        "keyboard-control",
         "rowing-fit",
         "visual-rowing-fit",
         "visual-rowing-game",
@@ -182,6 +184,8 @@
         "godot/src/navigation/route_ribbon.gd"
       ],
       "verification": [
+        "control-feel",
+        "keyboard-control",
         "rowing-fit",
         "visual-rowing-fit",
         "visual-rowing-game",
@@ -217,6 +221,8 @@
         "godot/src/camera"
       ],
       "verification": [
+        "control-feel",
+        "keyboard-control",
         "visual-corner-notebook",
         "visual-title-screen-day",
         "visual-title-screen-night",
@@ -242,6 +248,8 @@
         "godot/src/interaction"
       ],
       "verification": [
+        "control-feel",
+        "keyboard-control",
         "visual-corner-notebook",
         "click",
         "surface",
@@ -684,7 +692,7 @@
       "spec": "docs/features/sleep/spec.md",
       "ledger": "docs/features/sleep/ledger.md",
       "status": "implemented",
-      "owner": "SleepCycle / SleepCheckpoint",
+      "owner": "SleepCycle / RoomBed",
       "code_paths": [
         "godot/src/time/sleep_cycle.gd",
         "godot/src/room/room_bed.gd",

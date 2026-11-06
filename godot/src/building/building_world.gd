@@ -103,7 +103,7 @@ func _sync_assembly(rows: Array) -> void:
 	if _assembly_walk==null:
 		_assembly_walk=preload("res://src/navigation/walk_area.gd").new()
 		_assembly_walk.name="AssemblyWalk";_assembly_walk.area_id="zone5_assembly";_assembly_walk.zone_id="zone5"
-		_assembly_walk.body_radius=0.0;_assembly_walk.surface_y=Catalog.ORIGIN.y+2.8
+		_assembly_walk.body_radius=0.0;_assembly_walk.surface_y=Catalog.ORIGIN.y+Catalog.LAYER_HEIGHT
 		area.get_parent().add_child(_assembly_walk);_assembly_walk.global_position=Catalog.ORIGIN
 		zone.walk_areas.append(_assembly_walk)
 		zone.ground_space.configure(zone.walk_areas)
@@ -152,12 +152,19 @@ func closest_walk_point(point: Vector3, max_distance: float=INF) -> Vector3:
 	return Vector3.INF if nearest==Vector2.INF else Catalog.ORIGIN+Vector3(nearest.x,0,nearest.y)
 
 func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, request: Dictionary={}) -> Vector3:
-	# Construction is height-aware. Search the live 3D surface near the target,
-	# including the stair top before the first upper board has been built.
+	# 有请求时以真实矩形边界衡量施工距离，不能把5米平台中心当作接缝。
+	var target_rect:=Catalog.footprint_rect(request) if not request.is_empty() else Rect2(Vector2(center.x-Catalog.ORIGIN.x,center.z-Catalog.ORIGIN.z),Vector2.ZERO)
+	var boundary_probes: Array[Vector3]=[]
+	if not request.is_empty():
+		for side in 4:
+			for fraction in [0.0,0.25,0.5,0.75,1.0]:
+				var at:=Vector2(target_rect.position.x+target_rect.size.x*fraction,target_rect.position.y if side==0 else target_rect.end.y)
+				if side>=2: at=Vector2(target_rect.position.x if side==2 else target_rect.end.x,target_rect.position.y+target_rect.size.y*fraction)
+				boundary_probes.append(Catalog.ORIGIN+Vector3(at.x,Catalog.elevation(request),at.y))
 	if center.y>Catalog.ORIGIN.y+.5 and _assembly_walk!=null:
 		var zone: Node3D=area.get_parent().get_parent()
 		var best_3d:=Vector3.INF;var best_score:=INF
-		var probes_3d: Array[Vector3]=[]
+		var probes_3d: Array[Vector3]=boundary_probes.duplicate()
 		for dx in [-2.0,-1.0,0.0,1.0,2.0]:
 			for dz in [-2.0,-1.0,0.0,1.0,2.0]:
 				probes_3d.append(center+Vector3(dx,0,dz))
@@ -166,10 +173,12 @@ func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, 
 			var edge:=Catalog.stairs_top_edge(row)
 			var middle: Vector2=(edge[0]+edge[1])/2
 			var inward:=Vector2(0,.035).rotated(-float(row.turn)*PI/2)
-			probes_3d.append(Catalog.ORIGIN+Vector3(middle.x+inward.x,Catalog.elevation(row)+Catalog.LAYER_HEIGHT,middle.y+inward.y))
+			probes_3d.append(Catalog.ORIGIN+Vector3(middle.x+inward.x,Catalog.elevation(row)+Catalog.stair_rise(row),middle.y+inward.y))
 		for probe: Vector3 in probes_3d:
 			var point: Vector3=_assembly_walk.surface_point(probe)
-			if not point.is_finite() or absf(point.y-center.y)>.4 or point.distance_to(center)>max_distance: continue
+			if not point.is_finite() or absf(point.y-center.y)>.4: continue
+			var near:=point.distance_to(center) if request.is_empty() else Catalog.rect_distance(target_rect,Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z))
+			if near>max_distance: continue
 			if not request.is_empty() and Catalog.is_furnishing(str(request.get("kind",""))) and Catalog.blocks_actor(str(request.get("kind",""))) and Catalog.footprint_rect(request).grow(.22).has_point(Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z)): continue
 			if zone.ground_space.route(actor,point).is_empty(): continue
 			var rank:=actor.distance_to(point)+point.distance_to(center)*.2
@@ -178,7 +187,11 @@ func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, 
 	if actor.y>Catalog.ORIGIN.y+0.5 and _assembly_walk!=null:
 		for offset: Vector3 in [Vector3(1,0,0),Vector3(-1,0,0),Vector3(0,0,1),Vector3(0,0,-1)]:
 			var candidate: Vector3=_assembly_walk.surface_point(center+offset)
-			if candidate.is_finite() and not _assembly_walk.path_between(actor,candidate).is_empty(): return candidate
+			if not candidate.is_finite() or absf(candidate.y-center.y)>.4: continue
+			var near:=candidate.distance_to(center) if request.is_empty() else Catalog.rect_distance(target_rect,Vector2(candidate.x-Catalog.ORIGIN.x,candidate.z-Catalog.ORIGIN.z))
+			if near>max_distance: continue
+			if not _assembly_walk.path_between(actor,candidate).is_empty(): return candidate
+	if center.y>Catalog.ORIGIN.y+.5: return Vector3.INF
 	var walk: Array=area.rects
 	var groups:=Space.components(walk)
 	var local:=Vector2(actor.x-Catalog.ORIGIN.x,actor.z-Catalog.ORIGIN.z)
@@ -190,6 +203,7 @@ func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, 
 	var future_box:=Rect2(target-Catalog.PLOT_EXTENT/2,Catalog.PLOT_EXTENT).grow(Space.RADIUS)
 	if not request.is_empty() and Catalog.is_furnishing(str(request.get("kind",""))): future_box=Catalog.plot_rect(request).grow(Space.RADIUS)
 	var probes: Array[Vector2]=[target]
+	for point in boundary_probes: probes.append(Vector2(point.x-Catalog.ORIGIN.x,point.z-Catalog.ORIGIN.z))
 	var direction:=local-target
 	if direction.length_squared()<0.001: direction=Vector2.UP
 	direction=direction.normalized()
@@ -201,8 +215,8 @@ func find_stand_point(actor: Vector3, center: Vector3, max_distance: float=2.8, 
 		for probe in probes:
 			var point:=Space.nearest([walk[i]],probe,max_distance)
 			if point==Vector2.INF: continue
-			var distance:=point.distance_to(target)
-			if distance<0.95 or distance>max_distance: continue
+			var distance:=point.distance_to(target) if request.is_empty() else Catalog.rect_distance(target_rect,point)
+			if (request.is_empty() and distance<0.95) or distance>max_distance: continue
 			if future_box.has_point(point): continue
 			var rank:=local.distance_to(point)+distance*0.15
 			if rank<score: best=point;score=rank

@@ -48,10 +48,16 @@ func role_of(node: Node) -> String:
 
 
 func blockers_of(node: Node) -> BlockerSet:
+	var disabled: BlockerSet
 	for child in node.find_children("*", "Node3D", true, false):
-		if child.get_script() == BlockerSet:
-			return child
-	return null
+		var blocker := child as BlockerSet
+		if blocker == null:
+			continue
+		if blocker.mode != "none" and blocker.blocks_water:
+			return blocker
+		if disabled == null:
+			disabled = blocker
+	return disabled
 
 
 func bounds(node: Node) -> AABB:

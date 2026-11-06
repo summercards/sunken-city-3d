@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/building/kit_visual.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/building_kit/stairs_5m/stairs_5m.glb" id="2"]
+
+[node name="stairs_5m" type="Node3D"]
+script = ExtResource("1")
+content_id = "stairs_5m"
+metadata/asset_id = "SEA-KIT-STAIRS-5M"
+metadata/asset_version = "v002"
+metadata/source_units = "meters"
+metadata/source_origin = "bottom_center"
+metadata/water_layer = "surface"
+metadata/water_layer_role = "entity"
+metadata/collision_owner = "sea_building_space_projection"
+
+[node name="Model" parent="." instance=ExtResource("2")]
+
+[node name="LowSocket" type="Marker3D" parent="."]
+position = Vector3(0, 0, 2.5)
+
+[node name="HighSocket" type="Marker3D" parent="."]
+position = Vector3(0, 5.086335, -2.5)

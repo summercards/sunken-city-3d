@@ -49,6 +49,7 @@
 | SEA-ROOM-R03 | 已实现；5.0×5.0 净空、墙高 2.75、地板 0.14、后墙窗 1.5×1.15/窗台 0.95、前墙门洞 1.2×2.06，全部来自 `component_plan.json` 并由建模脚本断言 | Blender 源级断言（13 包、7888 三角面、UV 单格内区）+ `room` 实测站立面高度 |
 | SEA-ROOM-R04 | 已实现；前厅 3.44×1.80、外檐 2.34/靠墙 2.80、两侧与正面玻璃 + 斜面玻璃顶 + 顶椽，正面留 1.2 米门洞 | `visual-room` 的 `porch` 与 `inside` 两张真实渲染 |
 | SEA-ROOM-R05 | 已实现；`room_cutaway.gd` 按相机方位逐帧决定四面墙显隐。判据是**越过这面墙本身**（`offset` + `FACING_MARGIN` 0.25 米），不是越过房间中心 —— 用中心判会在视点偏移时把相邻两面墙一起收掉。前厅件各自带法线与实际 `offset`（正面 2.70、侧玻璃 1.72），并多一条整体规则：相机局部 z > `PORCH_FRONT_Z`(2.4) 时全部收起 | `room` 含「镜头侧墙看不见」「对面后墙可见」「换到另一侧时藏起来的换成那一侧」「俯视机位天花收起」「绕四个方位都正好三面墙可见」「相机在前厅前侧时前厅构件全部收起」；`visual-room` 的 `cutaway-north`；`visual-room-orbit` 八机位 |
+| SEA-ROOM-R06a | 已实现；`bedroom.tscn` 根节点 `scale=1.5`（几何仍 1:1）。剖切判据改到房间局部空间（`to_local`），相机距离与环绕缩放区间按 `uniform_scale()` 推导 | `room` 含「房间整体放大 1.5 倍」「剖切在局部空间判（绕四方位仍三面墙）」「机位按缩放后的距离判」 |
 | SEA-ROOM-R06 | 已实现；相机新增 `orbit_only`（与 `pose_lock` 并存）：室内允许右键旋转与滚轮缩放、禁止左键平移与键盘平移；俯仰 26–72°、距离 8–24 米（`orbit_pitch_*` / `orbit_zoom_*`）。默认机位 14.4 米 / 俯角 46°。进出房间保存与恢复原 `target/distance/orbit_dir/fov` | `room` 含「相机接管成室内环绕机位」「右键能把镜头转开」「转镜头不挪视点」「俯仰上下限 72/26 度」「拉太近/太远被室内上限挡住」「室内左键不平移」「退出室内环绕、恢复跟随」；`visual-room-orbit` 的 near/far/low/high 四张实拍 |
 | SEA-ROOM-R07 | 已实现；三块矩形（室内 4.84×4.84 + 门槛 1.1×0.34 + 前厅 3.24×1.62）合成一个 `WalkArea`，家具自带盒碰撞、床的碰撞随床移动 | `room` 含「室内中心是可走面」「室内可以走」「角色真的走动了」「走动没有走出房间」 |
 | SEA-ROOM-R08 | 已实现；床 `movable=true`、`apply_layout(at, yaw)`、`sleep_requested` → Main `_rest_for_day` → 同一套 `sleep_cycle.request()` | `room` 含「床铺是独立可交互物」「床铺绑定睡觉命令」「床上睡一觉到次日 06:00」 |
@@ -57,6 +58,7 @@
 | SEA-ROOM-R11 | 已实现；`hud.set_room_mode(on)` 增加右下角「出门」圆钮（新 `exit` 图标），并收起 `corner.toolbar` / `corner.actions` | `room` 含「右下角出现出门按钮」「屋外工具栏在房间里收起」；`visual-room` 的 `inside` |
 | SEA-ROOM-R12 | 已实现；schema 新增 `room` 模块（不进 required），`save_game.decode` 给旧档补默认值，版本号仍是 4；屋里存档世界位置记成门口，读档 `resync_inside()` 不播过场 | `room` 含存档往返五条 + `save-protection` 复跑通过 |
 | SEA-ROOM-R13 | 已实现；`_unhandled_input` 在 `room_service.inside` 时只走 `_try_walk`，海面/船/登陆标记分支全部跳过 | `room` 含「室内只认房间里的东西」（点击路径断言） |
+| SEA-ROOM-R14b | 已实现；房间摆在 `(0,200,0)`，远离海面 1.12 / 屋面 11.89 / 海鸥 14.3–17.7 / 水下。`birds.gd` 新增 `set_interior_hidden`，`visible = 时段 ∧ 非室内`；`room_controller._hide_outdoor` 逐节点调用。进屋收起拆除锤子 | `room` 含「远离室外所有内容」「不再压在太阳房顶上」「进屋后鸟群进入抑制」「屋里到 19:00 / 次日 06:30 仍不可见」「出门解除抑制」 |
 | SEA-ROOM-R14 | 已实现；`_outdoor_nodes()` 不再保留 `Water`/`BoatWake`，`room_controller._apply_interior_environment()` 把背景切成纯黑、`_restore_outdoor_environment()` 还原；窗挂 `room_glass.tres`（深灰，后面是黑的）、前厅挂 `room_porch_glass.tres`（近透明冷灰，要绕着看），都用 `interior_glass=true`；`resync_outside()` 兜住「在屋里读屋外档」与「从屋里回标题」 | `room` 含「进屋后海面收起」「背景纯黑」「窗玻璃走室内玻璃」「出门后海面与天空盒恢复」「读屋外档海面与天空盒恢复」；`visual-room` 的 `inside`/`porch`/`night` 三张实拍 |
 
 ## 回归批次

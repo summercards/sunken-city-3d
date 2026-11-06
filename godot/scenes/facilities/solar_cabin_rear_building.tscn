@@ -1,7 +1,178 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Script" path="res://src/ambient/scene_component.gd" id="plant_anchor"]
 [ext_resource type="Script" path="res://src/world/sunny_bloom_visual.gd" id="1"]
 [node name="太阳能木屋-后部方形建筑" type="Node3D"]
 script = ExtResource("1")
 module_key = "rear_building"
 metadata/module = "rear_building"
 metadata/deck_height = 2.15
+
+[node name="sprout_104" type="Node3D" parent="."]
+position = Vector3(2.24724960327, 8.00602912903, 0.859249949455)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="sprout_105" type="Node3D" parent="."]
+position = Vector3(4.16491651535, 7.74925327301, 0.324499875307)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="sprout_106" type="Node3D" parent="."]
+position = Vector3(4.2183470726, 7.7565536499, -0.537999868393)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="sprout_107" type="Node3D" parent="."]
+position = Vector3(0.608500003815, 7.73465251923, -0.037750005722)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="sprout_108" type="Node3D" parent="."]
+position = Vector3(5.31774997711, 11.1533679962, -0.382749915123)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="sprout_109" type="Node3D" parent="."]
+position = Vector3(5.00724983215, 11.1387672424, -1.33150005341)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="sprout_110" type="Node3D" parent="."]
+position = Vector3(5.07677030563, 7.86319971085, 1.36078798771)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_111" type="Node3D" parent="."]
+position = Vector3(4.99788475037, 10.8273668289, 0.713985264301)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_112" type="Node3D" parent="."]
+position = Vector3(6.08952283859, 10.8289051056, 1.00033998489)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_113" type="Node3D" parent="."]
+position = Vector3(7.38905382156, 10.8386526108, 0.871863305569)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_114" type="Node3D" parent="."]
+position = Vector3(8.65474891663, 10.8417310715, 0.700293660164)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_115" type="Node3D" parent="."]
+position = Vector3(8.91890335083, 10.8340358734, -0.393457770348)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_116" type="Node3D" parent="."]
+position = Vector3(8.98884773254, 10.8340358734, -1.57830071449)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_117" type="Node3D" parent="."]
+position = Vector3(7.94835329056, 10.8324966431, -2.24649524689)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_118" type="Node3D" parent="."]
+position = Vector3(6.41305351257, 10.8335227966, -2.46314668655)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_119" type="Node3D" parent="."]
+position = Vector3(4.93436050415, 10.8371143341, -2.10403943062)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_120" type="Node3D" parent="."]
+position = Vector3(4.84386014938, 10.8294172287, -1.09804022312)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_121" type="Node3D" parent="."]
+position = Vector3(0.909916400909, 7.50030994415, 2.79447197914)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_122" type="Node3D" parent="."]
+position = Vector3(2.03127217293, 7.63291358948, 2.91798400879)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_123" type="Node3D" parent="."]
+position = Vector3(2.94018912315, 7.54740667343, 2.88988447189)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_124" type="Node3D" parent="."]
+position = Vector3(0.0870490074158, 7.57097291946, 1.49707007408)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_125" type="Node3D" parent="."]
+position = Vector3(0.0662579536438, 7.57097291946, 0.240732401609)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_126" type="Node3D" parent="."]
+position = Vector3(0.0834670066833, 7.57097291946, -1.03245723248)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_127" type="Node3D" parent="."]
+position = Vector3(0.0853562355042, 7.57097291946, -2.34668111801)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_128" type="Node3D" parent="."]
+position = Vector3(-0.300192832947, 2.25195765495, 4.11208724976)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_129" type="Node3D" parent="."]
+position = Vector3(0.852177619934, 2.29498457909, 5.34143447876)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_130" type="Node3D" parent="."]
+position = Vector3(11.5816698074, 2.27039289474, 2.14314413071)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_131" type="Node3D" parent="."]
+position = Vector3(11.5848770142, 2.27552318573, 3.3691868782)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_132" type="Node3D" parent="."]
+position = Vector3(11.6738471985, 2.29139328003, 4.28844690323)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_133" type="Node3D" parent="."]
+position = Vector3(-0.924030780792, 2.11378693581, 1.79114222527)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_134" type="Node3D" parent="."]
+position = Vector3(-0.94167470932, 2.15477585793, -0.602229833603)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="foliage_135" type="Node3D" parent="."]
+position = Vector3(-0.770189762115, 2.22839212418, -3.76373052597)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="daisy_136" type="Node3D" parent="."]
+position = Vector3(-0.506311416626, 8.33447265625, 0.934298336506)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true
+
+[node name="sprout_137" type="Node3D" parent="."]
+position = Vector3(6.23199987411, 3.43547010422, 4.27474975586)
+script = ExtResource("plant_anchor")
+metadata/visual_only = true

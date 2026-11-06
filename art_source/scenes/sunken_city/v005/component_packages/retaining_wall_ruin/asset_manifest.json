@@ -1,0 +1,91 @@
+{
+  "key": "retaining_wall_ruin",
+  "slug": "retaining_wall_ruin",
+  "name": "残破矮挡墙_挂管与缺口",
+  "component_family": "low_wall",
+  "category": "facilities",
+  "component_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "size_design_m": [
+    8,
+    2,
+    2.2
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 19,
+  "version": "v005",
+  "collection": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN_残破矮挡墙_挂管与",
+  "root_object": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN_ROOT",
+  "objects": [
+    "残破矮挡墙_挂管与缺口_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-RETAINING-WALL-RUIN_ROOT"
+  ],
+  "bounds_size_m": [
+    7.949999809265137,
+    2.0183329582214355,
+    2.413233995437622
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "triangles": 2008,
+  "polygons": 1035,
+  "material_roles": [
+    "SEA_Matte",
+    "SEA_Metal"
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "component_blend": "art_source/scenes/sunken_city/v005/component_packages/retaining_wall_ruin/retaining_wall_ruin.blend",
+  "geometry_fingerprint": "bc8c1cfaf6fa2b03ccfec359772687e6168ad335fed3ba5df6eda3d68f772df2",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/retaining_wall_ruin/retaining_wall_ruin.blend",
+  "source_sha256": "58fbc32dd474810c00f8dbcc7361548016df3cb52fda8caba6ade6509d509678",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-RETAINING-WALL-RUIN",
+  "source": "art_source/scenes/sunken_city/v005/sunken_city_v005.blend",
+  "source_master_sha256": "a95f1961596081ee61d14b0e051a025890524630f9e939e8fd9c324128035850",
+  "bounds_min": [
+    -3.9749999046325684,
+    -1.0091664791107178,
+    0.0
+  ],
+  "bounds_max": [
+    3.9749999046325684,
+    1.0091664791107178,
+    2.413233995437622
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261106T071625_3f80c899",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\skill_reports\\20261106T071625_3f80c899\\retaining_wall_ruin.json",
+    "exit_code": 0
+  },
+  "source_stage": "source_verified_runtime_pending",
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-RETAINING-WALL-RUIN"
+}

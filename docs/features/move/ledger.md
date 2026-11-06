@@ -18,6 +18,7 @@
     "godot/src/navigation/landing_point.gd"
   ],
   "verification": [
+    "interaction-reach",
     "control-feel",
     "keyboard-control",
     "rowing-fit",
@@ -204,3 +205,11 @@ SEA-MOVE-R09：将偏航计算从局部 +X 对齐改为模型局部 +Z 对齐，
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-MOVE-R23 | 已实现；`free_walk_action` 用时间常数积分加减速（0.085 / 0.055 s），反向走弧线，撞墙吃掉动量；`Character.walk_phase()` 由地速驱动步频，满速仍 6.4 rad/s；`set_move_intent` 归零后不立刻换状态，交给 strolling 收速 | `control-feel` 31 项（含 30/60/120 FPS 位移一致、滑行 0.105 m、步频 6.17/3.20）、`keyboard-control`、`walk-facing`、`actor-presentation`、`character-space-save` 复跑通过；[本轮交付](../../development/2026-11-05_control_feel.md)。点击走路未加缓入（避免动到既有到站判据），手柄/触屏无模拟量。 |
+
+## 2026-11-06 泊位里的方向键 = 下船
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-MOVE-R24 | 已实现；`_key_intent_is_toward_shore()` 用「朝向登陆点 ±76°」或「1.4 米探针撞岸」判意图，命中即 `_step_ashore()` 并进 0.35 s 冷却；朝水面按方向键仍是划船 | `interaction-reach`（朝岸=下船、沿岸不算、朝水面照旧划走）、`keyboard-control`、`control-feel` 复跑通过 |
+
+2026-11-06 既有SEA-MOVE-R12/R15实施补记：`godot/src/navigation/ground_space.gd`已修复建筑坡脚sharedpoint及胶囊接触法线，修复4.7cm stuck；签署补充报告确认`ground-space`37/0，不放宽WalkAction。正式报告为`D:/projects/sea-work/verification/20261106-211435-building-5m-final-816d34/report.json`及对应日志。不新增需求ID，GroundSpace派生碰撞/导航所有权不变，building只登记适配依赖、不拥有导航或第二份布局。[建筑开发记录](../../development/2026-11-06_building_5m_and_ui.md)。

@@ -20,6 +20,7 @@ const RenderFlagsLib = preload("res://src/rendering/render_flags.gd")
 const OrbitCamScript = preload("res://src/camera/orbit_camera.gd")
 const WaterSurfaceScript = preload("res://src/rendering/water_surface.gd")
 const BoatScript = preload("res://src/navigation/boat.gd")
+const GullFlockScript = preload("res://src/ambient/building_gull_flock.gd")
 const HUDScript = preload("res://src/ui/hud.gd")
 const MarkersScript = preload("res://src/ui/landing_markers.gd")
 const CharacterScript = preload("res://src/player/character.gd")
@@ -1042,9 +1043,50 @@ func _update_keyboard_move(delta: float) -> void:
 			if mode == 2 and not boat.driving() and not boat.starts_sailing():
 				actor_controller.request_mode(GameState.Mode.ON_BOAT)
 			return
+		# 泊位里朝岸按方向键 = 想下船（SEA-MOVE-R24）。
+		#
+		# 这一段以前是空着的：靠好岸以后按 ↓，船头会顶着岸线往前挤 0.7 米，
+		# 抛一句「前方靠岸过近」，同时船离开了泊位 —— 于是 E 也不认了，
+		# 想上岸还得先把船划回来。玩家的原话是「靠岸后操作很不舒服，往下没法往下挪」。
+		# 判据见 `_key_intent_is_toward_shore`：朝向陆地一侧，或者前方一步就撞岸。
+		if not boat.driving() and _landing_is_docked() and _key_intent_is_toward_shore(world):
+			boat.release_drive()
+			_ashore_on_arrival = false
+			if _step_ashore():
+				_boat_key_left = BOAT_KEY_COOLDOWN
+				hud.toast("上岸了")
+			return
 		if mode == 1:
 			actor_controller.request_mode(GameState.Mode.SAILING)
 		boat.set_drive(Vector2(world.x, world.z))
+
+## 只在玩家已接近、输入可用时出现原悬停图标，不显示教程或按键说明。
+func _update_near_interaction() -> void:
+	if hover == null: return
+	if input_blocked() or (building_controller != null and building_controller.active):
+		hover.hide_near_focus()
+		return
+	if interactor.active and is_instance_valid(interactor.target):
+		hover.show_near_focus(interactor.target, interactor.progress())
+		return
+	var pick := _sea_pick_candidate()
+	if not pick.is_empty() and bool(pick.get("near",false)):
+		var item: Dictionary = pick.item
+		var node: Node3D = item.get("root")
+		if is_instance_valid(node):
+			hover.keyboard_focus = node
+			hover.show_near_action(node.global_position+Vector3.UP*0.5,"fish" if pick.type=="fish" else "hand")
+			return
+	var boat_action := _boat_key_action()
+	var dock := _near_landing_key()
+	if boat_action != "" or not dock.is_empty():
+		var point: Node3D = _current_landing()
+		if not dock.is_empty(): point = _zone_nodes[str(dock.zone)].landing_point(str(dock.landing))
+		if point != null:
+			hover.keyboard_focus = point
+			hover.show_near_action(point.stand_position()+Vector3.UP*0.55,"anchor")
+			return
+	hover.hide_near_focus()
 
 func _setup_water() -> void:
 	water_node = get_node_or_null("World/Water") as MeshInstance3D
@@ -1209,7 +1251,10 @@ func _setup_boat() -> void:
 		if ribbon != null:
 			ribbon.clear()
 		if hud != null:
-			hud.toast("前方靠岸过近，请重新选择航路"))
+			# 撞岸不该只丢一句「请重新选择航路」：键盘玩家这时候要做的事是「靠岸」。
+			# 附近有泊位就把 E 说出来，没有才让他换个方向。
+			hud.toast("前方是岸" if not _near_landing_key().is_empty()
+				else "前方靠岸过近，请重新选择航路"))
 	var l := Zones.landing("zone1", "main")
 	boat.place_at(Vector3(l.boatPark[0], WATER_LEVEL, l.boatPark[2]), float(l.boatYaw))
 	boat.arrived.connect(_on_boat_arrived)
@@ -1225,9 +1270,16 @@ func _setup_birds() -> void:
 	bird_root.build()
 	# 海鸥只在 06:00–18:00 出现（SEA-AMBIENT-R05）。小时从唯一时钟读，
 	# 鸟群自己不记时间；读档/睡觉/跨日都走同一条 `changed` 通道。
+	var hour := float(world_clock.query().get("hour", 12.0))
+	for node in find_children("*", "Node", true, false):
+		if node.has_method("set_hour") and node.get_script() == GullFlockScript:
+			node.set_hour(hour)
+			var gullclock: Callable = func(snapshot: Dictionary, flock: Node) -> void:
+				if is_instance_valid(flock): flock.set_hour(float(snapshot.get("hour", 12.0)))
+			world_clock.changed.connect(gullclock.bind(node))
 	world_clock.changed.connect(func(snapshot: Dictionary) -> void:
 		bird_root.set_hour(float(snapshot.get("hour", 12.0))))
-	bird_root.set_hour(world_clock.query().hour)
+	bird_root.set_hour(hour)
 
 
 func _setup_camera() -> void:
@@ -1330,6 +1382,9 @@ func _setup_gather() -> void:
 		add_child(gather)
 	gather.construction = Economy.construction
 	gather.energy_reason = Economy.energy.reason
+	# 装配时按场景回算落点高度（SEA-GATHER-R06）：甲板被手工改过之后，
+	# gather_spots.json 里的 y 会过期，靠这里自愈。
+	gather.zone_query = func(zone_id: String) -> Variant: return _zone_nodes.get(zone_id)
 	gather.build()
 	gather.collected.connect(_on_gathered)
 	gather.blocked.connect(func(reason: String) -> void:
@@ -1420,7 +1475,14 @@ func _setup_prompt() -> void:
 		prompt = PromptScript.new()
 		prompt.name = "InteractPrompt"
 		add_child(prompt)
+	# 2026-11-06 重新打开。这条提示在「服务口袋」那次改版里被整体关掉了，
+	# 理由是菜箱改成点击冒泡菜单、不需要底部条 —— 但采集点、出货箱、房门、
+	# 订单板、绞盘都没有冒泡菜单，于是「站在东西前面该按什么」在画面上完全没有提示。
+	# 玩家原话：「还有很多交互位置没有 E 键可以用的地方，导致没有鼠标就无法操作」。
+	# 现在它只承担一件事：有焦点时显示 `E 动作 · 名称` + 按住进度。
+	# 近距交互改为原悬停图标；底部文字操作说明不再显示。
 	prompt.enabled = false
+	interactor.target_changed.connect(prompt.focus_changed)
 	prompt.action_requested.connect(func() -> void:
 		if interactor.target != null: _approach(interactor.target))
 	if interactor != null:
@@ -1432,7 +1494,8 @@ func _setup_prompt() -> void:
 				prompt.flash_blocked(reason))
 		# 自动接近的流程里，动作一旦成功就不要再按着 E（否则会连采同一个点）。
 		interactor.completed.connect(func(_spot: Node3D, _reward: Dictionary) -> void:
-			prompt.celebrate()
+			# 展开选择不是成功结算，不能提前播放“完成啦”。
+			if str(_reward.get("event", "")) != "options": prompt.celebrate()
 			_auto_target = null
 			interactor.auto_hold = false)
 
@@ -1649,7 +1712,7 @@ func _open_salvage(_winch: Node3D) -> void:
 	_auto_target = null
 	if interactor != null:
 		interactor.auto_hold = false
-	hud.toast("下钩：按 E 停住钩子，再按住 E 收线")
+	hud.toast("已下钩")
 
 
 func _on_salvage_finished(haul: Dictionary, ok: bool) -> void:
@@ -1748,6 +1811,15 @@ func _setup_hover() -> void:
 	hover.camera = cam
 	hover.markers = markers
 	hover.props = props
+	hud.world_actions.opened.connect(hover.hide_near_focus)
+	# 交互器在 Main 之后更新焦点，同帧刷新图标，避免菜单关闭时落后一帧。
+	interactor.target_changed.connect(func(_spot): _update_near_interaction())
+	interactor.progress_changed.connect(func(ratio: float):
+		if ratio <= 0.0 and hover._near_progress != null: hover._near_progress.hide())
+	hover.near_requested.connect(func():
+		if input_blocked(): return
+		if interactor.active and is_instance_valid(interactor.target): _open_spot_bubbles(interactor.target)
+		else: _press_boat_key())
 	# 走不到的目标不给悬停图标、不改指针 —— 有图标就等于「这里能点」，
 	# 玩家点了却弹不出东西，只会觉得界面坏了。判定与点击提示共用同一个函数。
 	hover.reach_gate = _land_reach_reason
@@ -2023,7 +2095,7 @@ func _cancel_action() -> void:
 	_ashore_on_arrival = false
 	if dive.active: dive.cancel_navigation()
 	if ribbon != null: ribbon.clear()
-	hud.toast("已停止，可点击新的目标")
+	hud.toast("已停止")
 
 func _on_click_command(command: String) -> void:
 	if _title_active or (sleep_cycle != null and sleep_cycle.busy): return
@@ -2052,6 +2124,9 @@ func _on_click_command(command: String) -> void:
 			else: _cancel_action()
 		"room_exit":
 			if room_service.inside:
+				actor_controller.cancel()
+				interactor.require_release()
+				hover.hide_near_focus()
 				room_controller.exit()
 		"save": save_game()
 		"load":
@@ -2173,10 +2248,58 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if grade != null and grade.visible:
 		return
-	# E：上船 / 上岸（SEA-INTERACT-R13）。有交互焦点时不抢 —— 那时 E 是采集。
+	# 世界操作气泡打开时，键位全部归它（SEA-INTERACT-R17）。
+	#
+	# 菜箱、出货箱、渔场这类目标按 E 只弹出气泡菜单；菜单本身原来只能用鼠标点，
+	# 于是「键盘玩家站在菜箱前，除了走开什么也做不了」。
+	# 现在：数字 1…9 直接选对应项，E 选第一个可用项，ESC 关掉。
+	# 这里必须**先于**上下船/打捞分支返回，否则按 E 会同时触发「气泡确认」和「上岸」。
+	if hud.world_actions != null and hud.world_actions.is_open():
+		if hud.world_actions.handle_key(event):
+			get_viewport().set_input_as_handled()
+			return
+		if event is InputEventKey and event.pressed and not event.echo:
+			var bubble_key := (event as InputEventKey).physical_keycode
+			if bubble_key == KEY_ESCAPE:
+				hud.world_actions.close()
+				get_viewport().set_input_as_handled()
+				return
+			if bubble_key == KEY_E:
+				if not hud.world_actions.press_default():
+					hud.toast("这一格现在做不了什么")
+				get_viewport().set_input_as_handled()
+				return
+			var slot: int = int(hud.world_actions.index_for_key(bubble_key))
+			if slot >= 0:
+				hud.world_actions.activate(slot)
+				get_viewport().set_input_as_handled()
+				return
+		return
+	if event is InputEventKey and event.pressed and not event.echo and not input_blocked():
+		var world_key: int = event.physical_keycode if event.physical_keycode else event.keycode
+		if world_key == KEY_X and room_service.inside:
+			_on_click_command("room_exit")
+			get_viewport().set_input_as_handled()
+			return
+		if world_key == KEY_K:
+			building_controller.open_keyboard()
+			get_viewport().set_input_as_handled()
+			return
+		if world_key == KEY_Q and actor_controller.mode() == 0:
+			if interactor.cycle_target(-1 if event.shift_pressed else 1):
+				if prompt != null: prompt._finish_left = 0.0
+			else: hud.toast("附近没有可操作物件")
+			get_viewport().set_input_as_handled()
+			return
+		if world_key == KEY_F:
+			cam.restore_follow(player)
+			hud.toast("镜头已回到角色")
+			get_viewport().set_input_as_handled()
+			return
+	# E：上下船 / 海面打捞（SEA-INTERACT-R13 / R15）。有交互焦点时不抢 —— 那时 E 是采集。
 	if event is InputEventKey and event.pressed and not event.echo \
 			and (event as InputEventKey).physical_keycode == KEY_E:
-		if _toggle_boat_by_key():
+		if _press_boat_key():
 			get_viewport().set_input_as_handled()
 			return
 	if event is InputEventMouseButton:
@@ -2315,6 +2438,8 @@ func _boat_key_action() -> String:
 		return ""
 	if interactor != null and interactor.target != null:
 		var spot: Node3D = interactor.target
+		# Q 是明确选择，不能再被“泊位更近”抢走同一个 E。
+		if interactor.active and interactor.keyboard_target == spot: return ""
 		if is_instance_valid(spot):
 			var spot_pos: Vector3 = spot.focus_position() if spot.has_method("focus_position") else spot.global_position
 			var spot_dist := Vector2(here.x - spot_pos.x, here.z - spot_pos.z).length()
@@ -2323,11 +2448,35 @@ func _boat_key_action() -> String:
 	return "board"
 
 
+## 泊位里按方向键：这个方向算「往岸上走」吗（SEA-MOVE-R24）。
+##
+## 两条判据取或：
+##   1. 朝登陆点的站立点（±76° 锥内）—— 玩家心里的「往岸那边」；
+##   2. 前方 1.4 米就撞岸 —— 兜住登陆点在别处的结构物泊位。
+##
+## 不只看碰撞：泊位到岸线常有 2–3 米水面，0.5 米的探针探不到，
+## 于是「朝岸按」被当成划船，人被船带着飘走，E 也不认泊位了。
+## 也不只看朝向：沿岸平划的意图必须仍然能划（锥外的方向照旧走驾驶）。
+func _key_intent_is_toward_shore(dir: Vector3) -> bool:
+	if boat == null or dir.length_squared() < 0.0001:
+		return false
+	var landing := _current_landing()
+	if landing == null:
+		return false
+	var to_shore: Vector3 = landing.stand_position() - boat.position
+	to_shore.y = 0.0
+	if to_shore.length_squared() > 0.0001:
+		var dot := Vector3(dir.x, 0.0, dir.z).normalized().dot(to_shore.normalized())
+		if dot > 0.25:
+			return true
+	return boat.would_hit_shore(Vector2(dir.x, dir.z), 1.4)
+
+
 func _toggle_boat_by_key() -> bool:
 	match _boat_key_action():
 		"board":
 			_ashore_on_arrival = false
-			var boarded := _depart(func() -> void: hud.toast("上船了 · 方向键划船，E 上岸"))
+			var boarded := _depart(func() -> void: hud.toast("上船了"))
 			if boarded:
 				_boat_key_left = BOAT_KEY_COOLDOWN
 			return boarded
@@ -2337,9 +2486,121 @@ func _toggle_boat_by_key() -> bool:
 			var ok := _step_ashore()
 			if ok:
 				_boat_key_left = BOAT_KEY_COOLDOWN
-				hud.toast("上岸了 · 方向键走路，E 上船")
+				hud.toast("上岸了")
 			return ok
 	return false
+
+
+## ---- 海面打捞的键盘入口（SEA-INTERACT-R15，2026-11-06）--------------------
+##
+## 漂流物和鱼群**不是** Interactable：它们要「开船靠过去 → 停稳 → 计时」，
+## 所以一直只有鼠标点得到。键盘玩家在海上等于没有手 —— 这是用户原话
+## 「比如海上的采集，无法靠近使用 E 键采集」。
+##
+## 这里只加一个只读查询 + 一个按键分派，动作仍走点击那条链路
+## （`_handle_prop_click`）：航线规划、靠过去的停顿、体力、进度条、
+## 结算都还是同一份，没有第二条打捞实现。
+const SEA_PICK_FAR := 12.0
+
+func _sea_pick_candidate() -> Dictionary:
+	if props == null or boat == null:
+		return {}
+	if dive != null and dive.active:
+		return {}
+	var mode := actor_controller.mode()
+	if mode != 1 and mode != 2:
+		return {}
+	# 正在赶路或正在捞：等这一轮结束，别用 E 打断自己。
+	if boat.starts_sailing() or _pick_phase != PICK_PHASE_IDLE:
+		return {}
+	var best := {}
+	var best_d := SEA_PICK_FAR
+	for c in props.crates:
+		var root: Node3D = c.get("root")
+		if not is_instance_valid(root):
+			continue
+		var d := Vector2(root.position.x - boat.position.x, root.position.z - boat.position.z).length()
+		if d < best_d:
+			best_d = d
+			best = {"type": "crate", "item": c, "dist": d,
+				"near": d <= props.crate_reach(c) + 0.4}
+	for s in props.schools:
+		var root2: Node3D = s.get("root")
+		if not is_instance_valid(root2):
+			continue
+		var d2 := Vector2(root2.position.x - boat.position.x, root2.position.z - boat.position.z).length()
+		if d2 < best_d:
+			best_d = d2
+			best = {"type": "fish", "item": s, "dist": d2,
+				"near": d2 <= props.FISH_PICKUP_RADIUS + 0.4}
+	return best
+
+
+func _sea_pick_text() -> String:
+	if hud == null or not is_instance_valid(hud) or input_blocked():
+		return ""
+	var c := _sea_pick_candidate()
+	if c.is_empty():
+		return ""
+	return "捕鱼" if str(c.get("type", "")) == "fish" else "打捞"
+
+
+## E 的总入口：就近的优先，其次上下船/靠岸，最后才是「划过去捞」。
+func _press_boat_key() -> bool:
+	var c := _sea_pick_candidate()
+	# 已经贴到跟前：先捞。否则在泊位上按 E 会被「上岸」吃掉。
+	if not c.is_empty() and bool(c.get("near", false)):
+		return _press_sea_pick(c)
+	if _toggle_boat_by_key():
+		return true
+	var dock := _near_landing_key()
+	if not dock.is_empty():
+		_select_landing({"zone": str(dock.zone), "landing": str(dock.landing)})
+		return true
+	if not c.is_empty():
+		return _press_sea_pick(c)
+	return false
+
+
+## 键盘靠岸（SEA-INTERACT-R16）。
+##
+## 原来「去哪个岛」只能点登陆标记：键盘玩家把船划到岛边就再也走不下去了。
+## 这里按「船离哪个泊位最近」挑一个，走的是点击那条同一条链路
+## （`_select_landing` → 航行 → 靠妥 → 上岸），不新增靠泊通道。
+## 8 米是「已经到岛边、只差靠泊」的距离；更远时该用方向键自己划。
+const DOCK_KEY_REACH := 8.0
+
+func _near_landing_key() -> Dictionary:
+	if boat == null or (dive != null and dive.active):
+		return {}
+	var mode := actor_controller.mode()
+	if mode != 1 and mode != 2:
+		return {}
+	if boat.starts_sailing():
+		return {}
+	var best := {}
+	var best_d := DOCK_KEY_REACH
+	for zone_id in _zone_nodes.keys():
+		if not Scope.zone_enabled(zone_id):
+			continue
+		var zone: Node = _zone_nodes[zone_id]
+		if zone == null or not zone.has_method("landing_points"):
+			continue
+		for point in zone.landing_points():
+			var data: Dictionary = point.data()
+			if not data.has("boatPark"):
+				continue
+			var park := Vector3(float(data.boatPark[0]), WATER_LEVEL, float(data.boatPark[2]))
+			var d := Vector2(park.x - boat.position.x, park.z - boat.position.z).length()
+			if d < best_d:
+				best_d = d
+				best = {"zone": str(zone_id), "landing": str(data.get("id", "main")), "dist": d}
+	return best
+
+
+func _press_sea_pick(c: Dictionary) -> bool:
+	_handle_prop_click({"type": str(c.get("type", "")), "item": c.get("item")})
+	return true
 
 
 ## 船是否正停在这个泊位（与点击登陆标记、点船体同一判据）。
@@ -2358,9 +2619,19 @@ func _landing_is_docked() -> bool:
 func _boat_shortcut_text() -> String:
 	if hud == null or not is_instance_valid(hud) or input_blocked():
 		return ""
+	var c := _sea_pick_candidate()
+	# 跟 `_press_boat_key` 同一优先级：贴到跟前就先说「打捞」，
+	# 否则玩家看到「上岸」按下去却在捞东西，提示和动作必须一致。
+	if not c.is_empty() and bool(c.get("near", false)):
+		return "捕鱼" if str(c.get("type", "")) == "fish" else "打捞"
 	match _boat_key_action():
 		"board": return "上船"
 		"leave": return "上岸"
+	var dock := _near_landing_key()
+	if not dock.is_empty():
+		return "靠岸 · " + Zones.label(str(dock.zone))
+	if not c.is_empty():
+		return "捕鱼" if str(c.get("type", "")) == "fish" else "打捞"
 	return ""
 
 
@@ -2701,6 +2972,7 @@ func _process(delta: float) -> void:
 	if sleep_cycle.busy:
 		if building_controller!=null and building_controller.active: building_controller.close()
 		return
+	world_clock.tick(delta)
 	props.sync_population(world_clock.query(),boat.position)
 	if building_controller!=null: building_controller.tick(delta)
 	weather_service.tick(delta)
@@ -2724,12 +2996,12 @@ func _process(delta: float) -> void:
 	# 交互只在岸上、站定时开放：船上/航行中/潜水都不该出现采集提示。
 	if interactor != null:
 		interactor.active = (not dive.active) and (not _walking) \
-			and GameState.mode == GameState.Mode.ASHORE and not hud.is_modal() \
-			and not salvage_panel.is_open() and not order_panel.is_open()
+			and GameState.mode == GameState.Mode.ASHORE and not input_blocked()
 	if prompt != null:
 		prompt.shortcut = _boat_shortcut_text()
 		prompt.update_from(interactor)
 	_update_pointer_ui()
+	_update_near_interaction()
 	_update_camera_feedback(delta)
 	_active_water_mat().set_shader_parameter("u_time", _t)
 	if water_node.has_method("update_surface") and not dive.active:
@@ -2927,7 +3199,9 @@ func _setup_building() -> void:
 	building_controller=preload("res://src/building/building_controller.gd").new();add_child(building_controller)
 	building_controller.configure(building,building_world,cam,hud,Economy.inventory.all,actor_controller.cancel,
 		_construction_stand_point,_construction_walk,_construction_actor_state)
-	building_controller.demolition.launcher_visibility_query=func(): return not _title_active and not get_tree().paused and not _exhausted_rest and (sleep_cycle==null or not sleep_cycle.busy) and (building_controller.active or not hud.is_modal()) and actor_controller.mode()!=3
+	# 拆除（锤子）钮在屋里收起：房间里既有建造也没有可拆的东西，
+	# 一颗点不出任何结果的锤子只是噪声（2026-11-06 用户截图右上角那颗）。
+	building_controller.demolition.launcher_visibility_query=func(): return not _title_active and not get_tree().paused and not _exhausted_rest and not room_service.inside and (sleep_cycle==null or not sleep_cycle.busy) and building_controller.active and actor_controller.mode()!=3
 	hud.material_shop=preload("res://src/building/material_shop.gd").new();hud.material_shop.inventory=Economy.inventory
 
 func _bind_constructed_plot(plot: Node3D) -> void:
@@ -3199,11 +3473,19 @@ func _apply_play_scope() -> void:
 			_zone_nodes[id].process_mode = Node.PROCESS_MODE_DISABLED
 	var distant := environment.get_node_or_null("StaticBatch")
 	if distant: distant.hide()
-	for field in [gather,build_field,salvage_winch]:
+	# 只关掉「本范围里没有入口」的两个场：建造牌（建造命令已禁用）与打捞绞盘。
+	#
+	# 采集点**不能**跟着一起藏。2026-11-06 之前的写法是
+	#   for field in [gather, build_field, salvage_winch]: field.hide()
+	#   for node in group("interactable"): if not visible: remove_from_group(...)
+	# 结果 10 个采集点在默认范围里全部隐藏并永久离组 —— 键盘和鼠标都聚不到焦，
+	# 「海边的贝壳/木料采不了」就是这个。而且离组是单向的，读档/回场景也救不回来。
+	# 现在：采集点按所属区块启停，交给可见性判断；离组那一步整段删掉
+	# （Interactor 与 HoverCard 本来就会跳过不可见节点）。
+	for field in [build_field,salvage_winch]:
 		field.hide()
 		field.process_mode = Node.PROCESS_MODE_DISABLED
-	for node in get_tree().get_nodes_in_group("interactable"):
-		if not node.is_visible_in_tree(): node.remove_from_group("interactable")
+	_apply_gather_scope()
 	trade_board.order_model = null
 	var supply_landing = _zone_nodes["zone1"].landing_point("salvage")
 	trade_board.position = supply_landing.stand_position()+Vector3(-1.6,0,-1.2)
@@ -3211,6 +3493,25 @@ func _apply_play_scope() -> void:
 	trade_board.verb = "建造渔场"
 	# Camera remains locked; P is an available lighting/debug tool in this scope.
 	cam_panel.process_mode = Node.PROCESS_MODE_DISABLED
+
+
+## 采集点按所属区块启停（SEA-GATHER-R05）。
+##
+## 判据是「这个点所在的区块在当前范围里开着吗」，不是「整个场要不要藏」：
+## 最小范围仍有 zone1 / zone2 / zone5，那三处的贝壳木料本来就是要采的。
+## 未启用区块（zone3/zone4）的点随区块一起隐藏，避免站在启用区块里还能
+## 看见隔壁关闭区块的采集物。
+func _apply_gather_scope() -> void:
+	if gather == null: return
+	gather.visible = true
+	gather.process_mode = Node.PROCESS_MODE_INHERIT
+	for spot in gather.spots:
+		if not is_instance_valid(spot): continue
+		var zone_id := str(spot.get_meta("zone", ""))
+		var on := zone_id == "" or not Scope.minimal() or Scope.zone_enabled(zone_id)
+		spot.visible = on
+		if on and not spot.is_in_group("interactable"):
+			spot.add_to_group("interactable")
 
 func _begin_title() -> void:
 	# 从屋里回到标题（重置存档等）：先把房间那套视觉与世界显隐还回去。
@@ -3398,7 +3699,9 @@ func _open_spot_bubbles(spot: Node3D, screen: Variant = Vector2.INF) -> void:
 		elif str(spot.verb).contains("挖"): icon="dig"
 		var blocked := str(spot.blocked_reason()) if spot.has_method("blocked_reason") else ""
 		options.append({"id":"interact","icon":icon,"label":str(spot.verb),"blocked":blocked,"command":func(): _approach(spot)})
-	hud.open_world_actions(_bubble_anchor(spot),options,"",screen)
+	var title := str(spot.label)
+	if spot.is_in_group("farm_plots"): title += " · " + Economy.farm.status_text(str(spot.plot_id))
+	hud.open_world_actions(_bubble_anchor(spot),options,title,screen)
 
 ## 这一处目标，从玩家脚下能不能走过去？空串表示能。
 ##
@@ -3473,7 +3776,8 @@ func _open_seed_bubbles(plot: Node3D, screen: Variant = Vector2.INF) -> void:
 		options.append({"id":"seed:"+crop,"icon":"plant","item_icon":str(definition.seed),
 			"label":str(definition.name),"caption":"%s ×%d" % [str(definition.name),count],
 			"command":func(): _queue_plot_action(plot,"plant",crop)})
-	hud.open_world_actions(_bubble_anchor(plot),options,"选择种子",screen)
+	hud.open_world_actions(_bubble_anchor(plot),options,"选择种子 · " + str(plot.plot_name),screen)
+	hud.world_actions.back_action = func(): _open_spot_bubbles(plot,screen)
 
 func _approach_command(spot: Node3D, command: Callable) -> void:
 	if _approach(spot): interactor.queue_command(spot,command)

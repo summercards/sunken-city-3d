@@ -49,6 +49,7 @@ var _drag_saved := false
 var _comparing := false
 var _page_tween: Tween
 var _last_step := -1
+var _focus_ids: Dictionary = {}
 
 func _ready() -> void:
 	layer=110; set_meta("cozy_skip",true); _font=Fonts.embedded()
@@ -221,8 +222,8 @@ func render() -> void:
 	back_button.pressed.connect(back)
 	next_button=_button(("盖章生效 · 开启生活" if first_creation else "保存我的模样") if step==2 else "下一步 →",Vector2(360,54),false,Cozy.GOLD)
 	footer.add_child(next_button); buttons.next=next_button; next_button.pressed.connect(advance)
-	if step==0: name_input.grab_focus(); _update_name_error()
-	else: next_button.grab_focus()
+	if step==0: _update_name_error()
+	_bind_keyboard_focus()
 	var desired_focus := "body"
 	if step == 1 and (group_id not in ["body","top","bottom","shoes"] or (group_id=="body" and subsection_id=="head")):
 		desired_focus = "face"
@@ -238,6 +239,34 @@ func render() -> void:
 		_page_tween.tween_property(content, "modulate:a", 1.0, 0.20).set_trans(Tween.TRANS_SINE)
 	else:
 		_last_step = step
+
+func _bind_keyboard_focus() -> void:
+	var page_id := str(step)+"/"+(group_id+"/"+subsection_id if step==1 else "")
+	for id in buttons:
+		var control: Control = buttons[id]
+		if paper.is_ancestor_of(control):
+			control.focus_entered.connect(_remember_focus.bind(page_id,id,control))
+	var fallback := "name" if step==0 else "group/"+group_id if step==1 else "next"
+	_restore_keyboard_focus.call_deferred(page_id,fallback)
+
+func _remember_focus(page_id: String, id: String, control: Control) -> void:
+	_focus_ids[page_id]=id
+	if is_instance_valid(options_scroll) and options_scroll.is_ancestor_of(control):
+		options_scroll.ensure_control_visible.call_deferred(control)
+
+func _restore_keyboard_focus(page_id: String, fallback: String) -> void:
+	var id: String = _focus_ids.get(page_id,fallback)
+	var control: Control = buttons.get(id,next_button)
+	if control is BaseButton and control.disabled: control=next_button
+	control.grab_focus()
+
+func _tab_focus(reverse: bool) -> void:
+	var controls: Array[Control] = []
+	for control in buttons.values():
+		if not control.is_visible_in_tree() or (control is BaseButton and control.disabled): continue
+		controls.append(control)
+	var index := controls.find(get_viewport().gui_get_focus_owner())
+	controls[posmod(index+(-1 if reverse else 1),controls.size())].grab_focus()
 
 func _name_page(content: VBoxContainer) -> void:
 	content.add_child(_label("潮水退去后，这座太阳能木屋成了你的新落脚处。\n在旅人日志上写下你的名字吧。",23,Cozy.DIM))
@@ -301,6 +330,7 @@ func show_group(id: String, subsection: String="") -> void:
 	else:
 		var secs:=_sections(id)
 		subsection_id=secs[0].id if not secs.is_empty() else ""
+	_focus_ids["1/"+group_id+"/"+subsection_id]="sub/"+subsection_id if subsection!="" else "group/"+group_id
 	if is_inside_tree(): render()
 
 func _appearance_page(content: VBoxContainer) -> void:
@@ -346,6 +376,7 @@ func _appearance_page(content: VBoxContainer) -> void:
 			b.tooltip_text="预览神情 · 不改变档案搭配"; expressions.add_child(b); buttons["expression/"+entry[0]]=b
 			b.pressed.connect(func(): expression_requested.emit(entry[0]))
 	var scroll:=ScrollContainer.new(); scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus=true
 	scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL; scroll.custom_minimum_size.y=200; content.add_child(scroll); options_scroll=scroll
 	var options:=VBoxContainer.new(); options.size_flags_horizontal=Control.SIZE_EXPAND_FILL; options.add_theme_constant_override("separation",10 if slots.is_empty() else 14); scroll.add_child(options)
 	for id in morph_ids: _morph_control(options,id)
@@ -510,6 +541,22 @@ func _notification(what: int) -> void:
 		preview_original(false); _drag_id=""; _drag_saved=false
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		var key: int = event.keycode
+		if saving or (event.echo and key in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE]):
+			get_viewport().set_input_as_handled()
+		elif key==KEY_ESCAPE:
+			if event.pressed and not event.echo: back()
+			get_viewport().set_input_as_handled()
+		elif key==KEY_TAB:
+			if event.pressed: _tab_focus(event.shift_pressed)
+			get_viewport().set_input_as_handled()
+		elif step==1 and event.ctrl_pressed and key in [KEY_Z,KEY_Y]:
+			if event.pressed and not event.echo:
+				if key==KEY_Y or event.shift_pressed: redo()
+				else: undo()
+			get_viewport().set_input_as_handled()
+		return
 	# Capture the baseline before Range changes on a track click. A complete drag
 	# is one history transaction regardless of how many live previews it emits.
 	if not event is InputEventMouseButton or event.button_index!=MOUSE_BUTTON_LEFT: return
@@ -568,6 +615,7 @@ func advance() -> void:
 func save_failed(reason: String) -> void:
 	saving=false; next_button.disabled=false; back_button.disabled=false; _update_history_buttons()
 	status.add_theme_color_override("font_color",Color("#b16653")); status.text="没能保存："+reason+"。请重试。"
+	next_button.grab_focus()
 
 func back() -> void:
 	if saving: return
@@ -575,12 +623,5 @@ func back() -> void:
 	if step>0: step-=1; render()
 	elif not first_creation: cancel_requested.emit()
 
-func _unhandled_key_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode==KEY_ESCAPE: back()
-		elif step==1 and event.ctrl_pressed:
-			if event.keycode==KEY_Z:
-				if event.shift_pressed: redo()
-				else: undo()
-			elif event.keycode==KEY_Y: redo()
-		get_viewport().set_input_as_handled()
+func _unhandled_key_input(_event: InputEvent) -> void:
+	get_viewport().set_input_as_handled()

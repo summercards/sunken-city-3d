@@ -410,6 +410,13 @@ def publish(publish_py, source, state, key, result):
     else:
         cmd += ['--name', f'sea-{key}']
     code, out = run(cmd, PUBLISH_TIMEOUT)
+    rebuilt = False
+    if code != 0 and site_id and '站点不存在' in out:
+        # 站点已被服务端删除：原地更新不可能，改新建（链接会变，结果里标 rebuilt）
+        cmd = [sys.executable, str(publish_py), 'server', str(source),
+               '--name', f'sea-{key}']
+        code, out = run(cmd, PUBLISH_TIMEOUT)
+        rebuilt = True
     url = None
     for line in out.splitlines():
         if line.startswith('URL:') or line.startswith('文件地址:'):
@@ -420,6 +427,7 @@ def publish(publish_py, source, state, key, result):
         'code': code,
         'site_id': site_id,
         'url': url,
+        'rebuilt': rebuilt,
         'tail': out.strip().splitlines()[-4:] if out.strip() else [],
     }
     if code == 0 and site_id:

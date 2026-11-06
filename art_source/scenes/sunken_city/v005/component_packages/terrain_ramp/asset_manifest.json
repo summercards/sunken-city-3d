@@ -1,0 +1,99 @@
+{
+  "key": "terrain_ramp",
+  "slug": "terrain_ramp",
+  "name": "街区缓坡_24米高差4.8米",
+  "component_family": "terrain_ramp",
+  "category": "ground",
+  "component_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+  "building_class": "underwater",
+  "scope": "scene_local",
+  "origin": "bottom_center",
+  "front_axis": "-Y",
+  "allowed_rotations_y_deg": [
+    0,
+    45,
+    90,
+    135,
+    180,
+    225,
+    270,
+    315
+  ],
+  "size_design_m": [
+    24,
+    24,
+    5.4
+  ],
+  "collision": false,
+  "interactive": false,
+  "emission": false,
+  "instance_count": 10,
+  "version": "v005",
+  "collection": "SEA-SCENE-SCITY-TERRAIN-RAMP_街区缓坡_24米高差4.8米",
+  "root_object": "SEA-SCENE-SCITY-TERRAIN-RAMP_ROOT",
+  "objects": [
+    "街区缓坡_24米高差4.8米_主体_金属哑光反光",
+    "SEA-SCENE-SCITY-TERRAIN-RAMP_ROOT"
+  ],
+  "local_origin": [
+    0,
+    0,
+    0
+  ],
+  "palette": "art_source/shared/palettes/sea_cabin_timber_8x8_512.png",
+  "collision_owner": "none_pure_scenery",
+  "dependencies": [],
+  "authored_origin_shift": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "component_blend": "art_source/scenes/sunken_city/v005/component_packages/terrain_ramp/terrain_ramp.blend",
+  "bounds_size_m": [
+    24.0,
+    24.0,
+    5.418862819671631
+  ],
+  "triangles": 9124,
+  "polygons": 4754,
+  "material_roles": [
+    "SEA_Matte"
+  ],
+  "geometry_fingerprint": "4a2afd8899a5d4d02ab00bdcb73a144f76af9960d74eb8bdf98c0cf8f0cd78b8",
+  "source_blend_previous": "art_source/scenes/sunken_city/v003/component_packages/terrain_ramp/terrain_ramp.blend",
+  "source_sha256": "3af341e37e61b193ea8418ce5f52c4c6d57140d94cef0e0d06044cab269bd559",
+  "schema": "sea.component_asset_manifest.v1",
+  "asset_id": "SEA-SCENE-SCITY-TERRAIN-RAMP",
+  "source": "art_source/scenes/sunken_city/v005/sunken_city_v005.blend",
+  "source_master_sha256": "a95f1961596081ee61d14b0e051a025890524630f9e939e8fd9c324128035850",
+  "bounds_min": [
+    -12.0,
+    -12.0,
+    0.0
+  ],
+  "bounds_max": [
+    12.0,
+    12.0,
+    5.418862819671631
+  ],
+  "animation": false,
+  "lights_in_component": false,
+  "preview_collection": "90_展示环境_不属于组件",
+  "palette_absolute": "D:\\projects\\sea\\art_source\\shared\\palettes\\sea_cabin_timber_8x8_512.png",
+  "palette_sha256": "f4b1f52544e9e785b2ef7ae5eabbe378a551f1c48b5ef0f79905f2a9f8f15d09",
+  "package_verification": {
+    "run_id": "20261106T071625_3f80c899",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\package_verification.json"
+  },
+  "skill_verification": {
+    "status": "passed",
+    "passed": true,
+    "report": "D:\\projects\\sea-work\\sunken_city\\v005\\skill_reports\\20261106T071625_3f80c899\\terrain_ramp.json",
+    "exit_code": 0
+  },
+  "source_stage": "source_verified_runtime_pending",
+  "runtime_validation": "not_executed_not_in_scope",
+  "exported": false,
+  "asset_ledger": "assets/registry/ledgers/scenes.json#SEA-SCENE-SCITY-TERRAIN-RAMP"
+}

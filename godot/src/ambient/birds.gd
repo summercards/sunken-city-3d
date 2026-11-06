@@ -20,6 +20,8 @@ var _hour := -1.0
 ## 若读档刚好停在 19:00，第一次 `set_hour(19)` 算出 shown=false，
 ## 与初值 false 相等就被当成"状态没变"提前返回 —— 鸟群留在可见。
 var _shown := -1
+## 室内抑制（见 `set_interior_hidden`）。房间是室内，海鸥不该飞进来。
+var suppressed := false
 func build() -> void:
 	for child in get_children(): child.free()
 	_birds.clear()
@@ -34,7 +36,8 @@ func build() -> void:
 		bird.altitude=float(b.baseY)+altitude_offset;bird.speed=float(b.speed);bird.phase=float(b.phase)
 		add_child(bird)
 		_birds.append({"root":bird})
-	visible = true
+	# build 是「重建整群」，不是「现在是白天」：室内抑制仍然有效。
+	visible = not suppressed
 	_shown = -1
 	# build() 之后若已经有时刻，立刻按它定位一次：19:00 读档不该先闪一群鸟。
 	if _hour >= 0.0: set_hour(_hour)
@@ -48,9 +51,30 @@ func set_hour(hour: float) -> void:
 	var shown := 1 if (hour >= FIRST_HOUR and hour < LAST_HOUR) else 0
 	if shown == _shown: return
 	_shown = shown
-	visible = shown == 1
+	_apply(shown == 1)
+
+
+## 室内抑制。房间是室内，海鸥不该飞进来。
+##
+## **只靠「进屋时把节点藏起来」不够**：`set_hour` 在时段切换时会直接把
+## `visible` 设回去，而它写在 `_shown` 里的状态并不知道有人在外面动过
+## `visible`。于是「在屋里睡一觉到天亮」这一条路径 ——
+## 进屋（藏）→ 睡到次日 06:00（`set_hour(6)` 发现 0→1）→ 鸟群又被点亮 ——
+## 就会有一群海鸥穿过卧室。这是 2026-11-06 用户截图里那几个白色剪影的真身。
+##
+## 房间控制器在进屋/出门时调这个接口，名字写成 `set_interior_hidden`
+## 是为了让任何「按时段自动显示」的环境节点都能用同一句话接进来。
+func set_interior_hidden(hidden: bool) -> void:
+	if suppressed == hidden: return
+	suppressed = hidden
+	_apply(is_flying_hour())
+
+
+func _apply(shown: bool) -> void:
+	var live := shown and not suppressed
+	visible = live
 	for entry in _birds:
 		var bird: Node = entry["root"]
-		if is_instance_valid(bird): bird.set_process(shown == 1)
+		if is_instance_valid(bird): bird.set_process(live)
 func is_flying_hour() -> bool:
 	return _hour >= FIRST_HOUR and _hour < LAST_HOUR

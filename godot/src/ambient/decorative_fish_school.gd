@@ -73,6 +73,7 @@ const SURFACE_SETS := [
 
 var members: Array = []
 var transforms: Array[Transform3D] = []
+var fin_transforms: Array[Transform3D] = []
 var elapsed := 0.0
 var _parts: Dictionary = {}
 var _water: MeshInstance3D
@@ -236,6 +237,7 @@ func sample(t: float) -> void:
 		return
 	elapsed = t
 	transforms.clear()
+	fin_transforms.clear()
 	var body_mm: MultiMesh = (_parts["Body"] as MultiMeshInstance3D).multimesh
 	var back_mm: MultiMesh = null
 	if _parts.has("Back"):
@@ -281,6 +283,7 @@ func sample(t: float) -> void:
 		var fin_xf := Transform3D(basis * Basis(Vector3.UP, swish * 0.55),
 			body_xf.origin + basis * Geometry.FISH_TAIL_AT)
 		fin_mm.set_instance_transform(i, fin_xf)
+		fin_transforms.append(fin_xf)
 	# 场景装饰检查按 instance_transforms 量包围盒，保持旧契约。
 	(_parts["Body"] as MultiMeshInstance3D).set_meta("instance_transforms", transforms.duplicate())
 

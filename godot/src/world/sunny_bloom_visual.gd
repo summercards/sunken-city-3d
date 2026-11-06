@@ -16,6 +16,7 @@ const MATERIALS = {
 @export var excluded_components: PackedStringArray = []
 var component_meshes := 0
 var visual_instances := 0
+var _generated: Array[Node] = []
 func _ready() -> void:
 	build()
 func meshes(root_node: Node) -> Array:
@@ -24,7 +25,10 @@ func meshes(root_node: Node) -> Array:
 	for c in root_node.get_children(): out.append_array(meshes(c))
 	return out
 func build() -> void:
-	for c in get_children(): c.free()
+	for child in _generated:
+		if is_instance_valid(child):
+			child.free()
+	_generated.clear()
 	component_meshes=0;visual_instances=0
 	var data: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(instance_data_path))
 	var groups := {}
@@ -42,8 +46,15 @@ func build() -> void:
 		var objects: Array = []
 		if entries[0].category == "flora" or key in MOVABLE:
 			for entry in entries:
-				var object := Component.new()
-				object.name = key+"_"+str(entry.instance_id).get_file()
+				var object_name: String = key+"_"+str(entry.instance_id).get_file()
+				var object = get_node_or_null(NodePath(object_name)) if entry.category == "flora" else null
+				if object == null:
+					object = Component.new()
+					object.name = object_name
+					var authored: Array = entry.transform
+					object.position = Vector3(authored[0][3], authored[1][3], authored[2][3])
+					add_child(object)
+					_generated.append(object)
 				object.instance_id = entry.instance_id
 				object.facility_id = "solar_cabin"
 				object.asset_id = entry.asset_id
@@ -53,9 +64,6 @@ func build() -> void:
 				object.unlock_level = int(entry.get("unlock_level",0))
 				object.attachment_slot = str(entry.get("module",module_key))
 				object.set_meta("visual_only",true)
-				var a: Array = entry.transform
-				object.position = Vector3(a[0][3],a[1][3],a[2][3])
-				add_child(object)
 				objects.append(object)
 		for mi in meshes(imported):
 			var mesh: ArrayMesh=mi.mesh.duplicate()
@@ -82,7 +90,8 @@ func build() -> void:
 					var a: Array=subset[i].transform
 					var basis := Basis(Vector3(a[0][0],a[1][0],a[2][0]),Vector3(a[0][1],a[1][1],a[2][1]),Vector3(a[0][2],a[1][2],a[2][2]))
 					var xf: Transform3D = Transform3D(basis,Vector3(a[0][3],a[1][3],a[2][3]))*mi.transform
-					if not objects.is_empty(): xf.origin -= objects[set_index].position
+					if not objects.is_empty():
+						xf.origin -= Vector3(a[0][3], a[1][3], a[2][3])
 					mm.set_instance_transform(i, xf);xforms.append(xf)
 				var visual := MultiMeshInstance3D.new();visual.name=key+"_"+str(component_meshes);visual.multimesh=mm
 				visual.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_ON;visual.gi_mode=GeometryInstance3D.GI_MODE_DISABLED
@@ -90,5 +99,6 @@ func build() -> void:
 				visual.set_meta("instance_transforms", xforms)
 				if objects.is_empty(): add_child(visual)
 				else: objects[set_index].add_child(visual)
+				_generated.append(visual)
 				component_meshes+=1;visual_instances+=subset.size()
 		imported.free()

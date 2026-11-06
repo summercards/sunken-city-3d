@@ -15,6 +15,10 @@
     "godot/src/interaction"
   ],
   "verification": [
+    "keyboard-farm-loop",
+    "visual-keyboard-farm-loop",
+    "keyboard-travel",
+    "interaction-reach",
     "control-feel",
     "keyboard-control",
     "visual-corner-notebook",
@@ -214,3 +218,30 @@ modules / pocket-bubbles / building-approach 全部退出 0。整体状态仍 pa
 | 对应设计条款 | 当前实施状态 | 证据 / 边界 |
 |---|---|---|
 | SEA-INTERACT-R14 | 已实现；成功切换后 `BOAT_KEY_COOLDOWN` 0.35 s 内不再响应，`boarding` 过场单独挡掉 | `keyboard-control`、`control-feel`（第一次生效、第二次被吞）；[本轮交付](../../development/2026-11-05_control_feel.md)。冷却只作用于上下船。 |
+
+## 2026-11-06 键盘可达性
+
+| 对应设计条款 | 当前实施状态 | 证据 / 边界 |
+|---|---|---|
+| SEA-INTERACT-R15 | 已实现；`_sea_pick_candidate` 只读查询 + `_press_boat_key` 分派，动作复用 `_handle_prop_click`；提示条与分派共用同一优先级 | `interaction-reach`（船边候选、提示文案、E 进入并跑完整条打捞链） |
+| SEA-INTERACT-R16 | 已实现；`_near_landing_key()` 8 米内按最近泊位走 `_select_landing` | `interaction-reach`（离泊 2.2 米仍认得出泊位、E 靠回去并上岸）、`dock-seed`、`board-click` 复跑通过 |
+| SEA-INTERACT-R17 | 已实现；`world_action_bubbles.press_default/index_for_key` + 气泡键位角标 + `main._unhandled_input` 的菜单分支 | `interaction-reach`（E 弹菜单、角标、数字映射、越界不选中、按号消费） |
+| SEA-INTERACT-R18 | 已实现；`_setup_prompt` 恢复 `enabled = true`，徽标由 `spot.verb` 改为 `E`，空进度槽隐藏，提示条上移 14 px | `visual-interaction-reach`（真实渲染两张，采集焦点与上岸提示） |
+
+[本轮交付](../../development/2026-11-06_keyboard_reach.md)。
+
+## 2026-11-06 全键盘入口与近距图标（当前口径）
+
+登记头仍为 `partial`。上午 R17 角标/R18 底部 prompt 的记录保留为历史；当前由 R19–R21 与 SEA-UI-R54 覆盖，不把旧截图当本轮视觉验收。
+
+| 对应设计条款 | 当前实施状态 | 证据 / 验证要求 |
+|---|---|---|
+| SEA-INTERACT-R19 | 近距稳定循环、同一显式选中目标优先E专项通过 | 200446报告farm606/0、travel374/0，均exit0、passed=true |
+| SEA-INTERACT-R20 | 松开防连发、held-keys/echo/同帧保护与菜单不穿透专项通过 | 同一报告farm606/0、keyboard-control30/0、control-feel31/0、click32/0；194828真实渲染farm617/0 |
+| SEA-INTERACT-R21 | 默认选中、方向/四种确认/数字与二级Esc返回专项通过 | farm606/0、visual617/0；完整路径见[总交付与矩阵](../../development/2026-11-06_keyboard_complete.md) |
+
+- 证据根 `D:/projects/sea-work/verification/`：`20261106-200446-keyboard-release-regression-eae88a/report.json` 已含18项结果（14通过、4失败）；`20261106-194828-keyboard-visual-travel-final-09cca9/report.json` 的visual-farm617/0、travel374/0均exit0、passed=true，无unexpected_errors，9张唯一截图。本轮画面目视审阅watered/full-bag/harvest-overhead/already-watered确认无底部条及键位教程。
+- 旅行旧374/0但负Rect造成runner FAIL仍保留为过程；`.abs()`修后两份最终report均通过，不再列修后待跑。
+- interaction-reach35/1（第一项角标1）、dock-seed21/1（二级层级标题）、minimum-loop141/10（直接harvest及下游库存/出货）、harvest-receive80/1（E直接收获）均exit1，**属于本轮回归承接，不标范围外**。适配后`20261106-201957-keyboard-contract-regression-888baa/report.json`已通过interaction-reach35/0、dock-seed22/0、minimum-loop147/0、harvest-receive92/0，四项exit0、passed=true、completion_marker=true、unexpected_errors空；不再待填，仅主线程keyboard-final-contracts最终合批待附。
+- 用户无提示新要求覆盖R18及UI-R52，原hover近距图标/进度与状态灰因保留，底部prompt与世界角标/教程行关闭。主动系统帮助是允许项；重新核实当前口袋源码已删除按1购买句与动作数字前缀，仅保留上限/余额/库存及动词数量，对应同步差异已解决，见总交付。
+- 四功能仍partial；本次仅回填原文档及verification数组，不运行检查/sync，不动生产、哈希、用户TSCN或building文档。
