@@ -1,0 +1,64 @@
+# ShellStorm2 角色反推资料
+
+当前版为 v021 / SKEL-BUNNY01-004。模型面向 Blender +Y，导出为 Godot -Z，不附加偏航补偿。完整包含八个玩法状态和 walking、armed_walking、armed_moving、armed_idle 四个登记变体，不再依赖 v009/v011 动作。模型几何保持不变，身体表现映射 `body → chest`。v021 正式玩家已关闭 `_update_state_motion` 旧程序动画，身体、头、耳、手和脚只接受当前 Blender 库；武器节点在采样后跟随右手掌心，不能反向覆盖手部。双手长枪动作未制作，暂用单手 armed 三动作并在账本显式报告。以制作流程顶部 v021 接入章节及版本中转账本为准；下面 v010/v011 内容仅属历史。
+
+本文件记录当前工程的可核验入口，不代替执行时对目标资产的再次审计。引用路径均相对 ShellStorm2 项目根目录。
+
+## 2026-09-09 生产链更新
+
+当前双文件生产规则见 `docs/v0.1/16.1_角色美术制作与动作导入流程.md`。
+模型：`assets/art/characters/player/chr_player_capsule01_3d/variants/bunny01/production/v021/source/model/chr_bunny01_model_v021.blend`。
+动作：同包 `source/animation/chr_bunny01_animation_v021.blend`。
+运行包装：同包 `runtime/chr_bunny01_root_v021.tscn`；动作适配：`src/player3d/CharacterMotionLibrary3D.gd`。
+中转账本：同包 `character_transfer_ledger_v021.json`。
+
+导出 `scripts/blender/export_character_bundle.py`；中转校验/包装生成 `tools/asset_pipeline/import_character_bundle.py`；专项 `verify_character_authoring_bundle`。
+v008 为迁移回滚。以下旧 v006 路径及“节点驱动”描述仅用于理解历史兼容消费者；新母版使用真实共享骨架，骨动作通过表现节点适配器进入原功能层级。
+
+## 先读的运行时证据
+
+| 目标 | 当前证据 |
+|---|---|
+| 玩家表现层 | `src/player3d/PlayerAvatar3D.gd` |
+| 玩家玩法根与主碰撞 | `scenes/Player3D.tscn`、`src/player3d/Player3D.gd` |
+| 当前 Bunny 变体组装 | `assets/art/characters/player/chr_player_capsule01_3d/variants/bunny01/chr_player_capsule01_bunny01_root_top3d_v006.tscn` |
+| 玩家动画验收 | `tests/verification/verify_player3d_animation_flow.gd` |
+| 玩家尺寸验收 | `tests/verification/verify_player3d_avatar_bounds.gd` |
+| 手持/背挂验收 | `tests/verification/verify_player3d_weapon_grip_visual.gd`、`tests/verification/verify_player3d_lower_body_socket_flow.gd` |
+| 敌人表现与尺寸消费 | `src/enemy3d/EnemyAvatar3D.gd`、对应 `Enemy3D` 场景和测试 |
+
+当前 Bunny 玩家是**骨动作到节点映射角色**，不是可随意替换层级的 Skeleton 运行时：`BunnyRig` 下含 `BodyJoint`、`HeadJoint`、`HandRoot/HandJointL`、`HandRoot/HandJointR`、`FeetRoot/FootJointL`、`FeetRoot/FootJointR`。`PlayerAvatar3D.gd` 只读取状态和进度，`CharacterMotionLibrary3D.gd` 采样 Blender 动作；v021 不得调用旧程序姿势生成器。新玩家变体必须先确认当前消费者仍使用这套层级。
+
+## 当前玩家挂点与所有权
+
+- 角色侧正式挂点包括 `WeaponSocket`、`StowedWeaponSocketPrimary`、`StowedWeaponSocketSecondary`、`BackpackSocket` 与 `LowerBodySocket`；耳饰 socket 属于头部表现层。
+- 当前右手枢轴契约：`HandJointR` 是掌心球中心；装备流程验证它与武器 `GripSocket` 重合。武器 `MuzzleSocket` 的本地 `-Z` 方向必须与实际射击方向一致。
+- 角色外观可以拥有 body/head/hand/feet/hat/glasses/lower_body 等槽位，但实际可用列表与存档处理由 `PlayerAvatar3D.CUSTOMIZATION_OPTIONS` 和其消费者定义。
+- `Player3D.tscn` 拥有玩家玩法碰撞、移动、生命、输入、武器、手电与状态机。角色 GLB 或外观变体不得加入或替换这些职责。
+
+## Blender 源文件处理
+
+当前玩家相关 Blender 入口：
+
+- 母版：`assets/art/characters/player/chr_player_avatar_template_3d/source/chr_player_avatar_template_source_v001.blend`
+- 当前 Bunny 变体源：`assets/art/characters/player/chr_player_capsule01_3d/variants/bunny01/source/chr_player_capsule01_bunny01_top3d_v006.blend`
+- 旧猫形版本：`assets/art/characters/player/chr_player_capsule01_3d/source/`
+- 只读审计：`scripts/blender/audit_player_avatar_source.py`
+- 母版验证：`scripts/blender/validate_player_avatar_asset_template.py`
+
+先定位实际 Blender 可执行文件，再在目标源副本上运行：
+
+```powershell
+blender --background "<角色源文件>.blend" --python "scripts/blender/audit_player_avatar_source.py"
+blender --background "assets/art/characters/player/chr_player_avatar_template_3d/source/chr_player_avatar_template_source_v001.blend" --python "scripts/blender/validate_player_avatar_asset_template.py"
+```
+
+审计输出必须至少确认单位、可见网格包围盒、集合、对象父级、位置、旋转、缩放和隐藏状态。Blender 缺失时可以继续反推 Godot 消费者，但不能声称源 Blend 已验证。
+
+## 不可混用的尺寸与方向
+
+- 玩家母版 manifest 规定：作者参考高度 `1.5m`、地面原点、Blender `-Y` 到 Godot `-Z`、运行时根缩放 `1`。
+- 当前 Bunny 运行时代码还记录了其源模型的 `+X` 原始前向、进入 Godot 时的 `90` 度修正，以及以 `1.5 / 2.475` 参与表现层换算。
+- 当前 Bunny 尺寸测试验证的是运行时静态装配高度 `1.05m`，不是母版的 `1.5m` 作者参考高度。
+
+因此，制作 Bunny 变体时不得把母版方向或高度数字直接复制到 Bunny 源文件。先选择目标资产，然后分别验证该资产的作者尺度、导出转换与实际运行时包围盒；任何改变都必须同步更新其验收测试和 manifest。

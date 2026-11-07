@@ -1,0 +1,4 @@
+interface:
+  display_name: "sea 运行验证｜契约与渲染"
+  short_description: "用 run_verification.py 在隔离数据下跑专项与渲染验证并留证据"
+  default_prompt: "使用 $sea-verification 跑 sea 的相关验证，按真实渲染、预期故障、未执行项、退出码四项记录结果。"

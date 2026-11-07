@@ -1,0 +1,4 @@
+interface:
+  display_name: "sea 契约与账本"
+  short_description: "功能条款、功能账本、资产分账本的改动流程与校验失败排查"
+  default_prompt: "使用 $sea-contract-ledgers 修改 sea 的功能条款或资产登记，改完跑 --sync 与正式检查，并按判定法处理哈希漂移。"

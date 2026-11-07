@@ -1,0 +1,4 @@
+interface:
+  display_name: "sea 仓库同步｜拉取与推送"
+  short_description: "github.com 不通时把 sea 仓库拉到最新点或把提交推上去"
+  default_prompt: "使用 $sea-repo-sync 把 sea 仓库同步到远程最新点，并按缺对象补齐、分块下载、API 重放推送的流程处理。"

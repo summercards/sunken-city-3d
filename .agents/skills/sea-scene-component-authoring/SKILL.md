@@ -1,6 +1,8 @@
 ---
 name: sea-scene-component-authoring
 description: 为 sea 海上主场景制作建筑和花草组件，先判水上功能建筑或水下观赏建筑（含基座），共用尺寸、倒角和色板，再加载对应职责差异。维护Blender源、PaletteUV、组件计划与场景账本；独立海底场景另行处理，不自动覆盖正式Godot场景。
+metadata:
+  display_name_zh: sea 场景组件制作｜建筑与花草
 ---
 
 # sea 场景组件制作

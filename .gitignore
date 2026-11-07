@@ -2,7 +2,9 @@
 .DS_Store
 
 # Local agent workspace (memory, logs) - not project source
-.workbuddy/
+# 但项目技能入库（与 .agents/skills 同源，见 scripts/sync_project_skills.py）
+/.workbuddy/*
+!/.workbuddy/skills/
 
 # Preview / verification artifacts
 /preview*.png
