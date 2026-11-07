@@ -124,7 +124,58 @@ def clean(path):
 
 # ---------------------------------------------------------------- git
 
+WINDOWS_RESERVED = {'con', 'prn', 'aux', 'nul'} | {f'com{i}' for i in range(1, 10)} | {
+    f'lpt{i}' for i in range(1, 10)}
+
+
+def _delete_reserved(path):
+    r"""删一个保留设备名文件。Windows 上必须 `\\?\` 前缀 + 原生 API。
+
+    本机 python 的 os.remove 被 safe-delete 挂钩接管（先移进回收站），对
+    `nul` 这类设备名必定失败（0x800704B0 指定的设备名无效），所以直接调 kernel32。
+    """
+    raw = '\\\\?\\' + str(path)
+    if sys.platform == 'win32':
+        import ctypes
+        k32 = ctypes.WinDLL('kernel32', use_last_error=True)
+        k32.DeleteFileW.argtypes = [ctypes.c_wchar_p]
+        k32.DeleteFileW.restype = ctypes.c_int
+        if k32.DeleteFileW(raw):
+            return
+        raise OSError(ctypes.get_last_error(), 'DeleteFileW 失败', str(path))
+    os.remove(raw)
+
+
+def purge_reserved_names(result):
+    """清掉仓库根目录里以 Windows 保留设备名命名的文件。
+
+    2026-11-08 事故：某工具在 bash 里用 `> nul` 重定向，在仓库根目录留下一个真文件
+    `nul`。`git add -A` 直接 `fatal: adding files failed`（invalid path 'nul'），
+    提交为空；随后 pull --rebase 报 "Please commit or stash them"，脚本把它误判成
+    rebase 冲突。这类名字在 Windows 上不可能是合法内容，提交前直接清掉。
+    """
+    try:
+        names = [e.name for e in os.scandir(ROOT)
+                 if e.name.split('.')[0].lower() in WINDOWS_RESERVED]
+    except OSError:
+        return
+    removed = []
+    for name in names:
+        code, _ = run(['git', 'ls-files', '--error-unmatch', '--', name], 30)
+        if code == 0:  # 已被跟踪 → 不动，交给人处理
+            removed.append(f'{name}(已跟踪，未删)')
+            continue
+        try:
+            _delete_reserved(ROOT / name)
+            removed.append(name)
+        except OSError as exc:
+            removed.append(f'{name}(删除失败: {exc})')
+    if removed:
+        result['git']['reserved_purged'] = removed
+
+
 def git_step(result):
+    purge_reserved_names(result)
     code, out = run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], 30)
     branch = out.strip() if code == 0 else '?'
     code, out = run(['git', 'status', '--porcelain'], 60)
@@ -149,7 +200,14 @@ def git_step(result):
 
         code, out = run(['git', 'add', '-A'], 600)
         if code != 0:
-            result['git']['commit'] = f'add 失败 {code}'
+            # add 失败时不要继续推送：空提交会推到远端，接着 pull --rebase 报
+            # "Please commit or stash them"，被误判成 rebase 冲突（2026-11-08）。
+            tail = out.strip().splitlines()[-3:] if out.strip() else []
+            result['git']['commit'] = f'add 失败 {code}: ' + ' / '.join(tail)
+            result['git']['add_failed'] = True
+            result['git']['push'] = '未尝试（git add 失败）'
+            result['git']['push_ok'] = False
+            return
         else:
             msg = f'chore(release): 每日自动提交 {dt.date.today():%Y-%m-%d}'
             code, out = run(['git', 'commit', '-m', msg], 600)
@@ -213,13 +271,22 @@ def try_push(remote, branch, timeout, result):
     if not rejected:
         return False, out
     pull_code, pull_out = run(['git', 'pull', '--rebase', remote, branch], timeout)
-    result['git']['rebased'] = True
     if pull_code != 0 or rebase_in_progress():
-        run(['git', 'rebase', '--abort'], timeout)
-        result['git']['rebase_conflict'] = True
+        in_rebase = rebase_in_progress()
+        if in_rebase:
+            run(['git', 'rebase', '--abort'], timeout)
         tail = '\n'.join((pull_out or '').strip().splitlines()[-6:])
+        if in_rebase:
+            result['git']['rebased'] = True
+            result['git']['rebase_conflict'] = True
+            return False, (f'{out}\n--- pull --rebase (code {pull_code}) ---\n{tail}\n'
+                           '[rebase 冲突，已 abort；本地提交保留，需人工解决]')
+        # 没进 rebase 就失败（典型是工作区还脏："Please commit or stash them"）。
+        # 别报成冲突，否则会误导排查方向。
+        result['git']['pull_blocked'] = (pull_out or '').strip().splitlines()[-3:]
         return False, (f'{out}\n--- pull --rebase (code {pull_code}) ---\n{tail}\n'
-                       '[rebase 冲突，已 abort；本地提交保留，需人工解决]')
+                       '[未进入 rebase，rebase 被拒；工作区未恢复，需人工检查]')
+    result['git']['rebased'] = True
     code, out = run(['git', 'push', remote, branch], timeout)
     return code == 0, out
 
@@ -459,10 +526,12 @@ def main():
         if not result['git'].get('push_ok'):
             result['problems'].append('git 推送失败')
 
-    # rebase 冲突时工作区处于半成品状态，导出与发布必须整体跳过。
-    blocked = bool(result['git'].get('rebase_conflict'))
-    if blocked:
+    # rebase 冲突 / rebase 被拒时工作区处于半成品状态，导出与发布必须整体跳过。
+    blocked = bool(result['git'].get('rebase_conflict') or result['git'].get('pull_blocked'))
+    if result['git'].get('rebase_conflict'):
         result['problems'].append('git rebase 冲突，已中止导出与发布（工作区已恢复，需人工解决后重跑）')
+    elif result['git'].get('pull_blocked'):
+        result['problems'].append('git rebase 被拒（工作区不干净），已中止导出与发布，需人工检查后重跑')
 
     godot = find_godot()
     if not args.no_export and not blocked:
